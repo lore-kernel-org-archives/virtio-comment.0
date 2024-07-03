@@ -1,224 +1,376 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 479F212FB2D
-	for <virtio-comment@lists.linux.dev>; Wed,  3 Jul 2024 09:09:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A7F13DDC3
+	for <virtio-comment@lists.linux.dev>; Wed,  3 Jul 2024 10:18:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719997748; cv=none; b=Sf0rUILFmfVjS4Oe1GFcf+95kbgIAGd+4iOaZ0JwAp2ZDiAqMFFuZ/7hEkwVkG1cPTFDZOZGEjdGvXg8BWyw9w9ZNWeiSXdFG1Famte6gNbD+I8T9t62CGR1ZNkDnSfNQJToNAjF7rW3wyPFIkKkkEMjEkld5fqvqQfVRHFf9T4=
+	t=1720001922; cv=none; b=rGriWFpH+BetRPO/58sucUiGgHpkgfY6hghacoOk4Odgf9dcxByWFV6ZC+578SJHnkQnYjahLOBIjy5LGkp21LZm5sTnXCm+ENMtvhhj5TqzV/WUSamT8qlgGr37/bdtyVTyvlu7t8zUS9KPSDjzHy6vrvbEz3JEhAwqHQq7Ltw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719997748; c=relaxed/simple;
-	bh=u8uoFhi7BhxHvGtGncvNXsjyELBtc7z8eKm9qEYj78k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=h+TC1F5jZS4vxfn6cHYPCI/oZ5HpXvRZeFyep7yTpRARcBYpseM+5HS+HsBKjg1wKentKlefn1Aj1Xa6w4OXWLLqxD/M+Y25rsIFB+x+EjKTcjkT2KgiISdcbOcVZrhwOcs7MdO04j0RBju59ATKppmpoAixUGWmg9u8FZetQkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HtsINAy+; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1720001922; c=relaxed/simple;
+	bh=CD/mCFIg8ytcTf6v86VuEycNg2PSf/z9JqJmRt2mwmw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=kSOarv2y6mJPPgBSf+2maA/efSZZXoJBqmi9tB6S4RIzEh1B27OQaxmSusbfXuBiajdJvNF/VhBY15POpYzpuPBrYx/YNG2eyI1deo+u4Stwj0RZyi14ypkSgNXySdENEZwn42Wa+wkI0HipR9zLbTkNrPnh93sWm0hJV7cQLmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=q8uT+uXM; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HtsINAy+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1719997744;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xqQc81Wfg1LKBxqB7YFjHR2b9WDZUVyVoTlya2acSZg=;
-	b=HtsINAy+o8JD3CBqjMyl+gwXUJVpS2vS8Yxgby7m3Que+5kJsgNKxata/SYXoRoYnS6yCp
-	tnF1Q7iKbWnMj6qyNwXOFSdjxkyqTpmq2OUBuI2qsqU2DzHUhqx9jzGpFGpPSWa+x/ZXod
-	dNCirwMCXqsRNUS2ypS/37vX3un2g/k=
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-31-knakuZe3M0KAYjqVUNfhEQ-1; Wed, 03 Jul 2024 05:09:03 -0400
-X-MC-Unique: knakuZe3M0KAYjqVUNfhEQ-1
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-58c38bcd765so894533a12.1
-        for <virtio-comment@lists.linux.dev>; Wed, 03 Jul 2024 02:09:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719997742; x=1720602542;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xqQc81Wfg1LKBxqB7YFjHR2b9WDZUVyVoTlya2acSZg=;
-        b=WT/PkmkGm4wBFsfq956CZzKwD9/MgVLjBBaZiRFbSazjwg91jgZEtnbgX4GES09b7I
-         CpgOnUliWFxCz8XA/xYLM7Io6x980LGjoN2X7VpJ+hrGBnWp5fd//rOMm8f1b+3WOWl/
-         NXsYa3NTj1MvsrqWkMpRPK9KTdvx7t6xrJZlmVkIYPSinMa8T7OM0lYRTUlP9uUM2uso
-         D43DiVJmwHoJKXSKhNDNHCXc8AqAED58LyOCf9/823rLz8KlcmwZUW0CBlRzyNBirhJy
-         F5iDR3J5bKGFlL1XOdN/+ilDJyEj773w9HASvmnNRHwbAeCU6RNAsIxUd3Sk16KQjC8y
-         Xevw==
-X-Forwarded-Encrypted: i=1; AJvYcCV4mSQ5Pg8le3hKrvPb3p8jMv69bpj9GomwBYU8IP5SpKTdVOl9/QlTJOab3WVQPTB51V/RIphe0+bzvBF4RoIm6Fl6sHPmcIBGr3ew54c=
-X-Gm-Message-State: AOJu0YxnFr0o45dC3bq9ToFlI39b0shETIcVK4DlBJCgqoNFW7S0Tl9E
-	nHzAcyBTgbma+6VI4Jqdtzi3Gjh2Cw968HBmrC89TZ0hft2tzqqfqZlPVpWEOC0fqt8h4KWLzfH
-	NPY5W15KxNBzLR1aH1KPurT7h2Ujw2/7bdp4zp5rKlv5w17jR4zMPX426bn0x5EQ0
-X-Received: by 2002:a05:6402:40cc:b0:58d:318a:508f with SMTP id 4fb4d7f45d1cf-58d318a530dmr491538a12.30.1719997742197;
-        Wed, 03 Jul 2024 02:09:02 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEVf0oaPAfGuTf054KyBehvpXuaBeVChsUGI+RHOW3VAPUX8jG9QrU9A8/njzcci4m0GR/nhQ==
-X-Received: by 2002:a05:6402:40cc:b0:58d:318a:508f with SMTP id 4fb4d7f45d1cf-58d318a530dmr491511a12.30.1719997741568;
-        Wed, 03 Jul 2024 02:09:01 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc7:441:91a8:a47d:5a9:c02f:92f2])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-58612c8371dsm6771619a12.9.2024.07.03.02.08.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jul 2024 02:09:00 -0700 (PDT)
-Date: Wed, 3 Jul 2024 05:08:56 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Jason Wang <jasowang@redhat.com>
-Cc: Lege Wang <lege.wang@jaguarmicro.com>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	"vattunuru@marvell.com" <vattunuru@marvell.com>,
-	"ndabilpuram@marvell.com" <ndabilpuram@marvell.com>,
-	"parav@nvidia.com" <parav@nvidia.com>,
-	Leo Liu <leo.liu@jaguarmicro.com>,
-	Angus Chen <angus.chen@jaguarmicro.com>
-Subject: Re: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer
- notification suppression mechanism
-Message-ID: <20240703050143-mutt-send-email-mst@kernel.org>
-References: <20240701034435.675-1-lege.wang@jaguarmicro.com>
- <CACGkMEvrHNnjdgC6Ls=YWRPFxpirCFkbf8_VnNsh-VU4NoK3tw@mail.gmail.com>
- <SI2PR06MB53850C468CF18A489A6E1ED4FFDD2@SI2PR06MB5385.apcprd06.prod.outlook.com>
- <CACGkMEtzcaUAauzpUdwjS6MEzF-suGLRv5+7cX4PeoAaqEP9hg@mail.gmail.com>
- <SI2PR06MB5385A261415EB70720DA5749FFDD2@SI2PR06MB5385.apcprd06.prod.outlook.com>
- <CACGkMEs46tCCqCcoeJ0nqOn6SRk0qqS72GSwgyt2m5p4BvNnrQ@mail.gmail.com>
- <20240703042922-mutt-send-email-mst@kernel.org>
- <CACGkMEs=ZJdz9=7qNxPMwEk+h3HGTSU3r-R-VfAERXavn_bW_A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="q8uT+uXM"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=JYYRSGR+mfbCcetosbwmGNbAmq3woHHIOM1XGoyF2H4=; b=q8uT+uXMKcOrIayjqduiTR5FGk
+	ywscLvdxul06WykYqZDgSZSWSJBKAYCvZtu/hmFcibULERD+SDQz0hefuSWdNEIxP+rDZHi2Q80ni
+	Guaq+qJFdfLwqqTZgNMVtYRdLtXCV7Jfwn1yeyj4O9J7pA5f7CY7mCLcnLamFXvdqHgpEqrRtdaby
+	1IHXwnfbcsPoP6+3fNrM9Ua1em7mPwRjQ3s8BE8yzyIu4DXNopbJ4UaJB4rmcdxYcFK+q11PPCKyV
+	zE0uJ0Yuq8nzufZadi80dWqYlqIiqs0ZXasForzL1qOROjtIME3mC3fgfuj9EAIKDaIc/wraF2/g2
+	OlyGlyxQ==;
+Received: from [2001:8b0:10b:5:c274:66b2:6bbc:35da] (helo=u3832b3a9db3152.ant.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
+	id 1sOx4L-00000001iZd-07hL;
+	Wed, 03 Jul 2024 10:18:33 +0000
+Message-ID: <3935e6c2b4b73968d0c4728a3c1f429f121609e7.camel@infradead.org>
+Subject: Re: [RFC PATCH v4 5/5] virtio-rtc: Indicate leap seconds and clock
+ performance
+From: David Woodhouse <dwmw2@infradead.org>
+To: Peter Hilber <peter.hilber@opensynergy.com>, 
+	virtio-comment@lists.linux.dev
+Cc: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>, 
+ Jason Wang <jasowang@redhat.com>, "Ridoux, Julien" <ridouxj@amazon.com>,
+ "Luu, Ryan" <rluu@amazon.com>,  "Chashper, David" <chashper@amazon.com>
+Date: Wed, 03 Jul 2024 11:18:32 +0100
+In-Reply-To: <20240522170003.52565-6-peter.hilber@opensynergy.com>
+References: <20240522170003.52565-1-peter.hilber@opensynergy.com>
+	 <20240522170003.52565-6-peter.hilber@opensynergy.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-S7QBFxFJH9h8D4nsQU0o"
+User-Agent: Evolution 3.44.4-0ubuntu2 
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <CACGkMEs=ZJdz9=7qNxPMwEk+h3HGTSU3r-R-VfAERXavn_bW_A@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On Wed, Jul 03, 2024 at 04:47:41PM +0800, Jason Wang wrote:
-> On Wed, Jul 3, 2024 at 4:36 PM Michael S. Tsirkin <mst@redhat.com> wrote:
-> >
-> > On Wed, Jul 03, 2024 at 03:59:11PM +0800, Jason Wang wrote:
-> > > On Wed, Jul 3, 2024 at 3:37 PM Lege Wang <lege.wang@jaguarmicro.com> wrote:
-> > > >
-> > > > hi,
-> > > >
-> > > > > > >
-> > > > > > > 1) With the event index, as long as the used index doesn't pass used
-> > > > > > > events you don't need to fetch even index every time
-> > > > > > Yeah, I agree VIRTIO_F_EVENT_IDX could help here, but I think it's a relatively
-> > > > > > crude mechanism, I have two questions below:
-> > > > > >   1. Used event notification suppression structure is still located in
-> > > > > >   host memory(in dpu case), I'm not sure whether used_event would
-> > > > > >   be allowed to update in the running of one virtio device,
-> > > > >
-> > > > > What did you mean by "update" here?
-> > > > I mean "modify".
-> > > >
-> > > > >
-> > > > > >   If it's allowed,
-> > > > > >   seems devices still need to fetch newest used_event info timely.
-> > > > >
-> > > > > It depends on how you define "timely", I mean unless the used event is
-> > > > > not crossed, you don't need to fetch it from the main memory?
-> > > > Yes, I got your point here.
-> > > > >
-> > > > > But basically, I meant putting used_event in a cap/register other than
-> > > > > inventing something completely new.
-> > > > Sorry, I don't get your point here. What does " cap/register " mean, used_event
-> > > > Is located in main memory, right?
-> > >
-> > > I meant something like this.
-> > >
-> > > Introduce a capability to allow the driver to duplicate used_event in
-> > > the register. And say when the feature is negotiated, the driver MUST
-> > > update both used_event in the memory and the register.
-> > >
-> > > Not saying it can work, but we need to know why it can't work like this.
-> >
-> > Well I feel if you are proposing a mechanism it's up to you to
-> > explain how it works without races.
-> 
-> I agree, that's why I'm saying "Not saying it can work". But what I
-> meant is really to find a way to reuse the event index instead of
-> introducing something completely new.
-> 
-> > The current notification suppression works because the read
-> > of the notification by the device flushes out used buffer writes by
-> > the device.
-> 
-> You meant read after write is ordered by PCI?
 
-pci read responses do not bypass writes, yes.
+--=-S7QBFxFJH9h8D4nsQU0o
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> > If you move it to a separate domain (such as the pci bar of the device)
-> > this no longer holds.
-> 
-> Would this be implementation specific details or could it be done by PCI?
+On Wed, 2024-05-22 at 19:00 +0200, Peter Hilber wrote:
 
-what do you want done by PCI? Generally if things are in one place
-they are easier to synchronize, if you spread them around you
-need to synchronize them.
+> +This section describes reusable data structures.
 
-> >
-> >
-> > > >
-> > > > >
-> > > > > >   2. According to virtio-spec, for example, if used_event is 0, then a device
-> > > > > with
-> > > > > >   VIRTIO_F_EVENT_IDX would send a used buffer notification to the driver
-> > > > > after
-> > > > > >   the first buffer is used (and again after the 65536th buffer), should this
-> > > > > behavior
-> > > > > >   be strictly followed?
-> > > > >
-> > > > > Used index is best effort, and the driver must handle spurious interrupt.
-> > > > OK, I'll discuss this info with my colleague, to see whether it could help.
-> > >
-> > > Or if you found a bug in the event index, we need to fix it in the spec first.
-> >
-> > I don't think there's a bug but it's designed to reside in same memory
-> > as the used ring.
-> 
-> Actually, I don't fully understand what Lege said, that's why I'm
-> saying "if it's a bug" ...
-> 
-> >
-> > > >
-> > > > > > >
-> > > > > > > 1) compare disabling via register against memory
-> > > > > > > 2) compare auto disable against no auto
-> > > > > > I see, but sorry, currently we don't have any performance numbers yet,
-> > > > > > but theoretical analysis
-> > > > >
-> > > > > This might be also helpful, for example, without this proposal x pci
-> > > > > transactions per packet, with this proposal y pci transactions per
-> > > > > packet.
-> > > > I see, later I'll need to see if there's any performance data based on our simulation
-> > > > environment to share.
-> > >
-> > > Great.
-> > >
-> > > >
-> > > > >
-> > > > > >  and think it'll help improve performance. Some
-> > > > > > popular nic also supports this feature, which disables interrupt after sending
-> > > > > > one and needs driver to enable it again. When enabling interrupt again, drivers
-> > > > > > can attach some extra information.
-> > > > >
-> > > > > I'm not saying it doesn't make sense, but t
-> > > > >
-> > > > > 1) the movitiaton needs to be well explained
-> > > > Totally agree.
-> > > >
-> > > > > 2) we need to know if the existing mechanism can be reused (e.g place
-> > > > > used_event in a register)
-> > > > That would be better, here the "register" you mentioned is located in a virtio device's
-> > > > pci bar?
-> > >
-> > > Something like this or other place or we can say it could be placed in
-> > > a transport specific place.
-> >
-> > Moving things around changes ordering rules.
-> 
-> Yes, something needs to be addressed.
-> 
-> Thanks
+I would like to reuse them! Or at least the VIRTIO_RTC_LEAP_xxx values.
 
+
+> +
+> +\paragraph{UTC Specific Data}\label{sec:Device Types / RTC Device / Devi=
+ce Operation / Data Structures / UTC Specific Data}
+> +
+> +For clocks of type VIRTIO_RTC_CLOCK_UTC, the device reports information
+> +about impending and ongoing UTC leap seconds, and about the current UTC
+> +offset from TAI, through \field{struct virtio_rtc_data_utc}. This
+> +information applies to the clock reading to which the struct is
+> +associated to.
+> +
+> +\begin{lstlisting}
+> +struct virtio_rtc_data_utc {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0le64 tai_offset;
+> +#define VIRTIO_RTC_LEAP_NONE 0
+> +#define VIRTIO_RTC_LEAP_PRE_POS 1
+> +#define VIRTIO_RTC_LEAP_PRE_NEG 2
+> +#define VIRTIO_RTC_LEAP_POS 3
+> +#define VIRTIO_RTC_LEAP_NEG 4
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0u8 leap;
+> +#define VIRTIO_RTC_FLAG_SMEAR (1 << 0)
+> +#define VIRTIO_RTC_FLAG_TAI_OFFSET (1 << 1)
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0u8 flags;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0u8 reserved[6];
+> +};
+> +\end{lstlisting}
+> +
+> +\subparagraph{Leap Second Indication}
+> +
+> +For subtype VIRTIO_RTC_SUBTYPE_STRICT, the \field{struct
+> +virtio_rtc_data_utc.leap} field indicates whether a positive or negative
+> +leap second will be introduced at the end of the month resp.\ whether a
+> +leap second is currently in progress.
+> +
+> +For a leap smearing clock, the \field{leap} field indicates whether a
+> +leap smear will start around the next turn of the month resp.\ whether
+> +the leap second is currently being smeared into the clock.
+> +
+> +VIRTIO_RTC_LEAP_NONE indicates that the clock is currently not
+> +performing leap second related processing, and also not pre-announcing
+> +an impending leap second.
+> +
+> +VIRTIO_RTC_LEAP_PRE_POS resp.\ VIRTIO_RTC_LEAP_PRE_NEG pre-announce a
+> +positive resp.\ negative leap second. Pre-announcing starts at the
+> +earliest at the 17th day of the month including the leap second.
+
+Where does 17th come from? Is there an existing precedent for that?
+
+> +For VIRTIO_RTC_SUBTYPE_STRICT, VIRTIO_RTC_LEAP_POS indicates that a
+> +positive leap second is in progress.
+
+The term "in progress" confused me for a while, as a leap second is an
+instantaneous jump. Do I understand this correctly... a UTC clock might
+progress as follows (100ms intervals):
+
+ 1483228798.8 LEAP_PRE_POS
+ 1483228798.9 LEAP_PRE_POS
+ 1483228799.0 LEAP_POS
+ 1483228799.1 LEAP_POS
+ 1483228799.2 LEAP_POS
+ 1483228799.3 LEAP_POS
+ 1483228799.4 LEAP_POS
+ 1483228799.5 LEAP_POS
+ 1483228799.6 LEAP_POS
+ 1483228799.7 LEAP_POS
+ 1483228799.8 LEAP_POS
+ 1483228799.9 LEAP_POS
+ 1483228799.0             =E2=86=90 jumps back by 1s
+ 1483228799.1
+
+So if the second 1483228799 repeats itself due to a positive leap
+second, your VIRTIO_RTC_LEAP_POS "in progress" flag is set during the
+1st occurrence of that second, and not the 2nd occurrence?
+
+
+> +For a leap smearing clock, VIRTIO_RTC_LEAP_PRE_POS resp.\
+> +VIRTIO_RTC_LEAP_PRE_NEG indicate that the clock is currently slowed down
+> +resp.\ sped up in order to smear the leap second into the clock.
+
+Hm, is this consistent with your earlier statement that PRE_POS/PRE_NEG
+can be set from the 17th day of the month? Because it isn't true that
+the clock "is currently slowed down" for all of that time, right?
+
+I think we might want a separate flag to indicate that smearing *is*
+currently in progress, and that the time reported is not UTC.
+
+(I guess maybe a non-integer value of the tai_offset field might be
+used to infer that, but I have concerns about that too, because surely
+that can't be atomically read *with* a given clock pairing, and will be
+constantly changing during the smearing period?)
+
+
+> +In field \field{flags}, VIRTIO_RTC_FLAG_SMEAR indicates whether a leap
+> +second would be, or is being, smeared into the clock, rather than being
+> +inserted according to the UTC standard.
+
+"would be"... didn't we already indicate that with the clock type and
+subtype? Perhaps we use this for "is being" and it resolves my above
+concern?
+
+I think I'd also like to have a 'LEAP_POST_POS' and 'LEAP_POST_NEG'
+flag which are set for a period of time *after* the occurrence of a
+leap second. That's helpful for a client to be able to produce a
+smeared clock when the device is exposing true UTC.
+
+> +A clock of subtype VIRTIO_RTC_SUBTYPE_LEAP_UNSPECIFIED can set
+> +\field{leap} to VIRTIO_RTC_LEAP_NONE regardless of the clock's actual
+> +leap second state. For clocks of subtype
+> +VIRTIO_RTC_SUBTYPE_LEAP_UNSPECIFIED, the VIRTIO_RTC_FLAG_SMEAR flag is
+> +only guaranteed to be correct while \field{leap} is not
+> +VIRTIO_RTC_LEAP_NONE.
+> +
+> +\subparagraph{TAI Offset}
+> +
+> +The \field{struct virtio_rtc_data_utc.tai_offset} field indicates the
+> +offset of the clock from the TAI standard, in the form
+> +$\mbox{tai_offset} =3D \mbox{TAI} - \mbox{UTC}$. The offset unit is ns.
+> +The offset is an integer multiple of a billion ns, i.e.\ corresponds to
+> +whole seconds, except while the clock is being smeared.
+
+There isn't any fundamental reason why this value can't be signed, is
+there?
+
+> +If flag VIRTIO_RTC_FLAG_SMEAR is set, and field \field{leap} equals
+> +VIRTIO_RTC_LEAP_POS, or VIRTIO_RTC_LEAP_NEG, the offset from TAI does
+> +not correspond to whole seconds.\footnote{This keeps the impact of the
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0leap second insertion on the U=
+TC offset from TAI unambiguous for
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0every sample of \field{struct =
+virtio_rtc_data_utc}.}
+
+See question above about the atomicity of this w.r.t any given clock
+reading. Do we have to return this whole struct virtio_rtc_data_utc as
+part of every clock reading?
+
+I wonder if we'd do better to keep the UTC=E2=86=90=E2=86=92TAI offset as a=
+n integer,
+and also expose a fractional offset of a given clock reading from UTC,
+if that's the intent?
+
+> +The \field{tai_offset} field is interpreted as a signed integer in
+> +little-endian, two's complement, representation.
+> +
+> +In field \field{flags}, VIRTIO_RTC_FLAG_TAI_OFFSET indicates that the
+> +TAI offset is valid. The device may only clear this flag for clocks of
+> +subtype VIRTIO_RTC_SUBTYPE_LEAP_UNSPECIFIED.
+> +
+> +\paragraph{Clock Performance Information}\label{sec:Device Types / RTC D=
+evice / Device Operation / Data Structures / Clock Performance Information}
+> +
+> +The \emph{clock performance} describes the difference between clock
+> +readings obtained by the driver from the device, and clock readings
+> +obtained from an ideal clock. Through \field{struct virtio_rtc_perf},
+> +the device reports the clock performance. \field{struct virtio_rtc_perf}
+> +describes the performance of a particular clock reading obtained by the
+> +driver.
+> +
+> +\begin{lstlisting}
+> +struct virtio_rtc_perf {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0le64 freq_max_error;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0le64 freq_est_error;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0le64 phase_max_error;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0le64 phase_est_error;
+> +#define VIRTIO_RTC_FLAG_SYNCHRONIZED (1 << 0)
+> +#define VIRTIO_RTC_FLAG_FREQ_MAX_VALID (1 << 1)
+> +#define VIRTIO_RTC_FLAG_FREQ_EST_VALID (1 << 2)
+> +#define VIRTIO_RTC_FLAG_PHASE_MAX_VALID (1 << 3)
+> +#define VIRTIO_RTC_FLAG_PHASE_EST_VALID (1 << 4)
+
+Hm, the VMCLOCK structure doesn't have estimated error, only max error.
+Should we add them? Julien? Ryan?
+
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0u8 flags;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0u8 reserved[7];
+> +};
+> +\end{lstlisting}
+> +
+> +Flag VIRTIO_RTC_FLAG_SYNCHRONIZED in field \field{flags} indicates that
+> +the device considers the clock synchronized as per the clock type and
+> +clock subtype requirements. In case of VIRTIO_RTC_CLOCK_UTC, flag
+> +VIRTIO_RTC_FLAG_SYNCHRONIZED also indicates that the clock is
+> +synchronized w.r.t.\ the information in \field{struct
+> +virtio_rtc_data_utc}, as per the clock subtype requirements.
+> +
+
+I ended up with status values as follows:
+
+#define VMCLOCK_STATUS_UNKNOWN		0
+#define VMCLOCK_STATUS_INITIALIZING	1
+#define VMCLOCK_STATUS_SYNCHRONIZED	2
+#define VMCLOCK_STATUS_FREERUNNING	3
+#define VMCLOCK_STATUS_UNRELIABLE	4
+
+I don't know if they came from an existing precedent or were just put
+in as placeholders. Julien? Ryan?
+
+--=-S7QBFxFJH9h8D4nsQU0o
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwNzAzMTAxODMyWjAvBgkqhkiG9w0BCQQxIgQgX7SuOTM1
+6dea9M7TcnzMAqYM7kSl7dhsZ6U8GNdTjTIwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgB6abiuZ8O2wubFaKelmgoGQIv9vS8RhLm4
+4tQbrYg3R97R96481rxjctqsGrxJ1a+2v9yYqBDBMEQDNDxeU28ibMyoyyW936DpRIvNgcO/mO9v
+va+VH1rANIYMfZz1ceA2iYtypAMUxHJYCY4LP4Lq2cjt/N3vIU6jW6FAvfsDqzE7LmfXY5vDJJmv
+6bfZKYdlcwBe3+Cy/e6HOkUmn1y3IuuV5SfdLbBZ140qo+cJ60Mo/Xkipb4Vf/FIYP4SpEWgIMnC
+UFb3DphvIp/gnuWaIiCPcb0QFa9EENWCKk2m/r9iBUnW7aD1pqK2ocduTw8ALfDwMBY47oGLSItE
+xxvb+5fiTSMvRlfUCQza4KWueoka1RuyY5nn1D5AsZdtHKzslCma39Kz8ZeCF5lLFZLH91sNdamI
+EXJ/Yq0+nP4pp1N3GC8I6aiSs4A8NI5eq/WEFh5rAsKcVzIiJWfN3YPWm8GzcKHKK8u3xpjfdfHK
+p6imCkj4k2a9LQjMkBHU+Q26CnSr3ImnCYlvB+81BniQDpwxY2RmfYApUaC4MCwRnLeda1aNrVVC
+Qn+fFjVVdBW2fPMxRWL0vT4aGFhkXrex2NSJEeiPyNl0Y2NFPimnFwqWev1ZmNkRLbEvtnDDadOb
+q+B+GzldXh2zGpV9EVMLwktOjFSbBLrAWvYFlYsStwAAAAAAAA==
+
+
+--=-S7QBFxFJH9h8D4nsQU0o--
