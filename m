@@ -1,204 +1,284 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A6B282FA
-	for <virtio-comment@lists.linux.dev>; Wed,  3 Jul 2024 05:11:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F217B1DA316
+	for <virtio-comment@lists.linux.dev>; Wed,  3 Jul 2024 06:09:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719983465; cv=none; b=LC8wuIaHQdlHHzZkpWbLvqMbZ7IgH7O1PQEswNTSOnvCe1Db4oapQq2kk+Lvw7XfMkVDXMGX6qQ6yzNanRK/hdGx7rxU01qRu7yRLTOISVpVCSLm4oDWUk/LaJbcMMKtU1GJ2Diebm06cBchesoQCuskTVaZPkdZq1DxWKqYtVA=
+	t=1719986985; cv=none; b=j9qA2Y87IOkZju0cyWs4aYGVlQW9ahr//Na5NcwyQC8Ko7PkGHaMsTTuW+0/Utkw59MtG9Fwcni8VX8gthj3Jb+C/8kSIuVy8VqdKWCNeTsupxtVQ14jjd9NqQcN7lBVJaZquUbvlkBEMBt6VwdprQD9SVKKxvOvAfEH/Zwznb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719983465; c=relaxed/simple;
-	bh=AT/FuVc89w2vsPgP3d3ix6IUFBaYNRMoK4mkhLrwyJs=;
+	s=arc-20240116; t=1719986985; c=relaxed/simple;
+	bh=48xcqJ2oeLLs9f0X1rfzm8FbnvvchOuomAX8bRRTHeA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=thHc7N59Z3ae69MRaEHC4pshBnZ6cRvQaeSfRfQ67sS02yXwheBdQULwCltnbno2CWObD4XSvX3+RUQlCKKGbHB0RnWnb7w4urRSqN8XwbTJOK+UHJ2KAlofwDsiNgXuFLCYvUXgAoXDg0OdxqIT5EpxpJF9NzTgRdrvI05FJu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=K6ER2ka0; arc=none smtp.client-ip=170.10.133.124
+	 To:Cc:Content-Type; b=BqYR56g2cc7p48VBTbREAACfVHYqDZ7J3KecCal/jaYYKUGZ5egICahDbDwQRoz5hDsG5bihz69cgssh8nqpLx9jFqLMJt4xZ1EtNoT/w11jgwTbGMdOqDzLn4xB0833rhDlBEiQBI7hBldtiHRVlbQ7S0IOH230zfGw0q9c9Qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NUMpMHRp; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="K6ER2ka0"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NUMpMHRp"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1719983462;
+	s=mimecast20190719; t=1719986981;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=EoFQpDQ7MRWjz6dNCrhjUb2QZuHNtD0nyMITallMyyc=;
-	b=K6ER2ka04wp2H+C7Ar6J1APTblBXegiDpxmYY5p3hfHvpPxYk/VojyQbNgigi9EC/NW7oe
-	JTWSxan7m1e4RBFeE8ENpaYAWd0Las12/WgP1cqEmLLnlnORk1+XW+lvlvUZ/Qaw5/ojHj
-	AdnbqF6yMdnnkHRd9elDOWFnKFzomoE=
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=/qEQQOboO2me6EbmAlg7yMkdHYYmXy7nLqmDuw9M9kg=;
+	b=NUMpMHRpMONVs5jTfwmK/7J1YVV/7n5cEDcoATGy33x7+qDsRxbQilvAzNO85sB/tcLF3S
+	Wflo7kodjOs59fUYE68jp0erGAsLbIExLu4/ti0ht57VHc14T1vEoJ4zZNlZeVCKeLdP0b
+	QB/DzyLepKNmtNk6aprY7lXpnF/PMuA=
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-458-i3KMMgQkPtO5b8Dq5oyvvQ-1; Wed, 03 Jul 2024 01:11:01 -0400
-X-MC-Unique: i3KMMgQkPtO5b8Dq5oyvvQ-1
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-70683497777so3667640b3a.2
-        for <virtio-comment@lists.linux.dev>; Tue, 02 Jul 2024 22:11:01 -0700 (PDT)
+ us-mta-568-VRo2PW78OlaYsoNpcRmHzA-1; Wed, 03 Jul 2024 02:09:40 -0400
+X-MC-Unique: VRo2PW78OlaYsoNpcRmHzA-1
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-706875d27easo3833615b3a.1
+        for <virtio-comment@lists.linux.dev>; Tue, 02 Jul 2024 23:09:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719983460; x=1720588260;
+        d=1e100.net; s=20230601; t=1719986979; x=1720591779;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=EoFQpDQ7MRWjz6dNCrhjUb2QZuHNtD0nyMITallMyyc=;
-        b=N+N+kVtO/R6lWw/+6I5mqYDE0paufZCXuO1PmjEymTyDOaDFvUragdW/aQquPtKhN4
-         IergKkATbNQK747XrYyY22jy5nje+j4QNQOO94FCJmQvXB22aIHtw4cbPYApdbP+yrFM
-         W1zgygE2IMT+pv3LwMfHsz8jVbQ4GHEkQ03PjKTo8axL4GLI5YBkr9zB7d2wMgE5xHuM
-         sCxJd3dkzvPgVtpF/TbAEJWvLGcxJ+/7GSezhhPPy5xk8AnOPb+OqJ9op5+tjgUOX27H
-         AwBY2eQWLNOZHj1EpyRm/ULmtQoRR8Tp6In6DSJzAIixGZa/2f2UGRSUJsl3RRwomu2O
-         onHw==
-X-Gm-Message-State: AOJu0YwRonmfwlcm7w4zeL3A5+cbsx/S7/0cIjUAJcIbcIfCzn9SpIrp
-	3jCpB2Shyj8ntKP3F9UDsZ8ggwuv3TS/nq8PvSdREVrnRCIVzRzd1ibBgi+/r8uGqKcZBpYYg+C
-	0sE/HI4tWdiPgw/0ZmzGgCOc7aj5eayjWacvQivAZ4DvqVHUTmZoB3YiecRXn7VQqXNVjHv7XTr
-	ZvD0jE0wuw10w+EBzcQOHsQrYiXAW7Fqvs52tmw0M=
-X-Received: by 2002:a05:6a00:4fd4:b0:706:8cc6:7471 with SMTP id d2e1a72fcca58-70aaaf453eemr10504683b3a.34.1719983459748;
-        Tue, 02 Jul 2024 22:10:59 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE5KhCytPq2eWPWACwIKDtS4UPUDlK+Qsr+EwFA3SgN+jtM0CUSiQhVNqSRXgn1NqOJhYV+3ax3wKk/85/zkw8=
-X-Received: by 2002:a05:6a00:4fd4:b0:706:8cc6:7471 with SMTP id
- d2e1a72fcca58-70aaaf453eemr10504662b3a.34.1719983459292; Tue, 02 Jul 2024
- 22:10:59 -0700 (PDT)
+        bh=/qEQQOboO2me6EbmAlg7yMkdHYYmXy7nLqmDuw9M9kg=;
+        b=P2UGRf9tEq+zvKME8VDPWFJ+8lXt5zBrJ5791bDzN2Yom3g1Hl5f40FcTYaitQHoPX
+         KmVAAXXwLCmzKAgTa20qNPGSQ5eA7kL2DHkoYhcBhyUyaU823Y1KccH05BCx2IGFTQBG
+         eiy2Bsp/272BI8CRyDbFO2PkPzduRdmbvF37sDI1Z4AE4ZerRspQqVnK+pTp5GOHE+DU
+         SyFwiAp/6vPyjZXvCLgFAOxm0nE0G+jCrGfY4u8QXCo8hYuStZQ24xavZsIjXRtJU/0L
+         V0bewn/ie/tu2IdxiNuUIqNBci1qdSI1V4vx0HpXpr+7GMsOgHyHRklDA1rQGIFipxRo
+         bxCQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXL72mc7UsNFBr38jTa03wQUdlGs2sQdU8VLIlmvwdi1ep8G7r54ODciZu2DYuYqkE/yAVm54bdCahLNeGt56YMfeCuTH4+fuutEX3MMS0=
+X-Gm-Message-State: AOJu0YyVg6FAvKlRXxQRbh6dD+Y+oYee5Fxcs3UnUSdOJsWSNz+yrXc2
+	GidwCL/JFgo55oj7pqtPqxvGX7XZ/Wo9LPx5jpKqw0Q2oxkWObG5tVPQOwFscvAIYN5A3AUETqz
+	WCfI3Po4RxQuVuKG3QvBbUJKwpgEgt4xwTTYnjqsitE2OhZtvMG5K0iY5Ys6+wyTtACaTU9Op7c
+	eWTPcZc3nOk8nWNXyBblcdw8Lf/a62w0sKGf6XYOM=
+X-Received: by 2002:a05:6a00:1944:b0:706:423b:2ed1 with SMTP id d2e1a72fcca58-70aaad299a8mr9742260b3a.6.1719986979515;
+        Tue, 02 Jul 2024 23:09:39 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHu/evNvrEWI8PqMG2/zjPYHLIVZ/u7BG4PgMbRgSqKwKvW6OD3+7CNCmwB4Zy6+AeNIIORdQdjadnqXow80hw=
+X-Received: by 2002:a05:6a00:1944:b0:706:423b:2ed1 with SMTP id
+ d2e1a72fcca58-70aaad299a8mr9742238b3a.6.1719986978987; Tue, 02 Jul 2024
+ 23:09:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20240701034435.675-1-lege.wang@jaguarmicro.com>
- <CACGkMEvrHNnjdgC6Ls=YWRPFxpirCFkbf8_VnNsh-VU4NoK3tw@mail.gmail.com> <SI2PR06MB53850C468CF18A489A6E1ED4FFDD2@SI2PR06MB5385.apcprd06.prod.outlook.com>
-In-Reply-To: <SI2PR06MB53850C468CF18A489A6E1ED4FFDD2@SI2PR06MB5385.apcprd06.prod.outlook.com>
+References: <e774e811-27ba-4151-b300-e22161f1b4d5@oracle.com>
+ <1718940245.6932242-13-hengqi@linux.alibaba.com> <b9e47c91-46aa-4526-b441-de48906f1ae4@oracle.com>
+ <1719020069.8729858-17-hengqi@linux.alibaba.com> <f03e76fe-9ee8-4000-b41c-0b284f2f237d@oracle.com>
+ <PH0PR12MB54818CFB447152A25130F9B8DCD52@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <bca1e5e8-65af-4825-b6fe-2ca3b6c41feb@oracle.com> <20240627123732.0cf541b3.pasic@linux.ibm.com>
+ <20240627080346-mutt-send-email-mst@kernel.org> <b57acf4d-84e1-4360-a229-eeb7b3d752fc@oracle.com>
+ <20240627181635-mutt-send-email-mst@kernel.org> <3297e270-e9a5-404e-92eb-55fbe6c3f78c@oracle.com>
+ <CACGkMEsxP0eKK2DbKVTig8MPW0J7z4o5xSSRtk4JAcOMoXmsPw@mail.gmail.com> <67d0af06-8132-4f0c-afb2-3dbff77ccf10@oracle.com>
+In-Reply-To: <67d0af06-8132-4f0c-afb2-3dbff77ccf10@oracle.com>
 From: Jason Wang <jasowang@redhat.com>
-Date: Wed, 3 Jul 2024 13:10:47 +0800
-Message-ID: <CACGkMEtzcaUAauzpUdwjS6MEzF-suGLRv5+7cX4PeoAaqEP9hg@mail.gmail.com>
-Subject: Re: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer
- notification suppression mechanism
-To: Lege Wang <lege.wang@jaguarmicro.com>
-Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, 
-	"vattunuru@marvell.com" <vattunuru@marvell.com>, "ndabilpuram@marvell.com" <ndabilpuram@marvell.com>, 
-	"parav@nvidia.com" <parav@nvidia.com>, "mst@redhat.com" <mst@redhat.com>, Leo Liu <leo.liu@jaguarmicro.com>, 
-	Angus Chen <angus.chen@jaguarmicro.com>
+Date: Wed, 3 Jul 2024 14:09:26 +0800
+Message-ID: <CACGkMEu-9d9GLGA1Lsfb9iJWLh2AYmO5p17HEtAdztoGQjLvKA@mail.gmail.com>
+Subject: Re: [PATCH v5] virtio-net: clarify coalescing parameters settings
+To: Si-Wei Liu <si-wei.liu@oracle.com>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, Halil Pasic <pasic@linux.ibm.com>, Parav Pandit <parav@nvidia.com>, 
+	Heng Qi <hengqi@linux.alibaba.com>, Cornelia Huck <cohuck@redhat.com>, 
+	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 3, 2024 at 12:33=E2=80=AFPM Lege Wang <lege.wang@jaguarmicro.co=
-m> wrote:
+On Sat, Jun 29, 2024 at 3:32=E2=80=AFAM Si-Wei Liu <si-wei.liu@oracle.com> =
+wrote:
 >
-> hi
 >
-> Thanks for your review.
 >
+> On 6/28/2024 1:23 AM, Jason Wang wrote:
+> > On Fri, Jun 28, 2024 at 2:57=E2=80=AFPM Si-Wei Liu <si-wei.liu@oracle.c=
+om> wrote:
+> >>
+> >>
+> >> On 6/27/2024 3:18 PM, Michael S. Tsirkin wrote:
+> >>> On Thu, Jun 27, 2024 at 10:14:49AM -0700, Si-Wei Liu wrote:
+> >>>> On 6/27/2024 5:35 AM, Michael S. Tsirkin wrote:
+> >>>>> On Thu, Jun 27, 2024 at 12:37:32PM +0200, Halil Pasic wrote:
+> >>>>>> On Tue, 25 Jun 2024 18:14:15 -0700
+> >>>>>> Si-Wei Liu <si-wei.liu@oracle.com> wrote:
+> >>>>>>
+> >>>>>>> On 6/24/2024 10:56 PM, Parav Pandit wrote:
+> >>>>>> [..]
+> >>>>>>>> I saw the need of this proposal slightly differently in the disc=
+ussion with Heng in v4.
+> >>>>>>>> The way I understood is, proposed relaxation enables below Linux=
+ driver flow to work as equally as without device offering VIRTIO_NET_F_VQ_=
+NOTF_COAL.
+> >>>>>>>>
+> >>>>>>>> Flow is:
+> >>>>>>>> 1. The device offered feature VIRTIO_NET_F_VQ_NOTF_COAL
+> >>>>>>>> 2. The virtio-net driver negotiated VIRTNET_FEATURES that has VI=
+RTIO_NET_F_VQ_NOTF_COAL
+> >>>>>>>>
+> >>>>>>>> 3. Because VIRTIO_NET_F_VQ_NOTF_COAL is negotiated, device is no=
+t applying any coalescing on the VQ, in a good hope that driver will perfor=
+m VQ notification coalescing.
+> >>>>>> I have certainly understood this differently. When
+> >>>>>> VIRTIO_NET_F_VQ_NOTF_COAL is not negotiated then the device is not=
+ supposed/allowed to do any interrupt coalescing (notification suppression =
+may still apply).
+> >>>>>>
+> >>>>>> If VIRTIO_NET_F_VQ_NOTF_COAL is negotiated the device is supposed
+> >>>>>> to/MUST do the coalescing according to the parameters as described=
+ by
+> >>>>>> the virtio spec.
+> >>>>>>
+> >>>>>> Michael, Jason: Can you guys weigh in on this?
+> >>>>> I still don't understand why this change is needed.
+> >>>>> We have this text:
+> >>>>>
+> >>>>>      The device may generate notifications more or less frequently =
+than
+> >>>>>      specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL cla=
+ss.
+> >>>>>
+> >>>>> and
+> >>>>>
+> >>>>>      The behavior of the device in response to set commands of the =
+VIRTIO_NET_CTRL_NOTF_COAL class is best-effort:
+> >>>>>      the device MAY generate notifications more or less frequently =
+than specified.
+> >>>>>
+> >>>>> So with no spec changes, devices already can do what this patch say=
+s they can do -
+> >>>>> send notifications less frequently.
+> >>>> Right. If I still recall it correctly, the above text was to accommo=
+date the
+> >>>> interaction with existing used buffer notification mechanism, F_EVEN=
+T_IDX or
+> >>>> whatnot.
+> >>>> When coalescing is in place and effective, interrupt delivery is a
+> >>>> collaborative consideration based on the coalescing parameters speci=
+fied
+> >>>> *AND * event index / NO_INTERRUPT flag as well.
+> >>> No, not really.
+> >>>
+> >>> For that we have the next sentence:
+> >>>
+> >>> A device SHOULD NOT send used buffer notifications to the driver if t=
+he notifications are suppressed, even if the notification conditions are me=
+t.
+> >>>
+> >>>
+> >>> And of course event index never makes you send interrupts
+> >>> more frequently.
+> >> Hmmm, this next sentence you reference above was indeed for the
+> >> interaction between coalescing and used buffer suppression. Then what'=
+s
+> >> the best-effort part was about, really? Round-up or round down the set
+> >> value to the power of 2 to save space? How is it relevant to our
+> >> discussion? I think even with rounding it shouldn't be too off? (as
+> >> said, by best-effort v.s. give up)
+> > Would it help if we add something like below in the guidance?
 > >
-> > > DPU(Data Processing Unit), DPU would need to submit DMAs to copy gues=
-t
-> > > suppression informations to DPU internal memory, then check whether
-> > > used event should be notified by examing this internal memory, which
-> > > is obvious expensive, and this DMA operation is needed every time
-> > > DPU attempts to issue used event,
+> > When the device wants to send a notification it needs:
 > >
-> > Several things could be used to help here:
+> > 1) check notification suppression, don't send interrupt if it is
+> > suppressed otherwise goto 2)
+> > 2) check event index, don't send interrupt if event index is not
+> > crossed otherwise goto 3)
+> > 3) check coalescing, don't send interrupt if the coalescing limit is
+> > not exceed, otherwise send the interrupt
 > >
-> > 1) With the event index, as long as the used index doesn't pass used
-> > events you don't need to fetch even index every time
-> Yeah, I agree VIRTIO_F_EVENT_IDX could help here, but I think it's a rela=
-tively
-> crude mechanism, I have two questions below:
->   1. Used event notification suppression structure is still located in
->   host memory(in dpu case), I'm not sure whether used_event would
->   be allowed to update in the running of one virtio device,
+> > (Just to demonstrate the idea, needs tweaking for sure)
+> Yeah, this looks good to me, in principle. I recall there was detailed
+> description like this in the early revisions from the first set of
+> coalescing proposal, but those useful descriptions were gone for some
+> reason. We should really come up with clear clarifications to help
+> readers set expectation rather than being vague or worrying too much
+> about verbosity.
 
-What did you mean by "update" here?
+Yes.
 
->   If it's allowed,
->   seems devices still need to fetch newest used_event info timely.
+> I was having a hard time in understanding what the
+> best-effort part is about...
 
-It depends on how you define "timely", I mean unless the used event is
-not crossed, you don't need to fetch it from the main memory?
-
-But basically, I meant putting used_event in a cap/register other than
-inventing something completely new.
-
->   2. According to virtio-spec, for example, if used_event is 0, then a de=
-vice with
->   VIRTIO_F_EVENT_IDX would send a used buffer notification to the driver =
-after
->   the first buffer is used (and again after the 65536th buffer), should t=
-his behavior
->   be strictly followed?
-
-Used index is best effort, and the driver must handle spurious interrupt.
-
->  For example, driver with VIRTIO_F_EVENT_IDX negotiated
->   sets used_event to 0, used buffer notification still could be sent for =
-any used buffer event.
-
-Only once in every #vring_size, no?
-
->
-> > 2) Interrupt coalescing may help to throttle the interrupt rate
-> > 3) Spec doesn't forbid implementation specific heuristics for
-> > interrupt moderation
-> Yes, indeed we're trying to use the information about the latest used rin=
-g entry
-> driver has processed, which is introduced in this patch, to do interrupt =
-coalescing or moderation.
->
-> > > now, but it may choose appropriate timing to send used events accordi=
-ng to
-> > > its notification coalescing policy , now it also does not need to DMA=
- guest
-> > > memory to obtain notification suppression.
-> >
-> > Performance numbers are welcomed:
-> >
-> > 1) compare disabling via register against memory
-> > 2) compare auto disable against no auto
-> I see, but sorry, currently we don't have any performance numbers yet,
-> but theoretical analysis
-
-This might be also helpful, for example, without this proposal x pci
-transactions per packet, with this proposal y pci transactions per
-packet.
-
->  and think it'll help improve performance. Some
-> popular nic also supports this feature, which disables interrupt after se=
-nding
-> one and needs driver to enable it again. When enabling interrupt again, d=
-rivers
-> can attach some extra information.
-
-I'm not saying it doesn't make sense, but t
-
-1) the movitiaton needs to be well explained
-2) we need to know if the existing mechanism can be reused (e.g place
-used_event in a register)
-3) or how the new method interact with existing interrupt moderation
-features (event index, interrupt coalescing etc)
-
->
-> >
-> > > +      The driver may benefit from just informing device the latest u=
-sed
-> > ring entry
-> > > +      it has processed, but not enabling used buffer notification. T=
-his field
-> > only
-> > > +      occupies one bit, if set to 1, it will enable used buffer noti=
-fication,
-> > otherwise not.
-> > > +\end{description}
-> >
-> > Any reason we can't reuse the existing meachsim like used index /
-> > event suppression here?
-> Please see my comments above.
->
-> Regards,
-> Xiaoguang Wang
-> >
-> > Basically it just sounds like we need a transport specific method for
-> > them besides being part of the virtqueue.
-> >
-> > Thanks
+Being verbose might be helpful for vendors. Otherwise the may guess
+(since we don't have a reference software implementation so far).
 
 Thanks
 
+>
+> -Siwei
+> >
+> > THanks
+> >
+> >
+> >> -Siwei
+> >>
+> >>>>> Re-reading this spec text, maybe the confusion is that it mentions =
+set
+> >>>>> commands specifically? And it's also stuck in the middle where it's=
+ easy
+> >>>>> to miss.
+> >>>>>
+> >>>>> So it would seem that the following should be sufficient, and it lo=
+oks
+> >>>>> like a small clarification we could just apply and include in the
+> >>>>> vote for the csd. What do you guys think?
+> >>>> The revised text below looks good to me.
+> >>>>
+> >>>> Thanks,
+> >>>> -Siwei
+> >>>>> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> >>>>>
+> >>>>> ----
+> >>>>>
+> >>>>>
+> >>>>> diff --git a/device-types/net/description.tex b/device-types/net/de=
+scription.tex
+> >>>>> index 76585b0..d6788df 100644
+> >>>>> --- a/device-types/net/description.tex
+> >>>>> +++ b/device-types/net/description.tex
+> >>>>> @@ -1711,8 +1711,6 @@ \subsubsection{Control Virtqueue}\label{sec:D=
+evice Types / Network Device / Devi
+> >>>>>                                             for an enabled transmit=
+/receive virtqueue whose index is \field{vq_index}.
+> >>>>>     \end{enumerate}
+> >>>>> -The device may generate notifications more or less frequently than=
+ specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.
+> >>>>> -
+> >>>>>     If coalescing parameters are being set, the device applies the =
+last coalescing parameters set for a
+> >>>>>     virtqueue, regardless of the command used to set the parameters=
+. Use the following command sequence
+> >>>>>     with two pairs of virtqueues as an example:
+> >>>>> @@ -1726,6 +1724,9 @@ \subsubsection{Control Virtqueue}\label{sec:D=
+evice Types / Network Device / Devi
+> >>>>>     \item Command6: VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET with \field{vq=
+_index} =3D 1, the device responds with coalescing parameters of index 1 se=
+t by command5.
+> >>>>>     \end{itemize}
+> >>>>> +The device can generate notifications more or less frequently
+> >>>>> +than specified by the coalescing parameters.
+> >>>>> +
+> >>>>>     \subparagraph{Operation}\label{sec:Device Types / Network Devic=
+e / Device Operation / Control Virtqueue / Notifications Coalescing / Opera=
+tion}
+> >>>>>     The device sends a used buffer notification once the notificati=
+on conditions are met and if the notifications are not suppressed as explai=
+ned in \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Used Buf=
+fer Notification Suppression}.
+> >>>>> @@ -1798,7 +1799,7 @@ \subsubsection{Control Virtqueue}\label{sec:D=
+evice Types / Network Device / Devi
+> >>>>>     Upon disabling and re-enabling a receive virtqueue, the device =
+MUST set the coalescing parameters of the virtqueue
+> >>>>>     to those configured through the VIRTIO_NET_CTRL_NOTF_COAL_RX_SE=
+T command, or, if the driver did not set any RX coalescing parameters, to 0=
+.
+> >>>>> -The behavior of the device in response to set commands of the VIRT=
+IO_NET_CTRL_NOTF_COAL class is best-effort:
+> >>>>> +The behavior of the device in response to specific coalescing para=
+meters is best-effort:
+> >>>>>     the device MAY generate notifications more or less frequently t=
+han specified.
+> >>>>>     A device SHOULD NOT send used buffer notifications to the drive=
+r if the notifications are suppressed, even if the notification conditions =
+are met.
+> >>>>>
 >
 
