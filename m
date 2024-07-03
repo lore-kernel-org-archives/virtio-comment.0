@@ -1,267 +1,220 @@
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (mail-bn8nam11on2068.outbound.protection.outlook.com [40.107.236.68])
+Received: from APC01-TYZ-obe.outbound.protection.outlook.com (mail-tyzapc01on2120.outbound.protection.outlook.com [40.107.117.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D2B1754B
-	for <virtio-comment@lists.linux.dev>; Wed,  3 Jul 2024 03:11:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.236.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A7F8F7D
+	for <virtio-comment@lists.linux.dev>; Wed,  3 Jul 2024 04:32:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.117.120
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719976282; cv=fail; b=Z5Zn2+dFTYO2smnXSprLV6y3PKAmneV2CKI6MgRoJBPKxJjIv6atptO1PXD/zZ8VFMZ/Agig/vsLgYNMumCyfXRmhvhk2HY3oRpx9fhJVoRX6VaNz3bp+zluQ06oDBPf5jyTaYUrSPrlScf5YIE2/1Jthg8vkfs5xpeKOzRjl9M=
+	t=1719981171; cv=fail; b=Do8pTOwRAH8uaqVqLWXe8uFQXxnagNxaxj89cKwKZZWDCtEfww82KcaVorb0zx/b5CNB/xNXbyKK/zKch4T7CEnF/n9l+6ubSFC9dpsiQUGd0ad9I91qE8b0ebiWTKvManlQWEz095rqOsoGPhDIKxCfgozQOh9HYG3mQyYkKtQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719976282; c=relaxed/simple;
-	bh=JyE8a1rcqHsGGE2+B6y69EjX09TmDDM0avPzkPXX68w=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=unoY4+x7ETUe+gTeulEyw2Zx0FN3lDSA82iev2cgMFj5JkZwoh2ige9JzdoMd/etN/8sF9Ch713MqPFlNVrwFUqSo5XbdnION7sTInTQc+IWyu+MH3YVbGE5pMol4pQdba5MCZ2dNRo8OlMu2eUdos1AXKdrO+YGqbMeV+3XJn0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=LPPgEyFl; arc=fail smtp.client-ip=40.107.236.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1719981171; c=relaxed/simple;
+	bh=Iwmwhro/a0b5p3bFcAhq2HDyhhkKS95dIoo/p1P02CA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=B4ZODUibx5iSXyayXK5LjzwUL44XXE4T3oD9uNzyoPFKM3jECt+irIaSBiwYTEGRTgwsuTuuIA3kCfPiBtaSGHbq+IkAvi6qYLTRXaulf4DL8QEQS+6E504BetbHUUwvgHqVStgnN9rLK0QtmgkzHlbJYeQz/dUqoEzc/sjeg4U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaguarmicro.com; spf=pass smtp.mailfrom=jaguarmicro.com; dkim=pass (2048-bit key) header.d=jaguarmicro.com header.i=@jaguarmicro.com header.b=IeBfyvo3; arc=fail smtp.client-ip=40.107.117.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaguarmicro.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaguarmicro.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="LPPgEyFl"
+	dkim=pass (2048-bit key) header.d=jaguarmicro.com header.i=@jaguarmicro.com header.b="IeBfyvo3"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iY3lDc9soyXdMhxGZ0sSk2iiAGlewIRnunRvptVWBJ772zPpeEaeJoLBLC74QcS6cU9k2+v8PJQt9EH7YaaBARY5a6jGqNCjZnrlgySHzAE/kyxeoqo6e9dvABV51mJ96HaS7reZGHvQ7fRY0P1A3dzXxkapegTqfncCmVHOQLinV9gGoQqbXEW67jvfT6ZVlSC9gSTiDKo+1shykwk6vjQXNxm+XYRyTPp5086yUCGcVZu5okjWy2oYHpY681TYp/Jr0RI7AGgc8cqMhKbygYRiD5TwZpLEXHpq4MLggEvfCsabAqxMfS9QzZDmtnpxygJqXT6hvMquSwokat2AIg==
+ b=KiZoHcwd91nowF9gYbGO1qkfUeHROLzcbgOWvSgy4HxJBSl5n9/0+5ZWUptfTMq9KrqR/7xlVfn8GJ+6z9kPxW4y3HsmoV/Unt1nzGkGa/zcXMJclolUhi0zxhoiAIyko8EqvpeWHpowCYvc+HQpwD3A+7d/XXX4EBiiO+9QNTdlNfcjKMhH+tacbOamjB5usF5iJZv0hm+VM0VtViMVUthtYrKSkoESKeuBVF0PvtR8IeD7C+X+l0IVxjp0Iy41J5KXQYLB+oWh55tYIcStM/4p6Je8441iXNabk93GsymFvHFZwA89iBpvCkZRmrTkSD9bI9u9lOGYu3dngniP+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=avBXOiYdxl9ksC4LB5rEpmwNbMRlIJnZLGt7lP+AxNE=;
- b=LLa0kCELLgfVyd6yqyBLdaCOMdX/eoK7C2gN4RpQStN199xNL8ggeeH0/GjwTSWcd/N8zdPXYaJb0v8yxb22ldT/ETMFne4q/CrWDXmXQmLCb5vXEzNOYZZ3QeQcO1VBH/ItTbwveKCI/I+HD/bk0pacLwJg6w4GP9fIkgTChqDxMG3IiZEVH0/tXyjkx/a2lcc11mwYjhyZasiO70svLWiVO8I6t5GDt6pcsbT4KsXEFqbGQXHD/uITXpbivEVBfSHv9hdH+OqWK0bsHYOdKxsAQVuWMZW6hyhGC/YSgPzYeNM7pIgCanU3rZarrQaRC0hmZuPIyHQFDdV8/zktWg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=Iwmwhro/a0b5p3bFcAhq2HDyhhkKS95dIoo/p1P02CA=;
+ b=P3QD6+SHjQORTlFEadeHNz7Mtbp4t3umoBzMn56/VdxyG9r40hOPKXJM8VFlQWokvoQT6jPcWnPj+k8OxAzsHxJRZ3IeBh55JzNIBm3D/+DxRbXqjIfw9Gn4GIu8I5hzdtHkruB5JNpMXB/ZY4folU0zgf0d91f3sQdet4KZKZxAxxzgY5Ip59ZIkixP3Id7MiX71UQ0SSJe3evdRHvA+dMEFZtwezAhQX55sVJuBeGeS/4yCzhUMhBxZiRwM2p7z/TapDmDaCAjJApU5sKbYoWhXptFXQrJQ1csx6jYyHm/HlpZxI0epn+SGRP8d8QxhMyVVioLSmnlMnj7SD+oyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=jaguarmicro.com; dmarc=pass action=none
+ header.from=jaguarmicro.com; dkim=pass header.d=jaguarmicro.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaguarmicro.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=avBXOiYdxl9ksC4LB5rEpmwNbMRlIJnZLGt7lP+AxNE=;
- b=LPPgEyFlsapPYfODSLFAjUaJB+NL418uMrdBREvKNRQe/uTLl9LiywWSQ+XUF6yS8GwyAw1OTeObOvFqbWB54i1/Fxk9wnsgjDYfUFPwdKZ1QFkQsW9tK0l6oiP5Aro+SdlEaDjr06hIJqkd6WLC6Mc/dLz1+NA4H3jmLEpsN1E=
-Received: from MW4PR03CA0284.namprd03.prod.outlook.com (2603:10b6:303:b5::19)
- by CY5PR12MB6454.namprd12.prod.outlook.com (2603:10b6:930:36::22) with
+ bh=Iwmwhro/a0b5p3bFcAhq2HDyhhkKS95dIoo/p1P02CA=;
+ b=IeBfyvo3JM2E8DFM/RPUHawKjQVjma5oxz0rJa9KTM6m1PSj5MKl4o+URyDREQ2U+C3n6IolbCqFAG5qViKQdyx1SqaiBOPvsi0iFNPdtgbQj6FeUdWNSWZeNzAGJaZFPEKeCRYAg8SuEuS5gJlp5g0HGXTMomoS4+e5VnxuARZcWXCZY9hpr1F9f2Rp67LzGWYz/O0xzHJ1O5PSehs0YLJQ3EEAQg7TphvBzrcZ1b7+RnZ+2idUo9aDgI4NY2NLCWP171In0X5fy7jOecvf2mSTQyhMgfjY44ZxvO706+UkE4TDJkWO8qFCV3zmtowNizVBQpTB8+HN+s380aVagg==
+Received: from SI2PR06MB5385.apcprd06.prod.outlook.com (2603:1096:4:1ec::12)
+ by PUZPR06MB6065.apcprd06.prod.outlook.com (2603:1096:301:110::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.26; Wed, 3 Jul
- 2024 03:11:16 +0000
-Received: from CO1PEPF000044F8.namprd21.prod.outlook.com
- (2603:10b6:303:b5:cafe::6e) by MW4PR03CA0284.outlook.office365.com
- (2603:10b6:303:b5::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.33 via Frontend
- Transport; Wed, 3 Jul 2024 03:11:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044F8.mail.protection.outlook.com (10.167.241.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7762.1 via Frontend Transport; Wed, 3 Jul 2024 03:11:15 +0000
-Received: from fedora.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 2 Jul
- 2024 22:11:13 -0500
-From: Zhu Lingshan <lingshan.zhu@amd.com>
-To: <mst@redhat.com>, <cohuck@redhat.com>, <jasowang@redhat.com>
-CC: <virtio-comment@lists.linux.dev>, Zhu Lingshan <lingshan.zhu@amd.com>,
-	"Zhu Lingshan" <lingshan.zhu@intel.com>, =?UTF-8?q?Eugenio=20P=C3=A9rez?=
-	<eperezma@redhat.com>, David Stevens <stevensd@chromium.org>
-Subject: [RESEND PATCH v6] virtio: introduce SUSPEND bit in device status
-Date: Wed, 3 Jul 2024 11:10:57 +0800
-Message-ID: <20240703031057.37565-1-lingshan.zhu@amd.com>
-X-Mailer: git-send-email 2.45.2
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.25; Wed, 3 Jul
+ 2024 04:32:40 +0000
+Received: from SI2PR06MB5385.apcprd06.prod.outlook.com
+ ([fe80::967d:afda:6f4:33dd]) by SI2PR06MB5385.apcprd06.prod.outlook.com
+ ([fe80::967d:afda:6f4:33dd%6]) with mapi id 15.20.7719.029; Wed, 3 Jul 2024
+ 04:32:39 +0000
+From: Lege Wang <lege.wang@jaguarmicro.com>
+To: Jason Wang <jasowang@redhat.com>
+CC: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+	"vattunuru@marvell.com" <vattunuru@marvell.com>, "ndabilpuram@marvell.com"
+	<ndabilpuram@marvell.com>, "parav@nvidia.com" <parav@nvidia.com>,
+	"mst@redhat.com" <mst@redhat.com>, Leo Liu <leo.liu@jaguarmicro.com>, Angus
+ Chen <angus.chen@jaguarmicro.com>
+Subject: RE: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer
+ notification suppression mechanism
+Thread-Topic: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer
+ notification suppression mechanism
+Thread-Index: AQHay2kF67vqaBJYMUW1XCStKdNnOLHjD2wAgAEtn3A=
+Date: Wed, 3 Jul 2024 04:32:39 +0000
+Message-ID:
+ <SI2PR06MB53850C468CF18A489A6E1ED4FFDD2@SI2PR06MB5385.apcprd06.prod.outlook.com>
+References: <20240701034435.675-1-lege.wang@jaguarmicro.com>
+ <CACGkMEvrHNnjdgC6Ls=YWRPFxpirCFkbf8_VnNsh-VU4NoK3tw@mail.gmail.com>
+In-Reply-To:
+ <CACGkMEvrHNnjdgC6Ls=YWRPFxpirCFkbf8_VnNsh-VU4NoK3tw@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=jaguarmicro.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SI2PR06MB5385:EE_|PUZPR06MB6065:EE_
+x-ms-office365-filtering-correlation-id: 6714a374-a5ab-4117-c54f-08dc9b192c19
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?eE5BN2hFbk9CYUxtWERlazBHSHJCMW91eEkxQjczbGtMRWpXaTNncDNzM3BR?=
+ =?utf-8?B?dWlxT3FMWHJjSFdZWklqNmRsQ0NqeVc0dzJMVDI5NmZhS1JLZ1dCZHdWNHRj?=
+ =?utf-8?B?MU1qUW1kbDVGZU9mdkZpekp6cVNSZkg4MnNaTEdkMnFmalJPZWk4aDFyZzAz?=
+ =?utf-8?B?Ky9LT1BSUEZwRDF1NkwvdFBTOFFrOFYrZktJMjA2eGgxQ01HaTNlRU82SGI3?=
+ =?utf-8?B?U012OHRtSmQvZGZJQS9lSGJGUGpLMW5CU0t5YVZaZXFmZy8wUTViYlBVR2FI?=
+ =?utf-8?B?N01yYW50QnR1TFVmSTlPeVlucS9HNmRLemx0ZlZwNGRpR1JMUldBUjdrellx?=
+ =?utf-8?B?NHR5d0xpcUtYdkIxWUFZNllBZ0JHNkhna1NPWXVsV2dHSzYvYmVIQitQSWoy?=
+ =?utf-8?B?d0pkUWR6MDBhVEhuelZDbUVsYURJaEVaRnk5WGtrYmt3Tk1iQ0oxVjV6YmZr?=
+ =?utf-8?B?Z0Z0aEluSUJzb1h3UnJxekZIVXAwMkwwVXZwMHB4b1V6V21CMENXYWRoQlE5?=
+ =?utf-8?B?ZVpPR1A1M282eUNYRVY4V2p6VTNQSW54QjM4UlNhc0d5Nm1wRDZGdGdwcXBr?=
+ =?utf-8?B?ejNSd2Z5ejQ4bkRBMFNCM2I1SmtyalJ2R3llaU1UZVRmWU40UG1HUVBwMy9m?=
+ =?utf-8?B?YUFVSURzZ1hqTUh0S1dvQ2RNSlZJd0xtaENpTG9aeDk2bnMyWDRYZWZ4clJP?=
+ =?utf-8?B?c0xSOVJhQXlWZWgzRDRlemZJb3Z4Zmc5bjBnMkhycTE0amZ2M1VMNzB0QXU1?=
+ =?utf-8?B?dUdVOCt6bllaWGQ0VHF0V3hqdDVXL0M0d1pPdld0MGlkUDhzMWpueUpWYVdY?=
+ =?utf-8?B?dE1LMlRUT05oN3k4WHZ1TzJTOEMxaXY0UUNCUzNsNUorWGVrdkxHOWZkUmZs?=
+ =?utf-8?B?aXdsNDhBTWc1WENkOE8zNFkwTFl1OXlzalhqTytQY0xydzVlYlhyUm5VaEVa?=
+ =?utf-8?B?anhzSUJLTUV3N0RsYUZsSkVMVTB0NVZuRC9IbmoxbWZ5RG01N3U3K292bmVx?=
+ =?utf-8?B?ZzdSTmlSZTNTM0ozZlFnNWpxc1lKU3FSWHJ1SmFuOXJJQ0FaZGdpbDh0Q2Vv?=
+ =?utf-8?B?a3dZdkhBVVQ0eURTa0tWaC9XUkFmOURrSUJKZzBvUmo2cDRwSTNtYk9EcThV?=
+ =?utf-8?B?UzBFQXZuV3FSbVdVV0w0RVhsd29QZ2trSjYzODg0dUVybVMzVncvbEFpeTk2?=
+ =?utf-8?B?RWV6UGcrdStZdEZJUWhVRVl1V0czd1QxUzhXQmF3dmkyZXZaeVBDY1VmRHBF?=
+ =?utf-8?B?VjNwN2ZOMlhpVzFjVjNoTWt6NmJjakdLTXJkcXEvTUhQV3c5d2hnbEFiSDNa?=
+ =?utf-8?B?Q1A2VHJOQU14dTJHNyszWkdqbVFaOTY4Y0RuVnJXSjNrUzdIT0Y4WTVsQzdL?=
+ =?utf-8?B?Q2czZ2g5UVlyU3JjejN4NmdESjczRnhyMlBaSlJMK3lvWE9zSHZWVlF0c3hX?=
+ =?utf-8?B?ZHlRa0wxVXJOTEVVMC9GektuQVhDVGdtR0xMZkpiYjNVKzFadk54VXJMSVJE?=
+ =?utf-8?B?VEdrMEFkN1FqKzRMeW5rcUs2UHQ2dzc0T2VQOUlEMDQrZjVpVkFVQzYrQzdW?=
+ =?utf-8?B?cTRSTmtQbTBYQkJHU2ZoN1ZUdThOdzFoUFFTaGRkVE11ZjFCSDRWTTRjbnZO?=
+ =?utf-8?B?Rnl2UUtiSGdQRHZzMU81d0VGR2dJbVFSeDh4anJNSE9ka2ExT0FBb2tEdG1Z?=
+ =?utf-8?B?bVQ0RWhLWlVnZkowV1JHMEdCSHhqUjJPUS9QVGF5K040bkZ6YktacllXaUFH?=
+ =?utf-8?B?RkdXU2RrRmpGdDVJcEZCemNOeC8rRmNlQ1IyaDlWOW41ZnI0NFViQmhhRGcy?=
+ =?utf-8?B?cE5jeHJTR0h3ZnUrU1hQYzZ2bGx2S2lIYzhTMzVvVkp0cG5Yamtrd3dvU1cr?=
+ =?utf-8?B?Z0pmT213WjFMczJXWGRlbmFoVzFkVEJhOU45aUx1bmEyaFE9PQ==?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SI2PR06MB5385.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?RnhSSmtITldJNndPUnlVZElSQVIydU1RQXRDampocUtxZ0xhYUxacDl1dGx3?=
+ =?utf-8?B?VzZKVWZjWUFFMmpYRU5EanFzSTNEVmZZLzRnMlhPK2E1djdLVkhUYlkzMHgv?=
+ =?utf-8?B?TWRhSWhTWjVmaUE2cjU2RUE0MlYrZG56V3VPZ2h5Q2FMVzlmMk45L2lVL0gv?=
+ =?utf-8?B?am5xeEZieElPb3ZpVThNMHR0dEhMaHV5bGZwZXh3VnF5VlRyU1JCQkhKMk1L?=
+ =?utf-8?B?VmVXUUR1NXB1bDg3MDh6Mjd3MjNsaVJDemNSZFJDWFRZREppM20rUSt1ckJt?=
+ =?utf-8?B?c1NEQXNmWDlRTW9mTnhZUDRFUnBHbXc3SjJ1ZDAvbVpheWdLQ2w1QUVJTFZa?=
+ =?utf-8?B?WnFQRmtYSWpqV25VWTJHWDJ0bXdYV0RiSk1XakN1cDc3dnc5VGp4b1ZQempo?=
+ =?utf-8?B?ZU5SYTRVTDNvR1B6dTF4bStkTnBHbHNjU3Nkanl5Y1JFUmwweEJCZkF3RE9L?=
+ =?utf-8?B?QStURFRNbVYzckNSNDROZkN4aE1sYlVOaDBVNUhpTVFZYlR6UytTbmh4QkdX?=
+ =?utf-8?B?dkxETkwxWUVEY05RUFZQNmVyVi9acmNxSnBYd2Yydmd4azBqK2Y2aVpjQStO?=
+ =?utf-8?B?b3J0bmdXdEl3Z1lKLzIxRjNhN0tRcjRFRHVCUGNjQmZRQWp0SWdYNlRMMXI3?=
+ =?utf-8?B?eVp1aGxPekRGbHJDOE1Zd2dabjlUKzRGdUEzK09ibW1oVzFBWGVZd3RXdFNz?=
+ =?utf-8?B?OFZXa2g1b3ZCNEFDRnJRTU12L0NZTVRvNmM5OW50Y3I3MVBpZWNQVDhkb2pk?=
+ =?utf-8?B?WGxIZXlsNU1uajZxeDJaM2lRLzlpWTJ6eFN3TG05SXBmZE5PbE9yQXZwTEIr?=
+ =?utf-8?B?UlplM1lFaGxxZUdydk1PREVNSXk3Z3V1Y1J0V2daZENLdWpUdGhMUktmdkMx?=
+ =?utf-8?B?VlM4K29mdTgveDJxV2JmOUxTZSt5dTJTODNpcHdrR2wwN05pdThiRnd3QnZJ?=
+ =?utf-8?B?S3BrNnlzTWlOSUZwQzU4Ymw4Wld3Q2NmTkxNcm1oN2hERytidi9ad0lJUmJk?=
+ =?utf-8?B?ZmNjOC9qNDQ5T09TVUJtNjlUUmZUV29rVWpTNVYwSzQyWnBkMUhvbHJiU3kz?=
+ =?utf-8?B?SUxxbVVEMjNyd2dTQ2JKNm5RWUwzTjdUVFovVGkxeDMzNTJTcVhmQ013c3FU?=
+ =?utf-8?B?bkRxcUx6eCs5Y1NVVmlEQUhETzdaQ3VoWFdCNXFmd3ZZUUg3RXlNcDM3aUNQ?=
+ =?utf-8?B?UWRyN3hjQkJCVkxhV3BMWWRHbS85ZmNiZDkxbWlsVGRXam14d1VrZEh3Y0Ry?=
+ =?utf-8?B?aWhTWmp2d2lWWFY4aEJjSEhBTjdtY0FESlZlSVRlQ0VNRWI2azN6eGJLUGpJ?=
+ =?utf-8?B?TCs5SGxFanlydTdPNUMxM3ZYS0ZwMGNzWUxnaTZlaHNvV3RaMSt4U3MxVmVI?=
+ =?utf-8?B?L0FIdFNpOGprSkkzWWptNFpOMThQYU9nTGROMjBpdE1MSCtYdUw1Q3h4UzBI?=
+ =?utf-8?B?ak5BWCtDVHFiSitEdlM3TXIvNk9TSmNLVHZ0bWErWWFvd3pMY2ZTUUdHWTg4?=
+ =?utf-8?B?dXRQUWwySVVHVnRXTlFzRWNGS1JMYUwyTVFSeGdId2ZxYVZydHk0VEZwdTdP?=
+ =?utf-8?B?Wjlsa2k0ODFoSmZEZisrYWV3cmlkc0NUMDlFS1JyMmoxN3BSUHJlTEc5Z3hH?=
+ =?utf-8?B?MUQrNE0wemRZYzVWQnhRVHNZelNDTjA1WG41cExXMTZBL1pjZHNyT2lVZTRY?=
+ =?utf-8?B?WktBYW5CdTJkd3JxR2J1U3NzbFBBb2cwK0JLTXBTeUxpVlBvcmxFL0pzc1RY?=
+ =?utf-8?B?RWlEUnhwV3dwQVY1S2tlamNoNUttNDNubTRPK05qOFlnb3o5Q21BbmNDWW5q?=
+ =?utf-8?B?cTh5OG5tZG9WTi9qQm5DVkYxSjF3aGlQbWp2QW1tSm9wM0hhTWNkWXhxS0RG?=
+ =?utf-8?B?TFRUOU9wRUE3VEczckUxMGhiQzhlSFZDRytmMjI4WVczWGJzZXViSU45ZWFF?=
+ =?utf-8?B?d0tnWFJwdmpVWkxvbndGeDhraXlEaEpDUzdzMlZuVFU0byt6cE0vMlQ3OWph?=
+ =?utf-8?B?Z0htRmw0UzRFVXJVY1VkWE5QeHh6RGhEc3I3RlRjLzl4RXA2cGpJUnRhb0tZ?=
+ =?utf-8?B?SUZ0WlNnUWZUV3FPdWIwUitrRS9lRStaNmo1dUM0Q2xmeG94bThmOEFmVWsy?=
+ =?utf-8?Q?CqYG/oE1VL7U7FqLUVXHMk/bB?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F8:EE_|CY5PR12MB6454:EE_
-X-MS-Office365-Filtering-Correlation-Id: d777829f-0b9b-4938-7dc8-08dc9b0dcd43
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?cGRrc25SeDBqbnNzN2h2dUIyL09tYzYyL29NVC83S3FKdVphVk43V0JYZTV1?=
- =?utf-8?B?WDY2Z3Zyb012QTJPM3ltUkJnTmV5ZWhRTExGb2U3Y2wzdFZoL2hldHI0bHVP?=
- =?utf-8?B?V1BZYWNUREN4WDkraFBML1FFcnpjMXY2cjR3WVNVVEtieDNiWXFrKy9BODVJ?=
- =?utf-8?B?NzBCWUh0bGQyMjE2ZmtuVDlZWDJUK3N6bE5XcHRLSmdiTVFKZk9YbkFrL2lt?=
- =?utf-8?B?SkJTbEQ3VnlsNEhzUTNhQVVCM1ZoQ2dZVHR4RytXZG1MVWVoakM1WUQ2YUFR?=
- =?utf-8?B?SkhJcFRkb1RMVFRnZnB1M3l1ckZFYUFxNGRodW4ycEx1czZwTW02UUxLOW5D?=
- =?utf-8?B?WngzcmtmQXdNN3liVTdGcjFBL2lkOW5WWFQ3UGxLNDRSSG9zeEpNMnd5Q0JG?=
- =?utf-8?B?eHIzdDViVzl1eXRjSFMxVVY2THUxUmRWNmZJWFlsdGhCYzdMNTlPbU13UjUx?=
- =?utf-8?B?RGNMTjlLUUJacDRzY29raGlIMGxEa0xSNHNPYlNRR1JUWVJxQlVsTjJ0Y2J2?=
- =?utf-8?B?dFdnZWcyOHl0WisyZmVRd1RNTmdHekJ0SjRQbGpkMHRBMWdBblBBKzBvQWhT?=
- =?utf-8?B?bnVkSVdhZ3JwWUc0NWhUTUc3Y3NBOUFCVkFQWkt3RUh5UGluTTlOdnpDN2t3?=
- =?utf-8?B?aTFkRnZTZVI0bGRQbFczaG83Ui9VOGdtRk5aeEFpalE5WkhpWVJrVnV2UGds?=
- =?utf-8?B?aVNocklycXRGOUQyM3R6aGVjRWVmSWZEY01JQ3EycDBpb1ZDajhGa1prWVpN?=
- =?utf-8?B?OS9GVWpPTk1UMWdhZUwxK3Q4aXJtdmQydWhrM1AzaHhXQllid3BWUVZaVVgx?=
- =?utf-8?B?eitrdU9YRFlGY2h4ZjJ0ZURIN0R6KzBoWWdNbmltSkhxdXN0UlFFNTQwdjBX?=
- =?utf-8?B?ZkNDQlQwdU9RRjFaY2lLakE0VUlJaVgzb2U2aHJBckdrT0dRdHZpL1JyWElD?=
- =?utf-8?B?QWdyVUFONVJCYVhSZ0V3a1orRVdVWEVZbWJxbkMwUVBFdDlLdFRNa0VmaDY1?=
- =?utf-8?B?Kzl0VmM0WUpYMFpBT3dYWWZmMHFXQm5wbC9jOFJVRUxVU1lKVTVjVDJYeU1O?=
- =?utf-8?B?RURBelZ2dHppc0YvZ0xpWFJRV2k4SXNCSWo4MlBhZ3RSZGhHN3NTRWhGTGdv?=
- =?utf-8?B?V3VBZ0xhV1NOaldIL3ZuVmhGQlBtZWsyMlZCY2NiOG5JS2lOVlE5T2JUSEI0?=
- =?utf-8?B?QUl1a29ZeXhrR3d0elFNMFRSS2xYZXdrU0NKYlNLQ09sbFNrdno2VzdSdjVU?=
- =?utf-8?B?OGswL3BueUt2bDZwUDcwb1c3OUxSQUcvczFnZ3FCZXkrajdsMng1YVZxWkFp?=
- =?utf-8?B?eDZuOEdYeW16cEdIekFYaHVxRktKZHUvbVJaZU1HTEVTU3JWbGo4dTRvZDdi?=
- =?utf-8?B?RjdVVmZ1T24zMk1hRnE1SjloSVZLWTRiano0cUs4eWo3YkRmU3VqT2x4aVZu?=
- =?utf-8?B?MEhaMVYrdXdCeUV0c3pQK2lEcU10UTdjWlhWVVp6ck5aRHIyOFhndExYSFc5?=
- =?utf-8?B?WGQ5WUhEaGV4R1hIQUJtRmpuQXpMc3VmRFRDbVpqT2l2ZE1XelA1R21FeHQ5?=
- =?utf-8?B?alVGMGExM3I1T09CRG96VVF6S2JKMXhGVHpCS0lxVFUzRzFYZWRwc21WbXlo?=
- =?utf-8?B?dUxMclNaY1UxektzQmxwU1FvRE9jYk94cWpySk1OalJLZWVSM1BHUXBjZEJo?=
- =?utf-8?B?NXltbUNNekhrM2ROaStFZzlDa3Yvd0VIY2loMjdSeEZoSWtVNENMcWQxdW1I?=
- =?utf-8?B?L3NPUXJ3dTB4RVRLR3V0MEFvV1ljUnJCZkJvbzEvMk5kUE4ybHRZMUttMEl1?=
- =?utf-8?B?T0hEU0pMU0VicjltVy9xQVhCemp1MGp1MzRRSEJvQk9kKy9BSy9uL2tBdUZw?=
- =?utf-8?B?WWJpcjFJckVxakNmZzM1THBOK1BtaG5oTFYrY00vZHY2Rll2eCtlbjlWOW94?=
- =?utf-8?Q?61tSH0Qez7uuPzgsfHxm51rbgSzHEMhv?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2024 03:11:15.8681
+X-OriginatorOrg: jaguarmicro.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SI2PR06MB5385.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6714a374-a5ab-4117-c54f-08dc9b192c19
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2024 04:32:39.5942
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d777829f-0b9b-4938-7dc8-08dc9b0dcd43
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000044F8.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6454
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 1e45a5c2-d3e1-46b3-a0e6-c5ebf6d8ba7b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 3rxeENET5iFbOBG/OS6q+1Et5p5LkEp8rQ7ybT2HjM8Fy/gtxBPYL07im0Bsb0AlpznhAbRULiXgshAQOI9YCn/CCpZbRTWPZ+YNEzcvh6M=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR06MB6065
 
-This commit allows the driver to suspend the device by
-introducing a new status bit SUSPEND in device_status.
-
-This commit also introduce a new feature bit VIRTIO_F_SUSPEND
-which indicating whether the device support SUSPEND.
-
-Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
-Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
-Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
-Signed-off-by: David Stevens <stevensd@chromium.org>
----
- content.tex | 71 +++++++++++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 61 insertions(+), 10 deletions(-)
-
-diff --git a/content.tex b/content.tex
-index 0a62dce..8c974d3 100644
---- a/content.tex
-+++ b/content.tex
-@@ -36,19 +36,22 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
-     this bit.  For example, under Linux, drivers can be loadable modules.
-   \end{note}
- 
--\item[FAILED (128)] Indicates that something went wrong in the guest,
--  and it has given up on the device. This could be an internal
--  error, or the driver didn't like the device for some reason, or
--  even a fatal error during device operation.
-+\item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
-+  drive the device.
- 
- \item[FEATURES_OK (8)] Indicates that the driver has acknowledged all the
-   features it understands, and feature negotiation is complete.
- 
--\item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
--  drive the device.
-+\item[SUSPEND (16)] When VIRTIO_F_SUSPEND is negotiated, indicates that the
-+  device has been suspended by the driver.
- 
- \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experienced
-   an error from which it can't recover.
-+
-+\item[FAILED (128)] Indicates that something went wrong in the guest,
-+  and it has given up on the device. This could be an internal
-+  error, or the driver didn't like the device for some reason, or
-+  even a fatal error during device operation.
- \end{description}
- 
- The \field{device status} field starts out as 0, and is reinitialized to 0 by
-@@ -60,8 +63,9 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
- initialization sequence specified in
- \ref{sec:General Initialization And Device Operation / Device
- Initialization}.
--The driver MUST NOT clear a
--\field{device status} bit.  If the driver sets the FAILED bit,
-+The driver MUST NOT clear a \field{device status} bit other than SUSPEND
-+except when setting \field{device status} to 0 as a transport-specific way to
-+initiate a reset. If the driver sets the FAILED bit,
- the driver MUST later reset the device before attempting to re-initialize.
- 
- The driver SHOULD NOT rely on completion of operations of a
-@@ -99,10 +103,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
- \begin{description}
- \item[0 to 23, and 50 to 127] Feature bits for the specific device type
- 
--\item[24 to 41] Feature bits reserved for extensions to the queue and
-+\item[24 to 42] Feature bits reserved for extensions to the queue and
-   feature negotiation mechanisms
- 
--\item[42 to 49, and 128 and above] Feature bits reserved for future extensions.
-+\item[43 to 49, and 128 and above] Feature bits reserved for future extensions.
- \end{description}
- 
- \begin{note}
-@@ -629,6 +633,49 @@ \section{Device Cleanup}\label{sec:General Initialization And Device Operation /
- 
- Thus a driver MUST ensure a virtqueue isn't live (by device reset) before removing exposed buffers.
- 
-+\section{Device Suspend}\label{sec:General Initialization And Device Operation / Device Suspend}
-+
-+When VIRTIO_F_SUSPEND is negotiated, the driver can set the
-+SUSPEND bit in \field{device status} to suspend a device, and can
-+clear the SUSPEND bit to resume a suspended device.
-+
-+\drivernormative{\subsection}{Device Suspend}{General Initialization And Device Operation / Device Suspend}
-+
-+The driver MUST NOT set SUSPEND if FEATURES_OK is not set or VIRTIO_F_SUSPEND is not negotiated.
-+
-+Once the driver sets SUSPEND to \field{device status} of the device:
-+\begin{itemize}
-+\item The driver MUST re-read \field{device status} to verify whether the SUSPEND bit is set.
-+\item The driver MUST NOT make any more buffers available to the device.
-+\item The driver MUST NOT access any fields of any virtqueues or send notifications for any virtqueues.
-+\item The driver MUST NOT access Device Configuration Space except for the field \field {device status},
-+if it is implemented in the Config Space.
-+\end{itemize}
-+
-+\devicenormative{\subsection}{Device Suspend}{General Initialization And Device Operation / Device Suspend}
-+
-+The device MUST ignore SUSPEND if FEATURES_OK is not set or VIRTIO_F_SUSPEND is not negotiated.
-+
-+The device MUST ignore all access to its Configuration Space while
-+suspended, except for \field{device status} if it is part of the Configuration Space.
-+
-+A device MUST NOT send any notifications, access any virtqueues, or modify
-+any fields in its Configuration Space while suspended.
-+
-+When the driver sets SUSPEND, the device MUST either suspend itself or set DEVICE_NEEDS_RESET if failed to suspend.
-+
-+If SUSPEND is set in \field{device status}, when the driver clears SUSPEND,
-+the device MUST either resume normal operation or set DEVICE_NEEDS_RESET.
-+
-+When the driver sets SUSPEND,
-+the device SHOULD perform the following actions before presenting SUSPEND bit in the \field{device status}:
-+
-+\begin{itemize}
-+\item Stop processing more buffers of any virtqueues
-+\item Wait until all buffers that are being processed have been used.
-+\item Send used buffer notifications to the driver.
-+\end{itemize}
-+
- \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
- 
- Virtio can use various different buses, thus the standard is split
-@@ -872,6 +919,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
- 	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits} for
- 	handling features reserved for future use.
- 
-+  \item[VIRTIO_F_SUSPEND(42)] This feature indicates that the driver can
-+   trigger suspending the device via the SUSPEND flag
-+   See \ref{sec:Basic Facilities of a Virtio Device / Device Status Field}.
-+
- \end{description}
- 
- \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
--- 
-2.45.2
-
+aGkNCg0KVGhhbmtzIGZvciB5b3VyIHJldmlldy4NCg0KPiANCj4gPiBEUFUoRGF0YSBQcm9jZXNz
+aW5nIFVuaXQpLCBEUFUgd291bGQgbmVlZCB0byBzdWJtaXQgRE1BcyB0byBjb3B5IGd1ZXN0DQo+
+ID4gc3VwcHJlc3Npb24gaW5mb3JtYXRpb25zIHRvIERQVSBpbnRlcm5hbCBtZW1vcnksIHRoZW4g
+Y2hlY2sgd2hldGhlcg0KPiA+IHVzZWQgZXZlbnQgc2hvdWxkIGJlIG5vdGlmaWVkIGJ5IGV4YW1p
+bmcgdGhpcyBpbnRlcm5hbCBtZW1vcnksIHdoaWNoDQo+ID4gaXMgb2J2aW91cyBleHBlbnNpdmUs
+IGFuZCB0aGlzIERNQSBvcGVyYXRpb24gaXMgbmVlZGVkIGV2ZXJ5IHRpbWUNCj4gPiBEUFUgYXR0
+ZW1wdHMgdG8gaXNzdWUgdXNlZCBldmVudCwNCj4gDQo+IFNldmVyYWwgdGhpbmdzIGNvdWxkIGJl
+IHVzZWQgdG8gaGVscCBoZXJlOg0KPiANCj4gMSkgV2l0aCB0aGUgZXZlbnQgaW5kZXgsIGFzIGxv
+bmcgYXMgdGhlIHVzZWQgaW5kZXggZG9lc24ndCBwYXNzIHVzZWQNCj4gZXZlbnRzIHlvdSBkb24n
+dCBuZWVkIHRvIGZldGNoIGV2ZW4gaW5kZXggZXZlcnkgdGltZQ0KWWVhaCwgSSBhZ3JlZSBWSVJU
+SU9fRl9FVkVOVF9JRFggY291bGQgaGVscCBoZXJlLCBidXQgSSB0aGluayBpdCdzIGEgcmVsYXRp
+dmVseQ0KY3J1ZGUgbWVjaGFuaXNtLCBJIGhhdmUgdHdvIHF1ZXN0aW9ucyBiZWxvdzoNCiAgMS4g
+VXNlZCBldmVudCBub3RpZmljYXRpb24gc3VwcHJlc3Npb24gc3RydWN0dXJlIGlzIHN0aWxsIGxv
+Y2F0ZWQgaW4NCiAgaG9zdCBtZW1vcnkoaW4gZHB1IGNhc2UpLCBJJ20gbm90IHN1cmUgd2hldGhl
+ciB1c2VkX2V2ZW50IHdvdWxkDQogIGJlIGFsbG93ZWQgdG8gdXBkYXRlIGluIHRoZSBydW5uaW5n
+IG9mIG9uZSB2aXJ0aW8gZGV2aWNlLCBJZiBpdCdzIGFsbG93ZWQsDQogIHNlZW1zIGRldmljZXMg
+c3RpbGwgbmVlZCB0byBmZXRjaCBuZXdlc3QgdXNlZF9ldmVudCBpbmZvIHRpbWVseS4NCiAgMi4g
+QWNjb3JkaW5nIHRvIHZpcnRpby1zcGVjLCBmb3IgZXhhbXBsZSwgaWYgdXNlZF9ldmVudCBpcyAw
+LCB0aGVuIGEgZGV2aWNlIHdpdGgNCiAgVklSVElPX0ZfRVZFTlRfSURYIHdvdWxkIHNlbmQgYSB1
+c2VkIGJ1ZmZlciBub3RpZmljYXRpb24gdG8gdGhlIGRyaXZlciBhZnRlcg0KICB0aGUgZmlyc3Qg
+YnVmZmVyIGlzIHVzZWQgKGFuZCBhZ2FpbiBhZnRlciB0aGUgNjU1MzZ0aCBidWZmZXIpLCBzaG91
+bGQgdGhpcyBiZWhhdmlvcg0KICBiZSBzdHJpY3RseSBmb2xsb3dlZD8gRm9yIGV4YW1wbGUsIGRy
+aXZlciB3aXRoIFZJUlRJT19GX0VWRU5UX0lEWCBuZWdvdGlhdGVkDQogIHNldHMgdXNlZF9ldmVu
+dCB0byAwLCB1c2VkIGJ1ZmZlciBub3RpZmljYXRpb24gc3RpbGwgY291bGQgYmUgc2VudCBmb3Ig
+YW55IHVzZWQgYnVmZmVyIGV2ZW50Lg0KDQo+IDIpIEludGVycnVwdCBjb2FsZXNjaW5nIG1heSBo
+ZWxwIHRvIHRocm90dGxlIHRoZSBpbnRlcnJ1cHQgcmF0ZQ0KPiAzKSBTcGVjIGRvZXNuJ3QgZm9y
+YmlkIGltcGxlbWVudGF0aW9uIHNwZWNpZmljIGhldXJpc3RpY3MgZm9yDQo+IGludGVycnVwdCBt
+b2RlcmF0aW9uDQpZZXMsIGluZGVlZCB3ZSdyZSB0cnlpbmcgdG8gdXNlIHRoZSBpbmZvcm1hdGlv
+biBhYm91dCB0aGUgbGF0ZXN0IHVzZWQgcmluZyBlbnRyeQ0KZHJpdmVyIGhhcyBwcm9jZXNzZWQs
+IHdoaWNoIGlzIGludHJvZHVjZWQgaW4gdGhpcyBwYXRjaCwgdG8gZG8gaW50ZXJydXB0IGNvYWxl
+c2Npbmcgb3IgbW9kZXJhdGlvbi4NCg0KPiA+IG5vdywgYnV0IGl0IG1heSBjaG9vc2UgYXBwcm9w
+cmlhdGUgdGltaW5nIHRvIHNlbmQgdXNlZCBldmVudHMgYWNjb3JkaW5nIHRvDQo+ID4gaXRzIG5v
+dGlmaWNhdGlvbiBjb2FsZXNjaW5nIHBvbGljeSAsIG5vdyBpdCBhbHNvIGRvZXMgbm90IG5lZWQg
+dG8gRE1BIGd1ZXN0DQo+ID4gbWVtb3J5IHRvIG9idGFpbiBub3RpZmljYXRpb24gc3VwcHJlc3Np
+b24uDQo+IA0KPiBQZXJmb3JtYW5jZSBudW1iZXJzIGFyZSB3ZWxjb21lZDoNCj4gDQo+IDEpIGNv
+bXBhcmUgZGlzYWJsaW5nIHZpYSByZWdpc3RlciBhZ2FpbnN0IG1lbW9yeQ0KPiAyKSBjb21wYXJl
+IGF1dG8gZGlzYWJsZSBhZ2FpbnN0IG5vIGF1dG8NCkkgc2VlLCBidXQgc29ycnksIGN1cnJlbnRs
+eSB3ZSBkb24ndCBoYXZlIGFueSBwZXJmb3JtYW5jZSBudW1iZXJzIHlldCwNCmJ1dCB0aGVvcmV0
+aWNhbCBhbmFseXNpcyBhbmQgdGhpbmsgaXQnbGwgaGVscCBpbXByb3ZlIHBlcmZvcm1hbmNlLiBT
+b21lDQpwb3B1bGFyIG5pYyBhbHNvIHN1cHBvcnRzIHRoaXMgZmVhdHVyZSwgd2hpY2ggZGlzYWJs
+ZXMgaW50ZXJydXB0IGFmdGVyIHNlbmRpbmcNCm9uZSBhbmQgbmVlZHMgZHJpdmVyIHRvIGVuYWJs
+ZSBpdCBhZ2Fpbi4gV2hlbiBlbmFibGluZyBpbnRlcnJ1cHQgYWdhaW4sIGRyaXZlcnMNCmNhbiBh
+dHRhY2ggc29tZSBleHRyYSBpbmZvcm1hdGlvbi4NCg0KPg0KPiA+ICsgICAgICBUaGUgZHJpdmVy
+IG1heSBiZW5lZml0IGZyb20ganVzdCBpbmZvcm1pbmcgZGV2aWNlIHRoZSBsYXRlc3QgdXNlZA0K
+PiByaW5nIGVudHJ5DQo+ID4gKyAgICAgIGl0IGhhcyBwcm9jZXNzZWQsIGJ1dCBub3QgZW5hYmxp
+bmcgdXNlZCBidWZmZXIgbm90aWZpY2F0aW9uLiBUaGlzIGZpZWxkDQo+IG9ubHkNCj4gPiArICAg
+ICAgb2NjdXBpZXMgb25lIGJpdCwgaWYgc2V0IHRvIDEsIGl0IHdpbGwgZW5hYmxlIHVzZWQgYnVm
+ZmVyIG5vdGlmaWNhdGlvbiwNCj4gb3RoZXJ3aXNlIG5vdC4NCj4gPiArXGVuZHtkZXNjcmlwdGlv
+bn0NCj4gDQo+IEFueSByZWFzb24gd2UgY2FuJ3QgcmV1c2UgdGhlIGV4aXN0aW5nIG1lYWNoc2lt
+IGxpa2UgdXNlZCBpbmRleCAvDQo+IGV2ZW50IHN1cHByZXNzaW9uIGhlcmU/DQpQbGVhc2Ugc2Vl
+IG15IGNvbW1lbnRzIGFib3ZlLg0KDQpSZWdhcmRzLA0KWGlhb2d1YW5nIFdhbmcNCj4gDQo+IEJh
+c2ljYWxseSBpdCBqdXN0IHNvdW5kcyBsaWtlIHdlIG5lZWQgYSB0cmFuc3BvcnQgc3BlY2lmaWMg
+bWV0aG9kIGZvcg0KPiB0aGVtIGJlc2lkZXMgYmVpbmcgcGFydCBvZiB0aGUgdmlydHF1ZXVlLg0K
+PiANCj4gVGhhbmtzDQoNCg==
