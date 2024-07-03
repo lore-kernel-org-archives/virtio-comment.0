@@ -1,113 +1,220 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4031186E5E
-	for <virtio-comment@lists.linux.dev>; Wed,  3 Jul 2024 18:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F481422B7
+	for <virtio-comment@lists.linux.dev>; Wed,  3 Jul 2024 22:54:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720032313; cv=none; b=vAbCMXZ2MdGsfmWUEdEOEwjkUV6dbWRoeKxBeKPD8RLKTWT+8Xrwq3tCNbBCobZJgFm6d/pHuuB8fXbkiziDKX+Wyy7jhqiW2qncm8ejTB5+gbRhTTTukmefw/6xu9/B+4VlYzl+L47uzZbXCwbp5YPohViADnck/9M5dDC0g3Y=
+	t=1720047290; cv=none; b=bw7XXW9uk9hDT+40HLCF+yG3DniA8vrZVrcMcndYESssjd3RF3YbYcP3JEuZb4Tljl3QG39jmxNntGH2uv4vvkLoGY/+FaqaLMM7eIq0XcftENvCTDH9RicNfgrg7zcZ+m8s2Vv5wrFUbtErc0/08ZYdPdCNTkZC6xmBDB0EZXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720032313; c=relaxed/simple;
-	bh=dIqW3Fx5a7CFz7gfFourc1z8Z+d4Fg61pOAQtQ9nbZ4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=K+HZmZTEsFmfKXSl2xHmlmUUawS2kmrxAgWWBbwWBmGdJdZk1N/yKRt89qtXW5fYa4A648kRDjcOvSLb45cLuW37LSBzHKQz4XGJ5nICREmaEGrWx/de0WOwpVQsIO60aQoPxAGJmDSt45VDH2zgX0lKDHC39ovhnFzEvg6sjbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=0KrZInpi; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1720047290; c=relaxed/simple;
+	bh=TLr3fbLBtA6HuTBvn8bN3Mc+hTez5QvW6HjIPBczbNY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=kryQZND2yLMZc71D4PsGxH6hMA3VU7TwT7k2GuLqdrb3PpffDlRlhnGAx1gKqZ37YN0lZhgu+xE1Vjqwx/z/IiGzZu4A4QKqdx8PIoKwSkKHh6xEZUPLCGYJf8GC+0VJeIyaUpzXzjsm4wz3dnQ5s5oUO2XoMrwMRAvUGHKkvgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=c0zekQpw; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="0KrZInpi"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-1f70ec6ff8bso25335ad.0
-        for <virtio-comment@lists.linux.dev>; Wed, 03 Jul 2024 11:45:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1720032311; x=1720637111; darn=lists.linux.dev;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dIqW3Fx5a7CFz7gfFourc1z8Z+d4Fg61pOAQtQ9nbZ4=;
-        b=0KrZInpiIyhzQ16BWLohNh7EsZQxncWDkf/VJ/vUXIqveveBng2BjfSPJm5ThfC7Ox
-         ZViRdnYX1c4lDKUnF+or2UAvbeYzvYotNhoj8y0NMHVy/IIq0LPm1LplGeX4qfrVLZVv
-         TUsnd8rqMcQF2lXANqgxX/T5QJZuOsBeQKDEV62yAEE9EFxdtpvn8AXqZ6aXbrfJcOWt
-         I5MvoVXFPTAmLJQq4SNblpDizMS4Hl914fMMuUHPXw0feNPUHf+p3OKitkbThKFJEN8/
-         S8tonJnRawn96g1yX5kQxEXBWVMAmDKM5ZfrYwzlagNXu2fRJN97Je1CmQ25+ZY8bwRy
-         HNag==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="c0zekQpw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1720047287;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q4Hoif9LRAePUYR+PLikHsqW92+ywkRKLf5faZM3XMc=;
+	b=c0zekQpwYw8LHL5vP3PI/OMX2/v7ruxjV6u9SY3Td1CpEb+R+3WSFbJM9DgXn1O4Vc19iJ
+	uh3Vu5NE75ff7EPWP/SXpVkah3UHJwMwThq05mCu1nuLXvhvmdOSEar8ci3GL+eBpxOOcp
+	tYtlMuWKFqOSx1YIQVhmMJNqT1dhEtw=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-433-DMbtzPv2NoSzzCvaM_k-vA-1; Wed, 03 Jul 2024 18:54:45 -0400
+X-MC-Unique: DMbtzPv2NoSzzCvaM_k-vA-1
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-a72b270df57so2197966b.1
+        for <virtio-comment@lists.linux.dev>; Wed, 03 Jul 2024 15:54:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720032311; x=1720637111;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=dIqW3Fx5a7CFz7gfFourc1z8Z+d4Fg61pOAQtQ9nbZ4=;
-        b=krJjZ1HVC2ieSPbXCvqtNMZQmLmv+w8UlV6k9HvrS/v+/f2VPn7brDZvhQ6exDLu0y
-         8LbvO3D9sSubGYklEMU6i2F64qHUDKNUWDHsKPYWhL6leFDuiMDLcVmO0NJx9CFAZwwA
-         R6mQ6wzP38qCVr/l+rXRDJ/K6mIGGmv7LcLQ8qAtSFvUTFlhL4+ByeXp3w1nt/aPcYNG
-         ckRhijKfDCpgIBcbDj/hfnGrpqolA+432HRLEzAeQaubcDAmBXJl4iy47HOSbbn6RhrD
-         zAn8eY9TsmOFzFhSk0aR6wHoyAs2kcPN3EMDKo/yGrR9hwd8Cwo0t/PtEhi8qreZdrU7
-         HhjA==
-X-Forwarded-Encrypted: i=1; AJvYcCVLs271AoRZny0hBTX/vUIGfDslfvn55bRiksbwRXcZb7DSwYEJdtVjUu3/9EZx5djEiM7AVhREihmy09SLi6hVPF9yc9moMLFDiQ7XWvw=
-X-Gm-Message-State: AOJu0YyQS5efRJk6jhtGnrb4BQwMtjEIBXkBfgdgVraEsq0uhoDoK2PO
-	OuEZocY7sSwIPsq5dlZSy4IqTc0oaZSBT31RnpWndelfxnzUnKDFwrxnIw9zqGZjCJdvZNXrqV5
-	xttpn5yIiinDtbdurcIMLQGddQLEBK/o/wfQ+
-X-Google-Smtp-Source: AGHT+IFvtWUnURHx+djD/f8/lfWmddDUv24sT9jyzziyxEIultTNxDjH5+t3Nji1Dl3kaGmgdra1Oib8n38sGx71cC8=
-X-Received: by 2002:a17:902:ab86:b0:1f6:828e:bbab with SMTP id
- d9443c01a7336-1fb30dcf8bdmr213475ad.19.1720032310756; Wed, 03 Jul 2024
- 11:45:10 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1720047284; x=1720652084;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Q4Hoif9LRAePUYR+PLikHsqW92+ywkRKLf5faZM3XMc=;
+        b=ccnlqdDiQDTw1UylCTmg19UM91za2b4KpclPIGnlHdb4QK/Se/+pd75tM7reXTohIP
+         goFFl5W/qtkOn3RRrURNW6T9faJRHJsYwH6ETq9jv1RsINuvfsvcu9gWEES+xtbf6Mu0
+         BqRmIamgbqtb0vNWjjTbiTBrrYABzjnHopp3iAZfjoGom5nl9OhnxrSb2/E4s+3eyBxR
+         aWEPpXzdI9VQxyumgQmfaZPijQKdyHzGAcjuFZbyKgCcZz/1hO5sfDv0jKkA8Gv2F2fc
+         AUEDp3BfvHSw56ePflPxiVFk9IAjarPWGpTw9NnvYciKmtw4J1KdHtAC/8MRCiyMp8Ez
+         cKOg==
+X-Forwarded-Encrypted: i=1; AJvYcCXFpaf6SX/8pqPAjTEZ0/6MYbgPL2PlTBpMKbL1kcHopgj1efRewXGfw41/1xGbglFCaKJB2r9khBTWdqkHLjvLkAm6Cxbm0kPMrNq10js=
+X-Gm-Message-State: AOJu0Yx7s1388repg3PoS0pF15cELzbrusdxc9tweEIzbawvKCqmHuEi
+	cd4k1JqjNTpCezQPfdTJo7s0hpA3RLqIgFtkvpcQdWttg5ebnT4nXBvDFhRxaz+i2grs6sMpz9a
+	cSb00Hu+RplRYI4267eLaCRL/5ZULun45cdfH1+DwIuIv7CdKIsi/eXqT5pN+ky1Z
+X-Received: by 2002:a17:907:9615:b0:a72:b2a4:e1fd with SMTP id a640c23a62f3a-a75143fea84mr1029153566b.45.1720047284551;
+        Wed, 03 Jul 2024 15:54:44 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFKHJ2wARpgMjAgjuWTM9t9UdRKAZot9XClvGIbIL4ijsSpbqY9IYSHrJAN2k4hnaZmJWHetw==
+X-Received: by 2002:a17:907:9615:b0:a72:b2a4:e1fd with SMTP id a640c23a62f3a-a75143fea84mr1029152066b.45.1720047283927;
+        Wed, 03 Jul 2024 15:54:43 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc7:441:91a8:a47d:5a9:c02f:92f2])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a72ab0b341fsm548270166b.196.2024.07.03.15.54.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jul 2024 15:54:42 -0700 (PDT)
+Date: Wed, 3 Jul 2024 18:54:38 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Keiichi Watanabe <keiichiw@chromium.org>
+Cc: Parav Pandit <parav@nvidia.com>,
+	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+	"uekawa@chromium.org" <uekawa@chromium.org>,
+	"takayas@chromium.org" <takayas@chromium.org>,
+	"dverkamp@chromium.org" <dverkamp@chromium.org>,
+	"tytso@google.com" <tytso@google.com>
+Subject: Re: [PATCH 1/1] virito-blk: Support NOSPC error
+Message-ID: <20240703185059-mutt-send-email-mst@kernel.org>
+References: <20240618081858.2795400-1-keiichiw@chromium.org>
+ <20240618081858.2795400-2-keiichiw@chromium.org>
+ <PH0PR12MB54811C1FD9D666D13077E817DCCE2@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20240618081240-mutt-send-email-mst@kernel.org>
+ <CAD90VcZAkXVfciJnzH+qjgiCFaqMK-Ne-0uL2o3EKcN_At_X1A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <56ccba136272593d0d2af0303600c06f26bd84a1.1718621522.git.pabeni@redhat.com>
- <CACGkMEt-Ep+At_4YvkJ2t8UmQHJ0-Qm6fAPbGpkV_AfVyNq2EA@mail.gmail.com>
- <ed07e9bb9ae5bc1a171c77425cc0b96e6b87745c.camel@redhat.com>
- <CACGkMEvD_WDN5yeRKcZ2ijRF8C2_Pmr6UZWMNt+_R6S0WHY5Fg@mail.gmail.com>
- <e5d885e6331b18b3be63facfd59658b316f20de1.camel@redhat.com>
- <CACGkMEsbiN90ptOL2XHauzWS=9j5RXtnO7OD10yChPaUO3CY_A@mail.gmail.com>
- <2f1c19591ff456ada2a1ad470032d3e3fb9f88d7.camel@redhat.com>
- <CACGkMEv9gGrLO0OkHYKmjqrLw50kfm2yaifMk1wnb6noa5L99w@mail.gmail.com>
- <4497c727ea6cc696ba7d60bcb95ba9bce33f1136.camel@redhat.com>
- <CACGkMEu_ODQV6O5-w6Hzg5gk-8x_iRsuWSk4fN2vzznPEYKphg@mail.gmail.com>
- <CA+FuTSdAB3m2gD8gA9VyRY5+C4UJqE38cTbkTbYhZbh=yNofyA@mail.gmail.com>
- <383c106f9f9abd34ee5fbb050c68feb9f0b6cf60.camel@redhat.com>
- <CA+FuTSfsAuj0PLSoezWAP=ZREhNp4KR7VcBFbc+7hL7wBeZ5Sw@mail.gmail.com> <3dd4b01fbc53bcd4e42a5ac8ea6445b91cc2d50b.camel@redhat.com>
-In-Reply-To: <3dd4b01fbc53bcd4e42a5ac8ea6445b91cc2d50b.camel@redhat.com>
-From: Willem de Bruijn <willemb@google.com>
-Date: Wed, 3 Jul 2024 14:44:32 -0400
-Message-ID: <CA+FuTSejcfSkEcQHEXtarS+Ejg=qGRgE-A+dU4icR_H7aLE2nw@mail.gmail.com>
-Subject: Re: [PATCH v5] virtio-net: define UDP tunnel offload feature
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: Jason Wang <jasowang@redhat.com>, virtio-comment@lists.linux.dev, 
-	maxime.coquelin@redhat.com, Eelco Chaudron <echaudro@redhat.com>, 
-	Stefano Garzarella <sgarzare@redhat.com>, Michael Tsirkin <mst@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAD90VcZAkXVfciJnzH+qjgiCFaqMK-Ne-0uL2o3EKcN_At_X1A@mail.gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 3, 2024 at 11:00=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wro=
-te:
->
-> On Tue, 2024-07-02 at 19:43 -0400, Willem de Bruijn wrote:
-> > On Tue, Jul 2, 2024 at 12:38=E2=80=AFPM Paolo Abeni <pabeni@redhat.com>=
- wrote:
+On Wed, Jun 19, 2024 at 10:09:19PM +0900, Keiichi Watanabe wrote:
+> Thank you for the feedback. Having the new feature bit makes sense.
+> So, I think we can update the spec as follows:
+> 
+> * Define VIRTIO_BLK_F_ERRNO feature bit
+> * If VIRTIO_BLK_F_ERRNO is negotiated, the driver sends the following
+> virito_blk_req_with_errno instead of virtio_blk_req.
+> * If VIRTIO_BLK_F_ERRNO is negotiated, when the device sets status to
+> VIRTIO_BLK_S_IOERR, the device may set errno to a positive value.
+> 
+> struct virtio_blk_req_with_errno {
+>   le32 type;
+>   le32 reserved;
+>   le64 sector;
+>   u8 data[];
+>   u8 status;
+>   u8 padding[3];
+>   le32 errno;
+> };
+> 
+> Does it make sense? If so, I'll make v2 patch.
+> Note that I used le32 for errno above because POSIX spec [1] says
+> errno is int and int is usually 4 bytes.
+> 
+> [1]: https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/errno.h.html
+> 
+> Keiichi
+
+Okay. But what exactly are the errno values we are going to use?
+
+Also, how to we add errno values?
+
+Parav, wouldn't you say the complexity is exploding, this
+is a 1st new value in a very long while, maybe
+the original approach is ok?
+
+> 
+> On Tue, Jun 18, 2024 at 9:18 PM Michael S. Tsirkin <mst@redhat.com> wrote:
 > >
-> > > Additionally, I raise a doubt about PISO
-> > > feasibility in the virtio net case.
+> > On Tue, Jun 18, 2024 at 11:54:10AM +0000, Parav Pandit wrote:
+> > > Hi Keiichi,
 > > >
-> > > Let suppose virtio support PISO, the device transmits an UDP tunnel G=
-SO
-> > > packet, the driver receives it and fill the skbuff. The inner protoco=
-l
-> > > and mac are unknown. Even skb->encapsulation is left zeroed. When/if
-> > > such packet is later S/W segmented bad thing will happen.
+> > > > From: Keiichi Watanabe <keiichiw@chromium.org>
+> > > > Sent: Tuesday, June 18, 2024 1:49 PM
+> > > > To: virtio-comment@lists.linux.dev
+> > > > Cc: keiichiw@chromium.org; uekawa@chromium.org;
+> > > > takayas@chromium.org; dverkamp@chromium.org; tytso@google.com
+> > > > Subject: [PATCH 1/1] virito-blk: Support NOSPC error
+> > > >
+> > > > Add a status code to indicate that the storage is full on the virtio-blk device
+> > > > side.
+> > > >
+> > > > This is useful in scenarios where a virtio-blk disk image is provided on a sparse
+> > > > disk and the host storage is full.
+> > > > In this scenario, the driver cannot create a new file to the disk image because
+> > > > the sparse disk cannot be expanded.
+> > > > However, if the host have a service that clean up host stroage regularly by
+> > > s/stroage/storage
+> > >
+> > > > wiping cache files, the guest may want to retry the request.
+> > > > For this type of special handling, this error should have a separate error code
+> > > > in virito-blk.
+> > > >
+> > > > Signed-off-by: Keiichi Watanabe <keiichiw@chromium.org>
+> > > > ---
+> > > >  device-types/blk/description.tex | 13 ++++++++-----
+> > > >  1 file changed, 8 insertions(+), 5 deletions(-)
+> > > >
+> > > > diff --git a/device-types/blk/description.tex b/device-types/blk/description.tex
+> > > > index f04c932..5a34bd5 100644
+> > > > --- a/device-types/blk/description.tex
+> > > > +++ b/device-types/blk/description.tex
+> > > > @@ -532,12 +532,14 @@ \subsection{Device Operation}\label{sec:Device
+> > > > Types / Block Device / Device Ope
+> > > >
+> > > >  The final \field{status} byte is written by the device: either  VIRTIO_BLK_S_OK
+> > > > for success, VIRTIO_BLK_S_IOERR for device or driver -error or
+> > > > VIRTIO_BLK_S_UNSUPP for a request unsupported by device:
+> > > > +error, VIRTIO_BLK_S_UNSUPP for a request unsupported by device or
+> > > > +VIRTIO_BLK_S_NOSPC for an error that device doesn't have enough space.
+> > > >
+> > > >  \begin{lstlisting}
+> > > >  #define VIRTIO_BLK_S_OK        0
+> > > >  #define VIRTIO_BLK_S_IOERR     1
+> > > >  #define VIRTIO_BLK_S_UNSUPP    2
+> > > > +#define VIRTIO_BLK_S_NOSPC     7
+> > > >  \end{lstlisting}
+> > > >
+> > > With recent work from Michael and others in admin command area,
+> > >
+> > > we try to use existing Linux error codes referenced by the spec [errno] in the "Normative References" section.
+> > > So for this new error code also, it would be good to reuse value 28 (instead of 7) of [2].
+> > >
+> > > [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/asm-generic/errno-base.h
+> > > [2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/asm-generic/errno-base.h#n32
 > >
-> > I think these could be addressed with the right virtio_net_hdr fields.
->
-> (Almost philosophical question) If we add more field beyond the outer
-> header offset, is that still PISO? Or just ~ this proposal?
+> >
+> > The problem with this idea, is that e.g. EIO is 5 which is already used
+> > up by zone flags. And errno values go beyond 127 so with a single byte
+> > status we can't reserve a bit for that, either.
+> >
+> >
+> > > >  The status of individual segments is indeterminate when a discard or write
+> > > > zero @@ -567,10 +569,11 @@ \subsection{Device
+> > > > Operation}\label{sec:Device Types / Block Device / Device Ope  Requests of
+> > > > type VIRTIO_BLK_T_OUT, VIRTIO_BLK_T_ZONE_OPEN,
+> > > > VIRTIO_BLK_T_ZONE_CLOSE, VIRTIO_BLK_T_ZONE_FINISH,
+> > > > VIRTIO_BLK_T_ZONE_APPEND,  VIRTIO_BLK_T_ZONE_RESET or
+> > > > VIRTIO_BLK_T_ZONE_RESET_ALL may be completed by the -device with
+> > > > VIRTIO_BLK_S_OK, VIRTIO_BLK_S_IOERR or VIRTIO_BLK_S_UNSUPP -
+> > > > \field{status}, or, additionally, with  VIRTIO_BLK_S_ZONE_INVALID_CMD, -
+> > > > VIRTIO_BLK_S_ZONE_UNALIGNED_WP,
+> > > > VIRTIO_BLK_S_ZONE_OPEN_RESOURCE or -
+> > > > VIRTIO_BLK_S_ZONE_ACTIVE_RESOURCE ZBD-specific status codes.
+> > > > +device with VIRTIO_BLK_S_OK, VIRTIO_BLK_S_IOERR,
+> > > > VIRTIO_BLK_S_UNSUPP or
+> > > > +VIRTIO_BLK_S_NOSPC \field{status}, or, additionally, with
+> > > > +VIRTIO_BLK_S_ZONE_INVALID_CMD,
+> > > > VIRTIO_BLK_S_ZONE_UNALIGNED_WP,
+> > > > +VIRTIO_BLK_S_ZONE_OPEN_RESOURCE or
+> > > > VIRTIO_BLK_S_ZONE_ACTIVE_RESOURCE
+> > > > +ZBD-specific status codes.
+> > > >
+> > > >  Besides the request status, VIRTIO_BLK_T_ZONE_APPEND requests return the
+> > > > starting sector of the appended data back to the driver. For this reason,
+> > > > --
+> > > > 2.45.2.627.g7a2c4fd464-goog
+> > > >
+> > >
+> >
 
-We would only add them to make the device-side Linux implementation
-happy and be able to treat this as a tunneled packet.
-
-I suppose that philosophically speaking, PISO treats the entire packet
-as a non-tunneled packet with a very long undefined header. Linux
-should already be able to handle that.
-
-> > But it's fine to skip too.
