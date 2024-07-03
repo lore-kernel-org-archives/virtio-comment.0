@@ -1,284 +1,261 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from APC01-PSA-obe.outbound.protection.outlook.com (mail-psaapc01on2116.outbound.protection.outlook.com [40.107.255.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F217B1DA316
-	for <virtio-comment@lists.linux.dev>; Wed,  3 Jul 2024 06:09:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1719986985; cv=none; b=j9qA2Y87IOkZju0cyWs4aYGVlQW9ahr//Na5NcwyQC8Ko7PkGHaMsTTuW+0/Utkw59MtG9Fwcni8VX8gthj3Jb+C/8kSIuVy8VqdKWCNeTsupxtVQ14jjd9NqQcN7lBVJaZquUbvlkBEMBt6VwdprQD9SVKKxvOvAfEH/Zwznb8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1719986985; c=relaxed/simple;
-	bh=48xcqJ2oeLLs9f0X1rfzm8FbnvvchOuomAX8bRRTHeA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BqYR56g2cc7p48VBTbREAACfVHYqDZ7J3KecCal/jaYYKUGZ5egICahDbDwQRoz5hDsG5bihz69cgssh8nqpLx9jFqLMJt4xZ1EtNoT/w11jgwTbGMdOqDzLn4xB0833rhDlBEiQBI7hBldtiHRVlbQ7S0IOH230zfGw0q9c9Qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NUMpMHRp; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 545714DA04
+	for <virtio-comment@lists.linux.dev>; Wed,  3 Jul 2024 06:52:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.255.116
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1719989536; cv=fail; b=Fbqw04aa/UzHbx9ApkpCusSWPxZsA+jiEiShsWevGADDoxcLhrAS3TsiWUsQ2gHtD4pSD11erVwn9KsYHYUrxcdG8CRzrIYLb6fkS8hEAYJk7NDIS8TdB7LpumovJzHLbqJRizELS1ghj9al3AT35eRsYZhyCA/Wz8Dwb79wu2U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1719989536; c=relaxed/simple;
+	bh=1WpnwPj+cUVUdrXufAms6RLAoVxKZ4eOgiiCWMWDeEg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=nlC/vXLFYBasr8kB5Fo/8UN9l46mMJxHkwCesmQXs2K8idcQiQ2VAzUd89LM4TFkEhRZWs8ipI1kbf1eIeCVQvtBO0LBeW70kI37htP7jLe4wX6EsrTAP/cVINZ9/fe0VBDYgNlmG1MhnbqKNY0cyigF4h4zZtsEQYr5Ye2F330=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaguarmicro.com; spf=pass smtp.mailfrom=jaguarmicro.com; dkim=pass (2048-bit key) header.d=jaguarmicro.com header.i=@jaguarmicro.com header.b=JX8UQKtI; arc=fail smtp.client-ip=40.107.255.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaguarmicro.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaguarmicro.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NUMpMHRp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1719986981;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/qEQQOboO2me6EbmAlg7yMkdHYYmXy7nLqmDuw9M9kg=;
-	b=NUMpMHRpMONVs5jTfwmK/7J1YVV/7n5cEDcoATGy33x7+qDsRxbQilvAzNO85sB/tcLF3S
-	Wflo7kodjOs59fUYE68jp0erGAsLbIExLu4/ti0ht57VHc14T1vEoJ4zZNlZeVCKeLdP0b
-	QB/DzyLepKNmtNk6aprY7lXpnF/PMuA=
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-568-VRo2PW78OlaYsoNpcRmHzA-1; Wed, 03 Jul 2024 02:09:40 -0400
-X-MC-Unique: VRo2PW78OlaYsoNpcRmHzA-1
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-706875d27easo3833615b3a.1
-        for <virtio-comment@lists.linux.dev>; Tue, 02 Jul 2024 23:09:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719986979; x=1720591779;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=/qEQQOboO2me6EbmAlg7yMkdHYYmXy7nLqmDuw9M9kg=;
-        b=P2UGRf9tEq+zvKME8VDPWFJ+8lXt5zBrJ5791bDzN2Yom3g1Hl5f40FcTYaitQHoPX
-         KmVAAXXwLCmzKAgTa20qNPGSQ5eA7kL2DHkoYhcBhyUyaU823Y1KccH05BCx2IGFTQBG
-         eiy2Bsp/272BI8CRyDbFO2PkPzduRdmbvF37sDI1Z4AE4ZerRspQqVnK+pTp5GOHE+DU
-         SyFwiAp/6vPyjZXvCLgFAOxm0nE0G+jCrGfY4u8QXCo8hYuStZQ24xavZsIjXRtJU/0L
-         V0bewn/ie/tu2IdxiNuUIqNBci1qdSI1V4vx0HpXpr+7GMsOgHyHRklDA1rQGIFipxRo
-         bxCQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXL72mc7UsNFBr38jTa03wQUdlGs2sQdU8VLIlmvwdi1ep8G7r54ODciZu2DYuYqkE/yAVm54bdCahLNeGt56YMfeCuTH4+fuutEX3MMS0=
-X-Gm-Message-State: AOJu0YyVg6FAvKlRXxQRbh6dD+Y+oYee5Fxcs3UnUSdOJsWSNz+yrXc2
-	GidwCL/JFgo55oj7pqtPqxvGX7XZ/Wo9LPx5jpKqw0Q2oxkWObG5tVPQOwFscvAIYN5A3AUETqz
-	WCfI3Po4RxQuVuKG3QvBbUJKwpgEgt4xwTTYnjqsitE2OhZtvMG5K0iY5Ys6+wyTtACaTU9Op7c
-	eWTPcZc3nOk8nWNXyBblcdw8Lf/a62w0sKGf6XYOM=
-X-Received: by 2002:a05:6a00:1944:b0:706:423b:2ed1 with SMTP id d2e1a72fcca58-70aaad299a8mr9742260b3a.6.1719986979515;
-        Tue, 02 Jul 2024 23:09:39 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHu/evNvrEWI8PqMG2/zjPYHLIVZ/u7BG4PgMbRgSqKwKvW6OD3+7CNCmwB4Zy6+AeNIIORdQdjadnqXow80hw=
-X-Received: by 2002:a05:6a00:1944:b0:706:423b:2ed1 with SMTP id
- d2e1a72fcca58-70aaad299a8mr9742238b3a.6.1719986978987; Tue, 02 Jul 2024
- 23:09:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=jaguarmicro.com header.i=@jaguarmicro.com header.b="JX8UQKtI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QTBc67H5pL2iwNa71mMSlMb1nyhLoL4+HkF+GtTvlGj3PfBgDSjlCxcTWS1aZFGQqg1m6dbDAWMf7Bm9GtlNik4CYF4aTOuv8TT9I93fRYfe+40zwHSkx96WLu9W4nA+cz29V7U95WI0PyKCqjYPzjvfYdlKubG/DqnnfAbQ2SNCQ56nyoNEVyYCxKyFhRjqF7Z4IUXp8hL6eHmqwXQFYWT7C6pwcvWmNF6jdVc0mZ42avPRSlk/KjVrVJTS3iHUWZHqpxYfo3gpWfHChzjytUbgtn8E9ef8RKfPRHbKeTKH/C8llmuBNZvEnbkPPWUfTjiyfkhEyGn5zwei072iSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kvs7bim1QqfKn9NJqWdaqEWPdUWXVihETPerFd0PyH0=;
+ b=fHoL9oxDzSk4Zu/cvncah0O0aFvygm0QVADwmhoSs8IfOOlROeWAQjrIKYrSIfa7+/eGpEuJ4dM0n4miQwfRqrtmjiHwaLaKCClv98+KYY8XNYNUdik7C2P4jq9MHbLy+81QMSGn1kArefgbuOHMn4MKy4xV3yYEpGXcVsdd03eUxC8x+z6LX/WoUt1egalZz96qqZ757xJvMXmHrI4LURR+HPvPh2XF1okFJTepFJphtfhwP14eiMIr4kwOLx6leWbSLiOZnbNEAiLCkTmQkqSNRwv+5dSXgABPPiq26JP476LHDrL1AhxyMQ4Xo5p+/t0FdzQAG2tDyvzW/OmF/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=jaguarmicro.com; dmarc=pass action=none
+ header.from=jaguarmicro.com; dkim=pass header.d=jaguarmicro.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaguarmicro.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kvs7bim1QqfKn9NJqWdaqEWPdUWXVihETPerFd0PyH0=;
+ b=JX8UQKtIxt230v67j9OvwWgpGBTv/gSgXmOVxSmLyY8vkxhBpFYfB4RSV3+s85EkbvVDXCg5BOBgvsXTvw9o80+O9aqmSIJERZc7W4yKvdqYvfLf7IC5CZL2x5XUb7TRQPjHl66fzGLNKyxgqMefD8JZlkrWrsTk81iVSRB34s/COFbE6T89Axf1WJhdqw3bz7QWS/4ApQxT42eg1KvcnpIdLOQNMZnIh3qB88v6gM1KRfx7DiNXsi7WV+DkylgkjnMo6ynZ2ERLiE3WIeUcNjap39SQK5Ngk4B8+lF1oJsI/N9bNfqpZbeq4OEHawh+TXIwrqWdEO3HIA+uZxL2Sw==
+Received: from SI2PR06MB5385.apcprd06.prod.outlook.com (2603:1096:4:1ec::12)
+ by SEZPR06MB6351.apcprd06.prod.outlook.com (2603:1096:101:12a::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.34; Wed, 3 Jul
+ 2024 06:52:03 +0000
+Received: from SI2PR06MB5385.apcprd06.prod.outlook.com
+ ([fe80::967d:afda:6f4:33dd]) by SI2PR06MB5385.apcprd06.prod.outlook.com
+ ([fe80::967d:afda:6f4:33dd%6]) with mapi id 15.20.7719.029; Wed, 3 Jul 2024
+ 06:52:03 +0000
+From: Lege Wang <lege.wang@jaguarmicro.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+CC: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+	"vattunuru@marvell.com" <vattunuru@marvell.com>, "ndabilpuram@marvell.com"
+	<ndabilpuram@marvell.com>, "parav@nvidia.com" <parav@nvidia.com>, Leo Liu
+	<leo.liu@jaguarmicro.com>, Angus Chen <angus.chen@jaguarmicro.com>
+Subject: RE: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer
+ notification suppression mechanism
+Thread-Topic: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer
+ notification suppression mechanism
+Thread-Index: AQHay2kF67vqaBJYMUW1XCStKdNnOLHjWBeAgAEuLyA=
+Date: Wed, 3 Jul 2024 06:52:03 +0000
+Message-ID:
+ <SI2PR06MB5385E3CEC459963A7D079B56FFDD2@SI2PR06MB5385.apcprd06.prod.outlook.com>
+References: <20240701034435.675-1-lege.wang@jaguarmicro.com>
+ <20240702073359-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20240702073359-mutt-send-email-mst@kernel.org>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=jaguarmicro.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SI2PR06MB5385:EE_|SEZPR06MB6351:EE_
+x-ms-office365-filtering-correlation-id: 8bf50575-5130-45b4-27e3-08dc9b2ca57e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
+x-microsoft-antispam-message-info:
+ =?Windows-1252?Q?pQnApGjjgdHLFTCFsgm80WHkgLUjfpj0/Om9oOq6NSqvtbJ7k8V57h+q?=
+ =?Windows-1252?Q?BueISl2E8qdnfm7vp1mxVSoEGS5zSt1hEOg+YEwkf9h0vYnTiCq5kfkF?=
+ =?Windows-1252?Q?8Nn/X+nW6/C5KirNqBZ59nKVCZ4wY6w6z+6aadLTpngbY4FbsjkKKP0C?=
+ =?Windows-1252?Q?BNjGGY1GZydK4TAjet8O1BLQkduIQi/ec6oMsYR9iHQoZDPEygI8/vfa?=
+ =?Windows-1252?Q?G6AKYgSs4OCqNRQql00W+7omjy1uB8nVIR/xdgxl/tcABlO99bZOIdaS?=
+ =?Windows-1252?Q?6B3JmKpZTSdvwuns+TEJD6X7/qoA/yRxeN1iamQGGvubj9waSZIsx88J?=
+ =?Windows-1252?Q?6VqnAmmq6cOHq54jB2MPMbeBh27c/x80cqHVBbFMf5C/hz9Rfov0KTq9?=
+ =?Windows-1252?Q?nz/LRvkBX8sByok3oq9tJTT/Db2472Dh/LZtiWnxzoglbHkQPmBEd78r?=
+ =?Windows-1252?Q?nIzMHKn6AqzIDLkydT8BhPSPmDXbmUZs2WIecsIE2yfs5DutiumUO1C1?=
+ =?Windows-1252?Q?RUqVf0T51vMx6ZJfbPeGsRP/SuGgfxO3c1/1WAuJxPnp4HztxDqRnA8d?=
+ =?Windows-1252?Q?2oIP4/Ieg3gTvVas9AaHANL9n0CeoQFNzBBiXt2l2S59yFdD3E/WnzqG?=
+ =?Windows-1252?Q?rziUQiZdLnrR4Vq36KmVNGf8W7fkIOOZGrwsI+k8YNTxh2LR5Fm3VvP9?=
+ =?Windows-1252?Q?+rSUcYzLXNAMbDeL9vx95lO5z3e9iBfVpakpIdVAIlyffXtPF6JehMrc?=
+ =?Windows-1252?Q?eurzMRUaj9b7pb+J/eiZm8NG5OC55vf0nVolz06NcsMU/Qyg6hNSVoyY?=
+ =?Windows-1252?Q?m43PV2FUs/9y/Opbc9/3OvWSFsmKDapAIdowyvey8GQQIULVw0HYAM1H?=
+ =?Windows-1252?Q?icLStUyHzitHT6JL1C/P3gDb/+rXQAh8As4rHsSPu7nWfGhA+WzSvZC9?=
+ =?Windows-1252?Q?Lvq5ime/0K0gPjvJOFcSJEfCQf9gYKA+7Oho0fSrGGjP4AdSj+9TQfqv?=
+ =?Windows-1252?Q?wqFP7jZk5a3AjiU4N0uyCgO7bU0erqL7DbK2XvEvfOdw9mHviYZuFexg?=
+ =?Windows-1252?Q?o7yukKkqMgV6/+HL+wc3fwnrZ8WH8CpdK6fKQrIfYSFv6Vv27oqRBOIQ?=
+ =?Windows-1252?Q?uy3/eUaF86X35WdrPZqC6eOtX4WkGkCBXRgqk6yqAo8UzwLzXV3LOnI+?=
+ =?Windows-1252?Q?KE3n5OUEtNSxzQqD54OnUwEBo8c1+S5bqVXH/L6owwbxwR3ZbUcX26YY?=
+ =?Windows-1252?Q?sjO1V1Z7H4Cz9/6NwCRDKdTyElMMYrz98Ivnj8ZDHVPjEyvaaGHokjLY?=
+ =?Windows-1252?Q?F7LSKfTSkD4IoI+sDOLMVKWsMuE0KFg79HXGDCHLVrTGVSAs1Bf/mtQC?=
+ =?Windows-1252?Q?zOB4k+wjaTj4lUMGvTn3Ih/K7BALulXa3HNgWI7FW+ZmOJjDoFi8Uy0V?=
+ =?Windows-1252?Q?VSNVzpLHN7I0MvYOI4px8etKd+XmC7ug93k8eZ3WNVY=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SI2PR06MB5385.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?Windows-1252?Q?m3gUYAU+3zJfU35JHemxmJtVo3IlHvh51MAEFB5Xp/E9TlJbTKIfMiEP?=
+ =?Windows-1252?Q?SYofzA0B3QhK1gW09GOwzJIOH1kTyegcZSrtB+VrwspdN8DfKPQbEcte?=
+ =?Windows-1252?Q?kioT1xd5BFTsDSUhcofwnb7jcqLldQPq/HkZz4a9q7wdNa7ArIvob2PS?=
+ =?Windows-1252?Q?DGvDoB/ZhekBh2AK48pNvkmeMZM4KN/ptRiOqBi6G0PClXw5YS1TWwaR?=
+ =?Windows-1252?Q?AagLkvgCb2SzQutbzNbaynbeNtZfWEIMRXbzKHOZX25meyHrdydfY+j9?=
+ =?Windows-1252?Q?9Iz79+8JBRJ8iqImVC7vF08UYI9O8y43/0eGvF1h3mgYGHtsiWHOYH9V?=
+ =?Windows-1252?Q?D3h2pdPbdZdBpKr9Xgt7PLCS1eECBiUpstVeOpXeeTOKJ1TbXumoCCxy?=
+ =?Windows-1252?Q?fGKjdtio15FswvzmbhwakQngSyYGrFNw9fnZ8ooTe4FO2q7UZbm3XMrl?=
+ =?Windows-1252?Q?Vhu0kbSA2It1MXbyJ8WQKbhvA2T8k8Xco5qD4v19fFxVoemP7MdoZgx4?=
+ =?Windows-1252?Q?wmcE1SZ5WmrLDq6u25Bn5I4iAqLPhAN8/jSmxINkPuUxpkVukQ8oNZLK?=
+ =?Windows-1252?Q?7hkNLXfbfK8UuGEr2kwFmplIuCKT38tkrowMoe1R3JvPPsb4ybrecDhf?=
+ =?Windows-1252?Q?HhZL33VOIiTIUwFnYPG2Nz1D0vRzB5OfLbPbfcUYBH00fP52biR2NC+E?=
+ =?Windows-1252?Q?ecsHDwGDHIxrh0Ab3Dl+YldPIHZzXEoAKDpuQDJPzRip07v/fLh19lHs?=
+ =?Windows-1252?Q?9ur9RmeqDwLeYqU5XDGIhjRg6OdW+8xd1yD6JSwC5IO+3SpAMCxQiDND?=
+ =?Windows-1252?Q?ZhCpuObjY2/9r70Kp8KHtHsuUW5J3rT2ICgRBEe+TEO8MHdCKZyddLOn?=
+ =?Windows-1252?Q?9RzmuBlLzd+UJLT9muzdPSOqv7R/FUQWuyDcgNW9QgXJelmeYZPvMUAn?=
+ =?Windows-1252?Q?BI0e0qTR9RansaA+VBQ5XjumMJFGSHXZIP+oRr6o3JLw51l1RL98erCH?=
+ =?Windows-1252?Q?NwFvaQYpIF2IbRZT/3f4NGkDsUPNJIw4wkR+OHT6eR31qCz6x8OBEceM?=
+ =?Windows-1252?Q?RFAnJ/YXcvYgW2kRaFxx/5S5u9RALMR9SedQFwIZK5TPpHxQqx3+f7bo?=
+ =?Windows-1252?Q?TalkAbhAvN1Bmxk6z0aVVVSv6N27Q5R8ZYiT4a8iIREBR+5VK7F7ra/i?=
+ =?Windows-1252?Q?xTRMz00pv6VlKt9bw3zaXB0b7yHhoYKO6BQmq9WtRwKEJIuHVvfagdzV?=
+ =?Windows-1252?Q?8Q1BerI7V6acvm4+hTvPMVP2a7/WYMY16ticMVf84UW6J+xN+Wb59MSX?=
+ =?Windows-1252?Q?4LNNu3MVGHMER/vw/V/wzmheDehVYcG38WCxk/9j45ghxE6JMWRc+qv5?=
+ =?Windows-1252?Q?bArzFPGZWgunHEqUzgH1jN3vkQyl7rOfBnJCVZ4kgFwzep9gbAMU8jxy?=
+ =?Windows-1252?Q?gc5SRUTdkx/LaxEzoTIo790A9bEqBZ987w3vdTOCz7w5O3Z5YfQ30u5V?=
+ =?Windows-1252?Q?EX+HX8geHc8NpS2kpbzy68A/ZcJ2iIDZzYf3/J7SrBUXgYhUNzw5IeLc?=
+ =?Windows-1252?Q?VbwfZIWgKmjh10b6G3yFG3EtGMmfc1trjYXZYIrFUoY3bimXyXjsgcKx?=
+ =?Windows-1252?Q?9cNV2cLN0hpVoarLQnfC/aZVYBy87p5lRtdPEwqBoD8Rbzt+4dl6Tvmv?=
+ =?Windows-1252?Q?aWP6XydO1W9y7LkXWohyFbaWLHgudC+6?=
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <e774e811-27ba-4151-b300-e22161f1b4d5@oracle.com>
- <1718940245.6932242-13-hengqi@linux.alibaba.com> <b9e47c91-46aa-4526-b441-de48906f1ae4@oracle.com>
- <1719020069.8729858-17-hengqi@linux.alibaba.com> <f03e76fe-9ee8-4000-b41c-0b284f2f237d@oracle.com>
- <PH0PR12MB54818CFB447152A25130F9B8DCD52@PH0PR12MB5481.namprd12.prod.outlook.com>
- <bca1e5e8-65af-4825-b6fe-2ca3b6c41feb@oracle.com> <20240627123732.0cf541b3.pasic@linux.ibm.com>
- <20240627080346-mutt-send-email-mst@kernel.org> <b57acf4d-84e1-4360-a229-eeb7b3d752fc@oracle.com>
- <20240627181635-mutt-send-email-mst@kernel.org> <3297e270-e9a5-404e-92eb-55fbe6c3f78c@oracle.com>
- <CACGkMEsxP0eKK2DbKVTig8MPW0J7z4o5xSSRtk4JAcOMoXmsPw@mail.gmail.com> <67d0af06-8132-4f0c-afb2-3dbff77ccf10@oracle.com>
-In-Reply-To: <67d0af06-8132-4f0c-afb2-3dbff77ccf10@oracle.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Wed, 3 Jul 2024 14:09:26 +0800
-Message-ID: <CACGkMEu-9d9GLGA1Lsfb9iJWLh2AYmO5p17HEtAdztoGQjLvKA@mail.gmail.com>
-Subject: Re: [PATCH v5] virtio-net: clarify coalescing parameters settings
-To: Si-Wei Liu <si-wei.liu@oracle.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Halil Pasic <pasic@linux.ibm.com>, Parav Pandit <parav@nvidia.com>, 
-	Heng Qi <hengqi@linux.alibaba.com>, Cornelia Huck <cohuck@redhat.com>, 
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: jaguarmicro.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SI2PR06MB5385.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8bf50575-5130-45b4-27e3-08dc9b2ca57e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2024 06:52:03.6960
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 1e45a5c2-d3e1-46b3-a0e6-c5ebf6d8ba7b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PlIbNFTtcC98CYTj0sC8qrgxDK2TEOs+V5nPlznycENF7GPQHyvRp4NKeY/JsfddWN6oQprtiJo+EuibNurv3t3/dyIJaJiEdgWpRTMrpzk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6351
 
-On Sat, Jun 29, 2024 at 3:32=E2=80=AFAM Si-Wei Liu <si-wei.liu@oracle.com> =
-wrote:
->
->
->
-> On 6/28/2024 1:23 AM, Jason Wang wrote:
-> > On Fri, Jun 28, 2024 at 2:57=E2=80=AFPM Si-Wei Liu <si-wei.liu@oracle.c=
-om> wrote:
-> >>
-> >>
-> >> On 6/27/2024 3:18 PM, Michael S. Tsirkin wrote:
-> >>> On Thu, Jun 27, 2024 at 10:14:49AM -0700, Si-Wei Liu wrote:
-> >>>> On 6/27/2024 5:35 AM, Michael S. Tsirkin wrote:
-> >>>>> On Thu, Jun 27, 2024 at 12:37:32PM +0200, Halil Pasic wrote:
-> >>>>>> On Tue, 25 Jun 2024 18:14:15 -0700
-> >>>>>> Si-Wei Liu <si-wei.liu@oracle.com> wrote:
-> >>>>>>
-> >>>>>>> On 6/24/2024 10:56 PM, Parav Pandit wrote:
-> >>>>>> [..]
-> >>>>>>>> I saw the need of this proposal slightly differently in the disc=
-ussion with Heng in v4.
-> >>>>>>>> The way I understood is, proposed relaxation enables below Linux=
- driver flow to work as equally as without device offering VIRTIO_NET_F_VQ_=
-NOTF_COAL.
-> >>>>>>>>
-> >>>>>>>> Flow is:
-> >>>>>>>> 1. The device offered feature VIRTIO_NET_F_VQ_NOTF_COAL
-> >>>>>>>> 2. The virtio-net driver negotiated VIRTNET_FEATURES that has VI=
-RTIO_NET_F_VQ_NOTF_COAL
-> >>>>>>>>
-> >>>>>>>> 3. Because VIRTIO_NET_F_VQ_NOTF_COAL is negotiated, device is no=
-t applying any coalescing on the VQ, in a good hope that driver will perfor=
-m VQ notification coalescing.
-> >>>>>> I have certainly understood this differently. When
-> >>>>>> VIRTIO_NET_F_VQ_NOTF_COAL is not negotiated then the device is not=
- supposed/allowed to do any interrupt coalescing (notification suppression =
-may still apply).
-> >>>>>>
-> >>>>>> If VIRTIO_NET_F_VQ_NOTF_COAL is negotiated the device is supposed
-> >>>>>> to/MUST do the coalescing according to the parameters as described=
- by
-> >>>>>> the virtio spec.
-> >>>>>>
-> >>>>>> Michael, Jason: Can you guys weigh in on this?
-> >>>>> I still don't understand why this change is needed.
-> >>>>> We have this text:
-> >>>>>
-> >>>>>      The device may generate notifications more or less frequently =
-than
-> >>>>>      specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL cla=
-ss.
-> >>>>>
-> >>>>> and
-> >>>>>
-> >>>>>      The behavior of the device in response to set commands of the =
-VIRTIO_NET_CTRL_NOTF_COAL class is best-effort:
-> >>>>>      the device MAY generate notifications more or less frequently =
-than specified.
-> >>>>>
-> >>>>> So with no spec changes, devices already can do what this patch say=
-s they can do -
-> >>>>> send notifications less frequently.
-> >>>> Right. If I still recall it correctly, the above text was to accommo=
-date the
-> >>>> interaction with existing used buffer notification mechanism, F_EVEN=
-T_IDX or
-> >>>> whatnot.
-> >>>> When coalescing is in place and effective, interrupt delivery is a
-> >>>> collaborative consideration based on the coalescing parameters speci=
-fied
-> >>>> *AND * event index / NO_INTERRUPT flag as well.
-> >>> No, not really.
-> >>>
-> >>> For that we have the next sentence:
-> >>>
-> >>> A device SHOULD NOT send used buffer notifications to the driver if t=
-he notifications are suppressed, even if the notification conditions are me=
-t.
-> >>>
-> >>>
-> >>> And of course event index never makes you send interrupts
-> >>> more frequently.
-> >> Hmmm, this next sentence you reference above was indeed for the
-> >> interaction between coalescing and used buffer suppression. Then what'=
+hi,
+
+> > +\subsection{Used Buffer Event Enable Notifications} \label{sec:Basic
+> Facilities of a Virtio Device / Driver notifications / Used Buffer Event =
+Enable
+> Notifications}
+> > +This kind of notification is only necessary when
+> VIRTIO_F_USED_EVENT_AUTO_DISABLE has been negotiated.
+>=20
+> This is not how you start a section. Some text from commit log
+> might be helpful here.
+OK, will add some explanations in V2.
+
+
+> > +\item [enable_notify] Whether to enable used buffer notification.
+> > +      The driver may benefit from just informing device the latest use=
+d
+> ring entry
+> > +      it has processed, but not enabling used buffer notification. Thi=
+s field
+> only
+> > +      occupies one bit, if set to 1, it will enable used buffer notifi=
+cation,
+> otherwise not.
+>=20
+> not what?
+Not enable used buffer notification. It means that if enable_notify field i=
 s
-> >> the best-effort part was about, really? Round-up or round down the set
-> >> value to the power of 2 to save space? How is it relevant to our
-> >> discussion? I think even with rounding it shouldn't be too off? (as
-> >> said, by best-effort v.s. give up)
-> > Would it help if we add something like below in the guidance?
-> >
-> > When the device wants to send a notification it needs:
-> >
-> > 1) check notification suppression, don't send interrupt if it is
-> > suppressed otherwise goto 2)
-> > 2) check event index, don't send interrupt if event index is not
-> > crossed otherwise goto 3)
-> > 3) check coalescing, don't send interrupt if the coalescing limit is
-> > not exceed, otherwise send the interrupt
-> >
-> > (Just to demonstrate the idea, needs tweaking for sure)
-> Yeah, this looks good to me, in principle. I recall there was detailed
-> description like this in the early revisions from the first set of
-> coalescing proposal, but those useful descriptions were gone for some
-> reason. We should really come up with clear clarifications to help
-> readers set expectation rather than being vague or worrying too much
-> about verbosity.
+zero, only info about the latest used ring entry the driver has processed
+is passed to device, and device is still not allowed to send used buffer no=
+tification.
+>=20
+> > +\end{description}
+> > +
+>=20
+>=20
+> I don't really understand what is this list supposed to mean.
+> You seem to be defining a bunch of fields which are never used?
+>=20
+>=20
+> Wouldn't a better way to put all this be to say that
+> the driver sends a copy of notification suppression
+> info to device?
+> In case of split - flags  + used_event
+> In case of packed - struct pvirtq_event_suppress
+Sorry, I should write as you suggest, will improve these descriptions.
 
-Yes.
+>=20
+> > +  Note: when VIRTIO_F_RING_PACKED has not been negotiated, the
+> maximum queue
+> > +  size MUST NOT be greater than 16384, when VIRTIO_F_RING_PACKED has
+> been negotiated,
+> > +  the maximum queue size MUST NOT be greater than 16383.
+>=20
+> This is not the place for this kind of note.
+Ok, seems they should be beside above used notify suppressions descriptions
 
-> I was having a hard time in understanding what the
-> best-effort part is about...
+>=20
+>=20
+> each term has to be first explained, then used.
+> you never bother saying what is "Queue Notify address for enabling
+> used buffer notifications"
+>=20
+> > but add a 4 bytes offset:
+> > +\begin{lstlisting}
+> > +        cap.offset + queue_notify_off * notify_off_multiplier + 4
+>=20
+> quite a hack. why not just a new capability?
 
-Being verbose might be helpful for vendors. Otherwise the may guess
-(since we don't have a reference software implementation so far).
+Parav Pandit had suggested to add a new capability in my initial RFC patch,=
+ and Initially I also
+intended to add new PCI capability to describe this new notification area, =
+but found that this
+new capability would be similar to virtio_pci_notify_cap, and will introduc=
+e many duplicate
+descriptions in virtio spec doc. If we choose to extent current notificatio=
+n area, there're no needs
+to touch current pci capability, the corresponding queue notify address to =
+enable
+used buffer notification within a BAR for a virtqueue would look like below=
+:
+  cap.offset + queue_notify_off * notify_off_multiplier + 4
 
-Thanks
+See https://lore.kernel.org/all/SI2PR06MB53850CBD8F76EDC65DF2DD38FF7C2@SI2P=
+R06MB5385.apcprd06.prod.outlook.com/
 
->
-> -Siwei
+Anyway, I'm ok to add a new capability, which will make the logic much clea=
+ner.
+> > +
+> >  \subsubsection{ISR status capability}\label{sec:Virtio Transport Optio=
+ns /
+> Virtio Over PCI Bus / PCI Device Layout / ISR status capability}
 > >
-> > THanks
-> >
-> >
-> >> -Siwei
-> >>
-> >>>>> Re-reading this spec text, maybe the confusion is that it mentions =
-set
-> >>>>> commands specifically? And it's also stuck in the middle where it's=
- easy
-> >>>>> to miss.
-> >>>>>
-> >>>>> So it would seem that the following should be sufficient, and it lo=
-oks
-> >>>>> like a small clarification we could just apply and include in the
-> >>>>> vote for the csd. What do you guys think?
-> >>>> The revised text below looks good to me.
-> >>>>
-> >>>> Thanks,
-> >>>> -Siwei
-> >>>>> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> >>>>>
-> >>>>> ----
-> >>>>>
-> >>>>>
-> >>>>> diff --git a/device-types/net/description.tex b/device-types/net/de=
-scription.tex
-> >>>>> index 76585b0..d6788df 100644
-> >>>>> --- a/device-types/net/description.tex
-> >>>>> +++ b/device-types/net/description.tex
-> >>>>> @@ -1711,8 +1711,6 @@ \subsubsection{Control Virtqueue}\label{sec:D=
-evice Types / Network Device / Devi
-> >>>>>                                             for an enabled transmit=
-/receive virtqueue whose index is \field{vq_index}.
-> >>>>>     \end{enumerate}
-> >>>>> -The device may generate notifications more or less frequently than=
- specified by set commands of the VIRTIO_NET_CTRL_NOTF_COAL class.
-> >>>>> -
-> >>>>>     If coalescing parameters are being set, the device applies the =
-last coalescing parameters set for a
-> >>>>>     virtqueue, regardless of the command used to set the parameters=
-. Use the following command sequence
-> >>>>>     with two pairs of virtqueues as an example:
-> >>>>> @@ -1726,6 +1724,9 @@ \subsubsection{Control Virtqueue}\label{sec:D=
-evice Types / Network Device / Devi
-> >>>>>     \item Command6: VIRTIO_NET_CTRL_NOTF_COAL_VQ_GET with \field{vq=
-_index} =3D 1, the device responds with coalescing parameters of index 1 se=
-t by command5.
-> >>>>>     \end{itemize}
-> >>>>> +The device can generate notifications more or less frequently
-> >>>>> +than specified by the coalescing parameters.
-> >>>>> +
-> >>>>>     \subparagraph{Operation}\label{sec:Device Types / Network Devic=
-e / Device Operation / Control Virtqueue / Notifications Coalescing / Opera=
-tion}
-> >>>>>     The device sends a used buffer notification once the notificati=
-on conditions are met and if the notifications are not suppressed as explai=
-ned in \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Used Buf=
-fer Notification Suppression}.
-> >>>>> @@ -1798,7 +1799,7 @@ \subsubsection{Control Virtqueue}\label{sec:D=
-evice Types / Network Device / Devi
-> >>>>>     Upon disabling and re-enabling a receive virtqueue, the device =
-MUST set the coalescing parameters of the virtqueue
-> >>>>>     to those configured through the VIRTIO_NET_CTRL_NOTF_COAL_RX_SE=
-T command, or, if the driver did not set any RX coalescing parameters, to 0=
-.
-> >>>>> -The behavior of the device in response to set commands of the VIRT=
-IO_NET_CTRL_NOTF_COAL class is best-effort:
-> >>>>> +The behavior of the device in response to specific coalescing para=
-meters is best-effort:
-> >>>>>     the device MAY generate notifications more or less frequently t=
-han specified.
-> >>>>>     A device SHOULD NOT send used buffer notifications to the drive=
-r if the notifications are suppressed, even if the notification conditions =
-are met.
-> >>>>>
->
+> >  The VIRTIO_PCI_CAP_ISR_CFG capability
+>=20
+>=20
+> After reading this and the text, I can't figure out how is this feature
+> supposed to work without races.  What if the device uses a buffer while
+> the driver notification is in flight to the device?
+Hmm, I think it doesn't matter, Only the used buffer enable notification is
+transmitted to device successfully, device starts to judge whether it's tim=
+e
+to send used buffer notification to driver according to its internal interr=
+upt policy.
+
+Regards,
+Xiaoguang Wang
+>=20
+> > --
+> > 2.34.1
 
