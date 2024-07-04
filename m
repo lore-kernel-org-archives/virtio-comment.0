@@ -1,194 +1,235 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA82B4431
-	for <virtio-comment@lists.linux.dev>; Thu,  4 Jul 2024 08:31:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0643D1A4F15
+	for <virtio-comment@lists.linux.dev>; Thu,  4 Jul 2024 08:39:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720081869; cv=none; b=AY7dAGxrEhqu5CasrXS11BDB/wtIyUf1BRy6Iaz+KqGpF+0b4wbZVysXryuqeM1n+oZkqkCvxsq/Q6z/nEMFEka+0BN3vGkwTZbLPDCsPovfQg+M3reSg1DMqaJ7wT8JP5A0ZRv5Ond9i7Wf4wN8YYExhcZ9TNWRRxxGngVHboE=
+	t=1720082387; cv=none; b=aBzJw4O8LesyhxE4N59ohce9fUqI9mU77GAwhtJbfvpBC0B5ylTRg+108Yq4mzTpV3b+IP+W9gR9LuXiYb5BukrXYFQ8bgKlwVEbSSw7Tk68Yppkl2s5f/Ek8Yysu2bQyIWHFQaWc+AiauFoYVRQtlyxZsb3iVwzNdREeHgulQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720081869; c=relaxed/simple;
-	bh=/vHIJcstSO3lDo2UNi1Bbmm3PGbRNvK5qr3LkOQ/6N0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=FA5vDccHAlOc6+nsIYc9rSXBTIiundjSTj7u3I9ENo3B6noitnsIT44LxqfJjgOLcMndZUQK+1v1Dujd/H//7XMXQj7/OL09b2cxWDrQtP8B3aKrqz0u8E4O6wzGcVQcxhzRjknvmfUyo9wqZD+ECMT42OUR8nhN/czu8YnnHjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WgIjhaqx; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1720082387; c=relaxed/simple;
+	bh=GySBMUJqoNvbYL3v64thXSpwREKPy9oGZoU3c87XFdU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BWiTKb3CGVH+/D6wWBCxhEV0qvE1gSAcoVh8C2rLT6cWNLfetro2n2lTM7dcCOiTjuK7x5DCmOoGBw1hqwhCf3SJmNvl4tt51elZqZDnIojt0Ci4SpZBHHNew22UqdoLhNvj+pV8k5A4bURxUhHHeaJEzdxau+G/65a24OkvzJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=G/ncxDfC; arc=none smtp.client-ip=209.85.167.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WgIjhaqx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1720081866;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xJsAGr66C0GtgJkJEjjKuOMo258MORCYOfAeHYDiiiQ=;
-	b=WgIjhaqxU0rqmT+AuzPHUdr/+ih90NMRz8BFY9i5kQQhEIitfrLDnynm8fp3G4ItLR7sHK
-	rdarl8qFMFoxvMnY37BiP8suyzp1Tluy0x5yHz+78T/g27FPUWrNWDilOfAMCFxWimM1lY
-	54XcH0B8bUNOf10TImdHvAWD0zWiDds=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-331-ujNQKpqcM1-XuHcFVzbrIA-1; Thu, 04 Jul 2024 04:31:03 -0400
-X-MC-Unique: ujNQKpqcM1-XuHcFVzbrIA-1
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-42566e8a995so2923345e9.0
-        for <virtio-comment@lists.linux.dev>; Thu, 04 Jul 2024 01:31:03 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="G/ncxDfC"
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-52ea0f18500so252366e87.3
+        for <virtio-comment@lists.linux.dev>; Thu, 04 Jul 2024 01:39:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1720082383; x=1720687183; darn=lists.linux.dev;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=040DzJvcHthrZzCPxg78Mki90SyzLj3HnXV1U7EgP1w=;
+        b=G/ncxDfCWez/CSyp2aEr0Hi1fsGJDA9pECZuZnO746CMrhdMKHeOhoq1mQcaRZFCPO
+         7PUrgorMq8WHbbJLk9oRDx/I7KFCikh0uUfkQjazUHPEWoneATGo/fEdC125QLW5qclP
+         V091lRvpiEh/TPoCmsvR8G3/K76SaHRRofYd8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720081862; x=1720686662;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xJsAGr66C0GtgJkJEjjKuOMo258MORCYOfAeHYDiiiQ=;
-        b=qmW+PS4jUTSy3Dhef0NjVDrIYuEYpqFnLTUiQKxGWC3YZSZS4nzEsahXWV8/o9tN72
-         JfDvt6PKMdlWfPzvyxDbZX+mpWqs3w8EHdGxixVT6QSX7LlWl8BPPmOMmpsv6rrPR2Zf
-         well7pu9JOKjsBpZQ0WqM5phJK1EsuDcuPIRSDy3d2ShmwHcJp3lcSOTW5nSXP0mgsHw
-         H3xfUldPhNuxE8IxLODvfTyn4epMtG6xf06cxL7HDik/3x7kzKsQLhLhf0zn8ycGoJY0
-         meOEnxKOSvSZbkjqc6A14Xo+NOlKvVRxqaRJw0EQtBrihm5BVyJGcrH42h3M3prPRj6N
-         WViQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUJLQIUhdk504EDtt98W32kSyc6PjWY1HyPzHAaCx1cUki7XDiNPr9PFv5brk1OAj5qx5/1LqbhFrxPkgubdm640HJjJLsb3KgdyZJhCc4=
-X-Gm-Message-State: AOJu0Yw2ieHTj9GnpDYNdp8J7y5qBOOqfvmbmDi6k4G3Bn9YrBrx91E7
-	7QXicijiSenS/HhXarsPpl5TmZJatQTyss+kWVLltK6pYmWi7getxIODpryAhzxYIx2ZyD+AAbL
-	YKUFBB9ndD6e9WhSewQwEmCeamvUnlOTYTdQjtPPLNcTBhtmLtLVHWqiS7G3IcZ9U
-X-Received: by 2002:a05:600c:2d8b:b0:425:68f0:621b with SMTP id 5b1f17b1804b1-4264a468a9cmr7082305e9.27.1720081862060;
-        Thu, 04 Jul 2024 01:31:02 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGb51PxG/jhd8QZQum8J2RPp3WtH9wkXXzPYo/CYgkwArrUYu5OMS/gApsNlOuF15qs5ENU1Q==
-X-Received: by 2002:a05:600c:2d8b:b0:425:68f0:621b with SMTP id 5b1f17b1804b1-4264a468a9cmr7082055e9.27.1720081861489;
-        Thu, 04 Jul 2024 01:31:01 -0700 (PDT)
-Received: from redhat.com ([2a02:14f:1f7:82e2:c2d2:c800:4b76:dc98])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4264a21cc59sm14352265e9.25.2024.07.04.01.30.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Jul 2024 01:31:00 -0700 (PDT)
-Date: Thu, 4 Jul 2024 04:30:57 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Jason Wang <jasowang@redhat.com>
-Cc: Lege Wang <lege.wang@jaguarmicro.com>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	"vattunuru@marvell.com" <vattunuru@marvell.com>,
-	"ndabilpuram@marvell.com" <ndabilpuram@marvell.com>,
-	"parav@nvidia.com" <parav@nvidia.com>,
-	Leo Liu <leo.liu@jaguarmicro.com>,
-	Angus Chen <angus.chen@jaguarmicro.com>
-Subject: Re: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer
- notification suppression mechanism
-Message-ID: <20240704042308-mutt-send-email-mst@kernel.org>
-References: <20240701034435.675-1-lege.wang@jaguarmicro.com>
- <CACGkMEvrHNnjdgC6Ls=YWRPFxpirCFkbf8_VnNsh-VU4NoK3tw@mail.gmail.com>
- <SI2PR06MB53850C468CF18A489A6E1ED4FFDD2@SI2PR06MB5385.apcprd06.prod.outlook.com>
- <CACGkMEtzcaUAauzpUdwjS6MEzF-suGLRv5+7cX4PeoAaqEP9hg@mail.gmail.com>
- <SI2PR06MB5385A261415EB70720DA5749FFDD2@SI2PR06MB5385.apcprd06.prod.outlook.com>
- <CACGkMEs46tCCqCcoeJ0nqOn6SRk0qqS72GSwgyt2m5p4BvNnrQ@mail.gmail.com>
- <20240703042922-mutt-send-email-mst@kernel.org>
- <CACGkMEs=ZJdz9=7qNxPMwEk+h3HGTSU3r-R-VfAERXavn_bW_A@mail.gmail.com>
- <20240703050143-mutt-send-email-mst@kernel.org>
- <CACGkMEtgAD4mPLpf4fLAsVzzUGvbx1+XTxyGLtMSOJzHp-JtGA@mail.gmail.com>
+        d=1e100.net; s=20230601; t=1720082383; x=1720687183;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=040DzJvcHthrZzCPxg78Mki90SyzLj3HnXV1U7EgP1w=;
+        b=RbuTyEMXqawU67LmQOX17g4CLZLBAXGZpvf+jEEfjDCzljPXPDMbIWgjrcG4tkryko
+         jGbEQcPbPW/XyTrfqNvAlnGsyMrpB2VFew1WbtgGYRd/QEUaL2OglN6BrVqkML2xB0MI
+         +j4l8sBpfh7JLfx1JXuXxHoU4ufanMh/2oHPOc1174JxNSKT3hM890WJqvLiNEUo4zkd
+         BaV3DLM5aCB6HHrQJas8leC1jIuPcmJaRHgAJJ9RQYaL0b6GIGn+LYb9+zPDdo+jh0ct
+         qn8gnFBisTcrViUSmqiXJkS3enyBgFonLyDbBLALpjxg07weYGQJ5tCcvo34hcSaRjSY
+         FKkQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVFtfkRkUwx+JFfNFWkq77rfYV4eKyU2uYp9Y2yvhkXU7JOxcTu1YHjFaoSRkHich8HpMKdQC1dqtfl5gV/o6nvdPIo3i66FKKmdIWAXyA=
+X-Gm-Message-State: AOJu0YzgmX0gu/Sp/TcQbJBiCIzBmM688LJJm5YnHcslTjXQohvpeXZ9
+	969SIRN5Vxqo+CHf+dHvyIW7k+xqWJwOAmE5mYChD8/0ZG9S6OCm87uWEaJLxtZaB3EIzs0AhHd
+	Os57jAsyPmis5fuvKLuklWn2Rtoe27pM/RI7K
+X-Google-Smtp-Source: AGHT+IFYbGoOMRQaEJsBh4ULt54Zgj2yrF1y18Vm65heDO6YTlngIMVJGZNQwBFvfUkmME6Zkgbvg7UCxg+oAYKIDeE=
+X-Received: by 2002:a05:6512:716:b0:52c:dec1:4578 with SMTP id
+ 2adb3069b0e04-52ea06ebef5mr557814e87.60.1720082383102; Thu, 04 Jul 2024
+ 01:39:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <CACGkMEtgAD4mPLpf4fLAsVzzUGvbx1+XTxyGLtMSOJzHp-JtGA@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+References: <20240703031057.37565-1-lingshan.zhu@amd.com> <20240703044005-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20240703044005-mutt-send-email-mst@kernel.org>
+From: David Stevens <stevensd@chromium.org>
+Date: Thu, 4 Jul 2024 17:39:32 +0900
+Message-ID: <CAD=HUj6uxtq2WobmAaOeOk4UR-TeZ0nHL8SeE9MnuDaap5uY+A@mail.gmail.com>
+Subject: Re: [RESEND PATCH v6] virtio: introduce SUSPEND bit in device status
+To: "Michael S. Tsirkin" <mst@redhat.com>, Cornelia Huck <cohuck@redhat.com>
+Cc: Zhu Lingshan <lingshan.zhu@amd.com>, jasowang@redhat.com, 
+	virtio-comment@lists.linux.dev, Zhu Lingshan <lingshan.zhu@intel.com>, 
+	=?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 04, 2024 at 01:37:44PM +0800, Jason Wang wrote:
-> On Wed, Jul 3, 2024 at 5:09 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+On Wed, Jul 3, 2024 at 6:01=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com> =
+wrote:
+>
+> On Wed, Jul 03, 2024 at 11:10:57AM +0800, Zhu Lingshan wrote:
+> > This commit allows the driver to suspend the device by
+> > introducing a new status bit SUSPEND in device_status.
 > >
-> > On Wed, Jul 03, 2024 at 04:47:41PM +0800, Jason Wang wrote:
-> > > On Wed, Jul 3, 2024 at 4:36 PM Michael S. Tsirkin <mst@redhat.com> wrote:
-> > > >
-> > > > On Wed, Jul 03, 2024 at 03:59:11PM +0800, Jason Wang wrote:
-> > > > > On Wed, Jul 3, 2024 at 3:37 PM Lege Wang <lege.wang@jaguarmicro.com> wrote:
-> > > > > >
-> > > > > > hi,
-> > > > > >
-> > > > > > > > >
-> > > > > > > > > 1) With the event index, as long as the used index doesn't pass used
-> > > > > > > > > events you don't need to fetch even index every time
-> > > > > > > > Yeah, I agree VIRTIO_F_EVENT_IDX could help here, but I think it's a relatively
-> > > > > > > > crude mechanism, I have two questions below:
-> > > > > > > >   1. Used event notification suppression structure is still located in
-> > > > > > > >   host memory(in dpu case), I'm not sure whether used_event would
-> > > > > > > >   be allowed to update in the running of one virtio device,
-> > > > > > >
-> > > > > > > What did you mean by "update" here?
-> > > > > > I mean "modify".
-> > > > > >
-> > > > > > >
-> > > > > > > >   If it's allowed,
-> > > > > > > >   seems devices still need to fetch newest used_event info timely.
-> > > > > > >
-> > > > > > > It depends on how you define "timely", I mean unless the used event is
-> > > > > > > not crossed, you don't need to fetch it from the main memory?
-> > > > > > Yes, I got your point here.
-> > > > > > >
-> > > > > > > But basically, I meant putting used_event in a cap/register other than
-> > > > > > > inventing something completely new.
-> > > > > > Sorry, I don't get your point here. What does " cap/register " mean, used_event
-> > > > > > Is located in main memory, right?
-> > > > >
-> > > > > I meant something like this.
-> > > > >
-> > > > > Introduce a capability to allow the driver to duplicate used_event in
-> > > > > the register. And say when the feature is negotiated, the driver MUST
-> > > > > update both used_event in the memory and the register.
-> > > > >
-> > > > > Not saying it can work, but we need to know why it can't work like this.
-> > > >
-> > > > Well I feel if you are proposing a mechanism it's up to you to
-> > > > explain how it works without races.
-> > >
-> > > I agree, that's why I'm saying "Not saying it can work". But what I
-> > > meant is really to find a way to reuse the event index instead of
-> > > introducing something completely new.
-> > >
-> > > > The current notification suppression works because the read
-> > > > of the notification by the device flushes out used buffer writes by
-> > > > the device.
-> > >
-> > > You meant read after write is ordered by PCI?
+> > This commit also introduce a new feature bit VIRTIO_F_SUSPEND
+> > which indicating whether the device support SUSPEND.
 > >
-> > pci read responses do not bypass writes, yes.
+> > Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
+> > Signed-off-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
+> > Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+> > Signed-off-by: David Stevens <stevensd@chromium.org>
+>
+> Your signature would normally be last.
+>
+>
+> > ---
+> >  content.tex | 71 +++++++++++++++++++++++++++++++++++++++++++++--------
+> >  1 file changed, 61 insertions(+), 10 deletions(-)
+>
+> At a high level, I think this is somewhat overspecified.
+> Generally e.g. if driver is forbidden from accessing
+> a field, then we do not also add specific requirements for
+> devices - with no driver doing this, such functionality will
+> remain untested and unused, and when we finally decide we need
+> it it's not going to be there.
+> Similarly for when device is not touching a field - no
+> reason for driver not to touch it.
+>
+>
+> > diff --git a/content.tex b/content.tex
+> > index 0a62dce..8c974d3 100644
+> > --- a/content.tex
+> > +++ b/content.tex
+> > @@ -36,19 +36,22 @@ \section{\field{Device Status} Field}\label{sec:Bas=
+ic Facilities of a Virtio Dev
+> >      this bit.  For example, under Linux, drivers can be loadable modul=
+es.
+> >    \end{note}
 > >
-> > > > If you move it to a separate domain (such as the pci bar of the device)
-> > > > this no longer holds.
-> > >
-> > > Would this be implementation specific details or could it be done by PCI?
+> > -\item[FAILED (128)] Indicates that something went wrong in the guest,
+> > -  and it has given up on the device. This could be an internal
+> > -  error, or the driver didn't like the device for some reason, or
+> > -  even a fatal error during device operation.
+> > +\item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
+> > +  drive the device.
 > >
-> > what do you want done by PCI? Generally if things are in one place
-> > they are easier to synchronize, if you spread them around you
-> > need to synchronize them.
-> 
-> I meant the synchronization looks more like an implementation detail
-> in the device.  Synchronizing with device internal logic should be
-> simpler than with PCI/memory.
-> 
-> For example, did you mean the synchronization between driver write to
-> register (PCI write) and device read from that (internal logic). If
-> needed, an implementation needs to serialize those two, then we are
-> probably fine.
-> 
-> Thanks
+> >  \item[FEATURES_OK (8)] Indicates that the driver has acknowledged all =
+the
+> >    features it understands, and feature negotiation is complete.
+> >
+> > -\item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
+> > -  drive the device.
+> > +\item[SUSPEND (16)] When VIRTIO_F_SUSPEND is negotiated, indicates tha=
+t the
+> > +  device has been suspended by the driver.
+> >
+> >  \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experienc=
+ed
+> >    an error from which it can't recover.
+> > +
+> > +\item[FAILED (128)] Indicates that something went wrong in the guest,
+> > +  and it has given up on the device. This could be an internal
+> > +  error, or the driver didn't like the device for some reason, or
+> > +  even a fatal error during device operation.
+> >  \end{description}
+> >
+> >  The \field{device status} field starts out as 0, and is reinitialized =
+to 0 by
+> > @@ -60,8 +63,9 @@ \section{\field{Device Status} Field}\label{sec:Basic=
+ Facilities of a Virtio Dev
+> >  initialization sequence specified in
+> >  \ref{sec:General Initialization And Device Operation / Device
+> >  Initialization}.
+> > -The driver MUST NOT clear a
+> > -\field{device status} bit.  If the driver sets the FAILED bit,
+> > +The driver MUST NOT clear a \field{device status} bit other than SUSPE=
+ND
+> > +except when setting \field{device status} to 0 as a transport-specific=
+ way to
+> > +initiate a reset. If the driver sets the FAILED bit,
+> >  the driver MUST later reset the device before attempting to re-initial=
+ize.
+> >
+> >  The driver SHOULD NOT rely on completion of operations of a
+> > @@ -99,10 +103,10 @@ \section{Feature Bits}\label{sec:Basic Facilities =
+of a Virtio Device / Feature B
+> >  \begin{description}
+> >  \item[0 to 23, and 50 to 127] Feature bits for the specific device typ=
+e
+> >
+> > -\item[24 to 41] Feature bits reserved for extensions to the queue and
+> > +\item[24 to 42] Feature bits reserved for extensions to the queue and
+> >    feature negotiation mechanisms
+> >
+> > -\item[42 to 49, and 128 and above] Feature bits reserved for future ex=
+tensions.
+> > +\item[43 to 49, and 128 and above] Feature bits reserved for future ex=
+tensions.
+> >  \end{description}
+> >
+> >  \begin{note}
+> > @@ -629,6 +633,49 @@ \section{Device Cleanup}\label{sec:General Initial=
+ization And Device Operation /
+> >
+> >  Thus a driver MUST ensure a virtqueue isn't live (by device reset) bef=
+ore removing exposed buffers.
+> >
+> > +\section{Device Suspend}\label{sec:General Initialization And Device O=
+peration / Device Suspend}
+> > +
+> > +When VIRTIO_F_SUSPEND is negotiated, the driver can set the
+> > +SUSPEND bit in \field{device status} to suspend a device, and can
+> > +clear the SUSPEND bit to resume a suspended device.
+> > +
+> > +\drivernormative{\subsection}{Device Suspend}{General Initialization A=
+nd Device Operation / Device Suspend}
+> > +
+> > +The driver MUST NOT set SUSPEND if FEATURES_OK is not set or VIRTIO_F_=
+SUSPEND is not negotiated.
+> > +
+> > +Once the driver sets SUSPEND to \field{device status} of the device:
+> > +\begin{itemize}
+> > +\item The driver MUST re-read \field{device status} to verify whether =
+the SUSPEND bit is set.
+>
+> If it's not set, then what? Device error, have to reset?
+>
+>
+> > +\item The driver MUST NOT make any more buffers available to the devic=
+e.
+> > +\item The driver MUST NOT access any fields of any virtqueues or send =
+notifications for any virtqueues.
+>
+> what are these "fields"? the area in memory where the vq lives? why is
+> doing that a problem - you want device to be able to write something
+> there?
+>
+> > +\item The driver MUST NOT access Device Configuration Space except for=
+ the field \field {device status},
+> > +if it is implemented in the Config Space.
+>
+> what is "the Config Space"? device status is never in
+> a device configuration space, it is part of the common configuration.
+> so what exactly are you forbidding here?
 
-I mean synchronization between driver write to device and
-device write to memory.
+IIUC, referring to the common configuration here wouldn't make sense.
+The common configuration is part of the PCI transport specification,
+so in this part of the specification it should only be referred to via
+the "transport specific" phrasing. This wording appears to be taken
+from Cornelia's feedback on v5. Specifically:
 
+> > +\item The driver MUST NOT access Device Configuration Space.
+> ...except for the status field, if it is part of the config space?
 
+I asked for clarification [1], because Cornelia's feedback seems to
+contradict your feedback here and on the (unfortunately unarchived) v3
+patch. What is the definitive statement agreed upon by both editors of
+the virtio specification as to whether or not the device status field
+is part of the device configuration space?
 
-What I see working, is something I proposed a long time ago:
-notify devices about changes to the notification suppression
-area. This adds more overhead
-driver notify -> device read -> memory read response
-but I think it works.
+[1] https://lore.kernel.org/all/CAD=3DHUj4RBeLS4L=3DehyPGtejeu+sGZ5j8PRtrK8=
+AvxjEgEBd5ZA@mail.gmail.com/
 
-What I couldn't decide, is whether it's worth sending a notification
-when switching from enable to disable with packed ring.
-
-
-
--- 
-MST
-
+-David
