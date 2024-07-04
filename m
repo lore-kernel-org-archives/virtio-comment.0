@@ -1,183 +1,224 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC363DDA9
-	for <virtio-comment@lists.linux.dev>; Thu,  4 Jul 2024 05:37:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E700918637
+	for <virtio-comment@lists.linux.dev>; Thu,  4 Jul 2024 08:04:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720071481; cv=none; b=uIrH+qtiImL+PEyXTN8x7YApWupvGVlGqYSFOe3xA+TlHr+icx8IZ2kRcp4TRHtlzZeqvGP+KaAITzckrSqkKEr0OU471fltxRGw7QrjzMQsc3kHn3AsTML4EqHUQfbB0XwL4oSUlZhdbgJqdUCmjffo3VYi/GgJKQ9F6m3dHqY=
+	t=1720080254; cv=none; b=N1J61CwFviiEr6ZUZSuyg2yKyV4WIDYIVbxb+8S5RsgkgZPuXZSj5vUs7SC94n0UrSVsGCeY6ClZViEdXyFXkY+9y7BcYwUwzNea4ynibIQiuw2/yKq6R1IPbY8CsJ9umxSVg7svk5W7Va9kLFZ+x5maSOQ+9vdKS7K2pgtowvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720071481; c=relaxed/simple;
-	bh=SjWe6MhzMKhtshkKY+nR5R/kYZ/P6AciI0/7x6VhEPU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ht//ItqvwTvK4ma8Rj8xMPUCD+rxDue1cXu4kTk61wWuBS6/uRyfu2R87e+fxhpxjWVxfVezGoKpHLG5rl5gn4bb9sMsU5FNDO0gSl5otGzuEgfmv8Uv651yiraZvGd2urk47u9L8BqCxENcHxvV0GnfA5H8LHFxh5ezFPFFvKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=f0uVUWTD; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1720080254; c=relaxed/simple;
+	bh=jzLVUfn5gPWI8QQTZbMqvOminNs1eB5ZpehqdCNe+5g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=PgWJ4+osGYioL3lMVH/AjMGIyFWI813AM4nW1KdC0NfwOF5E/+WqmRVyb7YRAwQEO8Vq5d+VAsLAHU8AdkkNtg3FggVvLvape78U9pxH3BKdIxT/a7u7P12SOvmBnwzF9ZXjoNxA9EptDsV9GGVfDRrc84wsSiZIenNMnh74uhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JHjvDEQn; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="f0uVUWTD"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JHjvDEQn"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1720071478;
+	s=mimecast20190719; t=1720080251;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=1CGqTA+s74yDXx/9z8lAu8X9CeH4zVl3AGeBXCTrufo=;
-	b=f0uVUWTDM9um7QqJuoI7B3AhJGsFeJ0Q8o4EwSlbQoXhqUEsB1/Kf7ebQdazwJjRdCuUPW
-	3W7M5nwDBixZvRkVVXEqisZFj0muy3vtSxH4N3HnIXN4JYWxifFKx0EFQEppIh5IsKVy6k
-	0JfGem2VF/aTGVI0UR11qpCGsW/Npq8=
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
- [209.85.160.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=RcweN4BUrtqMLSq8+mtcmYUkbfVZ8cFv1kqlNVrEhIk=;
+	b=JHjvDEQn+JrV9XCch2aAGHt4YhYMB6K/uwGmV8ZS8o5QL3IrXyKGVyfP9TM5rzPrJKiEf/
+	5MwCJkvQZCF5soM6yEhVcLoaJfjF+czWNzqSZbYtpV+1KsKvFtGYkOj2HY17QeEdkkiGQ6
+	7nUU7KgRO+58ZH2zRa4qyW5qpo7q1k8=
+Received: from mail-lj1-f198.google.com (mail-lj1-f198.google.com
+ [209.85.208.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-212-yTMzpVuqMdKi5gdQDN7q4w-1; Thu, 04 Jul 2024 01:37:56 -0400
-X-MC-Unique: yTMzpVuqMdKi5gdQDN7q4w-1
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-25e1b41efedso365714fac.2
-        for <virtio-comment@lists.linux.dev>; Wed, 03 Jul 2024 22:37:56 -0700 (PDT)
+ us-mta-611-uyoFMg6YM-a89jityfHPyA-1; Thu, 04 Jul 2024 04:04:10 -0400
+X-MC-Unique: uyoFMg6YM-a89jityfHPyA-1
+Received: by mail-lj1-f198.google.com with SMTP id 38308e7fff4ca-2ee45dea727so4113121fa.2
+        for <virtio-comment@lists.linux.dev>; Thu, 04 Jul 2024 01:04:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720071476; x=1720676276;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=1CGqTA+s74yDXx/9z8lAu8X9CeH4zVl3AGeBXCTrufo=;
-        b=KKBWvhGIN9oUv7+3AvT7fEgR/jNWmTAhDLzoaLHkI7TpzCGJ7F270lpx9+LRSSjQ4O
-         BU2Fbrd+WBgJ9/Wq2pqkRvmgC0NH4hpvyNnN3rGKOdWgtmy4gusaUsYQ9khd5yNn7oBB
-         vgtxBo+xMJBuDNkVMmQrxIe9YwmWPXnidCsdYZLngzrcYfOSatOuHwzOD6j9NPm0g4kJ
-         Y5Jy20lKVtW2Y8s1+a8MGKv7tj7sfQ3fbuGAo7v/a1du+gPGg4meuXNhsXYrvcfl96dh
-         1AZtXx/Yscxc4ncaX8z65GrXDDTZf9iEo7X7Fi/6B8t1PUPLG8Nvn4DQnqQmclthqwS0
-         Tsqg==
-X-Forwarded-Encrypted: i=1; AJvYcCX1TRJfucWWD0eSmtoYfAo4PQoBri38DWqFhL1LA4/g5iirl6KIWaVPD6nJkcaYp/zwLW0aFIpbBUuobghkvFo9R8l1pVOkoqlpmmaG6Ow=
-X-Gm-Message-State: AOJu0YxgVQ0xReWrStSY+qAZ0facNrBfxSXrxTi7MqHX94d+FkHczI6g
-	Kct54RIUmZJnO9LwYi7LI0wza2sbnMWQCagZc1jVQXETub/vSTytJMnm7iFS+KeyIQsNyXNVMBX
-	AYkuzX1NC4cXl+rzeoZOTcvTzAXi7KOaribISi699fmBkYYbG6BIlRuZRhirOLzmF+yQAKAJ7qe
-	Lja5wm62T/wNthqqHBW0/prheDr4KNWY+DYYbaEak=
-X-Received: by 2002:a05:6870:b48e:b0:254:a917:cb38 with SMTP id 586e51a60fabf-25e2bb7cfb3mr614312fac.27.1720071476136;
-        Wed, 03 Jul 2024 22:37:56 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH1lNLGtuIuteIqOR98WGO9xF2bHQdq3olcM42Z78SG8vwu5LbhkKlAu9hDc7P5oiWvK/U0GDnEgeUmVAco+7k=
-X-Received: by 2002:a05:6870:b48e:b0:254:a917:cb38 with SMTP id
- 586e51a60fabf-25e2bb7cfb3mr614295fac.27.1720071475663; Wed, 03 Jul 2024
- 22:37:55 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1720080249; x=1720685049;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=RcweN4BUrtqMLSq8+mtcmYUkbfVZ8cFv1kqlNVrEhIk=;
+        b=bGiKotHfTyKhjaDkbMPSh0a4X/mRS6JiOA390wufWBUzC0PXFtwP3piexSMkH3xqJv
+         n+8Ei8YoiHMt00647VvI1ijKT1ry5UMk9J3ToJ+OsKTh7kovDtHWuDDIQ6XnptRNx7MK
+         xm14wZy3673pb6ZMSqFBlrnfBjr9NT+O+w65Zd+RN/fzXUjHkN+/g1B3Pnb0iipRkpTL
+         mPXz7/v7qc5aUpdltwZJucgY25/cmnFmcFrAGbHCr+PGFcKsx1mB3wvM/mrgU1+V4Chv
+         bXMNfNpm6GCMbGAA521dJwQJpVqqzVyHJo9StEACm6mJptKTj9tjIN2fV8OSG56BKhmt
+         RXaA==
+X-Forwarded-Encrypted: i=1; AJvYcCU6005IXXi0ZMHc7ZWZ/C2dKYC5nwXLrdgA/XylD4Y0Y2amlP0YZtJXRXYS6YWQfKDUNhC9oUqlUZ0L6jK3em28K7+BSpfNAhWgeyXM7+0=
+X-Gm-Message-State: AOJu0YzsSWLkCgDJu6duwcdY+EAzt8LVIs5vEdQ+rcuZuCe4knbhp7yw
+	B0SR7V2/VGh1y9lVsgesSmus4/pqjQP7EEuwAEnX/9yQl/PY/Q99y/o4+/u3U8So6sIbamlhLrP
+	avpg0TK7nq/eTLm9a9VbwtQZW8u93YOnegkQFYipvzxVTTY5tCr4zNDPsccOkkwb8
+X-Received: by 2002:a2e:9b15:0:b0:2ec:5b8f:c797 with SMTP id 38308e7fff4ca-2ee8ec7c1eemr6766701fa.0.1720080248641;
+        Thu, 04 Jul 2024 01:04:08 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFMFZ2bWe48ca9N41N8KosL0xbp9F+PBG0JqZVpydEYs/P1P0sOf6CwazVCD2ToLmjNjErMEQ==
+X-Received: by 2002:a2e:9b15:0:b0:2ec:5b8f:c797 with SMTP id 38308e7fff4ca-2ee8ec7c1eemr6765671fa.0.1720080245934;
+        Thu, 04 Jul 2024 01:04:05 -0700 (PDT)
+Received: from redhat.com ([2a02:14f:1f7:82e2:c2d2:c800:4b76:dc98])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4264a1d6677sm13412765e9.17.2024.07.04.01.04.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Jul 2024 01:04:05 -0700 (PDT)
+Date: Thu, 4 Jul 2024 04:04:01 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Keiichi Watanabe <keiichiw@chromium.org>
+Cc: Parav Pandit <parav@nvidia.com>,
+	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+	"uekawa@chromium.org" <uekawa@chromium.org>,
+	"takayas@chromium.org" <takayas@chromium.org>,
+	"dverkamp@chromium.org" <dverkamp@chromium.org>,
+	"tytso@google.com" <tytso@google.com>
+Subject: Re: [PATCH 1/1] virito-blk: Support NOSPC error
+Message-ID: <20240704035749-mutt-send-email-mst@kernel.org>
+References: <20240618081858.2795400-1-keiichiw@chromium.org>
+ <20240618081858.2795400-2-keiichiw@chromium.org>
+ <PH0PR12MB54811C1FD9D666D13077E817DCCE2@PH0PR12MB5481.namprd12.prod.outlook.com>
+ <20240618081240-mutt-send-email-mst@kernel.org>
+ <CAD90VcZAkXVfciJnzH+qjgiCFaqMK-Ne-0uL2o3EKcN_At_X1A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20240701034435.675-1-lege.wang@jaguarmicro.com>
- <CACGkMEvrHNnjdgC6Ls=YWRPFxpirCFkbf8_VnNsh-VU4NoK3tw@mail.gmail.com>
- <SI2PR06MB53850C468CF18A489A6E1ED4FFDD2@SI2PR06MB5385.apcprd06.prod.outlook.com>
- <CACGkMEtzcaUAauzpUdwjS6MEzF-suGLRv5+7cX4PeoAaqEP9hg@mail.gmail.com>
- <SI2PR06MB5385A261415EB70720DA5749FFDD2@SI2PR06MB5385.apcprd06.prod.outlook.com>
- <CACGkMEs46tCCqCcoeJ0nqOn6SRk0qqS72GSwgyt2m5p4BvNnrQ@mail.gmail.com>
- <20240703042922-mutt-send-email-mst@kernel.org> <CACGkMEs=ZJdz9=7qNxPMwEk+h3HGTSU3r-R-VfAERXavn_bW_A@mail.gmail.com>
- <20240703050143-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20240703050143-mutt-send-email-mst@kernel.org>
-From: Jason Wang <jasowang@redhat.com>
-Date: Thu, 4 Jul 2024 13:37:44 +0800
-Message-ID: <CACGkMEtgAD4mPLpf4fLAsVzzUGvbx1+XTxyGLtMSOJzHp-JtGA@mail.gmail.com>
-Subject: Re: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer
- notification suppression mechanism
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Lege Wang <lege.wang@jaguarmicro.com>, 
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, 
-	"vattunuru@marvell.com" <vattunuru@marvell.com>, "ndabilpuram@marvell.com" <ndabilpuram@marvell.com>, 
-	"parav@nvidia.com" <parav@nvidia.com>, Leo Liu <leo.liu@jaguarmicro.com>, 
-	Angus Chen <angus.chen@jaguarmicro.com>
+In-Reply-To: <CAD90VcZAkXVfciJnzH+qjgiCFaqMK-Ne-0uL2o3EKcN_At_X1A@mail.gmail.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 3, 2024 at 5:09=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com> =
-wrote:
->
-> On Wed, Jul 03, 2024 at 04:47:41PM +0800, Jason Wang wrote:
-> > On Wed, Jul 3, 2024 at 4:36=E2=80=AFPM Michael S. Tsirkin <mst@redhat.c=
-om> wrote:
+On Wed, Jun 19, 2024 at 10:09:19PM +0900, Keiichi Watanabe wrote:
+> Thank you for the feedback. Having the new feature bit makes sense.
+> So, I think we can update the spec as follows:
+> 
+> * Define VIRTIO_BLK_F_ERRNO feature bit
+> * If VIRTIO_BLK_F_ERRNO is negotiated, the driver sends the following
+> virito_blk_req_with_errno instead of virtio_blk_req.
+> * If VIRTIO_BLK_F_ERRNO is negotiated, when the device sets status to
+> VIRTIO_BLK_S_IOERR, the device may set errno to a positive value.
+> 
+> struct virtio_blk_req_with_errno {
+>   le32 type;
+>   le32 reserved;
+>   le64 sector;
+>   u8 data[];
+>   u8 status;
+>   u8 padding[3];
+>   le32 errno;
+> };
+> 
+> Does it make sense? If so, I'll make v2 patch.
+> Note that I used le32 for errno above because POSIX spec [1] says
+> errno is int and int is usually 4 bytes.
+> 
+> [1]: https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/errno.h.html
+> 
+> Keiichi
+
+Thought hard about it. I think expanding the request for errno is
+unwelcome. What we can do, if you really want to do it, is when
+VIRTIO_BLK_F_ERRNO is negotiated, then make error codes different.
+
+./include/uapi/asm-generic/errno.h has numbers that only go up
+to about 60. So ok for now.
+
+As to whether just keep your approach, can we see some
+analysis which errors are likely to happen at the block level?
+If there are many more of them, then reusing errno begins to
+make sense.
+
+> 
+> On Tue, Jun 18, 2024 at 9:18 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> >
+> > On Tue, Jun 18, 2024 at 11:54:10AM +0000, Parav Pandit wrote:
+> > > Hi Keiichi,
 > > >
-> > > On Wed, Jul 03, 2024 at 03:59:11PM +0800, Jason Wang wrote:
-> > > > On Wed, Jul 3, 2024 at 3:37=E2=80=AFPM Lege Wang <lege.wang@jaguarm=
-icro.com> wrote:
-> > > > >
-> > > > > hi,
-> > > > >
-> > > > > > > >
-> > > > > > > > 1) With the event index, as long as the used index doesn't =
-pass used
-> > > > > > > > events you don't need to fetch even index every time
-> > > > > > > Yeah, I agree VIRTIO_F_EVENT_IDX could help here, but I think=
- it's a relatively
-> > > > > > > crude mechanism, I have two questions below:
-> > > > > > >   1. Used event notification suppression structure is still l=
-ocated in
-> > > > > > >   host memory(in dpu case), I'm not sure whether used_event w=
-ould
-> > > > > > >   be allowed to update in the running of one virtio device,
-> > > > > >
-> > > > > > What did you mean by "update" here?
-> > > > > I mean "modify".
-> > > > >
-> > > > > >
-> > > > > > >   If it's allowed,
-> > > > > > >   seems devices still need to fetch newest used_event info ti=
-mely.
-> > > > > >
-> > > > > > It depends on how you define "timely", I mean unless the used e=
-vent is
-> > > > > > not crossed, you don't need to fetch it from the main memory?
-> > > > > Yes, I got your point here.
-> > > > > >
-> > > > > > But basically, I meant putting used_event in a cap/register oth=
-er than
-> > > > > > inventing something completely new.
-> > > > > Sorry, I don't get your point here. What does " cap/register " me=
-an, used_event
-> > > > > Is located in main memory, right?
+> > > > From: Keiichi Watanabe <keiichiw@chromium.org>
+> > > > Sent: Tuesday, June 18, 2024 1:49 PM
+> > > > To: virtio-comment@lists.linux.dev
+> > > > Cc: keiichiw@chromium.org; uekawa@chromium.org;
+> > > > takayas@chromium.org; dverkamp@chromium.org; tytso@google.com
+> > > > Subject: [PATCH 1/1] virito-blk: Support NOSPC error
 > > > >
-> > > > I meant something like this.
+> > > > Add a status code to indicate that the storage is full on the virtio-blk device
+> > > > side.
 > > > >
-> > > > Introduce a capability to allow the driver to duplicate used_event =
-in
-> > > > the register. And say when the feature is negotiated, the driver MU=
-ST
-> > > > update both used_event in the memory and the register.
-> > > >
-> > > > Not saying it can work, but we need to know why it can't work like =
-this.
+> > > > This is useful in scenarios where a virtio-blk disk image is provided on a sparse
+> > > > disk and the host storage is full.
+> > > > In this scenario, the driver cannot create a new file to the disk image because
+> > > > the sparse disk cannot be expanded.
+> > > > However, if the host have a service that clean up host stroage regularly by
+> > > s/stroage/storage
 > > >
-> > > Well I feel if you are proposing a mechanism it's up to you to
-> > > explain how it works without races.
+> > > > wiping cache files, the guest may want to retry the request.
+> > > > For this type of special handling, this error should have a separate error code
+> > > > in virito-blk.
+> > > >
+> > > > Signed-off-by: Keiichi Watanabe <keiichiw@chromium.org>
+> > > > ---
+> > > >  device-types/blk/description.tex | 13 ++++++++-----
+> > > >  1 file changed, 8 insertions(+), 5 deletions(-)
+> > > >
+> > > > diff --git a/device-types/blk/description.tex b/device-types/blk/description.tex
+> > > > index f04c932..5a34bd5 100644
+> > > > --- a/device-types/blk/description.tex
+> > > > +++ b/device-types/blk/description.tex
+> > > > @@ -532,12 +532,14 @@ \subsection{Device Operation}\label{sec:Device
+> > > > Types / Block Device / Device Ope
+> > > >
+> > > >  The final \field{status} byte is written by the device: either  VIRTIO_BLK_S_OK
+> > > > for success, VIRTIO_BLK_S_IOERR for device or driver -error or
+> > > > VIRTIO_BLK_S_UNSUPP for a request unsupported by device:
+> > > > +error, VIRTIO_BLK_S_UNSUPP for a request unsupported by device or
+> > > > +VIRTIO_BLK_S_NOSPC for an error that device doesn't have enough space.
+> > > >
+> > > >  \begin{lstlisting}
+> > > >  #define VIRTIO_BLK_S_OK        0
+> > > >  #define VIRTIO_BLK_S_IOERR     1
+> > > >  #define VIRTIO_BLK_S_UNSUPP    2
+> > > > +#define VIRTIO_BLK_S_NOSPC     7
+> > > >  \end{lstlisting}
+> > > >
+> > > With recent work from Michael and others in admin command area,
+> > >
+> > > we try to use existing Linux error codes referenced by the spec [errno] in the "Normative References" section.
+> > > So for this new error code also, it would be good to reuse value 28 (instead of 7) of [2].
+> > >
+> > > [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/asm-generic/errno-base.h
+> > > [2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/asm-generic/errno-base.h#n32
 > >
-> > I agree, that's why I'm saying "Not saying it can work". But what I
-> > meant is really to find a way to reuse the event index instead of
-> > introducing something completely new.
 > >
-> > > The current notification suppression works because the read
-> > > of the notification by the device flushes out used buffer writes by
-> > > the device.
+> > The problem with this idea, is that e.g. EIO is 5 which is already used
+> > up by zone flags. And errno values go beyond 127 so with a single byte
+> > status we can't reserve a bit for that, either.
 > >
-> > You meant read after write is ordered by PCI?
->
-> pci read responses do not bypass writes, yes.
->
-> > > If you move it to a separate domain (such as the pci bar of the devic=
-e)
-> > > this no longer holds.
 > >
-> > Would this be implementation specific details or could it be done by PC=
-I?
->
-> what do you want done by PCI? Generally if things are in one place
-> they are easier to synchronize, if you spread them around you
-> need to synchronize them.
-
-I meant the synchronization looks more like an implementation detail
-in the device.  Synchronizing with device internal logic should be
-simpler than with PCI/memory.
-
-For example, did you mean the synchronization between driver write to
-register (PCI write) and device read from that (internal logic). If
-needed, an implementation needs to serialize those two, then we are
-probably fine.
-
-Thanks
+> > > >  The status of individual segments is indeterminate when a discard or write
+> > > > zero @@ -567,10 +569,11 @@ \subsection{Device
+> > > > Operation}\label{sec:Device Types / Block Device / Device Ope  Requests of
+> > > > type VIRTIO_BLK_T_OUT, VIRTIO_BLK_T_ZONE_OPEN,
+> > > > VIRTIO_BLK_T_ZONE_CLOSE, VIRTIO_BLK_T_ZONE_FINISH,
+> > > > VIRTIO_BLK_T_ZONE_APPEND,  VIRTIO_BLK_T_ZONE_RESET or
+> > > > VIRTIO_BLK_T_ZONE_RESET_ALL may be completed by the -device with
+> > > > VIRTIO_BLK_S_OK, VIRTIO_BLK_S_IOERR or VIRTIO_BLK_S_UNSUPP -
+> > > > \field{status}, or, additionally, with  VIRTIO_BLK_S_ZONE_INVALID_CMD, -
+> > > > VIRTIO_BLK_S_ZONE_UNALIGNED_WP,
+> > > > VIRTIO_BLK_S_ZONE_OPEN_RESOURCE or -
+> > > > VIRTIO_BLK_S_ZONE_ACTIVE_RESOURCE ZBD-specific status codes.
+> > > > +device with VIRTIO_BLK_S_OK, VIRTIO_BLK_S_IOERR,
+> > > > VIRTIO_BLK_S_UNSUPP or
+> > > > +VIRTIO_BLK_S_NOSPC \field{status}, or, additionally, with
+> > > > +VIRTIO_BLK_S_ZONE_INVALID_CMD,
+> > > > VIRTIO_BLK_S_ZONE_UNALIGNED_WP,
+> > > > +VIRTIO_BLK_S_ZONE_OPEN_RESOURCE or
+> > > > VIRTIO_BLK_S_ZONE_ACTIVE_RESOURCE
+> > > > +ZBD-specific status codes.
+> > > >
+> > > >  Besides the request status, VIRTIO_BLK_T_ZONE_APPEND requests return the
+> > > > starting sector of the appended data back to the driver. For this reason,
+> > > > --
+> > > > 2.45.2.627.g7a2c4fd464-goog
+> > > >
+> > >
+> >
 
