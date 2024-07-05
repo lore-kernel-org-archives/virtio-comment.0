@@ -1,189 +1,328 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from APC01-SG2-obe.outbound.protection.outlook.com (mail-sgaapc01on2095.outbound.protection.outlook.com [40.107.215.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36DDC139E
-	for <virtio-comment@lists.linux.dev>; Fri,  5 Jul 2024 09:23:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720171392; cv=none; b=RmR0ZSNfRnQlqf+c8dVO2X2ggxkTffA8sgMEN+nVrFgbR9YWo+vJe01EykB/FChRlNb5XpN3V44bIlL8gpkm8SP0nzPiO7TaTiNy3neQLzqLM+u+87ADcgWfmxuA1wlCGgj7Te0zD73AHv1CUttbOS6ae3zHlX+CdwVvafOAUkA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720171392; c=relaxed/simple;
-	bh=8VO07NXnUFt9YuclEuBz6vR3rr578U2X1sQQWNxZSog=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UDULu+gaVItI4zrvw8RWnmzluqUoF1lQXD0QjmdlDXHSlaiUoE5+SnY3HQoAb2dzokyaPa4JDMUQyywDUe6FiOv+6aiWkXxU362N955XnN4AOr2hUGIlDRceIcIPj0gzZybsdOcpzpOKmNrNLpwqU8qwUjJ0dPY6maZ44jp+wnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=McGOJd/8; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8CDF1474CE
+	for <virtio-comment@lists.linux.dev>; Fri,  5 Jul 2024 11:12:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.215.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1720177977; cv=fail; b=G5BTcMRIYtGPnG7/nKLLwGsjDkvzAQ96auePBXNV0u5AZAKGvpGnNfpBFMum3hRYBwoBM5Ioz5bNWVzdJqJO7cdqOJXyIx+9jMIAsd/vgNPK7AiRWdCXGaHkATwdjOIr+Hr/1eYZdkXH9UVfEE1lcMNLSojmMSLKOacC60PlMRY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1720177977; c=relaxed/simple;
+	bh=t+xP5XegTkY7BEUhEb1n87NHgZkjm8NNBYPqGidBAg8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=F04LkmOYuJwDXnaizBioIuTiUFwXooy6qVE3BtNIXzmxcy+dM5xU1Wxn1jMHbEocUV8gKpGaqCOsS10V4ngeF/8zzK8sF7oFu2EPNVig5rMo/vZScQeFK3a6KCwRZ7vKk0cTZ7O4GQX62dZ+8WpMSe8gZ7miZuxYeeLy8hrGh4c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaguarmicro.com; spf=pass smtp.mailfrom=jaguarmicro.com; dkim=pass (2048-bit key) header.d=jaguarmicro.com header.i=@jaguarmicro.com header.b=ZDMH2a9d; arc=fail smtp.client-ip=40.107.215.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaguarmicro.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaguarmicro.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="McGOJd/8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1720171390;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=8VO07NXnUFt9YuclEuBz6vR3rr578U2X1sQQWNxZSog=;
-	b=McGOJd/8AiZCiFrXlqducsRoXEPrXWDvAVBYn1bI+i7QzvOK4rCxsV3ifoEz1CkX4ScZHM
-	YHahmD7K4X88LEvNFMR+FGK4Yua6xx0WIPVt7ConfrI8bj1wqD5O1tT5iU755GGhl7/vvF
-	EWEuS8uJ7lR144EXsl8fnpy3XPNpkQQ=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-513-9c8UruvxOcO-d_dbjzjXDw-1; Fri, 05 Jul 2024 05:23:07 -0400
-X-MC-Unique: 9c8UruvxOcO-d_dbjzjXDw-1
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-42568f0bc56so2616255e9.3
-        for <virtio-comment@lists.linux.dev>; Fri, 05 Jul 2024 02:23:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720171386; x=1720776186;
-        h=mime-version:user-agent:content-transfer-encoding:autocrypt
-         :references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8VO07NXnUFt9YuclEuBz6vR3rr578U2X1sQQWNxZSog=;
-        b=lFOjljCnYzwh37pdZewHcUmizvAC05kC9ZA+WKo/RiXhsAS+vKSbKy+UT5Hgp8nmId
-         aY2geOgzE3dkmcVodsjuvT4zoEfK8CJzfj1aZu5Vm1DBK4OE83q8qehApwZ9c6hBnc/R
-         qneCLUHF8XXx8UG2Kp3CHGy0B4AFpLxaxUsvP85K4Ay3HO/u5+OcUoCsSSmXI+pERyUP
-         S6SfE4OrbJvGeaH7xhql6jVHIWkji3bl3N+7O0L8a7xlzgg+ozMBkydwbMruG2ux70PW
-         kmYHYuEEi6YuuxTKv/E7T1Pn3RS+eeOqzU9oHZj4GjE1gGA9GvygyY5AmpjEafhbQMEp
-         aoPA==
-X-Forwarded-Encrypted: i=1; AJvYcCUzT59ir7TWzLWyfU7W3oG8Ut9Ud/SnJ+RMOhI0i3pf6DsFuYUp1YcsFID3/uOlVLHufswlqtJBmmZVnCatUh8a5FXm8s5ie9E908CSWqg=
-X-Gm-Message-State: AOJu0YywHGjo3we8nm9B419+EvG7s/ww+u2Ohveqqsn7oC9Tj+EjtLBn
-	GGannSKfvYYcCu5/zlo2lSbruuWNTQUbbfq9Zh7+NnZJ1e6Ti5B8xNnhu7z0SXAYs3ydXFWlaYI
-	emg3M8FoCkS5FGvcn1jYQTsYYP6lcKAQrOCetHfNq5ux0v1G/TTeN7ohkTRQOlqkK
-X-Received: by 2002:a05:600c:510d:b0:426:4920:2842 with SMTP id 5b1f17b1804b1-4264a45f67amr27815345e9.4.1720171386011;
-        Fri, 05 Jul 2024 02:23:06 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE+xcs2tcxlVAPPexCejyI0HTq8cmN7BmWx3HhZlFbR83J/C7gPgR6BOCqFpIpnlh2XxB7i4A==
-X-Received: by 2002:a05:600c:510d:b0:426:4920:2842 with SMTP id 5b1f17b1804b1-4264a45f67amr27815235e9.4.1720171385634;
-        Fri, 05 Jul 2024 02:23:05 -0700 (PDT)
-Received: from gerbillo.redhat.com ([2a0d:3344:1712:b10:dc4e:8e03:a5d:f914])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-367990b305bsm4355414f8f.115.2024.07.05.02.23.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jul 2024 02:23:05 -0700 (PDT)
-Message-ID: <a1a7625f669d58f17e047adee64e050f438d9fbb.camel@redhat.com>
-Subject: Re: [PATCH v5] virtio-net: define UDP tunnel offload feature
-From: Paolo Abeni <pabeni@redhat.com>
-To: Jason Wang <jasowang@redhat.com>
-Cc: Willem de Bruijn <willemb@google.com>, virtio-comment@lists.linux.dev, 
- maxime.coquelin@redhat.com, Eelco Chaudron <echaudro@redhat.com>, Stefano
- Garzarella <sgarzare@redhat.com>, Michael Tsirkin <mst@redhat.com>, Parav
- Pandit <parav@nvidia.com>
-Date: Fri, 05 Jul 2024 11:23:03 +0200
-In-Reply-To: <CACGkMEtsqjnFGFnZzF825ur8zz9--QovkxW5oCi+TT6Pu7S9oQ@mail.gmail.com>
-References: <56ccba136272593d0d2af0303600c06f26bd84a1.1718621522.git.pabeni@redhat.com>
-	 <CACGkMEt-Ep+At_4YvkJ2t8UmQHJ0-Qm6fAPbGpkV_AfVyNq2EA@mail.gmail.com>
-	 <ed07e9bb9ae5bc1a171c77425cc0b96e6b87745c.camel@redhat.com>
-	 <CACGkMEvD_WDN5yeRKcZ2ijRF8C2_Pmr6UZWMNt+_R6S0WHY5Fg@mail.gmail.com>
-	 <e5d885e6331b18b3be63facfd59658b316f20de1.camel@redhat.com>
-	 <CACGkMEsbiN90ptOL2XHauzWS=9j5RXtnO7OD10yChPaUO3CY_A@mail.gmail.com>
-	 <2f1c19591ff456ada2a1ad470032d3e3fb9f88d7.camel@redhat.com>
-	 <CACGkMEv9gGrLO0OkHYKmjqrLw50kfm2yaifMk1wnb6noa5L99w@mail.gmail.com>
-	 <4497c727ea6cc696ba7d60bcb95ba9bce33f1136.camel@redhat.com>
-	 <CACGkMEu_ODQV6O5-w6Hzg5gk-8x_iRsuWSk4fN2vzznPEYKphg@mail.gmail.com>
-	 <5914dd3b40bca9ca0a49aa31845a2bda49c862c2.camel@redhat.com>
-	 <CACGkMEtun+4xhh1s6o8kEnGGg4gvVS2ocuUr2yvubTNQqGcNkw@mail.gmail.com>
-	 <ead6fe1f23295906b7239cf946d51762132b29de.camel@redhat.com>
-	 <CACGkMEtsqjnFGFnZzF825ur8zz9--QovkxW5oCi+TT6Pu7S9oQ@mail.gmail.com>
-Autocrypt: addr=pabeni@redhat.com; prefer-encrypt=mutual; keydata=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
-User-Agent: Evolution 3.50.4 (3.50.4-1.fc39)
+	dkim=pass (2048-bit key) header.d=jaguarmicro.com header.i=@jaguarmicro.com header.b="ZDMH2a9d"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=A0A1kgHw89O2nSR9DVTAehFMARJMl7uurqXfD46jbUyT/vRPo1LjI4avJyFdH441xl+HlwdxMKn3zVZ/hVeEH0IdPSqZ76niA5nFmiLSPNs8xTQAtSkjX3QtVB/6jj89hSx04xyx80u+6hZrZzMe8KERVSvYj5Nij+f3RG0s3EFw+04xIMZ603fyEyRJC/7U+n1imc2AIb3YBfGG+SPHoDFg4Qd15sxnYkKzM2t4GTDd707US0sSxE2OFfxhMqLDILQ+Ly9obt7iNQZ7oO0VO87CgjgdDHr9aNfosPBI2sAks2b4eKjmwW3i8ZY+wgW4MAKhi5LjRWyHddCNJvzddA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xpRXW+B+sXL3MX9I3aByIHbJbgJ1d5qAS5CH+gVVXX4=;
+ b=RsBzNlR4TQhEwuk9zdTypikhbMY6JZCQjBIjPL29WYvKDhf8O0i/MJq1VRus9wa+VO34HwVBFHmQmG0xDSiO09VsU8BgliaithOE/WW2u7uiY2wHCjkFXZTdrAQgjGj+Q9Ntt5dr/mrgun93Dp03HcLplif7CN0iTkRUFBbX1GwhmTvQUMTyWDllcxorwwKlxMZZh7WaYWrwqXL6mppp06Z10N4GeNZLrekZIP8cl0sDO9GiYNDjyRQBA3Rp9HgyG6nuNvEJTbnn1LAmvC7bTYo926kG5ZxQ47wWFlVrURa5X/EfOuQQgYMRn5kKFSUS2PdUpQImwUDJUv5LaUeD4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=jaguarmicro.com; dmarc=pass action=none
+ header.from=jaguarmicro.com; dkim=pass header.d=jaguarmicro.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaguarmicro.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xpRXW+B+sXL3MX9I3aByIHbJbgJ1d5qAS5CH+gVVXX4=;
+ b=ZDMH2a9dzAnlC3KBkiFLaOQEUL7FwCUzOty6iT1k418t0NfAkWHRRbQVyEqubrtMFSUU3SM5L4X7UKj7tq9aE3rozcyDGaTYW3HDNhNo4Lv870TP02GsrM2V9V6jO+NdApO+CYxV8RK6+SqETHenYOQT5Y1FYFAy6ROlvZTpfyui4HWQvqkBPoleX36/hAuO89cznfQCORFFkGFEcwL6rxvxH0Y9iIlJtXt9PI2SZbHoW51VssKgShoP3zl7f4HE56xERSgRxVm1PIM4rVhlgAteCSii7v9E6P90qmK+qEx6aOgBf6sirxMNCOwSLL9ZdhEL/svpg5qNJSobmkRIOg==
+Received: from SI2PR06MB5385.apcprd06.prod.outlook.com (2603:1096:4:1ec::12)
+ by TYZPR06MB6726.apcprd06.prod.outlook.com (2603:1096:400:463::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.40; Fri, 5 Jul
+ 2024 11:12:48 +0000
+Received: from SI2PR06MB5385.apcprd06.prod.outlook.com
+ ([fe80::967d:afda:6f4:33dd]) by SI2PR06MB5385.apcprd06.prod.outlook.com
+ ([fe80::967d:afda:6f4:33dd%6]) with mapi id 15.20.7741.027; Fri, 5 Jul 2024
+ 11:12:47 +0000
+From: Lege Wang <lege.wang@jaguarmicro.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+CC: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+	"vattunuru@marvell.com" <vattunuru@marvell.com>, "ndabilpuram@marvell.com"
+	<ndabilpuram@marvell.com>, "parav@nvidia.com" <parav@nvidia.com>, Leo Liu
+	<leo.liu@jaguarmicro.com>, Angus Chen <angus.chen@jaguarmicro.com>
+Subject: RE: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer
+ notification suppression mechanism
+Thread-Topic: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer
+ notification suppression mechanism
+Thread-Index:
+ AQHay2kF67vqaBJYMUW1XCStKdNnOLHjWBeAgAEuLyCAACjYAIAALjYggAAWi4CAAOYg0IAB8S+AgAAQyiA=
+Date: Fri, 5 Jul 2024 11:12:47 +0000
+Message-ID:
+ <SI2PR06MB53853B30A07F8D1AF94A8DA9FFDF2@SI2PR06MB5385.apcprd06.prod.outlook.com>
+References: <20240701034435.675-1-lege.wang@jaguarmicro.com>
+ <20240702073359-mutt-send-email-mst@kernel.org>
+ <SI2PR06MB5385E3CEC459963A7D079B56FFDD2@SI2PR06MB5385.apcprd06.prod.outlook.com>
+ <20240703042525-mutt-send-email-mst@kernel.org>
+ <SI2PR06MB53851F07C15BDC46C74079B5FFDD2@SI2PR06MB5385.apcprd06.prod.outlook.com>
+ <20240703083151-mutt-send-email-mst@kernel.org>
+ <SI2PR06MB5385F178FF558878062A4D2FFFDE2@SI2PR06MB5385.apcprd06.prod.outlook.com>
+ <20240705035349-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20240705035349-mutt-send-email-mst@kernel.org>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=jaguarmicro.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SI2PR06MB5385:EE_|TYZPR06MB6726:EE_
+x-ms-office365-filtering-correlation-id: 0df697c4-50d0-4acc-f692-08dc9ce366f0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
+x-microsoft-antispam-message-info:
+ =?Windows-1252?Q?Au/SxsEg124xzJmoEA3K45SeNFNEFbJ0P3rI0VJjXUr0KHLMyOptnJqP?=
+ =?Windows-1252?Q?BsHPfz21Zo2tsECp/bJtcTrqKVumSb5m1tE2Qx9BuJ6vteia60RCN+LR?=
+ =?Windows-1252?Q?l23Aa5hW/2tSUY0PIlpv4lm8NWLm3T7vUj191MA21pMTmNdD9XY6HUiT?=
+ =?Windows-1252?Q?8xKGhMnQ94hswM5xNYp53ppAjWH0r8zds+9l+3IalEbI6MNGlDU4K99z?=
+ =?Windows-1252?Q?cLvqEM/EdRxZSMK8Au+pE51mpPakelXdnoB2zi2ztUBRk+p7mRBSjDE9?=
+ =?Windows-1252?Q?GkNfVZw6JkXTdQx8Pfr8oZgYH6ShCizhwxmHMOZcCKppJCgBBQ3pxhIa?=
+ =?Windows-1252?Q?X51BNSBfw0vvp415lqjZ20NDhfohmxtlqBJ7wArx42zejba46K2MPmiC?=
+ =?Windows-1252?Q?eIcfFVj+v/Xpaw6UT/TYrg47Fz/nbvbMuD2AXp17JZc4Vk7xWmIb+ocm?=
+ =?Windows-1252?Q?xv3SqiVxPGanR80fikWelkSw3QLddlILp4v5JWBphOMn1QT/+6LRar+U?=
+ =?Windows-1252?Q?dq5iZ6ugGtuVV8LA9jX3qNgI3KHL5gDy9QKr4w7jFn+aVqEZ9D0hNMV2?=
+ =?Windows-1252?Q?GDJr7cTWKkjMG48d/LUXHBhaBKMyg4HecAN5k4tIkZuBz4xbxsxYLjjp?=
+ =?Windows-1252?Q?uhXReeebnmABZmVr5ylHEi2CV+HiDwDr9gBD6jW82OpB4aRsee0N/0Np?=
+ =?Windows-1252?Q?E/xhomz+9+Rnz7A8Uw3FCpdaR+Q+sp3nWQ8gSy+CB+Q9ZlbGTInWhVm7?=
+ =?Windows-1252?Q?0H/2Xd8zytRF18zHA6E3oH1+rNO6tma4ujV4R2tyWnips3G9J8rBWezK?=
+ =?Windows-1252?Q?/jlCvFtb/qT9EzGSKIVeHfS6gI//+LgRJkA4KQMbj5exiq5kzOGyBu3k?=
+ =?Windows-1252?Q?uRPy3BH0bRM3HLcxg/CACUTdRhTuQwXSGcPD6vyXTLO+RnKHzA9ZymeJ?=
+ =?Windows-1252?Q?fBB2dxZS1FZhsaI6Olyw2juJRqKRBVGmmKeTuPinNGPkPPcADdrotVt+?=
+ =?Windows-1252?Q?tv3UD8vjDRwEgCi5iTBVP05o00pQr9oEZOAs99YSCh0rbqStuT1NOryA?=
+ =?Windows-1252?Q?obO568BTGEzgvYQRs1+qjBHgI1UoDdAzwVnR/lxjzeoGj+XcIA04xBsP?=
+ =?Windows-1252?Q?0L4b3Qv96UjdEmPvVY5yEHbBrAa6Zl0Wmi96ByA1dyqj1IzO615t2Ii/?=
+ =?Windows-1252?Q?QZnB+l96Qo0fubuCtuaxoeuDhq+RIVGw80S0UnGq2PMTEOJQVxN7JIol?=
+ =?Windows-1252?Q?REa959xOeXtkZsp3/PPHQ6/6knlRMkM21aO7/k2W/4o/x+GRfx2YPFgb?=
+ =?Windows-1252?Q?I9LHkElRaoAmDIua72D6VSZrQo6yaJIgyRodjOBQ7aDm7bTnCEui9Wnw?=
+ =?Windows-1252?Q?4UcbC7/4VXSkPIu0S40C/lvaFdpeNQGxG9nAzpcqUgtmaFWqTSLn0rx1?=
+ =?Windows-1252?Q?Z8uT28NIFX6fT4H5SpO2R6j1USb6nifRDF5Xx28y/io9GjP77f53Af60?=
+ =?Windows-1252?Q?HN6MZbl/rjveNs9zZSOgVlDnoOjphQ=3D=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SI2PR06MB5385.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?Windows-1252?Q?QxDKOP0j1Ntllyfvbs/4ZaIv5olNnOmbNpWraW+Y9jYj+ELFvMADoniJ?=
+ =?Windows-1252?Q?QwM/vDTLiCd2yPKhCInDNCBxi+mLLrT+ImDB7TTEgQSU+4z39REHfNbo?=
+ =?Windows-1252?Q?giPToGCyJkuBKSWtxHZ/hLLa4SXtuz3D8iyQcVcPrHNdMPeHckvmxakO?=
+ =?Windows-1252?Q?uW848Ti+Bvx7xno/KQ+qMbVWdf3pgHGnRsxxvmtFCxkZOF4yItJn/0iP?=
+ =?Windows-1252?Q?4ls8t2rUqLk+NdSe5aIQo/ZaJYfJoiX+dtoNjAju89ogGirmnXqh63gX?=
+ =?Windows-1252?Q?wzqrfJeSdr6B7HLXq9Hb7iTbNx6uY/71HzFELj3Cq41L/bhcnUP8GGFG?=
+ =?Windows-1252?Q?7oyUcB9pzLDwjbvkyxHk3s+jEfDzF8zkI+LYAGJWv+yufGKIHCWxwxTe?=
+ =?Windows-1252?Q?wcd8N8tELmvt1wY2wZPgeCEZAxK7me4w50dOG9UByDR0Lx34O44FIzcn?=
+ =?Windows-1252?Q?E4uZ1Or3YlPyoHovnY2QMAsgNHADW5zHk0g9IL7WThBXfp4N9J1Rrwpq?=
+ =?Windows-1252?Q?rxfzaMgnWZMSROtF21JcCWcTDK4++qgDK3dMUEAc5epiLxlEkmaANKf0?=
+ =?Windows-1252?Q?k1lKutWUSZNB57xsG6M5xksSKrJgSogO13tuA2YUY7zGrybTD8Q9ygmj?=
+ =?Windows-1252?Q?98wJAdjKF9bBNKYNH2wT+LDT0jYohQW4raH4iLZiYiHO3okdscrZDgMY?=
+ =?Windows-1252?Q?qtBqd5nasQ+r3PPCUIjbePySsF/BAvEuisrcnSMp3vl/4QCnVvfRFnf0?=
+ =?Windows-1252?Q?OvS4gErkOBk46q/2Hq3YSyEOsvCjXSfVvxkuUxI6taImhnMdqNMLB2kw?=
+ =?Windows-1252?Q?QIE3k1MbifHzULZWISszKhnc3ZXny0AEH274LRyK6po7qzU/703TTqSY?=
+ =?Windows-1252?Q?7MwTo9R9YzUMAHOCYD3mOSamjooKgfo4GdRYQCeLwDZwp0V1ljQ5uRlm?=
+ =?Windows-1252?Q?26e2+CvYfY8g6DEsSahF3+ekHq2x5xlRVaee+UXFLVOqRmBZkqiDGyZY?=
+ =?Windows-1252?Q?8jhTkPbh1wWREBBbyhX4ooZb+jwZK6kUkvKzSU9YCDN97McY+9YOg+FI?=
+ =?Windows-1252?Q?8OYQ1fKUia/9iQRFByQunNrAGuVJ8QFUklfygvup+us0iYV1LZQaPBfb?=
+ =?Windows-1252?Q?8WSXIkc59i108ujqai3wnB5EDI0nXsBoU+UxXO036rOsaYL9+k5kQg4f?=
+ =?Windows-1252?Q?GYbzdS8blR35pG/PWVqENVctTKXF6ONKsU9ZgPDaIow67r5xQeXcBV68?=
+ =?Windows-1252?Q?tNVihk1MuixRu18vl1Az9xqcX5RifjvxqUWNqZoMQn/p1ee7clTvqJHG?=
+ =?Windows-1252?Q?BOaon3UUOkWSmGLxEPVjaInzBKYXub1ZllyTudEXyPGTNnPBVE9nn4Bt?=
+ =?Windows-1252?Q?kR2kJk/VQzUzn54uYjtCLQw9TSNUezWopiQNx/TyGG9XH/o/3lZQPD7b?=
+ =?Windows-1252?Q?KQKfeD9tPQObjJ2XsnMjWePr2/wb1Prfuc5DJ59JLKNRclCOhYKxfz0n?=
+ =?Windows-1252?Q?Xq6wnTpkj2PhaDdPw3afuw3EN6iSqNvsKh43Ih3HLVXBxVOYnv7Uy9p2?=
+ =?Windows-1252?Q?oaENJlBtO83Z1DtwVQIAVh48DLmEijCWqyD49PUS9cZLRUoxyO3oU+9Y?=
+ =?Windows-1252?Q?4rbxOtqQyszoIMC7vUg0PA5E7vGdi/cPpkLwHVneuAWXh6kiVZxjab//?=
+ =?Windows-1252?Q?8Pb2j5LOXVW5eXbGp6v3MK1UFCqpipT8?=
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: jaguarmicro.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SI2PR06MB5385.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0df697c4-50d0-4acc-f692-08dc9ce366f0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jul 2024 11:12:47.8249
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 1e45a5c2-d3e1-46b3-a0e6-c5ebf6d8ba7b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hyP12sV6WJCCuK6LlbJJU3Etir9srKP1bGH4QoP/v3lvijkUA5jYMaE0H5laUBz3PnrIuYTwO1gJVUhMyhfCTNoG+luKgMBqJC/R1iVn66I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB6726
 
-On Fri, 2024-07-05 at 11:26 +0800, Jason Wang wrote:
-> On Thu, Jul 4, 2024 at 12:33=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> w=
-rote:
+hi,
+
+> >
+> > > -----Original Message-----
+> > > From: Michael S. Tsirkin <mst@redhat.com>
+> > > Sent: Wednesday, July 3, 2024 8:34 PM
+> > > To: Lege Wang <lege.wang@jaguarmicro.com>
+> > > Cc: virtio-comment@lists.linux.dev; vattunuru@marvell.com;
+> > > ndabilpuram@marvell.com; parav@nvidia.com; Leo Liu
+> > > <leo.liu@jaguarmicro.com>; Angus Chen <angus.chen@jaguarmicro.com>
+> > > Subject: Re: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used
+> > > buffer notification suppression mechanism
+> > >
+> > > External Mail: This email originated from OUTSIDE of the organization=
+!
+> > > Do not click links, open attachments or provide ANY information unles=
+s you
+> > > recognize the sender and know the content is safe.
+> > >
+> > >
+> > > On Wed, Jul 03, 2024 at 12:14:01PM +0000, Lege Wang wrote:
+> > > > hi,
+> > > >
+> > > > > > > After reading this and the text, I can't figure out how is th=
+is feature
+> > > > > > > supposed to work without races.  What if the device uses a bu=
+ffer
+> > > while
+> > > > > > > the driver notification is in flight to the device?
+> > > > > > Hmm, I think it doesn't matter, Only the used buffer enable not=
+ification
+> is
+> > > > > > transmitted to device successfully, device starts to judge whet=
+her it's
+> time
+> > > > > > to send used buffer notification to driver according to its int=
+ernal
+> > > interrupt
+> > > > > policy.
+> > > > >
+> > > > > I don't understand what you are saying. If device has some magica=
+l
+> > > > > interrupt policy why do we need a notification from the driver
+> > > > > at all.
+> > > > >
+> > > > > Conversely, if device relies on the notification and thinks that =
+an
+> > > > > interrupt is not needed (because it did not get the notification =
+yet),
+> > > > > while at the same time the driver is blocked waiting for an inter=
+rupt,
+> > > > > we get a deadlock.
+> > > > No, I'm not saying that our interrupt policy is magical?? Let me ex=
+plain a
+> bit
+> > > > more about its simple mechanism here, there're two basic parameters=
+ to
+> > > control
+> > > > whether device should send used buffer notification to driver:
+> > > >   1. number of used ring entries written since last used buffer not=
+ification
+> to
+> > > driver,
+> > > >     say threshold value is N.
+> > > >   2. Max wait time to send a used buffer notification to driver.
+> > > >
+> > > > The work flow would look like below:
+> > > > 1. driver enables used buffer notification initially when enabling =
+virtio
+> device
+> > > > 2. driver is blocked waiting interrupt.
+> > > > 3. if the number of used ring entries written by device is equal to=
+ or
+> greater
+> > > than above threshold N,
+> > > >   a used buffered notification is sent to driver immediately, or if=
+ this
+> > > condition is not met, but the period
+> > > >   specified by max wait time has reached, device will still send on=
+e used
+> > > buffer notification to driver.
+> > > >   And device will recount number of used ring entries written by de=
+vice
+> > > from zero and start another
+> > > >   Max wait time timer.
+> > > > 4. driver is waken up by interrupt, after it has processed used rin=
+g entries,
+> it'll
+> > > start to wait for interrupt
+> > > >   again and enable used buffer notification.
+> > > > 5. go to step 2.
+> > > >
+> > > > >From above work flow, I don't think the deadlock you describe woul=
+d
+> > > happen.
+> > > >
+> > > > Regards,
+> > > > Xiaoguang Wang
+> > >
+> > > 1. device sends an interrupt
+> > > 2. device writes a used entry
+> > >
+> > > Will another interrupt be sent, with driver doing nothing at all?
+> > Unless driver enables device's used buffer notification, the device wil=
+l
+> > not send an interrupt.
+> >
+> > Regards,
+> > Xiaoguang Wang
 >=20
-> > Anyway if a device can't perform H/W GRO it will send to the driver non
-> > GSO packet. It will not need to fill any fields for that.
-> >=20
-> > Let's suppose we have to host with H/W virtio net support, both
-> > exposing F_GUEST_UDP_TUNNEL_GSO, host1 can do geneve H/W GRO, host2
-> > can't. I don't see migration issues between host1 and host2. The latter
-> > will not generate any UDP TUNNEL GSO packet for geneve, but will send
-> > to the driver plain packets, as on the wire.
-> >=20
-> > What I'm missing?
+> how about this:
+> 1. device sends an interrupt
+> 2. device writes a used entry
+> 2. driver enables interrupt
+
+Indeed enabling used buffer notification and sending used buffer notificati=
+on are matched operations.
+Time-sequence |  driver           |  device
+T1           | enable notification  |
+T2           |                  |  send notification
+T3           |                  |
+T4           | enable notification  |
+T5           |                  |  send notification
+
+That means once driver enables interrupt, device will ensure that it will s=
+end an
+Interrupt if there are used events written. If driver does not enable inter=
+rupt at all,
+Device will not send interrupt.
+
+But yet there is a case to take care, which driver does not handle all used=
+ buffer events it received,
+parav explained It would happen before. As I said in this proposal, when dr=
+iver enables interrupt, it'll
+also send driver's last_used_idx info to device, see below handling:
+  1 driver enable interrupt
+  2 driver submit 5 requests
+  3 all 5 request are completed, device sends interrupt, now device's used_=
+idx is 5.
+  4 driver gets interrupt, and it just handled 3 requests, so last_used_idx=
+ is 3.
+  5 driver enables interrupt and attach last_used_idx(3) info.
+  6 device will know that driver does not handle 2 requests and will add th=
+ese two requests to
+    the number of used ring entries written since last used buffer notifica=
+tion, that means
+    though if there is no new used ring entries written, because of these t=
+wo outstanding requests,
+    device will still send an interrupt.
+
+So I still think the deadlock you describe would not happen.
+
+Regards,
+Xiaoguang Wang
+
+> to
+
+Regards,
+Xiaoguang Wang
 >=20
-> Probably not but not sure if this is a actual bug, but consider:
 >=20
-> Guests can only know inner protocol X and Y. So did host 1. But after
-> migrating to host2, it can have inner protocol Z. Can this happen or
-> not?
-
-As mentioned, the guest will not parse the packet, it just need to
-validate the fields.
-
-Yes, the above scenario can happen, but AFAICS it will not cause any
-bugs.
-
-The guest will be able to process and segment the UDP tunnel GSO
-packets with unknown UDP tunnel protocol thanks to the mentioned
-additional fields added to the virtio net header.
-
-Obviously, if the guest don't understand geneve packets, and the host
-suddenly starts sending them, at some point such packets will be
-dropped inside the guest. =20
-
 >=20
-> > > 2) Is there any existing NIC that can do RX UDP tunneling GSO?
-> >=20
-> > AFAICS, the only NICs supporting HW GRO for UDP tunnel packet use the
-> > bnxt driver. and think the implementation is buggy (it does not
-> > set/fill must sk_buff fields).
->=20
-> Ok, I see.
->=20
-> So in conclusion, I think we are kind of on the same page. I
-> understand that those inner fields were designed mostly for VM2VM or
-> VM2Host.=C2=A0
-
-Even for the Host2VM case, too - to allow the VM to reconstruct correct
-GSO packet.
-
-> And still something needs to be considered:
->=20
-> 1) inner nh/mac/protocol seems to be meaningless for hardware
-> virtio-net implementation, anything we can optimize on this? (maybe
-> not since e.g num_buffers is meaningless for TX as well)
-
-Do you mean in the Host2VM direction? They are needed to the VM, to
-fully understand/build the GSO packet.
-
-Or do you mean in the the VM2Host direction? The device will need them
-to do H/W segmentation of the packet.
-
-AFAIK some (most?) high-end modern NICs have programmable H/W parsers
-able to extract a quite considerable amount of programmable data out of
-the packet.=20
-
-> 2) do we need to hear from hardware vendors to see if there's a chance
-> to implement RX UDP Tunnel?
-
-The bnxt driver proves it's feasible. The lack of other NICs with such
-support hints it's difficult and/or there are is no large demand for
-that (I wild guess the latter).
-
-Possibly we can make the life easier for H/W driver implementations
-adding a configuration command -say VIRTIO_NET_CTRL_UDP_TUNNEL_CONFIG -
-and allow the guest to explicitly request/enable specific UDP tunnel
-types?
-
-Somewhat related question: what happens after a migration to the
-configuration send by the driver to the device? is up the the VM
-somehow catch the migration event and re-send them? Or after the
-migration the VM is expected to run on top of a driver with a different
-configuration?
-
-Thanks,
-
-Paolo
+> > >
+> > >
+> > >
+> > > > >
+> > > > >
+> > > > > --
+> > > > > MST
 
