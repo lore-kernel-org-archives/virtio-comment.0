@@ -1,355 +1,287 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from repost01.tmes.trendmicro.eu (repost01.tmes.trendmicro.eu [18.185.115.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6683D1E528
-	for <virtio-comment@lists.linux.dev>; Fri,  5 Jul 2024 16:17:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720196259; cv=none; b=QUY2eJOXVyO27d8qHmvF6pXS2P4vrbw9qge2EQ1WCnWmg2gjtO6QsGnPAR0lz49Bw5fBtwFanlkspsylm2XioTReVB9aKa2353Fyl2TzCvU9amubuFSMym1RNbT+CpKsvNOyQWkK4SERbpzXRbTiktQzRrhGsx/J5wB2c7otWx4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720196259; c=relaxed/simple;
-	bh=/Vr3agW+rrN0oAGjuhXQNJiV1+YXMkSszDjT442U3TQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UKU4likvG9TLao5sGA7BiOc5AHcGvFxCKcGB29ePx1xXM+0Q/Qkar1+R5EEfCFyhVFzFp85eNYmptByAO2s4O2rSLS+nffLWB5bieR8cmKeSYZeKo+krzlL/AkPOSXXEh7uYIC3NZddKnk/0QRBTEgBjj/J63pMknKJLhafMs2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=SHWL5ypN; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236311CD00
+	for <virtio-comment@lists.linux.dev>; Sat,  6 Jul 2024 07:49:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=18.185.115.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1720252191; cv=fail; b=n8TxZqU1Mu/okxkkhPTKUiuKAHg7iGsO3kbtyljT7rJs4FDHyTT+/n3LsPDXDhmPI2RewMfeKdNJ4JvzIKDc5EAZiCrZcGha5Nm56rPmqPWVp+upmSYx45FrDZOm2WVz+v8MANBQZx4KpzWeKiQE4QhKsJIsjqIzP67vLp+EHK4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1720252191; c=relaxed/simple;
+	bh=HYkD/iOYK3wXTncKxvTS5HBFB2HBCe7cdZ4yNFpqKfc=;
+	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Ddc+ovUXS4FpbgwcWHkNfpRQOQQBwMJjvmIGFK7uxarQZ8dunSmDMNH4smYjmdTeCu+L7jYjktT+QWv/Zl9XSUgRJndK+1aOsMvXtulg7sAerx+T0Iv2l2FvoM2iA5cGJnmIl9ZChrgB0ejpyfC9DaeFI8yEo8q71Q0Q4dI6hD8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com; spf=pass smtp.mailfrom=opensynergy.com; dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b=Xbs0P3lO; arc=fail smtp.client-ip=18.185.115.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensynergy.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensynergy.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="SHWL5ypN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=/Vr3agW+rrN0oAGjuhXQNJiV1+YXMkSszDjT442U3TQ=; b=SHWL5ypNp7zknVsgJ2k6osJf/x
-	ytjpQhGXtLLLptW7/YMHkzH5vMnbzjqVeMD3VPyrQKzCxCIJnNV/7hxYgpx5tbdf9ciJS1u16pRn+
-	uWrn4Zgr9q1OSVEDgI76FEKMUYrKDbRcQy5UxEKgRlCD5Xhfke8sxO/q6aPbd+In6iP1nHDox6vxW
-	0ma+9NowH/WpBaNtZfMCPaLw0SYcPqB40OUnUBWO6mFJ7Tcr4Qwu2l3Y14ehTz/6+T+iXYG0F2b/e
-	BGtSFiz9g+emOU75HfBpHPWSkyJ3UniTo4grYfKE39BZhTeX+vk+3bF9nHzY54ukVUKEn/6DGLZ1/
-	4yQMf/rg==;
-Received: from [2001:8b0:10b:5:8c:9647:d9e0:cdb8] (helo=u3832b3a9db3152.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
-	id 1sPlcs-0000000489l-24Dc;
-	Fri, 05 Jul 2024 16:17:34 +0000
-Message-ID: <41c09f2bd37bd476ce9e1582cfca1d2ba16a1a59.camel@infradead.org>
+	dkim=pass (2048-bit key) header.d=opensynergy.com header.i=@opensynergy.com header.b="Xbs0P3lO"
+Received: from 40.93.78.49_.trendmicro.com (unknown [172.21.161.124])
+	by repost01.tmes.trendmicro.eu (Postfix) with SMTP id 687B310001751;
+	Sat,  6 Jul 2024 07:49:46 +0000 (UTC)
+X-TM-MAIL-RECEIVED-TIME: 1720252186.074000
+X-TM-MAIL-UUID: 890cf790-ad6e-4599-868f-bc96a2a0f453
+Received: from FR4P281CU032.outbound.protection.outlook.com (unknown [40.93.78.49])
+	by repre01.tmes.trendmicro.eu (Trend Micro Email Security) with ESMTPS id 122631000030C;
+	Sat,  6 Jul 2024 07:49:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jp40edXYiJoa7M8G5QdjYO5IdRYG3EldyU6vFRArdBAlvt1Ua/FUBV+0MckgQwqToWsNDT3bpxklf8kK3zRXyu9rql00fPahsNYJgMvmNbGnVEMtajfEPvF35GnFc8zTilQOVgEqo0uFRF7lgmy5/h2teZuersdVbKpFPY0wNnWCN5V0eKrBoO+yuH/Szk9umasRQZlVv04x8a7xDRAJUD4AQ1w3jesc9gs5nzJMLW2mzKV28OCxvNHPsfkM74vI/5PrlGAPitZkZylBUu/0C5YaPud3huKNDnlZcSRhdY17/wZQz/EZ6qD5zXZo7CDMXb9rIlVeg9u3DFYF7u9N9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BdX/SkCNCM7cM2rGwnRhj/Cwr5DtXKe+I30Lwkt3AXU=;
+ b=YJYW3D3g6Vx1HwGfrXDOGDi0m1J+xKqf9gNB/V/he53RphvoHq/WETj6j/vbMLOcMTKo+rPppSSGT+0sQejY+b4GV6oKqmJSrk4Lxne0p1ubYI873FG9kdENIH3MDDyCfytEkTsf/VODISil1hDXKoDmA25eZ9gjtfSGxgBDYtsOm9FyyvsJp0YftloLEzfnywnXw74KYY2Fo0G7pX/i4uGjbQkPifkRXOctcFRjIPztlPndGEie4ZvzGaL345YIukknw9LWKAIUU1lXT3OGxhhzjHzslQ034e6H7qTpzFqgAK8Z9fi5NLhR+KY+RXV0B9jXZ6u+EgzS2L49f2YkoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=opensynergy.com; dmarc=pass action=none
+ header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=opensynergy.com;
+Message-ID: <1100a7ea-0d4f-46f5-a004-7fb6e6942934@opensynergy.com>
+Date: Sat, 6 Jul 2024 09:49:42 +0200
+From: Peter Hilber <peter.hilber@opensynergy.com>
 Subject: Re: [RFC PATCH v4 5/5] virtio-rtc: Indicate leap seconds and clock
  performance
-From: David Woodhouse <dwmw2@infradead.org>
-To: Peter Hilber <peter.hilber@opensynergy.com>, 
-	virtio-comment@lists.linux.dev
-Cc: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>, 
+To: David Woodhouse <dwmw2@infradead.org>, virtio-comment@lists.linux.dev
+Cc: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>,
  Jason Wang <jasowang@redhat.com>, "Ridoux, Julien" <ridouxj@amazon.com>,
- "Luu, Ryan" <rluu@amazon.com>,  "Chashper, David" <chashper@amazon.com>
-Date: Fri, 05 Jul 2024 17:17:33 +0100
-In-Reply-To: <668b681a-8025-49eb-a75a-7dac4fff8b56@opensynergy.com>
+ "Luu, Ryan" <rluu@amazon.com>, "Chashper, David" <chashper@amazon.com>
 References: <20240522170003.52565-1-peter.hilber@opensynergy.com>
-	 <20240522170003.52565-6-peter.hilber@opensynergy.com>
-	 <3935e6c2b4b73968d0c4728a3c1f429f121609e7.camel@infradead.org>
-	 <668b681a-8025-49eb-a75a-7dac4fff8b56@opensynergy.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-FXmz/Fq3BV35F68YW4mw"
-User-Agent: Evolution 3.44.4-0ubuntu2 
+ <20240522170003.52565-6-peter.hilber@opensynergy.com>
+ <3935e6c2b4b73968d0c4728a3c1f429f121609e7.camel@infradead.org>
+ <668b681a-8025-49eb-a75a-7dac4fff8b56@opensynergy.com>
+ <6709c49db692750b6c1576d3fa198ef47708124c.camel@infradead.org>
+Content-Language: en-US
+In-Reply-To: <6709c49db692750b6c1576d3fa198ef47708124c.camel@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BE1P281CA0067.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:26::7) To FR3P281MB1917.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:34::8)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: FR3P281MB1917:EE_|FR3P281MB2031:EE_
+X-MS-Office365-Filtering-Correlation-Id: 50db208b-0eea-4d1a-1c74-08dc9d903349
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?WUltUG51L1kvcVN4WmJXMlIvRm95K2dWbi9iNndkaXhkNlhqTnFHcWw0dDkw?=
+ =?utf-8?B?R3c5YTVaNGl1QjRxb3M1bVkyUTA4WEg5N1U5cEhpc0VTL2RIcmprNnplM01D?=
+ =?utf-8?B?Ni8yWEt1eFk4OHJWUGRPR0s0RjVIdTg4ckdsc0F2Z1NkS2xJMURWcm5HTlhY?=
+ =?utf-8?B?V3VaUGFaWjZXYWJMT0hpckFiWEF3OUwreFBBNHpydFdIanpXSlBqSkl0Y0ZZ?=
+ =?utf-8?B?dkxFNytKRnQxdTM4TGRCeGkvaktXbHFlTGJXZFpKS2sya1dmWXpIbCsxUlp2?=
+ =?utf-8?B?WlAwVG92R1Fsc1dXQ0ZwV3hrL3J4VDRxUXpxSHJ5RjNJVE5zdDhTcU0wTEFX?=
+ =?utf-8?B?S3pDMFVkdGx2MWxjRUVET2Jnb2RZWlUxaVIzUjFCeXRPT3hwR1ZnRHFvemRY?=
+ =?utf-8?B?OVdHU05hcVVsMHZCYVRURFlvelBrL0VkOTZIRTJkdGhjRzEvUnV6SmFVLy80?=
+ =?utf-8?B?ZXBOVThMZ3hsTmpPbXFvbmRYeVZVeWRBZUdzc1pFbndFdVNyaFBpNnBGek1S?=
+ =?utf-8?B?eDhESy9vRDZUZThjRUhOUUNmTEZhdnVYZ0xjMHNIVDhyU2tSZ0ZTTzVid2JC?=
+ =?utf-8?B?M2ppU1FDL1BmU3RSc2YyeDQ5azZjeHBsY3lPTHZnSXl2UmFhSzF2U0FDSVAr?=
+ =?utf-8?B?ZXdzd01Od0MzVmk1QUhrdy9KZTN1dWNkM2hFNkUvUWFpZ0hmeTZOVnBDT2Zq?=
+ =?utf-8?B?d29xaHBxbFhjVW5RT09aQXNyU2tvcFJuY0ltZitFSDZTZGJ4S0kzUFplcVpH?=
+ =?utf-8?B?ZjhhcmpWNzZ2cEVHbm0yKzg0VXluWnEzL0hwcVNaeWdpWEx1WGlSQXlrNFhp?=
+ =?utf-8?B?TWlzZ29veEF1bko3VmFiUmlTb016Q002NDIvTWtwTEFzeHNsREYrZWdNYmox?=
+ =?utf-8?B?QUZoWS9MNDR4bTN1eDVlVjRjbTZlei9iMnhvL3RQYTcrVUpJM0FUTkNEbHJj?=
+ =?utf-8?B?MGxmdmVHNXlEZERRd1FQbmJ5RCtWTjBKMC9vcHJMK2J5b1hxT1l1U0hwMGhj?=
+ =?utf-8?B?allsWkw4QlN0M2piS25Nekt2UUJiQVVXNnRpaWVpTVpNS21lTGlHWllKbTd0?=
+ =?utf-8?B?Q1VjR1N6RkZQSWpDWWxMNkRzQ09yUVIwRW1KdlJZclEybktUekNtNTJkMkha?=
+ =?utf-8?B?TXZrWXY4VFlCRnhFZ3hDUDBvaG1tUEp6c1ZWQlpIS1hmMGJlcW1SazBOekJz?=
+ =?utf-8?B?RkZya1FZdm9ROWxzeWVLTEN2MFpoUnBxTDkrT05sWS9YLytOOVFWZHpXeExP?=
+ =?utf-8?B?YnJxT3NNRHkrczVFMnhuZ0lwUVFGbUhFczNnMExxTkY2VGtXZWJ1ODlJNk9k?=
+ =?utf-8?B?VjRyQ21xN0dhRjBXUzhrS0dPN3RSQ0c2d3BLYTUrMGlGYzVIUHMwQjBERmZI?=
+ =?utf-8?B?WWh2R3Y2M2Z6eXBQdnN2MkpEOHU4clRBcnhRdDFMZDV5NEtTd204UUZaTTFq?=
+ =?utf-8?B?Z0pTNW1OZ1N2NGFvTVQ2ZEtXSEI2aWRUYmxWTVoyTk9FYmVQeW5TM1Bub3dJ?=
+ =?utf-8?B?alZ3UzlkdnY1dXI1bGpxUHU3NVBVT3lsRGhuN3V4Uy81czhFTjRYRy9pNk1o?=
+ =?utf-8?B?YXMvdk11dHRoS2ZSSHRFTmxVdUQyZmoxbHd1b0QrbG9GeFppMjYvV1d2ZEhv?=
+ =?utf-8?B?eTZJa0JzcnF0bFRGOEt6aGw0SDhRbnY4Z0prblpFL2RyRUFNbDRiZlBOc1A3?=
+ =?utf-8?B?endvdHlUQ1MxazNRWTFMSTdGQUdnTEhFaDJtbVFKNU9nRUVnZjlMUFl6V2NN?=
+ =?utf-8?B?bFVKSGtWb2QzVVFXSldGZmNTVlA4WGY2MVB0aDNGR0xGaExybmRKYnpXanJs?=
+ =?utf-8?B?RWdOVVQ1QjZiRSt3VU1hZz09?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:FR3P281MB1917.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VkJYMVlFU0xReUlZL3BuOW04Nm9Bd1dJZjFMVmdFTjlUQ2FURHlLVmIrMTh4?=
+ =?utf-8?B?L2dYenJ3L1VmR1phdFE4ZE1HdjJJc1JTRUxxdTltdlROTmQrUjlpQ3JKcjV2?=
+ =?utf-8?B?ZWFXMHJkM2hRa3dzTlc5bmJycUdpQWJYWEo5VUhYYUIrQkY4ZXVzOCtyZDh0?=
+ =?utf-8?B?REF6aXV1QzBWREpTc2tnb3diR25CeFlscEV0blUrYnEwYXBpOVk0cUIrNGhE?=
+ =?utf-8?B?dFl1KzNveEM3Q05VTEIyb2l3ZGFScjNMcjJXdVc2aGFHMmYyZ3RpYXoxT3Ux?=
+ =?utf-8?B?Vlg5c0duanNOTUxPSmVhNTloaWR3TzZlWjNuR0dDaE1tNFgyT21ESkM4cExF?=
+ =?utf-8?B?MmwrbDhnRHU3bk1IVHZtREZpYlNobkZPKzdVTkJGc3F6VXdUUTVNV0hQcFVt?=
+ =?utf-8?B?WDNDL2Jua0pyQTl5ZWw5b1c0eXQ0ZWExUXNpRS9XMittdHU3dk5Oa1FRQ1JQ?=
+ =?utf-8?B?amYyMEszenR3RnZkbkVFa3FxL05FSnVuRDQwb1E4NkJkNktLRHhJSG00Nm5y?=
+ =?utf-8?B?QkhqUzkzRnBNK0ZaNmE2Qm9LSlZlSDIrbG0wd1NNOStDejJHU2xrWkVFS0Rp?=
+ =?utf-8?B?c1BxT1RsZEp5dTFSQ1YyTVc0R2d2b2ZXTzIyclhlRTl3MHI4NUlUMldUeTRv?=
+ =?utf-8?B?ZTB5TXF1YkR3cmtFaXIrR0h0dWtWdjdmNnpLU0M4NHQxUVNRckIxRzI5TTVo?=
+ =?utf-8?B?TW55dVpTWnZIaU9pRUFSRlJXMTJsY25BeDVjT2MvV0E1RUdJQ1l5L0U5WGRq?=
+ =?utf-8?B?Qnh5bytvNDlFL2NQVGd0YzdTWEtPMjIyNFkyclV2U3MveFhNS0pjeFZ2eFNU?=
+ =?utf-8?B?TlAvOXdQU3A5Vms4UE90SnhlUTBGaGdZVE80aFM3NkdrOHQ2UVI3NTZVVFZ3?=
+ =?utf-8?B?dEJDVkVHd1FoN01MbEJJaHJ3aERQclVFSkV5cGE3RE92cFh4YytqclVBLzRS?=
+ =?utf-8?B?RlhCa3ZVeFkzUlBQRkFBUTl1ZkFxOWg3OXNnT2tmRzlMWEtpRi9JYkVaT3VB?=
+ =?utf-8?B?Sy9jNzI5OTdEUDVhblNubE1IeTFXamRCUmN5Y3BFVzhEb1RORjRUQngwclI3?=
+ =?utf-8?B?K1M4WHlzbEZHeG91ek1pTVpxOTZoYWhGbjJLN3hRZVF2SlpaTVRmb0tyeU5q?=
+ =?utf-8?B?aWdKcmdWRXplSHdOSXVGTVdWLzk0b0wxUGY4MUk0ZjdPaVVLdDBPQWR2U3Zh?=
+ =?utf-8?B?ZDVFeTV3MTRONlZkSDRQYjVEZis5UmsrSmprejBPQ2JrU3BySTZQUGNBa0di?=
+ =?utf-8?B?eXlraytjclJ6WlRrbkYvbnJqdHg4UHIzUnZSZ0lNQnpFWDVzcVBsd214SFF3?=
+ =?utf-8?B?dnpManEyU0laVko1MGZTM1h1bHdBemp1Q2dBZmVKV2hsUkNUWkhnUlpUT3N5?=
+ =?utf-8?B?b0RLL3Vwa2x5UVJwaE9yYlVKTkVHY05oNTBmM3Zsbk4xY044QjBMcVZrVHpw?=
+ =?utf-8?B?NXlFcTJ3cTFaUDhuM3BIT3g5VkRVcVMxcnIwMndNeDUvNklLZElwcS9SRDJB?=
+ =?utf-8?B?dVpHYXdPUGJxd1VXdWRoK1dYeGtKNFFPdTQyZDAzVjFOdmtjdk80cUJyMVFZ?=
+ =?utf-8?B?aVgxQTFYRGxwd1pVbnBna2VUUWxHK1haR0x2bk9BUVE0RXZwUVh0S2k2QXpy?=
+ =?utf-8?B?aDQ1dWJIMXJLSEtFL1lqV0hTWHJhZ0tWM2tXd0V2RHE5OVhldTNKakhQei8v?=
+ =?utf-8?B?dW5kQTk3TGVkS1RVK0pzS3J4Rm44VXB0WUFhU0RkUDZhelNkTWRIL3Z3VUkv?=
+ =?utf-8?B?WjVBL1pnY1pQMkd6Nm0rTVdFRy9FdGZlelhnUzBhQ3VkV2x3aUdmZ0xCMmlt?=
+ =?utf-8?B?NDBWR1RrbWZ5NnVTMHQrYjVMaXp5bzZ2TGNtc0VCd21XMzJ1REI4azRzbmdI?=
+ =?utf-8?B?N3hqWDBMZ0piQ3V5Q2RWOW5sQ3RPT0p3KzRuTmlSKzJIcWZjRjlVZ0FsckRX?=
+ =?utf-8?B?ZFF1OFNXK0xCTHIraXBSTjlzY0YxN051VTh4L1pSaHA3cXc5M0FqM201dG4y?=
+ =?utf-8?B?WmkwMk00ald1U1JJNkxwaTFnc1hNMjByMVdPdXBiMWZwSEtaR2tmM2tlVG4z?=
+ =?utf-8?B?cVBkby8wem9nZnZTTEF6MkJLQXFDM25aRWs2ZjdaeUF2RDhTNloyaDg0NVhM?=
+ =?utf-8?B?ajIzTG9hTWFNczdtM2xBd00zMURPNGxKL01DZDFUOGI0Q0RlcWtPMGNFRGdq?=
+ =?utf-8?Q?KgQG/HkQldw1GBLtXMNV1rCtFU8pTzQ5LoO4mkytexsO?=
+X-OriginatorOrg: opensynergy.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50db208b-0eea-4d1a-1c74-08dc9d903349
+X-MS-Exchange-CrossTenant-AuthSource: FR3P281MB1917.DEUP281.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2024 07:49:44.5105
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6gSMQOTLxe79DesBP0W4sm1XfU5Fjt9w0KVTNeTG249LZfgz94XYrDErnsQ3wCdc25Tp8UqTM+oY38vT/AhzRA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR3P281MB2031
+X-TM-AS-ERS: 40.93.78.49-0.0.0.0
+X-TMASE-Version: StarCloud-1.3-9.1.1026-28512.006
+X-TMASE-Result: 10--18.635300-4.000000
+X-TMASE-MatchedRID: oHOSwQSJZWhTzAVQ78TKJRhvdi92BBAuZ1bRaBl9Rq97dapstUT49xth
+	E1jlBbx1oGmd6vxLX+RjAIBdY+qiQmqJJI5R6OiAXuXnuSLRLfw3RfriMbLZ1t0ZColqhj7/g42
+	36eeMysQbr0uru2RIEmAtuUl9iJPDJR2IjGwE8FeDtrKaVShBjo9Fkvaqp8xt2ubnxCjreJ+rJj
+	SbTE7N47K8gxjG3OQ3k4PD2ddIu+QDcBI2JS3GLfSusYC5w0DYOxqBq+vj4omxyj/WjSNt0+/Gu
+	3EgFWnwS0Rwgj0pIs2aewO4M8FPU21wxb5KDmTJkh0LRDkkMBwPTLaWh3LIJP3OHhDjHDxxxt5u
+	dGj+d82JL2xa61pjdQY3AEbvotO+6LWWRS861V9rAlSpuYY8Hdo+48giqZwn+ng65LLRQXGvngk
+	jHjojpAP5R/zL3aImGTZsf6fQyicnef17+TmbzlYU7Lxeiw6GWa6vTkKxwrJiyuQOZndK/bpcTK
+	sMs1ZR+gsSeW2jNCcew2qcqcVYijIaKjuYdgU7QjUAbSCjYr9zFOYZ7JQcs2gGZNLBHGNe
+X-TMASE-XGENCLOUD: fe945c6e-7ae2-4423-b132-e9a6d44e06af-0-0-200-0
+X-TM-Deliver-Signature: 9E39381842D3A5FCC924D40EF3AB3AEE
+X-TM-Addin-Auth: FVxRIGzfd+W8CHvYzmkWUzOuRM+kV8cyLKq2WJ5KEtB4PaD765CNMtAtwcC
+	YUUQMcsNF0TqdzBd861Lj3c8WdRPjUXP5SldqF7VDpqYh2rlctqqQ29ypbFgJnL5xzN6mCXlQu4
+	Lsfi+hhC30La1qJxVzSbw58bxI/w/tWRPl8Weikat6mlJK+AM/QouMMgjNpcIWTMQNYnQKVeXCk
+	8JUo3saxIRWcAL1F6oR3+Y/pXUBKEiMPIjDw72nF80vQkzj/6Ak2PenroJAhCTO5Xz1Cn9ODbKS
+	tJRA9+B/7fnrHnQ=.WLpKnKYJPE7jlOIDyaxi1FV77kPG6Zayh9rxrvaPgs75RV7LIEYv7Yoe0T
+	sqT/yOiUTlnQC5RhhM1Ox57e+/ivvFu4zC/JVRhBmG51M2LUNrPblbV5KzysCOGs0j0fAqf/aE1
+	YGPRY6mZgFnMeIEbozIxHzjzyN69L7hH/cfCixYKWhfhwRHgxYiks7r6EnrWG0IDvviqFZ/P14Z
+	dkTmZ4YEuteJyTypkEeWn6J/9WvTk9aV93Kz8GrorgsTLeJKH4Fz+b0ijwjKtO5xfBrss0mTJuv
+	zVVaMZDe+AZCojbvFj5P8xOCd1RZdIDnOFWCU5mxsihXyi7anY+f/CiGCHA==
+X-TM-Addin-ProductCode: EMS
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=opensynergy.com;
+	s=TM-DKIM-20210503141657; t=1720252186;
+	bh=HYkD/iOYK3wXTncKxvTS5HBFB2HBCe7cdZ4yNFpqKfc=; l=3966;
+	h=Date:From:To;
+	b=Xbs0P3lO3CCS9LlVdTKGo37V3SAjrUI9PswfEbC9r4566FclxKlsIVo5uuIkiJ8D/
+	 8U9JBcyK5pjkY5n96FAaoNrY2lpWqqqkYVJzzUhjZxdf7DDbgmz0t8Awh8gF8ujTth
+	 qKiG0IlzNH6glMtNdlM3QU3QIeWZg0tRGcPvRODCkgnmiowIpScutsGxRYnUIxL5gI
+	 +Eb5fiIMx0CqJXBR/qs8qqWFxjh+CcGroEcFalqL4i/W9vj63o6LO/o2oTYMu3GxnN
+	 tuK3C//AGo0CMe+OySGe2ty4uCc3wGkjG1SUKyGQd85POLv8R2fRp6zhSZHpx32kK1
+	 H6xWO0pDCNfoQ==
 
+On 05.07.24 11:03, David Woodhouse wrote:
+> On Fri, 2024-07-05 at 10:12 +0200, Peter Hilber wrote:
+>>
+>>>   A positive leap second will be introduced at the end of December 2016.
+>>>   The sequence of dates of the UTC second markers will be:              
+>>>                 
+>>>                            2016 December 31, 23h 59m 59s
+>>>                            2016 December 31, 23h 59m 60s
+>>>                            2017 January   1,  0h  0m  0s
+>>
+>>
+>>
+>>>
+>>>   1483228798.8 LEAP_PRE_POS
+>>>   1483228798.9 LEAP_PRE_POS
+>>>   1483228799.0 LEAP_POS
+>>>   1483228799.1 LEAP_POS
+>>>   1483228799.2 LEAP_POS
+>>>   1483228799.3 LEAP_POS
+>>>   1483228799.4 LEAP_POS
+>>>   1483228799.5 LEAP_POS
+>>>   1483228799.6 LEAP_POS
+>>>   1483228799.7 LEAP_POS
+>>>   1483228799.8 LEAP_POS
+>>>   1483228799.9 LEAP_POS
+>>>   1483228799.0             ← jumps back by 1s
+>>>   1483228799.1
+>>>
+>>> So if the second 1483228799 repeats itself due to a positive leap
+>>> second, your VIRTIO_RTC_LEAP_POS "in progress" flag is set during the
+>>> 1st occurrence of that second, and not the 2nd occurrence?
+>>
+>> No. LEAP_POS would start only on the jump back by 1 s.
+> 
+> Gotcha, so it would be set for the duration of the 23:59:60 second, not
+> the 23:59:59 second as I showed above?
 
---=-FXmz/Fq3BV35F68YW4mw
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Yes.
 
-On Fri, 2024-07-05 at 10:12 +0200, Peter Hilber wrote:
-> On 03.07.24 12:18, David Woodhouse wrote:
-> > On Wed, 2024-05-22 at 19:00 +0200, Peter Hilber wrote:
-> > > +VIRTIO_RTC_LEAP_PRE_POS resp.\ VIRTIO_RTC_LEAP_PRE_NEG pre-announce =
-a
-> > > +positive resp.\ negative leap second. Pre-announcing starts at the
-> > > +earliest at the 17th day of the month including the leap second.
-> >=20
-> > Where does 17th come from? Is there an existing precedent for that?
-> >=20
->=20
-> It doesn't come from anywhere. I set it to the second half of the month t=
-o
-> disambiguate pre-announcing, in case a particular smearing algorithm woul=
-d
-> only start smearing on the day after the leap second (at the start of the
-> month).
+> 
+> I added these to the structure and started trying to *use* them in the
+> Linux PTP driver, and got a little confused. How is this supposed to
+> work?
 
-The day *after* the leap second shouldn't be considered "pre-
-announcement", should it? Wouldn't that be another case for the
-VIRTIO_RTC_LEAP_POST_{POS,NEG} that I requested? It is notification of
-a leap second which occurred in the recent past, for which smearing
-activity may still be ongoing.
->=20
-> With the correction as per my above response, `leap` can already indicate
-> this together with VIRTIO_RTC_FLAG_SMEAR. But as I discussed above, it
-> might be better to use dedicated `leap` values for smearing.
+To use this information the UAPI needs to be extended (I suggest with a new
+PTP_SYS_ ioctl).
 
-Makes sense. At this point I think as long as we have the POST
-indications I can align the shared structure with your method of
-indicating leap seconds.
+> 
+> I don't see how Linux PTP devices (/dev/ptpX) even inform userspace of
+> which time scale they're using. Is it TAI? Is it UTC? If it's UTC, how
+> are we supposed to cope with the TAI/UTC offset *changing*, as it does
+> at the moment we're discussing? All I can find is explicit
+> configuration of a hard-coded offset. I now realise I've been testing
+> it with 'phc2sys  -s /dev/ptp0 -O0 -m' in the guest... -O0.
 
-The pre-announcement of a leap second at the end of the month is hard
-to consume within the PTP driver. At the end of the *day* is easy
-enough as it's just a case of dividing by 86400. Months are a lot
-harder, and involve knowledge of leap years and other complexity.
+AFAIU this indeed needs to be configured manually if the PTP Hardware Clock
+is the only interface.
 
-But if the complexity all falls in userspace, and we only expose that
-"leap at end of month" pre-announcement to userspace and expect
-userspace to work out *which* second that is and tell the kernel,
-perhaps that's OK? I'm still a bit lost about how this will all work as
-a leap second passes.
+> 
+> So a PTP_SYS_OFFSET_EXTENDED2 ioctl returns 3-tuples of { system pre,
+> reference, system post } timestamps. If those are just UTC without any
+> leap indicator, the 'post' timestamp could appear to be *before* the
+> pre timestamp. 
 
-(The lazy part of me says that it's increasingly less likely that we'll
-even *see* any more leap second before they're supposed to be abolished
-within the next decade, so should we even bother? But that's probably
-not a great approach).
+If the clock synchronization daemon knows through other means about the
+leap second, it will probably choose to ignore such a timestamp. Otherwise,
+using non-precise timestamps appears to be problematic.
 
-> >=20
-> > (I guess maybe a non-integer value of the tai_offset field might be
-> > used to infer that, but I have concerns about that too, because surely
-> > that can't be atomically read *with* a given clock pairing, and will be
-> > constantly changing during the smearing period?)
->=20
-> With a message-based clock read, the device should be able to calculate t=
-he
-> offset.=C2=A0
+> 
+> Or if the leap second doesn't happen *during* a reading like that, and
+> I'm getting paired readings of the TSC and reference clock every ten
+> seconds, one reading is suddenly going to tell me that my TSC is going
+> 10% faster!
 
-That's true. Makes me think that perhaps we should insist on only true
-UTC being advertised as the "primary" clock, with that delta-to-smeared
-value being exposed too, so that a consumer who wants that can add it.
+AFAIU there are two ways to address this:
 
-It harmonises the message-based with the shared-memory approaches while
-still allowing smeared time, which seems attractive?=20
+1) Extend the UAPI to convey the leap second information through the PHC.
 
-> For SHM, the vmclock approach appears more suitable.
+2) The guest has another source of leap second information, such as
+   up-to-date tzdata files, or NTP.
 
-We do have atomicity of reads with the vmclock approach, by virtue of
-the seq_count field. That's needed to ensure that a given TSC read is
-*within* the time period where the absence of disruption is guaranteed.
+In both cases, a clock synchronization daemon should pick up this
+information and initiate the leap second step. 2) should already work,
+supporting 1) in clock synchronization daemons should *hopefully* be
+manageable.
 
-What's hard is that the rate of change of TAI/UTC offset would have to
-be indicated *separately*. And it might not be linear.
+> 
+> Is the onus on the consumer to spot the whole-second discrepancy and
+> *infer* that a leap second occurred, and/or to have known it through
+> other methods? Is the lack of explicitly support for this in Linux PTP
+> intentional? Or am I missing something?
+> 
+> 
 
-> >=20
-> >=20
-> > > +In field \field{flags}, VIRTIO_RTC_FLAG_SMEAR indicates whether a le=
-ap
-> > > +second would be, or is being, smeared into the clock, rather than be=
-ing
-> > > +inserted according to the UTC standard.
-> >=20
-> > "would be"... didn't we already indicate that with the clock type and
-> > subtype? Perhaps we use this for "is being" and it resolves my above
-> > concern?
->=20
-> As discussed above, whether smearing is being done would be signaled by t=
-he
-> `leap` member.
->=20
-> In the case of VIRTIO_RTC_CLOCK_MAYBE_SMEARED, VIRTIO_RTC_FLAG_SMEAR woul=
-d
-> still add extra information to distinguish smearing from not smearing (bu=
-t
-> as discussed above, the `leap` values might be extended to distinguish
-> not smearing and smearing).
-
-I'm not entirely clear on what the 'MAYBE' is for. It seems like a "I
-found a clock lying on the floor and I'm advertising it to you but I
-have no real idea if you can trust it when leap seconds happen; I don't
-know if it smears or not. Maybe just don't trust it at all for a day or
-so around a leap second, eh?"
-
-If the producer doesn't *know* if it's smearing, how would it set the
-SMEAR flag? And if the producer *does* know that it'll smear, why say
-MAYBE?
-
-The more I think about it, the more I hate that MAYBE case. I think
-anyone advertising a precision clock probably ought to *know* how it's
-going to behave!
-
-
-> >=20
-> > I think I'd also like to have a 'LEAP_POST_POS' and 'LEAP_POST_NEG'
-> > flag which are set for a period of time *after* the occurrence of a
-> > leap second. That's helpful for a client to be able to produce a
-> > smeared clock when the device is exposing true UTC.
-> >=20
->=20
-> Ack.
->=20
-> > > +A clock of subtype VIRTIO_RTC_SUBTYPE_LEAP_UNSPECIFIED can set
-> > > +\field{leap} to VIRTIO_RTC_LEAP_NONE regardless of the clock's actua=
-l
-> > > +leap second state. For clocks of subtype
-> > > +VIRTIO_RTC_SUBTYPE_LEAP_UNSPECIFIED, the VIRTIO_RTC_FLAG_SMEAR flag =
-is
-> > > +only guaranteed to be correct while \field{leap} is not
-> > > +VIRTIO_RTC_LEAP_NONE.
-> > > +
-> > > +\subparagraph{TAI Offset}
-> > > +
-> > > +The \field{struct virtio_rtc_data_utc.tai_offset} field indicates th=
-e
-> > > +offset of the clock from the TAI standard, in the form
-> > > +$\mbox{tai_offset} =3D \mbox{TAI} - \mbox{UTC}$. The offset unit is =
-ns.
-> > > +The offset is an integer multiple of a billion ns, i.e.\ corresponds=
- to
-> > > +whole seconds, except while the clock is being smeared.
-> >=20
-> > There isn't any fundamental reason why this value can't be signed, is
-> > there?
-> >=20
->=20
-> No, it is only that all current Virtio types are unsigned. Introducing a
-> signed value might require extending the generic specification.
->=20
-> > > +If flag VIRTIO_RTC_FLAG_SMEAR is set, and field \field{leap} equals
-> > > +VIRTIO_RTC_LEAP_POS, or VIRTIO_RTC_LEAP_NEG, the offset from TAI doe=
-s
-> > > +not correspond to whole seconds.\footnote{This keeps the impact of t=
-he
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0leap second insertion on t=
-he UTC offset from TAI unambiguous for
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0every sample of \field{str=
-uct virtio_rtc_data_utc}.}
->=20
-> I think the above stipulation should be removed, it causes unnecessary
-> limitations.
->=20
-> >=20
-> > See question above about the atomicity of this w.r.t any given clock
-> > reading. Do we have to return this whole struct virtio_rtc_data_utc as
-> > part of every clock reading?
-> >=20
->=20
-> The idea was to return struct virtio_rtc_data_utc with every
-> VIRTIO_RTC_REQ_READ_CROSS message response (for UTC or smearing clocks), =
-or
-> to clear VIRTIO_RTC_FLAG_TAI_OFFSET. Supporting that message is not
-> mandatory.
-
-Aha, OK. That makes sense.
-
-Do you have a public git tree with your latest versions of the virtio-
-rtc specification as it evolves, and/or the Linux support?
-
-
---=-FXmz/Fq3BV35F68YW4mw
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwNzA1MTYxNzMzWjAvBgkqhkiG9w0BCQQxIgQgCbxQCDRE
-Qiotm0lfAGpEpHyFoYLAFLceaNwaanbaZzYwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgB5jwqO1bYQ8E9ajsjnBurq/Lwc5TALnOIa
-Af15yZQB9WXkRJF3l2xm+46lvUU3br9rsNa1w7ISoPNOkt4qXRUDx1GeC2scrF2Qo0qplWQIIjnI
-qfA4NLeVeTKU2aoykmQuqD5Rg6N3FJI618eVSzIyF1toKqcVLtvujwEkZuGbEFFqTznlScV10Ty0
-RmCixHmqqSz77TGjrMMoks3/uKX0mwaeHSF9QJCa7FAyf+djbfmfyA/60hhLlNjKI/I4IVoTyMfT
-kGzJxn3ocOIVOz5cbR+I7cnPErxraqD54bbjy3Dfca4YwtFUGEV/LK3cRSrzsKfx5eajRy6/9HLF
-oMQZ4+s2Qiay/pth2BMffkU56fCrfay0gqQoM5FlIqWDLHirstbfudDe/9AM0Ls3t7qwSzZKq9CQ
-MkrVh7ESVkmI3JMKpmG0m+If/e/0xRHGOCDIfJffJpHUL+gD94a0AUJhhQuFAadupHxhXCE8oYJO
-FhK/8XNsl08ZUB1CBJyMn6/yqcpZ66V36UFhO6fOcZRKDkJpDRIVoIB+lGxk+9UmYyomdJG5pSoC
-b3anoWzYepFTH4SlDWw4llHePL2ILHAbgo9aAOWvuacv5rufJz8VzJ3ihH+xiZti+m0Lq7ESAcd7
-7q1VBYnQ6xpONa0vQ/wBJ1RLji09w36/TGrjjVUh8wAAAAAAAA==
-
-
---=-FXmz/Fq3BV35F68YW4mw--
+AFAIU for Linux kernel PTP Hardware Clocks there is indeed no generic way
+to indicate leap seconds, yet. The ptp4l program can get leap second
+pre-announcements through the PTP messages and AFAIU phc2sys can get the
+leap second indication from ptp4l (which does not help our use cases).
