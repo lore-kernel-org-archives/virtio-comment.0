@@ -1,263 +1,246 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B7C4A34
-	for <virtio-comment@lists.linux.dev>; Tue,  9 Jul 2024 02:31:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9426413DB92
+	for <virtio-comment@lists.linux.dev>; Tue,  9 Jul 2024 10:18:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720492307; cv=none; b=V2o0ZnYNFB6oqiHRrAMReAOa18dcqhtSRPSSbjv9CAqN5ln8hvVJ35fzyg7lgERlaPjOSO0ZwHLs1tHA8UEt1xO1hszj9pzbFuPNFzfTqmH0EVhmIlltiUmrIygyDWkVmtGdWi/HOOuBbbYh77MvkWJgXRgJjwetOIK2RyM/c8Q=
+	t=1720520321; cv=none; b=RnAiBn8JoI/iQ0079XPELULbzxJalxlsTwsvKrHJwU9zSsPEkennW8qub6IEcDSMSm9jP3Nzt6vIIR2AGTu/jPcFGU6c6ElMJztc/dPBanTOLsVERW7mPl5+xdJm5YHCFNLxhbAN8BfBX/Fc2srke52kwzqNgwcw7ihydgHBZTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720492307; c=relaxed/simple;
-	bh=7QubCHfd3Xg/u9mk07Yvn0wACTfS1ax5vIQZ//0Htxw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QHNq5qUiT2wcEuI0Odr5H84/DoTauoP4op18WLAVQ2x28CQR9wAPQK/68YkPH5+Pv4YcAK9PaxqsHwDiM58mILRupXxgVLXztsl7TpO4oirskJnYKYhUemX5+pf2Fe7ahnXroO/1ZBTL6+Y9IBuIqoSM/W15voZ/QpXUpvhHzHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TutvQRkP; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1720520321; c=relaxed/simple;
+	bh=YR4/PKIIjqkmMG3PtIJ3hHuPdBBEX3gnnozEVay0+e4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=SwWmPFD/0vYJ1ka17E9+IQImOwa65jbQzFYFvJTfw6vXDAeig84ibPP5Rah4rVIxK/K0I6FOqv334L06MUdNmP1jwcbdMOygPPZ4dA1ONNy99zvMn9Qwymk7+YxtMnOmyy005eA4BhvtyIkN4UkKKFn9dTWw5hHqFk+z4RXgxYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RWKaiiD1; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TutvQRkP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1720492304;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IuLyMsOLgx1BRyeKBBN75p9yTGad9m+YjqoVG3OnYao=;
-	b=TutvQRkPLkd4/3MbLdv3s2Yjf2TL+pt+wwXNGImAxz4RuRgpCi6hvp6xNvXlA02R8TvyEu
-	Rh5+I8sJUFCQgctXi3VA1L0qTxOxa7SRFnxch/bH9+LY5gmZ6bG03w+JznXJ8gSXBN4UR7
-	a09+FSpalKa1TU93cwfBUDekq+HvJGg=
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
- [209.85.210.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-532-fJBmY4q-PWen5kXbI-7Bag-1; Mon, 08 Jul 2024 22:31:39 -0400
-X-MC-Unique: fJBmY4q-PWen5kXbI-7Bag-1
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-70af036df9cso3863865b3a.1
-        for <virtio-comment@lists.linux.dev>; Mon, 08 Jul 2024 19:31:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RWKaiiD1"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-767506e1136so2681439a12.0
+        for <virtio-comment@lists.linux.dev>; Tue, 09 Jul 2024 03:18:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1720520319; x=1721125119; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=g91KZbDpBKNXo7CmBklnlOz+9U5jDkHKpARM8imGdWg=;
+        b=RWKaiiD1+vGnru2ekS+CCZSE/GM5z4+wrYQp+CWaZrG66hzpHL8MP4IMH35eYmxyKs
+         hDbk1lAJem9TNC8nopPg80/qvRiUGCSTc8DkyGD1SLtrIdnhR+iLEBxIfFrBAWveiWQe
+         pDWbrbHAlIrrIEPV9Mi6ROcXX8MTeMgBp7GcA3wdYM7qNSf+6AR6HG0qkGlK6A6jA+LY
+         synynEbKYbTxkF7hSbl4cIHSYjTIuE/eGzijmYaO/r9kKJVV3gx5cjCtVMJWpd4Zgubv
+         TkfW5cYzhFv9g/uxAF0Aqk46iG7C/9Tg2/R+PemnqnMUt4v/AbDWX/R1ziTAjLNMNJKg
+         Bkqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720492298; x=1721097098;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1720520319; x=1721125119;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=IuLyMsOLgx1BRyeKBBN75p9yTGad9m+YjqoVG3OnYao=;
-        b=Onh7zVbarNJBYXSXNOv5YrxJWFqPjw8IO6paZnrkKLacLQvo1LO7sT4xt9VDkArarj
-         LR54UTeneov22za+NWHad9M+skxVJ0Tp+Q8d8FQCm93qF6kCw4Pnz1+Ghrf+Wej/XGG9
-         cAWusS/vEiWB/XJ/QmEsRmQWjl34zSBT/aDluLyY/lZYsAyq+Noti1nK+4Ec/NPj7uNK
-         uyOkJhXrS+L563m+J3LDL77/9HBoMyVT058WgthoIuIAyGSGpdPC+f2fZUGBddF7sIHT
-         1xyEnJOnLIUozKpTwd536jqrLixSdp9vBA4fTmirYKk0utmmpPaWPavT8s6OsaUqMDX6
-         tSmw==
-X-Forwarded-Encrypted: i=1; AJvYcCUnIASFZK+nNushuy7dKnOH0bKs8O4+oa7janlvRkXe/z3uVAKgNFjAJUnhAB6pQVM2q6Y9d/v6X21qt97GWA8788rrK0VXY9YThrSPmRg=
-X-Gm-Message-State: AOJu0YxW4WKtxJ+aU0RDZkhMG6xOagTyU0FbJ/t9fiXbbpqKQq5psFNR
-	4cLDT8Uk2Cly0NHSk9QCnt1GP7wVULEiGJ95HJOC73cIfFxYHqLOBddR/lYmBtvme1ZMtKttH+F
-	2+dcsI9oRvwnVfz8t81EnmTjiEMNXxLkE2spzxyjmtgzuaeMjYmNnYL4D/ctg08Td8WzXoT1/kv
-	iNKb2tqBP6IRC2bHLZVkOlk91C67MoNTyDZfpVP6M=
-X-Received: by 2002:a05:6a00:2292:b0:70b:2ede:7142 with SMTP id d2e1a72fcca58-70b436171c6mr1717834b3a.34.1720492298518;
-        Mon, 08 Jul 2024 19:31:38 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEW0/srUg9qQHRN32Sb0zLh3v3J80W3GUy5Xn+D/kkEEarzMI3wjF1/x+ehKQ81r+tLA2ehZCRoGFuIPR+hafY=
-X-Received: by 2002:a05:6a00:2292:b0:70b:2ede:7142 with SMTP id
- d2e1a72fcca58-70b436171c6mr1717804b3a.34.1720492298040; Mon, 08 Jul 2024
- 19:31:38 -0700 (PDT)
+        bh=g91KZbDpBKNXo7CmBklnlOz+9U5jDkHKpARM8imGdWg=;
+        b=tLF2sjBNNOHfzZ0NxZSzLpNXCTyQKKXXkjT9+eHTCCLpXmFcqkgEwLLIcvXSB9Z4Py
+         hBua/NNnbRb5EpLizdApJdkdH/BKr0hr+/2p4BNc2KTO3O28C8UGNlsjmabKVrjCkf9g
+         CCcRKT9AT6mktK6jQnhzn0zEdS8SuotEAWgZ/pUXPHCwgv0WmW9Ea0+YkUoJu8SvF7P+
+         BnoOMd8tWoGuSn6ZYlMbI/44DhXwdEwONwmpg7rOj2Px+OKbq8KexuzVuvXc6Y97rlGa
+         DEDZ6Y8Cp57ZsR5H0aL+FJRA6y+EW9F7MCyNOmSDb29/tIaELZW1JvtKU+2dwgfAx6+u
+         dE6Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVeJ8k4CLVDCyqQNe7ViWFZqBxrjhM+YhVo7kWlyY04bnhn1d1zd5w3K6LlbF5U4DfANfWyC0dL+MObVOnCb/zBzby0ex3M3NOu4fXccsQ=
+X-Gm-Message-State: AOJu0YwCNUeCammvvsk1Q2aJLyFndK7S+z334J/rtGJiUt16hh6VjHHT
+	ieOh9i3EKYDfrC7spmRb4xqEUBq2zN8seHelrtJCEVvfWtFmf3R7
+X-Google-Smtp-Source: AGHT+IF6bZmOnjrNBIDQWCDDwb4XYIvMN+DkJ7vDKWV6MT8BAhS6iG9CC9xy63M4xYvDQUlz/N9cvA==
+X-Received: by 2002:a05:6a21:6711:b0:1bd:25bd:ef6f with SMTP id adf61e73a8af0-1c298c468a6mr2196660637.18.1720520318560;
+        Tue, 09 Jul 2024 03:18:38 -0700 (PDT)
+Received: from devant.hz.ali.com ([47.89.83.81])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-70b439b9afbsm1417927b3a.191.2024.07.09.03.18.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jul 2024 03:18:38 -0700 (PDT)
+From: Xuewei Niu <niuxuewei97@gmail.com>
+X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+To: sgarzare@redhat.com
+Cc: fupan.lfp@antgroup.com,
+	mst@redhat.com,
+	niuxuewei.nxw@antgroup.com,
+	niuxuewei97@gmail.com,
+	virtio-comment@lists.linux.dev
+Subject: Re: [RFC PATCH v3] virtio-vsock: Add support for multi devices
+Date: Tue,  9 Jul 2024 18:18:18 +0800
+Message-Id: <20240709101818.2674694-1-niuxuewei.nxw@antgroup.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <nlwexda7v2vo7o5c5i3ssrwj4t6vxzny63hgemwotvd7dmf3gm@cmp4jkxf4k6i>
+References: <nlwexda7v2vo7o5c5i3ssrwj4t6vxzny63hgemwotvd7dmf3gm@cmp4jkxf4k6i>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <56ccba136272593d0d2af0303600c06f26bd84a1.1718621522.git.pabeni@redhat.com>
- <CACGkMEt-Ep+At_4YvkJ2t8UmQHJ0-Qm6fAPbGpkV_AfVyNq2EA@mail.gmail.com>
- <ed07e9bb9ae5bc1a171c77425cc0b96e6b87745c.camel@redhat.com>
- <CACGkMEvD_WDN5yeRKcZ2ijRF8C2_Pmr6UZWMNt+_R6S0WHY5Fg@mail.gmail.com>
- <e5d885e6331b18b3be63facfd59658b316f20de1.camel@redhat.com>
- <CACGkMEsbiN90ptOL2XHauzWS=9j5RXtnO7OD10yChPaUO3CY_A@mail.gmail.com>
- <2f1c19591ff456ada2a1ad470032d3e3fb9f88d7.camel@redhat.com>
- <CACGkMEv9gGrLO0OkHYKmjqrLw50kfm2yaifMk1wnb6noa5L99w@mail.gmail.com>
- <4497c727ea6cc696ba7d60bcb95ba9bce33f1136.camel@redhat.com>
- <CACGkMEu_ODQV6O5-w6Hzg5gk-8x_iRsuWSk4fN2vzznPEYKphg@mail.gmail.com>
- <5914dd3b40bca9ca0a49aa31845a2bda49c862c2.camel@redhat.com>
- <CACGkMEtun+4xhh1s6o8kEnGGg4gvVS2ocuUr2yvubTNQqGcNkw@mail.gmail.com>
- <ead6fe1f23295906b7239cf946d51762132b29de.camel@redhat.com>
- <CACGkMEtsqjnFGFnZzF825ur8zz9--QovkxW5oCi+TT6Pu7S9oQ@mail.gmail.com>
- <a1a7625f669d58f17e047adee64e050f438d9fbb.camel@redhat.com>
- <CACGkMEvn8_uJewGw=RNg0133a68KFeoi2ctk2-vxZk=x8z8anQ@mail.gmail.com> <4d31f892a481b9d16ec81251b0bd569ba709f4d3.camel@redhat.com>
-In-Reply-To: <4d31f892a481b9d16ec81251b0bd569ba709f4d3.camel@redhat.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Tue, 9 Jul 2024 10:31:26 +0800
-Message-ID: <CACGkMEve=WQOGx1P8eyDsOq2=QivUt4tmV=BEPvkxk0bdEXw=Q@mail.gmail.com>
-Subject: Re: [PATCH v5] virtio-net: define UDP tunnel offload feature
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: Willem de Bruijn <willemb@google.com>, virtio-comment@lists.linux.dev, 
-	maxime.coquelin@redhat.com, Eelco Chaudron <echaudro@redhat.com>, 
-	Stefano Garzarella <sgarzare@redhat.com>, Michael Tsirkin <mst@redhat.com>, Parav Pandit <parav@nvidia.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 8, 2024 at 6:38=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> wrot=
-e:
->
-> On Mon, 2024-07-08 at 10:11 +0800, Jason Wang wrote:
-> > On Fri, Jul 5, 2024 at 5:23=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> =
-wrote:
-> > >
-> > > On Fri, 2024-07-05 at 11:26 +0800, Jason Wang wrote:
-> > > > On Thu, Jul 4, 2024 at 12:33=E2=80=AFAM Paolo Abeni <pabeni@redhat.=
-com> wrote:
-> > > >
-> > > > > Anyway if a device can't perform H/W GRO it will send to the driv=
-er non
-> > > > > GSO packet. It will not need to fill any fields for that.
-> > > > >
-> > > > > Let's suppose we have to host with H/W virtio net support, both
-> > > > > exposing F_GUEST_UDP_TUNNEL_GSO, host1 can do geneve H/W GRO, hos=
-t2
-> > > > > can't. I don't see migration issues between host1 and host2. The =
-latter
-> > > > > will not generate any UDP TUNNEL GSO packet for geneve, but will =
-send
-> > > > > to the driver plain packets, as on the wire.
-> > > > >
-> > > > > What I'm missing?
-> > > >
-> > > > Probably not but not sure if this is a actual bug, but consider:
-> > > >
-> > > > Guests can only know inner protocol X and Y. So did host 1. But aft=
-er
-> > > > migrating to host2, it can have inner protocol Z. Can this happen o=
-r
-> > > > not?
-> > >
-> > > As mentioned, the guest will not parse the packet, it just need to
-> > > validate the fields.
-> > >
-> > > Yes, the above scenario can happen, but AFAICS it will not cause any
-> > > bugs.
-> > >
-> > > The guest will be able to process and segment the UDP tunnel GSO
-> > > packets with unknown UDP tunnel protocol thanks to the mentioned
-> > > additional fields added to the virtio net header.
-> > >
-> > > Obviously, if the guest don't understand geneve packets, and the host
-> > > suddenly starts sending them, at some point such packets will be
-> > > dropped inside the guest.
+Sorry for the late reply. I have a few more questions regarding your
+remarks. PTAL!
+
+> >This patch brings a new feature, called "multi devices", to the virtio
+> >vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, and a
+> >"index" field to the config for the virtio vsock.
 > >
-> > Ok, I meant for example, guests don't understand UDP GSO geneve
-> > packets but can understand non GSO geneve packets.
->
-> I guess there some ambiguity with using the term "understand".
-> What do you mean with "guests don't understand UDP GSO geneve packets"?
-
-I meant guests don't know how to handle UDP GSO geneve packets so it
-needs to drop.
-
->
-> Given the additional virtio net header fields, the guest will be always
-> able to segment any UDP tunneled GSO packet, comprising any possibly
-> geneve packet layout.
-
-For example, guest supports geneve GSO packet since version X. We have
-a guest version < X. When it is migrated from src to dst. Source
-doesn't support geneve GSO but destination supports it in RX. Guests
-will start to drop all UDP geneve GSO packets in the destination.
-
->
-> > > > >
-> > > > And still something needs to be considered:
-> > > >
-> > > > 1) inner nh/mac/protocol seems to be meaningless for hardware
-> > > > virtio-net implementation, anything we can optimize on this? (maybe
-> > > > not since e.g num_buffers is meaningless for TX as well)
-> > >
-> > > Do you mean in the Host2VM direction? They are needed to the VM, to
-> > > fully understand/build the GSO packet.
-> > >
-> > > Or do you mean in the the VM2Host direction? The device will need the=
-m
-> > > to do H/W segmentation of the packet.
+> >I've pushed a version of code for the implementation of multi devices to
+> >lkml [1]. You might also refer to a google doc [2] for multi devices
+> >details regarding motivation, implementation, use cases, etc.
 > >
-> > I meant for example bare metal usage, host is using virtio-net NIC. If
-> > the NIC can't do VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO, could we avoid
-> > those inner headers?
->
-> I see. The current specification change makes the new fields mandatory
-> if the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO feature or
-> VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO feature are negotiated.
->
-> In a previous message I proposed to include such fields only when the
-> VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit is set in the gso_type field. That
-> should both address the above concern and optimize the binary layout in
-> the general case. Are you ok with such proposal?
-
-This might work, but not sure if it would complicate the hardware
-implementation or not.
-
->
-> > > > 2) do we need to hear from hardware vendors to see if there's a cha=
-nce
-> > > > to implement RX UDP Tunnel?
-> > >
-> > > The bnxt driver proves it's feasible. The lack of other NICs with suc=
-h
-> > > support hints it's difficult and/or there are is no large demand for
-> > > that (I wild guess the latter).
-> > >
-> > > Possibly we can make the life easier for H/W driver implementations
-> > > adding a configuration command -say VIRTIO_NET_CTRL_UDP_TUNNEL_CONFIG=
- -
-> > > and allow the guest to explicitly request/enable specific UDP tunnel
-> > > types?
+> >[1] https://lore.kernel.org/virtualization/20240517144607.2595798-1-niuxuewei.nxw@antgroup.com
+> >[2] https://docs.google.com/document/d/14RUDEesi86EBZigVxxFsjxAl2OslPFplLyXMHiyDgYs/edit?usp=sharing
 > >
-> > Probably but then we need to deal with compatibility issues. E.g src
-> > support tunnel X but dst doesn't.
->
-> Existing NICs need to explicitly enable e.g. geneve or vxlan offload. I
-> mentioned the above configuration command as a way to hook into such
-> NIC-related configuration steps.
->
-> A simpler alternative could to be let the virtio net H/W implementation
-> always enable all the supported UDP tunneled GSO offload when the
-> VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO is negotiated
-
-It might work but we need to list those UDP tunnels in the spec if I
-was not wrong.
-
->
-> > > Somewhat related question: what happens after a migration to the
-> > > configuration send by the driver to the device? is up the the VM
-> > > somehow catch the migration event and re-send them?
+> >Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+> >---
+> >v2 -> v3:
+> >- Merge the two commits into one.
+> >- Add some descriptions regarding the "index" field: the default device and
+> >  the type.
+> >- Add some descriptions about how multi devices are initialized in the
+> >  Device Initialization.
 > >
-> > I think not, when command X succeeds in the source, the guest will
-> > assume it will succeed in the destination.
+> >v1 -> v2:
+> >- Rename the feature to "VIRTIO_VSOCK_F_MULTI_DEVICES".
+> >- Remove description from the relationship clarification.
+> >- Remove implementation details from commit message and documentation.
+> >- Rename the field from `order` to `index`.
+> >- Rewrite the introduction about the `index` field.
+> >- Add a case for sending message from the guest.
+> >---
+> > device-types/vsock/description.tex | 38 ++++++++++++++++++++++++++++++
+> > 1 file changed, 38 insertions(+)
 > >
-> > > Or after the
-> > > migration the VM is expected to run on top of a driver with a differe=
-nt
-> > > configuration?
+> >diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
+> >index 7d91d15..190f123 100644
+> >--- a/device-types/vsock/description.tex
+> >+++ b/device-types/vsock/description.tex
+> >@@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+> > \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+> > \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+> > \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not implied.
+> >+\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] driver supports multiple devices.
+> > \end{description}
 > >
-> > Nope, migration is totally transparent to the guest.
->
-> Perhaps an example will help clarifying.
->
-> Let's suppose a guest configures VIRTIO_NET_HASH_TUNNEL_TYPE_VXLAN and
-> VIRTIO_NET_HASH_TUNNEL_TYPE_GENEVE on the current host and later is
-> migrated elsewhere. Will the guest will stop receiving packets with
-> hash_report carrying such values? if not, why/how?
+> > \drivernormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
+> >@@ -52,6 +53,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> > \begin{lstlisting}
+> > struct virtio_vsock_config {
+> > 	le64 guest_cid;
+> >+	le16 index;
+> > };
+> > \end{lstlisting}
+> >
+> >@@ -77,11 +79,42 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> > \hline
+> > \end{tabular}
+> >
+> >+The \field{index} field indicates index of a device, and is required for
+> >+each device while the VIRTIO_VSOCK_F_MULTI_DEVICES feature has been
+> >+negotiated. The size of the \field{index} is 16 bits which supports up to
+> >+65,536 devices.
+> >+
+> >+The device with the lowest index is considered as the default device. Plus,
+> 
+> Should we explain what "default device" means here?
 
-We have the below fields in the configuration space:
+I believe it's unnecessary because the primary function of the default
+device is to assign a source CID when the transmitting socket isn't bound.
+This will be elaborated in the subsequent section.
 
-struct virtio_net_config {
-        ...
-        le32 supported_hash_types;
-        le32 supported_tunnel_types;
-}
+> >+it works fine with hot-plug and hot-unplug. When adding a device at runtime
+> >+to be the default, assign it the lowest \field{index} without changing the
+> >+configuration of the previous device.
+> 
+> I'm not sure it's worthwhile here to talk about hot-plug/unplug.
 
-It's the charge of the management layer to make sure the dst has the
-exact same supported type with src.
+Will remove in the v4.
 
-Thanks
+> >+
+> >+The device is responsible for populating the \field{index} field. The rules
+> >+for \field{index} are:
+> >+
+> >+\begin{itemize}
+> >+\item It doesn't have to be continuous. For instance, three devices with
+> >+the \field{index} 1, 2 and 5 respectively are acceptable.
+> >+
+> >+\item It cannot have conflicts. For instance, three devices with the
+> >+\field{index} 1, 1 and 5 respectively are prohibited.
+> >+\end{itemize}
+> 
+> Maybe we should put this second point in a normative section.
 
->
+Only the second one? How about moving all of these rules to the normative
+section?
+
+> >+
+> > \subsection{Device Initialization}\label{sec:Device Types / Socket Device / Device Initialization}
+> >
+> > \begin{enumerate}
+> > \item The guest's cid is read from \field{guest_cid}.
+> >
+> >+\item Check for multi devices support:
+> >+\begin{itemize}
+> >+    \item If the VIRTIO_VSOCK_F_MULTI_DEVICES feature has been negotiated,
+> >+    the device's index will be read from \field{index}, and the driver will
+> >+    allow multi devices.
+> >+    \item If the VIRTIO_VSOCK_F_MULTI_DEVICES feature isn't negotiated, the
+> >+    device's index will be ignored, and the driver will deny the second and
+> >+    subsequent devices.
+> >+\end{itemize}
+> >+
+> > \item Buffers are added to the event virtqueue to receive events from the device.
+> >
+> > \item Buffers are added to the rx virtqueue to start receiving packets.
+> >@@ -167,6 +200,11 @@ \subsubsection{Addressing}\label{sec:Device Types / Socket Device / Device Opera
+> > consists of a (cid, port number) tuple. The header fields used for this are
+> > \field{src_cid}, \field{src_port}, \field{dst_cid}, and \field{dst_port}.
+> >
+> >+In the case of sending packets from the guest to its peer, if the
+> >+VIRTIO_VSOCK_F_MULTI_DEVICES feature has been negotiated and the
+> >+\field{src_cid} isn't specified, the \field{src_cid} should be set to the
+> 
+> It's unclear here, can you elaborate more on what you mean?
+> src_cid should always be specified by the guest.
+> 
+> If you want to talk about the bind instead, maybe we should say
+> something like:
+>    When the driver supports multiple devices (feature
+>    VIRTIO_VSOCK_F_MULTI_DEVICES negotiated), if the transmitting
+>    socket is not bound to any specific address, then src_cid should be
+>    assigned with the CID of the default device.
+> 
+> Or something like that.
+
+Yes, I'd like to talk about the "bind". But I'm not sure if we can discuss
+"bind" here, since it is an implementation detail in the Linux. If that is
+ok to you, will replace with your version in the v4.
+
+> >+CID of default device.
+> >+
+> > Currently stream and seqpacket sockets are supported. \field{type} is 1 (VIRTIO_VSOCK_TYPE_STREAM)
+> > for stream socket types, and 2 (VIRTIO_VSOCK_TYPE_SEQPACKET) for seqpacket socket types.
+> 
+> On line 234 we have the following normative:
+> 
+>      \drivernormative{\paragraph}{Device Operation: Receive and Transmit}{Device Types / Socket Device / Device Operation / Receive and Transmit}
+> 
+>      The \field{guest_cid} configuration field MUST be used as the source CID when
+>      sending outgoing packets.
+> 
+> Should we extend that paragraph to specify what source CID should be
+> used when VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated?
+
+I think it could be modified to
+
+"The \field{guest_cid} configuration field of one device MUST be used as
+the source CID when sending outgoing packets."
+(add "of one device")
+
+Regardless of whether VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, the
+source CID MUST BE associated with one of the devices.
+
+> Should we also considering changes in `struct virtio_vsock_event`?
+> 
 > Thanks,
->
-> Paolo
->
+> Stefano
 
+Thanks,
+Xuewei
