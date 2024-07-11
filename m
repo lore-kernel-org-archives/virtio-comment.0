@@ -1,75 +1,62 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D0916B392
-	for <virtio-comment@lists.linux.dev>; Thu, 11 Jul 2024 14:50:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B3B12DDA9
+	for <virtio-comment@lists.linux.dev>; Thu, 11 Jul 2024 14:59:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720709404; cv=none; b=S2g3gBk0tKESYCDbiqxqtr+9fse4hy6cAquVqJLtQPp/SICzsVcMQyWEgN0hv1BGxpCD4RcIXq5Ppo9729buKXq3f3NQxxGDfQxJufj5vfp+42wVuWTeeoAtLD1Nioa9cciTGPwEz8kpg5IuBWArvyE0eHJMMRSpsn5+tZAdLlk=
+	t=1720709976; cv=none; b=DM69nbBk2GqKn3uG7CX6G/qKU9fxIP/Sj/J8oYGeHDUOBrnVMaov7vc4BnjaL68OU/DgdiFQ9eiNRhU4I6tVOGVcQ1EZ8xqbEKPexirDViFJPiESpM+g4pk7+ueq3g8WiqPHSt/Ab+tUxFazBz7q3J4DlHDMTBveV8GbMSOsxzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720709404; c=relaxed/simple;
-	bh=v1U4HMZWXsqcoeKTpmbundLoK21qdL6PRXUfAUdNj7I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=SCM2QTA8Hc4Oy/J22lAiQ9UAPAc6I1ilNS52LCc2uKSSGYYKb8FNH8jiDte2z1y+970yb+y6j9e29IFAkQR0RjRU5KYRotjyZi6oRDNcUTOulPYG0lqQ8udOEUJOpgnSwsfyp5pr92S+3CIRZJiTGtuJsfEISSRKZQSiZfp9c8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=C/icdG3/; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1720709976; c=relaxed/simple;
+	bh=4CuytYGWxop9eAcIa6p/8qpsPWZV/sx6JByCVnWLnEs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=g7QYUj007Pgf36ffcm0PKuFLNl5F/2wMCai/m+KCEaet0n3AI0kB0NnMydy/4ai7EHMpfZYzotIenxgC31+bz4cRpttspB4dIt+hkrEZPTSwLOSnVz8y2i8xstqfDqbMNv7O35XBwsyGnEQeduvhPT/Cj23zD/UaNeT37Z9l8iU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QRaToxQB; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="C/icdG3/"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QRaToxQB"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1720709401;
+	s=mimecast20190719; t=1720709974;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ecMjA7+ENJYOvCiqY5ibP598+QAe/1jdxCNjOh+PkM0=;
-	b=C/icdG3/fboOD4d5aH5NfkI0uOdgf8/RGPzuqVfIFMKbg8uqqWC7ksNjtK60tSypnrWENM
-	rBg6ZU0jomFe32+5UenGnhu3t9da46735biw0bsrLdeHqE+XueXqGnZ2TSGkmCL3vW3sgK
-	FPDfHFrS4RmUnY2bajhJJ1YV+38rPuM=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-635-atpTKIOBM5K4K0thcGs8pQ-1; Thu, 11 Jul 2024 10:49:59 -0400
-X-MC-Unique: atpTKIOBM5K4K0thcGs8pQ-1
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-367f1dc92e3so501558f8f.0
-        for <virtio-comment@lists.linux.dev>; Thu, 11 Jul 2024 07:49:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720709399; x=1721314199;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ecMjA7+ENJYOvCiqY5ibP598+QAe/1jdxCNjOh+PkM0=;
-        b=cyC0wci81KpZj3XgZrC4oYEe6ZmFyxk7YdWO+eqJxyag8W3j4YsKwIrEK5453F4LOj
-         t2AwUvIMnkH1QgnEbyTr7qT9ipIpIzO7AsuDZmfFQTNDLdVNn/NAXZz7Wj5Lp4mIviZx
-         r6/v/TX8dYPSlVbPgtahuQbim7TwijEI68adLV3OSRP8d2N2V95HAa9DZH8dqCRIawTB
-         AmLtTGNeEo/WJ6DV0K+b3DUX9hFzkG89/tWKZs32cXnk8/LYaF3cJDz+8ZIVYMkrJbbo
-         ru/xQZXIcGlA8T8zXddnof2c76j0VsrmjhmCTL/qdyoSaJd+nKVuQLlbHkJWxAh2SI89
-         RIPw==
-X-Forwarded-Encrypted: i=1; AJvYcCXFS+lm82EOHWjVNEMTz3Zn3hamaWuhvGRj/bog0fCTnSFeG632/jHjYJTF8q1ASj+kQhYzDkIeK6LYaqSp2H2+rXjJ4KQUlkOQB+lHPDg=
-X-Gm-Message-State: AOJu0YzRTZzX0I43VFCSp6IQ0xQeYPO7avksWUMG26Vwe7LWQYtcJaCE
-	BHyAWlchWTLCErBIexEO4gC86bOTfQ0zhqtYquCRFMjxvLHcz3Zz5itSNNgvR7HhzC7q2lzpWeL
-	hzJku4hU7useE2x9U5sSwBO/lr8aA0kH6/T+OI1zV27y515FEcdehHiAg/zAU1Vs/
-X-Received: by 2002:a05:6000:1046:b0:367:9088:fecc with SMTP id ffacd0b85a97d-367cea467b2mr6218139f8f.7.1720709398912;
-        Thu, 11 Jul 2024 07:49:58 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH11gYps0I7VhprMpVMTP9Ye+qA9iuqbgyKHPKe+q4fGt0p9c5EyfcsIY9CXNmAd9QB7YrEtw==
-X-Received: by 2002:a05:6000:1046:b0:367:9088:fecc with SMTP id ffacd0b85a97d-367cea467b2mr6218120f8f.7.1720709398377;
-        Thu, 11 Jul 2024 07:49:58 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc7:341:761e:f82:fc9a:623b:3fd1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-367cdfab6d3sm7825796f8f.112.2024.07.11.07.49.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jul 2024 07:49:57 -0700 (PDT)
-Date: Thu, 11 Jul 2024 10:49:54 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Cornelia Huck <cohuck@redhat.com>
+	bh=4CuytYGWxop9eAcIa6p/8qpsPWZV/sx6JByCVnWLnEs=;
+	b=QRaToxQBfUcqArUzL3XocZEJHzvLk/4FiLslFqpkm5mGnyrY4OGg94c++5BN0jNyR0GyUy
+	Lq668b4J+uBOX9ImNEN8RZMueFqzazZAqWMCcsuTjERO8AX6eSrojTp1cc+dSvFAkPkw6n
+	VAJNNcCCI3rvrJnKGTMhCmj8yF0Tyn4=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-132-w4XqLiviM-6OVXuYYX5ZAA-1; Thu,
+ 11 Jul 2024 10:59:26 -0400
+X-MC-Unique: w4XqLiviM-6OVXuYYX5ZAA-1
+Received: from mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.40])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 22950196CE02;
+	Thu, 11 Jul 2024 14:59:25 +0000 (UTC)
+Received: from localhost (unknown [10.22.32.66])
+	by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3A6EB195606C;
+	Thu, 11 Jul 2024 14:59:23 +0000 (UTC)
+From: Cornelia Huck <cohuck@redhat.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
 Cc: Viresh Kumar <viresh.kumar@linaro.org>, virtio-comment@lists.linux.dev,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
-	Parav Pandit <parav@nvidia.com>,
-	Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+ Vincent Guittot <vincent.guittot@linaro.org>, Alex =?utf-8?Q?Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, Manos Pitsidianakis
+ <manos.pitsidianakis@linaro.org>, Parav Pandit <parav@nvidia.com>, Matias
+ Ezequiel Vara Larsen <mvaralar@redhat.com>
 Subject: Re: [PATCH V7] virtio-transport: Add a new section to clarify
  transport requirements
-Message-ID: <20240711104702-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20240711104702-mutt-send-email-mst@kernel.org>
+Organization: "Red Hat GmbH, Sitz: Werner-von-Siemens-Ring 12, D-85630
+ Grasbrunn, Handelsregister: Amtsgericht =?utf-8?Q?M=C3=BCnchen=2C?= HRB
+ 153243,
+ =?utf-8?Q?Gesch=C3=A4ftsf=C3=BChrer=3A?= Ryan Barnhart, Charles Cachera,
+ Michael O'Neill, Amy
+ Ross"
 References: <279db14c105666b4e2c9c71dede31592947dd9f5.1720683975.git.viresh.kumar@linaro.org>
  <20240711070740-mutt-send-email-mst@kernel.org>
  <87zfqob184.fsf@redhat.com>
@@ -77,76 +64,87 @@ References: <279db14c105666b4e2c9c71dede31592947dd9f5.1720683975.git.viresh.kuma
  <87wmlsb0m1.fsf@redhat.com>
  <20240711103014-mutt-send-email-mst@kernel.org>
  <87ttgwasyg.fsf@redhat.com>
+ <20240711104702-mutt-send-email-mst@kernel.org>
+User-Agent: Notmuch/0.38.3 (https://notmuchmail.org)
+Date: Thu, 11 Jul 2024 16:59:21 +0200
+Message-ID: <87r0c0asae.fsf@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <87ttgwasyg.fsf@redhat.com>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.40
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 11, 2024 at 04:44:55PM +0200, Cornelia Huck wrote:
-> On Thu, Jul 11 2024, "Michael S. Tsirkin" <mst@redhat.com> wrote:
-> 
-> > On Thu, Jul 11, 2024 at 01:59:34PM +0200, Cornelia Huck wrote:
-> >> On Thu, Jul 11 2024, "Michael S. Tsirkin" <mst@redhat.com> wrote:
-> >> 
-> >> > On Thu, Jul 11, 2024 at 01:46:19PM +0200, Cornelia Huck wrote:
-> >> >> On Thu, Jul 11 2024, "Michael S. Tsirkin" <mst@redhat.com> wrote:
-> >> >> 
-> >> >> > On Thu, Jul 11, 2024 at 01:18:18PM +0530, Viresh Kumar wrote:
-> >> >> >> The virtio documentation currently doesn't define any generic
-> >> >> >> requirements that are applicable to all transports. They can be useful
-> >> >> >> while adding support for a new transport.
-> >> >> >> 
-> >> >> >> This commit tries to define the same under a new Appendix section.
-> >> >> >> 
-> >> >> >> Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
-> >> >> >> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> >> >> >> ---
-> >> >> >
-> >> >> > I am not sure what is this supposed doing - just listing basic things
-> >> >> > transport does or all things it can do?
-> >> >> >
-> >> >> > If the later, this ignores several things that transports can do,
-> >> >> > such as shared memory, data in notification, etc.
-> >> >> 
-> >> >> Maybe split this up?
-> >> >> 
-> >> >> A transport needs to implement the following:
-> >> >> <list of mandatory things>
-> >> >> 
-> >> >> A transport is encouraged to implement the following:
-> >> >> <list of non-mandatory, but strongly suggested things>
-> >> >
-> >> > Some things just depend on feature bits, and a transport
-> >> > can make a feature bit mandatory if it wants to.
-> >> 
-> >> I wasn't thinking about mandatory for a device/driver, but mandatory for
-> >> a transport (e.g. stuff like per-queue reset which is not mandatory for
-> >> a transport to implement.)
-> >
-> > Same thing really.
-> > For example, queue reset is controlled by VIRTIO_F_RING_RESET
-> 
-> Well, it is -- but a transport can choose not to implement the feature
-> bit. I guess what I'd like to do is to set expectations: every transport
-> needs e.g. some way to do notifications, but it can skip some other
-> things like "device discovery", for example. I think the appendix is
-> intended as a reference for someone wanting to design a transport, and
-> some kind of laundry list would help there.
+On Thu, Jul 11 2024, "Michael S. Tsirkin" <mst@redhat.com> wrote:
 
-Yes. I am however a little worried that if we include optional features
-we have just increased the cost of adding any new transport feature -
-it now has to be added in this appendix, too.
+> On Thu, Jul 11, 2024 at 04:44:55PM +0200, Cornelia Huck wrote:
+>> On Thu, Jul 11 2024, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+>>=20
+>> > On Thu, Jul 11, 2024 at 01:59:34PM +0200, Cornelia Huck wrote:
+>> >> On Thu, Jul 11 2024, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+>> >>=20
+>> >> > On Thu, Jul 11, 2024 at 01:46:19PM +0200, Cornelia Huck wrote:
+>> >> >> On Thu, Jul 11 2024, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+>> >> >>=20
+>> >> >> > On Thu, Jul 11, 2024 at 01:18:18PM +0530, Viresh Kumar wrote:
+>> >> >> >> The virtio documentation currently doesn't define any generic
+>> >> >> >> requirements that are applicable to all transports. They can be=
+ useful
+>> >> >> >> while adding support for a new transport.
+>> >> >> >>=20
+>> >> >> >> This commit tries to define the same under a new Appendix secti=
+on.
+>> >> >> >>=20
+>> >> >> >> Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+>> >> >> >> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+>> >> >> >> ---
+>> >> >> >
+>> >> >> > I am not sure what is this supposed doing - just listing basic t=
+hings
+>> >> >> > transport does or all things it can do?
+>> >> >> >
+>> >> >> > If the later, this ignores several things that transports can do=
+,
+>> >> >> > such as shared memory, data in notification, etc.
+>> >> >>=20
+>> >> >> Maybe split this up?
+>> >> >>=20
+>> >> >> A transport needs to implement the following:
+>> >> >> <list of mandatory things>
+>> >> >>=20
+>> >> >> A transport is encouraged to implement the following:
+>> >> >> <list of non-mandatory, but strongly suggested things>
+>> >> >
+>> >> > Some things just depend on feature bits, and a transport
+>> >> > can make a feature bit mandatory if it wants to.
+>> >>=20
+>> >> I wasn't thinking about mandatory for a device/driver, but mandatory =
+for
+>> >> a transport (e.g. stuff like per-queue reset which is not mandatory f=
+or
+>> >> a transport to implement.)
+>> >
+>> > Same thing really.
+>> > For example, queue reset is controlled by VIRTIO_F_RING_RESET
+>>=20
+>> Well, it is -- but a transport can choose not to implement the feature
+>> bit. I guess what I'd like to do is to set expectations: every transport
+>> needs e.g. some way to do notifications, but it can skip some other
+>> things like "device discovery", for example. I think the appendix is
+>> intended as a reference for someone wanting to design a transport, and
+>> some kind of laundry list would help there.
+>
+> Yes. I am however a little worried that if we include optional features
+> we have just increased the cost of adding any new transport feature -
+> it now has to be added in this appendix, too.
+>
+> So maybe stick to just the basics? WDYT?
 
-So maybe stick to just the basics? WDYT?
-
--- 
-MST
+I'd be happy with the basics only -- the features are documented anyway,
+and the important part is being able to figure out what is not optional.
 
