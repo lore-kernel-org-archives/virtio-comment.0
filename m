@@ -1,137 +1,102 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A94DDDF
-	for <virtio-comment@lists.linux.dev>; Thu, 11 Jul 2024 09:17:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B606155CAC
+	for <virtio-comment@lists.linux.dev>; Thu, 11 Jul 2024 09:23:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720689428; cv=none; b=DVvtlfbZztkOfaR2phe9LajS4p8rccTIvXcW96kt7hrEJn1xXkoLsSdw4EQXCkodcJ+yxkb110WkGPXb8RfL+2Bl0MK+XWWFomzkc/T2P3Dee1gbsIs+1MnNuSFvvrGO/Hq/agEv1S66CSxdHXnwLgOqdaIYVgOv6OfPEyNZFqY=
+	t=1720689817; cv=none; b=tj2POr8BzpnQb+E4xi+w7IlsZNzt05Hwxo6R5MQTypOgjGnDjDLhACKTdz/3EIxT9TVE/zOoiwDSHVdhlTMRlv1SaLfrXETMftw1LuXB8hyaXcl6hYk+977DaOdFiLWNGqUya1GwaSdcBtaHSfT6V4UkobqgyBJFEOdwkEayFGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720689428; c=relaxed/simple;
-	bh=mL8THqMVjax1FfYOwPRid7xfX6lwIUX2CHt+RtAFLlk=;
+	s=arc-20240116; t=1720689817; c=relaxed/simple;
+	bh=wUc/ne+EwhV1us2NOBLbZneAsyIPu0r82TMpyzjZv2I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GNi2TUTdY7dgIV2AMmbjmIjZ7G2T3CGIVQKui21H9RR2dDOKxMET/URxzz51OVZHzBt3oes9Ioh6AwnZNaM+PC23M24VBCudtr85TjfnS/pCWiwX9iIBUEkN5R5Qdp+LDoDdFoQKM4z4oZxA0evZrQdoqKPTKWPiTO3EyRj6dNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cMvBzemb; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=gfcRtgglXIrUe709JYwXwt8lUQaGbLXgpVGJttSO7i00G9vr9Ff+BwMA90AQWbhRt9mhj6IcOe4kmgVk/wLBdeWGvChBJkM9A307kvG9JZQcNMVTSIEwptAKG4xRMTBEv0fvF3HMWtvY3YFJGosMKU3wNwyXOXpmRfa86NPiazg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=cYWw6bJa; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cMvBzemb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1720689425;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mL8THqMVjax1FfYOwPRid7xfX6lwIUX2CHt+RtAFLlk=;
-	b=cMvBzembHl/kP1VRIE9a9207hKK+qBTccY9pLt0Y90A/OeSjGFKx4iImmXOCqqzVhRraCE
-	lhi1XK/r/n2fPU7s3rRpNeQ2+q8DFJeY/NijNXm7cILebK0nX6nAQqL5MxdhXCgwMIEJPu
-	XddF/5xkTWED+AlTsYmL27qqqMlN3c0=
-Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-159-w_LQ1mtiMmiNiHSxhzfDWQ-1; Thu,
- 11 Jul 2024 05:17:00 -0400
-X-MC-Unique: w_LQ1mtiMmiNiHSxhzfDWQ-1
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2961A1955BC4;
-	Thu, 11 Jul 2024 09:16:59 +0000 (UTC)
-Received: from localhost (unknown [10.39.192.113])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3F90519560AE;
-	Thu, 11 Jul 2024 09:16:57 +0000 (UTC)
-Date: Thu, 11 Jul 2024 11:16:55 +0200
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Keiichi Watanabe <keiichiw@chromium.org>,
-	virtio-comment@lists.linux.dev, uekawa@chromium.org,
-	takayas@chromium.org, dverkamp@chromium.org, tytso@google.com,
-	Parav Pandit <parav@nvidia.com>
-Subject: Re: [PATCH 0/1] A new virtio-blk error code for host-side ENOSPC
-Message-ID: <20240711091655.GL563880@dynamic-pd01.res.v6.highway.a1.net>
-References: <20240618081858.2795400-1-keiichiw@chromium.org>
- <20240619140024.GA57633@fedora.redhat.com>
- <20240703185505-mutt-send-email-mst@kernel.org>
- <20240709121447.GA505842@dynamic-pd01.res.v6.highway.a1.net>
- <20240709092959-mutt-send-email-mst@kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="cYWw6bJa"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-1fafc9e07f8so4599455ad.0
+        for <virtio-comment@lists.linux.dev>; Thu, 11 Jul 2024 02:23:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1720689815; x=1721294615; darn=lists.linux.dev;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=rjbd5p9pBSqj9EQwLPbeK5fKkrs+hiilxFVlQ5KwBXE=;
+        b=cYWw6bJaw/Dnm+CDeomtQ/kzgnWre/bNVlhMMPkY3nKynMzRhbpOe3uANxvSbLDeSk
+         YABVj9O1OyJlRT2pMMLyruKJnos+FAKHN/TAE1q3i3LAwP71LAe905iMeQvgA246wMBd
+         yW3leBCXRGz+9GWHhkAt3NrUsbU/hkDFdiiXtsWnwG84sqYQPhjEf0LpHDQE3MaeLI95
+         ULzaBRFU321I3ulzEhtFe0YMZzfIdXd2jH5lOj3znYQ0QU+xVSwe7DWUodOCFmgtprwn
+         fuVR5TMYKSZCxgrhl3k5jGG3cjBLYc0VFrb/XlfJUNKb+8pkrzd0DPMOLJSe7LxFri0P
+         4RUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720689815; x=1721294615;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rjbd5p9pBSqj9EQwLPbeK5fKkrs+hiilxFVlQ5KwBXE=;
+        b=n32KLT6j5AXjGhkBosMuJHrMsqZOW+2LkfHvx4HSKqX09EYYbq0lM7ZgpB0TXsezER
+         ksCIeQOA8ArOUCritF45xwMPfMSU9mz9++9f8v5AIdmDQGrVcsTVIFSBXVzEnMn1Fh0q
+         3btP4YhZTXz7tyYSBRLWGWLrA2k+FJIkXgfYWgzUE9fV0mDMHLgmDHi2wbwEHn1wGS29
+         EqH5bD1cqUL+VvE9rayYYjZpGSKHeHcNn1jlYq0rX0coRycDadyM9OB9A2zheOBS2PJG
+         q4aZD5KKwipL0T48AGeYCyOJ9mmc77xLOQbjY4yysl83Eo7p/497OxEgJDx7XfUb7xRa
+         cVMQ==
+X-Gm-Message-State: AOJu0YyYFNSeKyMApyviy6A4izAVHXBjZdb+srTer7dF2cFx+/B0I3IE
+	KyJAyO48Em74GS+RfdDciG2Wsa16kPioL4r6TgbmzeTlCCdAJ4iDfdiqat0m/6eWH5D4UXFAKc9
+	c
+X-Google-Smtp-Source: AGHT+IGqdmt0DXQJjucVfCunVPTfes1fDQL4ZrJjrdchIfycMYKb4R7DchbFsrMiSKEbMkL87Xf0Ng==
+X-Received: by 2002:a17:902:f70c:b0:1fb:8e00:e5d6 with SMTP id d9443c01a7336-1fbb6d4c3ddmr73212085ad.34.1720689814848;
+        Thu, 11 Jul 2024 02:23:34 -0700 (PDT)
+Received: from localhost ([122.172.84.129])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-1fbb6a10936sm46212825ad.57.2024.07.11.02.23.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 11 Jul 2024 02:23:34 -0700 (PDT)
+Date: Thu, 11 Jul 2024 14:53:32 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: virtio-comment@lists.linux.dev,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+	Cornelia Huck <cohuck@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Parav Pandit <parav@nvidia.com>,
+	Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+Subject: Re: [PATCH V7] virtio-transport: Add a new section to clarify
+ transport requirements
+Message-ID: <20240711092332.uf5n4sbzke52tf52@vireshk-i7>
+References: <279db14c105666b4e2c9c71dede31592947dd9f5.1720683975.git.viresh.kumar@linaro.org>
+ <zzzc2nvseptvarhpwv5vckka5yvtptgebufw3ll4oe2yascfek@5so5pdt4ur7w>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="W5PGhYV8XrhKTJM8"
-Content-Disposition: inline
-In-Reply-To: <20240709092959-mutt-send-email-mst@kernel.org>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-
-
---W5PGhYV8XrhKTJM8
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <zzzc2nvseptvarhpwv5vckka5yvtptgebufw3ll4oe2yascfek@5so5pdt4ur7w>
 
-On Tue, Jul 09, 2024 at 09:31:08AM -0400, Michael S. Tsirkin wrote:
-> On Tue, Jul 09, 2024 at 02:14:47PM +0200, Stefan Hajnoczi wrote:
-> > On Wed, Jul 03, 2024 at 06:55:38PM -0400, Michael S. Tsirkin wrote:
-> > > On Wed, Jun 19, 2024 at 10:00:24AM -0400, Stefan Hajnoczi wrote:
-> > > > On Tue, Jun 18, 2024 at 05:18:57PM +0900, Keiichi Watanabe wrote:
-> > > > > This patch proposes a new error code VIRTIO_BLK_S_NOSPC to report
-> > > > > the device's ENOSPC error to the driver so the driver can treat it
-> > > > > in a different way from other IO errors.
-> > > > > More motivation is explained in fs-devel mail [1].
-> > > > >=20
-> > > > > [2] is a prototype implementation in crosvm and [3] is in virtio-=
-blk
-> > > > > driver. Idealy, the error should be propagated to the guest file =
-system
-> > > > > and handled smartly, but the part is still under discussion.
-> > > > >=20
-> > > > > [1]: https://lore.kernel.org/linux-fsdevel/CAD90VcZybb0ZOVrhE-MqD=
-PwEya8878uzA1RBwd68U7x4CufkTQ@mail.gmail.com/T/#u
-> > > >=20
-> > > > I have replied on linux-fsdevel so we can discuss a bit more about =
-the
-> > > > context and get input from storage and file systems people.
-> > > >=20
-> > > > Thanks,
-> > > > Stefan
-> > >=20
-> > > Stefan could you also comment on whether we are likely to add many mo=
-re
-> > > errno values soonish?
-> >=20
-> > I'm not aware of other in-flight or upcoming work that will add new
-> > virtio-blk error codes.
-> >=20
-> > Stefan
->=20
-> I'd guess the original approach is ok then, if it's going to just be
-> this error for the next X years, we are better off with a simple
-> change.
+On 11-07-24, 10:41, Stefano Garzarella wrote:
+> On Thu, Jul 11, 2024 at 01:18:18PM GMT, Viresh Kumar wrote:
+> > +A transport provides a mechanism for the driver to discover the device.
+> 
+> I agree that this would be desirable, but for example IIUC the MMIO
+> transport does not provide this, in fact we have to specify to the kernel
+> the address where to find the devices.
+> 
+> Should we put it more as something desirable but not required?
 
-Let's wait to see how logical block exhaustion support in Linux is
-accepted before adding VIRTIO_BLK_S_NOSPC to the virtio-blk spec. I
-think it will be pretty straightforward to merge the virtio-blk spec
-once the file systems-level questions about been discussed.
+What about:
 
-Stefan
+A transport may provide a mechanism for the driver to discover the device.
 
---W5PGhYV8XrhKTJM8
-Content-Type: application/pgp-signature; name="signature.asc"
+But I thought I am required to remove all occurrences of
+should/must/may and use direct speech. Maybe "may" is still fine ? :)
 
------BEGIN PGP SIGNATURE-----
+> Having said that I don't know whether to use different words or split
+> "Transport Requirements" into 2 sub sections "Required Requirements" and
+> "Optional Requirements".
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmaPowcACgkQnKSrs4Gr
-c8g8Twf/Ybs6L0qyipQ53zkYSBO1yLsesLP1zpBPQwyzmfvkBJZhgz3Sd/QoEej8
-miAXVwZ/+Ln0gx+1sS9tKPal6LeDOGWIOSl67zuaVFU2TdfXrQBmZgALqFGRBqdd
-3HP/51UNpBv2d1lkaw7Lek3sgnzGvl0NI3rqXdPuche9ak+7m7VlMKNQH2DQeBF4
-74Qrjka9xRrnFPhVjGBeN5cfRukRlpX07UxIP4dkeys5k6CW+0yr0KDmgA/K/lhm
-0gZn8ZGxBsqwc8jZj2ztBD51eTA9geyzpqVHJ+9SNgGBzce80R0nOJz+KLKlNMl2
-/fxZYkalmXNxTerYTpWDO2dTkrEFpA==
-=wUJM
------END PGP SIGNATURE-----
-
---W5PGhYV8XrhKTJM8--
-
+-- 
+viresh
