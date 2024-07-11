@@ -1,179 +1,109 @@
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D121F12B171
-	for <virtio-comment@lists.linux.dev>; Thu, 11 Jul 2024 20:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402B88BFC
+	for <virtio-comment@lists.linux.dev>; Thu, 11 Jul 2024 20:55:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720729468; cv=none; b=P3gQsBq0dimo84MeiYRpYzlIQNDZ8g9tvNfZMASDXQ2YN+1W/C/UMUgPZ3KAHKYacuSgx9upFbEzIUuqrHSouPWjDYC0uQZBQezzG225AJbh5QeVfveNbIUukvicREn/8AIm37xMHEHSeXlaUw5zGhdk1f7TZzDcTJ5hjJMwUaI=
+	t=1720731343; cv=none; b=fqpJe9EYQ/9w1hb0wmRvplq8If2Iq71g5aP51PyUgXVxOIQw6Tkym7fmsrxaA4JsaRMyQzHYeaBkTr6Sj1juTFwMBU7nmefBdNyZZDqHDviFkxiTzBG0MP3zOkdxfZpOxOWaOFTYWrqotO9eOIsqzDYKWFp3QicSri/2KyzHxyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720729468; c=relaxed/simple;
-	bh=dO5ojiy/hXaZ9sXVKUED+1aD1iHapEUOy4/dSM7nYp4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=iBq3pdAbxVq83jyS3bldYLec57nFxsimtqM7djzh0t9VhQs/yoAl2wfd2oYbVLFxh1x0VKWQCXbGqora0Ans0X2KiC75neodHWZgTgoKxGFob17JTuaqeBKnOpPCZG86ZnZh8wRkYl5EKcVmN1ZsmGKiL8BIjTAaOIqC6Ev5UtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L+/DPfI1; arc=none smtp.client-ip=209.85.167.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1720731343; c=relaxed/simple;
+	bh=ZBcHcZmJzU5lPbU8u1n6nGPTTCPS1nA02PaBneHFD5Y=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Ry0c2lSjoCaM8nJHudnZl79HnApq42qNm6g1sAh1/DfvKTvZbVhpuVjYZaaGMR2LBrmkBfKz0H9hHgkFNlUO5uGFM07+Oh+6yKkEk+0JViRyQlLSCdbP6Cx3CiXbnA+G4CYLoXq0CpGo+WaGcLZhLseQ5zjebqxdb28wPCmxZjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gMlAI1E4; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L+/DPfI1"
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-52e9f788e7bso1571166e87.0
-        for <virtio-comment@lists.linux.dev>; Thu, 11 Jul 2024 13:24:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720729465; x=1721334265; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=zEbWi/Mz9XookuA6bgaeP5RCCjNlx6kyP9umCEGP24c=;
-        b=L+/DPfI196oa7OwCA5VL4pJMwPTUa8qt47CnoULB5LZPSWRzDonvtV8dLwHq3qCRej
-         K9fsXP/ZR1NwW9WRUNXSu9fsSpwkWo3x7/fdmFQuuqC2XZrDRmqnK+vfROEApB8ov4x3
-         Ux4LaRzH2KnL7/LT2PHrdEJUm6cfa/oVphL/6/UllZFX4ytUKM32t5I3dPvX6FJwhMKC
-         OMizVDtj8a1O4hORLDy455I7SmIkoan0ZaB46M1k1znnWzoSPtG3/+M5we1Hfkb9zJAd
-         Q7ja9ea5wYkSEtMVLheIpD1Im9TKN55NADYtIsq9BqURGdeu/b3vmUW7zN0DazN2+ZYz
-         DEyQ==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gMlAI1E4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1720731341;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type;
+	bh=UbQ0QBN0r5j2W4trV9dBXRIRweAyotv3OLS/8m92VNQ=;
+	b=gMlAI1E4SCHz5WATa3B0fzs7POlmHwhtLGRKwUxvptbB3hMu/hWOTK/9h2fGTAs43SCs2Y
+	4n2l2WGwvxhCSBB2MWY+X7XKLWYlW4A0QT6AEMltmR57WWFynbzmF+vUF7jw4dy0SWEIU5
+	Dtm5BpYP8OkLO/z0tuw8D4qP3rYbCqo=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-112--pBS-f6nPHuuB25LMl1a1g-1; Thu, 11 Jul 2024 16:55:37 -0400
+X-MC-Unique: -pBS-f6nPHuuB25LMl1a1g-1
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-42674318a4eso11670495e9.1
+        for <virtio-comment@lists.linux.dev>; Thu, 11 Jul 2024 13:55:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720729465; x=1721334265;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=zEbWi/Mz9XookuA6bgaeP5RCCjNlx6kyP9umCEGP24c=;
-        b=kUQa5zR+Ol0Q8WQ+/Z63QP1QxZeHj1E/NyL89FdbiElQ8OcgnShZB32uYvhimPNnJn
-         I/aEmKkxT4eXoUl6+NZnH/yhoHxZac2cKVL39AwzdNvQyiPmzxrq+5xx2NaCXd6NwZfT
-         EEKVvceNAGwc2hUqOCFPBW0R5eRJIO5SKrOXXKaMjTlTLqcZmedESn8lQDsPoTsxV9Ki
-         0vKgvWee6XOI6O1Ju60JwccNvb4zhuNIkiovypDUY17KH7OOAsnYoEwarEoMZdu9sL3p
-         1yG+06SPgIjJkWWrjXBL58K+2uEHe+xBcofUfLp1WiKnJPufrCr8dONJtelBmVgibQ72
-         9SKA==
-X-Gm-Message-State: AOJu0Yy+C934rQXLKmlhtSXiogi9doc7QljKA/VeNRXK8DodkvKZep0M
-	WVEZSOIIEBP0P9VvHseTKeSOzaRTHZUh3+QUHA6GAerQsylebx0nWZPS5knKKl0=
-X-Google-Smtp-Source: AGHT+IEsEIeDfkc3imQV3DIizcozvd+6dZOLEa5T5Ae/RH0T50H9wz/49yYtxVpseW6lDp2UHRU2uA==
-X-Received: by 2002:a05:6512:110e:b0:52d:b1e4:b337 with SMTP id 2adb3069b0e04-52eb999165cmr7722677e87.21.1720729464558;
-        Thu, 11 Jul 2024 13:24:24 -0700 (PDT)
-Received: from vr-arch-host06.mtvr.labs.mlnx ([193.47.165.251])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a780a854368sm279595666b.155.2024.07.11.13.24.23
+        d=1e100.net; s=20230601; t=1720731336; x=1721336136;
+        h=content-disposition:mime-version:message-id:subject:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=UbQ0QBN0r5j2W4trV9dBXRIRweAyotv3OLS/8m92VNQ=;
+        b=WLt74KlniuJz30S78a9ZEJ0hHRSpxtr4SFDvtyz7AP/ykS8y2isDNKKDsyk46aPPkr
+         73ZKwa/P/FYghUAa/xvEQFgDSnb8YLf+v96Qfhdz4NZqBxKyA7kj/rsobZMlHXRcGOyg
+         HxEBPmOuxRv0gqaGkHMFp3SUPh+NdMxXGFyz8xENBnWBGeR7nH5IehwXzAKzMs1dDqiy
+         9Ux4ptBWa+W49Ufcyn5BmjdFt3hk+lCSDKlCgpLG4D0eEIuT5Mf47a0Yi4nWj6Z1LItB
+         4kIb5KdFtEDk8XWtEhwBax6Fq4YZjX1zPsSID4bwyjiDCI5SpeV7ZUy9wkZwd/DUxP9k
+         TmDA==
+X-Gm-Message-State: AOJu0YypUQ7KwS7oyRWeAn3c67paX8Um1gAxSGPpw2LWj/acymZAqN3I
+	YVKSYlEDP80v9BoUskj9qdlNRWUmaB/f2Iu5U8ej2/xughc4CEANq3lgx65g7vKQl5wLGX/0jyq
+	82EZQaT06YXB1dqOLJdHIoMAecITWTjxG0P2EpMg9VLJR9OFx/VesjzXkKYcTEixEf06MzY4X1i
+	RkeAbOSrJNhO/ARrj9SwPB9ZClart4X/9qz5A6FYPViw==
+X-Received: by 2002:a05:600c:4aa9:b0:426:5b44:2be7 with SMTP id 5b1f17b1804b1-426707cea49mr85101765e9.10.1720731336162;
+        Thu, 11 Jul 2024 13:55:36 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHO41BuWg+K2+1l9Jm0BTZILABz9lGfiaUz34gd/VTLdzOiYwGSwYO9mDaAB6CJNqVdZb2/fg==
+X-Received: by 2002:a05:600c:4aa9:b0:426:5b44:2be7 with SMTP id 5b1f17b1804b1-426707cea49mr85101605e9.10.1720731335383;
+        Thu, 11 Jul 2024 13:55:35 -0700 (PDT)
+Received: from redhat.com ([2a02:14f:173:2166:83a4:d566:a055:a5a3])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4279f2d7489sm490505e9.44.2024.07.11.13.55.33
+        for <virtio-comment@lists.linux.dev>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Jul 2024 13:24:24 -0700 (PDT)
-From: Parav Pandit <pandit.parav@gmail.com>
-X-Google-Original-From: Parav Pandit <parav@nvidia.com>
-To: virtio-comment@lists.linux.dev,
-	mst@redhat.com,
-	cohuck@redhat.com
-Cc: Parav Pandit <parav@nvidia.com>
-Subject: [GIT PULL virtio 00/40] virtio master branch with fixes and admin commands
-Date: Thu, 11 Jul 2024 23:23:52 +0300
-Message-Id: <20240711202352.3228345-1-parav@nvidia.com>
-X-Mailer: git-send-email 2.34.1
+        Thu, 11 Jul 2024 13:55:34 -0700 (PDT)
+Date: Thu, 11 Jul 2024 16:55:32 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: virtio-comment@lists.linux.dev
+Subject: [PATCH] transport-mmio: fix up makediff from 1.2
+Message-ID: <fc98549666e0fe74e890a7a62ca71248e709712b.1720731329.git.mst@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Mailer: git-send-email 2.27.0.106.g8ac3dc51b1
+X-Mutt-Fcc: =sent
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi Michael, Cornelia,
+we fixed a typo in label name: in the diff old links become
+undefined. Add the old label back for now, we can drop it
+down the road.
 
-The following changes since commit 37c6a406678a5ee891fdf5671298cb4fcfa517f2:
+Fixes: ca97719 ("transport-mmio: Fix spellings and white spaces")
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+---
+ transport-mmio.tex | 2 ++
+ 1 file changed, 2 insertions(+)
 
-  sound: add sampling rates 12000Hz and 24000Hz (2024-02-16 11:55:25 +0100)
+diff --git a/transport-mmio.tex b/transport-mmio.tex
+index ae5fb37..94a93a1 100644
+--- a/transport-mmio.tex
++++ b/transport-mmio.tex
+@@ -44,6 +44,7 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
+ 
+ \begin{longtable}{p{0.2\textwidth}p{0.7\textwidth}}
+   \caption {MMIO Device Register Layout}
++  \label{tab:Virtio Trasport Options / Virtio Over MMIO / MMIO Device Register Layout} %for makediff
+   \label{tab:Virtio Transport Options / Virtio Over MMIO / MMIO Device Register Layout} \\
+   \hline
+   \mmioreg{Name}{Function}{Offset from base}{Direction}{Description}
+@@ -431,6 +432,7 @@ \subsection{Legacy interface}\label{sec:Virtio Transport Options / Virtio Over M
+ 
+ \begin{longtable}{p{0.2\textwidth}p{0.7\textwidth}}
+   \caption {MMIO Device Legacy Register Layout}
++  \label{tab:Virtio Trasport Options / Virtio Over MMIO / MMIO Device Legacy Register Layout} %for makediff
+   \label{tab:Virtio Transport Options / Virtio Over MMIO / MMIO Device Legacy Register Layout} \\
+   \hline
+   \mmioreg{Name}{Function}{Offset from base}{Direction}{Description}
+-- 
+MST
 
-are available in the Git repository at:
-
-  https://github.com/paravmellanox/virtio-spec.git tags/for_1.4
-
-for you to fetch changes up to 74bf759aef3bf10447aadcb841c66dc5e6a578d6:
-
-  virtio_pci_cap64: specify offset_hi, length_hi endianness (2024-07-11 20:54:20 +0300)
-
-----------------------------------------------------------------
-This tag contains virtio master branch and set of patches of administration commands, pci fix, blk config fix, and net description fixes
-
-- editorial changes froom master branch
-- virtio blk and pci capabilities data type fixes
-- virtio net header description update
-- adminstration commands for flow filters
-- administration commands for device parts
-
-Generated PDF and also the diff pdf were verified using makepdf.sh, makediffall.sh and makediffpdf.sh.
-
-----------------------------------------------------------------
-Cornelia Huck (12):
-      edit: remove old changelog
-      edit: add changelog for 1.3
-      acknowledgements: update for 1.3
-      editorial: update copyright date in PDF footer to 2023
-      change revisions: diff from v1.2, current v1.3
-      title: note that 1.3 supercedes 1.2
-      revision: update date
-      remove enumerate usage that makes the tool unhappy
-      Revert "remove enumerate usage that makes the tool unhappy"
-      editorial: various fixes for 1.3-csd01
-      editorial: update "Computer Language Definitions" URL
-      makediff: update list of cherry-picks
-
-Kröning (1):
-      virtio_pci_cap64: specify offset_hi, length_hi endianness
-
-Michael S. Tsirkin (5):
-      changelog: tweak column width
-      changelog: formatting fixes
-      work around extra row
-      html: add missing enumitem package
-      README.md: update mailing list info
-
-Parav Pandit (22):
-      virtio-blk: Fix data type of num_queues field
-      virtio-net: Fix receive buffer size calculation text
-      virtio-net: Clarify the size of the struct virtio_net_hdr for tx
-      virtio-net: Annotate virtio_net_hdr as field
-      admin: Introduce self group
-      admin: Use already defined names for the legacy commands
-      admin: Add theory of operation for capability admin commands
-      admin: Prepare table for multipage listing
-      admin: Add capability admin commands
-      admin: Add theory of operation for device resource objects
-      admin: Add device resource objects admin commands
-      virtio-net: Add theory of operation for flow filter
-      virtio-net: Add flow filter capability
-      virtio-net: Add flow filter group, classifier and rule resource objects
-      virtio-net: Add flow filter device and driver requirements
-      newdevice: Improve the appendix chapter heading to reflect the content
-      newdevice: Extend informative guidance on capability, resource objects
-      admin: Add theory of operation for device parts
-      admin: Extend resource objects for sr-iov group type
-      admin: Add admin commands for device parts
-      admin: Define common device parts
-      admin: Add requirements of device parts commands
-
- CONTRIBUTING.md                         |    2 +-
- DIFFVERSION                             |    2 +-
- README.md                               |   80 +-
- REVISION                                |    2 +-
- REVISION-DATE                           |    2 +-
- acknowledgements.tex                    |  124 +-
- admin-cmds-capabilities.tex             |  249 +++
- admin-cmds-device-parts.tex             |  469 +++++
- admin-cmds-legacy-interface.tex         |   24 +-
- admin-cmds-resource-objects.tex         |  287 +++
- admin.tex                               |   61 +-
- changelog.tex                           |    6 +-
- cl-cs02-12.tex                          | 2593 +++++++++++++++++++++++++++
- cl-os.tex                               | 2897 +++++++++++++------------------
- conformance.tex                         |    6 +
- content.tex                             |    1 +
- device-parts.tex                        |  231 +++
- device-types/blk/description.tex        |    2 +-
- device-types/net/description.tex        |  646 ++++++-
- device-types/net/device-conformance.tex |    1 +
- device-types/net/driver-conformance.tex |    1 +
- introduction.tex                        |   32 +-
- makediff.sh                             |    3 +-
- newdevice.tex                           |   62 +-
- specvars.tex                            |    2 +-
- title.tex                               |   15 +-
- transport-pci.tex                       |    4 +-
- virtio-html.tex                         |    1 +
- virtio.tex                              |    3 +
- 29 files changed, 6001 insertions(+), 1807 deletions(-)
- create mode 100644 admin-cmds-capabilities.tex
- create mode 100644 admin-cmds-device-parts.tex
- create mode 100644 admin-cmds-resource-objects.tex
- create mode 100644 cl-cs02-12.tex
- create mode 100644 device-parts.tex
