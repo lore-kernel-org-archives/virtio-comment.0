@@ -1,199 +1,313 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00DBB54FB5
-	for <virtio-comment@lists.linux.dev>; Fri, 12 Jul 2024 11:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370FC7EF09
+	for <virtio-comment@lists.linux.dev>; Fri, 12 Jul 2024 11:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720782032; cv=none; b=shf2sm4HQwzkQFgVFCvujqZs3nhEW18yXURI4z8tVW3uFWrnEjX4PB1lAEoqx9u+ROHLqk+cudYroWe1tXYMPRJ2BmU8rowKQBvMJ7T6R21z65A+TD0ZSwpYQEr/ydA63M9fhqprUIVdFsHVHXpZy7arBlqqOdRpW27oMGEqCdM=
+	t=1720783102; cv=none; b=PGV+gTqnOquMBhgrlEzdaHq5vsDS9Qaba7wJT2sWbt/6j2ZFtqxAthwcxeZ8hwoNDOXp0yQ6scsmPeJg0Y5XLkp0b6N8od3hTYPgXpWEs5FvWerEfKTqt0I51Ctvst1YbamBOr8nTFIdrI269AmNirYR8McapsdCw2rx9+dg9VI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720782032; c=relaxed/simple;
-	bh=re4phu6SymAlRnuyv5rkeNJtJ4FARxBDhvRdTAZMXmo=;
+	s=arc-20240116; t=1720783102; c=relaxed/simple;
+	bh=m6brtPhMDnn0RX0P17Tyd87pGsly94Sg63OienupZGo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=TzLK4PjS6m7bPdXhJxDvxPLho/O6iQihr21um5c7LPaUorx9pSHQUNMnvD7yuHOaMhQcJMkCVg461ZbE2t6qLkl3GbnYHWUM6TdeJ2mRme68dvPKJhy1Ke7Uv0wxoE7rEjLkjXTTJ0UfMQmWr4iuKVJwcbmD1MdgIKQh+9t89P4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aO6TI0Tj; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=d7btczo5L4TB+pRgJ1MlqGKyIYCs+eQ2g8TAWvtV31wf0iewyjvkoGI5MuL/4VX61hAIog/wZyinJr0LwLLDZpeF2DStiDij1pbhWZWY6W0cxMn9DUNhlDZ8DLzgDSgYRH0RBkVM7UJq9TokG/gRu3Wsu1MMN60BqdogNLdfSFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=E0uxGqiP; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aO6TI0Tj"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="E0uxGqiP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1720782029;
+	s=mimecast20190719; t=1720783098;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=wkcO7S0J5cPb2c05Ze6wlDsibBZ6n32Upt/JzrbVrCA=;
-	b=aO6TI0TjxGqcQQlzgWadJ+w6l2jwhlOiQUz7by8d9ejhyFhonY2kM55+0DQLVteb3hvso/
-	rHKSe3xNClcwv3swQTHmKCO8tXBgkLuipOzBz6XRwIDxmvK5w95cM90s3RgYHTOSaEj3qV
-	pkpKIC5g4w7hJ8vcwvh8QljLfAwQT7c=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=1W9MU0fNUeqFI8gKVdFfFhfL5nzYtxmuzJN0scyqYwg=;
+	b=E0uxGqiPin5RF/J4eC7UAxWBuDc/m5ridH3HUtRYJ7KTKcU1alFVgjOS6VQUpztWvWZWm/
+	AYpb5jKgN0PJFZ81TPrpHiUZGv6//r0D7bRG406yDTn7mldbNpcbS4i9sOzfTf5QVAODmB
+	AOTvhgrzKh1W/1nU+92dOZYY2M2GrKc=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-661-HpdYRjFjORydZ4bipPfGzg-1; Fri, 12 Jul 2024 07:00:28 -0400
-X-MC-Unique: HpdYRjFjORydZ4bipPfGzg-1
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-367962f0cb0so1308102f8f.1
-        for <virtio-comment@lists.linux.dev>; Fri, 12 Jul 2024 04:00:28 -0700 (PDT)
+ us-mta-620-lFPKrXtvNFy_2MCaiXTwEA-1; Fri, 12 Jul 2024 07:18:16 -0400
+X-MC-Unique: lFPKrXtvNFy_2MCaiXTwEA-1
+Received: by mail-lf1-f72.google.com with SMTP id 2adb3069b0e04-52e99257918so1911059e87.1
+        for <virtio-comment@lists.linux.dev>; Fri, 12 Jul 2024 04:18:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720782027; x=1721386827;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wkcO7S0J5cPb2c05Ze6wlDsibBZ6n32Upt/JzrbVrCA=;
-        b=q+Scx5s/L5ii2vM9BpQ0xwcK0f0+pGDFlRCRBFFHIViTztYbsIZWr0yo29EA9jgZzR
-         RYFvRxcDFqR1YD9u4nsD2E+GlZc+6eE9hERk4NAJ+aBMxFKC0HWdkhPigVqKiXqiuYi6
-         T4CBQWYIbwDZ/wMDvHSQaugpj2GXDAXx66xM2bZmF7YwVJK1B2Zev0CoGkYguIr6mVFa
-         0vzeZ1MvPCZf9rjd747WPhMum7DDiNI6byvUg6SFz/2uLoDQH+ShfmFB3sd/uFGpEEci
-         hukYCHYotTI7oA0xYxbijnEVUdTSdpNYEmY//1/UdpK22FUzsDr+I/P9aOqfIVEBPCYk
-         2ZLg==
-X-Gm-Message-State: AOJu0YxxnoL2zZMp+vrIMsfWYJPCYKOlZsTBQxM0p/n+MXH8i2dNd67s
-	A5SXBE7Emb6/iqsMwjBlR3gbB+DD3w6RzVKaJJ4Hpyt2cpR6sHsMQtZC+9TyW1Y+C7FJP/C/4z2
-	/TMwDLCL0HZ1jacVQqY5HlaepLYTcGZnBQoQlCW2Ha44RuLfkKaMp2c59y/awTo/FKa+FaBb9
-X-Received: by 2002:adf:e111:0:b0:367:9903:a79 with SMTP id ffacd0b85a97d-367cead1181mr7736868f8f.48.1720782026951;
-        Fri, 12 Jul 2024 04:00:26 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHfb4pawjpe0Sp8HNc2rZY7kr1gHt9A26Ev2fIMZyJKfTNS7aFnYmQNP4V3flgK31qxGwecEA==
-X-Received: by 2002:adf:e111:0:b0:367:9903:a79 with SMTP id ffacd0b85a97d-367cead1181mr7736834f8f.48.1720782026076;
-        Fri, 12 Jul 2024 04:00:26 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1720783094; x=1721387894;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=1W9MU0fNUeqFI8gKVdFfFhfL5nzYtxmuzJN0scyqYwg=;
+        b=ovcej5SkTbJiiMm/O6q5uQ3DOfEQeoEKoqDuo5JIxSa0MSYa+xsjHak9iSOQGfObYq
+         2PcknJ2xJH/VUPwTk1Xm+PZjua+9BqaL8ZlQYaETVvyCnJn7VJ8wTQPEpiZa6vjIfd3V
+         Ju0ryJ6Gw0QxwQ10odGFRT/0dJnMAijT11E4+hcj8iWq1Z/KO7d3ae7tZ52WQrbHKvV1
+         xv8GsaojfTrvd2mA3eZa5mpnFP04CE9UPpE4rIu065WuW4Y802v3JuhSVKZcGJ77OJxA
+         Tg/kbj0gtiX55eHvHuWway+gr3DZI0YUDtd+Rz4jPPO3VjxtySOBlqtMLGloStX81UsK
+         cqUw==
+X-Forwarded-Encrypted: i=1; AJvYcCV33X+bOFyd+mTm0NQF1oQ4bV880nYJnhjPtc14Ls2jT6SBSZTixfaUHJOfB8GeE2gCdtSlpvLo+aWD5FIkuPRJh8jnp1hNlR5MnQ01E4E=
+X-Gm-Message-State: AOJu0YwnHpW/JGtPUnvsect0f8Iugl1pDej6BlzU5Szap6fh9enf+yUI
+	ygVZMkpIaonsV3AH9hF1qywocLZ0sEFqo0ixl9Oi4R4m4vXvfMfFmYxVQcxqPIWwQVGGeNeKsYU
+	jCWg7DQK2WK6hUhyNPGVSFKRMb3ofJlJaCufOE1cD0XXVvm69A/biQ9zkNlZIyAp8Wsq8Tdhm
+X-Received: by 2002:a05:6512:3c81:b0:52e:8141:1b27 with SMTP id 2adb3069b0e04-52eb99d219amr10812243e87.43.1720783094202;
+        Fri, 12 Jul 2024 04:18:14 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH6kXkEcNOqcSKYF5E4yePPkLicWOUktB2Ipld2b2UGV9Gy3jSN7R2XdaCSDK4uvKcZ21vqWw==
+X-Received: by 2002:a05:6512:3c81:b0:52e:8141:1b27 with SMTP id 2adb3069b0e04-52eb99d219amr10812209e87.43.1720783093446;
+        Fri, 12 Jul 2024 04:18:13 -0700 (PDT)
 Received: from redhat.com ([2a0d:6fc7:341:761e:f82:fc9a:623b:3fd1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-367ebb77edasm5788537f8f.9.2024.07.12.04.00.24
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4279f2d74c6sm20155445e9.45.2024.07.12.04.18.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jul 2024 04:00:25 -0700 (PDT)
-Date: Fri, 12 Jul 2024 07:00:21 -0400
+        Fri, 12 Jul 2024 04:18:12 -0700 (PDT)
+Date: Fri, 12 Jul 2024 07:18:09 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Parav Pandit <pandit.parav@gmail.com>
-Cc: virtio-comment@lists.linux.dev, cohuck@redhat.com,
-	Parav Pandit <parav@nvidia.com>
-Subject: Re: [PATCH] editorial: replace hyperref with ref
-Message-ID: <20240712065953-mutt-send-email-mst@kernel.org>
-References: <20240712041433.3246718-1-parav@nvidia.com>
+To: Zhu Lingshan <lingshan.zhu@amd.com>
+Cc: David Stevens <stevensd@chromium.org>,
+	Cornelia Huck <cohuck@redhat.com>, jasowang@redhat.com,
+	virtio-comment@lists.linux.dev,
+	Zhu Lingshan <lingshan.zhu@intel.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>
+Subject: Re: [RESEND PATCH v6] virtio: introduce SUSPEND bit in device status
+Message-ID: <20240712071534-mutt-send-email-mst@kernel.org>
+References: <20240703031057.37565-1-lingshan.zhu@amd.com>
+ <20240703044005-mutt-send-email-mst@kernel.org>
+ <CAD=HUj6uxtq2WobmAaOeOk4UR-TeZ0nHL8SeE9MnuDaap5uY+A@mail.gmail.com>
+ <20240704044403-mutt-send-email-mst@kernel.org>
+ <c1fd18ac-a677-45b6-b643-9fd42ef14722@amd.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20240712041433.3246718-1-parav@nvidia.com>
+In-Reply-To: <c1fd18ac-a677-45b6-b643-9fd42ef14722@amd.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 12, 2024 at 07:14:33AM +0300, Parav Pandit wrote:
-> Replace hyperreference with the reference.
-> Fix the broken link refernce for the DEVICE_STATUS part.
-
-BTW once you know the hash, add a Fixes tag here
-for the patch it's fixing up.
-
-
-> Suggested-by: Michael S. Tsirkin <mst@redhat.com>
-> Signed-off-by: Parav Pandit <parav@nvidia.com>
-
-
-> ---
->  admin-cmds-device-parts.tex     |  6 +++---
->  admin-cmds-resource-objects.tex |  2 +-
->  device-parts.tex                | 19 ++++++++++---------
->  3 files changed, 14 insertions(+), 13 deletions(-)
+On Fri, Jul 12, 2024 at 05:04:48PM +0800, Zhu Lingshan wrote:
+> On 7/4/2024 4:55 PM, Michael S. Tsirkin wrote:
 > 
-> diff --git a/admin-cmds-device-parts.tex b/admin-cmds-device-parts.tex
-> index ab6e83b..4aa1464 100644
-> --- a/admin-cmds-device-parts.tex
-> +++ b/admin-cmds-device-parts.tex
-> @@ -60,7 +60,7 @@ \subsubsection{Device parts}\label{sec:Basic Facilities of a Virtio Device / Dev
->  Before performing any get or set operation for the device parts, the driver
->  creates the device parts resource object
->  VIRTIO_RESOURCE_OBJ_DEV_PARTS using the administration command
-> -\hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects / VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE]{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE}.
-> +\ref{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects / VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE}.
->  The driver indicates the intended purpose (get or set) at the time of creating the
->  device parts resource object.
->  For the device parts resource object, both \field{resource_obj_specific_data} and
-> @@ -337,7 +337,7 @@ \subsubsection{Device parts}\label{sec:Basic Facilities of a Virtio Device / Dev
->  When there are multiple device parts in the command
->  VIRTIO_ADMIN_CMD_DEV_PARTS_GET, the device MUST respond the device parts in the
->  same order as listed in the table
-> -\hyperref[table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / Device parts order/ Device parts order]{device parts order}.
-> +\ref{table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / Device parts order/ Device parts order}.
->  
->  The device SHOULD respond with an error status for the command
->  VIRTIO_ADMIN_CMD_DEV_PARTS_SET if the device is not stopped.
-> @@ -455,7 +455,7 @@ \subsubsection{Device parts}\label{sec:Basic Facilities of a Virtio Device / Dev
->  When there are multiple device parts in the command
->  VIRTIO_ADMIN_CMD_DEV_PARTS_SET, the driver MUST set the device parts in the same
->  order as listed in the table
-> -\hyperref[table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / Device parts order/ Device parts order]{device parts order}.
-> +\ref{table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / Device parts order/ Device parts order}.
->  
->  For the SR-IOV group type, the driver SHOULD NOT access the device configuration
->  space described in section
-> diff --git a/admin-cmds-resource-objects.tex b/admin-cmds-resource-objects.tex
-> index 388aa69..d0a6647 100644
-> --- a/admin-cmds-resource-objects.tex
-> +++ b/admin-cmds-resource-objects.tex
-> @@ -69,7 +69,7 @@ \subsubsection{Device resource objects}\label{sec:Basic Facilities of a Virtio D
->  \hline
->  Resource object type & Name & Description \\
->  \hline \hline
-> -0x000 & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / VIRTIO_RESOURCE_OBJ_DEV_PARTS]{VIRTIO_RESOURCE_OBJ_DEV_PARTS} & Device parts object \\
-> +0x000 & VIRTIO_RESOURCE_OBJ_DEV_PARTS & Device parts object, see \ref{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / VIRTIO_RESOURCE_OBJ_DEV_PARTS} \\
->  \hline
->  0x001-0x1ff & - & Generic resource object range reserved \\
->  \hline
-> diff --git a/device-parts.tex b/device-parts.tex
-> index 7384408..47ad06d 100644
-> --- a/device-parts.tex
-> +++ b/device-parts.tex
-> @@ -70,7 +70,7 @@ \section{Device parts}\label{sec:Basic Facilities of a Virtio Device / Device pa
->  \field{part_type} values.
->  
->  \field{selector.pci_common_cfg.offset} is the offset of the
-> -field in the \hyperref[sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout]{Virtio PCI common config space}. It is valid only when the \field{part_type} is set to VIRTIO_DEV_PART_PCI_COMMON_CFG,
-> +field in the \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout}. It is valid only when the \field{part_type} is set to VIRTIO_DEV_PART_PCI_COMMON_CFG,
->  otherwise it is reserved and set to 0.
->  
->  \field{selector.vq_index.index} is the index of the virtqueue. It is valid
-> @@ -89,17 +89,17 @@ \subsection{Common device parts}\label{sec:Basic Facilities of a Virtio Device /
->  \hline
->  Type & Name & Description \\
->  \hline \hline
-> -0x100 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DEV_FEATURES]{VIRTIO_DEV_PART_DEV_FEATURES} & Device features \\
-> +0x100 & VIRTIO_DEV_PART_DEV_FEATURES & Device features, see \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DEV_FEATURES} \\
->  \hline
-> -0x101 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DRV_FEATURES]{VIRTIO_DEV_PART_DRV_FEATURES} & Driver features \\
-> +0x101 & VIRTIO_DEV_PART_DRV_FEATURES & Driver features, \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DRV_FEATURES} \\
->  \hline
-> -0x102 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_PCI_COMMON_CFG]{VIRTIO_DEV_PART_PCI_COMMON_CFG} & PCI common configuration \\
-> +0x102 & VIRTIO_DEV_PART_PCI_COMMON_CFG & PCI common configuration, see \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_PCI_COMMON_CFG} \\
->  \hline
-> -0x103 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DEVICE_STATUS]{VIRTIO_DEV_PART_DEVICE_STATUS} & Device status \\
-> +0x103 & VIRTIO_DEV_PART_DEVICE_STATUS & Device status, see \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DEVICE_STATUS} \\
->  \hline
-> -0x104 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_VQ_CFG]{VIRTIO_DEV_PART_VQ_CFG} & Virtqueue configuration \\
-> +0x104 & VIRTIO_DEV_PART_VQ_CFG & Virtqueue configuration, see \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_VQ_CFG} \\
->  \hline
-> -0x105 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_VQ_NOTIFY_CFG]{VIRTIO_DEV_PART_VQ_NOTIFY_CFG} & Virtqueue notification configuration \\
-> +0x105 & VIRTIO_DEV_PART_VQ_NOTIFY_CFG & Virtqueue notification configuration, see \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_VQ_NOTIFY_CFG} \\
->  \hline
->  0x106 - 0x2FF & - & Common device parts range reserved for future \\
->  \hline
-> @@ -157,7 +157,8 @@ \subsubsection{VIRTIO_DEV_PART_PCI_COMMON_CFG}
->  One or multiple VIRTIO_DEV_PART_PCI_COMMON_CFG parts may exist in the
->  get or set commands; each such part corresponds to a unique \field{offset}.
->  
-> -\subsubsection{VIRTIO_DEV_PART_DEVICE_STATUS}\label{par:VIRTIO_DEV_PART_DEVICE_STATUS}
-> +\subsubsection{VIRTIO_DEV_PART_DEVICE_STATUS}
-> +\label{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DEVICE_STATUS}
->  
->  For VIRTIO_DEV_PART_DEVICE_STATUS, \field{part_type} is set to 0x103.
->  The VIRTIO_DEV_PART_DEVICE_STATUS field indicates the device status as listed in
-> @@ -215,7 +216,7 @@ \subsubsection{VIRTIO_DEV_PART_VQ_NOTIFY_CFG}
->  
->  \field{queue_notify_off} and \field{queue_notif_config_data} corresponds to the
->  fields in \field{struct virtio_pci_common_cfg} described in
-> -\hyperref[sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout]{Virtio PCI common configuration space}.
-> +\ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout}.
->  
->  One or multiple instance of the device part VIRTIO_DEV_PART_VQ_NOTIFY_CFG may exist
->  in the get and set commands, each such device part corresponds to a unique
-> -- 
-> 2.34.1
+> > On Thu, Jul 04, 2024 at 05:39:32PM +0900, David Stevens wrote:
+> >> On Wed, Jul 3, 2024 at 6:01 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> >>> On Wed, Jul 03, 2024 at 11:10:57AM +0800, Zhu Lingshan wrote:
+> >>>> This commit allows the driver to suspend the device by
+> >>>> introducing a new status bit SUSPEND in device_status.
+> >>>>
+> >>>> This commit also introduce a new feature bit VIRTIO_F_SUSPEND
+> >>>> which indicating whether the device support SUSPEND.
+> >>>>
+> >>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@intel.com>
+> >>>> Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
+> >>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+> >>>> Signed-off-by: David Stevens <stevensd@chromium.org>
+> >>> Your signature would normally be last.
+> >>>
+> >>>
+> >>>> ---
+> >>>>  content.tex | 71 +++++++++++++++++++++++++++++++++++++++++++++--------
+> >>>>  1 file changed, 61 insertions(+), 10 deletions(-)
+> >>> At a high level, I think this is somewhat overspecified.
+> >>> Generally e.g. if driver is forbidden from accessing
+> >>> a field, then we do not also add specific requirements for
+> >>> devices - with no driver doing this, such functionality will
+> >>> remain untested and unused, and when we finally decide we need
+> >>> it it's not going to be there.
+> >>> Similarly for when device is not touching a field - no
+> >>> reason for driver not to touch it.
+> >>>
+> >>>
+> >>>> diff --git a/content.tex b/content.tex
+> >>>> index 0a62dce..8c974d3 100644
+> >>>> --- a/content.tex
+> >>>> +++ b/content.tex
+> >>>> @@ -36,19 +36,22 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
+> >>>>      this bit.  For example, under Linux, drivers can be loadable modules.
+> >>>>    \end{note}
+> >>>>
+> >>>> -\item[FAILED (128)] Indicates that something went wrong in the guest,
+> >>>> -  and it has given up on the device. This could be an internal
+> >>>> -  error, or the driver didn't like the device for some reason, or
+> >>>> -  even a fatal error during device operation.
+> >>>> +\item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
+> >>>> +  drive the device.
+> >>>>
+> >>>>  \item[FEATURES_OK (8)] Indicates that the driver has acknowledged all the
+> >>>>    features it understands, and feature negotiation is complete.
+> >>>>
+> >>>> -\item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
+> >>>> -  drive the device.
+> >>>> +\item[SUSPEND (16)] When VIRTIO_F_SUSPEND is negotiated, indicates that the
+> >>>> +  device has been suspended by the driver.
+> >>>>
+> >>>>  \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experienced
+> >>>>    an error from which it can't recover.
+> >>>> +
+> >>>> +\item[FAILED (128)] Indicates that something went wrong in the guest,
+> >>>> +  and it has given up on the device. This could be an internal
+> >>>> +  error, or the driver didn't like the device for some reason, or
+> >>>> +  even a fatal error during device operation.
+> >>>>  \end{description}
+> >>>>
+> >>>>  The \field{device status} field starts out as 0, and is reinitialized to 0 by
+> >>>> @@ -60,8 +63,9 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
+> >>>>  initialization sequence specified in
+> >>>>  \ref{sec:General Initialization And Device Operation / Device
+> >>>>  Initialization}.
+> >>>> -The driver MUST NOT clear a
+> >>>> -\field{device status} bit.  If the driver sets the FAILED bit,
+> >>>> +The driver MUST NOT clear a \field{device status} bit other than SUSPEND
+> >>>> +except when setting \field{device status} to 0 as a transport-specific way to
+> >>>> +initiate a reset. If the driver sets the FAILED bit,
+> >>>>  the driver MUST later reset the device before attempting to re-initialize.
+> >>>>
+> >>>>  The driver SHOULD NOT rely on completion of operations of a
+> >>>> @@ -99,10 +103,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
+> >>>>  \begin{description}
+> >>>>  \item[0 to 23, and 50 to 127] Feature bits for the specific device type
+> >>>>
+> >>>> -\item[24 to 41] Feature bits reserved for extensions to the queue and
+> >>>> +\item[24 to 42] Feature bits reserved for extensions to the queue and
+> >>>>    feature negotiation mechanisms
+> >>>>
+> >>>> -\item[42 to 49, and 128 and above] Feature bits reserved for future extensions.
+> >>>> +\item[43 to 49, and 128 and above] Feature bits reserved for future extensions.
+> >>>>  \end{description}
+> >>>>
+> >>>>  \begin{note}
+> >>>> @@ -629,6 +633,49 @@ \section{Device Cleanup}\label{sec:General Initialization And Device Operation /
+> >>>>
+> >>>>  Thus a driver MUST ensure a virtqueue isn't live (by device reset) before removing exposed buffers.
+> >>>>
+> >>>> +\section{Device Suspend}\label{sec:General Initialization And Device Operation / Device Suspend}
+> >>>> +
+> >>>> +When VIRTIO_F_SUSPEND is negotiated, the driver can set the
+> >>>> +SUSPEND bit in \field{device status} to suspend a device, and can
+> >>>> +clear the SUSPEND bit to resume a suspended device.
+> >>>> +
+> >>>> +\drivernormative{\subsection}{Device Suspend}{General Initialization And Device Operation / Device Suspend}
+> >>>> +
+> >>>> +The driver MUST NOT set SUSPEND if FEATURES_OK is not set or VIRTIO_F_SUSPEND is not negotiated.
+> >>>> +
+> >>>> +Once the driver sets SUSPEND to \field{device status} of the device:
+> >>>> +\begin{itemize}
+> >>>> +\item The driver MUST re-read \field{device status} to verify whether the SUSPEND bit is set.
+> >>> If it's not set, then what? Device error, have to reset?
+> >>>
+> >>>
+> >>>> +\item The driver MUST NOT make any more buffers available to the device.
+> >>>> +\item The driver MUST NOT access any fields of any virtqueues or send notifications for any virtqueues.
+> >>> what are these "fields"? the area in memory where the vq lives? why is
+> >>> doing that a problem - you want device to be able to write something
+> >>> there?
+> >>>
+> >>>> +\item The driver MUST NOT access Device Configuration Space except for the field \field {device status},
+> >>>> +if it is implemented in the Config Space.
+> >>> what is "the Config Space"? device status is never in
+> >>> a device configuration space, it is part of the common configuration.
+> >>> so what exactly are you forbidding here?
+> >> IIUC, referring to the common configuration here wouldn't make sense.
+> >> The common configuration is part of the PCI transport specification,
+> >> so in this part of the specification it should only be referred to via
+> >> the "transport specific" phrasing.
+> > Good point.  We can easily fix this for MMIO though.
+> >
+> >  
+> > MMIO virtio devices provide a set of memory mapped control
+> > registers followed by a device-specific configuration space,
+> > described in the table~\ref{tab:Virtio Transport Options / Virtio Over MMIO / MMIO Device Register Layout}.
+> >
+> > ->
+> >
+> > MMIO virtio devices provide memory mapped control
+> > including a set of common configuration
+> > registers followed by a device-specific configuration space,
+> > described in the table~\ref{tab:Virtio Transport Options / Virtio Over MMIO / MMIO Device Register Layout}.
+> IMHO this may be a bit vague, PCI as a section about common configuration and a struct "struct virtio_pci_common_cfg "
+> listed all contents. But what does CCW/MMIO common configuration contains? Shall we add new sections for them?
+
+I think it's clear: everything that is not device-specific is common,
+and we have a table documenting that.
+
+And again CCW does not have registers, it has commands.
+And below I suggested listing the common configuration commands.
+
+> >
+> >
+> >
+> > Less sure about CCW.
+> > Maybe:
+> >
+> > In addition to the basic channel commands, virtio-ccw defines a
+> > set of channel commands related to configuration and operation of
+> > virtio:
+> >
+> > \begin{lstlisting}
+> > #define CCW_CMD_SET_VQ 0x13
+> > #define CCW_CMD_VDEV_RESET 0x33
+> > #define CCW_CMD_SET_IND 0x43
+> > #define CCW_CMD_SET_CONF_IND 0x53
+> > #define CCW_CMD_SET_IND_ADAPTER 0x73
+> > #define CCW_CMD_READ_FEAT 0x12
+> > #define CCW_CMD_WRITE_FEAT 0x11
+> > #define CCW_CMD_READ_CONF 0x22
+> > #define CCW_CMD_WRITE_CONF 0x21
+> > #define CCW_CMD_WRITE_STATUS 0x31
+> > #define CCW_CMD_READ_VQ_CONF 0x32
+> > #define CCW_CMD_SET_VIRTIO_REV 0x83
+> > #define CCW_CMD_READ_STATUS 0x72
+> > \end{lstlisting}
+> >
+> > ->
+> >
+> >
+> > In addition to the basic channel commands, virtio-ccw defines
+> > channel commands related to configuration and operation of
+> > virtio - a set of commands to access common configuration of
+> > the device:
+> >
+> > \begin{lstlisting}
+> > #define CCW_CMD_SET_VQ 0x13
+> > #define CCW_CMD_VDEV_RESET 0x33
+> > #define CCW_CMD_SET_IND 0x43
+> > #define CCW_CMD_SET_CONF_IND 0x53
+> > #define CCW_CMD_SET_IND_ADAPTER 0x73
+> > #define CCW_CMD_READ_FEAT 0x12
+> > #define CCW_CMD_WRITE_FEAT 0x11
+> > #define CCW_CMD_WRITE_STATUS 0x31
+> > #define CCW_CMD_READ_VQ_CONF 0x32
+> > #define CCW_CMD_SET_VIRTIO_REV 0x83
+> > #define CCW_CMD_READ_STATUS 0x72
+> > \end{lstlisting}
+> >
+> > and additionally, two commands to access the device
+> > specification configuration space:
+> >
+> > \begin{lstlisting}
+> > #define CCW_CMD_READ_CONF 0x22
+> > #define CCW_CMD_WRITE_CONF 0x21
+> > \end{lstlisting}
+> >
+> >
+> > And now we have common configuration defined for all transports.
+> > Cornelia, WDYT?
+> >
+> >
+> >> This wording appears to be taken
+> >> from Cornelia's feedback on v5. Specifically:
+> >>
+> >>>> +\item The driver MUST NOT access Device Configuration Space.
+> >>> ...except for the status field, if it is part of the config space?
+> >> I asked for clarification [1], because Cornelia's feedback seems to
+> >> contradict your feedback here and on the (unfortunately unarchived) v3
+> >> patch. What is the definitive statement agreed upon by both editors of
+> >> the virtio specification as to whether or not the device status field
+> >> is part of the device configuration space?
+> >>
+> >> [1] https://lore.kernel.org/all/CAD=HUj4RBeLS4L=ehyPGtejeu+sGZ5j8PRtrK8AvxjEgEBd5ZA@mail.gmail.com/
+> >>
+> >> -David
+> > I don't know what did Cornelia mean. Cornelia?
+> >
 
