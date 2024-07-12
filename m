@@ -1,64 +1,63 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74901EAC7
-	for <virtio-comment@lists.linux.dev>; Fri, 12 Jul 2024 13:33:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCFAEAC7
+	for <virtio-comment@lists.linux.dev>; Fri, 12 Jul 2024 13:36:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720791239; cv=none; b=mkBkilbwb0/zD+AkZUiVEF6FZZPTILD8WoBEQWPeDSrgveEDPd2EJGNm2lgpoM7dryj9Yx88MGF8F/Yij+bt3d/i5+IglI4Vxks9f8Ab2R+eeX9cJbDGR79VUNf91PeLNDQS4XdtC7YyFRlwv83Bcx45eBvDVHfgTHxnEk4FUU0=
+	t=1720791364; cv=none; b=jyEj63cr5bSnx4j5ckmAYeFfSian72zXSpxYJR5Q0bEndWGQHPBJmbX83THmblKGUu6LNcBfJ8e+1xDem2H1KEqw1X+Zk1AW8jpLM1UQzJOQZMRoJeH2cWaiQX1+2+YVPyizWRBbIXolFZJuXzpH0XqZTadytF7yKCIwo9tX2OA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720791239; c=relaxed/simple;
-	bh=FoQo606NoQyfRS028S1J+0DMh6smGTVV8u+ONQDkVtI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Na9vVL7rgZnvtLneEQJtX99GnEv4RDueze72JRKSJGjg8xHjM8LlsgsgEtNNY5nx+iM8hgreeIa+JhFiNNlezf8ch9GMI35FKPf7+f/jFSPSaO7bQjgaXR5fTupUgAoCf+j9i3iWcQM3qY4YxIx6gsx8lZsrwSUSM49dHoQlzss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WoSKpFu6; arc=none smtp.client-ip=209.85.218.50
+	s=arc-20240116; t=1720791364; c=relaxed/simple;
+	bh=OEi9uo8Osbnf2yEH+W/0MGKemJRpnFf8XLsdck5T4cU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mzUc7oZQA/H6DuHwZ1cAG71YnPHCgHHINbMUl2bjgekfdW4u5RC7YJ174BLeEzfT3P42IcU+hMwE0kHTc/TZ8B5WKF8uarzLJSZ5lDzfoJ4LMUXMfym0gyLIc2TkbfYkQl3dq/FHb6XwWfhrJB+1RibGNy3oJNyanL7ZEbjcmHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WpjRvORn; arc=none smtp.client-ip=209.85.167.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WoSKpFu6"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-a6fd513f18bso273225466b.3
-        for <virtio-comment@lists.linux.dev>; Fri, 12 Jul 2024 06:33:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WpjRvORn"
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-52ea5dc3c79so2895549e87.1
+        for <virtio-comment@lists.linux.dev>; Fri, 12 Jul 2024 06:36:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720791235; x=1721396035; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1720791360; x=1721396160; darn=lists.linux.dev;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Sr3vulOY7DySFP6SAEPHsC2me1xa+toH/cKzSsjI2kY=;
-        b=WoSKpFu6mssoNFuSw8uKBiKGXcd3UTlU+wj5VSTLZRvBLYLH+I0arHwXx2KDjPxUzL
-         wOZiqLh0ACphVMIXHnigwxJR0UYUK+Es3eRWjR+lVrrRQ9OONtI+WGv3uBVKH3CQKW70
-         rJqmnqXAHxnqjPRS6mV1+CSmZZl1EPW/Wy1uwnwj1La4Ufip/eX3ybppyXBI8R7yqAS6
-         BijDE1760h+ROj/eRGcEsjbK3rGZrge64Uz5LqH6uBwHjniunl0z9wIFeSP//Iz0FBA4
-         uXASF5RmaVmsqgcYIJu6ISHlk60eW2KkE6eiV+Dymr98/25crwTgQbhFfDeknXKYA70F
-         pt+g==
+        bh=ZVYBYW7NPaJxXhneviLzmYo2Jv0l/nfFgpTxDuB4S3U=;
+        b=WpjRvORnck1gd5xyyr+r+KMXG/1blI/5bo3iQh15LaNZ8/dq2pZaU+LWCBBtljef2u
+         u+/PmIcapkjG79T8IEhlx4BODWzU8QxSMJmISsvC2f0tIn5xtVOtHc69hC3zUHPReoY3
+         7drsVX9pSt+cDbU8yWslbG3YrOiezhlK/M18IQ5jV9rD9HxhL6IblK67AnOid8XFEzOt
+         ApzprYzYoDlyDkBVGf33QR5lnHHxCTChHF+tnARO00A82hWpdchpgqGAtnrX08wWqvlh
+         5lYfi7aOcs0mugd2ksJgYFwi2k/an7lTt4DDqUHocjiRArgI5DpKruIGPJRWW7zFtvwc
+         t/VA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720791235; x=1721396035;
+        d=1e100.net; s=20230601; t=1720791360; x=1721396160;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Sr3vulOY7DySFP6SAEPHsC2me1xa+toH/cKzSsjI2kY=;
-        b=TzW+TK/Ug+JRusO9/1rv+CHocklCIIgKOg4DIvkH3VVLXZ8I5R0zrzQekS+P4GEAxZ
-         WswpsBP4BT6QzkLXsAcY0dWbfgnJNgnKhZYeHXjmOl0m8yCsNxdVCOXxo1t1ZsB3i2Co
-         n6zuYzWgUJ5xCPcz5KSbVJpEMAJxIrPRD99FkM90N5h+eboMt18WrkbkDpimTydVmPT2
-         n5a9tEvSiDT3W5jq0YlM1jUhjrwpRxnCCSOYLTiN8nCgJRHrgxJEmCb9EK/yTqkBDszs
-         b4hy0ckoNwOO2rYgdH/apKcVnxokbrQCZsP5YJkMXatPU7urP40QYdgzxQNLjoGOnyMD
-         X59w==
-X-Gm-Message-State: AOJu0YygcFnS+5o0ijoSwybcJmlAz0Q7L8XBNlus+T4OzePMu6do1V/T
-	VdBX5VXEWteAD9mNJDcczBG2nPAf1PLasMeRsEmwOkv1Qf3K9Q7gICdMaT1q
-X-Google-Smtp-Source: AGHT+IFQNiYIRZpGLK0QvEZsPMZ1kz9Am6z8zfLXNPMFxhox7yDb+4ClWrBc9QrnjchxAhS+9IIjrw==
-X-Received: by 2002:a17:907:868e:b0:a72:4d91:6223 with SMTP id a640c23a62f3a-a780b8849cbmr898359566b.62.1720791235080;
-        Fri, 12 Jul 2024 06:33:55 -0700 (PDT)
+        bh=ZVYBYW7NPaJxXhneviLzmYo2Jv0l/nfFgpTxDuB4S3U=;
+        b=eZxIQJ21zX3GkS91Y5/K3a2sFFuH6SqBzPIgvnFUPOqhuKc5OTeShSmckClK1ETm2P
+         17qvmyFd/Gyd09+S75l+tiLvCZyCLrANy6U3vYHcQ6Jw8Yciwa/8c3XK5lfzbExXo9kQ
+         N0x7UxqtRvE+Q8hvzwu63BPXHMGf83lnw8sONidgpHy54wIhnBqVr7LYdSL/7bvOKGHE
+         rXC21sGmKKvpEB3rDFkcsIpquzNRVqVsnmO+64K3llt3jbyRFyEELaqqD4mRmXW2L2J2
+         zauL3qRZ0QFt58Ad4zTKprkGw+/qxZnZ30SGbpTT3ZGjNba1fFB2LhStVwEC++Ls9fBB
+         ecrg==
+X-Gm-Message-State: AOJu0YymZDTStD3xLmNBtmPKAg1FuKh9yqGt5LwM0x1Okc/m4ZudcRzu
+	gLPzAxRyab9tU4WTgJoGo9FMnWHV1CkF8l0GH4vZzZAAc91NPz5DB0jEw5Ac
+X-Google-Smtp-Source: AGHT+IGXc6Vg6HsphKfskPefR9ctKvqpZEUQ9rPAMUccenJufq1mGGr9fkaTeLsashS5Q+10mbOljA==
+X-Received: by 2002:a05:6512:239d:b0:52e:7542:f471 with SMTP id 2adb3069b0e04-52eb99a317fmr8137869e87.29.1720791360104;
+        Fri, 12 Jul 2024 06:36:00 -0700 (PDT)
 Received: from vr-arch-host06.mtvr.labs.mlnx ([193.47.165.251])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a780a6bc6c0sm346084266b.44.2024.07.12.06.33.53
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a780a6bc897sm347744166b.39.2024.07.12.06.35.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jul 2024 06:33:54 -0700 (PDT)
+        Fri, 12 Jul 2024 06:35:59 -0700 (PDT)
 From: Parav Pandit <pandit.parav@gmail.com>
 X-Google-Original-From: Parav Pandit <parav@nvidia.com>
 To: virtio-comment@lists.linux.dev,
 	mst@redhat.com,
 	cohuck@redhat.com
-Cc: Parav Pandit <pandit.parav@gmail.com>,
-	Parav Pandit <parav@nvidia.com>
-Subject: [PATCH v1] editorial: replace hyperref with ref
-Date: Fri, 12 Jul 2024 16:33:42 +0300
-Message-Id: <20240712133342.3271710-1-parav@nvidia.com>
+Cc: Parav Pandit <parav@nvidia.com>
+Subject: [PULL v2] administration commands for device parts
+Date: Fri, 12 Jul 2024 16:35:50 +0300
+Message-Id: <20240712133550.3271761-1-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
@@ -68,130 +67,47 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Parav Pandit <pandit.parav@gmail.com>
+Hi Michael, Cornelia,
 
-Replace hyperreference with the name reference.
-Fix the broken reference link for the DEVICE_STATUS part.
+The following changes since commit 9b3129fe72360a78e76b6dd890d3abc5a45fa915:
 
-Suggested-by: Michael S. Tsirkin <mst@redhat.com>
-Signed-off-by: Parav Pandit <parav@nvidia.com>
+  virtio_pci_cap64: specify offset_hi, length_hi endianness (2024-07-12 06:43:53 -0400)
 
----
+are available in the Git repository at:
+
+  https://github.com/paravmellanox/virtio-spec.git tags/for_1.4_v2
+
+for you to fetch changes up to 5b1ed863cf9701e110042e9e85d69acd06cd33c5:
+
+  editorial: replace hyperref with ref (2024-07-12 16:08:59 +0300)
+
+----------------------------------------------------------------
+This tag contains administration commands for device parts
+
 changelog:
+v1->v2:
+- fixed hyper reference to name reference
+- fixed typo in commit log
+- reduced the patches of pull request due to rebase of virtio-1.4 branch
 v0->v1:
-- this is a fixup patch to fix the editorial changes to
-  drop hyper reference and fix one broken link.
-- This is based on virtio-1.4 branch + admin parts patches
-- fixed comments from Michael
-- fixed typo of reference
-- replaced table reference as named reference for better reading
-  and direct reference
----
- admin-cmds-device-parts.tex     |  6 +++---
- admin-cmds-resource-objects.tex |  2 +-
- device-parts.tex                | 19 ++++++++++---------
- 3 files changed, 14 insertions(+), 13 deletions(-)
+- resolved merge conflict for an empty line in newdevice.tex
+----------------------------------------------------------------
+Parav Pandit (6):
+      admin: Add theory of operation for device parts
+      admin: Extend resource objects for sr-iov group type
+      admin: Add admin commands for device parts
+      admin: Define common device parts
+      admin: Add requirements of device parts commands
+      editorial: replace hyperref with ref
 
-diff --git a/admin-cmds-device-parts.tex b/admin-cmds-device-parts.tex
-index ab6e83b..ad3f8e3 100644
---- a/admin-cmds-device-parts.tex
-+++ b/admin-cmds-device-parts.tex
-@@ -60,7 +60,7 @@ \subsubsection{Device parts}\label{sec:Basic Facilities of a Virtio Device / Dev
- Before performing any get or set operation for the device parts, the driver
- creates the device parts resource object
- VIRTIO_RESOURCE_OBJ_DEV_PARTS using the administration command
--\hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects / VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE]{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE}.
-+\nameref{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects / VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE}.
- The driver indicates the intended purpose (get or set) at the time of creating the
- device parts resource object.
- For the device parts resource object, both \field{resource_obj_specific_data} and
-@@ -337,7 +337,7 @@ \subsubsection{Device parts}\label{sec:Basic Facilities of a Virtio Device / Dev
- When there are multiple device parts in the command
- VIRTIO_ADMIN_CMD_DEV_PARTS_GET, the device MUST respond the device parts in the
- same order as listed in the table
--\hyperref[table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / Device parts order/ Device parts order]{device parts order}.
-+\nameref{table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / Device parts order/ Device parts order}.
- 
- The device SHOULD respond with an error status for the command
- VIRTIO_ADMIN_CMD_DEV_PARTS_SET if the device is not stopped.
-@@ -455,7 +455,7 @@ \subsubsection{Device parts}\label{sec:Basic Facilities of a Virtio Device / Dev
- When there are multiple device parts in the command
- VIRTIO_ADMIN_CMD_DEV_PARTS_SET, the driver MUST set the device parts in the same
- order as listed in the table
--\hyperref[table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / Device parts order/ Device parts order]{device parts order}.
-+\nameref{table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / Device parts order/ Device parts order}.
- 
- For the SR-IOV group type, the driver SHOULD NOT access the device configuration
- space described in section
-diff --git a/admin-cmds-resource-objects.tex b/admin-cmds-resource-objects.tex
-index 388aa69..d0a6647 100644
---- a/admin-cmds-resource-objects.tex
-+++ b/admin-cmds-resource-objects.tex
-@@ -69,7 +69,7 @@ \subsubsection{Device resource objects}\label{sec:Basic Facilities of a Virtio D
- \hline
- Resource object type & Name & Description \\
- \hline \hline
--0x000 & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / VIRTIO_RESOURCE_OBJ_DEV_PARTS]{VIRTIO_RESOURCE_OBJ_DEV_PARTS} & Device parts object \\
-+0x000 & VIRTIO_RESOURCE_OBJ_DEV_PARTS & Device parts object, see \ref{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / VIRTIO_RESOURCE_OBJ_DEV_PARTS} \\
- \hline
- 0x001-0x1ff & - & Generic resource object range reserved \\
- \hline
-diff --git a/device-parts.tex b/device-parts.tex
-index 7384408..3b9cb44 100644
---- a/device-parts.tex
-+++ b/device-parts.tex
-@@ -70,7 +70,7 @@ \section{Device parts}\label{sec:Basic Facilities of a Virtio Device / Device pa
- \field{part_type} values.
- 
- \field{selector.pci_common_cfg.offset} is the offset of the
--field in the \hyperref[sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout]{Virtio PCI common config space}. It is valid only when the \field{part_type} is set to VIRTIO_DEV_PART_PCI_COMMON_CFG,
-+field in the \nameref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout}. It is valid only when the \field{part_type} is set to VIRTIO_DEV_PART_PCI_COMMON_CFG,
- otherwise it is reserved and set to 0.
- 
- \field{selector.vq_index.index} is the index of the virtqueue. It is valid
-@@ -89,17 +89,17 @@ \subsection{Common device parts}\label{sec:Basic Facilities of a Virtio Device /
- \hline
- Type & Name & Description \\
- \hline \hline
--0x100 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DEV_FEATURES]{VIRTIO_DEV_PART_DEV_FEATURES} & Device features \\
-+0x100 & VIRTIO_DEV_PART_DEV_FEATURES & Device features, see \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DEV_FEATURES} \\
- \hline
--0x101 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DRV_FEATURES]{VIRTIO_DEV_PART_DRV_FEATURES} & Driver features \\
-+0x101 & VIRTIO_DEV_PART_DRV_FEATURES & Driver features, \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DRV_FEATURES} \\
- \hline
--0x102 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_PCI_COMMON_CFG]{VIRTIO_DEV_PART_PCI_COMMON_CFG} & PCI common configuration \\
-+0x102 & VIRTIO_DEV_PART_PCI_COMMON_CFG & PCI common configuration, see \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_PCI_COMMON_CFG} \\
- \hline
--0x103 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DEVICE_STATUS]{VIRTIO_DEV_PART_DEVICE_STATUS} & Device status \\
-+0x103 & VIRTIO_DEV_PART_DEVICE_STATUS & Device status, see \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DEVICE_STATUS} \\
- \hline
--0x104 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_VQ_CFG]{VIRTIO_DEV_PART_VQ_CFG} & Virtqueue configuration \\
-+0x104 & VIRTIO_DEV_PART_VQ_CFG & Virtqueue configuration, see \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_VQ_CFG} \\
- \hline
--0x105 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_VQ_NOTIFY_CFG]{VIRTIO_DEV_PART_VQ_NOTIFY_CFG} & Virtqueue notification configuration \\
-+0x105 & VIRTIO_DEV_PART_VQ_NOTIFY_CFG & Virtqueue notification configuration, see \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_VQ_NOTIFY_CFG} \\
- \hline
- 0x106 - 0x2FF & - & Common device parts range reserved for future \\
- \hline
-@@ -157,7 +157,8 @@ \subsubsection{VIRTIO_DEV_PART_PCI_COMMON_CFG}
- One or multiple VIRTIO_DEV_PART_PCI_COMMON_CFG parts may exist in the
- get or set commands; each such part corresponds to a unique \field{offset}.
- 
--\subsubsection{VIRTIO_DEV_PART_DEVICE_STATUS}\label{par:VIRTIO_DEV_PART_DEVICE_STATUS}
-+\subsubsection{VIRTIO_DEV_PART_DEVICE_STATUS}
-+\label{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DEVICE_STATUS}
- 
- For VIRTIO_DEV_PART_DEVICE_STATUS, \field{part_type} is set to 0x103.
- The VIRTIO_DEV_PART_DEVICE_STATUS field indicates the device status as listed in
-@@ -215,7 +216,7 @@ \subsubsection{VIRTIO_DEV_PART_VQ_NOTIFY_CFG}
- 
- \field{queue_notify_off} and \field{queue_notif_config_data} corresponds to the
- fields in \field{struct virtio_pci_common_cfg} described in
--\hyperref[sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout]{Virtio PCI common configuration space}.
-+\ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout}.
- 
- One or multiple instance of the device part VIRTIO_DEV_PART_VQ_NOTIFY_CFG may exist
- in the get and set commands, each such device part corresponds to a unique
--- 
-2.34.1
-
+ admin-cmds-capabilities.tex     |  16 ++
+ admin-cmds-device-parts.tex     | 469 ++++++++++++++++++++++++++++++++++++++++
+ admin-cmds-resource-objects.tex |  29 ++-
+ admin.tex                       |  12 +-
+ conformance.tex                 |   2 +
+ content.tex                     |   1 +
+ device-parts.tex                | 232 ++++++++++++++++++++
+ newdevice.tex                   |  24 +-
+ 8 files changed, 778 insertions(+), 7 deletions(-)
+ create mode 100644 admin-cmds-device-parts.tex
+ create mode 100644 device-parts.tex
