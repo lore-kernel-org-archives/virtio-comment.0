@@ -1,68 +1,68 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2327EF09
-	for <virtio-comment@lists.linux.dev>; Fri, 12 Jul 2024 10:52:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00DBB54FB5
+	for <virtio-comment@lists.linux.dev>; Fri, 12 Jul 2024 11:00:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720781537; cv=none; b=M1AfqrFLqZ/xYHRAE7UJ/2XyA8nd623Ogul7+N7xm7UG3uzGXH+Ynv33+P5Z0I7XNz3di5egCldgcMBn/cvAvA2gX0QI6THa1FNXtJB2xCvn9/aRJjPPAXp3LEKR6zAwYJZKb3RoGqMqikkLZweBdqnwPz3oClxqsNVp5IjwvCM=
+	t=1720782032; cv=none; b=shf2sm4HQwzkQFgVFCvujqZs3nhEW18yXURI4z8tVW3uFWrnEjX4PB1lAEoqx9u+ROHLqk+cudYroWe1tXYMPRJ2BmU8rowKQBvMJ7T6R21z65A+TD0ZSwpYQEr/ydA63M9fhqprUIVdFsHVHXpZy7arBlqqOdRpW27oMGEqCdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720781537; c=relaxed/simple;
-	bh=EKmwr/UMS5QedKhjGZbUpnrCo7pI1pmAR0MJNqtMc4s=;
+	s=arc-20240116; t=1720782032; c=relaxed/simple;
+	bh=re4phu6SymAlRnuyv5rkeNJtJ4FARxBDhvRdTAZMXmo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=a0ztE0YuUAKjdW2gu/kDz6apwApBxumfzMnUR6PD2fKJ8FKSiT8BLdTYkekfSDPGUUyJr97cfhZAU47a/NtVsE4vYZA2lW/jvXRXePq4HlFI6J9SKsQ7ZAJYmqKqIGBsJTvjec6kNfsmJwjB+Qk6bNzaifBdoB7UjThbKc0Oh0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=T/X83+Dk; arc=none smtp.client-ip=170.10.133.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=TzLK4PjS6m7bPdXhJxDvxPLho/O6iQihr21um5c7LPaUorx9pSHQUNMnvD7yuHOaMhQcJMkCVg461ZbE2t6qLkl3GbnYHWUM6TdeJ2mRme68dvPKJhy1Ke7Uv0wxoE7rEjLkjXTTJ0UfMQmWr4iuKVJwcbmD1MdgIKQh+9t89P4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aO6TI0Tj; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="T/X83+Dk"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aO6TI0Tj"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1720781534;
+	s=mimecast20190719; t=1720782029;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=J/MoYl3z8Kv/Q7XbbSqvVd2UTjRx93qO8LiVpue5Sm0=;
-	b=T/X83+Dk0fdHjkfwaVTeZWN80+2ibIrpfPwcK/mWQwFTE5MPQLENliWYH545plKZOltNih
-	ccZSFnQi3ckxeivSpQjjz95zWeC97LEbdkYdVNiKLokGl3zdZgrkKbCWmMOjlRMEsEQILp
-	KEqzzujgcjqiX3PtatuWTo8EQ72Uh4c=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=wkcO7S0J5cPb2c05Ze6wlDsibBZ6n32Upt/JzrbVrCA=;
+	b=aO6TI0TjxGqcQQlzgWadJ+w6l2jwhlOiQUz7by8d9ejhyFhonY2kM55+0DQLVteb3hvso/
+	rHKSe3xNClcwv3swQTHmKCO8tXBgkLuipOzBz6XRwIDxmvK5w95cM90s3RgYHTOSaEj3qV
+	pkpKIC5g4w7hJ8vcwvh8QljLfAwQT7c=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-198-n8fz_m1ROhSx7dFodQBHUw-1; Fri, 12 Jul 2024 06:52:12 -0400
-X-MC-Unique: n8fz_m1ROhSx7dFodQBHUw-1
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-a77c85826fdso167242166b.3
-        for <virtio-comment@lists.linux.dev>; Fri, 12 Jul 2024 03:52:12 -0700 (PDT)
+ us-mta-661-HpdYRjFjORydZ4bipPfGzg-1; Fri, 12 Jul 2024 07:00:28 -0400
+X-MC-Unique: HpdYRjFjORydZ4bipPfGzg-1
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-367962f0cb0so1308102f8f.1
+        for <virtio-comment@lists.linux.dev>; Fri, 12 Jul 2024 04:00:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720781531; x=1721386331;
+        d=1e100.net; s=20230601; t=1720782027; x=1721386827;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=J/MoYl3z8Kv/Q7XbbSqvVd2UTjRx93qO8LiVpue5Sm0=;
-        b=bK5Embk5VSYXRd/H/eznNEBzR22V9FpxexhgfXwTGlHqpvwMClOiZatzMTj7QGw7A6
-         oAr9gaRFLjjlBIXxOqz0hrhDsO3VjYGrVYCEUySt1mpkJMw1eXBQ+qLwN6mPVgMEf0gI
-         tQ45FiP0gAQQKPPVy64BKJTnT1TXNuespC6YeZaztv2J4OHO/5LI+jb+xXbH+ND5/ZoX
-         ssScbD5I26SP3o2q6Z4lR98SEs3FVN8UZ0qPvJfOghcYe5UX2g+x5vApQNu82PM/27Zx
-         2Glx636+PT0aDtodm1vaoRyFFW/dS8up0Gsp2Y8+WzmpaVc33KMgVsSW3ayHaXNjWwqm
-         vgFQ==
-X-Gm-Message-State: AOJu0Yw5mS4txSo8jFdNTem4klK9HrTizZPX2djo59/CdX3gJO16F2QI
-	1mlDJcJrROo5R1swDEtF3IlnUgm9y9wymTChpq0BlUT8+RhtcbtxCso621GgN4iDe4i3PnuW/Ed
-	XAg8ccl+dFmQq3PUCUpdxQRZfbajeWGYTBsD9QBoEZH6RQWhAmZQf3sYgjSTbn6uD
-X-Received: by 2002:a17:907:b9cc:b0:a77:f5ca:f835 with SMTP id a640c23a62f3a-a780b6b0d8cmr701354966b.18.1720781531645;
-        Fri, 12 Jul 2024 03:52:11 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG9JWkr7mF/U1DOssAQcdKINBhclQyrUsxQbaRC1pyNo99f7iVZtU5kmYUvEfNG9eTJ3qz+WQ==
-X-Received: by 2002:a17:907:b9cc:b0:a77:f5ca:f835 with SMTP id a640c23a62f3a-a780b6b0d8cmr701353366b.18.1720781530991;
-        Fri, 12 Jul 2024 03:52:10 -0700 (PDT)
+        bh=wkcO7S0J5cPb2c05Ze6wlDsibBZ6n32Upt/JzrbVrCA=;
+        b=q+Scx5s/L5ii2vM9BpQ0xwcK0f0+pGDFlRCRBFFHIViTztYbsIZWr0yo29EA9jgZzR
+         RYFvRxcDFqR1YD9u4nsD2E+GlZc+6eE9hERk4NAJ+aBMxFKC0HWdkhPigVqKiXqiuYi6
+         T4CBQWYIbwDZ/wMDvHSQaugpj2GXDAXx66xM2bZmF7YwVJK1B2Zev0CoGkYguIr6mVFa
+         0vzeZ1MvPCZf9rjd747WPhMum7DDiNI6byvUg6SFz/2uLoDQH+ShfmFB3sd/uFGpEEci
+         hukYCHYotTI7oA0xYxbijnEVUdTSdpNYEmY//1/UdpK22FUzsDr+I/P9aOqfIVEBPCYk
+         2ZLg==
+X-Gm-Message-State: AOJu0YxxnoL2zZMp+vrIMsfWYJPCYKOlZsTBQxM0p/n+MXH8i2dNd67s
+	A5SXBE7Emb6/iqsMwjBlR3gbB+DD3w6RzVKaJJ4Hpyt2cpR6sHsMQtZC+9TyW1Y+C7FJP/C/4z2
+	/TMwDLCL0HZ1jacVQqY5HlaepLYTcGZnBQoQlCW2Ha44RuLfkKaMp2c59y/awTo/FKa+FaBb9
+X-Received: by 2002:adf:e111:0:b0:367:9903:a79 with SMTP id ffacd0b85a97d-367cead1181mr7736868f8f.48.1720782026951;
+        Fri, 12 Jul 2024 04:00:26 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHfb4pawjpe0Sp8HNc2rZY7kr1gHt9A26Ev2fIMZyJKfTNS7aFnYmQNP4V3flgK31qxGwecEA==
+X-Received: by 2002:adf:e111:0:b0:367:9903:a79 with SMTP id ffacd0b85a97d-367cead1181mr7736834f8f.48.1720782026076;
+        Fri, 12 Jul 2024 04:00:26 -0700 (PDT)
 Received: from redhat.com ([2a0d:6fc7:341:761e:f82:fc9a:623b:3fd1])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a79834624c6sm204015966b.201.2024.07.12.03.52.09
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-367ebb77edasm5788537f8f.9.2024.07.12.04.00.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jul 2024 03:52:10 -0700 (PDT)
-Date: Fri, 12 Jul 2024 06:52:02 -0400
+        Fri, 12 Jul 2024 04:00:25 -0700 (PDT)
+Date: Fri, 12 Jul 2024 07:00:21 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <pandit.parav@gmail.com>
 Cc: virtio-comment@lists.linux.dev, cohuck@redhat.com,
 	Parav Pandit <parav@nvidia.com>
 Subject: Re: [PATCH] editorial: replace hyperref with ref
-Message-ID: <20240712064951-mutt-send-email-mst@kernel.org>
+Message-ID: <20240712065953-mutt-send-email-mst@kernel.org>
 References: <20240712041433.3246718-1-parav@nvidia.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
@@ -80,11 +80,14 @@ On Fri, Jul 12, 2024 at 07:14:33AM +0300, Parav Pandit wrote:
 > Replace hyperreference with the reference.
 > Fix the broken link refernce for the DEVICE_STATUS part.
 
-typo
+BTW once you know the hash, add a Fixes tag here
+for the patch it's fixing up.
 
-> 
+
 > Suggested-by: Michael S. Tsirkin <mst@redhat.com>
 > Signed-off-by: Parav Pandit <parav@nvidia.com>
+
+
 > ---
 >  admin-cmds-device-parts.tex     |  6 +++---
 >  admin-cmds-resource-objects.tex |  2 +-
@@ -110,14 +113,6 @@ typo
 >  same order as listed in the table
 > -\hyperref[table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / Device parts order/ Device parts order]{device parts order}.
 > +\ref{table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / Device parts order/ Device parts order}.
-
-Should be part of sentence before: {device parts order} \ref{}.
-
-Otherwise it's just a reference by itself, does not make sense -
-pls look at the generated pdf to see what I mean.
-
-Same elsewhere.
-
 >  
 >  The device SHOULD respond with an error status for the command
 >  VIRTIO_ADMIN_CMD_DEV_PARTS_SET if the device is not stopped.
