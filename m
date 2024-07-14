@@ -1,174 +1,203 @@
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (mail-dm6nam12on2070.outbound.protection.outlook.com [40.107.243.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from xvfrnhpk.outbound-mail.sendgrid.net (xvfrnhpk.outbound-mail.sendgrid.net [168.245.32.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90308770EC
-	for <virtio-comment@lists.linux.dev>; Sun, 14 Jul 2024 14:39:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.243.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720967952; cv=fail; b=uFk8joBG2YYPaNtEPXrg09sFeLRPVf3OZ+hp8jplIoIO9+twbFV1MJRiCPB4rH7Tb9N/Bp4aQn2wz3xk4ZmgOk1gSeq2pt2IwT7uCUx05rti9YoxnixdMP4XdCcM58TAfJOcTD5E75eCj11LZPKJsZqEXPONYEfLp3PdFYaw23M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720967952; c=relaxed/simple;
-	bh=5g0xEuPC0pi3o3zIdnOLBTraTEnRvpZ3tmsUEXTTIiE=;
-	h=From:To:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=IzcQ1uOGGSuJGrGQXzV3uGGfXzWZvJuMjd3Ki7AHhncCaWW9HVcZLqexBicwKWCu03xGe1WsGnr6mw8S00+noiwTTgmGSm7JdSHN31521Q4GvbKwpEytHX5IOvhp1drBOWWV0RF5lqvUYmFupLFWEEei6GtLoKwdjHIdzq91KMI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Z6CmgBi8; arc=fail smtp.client-ip=40.107.243.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB98263C8
+	for <virtio-comment@lists.linux.dev>; Sun, 14 Jul 2024 14:40:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.245.32.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1720968028; cv=none; b=Cu7rWMv5LVeStTr6MauRW+bxy/Htkmge8AfWo9hwcOK4p3slbnAleuah4Ji6ckFHaursiYwxSfzDzL8k1VWC/UYt2r83gHSvk/QrSn2uBP3Q49vXpim/ITwEast3u8v+R/YlXnfngWNO0HvdSxIEVrGtR2lV2vkkbgSLOk94vI4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1720968028; c=relaxed/simple;
+	bh=rAL/K0P8D1u1RVuCEHrSq+6CporzFQKTpHdAYbWREQY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:To:Cc:Content-Type; b=G4CSzB43xF2t/VwtPH7RXsMOuDBXAJXbr9KOA+/A3smM6RrqFl+R5S/skRReeQyvfggn+ALY9/c/io/fLuNwEg5x0gU8zUOgLkgC2aAzWAicpNqEmrS8iiMIaAtNTF11DWqxkqHnGDh0lWHfugF5MKYX2BYzDbHvk0IJ5bF40yU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=pass smtp.mailfrom=sendgridstats.nvidia.com; dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b=qVpogKFm; arc=none smtp.client-ip=168.245.32.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sendgridstats.nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Z6CmgBi8"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KO9SKaSv3VU5S3n4C+zHkeDPEyBA0Ns3g2+nXrMIREIlnWgfQ9snKdzQ7G+sCpfkxQ80xeIuLDtSxp+4VwXnREQVWBNkKkzsSnMDLPA7YzGvdreKWrB4HWSd7jja7Cd/3X+RdAHArtZ3tAZwaJNq4WDF71rYzdTPPY1oxsoIuNnbmSs29DadY8rVeP9G0YEtycsLFM2lSzfomM//T1jxSL9U5vYL8zdMQDYNKc19uiW8L3MgtcFp4jWJobCJ3kLB06PpyxxfVfGwQkRVrRLBkNfD5U/51ljULUHQ9XoFIx7pvvmfJybCf/tcg08tOYcu0y6rP7SF8rz3n032HBuj2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5g0xEuPC0pi3o3zIdnOLBTraTEnRvpZ3tmsUEXTTIiE=;
- b=O8+ZqzeFMn/WJc0gnSmdJ6BQFxV7grEtw+VDbqOn4IK0PUJfOS+CGTHjzzN+PtMCqxC1ZddF0LD9B6tV4JBmgq90prIAfcnMYYRMZtIczRlG3kzv/SIG1fKBrT93jjcXcyZHCe2CcuPFKId7AhX5UqZXqoZ/5TMdbI7vSxqieu/u4/oOEp56GDqV7RJiz4hyJbRLgurVo3ofiJljFe24tFSMZHS1LlYssi6TsmNQD8rGQLhn6jwlOwFzJR2crc8FnL7kb4PXVBnC15dWhSAH9rxnbkC3yb1hDaUDhfjWhmZJPW4w0XY29k/6DXgXrlsB1fIET3O+bDjr3J4LIGh09A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5g0xEuPC0pi3o3zIdnOLBTraTEnRvpZ3tmsUEXTTIiE=;
- b=Z6CmgBi8m74b1u5mdBoTduC+0Tp/kWP07cpiIo7sTcPkMJRvfsVuHXDexfL8KhUhx4bFajzxn7f/i8HBjU8nHLLJtv3K0kQgAHy+50syNU+FPTFnm1Y0OZhepgbo+KkaKZZfXeoLCnTDbvuXUcDLsgurmpoI35kj5rolCDDjocWFIViyGYe9WXN0vDZ9DXRAgPzOlpVYGi1dYEmZUF+ZW9+8AK+WCxrx4cfDhwZeDkfroDjybb54haKyKo8yUEzB4+1rT5habu7ZchthhY4I/LFM5i0wzXf5R5cMhzn4fMV2YG0brVPkVNyWwrllh1QCi+Oct9l3I5NiXFj0j1qhug==
-Received: from PH0PR12MB5481.namprd12.prod.outlook.com (2603:10b6:510:d4::15)
- by DS0PR12MB7873.namprd12.prod.outlook.com (2603:10b6:8:142::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.25; Sun, 14 Jul
- 2024 14:39:06 +0000
-Received: from PH0PR12MB5481.namprd12.prod.outlook.com
- ([fe80::361d:c9dd:4cf:7ffd]) by PH0PR12MB5481.namprd12.prod.outlook.com
- ([fe80::361d:c9dd:4cf:7ffd%4]) with mapi id 15.20.7762.025; Sun, 14 Jul 2024
- 14:39:06 +0000
+	dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="qVpogKFm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com;
+	h=from:subject:mime-version:to:cc:content-transfer-encoding:
+	content-type:cc:content-type:from:subject:to;
+	s=s1; bh=4JCBPtfumxefsxMLu2bFALgp1Q33s4aGQ2WPqCThdNI=;
+	b=qVpogKFmqvcCk7fE0mXYd2WW/nwhK/C19hqF1YCcO2I5Nj9z1aQGojOSZIyIFMDq4+K5
+	U8QFlyYDfykFPUfmIF6IlevziLCuIcJ3PYGZARcMrTch1ztkfa30aa49tJKVkSaE3M2HZK
+	9njqrck+7SD7/dORIlwHZ/x2AEqFJDWsNHnzNRNczYZ08dN9qw7dmRI2s4Rvk3G/GXQ9N6
+	O4LjTllAjmCzWcgZZS8hdiBuOjVSfS1LPvl6E94d4eJ4NFUJErFn0XefHOIFEO3mB54qsA
+	F4WT+3MRbjQXoiIWdzW9z4WOQTNRVfN2wRbALulhVkPbWa4Ak/jLC7/l9+go1KyQ==
+Received: by recvd-789cf85659-zfrlz with SMTP id recvd-789cf85659-zfrlz-1-6693E358-63
+	2024-07-14 14:40:24.970366645 +0000 UTC m=+1459956.080352200
+Received: from mtl123.mtl.labs.mlnx (unknown)
+	by geopod-ismtpd-11 (SG)
+	with ESMTP
+	id mHzn1kP9Q3mYgWmuR482iA
+	Sun, 14 Jul 2024 14:40:24.791 +0000 (UTC)
+Received: from vr-arch-host06.mtvr.labs.mlnx (vr-arch-host06.mtvr.labs.mlnx [10.245.43.40])
+	by mtl123.mtl.labs.mlnx (8.14.4/8.14.4) with ESMTP id 46EEeOLk026228;
+	Sun, 14 Jul 2024 17:40:24 +0300
+Received: from vr-arch-host06.mtvr.labs.mlnx (vr-arch-host06.mtvr.labs.mlnx [127.0.0.1])
+	by vr-arch-host06.mtvr.labs.mlnx (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id 46EEeO6e3291814;
+	Sun, 14 Jul 2024 17:40:24 +0300
+Received: (from parav@localhost)
+	by vr-arch-host06.mtvr.labs.mlnx (8.15.2/8.15.2/Submit) id 46EEeOgr3291813;
+	Sun, 14 Jul 2024 17:40:24 +0300
 From: Parav Pandit <parav@nvidia.com>
-To: Parav Pandit <parav@nvidia.com>, "virtio-comment@lists.linux.dev"
-	<virtio-comment@lists.linux.dev>, "mst@redhat.com" <mst@redhat.com>,
-	"cohuck@redhat.com" <cohuck@redhat.com>
-Subject: RE: [PATCH v3] editorial: replace hyperref with ref
-Thread-Topic: [PATCH v3] editorial: replace hyperref with ref
-Thread-Index: AQHa1fs9M+g/qpGMWEuOTjR61rCIV7H2SuCw
-Date: Sun, 14 Jul 2024 14:39:06 +0000
-Message-ID:
- <PH0PR12MB5481B7000236059EA3E243A7DCA02@PH0PR12MB5481.namprd12.prod.outlook.com>
-References: <20240714143632.3291695-1-parav@vr-arch-host06.mtvr.labs.mlnx>
-In-Reply-To: <20240714143632.3291695-1-parav@vr-arch-host06.mtvr.labs.mlnx>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5481:EE_|DS0PR12MB7873:EE_
-x-ms-office365-filtering-correlation-id: 39f6a8c2-ae62-43b1-60c9-08dca412b6cc
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?WjlwWFRDR3lPaVY5WVgzUHZrbDhSNUlqcXVvUndyZlR1MFpaM3owRlN2RVow?=
- =?utf-8?B?dUxKQU1tVC85WTU4SHgzZDc2WnJXQ25iemU0WXAwcERhNWRiOFZjRzg0dUt0?=
- =?utf-8?B?TnRYQUVoc0QxSzhuam5od21xYkgxZWhMZXY5S09CTDdxV1RlRlllM0Yvd0kz?=
- =?utf-8?B?V1h6QlRnbzJqdnAwUTcrTmFZVW10MEVjQnc1MCthWjlGbXNrd09UYkRqMnRv?=
- =?utf-8?B?eDhrbTJDcUFGVXRneFR5Ymh0bkt4ZGdwbjdUaUU1UndaaiswZFEwNUU2MmtI?=
- =?utf-8?B?Q3UzQlhLdEN3cGF0OEpOODVlRTFHSXpaMGdDdDRGdnYxZ0RnTmZDeGtrZDRx?=
- =?utf-8?B?KzlpUnJhS2ZXZGhDN1lpVTBEbDRpTXExV0lBQW1XS1FnMkZsTDJxd084SVpT?=
- =?utf-8?B?Qk5tcG1iTVI0aThnenN2Q29qSEV0OEl6QkZKV2Z6RnQ1dnFzdE41S05Oc1Bx?=
- =?utf-8?B?d2Z4Mkp5eDhUa2k4dHd6RHFpbXBYWm1qYytzcWFPYUxKNEQvR256bC9wNUZS?=
- =?utf-8?B?OXNRKzJOdFFkNUtNYXhGR3RMMDVoVmt4MjB0dzk5b1hMMHZqRE9XNU0wS3Qz?=
- =?utf-8?B?TkFodzVPRUFnejBhQ2owa2J6eEpaa3MrcjFCN05EcGJwRlZOUmx2SW85dzhQ?=
- =?utf-8?B?dVAyQzhPSEtxeEtEYkdYK2trTUdkUVB1SWFxRWFwNkRuRXVIcFYvQ1piYTkz?=
- =?utf-8?B?SmdKRnYzWEY5UVFxOWhHbUhobTdPVHJXNU5HK0VtVWtLdEdLYVNsbzJJa1lx?=
- =?utf-8?B?UEh6QTkycWxWcW9YZ2E1cHBjWVBVcDFjTzhnZXBDR05HN2EzMzFqbWRRR040?=
- =?utf-8?B?ZEdxSTRwRHZDUWdMKzRSYy9iNjlYbEVOYlplSGFyMS9tamJQVm1keWRqVW5T?=
- =?utf-8?B?bUNMVm5NNTF3anBzd3luMVlaQ0k1WDVJbkpSNG9DVVpQZjJsOVVUZHAvZkRw?=
- =?utf-8?B?dTdmK0FmSUZIZ1VZZC9kdlZzYkp6cUxDS2FqcmgzWTZIaUVpUHhYS2tJTmhm?=
- =?utf-8?B?ZS9ZVk11Tm1yZS9yNDVpbXVQcW0wYlBlSG1Qd1dpb0p5VVJvSkdPSGZBelpw?=
- =?utf-8?B?SzEyRElzdkhPODVpY3dTUStpcUFmSWFtVHIrZE5WclRpdTVaZW1OY2hHdlAz?=
- =?utf-8?B?MHkxOHUxazZUdG5Rd1RnVDdNYjh6ZVFNSVhYYVZONHZVUVIxWVM4bzVxbmMz?=
- =?utf-8?B?YldzZlZGSWczWVBHdU1HOE9wMGxQZThGd3BuQm9pRk90L0dVWHkyWDJaaHlS?=
- =?utf-8?B?bXhtK09FUGR6RDFaUGV0ck9UdHNyeDY4Rm54Yy8wYU5VdGcyZ1dpcjUwWE9U?=
- =?utf-8?B?elduZ1N4RGQ5QVp4NlVaSmVFTmVURnE0UXRoa1Z1MHRWR3ZkM1VsYTNEL2gw?=
- =?utf-8?B?RUE1dTZjWjY5N01ESE5WVCtjdXpuejNaT2dkRDRZdFJpRjlINW5xYUpqWHFS?=
- =?utf-8?B?TWo2b3JpZENkWWtEdHNUbzl6c0padnBhK1owaVd3Nml0aXJsdDFrUUxYSDFM?=
- =?utf-8?B?MnYzZS9CdTkwYW9uU1VKS25WL1NaUW5SeHRjOHJrRUhRQWJTQmJva1hmS3Za?=
- =?utf-8?B?Tk9hU2I1Um1QUCswckEyODNBL05pY1gzQVlQMSt1ZGlNY1dKUHdUOFQ1SU8x?=
- =?utf-8?B?ZVF3ODRFN3VFQTA5OTBhQlpoaWpaL2NRSGRlK0oyc0V6a1F1UUJnUVArL3Q1?=
- =?utf-8?B?QVdMcTlnRkhXdUVXL3BJUS9KNk5acW56NlRETDIxdXdZaWw0eFJHaGJMRFhx?=
- =?utf-8?B?dGxTWkRHYzRKYWhoTmY5Tnl2SzJYc0NGeXArT3JZUHRQeEFGMXpNd2R1OEZv?=
- =?utf-8?B?NUp5RkNyeVIrZHhuRFBONzN1VjlReHFmSmNycXNXdVZjdUNqOWFZNlFlV2hl?=
- =?utf-8?B?S2JiUXBMNnJBWVJONEdOWFdoMldxUjl4VFNTeS9YT2hjSVE9PQ==?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB5481.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?VjlXQ2FnZm9YRFN4MFZDODBvZFd2SEVkdHhhSXJSR3NPYlRVZ0huM0kwcTBV?=
- =?utf-8?B?L1kzU1g1WTRrVjgxa2FINE5PS1FpcGpYUEpJTTJNL1VFTDAvVzNLVmk5MDlR?=
- =?utf-8?B?azl1L2NnRVpnRy9vazAxNzVvQTAyZjVaL2ZwSDRVYkJMeWtOSUdKbnJVN1A2?=
- =?utf-8?B?THJueXN5Q0ErWkZaN05WaThuQmVKa1lKcDFGaGhBNDRpblpJbmlyZWozUjJZ?=
- =?utf-8?B?eTNJK21rRzlIa0tMbkw1Y3kzNkRuU3JGWVNMRVF6TFVVd2FkS002YXBUK0FB?=
- =?utf-8?B?M2dnZUN0WUVjaTE4YmNkNVdTZVU5K1JOcjdtK2dHNkowa2lXcy9CWjJzMEZI?=
- =?utf-8?B?T09IMmJJVE9UTkl3Ty9neG9QM3IveTRVRE9abHpWYVFFaUpwYWZab0FqTVVB?=
- =?utf-8?B?TkR1eVUybG5JWnZjdHlKNTVUclJJWHJsV0xpdVFPL2VTaHlxZVF4bk9jQTkv?=
- =?utf-8?B?am0rcmEzMm4zL1NVMy9HdFd4c21nemxNbjlEZzErY2NFSFcwb1lKV0d2Y0Vl?=
- =?utf-8?B?dFpMYU1JT0xpK0Q5Y0RSUUp4NlhsMGk2aGp6Z2JnQ0FUTVoxRjNva0RZZGVv?=
- =?utf-8?B?YlhCUWYzanJYeWQ0MFQyMzlaWlovSjVrajJDUkVrWXo4akhMcnVyem9BT2gy?=
- =?utf-8?B?NUVaay91clNrZlhiT2dsYjhOTG5XekxOMkcyb2dsZjFLMGF5YlZIUnlVNFRD?=
- =?utf-8?B?QlFuSWFUV3pLT2l6TkNUUHVYcEREdGE1NmFwcXFET0xiMWJzaEJaUEIvZnQv?=
- =?utf-8?B?MHE3cmZWaklKZjdrMlZ6dkVqdnJxMmwvT0J0dkkrS2J1TW9pb3R2VnVJdStB?=
- =?utf-8?B?d3ErcmM1eTFJRHd3L1pZbnRuSjZ5eE85RFNLYXV5RW5uUm5ocSsrZmc3dXA5?=
- =?utf-8?B?L3BrYk8ra0hWUitlZXk2ZzZGRlZZUnBKMlM1Q3VqVEZJT01wdEZlaUN4NFVY?=
- =?utf-8?B?WG1ROW5DRUF4L0RQeW1kd05aeFdWYlo1Zi83ajZtZXVpZ1hod2l2L2p5TFlt?=
- =?utf-8?B?MTN2S3RaVmVJV3NuMHFpbStwbkJUZWtqbHRYYUlTWlZYZXIxcDBkVS9NZUNM?=
- =?utf-8?B?QUhxem1BbmltZ3h4MTJjUFE1SVBKMFAvMFdSQk4zTVkvUWNPblR4d3J0TWtk?=
- =?utf-8?B?eUtFOEhFejZ5b3EyaEF5QlhuT3E5WU51MmR3SGt3M2FqVzJPWjgyS1djOUkr?=
- =?utf-8?B?MENKMnVpdDZyZzVaNEZVZkdxblRRaVQyOUdZVFlWZWFEWnZMb0FIYUtGNzF2?=
- =?utf-8?B?WnRzYjJ6TThvVkl3dTNQZ1U1c3ZXNTZrQjRMb1A5R2xTZFkxcStmZkM2bHJ1?=
- =?utf-8?B?N0Fobm9qdUVHTmp3WGV1ZUVlZXo2anF1WEZOa21TdmJZaG1JdW5OOUg3WTkz?=
- =?utf-8?B?eG9mWWlrOWQvUzJtbUFOWDNBRU9oM3kvY3pLelUxOXhVbXpzamNyUllaaW90?=
- =?utf-8?B?eE16ZUFDa0htOXl4MlNDc3dHQk02KzZuZC9aU3NYbnp6YWFoV1dWdFQzTEVu?=
- =?utf-8?B?bkl5VTJrYTJsSXZCZE9oUy96RGZqV1RUaG9xTkovUTcvYTZRaGVTTDA4NzVv?=
- =?utf-8?B?TXhNUDFOT0VjeVNac0RlVlpwSjBZRjVyQlZaak9pajRoNjNZQmpVa3JBOTZV?=
- =?utf-8?B?S0ZBV2hSeC80N1pucVBQWUVGbTVsU0t6ZlpUMk1sSTloU0NCNjJmSEFuUWRI?=
- =?utf-8?B?L01VVlkwSGZJdjBKNEpkRXFtU00wNGsyajZ2aDY1Q252VEdZZ3g5SEZEbzAw?=
- =?utf-8?B?TzU4N1QvbWhlS2xlMFhyVTh2TG1TR1E0MWRIZnVMcVo5QzEzdlphaU01Rndx?=
- =?utf-8?B?SVhOLytjTzRTdEkyRklFQkVFT0lNcEZPUUJqSC9iQzRNbnlnWG9Ec1hQa25C?=
- =?utf-8?B?T0liVWYxZWt5eC9LRlhBaUVhcjhETDJ6Y3NLUHg4Wm1ZVTBHVmhoWEN0L1hx?=
- =?utf-8?B?bW5MMUJyUStENUl1RDk4V1RBNGFmVW9wMDNUZVNEUXhUeFVxUWQ1TkRFZTQv?=
- =?utf-8?B?YUZzbXRHZXF0c3p0N1gwMWtLODdyVWxuNi9STVdGc3Yrc2tER1kvbm1uMEVG?=
- =?utf-8?B?dzJldDhUaGtsWWdycDhLUEJOanFTb0oycGUwNVBLYVU0Y01LZ241OUlxdHd1?=
- =?utf-8?Q?KFOg=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Subject: [PATCH v4] editorial: replace hyperref with ref
+Date: Sun, 14 Jul 2024 14:40:25 +0000 (UTC)
+Message-Id: <20240714144023.3291803-1-parav@vr-arch-host06.mtvr.labs.mlnx>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5481.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39f6a8c2-ae62-43b1-60c9-08dca412b6cc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2024 14:39:06.2633
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WlCr/4MvYCAY7d0Z2fJ3ilFCetRA9A+kaR/0/NAsHKcG/5hvrhUG8Koe2sBow4VGzilbdTdb0b8ZA3Vxp6LTpg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7873
+X-SG-EID: 
+ =?us-ascii?Q?u001=2EGKIzaBmeMpQo8dENF3BKzHhooF+oMOnrwKqptdheemMEs2maYobIgHNSi?=
+ =?us-ascii?Q?3HpuxQn0J1ksZ0bJ2Es9Y+grYdP1QriNLpbf5Vl?=
+ =?us-ascii?Q?gBuBFm6xUT+fUmE8ga4Fjzr8ZZvwguMZzacrTf4?=
+ =?us-ascii?Q?50EYe29hL1Ju8+nPGyfNj=2FZQjmqF7PO0N5g=2FCV8?=
+ =?us-ascii?Q?FKC4MY72O4fQ4Fvf3W5p=2FWs4c77PIayvQ+916Hi?=
+ =?us-ascii?Q?R16e5kREhrZNEiST+sNwiPhStVg1AXZTr54IQT=2F?= =?us-ascii?Q?pou0?=
+To: virtio-comment@lists.linux.dev, mst@redhat.com, cohuck@redhat.com
+Cc: Parav Pandit <parav@nvidia.com>
+X-Entity-ID: u001.9Nu+sJkq3f0LJ/tZbyfOWA==
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
 
-DQoNCj4gRnJvbTogUGFyYXYgUGFuZGl0IDxwYXJhdkBudmlkaWEuY29tPg0KPiBTZW50OiBTdW5k
-YXksIEp1bHkgMTQsIDIwMjQgODowNyBQTQ0KPiBUbzogdmlydGlvLWNvbW1lbnRAbGlzdHMubGlu
-dXguZGV2OyBtc3RAcmVkaGF0LmNvbTsgY29odWNrQHJlZGhhdC5jb20NCj4gQ2M6IFBhcmF2IFBh
-bmRpdCA8cGFyYXZAbnZpZGlhLmNvbT4NCj4gU3ViamVjdDogW1BBVENIIHYzXSBlZGl0b3JpYWw6
-IHJlcGxhY2UgaHlwZXJyZWYgd2l0aCByZWYNCj4gDQo+IEZyb206IFBhcmF2IFBhbmRpdCA8cGFy
-YXZAbnZpZGlhLmNvbT4NCj4gDQo+IFJlcGxhY2UgaHlwZXJyZWZlcmVuY2Ugd2l0aCB0aGUgbmFt
-ZSByZWZlcmVuY2UuDQo+IEZpeCB0aGUgYnJva2VuIHJlZmVyZW5jZSBsaW5rIGZvciB0aGUgREVW
-SUNFX1NUQVRVUyBwYXJ0Lg0KPiANCj4gRml4ZXM6IGFhNGY2ZjA2OWFiMyAoImFkbWluOiBBZGQg
-YWRtaW4gY29tbWFuZHMgZm9yIGRldmljZSBwYXJ0cyIpDQo+IEZpeGVzOiA2MTdhYTJkNjJhODgg
-KCJhZG1pbjogRGVmaW5lIGNvbW1vbiBkZXZpY2UgcGFydHMiKQ0KPiBTdWdnZXN0ZWQtYnk6IE1p
-Y2hhZWwgUy4gVHNpcmtpbiA8bXN0QHJlZGhhdC5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IFBhcmF2
-IFBhbmRpdCA8cGFyYXZAbnZpZGlhLmNvbT4NCj4gTWVzc2FnZS1JRDogPDIwMjQwNzEzMTgxNTQw
-LjMyODQxNDctMS1wYXJhdkBudmlkaWEuY29tPg0KPg0KTWlzc2VkIHRvIHJlbW92ZSB0aGUgbWVz
-c2FnZSBpZCBpbiB0aGlzIGVycm9yIHByb25lIG1hbnVhbCBwcm9jZXNzLiDimLkNClNlbmRpbmcg
-djQgbm93IHdpdGhvdXQgdGhlIG1lc3NhZ2UgaWQuIA0KDQo=
+From: Parav Pandit <parav@nvidia.com>
+
+Replace hyperreference with the name reference.
+Fix the broken reference link for the DEVICE_STATUS part.
+
+Fixes: aa4f6f069ab3 ("admin: Add admin commands for device parts")
+Fixes: 617aa2d62a88 ("admin: Define common device parts")
+Suggested-by: Michael S. Tsirkin <mst@redhat.com>
+Signed-off-by: Parav Pandit <parav@nvidia.com>
+
+---
+changelog:
+v3->v4:
+- removed stale message-id from the commit log
+v2->v3:
+- fixed comment from Michael to add fixes tag to commit log
+v1->v2:
+- converted to named reference
+v0->v1:
+- this is a fixup patch to fix the editorial changes to
+  drop hyper reference and fix one broken link.
+- This is based on virtio-1.4 branch + admin parts patches
+- fixed comments from Michael
+- fixed typo of reference
+- replaced table reference as named reference for better reading
+  and direct reference
+---
+ admin-cmds-device-parts.tex     |  6 +++---
+ admin-cmds-resource-objects.tex |  2 +-
+ device-parts.tex                | 21 +++++++++++----------
+ 3 files changed, 15 insertions(+), 14 deletions(-)
+
+diff --git a/admin-cmds-device-parts.tex b/admin-cmds-device-parts.tex
+index ab6e83b..ad3f8e3 100644
+--- a/admin-cmds-device-parts.tex
++++ b/admin-cmds-device-parts.tex
+@@ -60,7 +60,7 @@ \subsubsection{Device parts}\label{sec:Basic Facilities of a Virtio Device / Dev
+ Before performing any get or set operation for the device parts, the driver
+ creates the device parts resource object
+ VIRTIO_RESOURCE_OBJ_DEV_PARTS using the administration command
+-\hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects / VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE]{VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE}.
++\nameref{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects / VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE}.
+ The driver indicates the intended purpose (get or set) at the time of creating the
+ device parts resource object.
+ For the device parts resource object, both \field{resource_obj_specific_data} and
+@@ -337,7 +337,7 @@ \subsubsection{Device parts}\label{sec:Basic Facilities of a Virtio Device / Dev
+ When there are multiple device parts in the command
+ VIRTIO_ADMIN_CMD_DEV_PARTS_GET, the device MUST respond the device parts in the
+ same order as listed in the table
+-\hyperref[table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / Device parts order/ Device parts order]{device parts order}.
++\nameref{table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / Device parts order/ Device parts order}.
+ 
+ The device SHOULD respond with an error status for the command
+ VIRTIO_ADMIN_CMD_DEV_PARTS_SET if the device is not stopped.
+@@ -455,7 +455,7 @@ \subsubsection{Device parts}\label{sec:Basic Facilities of a Virtio Device / Dev
+ When there are multiple device parts in the command
+ VIRTIO_ADMIN_CMD_DEV_PARTS_SET, the driver MUST set the device parts in the same
+ order as listed in the table
+-\hyperref[table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / Device parts order/ Device parts order]{device parts order}.
++\nameref{table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / Device parts order/ Device parts order}.
+ 
+ For the SR-IOV group type, the driver SHOULD NOT access the device configuration
+ space described in section
+diff --git a/admin-cmds-resource-objects.tex b/admin-cmds-resource-objects.tex
+index 388aa69..d0a6647 100644
+--- a/admin-cmds-resource-objects.tex
++++ b/admin-cmds-resource-objects.tex
+@@ -69,7 +69,7 @@ \subsubsection{Device resource objects}\label{sec:Basic Facilities of a Virtio D
+ \hline
+ Resource object type & Name & Description \\
+ \hline \hline
+-0x000 & \hyperref[par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / VIRTIO_RESOURCE_OBJ_DEV_PARTS]{VIRTIO_RESOURCE_OBJ_DEV_PARTS} & Device parts object \\
++0x000 & VIRTIO_RESOURCE_OBJ_DEV_PARTS & Device parts object, see \ref{par:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / VIRTIO_RESOURCE_OBJ_DEV_PARTS} \\
+ \hline
+ 0x001-0x1ff & - & Generic resource object range reserved \\
+ \hline
+diff --git a/device-parts.tex b/device-parts.tex
+index 7384408..e6047db 100644
+--- a/device-parts.tex
++++ b/device-parts.tex
+@@ -70,7 +70,7 @@ \section{Device parts}\label{sec:Basic Facilities of a Virtio Device / Device pa
+ \field{part_type} values.
+ 
+ \field{selector.pci_common_cfg.offset} is the offset of the
+-field in the \hyperref[sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout]{Virtio PCI common config space}. It is valid only when the \field{part_type} is set to VIRTIO_DEV_PART_PCI_COMMON_CFG,
++field in the \nameref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout}. It is valid only when the \field{part_type} is set to VIRTIO_DEV_PART_PCI_COMMON_CFG,
+ otherwise it is reserved and set to 0.
+ 
+ \field{selector.vq_index.index} is the index of the virtqueue. It is valid
+@@ -89,17 +89,17 @@ \subsection{Common device parts}\label{sec:Basic Facilities of a Virtio Device /
+ \hline
+ Type & Name & Description \\
+ \hline \hline
+-0x100 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DEV_FEATURES]{VIRTIO_DEV_PART_DEV_FEATURES} & Device features \\
++0x100 & VIRTIO_DEV_PART_DEV_FEATURES & Device features, see \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DEV_FEATURES} \\
+ \hline
+-0x101 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DRV_FEATURES]{VIRTIO_DEV_PART_DRV_FEATURES} & Driver features \\
++0x101 & VIRTIO_DEV_PART_DRV_FEATURES & Driver features, \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DRV_FEATURES} \\
+ \hline
+-0x102 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_PCI_COMMON_CFG]{VIRTIO_DEV_PART_PCI_COMMON_CFG} & PCI common configuration \\
++0x102 & VIRTIO_DEV_PART_PCI_COMMON_CFG & PCI common configuration, see \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_PCI_COMMON_CFG} \\
+ \hline
+-0x103 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DEVICE_STATUS]{VIRTIO_DEV_PART_DEVICE_STATUS} & Device status \\
++0x103 & VIRTIO_DEV_PART_DEVICE_STATUS & Device status, see \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DEVICE_STATUS} \\
+ \hline
+-0x104 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_VQ_CFG]{VIRTIO_DEV_PART_VQ_CFG} & Virtqueue configuration \\
++0x104 & VIRTIO_DEV_PART_VQ_CFG & Virtqueue configuration, see \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_VQ_CFG} \\
+ \hline
+-0x105 & \hyperref[sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_VQ_NOTIFY_CFG]{VIRTIO_DEV_PART_VQ_NOTIFY_CFG} & Virtqueue notification configuration \\
++0x105 & VIRTIO_DEV_PART_VQ_NOTIFY_CFG & Virtqueue notification configuration, see \ref{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_VQ_NOTIFY_CFG} \\
+ \hline
+ 0x106 - 0x2FF & - & Common device parts range reserved for future \\
+ \hline
+@@ -157,7 +157,8 @@ \subsubsection{VIRTIO_DEV_PART_PCI_COMMON_CFG}
+ One or multiple VIRTIO_DEV_PART_PCI_COMMON_CFG parts may exist in the
+ get or set commands; each such part corresponds to a unique \field{offset}.
+ 
+-\subsubsection{VIRTIO_DEV_PART_DEVICE_STATUS}\label{par:VIRTIO_DEV_PART_DEVICE_STATUS}
++\subsubsection{VIRTIO_DEV_PART_DEVICE_STATUS}
++\label{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts / VIRTIO_DEV_PART_DEVICE_STATUS}
+ 
+ For VIRTIO_DEV_PART_DEVICE_STATUS, \field{part_type} is set to 0x103.
+ The VIRTIO_DEV_PART_DEVICE_STATUS field indicates the device status as listed in
+@@ -214,8 +215,8 @@ \subsubsection{VIRTIO_DEV_PART_VQ_NOTIFY_CFG}
+ \end{lstlisting}
+ 
+ \field{queue_notify_off} and \field{queue_notif_config_data} corresponds to the
+-fields in \field{struct virtio_pci_common_cfg} described in
+-\hyperref[sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout]{Virtio PCI common configuration space}.
++fields in \field{struct virtio_pci_common_cfg} described in the
++\nameref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout}.
+ 
+ One or multiple instance of the device part VIRTIO_DEV_PART_VQ_NOTIFY_CFG may exist
+ in the get and set commands, each such device part corresponds to a unique
+-- 
+2.34.1
+
