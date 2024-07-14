@@ -1,100 +1,97 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from xvfrnhpk.outbound-mail.sendgrid.net (xvfrnhpk.outbound-mail.sendgrid.net [168.245.32.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316D413A3E3
-	for <virtio-comment@lists.linux.dev>; Sun, 14 Jul 2024 16:00:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E82DC22313
+	for <virtio-comment@lists.linux.dev>; Sun, 14 Jul 2024 22:18:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.245.32.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1720972806; cv=none; b=Wi0/T7j8JmlzCfai+pbv31JBO1NhusHxMAaqXbcdahMnghFOhxIgx4FRbM3zAA1yFnlIbcJRbidPxp0gjSAuqPI2xn/uk6LIyA9zGBqQcyiEltj5HEudxtm5yOodtqtAXy52krgsOxMkUBDBcDp1szQ4kWibswtcBU2PDuzaK7s=
+	t=1720995529; cv=none; b=F0W9TjLIsa5M66kLtvjFoWL0wBXGSWMzlD9TXh4HU9YQFxU0jIZj5rmJnqCpPoBUNQL7zHM/N3xLe+cxatV7BJTK2EJoIuu+4U520esrv1JR6xMTu9sGUgRK/hgLfrP9FKIjX0h2mqbs8s52z3SHV5EownWv4RwnP14KjTpOkCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1720972806; c=relaxed/simple;
-	bh=jNY4fyJinWiqHDgJwkCNayE+AN9SCVoeAZBbMn1ClgI=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=BgWxzIwSfMMUi0Ub31R5qge8Zx1WcZ79PgAm6XMoDCRTWZwB84m8opJGGeUS6HwtYtxZxAbH0oU8FhIARB30K05UNwuGN6+1F7PMv6Z4FyI/D6PpCo88BQ5g1AvdVVW45ilEv/ZA22JESo5qSYZZAnb2aKeRfFqJHpFm5YXkS/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=K4CMdXMu; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1720995529; c=relaxed/simple;
+	bh=OYmCdaFHIR5Z7ADOW01/KyBIQpiIsiIfidnLBQBJXR0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:To:Cc:Content-Type; b=IDWXdSB3m/JCpxjeINju5FVOgtZ3761B9wQX3ZZr2iwASWJxsGHRGQrzlWa+KieA5CnqQCfy8TXInyko8aOCgbVvCD0R6/89+F2+uPoU68Lkb3e8fPWfii9+ZYbxWan6pm7CyY2YWLQ7AnYJy7XulJRP+/EBj27fVDCT12PvEa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=pass smtp.mailfrom=sendgridstats.nvidia.com; dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b=OZ65Yc5b; arc=none smtp.client-ip=168.245.32.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sendgridstats.nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="K4CMdXMu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1720972802;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type;
-	bh=SqrNSkZV5PM89Sr4X4BISIq9uWS3RmPXHynzGrodKSU=;
-	b=K4CMdXMuoZQW052SfH+erejDYkSLuLVRg3oeNI0htA/Ahx1ROyzSlBImdCMIXyrcYBBQa2
-	PRdVqlW2l/7Vm6RH3ljaC2YcDAuzeAlJrKrJgeXotYTEz3fDrpNGpWoWXVUXNaenGiIU+y
-	KGyBWrr605ynThJFArL4wFrI99mOD0M=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-55-b9NPRmGPOfW8QBVzs4qVyA-1; Sun, 14 Jul 2024 12:00:01 -0400
-X-MC-Unique: b9NPRmGPOfW8QBVzs4qVyA-1
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4266edc9c85so25607605e9.2
-        for <virtio-comment@lists.linux.dev>; Sun, 14 Jul 2024 09:00:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720972799; x=1721577599;
-        h=content-disposition:mime-version:message-id:subject:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=SqrNSkZV5PM89Sr4X4BISIq9uWS3RmPXHynzGrodKSU=;
-        b=CWWtf1BoiSiEmSHu4o5HUb0bQbqieD1aYJCYV2Lg7rGx3xFVnQCAR+Kzph5L31ecGZ
-         sXLiluvkYD8w7y74YSpwBqe/QbvS/yPe8DCg87SHemm/fEfr89qyc+fR6lqVxBBtLMSI
-         SeGVVaznvbn1D6YvIatOJpzgWdSotLoYILv98jhF4n44uliWEbDAUqZzw2K7CVqU8npv
-         1rUhHAf7JXzDQPuuBQMNK7QdMwNm1ueJUHYQhQraWPlERrIdfK88KknzyZH554HxGMO2
-         AEQ5KRv2lmh3qv+CsmjFA8x5Fg19Xt4TOOUfIhEURlfpZ6lTn7AKZj/jLRqxFdnwXqQF
-         GBdA==
-X-Gm-Message-State: AOJu0Yz0vE/3O4dVlUy3bFBm0rIwX2K8eXjIordeGoMDPLhNDImf2ZES
-	IRbVQPm27RedSMNEEC9PNHdab81jAxRIjJDjVDfNPeDsxhKbF8aQycrlNIHzzFjXqDJIKeDkVnZ
-	4JgWIIO1ev/jGhw4a8bIak212dkkcgvjwFOd62yk4J3U5Ewq9N/74A8utxd8wC4T2VaHhCkUyai
-	zBYD7zWRbsOL7R3xaMcc5udyFjBpl5p2E9rqevQmxnMA==
-X-Received: by 2002:a05:600c:6d84:b0:426:61e8:fb3b with SMTP id 5b1f17b1804b1-426707f81b0mr90022485e9.27.1720972798821;
-        Sun, 14 Jul 2024 08:59:58 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF08aL5NvrplJ88GvYrfpGmKS2S88Vd7tejlXYlkpSey9/lbYadcz5ts4l+g8wQkzqAea72uw==
-X-Received: by 2002:a05:600c:6d84:b0:426:61e8:fb3b with SMTP id 5b1f17b1804b1-426707f81b0mr90022375e9.27.1720972798178;
-        Sun, 14 Jul 2024 08:59:58 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc7:240:5146:27c:20a3:47d4:904])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4279dae5a87sm48601355e9.1.2024.07.14.08.59.56
-        for <virtio-comment@lists.linux.dev>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 14 Jul 2024 08:59:57 -0700 (PDT)
-Date: Sun, 14 Jul 2024 11:59:55 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: virtio-comment@lists.linux.dev
-Subject: [PATCH] makediff: cherry pick table env change
-Message-ID: <e69cb7619afb40089440f12cd002f1af5429b090.1720972792.git.mst@redhat.com>
+	dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="OZ65Yc5b"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com;
+	h=from:subject:mime-version:to:cc:content-transfer-encoding:
+	content-type:cc:content-type:from:subject:to;
+	s=s1; bh=Z/NVQI2s6Sl5aUk0zgpTgXjCHu+Vm6fFD+iWT/S0Nj4=;
+	b=OZ65Yc5ba+PS7/PZin86l6nx6qBw8gJLO8NKxAQnPhpke1mlChgEOCPC5mJ0bD38/IrE
+	43c+yEjbYUo/oAAWwmxYBb9zJX2HB/Ytltb6ZerXbdTMymSN/8R+86Y7JNq+cTB6k5QU6Q
+	hxcs/kCnKHLJQFMCy2ZUOl3TwXv/ib5W9BLSQ/vgw7OQcPz30T57OPQBhtjsLSrQxeBVyV
+	oS5R9EY9ZraifT3RcGBlGP1Pm1NV7EQGhAs+ugth+dYl2i9QMAoFp+HKrCT2PMg9Cs+UFF
+	BfRbvZ9zuHddj/MQnbTg2UwLdLzLAz5wg1+w6iDSSMnMAB1w6UHpdmlxdqpV9g7Q==
+Received: by recvd-689769458d-zz5kp with SMTP id recvd-689769458d-zz5kp-1-66944EC3-21
+	2024-07-14 22:18:43.582811422 +0000 UTC m=+1488014.067941573
+Received: from mtl123.mtl.labs.mlnx (unknown)
+	by geopod-ismtpd-canary-0 (SG)
+	with ESMTP
+	id 5dzS0_94Rau_mIdKbCF4xQ
+	Sun, 14 Jul 2024 22:18:43.407 +0000 (UTC)
+Received: from vr-arch-host06.mtvr.labs.mlnx (vr-arch-host06.mtvr.labs.mlnx [10.245.43.40])
+	by mtl123.mtl.labs.mlnx (8.14.4/8.14.4) with ESMTP id 46EMIg4b017511;
+	Mon, 15 Jul 2024 01:18:42 +0300
+Received: from vr-arch-host06.mtvr.labs.mlnx (vr-arch-host06.mtvr.labs.mlnx [127.0.0.1])
+	by vr-arch-host06.mtvr.labs.mlnx (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id 46EMIgNY3323470;
+	Mon, 15 Jul 2024 01:18:42 +0300
+Received: (from parav@localhost)
+	by vr-arch-host06.mtvr.labs.mlnx (8.15.2/8.15.2/Submit) id 46EMIeYi3323469;
+	Mon, 15 Jul 2024 01:18:40 +0300
+From: Parav Pandit <parav@nvidia.com>
+Subject: [PATCH] html: add missing xltabular package
+Date: Sun, 14 Jul 2024 22:18:43 +0000 (UTC)
+Message-Id: <20240714221837.3323459-1-parav@vr-arch-host06.mtvr.labs.mlnx>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Mailer: git-send-email 2.27.0.106.g8ac3dc51b1
-X-Mutt-Fcc: =sent
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-SG-EID: 
+ =?us-ascii?Q?u001=2EGKIzaBmeMpQo8dENF3BKzHhooF+oMOnrwKqptdheemMEs2maYobIgHNSi?=
+ =?us-ascii?Q?3HpuxQn0J1ksZ0bJ2Es9Y+grYdP1Q2Z1nWuTLy4?=
+ =?us-ascii?Q?7Ug9nSe3RzvAsrQGqnZHuvJOAB4OFCCPeHKYOaC?=
+ =?us-ascii?Q?Cnt3HgdZYNx4liLwPZNJpHJEnjc7Xzs0NVZ7vpg?=
+ =?us-ascii?Q?a2xHbdfYwVehNADrujqeMR2o1Rnb+NDtAf6JZU5?=
+ =?us-ascii?Q?aB4M6tZjM+s6u6yZHtkKzMMegiCg2RZoJXLOt0v?= =?us-ascii?Q?bqW7?=
+To: virtio-comment@lists.linux.dev, mst@redhat.com, cohuck@redhat.com
+Cc: Parav Pandit <parav@nvidia.com>
+X-Entity-ID: u001.9Nu+sJkq3f0LJ/tZbyfOWA==
+Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-latexdiff can not cope with environment name changes.
-cherry pick to avoid confusing it.
+From: Parav Pandit <parav@nvidia.com>
 
-Fixes: 72a91e6 ("admin: Prepare table for multipage listing")
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+script makediffhtml.sh errors out with following error.
+
+LaTeX Error: Environment xltabular undefined.
+Fix it by adding the package.
+
+Fixes: 72a91e6d6365 ("admin: Prepare table for multipage listing")
+Signed-off-by: Parav Pandit <parav@nvidia.com>
+
 ---
- makediff.sh | 1 +
+This patch is for virtio-1.4 branch.
+---
+ virtio-html.tex | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/makediff.sh b/makediff.sh
-index d6c9bcc..fde761f 100755
---- a/makediff.sh
-+++ b/makediff.sh
-@@ -21,6 +21,7 @@ while read -r rev; do
- 	git cherry-pick --keep-redundant-commits --allow-empty `git rev-list -1 -F --grep "$rev" $newrev` || exit 1
- done << 'EOF'
- editorial: allow for longer device id table: makediff 1.3
-+admin: Prepare table for multipage listing
- EOF
+diff --git a/virtio-html.tex b/virtio-html.tex
+index 48c633d..c29f8de 100644
+--- a/virtio-html.tex
++++ b/virtio-html.tex
+@@ -33,6 +33,7 @@
+ \usepackage{xstring}
+ \usepackage{enumitem}
+ \usepackage{chngcntr}
++\usepackage{xltabular}
+ \counterwithout{footnote}{chapter}
  
- #mv specvars.tex specvars-orig.tex
+ \usepackage[utf8x]{inputenc}
 -- 
-MST
+2.34.1
 
