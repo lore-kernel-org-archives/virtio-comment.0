@@ -1,68 +1,68 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D95F175AE
-	for <virtio-comment@lists.linux.dev>; Mon, 15 Jul 2024 16:49:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0532A175AE
+	for <virtio-comment@lists.linux.dev>; Mon, 15 Jul 2024 16:49:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1721062196; cv=none; b=j89avKzml2jihKfqzUieTUXkVqMH5fYmt5Ek4MYY7ICSE/kg21y30lPHMyGoCrgIpRNgONW72YprzcZ6VNmqU17nTnuEuTEizb7Zbh5+gLoz3A2EHFJWKW+X42Ft42WanwT8rMAbRtspUXY5eyqArct0dg7wvSzRdT/P1QiJiDA=
+	t=1721062199; cv=none; b=Qw3JskTLEfVsgTSUBCFouJH0y0yD7TizKVUO7fIpxU1+cXxnDvmf1P2WvvV39Ghd03FIZVcIevLEZo0ahW+KvxObZKU06rfhOKpcm+GGaHhA/ol/EYR2GJDLQtQH57NJrchokW24wEC2ZrSWSGpdON4z+iJ4u2Rzh7G3BM2qk8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1721062196; c=relaxed/simple;
-	bh=qE7CGmmKc7cI5Vfkqo096iDppabFJABT3P4kBM31ZdQ=;
+	s=arc-20240116; t=1721062199; c=relaxed/simple;
+	bh=YiOayE76VuWc4rknezYUUYqU6XaeNRwjXW/Tqa9b84Y=;
 	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=I9lq/s0zR/xoCT+VOFoKQbrJcYCnWuwPARFznWduwWjEjlxV1VCiOg75lup7IL3b6HBXGUXa17cHX3d5Yc9u5JOWEuK67jyPj0CW48lmFqDIdd5VYLwdm2uTM0ix7p2WleiRUd0/HrZvXvRMLaLgmgHRGrqcQrd3y8B13ghyP6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UYcDmCfN; arc=none smtp.client-ip=170.10.133.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=EJfqJaTNpKeXnMGcDRXD1xggmoAB+cNL3t9jPAwev1UsE83P1hZu1siOCfYYmOx5kRs9ddYAb8iButmykBII12aF6PZtFbTyjCmbC1cVMfoXIVmT9lMRcZxQBeCv5VPRUQ/p8HCQUkRNSV0BKAq+Y24ox9weWSqrqiwBXIZvyHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fTRV4hmJ; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UYcDmCfN"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fTRV4hmJ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1721062193;
+	s=mimecast20190719; t=1721062196;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Um5hyq6n/oQwZs+0Bn60Nh7O2zO/4S04VgaFAch2Yd8=;
-	b=UYcDmCfN5yZJU4RoahNtSK4Qli8jHZswZErzN9rr4Wora7j/aF7iK8TlnaaLWeGUtnP4nW
-	D52bLwG/jo+E6PUXLqgWOAsk5PI5m/rR5M2Os+k0QqFKnUW3JZh0ZcbDhFuyViD6asajdU
-	S6u4Q/bOMiPPjD3VchyEzfPhjOOvSbo=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=GlDWW474y2L1d2RMuOeyWj7nXQ3t4dGUxc6gYI1sbUQ=;
+	b=fTRV4hmJEVDcjSk2eB1t77zXmXpm/OQ7PgKKM7AxgQUcFEhJL8UrSudn0joblXy5s83sVP
+	LVXtOP+pv7x5kbB7uuF6NXKQkHqLHKKsK551G224xdFSZnLX+CsPGT2duilLLa0CeSzyc5
+	NotQwjWV2BCC6ryWX1TQAts4LpTmzA0=
+Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
+ [209.85.167.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-94-WvWNjTvfPRSh-ytzA3VG-A-1; Mon, 15 Jul 2024 12:49:52 -0400
-X-MC-Unique: WvWNjTvfPRSh-ytzA3VG-A-1
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-42671a6fb9dso29223765e9.3
-        for <virtio-comment@lists.linux.dev>; Mon, 15 Jul 2024 09:49:51 -0700 (PDT)
+ us-mta-421-G_GXzNhHPUuV_a3wugh3eg-1; Mon, 15 Jul 2024 12:49:55 -0400
+X-MC-Unique: G_GXzNhHPUuV_a3wugh3eg-1
+Received: by mail-lf1-f70.google.com with SMTP id 2adb3069b0e04-52e982ad660so4488070e87.0
+        for <virtio-comment@lists.linux.dev>; Mon, 15 Jul 2024 09:49:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721062190; x=1721666990;
+        d=1e100.net; s=20230601; t=1721062194; x=1721666994;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Um5hyq6n/oQwZs+0Bn60Nh7O2zO/4S04VgaFAch2Yd8=;
-        b=lGmrImatewMUcCEktd7V6I+H2HGG7+sp5L0YeqIR+Y4+CixaY6tFVYRGYVE2/8UFwB
-         WQWYnGu59HY8ZDVJc/tW18rnM75yWXNQ381ufvatOLqfZCNTKdpzk49/imslMM1rguO0
-         tS2WLIhvwvAmXci9C+p4Fc697uz+cPF0Fvg6UILHFySduXJPp7tAZmMGIALooUGKV7g3
-         FTtzYF6m3Xep0+lbcqF1SyCVcDZ8QHiDDJjqVpx7fp8w9TXH9+15FG8w77Yy/eR0mt3W
-         GkaZF+K6CZtQcEpG5mMrwdsWrbyxN9EVqrIJX7GMIsPX0M1PbZLvponS4AybLsjPkiEK
-         KAFQ==
-X-Gm-Message-State: AOJu0Yz1GyRERd546+6fbwKAZJp0/Xqv5Ksv+w5xh78cMLjbHVw7MipZ
-	2nPlHfIzuaH+R6CwJ6kRwTLZoTHsK14aPPBLo+l8ix8aKlKJx0L47+g12PHpvH0/LIiVy4je6qc
-	GTpmwH8SzaVDY8eNqnMDJg62fcP30noR6iTSI6Oyp6obFT/j0NLDY/JYYkwAQ2KdqS1ZIhYsJB0
-	OR2dGQuTItGPZC3VfzEPAp7Tde+2r4mAHw9qtUo7qVlA==
-X-Received: by 2002:a05:600c:5112:b0:426:5ee5:3129 with SMTP id 5b1f17b1804b1-427b8888587mr1618405e9.2.1721062190672;
-        Mon, 15 Jul 2024 09:49:50 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IELIFVit8u7eSh0n5vp3p6Nk6X+ohNoCsIiPgZAbbyHkzJcf4Egzvb4iKAF7U8hsnseq+gvqA==
-X-Received: by 2002:a05:600c:5112:b0:426:5ee5:3129 with SMTP id 5b1f17b1804b1-427b8888587mr1618205e9.2.1721062190162;
-        Mon, 15 Jul 2024 09:49:50 -0700 (PDT)
+        bh=GlDWW474y2L1d2RMuOeyWj7nXQ3t4dGUxc6gYI1sbUQ=;
+        b=IE7xzAGbbUxknKY8bv+8iiDspH4wtFTFXlS3llC0TBv8l2FRymT4pVIGHvAYa7aV9H
+         yqX2nSYKycw6BhmAd1b43TIxAqdZeCwQycABW/i+xHIfXQJiGqSqmaTytIDWPKUg7n2N
+         kA7Vce2OXkn+EpFL6Jpz7PsW9rduvmRwdZX2lKlrU/lKm4MpT2eOLPhF3bB8Nx1Obz/V
+         TNsqwTWXp1uM181TQAdiKUhNZCYwX2DZQ0Tv/cQjxRiC2Uv53/0U0I9ke60KqhGq/vHZ
+         MBX3PGBesoKfX20WiJPAX6X6vlXRQllWfwudWOYGqIso5b0x3Xa7dkdQWGsJFSnZ/W4e
+         xZ7A==
+X-Gm-Message-State: AOJu0YykYR4mURXo88oJeWoJuq92fr/LbM2L0OX+wabNzs7eJ+qLdBiz
+	DghDjJFJjJ8Kqin9HhkUT88rHHeUEoKqd5mqeg2u755qagpyAr+FS79C4A+qPCzVRosmrs+ZNbA
+	IYDUE6Rlt6vI3osEtYHHXyXDPkTAKrSMl6oBXskEchnep+g5brHZAgsxyl2nRN+wpqMC3v+024v
+	sekSV/hiW1pyJ3woOR+jkrdFEsDTrRb5STUTQ0uUdTrQ==
+X-Received: by 2002:a05:6512:10d2:b0:52e:9ba5:9853 with SMTP id 2adb3069b0e04-52ede19f843mr64962e87.24.1721062193812;
+        Mon, 15 Jul 2024 09:49:53 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE2eAh45QwIRWMy5Dhsmh6hR299NcbATm6OP8i/bhXwwm08yB/1sDSRVNt8CSjeDkmvte3aBg==
+X-Received: by 2002:a05:6512:10d2:b0:52e:9ba5:9853 with SMTP id 2adb3069b0e04-52ede19f843mr64928e87.24.1721062193038;
+        Mon, 15 Jul 2024 09:49:53 -0700 (PDT)
 Received: from redhat.com ([2a0d:6fc7:243:da88:7ff9:68fc:2f43:bcdf])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3680db0484dsm6975679f8f.110.2024.07.15.09.49.48
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4279f25a962sm127101665e9.12.2024.07.15.09.49.51
         for <virtio-comment@lists.linux.dev>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jul 2024 09:49:49 -0700 (PDT)
-Date: Mon, 15 Jul 2024 12:49:47 -0400
+        Mon, 15 Jul 2024 09:49:52 -0700 (PDT)
+Date: Mon, 15 Jul 2024 12:49:50 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: virtio-comment@lists.linux.dev
-Subject: [PATCH 5/9] device-parts: switch to tabularx
-Message-ID: <00f72154c624fbbe8c3da9dbdb4e4369c36b7f10.1721062136.git.mst@redhat.com>
+Subject: [PATCH 6/9] admin-cmds-resource-objects: switch to tabularx
+Message-ID: <3f7be88a42af0a384621ef07b65c7a31755ef42e.1721062136.git.mst@redhat.com>
 References: <1130700f4ae71a93d9887af35cf105731219f057.1721062136.git.mst@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
@@ -83,31 +83,31 @@ tabularx which seems to be sufficient for our purposes.
 
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 ---
- device-parts.tex | 4 ++--
+ admin-cmds-resource-objects.tex | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/device-parts.tex b/device-parts.tex
-index e6047db..92b65f4 100644
---- a/device-parts.tex
-+++ b/device-parts.tex
-@@ -85,7 +85,7 @@ \subsection{Common device parts}\label{sec:Basic Facilities of a Virtio Device /
- \begin{table}
- \caption{Common device parts}
- \label{table:Basic Facilities of a Virtio Device / Device parts / Common device parts}
--\begin{xltabular}{\textwidth}{ |l||l|X| }
-+\begin{tabularx}{\textwidth}{ |l||l|X| }
+diff --git a/admin-cmds-resource-objects.tex b/admin-cmds-resource-objects.tex
+index d0a6647..e0bbb4a 100644
+--- a/admin-cmds-resource-objects.tex
++++ b/admin-cmds-resource-objects.tex
+@@ -65,7 +65,7 @@ \subsubsection{Device resource objects}\label{sec:Basic Facilities of a Virtio D
+ 
+ Following generic resource objects are defined which are described separately.
+ 
+-\begin{xltabular}{\textwidth}{ |X||X|X| }
++\begin{tabularx}{\textwidth}{ |X||X|X| }
  \hline
- Type & Name & Description \\
+ Resource object type & Name & Description \\
  \hline \hline
-@@ -104,7 +104,7 @@ \subsection{Common device parts}\label{sec:Basic Facilities of a Virtio Device /
- 0x106 - 0x2FF & - & Common device parts range reserved for future \\
+@@ -74,7 +74,7 @@ \subsubsection{Device resource objects}\label{sec:Basic Facilities of a Virtio D
+ 0x001-0x1ff & - & Generic resource object range reserved \\
  \hline
  \hline
 -\end{xltabular}
 +\end{tabularx}
- \end{table}
  
- \subsubsection{VIRTIO_DEV_PART_DEV_FEATURES}
+ When the device resets, it starts with zero resources of each type; the driver
+ can create resources up to the published \field{limit}. The driver can
 -- 
 MST
 
