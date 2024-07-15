@@ -1,68 +1,68 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F876175AE
-	for <virtio-comment@lists.linux.dev>; Mon, 15 Jul 2024 16:49:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D95F175AE
+	for <virtio-comment@lists.linux.dev>; Mon, 15 Jul 2024 16:49:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1721062192; cv=none; b=sOl7SfveA9vxpY1Vu5DrhRHDA2uyingLd6NOgO+qJNNbVcrKWK/iKKnNOnnOxue/l5+heNMPEHvnR+Tvl5/3rdcm8SsBSXGl8GDy/uUHpng5iUOBUrbLRyyCRQua0RmcrnRPCdvzP+QGU57Bd51cEmaM0/uuav/6YXQd5tH4Fh8=
+	t=1721062196; cv=none; b=j89avKzml2jihKfqzUieTUXkVqMH5fYmt5Ek4MYY7ICSE/kg21y30lPHMyGoCrgIpRNgONW72YprzcZ6VNmqU17nTnuEuTEizb7Zbh5+gLoz3A2EHFJWKW+X42Ft42WanwT8rMAbRtspUXY5eyqArct0dg7wvSzRdT/P1QiJiDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1721062192; c=relaxed/simple;
-	bh=jF0s4BAXge+MgqaIh6MQFWErXoJ/tuCddz/Vn0QDjeE=;
+	s=arc-20240116; t=1721062196; c=relaxed/simple;
+	bh=qE7CGmmKc7cI5Vfkqo096iDppabFJABT3P4kBM31ZdQ=;
 	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=p+10VaPQ3eHcYpAY1aLj7FVLZpTy0HBiVr1Gy7XSYUl2A4xhuXRBGgsVPwtlQvubVqSIF6bJlHa1MUrFMTLDCwscNLVRVplW85Jx/VOqtRptJEfTaHTr0kvkm8gqaeZAFuwryBx2Pes8Wj+SbNpo8HIaYBDWoIGssyxgJL/BXeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hp/cyH0B; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=I9lq/s0zR/xoCT+VOFoKQbrJcYCnWuwPARFznWduwWjEjlxV1VCiOg75lup7IL3b6HBXGUXa17cHX3d5Yc9u5JOWEuK67jyPj0CW48lmFqDIdd5VYLwdm2uTM0ix7p2WleiRUd0/HrZvXvRMLaLgmgHRGrqcQrd3y8B13ghyP6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UYcDmCfN; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hp/cyH0B"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UYcDmCfN"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1721062190;
+	s=mimecast20190719; t=1721062193;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=AOodb0JtV8t1/+X/xH3h7+HrRz8RI6EhqtBNGEGBnJQ=;
-	b=hp/cyH0BV9h0yp0IbkbPTtgZ1LVwt0RqqONvZvc+T7McmHhSjqanznkESBHLCPLNUk6F6d
-	axbWGLAFjh5ATfphhIBVf3D6t85bMiQkZ8uZHtmFBZMxzfx3yAGudU93iexdb8ijJEp1z/
-	NP0lBwt+inMqzGWX66s/KOzPr4u5xTE=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=Um5hyq6n/oQwZs+0Bn60Nh7O2zO/4S04VgaFAch2Yd8=;
+	b=UYcDmCfN5yZJU4RoahNtSK4Qli8jHZswZErzN9rr4Wora7j/aF7iK8TlnaaLWeGUtnP4nW
+	D52bLwG/jo+E6PUXLqgWOAsk5PI5m/rR5M2Os+k0QqFKnUW3JZh0ZcbDhFuyViD6asajdU
+	S6u4Q/bOMiPPjD3VchyEzfPhjOOvSbo=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-627-ulI_BY48OyyJUP62ottJ2w-1; Mon, 15 Jul 2024 12:49:48 -0400
-X-MC-Unique: ulI_BY48OyyJUP62ottJ2w-1
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-426654e244dso32232705e9.3
-        for <virtio-comment@lists.linux.dev>; Mon, 15 Jul 2024 09:49:48 -0700 (PDT)
+ us-mta-94-WvWNjTvfPRSh-ytzA3VG-A-1; Mon, 15 Jul 2024 12:49:52 -0400
+X-MC-Unique: WvWNjTvfPRSh-ytzA3VG-A-1
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-42671a6fb9dso29223765e9.3
+        for <virtio-comment@lists.linux.dev>; Mon, 15 Jul 2024 09:49:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721062187; x=1721666987;
+        d=1e100.net; s=20230601; t=1721062190; x=1721666990;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AOodb0JtV8t1/+X/xH3h7+HrRz8RI6EhqtBNGEGBnJQ=;
-        b=isgo+scyMaex+4Um8nCwZMhLg6nR7FrD9+XIWcih2mFO+BnVyRSXPDx7Wg/F9hyGiQ
-         ghCCB3ZFaWsEnYqSIfrhf3jREgEdZZhh37hYlSr8GAt0qO1uJCbaMoVtGr4wXTIGiP4r
-         xEM98ohGC9kFB0fjiuqEoN1i0KsRg27rl1/+W4tHjoJNBXDUCmRJPbojNnhgxDL8pyOp
-         09E1YN+F7MS5MESv+Sqazn96GAOo9tVdN0TIV8/lSGqizvlmtWenbRxJXAbowDOu7aMw
-         YauUSVJmNx49mGMxaclH2NUl1R9NLxtj9Zajxn/r5JvJarHpSiEN/8IAN2ZzIEbCPbCt
-         ZV9A==
-X-Gm-Message-State: AOJu0YzDEIx2LKaG01+eqZYiDyd0P0JST+5grXdeRtfUk/en1nJeKTCS
-	L0lC3ojoY7Fmx7EE9H2Gui1fc5uBY9zoLkcL8Fgidtis5WQ5Mdzeh86vgTV5SZZlKbPaz9nQ0RW
-	X1S4O15F/9jPQmmnKlDZCC2JtvBiQWq/0oEJtMeEWqMgV75b8HLBm4Rz8rFHJGXmAkRwpVxL8/E
-	IINkSvsGAOj00kMcnvPvvxDtwzzPZIKpof6GOZxRuLAA==
-X-Received: by 2002:a05:600c:458c:b0:426:54c9:dfed with SMTP id 5b1f17b1804b1-427b88c6befmr1502285e9.28.1721062187484;
-        Mon, 15 Jul 2024 09:49:47 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHaOJY4q0N0aCL7cyEgatjUZxix36n5LudZy3LGl2Tcld1Da2dE7v2mpmu8rzCeMAumF8fJzg==
-X-Received: by 2002:a05:600c:458c:b0:426:54c9:dfed with SMTP id 5b1f17b1804b1-427b88c6befmr1502115e9.28.1721062186956;
-        Mon, 15 Jul 2024 09:49:46 -0700 (PDT)
+        bh=Um5hyq6n/oQwZs+0Bn60Nh7O2zO/4S04VgaFAch2Yd8=;
+        b=lGmrImatewMUcCEktd7V6I+H2HGG7+sp5L0YeqIR+Y4+CixaY6tFVYRGYVE2/8UFwB
+         WQWYnGu59HY8ZDVJc/tW18rnM75yWXNQ381ufvatOLqfZCNTKdpzk49/imslMM1rguO0
+         tS2WLIhvwvAmXci9C+p4Fc697uz+cPF0Fvg6UILHFySduXJPp7tAZmMGIALooUGKV7g3
+         FTtzYF6m3Xep0+lbcqF1SyCVcDZ8QHiDDJjqVpx7fp8w9TXH9+15FG8w77Yy/eR0mt3W
+         GkaZF+K6CZtQcEpG5mMrwdsWrbyxN9EVqrIJX7GMIsPX0M1PbZLvponS4AybLsjPkiEK
+         KAFQ==
+X-Gm-Message-State: AOJu0Yz1GyRERd546+6fbwKAZJp0/Xqv5Ksv+w5xh78cMLjbHVw7MipZ
+	2nPlHfIzuaH+R6CwJ6kRwTLZoTHsK14aPPBLo+l8ix8aKlKJx0L47+g12PHpvH0/LIiVy4je6qc
+	GTpmwH8SzaVDY8eNqnMDJg62fcP30noR6iTSI6Oyp6obFT/j0NLDY/JYYkwAQ2KdqS1ZIhYsJB0
+	OR2dGQuTItGPZC3VfzEPAp7Tde+2r4mAHw9qtUo7qVlA==
+X-Received: by 2002:a05:600c:5112:b0:426:5ee5:3129 with SMTP id 5b1f17b1804b1-427b8888587mr1618405e9.2.1721062190672;
+        Mon, 15 Jul 2024 09:49:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IELIFVit8u7eSh0n5vp3p6Nk6X+ohNoCsIiPgZAbbyHkzJcf4Egzvb4iKAF7U8hsnseq+gvqA==
+X-Received: by 2002:a05:600c:5112:b0:426:5ee5:3129 with SMTP id 5b1f17b1804b1-427b8888587mr1618205e9.2.1721062190162;
+        Mon, 15 Jul 2024 09:49:50 -0700 (PDT)
 Received: from redhat.com ([2a0d:6fc7:243:da88:7ff9:68fc:2f43:bcdf])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-427a5e81f0dsm93079375e9.12.2024.07.15.09.49.45
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3680db0484dsm6975679f8f.110.2024.07.15.09.49.48
         for <virtio-comment@lists.linux.dev>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jul 2024 09:49:46 -0700 (PDT)
-Date: Mon, 15 Jul 2024 12:49:44 -0400
+        Mon, 15 Jul 2024 09:49:49 -0700 (PDT)
+Date: Mon, 15 Jul 2024 12:49:47 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: virtio-comment@lists.linux.dev
-Subject: [PATCH 4/9] admin-cmds-device-parts: switch to tabularx
-Message-ID: <bd3cf4e620485271d777f9cfc51d1ae9ee1b8169.1721062136.git.mst@redhat.com>
+Subject: [PATCH 5/9] device-parts: switch to tabularx
+Message-ID: <00f72154c624fbbe8c3da9dbdb4e4369c36b7f10.1721062136.git.mst@redhat.com>
 References: <1130700f4ae71a93d9887af35cf105731219f057.1721062136.git.mst@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
@@ -83,31 +83,31 @@ tabularx which seems to be sufficient for our purposes.
 
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 ---
- admin-cmds-device-parts.tex | 4 ++--
+ device-parts.tex | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/admin-cmds-device-parts.tex b/admin-cmds-device-parts.tex
-index ad3f8e3..e64b756 100644
---- a/admin-cmds-device-parts.tex
-+++ b/admin-cmds-device-parts.tex
-@@ -297,7 +297,7 @@ \subsubsection{Device parts}\label{sec:Basic Facilities of a Virtio Device / Dev
- \begin{table}[H]
- \caption{Device parts order}
- \label{table:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts / Device parts order/ Device parts order}
--\begin{xltabular}{\textwidth}{ |l|l|X| }
-+\begin{tabularx}{\textwidth}{ |l|l|X| }
+diff --git a/device-parts.tex b/device-parts.tex
+index e6047db..92b65f4 100644
+--- a/device-parts.tex
++++ b/device-parts.tex
+@@ -85,7 +85,7 @@ \subsection{Common device parts}\label{sec:Basic Facilities of a Virtio Device /
+ \begin{table}
+ \caption{Common device parts}
+ \label{table:Basic Facilities of a Virtio Device / Device parts / Common device parts}
+-\begin{xltabular}{\textwidth}{ |l||l|X| }
++\begin{tabularx}{\textwidth}{ |l||l|X| }
  \hline
- Part name & Optional & Mandatory preceding parts \\
+ Type & Name & Description \\
  \hline \hline
-@@ -317,7 +317,7 @@ \subsubsection{Device parts}\label{sec:Basic Facilities of a Virtio Device / Dev
-                              VIRTIO_DEV_PART_DEVICE_STATUS, VIRTIO_DEV_PART_VQ_CFG \\
+@@ -104,7 +104,7 @@ \subsection{Common device parts}\label{sec:Basic Facilities of a Virtio Device /
+ 0x106 - 0x2FF & - & Common device parts range reserved for future \\
  \hline
  \hline
 -\end{xltabular}
 +\end{tabularx}
  \end{table}
  
- \devicenormative{\subparagraph}{Device parts}{Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts}
+ \subsubsection{VIRTIO_DEV_PART_DEV_FEATURES}
 -- 
 MST
 
