@@ -1,66 +1,66 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F367418C335
-	for <virtio-comment@lists.linux.dev>; Mon, 15 Jul 2024 14:25:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA668175AE
+	for <virtio-comment@lists.linux.dev>; Mon, 15 Jul 2024 16:49:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1721053509; cv=none; b=tEMA7N8StuNz716kDFG5PQkr1DvxVwPnZYlO3DhXPfec1tltZfZSTm7uVdRlyUK1m6L/NSKTEGLzaydEu88B63omkPIKmu7LBiIagMuCZGuqIjzSaapy6c9fOe2QXN1n93w99WoEdWxlK9jrNWrCiXnMgKJLhUSxT6LD6CBPIeQ=
+	t=1721062185; cv=none; b=RbNUJA/OptnjUChv3M4KZ+MB2w/lnXa688j1ljKdV3G0uyejn58AIAtjt0eRDwJyoxW6SOM/5y8qzY6hJ4brxV4/Q20zPUCQVCMAXIIJG9QjgibIs32R1hyrgk+bTvIC834KzVqK6sKwKg1rkMjNq+A38tStOMNzRTUQcsZEQ3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1721053509; c=relaxed/simple;
-	bh=MR2Eo+CD9GP3NlU6y/3EtZsL69Fsk5q43FpEZtNe4G0=;
+	s=arc-20240116; t=1721062185; c=relaxed/simple;
+	bh=gaXrrHliUls+lKAFo9PJ7xzvK/cT1OZCOp/bgbYlIw4=;
 	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=sw6+xJGYTu8aH8CusekXWlDXUSDHBYUv1YM91YRrPFAfFaITRlptWrJqszmMLqVSTugQNSVdoMktg5PmVzkKP54a13OtgZTYvZM5ZUmA6MmH8JsS/cC1wHK2rklD8S2kaqYxhszKlQ9qvXIkEYmJ6Rnd+m45XrWQE+1TG9cKybE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Iwfe17P+; arc=none smtp.client-ip=170.10.129.124
+	 Content-Disposition; b=qfEie2/5E7Umc6TZY7emVB/7NW9Kx4Ql95s/2R/h1B+pao50bX0iewlvY7ZQ5Vcs1okiNz8sua3yquyyvkGbYNc4ek0cogTb4T9FQPBiy+vdQJpo/uqozdfBxH7t5pyF5Qe3K5I/xQF0uCRlqtB3SJ+PBeSxxjpG0BipfVZKZ0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LaBXFWc0; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Iwfe17P+"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LaBXFWc0"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1721053506;
+	s=mimecast20190719; t=1721062182;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:mime-version:mime-version:content-type:content-type;
-	bh=LxDieOamCTVIN8xoUtE/drVZc+jpH0bKCG4F3eeh4Pc=;
-	b=Iwfe17P+T54QcJJV/az9jC8H/xe1W72l35DR8H2/e+OCSAFED5pbzY+pKE/75ZeN3Giu/N
-	153LP4Wpu5f76Ztq9lXEi+1pAMD9G2h/HWjhogU5no4DXnuR65Xtaa3k3aNy6qGB6djmst
-	X9R4BuocB+ILTBoT3ZUy2gZTf7GNOho=
+	bh=NRdf2ZroHLClZdSJnzTTfLc6FKGhNwvi4r4r2PQynm0=;
+	b=LaBXFWc0iw2OBZUm+P8Wwj+ev1p8eHC2xI1+LL5iWLoVXdQJOQINGsB3sf908Eiml7LmCb
+	QS4pKPqVSRFW6IPBhIYh3ddscDKplpPnxl2oaqC7MYbeSVlDSDkxnE1taz1kWTHQ2je//M
+	PXsL22UI6rbMBQ9Umx8EkHoG5ZX1KwU=
 Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
  [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-55-kemjQG2DMfKTUsXj176H2g-1; Mon, 15 Jul 2024 10:25:04 -0400
-X-MC-Unique: kemjQG2DMfKTUsXj176H2g-1
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-426679bc120so31871175e9.1
-        for <virtio-comment@lists.linux.dev>; Mon, 15 Jul 2024 07:25:04 -0700 (PDT)
+ us-mta-297-Z5jAf_xbN9qPCUXzCZ2g0Q-1; Mon, 15 Jul 2024 12:49:38 -0400
+X-MC-Unique: Z5jAf_xbN9qPCUXzCZ2g0Q-1
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-42725d3ae3eso33491605e9.3
+        for <virtio-comment@lists.linux.dev>; Mon, 15 Jul 2024 09:49:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721053503; x=1721658303;
+        d=1e100.net; s=20230601; t=1721062176; x=1721666976;
         h=content-disposition:mime-version:message-id:subject:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LxDieOamCTVIN8xoUtE/drVZc+jpH0bKCG4F3eeh4Pc=;
-        b=ZWDjjNu/DPMh2k6w43lH/MpBw0KFwoyUY5L1ItgkZxTkYsPYJJK5MiGYSizDo0//3Y
-         RWeBZPG2vkfxP1gYM8J3U8P0frAc3GFny96ruBUlY57XKMsUIPsw37vCtFV/vcUsNaPY
-         Vj5w4Jy5QGh9VgjANwImOUhXH3RBKmma0NV8tPQeEWIBAaBIFcqmCPod2xras1Vsam2O
-         3OyOHmWPNz2jgVErdxgVeCYz/4VvIaoevsSU5QXGRHDE7ZWzSk0/w1BQFBC3zREQg7mt
-         9QG1/6429HSfS75BJW7pCqNgHgyeZX0m9/1b2vh3pHUGgkYcjCYRYnUw5frPb74OPbNV
-         2a2g==
-X-Gm-Message-State: AOJu0YyqycZNSaVAEMYkPxOW1c0ysY9it6TknLwg7oIUNJMS6rSgftvZ
-	GYCnBeTCz4ixlJvQGrB3I4z+d7Bm/z8W26me7mIM+4ZSwODihpaGSSHdaLNvbRr7jIpj+0RjXaU
-	WyjQ4NqPcxPbXFF/Njw6VCU1a/uBu0LQcpNHlzmiQlNn9oSaMsSfY0WBDIEutE/dPRNG2kpt0bq
-	eHoqu5s+/azW1WzuuDKHI9vh3fzqUX2oLtinPaahQbEA==
-X-Received: by 2002:a5d:56c2:0:b0:367:9287:64c1 with SMTP id ffacd0b85a97d-367cea67d54mr12142535f8f.16.1721053503461;
-        Mon, 15 Jul 2024 07:25:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHEQXmL7aW7+X/KB4Zvys+u+JGRBFTgYhP3K9s46+kUIWDGS5RUuIQ/4yBlvYPTQKsfvKCPxg==
-X-Received: by 2002:a5d:56c2:0:b0:367:9287:64c1 with SMTP id ffacd0b85a97d-367cea67d54mr12142511f8f.16.1721053502689;
-        Mon, 15 Jul 2024 07:25:02 -0700 (PDT)
+        bh=NRdf2ZroHLClZdSJnzTTfLc6FKGhNwvi4r4r2PQynm0=;
+        b=hPKxcGtSy6bMr4hpHvdP0s8TAykeyAS+bGx4AAo+6X8ngNssoX2QnFBJscNS1hZh+B
+         K/IjpM/lhP9sQlKkwAntK2C1VzY4jHmXQDO88THSvoSKTnPqbvgfKqoa4jRMY00R1VJZ
+         jNGxZYX1Qht/3RuFqf7iDRcukEaxRhpybnFU1iiBoP/RDSyvggk4/iwfHYEsMxHHHIh1
+         javG4PTg5cN0d0BlTsYxjQl2ppxoVGt4e+2uofoN/Zqae2JtmrU+mXbs73hX3jqBkZIw
+         58v8CMGU3PIMNteTwLFoaVRD6g67MApuAVXa6rOctNCaf8Xtz1NHEOaWXnGsUw+qnIKa
+         CeQQ==
+X-Gm-Message-State: AOJu0YzWWzVtced47slT7q/k6mQ+Tf7FuaD8gGNz5ricco28J4gYVsvZ
+	bngXdAI94zgDn/Tl3QCJHQBzzqgu06T/TQGuEi7B5ftD/vPFgRJEsNW4BoOWiglHCDcElkDI4Gb
+	qGMWSyFCF9P/dqBWa06kekSv7Isp9H+w64ubt0r781ntjWgvV5NQ9nlrIQEZDHITmOHWN7KouhU
+	CGIlUE/zD40ZPQxOqFl4LbPscRazqImXyIguKBmTBURw==
+X-Received: by 2002:a05:600c:310f:b0:426:67f0:b4f3 with SMTP id 5b1f17b1804b1-427b88c82bemr1333055e9.26.1721062176774;
+        Mon, 15 Jul 2024 09:49:36 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGCg5sYyBW4Om7kFx+kM9iXq8xqGG1bHCV0EvyqSGSNakLT5dXMe1giRJDBgBL5+figwyrj0w==
+X-Received: by 2002:a05:600c:310f:b0:426:67f0:b4f3 with SMTP id 5b1f17b1804b1-427b88c82bemr1332905e9.26.1721062176099;
+        Mon, 15 Jul 2024 09:49:36 -0700 (PDT)
 Received: from redhat.com ([2a0d:6fc7:243:da88:7ff9:68fc:2f43:bcdf])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3680dab3f2esm6569125f8f.18.2024.07.15.07.25.01
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-427a5ef44b4sm93954815e9.42.2024.07.15.09.49.34
         for <virtio-comment@lists.linux.dev>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jul 2024 07:25:02 -0700 (PDT)
-Date: Mon, 15 Jul 2024 10:24:57 -0400
+        Mon, 15 Jul 2024 09:49:35 -0700 (PDT)
+Date: Mon, 15 Jul 2024 12:49:29 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: virtio-comment@lists.linux.dev
-Subject: [PATCH] makediff: look in subjects only
-Message-ID: <1f3f301f2e1baa87372764b9d342d04572e1c0ca.1721053494.git.mst@redhat.com>
+Subject: [PATCH 0/9] html fixes
+Message-ID: <cover.1721061782.git.mst@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -74,38 +74,32 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-We currently use rev-list with -F to find commits.
-This helps if commit subject has any special characters
-but means that pattern can apply anywhere in the line.
-In particular, a common Fixes: (hash) "subject" pattern
-we started using implies that fixups are picked up
-instead of the commit.
+this fixes a ton of issues around makehtml
+and makediff.
 
-For now, just switch to using regexp (dropping -F)
-and add "^" in front to only look for the string at
-beginning of the line.
+Michael S. Tsirkin (9):
+  makediff: look in subjects only
+  makediff: cherry pick table env change
+  admin: switch to tabularx
+  admin-cmds-device-parts: switch to tabularx
+  device-parts: switch to tabularx
+  admin-cmds-resource-objects: switch to tabularx
+  virtio: replace xltabular with ltablex
+  makediff: cherry pick switch to tabularx
+  admin: get rid of _ in labels
 
-We'll worry about more elaborate logic later, if it's ever
-needed.
+ admin-cmds-capabilities.tex      |  8 +++---
+ admin-cmds-device-parts.tex      | 18 ++++++-------
+ admin-cmds-legacy-interface.tex  | 10 ++++----
+ admin-cmds-resource-objects.tex  | 14 +++++-----
+ admin.tex                        | 36 +++++++++++++-------------
+ device-parts.tex                 | 28 ++++++++++----------
+ device-types/can/description.tex |  6 ++---
+ device-types/net/description.tex | 44 ++++++++++++++++----------------
+ makediff.sh                      |  4 ++-
+ virtio.tex                       |  2 +-
+ 10 files changed, 86 insertions(+), 84 deletions(-)
 
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
----
- makediff.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/makediff.sh b/makediff.sh
-index fde761f..11e518a 100755
---- a/makediff.sh
-+++ b/makediff.sh
-@@ -18,7 +18,7 @@ cd "${cur}/old"
- git checkout $oldrev
- while read -r rev; do
- 	echo "Applying $rev"
--	git cherry-pick --keep-redundant-commits --allow-empty `git rev-list -1 -F --grep "$rev" $newrev` || exit 1
-+	git cherry-pick --keep-redundant-commits --allow-empty `git rev-list -1 --grep "^$rev" $newrev` || exit 1
- done << 'EOF'
- editorial: allow for longer device id table: makediff 1.3
- admin: Prepare table for multipage listing
 -- 
 MST
 
