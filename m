@@ -1,290 +1,248 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com [205.220.166.238])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820C91B974
-	for <virtio-comment@lists.linux.dev>; Wed, 17 Jul 2024 08:32:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1721205128; cv=none; b=hSco4mGJ07oVNqGBnG7nXpkpymL2pIPJLLmFNjwvmZEnHyhj4uHBXBWjf7l4WqD0fl0gHCpCJeroYIxk/AXolrH0HRUfwc0WY3mQPySPxTC4SV7sc+uoYVG7F1PKNLD3EoWYw5QNOLASjWrkQs9zwBzttee0kRZpQ0kTBCPr/oc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1721205128; c=relaxed/simple;
-	bh=w2DEBNDCUG6Y5PBJ1bpgfZOHOioFkm+mz9jecjwHt2k=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Gu9TVWSc4wdCMyA36Dbn2mIZ5LGVlCWm8S+4XldLBDHU3lW6Jhcj5iwLoPou+DME/hA8kV61MnnZOfaa0oct+8jeqwJ/N7f+B+BFYUK6FfWh2wEP+AYx2wX3KhiWp4z22Ao+jmC5+aKwY6OgWEZRy3k8cvWMvwOiiJYVPa9OWlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=rFRWZRpf; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="rFRWZRpf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=w2DEBNDCUG6Y5PBJ1bpgfZOHOioFkm+mz9jecjwHt2k=; b=rFRWZRpf/nKEKAw6Uyqy1ALr2I
-	KP4w5/F0+DnVmeEO6Q50AyIgkuV7IN3GTHdPhilr9MwGSq4VSPLb+RAPeiw7TPVW09BFR7uhzo+bQ
-	TvMu2NZv/1+ytlPiA0RNyZhblyLCW7IWa4AEGspOoRC69xc2vJuu8kIzA6I3fHNKz/fl8btIOXi/1
-	3AMXRiYc+QgRHSxmxIzrWE/Woq5RILTivLgZjd5mfk09X0nvTsKPY6bxN47/CzUZCaBEzL43zxllb
-	yU5FCeMHSuyHSoDwzpGMrcF7rFCOQcjtZMxeHi1gmdGDhycVZqnLRE94Z3li6JM460jiQGaku5vNX
-	fchyg3IQ==;
-Received: from 54-240-197-225.amazon.com ([54.240.197.225] helo=freeip.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
-	id 1sU04y-00000000aV6-0bMa;
-	Wed, 17 Jul 2024 08:32:04 +0000
-Message-ID: <04b017a0bc97700ad1e6770c2c3d458d2f25708e.camel@infradead.org>
-Subject: Re: [RFC PATCH v4 5/5] virtio-rtc: Indicate leap seconds and clock
- performance
-From: David Woodhouse <dwmw2@infradead.org>
-To: Peter Hilber <peter.hilber@opensynergy.com>, 
-	virtio-comment@lists.linux.dev
-Cc: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>, 
- Jason Wang <jasowang@redhat.com>, "Ridoux, Julien" <ridouxj@amazon.com>,
- "Luu, Ryan" <rluu@amazon.com>,  "Chashper, David" <chashper@amazon.com>
-Date: Wed, 17 Jul 2024 09:32:03 +0100
-In-Reply-To: <85c93b42-41a2-42c4-a168-55079bbfff71@opensynergy.com>
-References: <20240522170003.52565-1-peter.hilber@opensynergy.com>
-	 <20240522170003.52565-6-peter.hilber@opensynergy.com>
-	 <3935e6c2b4b73968d0c4728a3c1f429f121609e7.camel@infradead.org>
-	 <668b681a-8025-49eb-a75a-7dac4fff8b56@opensynergy.com>
-	 <41c09f2bd37bd476ce9e1582cfca1d2ba16a1a59.camel@infradead.org>
-	 <20483787-62df-4ca6-868f-71b4d4898323@opensynergy.com>
-	 <b1645fa81d693b899430f7210ae1cab7d28dbc1e.camel@infradead.org>
-	 <85c93b42-41a2-42c4-a168-55079bbfff71@opensynergy.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-NASGGZvlTigDDvHhn99V"
-User-Agent: Evolution 3.44.4-0ubuntu2 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F365B1E0
+	for <virtio-comment@lists.linux.dev>; Thu, 18 Jul 2024 08:24:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.166.238
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1721291053; cv=fail; b=PX9iCzNiy4XA8l46dIdVN82h1JDueytZXJCGmUzVm0J7Jn63JODBKeCMPVj3Fi8gNIxb8bqQWsPFPgbAVDjwvlqDymRxkIpTGGAYnJzpA/zwIvA5Xw4yt/rVl3cT/Vr428UXue/LcsJBWxP9i0rK1D63AOO6BQ+XT/clOByLtp4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1721291053; c=relaxed/simple;
+	bh=h5c1Zk5HQbvwleg9OLFW3EnB8Ki49+pA+ua1YAnMW2o=;
+	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=o+HKfKItot0HS4cJ8MXbQeTWIPuiQDzUAxiZIPcf7PIbDb2TPs3uTbBx19G3NHo/F62R39vj8hFTPWPign73i89B2ZLYOu96wleRRv39vwmHnPGlnRlsSMSPNEjNUIeuZOzgyU03imRRfoco9jBs8JrktXGKpmwv5I52jAqlxJU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=pass smtp.mailfrom=windriver.com; arc=fail smtp.client-ip=205.220.166.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=windriver.com
+Received: from pps.filterd (m0250809.ppops.net [127.0.0.1])
+	by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46I30V1x024755
+	for <virtio-comment@lists.linux.dev>; Thu, 18 Jul 2024 01:24:11 -0700
+Received: from nam12-mw2-obe.outbound.protection.outlook.com (mail-mw2nam12lp2042.outbound.protection.outlook.com [104.47.66.42])
+	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 40erjfr9tt-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <virtio-comment@lists.linux.dev>; Thu, 18 Jul 2024 01:24:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SPJWC1Rn5M7tVrElemyvPD3HBtC51Oh959oVdtFYxgn+0JH9wEM/wQ/N81jUlC9HKUA8DoawvMZbsXmJJXAiRU3VCfAlVWXMWx5eN2T5D/9+pdeBfzoua/1TYvHVPHklzLmlTt7xIfseYJvWmgu9ZtWOzc3QC6Kmf2IiUTqjKG6o2rAOmqiSnHkQrsJMrrfhg7Q/5bq661jC0zvLrDF7U0f1Nalh5Bc58gyE75nMMp3xt6kmYSZUVsAoVIY/ojT3JS1QjoU7Ne9JxgYJzTUUKp8xceNmR71zFQUL+7cuS9G0NuUtemFU6rU90harcOTrlAuAL3mS5TUZZvJLnCFcwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=imLZTpiWsWSrEd6CG6Hu5LHRntDDCb/lLXUdmDQp3Os=;
+ b=rbwTj/Dg4U7scu3+maI6BDCGEnkNoU/X01cBzGkTci4U4pA0Zj3FQXsQ5NOBoscqaiaVQJ4hmtw+NyqL5sAx4+xBItPAJnbsoV4S3Kpo0uYdlH/bCDiiPpTKgVcByonwtTgVikrjItHkrcYM7QzB96c1LwlOVfot3wX40te21CGIiRf4Yp5nBjG6K9Mhw0g/74QFYDNlc0Up5NPb0m3VnM6zvoakT+KWwq3yAi+ckpNkSJ/PmRewujjjDbEHPVffi1HlqdVbly5+kjwwNH53VV/r6LcCZkGAko6tuwVtrExmqQ4KKDRL1WlB47wFiNB0F412nxE8cP3GYkL+i1AIxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=windriver.com; dmarc=pass action=none
+ header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
+Received: from PH7PR11MB8550.namprd11.prod.outlook.com (2603:10b6:510:30c::14)
+ by PH0PR11MB5208.namprd11.prod.outlook.com (2603:10b6:510:3b::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.29; Thu, 18 Jul
+ 2024 08:24:08 +0000
+Received: from PH7PR11MB8550.namprd11.prod.outlook.com
+ ([fe80::ab5f:96f0:1c09:5f93]) by PH7PR11MB8550.namprd11.prod.outlook.com
+ ([fe80::ab5f:96f0:1c09:5f93%4]) with mapi id 15.20.7784.016; Thu, 18 Jul 2024
+ 08:24:07 +0000
+From: "Wang, Min (Rocky) (CN)" <Min.Wang.CN@windriver.com>
+To: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
+Subject: Question about virtio camera
+Thread-Topic: Question about virtio camera
+Thread-Index: AdrY6pcgBt+fW0QBTkCTxLxkDCq3VQ==
+Date: Thu, 18 Jul 2024 08:24:07 +0000
+Message-ID:
+ <PH7PR11MB855011A3CBA74EFD5FD239ABA3AC2@PH7PR11MB8550.namprd11.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR11MB8550:EE_|PH0PR11MB5208:EE_
+x-ms-office365-filtering-correlation-id: 989d0d5a-5dcb-46c2-d231-08dca702fe57
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?VkzEdCQToGFVmbD6lrThDFAX6Jn9ZjcfKG4bE7XnCBcqk+V8JF03B3bEif8c?=
+ =?us-ascii?Q?EXYX28jkrfRfgq+e6ddI7T1X89A+aVdz/ze+yy03Nyox8JIXKRNEfUKcaC11?=
+ =?us-ascii?Q?4HN9/9o9qRd8KDDACKpanL9xS3SNYSSGr/n742tdsK7eJzw7FNmB/w4jIRQJ?=
+ =?us-ascii?Q?zqRk6jrRDYjaJBLBPokYqgeWcctXJymnGXRpC51I+ATLN4iNXmL+MF7Fcaf1?=
+ =?us-ascii?Q?fs6EcqRQ6QmmwuSNLM0wj6jcKXnD2ZwmTamYhWrjNOYk9U4i7WzQfFg5yECW?=
+ =?us-ascii?Q?I9cJEFSphl7CbI5W+UxyiQVIgZ1APyGIAFMpAqqfVKy7K5FO30E1xW34kdM2?=
+ =?us-ascii?Q?g9ngF6Ujent1H5amutXOk3IgmNzoxE1TJTPaH4nzlKewZOx1nR/j36wSvX4i?=
+ =?us-ascii?Q?X6cCiJFo6yAwijxAKMMXMK6peyjEmUaMwnjHqbmrJX9rdLCSpHcxgiOE+e95?=
+ =?us-ascii?Q?70+/bRUeAjbk/ma+mhigpEupTsPLsdvzPDT4qDeRCKLFO9P9x3/095miqWoE?=
+ =?us-ascii?Q?0W774TgKIcCeVaY63RLNm4rjHmyjlgUs+cA1CKGU8w4VmLlCE3mKz9XnvTE/?=
+ =?us-ascii?Q?FRD3H8zhi0dnyQeI3KPuzd47fV4lvgS3qRYjEIWeax08kAVjPW/cPzOwEUNU?=
+ =?us-ascii?Q?oy1reNLrRb5HhZngZvgFo4FvemMKg+2x752gJ9IYmXelc/mx0VAH6QwNeRRq?=
+ =?us-ascii?Q?6jH1p2uCCIjqoi8MRtNH1UK3MSZqR6oMrRr6+/VtuxND9D498YdhrkzWyC7f?=
+ =?us-ascii?Q?ZZk8M+Vh4m/h24mGedqy0C9jNDQ4pV+ArB/6nSiou0AFr0/LuQeEu8S6sLqi?=
+ =?us-ascii?Q?rku7zrrahqbC2pxjBkaknGSGCZqhVytiebqKr5ITUjJu02aCNLogdcID00vb?=
+ =?us-ascii?Q?39m15JQhOIZRc5MjMEgy8FaEoBPJxdxCMEWqxqNzMTqiarCI4NBiLNW7aQu4?=
+ =?us-ascii?Q?CbD5E1ul1W7Y6Ndm10/ks7DQQ+1KZ0sbNNEPu8Rn64F5eauP9aP64MTE4Wvq?=
+ =?us-ascii?Q?XTs2Q3yisuOj5q2pnDtUPUhxXeZRig0NTUsVaTvsJiIuhz8aFdjSKok7GCz3?=
+ =?us-ascii?Q?tU62YeI5kwoZncZgHAXL8VPNvJh2mflf4SLbqoBBJZrFGiaHg8+beKY47+Bv?=
+ =?us-ascii?Q?cIDsoVYLV5yPPUTlRk+bPqQm0XazpnEkAq7icdxLqNlFioIdwQwKK8X+5MXk?=
+ =?us-ascii?Q?VtOLfl5D//GGGXQja8SVveru41iTqbRI74mrFMzyDhvZAo/Tc1pqOZIXTbN6?=
+ =?us-ascii?Q?qlL2CdOtH61svUOseMc3jD3N8dnnPEwXq4P43MjY/iWBy79t6wTVVYtla9/V?=
+ =?us-ascii?Q?nz1wsDa0Ck5SCqf7Yi4OLniEBJzVf9fXCp96V7RO4it9VjjGqoYdJtEgzMp/?=
+ =?us-ascii?Q?sis7MV/9ZZuqHwZagCeXlJhg71cKE0bX3sckx/7n52K60PBKFQ=3D=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB8550.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?dPMP28p8tDrXqBl62YmXABrb4wE/4rrduaVFlFT80eXvRMkhFXQegHUSTS6R?=
+ =?us-ascii?Q?b9LEkpCfm4K/IJlVK8lNGi6DQCAVuVol9U/4J1TRXyWhgpkZsiOPYAdXhSIF?=
+ =?us-ascii?Q?rA3Wc1Ku6B656RsbSIGfCBa4SrWOzJAhWZXUss51WaPoXQhzq9cdGI75Q9uj?=
+ =?us-ascii?Q?9TNsKrDtn/344zxSYBd2dFzn1RISqFa8ilernw94DRdbq+jxhDzxy6NTDH3P?=
+ =?us-ascii?Q?Duncc0IoSlgJ+Y6jtueZfmm5jE7nY5dyUeWMsBvsOSgRlwTk7A3ol6eWaPQh?=
+ =?us-ascii?Q?Kt6ndaKWv8IVvgkQup8ZkTyhZ3PubAZR+BJQYP4WzUXszUrxc6OJ93SgC+1K?=
+ =?us-ascii?Q?TEqi/lzIHgLD3+vMLYRkhI3SZU86TqgFNhoR5y4wUoV5t/YLaZSvpWF/2oL+?=
+ =?us-ascii?Q?LVISRYewoDSfKACEZ2UgFXJj9GyfUww0tR7B79hKqJD1YL7NctVVgZomSvy7?=
+ =?us-ascii?Q?YHyqBDxos7GKuvMLYI3a3XSjMB5nQ17rqkPQJ5/QxdIz1i6WiYn9oD+VH57U?=
+ =?us-ascii?Q?GUlcHwCsHV2Bz3IIw6OtzqudVrF5g7nnZLmN841FK2a534AG1GuiL3l93PUC?=
+ =?us-ascii?Q?8ZyqAetxXiDsjjad8p2fFydzV7zJLXs1hmsAUchHiZQ2E17rWsDPs9ZQwl1w?=
+ =?us-ascii?Q?LFcYJlMk+oZ6R0yJOkp+3ZKMzRQsUCTkgqPUm3lvkswb23xIPkN3+fmscv9c?=
+ =?us-ascii?Q?1wThM2pMIvNP0yJrBJD6X8kWOSMr0yGKoNnnT01i7/mUq6D49VfVTy3Yy+ff?=
+ =?us-ascii?Q?j9y36d4PzVXQMOLWV7d2Xc2fJ+rYNta58+Rvv+xJnsQyZuXoSGiEfWbmsRCA?=
+ =?us-ascii?Q?NGYO6ef0ZvJizpWAsNPwgzesgloOC2no6Fs5ykh+DHLarEvOtDOXnqr2EFjc?=
+ =?us-ascii?Q?CM3yV1D9W1RD9gd1aCYbnhnzWtd/aY5kAvWfUUcVnwobRc23xAehDbQag0RT?=
+ =?us-ascii?Q?kdIFu753ef9sGuW9lOYgZLRQlXpVYAPsM3aZJqAd/Vra112/JcZb/EoEM/SM?=
+ =?us-ascii?Q?raOT6R2imC8zu626bEekxbn2hQnUFtbs3nzqLthX0JSkBCG6n8AFsu+dJtrv?=
+ =?us-ascii?Q?kauGPZ38jWms+ucdD1V+dgKjBclhRk1t1k8hKneOGmzf0D03UwBu2psfQs3a?=
+ =?us-ascii?Q?L+IjjLWudDiLYwWuMn4Q4i4NiJN0RBPPwYSMr3DMoH/GMtGGSv2vlvXI4h3j?=
+ =?us-ascii?Q?rmGceKAq2S1sfLSubYko3YYeOc1J0669ElEyUtfH2oGRvfZdZmx4qDSxU9wk?=
+ =?us-ascii?Q?ZPMZ4KXk8Pfp+0CKKWnxtSKHKaaAJC9FKg85jylq68MvHi2V1gLh3un8PufG?=
+ =?us-ascii?Q?BFkHv1yqg03rrx+saoxF+Drv4Y3LXDSSq6tktWZfyU09lXQV51Ke6TCby6iP?=
+ =?us-ascii?Q?FDv8oI7GksjzZRF7w+NHM6K+zWW+948mqj3dEFN8cxVBqGSnHYBcioB5/VAJ?=
+ =?us-ascii?Q?poKc9MU6e2NE3HD605WtHyf6huOVWUZltWMWw4ndWa92oP2KlbHbxYeIjrAu?=
+ =?us-ascii?Q?Ahk+WVPM7lfX+HePjJEvtRHbeCzGvwLzVzqsx/tgv6MrH648Q5GmxbHHIJdK?=
+ =?us-ascii?Q?e1Is9cPRpAiZIwAbN92ZW8NSmxnpoHxI8NNmgO+oN3xylMwxtQBC4NQ0TQDJ?=
+ =?us-ascii?Q?FQ=3D=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_PH7PR11MB855011A3CBA74EFD5FD239ABA3AC2PH7PR11MB8550namp_"
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-OriginatorOrg: windriver.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB8550.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 989d0d5a-5dcb-46c2-d231-08dca702fe57
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jul 2024 08:24:07.8119
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FxvEBBDk4S20Pl5jpmEUg+BiHPdxFLj6R0h/NnBnGwUviGhlnGBNNpO+V3ZL/G+TtHm7xLNBVTwMvXb4ZmIIHkKVgOYORgi7S9qCN0HUNYc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5208
+X-Proofpoint-ORIG-GUID: LavC_r5eWegU1LJdREy2amMix6kueZa9
+X-Proofpoint-GUID: LavC_r5eWegU1LJdREy2amMix6kueZa9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-07-18_04,2024-07-17_02,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 impostorscore=0
+ suspectscore=0 phishscore=0 adultscore=0 bulkscore=0 mlxlogscore=689
+ malwarescore=0 priorityscore=1501 mlxscore=0 clxscore=1031
+ lowpriorityscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.21.0-2407110000 definitions=main-2407180054
 
-
---=-NASGGZvlTigDDvHhn99V
-Content-Type: text/plain; charset="UTF-8"
+--_000_PH7PR11MB855011A3CBA74EFD5FD239ABA3AC2PH7PR11MB8550namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2024-07-16 at 13:55 +0200, Peter Hilber wrote:
-> On 11.07.24 12:18, David Woodhouse wrote:
-> > Thanks for the continuing feedback, Peter. Since it's only changes to
-> > comments, I won't post a whole new version; I've pushed the following
-> > changes to the git tree.
-> >=20
-> > I believe I understood correctly that you're amenable to adding the
-> > VIRTIO_RTC_POST_ values? And I think the other part of the discussion
-> > about exposing ongoing smearing via this field does not affect its
-> > usage in SHM?=20
->=20
-> I will add the VIRTIO_RTC_POST_ values. But I think for the leap second
-> smearing case I would also add more values, like
->=20
-> #define VIRTIO_RTC_LEAP_NONE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 0x00
-> #define VIRTIO_RTC_LEAP_PRE_POS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 0x01
-> #define VIRTIO_RTC_LEAP_PRE_NEG=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 0x02
-> #define VIRTIO_RTC_LEAP_POS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x03
-> #define VIRTIO_RTC_LEAP_POST_POS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 0x04
-> #define VIRTIO_RTC_LEAP_POST_NEG=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 0x05
-> #define VIRTIO_RTC_LEAP_SMEAR_PRE_POS=C2=A0=C2=A0 0x06
-> #define VIRTIO_RTC_LEAP_SMEAR_PRE_NEG=C2=A0=C2=A0 0x07
-> #define VIRTIO_RTC_LEAP_SMEAR_POS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x0=
-8
-> #define VIRTIO_RTC_LEAP_SMEAR_NEG=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x0=
-9
-> #define VIRTIO_RTC_LEAP_SMEAR_POST_POS=C2=A0 0x0A
-> #define VIRTIO_RTC_LEAP_SMEAR_POST_NEG=C2=A0 0x0B
->=20
-> So maybe the VIRTIO_RTC_LEAP_NEG definition could be removed from vmclock=
-.
-> The other changes would not be relevant to vmclock.
+Hi Experts,
 
-Almost makes me want to suggest that the _SMEAR_ values should have
-constant offset of 0x8 from the corresponding values without the SMEAR,
-as if we're treating SMEAR as a *flag* bit.
+I noticed that virtio spec 1.3 has added camera, but only a camera ID(43) i=
+s added, the other items such as Config Space, Device Operation, all is emp=
+ty.
 
-That could be useful as it would indicate that the time returned by
-this mechanism is not actually UTC.
+Is there any progress about camera part in new spec(maybe 1.4) could be sha=
+red?
 
-> >=20
-> > With this, I think we're at a point where I can seriously propose this
-> > be adopted into your virtio-rtc specification? Do you have that in a
-> > public git tree that I can work from to provide an actual patch?
-> >=20
->=20
-> I am sorry, but I think I will not be able to publish a specification
-> update until I go on vacation. I will be back in the week of August 5th.
+Best Regards
+Rocky
 
-Have fun! I'm already on vacation this week, but I haven't yet seen any
-of my colleagues engage with this thread, so I'm having to do it
-myself.
+--_000_PH7PR11MB855011A3CBA74EFD5FD239ABA3AC2PH7PR11MB8550namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-> > We need it to be explicitly little-endian, of course, but I consider
-> > that an implementation detail. Likewise the signedness of the
-> > tai_offset field, which *can* be expressed (albeit creatively) within
-> > the constraints of the existing virtio definitions.
-> >=20
-> > It's versioned anyway, so as long as it looks *reasonable* I'd like to
-> > go ahead and submit the ACPI version of it to QEMU and the kernel (and
-> > obviously also ship it in the hypervisor that pays my bills), in the
-> > expectation that *if* it did need further revision before the final
-> > publication of the virtio-rtc specification, that should be feasible.
-> > But the *intent* is that it doesn't need to change, of course.
-> >=20
-> > Are you happy with that in concept?
->=20
-> Some of the bit widths and defines do not match at the moment. I think it
-> might be worth to align those (from vmclock-abi.h):
->=20
-> - counter_id vs u16
-> - VMCLOCK_COUNTER_INVALID
-> - time_type vs u16
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:11.0pt;
+	font-family:DengXian;
+	mso-ligatures:standardcontextual;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:DengXian;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+/* Page Definitions */
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"ZH-CN" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
+break-word;text-justify-trim:punctuation">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
+family:&quot;Calibri&quot;,sans-serif">Hi Experts,
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
+family:&quot;Calibri&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
+family:&quot;Calibri&quot;,sans-serif">I noticed that virtio spec 1.3 has a=
+dded camera, but only a camera ID(43) is added, the other items such as Con=
+fig Space, Device Operation, all is empty.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
+family:&quot;Calibri&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
+family:&quot;Calibri&quot;,sans-serif">Is there any progress about camera p=
+art in new spec(maybe 1.4) could be shared?
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
+family:&quot;Calibri&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
+family:&quot;Calibri&quot;,sans-serif">Best Regards<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
+family:&quot;Calibri&quot;,sans-serif">Rocky<o:p></o:p></span></p>
+</div>
+</body>
+</html>
 
-Deployment timelines aside (I may or may not have used the current
-proposed version in an internal-only release for widespread full-stack
-testing...), I suppose I have no fundamental aversion to expanding
-those to 16-bit. Although we have about *three* possible values for
-each of them right now. I can't see how we'll ever get past about a
-dozen counters, and with smearing in a separate subtype I can't see how
-we get any more values of time_type either. A single byte really ought
-to suffice, surely? Can we stick with u8?
-
-But we do have a couple of bytes of pad[] so if you feel strongly, we
-could use the two bytes after version for one of them, and the two
-bytes of pad[] for the other.
-
-I quite liked keeping those as constant fields above the seq_count
-though.
-
-I'd like to have VMCLOCK_COUNTER_INVALID added please; I meant to point
-that out explicitly. We need a way to indicate that there is *no* valid
-time being exposed through this structure and that it is *only* for
-indicating disruption (which is the most critical thing for now). And
-even if there's a separate flag for that, putting an explicit counter
-ID into the field would still seem wrong.
-
-I'll be happiest if any changes we make do remain compatible, for
-"disruption only" mode, with an implementation which gives 0xFF and
-0x00 in the current counter_id and time_type bytes. Maybe we make that
-counter_id and use 0x00FF as VMCLOCK_COUNTER_INVALID?
-
-
-
---=-NASGGZvlTigDDvHhn99V
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwNzE3MDgzMjAzWjAvBgkqhkiG9w0BCQQxIgQglcbC7Cv6
-zNYoDQgfe9VCVp7avjD5VakVUkEy3W/uE+4wgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBofXDS2nXCn3H3o171AEJTPAYI4ct9z/yD
-5OdE8KJrqYOOsF8Uzq39EqOoVGQGpqaPITtptH9MbZiu/zDc1iQuuR+d42phXKWIN3MPLpAlf8wl
-iaVPSsm1UKEQl5FpPurOFdZgG8uphgTooT2VHMOE7ja646gO9e7To4chc62C4bsXniyj5Re/2NGb
-QagXgxSnsot28R0XwiJGV0jHw+I1LhonhM8bb8S9+5ZJgjOPmfhOZ2ZkZ/TZL0Y97kd5mnTgZJao
-6IjFFRTryXEifIEddmBO57e7zhOB0bKQ1N5FDO5YRHiypx+xTnAtm7TBX5PDQYQi++ruCO2/liws
-anz06ZqNNTNpj9vQkLue1Hp1LrSHVJ51mVMyLtepElL1aFwuGAfLcqscRNy3cg9llmPbOuj2Lxzl
-t3mKOdRy++452iOnTYYe1KmLmiD3IvqaoOvhosdw6u9pvd40zDkBd0D5Lbor3Lrn/PKKroMCH0ey
-9gX+ObgEFr+BbIxdua+VjqxlzUgO/QTD+ZjEHCCNRYj1fIbRDHbOT31UhT/4WyoEvYM8r40et/QL
-D4omQmrgwDXSNe0oCpZOKKgJ1fspE9NovfwDLPqxWx3ZbDR+CG2UMcQaatARSS50FXetiYodAlNp
-xsTWdEYzG9S4WjZpbfqUzBZN176hjIf7oaFofSZhfAAAAAAAAA==
-
-
---=-NASGGZvlTigDDvHhn99V--
+--_000_PH7PR11MB855011A3CBA74EFD5FD239ABA3AC2PH7PR11MB8550namp_--
