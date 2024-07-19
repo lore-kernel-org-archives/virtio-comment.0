@@ -1,38 +1,38 @@
 Received: from madrid.collaboradmins.com (madrid.collaboradmins.com [46.235.227.194])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FFC512BF23
-	for <virtio-comment@lists.linux.dev>; Fri, 19 Jul 2024 12:07:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 018BB74079
+	for <virtio-comment@lists.linux.dev>; Fri, 19 Jul 2024 12:07:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.235.227.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1721390839; cv=none; b=kQyWaL6bnmwO5gu7yTfpp1z1IAZ39VA9ntJwJD7ZNaPlV9JWNZeSSmmh+/YJmxdksssKygFiXxa3JuSqkM1ZAw7VN1l79BV4AkPm5NIeLRc0o9w/0fqyQlOyxGj32UcVvxny59Fet9Ot0Kd1x1ck1Ui+tZ1ArK4ko+WvXFzuoPY=
+	t=1721390840; cv=none; b=OY3ti1sNFtFsZcSgQ3X+3qfNVplx+oe4laGQ9p+etm8znqGKwwPsM4aAWu5p2sH9FLFeU4MRzWqFXnkNGVUA//9iuH7rQ7+GFmlb37FtyMz8PC2YzIXv9Gw2f6gXklAJkpJKFiA5o9jtQQLO/3RvyQ9ilpD7lw3sG3BtIpZw+7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1721390839; c=relaxed/simple;
-	bh=WX3jgC60sLvhKEiOlyQ8GbNCsVvW4eoFVax2S3QPnh0=;
+	s=arc-20240116; t=1721390840; c=relaxed/simple;
+	bh=8C3tqUo5NEfJLkilW4K8aoY8no4+1zlLFLNPxD4nbdQ=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h4rfPuYLqepB59aWSJffCIfT3UPvCwa2jwnFdIG9C7VGXn5uMe90VZHpCvh1cxF1zTxfgDQmKAO3z+ngHoyItQceBFKMYkiH25NFrBTjqyTU8K4WI1OW0o6XacuQqoFJ7y4HAbIaCrd6PBkJCE8LSacNjH5PWLBdWaZjdVX+WEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=3l6GgyLn; arc=none smtp.client-ip=46.235.227.194
+	 MIME-Version; b=qVW8BmaOquiP/rY7OPJH7D/qZ6ph1oXTl78+IaredbefVypJwwQjyCBt44EndP3XfBZYotYFrCsXPPOVYBv5yyrR+kzISWsnhsmjSE8Hatwi+qUDySLjNCK+mDHsUWhES8zul5VDakLrkFOPEWfPQSXGknDW183BRctM2Rzovb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=YaJdRqEj; arc=none smtp.client-ip=46.235.227.194
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="3l6GgyLn"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="YaJdRqEj"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1721390836;
-	bh=WX3jgC60sLvhKEiOlyQ8GbNCsVvW4eoFVax2S3QPnh0=;
+	s=mail; t=1721390837;
+	bh=8C3tqUo5NEfJLkilW4K8aoY8no4+1zlLFLNPxD4nbdQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:From;
-	b=3l6GgyLnuBGln4HyYwaye/p8HUOYn1MwbM1MaFGHWNbcbHlHvGa/Pwhb4VSp6BZ2L
-	 Z1WVHIzMornVr/LVZQtyKiNiQHxZ0UHYalklQxDsYYbI18o4urR2F0hrL7xV8vm9lZ
-	 Zo/E8K58fwLDAg2F2gO8E37TXqOLZz/HJKP9L65byIEF+ynPTlAJbfpIbFnsIqvZuP
-	 S7TnCv7EHbpJ3auZTvVZY3WxHB6yEmDuNM+QkF5VdGAJphqTagSIoZAV8JsSy98uV3
-	 ihUUcmKyw+DZ8AOfBwZqtaqCO2FUurkjZ3reECjlO2sjzUb+LC+lIYB1i1UcSviFBV
-	 uG9lEJpTbISow==
+	b=YaJdRqEjY+cc4SWVIBhPNCKy5vy8myoAadZ9ZZQwI/5mbeh1h0qQYnmN5th9R8JUD
+	 mswIhUiK9f/fAR4FMqcjD/JpCNgLi3b9yOngJYsmzJq864V9gwkbeaAvsWoPewvr5R
+	 prjJUsTbY5cgCBTZojidz9IpDrQMGkvQC4HcbQYhFsy/73jL6yrJWY3TABj/tOC5Wg
+	 RGDs4gkt0yA6IQKfQRAIxxYVEmD5RqpdJFHw3Len1EAwKj9RorIfIpi/SzNrlX3an2
+	 l5sdkhL64OnJSejSR4CmoDlm7zlZcavvzS9unTyqmiAAQQdqptBDINf2GbAtG9d8oJ
+	 U6K5Y9JY66lmw==
 Received: from workpc.. (cola.collaboradmins.com [195.201.22.229])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: dmitry.osipenko)
-	by madrid.collaboradmins.com (Postfix) with ESMTPSA id A90733782191;
-	Fri, 19 Jul 2024 12:07:15 +0000 (UTC)
+	by madrid.collaboradmins.com (Postfix) with ESMTPSA id A558837821B5;
+	Fri, 19 Jul 2024 12:07:16 +0000 (UTC)
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: Gerd Hoffmann <kraxel@redhat.com>,
 	Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -42,9 +42,9 @@ To: Gerd Hoffmann <kraxel@redhat.com>,
 	Akihiko Odaki <akihiko.odaki@daynix.com>,
 	virtio-comment@lists.linux.dev,
 	"Michael S . Tsirkin" <mst@redhat.com>
-Subject: [PATCH v3 2/3] virtio-gpu: Document VIRTIO_GPU_CAPSET_DRM
-Date: Fri, 19 Jul 2024 15:06:36 +0300
-Message-ID: <20240719120638.196052-3-dmitry.osipenko@collabora.com>
+Subject: [PATCH v3 3/3] virtio-gpu: Update venus-protocol URL
+Date: Fri, 19 Jul 2024 15:06:37 +0300
+Message-ID: <20240719120638.196052-4-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240719120638.196052-1-dmitry.osipenko@collabora.com>
 References: <20240719120638.196052-1-dmitry.osipenko@collabora.com>
@@ -56,43 +56,27 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document VIRTIO_GPU_CAPSET_DRM that is capset for the DRM native context
-protocols which implement Linux DRM UAPIs over VirtIO-GPU, effectively
-exposing host GPU to a Linux guest like it's a native/baremetal GPU.
+The venus-protocol was moved to the main virgl gitlab group a year ago.
+Update the link in the GPU documentation.
 
-Acked-by: Huang Rui <ray.huang@amd.com>
-Link: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/14900
-Link: https://gitlab.freedesktop.org/virgl/virglrenderer/-/merge_requests/693
-Link: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/21658
-Link: https://gitlab.freedesktop.org/virgl/virglrenderer/-/merge_requests/1274
-Link: https://gitlab.freedesktop.org/digetx/mesa/-/commits/native-context-iris
-Link: https://chromium.googlesource.com/chromiumos/platform/crosvm/+/69ecfb0e3913a4cd9048056f9a37cc496c7b9235
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- device-types/gpu/description.tex | 3 +++
- 1 file changed, 3 insertions(+)
+ device-types/gpu/description.tex | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/device-types/gpu/description.tex b/device-types/gpu/description.tex
-index 4b8dd7733c31..29c8a97c3a3f 100644
+index 29c8a97c3a3f..e633787aacad 100644
 --- a/device-types/gpu/description.tex
 +++ b/device-types/gpu/description.tex
-@@ -536,6 +536,8 @@ \subsubsection{Device Operation: controlq}\label{sec:Device Types / GPU Device /
+@@ -532,7 +532,7 @@ \subsubsection{Device Operation: controlq}\label{sec:Device Types / GPU Device /
+ 	the second edition of Virgl (Gallium OpenGL) protocol after the capset fix.
+   \item \href{https://android.googlesource.com/device/generic/vulkan-cereal/+/refs/heads/android13-release/protocols/vulkan/}{VIRTIO_GPU_CAPSET_GFXSTREAM_VULKAN} --
+ 	gfxtream's (mostly) autogenerated Vulkan streaming protocol.
+-  \item \href{https://gitlab.freedesktop.org/olv/venus-protocol}{VIRTIO_GPU_CAPSET_VENUS} --
++  \item \href{https://gitlab.freedesktop.org/virgl/venus-protocol}{VIRTIO_GPU_CAPSET_VENUS} --
  	Mesa's (mostly) autogenerated Vulkan protocol.
    \item \href{https://chromium.googlesource.com/chromiumos/platform/crosvm/+/refs/heads/main/rutabaga_gfx/src/cross_domain/cross_domain_protocol.rs}{VIRTIO_GPU_CAPSET_CROSS_DOMAIN} --
  	protocol for display virtualization via Wayland proxying.
-+  \item \href{https://gitlab.freedesktop.org/virgl/virglrenderer/-/tree/master/src/drm}{VIRTIO_GPU_CAPSET_DRM} --
-+	DRM native context protocols.
-   \end{itemize*}
- 
- \begin{lstlisting}
-@@ -550,6 +552,7 @@ \subsubsection{Device Operation: controlq}\label{sec:Device Types / GPU Device /
- #define VIRTIO_GPU_CAPSET_GFXSTREAM_VULKAN 3
- #define VIRTIO_GPU_CAPSET_VENUS 4
- #define VIRTIO_GPU_CAPSET_CROSS_DOMAIN 5
-+#define VIRTIO_GPU_CAPSET_DRM 6
- struct virtio_gpu_resp_capset_info {
-         struct virtio_gpu_ctrl_hdr hdr;
-         le32 capset_id;
 -- 
 2.45.2
 
