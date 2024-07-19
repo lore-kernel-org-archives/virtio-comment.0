@@ -1,248 +1,173 @@
-Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com [205.220.166.238])
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (mail-bn8nam11on2073.outbound.protection.outlook.com [40.107.236.73])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F365B1E0
-	for <virtio-comment@lists.linux.dev>; Thu, 18 Jul 2024 08:24:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.166.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34E371A28D
+	for <virtio-comment@lists.linux.dev>; Fri, 19 Jul 2024 04:00:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.236.73
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1721291053; cv=fail; b=PX9iCzNiy4XA8l46dIdVN82h1JDueytZXJCGmUzVm0J7Jn63JODBKeCMPVj3Fi8gNIxb8bqQWsPFPgbAVDjwvlqDymRxkIpTGGAYnJzpA/zwIvA5Xw4yt/rVl3cT/Vr428UXue/LcsJBWxP9i0rK1D63AOO6BQ+XT/clOByLtp4=
+	t=1721361616; cv=fail; b=H2q7g+5SuOtxqlR+AvCN/jNCx99Oz7sNx1K5G7zVlpxpqT6Dw9LDFdZyhYxJvfqOwohORp6Y6BSFssqd/qgbfvES56//kmISUmE/Z5ydoVMS4rkqdieNmMxdlDwMoLMggiwkMWfmArJV4eWQmC6WhHxvaEBGSrtO9EiFuxsPZow=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1721291053; c=relaxed/simple;
-	bh=h5c1Zk5HQbvwleg9OLFW3EnB8Ki49+pA+ua1YAnMW2o=;
-	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=o+HKfKItot0HS4cJ8MXbQeTWIPuiQDzUAxiZIPcf7PIbDb2TPs3uTbBx19G3NHo/F62R39vj8hFTPWPign73i89B2ZLYOu96wleRRv39vwmHnPGlnRlsSMSPNEjNUIeuZOzgyU03imRRfoco9jBs8JrktXGKpmwv5I52jAqlxJU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=pass smtp.mailfrom=windriver.com; arc=fail smtp.client-ip=205.220.166.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=windriver.com
-Received: from pps.filterd (m0250809.ppops.net [127.0.0.1])
-	by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46I30V1x024755
-	for <virtio-comment@lists.linux.dev>; Thu, 18 Jul 2024 01:24:11 -0700
-Received: from nam12-mw2-obe.outbound.protection.outlook.com (mail-mw2nam12lp2042.outbound.protection.outlook.com [104.47.66.42])
-	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 40erjfr9tt-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <virtio-comment@lists.linux.dev>; Thu, 18 Jul 2024 01:24:10 -0700 (PDT)
+	s=arc-20240116; t=1721361616; c=relaxed/simple;
+	bh=7peBitQNSFDuE2pMnUeorJVy3yy7vaZjJFHGzYROHqU=;
+	h=Message-ID:Date:Subject:From:To:Cc:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=GAw+9uKUi9WUEIQ7OEvlf7/1eW/f3wg+N/0ZXC4pg/Yn9E4zyNwCrQY0/8eWh+2IQX8WbjeVG1TwAiG2AG6OFDi2kfWB1QgsMzCPJAOUB3AaE6r9tgeY4b778rpEIXoNXMM5QFNlt+Pvamgla5Z9Cm/7gp5YCJiHm8g3MnPGji8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=RAscp81V; arc=fail smtp.client-ip=40.107.236.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="RAscp81V"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SPJWC1Rn5M7tVrElemyvPD3HBtC51Oh959oVdtFYxgn+0JH9wEM/wQ/N81jUlC9HKUA8DoawvMZbsXmJJXAiRU3VCfAlVWXMWx5eN2T5D/9+pdeBfzoua/1TYvHVPHklzLmlTt7xIfseYJvWmgu9ZtWOzc3QC6Kmf2IiUTqjKG6o2rAOmqiSnHkQrsJMrrfhg7Q/5bq661jC0zvLrDF7U0f1Nalh5Bc58gyE75nMMp3xt6kmYSZUVsAoVIY/ojT3JS1QjoU7Ne9JxgYJzTUUKp8xceNmR71zFQUL+7cuS9G0NuUtemFU6rU90harcOTrlAuAL3mS5TUZZvJLnCFcwQ==
+ b=fHXOx76hBAeogOZaqXxzZh1fvXepXcssoympVaGM4mhE7cecObRcF7WbIMnKFGF8NNGYlhBBTuwYhoTUuONUXQntea2U4a22UAc/JRbOlTAFN8RiYU/LkVhKvGvVa9LStIPdwWHO1QRopLQIJKc+f2mTOlcMgLoaJjOc+MZhj0O/vryzdqgw5f39jhmsjqkOl8bOkc0GU8rFQY/sVC5WLr5k3OJLAQU0Pcmyx1X18wCCbH3P+egFcQVS/JaFf9axXueTejI/niK+0d/CWx+OzGXZhJRcltjT7ESsvJ7l8eu0A9JuD2LLsdRPKifM4xXZWuebCYbO1td1Ob2OkQVG4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=imLZTpiWsWSrEd6CG6Hu5LHRntDDCb/lLXUdmDQp3Os=;
- b=rbwTj/Dg4U7scu3+maI6BDCGEnkNoU/X01cBzGkTci4U4pA0Zj3FQXsQ5NOBoscqaiaVQJ4hmtw+NyqL5sAx4+xBItPAJnbsoV4S3Kpo0uYdlH/bCDiiPpTKgVcByonwtTgVikrjItHkrcYM7QzB96c1LwlOVfot3wX40te21CGIiRf4Yp5nBjG6K9Mhw0g/74QFYDNlc0Up5NPb0m3VnM6zvoakT+KWwq3yAi+ckpNkSJ/PmRewujjjDbEHPVffi1HlqdVbly5+kjwwNH53VV/r6LcCZkGAko6tuwVtrExmqQ4KKDRL1WlB47wFiNB0F412nxE8cP3GYkL+i1AIxw==
+ bh=7peBitQNSFDuE2pMnUeorJVy3yy7vaZjJFHGzYROHqU=;
+ b=ypGl8eRSOvmOuQKLxEw3wD+B7FcrRvPTPLaUu8tuFGRPcmY/Z+93lkoikl0Uguao6ups+c5vNjbM8G6OlY3UEq1KLSzZiozhNSy/wjkmRaUCOsadLiEBeGKpNautTPutAS8WFrYj+n0JFk1JLmuu+GC5f3LGMOzwjY4XNT0nSWRzLScHl7v5uNX74tUCq0r5e/Wev7BKT3pXWlw/7i1MsuKCpOX5geDLHJLGXmwLx19fPduKQJzBimYck6VP+NNmme5JOXaVlMR+FYYfmflrdIMl5alMQfiOrquSiArGwruqwC4Egn2c4SCW5SQbzdWkHQaGlVed3W/7yFPkG8mfwA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=windriver.com; dmarc=pass action=none
- header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
-Received: from PH7PR11MB8550.namprd11.prod.outlook.com (2603:10b6:510:30c::14)
- by PH0PR11MB5208.namprd11.prod.outlook.com (2603:10b6:510:3b::16) with
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7peBitQNSFDuE2pMnUeorJVy3yy7vaZjJFHGzYROHqU=;
+ b=RAscp81VzBzh4gLgTV2FHC+VVDcAMMU2AGP0oFEWEd5up5hsLQavsQjAeYEXhJrxKtVAe48neIw3SXk79DJLrKAUmCFBNH+njSELIfOfpxTfab8hmvfG35d3gDkbZ6my742J8ZURJBOHE/UVnf8a91/ElnQNZSUPuU7xi+l7cT8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
+ by MN0PR12MB6001.namprd12.prod.outlook.com (2603:10b6:208:37d::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.29; Thu, 18 Jul
- 2024 08:24:08 +0000
-Received: from PH7PR11MB8550.namprd11.prod.outlook.com
- ([fe80::ab5f:96f0:1c09:5f93]) by PH7PR11MB8550.namprd11.prod.outlook.com
- ([fe80::ab5f:96f0:1c09:5f93%4]) with mapi id 15.20.7784.016; Thu, 18 Jul 2024
- 08:24:07 +0000
-From: "Wang, Min (Rocky) (CN)" <Min.Wang.CN@windriver.com>
-To: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
-Subject: Question about virtio camera
-Thread-Topic: Question about virtio camera
-Thread-Index: AdrY6pcgBt+fW0QBTkCTxLxkDCq3VQ==
-Date: Thu, 18 Jul 2024 08:24:07 +0000
-Message-ID:
- <PH7PR11MB855011A3CBA74EFD5FD239ABA3AC2@PH7PR11MB8550.namprd11.prod.outlook.com>
-Accept-Language: en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.17; Fri, 19 Jul
+ 2024 04:00:12 +0000
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::ea3a:4720:99cb:32d8%4]) with mapi id 15.20.7784.016; Fri, 19 Jul 2024
+ 04:00:12 +0000
+Message-ID: <45f9408e-5e7d-4e20-b20b-2fecd986986f@amd.com>
+Date: Fri, 19 Jul 2024 12:00:05 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: Request voting rights
+From: Zhu Lingshan <lingshan.zhu@amd.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>, cohuck@redhat.com
+Cc: virtio-comment@lists.linux.dev
+References: <1f4e0199-ba54-44b1-a060-91acb002bb62@amd.com>
+ <aa5e581b-a8a5-4196-b274-79887242734b@amd.com>
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR11MB8550:EE_|PH0PR11MB5208:EE_
-x-ms-office365-filtering-correlation-id: 989d0d5a-5dcb-46c2-d231-08dca702fe57
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?VkzEdCQToGFVmbD6lrThDFAX6Jn9ZjcfKG4bE7XnCBcqk+V8JF03B3bEif8c?=
- =?us-ascii?Q?EXYX28jkrfRfgq+e6ddI7T1X89A+aVdz/ze+yy03Nyox8JIXKRNEfUKcaC11?=
- =?us-ascii?Q?4HN9/9o9qRd8KDDACKpanL9xS3SNYSSGr/n742tdsK7eJzw7FNmB/w4jIRQJ?=
- =?us-ascii?Q?zqRk6jrRDYjaJBLBPokYqgeWcctXJymnGXRpC51I+ATLN4iNXmL+MF7Fcaf1?=
- =?us-ascii?Q?fs6EcqRQ6QmmwuSNLM0wj6jcKXnD2ZwmTamYhWrjNOYk9U4i7WzQfFg5yECW?=
- =?us-ascii?Q?I9cJEFSphl7CbI5W+UxyiQVIgZ1APyGIAFMpAqqfVKy7K5FO30E1xW34kdM2?=
- =?us-ascii?Q?g9ngF6Ujent1H5amutXOk3IgmNzoxE1TJTPaH4nzlKewZOx1nR/j36wSvX4i?=
- =?us-ascii?Q?X6cCiJFo6yAwijxAKMMXMK6peyjEmUaMwnjHqbmrJX9rdLCSpHcxgiOE+e95?=
- =?us-ascii?Q?70+/bRUeAjbk/ma+mhigpEupTsPLsdvzPDT4qDeRCKLFO9P9x3/095miqWoE?=
- =?us-ascii?Q?0W774TgKIcCeVaY63RLNm4rjHmyjlgUs+cA1CKGU8w4VmLlCE3mKz9XnvTE/?=
- =?us-ascii?Q?FRD3H8zhi0dnyQeI3KPuzd47fV4lvgS3qRYjEIWeax08kAVjPW/cPzOwEUNU?=
- =?us-ascii?Q?oy1reNLrRb5HhZngZvgFo4FvemMKg+2x752gJ9IYmXelc/mx0VAH6QwNeRRq?=
- =?us-ascii?Q?6jH1p2uCCIjqoi8MRtNH1UK3MSZqR6oMrRr6+/VtuxND9D498YdhrkzWyC7f?=
- =?us-ascii?Q?ZZk8M+Vh4m/h24mGedqy0C9jNDQ4pV+ArB/6nSiou0AFr0/LuQeEu8S6sLqi?=
- =?us-ascii?Q?rku7zrrahqbC2pxjBkaknGSGCZqhVytiebqKr5ITUjJu02aCNLogdcID00vb?=
- =?us-ascii?Q?39m15JQhOIZRc5MjMEgy8FaEoBPJxdxCMEWqxqNzMTqiarCI4NBiLNW7aQu4?=
- =?us-ascii?Q?CbD5E1ul1W7Y6Ndm10/ks7DQQ+1KZ0sbNNEPu8Rn64F5eauP9aP64MTE4Wvq?=
- =?us-ascii?Q?XTs2Q3yisuOj5q2pnDtUPUhxXeZRig0NTUsVaTvsJiIuhz8aFdjSKok7GCz3?=
- =?us-ascii?Q?tU62YeI5kwoZncZgHAXL8VPNvJh2mflf4SLbqoBBJZrFGiaHg8+beKY47+Bv?=
- =?us-ascii?Q?cIDsoVYLV5yPPUTlRk+bPqQm0XazpnEkAq7icdxLqNlFioIdwQwKK8X+5MXk?=
- =?us-ascii?Q?VtOLfl5D//GGGXQja8SVveru41iTqbRI74mrFMzyDhvZAo/Tc1pqOZIXTbN6?=
- =?us-ascii?Q?qlL2CdOtH61svUOseMc3jD3N8dnnPEwXq4P43MjY/iWBy79t6wTVVYtla9/V?=
- =?us-ascii?Q?nz1wsDa0Ck5SCqf7Yi4OLniEBJzVf9fXCp96V7RO4it9VjjGqoYdJtEgzMp/?=
- =?us-ascii?Q?sis7MV/9ZZuqHwZagCeXlJhg71cKE0bX3sckx/7n52K60PBKFQ=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB8550.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?dPMP28p8tDrXqBl62YmXABrb4wE/4rrduaVFlFT80eXvRMkhFXQegHUSTS6R?=
- =?us-ascii?Q?b9LEkpCfm4K/IJlVK8lNGi6DQCAVuVol9U/4J1TRXyWhgpkZsiOPYAdXhSIF?=
- =?us-ascii?Q?rA3Wc1Ku6B656RsbSIGfCBa4SrWOzJAhWZXUss51WaPoXQhzq9cdGI75Q9uj?=
- =?us-ascii?Q?9TNsKrDtn/344zxSYBd2dFzn1RISqFa8ilernw94DRdbq+jxhDzxy6NTDH3P?=
- =?us-ascii?Q?Duncc0IoSlgJ+Y6jtueZfmm5jE7nY5dyUeWMsBvsOSgRlwTk7A3ol6eWaPQh?=
- =?us-ascii?Q?Kt6ndaKWv8IVvgkQup8ZkTyhZ3PubAZR+BJQYP4WzUXszUrxc6OJ93SgC+1K?=
- =?us-ascii?Q?TEqi/lzIHgLD3+vMLYRkhI3SZU86TqgFNhoR5y4wUoV5t/YLaZSvpWF/2oL+?=
- =?us-ascii?Q?LVISRYewoDSfKACEZ2UgFXJj9GyfUww0tR7B79hKqJD1YL7NctVVgZomSvy7?=
- =?us-ascii?Q?YHyqBDxos7GKuvMLYI3a3XSjMB5nQ17rqkPQJ5/QxdIz1i6WiYn9oD+VH57U?=
- =?us-ascii?Q?GUlcHwCsHV2Bz3IIw6OtzqudVrF5g7nnZLmN841FK2a534AG1GuiL3l93PUC?=
- =?us-ascii?Q?8ZyqAetxXiDsjjad8p2fFydzV7zJLXs1hmsAUchHiZQ2E17rWsDPs9ZQwl1w?=
- =?us-ascii?Q?LFcYJlMk+oZ6R0yJOkp+3ZKMzRQsUCTkgqPUm3lvkswb23xIPkN3+fmscv9c?=
- =?us-ascii?Q?1wThM2pMIvNP0yJrBJD6X8kWOSMr0yGKoNnnT01i7/mUq6D49VfVTy3Yy+ff?=
- =?us-ascii?Q?j9y36d4PzVXQMOLWV7d2Xc2fJ+rYNta58+Rvv+xJnsQyZuXoSGiEfWbmsRCA?=
- =?us-ascii?Q?NGYO6ef0ZvJizpWAsNPwgzesgloOC2no6Fs5ykh+DHLarEvOtDOXnqr2EFjc?=
- =?us-ascii?Q?CM3yV1D9W1RD9gd1aCYbnhnzWtd/aY5kAvWfUUcVnwobRc23xAehDbQag0RT?=
- =?us-ascii?Q?kdIFu753ef9sGuW9lOYgZLRQlXpVYAPsM3aZJqAd/Vra112/JcZb/EoEM/SM?=
- =?us-ascii?Q?raOT6R2imC8zu626bEekxbn2hQnUFtbs3nzqLthX0JSkBCG6n8AFsu+dJtrv?=
- =?us-ascii?Q?kauGPZ38jWms+ucdD1V+dgKjBclhRk1t1k8hKneOGmzf0D03UwBu2psfQs3a?=
- =?us-ascii?Q?L+IjjLWudDiLYwWuMn4Q4i4NiJN0RBPPwYSMr3DMoH/GMtGGSv2vlvXI4h3j?=
- =?us-ascii?Q?rmGceKAq2S1sfLSubYko3YYeOc1J0669ElEyUtfH2oGRvfZdZmx4qDSxU9wk?=
- =?us-ascii?Q?ZPMZ4KXk8Pfp+0CKKWnxtSKHKaaAJC9FKg85jylq68MvHi2V1gLh3un8PufG?=
- =?us-ascii?Q?BFkHv1yqg03rrx+saoxF+Drv4Y3LXDSSq6tktWZfyU09lXQV51Ke6TCby6iP?=
- =?us-ascii?Q?FDv8oI7GksjzZRF7w+NHM6K+zWW+948mqj3dEFN8cxVBqGSnHYBcioB5/VAJ?=
- =?us-ascii?Q?poKc9MU6e2NE3HD605WtHyf6huOVWUZltWMWw4ndWa92oP2KlbHbxYeIjrAu?=
- =?us-ascii?Q?Ahk+WVPM7lfX+HePjJEvtRHbeCzGvwLzVzqsx/tgv6MrH648Q5GmxbHHIJdK?=
- =?us-ascii?Q?e1Is9cPRpAiZIwAbN92ZW8NSmxnpoHxI8NNmgO+oN3xylMwxtQBC4NQ0TQDJ?=
- =?us-ascii?Q?FQ=3D=3D?=
-Content-Type: multipart/alternative;
-	boundary="_000_PH7PR11MB855011A3CBA74EFD5FD239ABA3AC2PH7PR11MB8550namp_"
+In-Reply-To: <aa5e581b-a8a5-4196-b274-79887242734b@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TYCP301CA0086.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:7b::12) To SN7PR12MB7835.namprd12.prod.outlook.com
+ (2603:10b6:806:328::22)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: windriver.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|MN0PR12MB6001:EE_
+X-MS-Office365-Filtering-Correlation-Id: e91462c9-4ef3-4e1d-1b76-08dca7a74990
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?a2s2RFNGMlpuLzZVMjE1VWhUNjZ4aHVvUWhQWDNOaTltWFhiL211ZkgrSEFO?=
+ =?utf-8?B?Q3BxNVZzRUlCWElBSXhkUERqUUN5cmxXTE4xUUZzT0pjMzZYYUR3UmZyMFox?=
+ =?utf-8?B?ZTl0L1RvNkVGcFJBd2V5UnE2c3E2KzRIRy9aOURtUlBFRGlhTWxHVmpiaVVV?=
+ =?utf-8?B?VTQrUXhoUGd0aDZDbmtVZHZTT05SRGhRZDJIa3ZmQU9Wclh1TGN5RFMwa1Mz?=
+ =?utf-8?B?c3FnTUlVTGdzaVlNMHFhRy9VVXJ3NDVFaWdvTDNXTERVTjJQUk1vV1hJZFJk?=
+ =?utf-8?B?SGhFV1M4RTJBZ3VhZnREMk9aZS90bmk2V25Vck9manducDVvSnpDRmFMRzA2?=
+ =?utf-8?B?dlNvL0poVGViRFNFVGNYWFExUjRBa09rRkJiMmNsRGV1bit0cU1DWjNJQ0Fz?=
+ =?utf-8?B?QWVBZFgvUGtCWjR4KzNCY3JIZUFtZmUxaFFtdTV4Y25tOTN5RTVwUWVJb0pw?=
+ =?utf-8?B?MDh1ei93NUtoNnEvb3ZZMWM4YVZBOWZCWlorQWxQUmZRS2QvcnJBMWVnVXB5?=
+ =?utf-8?B?YVVDVVhpRnZNcng3WlBOdEdlQ2Y0N2Nrb1BZdlEyWE1scHpnZ3ZJWnAwa3ZZ?=
+ =?utf-8?B?WnhIY2N2aFJhN2FEKzVjeGV6b1RHbkhyelZMcXdrQlBZdXlnaU1nRVYzeXRT?=
+ =?utf-8?B?MzVCK2ltMm1SeTVIS0x5emJYTmdyRnM0bjA2TkNLZUp1L3JUazZWdCsrZ1Bw?=
+ =?utf-8?B?bU9ZZmdEeXNKeUs0MjF5cFJqZEQrZWpQYkdoUGdEQ0toc3NlZGZiNFRPZXNO?=
+ =?utf-8?B?WGxJdFNiNlBNNzRiM2tEOVpkV2VvV1BSK2RHeUwwMDM2UXh1OGxseE42Y3R4?=
+ =?utf-8?B?S1U3bWl5aDlZVk8vTklwTWgyT1YzY0p1dTh2UDRsd0JwcDhqZXBScjhpaU54?=
+ =?utf-8?B?aVRVaExLMmMxTUFRU2lUTkZsYWNHcVJJUFJTbE81YWJPNDIzNFg4RHlLQzVn?=
+ =?utf-8?B?OFQ1UW9iUHlIV1l0SnlzK0x1T1BYWWJCaUt3a2hGdXZrSzI1Q1k5MThZN2lv?=
+ =?utf-8?B?K2xMb1lJa3JwOVJTZ1RHUXVIRTJmd1BTSHUrUE9wUktXNzdiVzA2SVdtL3RN?=
+ =?utf-8?B?NXVsdHl2R2ljdzFGdVZlUUxDblNhUG1uc0dWRlMvS1ZCNkZjaWdrdXJJZTVt?=
+ =?utf-8?B?bU9FWnYwMEVVaURRa3docC8wVUt5eUlsbHVSRUZYczF5TzNkVEZ5OGtaYWxu?=
+ =?utf-8?B?amF4ZTFUcFNpZlZPRWQvTTNYMEJMZW9tejIvVjA2TU16aFlYQ0tXQUcxZXdo?=
+ =?utf-8?B?aXdKY0NNbTNhRXBFenpjRVE3NnhYck92Sm9GUGMvRzNYUzFKakFWZjNHN1Va?=
+ =?utf-8?B?cWtRZmhoaUlsRHVwUlV0VFN1c3FSYmZXMlJGNllnSkNjS2dxOUNTL1NMaUpP?=
+ =?utf-8?B?SjJJREF2ZGJ4UUZldENaS2txM3N6TXNGcGI4TThMTC9SV0dXWFdjTkNKdDBj?=
+ =?utf-8?B?WlRmZGppYkEybW9OTlVSY2tPZzRNaksrZndqMldsQWlNRWJFc3R0L3JqUWxv?=
+ =?utf-8?B?VjNDNkl4d0VKZGhFWG1USzdWWnhsK1ZkMHZVVnU4cmhtck11cjhpcmFhdENQ?=
+ =?utf-8?B?SVR3NWFISzdCYnhhYVhuUXE4NjVWbHF6S211ZG9zRmxHVjdEQkhrTTU2L3Rx?=
+ =?utf-8?B?TlJpekZBNDhacXkzVnlqTzBqWUp0Yys0RTlCcFd3R0dxdmJucEt3ejhkckp5?=
+ =?utf-8?B?M2xjVk5lS1g4STltY1pZZjB3b055clpqUzlaTlNxWkhtT0hMYlZQc3Vzcy9R?=
+ =?utf-8?B?dTljSjhsU3JzZEtNQUNCSXVyWTUxMFpvbmRyV2IxK2ZBN0cxQnQvdXRybzJN?=
+ =?utf-8?B?c0lFaUptb2YzSDc0R0FaQT09?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB7835.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VXpHRXlxemxSeTBlVGRzUFFjOGJ6Ym1Qd2lJdjFoNkFkNVNyVUYxdnlVSWlQ?=
+ =?utf-8?B?Rm1MQmJwLzYxYXFVc3dweXR0VGdMVXF5SVJuV29zOU95THJTSWNtTnBWcTV4?=
+ =?utf-8?B?STNTR3A5TkdHdE1JNm93eHNMbUFLTjdPbm96R2JaaVJ2RDdHMzFRenZ3c3VW?=
+ =?utf-8?B?c0N4WmQxU1Z4Zm53V1J3Mk43T1hjbnIreld2N3k5Y1A2RDBCSFNUbnIxNDZQ?=
+ =?utf-8?B?MGpHQUFBR3VjUHYxdlZRUmhvQytqWm9QTzZiT3ZWMTZibHJkRzR4M2NmN2hK?=
+ =?utf-8?B?dXdYeWJGcUdEZXBUM1oxOHBLdjd1cmtEUTgzYnRpYW1OUDh2ZFNwZnllNjlR?=
+ =?utf-8?B?ZFhCYjhtb0c2QVI4SUwzMCs5M3BoV1M2czlSMWdRMGNwS2RBNkJoSVJnbzVL?=
+ =?utf-8?B?cDZYWG1CcnhlalVXVmxWZGx3ekptQnEvMlpKdXdvQlNSdHYyaHd1aHVpajNU?=
+ =?utf-8?B?SE0vdENaeE9Iak43WXQrUTFyelVzU3pLZWI3VnFwbGt5eCtzbk5lVEJoMDNY?=
+ =?utf-8?B?eUxmeDVZNWoweG8vRUFoWmdCSkh3RFhqSnFCUUlXU2dBZk0vVVozM1lQSElB?=
+ =?utf-8?B?U04vM3NacVF1M0pyWE01S0lONFNITFdoU05vY2x4ci9YSm4rNG16STg0M0xs?=
+ =?utf-8?B?b1hJdDRVZ2laeXJVeVpDQm9OM1NUWUxVSDFFZVg4RmVPdFpMWkxVRUROclYy?=
+ =?utf-8?B?VXNlRXpucE0zN1c4RXJraTkzcWUvcEx0VXA4UUNJQmdmWElnRU1NVUdVa2Fy?=
+ =?utf-8?B?dXNQemRDak9GOGtmMTF1T05aU0lIblVQVGR6QVl3RjdhVVorVE9nelMvdUpr?=
+ =?utf-8?B?NUFlMWdOQUptdWozaGpoN3BzdHFoR2Z3cWxVckFZc29lR2RDR3ZOSkZhMG1N?=
+ =?utf-8?B?T3VWeWQyTTJ4QlJQMmc0RG9La2FpM2JUcVdmbTVlSlYrRml6R1UxbjN3Qzdj?=
+ =?utf-8?B?TUFya0F5cjZ5U2Q2WmNhb3JOQ25NcHdEZmRsS0RweElxdVZkZm92STRMNFZB?=
+ =?utf-8?B?NmgyV29IWTRhTXIwR1FlckZvZW9NSVM5WFJsS3VvTmVTQWdONDE4aXpGeDhT?=
+ =?utf-8?B?N200cEVzZHhpNU1hUmQyeVhLbFBoVnl3R1lpTStNT2I4eXMxL3JlWmdXTEdz?=
+ =?utf-8?B?L2RaL3lsTHkwYy96d1V3SGlITVJpTDJFU0pJamhWR2ltT1VnblBiM3ZOVHJj?=
+ =?utf-8?B?aHM5dXRzYU5reUpBT09aMTdTMThncnVraDFXb1FSeUE2L3RHdWFvUzRLa3pt?=
+ =?utf-8?B?QWJLZ3ZWR2EyYWJITFZqVHBqdWEzWVROZTczRHYvajVKTlBwc2ZqRnVJQkp1?=
+ =?utf-8?B?cVhuVWdKT3VEdGdzcUZobGV1RHdTOXUwcUdaV1ZkMnozbzBjRG8zemw3ZlJk?=
+ =?utf-8?B?ODk0ckIreU5oQU1nelAvQTBxSnpOVzBtWkc4S3RJcTd5bWFOam9kVy9mNkpp?=
+ =?utf-8?B?bTdpK1RuMUhmRm1EdE9CK2ZFSHR3UGViTWx1UkZLNldnMkNCR0JNYkU2WXRv?=
+ =?utf-8?B?K0xPZnljN052UUZEYjV5UklGZzhXTTl0Slp0clZQOXlpckpGYkU4NG16dTQy?=
+ =?utf-8?B?RXQzbEJ3R0ZBOGdjaHF2L25yNHNoLzVkWXZZS1JlV1ZBejBqYWxMbkd5eHJM?=
+ =?utf-8?B?OEZrdUJVQ29HejBEUmNwYTVSMnVROEhGYXEwZ0ViYUZLVGpkSVFKYkNKMHd5?=
+ =?utf-8?B?WVk0UGtlQ2VNeCtnbkJWQ2F0azlySlowRU8reXIzY3JybEpLQmFzMUdFM2pD?=
+ =?utf-8?B?QzZ4eUVPb0Nmcy9lTC9JeDJQeWcycFZmR0RneTZSSkhzWHJERHh0UFFKeSsr?=
+ =?utf-8?B?ODE5OGkrWC92NStlNXNIN2NYY3dBTkRXQkIzZExrbGNVTUE4Y281b2ZxMHZT?=
+ =?utf-8?B?UkNPTUZYQW9TVVQrUS9BR2I4NzBEdlhqR0RpZ1lHMUo4S3NYcmM2ZCtHd1ly?=
+ =?utf-8?B?UmcwcjBJQndBeVcrcXFpM1NVMThSaU45MXpGdnlVWUVXeUhwZmpSMFhqTzVO?=
+ =?utf-8?B?SFE0KzVudXFESTI5ZW01TEE5c254eGNFS3RsSjZSbDVGT0FEcitHdnIxbjZP?=
+ =?utf-8?B?ZHBEVHBsczdjVUFZeGszVjRJYWZuMFA4YzNIMWh4MjJDL1U1SnRUeVh2M3NF?=
+ =?utf-8?Q?NXCuY7gS/BM6+1Lv85HtA365k?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e91462c9-4ef3-4e1d-1b76-08dca7a74990
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB8550.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 989d0d5a-5dcb-46c2-d231-08dca702fe57
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jul 2024 08:24:07.8119
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2024 04:00:11.9678
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: FxvEBBDk4S20Pl5jpmEUg+BiHPdxFLj6R0h/NnBnGwUviGhlnGBNNpO+V3ZL/G+TtHm7xLNBVTwMvXb4ZmIIHkKVgOYORgi7S9qCN0HUNYc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5208
-X-Proofpoint-ORIG-GUID: LavC_r5eWegU1LJdREy2amMix6kueZa9
-X-Proofpoint-GUID: LavC_r5eWegU1LJdREy2amMix6kueZa9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-18_04,2024-07-17_02,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 impostorscore=0
- suspectscore=0 phishscore=0 adultscore=0 bulkscore=0 mlxlogscore=689
- malwarescore=0 priorityscore=1501 mlxscore=0 clxscore=1031
- lowpriorityscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.21.0-2407110000 definitions=main-2407180054
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LqpNqjvam3bfrsXxPItOLHI3urxfcXiyS2CjCLJkPNErkLUpcezNHT8o9csgAlrk5ZQPi9I+m1Tncd7nm2c/Wg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6001
 
---_000_PH7PR11MB855011A3CBA74EFD5FD239ABA3AC2PH7PR11MB8550namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Gentle Ping Chairs.
 
-Hi Experts,
-
-I noticed that virtio spec 1.3 has added camera, but only a camera ID(43) i=
-s added, the other items such as Config Space, Device Operation, all is emp=
-ty.
-
-Is there any progress about camera part in new spec(maybe 1.4) could be sha=
-red?
-
-Best Regards
-Rocky
-
---_000_PH7PR11MB855011A3CBA74EFD5FD239ABA3AC2PH7PR11MB8550namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On 6/28/2024 5:28 PM, Zhu Lingshan wrote:
+> Hello Chairs
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	font-size:11.0pt;
-	font-family:DengXian;
-	mso-ligatures:standardcontextual;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:DengXian;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;}
-/* Page Definitions */
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"ZH-CN" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
-break-word;text-justify-trim:punctuation">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif">Hi Experts,
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif">I noticed that virtio spec 1.3 has a=
-dded camera, but only a camera ID(43) is added, the other items such as Con=
-fig Space, Device Operation, all is empty.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif">Is there any progress about camera p=
-art in new spec(maybe 1.4) could be shared?
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif">Best Regards<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:14.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif">Rocky<o:p></o:p></span></p>
-</div>
-</body>
-</html>
+> Gentle Ping
+>
+> On 6/7/2024 9:48 AM, Zhu Lingshan wrote:
+>> Hello Chairs
+>>
+>> This is Lingshan who re-joined virtio TC last month.
+>> Prior to AMD, I was a voting member on behalf of Intel (lingshan.zhu@intel.com) for two years.
+>> I humbly request to be a voting member, please kindly help grant voting rights for me.
+>>
+>> Thanks
+>> Zhu Lingshan
+>>
 
---_000_PH7PR11MB855011A3CBA74EFD5FD239ABA3AC2PH7PR11MB8550namp_--
