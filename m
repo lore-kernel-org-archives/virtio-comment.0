@@ -1,181 +1,216 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5F319149E
-	for <virtio-comment@lists.linux.dev>; Tue, 30 Jul 2024 07:53:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1FEC19754A
+	for <virtio-comment@lists.linux.dev>; Tue, 30 Jul 2024 13:14:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1722325987; cv=none; b=o5+5XzBHKzG795JiqsXXQtvohYAsU13VEq6b/03wTzpmZEkvdWYnjHlJEdp4U/5jbZB2+2CUwjZrRZHkCnNNYgifPnMJNsXKlEk/iU1kRU5Hhx8CbohG7ho3PLzAXH8Lb/iJIaEhJP8zFBa+oVgI7RHrQQbwwSzQWCvwosuRfHk=
+	t=1722345280; cv=none; b=Di0RNezO7NFBFSyg9b51/clC5hVzgTrvRheYXubw+qhuXcov3oALFBlxH4wPf4WNBIZC6nkMQKB8tP/KaF2Rd5I5XcSlT6QdTKa2K1YKxLPIV4Kj98vXXgjJjdBvhbnTzU+RDarga7+mKv+6eaWVO8gzR0MK4sxjgRCyvidld+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1722325987; c=relaxed/simple;
-	bh=JSTTE+qe9jI/JMBf6ZJTiuYDnM5HyzKh5zCy0X5bj60=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PBEoTH2D6tZRm8oFGlFbapPE993n/OuvV/G7NMH56Pslfsm5goZQdxvGkP7WsvNBQ/T9+9IeNPGGi2d1kGw1SIw+18n+nX/P8ZesBRjGH+OqqrSs3f75ZL5J2zQUpBC8aBFrdagtTim26iUiJs8LAszACPe5F/ELygwKCRFsWqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bU7s2G/i; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1722345280; c=relaxed/simple;
+	bh=xoDELP/lIG+L2NyQxv4EL2E7zRmZ+0czf2kvEo5EeIA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=GOge/hEawUBd5U3tqDBy4LxeqyZFMJXBiivLSST2jbneHZs/fjAVj8epzIpK59J7qNjQNNtC7WKnHErX2wia16gaAcjKAWGH4VBRFvQZDDhl/7UDe2h1mYK8gmG8c8j9GsxHxITVKxVamvKtRdJUbYP/Vkl8Eiib98ViiWIz0Dc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LI4Y6ZVT; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bU7s2G/i"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LI4Y6ZVT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1722325983;
+	s=mimecast20190719; t=1722345277;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=63oPEh8vJu8qqn3vZZEapJR5CfETxp+JdHecBiOvAOM=;
-	b=bU7s2G/iN7WL3WYV+bLSXkgJOsCHLicz9YNkONg5R/WSBG4F0zufsendkue01sV+t+frgn
-	6bQJUEQBnq5RdDNWy/3gQ/uGCsicCz4J7PJLhL0UPzCrjSGSUV99hExdlrOXZLOQ1qTGyY
-	ti+8LHXdp3INaYD08Eai/uAoXBq8jfw=
-Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com
- [209.85.208.199]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=P6qi0L1XByGZi0JTpqpFjDdHn2DrR0zLc4DjFvYQ+Xg=;
+	b=LI4Y6ZVTP0Y9B4EoOHqnSnQ6OAR09HUOIPSr+uQpOgT9cJf676EAJd6rnBUbCkvztSsrM0
+	+D4degrtvbXta3sk73EB1MgWIxF4gTG9h9+6z+qujkjPB+xpYPALA2PnCy/53FAyXE6XgK
+	Va7ql3ToP8z737Yu2pZMCcvDr2tJGwc=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-653-TfHW9guPMWy1doe3eZzcBA-1; Tue, 30 Jul 2024 03:52:59 -0400
-X-MC-Unique: TfHW9guPMWy1doe3eZzcBA-1
-Received: by mail-lj1-f199.google.com with SMTP id 38308e7fff4ca-2ef185db2b4so3730051fa.1
-        for <virtio-comment@lists.linux.dev>; Tue, 30 Jul 2024 00:52:59 -0700 (PDT)
+ us-mta-623-3dcpoHjgMhmAEaRcDgWRjw-1; Tue, 30 Jul 2024 09:14:35 -0400
+X-MC-Unique: 3dcpoHjgMhmAEaRcDgWRjw-1
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-a7a83fad218so361990366b.3
+        for <virtio-comment@lists.linux.dev>; Tue, 30 Jul 2024 06:14:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722325978; x=1722930778;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=63oPEh8vJu8qqn3vZZEapJR5CfETxp+JdHecBiOvAOM=;
-        b=SQsEgkde8t7Zbs6DpuApiFgZ9IxJu6I0BMYv9k3ZhjGUODsIFBCSjhCBhLNP+denYK
-         OI5G/zCNAHzKMheTlUnxPqU8z70MhM48bJ4bNZvBK5XjjX68QNthFFRdiqzbeQIFvQSD
-         lPCB0y3vxjSFxosnUebHVO9ubRDI9nL8JTXGu6gnermBBOZJ18Zcuae//VLIkxwbRmzq
-         +9c9DL5Qg5H88ws4DVhUgIPsJTfh9FyiMzo1MuFlMf0WCoXowjIjVJH301loCE9WIDMV
-         Cj9uXHHXm2j3tdgHVUXlFcGaj2ka1qBXSj7yxzTGVYQMl+cc655/TCtjMeR57IFWPyte
-         zEhA==
-X-Gm-Message-State: AOJu0YyTrU/o0YsS7JF68RZrKmiGEMKfpupZ4jfa4rY9MFHMWNlSxIGt
-	X4V0aoIVrGaqRZqQIwgzjfIji8/+moJoP8rPBCmCmjEaBeCfTOGC/DGVrVIbaIy6dFwIc3k9xFO
-	/5fYWyOxg79mf4g17vSoI5YxzQLL9HC9HzaLrPaCeQ6CDVhBsUO9kERbLO5WjC3eV
-X-Received: by 2002:a2e:1f09:0:b0:2ef:226e:bc6d with SMTP id 38308e7fff4ca-2f03c6fe6b4mr54320031fa.2.1722325978024;
-        Tue, 30 Jul 2024 00:52:58 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG+hB/XrACypbp0l9xucFEhS8UWaMh9SreH361hNeYi/axR3A6277WqQwbVZHabShOtWJbq/w==
-X-Received: by 2002:a2e:1f09:0:b0:2ef:226e:bc6d with SMTP id 38308e7fff4ca-2f03c6fe6b4mr54319961fa.2.1722325977371;
-        Tue, 30 Jul 2024 00:52:57 -0700 (PDT)
-Received: from ?IPV6:2a0d:3344:1712:4410:9110:ce28:b1de:d919? ([2a0d:3344:1712:4410:9110:ce28:b1de:d919])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-427f935946dsm250828735e9.4.2024.07.30.00.52.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 30 Jul 2024 00:52:56 -0700 (PDT)
-Message-ID: <bfd5754d-5c21-4f2c-ab66-c26bfee5f854@redhat.com>
-Date: Tue, 30 Jul 2024 09:52:55 +0200
+        d=1e100.net; s=20230601; t=1722345274; x=1722950074;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=P6qi0L1XByGZi0JTpqpFjDdHn2DrR0zLc4DjFvYQ+Xg=;
+        b=kDqcvD7LEqsdjeEq3Fyud02QJqMXiHVp9+AZip3S9BrOg17cMAgSLbbEjhb32PxCfL
+         KLgCMOSDZDYOTM9zQPtaqZSPEo9Jr1IkTzNYcONMGB079NEPjUPoyM50+umUHoqJTdJo
+         5NDa7mcbhVoIICdS33CQEUGVmW6MQVKS4/PH6dkY9d6lWXyX1Jmv8qzG0jA7AETWDDCb
+         LBDYYk9o9LNOfyIvSMDH4rXFKjYhGCAs9VrbnoIo6jDqX/At1jxIfe5XVnNWyDKgNNVS
+         4oi/vkDprQDHHyrDTI/3xuZCEZkx4Kzi9as52+0sKryn+35qSpgMtSlzEBi6a46g9u8A
+         4DUA==
+X-Gm-Message-State: AOJu0YzyEtNDftEU5H/ASBdIHtogGOwXS/VR319KUHJMDvhuKu5H+RkW
+	CR6MlTYsy+fHpVQ6la4xuUYdiS/+Hqy/rLh5Ujx3krvm1nlktEFLMY9NN3IQY/J4ruvTZW79tNp
+	T2oNa8MU5TMgyOWjIAUCJg4eh21yiWYH5ombqtvo07veCmdDvhUc86AvyPnziQXfZ
+X-Received: by 2002:a17:907:3e1a:b0:a75:23bb:6087 with SMTP id a640c23a62f3a-a7d40095f19mr727768866b.29.1722345274415;
+        Tue, 30 Jul 2024 06:14:34 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHxS5TapzSix+IHrQWJZDbrVd/W528pXDUZBoI9CiGvyRs7l08bOoVZ+65FIJHHTSI1zADeuw==
+X-Received: by 2002:a17:907:3e1a:b0:a75:23bb:6087 with SMTP id a640c23a62f3a-a7d40095f19mr727766266b.29.1722345273714;
+        Tue, 30 Jul 2024 06:14:33 -0700 (PDT)
+Received: from redhat.com ([2.55.35.236])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a7acad90fe2sm644884466b.156.2024.07.30.06.14.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jul 2024 06:14:33 -0700 (PDT)
+Date: Tue, 30 Jul 2024 09:14:28 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Cc: virtio-comment@lists.linux.dev,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+	Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>,
+	Matias Ezequiel Vara Larsen <mvaralar@redhat.com>,
+	Stefano Garzarella <sgarzare@redhat.com>
+Subject: Re: [PATCH V8] virtio-transport: Add a section to define mandatory
+ transport requirements
+Message-ID: <20240730091155-mutt-send-email-mst@kernel.org>
+References: <1ef4e58fdbbc2c94305aa8fac856da882da1cdc2.1722324234.git.viresh.kumar@linaro.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] virtio-net: define UDP tunnel checksum offload
- feature
-To: Willem de Bruijn <willemb@google.com>
-Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com,
- Eelco Chaudron <echaudro@redhat.com>, Jason Wang <jasowang@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>
-References: <cover.1722252302.git.pabeni@redhat.com>
- <5b3829e774a0bd43b7cb7119446486df42094d43.1722252302.git.pabeni@redhat.com>
- <CA+FuTScZMo3pOitzw3zqY8g7L_AE4LyaZnZEA3=a-vXOL5mP2Q@mail.gmail.com>
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <CA+FuTScZMo3pOitzw3zqY8g7L_AE4LyaZnZEA3=a-vXOL5mP2Q@mail.gmail.com>
+In-Reply-To: <1ef4e58fdbbc2c94305aa8fac856da882da1cdc2.1722324234.git.viresh.kumar@linaro.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 7/29/24 23:35, Willem de Bruijn wrote:
-> On Mon, Jul 29, 2024 at 7:30 AM Paolo Abeni <pabeni@redhat.com> wrote:
->> +\begin{note}
->> +The dependency between UDP_TUNNEL_CSUM and UDP_TUNNEL_GSO is intentionally
->> +in the opposite direction with respect to the plain GSO features and the plain
->> +checksum offload because UDP tunnel checksum offload gives very little gain
->> +for non GSO packets is quite complex to implement in H/W.
->> +\end{note}
+On Tue, Jul 30, 2024 at 12:59:26PM +0530, Viresh Kumar wrote:
+> The current Virtio documentation lacks a set of generic requirements
+> applicable to all transports. Defining these generic requirements could
+> be beneficial when integrating support for a new transport.
 > 
-> Plan was to call this UDP_TUNNEL_GSO_CSUM, to make this implicit
-> dependency more explicit? It really only is checksum offload for the
-> outer checksum that this feature covers.
-
-Indeed. I lost that change in the split. I'll fix in the next revision.
-
->>   \item The converse features are also available: a driver can save
->>     the virtual device some work by negotiating these features.\note{For example, a network packet transported between two guests on
->>   the same system might not need checksumming at all, nor segmentation,
->> @@ -399,8 +419,9 @@ \subsection{Device Initialization}\label{sec:Device Types / Network Device / Dev
->>     checksummed packets can be received, and if it can do that then
->>     the VIRTIO_NET_F_GUEST_TSO4, VIRTIO_NET_F_GUEST_TSO6,
->>     VIRTIO_NET_F_GUEST_UFO, VIRTIO_NET_F_GUEST_ECN, VIRTIO_NET_F_GUEST_USO4,
->> -  VIRTIO_NET_F_GUEST_USO6 and VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO
->> -  are the input equivalents of the features described above.
->> +  VIRTIO_NET_F_GUEST_USO6 VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO and
->> +  VIRTIO_NET_F_GUEST_UDP_TUNNEL_CSUM are the input equivalents of
->> +  the features described above.
+> This section outlines the essential requirements that any transport
+> method must adhere to.
 > 
-> Minor, not specific to this feature and more to the spec maintainers:
+> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+> ---
+> V7->V8:
+> - Remove separate sections for device/driver requirements.
+> - Remove optional requirements.
+> - Other generic improvements.
 > 
-> Does it make sense to put each constant on its own line? To avoid
-> having to edit existing lines when expanding. This is source text, so
-> that does not show in the generated output anyway:
+> V6->V7:
+> - Remove parts that talk about accessing content of the virtqueue.
 > 
-> and if it can do that then the
-> VIRTIO_NET_F_GUEST_TSO4,
-> VIRTIO_NET_F_GUEST_TSO6,
->   VIRTIO_NET_F_GUEST_UFO,
-> VIRTIO_NET_F_GUEST_ECN,
-> VIRTIO_NET_F_GUEST_USO4,
->   VIRTIO_NET_F_GUEST_USO6,
-> + VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO,
-> are the input equivalents of the features described above.
+> V5->V6:
+> - Move the changes to a new appendix section.
+> - Clarify the requirements a bit more based on review comments.
 > 
-> The trailing comma is admittedly a bit ugly. If fixing that up, the
-> diff is still cleaner with one constant per line:
+> V4->V5:
+> - s/The transport/A transport/
+> - s/MUST provide/provides/
+> - Added some text for transport requirements.
 > 
-> - VIRTIO_NET_F_GUEST_USO6
-> + VIRTIO_NET_F_GUEST_USO6,
-> + VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO
+> V3->V4:
+> - Remove the normative sections and use direct speech.
+> - Change wording at few places.
 > 
->> @@ -490,7 +512,7 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
->>       new (16 bit ones' complement) checksum is placed by the device.
->>
->>     \item The TCP checksum field in the packet is set to the sum
->> -    of the TCP pseudo header, so that replacing it by the ones'
->> +    of the TCP pseudo header, so that replacing it with the ones'
+> V2->V3:
+> - Minor fixes.
+> - Added Reviewed by from Alex.
 > 
-> Unintentional change?
-
-Yep, I piped the patch in a grammar checker and while reflecting the 
-suggestions on the patch itself I unintentionally touched the context, too.
-
->> +  \begin{itemize}
->> +  \item \field{flags} has the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM set,
->> +
->> +  \item The outer UDP checksum field in the packet is set to the sum
->> +    of the UDP pseudo header, so that replacing it by the ones'
->> +    complement checksum of the outer UDP header and payload will give the
->> +    correct result.
->> +  \end{itemize}
+> V1->V2:
+> - Lot of changes after discussions with Alex and Cornelia.
+> - Almost a rewrite of the first commit.
+> - Add Transport normative sections.
 > 
-> "set to the sum of the UDP pseudo header [of each segment]"?
+>  main.tex         |  2 ++
+>  newtransport.tex | 40 ++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 42 insertions(+)
+>  create mode 100644 newtransport.tex
 > 
-> as it will not be the UDP length of the gso packet.
+> diff --git a/main.tex b/main.tex
+> index b1913d65e964..6d337217a3d1 100644
+> --- a/main.tex
+> +++ b/main.tex
+> @@ -42,6 +42,8 @@
+>  
+>  \input{newdevice.tex}
+>  
+> +\input{newtransport.tex}
+> +
+>  % acknowledgements
+>  \input{acknowledgements.tex} 
+>  
+> diff --git a/newtransport.tex b/newtransport.tex
+> new file mode 100644
+> index 000000000000..1c424ef907e3
+> --- /dev/null
+> +++ b/newtransport.tex
+> @@ -0,0 +1,40 @@
+> +\chapter{Creating New Transports}\label{sec:Creating New Transports}
+> +
+> +Devices and drivers utilize various transport methods to facilitate
+> +communication, such as PCI, MMIO, or Channel I/O. These transport
+> +methods determine multiple aspects of the interaction between the device
+> +and the driver, including device discovery, capability exchange,
+> +interrupt handling, and data transfer. For instance, in a host/guest
+> +architecture, the host might expose a device to the guest via a PCI bus,
 
-AFAICS the Linux tunnel implementation uses the GSO length:
+a virtual PCI bus
 
-<each UDP tunnel> -> udp_tunnel_xmit_skb -> udp_set_csum
+> +and the guest would employ a PCI device driver to interface with the
+> +device.
+> +
+> +This section outlines the mandatory requirements that a transport method
+> +must implement.
 
-https://elixir.bootlin.com/linux/v6.10.2/source/net/ipv4/udp_tunnel_core.c#L170
-https://elixir.bootlin.com/linux/v6.10.2/source/net/ipv4/udp.c#L890
+implements.
 
-Regardless of the Linux implementation, using the individual segment len 
-will
-makes things difficult for the last segment (len < gso_size). The caller 
-will
-have to touch the individual segment headers, which could be quite 
-hard/costily.
+> +
+> +A transport provides a mechanism to implement configuration space for
+> +the device.
+> +
+> +A transport provides a mechanism for the driver to communicate virtqueue
+> +configuration and memory location to the device.
+> +
+> +A transport provides a mechanism for the driver to identify the device
+> +type.
+> +
+> +A transport allows one or more virtqueues to be implemented by the
+> +device. The number of virtqueues is device specific and not specified by
+> +the transport.
+> +
+> +A transport provides a mechanism for the device to send device
+> +notifications to the driver, such as used buffer notification.
+> +
+> +A transport provides a mechanism for the driver to send driver
+> +notifications to the device, such as available buffer notification.
 
-Am I missing something?
+available buffer notifications (plural)
 
-Thanks,
+> +
+> +A transport provides a mechanism for the driver to initiate a device reset.
+> +
+> +A transport provides a mechanism for the driver to read the device's
+> +status bit.
+> +
+> +A transport provides a mechanism for the driver to modify the device's
+> +status.
 
-Paolo
+what about feature bits? that is fundamental
+
+Let's order it sensibly though, in the order in which stuff is used
+
+1st identify the device
+2 access status
+
+number of vqs
+
+configure vqs
+
+notification
+
+reset
+
+> -- 
+> 2.31.1.272.g89b43f80a514
 
