@@ -1,148 +1,187 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DAB1AAE08
-	for <virtio-comment@lists.linux.dev>; Wed, 31 Jul 2024 12:16:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94121B580F
+	for <virtio-comment@lists.linux.dev>; Wed, 31 Jul 2024 14:26:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1722428189; cv=none; b=rmb1xjmxI2xs4/6KZKgTPJVsDdgR9DZiVd0JMXpweXMVQDkaZN2OkWUWm7bqYZxeXkVjw7wwlNETPzeQknSS9F11FFM+2e+ll3FfBArb11KCFV38FxQhda3VnewiKpS3QS+kSYEIftTbWQVcfbXAwPi1TWIbwCF/MYXRY/HSaxg=
+	t=1722435977; cv=none; b=MwhToyVEGvxXD1NCV8M2mDRw559nmyBZtZIOiIRQXaW0bbNm2qJEgwzVhBRAAXgBhS1fMK/lY583m7ZetGqVH8yxLNlWu6Kp/aHIbO3qR+te8dg/UEzcN3cv81ONAun/NGtziZfqs11qvBdBAEP27Q+zsjqaz6PAMMFAlVQPvuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1722428189; c=relaxed/simple;
-	bh=47Ao2Mih28K1PxqL/IcnTqb++GCeqNhw0zXWjEUzzXE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=dNCaw8UozMo0KNHug74gxw6ZsWBN6TeQZI/xSA7pPnXpxoXfr12C7g9h2BlZY784l/1VIBvh0nnLvfMU5N2WJy9ThMLM57GpbWHASdmZHU06LcsLQcFRLvEgBmTox3zIMFIllFeG5EaZLqITwuchG+Mv1tkGvJYAssHhj8A50dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Hb7NJj6R; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1722435977; c=relaxed/simple;
+	bh=I3Kl83AJyzAJHaiuOzN3Yb49Bw0lnR8HVqhMnn5rNh8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=f5/87k9tSVSbxoF5hzDJ3Xh6AADrLN4CB17WsH2HGPkEChiBBuzvaKGslOWxG5QqBw1+esaK5NHs6lA4LpUZ4RbIxMUK2sl9vIn8ULPi65iff3RmvCn1zNy3zxnTNwBk1/l6GdV4IqAiRe4J04S4buA/pvHDCOK/6YvPo/e6b2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UkQ7m+iv; arc=none smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Hb7NJj6R"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1722428186;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ygKW/wlrtIecDJ2dKzESfH1h9tNX43Bgc3N05qD2Q60=;
-	b=Hb7NJj6RDEzsiAqQP2oNJZuGE0ljhkve5y7s+TZFNqgwOU9+S44skT7MBS5d+7/lEnwBMb
-	6RDXB1pE/ZsinRQIyDMIImYJAMQrzvWogrfXp6bjmD6X/MdEeU1OimNZ06iChp+R5rRDHd
-	BT+wPXlOAnJzqgZAW0SYHWP7PPzX1Ss=
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-628-halNeqR0MPOA0lv8zeXOsQ-1; Wed, 31 Jul 2024 08:16:24 -0400
-X-MC-Unique: halNeqR0MPOA0lv8zeXOsQ-1
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-5b58f321a2dso696535a12.2
-        for <virtio-comment@lists.linux.dev>; Wed, 31 Jul 2024 05:16:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722428184; x=1723032984;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UkQ7m+iv"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-44fee2bfd28so347961cf.1
+        for <virtio-comment@lists.linux.dev>; Wed, 31 Jul 2024 07:26:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1722435974; x=1723040774; darn=lists.linux.dev;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ygKW/wlrtIecDJ2dKzESfH1h9tNX43Bgc3N05qD2Q60=;
-        b=Ld5/OU082Q3tnPurIgVK4qMZhrumXOvsnSnA8GgstWhUi+2RQpVbq9sfa49iqCOvjP
-         ljCewKD2umbuhk/TOkAmmwXcp/IL0C0xFMYmgcQPLFN+sfmTC6cDs78YicXq2FYL2+hv
-         KVZ9H13ogsjo/XUsE3flSnbXbjUTsnRz/bos4vgLonzSLCUJIO4wLmQV/Vs6EW4TRdYb
-         1CRespPpOimm9NOsM/T16uBPtV8s4uZnKlbkfNEVd0AsUiwmG4M7T3SSIMzeixKlxwvA
-         knptQUMl5Ledxr9BlevunOR2h4TVK2KncxCOzg6HhBX/cZphkzMMdaimQj755qpnWGGa
-         LspA==
-X-Forwarded-Encrypted: i=1; AJvYcCVLNbk34t/QBdDdG7x7Jtws5t6viA28Zfj1ZBpoljdpjts31etlX/mAg8lgeJh7damT3RoqasP/WLjOlx4EeNHKUOf1m8Dmq6Xc9vCbuFc=
-X-Gm-Message-State: AOJu0YwaNfNXUCMsaHjWdVPEvGe1O3fpk6gXHjihTbg7fmlb76XrKEJ6
-	TeEMtNXbQUVtzHE07qlDlE3vjpV7/yaWF0FaIZVPm3NpEBGeFW6CRER0ka+QHYgBfbQHsfY6VgA
-	pyX3gNGvVzyItpoF19K9vs8qWFXUjtX3dqznB5Lws+PyNYoKmA5zEyKi3Eal4jq4G
-X-Received: by 2002:a05:6402:5109:b0:5a0:ec55:86dc with SMTP id 4fb4d7f45d1cf-5b0205d5fe7mr10654680a12.14.1722428183714;
-        Wed, 31 Jul 2024 05:16:23 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH+RbVdo0FSQgbuYljdf1ZRM2dz3+5q4DKN6wC/D5pe3TqK7p4b7BSG+8FOGbaCGiGC6pbIYw==
-X-Received: by 2002:a05:6402:5109:b0:5a0:ec55:86dc with SMTP id 4fb4d7f45d1cf-5b0205d5fe7mr10654643a12.14.1722428183044;
-        Wed, 31 Jul 2024 05:16:23 -0700 (PDT)
-Received: from redhat.com ([2.55.44.248])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-5ac631b04e1sm8620468a12.12.2024.07.31.05.16.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 31 Jul 2024 05:16:22 -0700 (PDT)
-Date: Wed, 31 Jul 2024 08:16:18 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Cornelia Huck <cohuck@redhat.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>, virtio-comment@lists.linux.dev,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
-	Parav Pandit <parav@nvidia.com>,
-	Matias Ezequiel Vara Larsen <mvaralar@redhat.com>,
-	Stefano Garzarella <sgarzare@redhat.com>
-Subject: Re: [PATCH V8] virtio-transport: Add a section to define mandatory
- transport requirements
-Message-ID: <20240731081509-mutt-send-email-mst@kernel.org>
-References: <1ef4e58fdbbc2c94305aa8fac856da882da1cdc2.1722324234.git.viresh.kumar@linaro.org>
- <20240730091155-mutt-send-email-mst@kernel.org>
- <20240731090414.m5hkzvq34djq6awl@vireshk-i7>
- <87a5hx99se.fsf@redhat.com>
- <20240731055129-mutt-send-email-mst@kernel.org>
- <877cd198al.fsf@redhat.com>
+        bh=KvY71T7K2kRuQfKaYU+zcsXgBL8JYJn1tm21+a3Flrw=;
+        b=UkQ7m+ivlhQX4kpxziFUoeQGb4JjNbZxka5V/fm76QNECXO7uRY6EucO32XUMCdjQT
+         yccUJqJVJxibSe5jwoKqsoxIxP4vJ8SOrtZhlGZXfCy/llzBfo/LDKzo4LHBFFDSMfqD
+         G7MC+Wyhq6EWfysxeqRmIScTreIffo2vJcZgLrLv2D26U9l3XwUk95huJ5LG4aD5YX+L
+         QJByNuuHOESYtQ/yL71x8UMFUYUGt8h2scN8/qqxXQJ6RuY4DpkEShFnTtTjA/Zf3ksx
+         h9tB22kxx6aDhUUZ/SGqERjdLu+7OPI5YeqbXPwkpJNj/36jt5LXXYwSCpSvDaHL7Yts
+         Ckkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722435974; x=1723040774;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=KvY71T7K2kRuQfKaYU+zcsXgBL8JYJn1tm21+a3Flrw=;
+        b=LsHcEoEFdS2+kadUwbMX85ZCfiwBUjUuRxWmlGMhgW3w/IWpi2d7/LAkpRRjFjpfsk
+         N4fX6XsfxnEi8eaoGtObdwUB3IUGuG6UwDS3+AlobpoSDan5cLcb0PiZ4tjQI4Y4U9mu
+         UtmU0Mvoe2NLuQxPe4jw1ilamm2t0jTUhTOn80TfSBXg8/NWCJzQ1EYNZfY0AxHylIDV
+         KjNB6OJcyVDuTy8gIbLYMt08ZAVMNVnxkY4K9g7Q4zG7/L1t/sgpbTGk2ScEf1Qb3qTc
+         u0a1jryAUQu8xTY6C+0iMF+rkQfRk7q4GZSQ7FWPf8tIb6l9ZT2iBqhm07pw7T5PUpqz
+         glqw==
+X-Forwarded-Encrypted: i=1; AJvYcCXAwjhakJcpT6PaAUv4MSqeXVWoksbvUMqHQuvqQnrCsqEhITyhaHJju7ivcPJfM9+nvCbWZs7AUQoeMaXCQbIEqdLNlPqUUZQ+t5aOqP0=
+X-Gm-Message-State: AOJu0Yx5sxh4G6obxEzM4z35htAI9tAX1JJvb9sf5sIo/z/g/Vgcc1W8
+	9kCyOPYwf7XNpmA8V+ypvH73ByANnxJoKoiO3UEn6l8ddNcNoXpXehUGrA1F2EkQqS/PHi+lkBA
+	IfwMnuWrtmVYPx5SL+JJplZWJ11kj000tr3D+
+X-Google-Smtp-Source: AGHT+IEfjpdXo5OHpB6a6DsEWmZqrTusYOs8kHpD83IYOa8Jsi2hQtkLHx20LBOjaLXjhHkmDDR5xy0H4oSps/ceaM4=
+X-Received: by 2002:ac8:5f4e:0:b0:447:e01a:de95 with SMTP id
+ d75a77b69052e-450416eb227mr3496461cf.0.1722435974223; Wed, 31 Jul 2024
+ 07:26:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <877cd198al.fsf@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <cover.1722252302.git.pabeni@redhat.com> <2977107dcc842c0665227f7c3696157ecd15a1b2.1722252302.git.pabeni@redhat.com>
+ <CA+FuTSfu8Sys_s+3jpXoS0GbZC4stOVgBrEYOtA9YoTCEJkJAA@mail.gmail.com>
+ <d79c4ed9-c1d5-4c9c-9f10-661745edf96c@redhat.com> <CACGkMEu6dnKOgYVYRWKadXirnk4R6Rc16ojNR=oSX-a22Rt4OA@mail.gmail.com>
+In-Reply-To: <CACGkMEu6dnKOgYVYRWKadXirnk4R6Rc16ojNR=oSX-a22Rt4OA@mail.gmail.com>
+From: Willem de Bruijn <willemb@google.com>
+Date: Wed, 31 Jul 2024 10:25:34 -0400
+Message-ID: <CA+FuTScr26P+QtPfWKzD1zzadKiZ3zRs75KC1ycexdQRAQ0XuQ@mail.gmail.com>
+Subject: Re: [PATCH v6 1/2] virtio-net: define UDP tunnel segmentation offload feature
+To: Jason Wang <jasowang@redhat.com>
+Cc: Paolo Abeni <pabeni@redhat.com>, virtio-comment@lists.linux.dev, 
+	maxime.coquelin@redhat.com, Eelco Chaudron <echaudro@redhat.com>, 
+	Stefano Garzarella <sgarzare@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 31, 2024 at 12:15:30PM +0200, Cornelia Huck wrote:
-> On Wed, Jul 31 2024, "Michael S. Tsirkin" <mst@redhat.com> wrote:
-> 
-> > On Wed, Jul 31, 2024 at 11:43:13AM +0200, Cornelia Huck wrote:
-> >> On Wed, Jul 31 2024, Viresh Kumar <viresh.kumar@linaro.org> wrote:
-> >> 
-> >> > On 30-07-24, 09:14, Michael S. Tsirkin wrote:
-> >> >> Let's order it sensibly though, in the order in which stuff is used
-> >> >
-> >> > Right.
-> >> >
-> >> > diff --git a/newtransport.tex b/newtransport.tex
-> >> > new file mode 100644
-> >> > index 000000000000..3b760250a4c0
-> >> > --- /dev/null
-> >> > +++ b/newtransport.tex
-> >> > @@ -0,0 +1,44 @@
-> >> > +\chapter{Creating New Transports}\label{sec:Creating New Transports}
-> >> > +
-> >> > +Devices and drivers utilize various transport methods to facilitate
-> >> > +communication, such as PCI, MMIO, or Channel I/O. These transport
-> >> > +methods determine multiple aspects of the interaction between the device
-> >> > +and the driver, including device discovery, capability exchange,
-> >> > +interrupt handling, and data transfer. For instance, in a host/guest
-> >> > +architecture, the host might expose a device to the guest via a virtual
-> >> > +PCI bus, and the guest would employ a PCI device driver to interface
-> >> > +with the device.
-> >> > +
-> >> > +This section outlines the mandatory requirements that a transport method
-> >> > +implements.
-> >> > +
-> >> > +A transport provides a mechanism to implement configuration space for
-> >> > +the device.
-> >> > +
-> >> > +A transport provides a mechanism for the driver to identify the device
-> >> > +type.
-> >> > +
-> >> > +A transport provides a mechanism for the driver to read the device's
-> >> > +status bit.
-> >> 
-> >> Either "status bits", or "status" (as below.)
+On Wed, Jul 31, 2024 at 12:11=E2=80=AFAM Jason Wang <jasowang@redhat.com> w=
+rote:
+>
+> On Tue, Jul 30, 2024 at 3:33=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> w=
+rote:
 > >
-> > It is actually "FEATURES_OK status bit" I think.
-> 
-> Also DEVICE_NEEDS_RESET?
+> > On 7/29/24 23:04, Willem de Bruijn wrote:
+> > > You have a working software implementation, right? Will this be sent
+> > > (as RFC) to the public netdev or so mailing list before this becomes =
+a
+> > > standard? I assume that there is a standard process for virtio that
+> > > you are following. I'd just be more confident in a thumbs up if we
+> > > also review the code that implements the text.
+> >
+> > My plan is to write the S/W virtio_net implementation, too, but it's
+> > currently not ready. I had a working PoC for the first draft of this
+> > changeset, long time ago. Things are changed enough that I'll need a
+> > rewrite. I can try to shared such a thing on netdev ASAP (where "soon"
+> > here is a very relative terms ;)
+> >
+> > Also I don't know the standardization process. I hope for some guidance
+> > from Jason and/or Michael.
+>
+> It should be something like this. When there's no future comment, open
+> an issue https://github.com/oasis-tcs/virtio-spec/issues and ask for a
+> vote. When it passes the voting, it would be merged.
 
-Good point.
+So changes to the spec can be merged, because we know that they can be
+implemented reasonably?
 
-> I don't think it makes sense to say that the
-> driver needs a way to read individual bits, it should be able to read
-> the whole status.
+IETF always requires (two, because interoperable protocol definitions)
+working implementations.
 
-It depends on the transport, I can imagine a transport that
-saves some space by not keeping a copy of e.g. DRIVER.
+It sounds a bit risky to me to skip this, as you come across the interestin=
+g
+non-obvious details during implementation.
 
--- 
-MST
+Since implementation is planned anyway, doing at least a rough proof of
+concept first does not introduce extra work, but reduces risk that the spec
+contains errors.
 
+Unless it is easy to update the spec before it is numbered and finalized.
+Then issues can be fixed up.
+
+Anyway, you have gone through this many times, so whatever the process
+is, I trust that it works. Just sharing my thought as a somewhat uniformed
+reader.
+
+>
+> >
+> > >
+> > >> @@ -423,6 +441,9 @@ \subsection{Device Operation}\label{sec:Device T=
+ypes / Network Device / Device O
+> > >>           le32 hash_value;        (Only if VIRTIO_NET_F_HASH_REPORT =
+negotiated)
+> > >>           le16 hash_report;       (Only if VIRTIO_NET_F_HASH_REPORT =
+negotiated)
+> > >>           le16 padding_reserved;  (Only if VIRTIO_NET_F_HASH_REPORT =
+negotiated)
+> > >> +        le16 outer_th_offset    (Only if VIRTIO_NET_F_HOST_UDP_TUNN=
+EL_GSO negotiated)
+> > >> +        le16 inner_protocol_type;(Only if VIRTIO_NET_F_HOST_UDP_TUN=
+NEL_GSO negotiated)
+> > >> +        le16 inner_nh_offset;   (Only if VIRTIO_NET_F_HOST_UDP_TUNN=
+EL_GSO negotiated)
+> > >>   };
+> > >
+> > > In relation to the above: I recall that expanding the virtio_net_hdr
+> > > was non-trivial when I last tried to add fields ("[rfc,2/3]
+> > > virtio-net: support receive timestamp"). If that is the experience
+> > > again, it might be worthwhile to expand with enough space to also
+> > > accommodate a few subsequent extensions. Headroom is not that
+> > > expensive.
+> >
+>
+> Yes, but it looks like an independent issue for this.
+
+If this change requires new headroom, then it depends on headroom expansion=
+.
+
+My suggestion is to then expand it significantly immediately, to minimize t=
+he
+number of times we have to change the virtio_net code to support new length=
+s.
+
+We already have structs virtio_net_hdr, virtio_net_hdr_mrg_rxbuf,
+virtio_net_hdr_v1, virtio_net_hdr_v1_hash.
+
+Adding a new struct with every new field added just adds lots of churn in
+the code.
+
+Just a thought, feel free to skip if the maintainers disagree.
+
+
+>
+> > Do you mean, by adding 'padding' or 'unused' fields?
+
+Yes.
+
+> >
+> > Side note: the above is not 32 bit aligned, do we need such aligment?
+>
+> Maybe, but it should be an independent topic.
+>
+> > If we would have VIRTIO_NET_HDR_GSO_UDPv4_L4 and
+> > VIRTIO_NET_HDR_GSO_UDPv6_L4 variants, we could avoid entirely
+> > 'inner_protocol_type', as the network protocol will be implied by the
+> > GSO type itself.
+
+But that's too late now? Probably don't want to make this work
+depending on such a change.
+
+I don't entirely recall why we did not do that immediately. Perhaps
+it is related to also only having SKB_GSO_UDP_L4.
