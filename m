@@ -1,135 +1,127 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC4F1A76C4
-	for <virtio-comment@lists.linux.dev>; Wed, 31 Jul 2024 09:04:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B3B1AAE30
+	for <virtio-comment@lists.linux.dev>; Wed, 31 Jul 2024 09:16:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1722416660; cv=none; b=qvBZFb0rj8fxKOitkTvGpRzymwP9LJ8IRd7WWEM1iu72Tk7DG42PjV60bImzVy7tuTviburMz244LexUmBL2coHElHKb3jXmglLFW0ZfXiLLGJ81MSwS339HNeN94dUsVyVfK5Dlpr6aw2/0gVC3BMdCWCRvVHZo+c5gz+nxhCw=
+	t=1722417413; cv=none; b=fVF1d352r5u1uSR0pc198QYla3JbYdicnCDJVbp0wQplmt8uDt34YJcGlYFE8NFCKosh92FUa/Z4diELXCiCilB97nW9JEWo5oCgg7fS5EitqyJIRIOP2OwYme5V7ZKqt6s7NtclIYhZIr+9yCeFaO7tGG8zIWTSUeXUFJrP+4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1722416660; c=relaxed/simple;
-	bh=/2hZybB5qGrZ7EqMBpBMSssQ33hwSe261HUdl703hIs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t4j5dBtq7hGFepwOZgORSLlR7eyIjvmfdU3XhZxUZr0Ek5jUGNMdF31NZ+eok6fn7UpjBn1cen6VMCBB5IlnzMhQ26ePVTDuiFLicYwaFGNr27GJLaoWAh6Hkfls1LzmjF4QU9DzK9rzVvOlNl3St7ZbdKf/NJP7Xf1pjo3/3No=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=T3S5NMQg; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1722417413; c=relaxed/simple;
+	bh=bdYyJgMtZ40TD+j/h4EGeQjrRNZ8zg62/qIN/Zj9D7s=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Z6I0tz1J1fQsI3mDmFARErhMq3qUw4QDFk/CaaSj43vTsnnDXW6rjSEAFjXYD3CBAi9vWdaj7IHSqyZ8N3Wl56OOc0dhgjSMm3LVDYLWChiXeICk0JcQhhLpWlEKiwqs38vONHK71gawtPf6fJ0Iv15zJZrvH/SeHD/JZ8X+Qrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=jTr4PNlc; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="T3S5NMQg"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-1fc611a0f8cso38461125ad.2
-        for <virtio-comment@lists.linux.dev>; Wed, 31 Jul 2024 02:04:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1722416658; x=1723021458; darn=lists.linux.dev;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=dZ7uwU7kzTJIp0Q67ia3k5nurHjMeuGTsIvr6LnOdIo=;
-        b=T3S5NMQgd4KiAkxegu+9Mj6YAgBffIUCwm1Lo1pUYRlmU5GyXBQwOYW7UFzPheVz9G
-         aC7kReaxKAtlhkrSck+irL42tUFCBGhP5/bo6IbijytOpg6gbMW28rAdxBCY5Ow/0SnW
-         6MdrPJoHF5aK6qwuBU35exvGb2NVjrOBDQqYe0TTOxBdshfEUCk43CcHK9JARG5m48Qe
-         OCRcayKo1fLi1XdmmukRhSSrmIN5ieMoW2zb3UhkgF+IKW3h8Et2N3aPinWjmAj+p7ya
-         1LV3WhyClRPck0Q+HbzZxG2kPvU1KKAIVhp0Af34s7JyilpVJy4S11gnlx5ahMUg8/5+
-         Ms5A==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="jTr4PNlc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1722417410;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8VwhWtSd+V0tcNe68fBMu5rh9/UrYXsScmIL2bNoUvI=;
+	b=jTr4PNlcF0HUhhUoDVo2CThu6peKs9bYjOrW76x3m7FIF5/GFyEMELcpmy9X/E48wKKzZ3
+	sTi0P0Fbj33ZMGDToGfBpiPD5mwADp3e0zMOzg8TLIMvsFTS6cX947o22sP5WLk5Lq/WOe
+	ZbVBPAbSdVAA/kcDsVTdk3Yhx0GzYYY=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-120-1248lpaIPnOERdze8NOeFQ-1; Wed, 31 Jul 2024 05:16:48 -0400
+X-MC-Unique: 1248lpaIPnOERdze8NOeFQ-1
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-42818ae1a68so6719425e9.2
+        for <virtio-comment@lists.linux.dev>; Wed, 31 Jul 2024 02:16:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722416658; x=1723021458;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dZ7uwU7kzTJIp0Q67ia3k5nurHjMeuGTsIvr6LnOdIo=;
-        b=j9KU6kjC+tu2emDvZrF/4dinpNyUiSzQ8AsmFQiAmtQ5FIx83LuqVy2kthQVfBey0o
-         Useu1HFeDGpRMgZu//s6incb9PZPxmAh9WtbyA3ftVzgmzzp0E4rYow6Hj3vtKf+y5WW
-         80DTrWpXC9pSBOXTMufu4dvoefD6rB0YSwiBjVO9abMbLbcvw7DbfhefpkInQkqxBrQ/
-         AU2M8BISWXNSiqpU/j2G4EKZj9T4SszgMToBikqzvhNmHnqi0DyZbTHh7E9TKSpclJ/7
-         ivBwmarDI/xUy7b+pGpQcqxCiPI63It18eashd9kVvy/08oOfAMLNePlvtRc5bq03mdk
-         yKOw==
-X-Gm-Message-State: AOJu0YyFbuUrypwbicutucrBDdVkYsZ/WMy+OLPsjkxe5GwfB+zyN+bK
-	rzDsamnyUhLS5NjUo6j5V/VF/9izdkTBdNgDKHomUTmH2AnWh25cWftxz4rzbkU=
-X-Google-Smtp-Source: AGHT+IHolxiSMAznoGxxXG1pzDWSpSkijSzzKMx5O6HUmRTN+OkVjzkJXv++nEsXLlEjgAEtCJYfow==
-X-Received: by 2002:a17:902:e542:b0:1fb:5e2c:986c with SMTP id d9443c01a7336-1ff0489f69emr117364405ad.45.1722416657767;
-        Wed, 31 Jul 2024 02:04:17 -0700 (PDT)
-Received: from localhost ([122.172.84.129])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-1fed7ee8489sm115701045ad.148.2024.07.31.02.04.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 31 Jul 2024 02:04:17 -0700 (PDT)
-Date: Wed, 31 Jul 2024 14:34:14 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.linux.dev,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
-	Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>,
-	Matias Ezequiel Vara Larsen <mvaralar@redhat.com>,
-	Stefano Garzarella <sgarzare@redhat.com>
-Subject: Re: [PATCH V8] virtio-transport: Add a section to define mandatory
- transport requirements
-Message-ID: <20240731090414.m5hkzvq34djq6awl@vireshk-i7>
-References: <1ef4e58fdbbc2c94305aa8fac856da882da1cdc2.1722324234.git.viresh.kumar@linaro.org>
- <20240730091155-mutt-send-email-mst@kernel.org>
+        d=1e100.net; s=20230601; t=1722417407; x=1723022207;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=8VwhWtSd+V0tcNe68fBMu5rh9/UrYXsScmIL2bNoUvI=;
+        b=NQ/8nlgO+6Vk9FnmcGC2RXgPZmgZm66l74T+6F/PqzHMOBMqL7a8hnHDcQw0ulB5GQ
+         TPMxXa+QMbgPoSOqz0362pZ9VP6HyZWqdl1XYzsMKHCnYq+goxSzEPJ3kqP0K/xXH9v+
+         RfOtbmUkrG8Sd+IT1CJzXepV4A6l3WOgVOXpjGeP69on1PeO/OJTZnvYOAtNy42PpFv1
+         Q6T0Ioanu3fcUP+dUU1IqKOltm15YTeDwX+x5Ssl3XQABCCEzhS/nlE4mGab6RhmfDyQ
+         FClF7AIawVbgmrE411Rh+/i4Vb2Ml5iaO45gd2btuhAHisLtlk4OzrybCWVZ7CbmHUmy
+         QJZg==
+X-Gm-Message-State: AOJu0YwmDh65njw9N1MgEc0XvqS91hF97CTYnFLx3nRqZxC7sPJ8BRXl
+	l/djUqActcpXzVpiz/QDqlj7VjjpcvsLoFBa0B7b72A+NN4oBqV6NNbs1FBWpd1OllqhO0PLGqp
+	AHo4awtX+xYrHEn8x3vE1NZVkK2E63vNPo6CKS/HXykR2+cwp/B6n5XrlGLhrFJ3l
+X-Received: by 2002:a05:600c:1387:b0:426:6fc0:5910 with SMTP id 5b1f17b1804b1-428054feb50mr88893185e9.1.1722417407302;
+        Wed, 31 Jul 2024 02:16:47 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGj/cxz6/lTOJ2RrOm3X9apk+zhPojjKVDzHP0r2qqTeBdGFYSubRDGehpuIoIoYgxj332kNQ==
+X-Received: by 2002:a05:600c:1387:b0:426:6fc0:5910 with SMTP id 5b1f17b1804b1-428054feb50mr88893025e9.1.1722417406757;
+        Wed, 31 Jul 2024 02:16:46 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:1712:4410::f71? ([2a0d:3344:1712:4410::f71])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-36b36861b1esm16569358f8f.92.2024.07.31.02.16.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 31 Jul 2024 02:16:46 -0700 (PDT)
+Message-ID: <1a8593d0-a658-4fc6-8fc2-e0a3fdc1d5d0@redhat.com>
+Date: Wed, 31 Jul 2024 11:16:45 +0200
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240730091155-mutt-send-email-mst@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/2] virtio-net: define UDP tunnel segmentation offload
+ feature
+From: Paolo Abeni <pabeni@redhat.com>
+To: Jason Wang <jasowang@redhat.com>
+Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com,
+ Eelco Chaudron <echaudro@redhat.com>,
+ Stefano Garzarella <sgarzare@redhat.com>,
+ Willem de Bruijn <willemb@google.com>
+References: <cover.1722252302.git.pabeni@redhat.com>
+ <2977107dcc842c0665227f7c3696157ecd15a1b2.1722252302.git.pabeni@redhat.com>
+ <CACGkMEsOPcyUevsGcZeR8311-=5kGt5bRmxDQ3XGYQ3_S4Diyw@mail.gmail.com>
+ <a9a575a8-3ffe-4c0a-9ed3-4eb1174e8364@redhat.com>
+In-Reply-To: <a9a575a8-3ffe-4c0a-9ed3-4eb1174e8364@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 30-07-24, 09:14, Michael S. Tsirkin wrote:
-> Let's order it sensibly though, in the order in which stuff is used
+On 7/31/24 10:43, Paolo Abeni wrote:
+> On 7/31/24 03:57, Jason Wang wrote:
+>>>    \item[VIRTIO_NET_F_HOST_TSO4] Requires VIRTIO_NET_F_CSUM.
+>>>    \item[VIRTIO_NET_F_HOST_TSO6] Requires VIRTIO_NET_F_CSUM.
+>>>    \item[VIRTIO_NET_F_HOST_ECN] Requires VIRTIO_NET_F_HOST_TSO4 or VIRTIO_NET_F_HOST_TSO6.
+>>>    \item[VIRTIO_NET_F_HOST_UFO] Requires VIRTIO_NET_F_CSUM.
+>>>    \item[VIRTIO_NET_F_HOST_USO] Requires VIRTIO_NET_F_CSUM.
+>>> +\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO] Requires both VIRTIO_NET_F_HOST_TSO4 and VIRTIO_NET_F_HOST_TSO6, or
+>>> +   both VIRTIO_NET_F_GUEST_USO4 or VIRTIO_NET_F_GUEST_USO6.
+>>>
+>>>    \item[VIRTIO_NET_F_CTRL_RX] Requires VIRTIO_NET_F_CTRL_VQ.
+>>>    \item[VIRTIO_NET_F_CTRL_VLAN] Requires VIRTIO_NET_F_CTRL_VQ.
+>>> @@ -375,6 +385,12 @@ \subsection{Device Initialization}\label{sec:Device Types / Network Device / Dev
+>>>      TCP), VIRTIO_NET_F_HOST_TSO6 (IPv6 TCP), VIRTIO_NET_F_HOST_UFO
+>>>      (UDP fragmentation) and VIRTIO_NET_F_HOST_USO (UDP segmentation) features.
+>>>
+>>> +\item If any TCP or UDP segmentation feature is negotiated,
+>>
+>> Not a native speaker but this seems to conflict with the above. For
+>> example, does "only VIRTIO_NET_F_GUEST_TSO4 is negotiated" mean any
+>> TCP segmentation feature?
+> 
+> As per the previois comment, I'll change this in the next revision to:
+> 
+> """
+> If the VIRTIO_NET_F_HOST_TSO6, VIRTIO_NET_F_HOST_TSO4 and
+> VIRTIO_NET_HDR_GSO_UDP_L4 features are negotiated
+> """
 
-Right.
+Typos above, should be:
 
-diff --git a/newtransport.tex b/newtransport.tex
-new file mode 100644
-index 000000000000..3b760250a4c0
---- /dev/null
-+++ b/newtransport.tex
-@@ -0,0 +1,44 @@
-+\chapter{Creating New Transports}\label{sec:Creating New Transports}
-+
-+Devices and drivers utilize various transport methods to facilitate
-+communication, such as PCI, MMIO, or Channel I/O. These transport
-+methods determine multiple aspects of the interaction between the device
-+and the driver, including device discovery, capability exchange,
-+interrupt handling, and data transfer. For instance, in a host/guest
-+architecture, the host might expose a device to the guest via a virtual
-+PCI bus, and the guest would employ a PCI device driver to interface
-+with the device.
-+
-+This section outlines the mandatory requirements that a transport method
-+implements.
-+
-+A transport provides a mechanism to implement configuration space for
-+the device.
-+
-+A transport provides a mechanism for the driver to identify the device
-+type.
-+
-+A transport provides a mechanism for the driver to read the device's
-+status bit.
-+
-+A transport provides a mechanism for the driver to modify the device's
-+status.
-+
-+A transport provides a mechanism for the driver to read and modify the
-+device's feature bits.
-+
-+A transport allows one or more virtqueues to be implemented by the
-+device. The number of virtqueues is device specific and not specified by
-+the transport.
-+
-+A transport provides a mechanism for the driver to communicate virtqueue
-+configuration and memory location to the device.
-+
-+A transport provides a mechanism for the device to send device
-+notifications to the driver, such as used buffer notifications.
-+
-+A transport provides a mechanism for the driver to send driver
-+notifications to the device, such as available buffer notifications.
-+
-+A transport provides a mechanism for the driver to initiate a device
-+reset.
+"""
+If the VIRTIO_NET_F_HOST_TSO6, VIRTIO_NET_F_HOST_TSO4, 
+VIRTIO_NET_F_HOST_USO features are negotiated
+"""
 
--- 
-viresh
+Cheers,
+
+Paolo
+
