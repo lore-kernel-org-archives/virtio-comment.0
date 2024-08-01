@@ -1,55 +1,61 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABDB1E86F
-	for <virtio-comment@lists.linux.dev>; Wed, 31 Jul 2024 18:22:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C681113
+	for <virtio-comment@lists.linux.dev>; Thu,  1 Aug 2024 02:25:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1722450155; cv=none; b=gdj6st949iodzuC5rV5QLvlVaKkb3bTNBWWEaNtUC1wvSmXcTt3sHuldygyXZ/oHQR/SI17bYBJluqQ1M5J02mr/fpskfw+7muaMiYAxLzTIuLSqO8tpL8MGQKvE7xHE9vNNvSitzoJuAhdijq7tBzKXivGAytvVkCbHncTOj8U=
+	t=1722479112; cv=none; b=TUIvxoNzZaOJ/PDwtbkLA3EM7EWKDlz9w2AN3ueEElCuL+xQqMW1roDnUZOV32AyF4oVR5lzbx+JovYQ2f2kTS7Omw28fIaJ67LB4GCftmacmOQDfbn1vj7M9eYdJ1zboOp1wpwT9AfnNKI5Tq69FB2D26sks55vqN8PEBGv2Uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1722450155; c=relaxed/simple;
-	bh=Hzdcg5QGpDI2Usd4tibjTS8X2g/tbRxJQo8iDgB0PL4=;
+	s=arc-20240116; t=1722479112; c=relaxed/simple;
+	bh=HsWtB+lalqAq4pa/7dt6+Ta8YjOHVsrd1P7AVQi5eRk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=vBhFlO++DjUssegoNBbrpx/2ISIND31fxzJOm3yqhZUwuqUAXXbzVynrU0hEukSKN7FwmaHhQck9owQyAThsLX94HGWjQ1UcbcaXc9MaXz+nTfdmH45wlPLML+pRS0pFdJJGYHI04ObXXWMKEUfsQOxzmlpCCtQZDVMrR2uj2+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ftzn2HFH; arc=none smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=qaq3oER3gpXD6gAGnnbeyXLnw8odM+9OuII1PwMtV4kQST42uIVt54A9Cz4fphs0Hr5fmYXni5zYltZUzqctl4SAgFooUezrB+tlY1DnxrNP3b7WtK5ZW+1m4eQ5APedE9C3vvNxBkcZyXY04HhOVjKIWCpt1blF4q6TB8iQHGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QH1fnrxX; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ftzn2HFH"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-44fe76fa0b8so410061cf.0
-        for <virtio-comment@lists.linux.dev>; Wed, 31 Jul 2024 11:22:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1722450153; x=1723054953; darn=lists.linux.dev;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DkZrPtD6q/LoRU9JVesam2HHzoILQ1FGTJATKTzpNO8=;
-        b=ftzn2HFHDmeNrxs1dumM5ALtN1mnajDQfJW6szjUfe84GTPzC4SjVTsKp+Dt89C7oS
-         gI+GRngeUUTS9d9RbXnoLeWJrWUm+uhsKkLAc0d3wWFpW1nrgEQgsQhjtvdaIX2ZlCLf
-         +kUz4hBUUzahOORiWqsaJt80cYCO1FlGhhSYTLoDIO/cZPPduozSIR0TTsfA4sRtSPz9
-         nl6HVW8bmarNY6EN/fNz6zLpzHn7KW2QpNiJLPD+aGHH12wZPk6GJEbAJSPvCjgpfYsK
-         /v+Jf0Llt+9iV6Ve2gAFENgVdEzNhPvyoiOO36VJjmrlHlCRdK/z7aQt/vZmwQg7kyVl
-         Pjhw==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QH1fnrxX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1722479108;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tk7f52MyX0BYbsHBvqdHolNrvvI4koXN1yjaA1o+Ptw=;
+	b=QH1fnrxXMZfUYyo5j9eMsc2r0YKRGdQ5jM5GYQnFQ1sBi5NYF2UwR9OK8nu8J8S0oMCHHc
+	Hhg73VLZHOc96u386x2J52vPDPsx2zYK0zygG/6Z1VK+RfxqMScQ85c8+zAkoSVPBxu3c8
+	Di5xAt8klEaepJ11lxSc1MC/9AnOHiU=
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-619-iwLIy709N9OwW4nl4vGERQ-1; Wed, 31 Jul 2024 22:25:06 -0400
+X-MC-Unique: iwLIy709N9OwW4nl4vGERQ-1
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-2cfe9270d82so365640a91.3
+        for <virtio-comment@lists.linux.dev>; Wed, 31 Jul 2024 19:25:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722450153; x=1723054953;
+        d=1e100.net; s=20230601; t=1722479105; x=1723083905;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=DkZrPtD6q/LoRU9JVesam2HHzoILQ1FGTJATKTzpNO8=;
-        b=AWl5HxXvKWrd1TFXBi9VjVeDmycHvOA2uufK145usbjV12v5OvWyMazcAw2FkdvGp/
-         FT9jdT5wbtANtODOBjTvJcfrPhawBEM1iNejvrFQh7V4ZJPQNw1aEazWAJAzAf4nZbZF
-         AW9/B1EHPN0gm3nRwBMsqDI+r/vbj6UGVy3rRCZfztUvQ8lxrG1MuUAJk9zmxFWfl9O3
-         IpsIkpgnLi2jvW2uzBVQudN1HJu6eNeO0TiF1Sk09++GgxMmf4S9I2JWnDyFuo8JqUzN
-         GpqCNeaopwA5w/qs/QQAtmR8wX/ewwvqGonYE57mDWaGFljm+d7kvgqofGaSuH5eWJxs
-         WMNQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUuq9fDt2uumvbhUDGkG/lIjpb7dG91wVklQPwM3hQHdG60vDyo4fNCDCkeQGlbQGQVUjFIMNPl5zo70kD9x9FrdrXGrJR699Ynsiswpho=
-X-Gm-Message-State: AOJu0YzeTOpAzxnN2wy9IYCp6GhdcDxVZWoIQBY4HbVlUEqzeUf4jrlx
-	Yn1bXllyW619t7o7B9DjzJxMiSmS0wDB2YoX3RYB0LKcLn8Dxi7lZoHnSfAStIWWsrRPCfOmgYl
-	LrYwTDWMJIVpBQ6PTqtXApDQWbdTtENMOBMSK
-X-Google-Smtp-Source: AGHT+IFyWOOsc+PWsIPnYnXwGH3iJIr401sB7T9KEqFQsUt4owohTU2e7fogbAEXD5lzWFTc1tpW7iAdwRkNc6u1hds=
-X-Received: by 2002:ac8:7dc5:0:b0:447:e04d:51b1 with SMTP id
- d75a77b69052e-4504314cff8mr4249431cf.11.1722450152750; Wed, 31 Jul 2024
- 11:22:32 -0700 (PDT)
+        bh=tk7f52MyX0BYbsHBvqdHolNrvvI4koXN1yjaA1o+Ptw=;
+        b=FCRrynWSPM0uPlW6CJnIvPO4+/z4zJk2nBaIZbIJ835Sk/qNCCSCPoyCmzDrWJGBKA
+         GqsMIQ0sXw9fMXlP4n19Wb8n3MF31JpDPE6FKQIogymoprUkJ7IFzDcrjCPn7kpDkFqu
+         l+T8DkUXBJB2TsDMpL9D2rMzT+GNyjtSQsS2iJFneqNFlxx9toUc1l8eq+PisM62beEL
+         7oApLCERGipLLVOukG/a1rDdPrzMYrlZhV9hWCOxIDhulX5uPJniHe1qAfE003BSOFpp
+         4oOPsIMffhRJem/UIhVvWbUWwbvAqbB6tGn3XEibwgGfvU8duSLKMO/zrORfdzIExxQc
+         wV9g==
+X-Forwarded-Encrypted: i=1; AJvYcCXMXHYXVHYr59zhaNHtOdFhc8nc2s7ZBxjXQoE82xzh2zTGHdK3yo0YKkBfjHRI2fxVSdhCpjHLgrQkjW93TKjaq20vgGCv1FMzBhcV15Q=
+X-Gm-Message-State: AOJu0YxDcb6JXADqXlGU9CjvJzXQt6E/QJWHedAK+RWOiDPmuCa2B8O6
+	iXhiXgcnM1AJ/A39envLYnKgYkMEn+s7fwJS8Bxl1xr1gVAFJTM2Iwi6gU3816E9fkLZszAxejl
+	wNnvUIUHI1E5CsoeqPx9/O/odB3qZgi4TROvcUTdlquNnF65l1DfPhBcmFcPod8ZU3TbHR8sm4R
+	h2f5D60Et4Iyc00vOfPbZIsE0BGBEnn9SZwfkUxLM1QmfAVzLAOutd
+X-Received: by 2002:a17:90a:7081:b0:2c9:719f:b04b with SMTP id 98e67ed59e1d1-2cfe7b6fd0cmr1312689a91.29.1722479104994;
+        Wed, 31 Jul 2024 19:25:04 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHX8l8QpTi4pK27JZB8n8B8npkax58G2g4Jc+k2SUfq/4AfhQr3wUq/MUD40GiGSOT/miGpGFt1qdUIdLbMYZo=
+X-Received: by 2002:a17:90a:7081:b0:2c9:719f:b04b with SMTP id
+ 98e67ed59e1d1-2cfe7b6fd0cmr1312664a91.29.1722479104387; Wed, 31 Jul 2024
+ 19:25:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -59,132 +65,139 @@ MIME-Version: 1.0
 References: <cover.1722252302.git.pabeni@redhat.com> <2977107dcc842c0665227f7c3696157ecd15a1b2.1722252302.git.pabeni@redhat.com>
  <CA+FuTSfu8Sys_s+3jpXoS0GbZC4stOVgBrEYOtA9YoTCEJkJAA@mail.gmail.com>
  <d79c4ed9-c1d5-4c9c-9f10-661745edf96c@redhat.com> <CACGkMEu6dnKOgYVYRWKadXirnk4R6Rc16ojNR=oSX-a22Rt4OA@mail.gmail.com>
- <CA+FuTScr26P+QtPfWKzD1zzadKiZ3zRs75KC1ycexdQRAQ0XuQ@mail.gmail.com> <56d62e5a-b7df-43f7-8878-517505345529@redhat.com>
-In-Reply-To: <56d62e5a-b7df-43f7-8878-517505345529@redhat.com>
-From: Willem de Bruijn <willemb@google.com>
-Date: Wed, 31 Jul 2024 14:21:52 -0400
-Message-ID: <CA+FuTScunTfXGzpEFEgZcv3FKSzVwSK0vhuO61a=Ui2HybTsJw@mail.gmail.com>
+ <CA+FuTScr26P+QtPfWKzD1zzadKiZ3zRs75KC1ycexdQRAQ0XuQ@mail.gmail.com>
+In-Reply-To: <CA+FuTScr26P+QtPfWKzD1zzadKiZ3zRs75KC1ycexdQRAQ0XuQ@mail.gmail.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Thu, 1 Aug 2024 10:24:53 +0800
+Message-ID: <CACGkMEvRp6Mf7cXV6dJyrMXh3SoH_m16J61bWZ9pKce-kr1PxA@mail.gmail.com>
 Subject: Re: [PATCH v6 1/2] virtio-net: define UDP tunnel segmentation offload feature
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: Jason Wang <jasowang@redhat.com>, virtio-comment@lists.linux.dev, 
+To: Willem de Bruijn <willemb@google.com>
+Cc: Paolo Abeni <pabeni@redhat.com>, virtio-comment@lists.linux.dev, 
 	maxime.coquelin@redhat.com, Eelco Chaudron <echaudro@redhat.com>, 
 	Stefano Garzarella <sgarzare@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 31, 2024 at 1:32=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> wro=
-te:
+On Wed, Jul 31, 2024 at 10:26=E2=80=AFPM Willem de Bruijn <willemb@google.c=
+om> wrote:
 >
-> On 7/31/24 16:25, Willem de Bruijn wrote:
-> > On Wed, Jul 31, 2024 at 12:11=E2=80=AFAM Jason Wang <jasowang@redhat.co=
-m> wrote:
-> >> On Tue, Jul 30, 2024 at 3:33=E2=80=AFPM Paolo Abeni <pabeni@redhat.com=
-> wrote:
-> >>> On 7/29/24 23:04, Willem de Bruijn wrote:
-> >>>>> @@ -423,6 +441,9 @@ \subsection{Device Operation}\label{sec:Device =
-Types / Network Device / Device O
-> >>>>>            le32 hash_value;        (Only if VIRTIO_NET_F_HASH_REPOR=
+> On Wed, Jul 31, 2024 at 12:11=E2=80=AFAM Jason Wang <jasowang@redhat.com>=
+ wrote:
+> >
+> > On Tue, Jul 30, 2024 at 3:33=E2=80=AFPM Paolo Abeni <pabeni@redhat.com>=
+ wrote:
+> > >
+> > > On 7/29/24 23:04, Willem de Bruijn wrote:
+> > > > You have a working software implementation, right? Will this be sen=
+t
+> > > > (as RFC) to the public netdev or so mailing list before this become=
+s a
+> > > > standard? I assume that there is a standard process for virtio that
+> > > > you are following. I'd just be more confident in a thumbs up if we
+> > > > also review the code that implements the text.
+> > >
+> > > My plan is to write the S/W virtio_net implementation, too, but it's
+> > > currently not ready. I had a working PoC for the first draft of this
+> > > changeset, long time ago. Things are changed enough that I'll need a
+> > > rewrite. I can try to shared such a thing on netdev ASAP (where "soon=
+"
+> > > here is a very relative terms ;)
+> > >
+> > > Also I don't know the standardization process. I hope for some guidan=
+ce
+> > > from Jason and/or Michael.
+> >
+> > It should be something like this. When there's no future comment, open
+> > an issue https://github.com/oasis-tcs/virtio-spec/issues and ask for a
+> > vote. When it passes the voting, it would be merged.
+>
+> So changes to the spec can be merged, because we know that they can be
+> implemented reasonably?
+
+This seems to be how it works now.
+
+>
+> IETF always requires (two, because interoperable protocol definitions)
+> working implementations.
+>
+> It sounds a bit risky to me to skip this, as you come across the interest=
+ing
+> non-obvious details during implementation.
+>
+> Since implementation is planned anyway, doing at least a rough proof of
+> concept first does not introduce extra work, but reduces risk that the sp=
+ec
+> contains errors.
+
+Exactly and we have already had qemu which fits for that purpose. A
+lot of hardware was prototyped in that way (for example, rocker fbnic
+etc).
+
+>
+> Unless it is easy to update the spec before it is numbered and finalized.
+> Then issues can be fixed up.
+>
+> Anyway, you have gone through this many times, so whatever the process
+> is, I trust that it works. Just sharing my thought as a somewhat uniforme=
+d
+> reader.
+
+I fully agree with you. In the long debate of the live migration
+series, I point out we need a prototype for features that requires
+huge changes. But I don't get sufficient feedback for that.
+
+>
+> >
+> > >
+> > > >
+> > > >> @@ -423,6 +441,9 @@ \subsection{Device Operation}\label{sec:Device=
+ Types / Network Device / Device O
+> > > >>           le32 hash_value;        (Only if VIRTIO_NET_F_HASH_REPOR=
 T negotiated)
-> >>>>>            le16 hash_report;       (Only if VIRTIO_NET_F_HASH_REPOR=
+> > > >>           le16 hash_report;       (Only if VIRTIO_NET_F_HASH_REPOR=
 T negotiated)
-> >>>>>            le16 padding_reserved;  (Only if VIRTIO_NET_F_HASH_REPOR=
+> > > >>           le16 padding_reserved;  (Only if VIRTIO_NET_F_HASH_REPOR=
 T negotiated)
-> >>>>> +        le16 outer_th_offset    (Only if VIRTIO_NET_F_HOST_UDP_TUN=
-NEL_GSO negotiated)
-> >>>>> +        le16 inner_protocol_type;(Only if VIRTIO_NET_F_HOST_UDP_TU=
+> > > >> +        le16 outer_th_offset    (Only if VIRTIO_NET_F_HOST_UDP_TU=
 NNEL_GSO negotiated)
-> >>>>> +        le16 inner_nh_offset;   (Only if VIRTIO_NET_F_HOST_UDP_TUN=
-NEL_GSO negotiated)
-> >>>>>    };
-> >>>>
-> >>>> In relation to the above: I recall that expanding the virtio_net_hdr
-> >>>> was non-trivial when I last tried to add fields ("[rfc,2/3]
-> >>>> virtio-net: support receive timestamp"). If that is the experience
-> >>>> again, it might be worthwhile to expand with enough space to also
-> >>>> accommodate a few subsequent extensions. Headroom is not that
-> >>>> expensive.
-> >>
-> >> Yes, but it looks like an independent issue for this.
+> > > >> +        le16 inner_protocol_type;(Only if VIRTIO_NET_F_HOST_UDP_T=
+UNNEL_GSO negotiated)
+> > > >> +        le16 inner_nh_offset;   (Only if VIRTIO_NET_F_HOST_UDP_TU=
+NNEL_GSO negotiated)
+> > > >>   };
+> > > >
+> > > > In relation to the above: I recall that expanding the virtio_net_hd=
+r
+> > > > was non-trivial when I last tried to add fields ("[rfc,2/3]
+> > > > virtio-net: support receive timestamp"). If that is the experience
+> > > > again, it might be worthwhile to expand with enough space to also
+> > > > accommodate a few subsequent extensions. Headroom is not that
+> > > > expensive.
+> > >
 > >
-> > If this change requires new headroom, then it depends on headroom expan=
-sion.
-> >
-> > My suggestion is to then expand it significantly immediately, to minimi=
-ze the
-> > number of times we have to change the virtio_net code to support new le=
-ngths.
-> >
-> > We already have structs virtio_net_hdr, virtio_net_hdr_mrg_rxbuf,
-> > virtio_net_hdr_v1, virtio_net_hdr_v1_hash.
-> >
-> > Adding a new struct with every new field added just adds lots of churn =
-in
-> > the code.
-> >
-> > Just a thought, feel free to skip if the maintainers disagree.
+> > Yes, but it looks like an independent issue for this.
 >
-> I just read the old thread WRT virtio net timestamping.
+> If this change requires new headroom, then it depends on headroom expansi=
+on.
 >
-> If we reserve additional headroom space for timestamping here, such room
-> will be available only if UDP_TUNNEL is negotiated, which sounds a bit
-> counterintuitive to me.
+> My suggestion is to then expand it significantly immediately, to minimize=
+ the
+> number of times we have to change the virtio_net code to support new leng=
+ths.
 >
-> I *think* ideally we want a separate virtio net feature for that?
+> We already have structs virtio_net_hdr, virtio_net_hdr_mrg_rxbuf,
+> virtio_net_hdr_v1, virtio_net_hdr_v1_hash.
+>
+> Adding a new struct with every new field added just adds lots of churn in
+> the code.
+>
+> Just a thought, feel free to skip if the maintainers disagree.
+>
 
-Fair point. Agreed that extra headroom should not be dependent on this feat=
-ure.
+I think I agree with that, but I meant it's better to not make UDP
+tunnel series depending on that.
 
-> Regarding the virtio_net_hdr parsing complexity increase, I think we
-> should add to the uAPI a struct containing only the new fields, e.g. for
-> UDP tunnel:
->
-> struct virtio_net_udp_tunnel {
->         __virtio16 outer_th_offset;
->         // eventually __virtio16 inner_protocol_type;
->         __virtio16 inner_nh_offset;
-> };
->
-> At feature negotiation time both the drivers and the device compute the
-> offset inside the virtio buffer where such struct is placed:
->
-> if VIRTIO_NET_F_HASH_REPORT is negotiated such offset is sizeof(struct
-> virtio_net_hdr_v1_hash) elsewhere is sizeof(struct virtio_net_hdr_v1)
->
-> At rx time, struct virtio_net_udp_tunnel() is parsed from the above offse=
-t.
->
-> With all the above in place, for every additional later feature we add
-> just a struct definition and the virtio_net header parsing complexity
-> scales linearly.
+Thanks
 
-Sounds good to me.
-
-> >>> If we would have VIRTIO_NET_HDR_GSO_UDPv4_L4 and
-> >>> VIRTIO_NET_HDR_GSO_UDPv6_L4 variants, we could avoid entirely
-> >>> 'inner_protocol_type', as the network protocol will be implied by the
-> >>> GSO type itself.
-> >
-> > But that's too late now? Probably don't want to make this work
-> > depending on such a change.
-> >
-> > I don't entirely recall why we did not do that immediately. Perhaps
-> > it is related to also only having SKB_GSO_UDP_L4.
->
-> I reached the same conclusion here:
->
-> https://lore.kernel.org/virtio-comment/cover.1722252302.git.pabeni@redhat=
-.com/T/#mac694da6e907451d5529116a97510c940bf2edd9
->
-> What about reserving an additional bit in gso_type to specify the inner
-> network header protocol?
-
-Similar to VIRTIO_NET_HDR_GSO_ECN?
-
-Is that preferable over VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IP4 and
-.._UDP_TUNNEL_IP6 variants?
-
-And to parsing just this one byte (or nibble) from packet data using
-inner_nh_offset?
-
-If it's the best of those options, no objections from me. Definitely
-no need for a u16 if the only options are IPPROTO_IP and IPPROTO_IPV6.
