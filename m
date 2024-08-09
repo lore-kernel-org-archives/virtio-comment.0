@@ -1,208 +1,128 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447AB18C93F
-	for <virtio-comment@lists.linux.dev>; Fri,  9 Aug 2024 13:17:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993E2194C86
+	for <virtio-comment@lists.linux.dev>; Fri,  9 Aug 2024 14:04:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1723209445; cv=none; b=UTuAfuthvseV2Nw5uF9xm72KQf3gkbzpZWt5DXXi78NTtBEbJBsFwvWxJD0GloGmeJNsVQJr532ep8BaZF82Ufj8LOuY6pFiLObSROTqMlQHc8Hqf2ltbblbcw+/PxBRQRGPYrFMkTA5Yz84DMA8SZb4L/VrU/KN+XhsQ2AhI94=
+	t=1723212264; cv=none; b=lSIFzNmALtWyIF0mNX7qyr4cJcHd/nhkHqAQH5GvrYu6MH9tByo9k3KSvzyRX2woZGXepiBzIe5UsFUirvOXkyl7oWY4NViGlaU7dnYw3uZIwSQKDnQSU9G4IVOPWlSzfJykFuVNreUnBWKUtr8J4MfS5JJ0otzwloMbWyfgQYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1723209445; c=relaxed/simple;
-	bh=mFNGZradK3uNq3nGlbkDhPRiIIwpbkPXew6A3OhXPb8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=d6ESpiDPLB7tk7LXJYrSnAIp29pltT6ylYuGphP6Y4u1d5Fv9h1Hb3axeintu6W4CWnVejTZ/+/qM+28WaO5CRW93zXsroqdeJzC9nKMW9y34jK2hjfGROJkDPOEgvBXUmG2yvYaERwlaLc0wuddnFmfovncVT9YzN7Wm6uwf/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=rnNYS6aG; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	s=arc-20240116; t=1723212264; c=relaxed/simple;
+	bh=QA0P2ghyluGIFeYFR4EcQC/+nWguPOE+tSPDDftc+4c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=t5aUxC96JQ69fOUIhotiDlyqImC5sGG8I2OVCGlxQPN2IExlKeHitBJQJNDgc93wyISk0/RVPw7RViO58It0MqpNNUhx7AFEegMGS/m5qDU5DoWsNAYskJ3xFo+i6eOP05rft2PqJGp7yx3wOxUeGbQA8/tUjISRvs5HCzQ1wnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=U8hJLVn7; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="rnNYS6aG"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=mFNGZradK3uNq3nGlbkDhPRiIIwpbkPXew6A3OhXPb8=; b=rnNYS6aGTbVApyapNoqkXIUcW8
-	NfpWo4aw/OKfpXiZ+MUWyfAqR6P5kYh/SrJhr0NGXoyHBPYArihNhNWtHTHfmqFKTp2/PNCQe9+HG
-	OGKHvo9pxL13thJYVLmdoUYYY8+az5ivdwxTz8NIniEnZxzF7nfjkILyDIJKdO4u4o3E1neTVZuAU
-	Rm6VnOhuf8XnXzOY7vy0eYHk24JDJwv6EgYgHx3CqxER/nItvJxzW6dds2ki6GC8Q4pOUOfQjCfsX
-	MVedvl/ELenHRpQ29P/SqNjYKmB1+Ii723L5He3PoyI7TNTW7/BIGSVS5W/OnJWAm/pwbU0abw0PR
-	GUiPwB2A==;
-Received: from [2001:8b0:10b:5:15dd:e681:d811:cd64] (helo=u3832b3a9db3152.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
-	id 1scPUa-0000000Aaa9-2scH;
-	Fri, 09 Aug 2024 13:17:16 +0000
-Message-ID: <743aa4e5a0fd7b0688b5da87bb03533429515f8c.camel@infradead.org>
-Subject: Re: [RFC PATCH v4 5/5] virtio-rtc: Indicate leap seconds and clock
- performance
-From: David Woodhouse <dwmw2@infradead.org>
-To: Peter Hilber <peter.hilber@opensynergy.com>, 
-	virtio-comment@lists.linux.dev
-Cc: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>, 
- Jason Wang <jasowang@redhat.com>, "Ridoux, Julien" <ridouxj@amazon.com>,
- "Luu, Ryan" <rluu@amazon.com>,  "Chashper, David" <chashper@amazon.com>
-Date: Fri, 09 Aug 2024 14:17:16 +0100
-In-Reply-To: <43a6f5c9-22e0-43b0-810a-277bb0c7a543@opensynergy.com>
-References: <20240522170003.52565-1-peter.hilber@opensynergy.com>
-	 <20240522170003.52565-6-peter.hilber@opensynergy.com>
-	 <3935e6c2b4b73968d0c4728a3c1f429f121609e7.camel@infradead.org>
-	 <668b681a-8025-49eb-a75a-7dac4fff8b56@opensynergy.com>
-	 <41c09f2bd37bd476ce9e1582cfca1d2ba16a1a59.camel@infradead.org>
-	 <20483787-62df-4ca6-868f-71b4d4898323@opensynergy.com>
-	 <b1645fa81d693b899430f7210ae1cab7d28dbc1e.camel@infradead.org>
-	 <85c93b42-41a2-42c4-a168-55079bbfff71@opensynergy.com>
-	 <04b017a0bc97700ad1e6770c2c3d458d2f25708e.camel@infradead.org>
-	 <16892c87-c527-4a98-9546-9ddbbfd062ca@opensynergy.com>
-	 <b9ee8fadb55b4124a34bb9e6736390c470661ac5.camel@infradead.org>
-	 <43a6f5c9-22e0-43b0-810a-277bb0c7a543@opensynergy.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-PYWJmVtNk0cGL+W5Rb3I"
-User-Agent: Evolution 3.44.4-0ubuntu2 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="U8hJLVn7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1723212261;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=M/kbtTEdVb4mdxl0JanrPF8+4eKkFbt9dPVbOy/Xi4c=;
+	b=U8hJLVn7/oeDqqSzU33t8Cqsncm7LO464C2L2VjUWWLdunAy5xI1cRxtHPVvxCQBjDXhkw
+	rkPIJpnAXu69eZUDTkJQeFhpWxPW3hDGwud4+kC/L7Hu9+5TWXQAWZa0TjV7GLbxLdAGTY
+	n562hAV36PRytvxIPk/9bGxeiXU9uKE=
+Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-630-X7KobqjNPKaFRPwECFSNzQ-1; Fri,
+ 09 Aug 2024 10:04:20 -0400
+X-MC-Unique: X7KobqjNPKaFRPwECFSNzQ-1
+Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 823FB1955F3D
+	for <virtio-comment@lists.linux.dev>; Fri,  9 Aug 2024 14:04:19 +0000 (UTC)
+Received: from rh-jmarcin.redhat.com (unknown [10.45.225.121])
+	by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0BA951955D58;
+	Fri,  9 Aug 2024 14:04:17 +0000 (UTC)
+From: Juraj Marcin <jmarcin@redhat.com>
+To: virtio-comment@lists.linux.dev
+Cc: Juraj Marcin <jmarcin@redhat.com>
+Subject: [PATCH] virtio-mem: introduce VIRTIO_MEM_F_PERSISTENT_SUSPEND
+Date: Fri,  9 Aug 2024 16:03:56 +0200
+Message-ID: <20240809140403.484556-1-jmarcin@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
+Before, the behavior while suspending to a deep sleep state and waking
+up was not specified. For example, in x86 QEMU VM all devices receive a
+reset request during wake-up. This would lead to unplugging of all the
+plugged memory blocks. Due to this, suspending is disallowed in the
+Linux Kernel, when plugged memory is present and
+VIRTIO_MEM_F_PERSISTENT_SUSPEND feature flag is not advertised by the
+virtio-mem device.
 
---=-PYWJmVtNk0cGL+W5Rb3I
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This new flag should signal to the guest driver, that the device can
+correctly suspend to a deep sleep state and then wake up without
+disrupting the plugged memory blocks. This feature flag is already
+supported in the Linux Kernel [1] and should be soon also supported in
+QEMU [2].
 
-On Fri, 2024-08-09 at 14:50 +0200, Peter Hilber wrote:
-> On 19.07.24 10:40, David Woodhouse wrote:
-> > Did you just say OK to two different alternatives? Can we take the
-> > first; just stick with u8 for both fields as we'll never need any more?
->=20
-> I intended to say OK to the first alternative, and to define the counter
-> value 0xFF as VMCLOCK_COUNTER_INVALID resp. VIRTIO_RTC_COUNTER_INVALID.
+[1]: https://lore.kernel.org/all/20240318120645.105664-1-david@redhat.com/
+[2]: https://lore.kernel.org/all/20240806160756.182524-1-jmarcin@redhat.com/
 
-Great, I think I had come to that conclusion myself, and that's what
-I've put into the "final" Linux=C2=B9 and QEMU=C2=B2 submissions, as well a=
-s
-shipping to production for my internal early adopters to test with.
+Signed-off-by: Juraj Marcin <jmarcin@redhat.com>
+---
+ device-types/mem/description.tex | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Obviously it's all versioned so if we *do* end up having to change
-something for the final virtio-rtc spec, then we can cope with that.
-But I'm aspiring not to have to.
+diff --git a/device-types/mem/description.tex b/device-types/mem/description.tex
+index 0a6d558..5bff24c 100644
+--- a/device-types/mem/description.tex
++++ b/device-types/mem/description.tex
+@@ -60,6 +60,8 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Device / Feature bits}
+ access unplugged memory. \footnote{On platforms with memory properties that
+ might get modified implicitly on memory access, this feature is expected to
+ be offered by the device.}
++\item[VIRTIO_MEM_F_PERSISTENT_SUSPEND (2)] The driver can allow the guest
++system to enter suspended state (deep sleep, suspend-to-RAM).
+ \end{description}
+ 
+ \subsection{Device configuration layout}\label{sec:Device Types / Memory Device / Device configuration layout}
+@@ -174,6 +176,9 @@ \subsection{Device Initialization}\label{Device Types / Memory Device / Device I
+ The device MUST NOT modify memory or memory properties of plugged memory
+ blocks during device reset.
+ 
++The device SHOULD offer VIRTIO_MEM_F_PERSISTENT_SUSPEND if the platform
++supports suspending (deep sleep, suspend-to-RAM) with plugged memory blocks.
++
+ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Operation}
+ 
+ The device notifies the driver about the amount of memory the device wants
+@@ -268,6 +273,9 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
+ memory blocks to unplug them, or it would not be able to make use of
+ unplugged memory blocks after plugging them (e.g., alignment).
+ 
++If VIRTIO_MEM_F_PERSISTENT_SUSPEND has not been negotiated, the driver MUST NOT
++allow the guest system to enter a suspended state (deep sleep, suspend-to-RAM).
++
+ \devicenormative{\subsubsection}{Device Operation}{Device Types / Memory Device / Device Operation}
+ 
+ The device MUST provide the exact same memory properties with the exact same
+@@ -293,6 +301,10 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
+ 
+ The device SHOULD unplug all memory blocks during system resets.
+ 
++If VIRTIO_MEM_F_PERSISTENT_SUSPEND has been negotiated, the device MUST NOT not
++change the state of memory blocks when suspending or when waking up from
++suspended state (deep sleep, suspend-to-RAM).
++
+ \subsubsection{PLUG request}\label{sec:Device Types / Memory Device / Device Operation / PLUG request}
+ 
+ Request to plug consecutive memory blocks that are currently unplugged.
+-- 
+2.45.2
 
-Thanks!
-
-=C2=B9 https://lore.kernel.org/lkml/e3164fc80e21336cbf13e24f98c9e5706afb77a=
-b.camel@infradead.org/
-=C2=B2 https://lore.kernel.org/qemu-devel/bc85aba60523e0d63e760d5143c5cb576=
-88779d1.camel@infradead.org/
-
---=-PYWJmVtNk0cGL+W5Rb3I
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwODA5MTMxNzE2WjAvBgkqhkiG9w0BCQQxIgQggOXME1E4
-VVv1Y6LM28FNrfdB74+bTG1fEzzxJaxTEp4wgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBLoW09TysacA55Uk1baTdy2mb7qpbZ0Yyx
-5llb+oicqERB6EVA8r2fdH8Dr8QuiNfzXqIZ2m+mpzn0QjaNXOlLG+eA+hTE8oAj/HGnaOvO3qhC
-YTuQ6SduKVy1+j6Nzt1qCPoARW1Kwj7GAVAJYLrgw93XOv6x2KP0CHQt+3ynkgBOuXe/omYrlZoe
-rnXO54RyeiYLB7Wq7ytvkLrWPHXZQXjO6akFXpWLzXXcCkclV8F6cLHQ6PWPD/ig8O/xcoZRqU1f
-l0qfHSjTMidFRMc+HnVZj2UXWXV1+l9icjGKlsp75sI2+r0dJAPiFVea2wkvudIz51ulixWFdfUO
-UYJ2SUFiF8XwmsPDH+TYaXVm5r0sF4RmIJ2IPLAwysbbhg4FYDjxcDJUs29JmFpP2uzK1Cbgl6FN
-GUtJDgmp9lCdcBWFvrSiRfzHaERpaUEhHtrsQOzKE2Vf5fVADruHxjyjBU53naa1sokOp8CTFVMp
-3yKxcV6uRJk74z3WEHj0wgaBwDuteozD0QzNvw6ZqWj3KRWdfd84F7gIatpjjyZtqpHUxesZor+5
-AAjy2PKbFA3Tx4inFzpoLxIUcsAgyoHPI0j1hzdzFYQDFDcdSeZG0OqYAlxDrY/yHQBW+T0LnM8u
-O16PtqQtR1VxlpQ7Co3v7Ri1jQt6kbXtZGaJRWNuTAAAAAAAAA==
-
-
---=-PYWJmVtNk0cGL+W5Rb3I--
