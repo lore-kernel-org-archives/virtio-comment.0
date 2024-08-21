@@ -1,204 +1,204 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E790E15B134
-	for <virtio-comment@lists.linux.dev>; Wed, 21 Aug 2024 13:30:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF901D131A
+	for <virtio-comment@lists.linux.dev>; Wed, 21 Aug 2024 18:31:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724247041; cv=none; b=qf9GZIjEfx905/U8Fqkgzr93AkD3q/a2bhWLwBhv1hhir7tjLNYQq/msMCt2TrD/xFkzWxGVazdWZBHgJ3ZK5y6pN0FngROpqmeisYN3LcaYBWpMnybMdcW0t+rM9gqzyj61GZ2Yv2Tji267qBI4qzF9s3LS+1p/avhj2hzxhpo=
+	t=1724265081; cv=none; b=twTi5AWUs+TfeGBrJhrgeazp9cgcUo+1SkAfmCyVUwp2eoPgHpj/8BXnT/iUM5e/AWG5FL5OaX1G3HH0d1kDPyjCvgWR0lYrBSPREEYGVczYyR5YHKXKR3sozhSbP6nI6fhACVqiLMqL+TXTf5XOdKg5WA39zJgq8q3VIoQhnpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724247041; c=relaxed/simple;
-	bh=4iGFORjv002wZ2+SqMMgjM2330/pfCF+Z4Ia4yzqp44=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=Udd8zwUx1vF6t7qZHN2FHNu+6IExwQPGCc2Q65LQaksLgNLGw9KnprzYBhb/PcYhYR20EFhrO2Bzhl2fhOUooLl0nt+Hhqrg2YyZCDJDCd7POJYD+Sj1TK0/CpDPmY8gfUjEZrPSy7sJypjUAn7YLiAPLqAxcLZXMCqMyr2UNBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=i/PdKwUa; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1724265081; c=relaxed/simple;
+	bh=6ARKeN32Snarn5ij0pJKShjQTgaanuGNjYGjB5jNBnM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=BbdOkFA66/a+WbIdLE+7Hu+X9bdfnoaol6zX55zSG1V1cz3iDNtlmuSAHBhUhGClrqPfVeffQ8cGRZ8ikzPYjQPc4mS/u0aEVJlgqnIa73udL3PJu6YOQz9Ec3JsNTI+PEv6ArZxizgneExRetXopPFFyv77vZHPIgUidGrzztU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CtfuftLr; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="i/PdKwUa"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CtfuftLr"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1724247038;
+	s=mimecast20190719; t=1724265078;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=enKH8cGw+po7iihEyakdBw/+qLWiYB60l1wPgbGmCTc=;
-	b=i/PdKwUa7En+CxwnZXY9Yh3StRU/0x7kfVG6Ab/j/G1KeWMFl9zT2cfTKYVeLfPyxkY93s
-	ziyRTGNzI3memdfyji5BdFP9p0Vc+/EDrMMRhcbN0/LXdEeJ4NU7J4ojgfcHKJIr1ufJ5J
-	iEWTLArz33Fcbo3hL2rZH2jihvECLoU=
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
- [209.85.210.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=SmSrlTRBO6FHqk5O8R9UuvLwHhfq0KVVSezsn6owxNk=;
+	b=CtfuftLrV6dQevUfIs7PpCMIIIosHFyGuPcVjCoIRD8J0hosW6B4BO313bX/plBMl7B82v
+	kKdsOM5ayqa9HDOKs0wKfLm3jgOGhxgMiMxKZtxKqFRWlPUUFTepQy7SW7yqRFL8Huw3X2
+	/kgWKni/oU5y/062SCIQaNYPDCtS0K0=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-48-Vg9_ruWROIuKWLAvkSuv1w-1; Wed, 21 Aug 2024 09:30:37 -0400
-X-MC-Unique: Vg9_ruWROIuKWLAvkSuv1w-1
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-70941ab4a01so6700267a34.1
-        for <virtio-comment@lists.linux.dev>; Wed, 21 Aug 2024 06:30:36 -0700 (PDT)
+ us-mta-398-FV79b3MzNbW5czSSRjRmDA-1; Wed, 21 Aug 2024 14:31:15 -0400
+X-MC-Unique: FV79b3MzNbW5czSSRjRmDA-1
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4280b119a74so55522205e9.3
+        for <virtio-comment@lists.linux.dev>; Wed, 21 Aug 2024 11:31:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724247036; x=1724851836;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1724265074; x=1724869874;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:from:references:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=enKH8cGw+po7iihEyakdBw/+qLWiYB60l1wPgbGmCTc=;
-        b=cuZIN8lKtGWLhQR/w21yBS9m4+xWuuk54pqSwbzHgwl4um0Jxssax92BGR4er/YX2C
-         h7sWy22+oSOH7kW7slQIQZmZ8QVU73c55y3SmN03Y3ONCvN/4WyKIbBjldaAgRGcBKeD
-         z2KbDJ3IUlGqdmBdhuQXk0/xDNV9WBTbSs1pZlvT4j59WuMdjKkKSSnMw6l7AqG4GjgD
-         ySTr1fDCHcrbb9RMhfOMFveMcNYFX/CeT/Szl3eqL1CN8aN3OdJ+YZQv+zZd5ola1smE
-         /eSyYE7bYqK8twVTfED6WEgcQ7rgfOf4IEVYTqpVJplvsLqx+XKo5IXjAcpiwlONIx9B
-         TfCQ==
-X-Gm-Message-State: AOJu0Yzl1LkNhi307EZvACsZSwBR/Cp346UveGRWJpWv/zZ7X+vsuKaz
-	CwvCP/QfNQf4SVBf/La6YOR75/hizzyqGEedzvC+M6/oKZgqOJBFMd3tM0U7Ufx5BCwSNSrHehw
-	HSqD6KF6hcM7o+Y/XerIN344HnwKUGxan6uHPZcpRdcmO+0y0KYf/kqmdsGBR9xei
-X-Received: by 2002:a05:6358:75a8:b0:1b3:9b14:9c94 with SMTP id e5c5f4694b2df-1b59f9690a2mr295047255d.3.1724247035915;
-        Wed, 21 Aug 2024 06:30:35 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHlkzl2hgdPIn7Z0LLDvHUaJ9ZrPyqdPdhR5TipA86AkoSgMmjwsyU327aWa6YaJXv3P4V+XQ==
-X-Received: by 2002:a05:6358:75a8:b0:1b3:9b14:9c94 with SMTP id e5c5f4694b2df-1b59f9690a2mr295044155d.3.1724247035537;
-        Wed, 21 Aug 2024 06:30:35 -0700 (PDT)
-Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-7a4ff055dfesm620216085a.48.2024.08.21.06.30.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Aug 2024 06:30:35 -0700 (PDT)
-Date: Wed, 21 Aug 2024 15:30:31 +0200
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Cc: virtio-comment@lists.linux.dev,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
-	Cornelia Huck <cohuck@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>
-Subject: Re: [PATCH V10] virtio-transport: Add a section to define mandatory
- transport requirements
-Message-ID: <ZsXr9/VTQFqOTjr2@fedora>
-References: <4c24ede14e2545b2e9c69e7d9b79dc15744fd965.1723647318.git.viresh.kumar@linaro.org>
+        bh=SmSrlTRBO6FHqk5O8R9UuvLwHhfq0KVVSezsn6owxNk=;
+        b=r62vh7bk3Tjm5iFW4mY3+y++AUHbNtzqgqXN2PDe1Wt+0e4oBr3WpAKq7VeILe4Bo9
+         kGm1nScGvnHQZeToz3fYv6pYSyTOIbPZLK8d8O2gkU65d1UzDhwXezhXiMsmrlur5zmh
+         HUW4iQ3PgwRI4fWn4swMhgMGEjMuZcwIPjZjWNj/xQWSNIsvA1Uew9mPOTu/sUE1aPdp
+         n2NBu37b0JZmZoNxyYfEF8vtjuu8rf8xwXM7AswVjvRqFPvG17bL3MlfeFRBsMVaM7TI
+         ek9bWI6fDsJqNd48nkZmxhLw8ZeJOWxZAM3kyd01hLUjquWRSPEAxQkz6q34vGOBSMdW
+         KGzA==
+X-Forwarded-Encrypted: i=1; AJvYcCVCUw5DXWdK3G7eAclxh4iEfB9A7nC2zSFiAsXKSN9CRTx00uDShBD+7vcVmrwYBHm/KFBvJhviWCxrvDxwEQ==@lists.linux.dev
+X-Gm-Message-State: AOJu0YwBgeRaOs5fxecXOeLfoMt55t/7p9eNTvtivAcsm96xBTEASDbY
+	Op8gdRf4FW2nr9H7abMZXzptCdQPJmpIW3GVUydKWPtY0QjDxhXBFf98uTgpBjAFZYdiBoDkfwp
+	P/W9ZUwTVZbrkQIZ14Ye3p3vuwf2tnhFv7hfl2wIDtEk1zQaQ8rbgmnyGwlW185DcFfcQknUZsd
+	Y=
+X-Received: by 2002:a05:600c:468e:b0:426:616e:db8d with SMTP id 5b1f17b1804b1-42abd22ffbemr23755635e9.15.1724265074268;
+        Wed, 21 Aug 2024 11:31:14 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEYlA6VeQ7Dh8T0ollsX2tjf9JVFk5E7wtc6L3jZaR/TgvMncfB3e/J84RwkBeaXdFh6gma4A==
+X-Received: by 2002:a05:600c:468e:b0:426:616e:db8d with SMTP id 5b1f17b1804b1-42abd22ffbemr23755425e9.15.1724265073410;
+        Wed, 21 Aug 2024 11:31:13 -0700 (PDT)
+Received: from ?IPV6:2003:cb:c705:4300:16d5:c5b:8388:a734? (p200300cbc705430016d50c5b8388a734.dip0.t-ipconnect.de. [2003:cb:c705:4300:16d5:c5b:8388:a734])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-371898498casm16221271f8f.42.2024.08.21.11.31.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Aug 2024 11:31:13 -0700 (PDT)
+Message-ID: <53737894-5d15-4fff-be90-d92f25debbba@redhat.com>
+Date: Wed, 21 Aug 2024 20:31:12 +0200
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <4c24ede14e2545b2e9c69e7d9b79dc15744fd965.1723647318.git.viresh.kumar@linaro.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] virtio-mem: introduce VIRTIO_MEM_F_PERSISTENT_SUSPEND
+To: Juraj Marcin <jmarcin@redhat.com>, virtio-comment@lists.linux.dev
+References: <20240809140403.484556-1-jmarcin@redhat.com>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; keydata=
+ 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
+ WNyWQQ==
+Organization: Red Hat
+In-Reply-To: <20240809140403.484556-1-jmarcin@redhat.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 14, 2024 at 08:27:00PM +0530, Viresh Kumar wrote:
-> The current Virtio documentation lacks a set of generic requirements
-> applicable to all transports. Defining these generic requirements could
-> be beneficial when integrating support for a new transport.
+On 09.08.24 16:03, Juraj Marcin wrote:
+> Before, the behavior while suspending to a deep sleep state and waking
+> up was not specified. For example, in x86 QEMU VM all devices receive a
+> reset request during wake-up. This would lead to unplugging of all the
+> plugged memory blocks. Due to this, suspending is disallowed in the
+> Linux Kernel, when plugged memory is present and
+> VIRTIO_MEM_F_PERSISTENT_SUSPEND feature flag is not advertised by the
+> virtio-mem device.
 > 
-> This section outlines the essential requirements that any transport
-> method must adhere to.
+> This new flag should signal to the guest driver, that the device can
+> correctly suspend to a deep sleep state and then wake up without
+> disrupting the plugged memory blocks. This feature flag is already
+> supported in the Linux Kernel [1] and should be soon also supported in
+> QEMU [2].
 > 
-> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+> [1]: https://lore.kernel.org/all/20240318120645.105664-1-david@redhat.com/
+> [2]: https://lore.kernel.org/all/20240806160756.182524-1-jmarcin@redhat.com/
+> 
+> Signed-off-by: Juraj Marcin <jmarcin@redhat.com>
 > ---
-> V9->V10:
-> - s/multiple// and s/employ/use/
+>   device-types/mem/description.tex | 12 ++++++++++++
+>   1 file changed, 12 insertions(+)
 > 
-> V8->V9:
-> - Change order of the statements.
-> - Specify DEVICE_NEEDS_RESET and FEATURES_OK bits.
-> - Language improvements.
-> 
-> V7->V8:
-> - Remove separate sections for device/driver requirements.
-> - Remove optional requirements.
-> - Other generic improvements.
-> 
-> V6->V7:
-> - Remove parts that talk about accessing content of the virtqueue.
-> 
-> V5->V6:
-> - Move the changes to a new appendix section.
-> - Clarify the requirements a bit more based on review comments.
-> 
-> V4->V5:
-> - s/The transport/A transport/
-> - s/MUST provide/provides/
-> - Added some text for transport requirements.
-> 
-> V3->V4:
-> - Remove the normative sections and use direct speech.
-> - Change wording at few places.
-> 
-> V2->V3:
-> - Minor fixes.
-> - Added Reviewed by from Alex.
-> 
-> V1->V2:
-> - Lot of changes after discussions with Alex and Cornelia.
-> - Almost a rewrite of the first commit.
-> - Add Transport normative sections.
-> 
->  main.tex         |  2 ++
->  newtransport.tex | 43 +++++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 45 insertions(+)
->  create mode 100644 newtransport.tex
-> 
-> diff --git a/main.tex b/main.tex
-> index b1913d65e964..6d337217a3d1 100644
-> --- a/main.tex
-> +++ b/main.tex
-> @@ -42,6 +42,8 @@
->  
->  \input{newdevice.tex}
->  
-> +\input{newtransport.tex}
+> diff --git a/device-types/mem/description.tex b/device-types/mem/description.tex
+> index 0a6d558..5bff24c 100644
+> --- a/device-types/mem/description.tex
+> +++ b/device-types/mem/description.tex
+> @@ -60,6 +60,8 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Device / Feature bits}
+>   access unplugged memory. \footnote{On platforms with memory properties that
+>   might get modified implicitly on memory access, this feature is expected to
+>   be offered by the device.}
+> +\item[VIRTIO_MEM_F_PERSISTENT_SUSPEND (2)] The driver can allow the guest
+> +system to enter suspended state (deep sleep, suspend-to-RAM).
+>   \end{description}
+>   
+>   \subsection{Device configuration layout}\label{sec:Device Types / Memory Device / Device configuration layout}
+> @@ -174,6 +176,9 @@ \subsection{Device Initialization}\label{Device Types / Memory Device / Device I
+>   The device MUST NOT modify memory or memory properties of plugged memory
+>   blocks during device reset.
+>   
+> +The device SHOULD offer VIRTIO_MEM_F_PERSISTENT_SUSPEND if the platform
+> +supports suspending (deep sleep, suspend-to-RAM) with plugged memory blocks.
 > +
->  % acknowledgements
->  \input{acknowledgements.tex} 
->  
-> diff --git a/newtransport.tex b/newtransport.tex
-> new file mode 100644
-> index 000000000000..b3e0df42fa2d
-> --- /dev/null
-> +++ b/newtransport.tex
-> @@ -0,0 +1,43 @@
-> +\chapter{Creating New Transports}\label{sec:Creating New Transports}
+>   \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Operation}
+>   
+>   The device notifies the driver about the amount of memory the device wants
+> @@ -268,6 +273,9 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
+>   memory blocks to unplug them, or it would not be able to make use of
+>   unplugged memory blocks after plugging them (e.g., alignment).
+>   
+> +If VIRTIO_MEM_F_PERSISTENT_SUSPEND has not been negotiated, the driver MUST NOT
+> +allow the guest system to enter a suspended state (deep sleep, suspend-to-RAM).
 > +
-> +Devices and drivers utilize various transport methods to facilitate
-> +communication, such as PCI, MMIO, or Channel I/O. These transport
-> +methods determine aspects of the interaction between the device and the
-> +driver, including device discovery, capability exchange, interrupt
-> +handling, and data transfer. For instance, in a host/guest architecture,
-> +the host might expose a device to the guest via a virtual PCI bus, and
-> +the guest would use a PCI device driver to interface with the device.
+>   \devicenormative{\subsubsection}{Device Operation}{Device Types / Memory Device / Device Operation}
+>   
+>   The device MUST provide the exact same memory properties with the exact same
+> @@ -293,6 +301,10 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
+>   
+>   The device SHOULD unplug all memory blocks during system resets.
+>   
+> +If VIRTIO_MEM_F_PERSISTENT_SUSPEND has been negotiated, the device MUST NOT not
+> +change the state of memory blocks when suspending or when waking up from
+> +suspended state (deep sleep, suspend-to-RAM).
 > +
-> +This section outlines the mandatory requirements that a transport method
-> +implements.
-> +
-> +A transport provides a mechanism to implement configuration space for
-> +the device.
-> +
-> +A transport provides a mechanism for the driver to identify the device
-> +type.
-> +
-> +A transport provides a mechanism for the driver to read the device's
-> +FEATURES_OK and DEVICE_NEEDS_RESET status bits.
-> +
-> +A transport provides a mechanism for the driver to modify the device's
-> +status.
-> +
-> +A transport provides a mechanism for the driver to read and modify the
-> +device's feature bits.
-> +
-> +A transport allows one or more virtqueues to be implemented by the
-> +device. The number of virtqueues is device specific and not specified by
-> +the transport.
-> +
-> +A transport provides a mechanism for the driver to communicate virtqueue
-> +configuration and memory location to the device.
-> +
-> +A transport provides a mechanism for the device to send device
-> +notifications to the driver, such as used buffer notifications.
-> +
-> +A transport provides a mechanism for the driver to send driver
-> +notifications to the device, such as available buffer notifications.
-> +
-> +A transport provides a mechanism for the driver to initiate a device
-> +reset.
+>   \subsubsection{PLUG request}\label{sec:Device Types / Memory Device / Device Operation / PLUG request}
+>   
+>   Request to plug consecutive memory blocks that are currently unplugged.
 
+All sounds correct to me, thanks!
 
-LGTM!
+Reviewed-by: David Hildenbrand <david@redhat.com>
 
-Matias
+-- 
+Cheers,
+
+David / dhildenb
 
