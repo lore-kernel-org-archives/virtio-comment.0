@@ -1,352 +1,204 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591CB1BFE19
-	for <virtio-comment@lists.linux.dev>; Wed, 21 Aug 2024 10:03:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E790E15B134
+	for <virtio-comment@lists.linux.dev>; Wed, 21 Aug 2024 13:30:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724234599; cv=none; b=o/HbxPp8qiyZ2bGxQ7zAYW9IQ5XLbngxA8qroQ9am2e9Cn1sV/5GEzZfER81pEZgprqyyH9hHSCawjBsg0NGJFJEap+hxprhy/1iO3u0aOBJUTnJ/adzoTqVSZfiiqdeG6j79yI7PgDG0zjq9o+FZTYZpf8bkTN8LV8vMmSRkCk=
+	t=1724247041; cv=none; b=qf9GZIjEfx905/U8Fqkgzr93AkD3q/a2bhWLwBhv1hhir7tjLNYQq/msMCt2TrD/xFkzWxGVazdWZBHgJ3ZK5y6pN0FngROpqmeisYN3LcaYBWpMnybMdcW0t+rM9gqzyj61GZ2Yv2Tji267qBI4qzF9s3LS+1p/avhj2hzxhpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724234599; c=relaxed/simple;
-	bh=Swr4A3JOhQytrsYyqYQgLbaMjbs01cs92Yaafa4vzhs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iAB/T2wRsSVGvFkZB5aWt26W+NI1H1WW0iN2N7d9NcQos2PODkl92/RXDnoqoXpX/An/3W7iUAKtn9k4UcTj+1vUDm+BoY56xNZD9LJfmRgkgUqkt6gojsUDAaS00Ua9lJn3LJameSd4+MT8WNGyXQIUFwOWo1bmtGcmbF8nWCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cd4XDqd8; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1724247041; c=relaxed/simple;
+	bh=4iGFORjv002wZ2+SqMMgjM2330/pfCF+Z4Ia4yzqp44=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=Udd8zwUx1vF6t7qZHN2FHNu+6IExwQPGCc2Q65LQaksLgNLGw9KnprzYBhb/PcYhYR20EFhrO2Bzhl2fhOUooLl0nt+Hhqrg2YyZCDJDCd7POJYD+Sj1TK0/CpDPmY8gfUjEZrPSy7sJypjUAn7YLiAPLqAxcLZXMCqMyr2UNBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=i/PdKwUa; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cd4XDqd8"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="i/PdKwUa"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1724234596;
+	s=mimecast20190719; t=1724247038;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=043ytkQSskW//BUCdsh6AHWi33XGcXmSgBj+xJGobfU=;
-	b=cd4XDqd8Pk6VqwMgO/f7vacx97h214TXRIaBBM/n0vDrEtQTJlaTD42jnB9jg7Qcdi+H22
-	Z45GFFXDU5kKbz8HaPVKY71aVEczDa6Msl6a8b/2OOcTG4xi+F+JGGbqfnIXBy+dEYMyeB
-	6qQDlqS0LKa58CC9KYnZhvEHLW0Bl74=
-Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-97-sjYB_-iCOa2RX-jUwwKGmw-1; Wed,
- 21 Aug 2024 06:03:14 -0400
-X-MC-Unique: sjYB_-iCOa2RX-jUwwKGmw-1
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DF4BA1955D58;
-	Wed, 21 Aug 2024 10:03:13 +0000 (UTC)
-Received: from gerbillo.redhat.com (unknown [10.45.224.235])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6430019560AE;
-	Wed, 21 Aug 2024 10:03:11 +0000 (UTC)
-From: Paolo Abeni <pabeni@redhat.com>
-To: virtio-comment@lists.linux.dev
-Cc: maxime.coquelin@redhat.com,
-	Eelco Chaudron <echaudro@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Willem de Bruijn <willemb@google.com>
-Subject: [PATCH v7 2/2] virtio-net: define UDP tunnel checksum offload feature
-Date: Wed, 21 Aug 2024 12:02:59 +0200
-Message-ID: <b3a93378fbe02aefe4450f97e21138a757c41036.1724234131.git.pabeni@redhat.com>
-In-Reply-To: <cover.1724234131.git.pabeni@redhat.com>
-References: <cover.1724234131.git.pabeni@redhat.com>
+	bh=enKH8cGw+po7iihEyakdBw/+qLWiYB60l1wPgbGmCTc=;
+	b=i/PdKwUa7En+CxwnZXY9Yh3StRU/0x7kfVG6Ab/j/G1KeWMFl9zT2cfTKYVeLfPyxkY93s
+	ziyRTGNzI3memdfyji5BdFP9p0Vc+/EDrMMRhcbN0/LXdEeJ4NU7J4ojgfcHKJIr1ufJ5J
+	iEWTLArz33Fcbo3hL2rZH2jihvECLoU=
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
+ [209.85.210.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-48-Vg9_ruWROIuKWLAvkSuv1w-1; Wed, 21 Aug 2024 09:30:37 -0400
+X-MC-Unique: Vg9_ruWROIuKWLAvkSuv1w-1
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-70941ab4a01so6700267a34.1
+        for <virtio-comment@lists.linux.dev>; Wed, 21 Aug 2024 06:30:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724247036; x=1724851836;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=enKH8cGw+po7iihEyakdBw/+qLWiYB60l1wPgbGmCTc=;
+        b=cuZIN8lKtGWLhQR/w21yBS9m4+xWuuk54pqSwbzHgwl4um0Jxssax92BGR4er/YX2C
+         h7sWy22+oSOH7kW7slQIQZmZ8QVU73c55y3SmN03Y3ONCvN/4WyKIbBjldaAgRGcBKeD
+         z2KbDJ3IUlGqdmBdhuQXk0/xDNV9WBTbSs1pZlvT4j59WuMdjKkKSSnMw6l7AqG4GjgD
+         ySTr1fDCHcrbb9RMhfOMFveMcNYFX/CeT/Szl3eqL1CN8aN3OdJ+YZQv+zZd5ola1smE
+         /eSyYE7bYqK8twVTfED6WEgcQ7rgfOf4IEVYTqpVJplvsLqx+XKo5IXjAcpiwlONIx9B
+         TfCQ==
+X-Gm-Message-State: AOJu0Yzl1LkNhi307EZvACsZSwBR/Cp346UveGRWJpWv/zZ7X+vsuKaz
+	CwvCP/QfNQf4SVBf/La6YOR75/hizzyqGEedzvC+M6/oKZgqOJBFMd3tM0U7Ufx5BCwSNSrHehw
+	HSqD6KF6hcM7o+Y/XerIN344HnwKUGxan6uHPZcpRdcmO+0y0KYf/kqmdsGBR9xei
+X-Received: by 2002:a05:6358:75a8:b0:1b3:9b14:9c94 with SMTP id e5c5f4694b2df-1b59f9690a2mr295047255d.3.1724247035915;
+        Wed, 21 Aug 2024 06:30:35 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHlkzl2hgdPIn7Z0LLDvHUaJ9ZrPyqdPdhR5TipA86AkoSgMmjwsyU327aWa6YaJXv3P4V+XQ==
+X-Received: by 2002:a05:6358:75a8:b0:1b3:9b14:9c94 with SMTP id e5c5f4694b2df-1b59f9690a2mr295044155d.3.1724247035537;
+        Wed, 21 Aug 2024 06:30:35 -0700 (PDT)
+Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-7a4ff055dfesm620216085a.48.2024.08.21.06.30.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Aug 2024 06:30:35 -0700 (PDT)
+Date: Wed, 21 Aug 2024 15:30:31 +0200
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Cc: virtio-comment@lists.linux.dev,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+	Cornelia Huck <cohuck@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>
+Subject: Re: [PATCH V10] virtio-transport: Add a section to define mandatory
+ transport requirements
+Message-ID: <ZsXr9/VTQFqOTjr2@fedora>
+References: <4c24ede14e2545b2e9c69e7d9b79dc15744fd965.1723647318.git.viresh.kumar@linaro.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+In-Reply-To: <4c24ede14e2545b2e9c69e7d9b79dc15744fd965.1723647318.git.viresh.kumar@linaro.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This complements the previous change, additionally
-introducing the UDP tunnel checksum offload feature.
+On Wed, Aug 14, 2024 at 08:27:00PM +0530, Viresh Kumar wrote:
+> The current Virtio documentation lacks a set of generic requirements
+> applicable to all transports. Defining these generic requirements could
+> be beneficial when integrating support for a new transport.
+> 
+> This section outlines the essential requirements that any transport
+> method must adhere to.
+> 
+> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+> ---
+> V9->V10:
+> - s/multiple// and s/employ/use/
+> 
+> V8->V9:
+> - Change order of the statements.
+> - Specify DEVICE_NEEDS_RESET and FEATURES_OK bits.
+> - Language improvements.
+> 
+> V7->V8:
+> - Remove separate sections for device/driver requirements.
+> - Remove optional requirements.
+> - Other generic improvements.
+> 
+> V6->V7:
+> - Remove parts that talk about accessing content of the virtqueue.
+> 
+> V5->V6:
+> - Move the changes to a new appendix section.
+> - Clarify the requirements a bit more based on review comments.
+> 
+> V4->V5:
+> - s/The transport/A transport/
+> - s/MUST provide/provides/
+> - Added some text for transport requirements.
+> 
+> V3->V4:
+> - Remove the normative sections and use direct speech.
+> - Change wording at few places.
+> 
+> V2->V3:
+> - Minor fixes.
+> - Added Reviewed by from Alex.
+> 
+> V1->V2:
+> - Lot of changes after discussions with Alex and Cornelia.
+> - Almost a rewrite of the first commit.
+> - Add Transport normative sections.
+> 
+>  main.tex         |  2 ++
+>  newtransport.tex | 43 +++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 45 insertions(+)
+>  create mode 100644 newtransport.tex
+> 
+> diff --git a/main.tex b/main.tex
+> index b1913d65e964..6d337217a3d1 100644
+> --- a/main.tex
+> +++ b/main.tex
+> @@ -42,6 +42,8 @@
+>  
+>  \input{newdevice.tex}
+>  
+> +\input{newtransport.tex}
+> +
+>  % acknowledgements
+>  \input{acknowledgements.tex} 
+>  
+> diff --git a/newtransport.tex b/newtransport.tex
+> new file mode 100644
+> index 000000000000..b3e0df42fa2d
+> --- /dev/null
+> +++ b/newtransport.tex
+> @@ -0,0 +1,43 @@
+> +\chapter{Creating New Transports}\label{sec:Creating New Transports}
+> +
+> +Devices and drivers utilize various transport methods to facilitate
+> +communication, such as PCI, MMIO, or Channel I/O. These transport
+> +methods determine aspects of the interaction between the device and the
+> +driver, including device discovery, capability exchange, interrupt
+> +handling, and data transfer. For instance, in a host/guest architecture,
+> +the host might expose a device to the guest via a virtual PCI bus, and
+> +the guest would use a PCI device driver to interface with the device.
+> +
+> +This section outlines the mandatory requirements that a transport method
+> +implements.
+> +
+> +A transport provides a mechanism to implement configuration space for
+> +the device.
+> +
+> +A transport provides a mechanism for the driver to identify the device
+> +type.
+> +
+> +A transport provides a mechanism for the driver to read the device's
+> +FEATURES_OK and DEVICE_NEEDS_RESET status bits.
+> +
+> +A transport provides a mechanism for the driver to modify the device's
+> +status.
+> +
+> +A transport provides a mechanism for the driver to read and modify the
+> +device's feature bits.
+> +
+> +A transport allows one or more virtqueues to be implemented by the
+> +device. The number of virtqueues is device specific and not specified by
+> +the transport.
+> +
+> +A transport provides a mechanism for the driver to communicate virtqueue
+> +configuration and memory location to the device.
+> +
+> +A transport provides a mechanism for the device to send device
+> +notifications to the driver, such as used buffer notifications.
+> +
+> +A transport provides a mechanism for the driver to send driver
+> +notifications to the device, such as available buffer notifications.
+> +
+> +A transport provides a mechanism for the driver to initiate a device
+> +reset.
 
-Differently from the plain checksum offload feature, this
-depends on UDP tunnel segmentation being available, as outer checksum
-computation for non GSO packets is cheap and H/W implementation of
-such a feature is complex.
 
-UDP tunnel checksum offload does not introduce additional fields,
-instead it leverages the outer transport offset introduced by the
-UDP tunnel segmentation feature to locate the outer checksum
-inside the packet.
+LGTM!
 
-When  UDP tunnel checksum offload is enabled, the VIRTIO_NET_HDR_F_DATA_VALID
-bit semantic is extended, in the device -> driver direction, to
-cover both the inner and the outer checksum validation.
-
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
----
-v6 -> v7:
- - rebased
- - VIRTIO_NET_F_{HOST,GUEST}_UDP_TUNNEL_CSUM -> ...UDP_TUNNEL_GSO_CSUM
- - dropped unintended change to existing TCP gso spec
----
- device-types/net/description.tex | 121 +++++++++++++++++++++++++++++--
- 1 file changed, 113 insertions(+), 8 deletions(-)
-
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index e0e0927..3f42e43 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -91,9 +91,15 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
- \item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO (47)] Driver can receive GSO packets
-   carried by a UDP tunnel.
- 
-+\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM (48)] Driver handles packets
-+  carried by a UDP tunnel with partial csum for the outer header.
-+
- \item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO (49)] Device can receive GSO packets
-   carried by a UDP tunnel.
- 
-+\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM (50)] Device handles packets
-+  carried by a UDP tunnel with partial csum for the outer header.
-+
- \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header hash for encapsulated packets.
- 
- \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue notification coalescing.
-@@ -141,6 +147,7 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
- \item[VIRTIO_NET_F_GUEST_USO6] Requires VIRTIO_NET_F_GUEST_CSUM.
- \item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO] Requires VIRTIO_NET_F_GUEST_TSO4, VIRTIO_NET_F_GUEST_TSO6,
-    VIRTIO_NET_F_GUEST_USO4 and VIRTIO_NET_F_GUEST_USO6.
-+\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM] Requires VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO
- 
- \item[VIRTIO_NET_F_HOST_TSO4] Requires VIRTIO_NET_F_CSUM.
- \item[VIRTIO_NET_F_HOST_TSO6] Requires VIRTIO_NET_F_CSUM.
-@@ -149,6 +156,7 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
- \item[VIRTIO_NET_F_HOST_USO] Requires VIRTIO_NET_F_CSUM.
- \item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO] Requires VIRTIO_NET_F_HOST_TSO4, VIRTIO_NET_F_HOST_TSO6
-    and VIRTIO_NET_F_HOST_USO.
-+\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM] Requires VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO
- 
- \item[VIRTIO_NET_F_CTRL_RX] Requires VIRTIO_NET_F_CTRL_VQ.
- \item[VIRTIO_NET_F_CTRL_VLAN] Requires VIRTIO_NET_F_CTRL_VQ.
-@@ -162,6 +170,13 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
- \item[VIRTIO_NET_F_HASH_TUNNEL] Requires VIRTIO_NET_F_CTRL_VQ along with VIRTIO_NET_F_RSS or VIRTIO_NET_F_HASH_REPORT.
- \end{description}
- 
-+\begin{note}
-+The dependency between UDP_TUNNEL_GSO_CSUM and UDP_TUNNEL_GSO is intentionally
-+in the opposite direction with respect to the plain GSO features and the plain
-+checksum offload because UDP tunnel checksum offload gives very little gain
-+for non GSO packets is quite complex to implement in H/W.
-+\end{note}
-+
- \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / Network Device / Feature bits / Legacy Interface: Feature bits}
- \begin{description}
- \item[VIRTIO_NET_F_GSO (6)] Device handles packets with any GSO type. This was supposed to indicate segmentation offload support, but
-@@ -392,6 +407,11 @@ \subsection{Device Initialization}\label{sec:Device Types / Network Device / Dev
-   the outer UDP checksum is zero - by negotiating the
-   VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO feature.
- 
-+\item If VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO is negotiated, a driver can
-+  additionally use TCP segmentation or UDP segmentation on top of UDP
-+  encapsulation with the outer header requiring checksum offload,
-+  negotiating the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM feature.
-+
- \item The converse features are also available: a driver can save
-   the virtual device some work by negotiating these features.\note{For example, a network packet transported between two guests on
- the same system might not need checksumming at all, nor segmentation,
-@@ -400,8 +420,9 @@ \subsection{Device Initialization}\label{sec:Device Types / Network Device / Dev
-   checksummed packets can be received, and if it can do that then
-   the VIRTIO_NET_F_GUEST_TSO4, VIRTIO_NET_F_GUEST_TSO6,
-   VIRTIO_NET_F_GUEST_UFO, VIRTIO_NET_F_GUEST_ECN, VIRTIO_NET_F_GUEST_USO4,
--  VIRTIO_NET_F_GUEST_USO6 and VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO
--  are the input equivalents of the features described above.
-+  VIRTIO_NET_F_GUEST_USO6 VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO and
-+  VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM are the input equivalents of
-+  the features described above.
-   See \ref{sec:Device Types / Network Device / Device Operation /
- Setting Up Receive Buffers}~\nameref{sec:Device Types / Network
- Device / Device Operation / Setting Up Receive Buffers} and
-@@ -425,6 +446,7 @@ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device O
- #define VIRTIO_NET_HDR_F_NEEDS_CSUM    1
- #define VIRTIO_NET_HDR_F_DATA_VALID    2
- #define VIRTIO_NET_HDR_F_RSC_INFO      4
-+#define VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM 8
-         u8 flags;
- #define VIRTIO_NET_HDR_GSO_NONE        0
- #define VIRTIO_NET_HDR_GSO_TCPV4       1
-@@ -546,8 +568,11 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
-   \field{gso_type} has the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or
-   VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit set, the GSO protocol is encapsulated
-   in a UDP tunnel.
--  The outer UDP header must not require checksum validation, i.e. the outer UDP
--  checksum must be a positive zero (0x0) as defined in UDP RFC 768.
-+  If the outer UDP header requires checksumming, the driver must have
-+  additionally negotiated the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM feature
-+  and offloaded the outer checksum accordingly, otherwise
-+  the outer UDP header must not require checksum validation, i.e. the outer
-+  UDP checksum must be positive zero (0x0) as defined in UDP RFC 768.
-   The other tunnel-related fields indicate how to replicate the packet
-   headers to cut it into smaller packets:
- 
-@@ -575,6 +600,20 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- VIRTIO_NET_HDR_GSO_TCPV4 | VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 = 0x21
- \end{note}
- 
-+\item If the driver negotiated the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM feature,
-+  the transmitted packet is a GSO one encapsulated in a UDP tunnel, and
-+  the outer UDP header requires checksumming, the driver can skip checksumming
-+  the outer header:
-+
-+  \begin{itemize}
-+  \item \field{flags} has the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM set,
-+
-+  \item The outer UDP checksum field in the packet is set to the sum
-+    of the UDP pseudo header, so that replacing it by the ones'
-+    complement checksum of the outer UDP header and payload will give the
-+    correct result.
-+  \end{itemize}
-+
- \item \field{num_buffers} is set to zero.  This field is unused on transmitted packets.
- 
- \item The header and packet are added as one output descriptor to the
-@@ -630,6 +669,14 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- MUST SET the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit.
- 
- The driver MUST NOT send to the device TCP or UDP GSO packets over UDP tunnel
-+requiring segmentation and outer UDP checksum offload, unless both the
-+VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO and VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM features
-+are negotiated, in which case the driver MUST set the VIRTIO_NET_HDR_GSO_UDP_TUNNEL
-+bit in the \field{gso_type} and the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in the \field{flags}.
-+
-+If VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM is not negotiated, the driver MUST not set
-+the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in the \field{flags} and
-+MUST NOT send to the device TCP or UDP GSO packets over UDP tunnel
- requiring segmentation and outer UDP checksum offload.
- 
- The driver MUST NOT set the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
-@@ -639,6 +686,9 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- The driver MUST NOT set the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit and the
- VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit together.
- 
-+The driver MUST NOT set the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit \field{flags}
-+without setting the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO bit in \field{gso_type}.
-+
- If the VIRTIO_NET_F_CSUM feature has been negotiated, the
- driver MAY set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
- \field{flags}, if so:
-@@ -690,8 +740,29 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
-   to the inner transport header and inner transport checksum field.
- \end{itemize}
- 
-+If the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM feature has been negotiated,
-+and the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or
-+VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set,
-+the driver MAY set the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in
-+\field{flags}, if so:
-+\begin{enumerate}
-+\item the driver MUST validate the packet checksum at
-+	offset 6 from \field{outer_th_offset} as well as all
-+	preceding offsets;
-+\item the driver MUST set the packet outer UDP header checksum
-+      to the outer UDP pseudo header;
-+\end{enumerate}
-+
-+\begin{note}
-+calculating a ones' complement checksum from \field{outer_th_offset}
-+up until the end of the packet and storing the result at offset 6
-+from \field{outer_th_offset} will result in a fully checksummed outer UDP packet;
-+\end{note}
-+
- If the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
--VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set, the
-+VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set
-+and the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM feature has not
-+been negotiated, the
- outer UDP header MUST NOT require checksum validation. That is, the
- outer UDP checksum value MUST be 0 or the validated complete checksum
- for such header.
-@@ -710,6 +781,10 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- been negotiated, the driver MUST NOT set neither the VIRTIO_NET_HDR_F_UDP_TUNNEL_IPV4
- bit nor the VIRTIO_NET_HDR_F_UDP_TUNNEL_IPV6 in \field{gso_type}.
- 
-+If the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM option has not been negotiated,
-+the driver MUST NOT set the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit
-+in \field{flags}.
-+
- The driver SHOULD accept the VIRTIO_NET_F_GUEST_HDRLEN feature if it has
- been offered, and if it's able to provide the exact header length.
- 
-@@ -876,6 +951,12 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
-   bit MAY be set. In such case the \field{outer_th_offset} and
-   \field{inner_nh_offset} fields indicate the corresponding
-   headers information.
-+\item If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM feature was negotiated, and
-+  the VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit is set in \field{gso_type}, the
-+  VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in the \field{flags} can be set: if so,
-+  the outer UDP header checksum at offset 6 from \field{outer_th_offset} have
-+  been validated. The checksum on the packet is incomplete and the
-+  \field{outer_th_offset} indicates how to calculate it.
- 
- \end{enumerate}
- 
-@@ -924,6 +1005,9 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
- neither the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit nor the
- VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type}.
- 
-+If VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM is not negotiated the device MUST NOT set
-+the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in \field{flags}.
-+
- The device SHOULD NOT send to the driver TCP packets requiring segmentation offload
- which have the Explicit Congestion Notification bit set, unless the
- VIRTIO_NET_F_GUEST_ECN feature is negotiated, in which case the
-@@ -956,7 +1040,8 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
- to the corresponding header information, and the outer UDP header MUST NOT
- require checksum offload.
- 
--The device MUST NOT send the driver TCP or UDP GSO packets encapsulated in UDP
-+If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM feature has not been negotiated,
-+the device MUST NOT send the driver TCP or UDP GSO packets encapsulated in UDP
- tunnel and requiring segmentation and outer checksum offload.
- 
- If none of the VIRTIO_NET_F_GUEST_TSO4, TSO6, UFO, USO4 or USO6 options have
-@@ -982,8 +1067,27 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
- If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated, the
- device MAY set the VIRTIO_NET_HDR_F_DATA_VALID bit in
- \field{flags}, if so, the device MUST validate the packet
--checksum (in case of multiple encapsulated protocols, one level
--of checksums is validated).
-+checksum. If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM feature has been negotiated,
-+and the VIRTIO_NET_HDR_F_UDP_TUNNEL bit set, both the outer UDP checksum
-+and the inner transport checksum have been
-+validated, otherwise only one level of checksums (the inner one in case
-+of tunnels) has been validated.
-+
-+If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM feature has been negotiated,
-+the bit VIRTIO_NET_HDR_GSO_UDP_TUNNEL is set in \field{gso_type}
-+device MAY set the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in
-+\field{flags}, if so:
-+\begin{enumerate}
-+\item the device MUST validate the packet checksum at
-+	offset 6 from \field{outer_th_offset};
-+\item the device MUST set the packet checksum stored in the
-+	receive buffer to the outer UDP pseudo header;
-+\end{enumerate}
-+
-+Otherwise, if the VIRTIO_NET_HDR_GSO_UDP_TUNNEL is set in
-+\field{gso_type} and the bit VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM is cleared in
-+\field{flags}, the device MUST either provide a zero outer UDP header
-+checksum or a fully checksummed outer UDP header.
- 
- \drivernormative{\paragraph}{Processing of Incoming
- Packets}{Device Types / Network Device / Device Operation /
-@@ -1769,6 +1873,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- #define VIRTIO_NET_F_GUEST_ECN        9
- #define VIRTIO_NET_F_GUEST_UFO        10
- #define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO  47
-+#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM 48
- #define VIRTIO_NET_F_GUEST_USO4       54
- #define VIRTIO_NET_F_GUEST_USO6       55
- 
--- 
-2.45.2
+Matias
 
