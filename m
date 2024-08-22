@@ -1,99 +1,150 @@
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CE4137745
-	for <virtio-comment@lists.linux.dev>; Wed, 21 Aug 2024 19:48:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89B917CA0A
+	for <virtio-comment@lists.linux.dev>; Thu, 22 Aug 2024 09:30:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724269725; cv=none; b=Emkqu2g9qMFK0jI2YzY1nYG1sL8PVsyCMblX2Rq4GimuM+l/4TKC6qxZjARYtSDnDGAFDzv+4dazbmDD4fVNUFJehfyIvgUuHIRpIaMmSl3In6MrnQHr1oAkoq8W3jlSKxgmGsA7w71HOtdMdqyLBJi5oST+TPv9AwxoqO8wpNM=
+	t=1724319023; cv=none; b=rhZD5tfJUD76kxudya+HuJm2KFom/wUAohCD1bnpDlD6qIf6i3Xasz8mtlrvC4wils7gJEIu8l0lAlfY7Tdk+EUum5KGa6xoGV2ryKgc6PKaZuQUyUbGXE3VqLj2fkb/HTW9oSMBI71zOmmQI48gTVRhdKY7JH7clKlFbKH1KBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724269725; c=relaxed/simple;
-	bh=Iu2JMj2tU6G74liG8hgFbw0EuUJx7w81sFvu2xHkDIg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=shB8kjWmCOrFQLGLYUmDlTDMwXeuJT/EBNqEcUoSQydC/J3TdnxIkjiMtCPBuxFpHNw8ON8itT5nlSgOJ77OVnR8m/hXutHS76PNg7ze6sQjFmCNjAYtkuyqqo3kaeVZaGklBEAD5TRQkCPb+qBJF+0/iE+oljVye4jX022sS9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=4YZtsKMp; arc=none smtp.client-ip=209.85.128.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="4YZtsKMp"
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-6b747f2e2b7so928227b3.3
-        for <virtio-comment@lists.linux.dev>; Wed, 21 Aug 2024 12:48:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1724269723; x=1724874523; darn=lists.linux.dev;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=QmX0D8khKYanrs45HWITYimq0WGCxETMKcDv044czg8=;
-        b=4YZtsKMpgtSacJsC7ht11EaNGinCmeJN+cqjIQfz1RbBNdm2BGEe8ioZw6ykhnvuW/
-         ZrvOxL+T6oLVsqFYsAe4bEQE7hH4f7FdWgTL7Naj8GjjAIDAg53FRmsZEJrPO6aBBkBR
-         n0vGVnnyqQ+LKXqf74eddPKWmv+NbB4CSEC31FJtqVvhiqD1KzKh7vhIcSkVCYSQOeUR
-         qJ2N3avkSBplFirdUPuVO1iFOBv0Nn05Cd7vjWhaHTTsVSx5PhlXh86b4c6TcVaFoF7d
-         Qqn0mQhBMFkXJhWSZ3q81LYpENhj3BCBAHmJXz/s51jTn97UWjF8YWScoR3dw1yeMZpA
-         3FyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724269723; x=1724874523;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QmX0D8khKYanrs45HWITYimq0WGCxETMKcDv044czg8=;
-        b=Y+fodlLyb8cWKVl8s66KqIG63VxuEAAHJ45fr3phGv9jSdZT9UTHlDONScagszcYf0
-         Vz3VnW5m+GR4WrBlV8JqN5P/VRKY2MTz9E57yUvxLGWHcq0REKFe8OlKgYlEnOszbH9q
-         IeoX07QXbR4fjqQpiDGWMVgU/pzLgC5YT1FbthNdKwjkWHPecr7qDNB3ntzowo2CpxMh
-         dwhLnYFFK3CXuivSyt1FSwxNFANF67LX3bOo30/6j3Os9AQ/hCPuJxDKvs0BDRiQtxiI
-         3S4Q//14GR74BUrioxf06xmQ3ra8lAwTC+Ub68oeoWsz64zL1dM5iHxZ4HAVGVzthLUX
-         AMIw==
-X-Gm-Message-State: AOJu0Yy7VjLrIUIuProrO40x4E4LEXgkgTMfNZF1kNCw7FOiimfi62pC
-	WgQccGhL/6+zBunHfUvIb9vxhKOgfyixpaPa8dEWiWxrCGC2nXmhPT46iQ418s/qeODkFCzD1vI
-	gidy5TPKDW8bZNuT05z4aL73Ti2dbQMshobfp/Jm6cNh4CqEIXIcl
-X-Google-Smtp-Source: AGHT+IHvkjok5496ocESC++gyMdvCWjM0xORRyoIenV8hA7Vwdn4l3m1xnBBT1ma6m1nelYIuYyETuQ2BoMW++bnb4A=
-X-Received: by 2002:a05:690c:668f:b0:644:2639:8645 with SMTP id
- 00721157ae682-6c0fc8aa300mr45174177b3.26.1724269722752; Wed, 21 Aug 2024
- 12:48:42 -0700 (PDT)
+	s=arc-20240116; t=1724319023; c=relaxed/simple;
+	bh=WqKIQ69dXJdi3Ipdl+0Zw3fM4QsFo13CvAfQMwIpEQY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=iStKJPloQlgj/odpGK92VPVJTJZtMpGPu8WRGS8avntyQ3+b9pHWZrFNWMzWQs3ZvkVnUw8f5z44gdmcjezjjP5Vv5yhgdI4rsJoraLyZPthwg5GwoovBYh47e6tPJQH+GWx8xDp7/mOHvgs2wJiIhKjjKB8MnNo4MzmtK2T1eQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.pengutronix.de)
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <s.trumtrar@pengutronix.de>)
+	id 1sh492-0005F6-0c; Thu, 22 Aug 2024 11:30:16 +0200
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+To: Parav Pandit <parav@nvidia.com>
+Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+  "kernel@pengutronix.de" <kernel@pengutronix.de>
+Subject: Re: [PATCH RESEND 3/4] virtio-net: support transmit ptp timestamps
+In-Reply-To: <PH0PR12MB5481F37A4C9B035F2E556F20DCD52@PH0PR12MB5481.namprd12.prod.outlook.com>
+	(Parav Pandit's message of "Tue, 25 Jun 2024 05:25:55 +0000")
+References: <20240624-v1-4-topic-virtio-net-timestamping-v1-0-fa3c163e4aa9@pengutronix.de>
+	<20240624-v1-4-topic-virtio-net-timestamping-v1-3-fa3c163e4aa9@pengutronix.de>
+	<PH0PR12MB5481F37A4C9B035F2E556F20DCD52@PH0PR12MB5481.namprd12.prod.outlook.com>
+Date: Thu, 22 Aug 2024 11:30:14 +0200
+Message-ID: <87wmk89a6x.fsf@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <cover.1724234131.git.pabeni@redhat.com> <04089a87ff34aa518345ba5b50aecf737fb03f40.1724234131.git.pabeni@redhat.com>
- <CA+FuTScjheR1htWujZ5=adBRB3+_z5KrCyHKoRGVapGq-MGtJQ@mail.gmail.com>
-In-Reply-To: <CA+FuTScjheR1htWujZ5=adBRB3+_z5KrCyHKoRGVapGq-MGtJQ@mail.gmail.com>
-From: Willem de Bruijn <willemb@google.com>
-Date: Wed, 21 Aug 2024 15:48:05 -0400
-Message-ID: <CA+FuTSd5PW6D0iSDSYjh3S6OpGCL1Lf95q_=eOfi=APXoBZyOg@mail.gmail.com>
-Subject: Re: [PATCH v7 1/2] virtio-net: define UDP tunnel segmentation offload feature
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com, 
-	Eelco Chaudron <echaudro@redhat.com>, Jason Wang <jasowang@redhat.com>, 
-	Stefano Garzarella <sgarzare@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; format=flowed
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: virtio-comment@lists.linux.dev
 
-> > +Geneve UDP tunnel (again IPv4) with no tunnel options. Note that the
-> > +only relevant variable related to the tunnel type is the tunnel header length.
-> > +The packet will have a 14 byte outer ethernet header, 20 byte outer IP header
-> > +followed by the 8 byte UDP header (with a 0 checksum value), 8 byte Geneve header,
-> > +14 byte inner ethernet header, 20 byte inner IP header
-> > +and the TCP header (with the TCP checksum field 16 bytes
-> > +into that header). \field{csum_start} will be 14+20+8+8+14+20 = 84 (the TCP
-> > +checksum includes the header), \field{csum_offset} will be 16.
->
-> The csum_offset field is not even needed in virtio_net_hdr if gso is
-> enabled, as then the gso type already defines the protocol.
 
-We recently started testing this invariant in the Linux code. We have
-learned the hard way to not trust userspace processes to set up any
-fields correctly.
+Hi,
 
-For the new fields, we should from the start think of such invariants
-that can detect bad input. For instance,
+On 2024-06-25 at 05:25 GMT, Parav Pandit <parav@nvidia.com> wrote:
 
-    outer_th_offset < inner_nh_offset
-    inner_nh_offset < csum_start
-    csum_start < pkt_len
+> Hi Steffen,
+> 
+> > From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> > Sent: Monday, June 24, 2024 4:39 PM
+> > To: virtio-comment@lists.linux.dev; kernel@pengutronix.de
+> > Cc: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> > Subject: [PATCH RESEND 3/4] virtio-net: support transmit ptp timestamps
+> > 
+> > Add optional PTP hardware tx timestamp offload for virtio-net.
+> > 
+> Very good initiate. Thanks for bringing timestamping to virtio.
+> 
+> > Accurate RTT measurement requires timestamps close to the wire.
+> > Introduce virtio feature VIRTIO_NET_F_TX_TSTAMP, the transmit equivalent
+> > to VIRTIO_NET_F_RX_TSTAMP.
+> > 
+> > The driver sets VIRTIO_NET_HDR_F_TSTAMP to request a timestamp
+> > returned on completion. If the feature is negotiated, the device either places
+> > the timestamp or clears the feature bit.
+> > 
+> > Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> > ---
+> >  device-types/net/description.tex | 19 +++++++++++++++++++
+> >  1 file changed, 19 insertions(+)
+> > 
+> > diff --git a/device-types/net/description.tex b/device-
+> > types/net/description.tex
+> > index 09d9c28..c438b0b 100644
+> > --- a/device-types/net/description.tex
+> > +++ b/device-types/net/description.tex
+> > @@ -88,6 +88,8 @@ \subsection{Feature bits}\label{sec:Device Types /
+> > Network Device / Feature bits  \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)]
+> > Set MAC address through control
+> >      channel.
+> > 
+> > +\item[VIRTIO_NET_F_TX_TSTAMP(47)] Device sends TAI transmit time
+> > +
+> The feature bit is not helpful.
+> The reason is, the user needs to enable timestamp much later using ethtool (Linux) SIOCSHWTSTAMP.
+> And it is desired to not reset the full device when changing this feature.
+> 
+> And when the feature is offered, it is also not desire to always performing timestamping as it has trade-offs.
+> 
+> Therefore, enablement of this functionality should be done using capabilities or other means dynamically.
+> Dynamic means = without re-initializing the device and features.
 
-Maybe even more stringent invariant checks are possible. The only
-ones that truly matter are the ones that can affect device side
-correctness (such as host kernel crashes).
+okay, I understand that.
 
-Not sure that we have to call them out in the spec, but perhaps
-helpful too. Either way, good to think about possible attacks on
-the new interface even before coding, before the spec is complete.
+> 
+> >  \item[VIRTIO_NET_F_RX_TSTAMP(48)] Device sends TAI receive time
+> > 
+> >  \item[VIRTIO_NET_F_TX_HASH(49)] Driver sends hash report @@ -532,6
+> > +534,12 @@ \subsubsection{Packet Transmission}\label{sec:Device Types /
+> > Network Device / De  \item The header and packet are added as one output
+> > descriptor to the
+> >    transmitq, and the device is notified of the new entry
+> >    (see \ref{sec:Device Types / Network Device / Device
+> > Initialization}~\nameref{sec:Device Types / Network Device / Device
+> > Initialization}).
+> > +
+> > +\item If the driver negotiated the VIRTIO_NET_F_TX_TSTAMP and hardware
+> > +  timestamping is supported on the device, the
+> > VIRTIO_NET_HDR_F_TSTAMP
+> > +  flag is set. One writable input descriptor with the size of a
+> > +timestamp,
+> > +  i.e. \field{tstamp} in virtio_net_hdr_hash_ts,
+> > +  is appended to the output descriptor.
+> >  \end{enumerate}
+> > 
+> This does not work any effectively for following reasons.
+> 1. a TS is 8B, it is pointless to pass another 16B descriptor for 8B of data. This is 200% overhead.
+> 2. a TS write of 8B also creates a cache line bounding due to partial writes even in modern cpus
+> 3. Apart from the short write, because it is a dedicated address, the DMA cannot be merged by the device for it with something else.
+> 
+> In short, a dedicated descriptor for TS timestamp or including this TS in vnet_hdr is not good idea.
+
+And this sounds reasonable, too. Understood.
+> 
+> Many of us already discuss the new descriptor format that solves many of these issues.
+> i.e. to have a transmit completion which contains all needed fields including TS that also overcomes above 3 issues.
+> 
+> We captured these requirements at [1]. Please refer to 3.5.1 point 3.
+> It would be good if you can extend the descriptors this way that can work for hw.
+> 
+> [1] https://lore.kernel.org/virtio-comment/20230818043557.496964-7-parav@nvidia.com/
+> 
+
+Here I'm a little bit confused. So you want me to describe the feature in terms of the vnet_rx_completion or vnet_tx_completion that is, which is not described yet? For the spec part this seems "easy" but the actual implementation sounds a "little bit" more involved.
+
+Do you know, if there are already patches floating around for virtio-net that implement this new specification. I'd like to test it in code before writing the documentation/spec. 
+
+
+Best regards,
+Steffen
+
+-- 
+Pengutronix e.K.                | Dipl.-Inform. Steffen Trumtrar |
+Steuerwalder Str. 21            | https://www.pengutronix.de/    |
+31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
+Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
