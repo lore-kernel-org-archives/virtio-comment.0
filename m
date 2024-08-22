@@ -1,64 +1,64 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12111F951
-	for <virtio-comment@lists.linux.dev>; Thu, 22 Aug 2024 14:11:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5221CBE9A
+	for <virtio-comment@lists.linux.dev>; Thu, 22 Aug 2024 14:25:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724335897; cv=none; b=FQc4v6cT6S+CdhCJ5gX6AFP9OGiy/7QJSvM3f9jBKf6ySSy8Ogo7qT4z0VGW1qBR/JQE366ahV44ucN2uP8zK035Ly5CYdj4eUoW0laET/nND+9cxD+7pb8iEPkDsWwTvBH0bXZAbfQ068C1SJXTFsQDkYB+/pZ4CkrhMNMJNCs=
+	t=1724336758; cv=none; b=DocxE5moRyNXE87X0wNbLNLhsDL3hEyGIHN5FMf2DO+hwgGOkLCXh12yMqrUx4myUXUi7qBamL6D8yFBqSLnc2jR6dmfHczKz4GPfI+1IFEBo8qW8+GMDuGiFxA2cXrA2lLsxd/Ls3tD7g8hJhT0hrH1BOBLjWXZ0DHQjCjL4VI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724335897; c=relaxed/simple;
-	bh=sLKQOCIwRcTT0HnqxrhTzPTqRbIkB5dgiYX587O9RuE=;
+	s=arc-20240116; t=1724336758; c=relaxed/simple;
+	bh=pakHRiieDffsAwCzV36qOEgN2l5ZSQMDQDVRsvk7oAY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Fs2KGeTp/3cONOMWL+UWaeki9mtW5P4OqUpflPj4QXYYG9AC+7mIUtLkHrdHv0BoiugqMaSkwLpZbO3r8XMA5mH+rKzoUTb5RebQ5eU3ac3CcJGpYZXuy5TmPEucYZUiQP90aobI6fZklO2Whc4Lrj9M42TOGN8uajwDRqA7UVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CGtW6B3A; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type; b=AuBR+sgt0l8MAqsmgPiV+XrJbdBn+jPsjcB6W3f4fKYfClnBeLLXoQYrcWPTZUBE7hxL3SCwdY8CPs7wA+vCO64d1BpZYO6nJXREDnt2HqP4/KRSDQCwUskQjVtO4rrQFbYe6EIHSamRP19lTFsTaMpxB9frTVWALPIQnHOyTe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AirqJ7/A; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CGtW6B3A"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AirqJ7/A"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1724335893;
+	s=mimecast20190719; t=1724336755;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=4x81WF9Bq84ITNeafTUObdhyG3kaAx1XIL2mtHRurlg=;
-	b=CGtW6B3AILlFpG0m27m7WfsW56QL4r1heVQVn0FYYSEh/zMgDk+dPbHcGhtrXdNhyPovR3
-	9e6Fg5Hiy+uQFfHqYw+Wr4+0ixXlA7I6A8zQ1QBJoyL5tFOjAIqNRzVOF6560vUftksPQ/
-	XDL8pzDXMB37KGahwKwreAvERwhsLqw=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=/VpPQddz7Fjlw6ZOuugK/moBk9ha+i77orrfV3tyVSc=;
+	b=AirqJ7/ANdSA3WrZOfWkrTSbmfoavyURfHuIHgoUPjBXsGGQXXCO2mLRvrDehXaXczT67b
+	HSGfpbldSBNeZpSiza73xeyI/iLd6owSQpIGfvjxtx9S/gou67MpYq6rI5dbyet6POOHuz
+	xSw2bIy1WwKnzesyy8aQDGEKvSe8R84=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-371-IrOt6GuhN763CYsPKBuNNg-1; Thu, 22 Aug 2024 10:11:29 -0400
-X-MC-Unique: IrOt6GuhN763CYsPKBuNNg-1
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-428040f49f9so8096565e9.0
-        for <virtio-comment@lists.linux.dev>; Thu, 22 Aug 2024 07:11:29 -0700 (PDT)
+ us-mta-220-d-DsWyF1Mcq8CC05fgg4zw-1; Thu, 22 Aug 2024 10:25:54 -0400
+X-MC-Unique: d-DsWyF1Mcq8CC05fgg4zw-1
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-3718ce3f6bdso605884f8f.2
+        for <virtio-comment@lists.linux.dev>; Thu, 22 Aug 2024 07:25:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724335888; x=1724940688;
+        d=1e100.net; s=20230601; t=1724336753; x=1724941553;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4x81WF9Bq84ITNeafTUObdhyG3kaAx1XIL2mtHRurlg=;
-        b=hyETcbpoETt9bqnoWGX/LSq4xb0XCRGQPyZuqU/TfaB3zFlNzpsZocJWCKtnQmEDtt
-         L2bGs1YguwYbWlS/xuhQZqkjqHpl2j/YHn6d5j1vM2IR9eN2beFw0MlNmO6PYH80Jrl7
-         6VD+Q7jXkFVdZAgYwqUBVl8xJIsitWTMIty8QCwkHHggaRbseNc5baiQqOtPDg9TM3L5
-         B+th0EXhE9/uJuPHEHa4+1ciN6uiI98i8HE0hpUDLUyuJ6u64e2nLwst05mxAS8zJeSO
-         El5YOkQqd4CPTZbBAJu2zXcSR3RF+WGjvj5eT6R1xNp+N0Jscf3rJgo4ByfdaX+zalZl
-         MsLA==
-X-Gm-Message-State: AOJu0YwTM/PmKRtzywR3ZMpaTD8vNpmDCMd6xb+iOp9+hsa/F9Z6nZFc
-	DEhqHvXaZRe6PbPBYEC3At6nVWVAdfMVKpdEFOSK1EqF67zerwM6G9nPPuAM6f6LTYzd01GJTwA
-	7tm2secfqbJWtDJD+EJhuxhvSmnOIfiCANzbtw3zqAHJDULkAdFuvX1FJQ78K/9sB
-X-Received: by 2002:a05:600c:1906:b0:426:5c36:207c with SMTP id 5b1f17b1804b1-42abd245728mr42260775e9.25.1724335888380;
-        Thu, 22 Aug 2024 07:11:28 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGACAiwvhbGdC4vpM6Un4UlgEBpHa8QbWxiUXqqWHkX9/qjmklLMI6wiSuqlnrwZRe2BdokqQ==
-X-Received: by 2002:a05:600c:1906:b0:426:5c36:207c with SMTP id 5b1f17b1804b1-42abd245728mr42260445e9.25.1724335887728;
-        Thu, 22 Aug 2024 07:11:27 -0700 (PDT)
+        bh=/VpPQddz7Fjlw6ZOuugK/moBk9ha+i77orrfV3tyVSc=;
+        b=ITBYh3AMo6XtdQtEkay9PJAE9WOFvHfR6imwYRCO5zuNYEEJn6fqY5SR991ZLjhgUm
+         jMHHxv3BhoQ9wWMqE/CscwVUOVTPSY3CgHBl6Cztng0kZbswb+ciRmxlgNFDC4u4GjBX
+         wSI96I2Dk1nGoJmS/hJ3StLMI3jEmrkQuU+FQNF1nrsKCD3XL/Ects+At4ve8UQgqtlL
+         AJqbX915SHOoR75vkz1CBPaUtjxc28ugnovIE9drUQxpzNDKI2h7g5dr43RPo3xNUPNi
+         6zdEV0s2O92TcR6h02qh0fssn6hCHILMEngE6NnnUtDDhkSzdEDG5T47iXeatmkPkeGQ
+         71WQ==
+X-Gm-Message-State: AOJu0YyPkH57a++cOiNrbS1LMQa6bJcVsBfmT2uQcQecKI02aEOWCcgl
+	f+0duvFzF/eQgotkUVd5IkH9XCokWdalEMJdG4r2tnQ+K/HxOfa0vsrnrIp4cjDJb6dPS9qOI12
+	G9GKhkdCcBGY7dj0VeZEf73WtLj4tIgclMIeu7/kdXiRaMUdP4QdcIoVIYv0KcP6v
+X-Received: by 2002:adf:f2c8:0:b0:368:4e35:76f9 with SMTP id ffacd0b85a97d-37308c337f3mr1950215f8f.37.1724336753652;
+        Thu, 22 Aug 2024 07:25:53 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IESnDyhf9nupML7Jj8vTl8Zr138W3S00jHOUSH89AijidD81iw/E7R0KdnEmYx+lcMgmO68PQ==
+X-Received: by 2002:adf:f2c8:0:b0:368:4e35:76f9 with SMTP id ffacd0b85a97d-37308c337f3mr1950184f8f.37.1724336753044;
+        Thu, 22 Aug 2024 07:25:53 -0700 (PDT)
 Received: from ?IPV6:2a0d:3344:1b51:3b10::f71? ([2a0d:3344:1b51:3b10::f71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-42ac5158420sm25422125e9.14.2024.08.22.07.11.26
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-373081ffb66sm1812092f8f.84.2024.08.22.07.25.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Aug 2024 07:11:27 -0700 (PDT)
-Message-ID: <70256c1c-f5dd-4ccd-a414-434bb56612fd@redhat.com>
-Date: Thu, 22 Aug 2024 16:11:26 +0200
+        Thu, 22 Aug 2024 07:25:52 -0700 (PDT)
+Message-ID: <fec4d009-df32-40f4-9741-88a267e430e2@redhat.com>
+Date: Thu, 22 Aug 2024 16:25:51 +0200
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -75,143 +75,62 @@ Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com,
 References: <cover.1724234131.git.pabeni@redhat.com>
  <04089a87ff34aa518345ba5b50aecf737fb03f40.1724234131.git.pabeni@redhat.com>
  <CA+FuTScjheR1htWujZ5=adBRB3+_z5KrCyHKoRGVapGq-MGtJQ@mail.gmail.com>
+ <CA+FuTSd5PW6D0iSDSYjh3S6OpGCL1Lf95q_=eOfi=APXoBZyOg@mail.gmail.com>
 From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <CA+FuTScjheR1htWujZ5=adBRB3+_z5KrCyHKoRGVapGq-MGtJQ@mail.gmail.com>
+In-Reply-To: <CA+FuTSd5PW6D0iSDSYjh3S6OpGCL1Lf95q_=eOfi=APXoBZyOg@mail.gmail.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 8/21/24 21:28, Willem de Bruijn wrote:
-> On Wed, Aug 21, 2024 at 6:03 AM Paolo Abeni <pabeni@redhat.com> wrote:
+
+
+On 8/21/24 21:48, Willem de Bruijn wrote:
+>>> +Geneve UDP tunnel (again IPv4) with no tunnel options. Note that the
+>>> +only relevant variable related to the tunnel type is the tunnel header length.
+>>> +The packet will have a 14 byte outer ethernet header, 20 byte outer IP header
+>>> +followed by the 8 byte UDP header (with a 0 checksum value), 8 byte Geneve header,
+>>> +14 byte inner ethernet header, 20 byte inner IP header
+>>> +and the TCP header (with the TCP checksum field 16 bytes
+>>> +into that header). \field{csum_start} will be 14+20+8+8+14+20 = 84 (the TCP
+>>> +checksum includes the header), \field{csum_offset} will be 16.
 >>
->> The VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV{4,6} are two gso_type flags
->> allowing respectively GSO over UDPv4 tunnel and GSO over UDPv6 tunnel.
->> They can be negotiated on both the host and guest sides.
->>
->> One constraint addressed here is that the virtio side (either device or
->> driver) receiving a UDP tunneled GSO packet must be able to reconstruct
->> completely the inner and outer headers offset - to allow for later GSO.
->>
->> To accommodate such need, new fields are introduced in the virtio_net
->> header: outer_th_offset and inner_nh_offset.
->> They map directly to the corresponding header information. The inner
->> transport header is implied by the (inner) checksum offload.
->>
->> Those fields are required because a virtio device H/W implementation
->> performing segmentation for UDP tunneled packet will need to touch
->> the outer transport protocol (for the UDP length filed), the
->> inner network protocol (for the total length field, in the IPv4
->> case).
->>
->> Note that segmentation will additionally need to touch
->> the outer network protocol and the inner transport protocol. The first
->> is implied/easily found with trivial parsing, the latter is identified
+>> The csum_offset field is not even needed in virtio_net_hdr if gso is
+>> enabled, as then the gso type already defines the protocol.
 > 
-> Trivial because Ethernet header followed by IPv4 or IPv6 header is
-> assumed? I.e., no level 2.5 headers like vlan or mpls to complicate
-> matters.
-
-Yes ;)
-
->> @@ -516,6 +542,39 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
->>   specifically in the protocol.}.
->>      \end{itemize}
->>
->> +\item If the driver negotiated the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO feature and the
->> +  \field{gso_type} has the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or
->> +  VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit set, the GSO protocol is encapsulated
->> +  in a UDP tunnel.
->> +  The outer UDP header must not require checksum validation, i.e. the outer UDP
->> +  checksum must be a positive zero (0x0) as defined in UDP RFC 768.
->> +  The other tunnel-related fields indicate how to replicate the packet
->> +  headers to cut it into smaller packets:
->> +
->> +  \begin{itemize}
->> +  \item \field{outer_th_offset} field indicates the outer transport header within
->> +      the packet. Note that such field differs from \field{csum_start} as the latter
->> +      points to the inner transport header within the packet.
->> +
->> +  \item \field{inner_nh_offset} field indicates the inner network header within
->> +      the packet.
->> +  \end{itemize}
->> +
->> +\begin{note}
->> +For example, consider a partially checksummed TCP (IPv4) packet carried over a
+> We recently started testing this invariant in the Linux code. We have
+> learned the hard way to not trust userspace processes to set up any
+> fields correctly.
 > 
-> partially checksummed here means CHECKSUM_PARTIAL?
+> For the new fields, we should from the start think of such invariants
+> that can detect bad input. For instance,
 > 
-> The term makes sense within Linux, but intuitively partially
-> checksummed could be interpreted to mean something like UDPLite: a
-> checksum over part of the packet.
+>      outer_th_offset < inner_nh_offset
+>      inner_nh_offset < csum_start
+>      csum_start < pkt_len
 > 
-> Perhaps checksum offloaded instead?
+> Maybe even more stringent invariant checks are possible. The only
+> ones that truly matter are the ones that can affect device side
+> correctness (such as host kernel crashes).
 
-I used the same wording of the similar note describing plain TCP GSO 
-packet a few lines above, for cargo cul...  consistency.
+FTR, I intend to implement something alike:
 
-So just a small consistency-related resistence here.
+	outer_th_offset >= 14 + base outer network hdr size
+	outer_th_offset + 8 <= inner_nh_offset
+	inner_nh_offset + base inner network hdr size  <= csum_start
+	csum_start <= pkt_len - base inner transport hdr size
 
-> And since I'm bikeshedding: "Note that" is a phrase that can almost
-> always be dropped entirely.
+where base inner/outer network hdr size is 20 or 40 depending on ipv4 vs 
+ipv6 and base inner transport hdr size is 8 or 20 debending on udp vs tcp.
 
-Will drop in the next revision.
+> Not sure that we have to call them out in the spec, but perhaps
+> helpful too. Either way, good to think about possible attacks on
+> the new interface even before coding, before the spec is complete.
 
->> @@ -557,6 +616,29 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
->>   driver MUST set the VIRTIO_NET_HDR_GSO_ECN bit in
->>   \field{gso_type}.
->>
->> +If VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO is negotiated, the driver MAY set
->> +VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit
->> +in \field{gso_type} according to the inner network header protocol type
->> +to request TCP or UDP GSO packets over UDPv4 or UDPv6 tunnel
->> +segmentation, otherwise the driver MUST NOT set neither the
-> 
-> not neither is a double negative. Neither already means not either, so
-> this because not not either.
-
-The intended meaning is a single negative (not set). I'll replace 
-neither with either in the next revision.
-
->> @@ -598,6 +680,36 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
->>          header.
->>   \end{itemize}
->>
->> +If the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO option has been negotiated, the
->> +driver MAY set the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
->> +VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type}, if so:
->> +\begin{itemize}
->> +\item the driver MUST set \field{outer_th_offset} to the outer UDP header
->> +  offset and \field{inner_nh_offset} to the inner network header offset.
->> +  The \field{csum_start} and \field{csum_offset} fields point respectively
->> +  to the inner transport header and inner transport checksum field.
->> +\end{itemize}
->> +
->> +If the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
->> +VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set, the
->> +outer UDP header MUST NOT require checksum validation. That is, the
->> +outer UDP checksum value MUST be 0 or the validated complete checksum
->> +for such header.
->> +
->> +\begin{note}
->> +The valid complete checksum of the outer UDP header of individual segments
->> +can be computed by the driver prior to segmentation only if the GSO packet
->> +size is a multiple of \field{gso_size}, because then all segments
->> +have the same size and thus all data included in the outer UDP
->> +checksum is the same for every segment. These pre-computed segment
->> +length and checksum fields are different from those of the GSO
->> +packet.
->> +\end{note}
-> 
-> The second variant, gso_partial, also implies that the outer header
-> already has udph->length set to the segment length.
-> 
-> While the first variant does not. Right?
-> 
-> Probably worth clarifying.
-
-I will do in the next revision.
+AFIACS the current spec currently does not describe validation for the 
+existing fields subject to such issues (e.g. csum_start/csum_offset). I 
+think it could be added in a second moment, if needed.
 
 Thanks,
 
