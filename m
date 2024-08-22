@@ -1,135 +1,133 @@
-Received: from mail-yb1-f181.google.com (mail-yb1-f181.google.com [209.85.219.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5E41CBEA6
-	for <virtio-comment@lists.linux.dev>; Thu, 22 Aug 2024 14:31:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7AE82C87A
+	for <virtio-comment@lists.linux.dev>; Thu, 22 Aug 2024 15:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724337070; cv=none; b=rePF5+oJU1TN8f67fHr1Vx3mKP7w0Pd+piX84T9X0dWzIpihkFG9sAZcFtBXxicr50+b2yM/E35WGeUXgoMEbJ156Kcm2PYEOShMExxGLHve0nmMh2WuGJRVW0T8f/hws4CtQNS5Usl0HgKX1Q3sRzkqB2FsBwRERJzMYzicGyQ=
+	t=1724339946; cv=none; b=MVts5WmeLeV2tH5R4IUo3BxRoVkoXxoN9EnLLwhNil0f5kPFm5Bm3H/v9iszzeXSiboz0+rZj5rKha/W0pNwCD4hydDgasT+He4hrC9KlNskCyJL/myAmPK+e54hSWuxvWo4KnMnhbuewRr/t9HDqBq1VeopBzcKggaWi9HBE1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724337070; c=relaxed/simple;
-	bh=4/X/oKERMAUJO7VukRx54I7q+JmOL3RTVsZnEMV0GBE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=A5nJ/RhLvBRumALtZRf/0bwKhaC43JEJ4OvYKYyw4x3yIQx/gPvmJi4XoWs8wkcQywtEIrKKz/xZv2wjzjPRUfwOvVRmEyJK2vExrW09vKcdRazu5175du8RKFvY9/sXaF5xrHFgDmEakQRRn/dWrJkxZbONdZJFw4algnTwhXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jirey+Cm; arc=none smtp.client-ip=209.85.219.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1724339946; c=relaxed/simple;
+	bh=LxJZR2qpsPSfpJ3Gof3keACzxIoJnMeBnUn64bSPvGo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oKRHEUp7Q6a2UDEGpCRIq9xb25HPlBqA6xUdMlu4/Ij0a4tHuRMGuhaft/bgR9HguujAjSeQxTgZwupTztC1VVVRm1utnI2ujzz0Had0f82HmbSujD954WhmzbL3KAssyAnrEITI61UrjF1HfcpTuABv7m69SBh00LNkW6r0MY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QlAYIY83; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jirey+Cm"
-Received: by mail-yb1-f181.google.com with SMTP id 3f1490d57ef6-e13c23dbabdso852230276.3
-        for <virtio-comment@lists.linux.dev>; Thu, 22 Aug 2024 07:31:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1724337067; x=1724941867; darn=lists.linux.dev;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ARW0rWaYEyDorwaojdskzYfUIzdhIASFJ/jzQP1vlj0=;
-        b=jirey+CmBxzFQbBRP4GajKVisojhSKKJeXLj1ZCDyg/aBFu8Dd+2stkLUNw+F75xaK
-         sCp+LUxfSUGny8ebZeNGdIB3XEA/EDWm9v682ulcHEmPgWDJh2aKeFiXe3CfxltPEcNR
-         grBiFvk3hqAnHnW6hgSiv5ShxKTjNc6SRoEEOMqrGgetlSRLOITUs9mZeJRi38As7JFs
-         hi9bPqzv4sp1L9eK3tw+ehoDrMxXuDbzrWjOKxlSCSvuVzSq/bZU/Vz/BNcYoenFq8l0
-         emML/yxDkqnty8BnBE2LR8etj85DGXO5Gy8OS06FZ+TYVma1Sr9r2hb1RAF+fQYqkaVa
-         Meow==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QlAYIY83"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1724339943;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P2AvozHttCkqSRI+hpFo3eDuIDIavqB8F/AVkDWG9Gs=;
+	b=QlAYIY833s08H4S+0BuwqZf+sIHLUDdasxjVeIVwa+XDiHV/kblaMgyjjocaV487knVc+n
+	MLbsZgKlwLq+yWoEYOpJJtH7ssCpXQLq0RBvhNEJj0TQW2EITQx7zu/hldV6rJGVhVjH16
+	TkDlwseNB5jMNNY/xM0JkS9qNhMxm44=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-478-ISFdeNemOxmEuxjNacHruA-1; Thu, 22 Aug 2024 11:19:00 -0400
+X-MC-Unique: ISFdeNemOxmEuxjNacHruA-1
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-428fc34f41bso8120085e9.3
+        for <virtio-comment@lists.linux.dev>; Thu, 22 Aug 2024 08:18:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724337067; x=1724941867;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ARW0rWaYEyDorwaojdskzYfUIzdhIASFJ/jzQP1vlj0=;
-        b=EH4A1vPBvFDpcPf/V2rWaCwamL6I2I6PxkF6DdRxJVtW68ueGL3UA0I9Zi1NiVAM4k
-         +8aOUTCEKK4f7oew70ENRhcwMLIQG5FTF7ns0V39xScvC1Xwub8a3Xpt9vcEa1b5yDis
-         7nL4RVmwZDRgQPjAZjxMTuTbrjTRJYI72TyCqeoGCDSqu2t4m6NGMwoh6n7qsTeQSMD+
-         GH/lkpBf9xzvwUFEcI4GtnFppSOaZNowk0preNj51yNThcZDkZphfbib3Bc9hf8jFcad
-         rVWWIKzs5rZL1foYgT07WlJ+nVr2FthGNIyR/EUr76dMZWy9lEsLOhjaDtjpgySFDsp5
-         89vQ==
-X-Gm-Message-State: AOJu0Yzq3mrJGHeyNrSCHMbzYourrALlk44VFveQV7pELyVCOCnAGnV1
-	5mQoyot1PjoyPQaaxCJ0OcfwoHB2JUI4BrmeB/ZOcsFA5/AGp5PnqXMCKB1OSKzG1A28GqMBbYL
-	3RB3KAECWzTy56T/iqW/tpvC2PSBekqZ1GVyS
-X-Google-Smtp-Source: AGHT+IEPpF7RdXWFFAqhFy6pbQCOtQ+loovRoUyT0aS1VuPMWLwX28NE1K5zQdu3dwap88k3XVjjL0uIatnrN9b4Fr4=
-X-Received: by 2002:a05:690c:d85:b0:6af:8f7a:28d0 with SMTP id
- 00721157ae682-6c3d149f34dmr25685747b3.2.1724337067168; Thu, 22 Aug 2024
- 07:31:07 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1724339939; x=1724944739;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=P2AvozHttCkqSRI+hpFo3eDuIDIavqB8F/AVkDWG9Gs=;
+        b=BsmGmn8hes77v8xgSq6kkRvX4ofFnE+a9D/tyi2srMG0OHW/eskx0TcTTd5KC4FOI1
+         73V70pVN8oexkThdxyCbDkTYDVM29ZnWXziok6dzMZI9qsd1BIzElqtanct4fkzNUlOB
+         bqAoFM1crN8h05ufnsMEg1sedZB0+bP+iruXS1j0r2CsOQxN0ynwxm6sU+dcQhiDlsrg
+         Bop7Fo2YDRZ+K+IZclwVXVFi0gdt4w/PPtAvatLIIRgJ3w8FCNmJdOKso/bfQqEMCaEl
+         okOuz0JWPk9m7jzxrbdhE+31H0Q/uNikhnSC1wIWPJnuuXiathYmPAM5I/jvYtx49iYw
+         TlMA==
+X-Gm-Message-State: AOJu0YyX+Ls3MfRGofEM5mh3O2anrs3X7ciVPQS7arKJ4eTliUfy3Ni/
+	UmypB+I2urpMT308cRU3wViTkB/8FXNbbPPPBFEvuf1adeyBgOm9dM/rG39usMo2p5pXZ/lJTIm
+	cbHnFSK5xiKngGFwbPemqQUPFpo3iYj5+PqxTnQbmxgkM8hJET9ao5sgl3RJS3gvs
+X-Received: by 2002:a05:600c:1f85:b0:427:ff7a:79e with SMTP id 5b1f17b1804b1-42abd21323fmr40497935e9.16.1724339938850;
+        Thu, 22 Aug 2024 08:18:58 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGJcsVTKwnUCoEmnQfHR0MrO5GUvsVYXm9wlVh7h3UXjrXhzn7RRvkaOrwuDtM8ZKWEMnY4ow==
+X-Received: by 2002:a05:600c:1f85:b0:427:ff7a:79e with SMTP id 5b1f17b1804b1-42abd21323fmr40497705e9.16.1724339938373;
+        Thu, 22 Aug 2024 08:18:58 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:1b51:3b10::f71? ([2a0d:3344:1b51:3b10::f71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-42ac51584c0sm27667435e9.15.2024.08.22.08.18.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Aug 2024 08:18:57 -0700 (PDT)
+Message-ID: <48eaa7e7-3cd7-41ca-8109-892702ee9350@redhat.com>
+Date: Thu, 22 Aug 2024 17:18:56 +0200
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <cover.1724234131.git.pabeni@redhat.com> <04089a87ff34aa518345ba5b50aecf737fb03f40.1724234131.git.pabeni@redhat.com>
- <CA+FuTScjheR1htWujZ5=adBRB3+_z5KrCyHKoRGVapGq-MGtJQ@mail.gmail.com>
- <CA+FuTSd5PW6D0iSDSYjh3S6OpGCL1Lf95q_=eOfi=APXoBZyOg@mail.gmail.com> <fec4d009-df32-40f4-9741-88a267e430e2@redhat.com>
-In-Reply-To: <fec4d009-df32-40f4-9741-88a267e430e2@redhat.com>
-From: Willem de Bruijn <willemb@google.com>
-Date: Thu, 22 Aug 2024 10:30:30 -0400
-Message-ID: <CA+FuTSf_c5PWOQi-hZYpEb9GRhTWLV_Ep7KtgSHnLEYW2WCDdw@mail.gmail.com>
-Subject: Re: [PATCH v7 1/2] virtio-net: define UDP tunnel segmentation offload feature
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com, 
-	Eelco Chaudron <echaudro@redhat.com>, Jason Wang <jasowang@redhat.com>, 
-	Stefano Garzarella <sgarzare@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/2] virtio-net: define UDP tunnel checksum offload
+ feature
+To: Willem de Bruijn <willemb@google.com>
+Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com,
+ Eelco Chaudron <echaudro@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ Stefano Garzarella <sgarzare@redhat.com>
+References: <cover.1724234131.git.pabeni@redhat.com>
+ <b3a93378fbe02aefe4450f97e21138a757c41036.1724234131.git.pabeni@redhat.com>
+ <CA+FuTSe1Wz8T5NDUA-h1izZ1mhz3z0jsK8XH6tgtREz00B9nhw@mail.gmail.com>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <CA+FuTSe1Wz8T5NDUA-h1izZ1mhz3z0jsK8XH6tgtREz00B9nhw@mail.gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 22, 2024 at 10:25=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wr=
-ote:
->
->
->
-> On 8/21/24 21:48, Willem de Bruijn wrote:
-> >>> +Geneve UDP tunnel (again IPv4) with no tunnel options. Note that the
-> >>> +only relevant variable related to the tunnel type is the tunnel head=
-er length.
-> >>> +The packet will have a 14 byte outer ethernet header, 20 byte outer =
-IP header
-> >>> +followed by the 8 byte UDP header (with a 0 checksum value), 8 byte =
-Geneve header,
-> >>> +14 byte inner ethernet header, 20 byte inner IP header
-> >>> +and the TCP header (with the TCP checksum field 16 bytes
-> >>> +into that header). \field{csum_start} will be 14+20+8+8+14+20 =3D 84=
- (the TCP
-> >>> +checksum includes the header), \field{csum_offset} will be 16.
-> >>
-> >> The csum_offset field is not even needed in virtio_net_hdr if gso is
-> >> enabled, as then the gso type already defines the protocol.
-> >
-> > We recently started testing this invariant in the Linux code. We have
-> > learned the hard way to not trust userspace processes to set up any
-> > fields correctly.
-> >
-> > For the new fields, we should from the start think of such invariants
-> > that can detect bad input. For instance,
-> >
-> >      outer_th_offset < inner_nh_offset
-> >      inner_nh_offset < csum_start
-> >      csum_start < pkt_len
-> >
-> > Maybe even more stringent invariant checks are possible. The only
-> > ones that truly matter are the ones that can affect device side
-> > correctness (such as host kernel crashes).
->
-> FTR, I intend to implement something alike:
->
->         outer_th_offset >=3D 14 + base outer network hdr size
->         outer_th_offset + 8 <=3D inner_nh_offset
->         inner_nh_offset + base inner network hdr size  <=3D csum_start
->         csum_start <=3D pkt_len - base inner transport hdr size
->
-> where base inner/outer network hdr size is 20 or 40 depending on ipv4 vs
-> ipv6 and base inner transport hdr size is 8 or 20 debending on udp vs tcp=
-.
+On 8/21/24 21:42, Willem de Bruijn wrote:
+> On Wed, Aug 21, 2024 at 6:03 AM Paolo Abeni <pabeni@redhat.com> wrote:
+>> @@ -425,6 +446,7 @@ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device O
+>>   #define VIRTIO_NET_HDR_F_NEEDS_CSUM    1
+>>   #define VIRTIO_NET_HDR_F_DATA_VALID    2
+>>   #define VIRTIO_NET_HDR_F_RSC_INFO      4
+>> +#define VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM 8
+> 
+> Only now notice: since this is only valid with GSO, should this be a
+> gso_type bit, like VIRTIO_NET_HDR_GSO_ECN?
 
-Great! Thanks Paolo.
+I originally placed the flag here for consistency with NEEDS_CSUM, 
+before making the TUNNEL_CSUM offload depending on TUNNEL_GSO offload.
 
-We learned the hard way that we need to sanitize these inputs. Good to
-see that included from the start for new fields.
+I think it's still a valid choice: the bit space in 'gso_type' is quite 
+low; will be significantly lower then what will have in 'flags' with 
+such change, I *think* it's more future proof this way. Do you have 
+strong opinion otherwise?
 
-> > Not sure that we have to call them out in the spec, but perhaps
-> > helpful too. Either way, good to think about possible attacks on
-> > the new interface even before coding, before the spec is complete.
->
-> AFIACS the current spec currently does not describe validation for the
-> existing fields subject to such issues (e.g. csum_start/csum_offset). I
-> think it could be added in a second moment, if needed.
+>> +If the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM feature has been negotiated,
+>> +and the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or
+>> +VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set,
+>> +the driver MAY set the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in
+>> +\field{flags}, if so:
+>> +\begin{enumerate}
+>> +\item the driver MUST validate the packet checksum at
+>> +       offset 6 from \field{outer_th_offset} as well as all
+>> +       preceding offsets;
+> 
+> I don't follow this comment: when programming checksum offload, why
+> does the driver have to validate any checksums?
 
-Either way. It may be helpful for other implementers of the spec. If
-not too much work to add.
+I must admit this is plain cargo cult programming, from the original 
+csum fields specification. I naively (and forcefully) interpreted the 
+original statement as 'the driver must validate the csums related 
+offset' (yup, it requires quite a bit of good interpretation will ;).
+
+I now think we are better off dropping this sentence (and similar ones) 
+completely.
+
+Thanks,
+
+Paolo
+
+> 
+> Same in two other locations.
+> 
+
