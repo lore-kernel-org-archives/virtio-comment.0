@@ -1,327 +1,212 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFFC54F87
-	for <virtio-comment@lists.linux.dev>; Thu,  5 Sep 2024 23:50:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFB81B29D2
+	for <virtio-comment@lists.linux.dev>; Thu,  5 Sep 2024 23:51:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1725580262; cv=none; b=LE6Nt99KYnoTAUG1yNJCIfBh4FxI7WcutCDoG2oOyEMaYzZcCyq/xc/4LBDdpoG10tI2mTSI8r2TULokj8UVfHxaltjNlcfDg1obBgH5KEJBU/TvW3euX9Lq6sF+RQmbV/WaqetFVjisi+rnUz52GxcH97TxaodjY8rji0wZsag=
+	t=1725580286; cv=none; b=ZZoTpEUsjqkCqKJqBkGnK88WYt+JpA1ArckwGrLnYb1tQG3AizWRyOlRc7TE+yzUO3V5W3lU55cmFvKUtV5HW6nXB8m0mGuJN9efJC12Nl3WJwmptdzRmoIm7oNDgKA/+gfY00nWOh5+tUERvaHUNMyAy7Vw7SnCeb6yaTEwVaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1725580262; c=relaxed/simple;
-	bh=WShYtoHLRVK+7IRBrE4C7oPcDH2KW2WFPNrFQ6SLWhk=;
+	s=arc-20240116; t=1725580286; c=relaxed/simple;
+	bh=NqSJ5D6a4i29yvgaQFc8YV3HIIqN/jCukStQMXm1N/c=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ELjEP9rPq/s26dmphpF3Yv7qD4T95oSoOQCHgvafJT7/Npkkwh8iIZO9QX6Kz62jlPfbTpcNBENMc7I9rDU2ROyTcntwBjfjgUAmL6/eXyD1UvfuDEclYGVve0MMkBXQL4OWeEhR/jFGgSR5FibajAvPkzrkJ/pUMaRpLdtydM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NRxk4L2D; arc=none smtp.client-ip=170.10.133.124
+	 To:Cc:Content-Type; b=pzUBTaitQqLiDzKR+C4yVhoqiJTFNkUK0RXvtpr5pc4tjr8I9xAExsrgi1N40YyfKsV6xmLiWGDN4twmLMlZLWzdni6yKK+452ZvtE+T52NTJPYcU5ySWLczVNGYQ4GtdEzB4Er6Ug6PYAYUxiVU7sk6CVj88CkwyduwIdcTcGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KrdZWjZB; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NRxk4L2D"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KrdZWjZB"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1725580258;
+	s=mimecast20190719; t=1725580283;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Oy1m+kQ2cXXhyOCXV6GHpRh/PlwDIg6JVTtq0LsvnmE=;
-	b=NRxk4L2Dp678QM/h7vzQRVNVUxMvwf4XD3KMi0MqYgT2gRsARNv8Ff7wX7QailNEtOsUo9
-	ULygB6AZT49/lXsn2YE7iU5+sWRssPzXwTWuJEFiHUW6nEjvbe9aKwwplmb1IKOqmSkFrD
-	/KSh/UybcB2dfnFcuq25lUmd0ERFvKM=
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=xYWqQRNU4uf0iRFYpae5qJNfaa7KDhhBqRZ08pEE/us=;
+	b=KrdZWjZBURkFf1u14/XHyXnp6zOl8VSZF8VyDkLJMQ900K0JP77dAIOjaXUsBWPcyWGrEz
+	OOUyPhPC6Ms+3ORX9S5r9YD8FlxAe328pYDyVe+2t+V6oQxRb9yr72HtazbFBDbTn3VRWV
+	dTLAhYr2USudGo8oD/ds1uj3iIEyibI=
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-610-2-ARVlbPOESybFM50cML1Q-1; Thu, 05 Sep 2024 19:50:57 -0400
-X-MC-Unique: 2-ARVlbPOESybFM50cML1Q-1
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-2d86e9da90cso1984490a91.2
-        for <virtio-comment@lists.linux.dev>; Thu, 05 Sep 2024 16:50:57 -0700 (PDT)
+ us-mta-42-NdhYmGu8OPy1CZJU5v5TzA-1; Thu, 05 Sep 2024 19:51:21 -0400
+X-MC-Unique: NdhYmGu8OPy1CZJU5v5TzA-1
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-717453c0677so2174535b3a.0
+        for <virtio-comment@lists.linux.dev>; Thu, 05 Sep 2024 16:51:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725580257; x=1726185057;
+        d=1e100.net; s=20230601; t=1725580280; x=1726185080;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Oy1m+kQ2cXXhyOCXV6GHpRh/PlwDIg6JVTtq0LsvnmE=;
-        b=SQtBvDdqd1XpQ9yZjXdf/cIOoNagEbC874zhyQ41dCwyFXr2CjkszLrwVmyNBt68Ab
-         XLlrS+o4ttOTXnrEF3/0r+DIVUYZ2UdmM062uG1oS3VzB+Dh0wCJmkm/uOijiCWS9uIi
-         i5DoyZt7kcJ0AbpIjs7tNhbnUrOCN5mahlIyczwzL9FyW5Dfbd+mpSnl14luxKl7s3LB
-         vnJ+V7t0b+bRJGVKh9t0QYE9LiT/TO+VBYMb6/X0mfe+ruU/1F+uvESrVXkBWAGMpcGm
-         WdRK6h01oga0siVfHoYB6BkiJJxgizwoEVFvfcRPjHAz5gMDQURBmIbKTKwgK3h5Gw5D
-         o/RA==
-X-Forwarded-Encrypted: i=1; AJvYcCWytX1smBd7rDfgAfli9HJH4uRUshKrmY/WK/zCREhDSNmcQAD9MrsL6dfKAEOfI6e8xWD/hGPvrnMzHXmjtw==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxUDJRoln2oyTbXtwIdlxIW/lD2oalR4OhnLwGi3sp4kIKq6XRC
-	VC5dq/BLDu0veN9FrclGiF7EQbXvEUgVdGuz570xj1ms7hjfIFPpFGVgxhcYJH7VSw9EY3M/eIm
-	8DyCE9lL7Ys8GgPq+T0sZBI/EGs+nawuET0JsFeo3IzN9S4AvKOFYvbTjbyp3tPPawI+KdR7a2o
-	nNZl0caIbrWA1+SRXQlJA+YprDy6zcFOtWh5lWF2w=
-X-Received: by 2002:a17:90b:118a:b0:2ca:2c4b:476 with SMTP id 98e67ed59e1d1-2dad4f06028mr1294458a91.10.1725580256543;
-        Thu, 05 Sep 2024 16:50:56 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGX7nEsBy0QS0bfxr10U1ffzhRwus5WLz37PsSuhx9uoyZfp51XttPfnjtU2w1w9NIdT8mZIbri/MnSnoe4LVs=
-X-Received: by 2002:a17:90b:118a:b0:2ca:2c4b:476 with SMTP id
- 98e67ed59e1d1-2dad4f06028mr1294429a91.10.1725580255950; Thu, 05 Sep 2024
- 16:50:55 -0700 (PDT)
+        bh=xYWqQRNU4uf0iRFYpae5qJNfaa7KDhhBqRZ08pEE/us=;
+        b=BukJDv1NIfaEjVmOwlIq7r+QgLZd4dmOy0Ss9Fpsej+E1jiOBvxw1Xhfq63Z144R4h
+         dHaMbnC+U8jRiMiFQmege0u5zBuGaTWR5uE/KP7DdCvDkeRHl9+bFT5m1TTORFf/cFyk
+         j6LQMI3S9XBKkPWr/XJButszWYPPvjoCrioyWvZ/o1bj7ctNU+4B9MalBNQ1BBtDUzDp
+         /r+LNAr/WWjSKu1JmujlR71Tav8/rkteAL1I377vybt5wQpscdbdRRp6C0lVw/Wo1AZb
+         lbpSILxP9Mjoh1LxZLk/xtd9OKSeeQblBXSV5zOWzKtcfqdWbtFpV+WXxSrbCKW/F8vv
+         oj+A==
+X-Forwarded-Encrypted: i=1; AJvYcCXE6TDvERynXcbMb4rRFiIZPIq9x7D2ifwbjHP6ldAKuV3J4xwZxRNVWJFKWDUfI2EXgfiwINAIp6+OZGhtDA==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yw2sj1/lCLm99tMLRtXaIV8XHkE99GHvNtXp/slEEuf/7k9UMWF
+	DOe0pl6Ixs2r5KZfHQduoqkLh+7kRRMQM/GXdYuUmc0jGyhjlTfe+XI2eE5bDN+XounCSpxmYY1
+	i4RgIpBjhF2+y3GsDMCi4yLTXqngs+ZoH6x0ADw5Aptfzpcm9vqTSTyo9/yo/Jq27GrUCHNk2uz
+	DNaRxqe9FoQ4sWuG97v6uJQKDjMuvNKsbTfJGD1fU=
+X-Received: by 2002:a05:6a20:ae86:b0:1cc:e41d:58f0 with SMTP id adf61e73a8af0-1cce41d59b5mr20785736637.13.1725580280305;
+        Thu, 05 Sep 2024 16:51:20 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG2eLG4mxVAI1ob7jVArCbT0vfu4J1KdZ9xuzqdxCHNcJHaj64xaNKFLc9iD9a8n4FhmPA0tSo1SPapIdB/7a4=
+X-Received: by 2002:a05:6a20:ae86:b0:1cc:e41d:58f0 with SMTP id
+ adf61e73a8af0-1cce41d59b5mr20785723637.13.1725580279697; Thu, 05 Sep 2024
+ 16:51:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20240905134621.711743-1-eric.auger@redhat.com>
-In-Reply-To: <20240905134621.711743-1-eric.auger@redhat.com>
+References: <20240903054018-mutt-send-email-mst@kernel.org>
+ <IA0PR12MB87134BF3D3326ED35358D6A1DC932@IA0PR12MB8713.namprd12.prod.outlook.com>
+ <20240903063424-mutt-send-email-mst@kernel.org> <20240903063625-mutt-send-email-mst@kernel.org>
+ <CACGkMEtKk8Rp16sjbS1swJZ4tabVPme_b6pYggoz19m=Bd99NQ@mail.gmail.com>
+ <20240903235727-mutt-send-email-mst@kernel.org> <CACGkMEvO=GH1ochdgJ9oT1DriDFrV+3F-TndDW1wJ39S+hPQ+Q@mail.gmail.com>
+ <04a787eb-c177-41e2-a05f-43375c7ab7c8@amd.com> <20240905024935-mutt-send-email-mst@kernel.org>
+ <47b21a27-d34f-4836-9af4-b009001536ef@amd.com> <20240905031759-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20240905031759-mutt-send-email-mst@kernel.org>
 From: Jason Wang <jasowang@redhat.com>
-Date: Fri, 6 Sep 2024 07:50:44 +0800
-Message-ID: <CACGkMEs8moUvhZda78cCstjO+aYb+SsrFF_nks6BJptVcYD_xg@mail.gmail.com>
-Subject: Re: [PATCH] virtio-iommu: Introduce lazy mode domains and IOTLB_FLUSH request
-To: Eric Auger <eric.auger@redhat.com>
-Cc: eric.auger.pro@gmail.com, virtio-comment@lists.linux.dev, mst@redhat.com, 
-	jean-philippe@linaro.org
+Date: Fri, 6 Sep 2024 07:51:08 +0800
+Message-ID: <CACGkMEtTGHr0+=7X3tTfmXQnfZkbCXv=DqXiBGe54+5JSmETWQ@mail.gmail.com>
+Subject: Re: [PATCH V7 v7] virtio: introduce SUSPEND bit in device status
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Zhu Lingshan <lingshan.zhu@amd.com>, Parav Pandit <parav@nvidia.com>, 
+	"cohuck@redhat.com" <cohuck@redhat.com>, 
+	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+	David Stevens <stevensd@chromium.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 5, 2024 at 9:46=E2=80=AFPM Eric Auger <eric.auger@redhat.com> w=
-rote:
+On Thu, Sep 5, 2024 at 4:12=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com> =
+wrote:
 >
-> At the moment the virtio-iommu offers MAP and UNMAP requests.
-> This means that if the virtio-iommu protects a device with an iotlb
-> we have no other choice but invalidating the device iotlb on UNMAP.
-> This proposal aims at allowing the decoupling of UNMAP commands
-> and domain IOTLB invalidations.
+> On Thu, Sep 05, 2024 at 03:12:41PM +0800, Zhu Lingshan wrote:
+> >
+> >
+> > On 9/5/2024 2:51 PM, Michael S. Tsirkin wrote:
+> > > On Wed, Sep 04, 2024 at 02:38:36PM +0800, Zhu Lingshan wrote:
+> > >>
+> > >> On 9/4/2024 2:31 PM, Jason Wang wrote:
+> > >>> On Wed, Sep 4, 2024 at 12:03=E2=80=AFPM Michael S. Tsirkin <mst@red=
+hat.com> wrote:
+> > >>>> On Wed, Sep 04, 2024 at 11:07:25AM +0800, Jason Wang wrote:
+> > >>>>> On Tue, Sep 3, 2024 at 6:37=E2=80=AFPM Michael S. Tsirkin <mst@re=
+dhat.com> wrote:
+> > >>>>>> On Tue, Sep 03, 2024 at 06:35:59AM -0400, Michael S. Tsirkin wro=
+te:
+> > >>>>>>>>> But I don't like it that looking at the registers, one does n=
+ot know the device
+> > >>>>>>>>> state. Hidden state is bad for debuggability.
+> > >>>>>>>>> We have 4 states:
+> > >>>>>>>>> suspending->suspended->resuming->resumed
+> > >>>>>>>>> so we need a register with at least 2 bits.
+> > >>>>>>>>>
+> > >>>>>>>>> we could steal 2 bits from status but it seems a bit much.
+> > >>>>>>>>>
+> > >>>>>>>> This is why letting the status tell the status and control reg=
+ister to control thing is elegant.
+> > >>>>>>> No argument here.
+> > >>>>>> Or, to be more precise, our status is driver status.
+> > >>>>> It looks like the device actually otherwise there's no need for
+> > >>>>> re-read or poll for things like reset and others.
+> > >>>> The need is there for complex device state transitions, which
+> > >>>> can not reasonably block a read response.
+> > >>>> Another standard approach with PCI is to specify the time
+> > >>>> transitions can take. I consider that less elegant -
+> > >>>> is this what you are advocating? The advantage is that
+> > >>>> driver does not load the pci bus with constant re-polling.
+> > >>>> The disadvantage is that it is hard to pick a universal
+> > >>>> number.  A combination of these approaches might work,
+> > >>>> e.g. a recommended timeout then poll.
+> > >>> We've already had msleep() for vp_reset(), anyhow we can increase t=
+he
+> > >>> sleep time, if it can overload the pci:
+> > >>>
+> > >>>         while (vp_modern_get_status(mdev))
+> > >>>                 msleep(1);
+> > >>>
+> > >>> We can do the same for suspending.
+> > >>>
+> > >>> The main blocker for timeout is that it may break migration and
+> > >>> complicate the hardening. Another proposal in the past is to have a
+> > >>> notification.
+> > >>>
+> > >>> But what I don't understand here is that suspend/resume should be
+> > >>> lighter than reset. If we can afford a reset, so did the
+> > >>> suspending/resume. If we want to have something new, that's fine bu=
+t
+> > >>> it should be orthogonal to a specific new status bit?
+> > >> I agree, if we want new status indicator, then the new indicator sho=
+uld not be
+> > >> specific to SUSPEND.
+> > >>
+> > >> Thanks
+> > >> Zhu Lingshan
+> > > If you mean reset, we have a problem.
+> > > Specifically, reset has to work before feature
+> > > negotiation. So we can not do as we would with
+> > > SUSPEND and use a feature bit to expose presence
+> > > of the indicator register.
+> > I guess the driver can reset the device even after DRIVER_OK.
+>
+> in fact, unlike suspend - at any point at all.
+>
+> > IMHO the indicator should work for all device_status transitions,
+> > not only for RESET or SUSPEND, it should also apply for FEATURE_OK
+> > and DRIVER_OK.
+>
+> I don't  know what kind of transition is there for DRIVER/DRIVER_OK.
+> FEATURES_OK brings with it more issues, e.g. it can fail.
+>
+>
+> > So we don't need a feature bit, we may just
+> > place it in the common config space as you proposed before to
+> > define common config space for all transport. We can do this for sure!
+>
+> I have to say, this project is really ballooning out ;)
+>
+> > Of course another approach is what Jason proposed, the existing
+> > msleep and poll, driver knows whether the device is in progress
+> > of status transitions because it is the driver writes device_status.
+> >
+> > Thanks
+>
+> or just a register for suspend transitions, worry about
+> extending it later/
 
-I think there should be some difference between "device iotlb" and
-"domain IOTLB".  My understanding is that usually "device iotlb" means
-the mapping cached by the individual device while "domain IOTLB" means
-the mapping cached by the IOMMU.
-
-E.g in the case of intel IOMMU, it has two kind of invalidation
-
-device iotlb invalidation: used to invalidate device IOTLB via ATS
-domain selective invalidation: used to invalidate all IOTLB for a
-specific domain
-
-
-> This enables lazy mode where iotlb
-> invalidations are deferred and batched. In that prospect we add a
-> new VIRTIO_IOMMU_F_LAZY_IOTLB_FLUSH feature which, when offered
-> allows an endpoint to be attached to a domain in lazy mode. Alongside
-> we introduce a new IOTLB_FLUSH request which allows to invalidate
-> iotlb entries for the whole domain.
-
-I am not sure "lazy" is the best, for example a driver may just want
-to invalidate all the mappings for some reason. Is this better to
-rename this as "_F_IOTLB_FLUSH" instead?
-
-> When the domain is created in
-> lazy mode, the virtio-iommu device knows it will receive IOTLB_FLUSH
-> and it can avoid flushing the device IOTLB on individual UNMAPs.
-
-I wonder what's the advantage to make it per domain instead of per device.
-
->
-> On a virtio-iommu/vhost scp use case, this can improve the
-> performance by ~10%.
->
-> Signed-off-by: Eric Auger <eric.auger@redhat.com>
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/204
->
-> ---
->
-> As a side not virtio-iommu/vhost/scp use case was completely broken
-
-For "not" I think you mean "now"?
-
-> on aarch64 with guests older than v6.6-rc1. The scp stalled and we got
-> soft-lockups on guest in viommu_iotlb_sync. It happened
-> 295525e29a5b (=E2=80=9Cvirtio_net: merge dma operations when filling merg=
-eable buffers=E2=80=9D)
-
-Interesting, it doesn't seem to be a fix.
-
-> fixed the performance issue. Without that patch and with lazy mode, we
-> do not observe any stalls although the perf is way worse than with the
-> above patch. Without lazy mode, it looks like the number of vhost iotlb
-> invalidation is large enough to cause serious performance issues.
->
-> This proposal can be tested with the following branches
-> guest branch: https://github.com/eauger/linux/tree/virtio-iommu-lazy-rfc
-> qemu branch: https://github.com/eauger/qemu/tree/virtio-iommu-device-lazy=
--rfc
->
-> This was tested with vhost. In qemu command line, you need to set ats=3Do=
-n
-> to get benefit of lazy mode.
-
-Ok, I think what you really meant is the "device iotlb" as it ties to ATS.
-
-> ---
->  device-types/iommu/description.tex | 74 +++++++++++++++++++++++++++++-
->  1 file changed, 73 insertions(+), 1 deletion(-)
->
-> diff --git a/device-types/iommu/description.tex b/device-types/iommu/desc=
-ription.tex
-> index f8cbe88..990734e 100644
-> --- a/device-types/iommu/description.tex
-> +++ b/device-types/iommu/description.tex
-> @@ -74,6 +74,14 @@ \subsection{Feature bits}\label{sec:Device Types / IOM=
-MU Device / Feature bits}
->    whether endpoints that are attached to a domain are in bypass
->    mode.
->
-> +\item[VIRTIO_IOMMU_F_LAZY_IOTLB_FLUSH (7)]
-> +  This feature determines the capability to use deferred and batched
-> +  IOTLB flushes. If the feature is available, the driver can inform
-> +  a given domain works in lazy mode. For such domain, the device is
-> +  allowed to dissociate UNMAP requests from IOTLB flush operations and
-> +  accepts separate IOTLB flush requests that invalidate the IOTLB entrie=
-s
-> +  for the whole domain.
-
-Does this imply a flush for device IOTLB invalidation? It need more
-clarification.
-
-Or we probably need to do the same as other IOMMU to separate device
-IOTLB invalidation from the IOMMU IOTLB.
-
-> +
->  \end{description}
->
->  \drivernormative{\subsubsection}{Feature bits}{Device Types / IOMMU Devi=
-ce / Feature bits}
-> @@ -312,6 +320,7 @@ \subsubsection{ATTACH request}\label{sec:Device Types=
- / IOMMU Device / Device op
->  };
->
->  #define VIRTIO_IOMMU_ATTACH_F_BYPASS  (1 << 0)
-> +#define VIRTIO_IOMMU_ATTACH_F_LAZY    (1 << 1)
->  \end{lstlisting}
->
->  Attach an endpoint to a domain. \field{domain} uniquely identifies a
-> @@ -341,6 +350,18 @@ \subsubsection{ATTACH request}\label{sec:Device Type=
-s / IOMMU Device / Device op
->  can set the VIRTIO_IOMMU_ATTACH_F_BYPASS flag to create a bypass
->  domain. Endpoints attached to this domain are in bypass mode.
->
-> +When the VIRTIO_IOMMU_F_LAZY_IOTLB_FLUSH feature is available, the drive=
-r
-> +can set the VIRTIO_IOMMU_ATTACH_F_LAZY flag to create a lazy mode domain=
-.
-> +Only such domains do support the IOTLB_FLUSH request.
-> +
-> +If the device does not offer the VIRTIO_IOMMU_F_LAZY_IOTLB_FLUSH feature=
- and
-> +if the driver sets \field{flags} field to VIRTIO_IOMMU_ATTACH_F_LAZY, th=
-e
-> +device MAY set the request \field{status} to VIRTIO_IOMMU_S_INVAL.
-> +
-> +If several endpoints are attached to the same domain, they must be attac=
-hed
-> +with the same value for that flag. Otherwise the device MAY set the requ=
-est
-> +\field{status} to VIRTIO_IOMMU_S_INVAL.
-> +
->  \drivernormative{\paragraph}{ATTACH request}{Device Types / IOMMU Device=
- / Device operations / ATTACH request}
->
->  The driver SHOULD set \field{reserved} to zero.
-> @@ -351,7 +372,8 @@ \subsubsection{ATTACH request}\label{sec:Device Types=
- / IOMMU Device / Device op
->  If the domain already exists and is a bypass domain, the driver
->  SHOULD set the VIRTIO_IOMMU_ATTACH_F_BYPASS flag. If the domain
->  exists and is not a bypass domain, the driver SHOULD NOT set the
-> -VIRTIO_IOMMU_ATTACH_F_BYPASS flag.
-> +VIRTIO_IOMMU_ATTACH_F_BYPASS flag. The same holds for the
-> +VIRTIO_IOMMU_ATTACH_F_LAZY flag.
->
->  \devicenormative{\paragraph}{ATTACH request}{Device Types / IOMMU Device=
- / Device operations / ATTACH request}
->
-> @@ -374,6 +396,10 @@ \subsubsection{ATTACH request}\label{sec:Device Type=
-s / IOMMU Device / Device op
->  flag is not consistent with that domain, the device SHOULD reject
->  the request and set \field{status} to VIRTIO_IOMMU_S_INVAL.
->
-> +If the domain already exists and the VIRTIO_IOMMU_ATTACH_F_LAZY
-> +flag is not consistent with that domain, the device SHOULD reject
-> +the request and set \field{status} to VIRTIO_IOMMU_S_INVAL.
-> +
->  If the endpoint identified by \field{endpoint} is already attached to
->  another domain, then the device SHOULD first detach it from that domain
->  and attach it to the one identified by \field{domain}. In that case the
-> @@ -590,6 +616,11 @@ \subsubsection{UNMAP request}\label{sec:Device Types=
- / IOMMU Device / Device ope
->  This request is only available when VIRTIO_IOMMU_F_MAP_UNMAP has been
->  negotiated.
->
-> +In case the domain is created with the VIRTIO_IOMMU_ATTACH_F_LAZY flag,
-> +the device is allowed to separate UNMAP from IOTLB invalidations. The dr=
-iver
-> +must explicitly invalidate the whole domain IOTLB entries using the sepa=
-rate
-> +IOTLB_FLUSH request.
-> +
->  \drivernormative{\paragraph}{UNMAP request}{Device Types / IOMMU Device =
-/ Device operations / UNMAP request}
->
->  The driver SHOULD set the \field{reserved} field to zero.
-> @@ -625,6 +656,47 @@ \subsubsection{UNMAP request}\label{sec:Device Types=
- / IOMMU Device / Device ope
->  mapping, then the device SHOULD remove all mappings affected by the rang=
-e
->  and set the request \field{status} to VIRTIO_IOMMU_S_OK.
->
-> +\subsubsection{IOTLB_FLUSH request}\label{sec:Device Types / IOMMU Devic=
-e / Device operations / IOTLB_FLUSH request}
-> +
-> +\begin{lstlisting}
-> +struct virtio_iommu_req_iotlb_flush {
-> +  struct virtio_iommu_req_head head;
-> +  le32  domain;
-> +  u8    reserved[4];
-> +  struct virtio_iommu_req_tail tail;
-> +};
-> +\end{lstlisting}
-> +
-> +Flush IOTLB entries for a given domain. This domain must have been creat=
-ed
-> +with lazy mode set (VIRTIO_IOMMU_ATTACH_F_LAZY flag set on attachment).
-> +
-> +\drivernormative{\paragraph}{IOTLB_FLUSH request}{Device Types / IOMMU D=
-evice / Device operations / IOTLB_FLUSH request}
-> +
-> +The driver SHOULD set the \field{reserved} field to zero.
-> +
-> +The driver SHOULD NOT send IOTLB_FLUSH requests on a bypass domain.
-> +
-> +The driver SHOULD NOT send IOTLB_FLUSH requests on a non lazy domain.
-> +
-> +\devicenormative{\paragraph}{IOTLB_FLUSH request}{Device Types / IOMMU D=
-evice / Device operations / UNMAP request}
-> +
-> +If the \field{reserved} field of an IOTLB_FLUSH request is not zero, the=
- device
-> +MAY set the request \field{status} to VIRTIO_IOMMU_S_INVAL, in which cas=
-e
-> +the device MAY perform the IOTLB_FLUSH operation.
-> +
-> +If the device does not offer the VIRTIO_IOMMU_F_LAZY_IOTLB_FLUSH feature=
- and
-> +if the driver calls the IOTLB_FLUSH request, the device MAY set the requ=
-est
-> +\field{status} to VIRTIO_IOMMU_S_INVAL.
-> +
-> +If \field{domain} does not exist, the device SHOULD set the request
-> +\field{status} to VIRTIO_IOMMU_S_NOENT.
-> +
-> +If the domain is a bypass domain, the device SHOULD reject the
-> +request and set \field{status} to VIRTIO_IOMMU_S_INVAL.
-> +
-> +If the domain is not a lazy domain, the device SHOULD reject the
-> +request and set \field{status} to VIRTIO_IOMMU_S_INVAL.
-> +
->  \subsubsection{PROBE request}\label{sec:Device Types / IOMMU Device / De=
-vice operations / PROBE request}
->
->  If the VIRTIO_IOMMU_F_PROBE feature bit is present, the driver sends a
-> --
-> 2.41.0
->
+Is this for PCI only? Another question is that, if suspend needs that,
+reset would also want. Or it doesn't justify itself as reset needs to
+take longer time than reset.
 
 Thanks
+
+
+>
+> > >
+> > > Regrettably, reset will have to still be supported
+> > > through clearing status just because this is always there.
+> > >
+> > >
+> > >>>>> Anyhow driver know
+> > >>>>> its own status.
+> > >>>>>
+> > >>>>> Thanks
+> > >>>> indeed, the status register is there to inform the device about
+> > >>>> the driver status.
+> > >>>>
+> > >>>>
+> > >>>>
+> > >>>>>> If we need
+> > >>>>>> to reflect and control device status, we need something else.
+> > >>>>>>
+> > >>> Thanks
+> > >>>
+>
 
