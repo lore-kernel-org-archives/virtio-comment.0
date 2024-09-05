@@ -1,271 +1,191 @@
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (mail-dm6nam10on2047.outbound.protection.outlook.com [40.107.93.47])
+Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856608F66
-	for <virtio-comment@lists.linux.dev>; Thu,  5 Sep 2024 09:09:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.93.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C1419A288
+	for <virtio-comment@lists.linux.dev>; Thu,  5 Sep 2024 12:17:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.148.174
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1725527391; cv=fail; b=Un3GwC6zEJiaZmGougF6vk/6zH1YzSxJc84mtbdkIAAEclqjCISqMxOXgtUAJ2ptz1y86aVNc+GfpFcebJ7oUidmR3mpaaoS2q6Z2E6oVX2+mnKCuoTfHE0hI6rC9PaPHuX+VFb3WfzUM78rUj2yBTgRORjX72YPuqYRX5hnnFQ=
+	t=1725538630; cv=fail; b=Xd2SfkGW5j4vasjNbMNbI0t3DOcOhZcXAkz+jRuaOysURo2e6827O/qCTxISOF0DcJhP8Ls2umFJcwPtXfdtOs8cX7Qzh5LneAej+upRo+8NalYhqMgyBwCNj5+2amK9pX+3jLBl4Qfc4CA9qlSb/lCpCYX5EENFD6bmAM+MMPM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1725527391; c=relaxed/simple;
-	bh=7c5v+udRSrjtBZrHBJxL09JYUDNssMVlC8F/2wRL0qw=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=qQfFGw1QVamLFZXu3KpcM3faQyJPMRMJE++evGmVjVEExNtG01Mi9aKUGPr3ajrLOYkkxjNYWcPsB52WPDc3Be225d+ncx1XnJ5VRN9dRy2MrUYD54nBWYow9s8HZFLfG9/wc3FPnKpkIY6AW4kokN5MKYWF+pjrjrpm1xWDpq4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=WYCqMNXb; arc=fail smtp.client-ip=40.107.93.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1725538630; c=relaxed/simple;
+	bh=wuN7HjOTIxMPf6DZysZy3C9BOY/fpZPC7/oh1mqNJlQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=vEzaRMo4wT4tDJEiqNCpRHheAOzACfIvHDTh1cm/sbFbVJ0CFMBuiNnuHn0bgv0d2+TLO21dxuDx9gYgNdo82iyiYF3DG6G9Cjw5e0KzpVg9SvhXzjEIOmXLv1oQo1aKe97pBpZ30iT+k+iQfLXvAhHJpFU6XlVaz6tnN3aUupM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b=XcnocsRW; arc=fail smtp.client-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="WYCqMNXb"
+	dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b="XcnocsRW"
+Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 485AWPex018438;
+	Thu, 5 Sep 2024 05:16:51 -0700
+Received: from nam10-bn7-obe.outbound.protection.outlook.com (mail-bn7nam10lp2047.outbound.protection.outlook.com [104.47.70.47])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 41faywgapt-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Sep 2024 05:16:50 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gBOgaVCCjfbLTMrFx4btXxYz1l0tudPdH/FKT8RZD3U+mPJhKqf7cN2CBL7yhaztNv5whvb5d0i1SCKFoI+pN56nBn+/M0G4WxW2cKlMrSWZ69kg9tyAzDg1DOdydtmJuJiea1jG4MHVhWzZpExLHqWpKlQ5Mc6egEUaveNiC+LIxDMgtxCD7k3AU8NlA4LG6BfLXNkdoT6K1ur8d8sNRfPIIrzskHuDNvnrCETNjrcYg0CvY19lsnpwvzHPsjpcs2NOZKG9OJanpjDrDttvnUlb/rUwb/B9iKOoNEw2mZ/tZnCisSHmff1Nj6yk0J6bh0gbDhNmyONjiNLPNaj1hQ==
+ b=zPtJ815eDy6hoB0kPezW9X+OcxwWgQSiJIQFA7efi+QMBDihuF9p6BLbsvrj/HebwNi9Svwh8RWcKRU7e/HOivsktLXGi2XlP03obFT6z5x1ZYFtWb+Iyj49CJZ6o5DwpLByYZZHpzGz1OYcwz+nKtF9Fg0IlhWlMmUAqmpVtheAsaPh3MJtNMuNLHNbhYSMCGoeK+aWlnI+9hA6fNceseJdLVhmEZsdm6GWyqmSIk6N5cuWPIVLFhQeKrIP3BL9YSY0XBip0FerhfVUko8UDLlWQXFhHJABrJ48pUsdvMBKSyd+XiV7A0Xgm0rZz5OJh5pq4jMPPqfohbhZkoeoxg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zEAYT+mXC7fIK8MAQMj1lnThQ3tF+cAuMtOilqYFDKA=;
- b=H3o+FVXHkyRHuaLBFXotIYUmMc0GHI2O76wWIDOMkIj4h6hKevDPAT/O5Cjw+hfiwmYV7zYq8MjDJx/g+u57rkXSu2QloN9kq4h7IeXLdLzMPHc8WpcBw+KHczhqAHHxc5GADvtiPHkU4aFFAXqkZI5p3HDpDuIHiNDGS9R4cx4I2bXwoyQd96Bf0c0i2AOm2hofhhw6123goiI7pGj2WJI08yw45cn2js1vSYsVLt0EA+quCwF/rTMufNQD68CoyYrkDhT2bCilq35DsaPYLecibVy+YQmTS+TdhguYL1qauFm9BgFuVRFtxyeSTUNiDqbyHt8TI8u/hdWRGLol3g==
+ bh=wuN7HjOTIxMPf6DZysZy3C9BOY/fpZPC7/oh1mqNJlQ=;
+ b=bsTG+titkSl52e+Fxosd389SVgL8EywLFkCl73Ixc5+PTMMuJIWsAXXegA3cSDfIByGGyOTxi7AkFj4X3Uf5TCmFX3B6s/ihRnsteU81gDvbkzZwYWhsECxt+orO1PROq/8vkcWEPeA5A1kQ1EXx7jEHmeVbuLZw57DirEZoEtbUysADO5DOOaASPx4/bpS3Om4DW2ppexQbfSMxhAN4m0wP+GIfuxhc51ItqQA+Rbmaajq1uGpjFLm/GzJaVzzwErOEHcksiMYc/E2fkD828im5Xu5HA/mIgTMNdd19kucaCkEhy9IasRwB7Q2jo3Us3aCM0eBo+/uccObyGsLX+A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=marvell.com; dmarc=pass action=none header.from=marvell.com;
+ dkim=pass header.d=marvell.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zEAYT+mXC7fIK8MAQMj1lnThQ3tF+cAuMtOilqYFDKA=;
- b=WYCqMNXbzK3u6gcN3wOu7zp3PxdLdUjoz46mhSU3oiJ9hEZxkedvKuF6/6mMn4L/bHt91bH6UPlNT8AT6/0+DHi4Mx9nzN/WsRWj9ngAOzckFmYMYL3WRUfHHtBMPtrskR/Z26ET2r1DdD6YQAtmS3w78e2WftlLMnY+7iRXocg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
- by CY8PR12MB7489.namprd12.prod.outlook.com (2603:10b6:930:90::11) with
+ bh=wuN7HjOTIxMPf6DZysZy3C9BOY/fpZPC7/oh1mqNJlQ=;
+ b=XcnocsRWmgM0Zov7pX5xO3SQpu8KqHmoo4Hhilw+CVYRxh+oVYJ7QNgPsP8ZQpBC0lQpLR6Mdq+mrRJUAGXp739ZtosbD1yhEVMcvDHGMDKN+6zlGGMIvumlOzsST9MMn97gPYJ8qV8bymetHHLm+IresxRA8WUzJZvgIGhFc+E=
+Received: from CO1PR18MB4714.namprd18.prod.outlook.com (2603:10b6:303:e9::18)
+ by SJ0PR18MB3914.namprd18.prod.outlook.com (2603:10b6:a03:2eb::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.25; Thu, 5 Sep
- 2024 09:09:46 +0000
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8%4]) with mapi id 15.20.7918.024; Thu, 5 Sep 2024
- 09:09:45 +0000
-Message-ID: <bae7e0bf-4baf-4a36-8fd3-0f99e86a89ba@amd.com>
-Date: Thu, 5 Sep 2024 17:09:37 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V7 v7] virtio: introduce SUSPEND bit in device status
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Jason Wang <jasowang@redhat.com>, Parav Pandit <parav@nvidia.com>,
- "cohuck@redhat.com" <cohuck@redhat.com>,
- "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
- =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
- David Stevens <stevensd@chromium.org>
-References: <20240903054018-mutt-send-email-mst@kernel.org>
- <IA0PR12MB87134BF3D3326ED35358D6A1DC932@IA0PR12MB8713.namprd12.prod.outlook.com>
- <20240903063424-mutt-send-email-mst@kernel.org>
- <20240903063625-mutt-send-email-mst@kernel.org>
- <CACGkMEtKk8Rp16sjbS1swJZ4tabVPme_b6pYggoz19m=Bd99NQ@mail.gmail.com>
- <20240903235727-mutt-send-email-mst@kernel.org>
- <CACGkMEvO=GH1ochdgJ9oT1DriDFrV+3F-TndDW1wJ39S+hPQ+Q@mail.gmail.com>
- <04a787eb-c177-41e2-a05f-43375c7ab7c8@amd.com>
- <20240905024935-mutt-send-email-mst@kernel.org>
- <47b21a27-d34f-4836-9af4-b009001536ef@amd.com>
- <20240905031759-mutt-send-email-mst@kernel.org>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.28; Thu, 5 Sep
+ 2024 12:16:46 +0000
+Received: from CO1PR18MB4714.namprd18.prod.outlook.com
+ ([fe80::26fb:729e:a947:3e06]) by CO1PR18MB4714.namprd18.prod.outlook.com
+ ([fe80::26fb:729e:a947:3e06%6]) with mapi id 15.20.7918.024; Thu, 5 Sep 2024
+ 12:16:44 +0000
+From: Gowrishankar Muthukrishnan <gmuthukrishn@marvell.com>
+To: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+        Cornelia Huck <cohuck@redhat.com>, "mst@redhat.com" <mst@redhat.com>
+CC: Anoob Joseph <anoobj@marvell.com>, Satananda Burla <sburla@marvell.com>,
+        Jerin Jacob <jerinj@marvell.com>, "lhestz@163.com" <lhestz@163.com>,
+        "pizhenwei@bytedance.com" <pizhenwei@bytedance.com>,
+        "helei.sig11@bytedance.com" <helei.sig11@bytedance.com>
+Subject: RE: [PATCH v1] virtio-crypto: add ECDSA op parameters
+Thread-Topic: [PATCH v1] virtio-crypto: add ECDSA op parameters
+Thread-Index: AQHazJKjJCn0Hb3A2kixH98LwsKrJrIN2AkAgDul3ZA=
+Date: Thu, 5 Sep 2024 12:16:44 +0000
+Message-ID:
+ <CO1PR18MB471439B64145B57CCBE99493CB9D2@CO1PR18MB4714.namprd18.prod.outlook.com>
+References: <20240702151500.2280738-1-gmuthukrishn@marvell.com>
+ <CO1PR18MB4714E39350107952D4AF1F4ECBB72@CO1PR18MB4714.namprd18.prod.outlook.com>
+In-Reply-To:
+ <CO1PR18MB4714E39350107952D4AF1F4ECBB72@CO1PR18MB4714.namprd18.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Zhu Lingshan <lingshan.zhu@amd.com>
-In-Reply-To: <20240905031759-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SG2PR02CA0036.apcprd02.prod.outlook.com
- (2603:1096:3:18::24) To SN7PR12MB7835.namprd12.prod.outlook.com
- (2603:10b6:806:328::22)
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CO1PR18MB4714:EE_|SJ0PR18MB3914:EE_
+x-ms-office365-filtering-correlation-id: f2d4e51c-8dce-403a-003d-08dccda49ba1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?Um2XZXIVoj6y7FeRjoBuQ9wQlWLrDm6RbpQziT0G6SiIrVDb/VkNhcRvHDtN?=
+ =?us-ascii?Q?OqjPknVTne8RTWkvlUeTfQYz7FpIvwrcQ48sOWtm351k40Twzv4Jc7Wa1lP0?=
+ =?us-ascii?Q?sWj7O+bY93ygmf4Ikz/MH2srlZAd+jLyRGyT9/H+GCA9yIP2jPmwsmTM6bZ5?=
+ =?us-ascii?Q?Mqqi/3nuDOowBL6aGa20/OusJqogY/YeCaGJzBLLihSfkPEqKaX+a+bFBPhO?=
+ =?us-ascii?Q?l4avY5oMSJXH7EeVKbEdnmAZ13XOZsCeyrwWoSkTSxK/vdwQCERtrsb5JmbK?=
+ =?us-ascii?Q?wSKa1J5xGwPJrw6BNXJQIeDzYxYmUoH29SyXGm5CLWlLyOj6NrVXUZ6T1lbJ?=
+ =?us-ascii?Q?iL035b2svJvV5xY6lJ5LA75UwfPx+CR+TJmpgaNzi7nmzuyh3G0PcT4f5i3j?=
+ =?us-ascii?Q?MJttVrCF+e5B/QQEUTDXU79Tvwjqn/Z4/a6FVwMObmxt4vY5Ph/gT2miCzZU?=
+ =?us-ascii?Q?7Wg+DUyUoAoNerYbzi38oO+B0rdK2K3ljbouwlVfSzVO19P7yv7pSEUQHqKz?=
+ =?us-ascii?Q?xmbIFbk7aPsqXnzyNriAFp57jaFsz6JHdOo1nvv7gi/KdaKKpM5ACOOhpp9f?=
+ =?us-ascii?Q?65qi+lqRwawUO7rQN+m5AKIQgVBjLfL1QNTlMreP0f5SzhlU1ez3CXNJFBli?=
+ =?us-ascii?Q?wIG0KFge5MSyodO9vAogFnlQ50yQpoWi0kM0t8FwocGjG/N2HnRVp98OPBWU?=
+ =?us-ascii?Q?2f3LqjpDtjyUZrAs8lniSWX+CPe57mNf92ev2uf7pBp/BGJ+okrrrbXFOztm?=
+ =?us-ascii?Q?A85ColEVNZ3euAs+53wiGXYhusuPYU4iJnT2K+kwjyAEBiMi+fxJKK9v5LqF?=
+ =?us-ascii?Q?DH1AbTOKzW7SXm8EnDJc3YLvX+BfwXU/w+ZomlNOapy01jxJEysWqdKN1hEW?=
+ =?us-ascii?Q?m3i/O9yUeJ2gr6LnSyFDrueCv3JPTvEhc49BFpMkQGIUNBJ1fxsINxsxf5Y+?=
+ =?us-ascii?Q?b1t80DbOXuaf9jtifYF8yN++TItWXKmLxLtBGIZrRnbecAtifhbnjfIzEQUW?=
+ =?us-ascii?Q?TiQY0SDnE5LbQ8oFsJUrqdm4OGIVVEdIw7hmEx57rqVycdNvTmGDDvPnFXHI?=
+ =?us-ascii?Q?dRsamn52UPT8V8I1W+ij/8mI01lmQS3xMpb0njatH93oMs2k6mTWVfJQW6z6?=
+ =?us-ascii?Q?V+u7YMIO64EOkRc+y5sTtKxnXiPKsU2u5MC3qAUM+SgqL/U2ZEK1wjUo1bWn?=
+ =?us-ascii?Q?GP/pCvCP2CShLe2OLZlpyTcnzzRH3WPq5zNXA5nHchIq2f3uP7IG1c3UyzKD?=
+ =?us-ascii?Q?4JhlJpFhLj66kPFalyE+lU9udIam2svkcAr3dVhTqcPO6Q6Y0gZsPntoq6g5?=
+ =?us-ascii?Q?rXuTYwhpIv4CBQ4NyfCcOrJadRbeyhxRNfsJ+ooJVSDXorrJWEayxXiItIdf?=
+ =?us-ascii?Q?ldPafNB19PmAD/q2IJ8hqYsaYHMWXl8QmhyrSBhVI7rG0TID5w=3D=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR18MB4714.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?BtAzQMKkBIkqgp5Tx+U3G57ye8iHhgN2DdElMLqBHSUYYeTpoxdMNuBVwuEi?=
+ =?us-ascii?Q?1RqkmaKDXUsuyRoBKpJ2wriMZujs+0wpEP5RdJzxfabIqpa2YPxeBtQ4Cvq7?=
+ =?us-ascii?Q?sWxfHWRwceTOnEw+rWYJU3w7sIeG6zVeoeQMOawqiMrAYTaKgOPtN8O0RaTv?=
+ =?us-ascii?Q?EhMSeLAB+s50dbujHHFzBu2cgcQT7PHFDGQoMo3gyARKvmMULhmZX/w9a2by?=
+ =?us-ascii?Q?Jf1gjDsyQUnOvI9UmYuZG4fk9/6LauKxRL+vte0ATKEk1dME4z5/N2y7te/o?=
+ =?us-ascii?Q?QTCII+9pWxXB3Ot7/NhaaOCUtmeZwYh1TsMcdyoKcpJ3BU6O32Egl2woV6o/?=
+ =?us-ascii?Q?E6LrYBT386OFAMtGyWFzzzLwCdA2RPmt/rCF3OQVgu61bs1YZ8NIxir9YFjj?=
+ =?us-ascii?Q?N/ZB+y71SnVLecTUx1XPED3kZIZ16QOTeDWjB94k7rJR50XFmtG7gZmgqCBw?=
+ =?us-ascii?Q?Bev1FT67cGnBBlkGQKLYomTY4sqcflA3z2rykLzK+3X+65CHQ+Zyf8p4aelH?=
+ =?us-ascii?Q?WgSweuRafsVA1e7oRmCENz1SU2pWK9qtzW/U80yfnGrMpMmtZV26K6GEm37w?=
+ =?us-ascii?Q?LbRdvN1GxjX6XoXinZQTFg70EDEWhOpY7eZzVLP6WpvQqdWxzIJf2GB10m1T?=
+ =?us-ascii?Q?/LoP/sgQuCQG2GRE6qQPzjXWwF7m4H+LHfl/UylX80X4q3cCc3BZcSPdFMnJ?=
+ =?us-ascii?Q?52CARnuhFn30cz/xDSfxQP4X9ZpKTwVFBFexbH+bGwHEBa4xny5Ds/sUNgbu?=
+ =?us-ascii?Q?IV7p3cRbhs0DC8ctMCTtaCeGqY2yfICwKaTCTw3yBPeet08AUNeGdZ/+FV0A?=
+ =?us-ascii?Q?iLpV0Dvm7/F38Ilh2PCFsp5/0JzrfpnEoeqt+L9yuakGezZW11RLGePqEiGg?=
+ =?us-ascii?Q?+nFrWVst44q54O3c94TmzkI5pBJ1iZW5U5CweO8pOLKVXhlGG7jJPWQtk73F?=
+ =?us-ascii?Q?H2rVIWQ6yi/uVQYzxrQ3XGVW+j6iXfvOCq63/R9jWbt30DMdo68EQH6xXdgS?=
+ =?us-ascii?Q?+mNRwngVCRBz939m4xXxjmn3YW1kSOfh+juYBsj0LHw8ftqCgY6UgdJLGKUf?=
+ =?us-ascii?Q?cao0acGpEnt5++ZKE8H76U6Oiod0uTH1ZjH0ulo1Ue8j6G9TL/tG4nLRFVYv?=
+ =?us-ascii?Q?QejEheznDPkh28MuIt8WhFR8qSZV6Jc4W+K4MRIkn52ipVIogCjinxzHzu3X?=
+ =?us-ascii?Q?rIBJdWK5fHX45ncdbVzfi6x8b5QmTdj7HgNSahMlllVuMvS8e+JgCebbsvNj?=
+ =?us-ascii?Q?SmpJPHTushQynIFA+XL5nG38uEuAx383QIxELQlw54n0NDHgtlYn1RcKInol?=
+ =?us-ascii?Q?iK0tMK4ibDcMeUZNMPV1rQh/xlzClcJc0VJmguDCmlj5uTnfmNgZK8d+PQ0r?=
+ =?us-ascii?Q?NBIyXsfkypen93E5SI27iyKltJJsicxvKZpP+bz4fAa7EHZT01AjXPmg1Mmr?=
+ =?us-ascii?Q?Hfhs82KgptwtCcL96K8vWd6xlVxBtU1byB2e8yKA+MMmT0d4Uhv/4xlqyKFa?=
+ =?us-ascii?Q?vZ4mbu1vunceR3crV70scO1KzN8prp0O5NdvuibYHmul7GeqZa7uuHzXsj41?=
+ =?us-ascii?Q?xYLj7aANVMALxpDYaRBjEUfR2wjP9IdJnzCgApo3?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|CY8PR12MB7489:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2b48157e-bfdc-49c5-3cc7-08dccd8a7c62
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?NG9DZG91YVlLZ0lTRGNBRHlMWDlkM3Vtb1QrY052YzcxV3BrMVoybGtQd0Vq?=
- =?utf-8?B?bVgwQk02aGgyNXFMdUwwZXZCQ0lNa3hKTzRHRUpzRXhaV2crVitNaytNMmFR?=
- =?utf-8?B?R1FBdG9yUGR0UW1xRDBRbjNrSkoydmpLWTB4RzgrNHhheXNWbC9JeEVBYzZx?=
- =?utf-8?B?aXpST2MyWXVQNDVCaDNQRXAxNVpmYW1OeFB5L2lGSEZQVlRySW1hTnEvRURu?=
- =?utf-8?B?Q0podExtMElMWWdoWXZtWkRPMVpnWnVCejQxZGlCUlkyV1hIcTRCTkltSnR6?=
- =?utf-8?B?K1pjYS9kVFo4MHI3Q2JsNlBwRVFreERXUmtFSC91ZW5GMEV0K0JycWxVSEhR?=
- =?utf-8?B?WWZVS2J6SFVxMGJUQjJCaEdZK3BPSll0Rko0L1A2eTRFUnhRU0tqMm1PckxE?=
- =?utf-8?B?Sm9aVVExbkt6R1dvalhUbkZUQmRZMTZSNXlrSzhlZ2R0UjZseVc2cWNzNERP?=
- =?utf-8?B?YTBiWG1XMG1LSjZ5SmhSbU1ITkx0L0dYY2RUb1ltQ2EyMk1JZFRiWE92WWI3?=
- =?utf-8?B?UzVSZ29tSFYvL1dMSkxhbEJRLzRpWnIwT3IrS0RPaTJHUTRxdldRYlpRWmRo?=
- =?utf-8?B?KzJOSWp4T1lRdGl3YU5CSzE3TzdaZm9YanplbzBFM3FyYjRpL2g5WVl6TkVQ?=
- =?utf-8?B?STRtUUJqQ0RwY0RkbC9hT1FJaDNzSTlxT3VyYldnVXJJSTJlWDNCbENxYmMr?=
- =?utf-8?B?YmkrNnpsdTVIMitrazhSQVNPVHhUS1JYY1BtRjdMSHRCWkgyM09hV2ZQU2di?=
- =?utf-8?B?UlN3UjF6TlQ0VjVXOEUydGgzMlBVRlNPMElydjVHei91VzhZRFAybWlaVVlC?=
- =?utf-8?B?SzBlRHdUYndGNXdmZ2hMWGduYzg2eFlZMXpkUTc5OGszWVY5NFpkMml3MkJn?=
- =?utf-8?B?N2JudkdWOVFmVDRjYTV2NXJXSmI4QmNzdHJ0N3hzMTFYOFpYbnBtRlZUbDdz?=
- =?utf-8?B?dXVHOWs5L2JSa1paKzhhVlZ3bGxzYllDcW1OZXI3M090WnRWT2E5M3VTdVVY?=
- =?utf-8?B?ckdDaWFBZU95ZVUvT24zUlNtT2tpTm15SnpubksyazlJNG1BNkhVNEZTb1hY?=
- =?utf-8?B?NEdOMWNRZzVMRDRWeXhBY1lOYWpxVG1vZHlzZGIrTmN2TTcvMVd4OVZRTy9i?=
- =?utf-8?B?a2dldzBPS2p1SFRYQmZKbUh1UzVoTjFtbGNlQUVxU3FsQytmb2pHZ29Sb2pp?=
- =?utf-8?B?WEhlNlhXZFFSdEVtZXc2UncxRHRwRjU5eHBrTWhkeUREMDg2U29VRSsyNU1K?=
- =?utf-8?B?Z1JQRVR4VlFyTGV3alNsZWNZQkluSjRpcE1tc2tmcWk3NTR2WVNOYWhldEYz?=
- =?utf-8?B?WXNsK3dsN0U1TW1lUW5HRzJOZjRrczE5WE91cnRuSmJnM0JWRXkvbS9aOHVV?=
- =?utf-8?B?Z1Bjcmx0ZDA5WWozeVliYTFvMXJ3QkV5a1h6em5xRWlXY1V6TW56empPK2hM?=
- =?utf-8?B?dWd2S0VnbmFJS29DR2FpTmhaWWh2aHhEdnV0WGc4MGNLYkJaMG5wcUs0MU4r?=
- =?utf-8?B?LzEzaVJmQ3BpZUYxR3d5UktQN3U3WFVYRDdhYytMbDJFQ2xBM1FvQWVZVmc3?=
- =?utf-8?B?VmhwOTVoVGVSUUdVRHBBNUE1cGRXdTNacy90NG9ac3dPaFlDVnhBV01yR3BK?=
- =?utf-8?B?SmFzRGtPZHUxb25kZWpibXBhejE2L3lyV01YNkllcGRtbDZkaW5qdnkyNGJ4?=
- =?utf-8?B?TEpBa0I3VnVQV1lsTS9zOHVOc0wrc1ZPNlVTSGM1bHVES2Z1Qm96ZjN5Q1ZW?=
- =?utf-8?B?c1NxclRCSzlhbWE3WmhFcW1UenZnbDJ0bzFUekM3VXh1SlNvQWs5Nm53SGFN?=
- =?utf-8?B?RFZCVGJzYUk3RnBFMHFoUT09?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB7835.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZHRhNzVudDI4eEt6Mkx2NnRNUTJQQXp6b0Q3MG01YnBQTU5sTis1OE1XcTRh?=
- =?utf-8?B?VFZaR2ZETnpLQlp1Q2RUWjFtNVN2eEl1OElvYTB2NGVQc3RnTU1VNHErMEF0?=
- =?utf-8?B?ZDdUTTZGVU5HdUppcVp3dVFqOWRGM2V1ZEZuZFlvaGYydFFSYzdITHJWZXVC?=
- =?utf-8?B?U2MyeUtSUHFseGFYbGgrb1czT2FqeWgrbXlubTdRMVR1eTEyc3BIc213TDFr?=
- =?utf-8?B?RTE5SDVvbzJNNnU1NzBjTFhsY1Vjd25SV3oybnVRRUJHUDQvaTdqUzc5YTVH?=
- =?utf-8?B?V1VXZktkdGZDd0dPcTZMUjJ5azhndDQ3NkpmeUVIWmc4UmhiSVVyc3VTbGxu?=
- =?utf-8?B?T3JraG9NQXhsTElpd0JDN0thbTQ3OGpsNlZVVFQrWWY3NFBDV29TcFdBcFd2?=
- =?utf-8?B?cjR2MTFjNEJVbDN4UEh6Q2lQbFNoT1BJQitEdHU5aHFTalpOMG5GSUNBekM3?=
- =?utf-8?B?Z3NYZ2tmejUyejdBMDBINWdGbmc2b3dYOFJoTkhyY1NSdkFtRExSM01ieDRS?=
- =?utf-8?B?MVV4eTQvWEpPM3Y5aXJBN3ROYm5sSXNUK1BnS04rWENOMG1HbFZmZ1hLMzJm?=
- =?utf-8?B?dlk0MVFaUlcxbTIxbTg1TWRpVFRCYmVDVGlVQlFmQ09ZZjRGbkhSdmkxU2hN?=
- =?utf-8?B?RzI1dC9uWnZnK2ZBZlY0WEVKY3JVQW1iQ0p5TXpWUmhCNUJMWjB4THNZZGlD?=
- =?utf-8?B?WjBjUEdqei9NcnhGV0pmWXpNeDN3SUo4NTEyeGNKQldwT1RkUVBKS2JxZ2JM?=
- =?utf-8?B?TmhnTW5NSHRiRlM5ZmpQdU5ONlMwNmRIRnhMZnZkNkwyMGt0NTlMUUNlWTV5?=
- =?utf-8?B?cHFnQ3ZEOEoyK2RINGhqVkNUUi9uRlMveVBjU3ZWc3gyYitzSWJkb0o3ckgw?=
- =?utf-8?B?UUgzNnJoeTRrQ04wdHlLcmtRYkwxVWxlcncvc1hnOWtaYnVjT1dRZnV4OVN4?=
- =?utf-8?B?OWxBSHZTRHQxWFZSZzliNUpWSW00S0J3WUkraDlRbUtTZVhzSTVtK2NQUUoz?=
- =?utf-8?B?L3FqZGJTTlB2aUZiajhGWGhWNWpBSUx2Tjk4eHRFUFREcjg0bzQ1eG9qWjZT?=
- =?utf-8?B?aElub3N4U1ZjTmU5NFFWR3V0Rk5DNmZDNm00WFJoOUJmZmZ0SVJjaE9VYzFG?=
- =?utf-8?B?OFR3Y1FNejMxR0F5V1NWNmpjWGhLRTg2VW9kN0J1OGN6QU9OaXUvSUJRZC9v?=
- =?utf-8?B?UExER3AvTTUxR2R3K1FOWEJ1NFNRR2taUDQvMmxUc1dsSndqcG0xaHpXaExW?=
- =?utf-8?B?OW5KeThQcStrbm5YSGd0bEx0L0x5bVM1R04yOGVUTEduUXV6dUNld1EzaG5m?=
- =?utf-8?B?NHdDdEVDLzlQWEdWaWZqNGdyYUJad3hEWkVaS3gvMnBLQy9DZWhZNHplZjYz?=
- =?utf-8?B?eTQ1c0hjL1pic1BIRmtYcnR0eVk5UnNoOERYYVRON0ZjamdUbitJS0dsVHdF?=
- =?utf-8?B?RlBqbGNSTXVZRXZvUmxMMFZNWUdoVmo3aUduaGVDQzQzb0ZOTlZiOENRMFZG?=
- =?utf-8?B?dm5adFEzSE9JS051S0tpWjZLa0NXRWpKbXFnaUFmUFFqYjhpcW5BZUk0NmtQ?=
- =?utf-8?B?WWNvODZ2TmdUMm9ObkUyRTNIWVJicnN1UVp4UjhlS3FGcmxLN0FqSXR2MXR4?=
- =?utf-8?B?RUtuL2I0RmE5bmV1akludkFrV1doT3FEUDhuVjdXNmJGM2UxMlQvcU5pY0VT?=
- =?utf-8?B?RmlINDlZcm1LVE8yaGVhOFNTOUhxV1o0ZVFKbVJVUURONENoTHR3NDNjL2VI?=
- =?utf-8?B?Z1RHUWNnWjBWZlZKaXFtSFBPamI0MjlFVVA3WXBhbml1ZTFFRzVlamFhczVs?=
- =?utf-8?B?dkVYZjBGS0pQZUlzblZDRzdjbk9pdC9JdHRhSjZoS2lrMmV2cllhaExENWZC?=
- =?utf-8?B?WUtZQTBFblhlV21XUDhndFBRMzVqbXBuTTd0M00wWmRlbUdXd05qNVo5M1BD?=
- =?utf-8?B?SEVyQTNTeXF4OGJaTUVBWmtPeVo2d0MydWxyOUs5S1ZRL3JmcVBYYVpWamov?=
- =?utf-8?B?MTlkd2FldkhRaFFXcktzWnF2ZU53QkhzcTdPNE5JS1VOQlVNdkNmNktrd1JB?=
- =?utf-8?B?U09SNGdqd3NyZjYwckFpSkFJY3JudGpMRnZDaXRDSmJIZDVzZjZuN0ttc3Mz?=
- =?utf-8?Q?tUeDTlXiUKizDQEVk3TWyFBAx?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b48157e-bfdc-49c5-3cc7-08dccd8a7c62
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
+X-OriginatorOrg: marvell.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2024 09:09:45.8675
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR18MB4714.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2d4e51c-8dce-403a-003d-08dccda49ba1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Sep 2024 12:16:44.8673
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: m4lfl7dSoe6jA1mdghUTMs332d2YHYKnbbbYuJH9kYXhnumZhOWGGUC5zhE8g3Otzn74L11yl0cA8JpFU4PS4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7489
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 70e1fb47-1155-421d-87fc-2e58f638b6e0
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2SVC66h7xUwYK1euWojhyZ6ZbN4ft9dprfEXGtXpnwEIJxDGuDEzmiGyhxLMNlXblS+NhyKLWG6hAN0WcIiiSBu+eD4fMB2j6zIN08rtyZw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR18MB3914
+X-Proofpoint-ORIG-GUID: t2G4U1KTRvOAf8cHuuXL_5q8VDtBvD-r
+X-Proofpoint-GUID: t2G4U1KTRvOAf8cHuuXL_5q8VDtBvD-r
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-05_07,2024-09-04_01,2024-09-02_01
 
+Hi,
+Since it has been more than a month without a review, I would like to check=
+ if there is any information missing or any comments needed. Please help. A=
+dditionally, we need to capture this feature in the specifications to suppo=
+rt SM2 and EDDSA in a similar way.
 
+Also opened new ticket https://github.com/oasis-tcs/virtio-spec/issues/203 =
+if it can help us.
 
-On 9/5/2024 4:12 PM, Michael S. Tsirkin wrote:
-> On Thu, Sep 05, 2024 at 03:12:41PM +0800, Zhu Lingshan wrote:
->>
->> On 9/5/2024 2:51 PM, Michael S. Tsirkin wrote:
->>> On Wed, Sep 04, 2024 at 02:38:36PM +0800, Zhu Lingshan wrote:
->>>> On 9/4/2024 2:31 PM, Jason Wang wrote:
->>>>> On Wed, Sep 4, 2024 at 12:03 PM Michael S. Tsirkin <mst@redhat.com> wrote:
->>>>>> On Wed, Sep 04, 2024 at 11:07:25AM +0800, Jason Wang wrote:
->>>>>>> On Tue, Sep 3, 2024 at 6:37 PM Michael S. Tsirkin <mst@redhat.com> wrote:
->>>>>>>> On Tue, Sep 03, 2024 at 06:35:59AM -0400, Michael S. Tsirkin wrote:
->>>>>>>>>>> But I don't like it that looking at the registers, one does not know the device
->>>>>>>>>>> state. Hidden state is bad for debuggability.
->>>>>>>>>>> We have 4 states:
->>>>>>>>>>> suspending->suspended->resuming->resumed
->>>>>>>>>>> so we need a register with at least 2 bits.
->>>>>>>>>>>
->>>>>>>>>>> we could steal 2 bits from status but it seems a bit much.
->>>>>>>>>>>
->>>>>>>>>> This is why letting the status tell the status and control register to control thing is elegant.
->>>>>>>>> No argument here.
->>>>>>>> Or, to be more precise, our status is driver status.
->>>>>>> It looks like the device actually otherwise there's no need for
->>>>>>> re-read or poll for things like reset and others.
->>>>>> The need is there for complex device state transitions, which
->>>>>> can not reasonably block a read response.
->>>>>> Another standard approach with PCI is to specify the time
->>>>>> transitions can take. I consider that less elegant -
->>>>>> is this what you are advocating? The advantage is that
->>>>>> driver does not load the pci bus with constant re-polling.
->>>>>> The disadvantage is that it is hard to pick a universal
->>>>>> number.  A combination of these approaches might work,
->>>>>> e.g. a recommended timeout then poll.
->>>>> We've already had msleep() for vp_reset(), anyhow we can increase the
->>>>> sleep time, if it can overload the pci:
->>>>>
->>>>>         while (vp_modern_get_status(mdev))
->>>>>                 msleep(1);
->>>>>
->>>>> We can do the same for suspending.
->>>>>
->>>>> The main blocker for timeout is that it may break migration and
->>>>> complicate the hardening. Another proposal in the past is to have a
->>>>> notification.
->>>>>
->>>>> But what I don't understand here is that suspend/resume should be
->>>>> lighter than reset. If we can afford a reset, so did the
->>>>> suspending/resume. If we want to have something new, that's fine but
->>>>> it should be orthogonal to a specific new status bit?
->>>> I agree, if we want new status indicator, then the new indicator should not be
->>>> specific to SUSPEND.
->>>>
->>>> Thanks
->>>> Zhu Lingshan
->>> If you mean reset, we have a problem.
->>> Specifically, reset has to work before feature
->>> negotiation. So we can not do as we would with
->>> SUSPEND and use a feature bit to expose presence
->>> of the indicator register.
->> I guess the driver can reset the device even after DRIVER_OK.
-> in fact, unlike suspend - at any point at all.
->
->> IMHO the indicator should work for all device_status transitions,
->> not only for RESET or SUSPEND, it should also apply for FEATURE_OK
->> and DRIVER_OK.
-> I don't  know what kind of transition is there for DRIVER/DRIVER_OK.
-> FEATURES_OK brings with it more issues, e.g. it can fail.
->
->
->> So we don't need a feature bit, we may just
->> place it in the common config space as you proposed before to
->> define common config space for all transport. We can do this for sure!
-> I have to say, this project is really ballooning out ;)
->
->> Of course another approach is what Jason proposed, the existing
->> msleep and poll, driver knows whether the device is in progress
->> of status transitions because it is the driver writes device_status.
->>
->> Thanks
-> or just a register for suspend transitions, worry about
-> extending it later/
-OK, will implement it in V8
->
->>> Regrettably, reset will have to still be supported
->>> through clearing status just because this is always there.
->>>
->>>
->>>>>>> Anyhow driver know
->>>>>>> its own status.
->>>>>>>
->>>>>>> Thanks
->>>>>> indeed, the status register is there to inform the device about
->>>>>> the driver status.
->>>>>>
->>>>>>
->>>>>>
->>>>>>>> If we need
->>>>>>>> to reflect and control device status, we need something else.
->>>>>>>>
->>>>> Thanks
->>>>>
+Thanks,
+Gowrishankar
 
+>=20
+> >
+> > In ECDSA SIGN operation, a random scalar 'k' is used to generate one
+> > part of signature. As this value SHOULD be randomly secure, the
+> > application might supply it through secure RNG rather than relying on S=
+IGN
+> implementation.
+> >
+> > Another parameter is prehash algorithm to hash source data before SIGN
+> > operation on it.
+> >
+> > Current data queue struct for AKCIPHER do not hold any option to input
+> > algorithm specific parameter. Hence, in this patch new fields are
+> > introduced in data queue struct for AKCIPHER to support additional
+> parameters.
+> >
+> > Signed-off-by: Gowrishankar Muthukrishnan <gmuthukrishn@marvell.com>
+>=20
+> Ping ?.
+>=20
+> Regards,
+> Gowrishankar
