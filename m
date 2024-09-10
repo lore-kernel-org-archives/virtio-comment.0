@@ -1,365 +1,209 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (mail-bn8nam12on2065.outbound.protection.outlook.com [40.107.237.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0398513B5AE
-	for <virtio-comment@lists.linux.dev>; Tue, 10 Sep 2024 06:23:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1725949384; cv=none; b=lBtyjTuTs5dFMVvGaVZZK9Eh+KcPngZVqA4u4V6fbCq25CrAeeRrIxjrMv50zTKa+FYK5pMk7NZnX9e7BIjVXsEhleKt5rDxZCONCF1X2QRwogPseO3kn5a8tiaskwGSyP0aGI9fN5KEftK89RcDt8P/UY2+H7hNZrMxyySB5FM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1725949384; c=relaxed/simple;
-	bh=aEoICMdQFkEyPKt+VITyJXcfG+dXAIyXOazoOkKwy08=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ADNq+RHK6KvrUNZoQLvjtM/Y3JdaEHOZ8NvorDo+QrJBmourUvDgSZYD7+bcTPNcuRZzsUImxkFkXi6jNn7JR+cjXJwrvz2LXXPHN31GEtPpndukqXMGYlSNyO+S/gdhExezsBvMM/2j2VPt4XNN4U7tBoqhbSh6Nm+oBzuuhzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VZnPsn6r; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4459A1552FF
+	for <virtio-comment@lists.linux.dev>; Tue, 10 Sep 2024 16:42:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.237.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1725986546; cv=fail; b=awpQStkT8XKqCk7S8/0GPGyT5Qn56ASLWKp9dKvg6cVTnbEOu5Bjz4VGuMuLE1a7SM1Vm607+CU5pe+vxnjN5LviGIQraoSitxlHbMTtA7yYIkgwOU8PTFqOFV/mTGQRLKV7hWhUJsAal6NVKDpbdMJZp/uowuJdYZ+ZGUe2FNQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1725986546; c=relaxed/simple;
+	bh=brCYxoX5bTZn9XlcCZfR3pZEGXLqUfI63AzgmRogva8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=WORqXNTCQgQCjytlw8yF77YwK1dz+O+FVmd4OX1em7xhA2WH4MMvIFziVjbF0PAfZ1GYHTtcS4I1bFphwAYjJj8Ai5M9z0FHkd9znSYI/0eQzmRZjdwFqpCQmSTNcmGCCjPTNaKeZvWgTZEaXn6AlqVKQQOOLQy9/EL38iZpETU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KXP67ofW; arc=fail smtp.client-ip=40.107.237.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VZnPsn6r"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1725949380;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TUyPCHyinSC9AfnJYDPhvyLoM3vCAU/frV+cu4WfqNc=;
-	b=VZnPsn6rfeCuyQ5sPcyIMEqtS53hsyCMw2eGo8krsDhoOD3XVxqjnX4ZPz1SBsoyHQldQQ
-	MVC/Xpbk8BMkhcweysz7AwOnm+YcYYNCK568kEQjtz5bR5aNcvsqrC2yZZLqJtKn0N+/pQ
-	b5PZPEQ6b1XvXRHi8QboF/Y1cSfZHpo=
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-515-S8_FOYAUNsukeVeGwEOjMQ-1; Tue, 10 Sep 2024 02:22:59 -0400
-X-MC-Unique: S8_FOYAUNsukeVeGwEOjMQ-1
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-2d878377fc2so6914056a91.0
-        for <virtio-comment@lists.linux.dev>; Mon, 09 Sep 2024 23:22:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725949378; x=1726554178;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=TUyPCHyinSC9AfnJYDPhvyLoM3vCAU/frV+cu4WfqNc=;
-        b=rnoyTEVGU+A2abuAfz6sXU/d/NQB4Qc0UyzX4ncVaYZrjhnMsM26WfbP6qzrb8CBWw
-         gGQRCs9ATHf7sGJVPtohpl6yfma5KYPM6hLPma01aZyMojh153fZLEf3Ffegy/isJLqK
-         kXp/J1SMLOVGqUrP6ccO83FSE+hzbwqt5bWXB8EMD7yql6J48kRluAdEqpiOssRscSEH
-         6etDSIFoZBnt5RtcO5AzdKa7TUSQnnBg2xgMS7EunUFEgMksIdv6ORVMUUjpRx0y2fMm
-         X5ZCxTW8NMruZDh16tOrYeQnQWXdbX55ZjAdFfZ5MsZGlYH5PDEHAQqAXJeF+KboP624
-         IUiw==
-X-Forwarded-Encrypted: i=1; AJvYcCWzuEqgxC1zf5zJR/4nTNx262jGwlbZFs3RtlHeYWojT7LpnAfk1vcTIyaRretr3OhRMu7vh6Oe8sPqp8TwRg==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yz5cHKHy+qdoOMgjvcDY3OCaPWfaBjnn4ejIa9gnbSNQITMu1Yd
-	q8NIW+n2IdllvDDvN1Lv7TDeSzOMrEtVSrzEU/pNzDuNxDcpPNGytqaMpHwRc6/9uRq17Fa+3+R
-	qTvj7d3UUSpBLjHkoxbrWKGzfcbWpl8/zjNB/+HxXkd2BE4S9S3oxNsLRtihaKZhPnqa/9HXqcq
-	XL8EzT47FkDbRtTM/qVcQatmJ8hzuOEv3dFOnThy4=
-X-Received: by 2002:a17:90a:7806:b0:2d8:89c3:1b57 with SMTP id 98e67ed59e1d1-2db67211d8amr3100642a91.15.1725949377852;
-        Mon, 09 Sep 2024 23:22:57 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFtY8ltFt0eWA09hTrzeLX1Sq/Vuf+EQC+gRAOlqzrMz/xE0z4YbMaZvdYWgRgFuKEpsPJbh7FVeRHMaSzdHqo=
-X-Received: by 2002:a17:90a:7806:b0:2d8:89c3:1b57 with SMTP id
- 98e67ed59e1d1-2db67211d8amr3100607a91.15.1725949377276; Mon, 09 Sep 2024
- 23:22:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KXP67ofW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y/q7qxM9HGXSFSNVJzEJuW1L5eiGRp54113M4KXzMJAYmUfxcqK5BOg6GmDIJjKwHUfLT8Mr4XI6WS/qor37UgjZn88L88n49bYKyfofedR6ASfxzEDF6lAS4mU9TUL71+nI257efIwjV3Q/S8JY18VJPYaJbplwQBhF3015YTz/In/ia+V3PtuGt5OmQdJedRBiDswzevngDDFHmZjyA6Y6FtEcQMFJFW1LcpXwE0ax70/tbWSsQm4WeVFIV/2/jX7tQAObhTiunbRsMPsiA0FCG9NZdqXt+XyKf6O8aDW5z/lSNYUssm3EmFg7Rf2IrIEf//EDlgPe3mSGExv/Fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h0qaHPNcjNO9E6yh/Q+ZTgDSFOTjAKewB1/J5Gvx2p4=;
+ b=ChsIQUz5KgDWAdO/+2+FfsMoPo/n6fftiAMRGoumegexUhe4rHdyh7+TJEEPDYhyiKp00CNBVsk84rkq91SXuNmiviYW87xi3Z16mtYapF9Ejr8filOX2f+1tukzryCVhp0NUjGV6YWuCDDTStdMm6Yo37tbdqaVVyxjpx+e75MIdua0NXEnUsZJdG1vowwdg2Sb2/YBIa5mEL0wHYPnu3DdkaBdZzHrrKMxV7gybfPa37zWJ3arrAaVp//+PmkmWp6FYu/ENFxrI41yA/LlAGsRnyHjkLp2CzUeHACc1gpIgRLzO21PXoEBWmt2wndvMBvImSjLgnkn2nOMkIWIRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h0qaHPNcjNO9E6yh/Q+ZTgDSFOTjAKewB1/J5Gvx2p4=;
+ b=KXP67ofWTHdwH2gob9Gd4aJerdgK3mV/skwwVi6aX+CoP0vdhF1MBGDlU3NdMJbKhSgmtzLJPjnFcTVMG7By0Nbq+r0XyQBf+EZzPLHayL7LPUkDOe0JLhF8HjIWuUG9Tr1b/LKJlRuQTJEI6pOqQrP3R/1/TT91uyj1VbhhIj6H2qA74YYp0ujvCUAr7UNwTC1sT6grQDiLndW8rFiV266JVzZIRTujBmxNBi28Vc/oti+5OwJu1f7B6jPuMO6jM6JdeCommkKJi/JjxGGxvStb9jKqIdCf55734H/hLtCdlHPedbA3+83PA4ikVve38/EbNoLcAvRWpt8Kl0nVwg==
+Received: from IA0PR12MB8713.namprd12.prod.outlook.com (2603:10b6:208:48e::7)
+ by CH3PR12MB9145.namprd12.prod.outlook.com (2603:10b6:610:19b::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.28; Tue, 10 Sep
+ 2024 16:42:19 +0000
+Received: from IA0PR12MB8713.namprd12.prod.outlook.com
+ ([fe80::9fc9:acc2:bdac:a04a]) by IA0PR12MB8713.namprd12.prod.outlook.com
+ ([fe80::9fc9:acc2:bdac:a04a%5]) with mapi id 15.20.7918.024; Tue, 10 Sep 2024
+ 16:42:19 +0000
+From: Parav Pandit <parav@nvidia.com>
+To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+CC: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+	"mst@redhat.com" <mst@redhat.com>, "cohuck@redhat.com" <cohuck@redhat.com>,
+	Shahaf Shuler <shahafs@nvidia.com>
+Subject: RE: [PATCH 2/3] gpu: editorial: Fix spelling errors
+Thread-Topic: [PATCH 2/3] gpu: editorial: Fix spelling errors
+Thread-Index: AQHbAU42aqePadYzYk+6MPen+yTBpLJPgcGAgAG8LDA=
+Date: Tue, 10 Sep 2024 16:42:19 +0000
+Message-ID:
+ <IA0PR12MB87130B3DF934B4698C6DB9D1DC9A2@IA0PR12MB8713.namprd12.prod.outlook.com>
+References: <20240907174819.778971-1-parav@nvidia.com>
+ <20240907174819.778971-3-parav@nvidia.com> <Zt8CGfndBTIpbXQX@fedora>
+In-Reply-To: <Zt8CGfndBTIpbXQX@fedora>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA0PR12MB8713:EE_|CH3PR12MB9145:EE_
+x-ms-office365-filtering-correlation-id: 36495c5c-dc3b-4d7a-dea1-08dcd1b78963
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|38070700018;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?UO3k1tegeYeoMDWQbdWekR4hROvnMTJ96gEOegX6VrO2nVh56kCwZ8gyFzYm?=
+ =?us-ascii?Q?ZdBNQS6/PFcJHTyDClLBR6ZKs/rX3JWft19DtTISF/HdwQ8K8Bh8jgEXlojO?=
+ =?us-ascii?Q?/tDlj7KCofi+XsvVXKYe+6ZxjRDNWQbfbdVfyXZ254QP5incYZDUE6nVoh1A?=
+ =?us-ascii?Q?RIC/WofGUtlBwfnuhNSMI3BL5N/0sV/pdxB+p7hlUX/AJeh7Wb0OIltkwbMQ?=
+ =?us-ascii?Q?62znUzdt6qgHUwjkgHOW9FN6KmNh3s/AUW3AbVNZZlhmvRwrllaqkssvRk1D?=
+ =?us-ascii?Q?MbqazTIDlNSVPPwUEyZ6m6b+4tJrhcSnZa3ahiAV6E+Q5aEc/G8XjGexOCA2?=
+ =?us-ascii?Q?WHMTeECRbmWOxxFQFCwDrGmOrHSMZfJ1PN4DzXjWaX8ogBSuhVisKIxRWl+B?=
+ =?us-ascii?Q?CkFphNkg5MJc83HJaEPuspXT/peY+qBz7oYJw4sal6u0KPe7CxxaIToGmXBt?=
+ =?us-ascii?Q?pJlYtNe/F/KqWzNoWUQ+FLfP4sUyZvUYNdRqGRtUWM+enWXPHV+hscV/SRhy?=
+ =?us-ascii?Q?uvPZ5BYzwUCm/wFT6iINIDaJKpM2MCSLj9/wP4T4avv6ce41xsXG6dWEFJFB?=
+ =?us-ascii?Q?zKT+Qb7hKxbUKCXKfwaU8+/syN+S4WydT7KPVP21P6xsQkfA+HArn0+0qi2x?=
+ =?us-ascii?Q?dctErV9HuqAveooVmDdmJJOC6w83F1qhlQ4vYmLPx444JJB2UxGzGyEf3aRD?=
+ =?us-ascii?Q?W7nVexalVu2/v962KIrZPH9AfkWJ/vt2fcgcgyBFbPDF3pjlb64U8t5ZWHrd?=
+ =?us-ascii?Q?paUjHCcjFJ3xxqObbag0X+h18LX5XefL1/cIVFEHFlLCnp4X4+hTfw528yLB?=
+ =?us-ascii?Q?jm5qJGolDc7piDJBNC7E1+VjjMzkBCXDBl7uNh0vIQrIRElLHtCl0S8AjYhv?=
+ =?us-ascii?Q?bGcA4W9tN4SN2Kw44+Ek1zliAL6s+2RM/AsYy8ofrdpzT2apCmqhOPGtVnUl?=
+ =?us-ascii?Q?S+J4kduwBFIGyP+3PJptMrwEQNk1ZXgYjKWwKqFvmeWIJ/YBDMcgSmXOsGP3?=
+ =?us-ascii?Q?RNmCY5LfxrzyhBwxqPUWCUZR3eEuHnhHNjsx6YXH7kQvsshy1gLgXfswHo1z?=
+ =?us-ascii?Q?T4lhIRW0guw1JaFNpAJgXhkgUnN46p9u8NfQs/yf5yM8k2Vy3hZl+bs8bCU/?=
+ =?us-ascii?Q?fzDtLbPa61PQ6u7g/h83q6sLMw2PeyCjGiRAmqLyjy2EjrJIUlSozffR/sDt?=
+ =?us-ascii?Q?ZtbfKLJaQP6ickpLla9o0jmD7tD3WS9+hzYKkEMeJNxzq1HVbmqs8EuarUG+?=
+ =?us-ascii?Q?/ex0Vi3hg9cY/j0nl2A8YwTUj8PsR3oXQTdtTiZ4zN15hTrMpuxrtkWHOW85?=
+ =?us-ascii?Q?a2Bf+BTtyn75yp1oFq04JboFprKZFdJjj7yer2NViniL6ZrpIq8BvIemfHTf?=
+ =?us-ascii?Q?vtXbC9LhWC5odBdE3mYn+J9nOXWEYJeNZ5s7r0umMjwL1nWt+g=3D=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8713.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?MOWaIWtdT6IKVqNVf+qQ2OK8ZMoP41EMqQY6pGdxfsbRjRKPy4r5Hkh2W7eZ?=
+ =?us-ascii?Q?GqgAZfHBADku75jkNDCs8lEESJezooxJWBksfRwBm37fo90GgtnqJVB7rdw2?=
+ =?us-ascii?Q?KSMjHQGVP63NHlvJEFD5lAmvwW/ZqgbakmXjeQyn1N/tgcrNALhZkCsi7Duj?=
+ =?us-ascii?Q?E+ZQ7jo+LhSkt/Foq99f7p+29whW9HoCe7rYBUQPkEA2zyCAbkG1YW3/I1ix?=
+ =?us-ascii?Q?1N42SxWnpdEMvsNA0XYeQfzLs4y9Cv3RZdA50h1GImf3daRWIeH8M6mvUvjL?=
+ =?us-ascii?Q?p24OsbxOHKngvzS48dS2Xze0YdHBYatJSCbJMLm71FfU0NlRyZA4zigrrDTs?=
+ =?us-ascii?Q?L3s/jnGh5KYA6v7ffq3flT32Rtj/LaTt0aUywWIlXiTBDjI+c3Uf3KAF0ymn?=
+ =?us-ascii?Q?H9fLFzMpkFAwXnCiAiq+QxVs9LVpKFCgcYRIfo1e77U/zEXBHtPf5zXfkK0p?=
+ =?us-ascii?Q?CglaTimQjEoec1gA5YmtOPbKWDyQ62uZIDkD85N6033GiZ1GKkGgjRNETwhL?=
+ =?us-ascii?Q?aN07kmnsiHDtLJaIYvEMGjFBuAQ+QhlPqJn1VOCnsNHKJdJptAM7c79toyD+?=
+ =?us-ascii?Q?UlIU4ozyYGLHIH+b+LaVS/TW9fNtq7PGgqUNecgbw335rHtpZ/xYIoZp0nmN?=
+ =?us-ascii?Q?AAlI1aq//fnpP6SIrBNxLV1j4ugpNwtRZbSpXtImvf0NAXMyECt3sAARKG3C?=
+ =?us-ascii?Q?MvVD8ylRIu7O1taUa+NloR8cbfR2lmz5kO98KpY3TNczkgN5N2OUkOCXYjLL?=
+ =?us-ascii?Q?fVIEChyHIA47mg6bn7tb7pgx8/2rlmUcKR8QyjWQkw+cRRuPPSV/s2B7zYEk?=
+ =?us-ascii?Q?UMBG6lKPiHjL3JAWJ4Azq+O6DjmDen16VTXZ4vyvz3Sl33S7nWkSIttr0RYU?=
+ =?us-ascii?Q?mnwlUkcD2Cf4D2WvlTBqDuHDpSSBZBC8d5cYTLhCczs/4dw5RqXNVtEMbw/a?=
+ =?us-ascii?Q?5qy6atZB1PZAP295W7TRNjsDpnhcMkzbRSXb1+lALWAOAuM+dF+wJRHpZGHh?=
+ =?us-ascii?Q?T6z8Lf+CSYsI/bbUU/WdnC4VW6R4veD6FwTkhsVANSN5b6zyhBCB/Qm1kUXl?=
+ =?us-ascii?Q?BudI4VQkaowgD3l3JgziSURQnwCXf0ovUc5L+IgDtFvmQinIiPWc8qhKeCDI?=
+ =?us-ascii?Q?fgH5DF2Igx2Xc2vankQwogWCiDn8Sreiud/T3MkUgvQ3JMUKjVXISAP521fo?=
+ =?us-ascii?Q?gDFjZI41xvaMMOTsWwz2s1JE3g7T1TpJgc48YEYNhzncohaNu9/LUd26ZK/4?=
+ =?us-ascii?Q?27Ey6Q57AlPbcEqlsK4Qb1sd6Wy6sWuEEcLGsjLaXqPN+Us6oNxeKqX/yYgu?=
+ =?us-ascii?Q?mMT5pIgsDj99GoOVtC+RNFY8ib7mvKd+MWcbsO5osqDNOe46ayD4yGQ8Xs6O?=
+ =?us-ascii?Q?Fe4wpLHAxPSDFHJkxRmlFELwTT492Fyo0/ymT/Wp+326+n5YmmT2SbNsZB5P?=
+ =?us-ascii?Q?QqF9kKjJqFOI4LRqt1Qw8dVaVUsN2y8ublUYRNOrAxWnhN8n3fHsqux2baCz?=
+ =?us-ascii?Q?GejGi6xtab2tW80bfW4UHPT0ihUjkbelRbHlsD9MTIaUkdrhTHiAzr6JHrmf?=
+ =?us-ascii?Q?1pXBKwqjDy8qNMaAKIjax8Z6RE8x6t0vp3pq37ZGSq4IEsVBOf6IvlT1k+qD?=
+ =?us-ascii?Q?6hv1r8bQA4I3h49sfldrEI3xjmIafw9nh0uhwAvkiuln?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20240905134621.711743-1-eric.auger@redhat.com>
- <CACGkMEs8moUvhZda78cCstjO+aYb+SsrFF_nks6BJptVcYD_xg@mail.gmail.com> <598aa735-70fe-4175-b94f-26330ea47654@redhat.com>
-In-Reply-To: <598aa735-70fe-4175-b94f-26330ea47654@redhat.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Tue, 10 Sep 2024 14:22:45 +0800
-Message-ID: <CACGkMEtDzpcMM97OFnsGVKZ3NiYmgL8BkVTdKELc5qwnwUQfsw@mail.gmail.com>
-Subject: Re: [PATCH] virtio-iommu: Introduce lazy mode domains and IOTLB_FLUSH request
-To: eric.auger@redhat.com
-Cc: eric.auger.pro@gmail.com, virtio-comment@lists.linux.dev, mst@redhat.com, 
-	jean-philippe@linaro.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8713.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36495c5c-dc3b-4d7a-dea1-08dcd1b78963
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2024 16:42:19.3985
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: RiizsZCMD+XxZwyBNN9pcZHR6ynXnF/O0JX/9h+IHmuT/OKASWHn6nQFJkG/QdIwHuQv6jkdnQyn2kGzD3+q1w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9145
 
-On Mon, Sep 9, 2024 at 3:21=E2=80=AFPM Eric Auger <eric.auger@redhat.com> w=
-rote:
->
-> Hi Jason,
-> On 9/6/24 01:50, Jason Wang wrote:
-> > On Thu, Sep 5, 2024 at 9:46=E2=80=AFPM Eric Auger <eric.auger@redhat.co=
-m> wrote:
-> >> At the moment the virtio-iommu offers MAP and UNMAP requests.
-> >> This means that if the virtio-iommu protects a device with an iotlb
-> >> we have no other choice but invalidating the device iotlb on UNMAP.
-> >> This proposal aims at allowing the decoupling of UNMAP commands
-> >> and domain IOTLB invalidations.
-> > I think there should be some difference between "device iotlb" and
-> > "domain IOTLB".  My understanding is that usually "device iotlb" means
-> > the mapping cached by the individual device while "domain IOTLB" means
-> > the mapping cached by the IOMMU.
-> >
-> > E.g in the case of intel IOMMU, it has two kind of invalidation
-> >
-> > device iotlb invalidation: used to invalidate device IOTLB via ATS
-> > domain selective invalidation: used to invalidate all IOTLB for a
-> > specific domain
-> >
-> >
-> >> This enables lazy mode where iotlb
-> >> invalidations are deferred and batched. In that prospect we add a
-> >> new VIRTIO_IOMMU_F_LAZY_IOTLB_FLUSH feature which, when offered
-> >> allows an endpoint to be attached to a domain in lazy mode. Alongside
-> >> we introduce a new IOTLB_FLUSH request which allows to invalidate
-> >> iotlb entries for the whole domain.
-> > I am not sure "lazy" is the best, for example a driver may just want
-> > to invalidate all the mappings for some reason. Is this better to
-> > rename this as "_F_IOTLB_FLUSH" instead?
-> Yes I can get rid of lazy terminology either by just using flush or
-> invalidate as suggested by Jean.
-> >
-> >> When the domain is created in
-> >> lazy mode, the virtio-iommu device knows it will receive IOTLB_FLUSH
-> >> and it can avoid flushing the device IOTLB on individual UNMAPs.
-> > I wonder what's the advantage to make it per domain instead of per devi=
-ce.
-> >
-> >> On a virtio-iommu/vhost scp use case, this can improve the
-> >> performance by ~10%.
-> >>
-> >> Signed-off-by: Eric Auger <eric.auger@redhat.com>
-> >> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/204
-> >>
-> >> ---
-> >>
-> >> As a side not virtio-iommu/vhost/scp use case was completely broken
-> > For "not" I think you mean "now"?
-> yes I meant side note
-> >
-> >> on aarch64 with guests older than v6.6-rc1. The scp stalled and we got
-> >> soft-lockups on guest in viommu_iotlb_sync. It happened
-> >> 295525e29a5b (=E2=80=9Cvirtio_net: merge dma operations when filling m=
-ergeable buffers=E2=80=9D)
-> > Interesting, it doesn't seem to be a fix.
-> Yes it is rather an optimization. But it looks like with
-> virtio-iommu/vhsot/scp use case it brings such a huge perf boost
 
-Right, this is what we want to achieve in that patch.
 
-> that it
-> fixes the guest lockups and scp stalls.
-
-Ok, it seems that there's some bug somewhere. Btw, the pre mapping
-code seems to introduce a regression which might be disabled for this
-Linux release:
-
-https://lore.kernel.org/all/20240908153712-mutt-send-email-mst@kernel.org/
-
-(Note that we haven't decided if this is the right way to go).
-
-Haven't had time to check if it can re-introduce the issues or not.
-
+> From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+> Sent: Monday, September 9, 2024 7:42 PM
+>=20
+> On Sat, Sep 07, 2024 at 08:48:18PM +0300, Parav Pandit wrote:
+> > Fix spelling errors.
 > >
-> >> fixed the performance issue. Without that patch and with lazy mode, we
-> >> do not observe any stalls although the perf is way worse than with the
-> >> above patch. Without lazy mode, it looks like the number of vhost iotl=
-b
-> >> invalidation is large enough to cause serious performance issues.
-> >>
-> >> This proposal can be tested with the following branches
-> >> guest branch: https://github.com/eauger/linux/tree/virtio-iommu-lazy-r=
-fc
-> >> qemu branch: https://github.com/eauger/qemu/tree/virtio-iommu-device-l=
-azy-rfc
-> >>
-> >> This was tested with vhost. In qemu command line, you need to set ats=
-=3Don
-> >> to get benefit of lazy mode.
-> > Ok, I think what you really meant is the "device iotlb" as it ties to A=
-TS.
-> The actual device implementation brought some confusion on the wording.
-> I hope I better explained in my previous reply.
->
-> Thanks
->
-> Eric
+> > Branch: virtio-1.4
+> > Fixes: fed64230bf31 ("Add virtio gpu device specification.")
+> > Signed-off-by: Parav Pandit <parav@nvidia.com>
+> > ---
+> >  device-types/gpu/description.tex | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
 > >
-> >> ---
-> >>  device-types/iommu/description.tex | 74 +++++++++++++++++++++++++++++=
--
-> >>  1 file changed, 73 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/device-types/iommu/description.tex b/device-types/iommu/d=
-escription.tex
-> >> index f8cbe88..990734e 100644
-> >> --- a/device-types/iommu/description.tex
-> >> +++ b/device-types/iommu/description.tex
-> >> @@ -74,6 +74,14 @@ \subsection{Feature bits}\label{sec:Device Types / =
-IOMMU Device / Feature bits}
-> >>    whether endpoints that are attached to a domain are in bypass
-> >>    mode.
-> >>
-> >> +\item[VIRTIO_IOMMU_F_LAZY_IOTLB_FLUSH (7)]
-> >> +  This feature determines the capability to use deferred and batched
-> >> +  IOTLB flushes. If the feature is available, the driver can inform
-> >> +  a given domain works in lazy mode. For such domain, the device is
-> >> +  allowed to dissociate UNMAP requests from IOTLB flush operations an=
-d
-> >> +  accepts separate IOTLB flush requests that invalidate the IOTLB ent=
-ries
-> >> +  for the whole domain.
-> > Does this imply a flush for device IOTLB invalidation? It need more
-> > clarification.
+> > diff --git a/device-types/gpu/description.tex
+> > b/device-types/gpu/description.tex
+> > index 66e4873..ba4ea76 100644
+> > --- a/device-types/gpu/description.tex
+> > +++ b/device-types/gpu/description.tex
+> > @@ -166,7 +166,7 @@ \subsubsection{Device Operation: Multihead setup}
 > >
-> > Or we probably need to do the same as other IOMMU to separate device
-> > IOTLB invalidation from the IOMMU IOTLB.
+> >  \devicenormative{\subsubsection}{Device Operation: Command lifecycle
+> > and fencing}{Device Types / GPU Device / Device Operation / Device
+> > Operation: Command lifecycle and fencing}
 > >
-> >> +
-> >>  \end{description}
-> >>
-> >>  \drivernormative{\subsubsection}{Feature bits}{Device Types / IOMMU D=
-evice / Feature bits}
-> >> @@ -312,6 +320,7 @@ \subsubsection{ATTACH request}\label{sec:Device Ty=
-pes / IOMMU Device / Device op
-> >>  };
-> >>
-> >>  #define VIRTIO_IOMMU_ATTACH_F_BYPASS  (1 << 0)
-> >> +#define VIRTIO_IOMMU_ATTACH_F_LAZY    (1 << 1)
-> >>  \end{lstlisting}
-> >>
-> >>  Attach an endpoint to a domain. \field{domain} uniquely identifies a
-> >> @@ -341,6 +350,18 @@ \subsubsection{ATTACH request}\label{sec:Device T=
-ypes / IOMMU Device / Device op
-> >>  can set the VIRTIO_IOMMU_ATTACH_F_BYPASS flag to create a bypass
-> >>  domain. Endpoints attached to this domain are in bypass mode.
-> >>
-> >> +When the VIRTIO_IOMMU_F_LAZY_IOTLB_FLUSH feature is available, the dr=
-iver
-> >> +can set the VIRTIO_IOMMU_ATTACH_F_LAZY flag to create a lazy mode dom=
-ain.
-> >> +Only such domains do support the IOTLB_FLUSH request.
-> >> +
-> >> +If the device does not offer the VIRTIO_IOMMU_F_LAZY_IOTLB_FLUSH feat=
-ure and
-> >> +if the driver sets \field{flags} field to VIRTIO_IOMMU_ATTACH_F_LAZY,=
- the
-> >> +device MAY set the request \field{status} to VIRTIO_IOMMU_S_INVAL.
-> >> +
-> >> +If several endpoints are attached to the same domain, they must be at=
-tached
-> >> +with the same value for that flag. Otherwise the device MAY set the r=
-equest
-> >> +\field{status} to VIRTIO_IOMMU_S_INVAL.
-> >> +
-> >>  \drivernormative{\paragraph}{ATTACH request}{Device Types / IOMMU Dev=
-ice / Device operations / ATTACH request}
-> >>
-> >>  The driver SHOULD set \field{reserved} to zero.
-> >> @@ -351,7 +372,8 @@ \subsubsection{ATTACH request}\label{sec:Device Ty=
-pes / IOMMU Device / Device op
-> >>  If the domain already exists and is a bypass domain, the driver
-> >>  SHOULD set the VIRTIO_IOMMU_ATTACH_F_BYPASS flag. If the domain
-> >>  exists and is not a bypass domain, the driver SHOULD NOT set the
-> >> -VIRTIO_IOMMU_ATTACH_F_BYPASS flag.
-> >> +VIRTIO_IOMMU_ATTACH_F_BYPASS flag. The same holds for the
-> >> +VIRTIO_IOMMU_ATTACH_F_LAZY flag.
-> >>
-> >>  \devicenormative{\paragraph}{ATTACH request}{Device Types / IOMMU Dev=
-ice / Device operations / ATTACH request}
-> >>
-> >> @@ -374,6 +396,10 @@ \subsubsection{ATTACH request}\label{sec:Device T=
-ypes / IOMMU Device / Device op
-> >>  flag is not consistent with that domain, the device SHOULD reject
-> >>  the request and set \field{status} to VIRTIO_IOMMU_S_INVAL.
-> >>
-> >> +If the domain already exists and the VIRTIO_IOMMU_ATTACH_F_LAZY
-> >> +flag is not consistent with that domain, the device SHOULD reject
-> >> +the request and set \field{status} to VIRTIO_IOMMU_S_INVAL.
-> >> +
-> >>  If the endpoint identified by \field{endpoint} is already attached to
-> >>  another domain, then the device SHOULD first detach it from that doma=
-in
-> >>  and attach it to the one identified by \field{domain}. In that case t=
-he
-> >> @@ -590,6 +616,11 @@ \subsubsection{UNMAP request}\label{sec:Device Ty=
-pes / IOMMU Device / Device ope
-> >>  This request is only available when VIRTIO_IOMMU_F_MAP_UNMAP has been
-> >>  negotiated.
-> >>
-> >> +In case the domain is created with the VIRTIO_IOMMU_ATTACH_F_LAZY fla=
-g,
-> >> +the device is allowed to separate UNMAP from IOTLB invalidations. The=
- driver
-> >> +must explicitly invalidate the whole domain IOTLB entries using the s=
-eparate
-> >> +IOTLB_FLUSH request.
-> >> +
-> >>  \drivernormative{\paragraph}{UNMAP request}{Device Types / IOMMU Devi=
-ce / Device operations / UNMAP request}
-> >>
-> >>  The driver SHOULD set the \field{reserved} field to zero.
-> >> @@ -625,6 +656,47 @@ \subsubsection{UNMAP request}\label{sec:Device Ty=
-pes / IOMMU Device / Device ope
-> >>  mapping, then the device SHOULD remove all mappings affected by the r=
-ange
-> >>  and set the request \field{status} to VIRTIO_IOMMU_S_OK.
-> >>
-> >> +\subsubsection{IOTLB_FLUSH request}\label{sec:Device Types / IOMMU De=
-vice / Device operations / IOTLB_FLUSH request}
-> >> +
-> >> +\begin{lstlisting}
-> >> +struct virtio_iommu_req_iotlb_flush {
-> >> +  struct virtio_iommu_req_head head;
-> >> +  le32  domain;
-> >> +  u8    reserved[4];
-> >> +  struct virtio_iommu_req_tail tail;
-> >> +};
-> >> +\end{lstlisting}
-> >> +
-> >> +Flush IOTLB entries for a given domain. This domain must have been cr=
-eated
-> >> +with lazy mode set (VIRTIO_IOMMU_ATTACH_F_LAZY flag set on attachment=
-).
-> >> +
-> >> +\drivernormative{\paragraph}{IOTLB_FLUSH request}{Device Types / IOMM=
-U Device / Device operations / IOTLB_FLUSH request}
-> >> +
-> >> +The driver SHOULD set the \field{reserved} field to zero.
-> >> +
-> >> +The driver SHOULD NOT send IOTLB_FLUSH requests on a bypass domain.
-> >> +
-> >> +The driver SHOULD NOT send IOTLB_FLUSH requests on a non lazy domain.
-> >> +
-> >> +\devicenormative{\paragraph}{IOTLB_FLUSH request}{Device Types / IOMM=
-U Device / Device operations / UNMAP request}
-> >> +
-> >> +If the \field{reserved} field of an IOTLB_FLUSH request is not zero, =
-the device
-> >> +MAY set the request \field{status} to VIRTIO_IOMMU_S_INVAL, in which =
-case
-> >> +the device MAY perform the IOTLB_FLUSH operation.
-> >> +
-> >> +If the device does not offer the VIRTIO_IOMMU_F_LAZY_IOTLB_FLUSH feat=
-ure and
-> >> +if the driver calls the IOTLB_FLUSH request, the device MAY set the r=
-equest
-> >> +\field{status} to VIRTIO_IOMMU_S_INVAL.
-> >> +
-> >> +If \field{domain} does not exist, the device SHOULD set the request
-> >> +\field{status} to VIRTIO_IOMMU_S_NOENT.
-> >> +
-> >> +If the domain is a bypass domain, the device SHOULD reject the
-> >> +request and set \field{status} to VIRTIO_IOMMU_S_INVAL.
-> >> +
-> >> +If the domain is not a lazy domain, the device SHOULD reject the
-> >> +request and set \field{status} to VIRTIO_IOMMU_S_INVAL.
-> >> +
-> >>  \subsubsection{PROBE request}\label{sec:Device Types / IOMMU Device /=
- Device operations / PROBE request}
-> >>
-> >>  If the VIRTIO_IOMMU_F_PROBE feature bit is present, the driver sends =
-a
-> >> --
-> >> 2.41.0
-> >>
-> > Thanks
+> > -The device MAY process controlq commands asyncronously and return
+> > them
+> > +The device MAY process controlq commands asynchronously and return
+> > +them
+> >  to the driver before the processing is complete.  If the driver needs
+>=20
+> I think here is `completed` instead of `complete` although it is not part=
+ of
+> this patch.
+>=20
+> >  to know when the processing is finished it can set the
+> > VIRTIO_GPU_FLAG_FENCE flag in the request.  The device MUST finish the
+> > @@ -345,7 +345,7 @@ \subsubsection{Device Operation:
+> > controlq}\label{sec:Device Types / GPU Device /  display).
 > >
->
+> >  The \field{enabled} field is set when the user enabled the display.
+>=20
+> I am not sure if it is `enables` instead of `enabled`.
+>=20
+You are right for both the comments.
+Will send separate patch to fix them.
 
-Thanks
+Thank you for the review of the series.
+
+> > -It is roughly the same as the connected state of a phyiscal display
+> > +It is roughly the same as the connected state of a physical display
+> >  connector.
+> >
+> >  \item[VIRTIO_GPU_CMD_GET_EDID] Retrieve the EDID data for a given
+> > --
+> > 2.34.1
+> >
+> >
+>=20
+> Reviewed-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+>=20
+> Thanks, Matias.
 
