@@ -1,64 +1,60 @@
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (mail-co1nam11on2049.outbound.protection.outlook.com [40.107.220.49])
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (mail-bn8nam12on2041.outbound.protection.outlook.com [40.107.237.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B0A1755C
-	for <virtio-comment@lists.linux.dev>; Tue, 10 Sep 2024 18:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.220.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE5517A922
+	for <virtio-comment@lists.linux.dev>; Tue, 10 Sep 2024 19:01:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.237.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1725994486; cv=fail; b=pZkJAo5eXFkzMaPa+MFkdRIGO2htSZ6crgaegf6rO0zn97CQKnQw5hlS/766v/gYk7J9SP/xMcPzwTqjnW8BMbqnYH2wmbUKnYBZLrLY9PNNIKyLnabyPiIFkbE4hWW0NlZKd76fEvAMO1FXBFXOS0GVL2xvpl+PVtfNYnakyvE=
+	t=1725994874; cv=fail; b=OXLHLgJpIhsLZtAvu+PQWHTegeUdein8Bus1v0EuxEH3Tbz8bkee3cZrJAYje7ZCXoV0GAFZYQoSD6IJld48ZdhtU438YWZ1fOh9/tzgab3raJamMqIT6/99encWgn+YshMVXOtql7L03PGYSRnqHw0v+QnOzsZFBPE0wKBtTnk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1725994486; c=relaxed/simple;
-	bh=ey9qgCT02VtDz66WVPi7wh+VNamcDMKIPU1f4ITHAVs=;
+	s=arc-20240116; t=1725994874; c=relaxed/simple;
+	bh=zNUYc5U/x4oBE2tcP6nc7PPlJU2odS+iH78Y0grmZv0=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=nAQKrfkTN/vvt7oIVMVDXLJDQJF22VGmHElMqSyiVYapao3qunNxQ8uCuNiMLYmVPSwSGzSV0dIsg7peDVviYQ7VTNsjT0/twEIWuzCQizhY3euLa9TkO5eZaFMZBIIiqOUj7OVnwEflpIAxkRCHK4tl3T6X4CxcACVlctvAYeA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=R7VTW2c4; arc=fail smtp.client-ip=40.107.220.49
+	 Content-Type:MIME-Version; b=IE9S/bRDIW/OjHd8R2pwiDxBYk1f07ABXyfNfGnKa/6mnHfCD6gR+aUysxKY/65MpISlZr/fTwMcdwZ+jLYyFJujU/d/pauk2YpDxGYlL0l/Y0iVIohzXqShfERHD8XY5n543skfRnlsSt2FyjmfzjmgXI+ZU+dNGUX9CuDGL+Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MR84fNZV; arc=fail smtp.client-ip=40.107.237.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="R7VTW2c4"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MR84fNZV"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eB3mnzK2PEq60jFtFQHoMP0taAUZ4JlwdRHlNKP//4bfSpz0OXVFde5xbcJFJMuyRxQWP5duVQ4pnLLOExDJLqJMbPc6PmBXAQ789M6UDDjn7dSk6WwkVWzTzDX+OsoYMfAbqf52n9JUPhaPA4yI2YcWpTv9o5HSINbk1zsOc7PNN6q9YLmZ0R8TNip/akktbxvYOzB8rxx3O9IF4oJ9HbibK33ooDGPXTgiRJOCDdUkndSnHM/bXzK706O1BcQMpv2IAlIgsC+KNuc2hOQnusGISyUM1sV5zkagn4K6ZV8aGC3u6Oj68y+umcVbkFS8BF2J2z4SjGCN0MbVBEX7OQ==
+ b=QrD7GrnpsV+k68AkNla/Bml3BwBPgMp59nv/y9j26WseWIAokXmm4BQF+bGc59xLYkfnUjvLHPMSTpwcO8aG0BAZkgr4vLxqQCF/qInkdmh3d7zfdMwnKel4t/lqOgaa2KiLxWBsBIYjjPSTl2EorBOIZJAqOoHDU0wTQkA1wrevLnlWNxRH+Kf9jujFryirqvUMB+QQtSKs7es6xtSPWf5pqChUrmRayFzXCbHG9R0/nZ4jsDDfqWEZNmtIB2gfVSRi57rlMP8yrRdGNuctMJVQLgU63+Qm5CUnO8uJmveCY25kGymFRBBOBXeVasGHlpV9sqK8T1sN2YsjreKlwQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Yhyh2JEB3a5F8KnnUZJLm1mCr+DjMMHis0AGQuPkR3M=;
- b=UmKo66owNeSnr2bPcm/4rTyd7oJxRGJ5Z86SLsCWrgeM7mp82Nwn5ZTFXOZF6tB5KefHs1MXtK7td45e09Zc3KFs60ERqR6xCxoZ8LCrL9bBMc7T5auU4yV3afZtjXpEB3blG45A/bzEHa+y9xI7zxMNvdonPG6kVc2YNVVcwG0LHgeZgPx72ExUKyMwsVC/SYdwzvLXJ4XAvFq4eK/Eb/q0ZzSPoyotw+U0myAiE1XzBNCkoanvlPkM8bzbgCBuYSKyCmyCdI9jdE2ryYrHFCQzvB1xtAeU/cxdK1HtAEIA8CSyWLq2VGMIAmd/K2CuGur6vf7pCNMIcoSrsnXGYQ==
+ bh=U+RSZzvDqRBUfAYLOchW0Vr4bII4mdKdpixLQWf+TrM=;
+ b=vDCzJfDHndgv+mbYrfRJtx5j32KdU+Tgk2ipYc3c0D3+WsR0j6Bb/6jbue5PmPIzCzwGTE/K0Q1TrKYwZHFEBL/zA3kIH/M7WT4a+3RPqdlgI+7rf0rd4ANc+lBo6Os8FmjJfat88sO8F9RzU6SAOvm3ItnPgfsvsNvGCbQfy4qJX0oAWWi7GJxBccl1NUfb+p7YU/2LD6QbV39enuehUdmUAhZM0K/pkiWC4og79FG6ySF4SRnyS2KzWN71bDQt15TZoFFypaKCkt+7FNjDqX3TqN9zvLCm+LCkrsv+UzXAnrZHuQasotPkcF2wclgg2p07olYDzFXtnGnRANjKWA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yhyh2JEB3a5F8KnnUZJLm1mCr+DjMMHis0AGQuPkR3M=;
- b=R7VTW2c4AbLyvUBPfhvQRPGQwRwlvUjKCI3tuNKVG616JgbkEvRHp/0hbRV+izXj+MtvGh6CGQjUEwWu0/Wyd691LnLmPcWsovgRAKTtHEM2O6zYpfNHIfKyOpTZpPRfI+F0PSBevH7qlasYK8IsPOdDQfRXSdDnhqb18nPCQPGUNEdh9iJQ+L+KZI6I5uVMD80p7wATiv4BwOwp7BwkB4k64gtfn+LFfX0F/x9dHcWS5R8yyijLoxuNiWharUzEOio8fMJ/aHOsdRZy9jYz6m5cWi1RbcF4Oe/CJMi8JxWB8v66Jis3RKRdLPqAMN2EhvIdW/LsrfJ/NcwFsmQzjg==
+ bh=U+RSZzvDqRBUfAYLOchW0Vr4bII4mdKdpixLQWf+TrM=;
+ b=MR84fNZVmh3D6ijUc/I+rVBbc5Zrq69odYN4MtzFe73obvjdY7IEbsBQREge0uQPI9gT1aQ76kJCPywX52OsB1FY1PKX5P7uonRuSF8gzZQJGtu/l1e+3zHR36Y4kBYCFzKjXT78Hm1iH0nNAtWU+R1HlpiJUYfKUbDgLTUR5qXn9cYCkmMqSXiFDB4WmdMC48BGCC8tj0BtWbvj4mNnI8ncFdJLHZFVl4NWpho62MybvElGaJaR+jesuaPYr596BFp9XcsjSrz6bHF7ff/eLkBt8gS3fqbmfFJbrdovBshZZRUHzA5LRKQDmBIr9bF1Yh0kGSNNbOy3IVrSaNJYyA==
 Received: from IA0PR12MB8713.namprd12.prod.outlook.com (2603:10b6:208:48e::7)
- by PH0PR12MB7838.namprd12.prod.outlook.com (2603:10b6:510:287::10) with
+ by SA3PR12MB9159.namprd12.prod.outlook.com (2603:10b6:806:3a0::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.25; Tue, 10 Sep
- 2024 18:54:39 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.20; Tue, 10 Sep
+ 2024 19:01:08 +0000
 Received: from IA0PR12MB8713.namprd12.prod.outlook.com
  ([fe80::9fc9:acc2:bdac:a04a]) by IA0PR12MB8713.namprd12.prod.outlook.com
  ([fe80::9fc9:acc2:bdac:a04a%5]) with mapi id 15.20.7918.024; Tue, 10 Sep 2024
- 18:54:38 +0000
+ 19:01:08 +0000
 From: Parav Pandit <parav@nvidia.com>
 To: "Michael S. Tsirkin" <mst@redhat.com>
-CC: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+CC: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
 	"cohuck@redhat.com" <cohuck@redhat.com>, Shahaf Shuler <shahafs@nvidia.com>
-Subject: RE: [PATCH] device-parts: editorial: Fix metadata type name
-Thread-Topic: [PATCH] device-parts: editorial: Fix metadata type name
-Thread-Index:
- AQHbAUZgAYwZkGlesUGMqNdfn3V7bLJPg64AgAG7gNCAAAC2gIAAAFzQgAAde4CAAATm8A==
-Date: Tue, 10 Sep 2024 18:54:38 +0000
+Subject: RE: [PATCH] admin: Enable driver to send admin commands before
+ DRIVER_OK
+Thread-Topic: [PATCH] admin: Enable driver to send admin commands before
+ DRIVER_OK
+Thread-Index: AQHbA6QB1dLNvHRBLkyvjpsHR6lgt7JRWCUAgAAGYtA=
+Date: Tue, 10 Sep 2024 19:01:08 +0000
 Message-ID:
- <IA0PR12MB8713D2C68564AB88E9D159B8DC9A2@IA0PR12MB8713.namprd12.prod.outlook.com>
-References: <20240907165218.778501-1-parav@nvidia.com>
- <Zt8DqrYIXGMM399j@fedora>
- <IA0PR12MB8713207F29554B2FB2219AAFDC9A2@IA0PR12MB8713.namprd12.prod.outlook.com>
- <20240910124712-mutt-send-email-mst@kernel.org>
- <IA0PR12MB8713C76D953BE65BE6842ACADC9A2@IA0PR12MB8713.namprd12.prod.outlook.com>
- <20240910143400-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20240910143400-mutt-send-email-mst@kernel.org>
+ <IA0PR12MB87136FC9671ABFF7123A82CADC9A2@IA0PR12MB8713.namprd12.prod.outlook.com>
+References: <20240910170723.44537-1-parav@nvidia.com>
+ <20240910142850-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20240910142850-mutt-send-email-mst@kernel.org>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -66,67 +62,67 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA0PR12MB8713:EE_|PH0PR12MB7838:EE_
-x-ms-office365-filtering-correlation-id: 432632fa-d38e-4a62-eddb-08dcd1ca05a0
+x-ms-traffictypediagnostic: IA0PR12MB8713:EE_|SA3PR12MB9159:EE_
+x-ms-office365-filtering-correlation-id: 1f485ca6-89c0-431b-4348-08dcd1caee04
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
 x-microsoft-antispam-message-info:
- =?us-ascii?Q?hXwspaMthZ16rDXJBbKXyg4WLXnOemPjs4NcqYGJ/XiKpzLphd3M6PqLtX4O?=
- =?us-ascii?Q?OKN8FSVuZwaV3kwjDv4BjVwQtB/hRJ6yPh92eBakLWF5ETay/8GR1lsp1Mbc?=
- =?us-ascii?Q?/vrPZtWkVOMmXW91nBKaQkRiqe9gnh84awPd84KYM6o9tIKbGJPOfVBmjgZv?=
- =?us-ascii?Q?dwIaFrQxC06Hn+Wk72rPnjctkqykWaRha9q1WcK+Nsh1M3kwLaYKXTW9Rtvu?=
- =?us-ascii?Q?GFU8HbaOSD1HfKCKXbGqrfbNVhSz2PWnRpLVu9EwfAsxNZ4UfuYhP+94rJFh?=
- =?us-ascii?Q?YxIekY9CWOPZ8IP81VklH3ASjNdO3ChU7BSx7mZJ+oyu6cjOYOSATF3SrHiR?=
- =?us-ascii?Q?OkQ6RBxBWC0VabHkH+gc154ZqA66thZHtI0xAIeb+tRQt9kvKkCi/RZA97Db?=
- =?us-ascii?Q?At647YUVr1Ti9YKb4az13mP2EN/YvgR/4FGeUka1/00LNHDRLJfDQzpig4ih?=
- =?us-ascii?Q?8z3qhPYhnCWV0FAgS/SSGHYPCbbUIpaeipXWFMpW3fX7MiKg11qKpwQTpiAW?=
- =?us-ascii?Q?94H4oFkg53LNZbQYGN0B5xliSIRZGMiCCtXCMk7ZEB0R/Hu0Mr0MBMPnjoWV?=
- =?us-ascii?Q?tSdF1XVNpHtZxtqs/PcWyLcjNqbf8FOHJwWFXMx3HFP3mZ4LtGKmLxOvwtRm?=
- =?us-ascii?Q?7X+dsly22tJme7cXxNLOhNfe+f23nKpMf7xqGxCnANbtN1LXYESJnx8wuU6H?=
- =?us-ascii?Q?MTr4KOY8OmePQKAHXUVwXMY6apD1KvPQPiLDbjQmU8tpaIoyjR36I3qKeRYe?=
- =?us-ascii?Q?Zk8oymygGDbJrl9kPD3FoaDzfv50MGK9tN3JFATi8nIUuhRQygVbVCIYy5tO?=
- =?us-ascii?Q?tI2gb+3cyF4K+5quAhFIX2bVDC3XH6zCmnaQykTjczrQQNr5Vxd8yv63LL/e?=
- =?us-ascii?Q?A2SuQuNYztCwdh4zCQVQoeCR2Cz6rYcY6OODbDveeyDBMIdX1ATlRAbR1JK9?=
- =?us-ascii?Q?9jV1lntgIDnPM5X5isd3SjfdLUlV3knk4ui6OCeqNg+gg4jEqwqLcMsTWs13?=
- =?us-ascii?Q?2DtCsCOwHNcTNbGZBL2SwriOO+/EViRA/SPwo7JGkmq0+U63V/pbr0TAmyvX?=
- =?us-ascii?Q?8Cu09KqahveEJS7XDoGOF8Qz+zwv3d6VAoT5/vi6r86pyEol5Hpz0Xc18so/?=
- =?us-ascii?Q?rARFJmeZd4NTzOYvTfSxvsz5hEsjFwksra3s6OOuKaC4bOteFFJJw+uAd6VW?=
- =?us-ascii?Q?P/rTNuihaT6oarQysjMysAjjT4mPY5iSwrQ/FcpT1sgEVKpmKJ9wnUNonxnH?=
- =?us-ascii?Q?4x38izfP0MdSLYl4oPbvbC9FMplxt9R9mZ6I8ktTYO45SymAlVMZVKH6WQmX?=
- =?us-ascii?Q?Td23IFChml1E9QcCwphlG8AoW4fJAzLXICRZ2hs+jTX0nKx/2OVh13BRh/69?=
- =?us-ascii?Q?3yedscS6V9YYwgGG6dOBTCcPdov0+izUVuVWYORF79+etifIew=3D=3D?=
+ =?us-ascii?Q?xnJzUtN6l9HAKWQ7RAT2YCSPfYYB7ci/eV/W1btdfHGW6sY3eD6MXH4MoXnb?=
+ =?us-ascii?Q?f1i+q79Wsu5UoHZgthQBdUGWEv8IWfnI1Ahu6QTOnPs68VfQ1648fJm3WMXQ?=
+ =?us-ascii?Q?EmdV+JGD/f4Ozh+gwBBMnWPKPDvLz/QmDKfzS4ajbdP8NPRvHMOroxnMGGa5?=
+ =?us-ascii?Q?GiTG1sfwy0m9VZdQU97uGEmJCWSJaOqw+rQ+oCdAjS31wd2dLQVx39Z8VCSz?=
+ =?us-ascii?Q?wh568XACqxKiJ4LV7HnVyW6XEmFyEZwO6pbm0eRzbhQhN9eOtelhbnOddleq?=
+ =?us-ascii?Q?nRiXQZyLCDIjqq2P9XtdYuqvkVR3xETd32P25S/6qqAQyPAYjxh70uxBofa3?=
+ =?us-ascii?Q?NjosbtiFNMtAYNwszT8O0PDMtD/RPrIWKec4lGeH6C8jmhk/l9oGwxOUQK99?=
+ =?us-ascii?Q?03tiY1Uf+jXH3ygh15ae1qIdXEmyw/jO5spt7sSKL6icgvBIvIpUQeWMuTjK?=
+ =?us-ascii?Q?vipedYwOJODhXbwxSqiboisBDD9DMY9XMV62GGr4zw4Dnn5svGUNheP5N102?=
+ =?us-ascii?Q?WmHSPyhKyrFDZ4D4Tk/+1Ww7LUBZgX1cXt7CB77JxiX5i4bAGPPtCPsvUgdW?=
+ =?us-ascii?Q?hFr6olecruZlWJtJszJ8ZBPehrukwFSEv7htHQ4RV9MjOeGLBbngz81Vd2L1?=
+ =?us-ascii?Q?jdcL4fnl5oBKwH7o1pOUTgNoqrbFy9Bv438mEsqyIrdHhF2HvTCieXMv0wSZ?=
+ =?us-ascii?Q?jAIEbOkNyE7mjigbX5+9zfRW34pxwIWgwp7hai2VHY9dJUSBC6epysIr5vsj?=
+ =?us-ascii?Q?KMRKuuxWtb+tqppa/FuQeJnECdfpdHnyyYAXIFM/xGagGdVI18W1Bjw3EH/Y?=
+ =?us-ascii?Q?2auLQf3pORA82+5k5O+TsvKUPXIkN2s1Ah9AvEb2Cqp9zHQyB18nzEViRdZU?=
+ =?us-ascii?Q?ghxiGXaN+/fJF4b1v9F7fyFC5FTUqMfDRk/MXNOfd4stOfD9jjOPv2c/q8o9?=
+ =?us-ascii?Q?iLV2EMyr0OldAb8M8wxPZURs6qvJr3HzZyYDXLNkhsV0k4kXuLW1w7rWW/w5?=
+ =?us-ascii?Q?pGwp35OxS5o9ZkULFTrz6HkVMhsxNNPCBCe1SMq3fdaMW2lEZ8HEOkMAAyQR?=
+ =?us-ascii?Q?Yr3Fibj/a8pt4rngV930RE0YKL7U2tiNVjt+KK5v54nqdyWCXVAtA3PJYll1?=
+ =?us-ascii?Q?E515wSoamQREZtM/urUXdAWVMZCLuMuHq7qF5tsiq7foRh4CwqRIMkkutSOv?=
+ =?us-ascii?Q?Du3ZZMXPsfL03g24mgUclCMzkLbF3D9d63uiT4PCf+/OoEM0HlnKh3HKPBQL?=
+ =?us-ascii?Q?sykZIsOU/nHdaY2PFTbHRdfKbyZHnGILmw94GquNl0iVsQBpotyzaCLsGR3R?=
+ =?us-ascii?Q?usXIlWGLquRCzLo3joy9u0ONYKWTCpRhhosDu+/ZTfd2JY0Yflir8D+dxeSB?=
+ =?us-ascii?Q?OfVD0Had7IXgRm+CYdm3TVmC/o2Y1cR4ZT6EP6XZtMEs3UU9PA=3D=3D?=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8713.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8713.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?4snHkB4JlRhWZStfIqtSbx2w55TbgkinVoqJ2jFqHzs077p8OosqW+THClE8?=
- =?us-ascii?Q?UQYlb4frfDsPKRk4uOVcsmi9UNjeYfXP6SYdzIE8xQFVTZ1xf7vPv7+0xT5S?=
- =?us-ascii?Q?rVC2YEgM8IpU5ZZxa5ozs2UTJ8igisnq1Gv9cCQJ22KKlaBtLv2o1A4rLpaj?=
- =?us-ascii?Q?U+CVHxFySDL3ZQgPO28HSbg0t0axXKDxDL3vv48zmZN4I/Ccrsr9/anPy+X3?=
- =?us-ascii?Q?/AxcRY95i1rq9tIUL7M0wJakekKIl50HpuDwk97Kki5vZsDHDwe2H+hy6Pd7?=
- =?us-ascii?Q?XgFxe2jZrBIzI8Y4DQDXYOQYFQAadOHMNHVCc/kwPhAynrQXaxITVnZvFOFJ?=
- =?us-ascii?Q?vABe74igtlSQS+rmL5VjTUnalskN8E0Fg9LuV4e4M9X4pAO3lzU6BN15n8Po?=
- =?us-ascii?Q?2szR6gFlmYvsf621V7A6S5f6+zO9Mqy27k0cwRNWUpPZW2YVF7VN26SC/gkE?=
- =?us-ascii?Q?mAdtDAillNNUcWJCWx54eyX/KsnNN7HBmJhfugnW8jZfYvRlPODfqchOno7n?=
- =?us-ascii?Q?XY1Z+XemJSNyESHPwMMO780ZnWiat9YCyI2tCT1OZxqojaXiQwAFIaxIHJhQ?=
- =?us-ascii?Q?4J/gOQmh9G3AQgMB5zpqW6PVbTZVufA2wt9K91J3qa9N8Cj95/RRMghqvE4M?=
- =?us-ascii?Q?ToCYVZ/rXTgjvqmKT/qbl/Dd+FL6OQR2TmFgHMNH7FKRQ3AaNrQpSRmm5vll?=
- =?us-ascii?Q?2fJvIDZjVlr3oKefscDtkfO21GqBHEk965R2ahGAfm9zGrZXa3J8nTb2Zu28?=
- =?us-ascii?Q?jB8yF+BepnE6k6VGbeZvcj4pcpWQRuZSfw9ojZ2Ca7I+PLQfsXlR0/sZqCO1?=
- =?us-ascii?Q?i0Z5aYeM7LS6B1iSYjKpk6hUpTTsty590GlRGAIMpPp3m6es99UJCofiyx6s?=
- =?us-ascii?Q?TCVSfzdBGlXilbrOlxS4M1FXLfrorilQ7femynQ1g/MtQ5PsvCbdM0p6luVc?=
- =?us-ascii?Q?VdHMVoAErkx1HPr7ab2Mm6eid+VBZ5n+rx/rMc9ev9ZFMPc0WHDJSDgGtjsr?=
- =?us-ascii?Q?GNj4V0QgSIPwfMcOzCak/4tnaZwBQtp6nD7V0gfxfqu4AibejfTJCxJzoGLA?=
- =?us-ascii?Q?FPFgVjhly69nHlxvLnIATv3J8HEcbSc4D2jCjtONz/0YQjG6Qu0xiTZvp3b8?=
- =?us-ascii?Q?BU+mwwDrEovAXkUBw+xRTKoQN7b/pIBy3/pxaaSMAKSVN85dJ4nejl3FlYbU?=
- =?us-ascii?Q?QmECfEUTHRdtc8HttYARM5I7A/xWpHArzfeNEVMwlGc2LZdkPD5CnSP5g/7G?=
- =?us-ascii?Q?9HMN0EDfnXjLJ1lQciw4PhRr4XPZ4TBWWE7x2bkgunYJV0WfydjOMBtBqc7h?=
- =?us-ascii?Q?aOhYAlzIllhK6IYwWBilyuCq27tm4XapJirfWwzlPDOzRKSrdGFINUJKp8Ng?=
- =?us-ascii?Q?Coaa/8lFBcCGfESeH8UTBaOxC+/MJUbfIYLbVdXOeE8IMr/AQ5Pj0s0ToDSf?=
- =?us-ascii?Q?tnv7oVX1uLahal8reeO+yno5FMxaxE2cRbMBUnhD09EFz2wtUo9l3IBTUIfp?=
- =?us-ascii?Q?gn3zwJA815p1M+ZQPuylpNQw4BtYtAH9mxa/MnH5Rvr+VCv1V4jO+wwakpaS?=
- =?us-ascii?Q?eXSRoPgsgaMxDwOwDr4=3D?=
+ =?us-ascii?Q?oMN7rYsdIUD/i0zPgZDE1C0ZNkU/rFmL8cHnxAV1jLgiuUFKJhDnlEIrIqB3?=
+ =?us-ascii?Q?8WHmqO/gVNhm45C9kI4DmDYPBFtxXrdj2H6bwr1/l4Is0l3fuLb75bBeasVu?=
+ =?us-ascii?Q?8eM/Df+bM5l0dHerZ5U06FClxaDpwwNK8glTTb0J2tuf91SHXkB02KWA5R2z?=
+ =?us-ascii?Q?+xp9/ZWObz+TA1o6J84oVi8m6uTA+ggALt5Hpvzfl/ukWEUVeJSoCUPZATVq?=
+ =?us-ascii?Q?SW/KXe6g9mW6UeaZIYydy+sYmu9cxiXpo3kTb2+7E97gDGILrC0bmeifFFLd?=
+ =?us-ascii?Q?3oqfYCbUI2HtuJyM4DaM445Xkh42C7OEV/2Ih0jKRlq7LhzlK/X8EfATvdIN?=
+ =?us-ascii?Q?J0llhha6Qz5ap2SpvytdqX+tA/GMzA5y3yW6m+hBxILzeU8v8vhEuRvfpWUX?=
+ =?us-ascii?Q?fjEF0EmjVJp9i38+zei4YrUWUMxKMBcskKGbUeGBTc4jm9SuHM/njmgfRF1Z?=
+ =?us-ascii?Q?ymV5EVacA3/ONHwlVFdoXrD7urD4k017IyFFzo6I3Tz78M+EUOjCWhDgnK7q?=
+ =?us-ascii?Q?kQJontNv2Gde66rzXtS5rtumcaEUk88ugCarRV46XAX7hEADFlUl1yl25xnN?=
+ =?us-ascii?Q?/SERY5btKlquDVjnKrz+158m2eIbQCcSCDXRb7AgSEMCGsBCBxWl8StldieF?=
+ =?us-ascii?Q?YFBHdeSISmv1DQTxwAZbh5MjghIDkxkQ6agCequ8kSTyPF/OsnfAJ91jBRO/?=
+ =?us-ascii?Q?gyjW221A5zVNbQe+wHGdKA1joFR8UwEcSlsSy6CgsmUVZQ2nBvpVN2ZoP5SJ?=
+ =?us-ascii?Q?fvozf6JAXPag/1RRhGG35uo9uVpAEoZveZj6JFbXqFy5S3GsrAwA5QQTmdb2?=
+ =?us-ascii?Q?7/7tWR1U2lCDqfL6bDCHU5ebgw0eKOFChmrOn8Wk1uv2R0ewYrt7JFf8wSs+?=
+ =?us-ascii?Q?bZ3ad6UImh8zab0l/3zXc81uJLikKj1PRHJ9rmIFEZwEkvRXXFAf50i7ey+6?=
+ =?us-ascii?Q?1Uk5q6TlqGY8WJ0eGFpWAOIAzVHLzH5X0fCZ5yOAwO1nJJjaviZspQAQsMQE?=
+ =?us-ascii?Q?H0yBjROOLHuSvwUUENFrkW82S/9o/s4GNN8AbbfOvU7wQvB6X4SwlomgFxbz?=
+ =?us-ascii?Q?guVKz8vOQYWS7cY7wn6Y6KsQRnjResb6IsQKEcB6rAQvPBlLxL3Hh/vR6Lsr?=
+ =?us-ascii?Q?bxX1xrG3Zk2BkwM45+6Bo50LSCdEES990ObgV4NwtBcTAFp88rjxFlblnpI7?=
+ =?us-ascii?Q?sYYih+J8z93hwtcQDDACMBZkjgyOQnwBehBI23jYS3pufHF/Yia6ECjhZfvD?=
+ =?us-ascii?Q?HKhvYGmQva2LsBW0zXyo1ZyEyblYk4hHk9O4g102ET6GiAU82tqubpF8pCmS?=
+ =?us-ascii?Q?aTS935xs7D/95sjkj3UXBw9r4p+JfCbAMfPdepGnOH1p2Qt5YbJUgi4v3PtF?=
+ =?us-ascii?Q?dUkQNINmLXCzmpXFJuquvCOx9eG/Hko6jkZT+WNfg0o5fvCxjvvbtylOdMUu?=
+ =?us-ascii?Q?0fZt2t0LNX1wfbojJe9GpBC0jgYPX0UT7f1DV6pbZZ2lNCiOCfpr97Af9lh0?=
+ =?us-ascii?Q?8dutTmAhceMNuzAwoGVeej5Z1LkukCVN3jFlUov2csw+UUYoBtO1H5pfMQnD?=
+ =?us-ascii?Q?iDK3HuJvP0MqjYHxR+Y=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -138,106 +134,217 @@ MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8713.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 432632fa-d38e-4a62-eddb-08dcd1ca05a0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2024 18:54:38.7243
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f485ca6-89c0-431b-4348-08dcd1caee04
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2024 19:01:08.6602
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UmF0SvSk77ywJ/nHv6dN1gmqvw+8pYaHRbeGeuV+77j8eVQ2KEVcuG9ajHTKtVtdDwDH6aemW2OEoLa7IcK23Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7838
+X-MS-Exchange-CrossTenant-userprincipalname: TAvNUMQzhWDF5vZtHIjyu2F3yTeX2GCgF13Rwe6vRbzS4VNWAGanvY/Od1SnH0hQJwzy4MBoL82wRHuWSNEadQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9159
 
 
 
 > From: Michael S. Tsirkin <mst@redhat.com>
-> Sent: Wednesday, September 11, 2024 12:05 AM
+> Sent: Wednesday, September 11, 2024 12:02 AM
 >=20
-> On Tue, Sep 10, 2024 at 04:51:03PM +0000, Parav Pandit wrote:
+> On Tue, Sep 10, 2024 at 08:07:23PM +0300, Parav Pandit wrote:
+> > Currently the driver can operate administration commands using
+> > administration virtqueues. Administration virtqueues must be enabled
+> > before it reached DRIVER_OK stage similar to all other queues. This is
+> > a limiting factor.
 > >
+> > Many of the device functionalties needs to be discovered and
+> > configured early enough before the driver reaches the DRIVER_OK stage.
+> > Some examples are:
 > >
-> > > From: Michael S. Tsirkin <mst@redhat.com>
-> > > Sent: Tuesday, September 10, 2024 10:18 PM
-> > >
-> > > On Tue, Sep 10, 2024 at 04:46:34PM +0000, Parav Pandit wrote:
-> > > >
-> > > >
-> > > > > From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-> > > > > Sent: Monday, September 9, 2024 7:48 PM
-> > > > >
-> > > > > On Sat, Sep 07, 2024 at 07:52:18PM +0300, Parav Pandit wrote:
-> > > > > > The description is for the type
-> > > > > > VIRTIO_ADMIN_CMD_DEV_PARTS_METADATA_TYPE_LIST;
-> > > > > > however, it referred to a non-existent definition. Correct it.
-> > > > > >
-> > > > > > Branch: virtio-1.4
-> > > > > > Fixes: aa4f6f069ab3 ("admin: Add admin commands for device
-> > > > > > parts")
-> > > > > > Signed-off-by: Parav Pandit <parav@nvidia.com>
-> > > > > > ---
-> > > > > >  admin-cmds-device-parts.tex | 4 ++--
-> > > > > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > > > > >
-> > > > > > diff --git a/admin-cmds-device-parts.tex
-> > > > > > b/admin-cmds-device-parts.tex index 27d8251..3a16692 100644
-> > > > > > --- a/admin-cmds-device-parts.tex
-> > > > > > +++ b/admin-cmds-device-parts.tex
-> > > > > > @@ -152,10 +152,10 @@ \subsubsection{Device
-> > > > > > parts}\label{sec:Basic Facilities of a Virtio Device / Dev
-> > > > > > device responds with \field{hdr_list_count.count}. The
-> > > > > > \field{hdr_list_count.count} indicates an count of
-> > > > > > \field{struct virtio_dev_part_hdr} metadata entries that the
-> > > > > > device can -provide when the \field{type} is set to
-> > > > > > VIRTIO_ADMIN_CMD_DEV_PARTS_METADATA_TYPE_HDR
-> > > > > > +provide when the \field{type} is set to
-> > > > > > +VIRTIO_ADMIN_CMD_DEV_PARTS_METADATA_TYPE_LIST
-> > > > > >  in a subsequent VIRTIO_ADMIN_CMD_DEV_PARTS_METADATA_GET
-> > > > > command.
-> > > > > >
-> > > > > > -When \field{type} is set to
-> > > > > > VIRTIO_ADMIN_CMD_DEV_PARTS_METADATA_TYPE_HDR,
-> > > > > > +When \field{type} is set to
-> > > > > > +VIRTIO_ADMIN_CMD_DEV_PARTS_METADATA_TYPE_LIST,
-> > > > > >  the device responds with \field{hdr_list}. \field{hdr_list}
-> > > > > > indicates the device parts metadata.
-> > > > > >
-> > > > > > --
-> > > > > > 2.34.1
-> > > > > >
-> > > > > >
-> > > > > In previous patches, I see the pattern `\field{type} field`. I
-> > > > > wonder if you would like to do the same here for consistency but
-> > > > > I do not have a strong opinion about this. Otherwise,
-> > > > >
-> > > > True, maybe I can remove 'field' word from some places in general
-> > > language improvement separate patch.
-> > > > Will look.
-> > >
-> > >
-> > > It just typesets it as italic ATM. Worth doing to avoid confusion,
-> > > as some fields are plain english words.
-> > >
-> > Do you mean to add word 'field' wherever missing as Matias suggested?
->=20
->=20
-> If it's a field in a struct, it should be in italics, yes.=20
-It is already in italics.
-
-The question was : should be written as,
-
-Option_A: \field{type} field indicates so-n-so...
-or
-Option_B: \field{type} indicates so-n-soo..
-
-> I didn't get which field
-> Matias refers to, exactly.
->=20
-> > If so, no strong opinion to me, I will run a separate patch for such
-> improvements without fixes tag.
+> > a. driver wants to dynamically create the virtqueues of virtio-net
+> >    device with more parameters, for example header data split,
+> >    multiple physical addresses.
+> >    Here, the driver needs to tell PCI device early enough that it no
+> >    longer uses queue_* registers for non admin queues.
 > >
-> > >
-> > > > > Reviewed-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-> > > > >
-> > > > > Thanks, Matias.
-> > > >
-> > > > Thanks.
+> > b. driver wants to discover these features and related attributes
+> >    early enough so it has chance to decide to proceed via admin
+> >    cmd interface or proceed to DRIVER_OK and follow the current flow.
+> >
+> > To overcome these limitations, introduce a feature bit that enables
+> > the driver to send capabilities related admin commands before
+> > DRIVER_OK via the available interface such as administration virtqueue.
+> >
+> > Signed-off-by: Parav Pandit <parav@nvidia.com>
+>=20
+>=20
+> We were there in 1.0 and it's messy. And next thing you do, you will want=
+ it
+> before features ok, and we will keep piling up hacks. =20
+I don't see any motivation to do before feature bit.
+Never before features ok, feature negotiation is two ways communication tha=
+t indicates device, that queue notification is coming.
+
+> I think that if we want
+> to do admin commands before VQs are active, we should just add a capabili=
+ty
+> with registers for that. People wanted that anyway.
+>=20
+We discussed before that pci-sig discourages piling up vendor specific caps=
+.
+So better to avoid that.
+An alternative would be to bump up the pci revision_id, which would align t=
+o pci-sig and its known early enough.
+Though it does not take away the feature bit because device preparation is =
+needed to setup early admin commands.
+And feature bit can be a good hint to inform that.
+Only revision_id (from device to driver) is not good enough as there can be=
+ large sw stack which may never use it and no point in enabling this in the=
+ device without driver using it.
+So feature bit proposed here is self-contained, and its early enough.
+
+>=20
+>=20
+>=20
+>=20
+> > ---
+> >  admin.tex         | 16 ++++++++++++++++
+> >  content.tex       | 13 ++++++++++++-
+> >  transport-pci.tex |  6 ++++++
+> >  3 files changed, 34 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/admin.tex b/admin.tex
+> > index 39fc072..95054ed 100644
+> > --- a/admin.tex
+> > +++ b/admin.tex
+> > @@ -334,6 +334,11 @@ \subsection{Group administration
+> > commands}\label{sec:Basic Facilities of a Virti  supporting multiple
+> > group types, the list of supported commands  might differ between
+> different group types.
+> >
+> > +When the driver has negotiated the feature
+> > +VIRTIO_F_EARLY_CAP_ADMIN_CMD, the driver can use administration
+> > +commands VIRTIO_ADMIN_CMD_LIST_QUERY,
+> VIRTIO_ADMIN_CMD_LIST_USE and
+> > +commands related to device and driver capabilities listed in \ref[sec:=
+Basic
+> Facilities of a Virtio Device / Device groups / Group administration comm=
+ands
+> / Device and driver capabilities]{device and driver capabilities} for the=
+ self-
+> group type before the driver indicates DRIVER_OK status to the device.
+> > +
+> >  \input{admin-cmds-legacy-interface.tex}
+> >  \input{admin-cmds-capabilities.tex}
+> >  \input{admin-cmds-resource-objects.tex}
+> > @@ -608,6 +613,14 @@ \section{Administration
+> > Virtqueues}\label{sec:Basic Facilities of a Virtio Devic  or
+> > VIRTIO_ADMIN_STATUS_ENOMEM, then the command MUST NOT  have
+> any side effects, making it safe to retry.
+> >
+> > +If VIRTIO_F_EARLY_CAP_ADMIN_CMD feature is negotiated, the device
+> > +MUST process administration commands related to device and driver
+> > +capabilities before the driver indicates DRIVER_OK to the device.
+> > +
+> > +If VIRTIO_F_ADMIN_VQ and VIRTIO_F_EARLY_CAP_ADMIN_CMD features
+> are
+> > +negotiated, the device MUST be able to generate notifications related
+> > +to the administration virtqueue before the driver indicates DRIVER_OK =
+to
+> the device.
+> > +
+> >  \drivernormative{\subsection}{Group administration commands}{Basic
+> > Facilities of a Virtio Device / Administration virtqueues}
+> >
+> >  The driver MAY supply device-readable or device-writeable parts @@
+> > -641,3 +654,6 @@ \section{Administration Virtqueues}\label{sec:Basic
+> > Facilities of a Virtio Devic
+> >
+> >  The driver SHOULD retry a command that completed with  \field{status}
+> > VIRTIO_ADMIN_STATUS_EAGAIN.
+> > +
+> > +When the VIRTIO_F_EARLY_ADMIN_CMD feature is negotiated, the driver
+> > +MAY send commands only to the first administration queue defined by
+> the specific transport.
+> > diff --git a/content.tex b/content.tex index c32c218..12f9224 100644
+> > --- a/content.tex
+> > +++ b/content.tex
+> > @@ -540,6 +540,8 @@ \section{Device Initialization}\label{sec:General
+> Initialization And Device Oper
+> >     device, optional per-bus setup, reading and possibly writing the
+> >     device's virtio configuration space, and population of virtqueues.
+> >
+> > +\item\label{itm:General Initialization And Device Operation / Device
+> Initialization / Capabilities Access} Optionally get device capabilities =
+and set
+> driver capabilities if VIRTIO_F_EARLY_CAP_ADMIN_CMD is negotiated.
+> > +
+> >  \item\label{itm:General Initialization And Device Operation / Device
+> Initialization / Set DRIVER-OK} Set the DRIVER_OK status bit.  At this po=
+int the
+> device is
+> >     ``live''.
+> >  \end{enumerate}
+> > @@ -550,7 +552,9 @@ \section{Device Initialization}\label{sec:General
+> > Initialization And Device Oper  driver MUST NOT continue initialization=
+ in
+> that case.
+> >
+> >  The driver MUST NOT send any buffer available notifications to -the
+> > device before setting DRIVER_OK.
+> > +the device before setting DRIVER_OK; however, the driver MAY send
+> > +buffer available notifications before setting DRIVER_OK if
+> > +VIRTIO_F_EARLY_CAP_ADMIN_CMD is negotiated.
+> >
+> >  \subsection{Legacy Interface: Device
+> > Initialization}\label{sec:General Initialization And Device Operation
+> > / Device Initialization / Legacy Interface: Device Initialization}  Leg=
+acy
+> devices did not support the FEATURES_OK status bit, and thus did @@ -879,=
+6
+> +883,13 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature
+> Bits}
+> >  	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bi=
+ts}
+> for
+> >  	handling features reserved for future use.
+> >
+> > +  \item[VIRTIO_F_EARLY_CAP_ADMIN_CMD(42)] This feature indicates
+> that the device
+> > +   exposes an administration command interface which is accessible to =
+the
+> driver
+> > +   before the driver indicates DRIVER_OK device status. When this feat=
+ure
+> is
+> > +   negotiated, once the the administration commands interface is
+> configured, it can be
+> > +   used by the driver to issue administration commands related to devi=
+ce
+> and driver
+> > +   capabilities.
+> > +
+> >  \end{description}
+> >
+> >  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature
+> > Bits} diff --git a/transport-pci.tex b/transport-pci.tex index
+> > 95b08b8..a612b34 100644
+> > --- a/transport-pci.tex
+> > +++ b/transport-pci.tex
+> > @@ -495,6 +495,12 @@ \subsubsection{Common configuration structure
+> > layout}\label{sec:Virtio Transport  to ensure that indices of valid
+> > admin queues fit into  a 16 bit range beyond all other virtqueues.
+> >
+> > +If VIRTIO_F_ADMIN_VQ and VIRTIO_F_EARLY_ADMIN_CMD has been
+> > +negotiated, the device MUST support administration commands through
+> > +the administration virtqueue identified by the
+> > +\field{admin_queue_index} after the administration virtqueue is
+> > +enabled and before the driver sets DRIVER_OK to the
+> \field{device_status}.
+> > +
+> >  \drivernormative{\paragraph}{Common configuration structure
+> > layout}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device
+> > Layout / Common configuration structure layout}
+> >
+> >  The driver MUST NOT write to \field{device_feature},
+> > \field{num_queues},
+> > --
+> > 2.34.1
 
