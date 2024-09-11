@@ -1,60 +1,55 @@
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com (mail-dm6nam04on2085.outbound.protection.outlook.com [40.107.102.85])
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (mail-dm6nam11on2071.outbound.protection.outlook.com [40.107.223.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891FB22066
-	for <virtio-comment@lists.linux.dev>; Wed, 11 Sep 2024 04:42:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.102.85
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B27322066
+	for <virtio-comment@lists.linux.dev>; Wed, 11 Sep 2024 04:42:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.223.71
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1726029729; cv=fail; b=UBA0uLdEYlwC/8x5aCY7X2u+W8oQRALf3OQwhPivCyLDX+iBu0eegWUzW3b81JFLRil1Dz6vV2aRl0j2yOzP+Mln2Qg0Ay7U/IXT8MhPA1nzsWDuihxxpSDuo5iCcgG+XtqBPDvfyv2sfIe8wn4cyMIN+SXVnEDvr5b7N0pcuOk=
+	t=1726029740; cv=fail; b=KBkZdLprNSqR1jk766v46aLe4VlS/QfpDUxg/GrbKjtlyoVO157APztcCtaUrWOx8FUF24rOvNeezPWGkhrtkS0tlUt6rdfTAsak7Vbo06v2uj+yMI5InlopeegEZD+icxB+6lnp8rnFBQSpxHB+UCW11z7IEpmZzpdG79hC0Gg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1726029729; c=relaxed/simple;
-	bh=eZMv1v3HAuS4krpIT0cef1Ek8q7wcPsXyUW+LO/Gxew=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=nt7wA5PGxxKu6zCB2MIzdeTr3kDc+LTER4JKly5O1vsy7dp0EiqTne0ojiEEwG52jm0q9TaRKtFZTFLUA53fBkMKHnAHMDYzLP/pScP87aaRz//kfFteLX4+dvgaW3FTlVhcg1Zwp4i75bHov/6UjS78nReUOCG1FPbwuvTUMPY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MEk6I9dz; arc=fail smtp.client-ip=40.107.102.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1726029740; c=relaxed/simple;
+	bh=AvYijf2+lHeeIvNvc20Gwg2pTh6fi06nqnQx+fsKMIA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=NNQZ/+qnfknTdq13koabXFnyPvZX9Fc0K2pzryVwBAz4JXzAA+Iu3Fvc5L88hob3GSu0uim5WLa5T2VV/We++SH84NOGHbODcsT8qdN3FFf3s2/P0H5LFIrPTR1ELrySEcS7gCgKUHu2Os55VBtTZO+QrNG+pMlo69Vb0lkvaQ4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=DD0g4BkP; arc=fail smtp.client-ip=40.107.223.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MEk6I9dz"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="DD0g4BkP"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mu7iJbiCBrNcRQh1ZCPc5NJiELGLrm1N4CHxXommM4BRHTBYo0RJg6t/AgT25VV3Y5mWq3i3KP/WR22liU56NYevqCEZj+hfCCBxCthwRsf9EVpjYgGPoIuo5Hw9pR/QGYJzUm4Af6s60/x1oagUbp+AclMPMQoP/MVg9QJL8ABzIV5P4czkh/sUrt8YYAijEyO17tu+5gG3D3IzaP5WpbSSf4WUi/v24ijQYCK+nXXEtkTXQLDp0Q1ehXi0uoN79rmJ1jcaaQpwWrBsWiQrrUtkYm0LSDQo958UYdo98BxSSMeWR1pHV9celMI2gJxkZ2ViYUtIvO8DrS5vxGVfJQ==
+ b=vzZbX+WI7egHpYQKo9+ZQs+GbC4jLJzpyVkz1XvL+jV6cQHcy0quM/hFE9zRV5pOQbO6KHWCGpmpClvwBSceTNa7IkDoS7tiX92b+MkCY+lCfDpCpZPthtTesri6XY/aT+LHZdfibIw7ub/0JHVOl/dLT1W5NzX/QUYobSud1/QHftc2mY5rAj1KknO9IDPRunFPIu0UJ2q+omNTDmFn0+CW2I7PnjuE5veX6p8tTwGce8jYEkRNCxcUyGCKYIuNCYEEAh6Ne15n5TbpF6rjH3QUu+fqtQF0jNFRFQRGPAuyG6DDCZA9ydTtaT3hEjhJjUPUjR4NdPJyOtkU5YuZJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eZMv1v3HAuS4krpIT0cef1Ek8q7wcPsXyUW+LO/Gxew=;
- b=TMjlRrrb3jAHqnOrruKBLmttQ1R9+DS8cYH+hvceraJzXwYJpTfsS0C1jfmrLYOHXTh+HIQH7fBb6rDKQ/mmDnZD+TNyLCDrVNW6NwwpCggXc+uLlLYIuSxgIfdL6Xk89c1Qa/ZrePPuwCgYZpF3jeZLfzruK9+M9Z/7cIprH3OcTtv5QjS0IWCMOp9KP/X8PhFeJUHUiGmmV9XZ5N5UVrzeXyXgPAIf5umKCmO/pf5czh/ekyKq70YGgwVmEr8+Pe4aijQUH7T5nM7X144I7N/9FuwpjmGPD3BY1jfd26ltuVRZX/IKZ1t3QtizdAU5llJUvs+c4PeQEojh0C2l9g==
+ bh=ZO+Zn8ZK1RDl1xMDRzWlgPkSxHEUYFXf5YvYRo/KRHQ=;
+ b=JmsdN8gwQT4xi6Kn23ZbO9sBmjf+HpQZ2/SiK4OJLLQBdHwNEWLpCUQAeSfz2Jlcs+OhY3xa6F9RC/7qA9B0l/Gl1N1ZJcJl96urkKDbmgFH+pj+IIjiVAievsCsJOzkvJVBO2rEneeKraypAm1N931s51/EQuPH8M0Fp3Ownsllv6ppxo6ZocKRnqGsxYgdfkxlicmplyN5e13UWDSd4AwcYwTG5ovr1qKLe6t6i5gksxfQp1FiSUcuD/GBB+cVz5O0l4njZJH9koleqlb1OzVvP0GnQHO3yPocZK0WNGUOih8I5p7lDdwq0qgrs36Qfb2UPZarLsHcnYNXp2i6GA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eZMv1v3HAuS4krpIT0cef1Ek8q7wcPsXyUW+LO/Gxew=;
- b=MEk6I9dzPHZVYtwnf3UfGxvvVzpBsA+uWNDd32JB2ZTPzzwZIIa8/A1rBH1Dn6jsSjbz9xcdZ+WB+JkP5nJbiIC8uIvKNgckB97P2/dLp2cB/G9HXxv/21NutISCGcBSYT4dp76FPY1tFAOw33kMombugBi44vZN++RsnzQOysXvUe3SYx1oGQ+HmSuCT8ow1h7RXpaJEOnwOOrMcftxt219rL1+r8ChiP51AHDr7IMoxAjcB51kCfMUeE93jF0AeMh4k94ZJd7NeEe78lVEisgCEcYwkAHofbhLB+aYI+Jq69KzAa261YlzzHR88Lywd5ZGXUB3XEAfR+EtiIW0vQ==
-Received: from IA0PR12MB8713.namprd12.prod.outlook.com (2603:10b6:208:48e::7)
- by PH7PR12MB5902.namprd12.prod.outlook.com (2603:10b6:510:1d6::8) with
+ bh=ZO+Zn8ZK1RDl1xMDRzWlgPkSxHEUYFXf5YvYRo/KRHQ=;
+ b=DD0g4BkPgE9VAxXNomgDY7rKp1qPeJl3brAbleV18JiHQMjvu7mKstzyo6T/PQrzrsCFNAJAm1obqpO3Shbc7wqhYDzmHdLFX6Od6BC/iown3wJTcDoKLXZDIRW1/Dq4pbinNbpwnnY8xL86Nof83P3YxOEJqBO+mq1MmUD5N4U=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
+ by MN2PR12MB4206.namprd12.prod.outlook.com (2603:10b6:208:1d5::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.25; Wed, 11 Sep
- 2024 04:42:03 +0000
-Received: from IA0PR12MB8713.namprd12.prod.outlook.com
- ([fe80::9fc9:acc2:bdac:a04a]) by IA0PR12MB8713.namprd12.prod.outlook.com
- ([fe80::9fc9:acc2:bdac:a04a%5]) with mapi id 15.20.7918.024; Wed, 11 Sep 2024
- 04:42:03 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: Jason Wang <jasowang@redhat.com>
-CC: Zhu Lingshan <lingshan.zhu@amd.com>, "Michael S. Tsirkin"
-	<mst@redhat.com>, "virtio-comment@lists.linux.dev"
-	<virtio-comment@lists.linux.dev>, "cohuck@redhat.com" <cohuck@redhat.com>,
-	Shahaf Shuler <shahafs@nvidia.com>
-Subject: RE: [PATCH] admin: Enable driver to send admin commands before
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.24; Wed, 11 Sep
+ 2024 04:42:14 +0000
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::ea3a:4720:99cb:32d8%4]) with mapi id 15.20.7918.024; Wed, 11 Sep 2024
+ 04:42:14 +0000
+Message-ID: <5d0cf855-ead0-46a4-8221-d41c0a3be15f@amd.com>
+Date: Wed, 11 Sep 2024 12:42:06 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] admin: Enable driver to send admin commands before
  DRIVER_OK
-Thread-Topic: [PATCH] admin: Enable driver to send admin commands before
- DRIVER_OK
-Thread-Index:
- AQHbA6QB1dLNvHRBLkyvjpsHR6lgt7JRWCUAgAAGYtCAABwqgIAAcPQQgAALNQCAAABssIAAClYAgAAAw+A=
-Date: Wed, 11 Sep 2024 04:42:03 +0000
-Message-ID:
- <IA0PR12MB87130CA22085A8868D8EC30EDC9B2@IA0PR12MB8713.namprd12.prod.outlook.com>
+To: Jason Wang <jasowang@redhat.com>, Parav Pandit <parav@nvidia.com>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>,
+ "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+ "cohuck@redhat.com" <cohuck@redhat.com>, Shahaf Shuler <shahafs@nvidia.com>
 References: <20240910170723.44537-1-parav@nvidia.com>
  <20240910142850-mutt-send-email-mst@kernel.org>
  <IA0PR12MB87136FC9671ABFF7123A82CADC9A2@IA0PR12MB8713.namprd12.prod.outlook.com>
@@ -63,367 +58,409 @@ References: <20240910170723.44537-1-parav@nvidia.com>
  <8a42e214-59b1-4085-aec0-0f31be885525@amd.com>
  <IA0PR12MB871350EE73BFB2B8B60B7E97DC9B2@IA0PR12MB8713.namprd12.prod.outlook.com>
  <CACGkMEtUvJhAq9Y-hZ8NroupJgarYhB8qz-cLXNQYrvnoGKgbQ@mail.gmail.com>
-In-Reply-To:
- <CACGkMEtUvJhAq9Y-hZ8NroupJgarYhB8qz-cLXNQYrvnoGKgbQ@mail.gmail.com>
-Accept-Language: en-US
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA0PR12MB8713:EE_|PH7PR12MB5902:EE_
-x-ms-office365-filtering-correlation-id: 11c2dc29-1921-4f53-202b-08dcd21c14f5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?OUhnZ2NMaDJ1V0UyNFdGcWJCejl4MjNLRTJYZ0taUTV1R1NMM3hTNW5aeERC?=
- =?utf-8?B?M1VsYnNBdW5QMzBJekw2ZDVBdGt2VzB6ci9YaFFsbHd1NzZjejZqVG1BVmI0?=
- =?utf-8?B?Z2Z4Zml4MVJtamxlN1FQNTc5SmRlazM1cjgxMVFLL1dMU1dpMFdIUlkvMnZR?=
- =?utf-8?B?K3dZTlBiZFdmZVdiUXluNlE2cXVzaFpwdnI0dVA1T1JBc21hV1d5TFY0Mm1G?=
- =?utf-8?B?djEwTUM0TGIvbElzRjNMVEoybDliNUxRVXc4akhNdkxxZ2hYcEtZRlYrdlZv?=
- =?utf-8?B?anhiMTYzZlUrMnJVVlhUcFpXMkxHejluaFBLU3hWZ2RNamFTU0ZoRXdNMGpS?=
- =?utf-8?B?NXQ3dU9VaGZCUFR1T1ZlWTdWQlJjdUZDNnlTMUxnNUViaUoraVRLYlV4KzZO?=
- =?utf-8?B?aWhNUXE3TTVxSmJ3bmU2MHFOV08zN1VMcXdGQnRtTHRoZjh6VUt5anNMU0I3?=
- =?utf-8?B?SFJOVk8wKzBXZHRJZFpVcFk1K3hlazJnTGtWKzhUaVpxSHJQOUdMR3lmeUZn?=
- =?utf-8?B?am1jYnIvRituK1pMc2xkQnNUbjJYR1NSUW5NMjdzNGFGcEVqN3kzUzJPOUdv?=
- =?utf-8?B?K3BkVHpVUHdEdXVDY0sxL3FZMWxvN2ZYK2VNVTJsQjc2d2dPWXZoYWtLR3Ey?=
- =?utf-8?B?Ny83di9IYWVOZUpzRWFUTzc5azA1SXc3bnQxdjZLWXBxZzlLRnVMZkV5MVgx?=
- =?utf-8?B?Rk1Zbk03clVTZlZOc1dlazZ6bzdSeWRwaFNEOWVLODc4Q1RteENFV2JwdjAw?=
- =?utf-8?B?SFZTTGhzWVh1ZURBcjlpS3JvcTJBZmpsVVhaaVNCYVMydE4yQXpTekFvL3Br?=
- =?utf-8?B?MjY3emtlYmtqRFRpcnBaeFRPcGN1RWp2WlhPUFRSeEhYVVR0NmVKQ1V5V2Jp?=
- =?utf-8?B?ZHdzOXRFNW9jdS90MDFmajM3bGhYWWVDWFRiUHQwSTg3S3h0TFREUzV1cG9K?=
- =?utf-8?B?Qm9zNUxjeERHcHJSc1FKTXRnZlFCa1lYNUFveDJSaUd5bkFzREo5RUdrbVFv?=
- =?utf-8?B?N1hEUlBLdXg1SGFrM1lOQkVaMjRFZ2hCY2tieUoyUklWeFZSUDZweWxGMVBI?=
- =?utf-8?B?dis5eE9vYmk4cnZaMzFXSnAvR0k4VW1xcE9xeUJpU2Izcytac0lRSG5qQnZT?=
- =?utf-8?B?c2xDaHQwdHZHUXlYUU1ua3QwWlJaMkFPMzg5SnFlL3U1cVVleUVMLzFuNkdC?=
- =?utf-8?B?dDN2NkJTK1E1WGI1S2xXZWVVMXlCc3l2MlpZWG5EQTA2NUMvb04yTi9kUEcv?=
- =?utf-8?B?T2pzVE1XVEFnZUpsUXA5S2piNjNYcTROVXk1cXV5ek8vV1gwZEFrTkhUWGJa?=
- =?utf-8?B?VWdGNjVZV2NDdUFyc1pWQVp1amVFY1p2LzJXR1NrY3RNQXZoZ2xTNkVkMko2?=
- =?utf-8?B?d3AxRkhnTU82UUlYSDlzSE8rRWZ4RnlzSHlBNjZDZkZzc2RyeDFCQ01zbVJh?=
- =?utf-8?B?K2cvL2NsemEvT0hKUlUxSlFjaDd5Wm94akJkTmszMjd6TGlyQnh1SkgwVllt?=
- =?utf-8?B?NWk2cXc5M2FKaDRRM3NOWDI1TnE2Vnp2YUtCQW9raGdBWXRzTXFKdjlnaWVr?=
- =?utf-8?B?dWVCeXJUYlVwYVVHbU9ncVJyd1BwS3VBNzZJU0UycEtqNWVESEJQUWhKcTRW?=
- =?utf-8?B?WkhCdGRKOEFTT1ZxbmMvRFRER2xqM0tObDJ4YjNuSGJzMU80UFFpVUJlWENm?=
- =?utf-8?B?bEdNV1NoN25tOFZRZVV6YjhmRUtoZi94T2hQcyt0bzJDd1FMUytPckZlSW4v?=
- =?utf-8?B?TjFybFY3VUNpUWpFOW9OVm5Kc0xXUmVackcvcHd3eEdpT0NHb3ErOTQyK1dy?=
- =?utf-8?B?WFNhaDZvYUhneGVUN1ZZbnpRU1JBUS93MVVnak1nNFY1UjE4YzlTTlVMRnI4?=
- =?utf-8?B?aHVtVnVKQjVCV05mY1Mra0JKK0MyanRUNzN0R0FIYkZzYkE9PQ==?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8713.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?K3V2SkdyNTR5U3pIQ1E2TjF2Ym04czhBK2UyUmJ2R25aQVdVZDNPaWVBUTBI?=
- =?utf-8?B?K1IrRXowd29sSldueXYrZDNlSUUzcUswdTBkL1EySDRlb3FxU2tTcGtmTGZ1?=
- =?utf-8?B?RzJERG1JUmhSQlVvQkRkM01CckQ0NVEvcTVoQXVheFpQbUZqdUZIcTQvOEFa?=
- =?utf-8?B?SDcrWE9LV01oRkNKZWZvb2FxWXd3NkVLZnFyRXNwQ1B4REpqVU8zSXRtczlU?=
- =?utf-8?B?ZjlpZnJOYzdhejJkTldITzF0N2NNNXJlQitUaTFEU0J5dGRYa0JGS3p1UVZI?=
- =?utf-8?B?bTgyM2J3RWExdkFjMDU0NEgvWTU5b05UbjZTMVhOU3FPV2hvRWZ5b2FmbFdH?=
- =?utf-8?B?V2dDaUtOMmUyZ1FoTXVqZGE2dElQWnZ3TnFVT1NqOHNDbFpQZzZlQmhmK2RG?=
- =?utf-8?B?dEpEeGV6R3haSkhUQUZBbUJmcHVOMzNVUHdKQTVXYkZlOEtLT2FJTnVZTFhr?=
- =?utf-8?B?ZFFKT256N2g2Z1I5K2Y4MFJLcnZ4bUllV2xudFdJMjJaQmlZQktFOStsUjVy?=
- =?utf-8?B?Ri9TMncwRGlZdWNsdUdSTU5maUdmZ2ZyUitMSnBnanhZbTJ4dkFDa252Qnhw?=
- =?utf-8?B?WThUeGcrbDgweHdFYVk0QzNnS0ZqZ3dVRHpUaG52S25jbC9tT3p2T3hVWnll?=
- =?utf-8?B?K2pad0lCTDVHQWw2TVV1L2QycUNzUUFjT1YvTHZmMytLY1h4ZmNMdVBlWFlF?=
- =?utf-8?B?SlNoaVhSWk5RTG1CSXN0c29pZlg4TDBpbXhHaUFhZEIvRitlUm1XeEdOaGhz?=
- =?utf-8?B?VXk4cWxITmJ4WmFhTnNUR3p2eW9DTXVTWVdFdUpmdHpkSytwa1M5My9ycGV0?=
- =?utf-8?B?VzJ0YXhlYkU0Z3ZPb2lnT1lnNS8vTnBCUkRDS09zZXh5SW9IN2picnYwRFZs?=
- =?utf-8?B?TTdkSTFaSi93MVo5RXVheWpOam9TSVplUnZ6dFQrVUE2WHB5aEpTMm11bkVB?=
- =?utf-8?B?K0prMkFwSTlBUjV6Qi94VXpFWTY1SDlMTHFGR1FUUklGaUJ1OVBQTUhtYitJ?=
- =?utf-8?B?b1VycTVVdWtuTml1TmNBTi9LR2xkS0Iwa3NoZWVRT3EzcCs0WTEySFF5aVo1?=
- =?utf-8?B?Q05mczdkek1XaDVXUmpVelJ1UExIQUtpc3pHL0EzODZxS1VRYjNxVTBQMndq?=
- =?utf-8?B?UTUwd2c4bWNoSzZVRERNNTFmakY4VXdhZFZjNVBTSUhCMU9hSWJoT04rRGo2?=
- =?utf-8?B?d0ZCdUNvdUErNVBOZGNKdkFXNDQ4aHF0RkQvM05QSWRNSiszejd6T1ExRkp3?=
- =?utf-8?B?Wm9tcVZCNVAvRzcvTzNKMXQvMUUyK0kyVGRqWVI4ZjFFV00xVE80OG5OLzkv?=
- =?utf-8?B?L3Rtam8vUDc0bWdaRVE1NmphY0gzWFdURysrN05ZVlFvODFaTDlQcW9GYUhw?=
- =?utf-8?B?R2xiaHZpZkdRM2pvdzN0dkxiaTRNeVNRamQvRmhYRlduL29SRkFiWmF5c2dE?=
- =?utf-8?B?SW5yRUJXT3dSVHRud2pYbmhsWitNbGpSZnpBS1cxY1hmajVrS2hTUmFEVWp6?=
- =?utf-8?B?WGdnMFhEYmlPNUJVSzgvbk02ejFkS0dDbGxmK0FlU1pacG1acnlWc2pPYVFN?=
- =?utf-8?B?aTFtckxoZXdkTFBkRGphZG9UZHhNQjU3V1ArUkJZNk9oUXJYU1hGeDFtaks1?=
- =?utf-8?B?czRUMlJsczJ3Z1ByMjFhdWRlRzIyQTQ2ZHhZazYyUlNVZ1pORzVQeHlsajNY?=
- =?utf-8?B?cjBPRjJYUndKSCtLSCtmUjFmOXhHcXp4TG1MRTdlU1pUT1VxTi9mODBac0RV?=
- =?utf-8?B?cytMMlJmK2RkZzQ2TnBjVzQvc2U5TVkrWWVxS1lwQmZpUGduOTQ0bDVCTHBD?=
- =?utf-8?B?bFpWamxXYmVKUGlhTDBUMzRiR0JKalh3NG0yeU5wZ0ZITi9OUTcxMlE5ak9y?=
- =?utf-8?B?T0NwcHNlNUJwZ2V2WHg4QUFJdVFIanZNRjRGemhyVVNPd3d0U20yTHM5WkEv?=
- =?utf-8?B?dkJYWEZvWU4xVU0ydzNUVGx5ZU1VRFBIamRKQnhTU3lvc3FpOUtyZzlMeXZP?=
- =?utf-8?B?K3lUOUYxTmh0MlQrZ3JjMlY1ajU3N3ZmTDlBUDhKZnc5cUdBUmdOaEtGeEVu?=
- =?utf-8?B?OUdjbWNEUnl3TWlZRUwxajg5cTM1bzZ3eFY5L05idnVXdmFHdUxXc0RLUjBG?=
- =?utf-8?B?VXVPdnpIeWl6ZUVmS3dBMkxra0srWUt3WCtaTkxINFNSYWVjV3FSeWRTM3pS?=
- =?utf-8?Q?70pKG91QqLvEWYi9OSBu5Nj8+swWirabfcsJiO7896Wg?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+From: Zhu Lingshan <lingshan.zhu@amd.com>
+In-Reply-To: <CACGkMEtUvJhAq9Y-hZ8NroupJgarYhB8qz-cLXNQYrvnoGKgbQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SG2PR01CA0135.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:8f::15) To SN7PR12MB7835.namprd12.prod.outlook.com
+ (2603:10b6:806:328::22)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|MN2PR12MB4206:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0655c36f-72a9-4a61-7a63-08dcd21c1b85
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info:
+ =?utf-8?B?SlFZQWtnUXN5Ym9tQURFSDZhT3NLQ0dLbUtkK1ZTTW5PbWpnV2RZdlFsWlBo?=
+ =?utf-8?B?bmUxenFmZ0lvNHNZSnFFMnR4NXRQY04vNFkyK0JNOG95c0ZHR0UyaElPb00v?=
+ =?utf-8?B?V1BsaUpSUFk4WWQrb1p2K0lxWUVRNXkrZDJUVnRMTjdQblBsUDFKTmE0ZGlk?=
+ =?utf-8?B?STNGWndJRFMzM0pFdTdkRWNXSG9JTEJoWGIxTHZPVUJTR0pHd3N0R0tRQ1h6?=
+ =?utf-8?B?WFhGUGFnTUhmMkFKMEtIbG5Bek5wZmtnN0FFajhsS3QwMW05Y3JOVENqVDNj?=
+ =?utf-8?B?aEMvNUd3SlV3TGRlcVBDNC9rQnNNWGJNQm9mWUI2dkxlSmdXYnBjckQyL0Rm?=
+ =?utf-8?B?eUVKNUlldVRtcUk2T0wrZm1UcVovWTRzVWZKdjRmN2VjUzI1eStzOEswbkQv?=
+ =?utf-8?B?a1AvcXhVWXJiOTNPS21BSjRkNXFuam1GUHg2RG1ZeWIySGRtZk9aQlFJd25i?=
+ =?utf-8?B?UkhmQU9xWStQR2dicDBRVS9Ra3NjMm9HUFlPRFN4VndLOUZ3UHRNQ3RYMzM2?=
+ =?utf-8?B?cERBWHVTV2F3R291dHV5Y2VoRExkQVRMVWFhQVY1eUgxdDVaVUcwTDdRWnBC?=
+ =?utf-8?B?aXh3VTRkOVhMd3N0VjVKWVJsWHNhVytNOWx2NkxKYlpyU01pLzNPYjdWQzJP?=
+ =?utf-8?B?UGVEV3A2VXdYbGwwRnFBamp2cnhITmh2YUtqOE5HZ0tzWHJndVdja2JVN3p5?=
+ =?utf-8?B?TjRKaEhhaFJyWVBVR1RLQ3hwTENZOXlEem03dTMrK3BZQ2p2NHYvL1Y1bDY2?=
+ =?utf-8?B?eVEzMzZDVVJjakp3Y21EdmU1OFZhQllmVE5FRHJtVUc2eDF5NnBzVDdVNWxN?=
+ =?utf-8?B?RE03QVZxb0paOG5RNUxqTERZa2hyMXVtODlYVWZYaENCUzRVeUc1dEpsZkpH?=
+ =?utf-8?B?RjJLWEZJaTNJSVQ0N2lTcVpNN28xdktuQm9Jd1hZdzVoWU9IdUhXOVJ3Tjlu?=
+ =?utf-8?B?amlkb1VmaXRJd2d6VkVTbkhRbnorNUNIaFpNRHBpbFIzUUpQNHFGY2N3cmxJ?=
+ =?utf-8?B?VEdIemRkWW1uUVBEeUVlZ29PWWprR0pHRC90L2lwZkY5OGFlOEYrRDRNSjJL?=
+ =?utf-8?B?dVM1Zkc0NEcvS2lYbmNVWUZ6bVpkRC9mOTJrblpDQ1B1dlFJeS9yNjRTNXFZ?=
+ =?utf-8?B?MVNyV0Uvem1jTlVtSU1VMHUzTk1SWkIwb0hSa09RU096NUcwb256WFpJSFJt?=
+ =?utf-8?B?UzI5M29FSEFtdHFMMU43WjNPZUxqaHIyeDZqRStHMjdTNGtCZjIwclpmeHl4?=
+ =?utf-8?B?R1RjQ1B6ZVNENFMzalMzNnJWc2NKQWFjSzd3WnE2TU1Ecm53M05XVXB2WFRr?=
+ =?utf-8?B?Q3dwbzl4YnVQS2JsdFBtMFM1NzVUTmliRDN3dFJlVTZyM0x5UXhXVFBJd28z?=
+ =?utf-8?B?dlhsajJiWEdWUGVCTmgvSG9PTFlLU29SdUo1QnRlZGYyWDBZUmxsY3MxckJs?=
+ =?utf-8?B?QkhNaW5XNjZJS1lWTjgvUjdtbFZLQjl0NjJPMmJZZkxZZUJ1d1E2YkJUcWtt?=
+ =?utf-8?B?TitvNXZEOGdHbEJrV3JSNHJNSHphM1ZyN1ZlaGdMWmVZenJLOVJNWEppWDFE?=
+ =?utf-8?B?WS9rd280N0FteERWOFhTbWNCQXZXczY4a1k2YUI2R1Q2ZEowdmtaWmdnVmoz?=
+ =?utf-8?B?N2dVU0N0aDdLZWxkTGpVbWFJMGVMbWZWOGl1bXk3bXVMc0JDRjZLNnVTUVZE?=
+ =?utf-8?B?eUY0WWJXQ1dMMnFZalg4YjRCRGlQY2VsT0FUSEQvV2ZxMDEzbG9iOU4rdjU5?=
+ =?utf-8?B?TmlMWnRxQnl4eW01Rjc4UGxTY2NqcnpranlyWmlhc2tkQWZYVGx2cTl2SmV0?=
+ =?utf-8?B?dkJZSFpGOHhYM2xmdmttZz09?=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB7835.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?OC9XclM3L3dOdjkxQ3RDQzdOcHAwMWx1ck5Jc1dPNjY5cHplUzB2dElyeUUr?=
+ =?utf-8?B?dTRtbFR1VU5Rcjh5ZmhKazZJTWFuMW9uNUd0dU9uUTFEZFBtc2duMmpxa042?=
+ =?utf-8?B?Qi9wYWlZRHJKcHRWVTg4bzVRSFVXM0MwRUFIM3ZLUGZFZFBXSjFMaUlQNFFh?=
+ =?utf-8?B?Tms0SXV6VG0zK2toNzd3S2FUakdocjZySGRkdzZBQUpEbU10Z0FpWUhTa0Fa?=
+ =?utf-8?B?ZlpOTFZZa0FBRjV0c0FRNlBQeFFqR1hUbkt4QVNWZFQwQmtOelpLL3NuOXJy?=
+ =?utf-8?B?bEpSblZRbnR2RlJkQVBPYk0vcXpRRVFkYTVUMnN3czNUSjZVVXhoTWMzNlRm?=
+ =?utf-8?B?SFkvU1haeU50TGc0cXpycjdreWNuTlNSNSt6WFk0MVRRNEx4YjFWTjdoa2hv?=
+ =?utf-8?B?MHYzRC92OE9mTkNrWVpGK1dKeHhJK0RjVTN5M2JYUkdGZ090Tm5DWTgvZWxR?=
+ =?utf-8?B?NDJFdmV6elNWZy9ZL1B5MjhUeVAvaHgxOVVDYmNFSkpaUEVyTTJ1SWIrOEpL?=
+ =?utf-8?B?NzRUdkN2bGRidnJaY1NFWjBBbU8vNkVGWVp6MHNTQnNqaTNVVDYxKzFUUS9r?=
+ =?utf-8?B?NU9vU3gzajBMS1BuWW1DVE11NkF3K09WcXZzOUJ3Y2xlOFc5MkhYcERJR2Zo?=
+ =?utf-8?B?LzltNVlobkpGOW1sTkJTS1FYZkZMOXhHZVhoZ0F0YWlsSFFLY0JrbWl2RE9l?=
+ =?utf-8?B?TWE4ckQ2N2d1V0tKQmpkWE5qcW9nNUNTTER3UUNGM2U4OEVsdyt3ZlAwN1dK?=
+ =?utf-8?B?LzRkemZDYzFFbmVqUFh2K091N1poYWMyakZURlZDdWFPYTlnSkJieXg1c0cz?=
+ =?utf-8?B?dFpicmdWbSt5SlpScXNJRW9WcUNJVEtTK0NtSEVFNk5iUE1tUjNWUDFzczJj?=
+ =?utf-8?B?QXd3Uk9CVHhnU05yWXNJV0E0RWd1VStaZ1l0bmh4ZVQ4RU5jUG5TZzIydXhp?=
+ =?utf-8?B?b0tmU1dUcUJ3d0d0RWprY1luL292UW5KNGJud3JpNlJVQUZpSUxKM3JNeWNr?=
+ =?utf-8?B?YVkyWU9FeTZYbEl4ZjhFTDhKeUhhcHpSY2JtR1JiUWI3cmRiWjhzWnJVaUV6?=
+ =?utf-8?B?d1hBdE5JcXQ2WlBBMmRpR0RIZzA0eGgwRVZlSHFWRXd0WElsVmZxMzQvVGJh?=
+ =?utf-8?B?RUtiOWZPenJ3MzNKT1g5VGw4ek5JQkdpUlRJRDBXYmRhSXh3Sm1rbmk3UVBn?=
+ =?utf-8?B?akxkeitWbjdmWFNSOHZkVzV1V3VTMzhHYS94aDRwMVY0dTUxYzVldU1xUGVa?=
+ =?utf-8?B?amNrcFF1Q1lQQzNKdDVMVlpIcEJ2TEppQzE3OStTQnlPZVhSWmxsK1U2bjM5?=
+ =?utf-8?B?MjZqcDR0NC9jQnNCUmFiVzZMb213WEY0aWpFWDRVN0RCVllXN1lOeVgwMlpT?=
+ =?utf-8?B?aThwak5RZVIzNTFMSzVuSFpQTlZ6S3NPcVNXQk9BV3RIVTVnVWJaZHNYZ3dD?=
+ =?utf-8?B?T1lVOEdXV09TalZQQ3JaaFZyZ0dxZFVFdUhqMThzM1REM0hLeTJmY2FpdkVN?=
+ =?utf-8?B?aCtldkNod1Aybk8rWVpoYXpvTzJPTDJYLzVTRHpKUHdJcTBxOTJFY2MzU25P?=
+ =?utf-8?B?Y2tXODEzWjhNTHdEV2c5ekt3LzJnMUhiZnVoRVNTbVYxTXF0WGNxL1FodWRa?=
+ =?utf-8?B?cUl2Q2NzaVIvTjk2L0YwU1FZZlpmNEhZUHl0N0krVWNJcTJLSVprZExHTUpv?=
+ =?utf-8?B?UHZ3bENRVzM5aGdlSi9rSnJySnBxaElUbGpTVWNWV0hwYXZrazdNaXRMdVJo?=
+ =?utf-8?B?VGovblJRYUM2RjZDTHQvck1JNE8vMSttR2dUSWh4Nkt5cHgwVFNVamhGSkNE?=
+ =?utf-8?B?V0x1NWFPV2Rsd2RoWjErcVV1Qld4NkpLUytPbmUwSldWVUlCemJQOVhrOWlh?=
+ =?utf-8?B?UkhtNzlqNXZRVHdQalhHYjJ0bWRldHdtY2tDbGtNU1V6dkpVR1ZCV1dSMWxN?=
+ =?utf-8?B?dkl2dkZ1elFlcDlLQXdpNjZHVnhHdi8vaC9HQlJHUG1VZkFaTEdNRDRsSmtn?=
+ =?utf-8?B?SWQwalZwUTNCcW5SQmVVMVdaUCtnUUNMc01HREJYNmo1SEpkSjlkVmZrYUln?=
+ =?utf-8?B?TG44bUo5Zm9vcEdKbzNIaHNpcko0aHZGKzVYNkY2dkg0M3NpLy9mRW1YTkVs?=
+ =?utf-8?Q?trH+IDBQYmJkdGPW6YBaAhJA9?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0655c36f-72a9-4a61-7a63-08dcd21c1b85
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8713.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11c2dc29-1921-4f53-202b-08dcd21c14f5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2024 04:42:03.2154
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2024 04:42:14.5298
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JNxjEXXxULdxyqocuhpZsoXXbij6Sc0FZ//6bI9cu7tx17SqWgUxqfIG2vneRO2OcoOYU2sJF35t5SQkuSje4A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5902
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0sNxFORx/hvLU+0YTGMEeplwkzeolvo84RrsryQnUxrx4HZTjzkK20aQfnubuHeXsxoVioLqj1G+1el1fsO5nw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4206
 
-DQo+IEZyb206IEphc29uIFdhbmcgPGphc293YW5nQHJlZGhhdC5jb20+DQo+IFNlbnQ6IFdlZG5l
-c2RheSwgU2VwdGVtYmVyIDExLCAyMDI0IDEwOjA4IEFNDQo+IFRvOiBQYXJhdiBQYW5kaXQgPHBh
-cmF2QG52aWRpYS5jb20+DQo+IENjOiBaaHUgTGluZ3NoYW4gPGxpbmdzaGFuLnpodUBhbWQuY29t
-PjsgTWljaGFlbCBTLiBUc2lya2luDQo+IDxtc3RAcmVkaGF0LmNvbT47IHZpcnRpby1jb21tZW50
-QGxpc3RzLmxpbnV4LmRldjsgY29odWNrQHJlZGhhdC5jb207DQo+IFNoYWhhZiBTaHVsZXIgPHNo
-YWhhZnNAbnZpZGlhLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSF0gYWRtaW46IEVuYWJsZSBk
-cml2ZXIgdG8gc2VuZCBhZG1pbiBjb21tYW5kcyBiZWZvcmUNCj4gRFJJVkVSX09LDQo+IA0KPiBP
-biBXZWQsIFNlcCAxMSwgMjAyNCBhdCAxMjoxMuKAr1BNIFBhcmF2IFBhbmRpdCA8cGFyYXZAbnZp
-ZGlhLmNvbT4gd3JvdGU6DQo+ID4NCj4gPg0KPiA+ID4gRnJvbTogWmh1IExpbmdzaGFuIDxsaW5n
-c2hhbi56aHVAYW1kLmNvbT4NCj4gPiA+IFNlbnQ6IFdlZG5lc2RheSwgU2VwdGVtYmVyIDExLCAy
-MDI0IDk6MzAgQU0NCj4gPiA+IFRvOiBQYXJhdiBQYW5kaXQgPHBhcmF2QG52aWRpYS5jb20+OyBN
-aWNoYWVsIFMuIFRzaXJraW4NCj4gPiA+IDxtc3RAcmVkaGF0LmNvbT4NCj4gPiA+IENjOiB2aXJ0
-aW8tY29tbWVudEBsaXN0cy5saW51eC5kZXY7IGNvaHVja0ByZWRoYXQuY29tOyBTaGFoYWYgU2h1
-bGVyDQo+ID4gPiA8c2hhaGFmc0BudmlkaWEuY29tPg0KPiA+ID4gU3ViamVjdDogUmU6IFtQQVRD
-SF0gYWRtaW46IEVuYWJsZSBkcml2ZXIgdG8gc2VuZCBhZG1pbiBjb21tYW5kcw0KPiA+ID4gYmVm
-b3JlIERSSVZFUl9PSw0KPiA+ID4NCj4gPiA+DQo+ID4gPg0KPiA+ID4gT24gOS8xMS8yMDI0IDEx
-OjM3IEFNLCBQYXJhdiBQYW5kaXQgd3JvdGU6DQo+ID4gPiA+DQo+ID4gPiA+PiBGcm9tOiBNaWNo
-YWVsIFMuIFRzaXJraW4gPG1zdEByZWRoYXQuY29tPg0KPiA+ID4gPj4gU2VudDogV2VkbmVzZGF5
-LCBTZXB0ZW1iZXIgMTEsIDIwMjQgMjowNiBBTQ0KPiA+ID4gPj4NCj4gPiA+ID4+IE9uIFR1ZSwg
-U2VwIDEwLCAyMDI0IGF0IDA3OjAxOjA4UE0gKzAwMDAsIFBhcmF2IFBhbmRpdCB3cm90ZToNCj4g
-PiA+ID4+Pg0KPiA+ID4gPj4+PiBGcm9tOiBNaWNoYWVsIFMuIFRzaXJraW4gPG1zdEByZWRoYXQu
-Y29tPg0KPiA+ID4gPj4+PiBTZW50OiBXZWRuZXNkYXksIFNlcHRlbWJlciAxMSwgMjAyNCAxMjow
-MiBBTQ0KPiA+ID4gPj4+Pg0KPiA+ID4gPj4+PiBPbiBUdWUsIFNlcCAxMCwgMjAyNCBhdCAwODow
-NzoyM1BNICswMzAwLCBQYXJhdiBQYW5kaXQgd3JvdGU6DQo+ID4gPiA+Pj4+PiBDdXJyZW50bHkg
-dGhlIGRyaXZlciBjYW4gb3BlcmF0ZSBhZG1pbmlzdHJhdGlvbiBjb21tYW5kcyB1c2luZw0KPiA+
-ID4gPj4+Pj4gYWRtaW5pc3RyYXRpb24gdmlydHF1ZXVlcy4gQWRtaW5pc3RyYXRpb24gdmlydHF1
-ZXVlcyBtdXN0IGJlDQo+ID4gPiA+Pj4+PiBlbmFibGVkIGJlZm9yZSBpdCByZWFjaGVkIERSSVZF
-Ul9PSyBzdGFnZSBzaW1pbGFyIHRvIGFsbCBvdGhlcg0KPiA+ID4gPj4+Pj4gcXVldWVzLiBUaGlz
-IGlzIGEgbGltaXRpbmcgZmFjdG9yLg0KPiA+ID4gPj4+Pj4NCj4gPiA+ID4+Pj4+IE1hbnkgb2Yg
-dGhlIGRldmljZSBmdW5jdGlvbmFsdGllcyBuZWVkcyB0byBiZSBkaXNjb3ZlcmVkIGFuZA0KPiA+
-ID4gPj4+Pj4gY29uZmlndXJlZCBlYXJseSBlbm91Z2ggYmVmb3JlIHRoZSBkcml2ZXIgcmVhY2hl
-cyB0aGUNCj4gPiA+ID4+Pj4+IERSSVZFUl9PSw0KPiA+ID4gPj4gc3RhZ2UuDQo+ID4gPiA+Pj4+
-PiBTb21lIGV4YW1wbGVzIGFyZToNCj4gPiA+ID4+Pj4+DQo+ID4gPiA+Pj4+PiBhLiBkcml2ZXIg
-d2FudHMgdG8gZHluYW1pY2FsbHkgY3JlYXRlIHRoZSB2aXJ0cXVldWVzIG9mIHZpcnRpby1uZXQN
-Cj4gPiA+ID4+Pj4+ICAgIGRldmljZSB3aXRoIG1vcmUgcGFyYW1ldGVycywgZm9yIGV4YW1wbGUg
-aGVhZGVyIGRhdGEgc3BsaXQsDQo+ID4gPiA+Pj4+PiAgICBtdWx0aXBsZSBwaHlzaWNhbCBhZGRy
-ZXNzZXMuDQo+ID4gPiA+Pj4+PiAgICBIZXJlLCB0aGUgZHJpdmVyIG5lZWRzIHRvIHRlbGwgUENJ
-IGRldmljZSBlYXJseSBlbm91Z2ggdGhhdCBpdCBubw0KPiA+ID4gPj4+Pj4gICAgbG9uZ2VyIHVz
-ZXMgcXVldWVfKiByZWdpc3RlcnMgZm9yIG5vbiBhZG1pbiBxdWV1ZXMuDQo+ID4gPiA+Pj4+Pg0K
-PiA+ID4gPj4+Pj4gYi4gZHJpdmVyIHdhbnRzIHRvIGRpc2NvdmVyIHRoZXNlIGZlYXR1cmVzIGFu
-ZCByZWxhdGVkIGF0dHJpYnV0ZXMNCj4gPiA+ID4+Pj4+ICAgIGVhcmx5IGVub3VnaCBzbyBpdCBo
-YXMgY2hhbmNlIHRvIGRlY2lkZSB0byBwcm9jZWVkIHZpYSBhZG1pbg0KPiA+ID4gPj4+Pj4gICAg
-Y21kIGludGVyZmFjZSBvciBwcm9jZWVkIHRvIERSSVZFUl9PSyBhbmQgZm9sbG93IHRoZSBjdXJy
-ZW50DQo+IGZsb3cuDQo+ID4gPiA+Pj4+Pg0KPiA+ID4gPj4+Pj4gVG8gb3ZlcmNvbWUgdGhlc2Ug
-bGltaXRhdGlvbnMsIGludHJvZHVjZSBhIGZlYXR1cmUgYml0IHRoYXQNCj4gPiA+ID4+Pj4+IGVu
-YWJsZXMgdGhlIGRyaXZlciB0byBzZW5kIGNhcGFiaWxpdGllcyByZWxhdGVkIGFkbWluIGNvbW1h
-bmRzDQo+ID4gPiA+Pj4+PiBiZWZvcmUgRFJJVkVSX09LIHZpYSB0aGUgYXZhaWxhYmxlIGludGVy
-ZmFjZSBzdWNoIGFzDQo+ID4gPiA+Pj4+PiBhZG1pbmlzdHJhdGlvbg0KPiA+ID4gPj4gdmlydHF1
-ZXVlLg0KPiA+ID4gPj4+Pj4gU2lnbmVkLW9mZi1ieTogUGFyYXYgUGFuZGl0IDxwYXJhdkBudmlk
-aWEuY29tPg0KPiA+ID4gPj4+Pg0KPiA+ID4gPj4+PiBXZSB3ZXJlIHRoZXJlIGluIDEuMCBhbmQg
-aXQncyBtZXNzeS4gQW5kIG5leHQgdGhpbmcgeW91IGRvLCB5b3UNCj4gPiA+ID4+Pj4gd2lsbA0K
-PiA+ID4gPiBBbHNvIGlmIHlvdSBjYW4gZXhwbGFpbiB3aGF0IGV4YWN0bHkgaXMgdGhlIG1lc3Ms
-IGlmIHRoZXJlIGlzIG9uZT8NCj4gPiA+IEFzIGZhciBhcyBJIGNhbiBzZWUsIHRoZSBzcGVjIHNh
-eXM6DQo+ID4gPiBTZXQgdGhlIERSSVZFUl9PSyBzdGF0dXMgYml0LiBBdCB0aGlzIHBvaW50IHRo
-ZSBkZXZpY2UgaXMg4oCcbGl2ZeKAnS4NCj4gPiA+DQo+ID4gVGhpcyBwYXRjaCB1cGdyYWRlcyB0
-aGlzIGRldGFpbC4gUGxlYXNlIHJlYWQgdGhyb3VnaC4NCj4gPg0KPiA+ID4gQW5kIG5vIHZxcyBh
-cmUgYWN0aXZlIGJlZm9yZSBEUklWRVJfT0suIEhvdyBjYW4gdGhlIGRldmljZSBhc3N1bWUNCj4g
-PiA+IHRoYXQgdGhlIGRyaXZlciBpcyByZWFkeSBiZWZvcmUgRFJJVkVSX09LPw0KPiA+IERldmlj
-ZSBkb2VzIG5vdCBhc3N1bWUuDQo+ID4gV2hlbiB0aGUgZmVhdHVyZSBkZXNjcmliZWQgaW4gdGhp
-cyBwYXRjaCBpcyBuZWdvdGlhdGVkLCBkZXZpY2Uga25vd3MgdGhhdCBBUQ0KPiB3aWxsIGJlIGxp
-dmUgYmVmb3JlIERSSVZFUl9PSy4NCj4gPg0KPiA+ID4gV2h5IGFkbWluIHZxIGlzIHNwZWNpYWw/
-DQo+ID4gQmVjYXVzZSBpdCBpcyB1c2VkIHRvIGRvIGZ1bmRhbWVudGFsIGRldmljZSBhbmQgZHJp
-dmVyIGNhcGFiaWxpdGllcyBkaXNjb3ZlcnkuDQo+IA0KPiBUaGVuIHlvdSBuZWVkIGFub3RoZXIg
-dHJhbnNwb3J0IG9yIGEgY29udHJvbCBkZXZpY2UuDQpJIGRvbuKAmXQgdGhpbmsgc28uDQpQbGVh
-c2UgZXhwbGFpbiB0aGUgbW90aXZhdGlvbiB0byBjb21wbGljYXRlIGl0Lg0KDQo+IA0KPiBUaGFu
-a3MNCj4gDQo+ID4gUGxlYXNlIHJlYWQgdGhlIGNvbW1pdCBsb2cgdGhhdCBkZXNjcmliZXMgdGhl
-IG1vdGl2YXRpb24uDQo+ID4NCj4gPiA+IFRoZSBjb21tb24gY29uZmlnIHNwYWNlIGlzIG5vdCBl
-bm91Z2ggdG8gaW5pdCBhIGRldmljZT8NCj4gPiBOby4NCj4gPiA+IElmIHlvdSBzZWUgYSBnYXAs
-IGhvdyBhYm91dCBmaXggaXQgaW4gdGhlIGNvbW1vbiBjZmc/DQo+ID4gQWRtaW4gY29tbWFuZCBp
-cyB0aGUgaW50ZXJmYWNlIGRvIHBlcmZvcm0gYWRtaW5pc3RyYXRpb24gd29yay4NCj4gPg0KPiA+
-ID4NCj4gPiA+IFRoYW5rcw0KPiA+ID4NCj4gPiA+ID4NCj4gPiA+ID4+Pj4gd2FudCBpdCBiZWZv
-cmUgZmVhdHVyZXMgb2ssIGFuZCB3ZSB3aWxsIGtlZXAgcGlsaW5nIHVwIGhhY2tzLg0KPiA+ID4g
-Pj4+IEkgZG9uJ3Qgc2VlIGFueSBtb3RpdmF0aW9uIHRvIGRvIGJlZm9yZSBmZWF0dXJlIGJpdC4N
-Cj4gPiA+ID4+IEkgZG8uDQo+ID4gPiA+IENhbiB5b3UgcGxlYXNlIHNoYXJlIHRoZSBtb3RpdmF0
-aW9uLCB3aHkgb25lIHdhbnRzIHRvIGVuYWJsZSB0aGUNCj4gPiA+ID4gQVENCj4gPiA+IGJlZm9y
-ZSBmZWF0dXJlc19vaz8NCj4gPiA+ID4gQW5kIGhvdyB3b3VsZCBpdCBjb25maWd1cmUgYWxsIHRo
-ZSBiYXNpYyB0aGluZ3MgdG8gb3BlcmF0ZSBhIEFRDQo+ID4gPiA+IGJlZm9yZSwgZm9yDQo+ID4g
-PiBleGFtcGxlLCBQQUNLRUQsIFZFUlNJT04sIFBMQVRGT1JNPw0KPiA+ID4gPg0KPiA+ID4gPiBJ
-ZiB0aGUgbW90aXZhdGlvbiB0byBuZWdvdGlhdGUgZGV2aWNlIHNwZWNpZmljIGZlYXR1cmVzIHZp
-YSBhZG1pbg0KPiA+ID4gPiBjb21tYW5kLA0KPiA+ID4gdGhlbiB0aGF0IGlzIHN0aWxsIHBvc3Np
-YmxlIHdpdGggY3VycmVudCBwcm9wb3NhbC4NCj4gPiA+ID4NCj4gPiA+ID4+IEFuZCBJIGtlZXAg
-c2F5aW5nLCB3ZSBuZWVkIHRvIGJlIHByb2FjdGl2ZSwgYWRkcmVzcyBtb3JlIHRoYW4gb25lDQo+
-ID4gPiA+PiBwcm9ibGVtIHdpdGggZWFjaCBmZWF0dXJlIGFuZCB0cnkgdG8gcHJlZGljdCB3aGF0
-IHdpbGwgYmUgbmVlZGVkLA0KPiA+ID4gPj4gb3RoZXJ3aXNlIGl0IHdpbGwgYmUgYSBtZXNzIG9m
-IGEgbWlsbGlvbiBjb25mbGljdGluZyBmZWF0dXJlcy4NCj4gPiA+ID4+DQo+ID4gPiA+IFN1cmUu
-IG1ha2Ugc2Vuc2UuDQo+ID4gPiA+DQo+ID4gPiA+Pj4gTmV2ZXIgYmVmb3JlIGZlYXR1cmVzIG9r
-LCBmZWF0dXJlIG5lZ290aWF0aW9uIGlzIHR3byB3YXlzDQo+ID4gPiA+Pj4gY29tbXVuaWNhdGlv
-bg0KPiA+ID4gPj4gdGhhdCBpbmRpY2F0ZXMgZGV2aWNlLCB0aGF0IHF1ZXVlIG5vdGlmaWNhdGlv
-biBpcyBjb21pbmcuDQo+ID4gPiA+Pj4+IEkgdGhpbmsgdGhhdCBpZiB3ZSB3YW50DQo+ID4gPiA+
-Pj4+IHRvIGRvIGFkbWluIGNvbW1hbmRzIGJlZm9yZSBWUXMgYXJlIGFjdGl2ZSwgd2Ugc2hvdWxk
-IGp1c3QgYWRkDQo+ID4gPiA+Pj4+IGENCj4gPiA+ID4+IGNhcGFiaWxpdHkNCj4gPiA+ID4+Pj4g
-d2l0aCByZWdpc3RlcnMgZm9yIHRoYXQuIFBlb3BsZSB3YW50ZWQgdGhhdCBhbnl3YXkuDQo+ID4g
-PiA+Pj4+DQo+ID4gPiA+Pj4gV2UgZGlzY3Vzc2VkIGJlZm9yZSB0aGF0IHBjaS1zaWcgZGlzY291
-cmFnZXMgcGlsaW5nIHVwIHZlbmRvcg0KPiA+ID4gPj4+IHNwZWNpZmljDQo+ID4gPiBjYXBzLg0K
-PiA+ID4gPj4+IFNvIGJldHRlciB0byBhdm9pZCB0aGF0Lg0KPiA+ID4gPj4gV2VsbCwgdGhhdCdz
-IGEgc2VwYXJhdGUgaXNzdWUuIEFjdHVhbGx5IHBjaSBlbmRwb2ludCBndXlzIGFscmVhZHkNCj4g
-PiA+ID4+IHdhbnQgYSB3YXkgdG8gYWNjZXNzIGRldmljZSB3aXRob3V0IG1lc3NpbmcgdXAgd2l0
-aCBjYXBhYmlsaXRpZXMuDQo+ID4gPiA+PiBTbyB3ZSdsbCBsaWtlbHkgY3JlYXRlIGEgd2F5IHRv
-IHB1dCBjYXBhYmlsaXRpZXMgaW4gYSBCQVIuDQo+ID4gPiA+Pg0KPiA+ID4gPiBTbyBsZXRzIHRh
-a2UgdGhlIGJhc2UgbGluZSBkZXNpZ24gcmVxdWlyZW1lbnQgYW5kIHNlZSB3aGF0IG1vcmUNCj4g
-PiA+ID4gb3B0aW9ucyBkbw0KPiA+ID4gd2UgaGF2ZS4NCj4gPiA+ID4NCj4gPiA+ID4gYS4gZG8g
-bm90IGV4dGVuZCBwY2kgY2FwYWJpbGl0eQ0KPiA+ID4gPiBiLiB1dGlsaXplIHRoZSBjdXJyZW50
-IHEgY29uZmlnIHJlZ2lzdGVycyBjLiBoYXZlIGJpZGlyZWN0aW9uYWwNCj4gPiA+ID4gbmVnb3Rp
-YXRpb24gaWYgZHJpdmVyIHdpbGwgdXNlIHRoZSBBUSBlYXJseSBlbm91Z2ggb3Igbm90Lg0KPiA+
-ID4gPg0KPiA+ID4gPiBXaXRoIHRoYXQgd2hhdCBkbyB5b3UgcHJvcG9zZT8NCj4gPiA+ID4gQSBu
-ZXcgcmVnaXN0ZXIgaW4gdGhlIEJBUiBpbnN0ZWFkIG9mIGZlYXR1cmUgYml0cz8NCj4gPiA+ID4g
-SG93IGRvZXMgdGhlIGRyaXZlciB0ZWxsIHRoZSBkZXZpY2UgYWZ0ZXIgcmVzZXQgYW5kIGJlZm9y
-ZSBmZWF0dXJlcyBvaz8NCj4gPiA+ID4NCj4gPiA+ID4+PiBBbiBhbHRlcm5hdGl2ZSB3b3VsZCBi
-ZSB0byBidW1wIHVwIHRoZSBwY2kgcmV2aXNpb25faWQsIHdoaWNoDQo+ID4gPiA+Pj4gd291bGQg
-YWxpZ24NCj4gPiA+ID4+IHRvIHBjaS1zaWcgYW5kIGl0cyBrbm93biBlYXJseSBlbm91Z2guDQo+
-ID4gPiA+Pj4gVGhvdWdoIGl0IGRvZXMgbm90IHRha2UgYXdheSB0aGUgZmVhdHVyZSBiaXQgYmVj
-YXVzZSBkZXZpY2UNCj4gPiA+ID4+PiBwcmVwYXJhdGlvbiBpcw0KPiA+ID4gPj4gbmVlZGVkIHRv
-IHNldHVwIGVhcmx5IGFkbWluIGNvbW1hbmRzLg0KPiA+ID4gPj4+IEFuZCBmZWF0dXJlIGJpdCBj
-YW4gYmUgYSBnb29kIGhpbnQgdG8gaW5mb3JtIHRoYXQuDQo+ID4gPiA+Pj4gT25seSByZXZpc2lv
-bl9pZCAoZnJvbSBkZXZpY2UgdG8gZHJpdmVyKSBpcyBub3QgZ29vZCBlbm91Z2ggYXMNCj4gPiA+
-ID4+PiB0aGVyZSBjYW4gYmUNCj4gPiA+ID4+IGxhcmdlIHN3IHN0YWNrIHdoaWNoIG1heSBuZXZl
-ciB1c2UgaXQgYW5kIG5vIHBvaW50IGluIGVuYWJsaW5nDQo+ID4gPiA+PiB0aGlzIGluIHRoZSBk
-ZXZpY2Ugd2l0aG91dCBkcml2ZXIgdXNpbmcgaXQuDQo+ID4gPiA+Pj4gU28gZmVhdHVyZSBiaXQg
-cHJvcG9zZWQgaGVyZSBpcyBzZWxmLWNvbnRhaW5lZCwgYW5kIGl0cyBlYXJseSBlbm91Z2guDQo+
-ID4gPiA+Pg0KPiA+ID4gPj4gSSBkb24ndCByZWFsbHkgZ2V0IHdoYXQgdGhpcyByZXZpc2lvbl9p
-ZCBkaXNjdXNzaW9uIGlzIGFib3V0Lg0KPiA+ID4gPj4NCj4gPiA+ID4gSSB3aWxsIHBhdXNlIGV4
-cGxhaW5pbmcgdGhlIGlzc3VlIHdpdGggcmV2X2lkIGZvciBhIG1vbWVudCBhbmQgc2VlDQo+ID4g
-PiA+IHdoYXQgaXMgdGhlDQo+ID4gPiBlZmZpY2llbnQgd2F5IHRoYW4gcHJvcG9zZWQ/DQo+ID4g
-PiA+DQo+ID4gPiA+Pj4+DQo+ID4gPiA+Pj4+DQo+ID4gPiA+Pj4+DQo+ID4gPiA+Pj4+PiAtLS0N
-Cj4gPiA+ID4+Pj4+ICBhZG1pbi50ZXggICAgICAgICB8IDE2ICsrKysrKysrKysrKysrKysNCj4g
-PiA+ID4+Pj4+ICBjb250ZW50LnRleCAgICAgICB8IDEzICsrKysrKysrKysrKy0NCj4gPiA+ID4+
-Pj4+ICB0cmFuc3BvcnQtcGNpLnRleCB8ICA2ICsrKysrKw0KPiA+ID4gPj4+Pj4gIDMgZmlsZXMg
-Y2hhbmdlZCwgMzQgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPiA+ID4gPj4+Pj4NCj4g
-PiA+ID4+Pj4+IGRpZmYgLS1naXQgYS9hZG1pbi50ZXggYi9hZG1pbi50ZXggaW5kZXggMzlmYzA3
-Mi4uOTUwNTRlZA0KPiA+ID4gPj4+Pj4gMTAwNjQ0DQo+ID4gPiA+Pj4+PiAtLS0gYS9hZG1pbi50
-ZXgNCj4gPiA+ID4+Pj4+ICsrKyBiL2FkbWluLnRleA0KPiA+ID4gPj4+Pj4gQEAgLTMzNCw2ICsz
-MzQsMTEgQEAgXHN1YnNlY3Rpb257R3JvdXAgYWRtaW5pc3RyYXRpb24NCj4gPiA+ID4+Pj4+IGNv
-bW1hbmRzfVxsYWJlbHtzZWM6QmFzaWMgRmFjaWxpdGllcyBvZiBhIFZpcnRpICBzdXBwb3J0aW5n
-DQo+ID4gPiA+Pj4+PiBtdWx0aXBsZSBncm91cCB0eXBlcywgdGhlIGxpc3Qgb2Ygc3VwcG9ydGVk
-IGNvbW1hbmRzICBtaWdodA0KPiA+ID4gPj4+Pj4gZGlmZmVyIGJldHdlZW4NCj4gPiA+ID4+Pj4g
-ZGlmZmVyZW50IGdyb3VwIHR5cGVzLg0KPiA+ID4gPj4+Pj4gK1doZW4gdGhlIGRyaXZlciBoYXMg
-bmVnb3RpYXRlZCB0aGUgZmVhdHVyZQ0KPiA+ID4gPj4+Pj4gK1ZJUlRJT19GX0VBUkxZX0NBUF9B
-RE1JTl9DTUQsIHRoZSBkcml2ZXIgY2FuIHVzZQ0KPiA+ID4gPj4+Pj4gK2FkbWluaXN0cmF0aW9u
-IGNvbW1hbmRzIFZJUlRJT19BRE1JTl9DTURfTElTVF9RVUVSWSwNCj4gPiA+ID4+Pj4gVklSVElP
-X0FETUlOX0NNRF9MSVNUX1VTRSBhbmQNCj4gPiA+ID4+Pj4+ICtjb21tYW5kcyByZWxhdGVkIHRv
-IGRldmljZSBhbmQgZHJpdmVyIGNhcGFiaWxpdGllcyBsaXN0ZWQgaW4NCj4gPiA+ID4+IFxyZWZb
-c2VjOkJhc2ljDQo+ID4gPiA+Pj4+IEZhY2lsaXRpZXMgb2YgYSBWaXJ0aW8gRGV2aWNlIC8gRGV2
-aWNlIGdyb3VwcyAvIEdyb3VwDQo+ID4gPiA+Pj4+IGFkbWluaXN0cmF0aW9uDQo+ID4gPiA+PiBj
-b21tYW5kcw0KPiA+ID4gPj4+PiAvIERldmljZSBhbmQgZHJpdmVyIGNhcGFiaWxpdGllc117ZGV2
-aWNlIGFuZCBkcml2ZXINCj4gPiA+ID4+Pj4gY2FwYWJpbGl0aWVzfSBmb3IgdGhlIHNlbGYtIGdy
-b3VwIHR5cGUgYmVmb3JlIHRoZSBkcml2ZXINCj4gPiA+ID4+Pj4gaW5kaWNhdGVzIERSSVZFUl9P
-SyBzdGF0dXMgdG8NCj4gPiA+IHRoZSBkZXZpY2UuDQo+ID4gPiA+Pj4+PiArDQo+ID4gPiA+Pj4+
-PiAgXGlucHV0e2FkbWluLWNtZHMtbGVnYWN5LWludGVyZmFjZS50ZXh9DQo+ID4gPiA+Pj4+PiAg
-XGlucHV0e2FkbWluLWNtZHMtY2FwYWJpbGl0aWVzLnRleH0NCj4gPiA+ID4+Pj4+ICBcaW5wdXR7
-YWRtaW4tY21kcy1yZXNvdXJjZS1vYmplY3RzLnRleH0NCj4gPiA+ID4+Pj4+IEBAIC02MDgsNiAr
-NjEzLDE0IEBAIFxzZWN0aW9ue0FkbWluaXN0cmF0aW9uDQo+ID4gPiA+Pj4+PiBWaXJ0cXVldWVz
-fVxsYWJlbHtzZWM6QmFzaWMgRmFjaWxpdGllcyBvZiBhIFZpcnRpbyBEZXZpYyAgb3INCj4gPiA+
-ID4+Pj4+IFZJUlRJT19BRE1JTl9TVEFUVVNfRU5PTUVNLCB0aGVuIHRoZSBjb21tYW5kIE1VU1Qg
-Tk9UDQo+ID4gPiA+PiBoYXZlDQo+ID4gPiA+Pj4+IGFueSBzaWRlIGVmZmVjdHMsIG1ha2luZyBp
-dCBzYWZlIHRvIHJldHJ5Lg0KPiA+ID4gPj4+Pj4gK0lmIFZJUlRJT19GX0VBUkxZX0NBUF9BRE1J
-Tl9DTUQgZmVhdHVyZSBpcyBuZWdvdGlhdGVkLCB0aGUNCj4gPiA+IGRldmljZQ0KPiA+ID4gPj4+
-Pj4gK01VU1QgcHJvY2VzcyBhZG1pbmlzdHJhdGlvbiBjb21tYW5kcyByZWxhdGVkIHRvIGRldmlj
-ZSBhbmQNCj4gPiA+ID4+Pj4+ICtkcml2ZXIgY2FwYWJpbGl0aWVzIGJlZm9yZSB0aGUgZHJpdmVy
-IGluZGljYXRlcyBEUklWRVJfT0sgdG8gdGhlDQo+IGRldmljZS4NCj4gPiA+ID4+Pj4+ICsNCj4g
-PiA+ID4+Pj4+ICtJZiBWSVJUSU9fRl9BRE1JTl9WUSBhbmQgVklSVElPX0ZfRUFSTFlfQ0FQX0FE
-TUlOX0NNRA0KPiA+ID4gPj4gZmVhdHVyZXMNCj4gPiA+ID4+Pj4gYXJlDQo+ID4gPiA+Pj4+PiAr
-bmVnb3RpYXRlZCwgdGhlIGRldmljZSBNVVNUIGJlIGFibGUgdG8gZ2VuZXJhdGUgbm90aWZpY2F0
-aW9ucw0KPiA+ID4gPj4+Pj4gK3JlbGF0ZWQgdG8gdGhlIGFkbWluaXN0cmF0aW9uIHZpcnRxdWV1
-ZSBiZWZvcmUgdGhlIGRyaXZlcg0KPiA+ID4gPj4+Pj4gK2luZGljYXRlcyBEUklWRVJfT0sNCj4g
-PiA+ID4+IHRvDQo+ID4gPiA+Pj4+IHRoZSBkZXZpY2UuDQo+ID4gPiA+Pj4+PiArDQo+ID4gPiA+
-Pj4+PiAgXGRyaXZlcm5vcm1hdGl2ZXtcc3Vic2VjdGlvbn17R3JvdXAgYWRtaW5pc3RyYXRpb24N
-Cj4gPiA+ID4+Pj4+IGNvbW1hbmRzfXtCYXNpYyBGYWNpbGl0aWVzIG9mIGEgVmlydGlvIERldmlj
-ZSAvIEFkbWluaXN0cmF0aW9uDQo+ID4gPiA+Pj4+PiB2aXJ0cXVldWVzfQ0KPiA+ID4gPj4+Pj4N
-Cj4gPiA+ID4+Pj4+ICBUaGUgZHJpdmVyIE1BWSBzdXBwbHkgZGV2aWNlLXJlYWRhYmxlIG9yIGRl
-dmljZS13cml0ZWFibGUNCj4gPiA+ID4+Pj4+IHBhcnRzIEBADQo+ID4gPiA+Pj4+PiAtNjQxLDMg
-KzY1NCw2IEBAIFxzZWN0aW9ue0FkbWluaXN0cmF0aW9uDQo+ID4gPiA+Pj4+PiBWaXJ0cXVldWVz
-fVxsYWJlbHtzZWM6QmFzaWMgRmFjaWxpdGllcyBvZiBhIFZpcnRpbyBEZXZpYw0KPiA+ID4gPj4+
-Pj4NCj4gPiA+ID4+Pj4+ICBUaGUgZHJpdmVyIFNIT1VMRCByZXRyeSBhIGNvbW1hbmQgdGhhdCBj
-b21wbGV0ZWQgd2l0aA0KPiA+ID4gPj4gXGZpZWxke3N0YXR1c30NCj4gPiA+ID4+Pj4+IFZJUlRJ
-T19BRE1JTl9TVEFUVVNfRUFHQUlOLg0KPiA+ID4gPj4+Pj4gKw0KPiA+ID4gPj4+Pj4gK1doZW4g
-dGhlIFZJUlRJT19GX0VBUkxZX0FETUlOX0NNRCBmZWF0dXJlIGlzIG5lZ290aWF0ZWQsIHRoZQ0K
-PiA+ID4gPj4gZHJpdmVyDQo+ID4gPiA+Pj4+PiArTUFZIHNlbmQgY29tbWFuZHMgb25seSB0byB0
-aGUgZmlyc3QgYWRtaW5pc3RyYXRpb24gcXVldWUNCj4gPiA+ID4+Pj4+ICtkZWZpbmVkIGJ5DQo+
-ID4gPiA+Pj4+IHRoZSBzcGVjaWZpYyB0cmFuc3BvcnQuDQo+ID4gPiA+Pj4+PiBkaWZmIC0tZ2l0
-IGEvY29udGVudC50ZXggYi9jb250ZW50LnRleCBpbmRleCBjMzJjMjE4Li4xMmY5MjI0DQo+ID4g
-PiA+Pj4+PiAxMDA2NDQNCj4gPiA+ID4+Pj4+IC0tLSBhL2NvbnRlbnQudGV4DQo+ID4gPiA+Pj4+
-PiArKysgYi9jb250ZW50LnRleA0KPiA+ID4gPj4+Pj4gQEAgLTU0MCw2ICs1NDAsOCBAQCBcc2Vj
-dGlvbntEZXZpY2UNCj4gPiA+ID4+Pj4+IEluaXRpYWxpemF0aW9ufVxsYWJlbHtzZWM6R2VuZXJh
-bA0KPiA+ID4gPj4+PiBJbml0aWFsaXphdGlvbiBBbmQgRGV2aWNlIE9wZXINCj4gPiA+ID4+Pj4+
-ICAgICBkZXZpY2UsIG9wdGlvbmFsIHBlci1idXMgc2V0dXAsIHJlYWRpbmcgYW5kIHBvc3NpYmx5
-IHdyaXRpbmcgdGhlDQo+ID4gPiA+Pj4+PiAgICAgZGV2aWNlJ3MgdmlydGlvIGNvbmZpZ3VyYXRp
-b24gc3BhY2UsIGFuZCBwb3B1bGF0aW9uIG9mIHZpcnRxdWV1ZXMuDQo+ID4gPiA+Pj4+Pg0KPiA+
-ID4gPj4+Pj4gK1xpdGVtXGxhYmVse2l0bTpHZW5lcmFsIEluaXRpYWxpemF0aW9uIEFuZCBEZXZp
-Y2UgT3BlcmF0aW9uIC8NCj4gPiA+ID4+Pj4+ICtEZXZpY2UNCj4gPiA+ID4+Pj4gSW5pdGlhbGl6
-YXRpb24gLyBDYXBhYmlsaXRpZXMgQWNjZXNzfSBPcHRpb25hbGx5IGdldCBkZXZpY2UNCj4gPiA+
-ID4+Pj4gY2FwYWJpbGl0aWVzIGFuZA0KPiA+ID4gPj4gc2V0DQo+ID4gPiA+Pj4+IGRyaXZlciBj
-YXBhYmlsaXRpZXMgaWYgVklSVElPX0ZfRUFSTFlfQ0FQX0FETUlOX0NNRCBpcw0KPiBuZWdvdGlh
-dGVkLg0KPiA+ID4gPj4+Pj4gKw0KPiA+ID4gPj4+Pj4gIFxpdGVtXGxhYmVse2l0bTpHZW5lcmFs
-IEluaXRpYWxpemF0aW9uIEFuZCBEZXZpY2UgT3BlcmF0aW9uIC8NCj4gPiA+ID4+Pj4+IERldmlj
-ZQ0KPiA+ID4gPj4+PiBJbml0aWFsaXphdGlvbiAvIFNldCBEUklWRVItT0t9IFNldCB0aGUgRFJJ
-VkVSX09LIHN0YXR1cyBiaXQuDQo+ID4gPiA+Pj4+IEF0IHRoaXMgcG9pbnQNCj4gPiA+ID4+IHRo
-ZQ0KPiA+ID4gPj4+PiBkZXZpY2UgaXMNCj4gPiA+ID4+Pj4+ICAgICBgYGxpdmUnJy4NCj4gPiA+
-ID4+Pj4+ICBcZW5ke2VudW1lcmF0ZX0NCj4gPiA+ID4+Pj4+IEBAIC01NTAsNyArNTUyLDkgQEAg
-XHNlY3Rpb257RGV2aWNlDQo+ID4gPiA+Pj4+PiBJbml0aWFsaXphdGlvbn1cbGFiZWx7c2VjOkdl
-bmVyYWwgSW5pdGlhbGl6YXRpb24gQW5kIERldmljZQ0KPiA+ID4gPj4+Pj4gT3BlciBkcml2ZXIg
-TVVTVCBOT1QgY29udGludWUgaW5pdGlhbGl6YXRpb24NCj4gPiA+ID4+IGluDQo+ID4gPiA+Pj4+
-IHRoYXQgY2FzZS4NCj4gPiA+ID4+Pj4+ICBUaGUgZHJpdmVyIE1VU1QgTk9UIHNlbmQgYW55IGJ1
-ZmZlciBhdmFpbGFibGUgbm90aWZpY2F0aW9ucw0KPiA+ID4gPj4+Pj4gdG8gLXRoZSBkZXZpY2Ug
-YmVmb3JlIHNldHRpbmcgRFJJVkVSX09LLg0KPiA+ID4gPj4+Pj4gK3RoZSBkZXZpY2UgYmVmb3Jl
-IHNldHRpbmcgRFJJVkVSX09LOyBob3dldmVyLCB0aGUgZHJpdmVyIE1BWQ0KPiA+ID4gPj4+Pj4g
-K3NlbmQgYnVmZmVyIGF2YWlsYWJsZSBub3RpZmljYXRpb25zIGJlZm9yZSBzZXR0aW5nIERSSVZF
-Ul9PSw0KPiA+ID4gPj4+Pj4gK2lmIFZJUlRJT19GX0VBUkxZX0NBUF9BRE1JTl9DTUQgaXMgbmVn
-b3RpYXRlZC4NCj4gPiA+ID4+Pj4+DQo+ID4gPiA+Pj4+PiAgXHN1YnNlY3Rpb257TGVnYWN5IElu
-dGVyZmFjZTogRGV2aWNlDQo+ID4gPiA+Pj4+PiBJbml0aWFsaXphdGlvbn1cbGFiZWx7c2VjOkdl
-bmVyYWwgSW5pdGlhbGl6YXRpb24gQW5kIERldmljZQ0KPiA+ID4gPj4+Pj4gT3BlcmF0aW9uIC8g
-RGV2aWNlIEluaXRpYWxpemF0aW9uIC8gTGVnYWN5IEludGVyZmFjZTogRGV2aWNlDQo+ID4gPiA+
-Pj4+PiBJbml0aWFsaXphdGlvbn0gIExlZ2FjeQ0KPiA+ID4gPj4+PiBkZXZpY2VzIGRpZCBub3Qg
-c3VwcG9ydCB0aGUgRkVBVFVSRVNfT0sgc3RhdHVzIGJpdCwgYW5kIHRodXMNCj4gPiA+ID4+Pj4g
-ZGlkIEBADQo+ID4gPiA+Pj4+IC0NCj4gPiA+ID4+IDg3OSw2DQo+ID4gPiA+Pj4+ICs4ODMsMTMg
-QEAgXGNoYXB0ZXJ7UmVzZXJ2ZWQgRmVhdHVyZSBCaXRzfVxsYWJlbHtzZWM6UmVzZXJ2ZWQNCj4g
-PiA+ID4+Pj4gK0ZlYXR1cmUNCj4gPiA+ID4+Pj4gQml0c30NCj4gPiA+ID4+Pj4+ICAgICAgICAg
-XHJlZntkZXZpY2Vub3JtYXRpdmU6QmFzaWMgRmFjaWxpdGllcyBvZiBhIFZpcnRpbw0KPiA+ID4g
-Pj4+Pj4gRGV2aWNlIC8gRmVhdHVyZSBCaXRzfQ0KPiA+ID4gPj4+PiBmb3INCj4gPiA+ID4+Pj4+
-ICAgICAgICAgaGFuZGxpbmcgZmVhdHVyZXMgcmVzZXJ2ZWQgZm9yIGZ1dHVyZSB1c2UuDQo+ID4g
-PiA+Pj4+Pg0KPiA+ID4gPj4+Pj4gKyAgXGl0ZW1bVklSVElPX0ZfRUFSTFlfQ0FQX0FETUlOX0NN
-RCg0MildIFRoaXMgZmVhdHVyZQ0KPiA+ID4gPj4+Pj4gKyBpbmRpY2F0ZXMNCj4gPiA+ID4+Pj4g
-dGhhdCB0aGUgZGV2aWNlDQo+ID4gPiA+Pj4+PiArICAgZXhwb3NlcyBhbiBhZG1pbmlzdHJhdGlv
-biBjb21tYW5kIGludGVyZmFjZSB3aGljaCBpcw0KPiA+ID4gPj4+Pj4gKyBhY2Nlc3NpYmxlIHRv
-DQo+ID4gPiA+PiB0aGUNCj4gPiA+ID4+Pj4gZHJpdmVyDQo+ID4gPiA+Pj4+PiArICAgYmVmb3Jl
-IHRoZSBkcml2ZXIgaW5kaWNhdGVzIERSSVZFUl9PSyBkZXZpY2Ugc3RhdHVzLiBXaGVuDQo+ID4g
-PiA+Pj4+PiArIHRoaXMNCj4gPiA+ID4+IGZlYXR1cmUNCj4gPiA+ID4+Pj4gaXMNCj4gPiA+ID4+
-Pj4+ICsgICBuZWdvdGlhdGVkLCBvbmNlIHRoZSB0aGUgYWRtaW5pc3RyYXRpb24gY29tbWFuZHMg
-aW50ZXJmYWNlDQo+ID4gPiA+Pj4+PiArIGlzDQo+ID4gPiA+Pj4+IGNvbmZpZ3VyZWQsIGl0IGNh
-biBiZQ0KPiA+ID4gPj4+Pj4gKyAgIHVzZWQgYnkgdGhlIGRyaXZlciB0byBpc3N1ZSBhZG1pbmlz
-dHJhdGlvbiBjb21tYW5kcw0KPiA+ID4gPj4+Pj4gKyByZWxhdGVkIHRvDQo+ID4gPiA+PiBkZXZp
-Y2UNCj4gPiA+ID4+Pj4gYW5kIGRyaXZlcg0KPiA+ID4gPj4+Pj4gKyAgIGNhcGFiaWxpdGllcy4N
-Cj4gPiA+ID4+Pj4+ICsNCj4gPiA+ID4+Pj4+ICBcZW5ke2Rlc2NyaXB0aW9ufQ0KPiA+ID4gPj4+
-Pj4NCj4gPiA+ID4+Pj4+ICBcZHJpdmVybm9ybWF0aXZle1xzZWN0aW9ufXtSZXNlcnZlZCBGZWF0
-dXJlIEJpdHN9e1Jlc2VydmVkDQo+ID4gPiA+Pj4+PiBGZWF0dXJlIEJpdHN9IGRpZmYgLS1naXQg
-YS90cmFuc3BvcnQtcGNpLnRleA0KPiA+ID4gPj4+Pj4gYi90cmFuc3BvcnQtcGNpLnRleCBpbmRl
-eA0KPiA+ID4gPj4+Pj4gOTViMDhiOC4uYTYxMmIzNCAxMDA2NDQNCj4gPiA+ID4+Pj4+IC0tLSBh
-L3RyYW5zcG9ydC1wY2kudGV4DQo+ID4gPiA+Pj4+PiArKysgYi90cmFuc3BvcnQtcGNpLnRleA0K
-PiA+ID4gPj4+Pj4gQEAgLTQ5NSw2ICs0OTUsMTIgQEAgXHN1YnN1YnNlY3Rpb257Q29tbW9uIGNv
-bmZpZ3VyYXRpb24NCj4gPiA+ID4+IHN0cnVjdHVyZQ0KPiA+ID4gPj4+Pj4gbGF5b3V0fVxsYWJl
-bHtzZWM6VmlydGlvIFRyYW5zcG9ydCAgdG8gZW5zdXJlIHRoYXQgaW5kaWNlcyBvZg0KPiA+ID4g
-Pj4+Pj4gdmFsaWQgYWRtaW4gcXVldWVzIGZpdCBpbnRvICBhIDE2IGJpdCByYW5nZSBiZXlvbmQg
-YWxsIG90aGVyDQo+IHZpcnRxdWV1ZXMuDQo+ID4gPiA+Pj4+Pg0KPiA+ID4gPj4+Pj4gK0lmIFZJ
-UlRJT19GX0FETUlOX1ZRIGFuZCBWSVJUSU9fRl9FQVJMWV9BRE1JTl9DTUQgaGFzDQo+IGJlZW4N
-Cj4gPiA+ID4+Pj4+ICtuZWdvdGlhdGVkLCB0aGUgZGV2aWNlIE1VU1Qgc3VwcG9ydCBhZG1pbmlz
-dHJhdGlvbiBjb21tYW5kcw0KPiA+ID4gPj4gdGhyb3VnaA0KPiA+ID4gPj4+Pj4gK3RoZSBhZG1p
-bmlzdHJhdGlvbiB2aXJ0cXVldWUgaWRlbnRpZmllZCBieSB0aGUNCj4gPiA+ID4+Pj4+ICtcZmll
-bGR7YWRtaW5fcXVldWVfaW5kZXh9IGFmdGVyIHRoZSBhZG1pbmlzdHJhdGlvbiB2aXJ0cXVldWUN
-Cj4gPiA+ID4+Pj4+ICtpcyBlbmFibGVkIGFuZCBiZWZvcmUgdGhlIGRyaXZlciBzZXRzIERSSVZF
-Ul9PSyB0byB0aGUNCj4gPiA+ID4+Pj4gXGZpZWxke2RldmljZV9zdGF0dXN9Lg0KPiA+ID4gPj4+
-Pj4gKw0KPiA+ID4gPj4+Pj4gIFxkcml2ZXJub3JtYXRpdmV7XHBhcmFncmFwaH17Q29tbW9uIGNv
-bmZpZ3VyYXRpb24gc3RydWN0dXJlDQo+ID4gPiA+Pj4+PiBsYXlvdXR9e1ZpcnRpbyBUcmFuc3Bv
-cnQgT3B0aW9ucyAvIFZpcnRpbyBPdmVyIFBDSSBCdXMgLyBQQ0kNCj4gPiA+ID4+Pj4+IERldmlj
-ZSBMYXlvdXQgLyBDb21tb24gY29uZmlndXJhdGlvbiBzdHJ1Y3R1cmUgbGF5b3V0fQ0KPiA+ID4g
-Pj4+Pj4NCj4gPiA+ID4+Pj4+ICBUaGUgZHJpdmVyIE1VU1QgTk9UIHdyaXRlIHRvIFxmaWVsZHtk
-ZXZpY2VfZmVhdHVyZX0sDQo+ID4gPiA+Pj4+PiBcZmllbGR7bnVtX3F1ZXVlc30sDQo+ID4gPiA+
-Pj4+PiAtLQ0KPiA+ID4gPj4+Pj4gMi4zNC4xDQo+ID4gPiA+DQo+ID4NCg0K
+
+
+On 9/11/2024 12:38 PM, Jason Wang wrote:
+> On Wed, Sep 11, 2024 at 12:12 PM Parav Pandit <parav@nvidia.com> wrote:
+>>
+>>> From: Zhu Lingshan <lingshan.zhu@amd.com>
+>>> Sent: Wednesday, September 11, 2024 9:30 AM
+>>> To: Parav Pandit <parav@nvidia.com>; Michael S. Tsirkin <mst@redhat.com>
+>>> Cc: virtio-comment@lists.linux.dev; cohuck@redhat.com; Shahaf Shuler
+>>> <shahafs@nvidia.com>
+>>> Subject: Re: [PATCH] admin: Enable driver to send admin commands before
+>>> DRIVER_OK
+>>>
+>>>
+>>>
+>>> On 9/11/2024 11:37 AM, Parav Pandit wrote:
+>>>>> From: Michael S. Tsirkin <mst@redhat.com>
+>>>>> Sent: Wednesday, September 11, 2024 2:06 AM
+>>>>>
+>>>>> On Tue, Sep 10, 2024 at 07:01:08PM +0000, Parav Pandit wrote:
+>>>>>>> From: Michael S. Tsirkin <mst@redhat.com>
+>>>>>>> Sent: Wednesday, September 11, 2024 12:02 AM
+>>>>>>>
+>>>>>>> On Tue, Sep 10, 2024 at 08:07:23PM +0300, Parav Pandit wrote:
+>>>>>>>> Currently the driver can operate administration commands using
+>>>>>>>> administration virtqueues. Administration virtqueues must be
+>>>>>>>> enabled before it reached DRIVER_OK stage similar to all other
+>>>>>>>> queues. This is a limiting factor.
+>>>>>>>>
+>>>>>>>> Many of the device functionalties needs to be discovered and
+>>>>>>>> configured early enough before the driver reaches the DRIVER_OK
+>>>>> stage.
+>>>>>>>> Some examples are:
+>>>>>>>>
+>>>>>>>> a. driver wants to dynamically create the virtqueues of virtio-net
+>>>>>>>>    device with more parameters, for example header data split,
+>>>>>>>>    multiple physical addresses.
+>>>>>>>>    Here, the driver needs to tell PCI device early enough that it no
+>>>>>>>>    longer uses queue_* registers for non admin queues.
+>>>>>>>>
+>>>>>>>> b. driver wants to discover these features and related attributes
+>>>>>>>>    early enough so it has chance to decide to proceed via admin
+>>>>>>>>    cmd interface or proceed to DRIVER_OK and follow the current flow.
+>>>>>>>>
+>>>>>>>> To overcome these limitations, introduce a feature bit that
+>>>>>>>> enables the driver to send capabilities related admin commands
+>>>>>>>> before DRIVER_OK via the available interface such as
+>>>>>>>> administration
+>>>>> virtqueue.
+>>>>>>>> Signed-off-by: Parav Pandit <parav@nvidia.com>
+>>>>>>> We were there in 1.0 and it's messy. And next thing you do, you
+>>>>>>> will
+>>>> Also if you can explain what exactly is the mess, if there is one?
+>>> As far as I can see, the spec says:
+>>> Set the DRIVER_OK status bit. At this point the device is “live”.
+>>>
+>> This patch upgrades this detail. Please read through.
+>>
+>>> And no vqs are active before DRIVER_OK. How can the device assume that the
+>>> driver is ready before DRIVER_OK?
+>> Device does not assume.
+>> When the feature described in this patch is negotiated, device knows that AQ will be live before DRIVER_OK.
+>>
+>>> Why admin vq is special?
+>> Because it is used to do fundamental device and driver capabilities discovery.
+> Then you need another transport or a control device.
+So Maybe it is a good chance for me to continue the "transport vq" work?
+>
+> Thanks
+>
+>> Please read the commit log that describes the motivation.
+>>
+>>> The common config space is not enough to init a device?
+>> No.
+>>> If you see a gap, how about fix it in the common cfg?
+>> Admin command is the interface do perform administration work.
+>>
+>>> Thanks
+>>>
+>>>>>>> want it before features ok, and we will keep piling up hacks.
+>>>>>> I don't see any motivation to do before feature bit.
+>>>>> I do.
+>>>> Can you please share the motivation, why one wants to enable the AQ
+>>> before features_ok?
+>>>> And how would it configure all the basic things to operate a AQ before, for
+>>> example, PACKED, VERSION, PLATFORM?
+>>>> If the motivation to negotiate device specific features via admin command,
+>>> then that is still possible with current proposal.
+>>>>> And I keep saying, we need to be proactive, address more than one
+>>>>> problem with each feature and try to predict what will be needed,
+>>>>> otherwise it will be a mess of a million conflicting features.
+>>>>>
+>>>> Sure. make sense.
+>>>>
+>>>>>> Never before features ok, feature negotiation is two ways
+>>>>>> communication
+>>>>> that indicates device, that queue notification is coming.
+>>>>>>> I think that if we want
+>>>>>>> to do admin commands before VQs are active, we should just add a
+>>>>> capability
+>>>>>>> with registers for that. People wanted that anyway.
+>>>>>>>
+>>>>>> We discussed before that pci-sig discourages piling up vendor specific
+>>> caps.
+>>>>>> So better to avoid that.
+>>>>> Well, that's a separate issue. Actually pci endpoint guys already
+>>>>> want a way to access device without messing up with capabilities.
+>>>>> So we'll likely create a way to put capabilities in a BAR.
+>>>>>
+>>>> So lets take the base line design requirement and see what more options do
+>>> we have.
+>>>> a. do not extend pci capability
+>>>> b. utilize the current q config registers c. have bidirectional
+>>>> negotiation if driver will use the AQ early enough or not.
+>>>>
+>>>> With that what do you propose?
+>>>> A new register in the BAR instead of feature bits?
+>>>> How does the driver tell the device after reset and before features ok?
+>>>>
+>>>>>> An alternative would be to bump up the pci revision_id, which would
+>>>>>> align
+>>>>> to pci-sig and its known early enough.
+>>>>>> Though it does not take away the feature bit because device
+>>>>>> preparation is
+>>>>> needed to setup early admin commands.
+>>>>>> And feature bit can be a good hint to inform that.
+>>>>>> Only revision_id (from device to driver) is not good enough as there
+>>>>>> can be
+>>>>> large sw stack which may never use it and no point in enabling this
+>>>>> in the device without driver using it.
+>>>>>> So feature bit proposed here is self-contained, and its early enough.
+>>>>> I don't really get what this revision_id discussion is about.
+>>>>>
+>>>> I will pause explaining the issue with rev_id for a moment and see what is the
+>>> efficient way than proposed?
+>>>>>>>
+>>>>>>>
+>>>>>>>> ---
+>>>>>>>>  admin.tex         | 16 ++++++++++++++++
+>>>>>>>>  content.tex       | 13 ++++++++++++-
+>>>>>>>>  transport-pci.tex |  6 ++++++
+>>>>>>>>  3 files changed, 34 insertions(+), 1 deletion(-)
+>>>>>>>>
+>>>>>>>> diff --git a/admin.tex b/admin.tex index 39fc072..95054ed 100644
+>>>>>>>> --- a/admin.tex
+>>>>>>>> +++ b/admin.tex
+>>>>>>>> @@ -334,6 +334,11 @@ \subsection{Group administration
+>>>>>>>> commands}\label{sec:Basic Facilities of a Virti  supporting
+>>>>>>>> multiple group types, the list of supported commands  might differ
+>>>>>>>> between
+>>>>>>> different group types.
+>>>>>>>> +When the driver has negotiated the feature
+>>>>>>>> +VIRTIO_F_EARLY_CAP_ADMIN_CMD, the driver can use administration
+>>>>>>>> +commands VIRTIO_ADMIN_CMD_LIST_QUERY,
+>>>>>>> VIRTIO_ADMIN_CMD_LIST_USE and
+>>>>>>>> +commands related to device and driver capabilities listed in
+>>>>> \ref[sec:Basic
+>>>>>>> Facilities of a Virtio Device / Device groups / Group
+>>>>>>> administration
+>>>>> commands
+>>>>>>> / Device and driver capabilities]{device and driver capabilities}
+>>>>>>> for the self- group type before the driver indicates DRIVER_OK status to
+>>> the device.
+>>>>>>>> +
+>>>>>>>>  \input{admin-cmds-legacy-interface.tex}
+>>>>>>>>  \input{admin-cmds-capabilities.tex}
+>>>>>>>>  \input{admin-cmds-resource-objects.tex}
+>>>>>>>> @@ -608,6 +613,14 @@ \section{Administration
+>>>>>>>> Virtqueues}\label{sec:Basic Facilities of a Virtio Devic  or
+>>>>>>>> VIRTIO_ADMIN_STATUS_ENOMEM, then the command MUST NOT
+>>>>> have
+>>>>>>> any side effects, making it safe to retry.
+>>>>>>>> +If VIRTIO_F_EARLY_CAP_ADMIN_CMD feature is negotiated, the
+>>> device
+>>>>>>>> +MUST process administration commands related to device and driver
+>>>>>>>> +capabilities before the driver indicates DRIVER_OK to the device.
+>>>>>>>> +
+>>>>>>>> +If VIRTIO_F_ADMIN_VQ and VIRTIO_F_EARLY_CAP_ADMIN_CMD
+>>>>> features
+>>>>>>> are
+>>>>>>>> +negotiated, the device MUST be able to generate notifications
+>>>>>>>> +related to the administration virtqueue before the driver
+>>>>>>>> +indicates DRIVER_OK
+>>>>> to
+>>>>>>> the device.
+>>>>>>>> +
+>>>>>>>>  \drivernormative{\subsection}{Group administration
+>>>>>>>> commands}{Basic Facilities of a Virtio Device / Administration
+>>>>>>>> virtqueues}
+>>>>>>>>
+>>>>>>>>  The driver MAY supply device-readable or device-writeable parts
+>>>>>>>> @@
+>>>>>>>> -641,3 +654,6 @@ \section{Administration
+>>>>>>>> Virtqueues}\label{sec:Basic Facilities of a Virtio Devic
+>>>>>>>>
+>>>>>>>>  The driver SHOULD retry a command that completed with
+>>>>> \field{status}
+>>>>>>>> VIRTIO_ADMIN_STATUS_EAGAIN.
+>>>>>>>> +
+>>>>>>>> +When the VIRTIO_F_EARLY_ADMIN_CMD feature is negotiated, the
+>>>>> driver
+>>>>>>>> +MAY send commands only to the first administration queue defined
+>>>>>>>> +by
+>>>>>>> the specific transport.
+>>>>>>>> diff --git a/content.tex b/content.tex index c32c218..12f9224
+>>>>>>>> 100644
+>>>>>>>> --- a/content.tex
+>>>>>>>> +++ b/content.tex
+>>>>>>>> @@ -540,6 +540,8 @@ \section{Device
+>>>>>>>> Initialization}\label{sec:General
+>>>>>>> Initialization And Device Oper
+>>>>>>>>     device, optional per-bus setup, reading and possibly writing the
+>>>>>>>>     device's virtio configuration space, and population of virtqueues.
+>>>>>>>>
+>>>>>>>> +\item\label{itm:General Initialization And Device Operation /
+>>>>>>>> +Device
+>>>>>>> Initialization / Capabilities Access} Optionally get device
+>>>>>>> capabilities and
+>>>>> set
+>>>>>>> driver capabilities if VIRTIO_F_EARLY_CAP_ADMIN_CMD is negotiated.
+>>>>>>>> +
+>>>>>>>>  \item\label{itm:General Initialization And Device Operation /
+>>>>>>>> Device
+>>>>>>> Initialization / Set DRIVER-OK} Set the DRIVER_OK status bit.  At
+>>>>>>> this point
+>>>>> the
+>>>>>>> device is
+>>>>>>>>     ``live''.
+>>>>>>>>  \end{enumerate}
+>>>>>>>> @@ -550,7 +552,9 @@ \section{Device
+>>>>>>>> Initialization}\label{sec:General Initialization And Device Oper
+>>>>>>>> driver MUST NOT continue initialization
+>>>>> in
+>>>>>>> that case.
+>>>>>>>>  The driver MUST NOT send any buffer available notifications to
+>>>>>>>> -the device before setting DRIVER_OK.
+>>>>>>>> +the device before setting DRIVER_OK; however, the driver MAY send
+>>>>>>>> +buffer available notifications before setting DRIVER_OK if
+>>>>>>>> +VIRTIO_F_EARLY_CAP_ADMIN_CMD is negotiated.
+>>>>>>>>
+>>>>>>>>  \subsection{Legacy Interface: Device
+>>>>>>>> Initialization}\label{sec:General Initialization And Device
+>>>>>>>> Operation / Device Initialization / Legacy Interface: Device
+>>>>>>>> Initialization}  Legacy
+>>>>>>> devices did not support the FEATURES_OK status bit, and thus did @@
+>>>>>>> -
+>>>>> 879,6
+>>>>>>> +883,13 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved
+>>>>>>> +Feature
+>>>>>>> Bits}
+>>>>>>>>         \ref{devicenormative:Basic Facilities of a Virtio Device /
+>>>>>>>> Feature Bits}
+>>>>>>> for
+>>>>>>>>         handling features reserved for future use.
+>>>>>>>>
+>>>>>>>> +  \item[VIRTIO_F_EARLY_CAP_ADMIN_CMD(42)] This feature indicates
+>>>>>>> that the device
+>>>>>>>> +   exposes an administration command interface which is
+>>>>>>>> + accessible to
+>>>>> the
+>>>>>>> driver
+>>>>>>>> +   before the driver indicates DRIVER_OK device status. When this
+>>>>> feature
+>>>>>>> is
+>>>>>>>> +   negotiated, once the the administration commands interface is
+>>>>>>> configured, it can be
+>>>>>>>> +   used by the driver to issue administration commands related to
+>>>>> device
+>>>>>>> and driver
+>>>>>>>> +   capabilities.
+>>>>>>>> +
+>>>>>>>>  \end{description}
+>>>>>>>>
+>>>>>>>>  \drivernormative{\section}{Reserved Feature Bits}{Reserved
+>>>>>>>> Feature Bits} diff --git a/transport-pci.tex b/transport-pci.tex
+>>>>>>>> index
+>>>>>>>> 95b08b8..a612b34 100644
+>>>>>>>> --- a/transport-pci.tex
+>>>>>>>> +++ b/transport-pci.tex
+>>>>>>>> @@ -495,6 +495,12 @@ \subsubsection{Common configuration
+>>>>> structure
+>>>>>>>> layout}\label{sec:Virtio Transport  to ensure that indices of
+>>>>>>>> valid admin queues fit into  a 16 bit range beyond all other virtqueues.
+>>>>>>>>
+>>>>>>>> +If VIRTIO_F_ADMIN_VQ and VIRTIO_F_EARLY_ADMIN_CMD has been
+>>>>>>>> +negotiated, the device MUST support administration commands
+>>>>> through
+>>>>>>>> +the administration virtqueue identified by the
+>>>>>>>> +\field{admin_queue_index} after the administration virtqueue is
+>>>>>>>> +enabled and before the driver sets DRIVER_OK to the
+>>>>>>> \field{device_status}.
+>>>>>>>> +
+>>>>>>>>  \drivernormative{\paragraph}{Common configuration structure
+>>>>>>>> layout}{Virtio Transport Options / Virtio Over PCI Bus / PCI
+>>>>>>>> Device Layout / Common configuration structure layout}
+>>>>>>>>
+>>>>>>>>  The driver MUST NOT write to \field{device_feature},
+>>>>>>>> \field{num_queues},
+>>>>>>>> --
+>>>>>>>> 2.34.1
+
