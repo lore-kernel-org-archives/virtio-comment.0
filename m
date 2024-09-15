@@ -1,184 +1,109 @@
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (mail-mw2nam10on2057.outbound.protection.outlook.com [40.107.94.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9491758E
-	for <virtio-comment@lists.linux.dev>; Sat, 14 Sep 2024 05:38:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.94.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1726292288; cv=fail; b=Rjmmy+5cZisUzyF9vCZ1kI3YnnxwY9M/MnI3fNL5Uf4upJEg22kJiR6RrnUwzX+4C54gsNv85afN938mkeFcl8TT8uPETcK0IXnfdpYrZqvS/zMV5TyI/lm3P5eSpOa7QWOqYGdzywLb/hWZerWFu2e8w6xlrH3wOtuMvuZ59o4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1726292288; c=relaxed/simple;
-	bh=smrrN88HtJBDHBHYusMGj0MjXpmlVL2yY1HYRwU9l44=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=tLVSWdN2G0ryS2ApG8bcoZV+g8SlUdv1Y7mMGphNtuRisnLxMhht2b/vd2IpssV2VUK/lWzccXl0COLx1XzJXKu7YPwBPtFJ8akfaHJ6FbVENhqJ1UBwOPWIdO5DvFFlUtWFdsEylY9FedCtNGLCx/M/pTJ6ECj00e8FmOEskYI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=zNcc+uRI; arc=fail smtp.client-ip=40.107.94.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 599E22232A
+	for <virtio-comment@lists.linux.dev>; Sun, 15 Sep 2024 07:56:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1726387002; cv=none; b=tQfpoTEwpQYx7DmWh4KnHAFYck9EDK4oAp++YUvMo7ClUDVZ6pEbb4zI5bvAZ7+yq85mCJ1KeDEkEX+mdePFQlpjPxr2gVNzkL/52UdP/QZXBchp5eB99bQ7B7Ai0jlQYUok+CUrLCfrWeaPCatyr6HK+0CCLnRxB9HRHkEJ9FU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1726387002; c=relaxed/simple;
+	bh=LMVlf91MIyu6X5Jf/Hk4+UBT2THCH82dK/P32UOrW3Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=KzkVoXF3qDid33p1uuyxVK77RKpH2X+bCXwbD7SsJB0pOL6e/fdsNx8vZABHZ0550WphOsDgFikIBH1xYt71YuipPaO+y3DoI/Cz+88oqW8TJoRSQqysiMCc1TyfKMSfAvxQ3megtAcehJYt5xojkYOejbGa2dCyNAHCNVtdQg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=JQGkSJwQ; arc=none smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="zNcc+uRI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vUOEBja2ffDeKCJspWCPxMceJexztJS2LhiCU8JQwOuVOgCDx+S7P3e8VIsYE24Iy57HJl5Zb0l6Je0+ShHdx1r+4qNNU61j9qeMJ7VmiXRbr8uTKivFzW55xFxsaQFrgomZfGiOH40J0qAjMizyGgwB2aYoj3yDgMSKm55jbd1hUxwAmsRyD+gmZ35w7Yz7Yb4OvWyXVf6vXwPc99ZFV+eYrvav5IpR4MkIkLzi2/0JZQCmjxVGfx5mBJRxPqG2A6bOI6sEo/nT7A/tExdyvNqqlFfIXorQF6nZq4mOTlIZIBJuuuX7A2qET5nb61ZFNirq97pHqqvdzEEgsHFmWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=smrrN88HtJBDHBHYusMGj0MjXpmlVL2yY1HYRwU9l44=;
- b=pPoWQWAPDODK1qontXyeBGDoRgxkdPdbgJ1i7EseSxrTvmKVvgSrVbtwEfEhUVp3sdZcOBH1avk8IDOGRxGQt84g+ReleRWnC/hKPqKqEWVRSrhkIx9mbqCq/vYYJ69QqFpXNasFY+jxKRqJitjlO8y2jHRwdm5rspUCAnVEFrtM99kVywFThhDt94TQGQ5uCH15a3kSjXaNhjdvydlOfqYGm9p4b8DRhlnSoddXzVTUT8tDO6Avm7JdUTDlW4SGPJdssIb+C/ZePqZZosqJaBzqLrbWH1Cqf8yH36JnvGrBcirCtkfYpQftzmAqvJaSgkRN59mu766nyiCVEnFlfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=smrrN88HtJBDHBHYusMGj0MjXpmlVL2yY1HYRwU9l44=;
- b=zNcc+uRIiQdyUorsxEOyXxAmJranYBbnPBPJb5xIQ8dxj/1m2xskfB4eTyFCIjfyFPMHikNV+MLYXAUSuRjpw1NjcEuqG09BSPVlqUWqq6bpWKIGcXfoKRT4VlcgFdGs/siOO/sMaIxbltrMI5LozqTZ2YbRJduWxaZvVZauYCg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
- by SN7PR12MB7836.namprd12.prod.outlook.com (2603:10b6:806:34e::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.28; Sat, 14 Sep
- 2024 05:38:04 +0000
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8%4]) with mapi id 15.20.7918.024; Sat, 14 Sep 2024
- 05:38:03 +0000
-Message-ID: <1a7606c6-c801-46b7-8ca0-ab66e14ec0fe@amd.com>
-Date: Sat, 14 Sep 2024 13:37:57 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] admin: Enable driver to send admin commands before
- DRIVER_OK
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Jason Wang <jasowang@redhat.com>, Parav Pandit <parav@nvidia.com>,
- "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
- "cohuck@redhat.com" <cohuck@redhat.com>, Shahaf Shuler <shahafs@nvidia.com>
-References: <20240910170723.44537-1-parav@nvidia.com>
- <20240910142850-mutt-send-email-mst@kernel.org>
- <IA0PR12MB87136FC9671ABFF7123A82CADC9A2@IA0PR12MB8713.namprd12.prod.outlook.com>
- <20240910162247-mutt-send-email-mst@kernel.org>
- <IA0PR12MB8713AC1D273671DF459FA254DC9B2@IA0PR12MB8713.namprd12.prod.outlook.com>
- <8a42e214-59b1-4085-aec0-0f31be885525@amd.com>
- <IA0PR12MB871350EE73BFB2B8B60B7E97DC9B2@IA0PR12MB8713.namprd12.prod.outlook.com>
- <CACGkMEtUvJhAq9Y-hZ8NroupJgarYhB8qz-cLXNQYrvnoGKgbQ@mail.gmail.com>
- <5d0cf855-ead0-46a4-8221-d41c0a3be15f@amd.com>
- <20240913150033-mutt-send-email-mst@kernel.org>
-Content-Language: en-US
-From: Zhu Lingshan <lingshan.zhu@amd.com>
-In-Reply-To: <20240913150033-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TYCP301CA0064.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:7d::16) To SN7PR12MB7835.namprd12.prod.outlook.com
- (2603:10b6:806:328::22)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="JQGkSJwQ"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-5c260b19f71so3868658a12.1
+        for <virtio-comment@lists.linux.dev>; Sun, 15 Sep 2024 00:56:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1726386998; x=1726991798; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=JVa1p4o/YK0cQ4iMEyZg2Yb3UsDpnrrnKJHdPz7VX8A=;
+        b=JQGkSJwQPShS0tNbZbWIgqtF/4fyVjdYQN0ALyrje3TaQSv+F8t0NrFYaWshsfwTr5
+         pBXjxg6F1O8zZ7ZThIGzYI8/u6eZ/JPvQKHzoNDL0F1YCuwjXUMYz0wNvRSlelT6AlrB
+         jxPVceuTqVaz5GF6TXdB5rIMdeXCYOALvq+sf8WtAr+0iiXgRM96aPsP1IpQ9S0VIMsK
+         OR/6z7tD7gCDdIx8ftvkmMyJI6S9GLhHPzj+LBz7SnhctJmuCJzg5jY1JhpVza3aZOoq
+         VMm+GAx1qs6kqjnxY2WB3W58nhT8BnOGwoY7pOdOkCsPUyZf5eW/Ypur0R6hxlaooD8W
+         VPFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1726386998; x=1726991798;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=JVa1p4o/YK0cQ4iMEyZg2Yb3UsDpnrrnKJHdPz7VX8A=;
+        b=wlIfdiA0rO3GYxjUqGpbxbVi29k4E57w8cvq2EDdb+wCi5K3s/LDlG00OjmE+9dwfE
+         +H9Fi3fpmDSh1NoJJE++mEkdJUZ5rdysh9iFoxbI7Kx3ktvtmOaQTDT1slaiRxhAst4+
+         khVa91fmnL5VD8DrJg4WpZr1mdvbXFoyfcoszm70pgD4SFCIF/3G3LT/SI+g47mojb5R
+         4TS0dlag7tWVwYA8TbZy96dWyEkSDVxoUOo+aGCszLU1Jm8wMeBwanFf5FCHHkbC2j52
+         rSqNqVOXftyU7IaWVrLRBL2VAwCtLv/qG+mADPp2xT/8SRISDo4c/Y2QxtdIjkbygXCE
+         b50w==
+X-Gm-Message-State: AOJu0YyQTPXnZpgq5r0Wp9mjxmzPGg777A5JK0IDmqPJiZEdPxhBTN7R
+	X4yXWsxAYR+o8EWWMXlFTW6PozhFPeeKY5VyT3eySxL0pMWkZofeAE/xBRfBeJRZNH4kZkmPxPi
+	F8Fg=
+X-Google-Smtp-Source: AGHT+IHmJWGM7xrDGTAVkc216bxHHApDUAWcEC7ahtBYtpkfIcULRKtiTNBv7onR7od4X84RXcS/fg==
+X-Received: by 2002:a05:6402:13cb:b0:5c3:c3f5:592e with SMTP id 4fb4d7f45d1cf-5c413e12400mr10444853a12.12.1726386997498;
+        Sun, 15 Sep 2024 00:56:37 -0700 (PDT)
+Received: from localhost.localdomain (adsl-13.37.6.161.tellas.gr. [37.6.161.13])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-5c42bc88d82sm1410309a12.81.2024.09.15.00.56.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Sep 2024 00:56:37 -0700 (PDT)
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+To: virtio-comment@lists.linux.dev
+Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+Subject: [RFC PATCH v1 0/2] Embed files as PDF attachments
+Date: Sun, 15 Sep 2024 10:56:29 +0300
+Message-ID: <v1-proposal-attachfiles.manos.pitsidianakis@linaro.org>
+X-Mailer: git-send-email 2.45.2
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|SN7PR12MB7836:EE_
-X-MS-Office365-Filtering-Correlation-Id: 930ef572-8684-4ce9-6605-08dcd47f6702
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info:
- =?utf-8?B?eUJnajRhQ1hBMmk2Sll3WWlpRmNBbHdKTFBGaDR6Mm40VlZEUWZjQWJJaC9B?=
- =?utf-8?B?ZUU0NVhoV2tndGtuV08zTFE2dHZnTTg4eGdCdzZDOEN5OXVmTFRYV2hYdGlt?=
- =?utf-8?B?ZmxmR3pmMVYxSjdyZlZtaGNqOGMwQTlmeVBCTVBTb2xESU92N2F5dmpCd2p3?=
- =?utf-8?B?OWFidEtTZVJpRTdzcGVLM1JDNDBjMkJTd1RxQ3BnbHYwcW5YYTlNaFp3TVhM?=
- =?utf-8?B?dG1tWm1BdWFUaHdDVlRiMFRFOURpYWxwREthazVxZDI2YzRIR0M5aHpBQ0tQ?=
- =?utf-8?B?YjFySFZSR1FXZjFwTnRyWVordFBPYi9CR3ZHRE95R3pwUytMTzYrR2Fnazhp?=
- =?utf-8?B?dktxeFRKWjU4Ni96QktSdjFnV2VkaHZzaTVZTy9LVVpHS2pSelpPVUl0T3BK?=
- =?utf-8?B?K2NVemNwdDlsN0QyQWhtT3BPR2I0dmdnWFBGUjQzRTJtUCt2dHpma2JvTEJI?=
- =?utf-8?B?Zk1UdTZGa3p3S3h1VTI0am1QRFZrODNFTkY5dHFhMVdYa29wY0lRaDFRUlNs?=
- =?utf-8?B?L1Jna0VrazdVaTNxN3RmMk9RT3BiSzNlM0pMbHVyYUp1bGlhd1RMZG1VWmFx?=
- =?utf-8?B?WEp6WGVJVWw0YjVUcnVMdlhDeS9CNGZHR3Zub2FUNTRWa2FnMHgxOG1DQyt0?=
- =?utf-8?B?WlJzanJ1VGdSZ28vYWhLN25Cb1Q1d1lyd3RtYThMTFZUbERFVmlkdXUxZWEw?=
- =?utf-8?B?dFlwdXErRjYrM0U0NHhTOGVhQmVXSDB3a282blVsbFBud2F3T2lTbFQ1QlJp?=
- =?utf-8?B?SmpYS3V6ZmRmNzBsTHNaVWVTbmt1UFpxaEVWQmZxeThML2kvRCtvYkE4cGpt?=
- =?utf-8?B?RFBBOHVyRlpBSkZQR0xqSDhNVmxEc3p4eGJwdllUNWFzbVlURkhOS2JHSGNT?=
- =?utf-8?B?Q0V0N3BRVUs4S1Ewd1pId0xDOUhEMC9adXJmeSs4ZjFVZWsvNXZSVXFUbG5m?=
- =?utf-8?B?MzcyMGtUamFWZExuZ3gyRXBzS3JpbzRWTEJGeTVhMGFFYUs0bzFJa1AxVnRW?=
- =?utf-8?B?TStIQVBDVFF4a2p1WnBhUkdZamZGcEtKdlh2cHNTaEZmTHdCVGpHdGhxVldV?=
- =?utf-8?B?OGVGRXBqT0NTYmhNZG9ZSzRWMXZiUTVFWUJzSEE2eWNCRWphb3RUSWV5QjVS?=
- =?utf-8?B?YU9YWHNZcVhvUTlhV0cwaGdzbmdWZXBySm9UQ0cyRk5seWRKUzVEU1pUMmFL?=
- =?utf-8?B?c0dRNmhOcEdsSkRncDI4c1ZvcVVIZlI1bFVDcVZuNGlIU2piSkk4eFM2eWtt?=
- =?utf-8?B?dHUvUkhtVTRadUJlVTVnSDhFRGR1TDVuOUZMWWZjRFFjK3Nia0JCSXNVOUVY?=
- =?utf-8?B?NzVCVlMvekREdzZiVSs2VnZ3SXA2UUhnRGpZeWNKNXFvNVlTNDd2QnR4ZE1a?=
- =?utf-8?B?Y2VIc3NiUDlwQUlnMFFFOUxNUUJGR1dzU21Jc2hKOThRQ1VwKzh3elB3YTlE?=
- =?utf-8?B?bi9Eb28zRE1oNjFEUWRJMGlLcGI1alluS2pCaEVFem9CSU9Ub3RyTjB5NlJt?=
- =?utf-8?B?d1d1OVR0V21mNWkvREJ3UWtwQ3czcVFUNHRock1hcGUvZUczamI5aS9JV3RT?=
- =?utf-8?B?S1RMaHNTam5yWUFVWVYxdHU2WXgvU3AxdEFpSm9ZT0EzUkdwQTdQVW1SNjNj?=
- =?utf-8?B?ZTgySXgzQTNoT2xLdXNZNHlqQUdraCtNMGMwMG1sa1lqS2NWSWt5N0JBd3Vt?=
- =?utf-8?B?KzVSNUNlQTlnRTdLMWpmVThlZ3cyeC9RUWJ2N0ZIU25MUE56eWZIaFh3djhW?=
- =?utf-8?B?TVNvU3FhbjM1TGtuUFpUc2tuZ0Qwd3MrVHVoOG9HNVAzL2hWbU9XajRac1cv?=
- =?utf-8?B?VGV2eHY5WGtPMmd4SzFDUT09?=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB7835.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?NnVidXB5aWUvNjRVcVNPK2RDd3lScnI1clQybGpsaUNjSUVXd1JjSTc0Ujhn?=
- =?utf-8?B?Sm9zOFZBZGVHa0xoSEVHNWMyaHNreGxtK1Y4dVMzbERUdS9RTG56a3JmMXZ5?=
- =?utf-8?B?RG5Pczk3eVN0ZVJmQlFmeTNxbXVMQjdHN3YxeUFNdUlXbDVaemloaVpRbXRW?=
- =?utf-8?B?TVduQ090bDcrbDZxblJNUzlEQyticDVsbUVRRXRSaTJ5THRmYkx1Nnl3K2V6?=
- =?utf-8?B?T2VZWi9yRUYyWUZheFJNRjRZRFdySEhud1gyZWx0U0tmeEFJUmRrekp0eWZs?=
- =?utf-8?B?N21pc1ZqTXo5ZlhMZTBMdU9BNjMrcE5scVRZSlpiZkJlYzNJSUFBbWFSb252?=
- =?utf-8?B?RkUvZGVXV2Z1Q1VFUDVlS3Vyc0ZLbHh5MW5TTllQN3QwemlzeitEM0J0UHhO?=
- =?utf-8?B?N01zWEFqcW5qZFlocHVvUmNyWWprbWlUVjhGams4UHlzUWg4RDdITHJrUktp?=
- =?utf-8?B?bWFMdXRRMlJXbytVOVVHQ2FWMHNMZzJXL3F3dzlIcjZaVUNhbGhsWkE1V29S?=
- =?utf-8?B?eENMa25UQTBsb0lDV2piMUFJU1ZRczNGdnNlWnArdTNrK0xYSWxHL3ZvT2Zz?=
- =?utf-8?B?aGt0RFBUVkdZeGVPazNjV3VrSWhqNlU5MUtxWHFqWk9oL1ozdWY4bWRLZ2NZ?=
- =?utf-8?B?WTYvTFpEOFhnUnkydHptSEJDWjZZUjdpUytVYXJpVjZUUm9jN3MwMHowVXE1?=
- =?utf-8?B?MGg4RXllQ2pvOXNUNjZsa0M3a05ZeWNuZ2w2WjQvdDRLR3ZCUlJrWHk4VFJn?=
- =?utf-8?B?dDN6L3hJU2wxVGx4dkhkaDU1ZWlhUSt1Ym5YckNscFVQK0o4ekNPRUlmSjhu?=
- =?utf-8?B?ZmtZMmJ4emFESlFQU3R6czg2VlkvTnZmZzc0ZzcvTGRUZjVCNTFmNVhNSkRs?=
- =?utf-8?B?Y05LRmFTdno3U2QyRmJxTDBnaHduVFVrMlFrT01DU0QxT0llWHZXSzl1MXFp?=
- =?utf-8?B?bWlQTFhoMzhqVFVvTUdVVnR6QU1Nc1hvWG94eGx6MFV6MThIdHNUa1BJREtt?=
- =?utf-8?B?RWJiQmNKUFVHSE1NaTZKNzFOdWt3eXVOdDM0MkQ0VmlhZkIyZkNJOUVMMVU2?=
- =?utf-8?B?V0RmTWZoNE8yd3R1N2ZDcUVjVldIRXE3QURpT2diQ1FjbVhXSlZDVTVHTDB2?=
- =?utf-8?B?N2JYSWo0V0VZa1U0RnVmSTluV0F2S1FpL3FNR1NLQ3BuQTR0aTMrTjRFbVdu?=
- =?utf-8?B?ZFNTRGpQVkovOUNzLzl3SlMvbXE0djZwdnZQVTlIdXQxZHJkODlBTXAyZjRH?=
- =?utf-8?B?cDM1R24xL0NHdldEZTQwZ0o0SThFTkNTYlkrbnRhT2lFUTBGaTQySWFjTlRN?=
- =?utf-8?B?V0tTdFZtNmxTQnQ2RzJYWERHdWhqbHU3ZjJJWUZIWVlLVys5dkxuYWFTMVVz?=
- =?utf-8?B?Ri9SLzJwVTVWb01UN3p1MTViaEtORlE0amZFN3JqanYvNjE4b3g1SlBwaDQr?=
- =?utf-8?B?RlVTVG0vaG5ENXZBdnlsbmMvM0cwbHMwWURLLzN0K2ZIdWlxTVZlMUY3cE1o?=
- =?utf-8?B?NTdwZlZWU2kyeFdRaUpHcFFxYUVSbWF1MTducFlnamJrS3ZqR21jbGlqZXlE?=
- =?utf-8?B?ODRmNmdNTXZoTmp1Zm01SVJRRm53ekJ5S1lIVmx4d3NlSkd1ODgzeXpXM1RH?=
- =?utf-8?B?bzZjdys1ZmtDbWxTcmRqV285bW1TOFllNjlmNE94NnR4MmQvb21xRENhL1hI?=
- =?utf-8?B?UFErWUJSWTdGWXFCMGxEaURPYmhXMHZkNCsrWS9xRTVuaXUyY1oxZ1F3QTky?=
- =?utf-8?B?R2lsRVRqMVhxSVNyRm05aVJ1Ly91NUlyd0VLRzNWY2Jpem0rNGZrUkNvMnFU?=
- =?utf-8?B?T0NGTGxTWTRFU1UwK2xoUlhiNW5HemtyQU5WT0xyNy9NUW5XNDZlS09wb0Yr?=
- =?utf-8?B?SklaaWJkZHVKWStybThCWjlubmhES0o4cW1HQ0hKdHB2RE9zM3BxdWFCdk9w?=
- =?utf-8?B?TzN3ckswd3g3K0NFalpnQThpZG9iK1hoZnE3RCttaEt6bGYrQnlJc25lMUlU?=
- =?utf-8?B?bkVFNXpqQS9VUVMzWEFNOUJEc3NVUE50WS9CVGRUSzllUEVkRzdRVnR6R3hv?=
- =?utf-8?B?b1ZCNU1UdFdJM1dNdDhkNEpBa0Z6b05ob0tpUzc1ZkQzSW03R0F2UmhtWGlz?=
- =?utf-8?Q?5ZezEkVt/Vy6ud2K5Vu5+o9lM?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 930ef572-8684-4ce9-6605-08dcd47f6702
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2024 05:38:03.6179
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RgNWtZhm6K9GMDiaJPEu9zbsLyhtz2KUukudieaLav0sXHtejJUrQI3MgRHP73udCzP3OxZwLZ7bsnY3kF3G+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7836
+Content-Type: text/plain; charset=UTF8
+Content-Transfer-Encoding: 8bit
+
+The PDF specs allow for file attachments to documents. This can be used 
+to make the VIRTIO PDF spec a single source of truth by embedding 
+related files.
+
+This series attaches the virtio-queue.h header file as a proof of 
+concept. It can be inspected and extracted using a compliant PDF viewer 
+such as Adobe's or Firefox's integrated PDF reader.
+
+(Note: I'm not sure if Chrome supports it, my local version does not, 
+neither does Chromium.)
+
+Programmatically extracting files is also possible, allowing for 
+downstream projects to update their headers by accessing the upstream 
+pdf file.
+
+Example using the `pdfdetach` utility from the Xpdf package of tools 
+(`poppler-utils` package on debian/ubuntu):
+
+  $ pdfdetach -list virtio-v1.3-csd01.pdf
+  1 embedded files
+  1: virtio-queue.h
+  $ pdfdetach -save 1 virtio-v1.3-csd01.pdf
+  $ file virtio-queue.h
+  virtio-queue.h: C source, ASCII text
+
+Manos Pitsidianakis (2):
+  specvars.tex: Add \virtioauthor command
+  Embed virtio-queue.h as PDF attachment
+
+ commands-html.tex |  7 +++++++
+ commands-pdf.tex  | 10 ++++++++++
+ headerfile.tex    |  2 ++
+ specvars.tex      |  3 ++-
+ virtio.tex        |  1 +
+ 5 files changed, 22 insertions(+), 1 deletion(-)
 
 
-
-On 9/14/2024 3:03 AM, Michael S. Tsirkin wrote:
->> So Maybe it is a good chance for me to continue the "transport vq" work?
-> Transport over admin commands was envisioned more or less from day one.
-> I think it's useful.
->
-> But what Parav is asking for seems somewhat orthogonal.
-Thanks! However, admin vq is a control plane, and we are implementing
-a new transport, so IMHO an individual transport vq may make more sense.
-
-Thanks
-Zhu Lingshan
->
->
->
+base-commit: b495841a8e80d12c1130f8868f4128866291142d
+-- 
+γαῖα πυρί μιχθήτω
 
