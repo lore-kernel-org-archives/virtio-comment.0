@@ -1,330 +1,299 @@
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (mail-mw2nam12on2051.outbound.protection.outlook.com [40.107.244.51])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 729A434545
-	for <virtio-comment@lists.linux.dev>; Mon, 30 Sep 2024 05:45:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.244.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1727675154; cv=fail; b=XRCDk7tK2PSiKTXy478V5OM+3vuADCt3n53+iu4GV+Wj7TSk0PjQEmXMOOICg4TkBc1OL4wcKpwQvYsxHZqeGdXBqZbv+u2gGOBISysLv8ebHY7MrZhr1JCPqGbZmdSnj0O6Lpr8GSPJpWRSFGY/Ir/SDLX2L+peBC8z8EwabaI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1727675154; c=relaxed/simple;
-	bh=c2gTBDZYJrm2meLf2oNjH5wDItecxN7fIa4hmsKsY8o=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=j3VyITCumKrECaNPszckqEDgKWhWqLbhmm3D0zFTSS6V9O2YFQt33Jl6ace1m0hjmhOi4i/smv99Iq5T0xTEbtT6FDx5yp1RX90OofP3quEblHx5CSxMjsLHKoJfieUkLicioQ8l4/yoFBk32368vacm7sOjFPgcmBmPKYqbcpo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=urTzWZWZ; arc=fail smtp.client-ip=40.107.244.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 963E47462
+	for <virtio-comment@lists.linux.dev>; Mon, 30 Sep 2024 06:30:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1727677858; cv=none; b=ITyrb22CdiVe8D4Nz3o4f+fCTJllZEkvKbV2Oy/fo9PxPMzLM+B0Ew6MTYZaK86If80yJqaBAWhdms8AGMt4gJPWsI/10BpuOn/aN1SaTe3YMVGI4pe/mGyMABGS3iP7O+wIN1QNRmQnrzgzbsLS7bJramCMaoEbRbmZ854ayu4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1727677858; c=relaxed/simple;
+	bh=tzOTydUxFBvKqLKYOCwuI4kJ9al5ZbobNGIkPGfKnUU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=uXyenEAnsWyHFK9iAxcEh3oSNN55E4pFWCuvVhueNRg29xz8qyxjd4K6952uWsN+R9TH3r2DIJG1a6PpeqpBX375h4MZbFkHnpm5uh/Fk3BEMk/KU9AzaXpXs8f2q4OA0io7b1Oinj4SX8RaEpGAXWAKgbuc1XL41OaZ3pQOBZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LEyNzZFY; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="urTzWZWZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hu+zCCnrp4RJiMm3Rty/4VZwP14eBEERacgLxpskMSHaEIFhsh/l6XULqm6cTl9flh+wPe6eiPKB18DQo9S34MNeQaK7tIeaD/FO/tpxIoCzQ+uIVJ2AgM6X1XaNupCU4cxFBPHKFOFs9OpUKsAixGyPBP8+e1d2hCn4BhmfuJCGBXv+z8Jp0KpCp+04Jt+coZJlXV0EqRLhPAnZyjLF4HVUxxFuQJZawN3z4tlqoEQ/qFamrMyj9psczLsx1XaCdMxtK3tUfui7ln5RrXYXI+2nfnVqWckJxF/yT9J71IvLxDf2vWu4lJIMSU93EXxEhbsnbZUB6qiabTwBvijusQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c2gTBDZYJrm2meLf2oNjH5wDItecxN7fIa4hmsKsY8o=;
- b=bPP3DCXtHRtAgtvg5U3Ob62Uz1NHgKsNLkNYaK2PreV9DLxjzSg37hYlfb1mwHneyl2ZcD800vpsrg87JBx1pYxPHwI3/+3sJssQhc+sowyuIbdEdsX/TADUWvl/oXpz7HEwOMg5kvncAnydb+fOd0ejhV84XK80rvdz/N0u2OIVQWzgo0SBuiPNkPo3FUJ3bsG0Xvhvla8plSHoBREN3uwmthM/TEHd6DCHxsifp42dBKr34a3f4osTRmMuLyjtgNGiltrC+/31yK4ZGQ6fgW03hOTQmRlHq92CcnNd5SsOX1bQwgebCtWj/DhVlDPDP5IukifOPJPDzoKHLtfa7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c2gTBDZYJrm2meLf2oNjH5wDItecxN7fIa4hmsKsY8o=;
- b=urTzWZWZfMSJDaMXsbdu7DvgwVhbQFUibKKmzFNI9oCUsjOTmAe/9XdM2oAbsIOQQejcYyEqdCtwg00FXq3xGAFYZOFH2sOSJ2A526TV13QiMjEapw/hcDi86OxCTkGd0GZqjiU7vUL2us2qo9M8SovDz+Ai3gWvtuzssgXs13edjf0bWFCNRqW+R9ESEXVd6s4GtpoUO4+cPEFdSmX3har48nEpaCN1dy/NrQgPJtBKyAEW7p545xIlDCDA3K2XLVPxC7cARnUO6kOjptuajOF9JNZViNujcWnb/TRTKNNbIyFEXwdURHTyAVW/CxIkoMuNc+uB3ZewATdrGQnY8A==
-Received: from IA0PR12MB8713.namprd12.prod.outlook.com (2603:10b6:208:48e::7)
- by DS7PR12MB5960.namprd12.prod.outlook.com (2603:10b6:8:7f::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.27; Mon, 30 Sep
- 2024 05:45:49 +0000
-Received: from IA0PR12MB8713.namprd12.prod.outlook.com
- ([fe80::9fc9:acc2:bdac:a04a]) by IA0PR12MB8713.namprd12.prod.outlook.com
- ([fe80::9fc9:acc2:bdac:a04a%5]) with mapi id 15.20.8005.024; Mon, 30 Sep 2024
- 05:45:49 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
-CC: "mie@igel.co.jp" <mie@igel.co.jp>
-Subject: RE: [PATCH v2] transport-pci: Add MSI support
-Thread-Topic: [PATCH v2] transport-pci: Add MSI support
-Thread-Index: AQHa1GQcei6pRdOtb0GPJtG5wpOXbrIGIlyAgD+6JACAKnGJ4A==
-Date: Mon, 30 Sep 2024 05:45:48 +0000
-Message-ID:
- <IA0PR12MB8713D97523757F1FDD6D3525DC762@IA0PR12MB8713.namprd12.prod.outlook.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LEyNzZFY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1727677855;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LikbfEQa58WLAo42TTLRny1gwpBNO/gageQZcD/ZcMc=;
+	b=LEyNzZFYdiBHDA4asxS/5qKqtgdUzkJnTyyqD1mFUtviK8WcZIWfnmoiJLqT3bDphzk9wA
+	aRDgipXWtJ9yydl0JfjlsWcA9D+On8CGV2o18UuAVof9digL8Vt7T2J5luwunt1Tweq5Zu
+	HKJHSzzZ9ZQLPc/YhzH6diUO6vWScQk=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-626-PyXz71i6MPWFUmr3IFDaeQ-1; Mon, 30 Sep 2024 02:30:54 -0400
+X-MC-Unique: PyXz71i6MPWFUmr3IFDaeQ-1
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-37cd32f9c59so1153345f8f.1
+        for <virtio-comment@lists.linux.dev>; Sun, 29 Sep 2024 23:30:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727677853; x=1728282653;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LikbfEQa58WLAo42TTLRny1gwpBNO/gageQZcD/ZcMc=;
+        b=BC2nRuaApL3FFGgcL7PNMrhi36DFMz8txCk4rxIm0vXJuuXRL60k51adk7lUtwAcIq
+         7JSZqqltyXusp6KecSdyqgQBuJDWbTl8BK8QbwRlSHHV/n25zpHnbCrzAC7LJHqKZnbW
+         qqt3m6hh7BN9YXqeR3ijezpABjZPfXDGcBgesm8rmGv10Jn5xZ4EAGdMenmThdV3hAx2
+         ub4M7P6pcT6MezVDLypSSG4B//HvsGwoO93qjTx4XIVX/DErlhkeQgKgxVXruL80pkG6
+         KZ1fDkzEqtht0iUZ/qsRaC8L2M2grCkuLYzviUmBEsoYw27rvyPaJdJucpNSOAhrjAq3
+         rSBA==
+X-Forwarded-Encrypted: i=1; AJvYcCUa1G1xcpzDEEPIRz3LRCJy7uvUbs5u59DVgpdS7k4FomvhmWzB8EB7Lli6MFp41zFlWJkVdhULu+1afoOZJg==@lists.linux.dev
+X-Gm-Message-State: AOJu0YwhzKAZZkMEwmwp9VRsN/d0W2QYPmhfpVTSxYR9vgbetxdayJnc
+	DFH5Otw6CmfuRq03D9H+5eTlDzuvtQjNni43IPVVkumQYJBtNfcWgfN+gvGvzSoBes4jiUZTgEB
+	Bx//Ghh4oL/uckj2Tq7k3BP+zHawzBuEFTdKL7PEofh2xz4QfYOa2I5UfkZfVoLcq
+X-Received: by 2002:a5d:4bc6:0:b0:37c:cdcd:689e with SMTP id ffacd0b85a97d-37cd5aec7acmr5430963f8f.31.1727677852888;
+        Sun, 29 Sep 2024 23:30:52 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEdFimdoop/uOc/LNq7IytTD/tYpXKtcxG0NO9HiEs6JMtDfUx84UdD+kAwTFD/SSwjVP4V+w==
+X-Received: by 2002:a5d:4bc6:0:b0:37c:cdcd:689e with SMTP id ffacd0b85a97d-37cd5aec7acmr5430943f8f.31.1727677852345;
+        Sun, 29 Sep 2024 23:30:52 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc7:55d:ca3b:807c:fdd2:f46d:60e7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-37cd572fd9asm8221855f8f.75.2024.09.29.23.30.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 29 Sep 2024 23:30:51 -0700 (PDT)
+Date: Mon, 30 Sep 2024 02:30:49 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+	"mie@igel.co.jp" <mie@igel.co.jp>
+Subject: Re: [PATCH v2] transport-pci: Add MSI support
+Message-ID: <20240930022818-mutt-send-email-mst@kernel.org>
 References: <20240712140144.12066-1-manivannan.sadhasivam@linaro.org>
- <20240724162143.GH3349@thinkpad> <20240903053218.7lapwvllgz4xk4se@thinkpad>
-In-Reply-To: <20240903053218.7lapwvllgz4xk4se@thinkpad>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA0PR12MB8713:EE_|DS7PR12MB5960:EE_
-x-ms-office365-filtering-correlation-id: eb6daa1f-d9f3-4f58-746a-08dce113232c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?NXB5bmNHNE1rdEc5WTRCVTNoaGk0OHo5ZUNnWms4RjVLR25EVEFOTDY0ZmFh?=
- =?utf-8?B?VHJVMUpaZHVDVHc5QldDVlVxRE96TUNiK2NOZGlhWEJkZG8wSUk0TjIxVmcv?=
- =?utf-8?B?Y05hcnlLYjBranl0eW5WQjVHZXZrb3VLSGtNa1RvbnAyNytxLzUzODQxY1hH?=
- =?utf-8?B?NnZRK0FqVmxHbnFpYXEwcHFFY0dwSFVpL2dsZFZjQ2NBM29JWWtzY0gxbDg5?=
- =?utf-8?B?b0dqQ3lOQzZLWmN1bWFmWWxXeEJHTjJDOUdaa3duUzhEUVNFbnhuUUlpbzBS?=
- =?utf-8?B?Q1Q0Wk9NV00yOG8zaHA3WE5xYkl4RENMejNCNXNwN1F3ajgvNTZ6bi90dThC?=
- =?utf-8?B?TTNmY0RVc0g2d3J1dTNWekJaOVAzc0ptUVJra0orRStIVnNOZ2hnTzVpWGJr?=
- =?utf-8?B?WURWSXE0VlB0Z0dLRzY1VlRuQjJHcUxYUEdxMkR5a2QzMGRNTTlmMTNmL3Ev?=
- =?utf-8?B?UGNCV1dHQ1lOakdHbXBydWRPUS8ySWVPWDB5d2lZZVpTcC93azhGNFY5MTkw?=
- =?utf-8?B?eDhVZjNpZjBIS1Jmb3JFS2tFK1FMejNMaUdNQ0svMmQ4blorcnM2VnM1b1lE?=
- =?utf-8?B?KzUzTFUzaDF2aVg3Qm9qRkpXcDFkeXlueGF4ZTAvNEx6bXB2ZVQzeDd6ZEZX?=
- =?utf-8?B?WjN1OGJWa3VxZTlBSDNPaEFzY3VWOGNZQW9LeUFUMXFwYjd5aEtqUFJsaDBN?=
- =?utf-8?B?N3BXS21jS2xsdkpwdGtjUmZCOVlMUU0vcG4zVDZaWThVcFBiaDQzTE9NdGZ3?=
- =?utf-8?B?cXFTTmt4NjZveFc4Sm9XRkZZSWViWVlFV3A1OXFKT1IvZkpkYzVGdzdyT3dR?=
- =?utf-8?B?anNPa24rd3Jxb2xBd2wrUmVNQlVoMkpPNjVWcE0rcU9DTG1HSzNyMWdpYXU2?=
- =?utf-8?B?bURlTTBJaHBFUWxBRHFYT0VqWlRraS9wTWV3NHg5d3pWd0ZDbGpzZnQ1ejZj?=
- =?utf-8?B?dThQWU5WR01oS1hpQkVHaVhvRi9UWThwSHB5WmZ0VWlOakVxdUt2S3JGMnda?=
- =?utf-8?B?ckF6b1k3S1VJZmE1aDYyK0JKa0JpaHBROTY1djUyRHdRMCt5Yy85bTBFMDlk?=
- =?utf-8?B?blk4V0RWSUkyNkVhQ0tucXYzTEpHM0lUYVUvSU5sSU53V2V6VlVmTUt2R1Iz?=
- =?utf-8?B?VVdaRXY4Mk91OXVtL1NlWFpXa2grdXBidzVUU1daVmJSeUxHNzgydjR4ZXVE?=
- =?utf-8?B?T0VxM21Ca2pIb0JtS1lkRUNNSWFJb0p6S2lJSXhvVE40eUVGbjF3MkwwQUZa?=
- =?utf-8?B?Q1JuV0JPY3NWTzlGNEV4cDJtakVGT1JtZThCWFFVcWwybE9CdHRXaTE1OWIv?=
- =?utf-8?B?a0svaEZrL3NNeUNaVzNGSm9FbjJoajd4REJQME5obFNWOFpHQkJqMGtoKzdw?=
- =?utf-8?B?SG9VS1FKQTdtUEd1bitKQ1p3cnBXUHVzeWlwSmtqKzNsZGl3V1FmMC80VGNL?=
- =?utf-8?B?NmYxQ05iMGhDRnNvcUdKUnJTaFVMSGRNaEJTK3BLR25LZ2FZdU42bFFIdE5t?=
- =?utf-8?B?VlBwVWo5WlJiRnlYMnY4cWhRZlpxZ1NqZFRRWEQzUnV3akVxUHBvUjBZQkFU?=
- =?utf-8?B?WE9odVpLQVRaQXJkTkFOc25FUFYwTU9Hems4VHN1MWZzUWFuc3AwR1lLQWxF?=
- =?utf-8?B?cDZZUFNvbUUxNXdyd2ZBVTBEbzRBMnl5akFQNEVsZGhCMUxBdkh4SzVOaDh1?=
- =?utf-8?B?bVNpb211TVpqVmpUdWFrSkY4OVFYNjFkaEhNVUhoeU85NTNHQVlxTDhxdE9J?=
- =?utf-8?B?SGgzcTdRb1ZiSW5hMVFaUGdaVXQ0ZE0yZkkzK2Z0VXloSnFscmVtVnJnR2lm?=
- =?utf-8?B?bnJWTkZTdFUzTVhkMkRQdz09?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8713.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?ckNzcmhsWm5NM2xnYjV4cnVLNjQ0K3NNdXhqOTJhUjYzM09Ea0piWVVYVmpW?=
- =?utf-8?B?ZU44aGhPdmd3MEtRSTFvYmJWVFBGTkh6bjVHWnVDMnFVTmZvN1dzb0xuRHIx?=
- =?utf-8?B?SEZSUEdpQ3NKdkhaTFZ5WjF6MDBuWTJjL0QvR2svVHlNTlNUQXBweTJMV1J2?=
- =?utf-8?B?bUIrNHMvbTVMNVpwZFZDMU5QdnNDOWo2aENvenJaM29uVHFieExETjRBaEEr?=
- =?utf-8?B?bWtXWjJVbDYrUjBiWXpQb1U1ZGpaK3RhR091em0yQWhvd3dDZG51eU85c3c0?=
- =?utf-8?B?aGZzeTdqWlBmYkJvczh0TWl6S3RCN2p2L3lyYXhCSGtlcGhESDJZM0tLZW9E?=
- =?utf-8?B?Wnc5SDE3cjM4STBmaHBKTDJUMGdkRlpnTHBxbUdBNE0rZXoyK1U0TTkrVjR3?=
- =?utf-8?B?aGhjcitxNmJBazBHTHlrYnhzUjFTRVlYSklVWnp6VG5kakhOWTZQejVUdXhs?=
- =?utf-8?B?Y3l6MTR3b29scWEzaDBUcmJFTlQ5Q085Z3pKUUxkVG5yQ3hTYTFCN3UxbXVV?=
- =?utf-8?B?T3E0VmQ3Mlk2czBadER6eng2N0VncU94ZG1pZWRqYitEbFU0UUlsNVJQZUor?=
- =?utf-8?B?aHh2eFBkMHdwSUJUczdRUlEzcDZCMXZNVFNMNzFrenJnMDE3M0xlUkdKei9a?=
- =?utf-8?B?eEdua0ZxTy9KajNxcEp0bWRtTFhXR0JRY1dTMCtrYzVBUkx0SkR6VWYyTWtl?=
- =?utf-8?B?RUZnamY1czlPcWkzaUFQZnUyUXpoNDZYR3NEeWJmNkFwZW90NDkzSmxIdi9G?=
- =?utf-8?B?bXZoSitCL3UzQlJyVXZEZlB3MVNnbGJoanVXQWI3NjVqeGtLYm1ZTHVvQlVL?=
- =?utf-8?B?Qnc2dEZ2UFFrZHVFeVpwc1NkMmd4U1V2Wis2MTVwSk1HT2l6V2tEV2VUZUQw?=
- =?utf-8?B?UnVSTW0zNW50aVE4cHQxS1doR21QS1l0STRObVdlSTVENkMveFRrY1YzeDgy?=
- =?utf-8?B?Q3JWMVlYY0ptWHlyck82N1A0SkEyRGRabXdjYXRYRlYwSWd4bEc3bHR6enJH?=
- =?utf-8?B?SFJnWWg2RDF1bkEzR2dvTHdscEtLQW03WkNUY3NwcmpnTktVZmg0RFVHS294?=
- =?utf-8?B?T0NBVVRnQytiWGRzSURoOG1Zem45RzZYNlpaRGVqT0NEOE5CQ3hFU3FGOUVp?=
- =?utf-8?B?TFFLZGlZNk5hSDB6WWZwNnFDVW10S0VUdWd3ZVJ2bGJFYmszLzlRSlQzUGVD?=
- =?utf-8?B?bHlBa1RnY1k0djYwL0s0cjJnUHZHTmxsZHpXa2J5M1MvcUNRaU9hUlZSOGxt?=
- =?utf-8?B?WWtpZFljUFBoQmUreDNzU3VxL1B6M2tjZXQ1cUZVS1JZWmZQVTI5b0MyR0hP?=
- =?utf-8?B?eWdzT251T2k2Y3djbGhFbm9FTWJPcGI4Rm1DcXltTmVQQU50KzV5Ymp1WXE2?=
- =?utf-8?B?NDYwR3c4MEFKdkhoOEZ6N3JsQkhGcEdkeEk2MUJnMW43RGV1eUdmcHBCS0x1?=
- =?utf-8?B?ajlFeXB2cTJOcFd2alZoT1ZBUWh0S1JPZjFSZ0lMa1lQcExlcVg5eC9VWG9K?=
- =?utf-8?B?L2Y0a0ZPdER6YnEvRzQ5azBqQ1ZyK0RWOXNlRkoxelcxNTNnTzBWbHl0dlhi?=
- =?utf-8?B?SDk2K1pFSEJQSlNuSS9xeHJOTGhiTXdXMVRGY21WbUhORWd0RTVPMk1JamFO?=
- =?utf-8?B?UUpleVRsQnpQWEExZlNjWVJDbHB5VXJpK3BhOUp1K3FtcytlOFVZSFlaS2tS?=
- =?utf-8?B?ckh3MGM4OFBMcExGRHdyTWVDZUJSN29ZTjVSbTRHVk1TaXNad0pQZXZqYmk1?=
- =?utf-8?B?VTdieE4xOFhJeDVZdFhPUHJBRE9ScWNCSFRReXhOQVlOR2xBVklSM0NwMis3?=
- =?utf-8?B?eXgwSHR3Q3dUdEdxeVlMWkZubW1TUEY2WGxUazdsUFMvYVNITnFmUFZQOGN1?=
- =?utf-8?B?ck94bFBzTlY0Z2p4MnZIR3N4S2w1aTFMWThRT2YybUxHQmFJd0JqalAvaDEw?=
- =?utf-8?B?SEVBaEZCTWhma0RCUXN5QUVwc1hoVGVpdURsemFYOHhXTVZ0VTZ6Q3I2VWM5?=
- =?utf-8?B?YkF3V2pNWmE4WjZGVzl4Z0ZSbGpwa2VtcUpmakJyWTNzTlJhRkV3bzVBdWdx?=
- =?utf-8?B?TnNoeFRVWlRBRFZKZzNzYW5aWnJNa3Y3SHJPeml4anNGSHZQbmVRQ3FMTzlG?=
- =?utf-8?Q?fGSM=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ <20240724162143.GH3349@thinkpad>
+ <20240903053218.7lapwvllgz4xk4se@thinkpad>
+ <IA0PR12MB8713D97523757F1FDD6D3525DC762@IA0PR12MB8713.namprd12.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8713.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb6daa1f-d9f3-4f58-746a-08dce113232c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2024 05:45:48.9986
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rLVkzC3kMMnlF+gLM7vE8pVRp1P/Fl1irQ11jTHBZRR8/HpkIsOLJxUKmwEq+xHp0MANtW7Kej/VX7p8YgRz4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5960
+In-Reply-To: <IA0PR12MB8713D97523757F1FDD6D3525DC762@IA0PR12MB8713.namprd12.prod.outlook.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-DQoNCj4gRnJvbTogTWFuaXZhbm5hbiBTYWRoYXNpdmFtIDxtYW5pdmFubmFuLnNhZGhhc2l2YW1A
-bGluYXJvLm9yZz4NCj4gU2VudDogVHVlc2RheSwgU2VwdGVtYmVyIDMsIDIwMjQgMTE6MDIgQU0N
-Cj4gDQo+IE9uIFdlZCwgSnVsIDI0LCAyMDI0IGF0IDA5OjUxOjQzUE0gKzA1MzAsIE1hbml2YW5u
-YW4gU2FkaGFzaXZhbSB3cm90ZToNCj4gPiBPbiBGcmksIEp1bCAxMiwgMjAyNCBhdCAwNzozMTo0
-NFBNICswNTMwLCBNYW5pdmFubmFuIFNhZGhhc2l2YW0gd3JvdGU6DQo+ID4gPiBNU0kgaXMgdGhl
-IHByZWRlY2Vzc29yIG9mIE1TSS1YIHRoYXQgYWxsb3dzIFBDSWUgZGV2aWNlcyB0byBzZW5kDQo+
-ID4gPiBpbnRlcnJ1cHRzIHRvIHRoZSBob3N0LiBDb21wYXJlZCB0byBNU0ktWCwgTVNJIHN1cHBv
-cnRzIG9ubHkgYQ0KPiA+ID4gbWF4aW11bSBvZiAzMiB2ZWN0b3JzIHBlciBQQ0llIGZ1bmN0aW9u
-LiBCdXQgTVNJIGhhcyBiZWVuIHdpZGVseQ0KPiA+ID4gc3VwcG9ydGVkIGJ5IHRoZSBQQ0llIGRl
-dmljZXMgcmVxdWlyaW5nIGZld2VyIGludGVycnVwdHMgc3VjaCBhcw0KPiBNb2RlbXMsIFdMQU4g
-Y2FyZHMgZXRjLi4uDQo+ID4gPg0KPiA+ID4gQ3VycmVudGx5LCBWaXJ0aW8gc3BlYyBvbmx5IGRv
-Y3VtZW50cyBNU0ktWCBhbmQgSU5UWCBpbnRlcnJ1cHQNCj4gPiA+IG1lY2hhbmlzbXMgZm9yIHRo
-ZSBQQ0kgdHJhbnNwb3J0LiBTbyBpZiBhIFZpcnRpbyBkZXZpY2UgYmFzZWQgb24gUENJDQo+ID4g
-PiB0cmFuc3BvcnQgc3VwcG9ydHMgb25seSBNU0ksIHRoZW4gdGhlIGRyaXZlciBvbiB0aGUgZ3Vl
-c3Qgd2lsbCBvbmx5DQo+ID4gPiB1c2UgSU5UWCBmb3IgcmVjZWl2aW5nIHRoZSBpbnRlcnJ1cHRz
-LiBUaGlzIGlzIHJlYWxseSBzdWItb3B0aW1hbA0KPiA+ID4gYW5kIGFmZmVjdHMgdGhlIHBlcmZv
-cm1hbmNlIG9mIHRoZSBkZXZpY2UuIEJlY2F1c2Ugd2l0aCBNU0ksIHRoZQ0KPiA+ID4gZGV2aWNl
-IGNhbiB1c2Ugb25lIHZlY3RvciBwZXIgcXVldWUgKG1heCBvZiAzMiB2ZWN0b3JzKSB0aHVzDQo+
-ID4gPiBhdm9pZGluZyB0aGUgb3ZlcmhlYWQgYXNzb2NpYXRlZCB3aXRoIGEgc2hhcmVkIElOVFgg
-dmVjdG9yLg0KPiA+ID4NCj4gPiA+IEhlbmNlLCBhZGQgc3VwcG9ydCBmb3IgTVNJIHRvIHRoZSBW
-aXJ0aW8gUENJIHRyYW5zcG9ydC4gTVNJIHN1cHBvcnQNCj4gPiA+IGlzIGFkZGVkIHN1Y2ggYSB3
-YXkgdGhhdCBpdCByZXVzZXMgdGhlIGV4aXN0aW5nIGluZnJhc3RydWN0dXJlIG9mDQo+ID4gPiBN
-U0ktWCwgbGlrZSB0aGUgY29uZmlnX21zaXhfdmVjdG9yL3F1ZXVlX21zaXhfdmVjdG9yIGZpZWxk
-cyBvZiB0aGUNCj4gPiA+IFZpcnRpbyBjb21tb24gY29uZmlnIHN0cnVjdHVyZS4gVGhpcyBtYWtl
-cyBpdCBlYXN5IGZvciB0aGUgVmlydGlvDQo+ID4gPiBkcml2ZXJzIHRvIGFkZCBNU0kgc3VwcG9y
-dCB3aXRob3V0IGFueSBkaXNydXB0aXZlIGNoYW5nZXMuDQo+ID4gPg0KPiA+DQo+ID4gR2VudGxl
-IHBpbmchDQo+ID4NCj4gDQo+IFBpbmcgYWdhaW4uIFZpcnRpbyBtYWludGFpbmVycywgY2FuIHlv
-dSBwbGVhc2Ugc2hhcmUgc29tZSBmZWVkYmFjaz8NCj4NCk92ZXJhbGwgbG9va3MgdG8gbWUuDQpB
-IHNtYWxsIGNvbW1lbnQgYmVsb3cgb24gc2luZ2xlIE1TSSB2ZWN0b3IuDQoNCiANCj4gLSBNYW5p
-DQo+IA0KPiA+IC0gTWFuaQ0KPiA+DQo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBNYW5pdmFubmFuIFNh
-ZGhhc2l2YW0NCj4gPiA+IDxtYW5pdmFubmFuLnNhZGhhc2l2YW1AbGluYXJvLm9yZz4NCj4gPiA+
-IC0tLQ0KPiA+ID4NCj4gPiA+IENoYW5nZXMgaW4gdjI6DQo+ID4gPg0KPiA+ID4gKiBGaXhlZCBh
-IHNwZWxsaW5nIG1pc3Rha2UgaW4gY29tbWl0IG1lc3NhZ2UNCj4gPiA+ICogUmVtb3ZlZCB1cGRh
-dGUgdG8gbGVnYWN5IGludGVyZmFjZQ0KPiA+ID4gKiBVc2VkICdNU0kgdmVjdG9yJyBjb25zaXN0
-ZW50bHkNCj4gPiA+DQo+ID4gPiAgdHJhbnNwb3J0LXBjaS50ZXggfCAxMTUNCj4gPiA+ICsrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0NCj4gPiA+ICAxIGZpbGUg
-Y2hhbmdlZCwgOTIgaW5zZXJ0aW9ucygrKSwgMjMgZGVsZXRpb25zKC0pDQo+ID4gPg0KPiA+ID4g
-ZGlmZiAtLWdpdCBhL3RyYW5zcG9ydC1wY2kudGV4IGIvdHJhbnNwb3J0LXBjaS50ZXggaW5kZXgN
-Cj4gPiA+IGE1YzY3MTkuLmZkOTI2NDEgMTAwNjQ0DQo+ID4gPiAtLS0gYS90cmFuc3BvcnQtcGNp
-LnRleA0KPiA+ID4gKysrIGIvdHJhbnNwb3J0LXBjaS50ZXgNCj4gPiA+IEBAIC0zNDcsNyArMzQ3
-LDcgQEAgXHN1YnN1YnNlY3Rpb257Q29tbW9uIGNvbmZpZ3VyYXRpb24gc3RydWN0dXJlDQo+IGxh
-eW91dH1cbGFiZWx7c2VjOlZpcnRpbyBUcmFuc3BvcnQNCj4gPiA+ICAgICAgICAgIERyaXZlciBG
-ZWF0dXJlIEJpdHMgc2VsZWN0ZWQgYnkgXGZpZWxke2RyaXZlcl9mZWF0dXJlX3NlbGVjdH0uDQo+
-ID4gPg0KPiA+ID4gIFxpdGVtW1xmaWVsZHtjb25maWdfbXNpeF92ZWN0b3J9XQ0KPiA+ID4gLSAg
-ICAgICAgU2V0IGJ5IHRoZSBkcml2ZXIgdG8gdGhlIE1TSS1YIHZlY3RvciBmb3IgY29uZmlndXJh
-dGlvbiBjaGFuZ2UNCj4gbm90aWZpY2F0aW9ucy4NCj4gPiA+ICsgICAgICAgIFNldCBieSB0aGUg
-ZHJpdmVyIHRvIHRoZSBNU0kvTVNJLVggdmVjdG9yIGZvciBjb25maWd1cmF0aW9uIGNoYW5nZQ0K
-PiBub3RpZmljYXRpb25zLg0KPiA+ID4NCj4gPiA+ICBcaXRlbVtcZmllbGR7bnVtX3F1ZXVlc31d
-DQo+ID4gPiAgICAgICAgICBUaGUgZGV2aWNlIHNwZWNpZmllcyB0aGUgbWF4aW11bSBudW1iZXIg
-b2YgdmlydHF1ZXVlcyBzdXBwb3J0ZWQNCj4gaGVyZS4NCj4gPiA+IEBAIC0zNzEsNyArMzcxLDcg
-QEAgXHN1YnN1YnNlY3Rpb257Q29tbW9uIGNvbmZpZ3VyYXRpb24gc3RydWN0dXJlDQo+IGxheW91
-dH1cbGFiZWx7c2VjOlZpcnRpbyBUcmFuc3BvcnQNCj4gPiA+ICAgICAgICAgIEEgMCBtZWFucyB0
-aGUgcXVldWUgaXMgdW5hdmFpbGFibGUuDQo+ID4gPg0KPiA+ID4gIFxpdGVtW1xmaWVsZHtxdWV1
-ZV9tc2l4X3ZlY3Rvcn1dDQo+ID4gPiAtICAgICAgICBTZXQgYnkgdGhlIGRyaXZlciB0byB0aGUg
-TVNJLVggdmVjdG9yIGZvciB2aXJ0cXVldWUgbm90aWZpY2F0aW9ucy4NCj4gPiA+ICsgICAgICAg
-IFNldCBieSB0aGUgZHJpdmVyIHRvIHRoZSBNU0kvTVNJLVggdmVjdG9yIGZvciB2aXJ0cXVldWUN
-Cj4gbm90aWZpY2F0aW9ucy4NCj4gPiA+DQo+ID4gPiAgXGl0ZW1bXGZpZWxke3F1ZXVlX2VuYWJs
-ZX1dDQo+ID4gPiAgICAgICAgICBUaGUgZHJpdmVyIHVzZXMgdGhpcyB0byBzZWxlY3RpdmVseSBw
-cmV2ZW50IHRoZSBkZXZpY2UgZnJvbSBleGVjdXRpbmcNCj4gcmVxdWVzdHMgZnJvbSB0aGlzIHZp
-cnRxdWV1ZS4NCj4gPiA+IEBAIC02MzEsMTEgKzYzMSwxMSBAQCBcc3Vic3Vic2VjdGlvbntJU1Ig
-c3RhdHVzDQo+ID4gPiBjYXBhYmlsaXR5fVxsYWJlbHtzZWM6VmlydGlvIFRyYW5zcG9ydCBPcHRp
-b25zIC8gVmlydGkgIGluDQo+ID4gPiBcZmllbGR7SVNSIHN0YXR1c30gYmVmb3JlIHNlbmRpbmcg
-YSBkZXZpY2UgY29uZmlndXJhdGlvbiAgY2hhbmdlDQo+IG5vdGlmaWNhdGlvbiB0byB0aGUgZHJp
-dmVyLg0KPiA+ID4NCj4gPiA+IC1JZiBNU0ktWCBjYXBhYmlsaXR5IGlzIGRpc2FibGVkLCB0aGUg
-ZGV2aWNlIE1VU1Qgc2V0IHRoZSBRdWV1ZQ0KPiA+ID4gK0lmIE1TSS9NU0ktWCBjYXBhYmlsaXR5
-IGlzIGRpc2FibGVkLCB0aGUgZGV2aWNlIE1VU1Qgc2V0IHRoZSBRdWV1ZQ0KPiA+ID4gIEludGVy
-cnVwdCBiaXQgaW4gXGZpZWxke0lTUiBzdGF0dXN9IGJlZm9yZSBzZW5kaW5nIGEgdmlydHF1ZXVl
-DQo+ID4gPiBub3RpZmljYXRpb24gdG8gdGhlIGRyaXZlci4NCj4gPiA+DQo+ID4gPiAtSWYgTVNJ
-LVggY2FwYWJpbGl0eSBpcyBkaXNhYmxlZCwgdGhlIGRldmljZSBNVVNUIHNldCB0aGUgSW50ZXJy
-dXB0DQo+ID4gPiBTdGF0dXMNCj4gPiA+ICtJZiBNU0kvTVNJLVggY2FwYWJpbGl0eSBpcyBkaXNh
-YmxlZCwgdGhlIGRldmljZSBNVVNUIHNldCB0aGUNCj4gPiA+ICtJbnRlcnJ1cHQgU3RhdHVzDQo+
-ID4gPiAgYml0IGluIHRoZSBQQ0kgU3RhdHVzIHJlZ2lzdGVyIGluIHRoZSBQQ0kgQ29uZmlndXJh
-dGlvbiBIZWFkZXIgb2YNCj4gPiA+IHRoZSBkZXZpY2UgdG8gdGhlIGxvZ2ljYWwgT1Igb2YgYWxs
-IGJpdHMgaW4gXGZpZWxke0lTUiBzdGF0dXN9IG9mDQo+ID4gPiB0aGUgZGV2aWNlLiAgVGhlIGRl
-dmljZSB0aGVuIGFzc2VydHMvZGVhc3NlcnRzIElOVFwjeCBpbnRlcnJ1cHRzDQo+ID4gPiB1bmxl
-c3MgbWFza2VkIEBAIC02NDUsNyArNjQ1LDcgQEAgXHN1YnN1YnNlY3Rpb257SVNSIHN0YXR1cw0K
-PiA+ID4gY2FwYWJpbGl0eX1cbGFiZWx7c2VjOlZpcnRpbyBUcmFuc3BvcnQgT3B0aW9ucyAvIFZp
-cnRpDQo+ID4gPg0KPiA+ID4gIFxkcml2ZXJub3JtYXRpdmV7XHBhcmFncmFwaH17SVNSIHN0YXR1
-cyBjYXBhYmlsaXR5fXtWaXJ0aW8NCj4gPiA+IFRyYW5zcG9ydCBPcHRpb25zIC8gVmlydGlvIE92
-ZXIgUENJIEJ1cyAvIFBDSSBEZXZpY2UgTGF5b3V0IC8gSVNSDQo+ID4gPiBzdGF0dXMgY2FwYWJp
-bGl0eX0NCj4gPiA+DQo+ID4gPiAtSWYgTVNJLVggY2FwYWJpbGl0eSBpcyBlbmFibGVkLCB0aGUg
-ZHJpdmVyIFNIT1VMRCBOT1QgYWNjZXNzDQo+ID4gPiArSWYgTVNJL01TSS1YIGNhcGFiaWxpdHkg
-aXMgZW5hYmxlZCwgdGhlIGRyaXZlciBTSE9VTEQgTk9UIGFjY2Vzcw0KPiA+ID4gIFxmaWVsZHtJ
-U1Igc3RhdHVzfSB1cG9uIGRldGVjdGluZyBhIFF1ZXVlIEludGVycnVwdC4NCj4gPiA+DQo+ID4g
-PiAgXHN1YnN1YnNlY3Rpb257RGV2aWNlLXNwZWNpZmljIGNvbmZpZ3VyYXRpb259XGxhYmVse3Nl
-YzpWaXJ0aW8NCj4gPiA+IFRyYW5zcG9ydCBPcHRpb25zIC8gVmlydGlvIE92ZXIgUENJIEJ1cyAv
-IFBDSSBEZXZpY2UgTGF5b3V0IC8NCj4gPiA+IERldmljZS1zcGVjaWZpYyBjb25maWd1cmF0aW9u
-fSBAQCAtMTAxNyw3ICsxMDE3LDcgQEANCj4gPiA+IFxzdWJzdWJzZWN0aW9ue0RldmljZSBJbml0
-aWFsaXphdGlvbn1cbGFiZWx7c2VjOlZpcnRpbyBUcmFuc3BvcnQNCj4gPiA+IE9wdGlvbnMgLyBW
-aXJ0aSAgXGRyaXZlcm5vcm1hdGl2ZXtcc3VicGFyYWdyYXBofXtNU0ktWCBWZWN0b3INCj4gPiA+
-IENvbmZpZ3VyYXRpb259e1ZpcnRpbyBUcmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpbyBPdmVyIFBD
-SSBCdXMgLw0KPiA+ID4gUENJLXNwZWNpZmljIEluaXRpYWxpemF0aW9uIEFuZCBEZXZpY2UgT3Bl
-cmF0aW9uIC8gRGV2aWNlDQo+ID4gPiBJbml0aWFsaXphdGlvbiAvIE1TSS1YIFZlY3RvciBDb25m
-aWd1cmF0aW9ufQ0KPiA+ID4NCj4gPiA+ICBEcml2ZXIgTVVTVCBzdXBwb3J0IGRldmljZSB3aXRo
-IGFueSBNU0ktWCBUYWJsZSBTaXplIDAgdG8gMHg3RkYuDQo+ID4gPiAtRHJpdmVyIE1BWSBmYWxs
-IGJhY2sgb24gdXNpbmcgSU5UXCN4IGludGVycnVwdHMgZm9yIGEgZGV2aWNlDQo+ID4gPiArRHJp
-dmVyIE1BWSBmYWxsIGJhY2sgb24gdXNpbmcgTVNJIG9yIElOVFwjeCBpbnRlcnJ1cHRzIGZvciBh
-IGRldmljZQ0KPiA+ID4gIHdoaWNoIG9ubHkgc3VwcG9ydHMgb25lIE1TSS1YIHZlY3RvciAoTVNJ
-LVggVGFibGUgU2l6ZSA9IDApLg0KPiA+ID4NCj4gPiA+ICBEcml2ZXIgTUFZIGludGVycHJldCB0
-aGUgVGFibGUgU2l6ZSBhcyBhIGhpbnQgZnJvbSB0aGUgZGV2aWNlIEBADQo+ID4gPiAtMTAzNCw2
-ICsxMDM0LDc1IEBAIFxzdWJzdWJzZWN0aW9ue0RldmljZQ0KPiA+ID4gSW5pdGlhbGl6YXRpb259
-XGxhYmVse3NlYzpWaXJ0aW8gVHJhbnNwb3J0IE9wdGlvbnMgLyBWaXJ0aSAgdGhlDQo+ID4gPiBk
-cml2ZXIgTUFZIHJldHJ5IG1hcHBpbmcgd2l0aCBmZXdlciB2ZWN0b3JzLCBkaXNhYmxlIE1TSS1Y
-ICBvciByZXBvcnQNCj4gZGV2aWNlIGZhaWx1cmUuDQo+ID4gPg0KPiA+ID4gK1xwYXJhZ3JhcGh7
-TVNJIFZlY3RvciBDb25maWd1cmF0aW9ufVxsYWJlbHtzZWM6VmlydGlvIFRyYW5zcG9ydA0KPiA+
-ID4gK09wdGlvbnMgLyBWaXJ0aW8gT3ZlciBQQ0kgQnVzIC8gUENJLXNwZWNpZmljIEluaXRpYWxp
-emF0aW9uIEFuZA0KPiA+ID4gK0RldmljZSBPcGVyYXRpb24gLyBEZXZpY2UgSW5pdGlhbGl6YXRp
-b24gLyBNU0kgVmVjdG9yDQo+ID4gPiArQ29uZmlndXJhdGlvbn0NCj4gPiA+ICsNCj4gPiA+ICtX
-aGVuIE1TSSBjYXBhYmlsaXR5IGlzIHByZXNlbnQgYW5kIGVuYWJsZWQgaW4gdGhlIGRldmljZSAo
-dGhyb3VnaA0KPiA+ID4gK3N0YW5kYXJkIFBDSSBjb25maWd1cmF0aW9uIHNwYWNlKSBcZmllbGR7
-Y29uZmlnX21zaXhfdmVjdG9yfSBhbmQNCj4gPiA+ICtcZmllbGR7cXVldWVfbXNpeF92ZWN0b3J9
-IGFyZSB1c2VkIHRvIG1hcCBjb25maWd1cmF0aW9uIGNoYW5nZSBhbmQNCj4gcXVldWUgaW50ZXJy
-dXB0cyB0byBNU0kgdmVjdG9ycy4gSW4gdGhpcyBjYXNlLCB0aGUgSVNSIFN0YXR1cyBpcyB1bnVz
-ZWQuDQo+ID4gPiArDQo+ID4gPiArV3JpdGluZyBhIHZhbGlkIE1TSSB2ZWN0b3IsIDAgdG8gMHgx
-RiwgdG8NCj4gPiA+ICtcZmllbGR7Y29uZmlnX21zaXhfdmVjdG9yfS9cZmllbGR7cXVldWVfbXNp
-eF92ZWN0b3J9IG1hcHMNCj4gPiA+ICtpbnRlcnJ1cHRzIHRyaWdnZXJlZCBieSB0aGUgY29uZmln
-dXJhdGlvbiBjaGFuZ2Uvc2VsZWN0ZWQgcXVldWUNCj4gPiA+ICtldmVudHMgcmVzcGVjdGl2ZWx5
-IHRvIHRoZSBjb3JyZXNwb25kaW5nIE1TSSB2ZWN0b3IuIFRvIGRpc2FibGUNCj4gPiA+ICtpbnRl
-cnJ1cHRzIGZvciBhbiBldmVudCB0eXBlLCB0aGUgZHJpdmVyIHVubWFwcyB0aGlzIGV2ZW50IGJ5
-DQo+ID4gPiArd3JpdGluZyBhIHNwZWNpYWwgTk9fVkVDVE9SDQo+ID4gPiArdmFsdWU6DQo+ID4g
-PiArDQo+ID4gPiArXGJlZ2lue2xzdGxpc3Rpbmd9DQo+ID4gPiArLyogVmVjdG9yIHZhbHVlIHVz
-ZWQgdG8gZGlzYWJsZSBNU0kgZm9yIHF1ZXVlICovDQo+ID4gPiArI2RlZmluZSBWSVJUSU9fTVNJ
-X05PX1ZFQ1RPUiAgICAgICAgICAgIDB4ZmZmZg0KPiA+ID4gK1xlbmR7bHN0bGlzdGluZ30NCj4g
-PiA+ICsNCj4gPiA+ICtOb3RlIHRoYXQgbWFwcGluZyBhbiBldmVudCB0byB2ZWN0b3IgbWlnaHQg
-cmVxdWlyZSBkZXZpY2UgdG8NCj4gPiA+ICthbGxvY2F0ZSBpbnRlcm5hbCBkZXZpY2UgcmVzb3Vy
-Y2VzLCBhbmQgdGh1cyBjb3VsZCBmYWlsLg0KPiA+ID4gKw0KPiA+ID4gK1xkZXZpY2Vub3JtYXRp
-dmV7XHN1YnBhcmFncmFwaH17TVNJIFZlY3RvciBDb25maWd1cmF0aW9ufXtWaXJ0aW8NCj4gPiA+
-ICtUcmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpbyBPdmVyIFBDSSBCdXMgLyBQQ0ktc3BlY2lmaWMN
-Cj4gPiA+ICtJbml0aWFsaXphdGlvbiBBbmQgRGV2aWNlIE9wZXJhdGlvbiAvIERldmljZSBJbml0
-aWFsaXphdGlvbiAvIE1TSQ0KPiA+ID4gK1ZlY3RvciBDb25maWd1cmF0aW9ufQ0KPiA+ID4gKw0K
-PiA+ID4gK0EgZGV2aWNlIHRoYXQgaGFzIGFuIE1TSSBjYXBhYmlsaXR5IFNIT1VMRCBzdXBwb3J0
-IGF0IGxlYXN0IDIgYW5kDQo+ID4gPiArYXQgbW9zdCAweDIwIE1TSSB2ZWN0b3JzLg0KPiA+ID4g
-K0RldmljZSBNVVNUIHJlcG9ydCB0aGUgbnVtYmVyIG9mIHZlY3RvcnMgc3VwcG9ydGVkIGluDQo+
-ID4gPiArXGZpZWxke011bHRpcGxlIE1lc3NhZ2UgQ2FwYWJsZX0gZmllbGQgaW4gdGhlIE1TSSBD
-YXBhYmlsaXR5IGFzDQo+ID4gPiArc3BlY2lmaWVkIGluIFxoeXBlcnJlZltpbnRybzpQQ0lde1tQ
-Q0ldfS4NCj4gPiA+ICtUaGUgZGV2aWNlIFNIT1VMRCByZXN0cmljdCB0aGUgcmVwb3J0ZWQgTVNJ
-IE11bHRpcGxlIE1lc3NhZ2UNCj4gPiA+ICtDYXBhYmxlIGZpZWxkIHRvIGEgdmFsdWUgdGhhdCBt
-aWdodCBiZW5lZml0IHN5c3RlbSBwZXJmb3JtYW5jZS4NCj4gPiA+ICtcYmVnaW57bm90ZX0NCj4g
-PiA+ICtGb3IgZXhhbXBsZSwgYSBkZXZpY2Ugd2hpY2ggZG9lcyBub3QgZXhwZWN0IHRvIHNlbmQg
-aW50ZXJydXB0cyBhdCBhDQo+ID4gPiAraGlnaCByYXRlIG1pZ2h0IG9ubHkgc3BlY2lmeSAyIE1T
-SSB2ZWN0b3JzLg0KPiA+ID4gK1xlbmR7bm90ZX0NCj4gPiA+ICtEZXZpY2UgTVVTVCBzdXBwb3J0
-IG1hcHBpbmcgYW55IGV2ZW50IHR5cGUgdG8gYW55IHZhbGlkIHZlY3RvciAwIHRvDQo+ID4gPiAr
-bnVtYmVyIG9mIE1TSSB2ZWN0b3JzIHNwZWNpZmllZCBpbiBcZmllbGR7TXVsdGlwbGUgTWVzc2Fn
-ZSBDYXBhYmxlfQ0KPiBmaWVsZC4NCj4gPiA+ICtEZXZpY2UgTVVTVCBzdXBwb3J0IHVubWFwcGlu
-ZyBhbnkgZXZlbnQgdHlwZS4NCj4gPiA+ICsNCj4gPiA+ICtUaGUgZGV2aWNlIE1VU1QgcmV0dXJu
-IHZlY3RvciBtYXBwZWQgdG8gYSBnaXZlbiBldmVudCwgKE5PX1ZFQ1RPUg0KPiA+ID4gK2lmIHVu
-bWFwcGVkKSBvbiByZWFkIG9mDQo+IFxmaWVsZHtjb25maWdfbXNpeF92ZWN0b3J9L1xmaWVsZHtx
-dWV1ZV9tc2l4X3ZlY3Rvcn0uDQo+ID4gPiArVGhlIGRldmljZSBNVVNUIGhhdmUgYWxsIHF1ZXVl
-IGFuZCBjb25maWd1cmF0aW9uIGNoYW5nZSBldmVudHMNCj4gPiA+ICt1bm1hcHBlZCB1cG9uIHJl
-c2V0Lg0KPiA+ID4gKw0KPiA+ID4gK0RldmljZXMgU0hPVUxEIE5PVCBjYXVzZSBtYXBwaW5nIGFu
-IGV2ZW50IHRvIHZlY3RvciB0byBmYWlsIHVubGVzcw0KPiA+ID4gK2l0IGlzIGltcG9zc2libGUg
-Zm9yIHRoZSBkZXZpY2UgdG8gc2F0aXNmeSB0aGUgbWFwcGluZyByZXF1ZXN0Lg0KPiA+ID4gK0Rl
-dmljZXMgTVVTVCByZXBvcnQgbWFwcGluZyBmYWlsdXJlcyBieSByZXR1cm5pbmcgdGhlIE5PX1ZF
-Q1RPUg0KPiA+ID4gK3ZhbHVlIHdoZW4gdGhlIHJlbGV2YW50DQo+ID4gPiArXGZpZWxke2NvbmZp
-Z19tc2l4X3ZlY3Rvcn0vXGZpZWxke3F1ZXVlX21zaXhfdmVjdG9yfSBmaWVsZCBpcyByZWFkLg0K
-PiA+ID4gKw0KPiA+ID4gK1xkcml2ZXJub3JtYXRpdmV7XHN1YnBhcmFncmFwaH17TVNJIFZlY3Rv
-ciBDb25maWd1cmF0aW9ufXtWaXJ0aW8NCj4gPiA+ICtUcmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRp
-byBPdmVyIFBDSSBCdXMgLyBQQ0ktc3BlY2lmaWMNCj4gPiA+ICtJbml0aWFsaXphdGlvbiBBbmQg
-RGV2aWNlIE9wZXJhdGlvbiAvIERldmljZSBJbml0aWFsaXphdGlvbiAvIE1TSQ0KPiA+ID4gK1Zl
-Y3RvciBDb25maWd1cmF0aW9ufQ0KPiA+ID4gKw0KPiA+ID4gK0RyaXZlciBNVVNUIHN1cHBvcnQg
-ZGV2aWNlIHdpdGggYW55IE1TSSB2ZWN0b3IgZnJvbSAwIHRvIDB4MUYuDQo+ID4gPiArRHJpdmVy
-IE1BWSBmYWxsIGJhY2sgb24gdXNpbmcgSU5UXCN4IGludGVycnVwdHMgZm9yIGEgZGV2aWNlIHdo
-aWNoDQo+ID4gPiArb25seSBzdXBwb3J0cyBvbmUgTVNJIHZlY3RvciAoTVNJIE11bHRpcGxlIE1l
-c3NhZ2UgQ2FwYWJsZSA9IDApLg0KPiA+ID4gKw0KQSBzaW5nbGUgTVNJIChhbmQgTVNJLVgpIHZl
-Y3RvciBpcyBzdGlsbCBmYXIgbW9yZSBvcHRpbWFsIHRoYW4gSU5UeCBkdWUgdG8gdGhlIGluZWZm
-aWNpZW5jeSBvZiB0aGUgSU5UeCBkZWxpdmVyeSBvbiBQQ0llIHRyYW5zcG9ydC4NCkFuZCBmb3Ig
-c3cgYmFzZWQgZGV2aWNlcywgaXQgYW55d2F5IGRvZXNudCBtYXR0ZXIgYSBsb3QgZWl0aGVyLg0K
-DQpTbyB3aGVuIGEgbmV3IGZ1bmN0aW9uYWxpdHkgbGlrZSBNU0kgaXMgYWRkZWQsIGl0IGRvZXMg
-bm90IG5lZWQgdG8gY29udGludWUgd2hhdCBNU0ktWCBoYXMgZG9uZS4NCg0KU28gSSByZXF1ZXN0
-IHlvdSB0byByZW1vdmUgdGhpcyBndWlkYW5jZSBvZiBJTlR4IGZhbGxiYWNrIG9uIHNpbmdsZSBN
-U0kgdmVjdG9yLg0KDQpSZXN0IGFsbCBsb29rcyBmaW5lIHRvIG1lLg0K
+On Mon, Sep 30, 2024 at 05:45:48AM +0000, Parav Pandit wrote:
+> 
+> 
+> > From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+> > Sent: Tuesday, September 3, 2024 11:02 AM
+> > 
+> > On Wed, Jul 24, 2024 at 09:51:43PM +0530, Manivannan Sadhasivam wrote:
+> > > On Fri, Jul 12, 2024 at 07:31:44PM +0530, Manivannan Sadhasivam wrote:
+> > > > MSI is the predecessor of MSI-X that allows PCIe devices to send
+> > > > interrupts to the host. Compared to MSI-X, MSI supports only a
+> > > > maximum of 32 vectors per PCIe function. But MSI has been widely
+> > > > supported by the PCIe devices requiring fewer interrupts such as
+> > Modems, WLAN cards etc...
+> > > >
+> > > > Currently, Virtio spec only documents MSI-X and INTX interrupt
+> > > > mechanisms for the PCI transport. So if a Virtio device based on PCI
+> > > > transport supports only MSI, then the driver on the guest will only
+> > > > use INTX for receiving the interrupts. This is really sub-optimal
+> > > > and affects the performance of the device. Because with MSI, the
+> > > > device can use one vector per queue (max of 32 vectors) thus
+> > > > avoiding the overhead associated with a shared INTX vector.
+> > > >
+> > > > Hence, add support for MSI to the Virtio PCI transport. MSI support
+> > > > is added such a way that it reuses the existing infrastructure of
+> > > > MSI-X, like the config_msix_vector/queue_msix_vector fields of the
+> > > > Virtio common config structure. This makes it easy for the Virtio
+> > > > drivers to add MSI support without any disruptive changes.
+> > > >
+> > >
+> > > Gentle ping!
+> > >
+> > 
+> > Ping again. Virtio maintainers, can you please share some feedback?
+> >
+> Overall looks to me.
+> A small comment below on single MSI vector.
+> 
+>  
+> > - Mani
+> > 
+> > > - Mani
+> > >
+> > > > Signed-off-by: Manivannan Sadhasivam
+> > > > <manivannan.sadhasivam@linaro.org>
+> > > > ---
+> > > >
+> > > > Changes in v2:
+> > > >
+> > > > * Fixed a spelling mistake in commit message
+> > > > * Removed update to legacy interface
+> > > > * Used 'MSI vector' consistently
+> > > >
+> > > >  transport-pci.tex | 115
+> > > > ++++++++++++++++++++++++++++++++++++----------
+> > > >  1 file changed, 92 insertions(+), 23 deletions(-)
+> > > >
+> > > > diff --git a/transport-pci.tex b/transport-pci.tex index
+> > > > a5c6719..fd92641 100644
+> > > > --- a/transport-pci.tex
+> > > > +++ b/transport-pci.tex
+> > > > @@ -347,7 +347,7 @@ \subsubsection{Common configuration structure
+> > layout}\label{sec:Virtio Transport
+> > > >          Driver Feature Bits selected by \field{driver_feature_select}.
+> > > >
+> > > >  \item[\field{config_msix_vector}]
+> > > > -        Set by the driver to the MSI-X vector for configuration change
+> > notifications.
+> > > > +        Set by the driver to the MSI/MSI-X vector for configuration change
+> > notifications.
+> > > >
+> > > >  \item[\field{num_queues}]
+> > > >          The device specifies the maximum number of virtqueues supported
+> > here.
+> > > > @@ -371,7 +371,7 @@ \subsubsection{Common configuration structure
+> > layout}\label{sec:Virtio Transport
+> > > >          A 0 means the queue is unavailable.
+> > > >
+> > > >  \item[\field{queue_msix_vector}]
+> > > > -        Set by the driver to the MSI-X vector for virtqueue notifications.
+> > > > +        Set by the driver to the MSI/MSI-X vector for virtqueue
+> > notifications.
+> > > >
+> > > >  \item[\field{queue_enable}]
+> > > >          The driver uses this to selectively prevent the device from executing
+> > requests from this virtqueue.
+> > > > @@ -631,11 +631,11 @@ \subsubsection{ISR status
+> > > > capability}\label{sec:Virtio Transport Options / Virti  in
+> > > > \field{ISR status} before sending a device configuration  change
+> > notification to the driver.
+> > > >
+> > > > -If MSI-X capability is disabled, the device MUST set the Queue
+> > > > +If MSI/MSI-X capability is disabled, the device MUST set the Queue
+> > > >  Interrupt bit in \field{ISR status} before sending a virtqueue
+> > > > notification to the driver.
+> > > >
+> > > > -If MSI-X capability is disabled, the device MUST set the Interrupt
+> > > > Status
+> > > > +If MSI/MSI-X capability is disabled, the device MUST set the
+> > > > +Interrupt Status
+> > > >  bit in the PCI Status register in the PCI Configuration Header of
+> > > > the device to the logical OR of all bits in \field{ISR status} of
+> > > > the device.  The device then asserts/deasserts INT\#x interrupts
+> > > > unless masked @@ -645,7 +645,7 @@ \subsubsection{ISR status
+> > > > capability}\label{sec:Virtio Transport Options / Virti
+> > > >
+> > > >  \drivernormative{\paragraph}{ISR status capability}{Virtio
+> > > > Transport Options / Virtio Over PCI Bus / PCI Device Layout / ISR
+> > > > status capability}
+> > > >
+> > > > -If MSI-X capability is enabled, the driver SHOULD NOT access
+> > > > +If MSI/MSI-X capability is enabled, the driver SHOULD NOT access
+> > > >  \field{ISR status} upon detecting a Queue Interrupt.
+> > > >
+> > > >  \subsubsection{Device-specific configuration}\label{sec:Virtio
+> > > > Transport Options / Virtio Over PCI Bus / PCI Device Layout /
+> > > > Device-specific configuration} @@ -1017,7 +1017,7 @@
+> > > > \subsubsection{Device Initialization}\label{sec:Virtio Transport
+> > > > Options / Virti  \drivernormative{\subparagraph}{MSI-X Vector
+> > > > Configuration}{Virtio Transport Options / Virtio Over PCI Bus /
+> > > > PCI-specific Initialization And Device Operation / Device
+> > > > Initialization / MSI-X Vector Configuration}
+> > > >
+> > > >  Driver MUST support device with any MSI-X Table Size 0 to 0x7FF.
+> > > > -Driver MAY fall back on using INT\#x interrupts for a device
+> > > > +Driver MAY fall back on using MSI or INT\#x interrupts for a device
+> > > >  which only supports one MSI-X vector (MSI-X Table Size = 0).
+> > > >
+> > > >  Driver MAY interpret the Table Size as a hint from the device @@
+> > > > -1034,6 +1034,75 @@ \subsubsection{Device
+> > > > Initialization}\label{sec:Virtio Transport Options / Virti  the
+> > > > driver MAY retry mapping with fewer vectors, disable MSI-X  or report
+> > device failure.
+> > > >
+> > > > +\paragraph{MSI Vector Configuration}\label{sec:Virtio Transport
+> > > > +Options / Virtio Over PCI Bus / PCI-specific Initialization And
+> > > > +Device Operation / Device Initialization / MSI Vector
+> > > > +Configuration}
+> > > > +
+> > > > +When MSI capability is present and enabled in the device (through
+> > > > +standard PCI configuration space) \field{config_msix_vector} and
+> > > > +\field{queue_msix_vector} are used to map configuration change and
+> > queue interrupts to MSI vectors. In this case, the ISR Status is unused.
+> > > > +
+> > > > +Writing a valid MSI vector, 0 to 0x1F, to
+> > > > +\field{config_msix_vector}/\field{queue_msix_vector} maps
+> > > > +interrupts triggered by the configuration change/selected queue
+> > > > +events respectively to the corresponding MSI vector. To disable
+> > > > +interrupts for an event type, the driver unmaps this event by
+> > > > +writing a special NO_VECTOR
+> > > > +value:
+> > > > +
+> > > > +\begin{lstlisting}
+> > > > +/* Vector value used to disable MSI for queue */
+> > > > +#define VIRTIO_MSI_NO_VECTOR            0xffff
+> > > > +\end{lstlisting}
+> > > > +
+> > > > +Note that mapping an event to vector might require device to
+> > > > +allocate internal device resources, and thus could fail.
+> > > > +
+> > > > +\devicenormative{\subparagraph}{MSI Vector Configuration}{Virtio
+> > > > +Transport Options / Virtio Over PCI Bus / PCI-specific
+> > > > +Initialization And Device Operation / Device Initialization / MSI
+> > > > +Vector Configuration}
+> > > > +
+> > > > +A device that has an MSI capability SHOULD support at least 2 and
+> > > > +at most 0x20 MSI vectors.
+> > > > +Device MUST report the number of vectors supported in
+> > > > +\field{Multiple Message Capable} field in the MSI Capability as
+> > > > +specified in \hyperref[intro:PCI]{[PCI]}.
+> > > > +The device SHOULD restrict the reported MSI Multiple Message
+> > > > +Capable field to a value that might benefit system performance.
+> > > > +\begin{note}
+> > > > +For example, a device which does not expect to send interrupts at a
+> > > > +high rate might only specify 2 MSI vectors.
+> > > > +\end{note}
+> > > > +Device MUST support mapping any event type to any valid vector 0 to
+> > > > +number of MSI vectors specified in \field{Multiple Message Capable}
+> > field.
+> > > > +Device MUST support unmapping any event type.
+> > > > +
+> > > > +The device MUST return vector mapped to a given event, (NO_VECTOR
+> > > > +if unmapped) on read of
+> > \field{config_msix_vector}/\field{queue_msix_vector}.
+> > > > +The device MUST have all queue and configuration change events
+> > > > +unmapped upon reset.
+> > > > +
+> > > > +Devices SHOULD NOT cause mapping an event to vector to fail unless
+> > > > +it is impossible for the device to satisfy the mapping request.
+> > > > +Devices MUST report mapping failures by returning the NO_VECTOR
+> > > > +value when the relevant
+> > > > +\field{config_msix_vector}/\field{queue_msix_vector} field is read.
+> > > > +
+> > > > +\drivernormative{\subparagraph}{MSI Vector Configuration}{Virtio
+> > > > +Transport Options / Virtio Over PCI Bus / PCI-specific
+> > > > +Initialization And Device Operation / Device Initialization / MSI
+> > > > +Vector Configuration}
+> > > > +
+> > > > +Driver MUST support device with any MSI vector from 0 to 0x1F.
+> > > > +Driver MAY fall back on using INT\#x interrupts for a device which
+> > > > +only supports one MSI vector (MSI Multiple Message Capable = 0).
+> > > > +
+> A single MSI (and MSI-X) vector is still far more optimal than INTx due to the inefficiency of the INTx delivery on PCIe transport.
+
+And lack of support on VFs.
+
+> And for sw based devices, it anyway doesnt matter a lot either.
+> 
+> So when a new functionality like MSI is added, it does not need to continue what MSI-X has done.
+> 
+> So I request you to remove this guidance of INTx fallback on single MSI vector.
+
+Let's provide an alternative guidance then.
+Device SHOULD implement at least 2 MSI vectors?
+
+> Rest all looks fine to me.
+
