@@ -1,304 +1,189 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E5218EFEB
-	for <virtio-comment@lists.linux.dev>; Mon, 30 Sep 2024 13:53:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1727704425; cv=none; b=q3D1ZVa7CThCl9Vmxd3TsrDzDsIGLgt/S1iKmOYLmQPo+nosU/t1G8b5N0lO+t2vDB+ljDGFv7sXBOZA0R50FGOnVqae8yttTOjnny89BnwIocvPKoMPPwLUgfep9iWLCxmXuBRuf8m0LbJF1+p0HGUnOmw2KfecK+cSmc+uYMg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1727704425; c=relaxed/simple;
-	bh=UwzW6xRc+jF2dG1lKWsndcDuIYltg0J5kC+TriYWOUg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=sB/uTVyemoa8JhEeK0WJR7Dg2fmxD0NPkax1CY6AsQL6EAj6SSUWU2X9CQjXb5MrxK5m0eQRt5lG/3uWMiJHnXJ0Sgo83t7ALh3HMChBnjWg7honHYEkSAfW8zQ1zECkCW1JCGtfr0EB9IgcxM3+5nMAmIAGM+FAPcfX2gs5zAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=E6k72XtN; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91E62207A
+	for <virtio-comment@lists.linux.dev>; Tue,  1 Oct 2024 08:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.223.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1727769897; cv=fail; b=pRtekX+0GEaDsLxs9ybv1q/NZE8+tu7U0vIxeEtDmEbJV2jkLGG/ntp2NuTipc4WXnfLNE2JgEMBhyfIlrzWpj7y8I7Go8jEFRPXhPnb/JQCujBuVXKq3Qo0E2+Ai6Qn15u5lxjyeKMIFWfRelUHSUG1baApwUHuiEZnBcpmzAo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1727769897; c=relaxed/simple;
+	bh=OqI3Y4FBFS+osS/EeKB1qN7zmfcI8aH9hWOd+MNPYgY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ln2dAArofoEsFN1WzmQLHukom+YRaYIp532bSTy/wKTtKt6L3N3Jw/A/TwIWuyk4yQwLsmnaQ2M1fLt2MSJvCGMwk9AnUj2ih0gdg5XlS2aZZbTedcSeeZmW75bX+gPVh4GNh9sEgvjhB6sW7YKWyKY1uR1D2MqBFEq9x2y5Kfg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=E7FbVZKg; arc=fail smtp.client-ip=40.107.223.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="E6k72XtN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1727704422;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Xlb2isvgdNteHdOI7o7ag02YYqH2IFHTyDbYbGnbOQI=;
-	b=E6k72XtNrj3B3IKzBR1B2fnXg9BWLnKUKxOPmAq0R1dIzJEJL9SvImQk4J9BRRPjRKImmp
-	xaVdY1y8wbIop5GdPuwGdck9UIBxW1M9NBWYTb9J7mtlZzObR+whmDYUNUuyyvAhFJQJES
-	dsLIjokP2KKHp4A0lwZaYTpsoTXR2jY=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-500-jikJtSL9Pcm4USgks6jNvA-1; Mon, 30 Sep 2024 09:53:40 -0400
-X-MC-Unique: jikJtSL9Pcm4USgks6jNvA-1
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-37cc63b1ec3so2370882f8f.1
-        for <virtio-comment@lists.linux.dev>; Mon, 30 Sep 2024 06:53:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727704419; x=1728309219;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Xlb2isvgdNteHdOI7o7ag02YYqH2IFHTyDbYbGnbOQI=;
-        b=RZ4rt3ltZQV7As2FwXM/AjX6UJnqzpi7A6ePfoyxywUk4yfSfnSOZToxTEzXz80aO/
-         pTVF64sTFAFX8E0bLWTLDhc32AbI92962sCojoA4xrcMRnf16Fo34oiKk6iJwbs3/Le2
-         qfSvBgj5/cOz/8HLQJMrIThD0RQjT5X7BUCkbPW5cNeJRPQoZPw2Aeen2bdW/Q4BBR2e
-         ANCMKI/AwwvWsR6A2BBC3e0CncKE397feI6TWjqXYIwhdBvObQytrjlB1CZUZvUGRTbD
-         AidU53tP/TPrngIN/K63DWq+ZL8bIpoE8YPbxreP8PAnkk3hofHRXzRYKI00sPcsALzJ
-         /eHw==
-X-Forwarded-Encrypted: i=1; AJvYcCVZ3a3KzRgW9xU4FWB2RmAhwlBKBF7uy+SMvdlD4+CGQfsnfThX0lcqAij4EQMuzuudCjRyfHA8H7aM7xyE/g==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxOtLxJtQWp7qG66DeIfHc2KYmgL1IrJ4/3AdjCb0sWvOA+mEdD
-	O23fgcg7OizCcCoVCUnIYJZDhCYBCT5MM9ckAg8Y8DYiHwS78jvlfU789YwvT4VbWSXhggWxoBt
-	0upKCr5hHeH1WTHwtDMEczxXxk90Ig2QJeXSpRBOTtI691yKU/XBF2n6xoWe8vwYMFjAIVXAF
-X-Received: by 2002:a5d:640a:0:b0:37c:d23f:e464 with SMTP id ffacd0b85a97d-37cd5b10881mr7127457f8f.38.1727704418921;
-        Mon, 30 Sep 2024 06:53:38 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHw/zuxmpjMkqiFJP5moKq1ISZNMPlSs4FWQuVADlrD6Wz6yXx8uRCaLMwaVgwH/S6xBEA/sA==
-X-Received: by 2002:a5d:640a:0:b0:37c:d23f:e464 with SMTP id ffacd0b85a97d-37cd5b10881mr7127434f8f.38.1727704418426;
-        Mon, 30 Sep 2024 06:53:38 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc7:55d:ca3b:807c:fdd2:f46d:60e7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-37cd564d2e8sm9235921f8f.18.2024.09.30.06.53.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Sep 2024 06:53:37 -0700 (PDT)
-Date: Mon, 30 Sep 2024 09:53:35 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Zhu Lingshan <lingshan.zhu@amd.com>
-Cc: Parav Pandit <parav@nvidia.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	"mie@igel.co.jp" <mie@igel.co.jp>
-Subject: Re: [PATCH v2] transport-pci: Add MSI support
-Message-ID: <20240930095245-mutt-send-email-mst@kernel.org>
-References: <20240712140144.12066-1-manivannan.sadhasivam@linaro.org>
- <20240724162143.GH3349@thinkpad>
- <20240903053218.7lapwvllgz4xk4se@thinkpad>
- <IA0PR12MB8713D97523757F1FDD6D3525DC762@IA0PR12MB8713.namprd12.prod.outlook.com>
- <20240930022818-mutt-send-email-mst@kernel.org>
- <8f7a2626-f066-4a49-af09-9b83e95ca0a6@amd.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="E7FbVZKg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VEOwe3U09td1YAkBxkedNuafP8uFGRXVPwxeKQQxBhD+hPdqNHCfUqF0dkIkP1s9pjoSG1Tmnpebrw+NDvcOGmhFzZ+8hZP9dNBzarTbBmABJ6EVi7GCkKkHkrs9G+wG8NxGUPC+KdhDKSQruv0uJHekfW9ChvA36el4HdEPJrs0lzjasS72kQz+6wngUIJE5ntCGWYgGVSbNBSwoPetiMv/wOcNDp4oG4LnK50j2vED2iD04lP3zklHfTc6Y3vbXlazIIrKrrALbSbIrISwA29xIsUSzsdkzHDfXPzpSPLmpbAW1e2umbJUQiA6PAzYhVfZOhMTw1TTFJxUW4lr+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OqI3Y4FBFS+osS/EeKB1qN7zmfcI8aH9hWOd+MNPYgY=;
+ b=YIO9GNlr0rbq/Elc/JLVuv6x/7U+KNc+n0YNoquoN/Ul/LUyA0VWLvw9r9gvBCaEJULoTfPaBUIWNZLbEwJUyPnTtXHaQ/DyWUBc5hznrNN1yVt9ykwyz1jmiVzYT30NwWdyCiH0cPC3POp6sA2murbb5hBkGc4NKw7g4Nwu8BnfrP9/XBwzr95Tg4Rr0iGV26/jz1lcgGgg5U0K/Cu7OVyr5ZFQfYerpdwhUojbE6UGEXN0Df9Q32SATn3b8jKQy96bxdFsVyUWrSCxgG0UWRkvXy3V2ckroQFs6b113JvnznnptEF+sHcsqDyAGhqucA+pX77jn0LfG8HpxA/qrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OqI3Y4FBFS+osS/EeKB1qN7zmfcI8aH9hWOd+MNPYgY=;
+ b=E7FbVZKg1jifa2605ibgrKzMKZEsansI7d6cti7id6fC7yE6ZdGjQHW6Kue0Mp8SN9adTcGbjoNQ8X8uN1WYDgCP/d94eEgmvw3VSkHUkRolMFP5HB8QtfFG78NZYiohhXO0NQeVOPCmvy/e5XORgdl5IMSvn/tOx1Yjz4LrJGO5L5NIHsgOAInwql2bsZVzXUU0HXaqK6EiotJU0m+KaSJISuci+DIphPjy8P2ZIO7Fryqh7goQv7gnCdiLtmFVqgFcGxV75WL/GkTCfzJ+68h0n3cc2HDOk5OXAGls+LZ/tuOkDJ/bTNKJOvpkP8/EyxShqqKOeyn4VE4THHzMLA==
+Received: from IA0PR12MB8713.namprd12.prod.outlook.com (2603:10b6:208:48e::7)
+ by SJ0PR12MB8115.namprd12.prod.outlook.com (2603:10b6:a03:4e3::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.26; Tue, 1 Oct
+ 2024 08:04:52 +0000
+Received: from IA0PR12MB8713.namprd12.prod.outlook.com
+ ([fe80::9fc9:acc2:bdac:a04a]) by IA0PR12MB8713.namprd12.prod.outlook.com
+ ([fe80::9fc9:acc2:bdac:a04a%5]) with mapi id 15.20.8005.026; Tue, 1 Oct 2024
+ 08:04:52 +0000
+From: Parav Pandit <parav@nvidia.com>
+To: Albert Esteve <aesteve@redhat.com>, "virtio-comment@lists.linux.dev"
+	<virtio-comment@lists.linux.dev>, "aiswarya.cyriac@opensynergy.com"
+	<aiswarya.cyriac@opensynergy.com>
+CC: "acourbot@chromium.org" <acourbot@chromium.org>
+Subject: RE: [PATCH v3] content: Reserve ID for media device
+Thread-Topic: [PATCH v3] content: Reserve ID for media device
+Thread-Index: AQHbACulN7OJ8hVWBUuunhxN0rzrwbJoLecAgAmAf7A=
+Date: Tue, 1 Oct 2024 08:04:52 +0000
+Message-ID:
+ <IA0PR12MB8713CC178EDB984292755C5DDC772@IA0PR12MB8713.namprd12.prod.outlook.com>
+References: <20240906070833.1949727-1-aesteve@redhat.com>
+ <CADSE00KO=VZy4_4FfgC7ODON32mZ8khWkPUcXheP6pTiEZAyHA@mail.gmail.com>
+In-Reply-To:
+ <CADSE00KO=VZy4_4FfgC7ODON32mZ8khWkPUcXheP6pTiEZAyHA@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA0PR12MB8713:EE_|SJ0PR12MB8115:EE_
+x-ms-office365-filtering-correlation-id: a995bf32-ae08-4c74-1179-08dce1efba7a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700018;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?ak5BTDZNUndiN2Y4YmxhLzVjTG1JWmZBQWRkaERvOUQ1SFVUU2xlSTk3OEVE?=
+ =?utf-8?B?bkpZNHpRY3lka2lmWFNsaGduRXZLdGN2MnlORkwrVi9MTG5BQldBa1JUNVlq?=
+ =?utf-8?B?dE10VElUdm9uSDdkZ2FTYXR2WlAvTmpDRWRtS1dveTd2VktEcDkzSmt5ekZt?=
+ =?utf-8?B?OTkzU282NUFsQ3BtWURhRlh5WE5LRmFyWDZmNjdseW5FVUtTcjZHNnQvQTlP?=
+ =?utf-8?B?emU2QXBJTUVSRzY5bFQxbHBrNjhUeGZLVVJvcVExZ0tzU0RCS05ZRTBQbi9q?=
+ =?utf-8?B?aFdmMVQ3d1VDTVVtWjhKZmtXa1hxbHdsUEVQalZSTGhTYnczeFlIbFZmWDcz?=
+ =?utf-8?B?eDF1U2pKKzAzY2R0SDJ2QmhEeisxSzY3T2dueHk4SzZyWi94a2YxM3J4S3VT?=
+ =?utf-8?B?WkRjWG9JcWNDSzE5dU8yME5JbUxuZFB3Z05sTSt1VmVhUXowcWFlTjU4OVhT?=
+ =?utf-8?B?dUl1SjFkREpjMmJtWCszUDdHZkJxckxRM1E1ODVGdk9RUVVkWDhUWngwT3Jq?=
+ =?utf-8?B?UTV4RTY2RWgrY1RzblVYTFQxRzd3WVRHblQ4NEt5eW8xTE1lL0hzb2RVWCtl?=
+ =?utf-8?B?bHpVcVFFTFdqUE96T3gwQ0tWai9GUlU4QkxzV0FmeHlpV29TaGFMVmtoMnJ6?=
+ =?utf-8?B?NitRelBDYlR3SUxZNENNUXlxSHIwNCtaYVVXNEdXa3MrTDVtd3VNSmpMK09O?=
+ =?utf-8?B?V094YWRHaFNyVklCb01uSDU3R3NITENoVnIzSVJCbzlHdEVFSmNHQktSck54?=
+ =?utf-8?B?K3VkUEZISVkwdjlXR3lpZGlwRUc3cHRnVHJZSENaakFkMFh0TTc2ejRxLytO?=
+ =?utf-8?B?T215Mm9yY2RtTkhMNWRZQUl0ZWlpaVQyZEluSFZVeHFZRExCTU9UUWpoM2k0?=
+ =?utf-8?B?V1VlTEphZ2JHQkh6Nlk1aDZodGc3M2Vsb0dhbHEzL3hyT1ZJTGxLcnNxZFRG?=
+ =?utf-8?B?dGdsbnpjbkZWcFR5NGp0eng3TTkxYXVMbFF1K0JFRy9tUGtiQmVvdW5ibXRs?=
+ =?utf-8?B?M3p0OTQ2TnMzbHg4SWZUbUdNUEwxMXAyazZHWjYyMzNCa0cyRzdTOUNoOGJo?=
+ =?utf-8?B?VzRGRUJGYm5XTU5LWEVNZGg0OTJKWDNMR2l0TFIrVTJpZFFtMUJ6bVlqNUl4?=
+ =?utf-8?B?a3NBKzlWVkF6c3QvamJUR1NQazZZRWV1NnIrVEhiZ0RGcjVMbVRtQ25IdGRi?=
+ =?utf-8?B?SitZOWIzQ1V2N3JNQUlaSXhMSENYTzdIajI5aWlKTWZBU3F3ZXhrTVc4dkNU?=
+ =?utf-8?B?UWRjOE5rUjl0OHZsNHFTcEhlem9yQjNZcUllRCtMeVZ1UUNJUVFTNC9jalFK?=
+ =?utf-8?B?dEFsQ2duZTg1ZGZ4ODUxU1htS01JZy84eVNlajhmYVRoa2tjaDRrenBDZ24x?=
+ =?utf-8?B?L2FNUmM4VHBhNmgwdUR2bkJHYlVYa05rY0JrRWRxWC9uSnpTYXJaL3k1SDAw?=
+ =?utf-8?B?NXV0SnpDbENzRTRpNGJIS2dtVHJIeTA5bGpBWFNnaS9iR00rdEo3L09XN1ZE?=
+ =?utf-8?B?ZlFjcTVDcFNtanBuajlUSGk4MGVlcVkzTmxzb1gvV3BOTUlXbWIyTTZDcmFI?=
+ =?utf-8?B?Q2YyMWhiMnRFdXJJZDZTRkp1ZFRWQi9iby9oL0lLMldTMmtzM2R1RDlYNW0z?=
+ =?utf-8?B?cmg5M2Vmdzk5TFlYRng4RGdNS0M4OXgrckExUlk2bXdMZFpwMUhwVVFDQk8x?=
+ =?utf-8?B?RFVXTVZVYm02aFk5a2hCbmhjU2xDUC9RVmZBT0w2RGp3YUdTQU9HaVhKWjll?=
+ =?utf-8?B?VHM2WHYwRlRGcUs4dkMvQ2JVTC8xTldPVXI2YmFETG1BTkRqTmxXNkJKd29H?=
+ =?utf-8?B?RHdmeURXZ2ozNHE0L1lUUT09?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8713.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?ZG5WeUNaclUvc2tuTmFhVEJTekNtRlZQVGsxWURzYUFsWDBhOFd2WWRHdmVJ?=
+ =?utf-8?B?QWJYU2pCVnJncFpEZURFRExqYU1VcmhzbHNsZFFrWWJVeHByY3ZNRS9JYk03?=
+ =?utf-8?B?WGZ6Qmt0OWM0bnJSd1oyS3RFUWtTSVU2bnQ3QkFwc0YxbVh4NUVlalgyTC9a?=
+ =?utf-8?B?aWJoQ1JyNnlGSWptRzBBUUxEeHkxMkluOVkxK1Vab3FVUURJQVRJRHNHb0V3?=
+ =?utf-8?B?aG4xMWxvcElIbDdKOTR4VlFmLytHQS9iL2tHamNTT2k0NHlzdlo4RG42TE15?=
+ =?utf-8?B?NlZxVW1pRkdjdlJDRTl3WDF2SldvMk4xN2JyNmswUjVScmV5amxIR01MUVFv?=
+ =?utf-8?B?KzErbGZadnVGc2VZSXpyUjEvRkhZTHdjbElCdmtYdkt0RDdPV3hSVjFabm04?=
+ =?utf-8?B?VkRTTTZqWE1tVmhxb2U2MHIwQXdFek10YW5nRUZJUGNlSHhQYzhiTVNKeUhx?=
+ =?utf-8?B?NDhQWjZCNjB1YjUxemJKNE5uWDYwNE4wOVNsYjBnaWdINDk1cHZiWWtpQ2U0?=
+ =?utf-8?B?K0FxYUtHZVZTNzBUQzdyMkZHMnU4TFM3Snh2eTZnSDdIVHZ2WnR1eUN4aGN0?=
+ =?utf-8?B?WmttczlCR2R0cU9VTWc4RGVMWVUyMktoZlVzUzdTMkx1dXlqT3Zmb0Q1ek9H?=
+ =?utf-8?B?YWVUVjJ0VGxiUXZhY09JektJbXVER2RIRHVWMFFoaGNVTWZwYzJrZDg1aVIv?=
+ =?utf-8?B?elVIUUwzL3RrTVFVTGRVSnJ6ZVo5QTVvQ01YS0NLRkdYQzJiWmo5Mm0zQUs0?=
+ =?utf-8?B?U2hHREFoRnQ4eEplbStkblRpdjA4SWE3RE52R0VyT3JnUTFWNy9Ya0U2NmZx?=
+ =?utf-8?B?SDJlRmJSdUNFMXFFU2doN1EwVlJTL3NLaEpZWS9IL1ZhVzkzZmNSSjU4RUds?=
+ =?utf-8?B?dmt4UnRpQStSaEN5bnBvay80Y3Npd2lCaTdXS3YvU2tzanUxNnVIY3QxNEt6?=
+ =?utf-8?B?S21hd0ZQVTJnQUF4eU0xRG52cllzUTNSc3BBUGFKekhiMlV0ZUlGVWtyb0Zs?=
+ =?utf-8?B?Y2U4TWp1NnBNby9DUmpYVlJ1ZHIzVkRkUGsrY1BFb1BuK3hKNWxReFFvWWxz?=
+ =?utf-8?B?aDlFWFIwTXRXNmRKT08yalB5Q2RqelZvQ0Q2LzBjcU1qdXNMZUZ0aGJqMjdj?=
+ =?utf-8?B?RWpUdkh3SCs1Z3JncEt4VHpsMzNFMFIyU2k4a3NKM2pZZmRENlhUZXlicjd5?=
+ =?utf-8?B?NTk3RzIwQ2d4T0ZPOE9pNi91ZkpnSnNwWFF6eWZCOUJVbUE3QkJDRktzbWE1?=
+ =?utf-8?B?WjVvWk0xRjRIclpOQ2hkcktiVkRDd3d0eW9vQUIwanExaFZ5Nk1qMnQ5eWxL?=
+ =?utf-8?B?dFdGMzVZVnVNcWRZMVh6a0hOU1oyYS9WRFRPdW4wNno5SFVMY0tqZG11SWNh?=
+ =?utf-8?B?emwrQjVvbTFOaGtjT3Z5aW9YWDNkN2dqdFNMbnVheGZVdDFKbVhvVjNDbWVz?=
+ =?utf-8?B?aVVuUEhtVEsyK0N1SXE2empOUVkzOG0vUlhiYTBGWHZ0Vld5V2cvNmtHenFp?=
+ =?utf-8?B?MCtwZXRROGtBenU4MHp4VHNaWGtyeDdmNTQvaGFodVBtRG5tTDZxM0xOTEFT?=
+ =?utf-8?B?L25iZlVYcUlhcGY0bGFOdG5senJSbU40bkMrY3lBelE1MmdJc2EvM01GVGFS?=
+ =?utf-8?B?aCtkNFVuK0tQWjEyNitEdFcrYlhnVXEwL0tiVkg3NURzZEJFWGI1eVZ6K042?=
+ =?utf-8?B?dlFva21vRzV1YXBUYjMwWTBXL3paa3pONVVUV1ZvN3k4azA2dWNQNmVFZVQ3?=
+ =?utf-8?B?NEh2b3IzcWZyZWxNMWJac0FISTcyTStESnZaWG1QRkM5bjZneDhFbnh4elRX?=
+ =?utf-8?B?R2RxOU12YmNaOTZSRG56aTFhcEhCalA3RHJyWUxJaktKb0IwQnBnRmUxaUQy?=
+ =?utf-8?B?SDFmVVVFTkVTbzFPYndDa3orYUNYc2Zyc005Z3dYengrZzlBNjNabENiYWRJ?=
+ =?utf-8?B?M3dUUzZLT3g5Z3FIN2FrWjBKdEp6dm9YbFNMeUZCK3FqSTNETnVyWDR2dVF3?=
+ =?utf-8?B?dEw5MDJsNThOTndsS0RJbGtWaXhnVkN6dTRJcU5jalhjRkVCcXZtUzBmOVd4?=
+ =?utf-8?B?eDBRZmdXSUJnM2lJaU40dE43RGxZbWhGWHBGWkZRUXFLek1pUGlzelVVRFdp?=
+ =?utf-8?Q?98Kg=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <8f7a2626-f066-4a49-af09-9b83e95ca0a6@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8713.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a995bf32-ae08-4c74-1179-08dce1efba7a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2024 08:04:52.1720
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QN30oHOClUg1gxsFZhZ6ca4ceVg5O7tAQ7SbYGWzMFq2bsDQYlLX1ACIpz3WEURVf3QvHR4UCi24Ux5gAIBj2w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8115
 
-On Mon, Sep 30, 2024 at 02:42:40PM +0800, Zhu Lingshan wrote:
-> On 9/30/2024 2:30 PM, Michael S. Tsirkin wrote:
-> > On Mon, Sep 30, 2024 at 05:45:48AM +0000, Parav Pandit wrote:
-> >>
-> >>> From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-> >>> Sent: Tuesday, September 3, 2024 11:02 AM
-> >>>
-> >>> On Wed, Jul 24, 2024 at 09:51:43PM +0530, Manivannan Sadhasivam wrote:
-> >>>> On Fri, Jul 12, 2024 at 07:31:44PM +0530, Manivannan Sadhasivam wrote:
-> >>>>> MSI is the predecessor of MSI-X that allows PCIe devices to send
-> >>>>> interrupts to the host. Compared to MSI-X, MSI supports only a
-> >>>>> maximum of 32 vectors per PCIe function. But MSI has been widely
-> >>>>> supported by the PCIe devices requiring fewer interrupts such as
-> >>> Modems, WLAN cards etc...
-> >>>>> Currently, Virtio spec only documents MSI-X and INTX interrupt
-> >>>>> mechanisms for the PCI transport. So if a Virtio device based on PCI
-> >>>>> transport supports only MSI, then the driver on the guest will only
-> >>>>> use INTX for receiving the interrupts. This is really sub-optimal
-> >>>>> and affects the performance of the device. Because with MSI, the
-> >>>>> device can use one vector per queue (max of 32 vectors) thus
-> >>>>> avoiding the overhead associated with a shared INTX vector.
-> >>>>>
-> >>>>> Hence, add support for MSI to the Virtio PCI transport. MSI support
-> >>>>> is added such a way that it reuses the existing infrastructure of
-> >>>>> MSI-X, like the config_msix_vector/queue_msix_vector fields of the
-> >>>>> Virtio common config structure. This makes it easy for the Virtio
-> >>>>> drivers to add MSI support without any disruptive changes.
-> >>>>>
-> >>>> Gentle ping!
-> >>>>
-> >>> Ping again. Virtio maintainers, can you please share some feedback?
-> >>>
-> >> Overall looks to me.
-> >> A small comment below on single MSI vector.
-> >>
-> >>  
-> >>> - Mani
-> >>>
-> >>>> - Mani
-> >>>>
-> >>>>> Signed-off-by: Manivannan Sadhasivam
-> >>>>> <manivannan.sadhasivam@linaro.org>
-> >>>>> ---
-> >>>>>
-> >>>>> Changes in v2:
-> >>>>>
-> >>>>> * Fixed a spelling mistake in commit message
-> >>>>> * Removed update to legacy interface
-> >>>>> * Used 'MSI vector' consistently
-> >>>>>
-> >>>>>  transport-pci.tex | 115
-> >>>>> ++++++++++++++++++++++++++++++++++++----------
-> >>>>>  1 file changed, 92 insertions(+), 23 deletions(-)
-> >>>>>
-> >>>>> diff --git a/transport-pci.tex b/transport-pci.tex index
-> >>>>> a5c6719..fd92641 100644
-> >>>>> --- a/transport-pci.tex
-> >>>>> +++ b/transport-pci.tex
-> >>>>> @@ -347,7 +347,7 @@ \subsubsection{Common configuration structure
-> >>> layout}\label{sec:Virtio Transport
-> >>>>>          Driver Feature Bits selected by \field{driver_feature_select}.
-> >>>>>
-> >>>>>  \item[\field{config_msix_vector}]
-> >>>>> -        Set by the driver to the MSI-X vector for configuration change
-> >>> notifications.
-> >>>>> +        Set by the driver to the MSI/MSI-X vector for configuration change
-> >>> notifications.
-> >>>>>  \item[\field{num_queues}]
-> >>>>>          The device specifies the maximum number of virtqueues supported
-> >>> here.
-> >>>>> @@ -371,7 +371,7 @@ \subsubsection{Common configuration structure
-> >>> layout}\label{sec:Virtio Transport
-> >>>>>          A 0 means the queue is unavailable.
-> >>>>>
-> >>>>>  \item[\field{queue_msix_vector}]
-> >>>>> -        Set by the driver to the MSI-X vector for virtqueue notifications.
-> >>>>> +        Set by the driver to the MSI/MSI-X vector for virtqueue
-> >>> notifications.
-> >>>>>  \item[\field{queue_enable}]
-> >>>>>          The driver uses this to selectively prevent the device from executing
-> >>> requests from this virtqueue.
-> >>>>> @@ -631,11 +631,11 @@ \subsubsection{ISR status
-> >>>>> capability}\label{sec:Virtio Transport Options / Virti  in
-> >>>>> \field{ISR status} before sending a device configuration  change
-> >>> notification to the driver.
-> >>>>> -If MSI-X capability is disabled, the device MUST set the Queue
-> >>>>> +If MSI/MSI-X capability is disabled, the device MUST set the Queue
-> >>>>>  Interrupt bit in \field{ISR status} before sending a virtqueue
-> >>>>> notification to the driver.
-> >>>>>
-> >>>>> -If MSI-X capability is disabled, the device MUST set the Interrupt
-> >>>>> Status
-> >>>>> +If MSI/MSI-X capability is disabled, the device MUST set the
-> >>>>> +Interrupt Status
-> >>>>>  bit in the PCI Status register in the PCI Configuration Header of
-> >>>>> the device to the logical OR of all bits in \field{ISR status} of
-> >>>>> the device.  The device then asserts/deasserts INT\#x interrupts
-> >>>>> unless masked @@ -645,7 +645,7 @@ \subsubsection{ISR status
-> >>>>> capability}\label{sec:Virtio Transport Options / Virti
-> >>>>>
-> >>>>>  \drivernormative{\paragraph}{ISR status capability}{Virtio
-> >>>>> Transport Options / Virtio Over PCI Bus / PCI Device Layout / ISR
-> >>>>> status capability}
-> >>>>>
-> >>>>> -If MSI-X capability is enabled, the driver SHOULD NOT access
-> >>>>> +If MSI/MSI-X capability is enabled, the driver SHOULD NOT access
-> >>>>>  \field{ISR status} upon detecting a Queue Interrupt.
-> >>>>>
-> >>>>>  \subsubsection{Device-specific configuration}\label{sec:Virtio
-> >>>>> Transport Options / Virtio Over PCI Bus / PCI Device Layout /
-> >>>>> Device-specific configuration} @@ -1017,7 +1017,7 @@
-> >>>>> \subsubsection{Device Initialization}\label{sec:Virtio Transport
-> >>>>> Options / Virti  \drivernormative{\subparagraph}{MSI-X Vector
-> >>>>> Configuration}{Virtio Transport Options / Virtio Over PCI Bus /
-> >>>>> PCI-specific Initialization And Device Operation / Device
-> >>>>> Initialization / MSI-X Vector Configuration}
-> >>>>>
-> >>>>>  Driver MUST support device with any MSI-X Table Size 0 to 0x7FF.
-> >>>>> -Driver MAY fall back on using INT\#x interrupts for a device
-> >>>>> +Driver MAY fall back on using MSI or INT\#x interrupts for a device
-> >>>>>  which only supports one MSI-X vector (MSI-X Table Size = 0).
-> >>>>>
-> >>>>>  Driver MAY interpret the Table Size as a hint from the device @@
-> >>>>> -1034,6 +1034,75 @@ \subsubsection{Device
-> >>>>> Initialization}\label{sec:Virtio Transport Options / Virti  the
-> >>>>> driver MAY retry mapping with fewer vectors, disable MSI-X  or report
-> >>> device failure.
-> >>>>> +\paragraph{MSI Vector Configuration}\label{sec:Virtio Transport
-> >>>>> +Options / Virtio Over PCI Bus / PCI-specific Initialization And
-> >>>>> +Device Operation / Device Initialization / MSI Vector
-> >>>>> +Configuration}
-> >>>>> +
-> >>>>> +When MSI capability is present and enabled in the device (through
-> >>>>> +standard PCI configuration space) \field{config_msix_vector} and
-> >>>>> +\field{queue_msix_vector} are used to map configuration change and
-> >>> queue interrupts to MSI vectors. In this case, the ISR Status is unused.
-> >>>>> +
-> >>>>> +Writing a valid MSI vector, 0 to 0x1F, to
-> >>>>> +\field{config_msix_vector}/\field{queue_msix_vector} maps
-> >>>>> +interrupts triggered by the configuration change/selected queue
-> >>>>> +events respectively to the corresponding MSI vector. To disable
-> >>>>> +interrupts for an event type, the driver unmaps this event by
-> >>>>> +writing a special NO_VECTOR
-> >>>>> +value:
-> >>>>> +
-> >>>>> +\begin{lstlisting}
-> >>>>> +/* Vector value used to disable MSI for queue */
-> >>>>> +#define VIRTIO_MSI_NO_VECTOR            0xffff
-> >>>>> +\end{lstlisting}
-> >>>>> +
-> >>>>> +Note that mapping an event to vector might require device to
-> >>>>> +allocate internal device resources, and thus could fail.
-> >>>>> +
-> >>>>> +\devicenormative{\subparagraph}{MSI Vector Configuration}{Virtio
-> >>>>> +Transport Options / Virtio Over PCI Bus / PCI-specific
-> >>>>> +Initialization And Device Operation / Device Initialization / MSI
-> >>>>> +Vector Configuration}
-> >>>>> +
-> >>>>> +A device that has an MSI capability SHOULD support at least 2 and
-> >>>>> +at most 0x20 MSI vectors.
-> >>>>> +Device MUST report the number of vectors supported in
-> >>>>> +\field{Multiple Message Capable} field in the MSI Capability as
-> >>>>> +specified in \hyperref[intro:PCI]{[PCI]}.
-> >>>>> +The device SHOULD restrict the reported MSI Multiple Message
-> >>>>> +Capable field to a value that might benefit system performance.
-> >>>>> +\begin{note}
-> >>>>> +For example, a device which does not expect to send interrupts at a
-> >>>>> +high rate might only specify 2 MSI vectors.
-> >>>>> +\end{note}
-> >>>>> +Device MUST support mapping any event type to any valid vector 0 to
-> >>>>> +number of MSI vectors specified in \field{Multiple Message Capable}
-> >>> field.
-> >>>>> +Device MUST support unmapping any event type.
-> >>>>> +
-> >>>>> +The device MUST return vector mapped to a given event, (NO_VECTOR
-> >>>>> +if unmapped) on read of
-> >>> \field{config_msix_vector}/\field{queue_msix_vector}.
-> >>>>> +The device MUST have all queue and configuration change events
-> >>>>> +unmapped upon reset.
-> >>>>> +
-> >>>>> +Devices SHOULD NOT cause mapping an event to vector to fail unless
-> >>>>> +it is impossible for the device to satisfy the mapping request.
-> >>>>> +Devices MUST report mapping failures by returning the NO_VECTOR
-> >>>>> +value when the relevant
-> >>>>> +\field{config_msix_vector}/\field{queue_msix_vector} field is read.
-> >>>>> +
-> >>>>> +\drivernormative{\subparagraph}{MSI Vector Configuration}{Virtio
-> >>>>> +Transport Options / Virtio Over PCI Bus / PCI-specific
-> >>>>> +Initialization And Device Operation / Device Initialization / MSI
-> >>>>> +Vector Configuration}
-> >>>>> +
-> >>>>> +Driver MUST support device with any MSI vector from 0 to 0x1F.
-> >>>>> +Driver MAY fall back on using INT\#x interrupts for a device which
-> >>>>> +only supports one MSI vector (MSI Multiple Message Capable = 0).
-> >>>>> +
-> >> A single MSI (and MSI-X) vector is still far more optimal than INTx due to the inefficiency of the INTx delivery on PCIe transport.
-> > And lack of support on VFs.
-> >
-> >> And for sw based devices, it anyway doesnt matter a lot either.
-> >>
-> >> So when a new functionality like MSI is added, it does not need to continue what MSI-X has done.
-> >>
-> >> So I request you to remove this guidance of INTx fallback on single MSI vector.
-> > Let's provide an alternative guidance then.
-> > Device SHOULD implement at least 2 MSI vectors?
-> I think one MSI vector is enough for functionalities, just shared by all interrupts.
-> 
-> Thanks
-> Zhu Lingshan
-
-
-Within a VM, this forces an vmexit to check ISR on each interrupt.
-Not good.
-
-> >
-> >> Rest all looks fine to me.
-> >
-
+SGkgQWxiZXJ0LA0KDQpGcm9tOiBBbGJlcnQgRXN0ZXZlIDxhZXN0ZXZlQHJlZGhhdC5jb20+IA0K
+U2VudDogV2VkbmVzZGF5LCBTZXB0ZW1iZXIgMjUsIDIwMjQgMTI6MjAgUE0NCg0KDQpPbiBGcmks
+IFNlcCA2LCAyMDI0IGF0IDk6MDjigK9BTSBBbGJlcnQgRXN0ZXZlIDxtYWlsdG86YWVzdGV2ZUBy
+ZWRoYXQuY29tPiB3cm90ZToNClJlc2VydmUgZGV2aWNlIElEIDQ5IGZvciBtZWRpYSBkZXZpY2Uu
+DQpDb21wYXRpYmxlIHdpdGggdmlkZW8gZW5jb2RlciwgdmlkZW8gZGVjb2RlciwNCmFuZCBjYXB0
+dXJlIGRldmljZXMuDQoNClNpZ25lZC1vZmYtYnk6IEFsYmVydCBFc3RldmUgPG1haWx0bzphZXN0
+ZXZlQHJlZGhhdC5jb20+DQotLS0NCsKgY29udGVudC50ZXggfCAyICsrDQrCoDEgZmlsZSBjaGFu
+Z2VkLCAyIGluc2VydGlvbnMoKykNCg0KZGlmZiAtLWdpdCBhL2NvbnRlbnQudGV4IGIvY29udGVu
+dC50ZXgNCmluZGV4IDBhNjJkY2UuLjZkNmIzZDggMTAwNjQ0DQotLS0gYS9jb250ZW50LnRleA0K
+KysrIGIvY29udGVudC50ZXgNCkBAIC03MzksNiArNzM5LDggQEAgXGNoYXB0ZXJ7RGV2aWNlIFR5
+cGVzfVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzfQ0KwqBcaGxpbmUNCsKgNDXCoCDCoCDCoCDCoCDC
+oCbCoCDCoFNQSSBtYXN0ZXIgXFwNCsKgXGhsaW5lDQorNDnCoCDCoCDCoCDCoCDCoCbCoCDCoE1l
+ZGlhIGRldmljZSBcXA0KK1xobGluZQ0KwqBcZW5ke3RhYnVsYXJ9DQoNClRoZSBpZCA0OCByZXF1
+ZXN0IHdhcyBtYWRlIHNldmVyYWwgbW9udGhzIGFnbyBpbiBNYXktMjQgZm9yIHVzYiwgbm8gZnVy
+dGhlciBpbnRlcmVzdCBoYXMgYmVlbiBzaG93biBvbiBpdC4NCkJldHRlciB0byBhdm9pZCBob2xl
+cyBpbiB0aGUgZGV2aWNlIGlkIGFzc2lnbm1lbnQuDQpTbyBpZCA0OCB3b3VsZCBiZSBiZXR0ZXIg
+dG8gdXNlIGZvciBtZWRpYSB0aGF0IGhhcyBpbnRlcmVzdC4NCkFkZGVkIHZpcnRpby11c2IgcHJv
+cG9zZXIgdG8gdGhyZWFkIHRvIHNlZSBpZiBpdCBpcyBzdGlsbCBpbnRlcmVzdGluZywgaW4gdGhh
+dCBjYXNlIDQ5IHNlZW1zIGdvb2QgaGVyZS4NCg0KR2l2ZW4gdGhlIHZvdGluZyBoYXMgc3RhcnRl
+ZCwgSSBhbSBub3Qgc3VyZSBpZiB0aGUgcmVhbCBpZCB2YWx1ZSBtYXR0ZXJzIGFzIGxvbmcgYXMg
+b25lIG9mIHRoZSB1bmlxdWUgaWQgaXMgcmVzZXJ2ZWQuDQoNCkFuZCBkbyBub3QgcHJlZmVyIHRv
+IHJlc3RhcnQgdGhlIHZvdGluZyBmb3Igc3VjaCBhIHNtYWxsIGNoYW5nZSBlaXRoZXIgb24gbXkg
+bGF0ZSBvYnNlcnZhdGlvbiBvZiB0aGlzIGhvbGUuDQoNCkkgdGhpbmsgd2hlbiB0aGUgbWFpbnRh
+aW5lciBtZXJnZXMgdGhlIHByb3Bvc2VkIHBhdGNoIHRvIGFzc2lnbiBpZCA0OCwgc2hvdWxkIGJl
+IGZpbmUuDQoNCk1pY2hhZWwsDQpBcmUgeW91IG9rIHRoaXMgd2F5PyBPciB5b3UgaGF2ZSBiZXR0
+ZXIgc3VnZ2VzdGlvbj8NCg0KQWlzaHdhcnlhLA0KSXMgdmlydGlvLXVzYiBzdGlsbCBpbnRlcmVz
+dGluZz8gSWYgc28sIGNhbiB5b3UgcGxlYXNlIHJlcXVlc3QgZm9yIHRoZSB2b3RlPyBTbyB0aGF0
+IHdlIGF2b2lkIHRoZSBob2xlIGluIGRldmljZSBpZCBhc3NpZ25tZW50Lg0K
