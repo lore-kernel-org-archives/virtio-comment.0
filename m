@@ -1,72 +1,72 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4851BF7F8
-	for <virtio-comment@lists.linux.dev>; Tue,  1 Oct 2024 14:51:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A765F1C7B98
+	for <virtio-comment@lists.linux.dev>; Tue,  1 Oct 2024 15:34:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1727794266; cv=none; b=RcAFdiBQAoI5G+g2KPeXf0PtPKL0zwb4WH7RvDWih+1UiDe8pku4mjhZi5xSnGyKBBuxdYdP0dsKfNv3mdRb1hVIse9j8rRtFtfppkPv9xDiU/7L5VWfMujbJ22kn7HSIuH5df4my12Ln9XuTlc+l6pfkvGD0dpQIbrHRqxH2Xk=
+	t=1727796845; cv=none; b=gSmvWwWPNmiurvZOsG2PKsVNNf8RhN+xHTYpUP++fPiAlY2fxAgZVmxbkwqE5GyTt6AAkMvKVNFXW0mqkPHyWr12Ie1u/wxekEyYH+ox9C7Qg4JwhArOiyh+jsxjJGfFro05bTlE/EcSahFxQMtEuVJqhAlyu5uUsynUYY9mk0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1727794266; c=relaxed/simple;
-	bh=O/Lc/0pbWT61aUO5TxRmlLIfBORH5znQr7EuIR92SNI=;
+	s=arc-20240116; t=1727796845; c=relaxed/simple;
+	bh=FQB/zaIe0qCqM9ECSL8jV3AhApXSUyy4ST3x+3JTpwE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=FXILEdTbMopyv4oZWrMyp+RjqswWi4x37o7J4pjNOHeo1lrjHnx9pBz/9jGX6t8gHbpOfqs23dEBgF8BV8pkzCpmprwThI5gPSK3s0z7B0eb3z3Cz4fJzlSmBgWkZUkbW7hlLJnKr3EljM6g1E6ItnoHIC33fLjcCR8j+Gf6Rrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=P3AvpTmQ; arc=none smtp.client-ip=170.10.133.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=Ayjb6yrPt0IT9psN6QBVuEJafPh5GX0OObvK8HsZo9trklPHWwnRdAjiI2VHCxzlyR6h9yjQ5TlQv59dBsOx7gJlOKs395/RxTE2PmgKXYLLKL8uQYlA3xB66A/VumDKiIIxdJgj6DYORDdgHWrVw1YqTRRNYDKqH+EAF8use2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=adiEDP0Z; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="P3AvpTmQ"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="adiEDP0Z"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1727794261;
+	s=mimecast20190719; t=1727796841;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ovE95uOyhVgzch88vUNSIsu1EwMLbS2yabCLFvWH6Hk=;
-	b=P3AvpTmQAE4FXRzNl1e2RJ1ML76PuEPHY83zDRHk8g4iVEbWXXsIqDG08Ef6LBIywjtzpT
-	l/JuS74L4slzrBNRRJfR4t//yW52402V6LWCybo8vx/tB9hP1rMZtMIf3H9YVc9oHFmWWO
-	xMlSDfB0/F5MdFjFNTomE7KCr++c6IM=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=YacMOsqFmmM9n54SJyfz73WJrwVka6kKHV9iJ/IjBaw=;
+	b=adiEDP0ZiYHZ7HJ6bcdmV87WtYld0zRq3LcPnjCYdikfUrVX1NM6zjVNZ9HRBKwlLrfR/l
+	DtQsRhj/kHzrpITeQ9QT9KYC+yUHPprDD2XgjxXG0rPEBeplO0mnUUMzDma9AWxd+S1Ehk
+	OEs8lTDBWCcTwldZxNwsm1a5Tz3jSPM=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-654-pZEHx1jNOLGjC969KpNPfw-1; Tue, 01 Oct 2024 10:51:00 -0400
-X-MC-Unique: pZEHx1jNOLGjC969KpNPfw-1
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-42caca7215dso32160745e9.2
-        for <virtio-comment@lists.linux.dev>; Tue, 01 Oct 2024 07:51:00 -0700 (PDT)
+ us-mta-272-DQsuOL9XMnWC5bjOkty9DQ-1; Tue, 01 Oct 2024 11:34:00 -0400
+X-MC-Unique: DQsuOL9XMnWC5bjOkty9DQ-1
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-45b6057797cso92804141cf.3
+        for <virtio-comment@lists.linux.dev>; Tue, 01 Oct 2024 08:34:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727794259; x=1728399059;
+        d=1e100.net; s=20230601; t=1727796839; x=1728401639;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ovE95uOyhVgzch88vUNSIsu1EwMLbS2yabCLFvWH6Hk=;
-        b=Ey1P2y9QVyDaz0JJ+FJ0XowwKU+NDIKl4YylodLd1s/HMlDpe8+9w1CCyze+1SPzmm
-         7XfeB/qcyiPubcaywNHE3XkrvjeLS/U/epbH4bg15ZHHsHn2OkzfqUBtgYDtVMOg4Fzu
-         DiBGY8gCL34sy5AxYFKe6UYeyczecZ6txpK3QjKclIfGhll4DnNet4BJWIJkDuC5Nf2z
-         8EP6+Nts6P0ipL6BHK6qhY9MmgIHKoevFqlr3df18ZJjrDx8tui5Tf1ywYiRPD6EC0Zd
-         XI7tdZ8hAtiMQ2N6eTDBOi7lBhwy6qIvdu7UGGChBgiojfJKQsTY8MUoDCR8dV9Er4Wu
-         0zmA==
-X-Gm-Message-State: AOJu0YzwXhADljy4GjHLMmaUrFyyZ3IivHoX+PIAT4NBIQVz9UruHOnn
-	4610lO8dljUoTOJy9bnO6x5JNch7s6spa0blGuLFDEVusKFaHVRomNqlnUNxA43m0iiUXMOygpr
-	U1z2Pdn2f36rfxbnEwYnUrRbToeGHUMcCfcN4AWoBdiEpF++UfsCxx4NOtyDR0OeM
-X-Received: by 2002:a05:600c:4451:b0:427:ff3b:7a20 with SMTP id 5b1f17b1804b1-42f58487fc9mr108194495e9.27.1727794258849;
-        Tue, 01 Oct 2024 07:50:58 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGlQa8tHdUA+tcq/brMdJIVNLCEIOrVRevcrWr8zeUQKGrdzCL/O6hAwXlSyrzGtyOC5I7Mog==
-X-Received: by 2002:a05:600c:4451:b0:427:ff3b:7a20 with SMTP id 5b1f17b1804b1-42f58487fc9mr108194225e9.27.1727794258202;
-        Tue, 01 Oct 2024 07:50:58 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc7:55e:42b2:2c3a:bdd9:126e:d43a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-42f57e2fe89sm133566915e9.40.2024.10.01.07.50.56
+        bh=YacMOsqFmmM9n54SJyfz73WJrwVka6kKHV9iJ/IjBaw=;
+        b=th5MZkgy4wnH/qiYToGyPTTIzRndO+4pYIZtN44OC/Zt3oBO451LMLkIb1BLMtdCqW
+         u+w83vITSP0d5czTfcGzbq3FgfdcqXzNTeB8vnHolcflZKvg1fn98eoBGcgf5T7+RbL5
+         y1Hzy0NdNTi4ooZ2Zmoc6wW5vHKZK42VQ00KcrG9umZpbhDvXwtq8l+KILUIHJcNxBy9
+         HUPHOCwzYBvMKQbAFDnTpAOhTA00EK+4LU/MqjVJuIQ7tvokgPTrVEkbnKY+TGuYTA83
+         ICVEtcLCepLWqSDcqblH8Tsx0YQxw4fC6zlbQs7bnDEgP7Kf0FGE1j4nR2SyYJZzcRIO
+         nT8g==
+X-Gm-Message-State: AOJu0Yw8wjnXnSpMX7pn0JzAo4GF67D4EdUfHn+B2P1Oc4VaFmVvGLE+
+	7itc+0WEA8qAwTFccNVc3Ze7+X6FznscybeEjrd6XlUIexrBGFwvmThrgH10DMygdq1/x+qXywR
+	nzjWxntABhqBqjP0FKgHcVWB0SiKtsSX4lPPWIf5oRLNAQNyqQx9gVvd9c1+Ic/VT
+X-Received: by 2002:ac8:7d81:0:b0:455:9ee:fe60 with SMTP id d75a77b69052e-45d80495408mr24271cf.8.1727796839239;
+        Tue, 01 Oct 2024 08:33:59 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE6+ljj65QXzeHABMRPqrVICx/FHTMozH2Fsw/HxigaHBdLnoooav78g/tEiQlX+2ecBnXMJQ==
+X-Received: by 2002:ac8:7d81:0:b0:455:9ee:fe60 with SMTP id d75a77b69052e-45d80495408mr23841cf.8.1727796838677;
+        Tue, 01 Oct 2024 08:33:58 -0700 (PDT)
+Received: from fedora (193-248-58-176.ftth.fr.orangecustomers.net. [193.248.58.176])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-45c9f19b72asm46948701cf.0.2024.10.01.08.33.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Oct 2024 07:50:57 -0700 (PDT)
-Date: Tue, 1 Oct 2024 10:50:54 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
+        Tue, 01 Oct 2024 08:33:58 -0700 (PDT)
+Date: Tue, 1 Oct 2024 17:33:54 +0200
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
 To: Alexander Graf <graf@amazon.com>
-Cc: virtio-comment@lists.linux.dev,
+Cc: virtio-comment@lists.linux.dev, "Michael S . Tsirkin" <mst@redhat.com>,
 	Dorjoy Chowdhury <dorjoychy111@gmail.com>,
 	Petre Eftime <epetre@amazon.de>,
 	Leonard Foerster <foersleo@amazon.de>,
 	Erdem Meydanli <meydanli@amazon.nl>,
 	Eugene Koira <eugkoira@amazon.nl>
 Subject: Re: [PATCH RESEND] nsm: Add NSM description
-Message-ID: <20241001103502-mutt-send-email-mst@kernel.org>
+Message-ID: <ZvwWYnSd64z2U+zM@fedora>
 References: <20241001140926.3015-1-graf@amazon.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
@@ -80,6 +80,10 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
+Hello Alexander,
+
+You can find some minor comments below.
+
 On Tue, Oct 01, 2024 at 02:09:26PM +0000, Alexander Graf wrote:
 > The virtio NitroSecureModule is a device with a very stripped down
 > Trusted Platform Module functionality, which is used in the
@@ -90,12 +94,6 @@ On Tue, Oct 01, 2024 at 02:09:26PM +0000, Alexander Graf wrote:
 > driver for the NitroSecureModule virtio device.
 > 
 > Signed-off-by: Alexander Graf <graf@amazon.com>
-
-
-Looks good, thanks!
-
-Yet something to improve:
-
 > ---
 >  conformance.tex                         |   2 +
 >  content.tex                             |   1 +
@@ -148,13 +146,6 @@ Yet something to improve:
 > +\section{NSM Device}\label{sec:Device Types / NSM Device}
 > +
 > +The virtio NitroSecureModule is a device with a very stripped down
-
-In the title, pls put Nitro Secure Module.
-In the text, define NSM:
-
-Nitro Secure Module (NSM) is a device with a very stripped down...
-
-
 > +Trusted Platform Module functionality, which is used in the
 > +context of a Nitro Enclave (see \url{https://lkml.org/lkml/2020/4/21/1020})
 > +to provide boot time measurement and attestation.
@@ -168,6 +159,11 @@ Nitro Secure Module (NSM) is a device with a very stripped down...
 > +the device needs to be as resilient as possible, simplicity is
 > +strongly desired.
 > +
+
+I am not sure if the sentence `so the device needs to be as resilient as
+possible, simplicity is strongly desired` adds something and I think it could be
+removed but I do not have a strong opinion about it.
+
 > +To account for that, the device and driver are made to have very few
 > +error cases in the critical path and the operations themselves can be
 > +rolled back and retried if events happen outside the critical
@@ -178,6 +174,13 @@ Nitro Secure Module (NSM) is a device with a very stripped down...
 > +most requests requires no additional buffering or memory allocations
 > +on the host side.
 > +
+
+What do you mean with `requests can be handled directly in the virtio
+queue`? I think I get it after reading the whole patch. You mean that
+the device implementation requires only what the guest has exposed as
+requests and responses from guest memory and none other memory from the
+host is required.
+
 > +\subsection{Device ID}\label{sec:Device Types / NSM Device / Device ID}
 > +  33
 > +
@@ -201,22 +204,16 @@ Nitro Secure Module (NSM) is a device with a very stripped down...
 > +\subsection{Device Operations}\label{sec:Device Types / NSM Device / Device Operations}
 > +
 > +Driver sends a single CBOR encoded request on the request virtqueue, notifies
+
+Maybe it is better to use `request virtqueue` everywhere? However, in
+this case, it is easy to understand that is `nsm.vq.0` since there is
+only one queue.
+
 > +the device and waits for the device to return the request with a response in
-
-what does with a response mean?
-
 > +the used ring. The request must be inside a buffer of exactly 0x1000 bytes.
 > +The reply buffer must be exactly 0x3000 bytes large.
-
-First time you mention reply here. So are there 2 buffers?
-
-
 > +
 > +The driver sends requests with the following format:
-
-
-in the following format:
-
 > +
 > +\begin{lstlisting}
 > +struct virtio_nsm_req {
@@ -225,18 +222,8 @@ in the following format:
 > +\end{lstlisting}
 > +
 > +\field{cbor_req} is the CBOR encoded request data. See \url{http://cbor.io/} for information about CBOR.
-
-
-This is not how we should link to external specs. Add a link to
-introduction.tex please, and add a hyperref here.
-You also probably want to add a link to the actual RFC.
-Readers shouldn't need to dig for it.
-
 > +
 > +Possible requests are:
-
-types of requests?
-
 > +
 > +\begin{itemize}
 > +\item \hyperref[sec:Device Types / NSM Device / Device Operations / DescribePCR]{DescribePCR}
@@ -249,13 +236,13 @@ types of requests?
 > +\end{itemize}
 > +
 > +Every request always triggers a single reponse in the response descriptor with the following format:
-
-what is response descriptor?
-Also, you mean response buffer?
-Triggers in what sense?
-
-
 > +
+
+Out of curiosity, why do you need to state that each request always
+triggers a single response? Is this in case some implementation decide
+to batch several requests and responses in a single chain of
+descriptors?
+
 > +\begin{lstlisting}
 > +struct virtio_nsm_resp {
 > +        u8 cbor_resp[0x3000];
@@ -283,26 +270,11 @@ Triggers in what sense?
 > +\item InputTooLarge
 > +\item InternalError
 > +\end{itemize}
-
-These terms do not seem to come from the RFC, at least
-a full text search does not turn up anything.
-Suggest using terms from the RFC, if at all possible.
-
-
 > +
 > +\subsubsection{DescribePCR}\label{sec:Device Types / NSM Device / Device Operations / DescribePCR}
 > +
 > +The driver requests a description of the current hash value of a particular
 > +PCR value. The device responds with the hash value.
-
-You do not define what a PCR is. That RFC mentions Perl Compatible Regular Expression?
-Does not seem logical, so I donnu.
-Again, pls decode acronyms on 1st use and link to
-where they are explained fully.
-
-I'm not repeating this every time this occurs.
-
-
 > +
 > +\drivernormative{\paragraph}{DescribePCR}{Device Types / NSM Device / Device Operations / DescribePCR}
 > +
@@ -321,11 +293,6 @@ I'm not repeating this every time this occurs.
 > +\devicenormative{\paragraph}{DescribePCR}{Device Types / NSM Device / Device Operations / DescribePCR}
 > +
 > +The device MUST respond with an error message or with the following success message:
-
-again, not clear what is respond.
-Maybe something like "respond by writing the following message into the reply buffer"?
-I am only guessing.
-
 > +
 > +\begin{lstlisting}
 > +Map(1) {
@@ -347,6 +314,12 @@ I am only guessing.
 > +The driver requests to add binary data to a PCR value which the device then
 > +appends to the PCR hash value. The device responds with the new PCR value.
 > +
+
+Do you mean that this command allows the driver to request to add binary
+data to a PCR value, then, if command succeeds, the device appends the
+binary data to the PCR hash value and responds with the new PCR value?
+Does the device respond with the appended data?
+
 > +\drivernormative{\paragraph}{ExtendPCR}{Device Types / NSM Device / Device Operations / ExtendPCR}
 > +
 > +\begin{lstlisting}
@@ -607,4 +580,6 @@ I am only guessing.
 > Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
 > Sitz: Berlin
 > Ust-ID: DE 365 538 597
+> 
+> 
 
