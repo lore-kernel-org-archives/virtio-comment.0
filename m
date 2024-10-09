@@ -1,279 +1,256 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A46194AEB
-	for <virtio-comment@lists.linux.dev>; Wed,  9 Oct 2024 08:37:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1728463063; cv=none; b=dwcTFDg277rz4N/IKL07sPESTj7bup3i+ZENBzDXgree7GHUaujkj7PvEMT4hhrDaxjRFjWfN7EI3SkAezKDKPNCKUm0CDg3ZgGeCPGEaVBYMegAjQGSOK1RsmWmQZzBR0JjyHROfgkk/oCDwhENTskXGiJqt8lj9x9wrkkeLno=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1728463063; c=relaxed/simple;
-	bh=jDSGLGqe75aDUnQTQPAmy60LZpr1EPCdJXJoH6VZbYQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=n+CUjyCqawqdqt4ctwz9BNBtj918gu/tPQVyNuZvW8szvfNI3IudoxAERy712huJLKU0tJdoNu9Ei+1tWaaOiGq3RvG4QtUcZ26XQTmKv7TGsiOhYjIZeqsjO1AQ3SJYxq2fbnwTrUqAL7/VnxWIxLdfS27KfL3H1H5otDeGMqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NHU+tD4M; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F9F17BB06
+	for <virtio-comment@lists.linux.dev>; Wed,  9 Oct 2024 08:47:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1728463642; cv=fail; b=QzdVeII+EZqTQHVNU1f+77/m+LQ6WBIDu5MRXG7YDILVeBEeiAXRcL2Iy5a0nzvJXllkRHfMvuqF1MPkOjAI0B0lEBFMEqwngNI7Bh6FhwDC8k3PhpKly3SXW+JfURv3nYx49BvwT9/OZCHTjsu3fNgJ37pcdYUT3cSSKS+sx50=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1728463642; c=relaxed/simple;
+	bh=Jno9J26tPkxbaAXuJ9fQwT/4abMKw6mug+b2rNsH0j4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=TLxB91twFDI/IWsfB49hmHgD17spK/ablgfYLPodP0WHYW6jdG0DcCqOIY8rQfK+c0woyP9HZIEZ+vuJeZ+weLlGafPtXneM5v4eH5RTf2H8/JokVGCV9A4wh2zYBPygIAfdos9oPg7GqsUuvxyzgBhCXPHLoWOvC2Sz1KphTHE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com; spf=pass smtp.mailfrom=quicinc.com; dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b=ea2w1vhy; arc=fail smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quicinc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NHU+tD4M"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1728463061;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Uw1e+aKO9WP9Mb7uLOMiqTeSrcu6jUtZREkwWBXGdEQ=;
-	b=NHU+tD4MW2B/nfhq9mnjDoqOKS7T3rtQkqezFYcXa2BdihbtOvHDob0aHSh4QV9ypDgg6/
-	gTfw74MUiyP0Doq1yDees+uGOsc75pHz+4fuN373lK1XalMkkin+xCHgUIIUkUkWVI9CI7
-	rGs/qOO6TEqSM16/KqiBRyYbobJRk+k=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-6-i6RCfVfhP2CJ556Ldv-BIQ-1; Wed, 09 Oct 2024 04:37:39 -0400
-X-MC-Unique: i6RCfVfhP2CJ556Ldv-BIQ-1
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-37cd08d3678so272834f8f.1
-        for <virtio-comment@lists.linux.dev>; Wed, 09 Oct 2024 01:37:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728463058; x=1729067858;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Uw1e+aKO9WP9Mb7uLOMiqTeSrcu6jUtZREkwWBXGdEQ=;
-        b=KbzwEhyAos6oYkakte1e3BudUd/b5PSyBoY55UOIHPNNZ2wZ4CO+60X7+jlzFqQOog
-         ln5vR5My4yILjnAsGuRriLf0N1H4UOIx1VArNk/GZGhidBWu2sy+Jq8QCl1bfPfqNwrO
-         uXrydil3PQUbnBZv4BkuA5wwi8HLTHs9M+03O9KMp+YPR+a9cOBvH4y1t4o8AqkpKg8w
-         D8+uo40NgKULegbcxOieOl6uGCH7gDht/rktP/vG1IqEbs2r5fEDGGtO6wxX1eswPN9R
-         Wb92D6C2rDM87proAQSrbCh8v3yNlJNhsuhPCRfhr2Zw7tROSWo1nMsEgDlj2GimhGzV
-         6Jfg==
-X-Gm-Message-State: AOJu0Yw3XGM4bhvVp4NFbveOEyFvjZe4HW5o+/toQQ8G5MtK5ckGzZgB
-	i6eQKE8NDzhLxpIy+ZrItveB9GbleiGg+Yj+LgTnWWuwC8pA9zng325Z0StHuIAKZBLxXpPEDZ/
-	LMl3oO1DfI1vlZErPzeKiKgm74kiWnV6q4UZuHv5Ei/cqvlFzyTG4ETgB2jW2NSAw
-X-Received: by 2002:adf:fe8b:0:b0:374:c21a:9dd4 with SMTP id ffacd0b85a97d-37d3a522b52mr1201083f8f.20.1728463058239;
-        Wed, 09 Oct 2024 01:37:38 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH2MzkoDcAsLCVGgvhkn/cablEJJXWSSu+aloJHzduKZlA2VpYkYH/Oho7RPI3Msd2HvNlz4g==
-X-Received: by 2002:adf:fe8b:0:b0:374:c21a:9dd4 with SMTP id ffacd0b85a97d-37d3a522b52mr1201067f8f.20.1728463057770;
-        Wed, 09 Oct 2024 01:37:37 -0700 (PDT)
-Received: from [192.168.88.248] (146-241-42-55.dyn.eolo.it. [146.241.42.55])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-37d1695ec1esm9865237f8f.74.2024.10.09.01.37.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Oct 2024 01:37:37 -0700 (PDT)
-Message-ID: <d34f50af-4042-44c6-90e1-0acbbb899e96@redhat.com>
-Date: Wed, 9 Oct 2024 10:37:35 +0200
+	dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b="ea2w1vhy"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4994BNRm032325;
+	Wed, 9 Oct 2024 08:47:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Jno9J26tPkxbaAXuJ9fQwT/4abMKw6mug+b2rNsH0j4=; b=ea2w1vhy2kM5xF2N
+	WInATdbENT2GzLx49w6a2n9QOTwjUadiMhm8x9WGor4hTL7iOReDL134yKFZCdLL
+	f8TlsPcQ1QUpOioES2u/Olpc6s9IEij0xn0PYsNJSdHZjKn6LabISkbPd8BqPWSU
+	KC/Ctf+z5l6YTyDGJKX1Aj0l2aN8AqzR6OplkD4sRhG4r9kCXmglzHDVPYeaf24F
+	16CdbxDpxvh4hAh419FCE9NFB5WqI0yRjI2EvJdhSNkMkF+AN+OZ0Tlg2vmmkBPq
+	duhCD/W8n2pXX8DPEqjbzMXTL8K15uRIsIv7lUjDuTKzIedTtj+BPTUqrqFBduat
+	eE+TTw==
+Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazlp17012012.outbound.protection.outlook.com [40.93.14.12])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 424wgs44w4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Oct 2024 08:47:18 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tZs0H2y/trFxDnzxvd9bH/c9Ie5E7wG6A9KgNqtsJKkElQvrcrBrY1H575VuqX6hLHr1tat+Cnx5DvPsKiUTV+jgjZjbsHG0N8FsjMZE+LeEtxBGw8HlhuAveCI7jfQBjBmgRFXa1olvHUvwM8Xta1QP5PYXsd5SWIaJcBuPU3EKZ8q3fc+bbrZ+9v/gRFY/vcVeqm7GGvxZsjz4ALJQKZDSWhhL+Y6dQeletlqI+YokYPNb17Vg8T6GidhVyqKKj9v0OfUSV4jEl9NCb+FtzzqzTnne8Hprcp4t7wQOeftrsxQRb+sMO7eHv9X7VQPOzmC3DQutWK6lriIM59LI2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Jno9J26tPkxbaAXuJ9fQwT/4abMKw6mug+b2rNsH0j4=;
+ b=Q5eR7fs48Z1XqfPmY58q9yTbzjDfU7oNEwS2W1u8tdjFA2qCTpx1L64weCZArqaomCDnGpQonhKy/GA0Q/OW8UlG+YfNg7DI4ci4vI1eMedEsBYFhgRL0UAu3ugnFwjUL2GO8OqMlSnQdX0Si0r3P1bz09xZCJ+pkL5rvavh/Z9NBPVAGe6evR3c0oGDhu5lYhalDJjBBathNbz+5pmwO3TZGwtvsIdlpcIdDEkrmDH7N1j13SvuJH7NgKjKj9X4y1clRF8mfD5584Q5Xzzf7mX7oLtLbtON6X2lNQTPcbgrbGQkAZQP0AisPHCZZZaMNMVIGgYliA+gbD3gEDCAxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=quicinc.com; dmarc=pass action=none header.from=quicinc.com;
+ dkim=pass header.d=quicinc.com; arc=none
+Received: from MN2PR02MB7007.namprd02.prod.outlook.com (2603:10b6:208:207::16)
+ by SA2PR02MB7627.namprd02.prod.outlook.com (2603:10b6:806:148::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.16; Wed, 9 Oct
+ 2024 08:47:16 +0000
+Received: from MN2PR02MB7007.namprd02.prod.outlook.com
+ ([fe80::eab0:b587:3138:f48b]) by MN2PR02MB7007.namprd02.prod.outlook.com
+ ([fe80::eab0:b587:3138:f48b%7]) with mapi id 15.20.8026.020; Wed, 9 Oct 2024
+ 08:47:15 +0000
+From: "Aiswarya Cyriac (QUIC)" <quic_acyriac@quicinc.com>
+To: Parav Pandit <parav@nvidia.com>,
+        "Alexander Gordeev (QUIC)"
+	<quic_agordeev@quicinc.com>,
+        Albert Esteve <aesteve@redhat.com>,
+        "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+        "Aiswarya
+ Cyriac (QUIC)" <quic_acyriac@quicinc.com>
+CC: "acourbot@chromium.org" <acourbot@chromium.org>
+Subject: RE: [PATCH v3] content: Reserve ID for media device
+Thread-Topic: [PATCH v3] content: Reserve ID for media device
+Thread-Index: AQHbE/HmcELoI5U5U02p413zR13gCrJxyOaAgAxe4SA=
+Date: Wed, 9 Oct 2024 08:47:15 +0000
+Message-ID:
+ <MN2PR02MB70077B40D74FFC3C18E00AF6907F2@MN2PR02MB7007.namprd02.prod.outlook.com>
+References: <20240906070833.1949727-1-aesteve@redhat.com>
+ <CADSE00KO=VZy4_4FfgC7ODON32mZ8khWkPUcXheP6pTiEZAyHA@mail.gmail.com>
+ <IA0PR12MB8713CC178EDB984292755C5DDC772@IA0PR12MB8713.namprd12.prod.outlook.com>
+ <IA0PR12MB87130D5F5839629436E0A748DC772@IA0PR12MB8713.namprd12.prod.outlook.com>
+ <e6e04b1b-b1cb-41b6-8d9b-69fe79d8494b@quicinc.com>
+ <IA0PR12MB8713B01D403D049991D38072DC772@IA0PR12MB8713.namprd12.prod.outlook.com>
+In-Reply-To:
+ <IA0PR12MB8713B01D403D049991D38072DC772@IA0PR12MB8713.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR02MB7007:EE_|SA2PR02MB7627:EE_
+x-ms-office365-filtering-correlation-id: b2066725-ad75-4b7c-fa28-08dce83ef9f6
+x-ld-processed: 98e9ba89-e1a1-4e38-9007-8bdabc25de1d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?VUI0S3NEbGZEYVUzZkhtV0cvSFlPTFFCSnhhalpLak5BNWZqWFBmcHp3SUdR?=
+ =?utf-8?B?a1RCa2d0OStteVBxWTVuek8wOU9pejFrOFZ2TURxOWg4ekVhS0MzeUhUUy90?=
+ =?utf-8?B?NlRiVGIvNGhJRVp3dVJDaktXNi9QU0hTelJCZ1A5OWNTb3VXeGN1c3lPUzJj?=
+ =?utf-8?B?bkFZRm5sRlNtZHVhUDFFUlZhaldZTjVjMU1FNHhveDNlZ1kzY3p5OUdlUDNj?=
+ =?utf-8?B?Z1QrUHltV0pCMEt3ZTZsbFltV0xPd2V6VnhqYndnZHZVOUE2RG8xcmJrUlNl?=
+ =?utf-8?B?dFhLM0dlRyt5b0NVQWV1TG91am9yNXJPbWp4Q0lnNWhDSUFSaDRXK1N5UnlL?=
+ =?utf-8?B?Mm14dnFzZW1GUVllcTB4QjJUczJBOWFoSTJDbENJZ2wyQWtOazFPdlJMUGwv?=
+ =?utf-8?B?YVZNK0laUlpXcEtiUVo5bmsyZnZST0tMNEx2SnRtczRraVByZkw3cGhkb0xy?=
+ =?utf-8?B?TmtWcUtsZ0xDTFE2WC9sdjJ6bllYa3MzdXI0SmpoUW83MWpFMTBldU1qNG9p?=
+ =?utf-8?B?TGRhdmlsU0xWeVNnWE51WjIwRy9mVEEvRzhZd3lOZUdoVzVTditjK1JRa1pF?=
+ =?utf-8?B?RnFRVU41QUw3Yk15ZnZoMUptQnhZWUxqRXJody9WQ0hUaWNoWDY2VkZZRGRx?=
+ =?utf-8?B?V3RQNlJDYTdhUGpzVWVsSW5EeVFoNkVXdGZBamVxTjdkQTFtZ0xJdUNxRVJw?=
+ =?utf-8?B?RFI3d0ViRk5TVklIZ0ZzY0VPRHUvOUU2YTZpREFkS3h0TWJ5ajlBLzNyYmc2?=
+ =?utf-8?B?TzVxcHUzb2RRM0hONDBrak01dSt4YldwSllNQ2MreWZxYTFSMVdXWHhDTFF4?=
+ =?utf-8?B?WXVjd0FZZTJoWG53aFUrMjE1V0dSL3BPdlNGaEhjeHBUcVVyWVdSZHE4U2Fz?=
+ =?utf-8?B?Zi9wZGNROTFtREVoYkc2bXVNN1BMcUJJZ0dsUWVaYWNrWXNFOG9sSFBid3dp?=
+ =?utf-8?B?ajQ4OGozUDcyNlVsdHpjQzNid2djTmlBT0RNNzRKRC9vZlNLcHB0c3BGREFL?=
+ =?utf-8?B?YlZCVkZaYmRhRGNGT1Z2YzZWMDB5RVd2ZEJVOWtTa3lVYTVaOHlqMEh1RkZH?=
+ =?utf-8?B?RFpnVHZnQ2hmKytmWm9GWlk5SWlnTmF3TGNiWkJDZEYyWVBFaWQ1QXNZUUl4?=
+ =?utf-8?B?Vk9uRGVhbUFSM3VUVmk4S0dpRUtDMnF5YXJWRHc3c25JdDhrMVBwbm01Y3BW?=
+ =?utf-8?B?ZUQ4UmtOK0YvRWlQc2dZa0JxZUIrK1RVTXp3cW01UFg4UG1KV3hhaC9YdzNJ?=
+ =?utf-8?B?c2FjbzZQRE82M2pqVWtRVWJWdXRsR3lZWFNqUmFJY0hrRHJoQXBMcmhYZFdw?=
+ =?utf-8?B?b3RGbGsreE5pU0tYSG5ZWnBZOEJCZ1BLWVhYOG90MTZrakJJcTlySGkrQXZw?=
+ =?utf-8?B?bkRLa01Vc3FkdlBiZG1YNUdYa0k5VFF0UEE1Nk1RS0huZ2NYcFhlbGo1WjF4?=
+ =?utf-8?B?d0FZZExOandCdW4yV3V1QnRSTnFlVGRTWG9JVHVNS05Oa09nZ2FBbm5haGVJ?=
+ =?utf-8?B?ME1DSGFjZEVrTU83ZDNhS3VFUVREamVqV09oZ1FiK2p5SEhtNHN2L0NqVjB4?=
+ =?utf-8?B?Y2Z6c0gzQllnT3hBWHArRUVEMXp3dDQvNks3d09XYUw1V1d2T1BncitPOVE3?=
+ =?utf-8?B?ZGFHY05QZDJ4VmszVUV3UUlBMGswQWJvZnpkemhMUm1nTGRGc3h6bTV0NWNl?=
+ =?utf-8?B?UEZlWFlvblFnMnVrSjlJOW5zRllXYnh1MStpU3RwcFp4a0dKVWJqM3FBaHBQ?=
+ =?utf-8?B?Y1prenFMbkFDb0JDVXB5QnZySTFmd3VPZTJwNk5LeEgyVjdyb09lRGJCTnRm?=
+ =?utf-8?B?dDRtdlFtR1RsNVl0V3FEQT09?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR02MB7007.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?STF3bnUxTElRMGJIekNrY1JEaTJSR1UrRlFXdjBzY29xeXRmaDFmY3Y3VDEz?=
+ =?utf-8?B?MnRYMWUvd2c0b0FKNmhmMitVaEthVkk5a2c2UTBHdXVZck9RQjVJYXBmLzVl?=
+ =?utf-8?B?a3B1djZlcHlwUlJkaUg0MTFTTlVMc3FEdGREazlHekhoU1poRnY5aTluQUhz?=
+ =?utf-8?B?aFBtSVQzVEVwSktyVHp0RWFhV1FnTDByN2QwS25jbkpYVE5xbENvdzNzSzJL?=
+ =?utf-8?B?Wk9RazY5TFZHbm85ME9kTHNSNUxuWGEvKzQwaC9xcXp6c001LzcrdlZGektV?=
+ =?utf-8?B?VXQrNEhMOC9KbHh3KytvZW9CTUtHVXhETU5leTVndEFJVUVMUG5lM2VKZDNs?=
+ =?utf-8?B?akwrNHlzdndEZ3ZmTUZkWWRpdUpGZlFXcHFybmcwVEFHb0JBN1ZvSUNkM3hU?=
+ =?utf-8?B?R200dFFra0JLeC8vWmZBalFUQjlCMm5LNlo5YmF2YXQ4NVJoSUs5Sk9yTnJh?=
+ =?utf-8?B?SzdrMVJWb1F3WWJBcExIaENyZCtuQ3lyR2JMbDYxMFlTOW1NWjM5cS9mZzJa?=
+ =?utf-8?B?Y3cyY2lBaHhjMmg0UGdjOW43M3BnMlhnZ3UycTRoclpNN09aQ0xkbHZpeHNk?=
+ =?utf-8?B?cTA3ZFYxODdTSnU3dkZCR1JSaG5YcE1HK2k5YmUzUU9ManEvckpxQmxqcy9F?=
+ =?utf-8?B?WXVHNnpDVHA4VjNiN004dTNDYUVMZVNJcFhaaThmRUZwbjN3VTJERFdFVFJQ?=
+ =?utf-8?B?K3JpUm8rNG95Y0gvNG9zdWZQS2tWMWdvRWxOblliNjlRQjk5U2pNNmdBUnhH?=
+ =?utf-8?B?YlhOMXFUMkw5ZVRxUGxJSHBWWUVkcnlWUENVRHZhZ3doWXFtN3VRL25iejla?=
+ =?utf-8?B?bTdGZktUa1FlYnk1eUVOdHg5aWN1R2l4WEVMcVd6TEdsbU9hSzlnNGx2TTk4?=
+ =?utf-8?B?SVEyanFzU04ySTlzd3dyUDkxWnI4TVpmdkZidEViV05IMlJ3dnNZYmEzOWxm?=
+ =?utf-8?B?ZmJuMUd0M0x6VUdsVVpmOGNWVi90QTMybVUzUExXWGtueXFKaTA4YWVkSGhL?=
+ =?utf-8?B?djZHaFVYMHhkbW9wTld2T0RSMk01NWt6ZUtVbmd0aWhEZSttVWpkNVNNSGIx?=
+ =?utf-8?B?SzlhOFRDcG1MWjRvMXRtL1dUOVl2NExVVmhOOElkWnpoRHplSk83Tzl6MFQ5?=
+ =?utf-8?B?QXJMNS8xVTlHMU1DRjk0SmpjZjBQS0xUUklDTkFzQ05wSk40eTZpMDFpb0hF?=
+ =?utf-8?B?SlFqb3prK0RwUlp0RGdqWjIweEI3TVhqbk5wclRnSlVLc0NGdURMVGlTM2ZK?=
+ =?utf-8?B?ZWNFRDFOWXkzM3A4N1FEeUpoY0FnclpEaFJJM0RwZnZIbzV4dWtON1E0TzRa?=
+ =?utf-8?B?QUNEaUpSV1U0bzRSUjRvbXlkOUJia25LWU1tSjhKMURveHhIQ25Ramcvc0xh?=
+ =?utf-8?B?VlV2RnV4bzV5MU9NeDNyL2ZXL0syc3UrOFdlbXM4S2lPdzhYRCt0c1hDaFRT?=
+ =?utf-8?B?L0t2cmg1OVlJK0xEN3lhMDUwSXA1SUtUeFgrVnBrdjdNSlpYRXhldFpQZStY?=
+ =?utf-8?B?aXFrY3d2V3lHQ1A4K2g1cGk1ZGxLSVQ3WjM1L1RQNjNBWGk0dlBGbzBEQUVM?=
+ =?utf-8?B?Mm9wbHZDd05kR2pscWU0eUFPRFdjTk10eGJqYnFseWZWeTJJSjVmYUZ4ZHBM?=
+ =?utf-8?B?bHptYnplbEZuY3JOM2NaUWlTUTlEMEFWeGxhRFBBYzRwY0Z4djNDY0wzNjB3?=
+ =?utf-8?B?S3BxaHJJU21PK3ZyU2FJWXptUFdZNTRTNGprZE1sdHVaSmZJa213aUdmK3k3?=
+ =?utf-8?B?eTd2bUs1TElZYmp4emxiZTZaTnAvZ2tRWndrOC90ZGo2alFpODVXYUcwZGd2?=
+ =?utf-8?B?T0R0NjhJSjM1aDg3MWNuSU5NRVhFU1dubkdYOWt0TDJGWHZtUTlxbkxVMUZk?=
+ =?utf-8?B?OWwrdUV2SVdKZ3Y1S2xGczk5RnZXc3ZXck05WG03RWdqUGlrZ0hYaTZyZGlt?=
+ =?utf-8?B?UXYwUHg4bWZ5UTN3amgxRzFySEZkWkdhM2dCMW9NcXdKMU5ubHc0RkxIc0pM?=
+ =?utf-8?B?SDR0Szk4K3N0WFdzNnhMbzZwdDVrdCs1b3hNYTZnS2czdzZDZ0Y5bDhYbHl0?=
+ =?utf-8?B?a0h0MFo2WmZkSHllVmhxYnE0ZW1uVUE0QWhTVi9wQXY1d3dOWTUwRzJHdHlu?=
+ =?utf-8?Q?/T3fWM+APQfvSs3dYcAW9Ux/L?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/2] virtio-net: define UDP tunnel segmentation offload
- feature
-To: Jason Wang <jasowang@redhat.com>
-Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com,
- Eelco Chaudron <echaudro@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>,
- Willem de Bruijn <willemb@google.com>, kshankar@marvell.com
-References: <cover.1728029499.git.pabeni@redhat.com>
- <55306969c73f62bf4d100d15074bfd6cde741417.1728029499.git.pabeni@redhat.com>
- <CACGkMEvV0gtvgpb7z1MqJLKzHm-Be_8hkf0GzqqsFsfDG8oAeA@mail.gmail.com>
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <CACGkMEvV0gtvgpb7z1MqJLKzHm-Be_8hkf0GzqqsFsfDG8oAeA@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	T1UHhSU22RcW7biX3hF+psDpSpGzlpOkXRIX2ZMSs420EfZEZo+gF0glNdZbkD18w6SGOqW9UVJ74i786QS/LRvm+q6fDktwsbHYXWh6B6UJ35mf6PtfVd3RgmOHwrLcHdJ/OhwA3AivNl4ozuKUW0X985Nok/RK+BZ+MDzJQ4bO8pbFY/HVr/2R0MphKvAlw23A/ypYHw00zAQWob/NtroELq20FpFfBxpjVXxaqH4NabaOieCvSZInxpyyJjSZ+WFDhQOppl5Rhs5P3BNHjzuGare5oYD+lSmo+A4BPQgJFf9qOsBtt6VZmO1t19D9cqMNidNdBs8G780rgZc14dO0Y424Gf3Ea0N7VjlNErR5DdqhMk3sspAdPwHJYp1Jzw/E14i3S8SHATPF9an69wUP/Pv3hE4GITLnPfdDiXaf1iQIRhLNMyyuxFkAWN1v34IP6yst4H+5PpbZ5hLSHQGFDdV0YlmrXYkbB/fDSjvReGXMlcMTvDItv7vqzWlO1eBAsPUR75L0h+A9EphS6nq1ySGjW+MFRkK8msYUEqs64i5i2QhEK3aFbrc2RZGp5pXqXOtK6oosHXV+24Ub5c9EjauPX4zYO94CpmSZyFmH9gtMo4LzR34GnVJcg88G
+X-OriginatorOrg: quicinc.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR02MB7007.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2066725-ad75-4b7c-fa28-08dce83ef9f6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2024 08:47:15.8655
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 98e9ba89-e1a1-4e38-9007-8bdabc25de1d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VuNOGAOA291Wosfyd3l8A6BVRRDDx1tNM2lkO2A3sabm3AS2PbzJaRwXqsUhRxk+ancMyTOeTT1onj21vR9AVqki8bXCXZWjqk+dAO3i3rQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR02MB7627
+X-Proofpoint-GUID: _o9JsacPifK6vC8nn00mE2GEr6vi7gX0
+X-Proofpoint-ORIG-GUID: _o9JsacPifK6vC8nn00mE2GEr6vi7gX0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxlogscore=999
+ suspectscore=0 impostorscore=0 bulkscore=0 clxscore=1011 adultscore=0
+ spamscore=0 mlxscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2410090057
 
-On 10/9/24 09:18, Jason Wang wrote:
-> On Fri, Oct 4, 2024 at 4:13 PM Paolo Abeni <pabeni@redhat.com> wrote:
->>
->> The VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV{4,6} are two gso_type flags
->> allowing respectively GSO over UDPv4 tunnel and GSO over UDPv6 tunnel.
->> They can be negotiated on both the host and guest sides.
->>
->> One constraint addressed here is that the virtio side (either device or
->> driver) receiving a UDP tunneled GSO packet must be able to reconstruct
->> completely the inner and outer headers offset - to allow for later GSO.
->>
->> To accommodate such need, new fields are introduced in the virtio_net
->> header: outer_th_offset and inner_nh_offset.
->> They map directly to the corresponding header information. The inner
->> transport header is implied by the (inner) checksum offload.
->>
->> Those fields are required because a virtio device H/W implementation
->> performing segmentation for UDP tunneled packet will need to touch
->> the outer transport protocol (for the UDP length filed), the
->> inner network protocol (for the total length field, in the IPv4
->> case).
->>
->> Note that segmentation will additionally need to touch
->> the outer network protocol and the inner transport protocol. The first
->> is implied/easily found with trivial parsing, the latter is identified
->> by the existing csum_start field.
->>
->> Note that there is no concept of UDP tunnel type negotiation (e.g.
->> vxlan, geneve, vxlan-gpe, etc.), as a virtio device H/W implementation
->> can perform segmentation for every possible UDP-tunnel given the
->> specified new fields.
->> In the reverse direction, if a virtio device H/W implementation receives
->> some traffic for an unknown or unsupported UDP tunnel, it will simply
->> not aggregate the wire packet in a GSO one.
->>
->> Signed-off-by: Paolo Abeni <pabeni@redhat.com>
->> ---
->> v8 -> v9:
->>   - rebased on top of virtio-1.4, changed udp-tunnel features number
->>     to avoid conflicts/duplications
->>   - fixed typos:
->>     VIRTIO_NET_HDR_F_UDP_TUNNEL_IPV4 -> VIRTIO_NET_HDR_F_GSO_UDP_TUNNEL_IPV4
->>     VIRTIO_NET_HDR_F_UDP_TUNNEL_IPV6 -> VIRTIO_NET_HDR_F_GSO_UDP_TUNNEL_IPV6
->>   - specified strict validation on RX side (both driver and device)
->>     for UDP tunneled packet: NEEDS_CSUM and plain GSO are mandatory for UDP
->>     tunnel GSO packets. The driver is not allowed to set DATA_VALID for UDP
->>     tunnel GSO packets, the driver can set both DATA_VALID & NEEDS_CSUM.
-> 
-> DATA_VALID and NEEDS_CSUM are mutually exclusive unless I miss something.
-
-AFAICS the specification does not specify them to be mutually esclusive 
-and at least the linux kernel implementation allow them to be set together.
-
-As a possible alternative to the change from v8 to v9 we can enforce 
-DATA_VALID and NEEDS_CSUM to be mutually esclusive. GSO over UDP tunnel 
-needs the csum_start offset; with DATA_VALID and NEEDS_CSUM mutually 
-esclusive exclusive we must either:
-- NOT allow GSO over UDP tunnel with DATA_VALID
-or
-- required csum_start being set with GSO over UDP tunnel and DATA_VALID
-
-Please LMK which one is the preferred option.
-
->> @@ -639,12 +721,48 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
->>          header.
->>   \end{itemize}
->>
->> +If the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO option has been negotiated, the
->> +driver MAY set the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
->> +VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type}, if so:
->> +\begin{itemize}
->> +\item the driver MUST set \field{outer_th_offset} to the outer UDP header
->> +  offset and \field{inner_nh_offset} to the inner network header offset.
->> +  The \field{csum_start} and \field{csum_offset} fields point respectively
->> +  to the inner transport header and inner transport checksum field.
->> +\end{itemize}
->> +
->> +If the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
->> +VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set, the
->> +outer UDP header MUST NOT require checksum validation. That is, the
->> +outer UDP checksum value MUST be 0 or the validated complete checksum
->> +for such header.
->> +
->> +\begin{note}
->> +The valid complete checksum of the outer UDP header of individual segments
->> +can be computed by the driver prior to segmentation only if the GSO packet
->> +size is a multiple of \field{gso_size}, because then all segments
->> +have the same size and thus all data included in the outer UDP
->> +checksum is the same for every segment. These pre-computed segment
->> +length and checksum fields are different from those of the GSO
->> +packet.
-> 
-> How could a device know if the checksum if pre-computed or not? (I
-> could not find the relevant part in the sample kernel code).
-
-Note that the UDP tunnel csum offload is discusses in patch 2/2 as per 
-your request. At this point (only patch 1/2 applied) there is no concept 
-of csum offload for the outer header. With only patch 1/2 applied the 
-outer UDP will be always left-alone/ignored/not touched (either 0 or 
-pre-computed).
-
-In patch 2/2 is specified that the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit 
-in flags carries the info about the outer csum offload. When set the 
-outer csum is offloaded, when cleared is either 0 or precomputed.
-
->> @@ -776,12 +913,19 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
->>   \item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
->>     VIRTIO_NET_HDR_F_DATA_VALID bit in \field{flags} can be
->>     set: if so, device has validated the packet checksum.
->> +  If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO feature has been negotiated,
->> +  and either the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
->> +  VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set,
->> +  the device can additionally set the VIRTIO_NET_HDR_F_DATA_VALID bit
->> +  in \field{flags}, meaning that the device validated the checksum,
->> +  set the csum_start and csum_offset fields, but did not provide the
->> +  partial checksum for the transport header.
-> 
-> Interesting, we had this in the spec now:
-> 
-> """
-> \item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
->    VIRTIO_NET_HDR_F_DATA_VALID bit in \field{flags} can be
->    set: if so, device has validated the packet checksum.
->    In case of multiple encapsulated protocols, one level of checksums
->    has been validated.
-> """
-> 
-> Firstly, it doesn't mandate the csum_start/csum_offset. Anything makes
-> the tunnel GSO different?
-
-This difference is intentional, to satisfy a requested from Willem for 
-"robustness". We have a continuos flow of serious bugs in the current 
-virtio implementation due to the spec allowing "unexpected"/strange/weak 
-features combination leading to strange packet layout and crashes.
-
-i.e. see the kernel commits:
-49d14b54a527289d09a9480f214b8c586322310a
-6513eb3d3191574b58859ef2d6dc26c0277c6f81
-89add40066f9ed9abe5f7f886fe5789ff7e0c50e
-
-The idea is that GSO over UDP tunnel specs are new, so we can be more 
-strict and we try to mandate only 'sane' flag/features/layout combinations.
-
-> Secondly, I think "one level of checksums" means the outer, this seems
-> to be contradict to what we had here: 1) DATA_VALID seems to be for
-> inner 2) no outer checksum offload
-
-Yes, with this spec GSO over UDP tunnel DATA_VALID specify the inner 
-head csum.
-
-AFAICS the simpler option is allowing DATA_VALID with GSO over UDP 
-tunnel without only with outer header csum offload, too.
-
-> It looks like we want to reuse hdr->flags for inner, not sure if it
-> would result come conflict when introducing outer checksum offload. Or
-> maybe we should introduce a dedicated inner_flags.
-
-I could not follow the above, could you please re-phrase?
-
->> @@ -920,6 +1092,24 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
->>   VIRTIO_NET_HDR_F_DATA_VALID is set, the driver MUST NOT
->>   rely on the packet checksum being correct.
->>
->> +If both the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit and
->> +the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in in \field{gso_type} are set,
->> +the driver MUST NOT accept the packet.
->> +
->> +If the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6
->> +bit in \field{gso_type} are not set, the driver MUST NOT use the
->> +\field{outer_th_offset} and \field{inner_nh_offset}.
->> +
->> +If either the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or
->> +the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set, and any of
->> +the following is true:
->> +\begin{itemize}
->> +\item the VIRTIO_NET_HDR_F_NEEDS_CSUM is not set in \field{flags}
->> +\item the \field{gso_type} excluding the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4
->> +bit and the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit is VIRTIO_NET_HDR_GSO_NONE
-> 
-> Maybe we can just simplify this as
-> 
-> "VIRTIO_NET_HDR_GSO_NONE is set in \field{gso_type}"
-
-I considered that option, the main problem is that such statement will 
-never be true: gso_type has at least a bit set 
-(VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 or 
-VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6). I preferred to be more accurate 
-even if more verbose. I think we should preserve this accuracy.
-
-Thanks,
-
-Paolo
-
+SGkgUGFyYXYsDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogUGFyYXYg
+UGFuZGl0IDxwYXJhdkBudmlkaWEuY29tPg0KPiBTZW50OiBUdWVzZGF5LCBPY3RvYmVyIDEsIDIw
+MjQgMTo1MyBQTQ0KPiBUbzogQWxleGFuZGVyIEdvcmRlZXYgKFFVSUMpIDxxdWljX2Fnb3JkZWV2
+QHF1aWNpbmMuY29tPjsgQWxiZXJ0IEVzdGV2ZQ0KPiA8YWVzdGV2ZUByZWRoYXQuY29tPjsgdmly
+dGlvLWNvbW1lbnRAbGlzdHMubGludXguZGV2OyBBaXN3YXJ5YSBDeXJpYWMNCj4gKFFVSUMpIDxx
+dWljX2FjeXJpYWNAcXVpY2luYy5jb20+DQo+IENjOiBhY291cmJvdEBjaHJvbWl1bS5vcmcNCj4g
+U3ViamVjdDogUkU6IFtQQVRDSCB2M10gY29udGVudDogUmVzZXJ2ZSBJRCBmb3IgbWVkaWEgZGV2
+aWNlDQo+IA0KPiANCj4gPiBGcm9tOiBBbGV4YW5kZXIgR29yZGVldiA8cXVpY19hZ29yZGVldkBx
+dWljaW5jLmNvbT4NCj4gPiBTZW50OiBUdWVzZGF5LCBPY3RvYmVyIDEsIDIwMjQgNDozNiBQTQ0K
+PiA+DQo+ID4gT24gMDEvMTAvMjAyNCAxMDozOSwgUGFyYXYgUGFuZGl0IHdyb3RlOg0KPiA+ID4N
+Cj4gPiA+DQo+ID4gPj4gRnJvbTogUGFyYXYgUGFuZGl0IDxwYXJhdkBudmlkaWEuY29tPg0KPiA+
+ID4+IFNlbnQ6IFR1ZXNkYXksIE9jdG9iZXIgMSwgMjAyNCAxOjM1IFBNDQo+ID4gPj4gVG86IEFs
+YmVydCBFc3RldmUgPGFlc3RldmVAcmVkaGF0LmNvbT47DQo+ID4gPj4gdmlydGlvLWNvbW1lbnRA
+bGlzdHMubGludXguZGV2OyBhaXN3YXJ5YS5jeXJpYWNAb3BlbnN5bmVyZ3kuY29tDQo+ID4gPj4g
+Q2M6IGFjb3VyYm90QGNocm9taXVtLm9yZw0KPiA+ID4+IFN1YmplY3Q6IFJFOiBbUEFUQ0ggdjNd
+IGNvbnRlbnQ6IFJlc2VydmUgSUQgZm9yIG1lZGlhIGRldmljZQ0KPiA+ID4+DQo+ID4gPj4gSGkg
+QWxiZXJ0LA0KPiA+ID4+DQo+ID4gPj4gRnJvbTogQWxiZXJ0IEVzdGV2ZSA8YWVzdGV2ZUByZWRo
+YXQuY29tPg0KPiA+ID4+IFNlbnQ6IFdlZG5lc2RheSwgU2VwdGVtYmVyIDI1LCAyMDI0IDEyOjIw
+IFBNDQo+ID4gPj4NCj4gPiA+Pg0KPiA+ID4+IE9uIEZyaSwgU2VwIDYsIDIwMjQgYXQgOTowOOKA
+r0FNIEFsYmVydCBFc3RldmUNCj4gPiA+PiA8bWFpbHRvOmFlc3RldmVAcmVkaGF0LmNvbT4NCj4g
+PiA+PiB3cm90ZToNCj4gPiA+PiBSZXNlcnZlIGRldmljZSBJRCA0OSBmb3IgbWVkaWEgZGV2aWNl
+Lg0KPiA+ID4+IENvbXBhdGlibGUgd2l0aCB2aWRlbyBlbmNvZGVyLCB2aWRlbyBkZWNvZGVyLCBh
+bmQgY2FwdHVyZSBkZXZpY2VzLg0KPiA+ID4+DQo+ID4gPj4gU2lnbmVkLW9mZi1ieTogQWxiZXJ0
+IEVzdGV2ZSA8bWFpbHRvOmFlc3RldmVAcmVkaGF0LmNvbT4NCj4gPiA+PiAtLS0NCj4gPiA+PiDC
+oGNvbnRlbnQudGV4IHwgMiArKw0KPiA+ID4+IMKgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9u
+cygrKQ0KPiA+ID4+DQo+ID4gPj4gZGlmZiAtLWdpdCBhL2NvbnRlbnQudGV4IGIvY29udGVudC50
+ZXggaW5kZXggMGE2MmRjZS4uNmQ2YjNkOA0KPiA+ID4+IDEwMDY0NA0KPiA+ID4+IC0tLSBhL2Nv
+bnRlbnQudGV4DQo+ID4gPj4gKysrIGIvY29udGVudC50ZXgNCj4gPiA+PiBAQCAtNzM5LDYgKzcz
+OSw4IEBAIFxjaGFwdGVye0RldmljZSBUeXBlc31cbGFiZWx7c2VjOkRldmljZSBUeXBlc30NCj4g
+PiA+PiDCoFxobGluZQ0KPiA+ID4+IMKgNDXCoCDCoCDCoCDCoCDCoCbCoCDCoFNQSSBtYXN0ZXIg
+XFwNCj4gPiA+PiDCoFxobGluZQ0KPiA+ID4+ICs0OcKgIMKgIMKgIMKgIMKgJsKgIMKgTWVkaWEg
+ZGV2aWNlIFxcDQo+ID4gPj4gK1xobGluZQ0KPiA+ID4+IMKgXGVuZHt0YWJ1bGFyfQ0KPiA+ID4+
+DQo+ID4gPj4gVGhlIGlkIDQ4IHJlcXVlc3Qgd2FzIG1hZGUgc2V2ZXJhbCBtb250aHMgYWdvIGlu
+IE1heS0yNCBmb3IgdXNiLCBubw0KPiA+ID4+IGZ1cnRoZXIgaW50ZXJlc3QgaGFzIGJlZW4gc2hv
+d24gb24gaXQuDQo+ID4gPj4gQmV0dGVyIHRvIGF2b2lkIGhvbGVzIGluIHRoZSBkZXZpY2UgaWQg
+YXNzaWdubWVudC4NCj4gPiA+PiBTbyBpZCA0OCB3b3VsZCBiZSBiZXR0ZXIgdG8gdXNlIGZvciBt
+ZWRpYSB0aGF0IGhhcyBpbnRlcmVzdC4NCj4gPiA+PiBBZGRlZCB2aXJ0aW8tdXNiIHByb3Bvc2Vy
+IHRvIHRocmVhZCB0byBzZWUgaWYgaXQgaXMgc3RpbGwNCj4gPiA+PiBpbnRlcmVzdGluZywgaW4g
+dGhhdCBjYXNlDQo+ID4gPj4gNDkgc2VlbXMgZ29vZCBoZXJlLg0KPiA+ID4+DQo+ID4gPj4gR2l2
+ZW4gdGhlIHZvdGluZyBoYXMgc3RhcnRlZCwgSSBhbSBub3Qgc3VyZSBpZiB0aGUgcmVhbCBpZCB2
+YWx1ZQ0KPiA+ID4+IG1hdHRlcnMgYXMgbG9uZyBhcyBvbmUgb2YgdGhlIHVuaXF1ZSBpZCBpcyBy
+ZXNlcnZlZC4NCj4gPiA+Pg0KPiA+ID4+IEFuZCBkbyBub3QgcHJlZmVyIHRvIHJlc3RhcnQgdGhl
+IHZvdGluZyBmb3Igc3VjaCBhIHNtYWxsIGNoYW5nZQ0KPiA+ID4+IGVpdGhlciBvbiBteSBsYXRl
+IG9ic2VydmF0aW9uIG9mIHRoaXMgaG9sZS4NCj4gPiA+Pg0KPiA+ID4+IEkgdGhpbmsgd2hlbiB0
+aGUgbWFpbnRhaW5lciBtZXJnZXMgdGhlIHByb3Bvc2VkIHBhdGNoIHRvIGFzc2lnbiBpZA0KPiA+
+ID4+IDQ4LCBzaG91bGQgYmUgZmluZS4NCj4gPiA+Pg0KPiA+ID4+IE1pY2hhZWwsDQo+ID4gPj4g
+QXJlIHlvdSBvayB0aGlzIHdheT8gT3IgeW91IGhhdmUgYmV0dGVyIHN1Z2dlc3Rpb24/DQo+ID4g
+Pj4NCj4gPiA+PiBBaXNod2FyeWEsDQo+ID4gPj4gSXMgdmlydGlvLXVzYiBzdGlsbCBpbnRlcmVz
+dGluZz8gSWYgc28sIGNhbiB5b3UgcGxlYXNlIHJlcXVlc3QgZm9yDQo+ID4gPj4gdGhlIHZvdGU/
+IFNvIHRoYXQgd2UgYXZvaWQgdGhlIGhvbGUgaW4gZGV2aWNlIGlkIGFzc2lnbm1lbnQuDQo+ID4g
+PiBJIHJlY2VpdmVkIGF1dG8gcmVwbHkgZnJvbSBBaXNod2FyeWEncyBlbXBsb3llciB0aGF0IHRo
+ZXkgYXJlIG5vdA0KPiA+ID4gcmVhY2hhYmxlDQo+ID4gZHVlIHRvIGFjcXVpc2l0aW9uLg0KPiA+
+ID4gU28gbm90IHN1cmUgaWYgdmlydGlvLXVzYiBhbmQgNDggaXMgc3RpbGwgcmVsZXZhbnQuDQo+
+ID4NCg0KV2UgYXJlIGludGVyZXN0ZWQgaW4gdGhlIHZpcnRpby11c2IgZGV2aWNlIGFuZCB3b3Vs
+ZCBsaWtlIHRvIHJlc2VydmUgSUQgNDggZm9yIGl0Lg0KSG93ZXZlciwgSSBwbGFuIHRvIHB1c2gg
+YSB2ZXJzaW9uIDIgcGF0Y2ggdG8gZW5zdXJlIHRoZSByZXNlcnZhdGlvbiBjb3ZlcnMgbm90IGp1
+c3QgdGhlIHZpcnRpby11c2IgaG9zdCBjb250cm9sbGVyLCBidXQgdGhlIHZpcnRpby11c2IgZGV2
+aWNlLg0KDQpUaGFuayB5b3UNCg0KPiA+IEluZGVlZCB3ZSB3ZXJlIGFjcXVpcmVkIGJ5IFF1YWxj
+b21tLg0KPiA+IEFGQUlLIHRoZSB3b3JrIG9uIHZpcnRpby11c2IgaXMgb25nb2luZy4gQWlzd2Fy
+eWEgaXMgb24gdmFjYXRpb24gbm93LA0KPiA+IHNoZSdsbCBiZSBiYWNrIG5leHQgd2Vlay4NCj4g
+PiBJIGFkZGVkIGhlciBuZXcgZW1haWwgYWRkcmVzcy4NCj4gT2sgU28gd2Ugd29uJ3QgaGF2ZSB0
+aGUgaG9sZSBiZXlvbmQgZmV3IHdlZWtzLiBUaGF0IGlzIGdvb2QuDQo+IA0KPiBUaGFua3MuDQo=
