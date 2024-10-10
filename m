@@ -1,251 +1,170 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F3213D531
-	for <virtio-comment@lists.linux.dev>; Wed,  9 Oct 2024 09:39:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A8A6FE16
+	for <virtio-comment@lists.linux.dev>; Thu, 10 Oct 2024 02:29:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1728466763; cv=none; b=bjrW/316kJQbK1LJNDBbkNoZAECXOC9Ay9BeFS66pJ2u6CR2VTYzqoQqfMZJ73QPYbSsJZr/tNqDTNAF9XUwJlE3vPYVsifCMsPMvOOEtn1+P1UUnmAFGpUAR9zRrgPOhveROlfQLJIbPJu1XQPhFm3w35CiVgoWoVPz93N6Nzw=
+	t=1728527363; cv=none; b=AtdTWyI3QzdEFPbPLFMXjiWYZh8/7Y+wDGtaqhekE03AxD+X39Yhz6m4JWKt9HB3WEBk+EjBGoAq+rKq4FeiiBw+DWaMfFkO81KLFAL8A97/76my1fGnlZrKx0eZbey7VajED4c+4FUkvdPj3K7iFu4YlKr1QBU3yX3IR+g7CgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1728466763; c=relaxed/simple;
-	bh=2sqFGs1SWJfLcEeg3Awod/wKVTgjflT3pk9mjTA2IXg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R80mMsBt6u/GkHmXGHcVvvNAbvjjUZjBn951YWxpz2zNh00LO+pVXOK+qZCkuwZgdEmJ3jF8UFbajViDZJ2PO5tkHwDe/ur2wROI6D/XQxy4B6fxziLlgFix3ElvXqlrLY1bjMfGfC2B6mfXQLnbOSI4Zy11ObGGJh1ICD4LFA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VvkD/P1j; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1728527363; c=relaxed/simple;
+	bh=X3tsypVCA77h1KeqYguzzvB2iGqm8zSPA7r67rucd4Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Iqa0gCDWo7jIOPg1EYKL6zgdrfNGk0G1025iOaGaJ11Hj8j+bMIIo6fbK0hij5xEZOlL8HGFY9D8zJhFWsRCoJfeBnhri9T4YEGfNpAoIdm4gKVbxBIOce+Tt6gejgy25U1Y23OY4wBjiFpCueH55ud79wcUHMmeGqlLq+D8EVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SnUXGqxL; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VvkD/P1j"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SnUXGqxL"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1728466760;
+	s=mimecast20190719; t=1728527360;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=04VmU5kfRd9FhlD+WJm40t+h983zg/n/f/aTw9k+Pdc=;
-	b=VvkD/P1jW343UsdMuG2bwSZHKg1XHEbDFp3oU84sVyiAX9CdC2nVDZP+g231vjhMa9CG3y
-	5YDE8U1ujwDFqRfy7ysgYX64wSpHb15n7rTgJl3DuNPZ7wCHdsXISaXETnUMh2vsHuZQSe
-	VRjdl8SN4NobwtYKGjy0oArdSF82hlc=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=X3tsypVCA77h1KeqYguzzvB2iGqm8zSPA7r67rucd4Q=;
+	b=SnUXGqxLNSrOxfPoPHMrVy14rxFH8t+jeKNSCR+azSu+sipT5xK37HZRUWY2EX5rf6QjkE
+	EKRsMVerIt3dt2zHQgPN1PXWHSAc5HMs59n6024GA+HH8z50mdsjEb2b0PYi4aEjDSMKW3
+	yi6Pw77b4mbNDqOOp8Fj/ayy1d6+gMg=
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-636-1J4daDqPMjaPMNHqWKYQvw-1; Wed, 09 Oct 2024 05:39:19 -0400
-X-MC-Unique: 1J4daDqPMjaPMNHqWKYQvw-1
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-42cdeac2da6so57069705e9.2
-        for <virtio-comment@lists.linux.dev>; Wed, 09 Oct 2024 02:39:19 -0700 (PDT)
+ us-mta-91-GjcwphT1PTqKGr_Xajnpag-1; Wed, 09 Oct 2024 22:29:18 -0400
+X-MC-Unique: GjcwphT1PTqKGr_Xajnpag-1
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-2e2d396c77fso253426a91.2
+        for <virtio-comment@lists.linux.dev>; Wed, 09 Oct 2024 19:29:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728466758; x=1729071558;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=04VmU5kfRd9FhlD+WJm40t+h983zg/n/f/aTw9k+Pdc=;
-        b=PkoakSj+M6Tl5jBsnrX8auCY4M/z4gE3qTBiwr67gvzn4uIFpJ3DPC8/apPVBSMfr5
-         EZbZAoK5MCW/+OzzyKKKXNL3przle5q/C9awtFr6OGSPZaS7mBEk+xg/ijMbxoBy1YTr
-         Ij8fdRIodR71oG3JhVDNTeqxnU603VDH3Xl+/6L8kYr5p4l5zFv3AkW0i2P8/uSDz6od
-         AXwYydVdTmU5d87/m1nMpI3WHVouatabbSwO7eePulPchXrDRtnOeV1v/v2KPf2C7r2x
-         I0Hxp11dZlpd239Af6r8E1u5TUs7+tFaHK4mxw1ldvi+DB73XvuXcDSgNWvvZvy3A2qp
-         bLxg==
-X-Gm-Message-State: AOJu0YygduVO72F/YNf4/teVPqZmp4VdM7GtpuODxYMypnDHLXyv56D2
-	PFEr9bXKDLKXlnD6539GpxfXSsOsOCd/wIQNxny9wgMg51jisv6DMzHNsGIFXB3LwAVmPK3hOwO
-	QTq2+j4i5j+Fu0zamKCSiEqDL74AM2o2J5OIEWJ5KQhJH3/Mh2q851sYp74XZBEZw
-X-Received: by 2002:a5d:688a:0:b0:374:c64d:5379 with SMTP id ffacd0b85a97d-37d3a9f8707mr1135063f8f.27.1728466757865;
-        Wed, 09 Oct 2024 02:39:17 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHR54Dyo74heq4V4Dk+HVHMfMpUbEp6ITW6QE0GFJu6GIYaCueSusRyuEEpAZinekgWdGNlFQ==
-X-Received: by 2002:a5d:688a:0:b0:374:c64d:5379 with SMTP id ffacd0b85a97d-37d3a9f8707mr1135044f8f.27.1728466757298;
-        Wed, 09 Oct 2024 02:39:17 -0700 (PDT)
-Received: from [192.168.88.248] (146-241-42-55.dyn.eolo.it. [146.241.42.55])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-430d70b41bfsm14631905e9.29.2024.10.09.02.39.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Oct 2024 02:39:16 -0700 (PDT)
-Message-ID: <7e396509-f996-453b-baea-2e2ea0cf179d@redhat.com>
-Date: Wed, 9 Oct 2024 11:39:15 +0200
+        d=1e100.net; s=20230601; t=1728527358; x=1729132158;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=X3tsypVCA77h1KeqYguzzvB2iGqm8zSPA7r67rucd4Q=;
+        b=p7q/EXdZqTLITPdrpmmvjB5rb0557OK2Dux+Z9UA9tzD89t/tAb2F1Il+MYcBzI/Db
+         lQkf2OmzliQHfvo8vmYtEhgkr0jmVtrbvoWGQ5FmvzY2QT5vTXvS/Ybd+3OPQ+PTLtf5
+         TP99wAT+fgy5EFN6Nv9M/oKo0xAAZnQIvZJHjODiy0MZF1/ayyI2fORpyzwRoc00j7HD
+         VQ9+B5T1MC+GcV8NgtYcXmecBtn6+3T6rLskBHMos6X9wbRciBmDCZ7F8xymPlPriolb
+         9416hMeQEoYWac69s2mIEDnj9uajO5tEfL8o5DnewEC/VygeKs/ohAV+ShXpOUKIvre4
+         Bl1Q==
+X-Gm-Message-State: AOJu0YzHU79ygUz6CXhGVTK/vsPJjH2mqprAMr7bipXK7HJmTcARNU7W
+	Glv+SowLVmRD5hq0smlSkOXAVg42AFnQct9tF2E6PdAlzLp4LrzzoJhd3YfaT5Un1ZWxi12batl
+	bQFVj+MeUx0g2seW5GC8XUzg2dD7pTWZTEyYmbdOoS6c/afC+3yGwsgVyhdS83YtoIYdTPUjU8K
+	zsckojJliUEsjVDtwj0DkKzPv1uBukHFBY9s21KBU=
+X-Received: by 2002:a17:90a:d98f:b0:2e0:74c9:ecea with SMTP id 98e67ed59e1d1-2e2a2330397mr6193284a91.10.1728527357746;
+        Wed, 09 Oct 2024 19:29:17 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFff1ax8PFcGxGOWU69qXwnUSnXoSoQ/UqnPOzMqpvVXw1jg1YiFuQmkR88DLBBIdUtTn9eqIqq21uPYAZTlIk=
+X-Received: by 2002:a17:90a:d98f:b0:2e0:74c9:ecea with SMTP id
+ 98e67ed59e1d1-2e2a2330397mr6193264a91.10.1728527357297; Wed, 09 Oct 2024
+ 19:29:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 2/2] virtio-net: define UDP tunnel checksum offload
- feature
-To: Jason Wang <jasowang@redhat.com>
-Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com,
- Eelco Chaudron <echaudro@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>,
- Willem de Bruijn <willemb@google.com>, kshankar@marvell.com
-References: <cover.1728029499.git.pabeni@redhat.com>
- <dd1f0e96d889daec3e53ffd21cbbd061aad8cb9a.1728029499.git.pabeni@redhat.com>
- <CACGkMEsP3uobKB1aM=9NFFbdH8nGBsdb86F=LkAJgxafoAuJTw@mail.gmail.com>
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <CACGkMEsP3uobKB1aM=9NFFbdH8nGBsdb86F=LkAJgxafoAuJTw@mail.gmail.com>
+References: <cover.1728029499.git.pabeni@redhat.com> <54b59f12-74c7-4ec4-962d-b5a9d7490580@redhat.com>
+ <CACGkMEsV9jrsAHLZn2gJWeb7+R0W360n7fjg6E3QiA4CZgaUvg@mail.gmail.com> <d7accb9e-4978-400e-8675-8188d02dfda4@redhat.com>
+In-Reply-To: <d7accb9e-4978-400e-8675-8188d02dfda4@redhat.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Thu, 10 Oct 2024 10:29:05 +0800
+Message-ID: <CACGkMEvmhdYMHf5HKX37XqAYO2uHPq1=eWXfBPoS2gp8FJezDQ@mail.gmail.com>
+Subject: Re: [PATCH v9 0/2] virtio-net: define UDP tunnel offload
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com, 
+	Eelco Chaudron <echaudro@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, 
+	Willem de Bruijn <willemb@google.com>, kshankar@marvell.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/9/24 09:18, Jason Wang wrote:
->> @@ -168,6 +176,13 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
->>   \item[VIRTIO_NET_F_RSS_CONTEXT] Requires VIRTIO_NET_F_CTRL_VQ and VIRTIO_NET_F_RSS.
->>   \end{description}
->>
->> +\begin{note}
->> +The dependency between UDP_TUNNEL_GSO_CSUM and UDP_TUNNEL_GSO is intentionally
->> +in the opposite direction with respect to the plain GSO features and the plain
->> +checksum offload because UDP tunnel checksum offload gives very little gain
->> +for non GSO packets and is quite complex to implement in H/W.
->> +\end{note}
-> 
-> Nit: maybe it's better to define "plain GSO" or just call it "non-tunnel GSO".
+On Wed, Oct 9, 2024 at 4:16=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> wrot=
+e:
+>
+> On 10/9/24 09:24, Jason Wang wrote:
+> > On Sat, Oct 5, 2024 at 12:53=E2=80=AFAM Paolo Abeni <pabeni@redhat.com>=
+ wrote:
+> >>
+> >> On 10/4/24 10:13, Paolo Abeni wrote:
+> >>> Note that such while the mentioned PoC is based on the previous
+> >>> iteration of this change, it already deals with all the delta introdu=
+ced
+> >>> here except the refined DATA_VALID handling. I'll try to update the P=
+oC
+> >>> WRT that ASAP.
+> >>
+> >> The updated PoC dealing with DATA_VALID according to the spec change i=
+s
+> >> avail here:
+> >>
+> >> https://github.com/pabeni/linux-devel/commits/virtio_tunnel_gso_v9/
+> >> https://github.com/pabeni/qemu/commits/virtio_tunnel_gso_v9/
+> >>
+> >> It's slighly less untested than the previous iteration, as the
+> >> CHECKSUM_COMPLETE/DATA_VALID code path is explicitly covered allowing
+> >> the user-space to configure the tun device to set DATA_VALID on the
+> >> xmitted virtio hdr.
+> >>
+> >> @Jason, please LMK is something additional is needed to reach the boar=
+d
+> >> voting.
+> >
+> > It should work at a first glance. But the tnl_offset and new ioctl
+> > seems a little odd. Any reason we can't deduce it from the features?
+>
+> The tun device does not know the complete layout of the virtio_net_hdr.
 
-I'll opt for "non-tunnel GSO".
-Note this section is not changed from the previous iteration.
+We can teach if it is needed.
 
->> @@ -731,8 +782,23 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
->>     to the inner transport header and inner transport checksum field.
->>   \end{itemize}
->>
->> +If the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM feature has been negotiated,
->> +and the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or
->> +VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set,
->> +the driver MAY set the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in
->> +\field{flags}, if so the driver MUST set the packet outer UDP header checksum
->> +to the outer UDP pseudo header.
->> +
->> +\begin{note}
->> +calculating a ones' complement checksum from \field{outer_th_offset}
->> +up until the end of the packet and storing the result at offset 6
->> +from \field{outer_th_offset} will result in a fully checksummed outer UDP packet;
->> +\end{note}
->> +
->>   If the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
->> -VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set, the
->> +VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set
->> +and the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM feature has not
->> +been negotiated, the
->>   outer UDP header MUST NOT require checksum validation. That is, the
->>   outer UDP checksum value MUST be 0 or the validated complete checksum
->>   for such header.
-> 
-> Nit:  do we need to mention this is for TX?
+> It knows only the total size but is not aware i.e. if the
+> VIRTIO_NET_F_MRG_RXBUF or the VIRTIO_NET_F_HASH_REPORT are negotiated.
+>
+> To support UDP tunnel GSO offload, The tun device must be able to parse
+> correctly the UDP tunnel fields, so it must know at least the tun fields
+> offset inside the virtio_net_hdr structure.
+>
+> The new ioctl is added to pass such additional data.
 
-Note that this the '\drivernormative... Packet Transmission' section. 
-With 'TX' I guess you refer to '\devicenormative... Processing of 
-Incoming Packets'? It's already there:
+Then if we want to add new fields of vnet header that tun needs, new
+ioctls would be added endlessly.
 
-"""
-Otherwise, the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM feature has been
-negotiated, either the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit is set or the
-VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit is set in \field{gso_type},
-and the bit VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM is not set in
-\field{flags}, the device MUST either provide a zero outer UDP header
-checksum or a fully checksummed outer UDP header.
-"""
+> A possible
+> alternative would be piggybacking the mentioned 'tunnel offset' inside
+> the offload 'long'. I avoid such option because it felt quite hackish,
+> but it you feel that as preferrable it's still doable.
+>
+> Another option would let the user-space know to tun all the relevant
+> negotiated features, but that look quite more invasive (I would avoid
+> such option at least for a PoC).
 
->> @@ -920,8 +995,11 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
->>     in \field{flags}, meaning that the device validated the checksum,
->>     set the csum_start and csum_offset fields, but did not provide the
->>     partial checksum for the transport header.
->> -  In case of multiple encapsulated protocols, one level of checksums
->> -  has been validated.
->> +  If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM feature has been negotiated,
->> +  and the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit is set in \field{flags},
->> +  both the outer UDP checksum and the inner transport checksum
->> +  have been validated,
-> 
-> We may need to clarify this is for RX. 
+Yep, for POC, the current code should be sufficient. But I meant for
+the formal submission, we need a better way.
 
-I'm sorry, I'm still slightly confused by the 'RX' alone. This is in the 
-'\devicenormative ... Setting Up Receive Buffers' section, do you mean 
-the other direction?, that is '\drivernormative ... Processing of 
-Incoming Packets'?
+For example, we can map some of the virtio features to tun features
+(like GSO). or it looks to me the tnl_offset is a fixed value. I think
+we can deduce it via TUNSETVNETHDRSZ.
 
-Currently such section only prescribe 'MUST NOT' behavior (even for non 
-tunnel GSO), such clarification does not seam to fit there?!?
+>
+> > I'm asking since the design needs to work with hardware implementation
+> > as well. So any channel outside virtio (e.g the TUNSETTNLOFFLOAD) may
+> > not work.
+>
+> I've no idea about the above. My uneducated guess is that H/W
+> implementation will still need a S/W interface, and such interface could
+> implement the new ioctl().
 
-> What's more, this seems to be
-> the semantic of DATA_VALID? If yes, to be consistent, something like
-> VIRTIO_NET_HDR_F_UDP_TUNNEL_DATA_VALID might be better.
+Seems not, the only interface for virtio-net-pci devices is the registers.
 
-The VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM bit just specify how many 
-csums are validated by the driver (or the device).
+Looking at the qemu implementation the set tnl offset is called from
+the feature negotiation path. It means for hardware it can deduce it
+from the feature negotiation somehow.
 
-If DATA_VALID is set, this is checksum unnecessary. Otherwise is csum 
-partial. Its specificed a few lines above:
+> In any case I guess a new SW and/or firmware
+> revision will be needed to support UDP tunnel GSO offload on virtio H/W
+> impl.
 
-"""
-\item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
-   VIRTIO_NET_HDR_F_DATA_VALID bit in \field{flags} can be
-   set: if so, device has validated the packet checksum.
-   If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO feature has been negotiated,
-   and either the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
-   VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set,
-   the device can additionally set the VIRTIO_NET_HDR_F_DATA_VALID bit
-   in \field{flags}, meaning that the device validated the checksum,
-   set the csum_start and csum_offset fields, but did not provide the
-   partial checksum for the transport header.
-"""
+Thanks
 
-> And is there a chance that we may need partial csum for outer UDP e.g
-> in the case of VM2VM communication.
-
-I feel like I'm missing something?!? AFAICS this is has been already 
-discussed, agreed and set int spec. This specification allows for 
-checksum partial for the outer header, in both direction 
-(VIRTIO_NET_HDR_F_DATA_VALID not set and 
-VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM set.
-
->> @@ -957,6 +1035,14 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
->>     bit MAY be set. In such case the \field{outer_th_offset} and
->>     \field{inner_nh_offset} fields indicate the corresponding
->>     headers information.
->> +\item If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM feature was
->> +negotiated, and
->> +  the VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit is set in \field{gso_type}, the
->> +  VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in the \field{flags} can be set: if so,
->> +  the outer UDP checksum has been validated.
->> +  If the VIRTIO_NET_HDR_F_DATA_VALID bit in \field{flags} is not set, the UDP
->> +  header checksum at offset 6 from from \field{outer_th_offset}
->> +  is set to the outer UDP pseudo header checksum.
-> 
-> Just to confirm, VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM is for outer and
-> VIRTIO_NET_HDR_F_DATA_VALID is for inner in this case?
-
-The VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit specify if the outer header has 
-been validated: with !VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM only the inner 
-header is validated, with VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM set, both the 
-inner and the outer.
-
-The VIRTIO_NET_HDR_F_DATA_VALID specify if it's the packet is 
-csum_partial (!VIRTIO_NET_HDR_F_DATA_VALID) or csum_unnecessary 
-(VIRTIO_NET_HDR_F_DATA_VALID). It refers only to the inner header when 
-!VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM or to both the inner and the outer 
-when VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM is set.
-
-The relevant spec wording is:
-
-"""
-\item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
-   VIRTIO_NET_HDR_F_DATA_VALID bit in \field{flags} can be
-   set: if so, device has validated the packet checksum.
-   If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO feature has been negotiated,
-   and either the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
-   VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set,
-   the device can additionally set the VIRTIO_NET_HDR_F_DATA_VALID bit
-   in \field{flags}, meaning that the device validated the checksum,
-   set the csum_start and csum_offset fields, but did not provide the
-   partial checksum for the transport header.
-   If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM feature has been 
-negotiated,
-   and the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit is set in \field{flags},
-   both the outer UDP checksum and the inner transport checksum
-   have been validated, otherwise only one level of checksums (the inner one
-   in case of tunnels) has been validated.
-"""
-
-Is that unclear? which part needs rewording?
-
-Thanks,
-
-Paolo
+>
+> /P
+>
 
