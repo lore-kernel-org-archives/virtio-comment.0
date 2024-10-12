@@ -1,258 +1,389 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C4920A5E7
-	for <virtio-comment@lists.linux.dev>; Fri, 11 Oct 2024 07:50:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201AD13D29A
+	for <virtio-comment@lists.linux.dev>; Sat, 12 Oct 2024 09:36:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1728633033; cv=none; b=THo2RKFt/gywNYw0k4pc6YoIdtCF3yjE0ai7f7UYEGvMPMwQmErrud1Bc2x+W+P+8gpWRsWXYlBFQHqCIw8Rp/PNaKMXUEh+EXBmc/IJQtmCnoey1KbF3f5cU2IPUtwBKUb7uTEfO+h/+83uhj/gD8MAn0awX6sFbSsKkRhDRGs=
+	t=1728725797; cv=none; b=jBl6289gwYyoPTpyHm9do2+GocvQi2McdVwR/4k+0QxBL7eRLsIzaKERIdx4ed3VuKzS+wtOySlxEY1rdId1Ni66pHh2uJx+F6H/AEGH6jc6+P5QfzY+kwRmfiB2CJk3sijXh2y7m8R9eP6WpEolQKkyx94Tp0P64kUtZ5EMYXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1728633033; c=relaxed/simple;
-	bh=KpmZpbN+qw/We19Qs8xY69uHXplObCw+j5wVOPq7XyI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ky8RnYiKGWZANlVMfJIYRPn5Z3ukVyIbGBFUapgROFWIMwfLzFjMRrC876kfGn0ONfc/hSMAiBmlH2jPsaNLMd2pP07IJiqAfsEQl4OnDvXcDEIUvFsOr9aOdX2Iyy3XZ46T9R9HgqE8MAXdI4Y9gxqqVQH5DkRPFGWBYDQogHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GwFIFU6r; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1728725797; c=relaxed/simple;
+	bh=gI5XV+kuOtLFU/aRGnfU3M1pFi3CA6YGId3PY209rWU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fVUAKd4ejsTnpHiapr/4IzLGl9POdIOr+ZgHGhbkZ3cAnWY4953ZA/Rp4J0PfLIA+otgB+WdvomeNk3rMfyMw4BP53/hXYY88jd+oVP1jdG+U1zQpKPxWTuPM/ZMaRHcNuFLBO43c1DPX8MbNzwcm0WNEqntFm4pSgQP2IpZdfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CsDl91bV; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GwFIFU6r"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1728633030;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0dwhHk8awsMSRavxKZubeQ8xdbmaW7gJbZUpETQNjUg=;
-	b=GwFIFU6rufiOhAxe+C3YAo5oNGbaPPnUdbAiP6OM5nydb/NVk010sjFH0Dd+sA58s0yHui
-	Hus36yg7ELjd3TxqC8E5hTKAAkxznL1HSycUcIV0sL1OywT5eJjjFHdD/p4gmojTkFpo3Q
-	9/4vDkoTCOSgEgYAfr7IceTaiKPmtco=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-567-JD8XazO_OhaYC4LgVrvtSA-1; Fri, 11 Oct 2024 03:50:29 -0400
-X-MC-Unique: JD8XazO_OhaYC4LgVrvtSA-1
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-42cb374f0cdso9652375e9.0
-        for <virtio-comment@lists.linux.dev>; Fri, 11 Oct 2024 00:50:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CsDl91bV"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-2e2c6bc4840so2020708a91.2
+        for <virtio-comment@lists.linux.dev>; Sat, 12 Oct 2024 02:36:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1728725794; x=1729330594; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qSXEOsCoATa03FnwwTcrY8DbJYxH7hoYtd457rlC5SE=;
+        b=CsDl91bVTvvRPElQpFV06OhNjgJbs7uwFoMA3BEEbp3JDXXW5du6XWA8M3MLIQiCwf
+         wjiZmXupOOTFL9K+JZnhvTIQ07c0QNAyiL59nAKYOsrMbe+2+og55PowiLn4C8KCfjqB
+         0HsKD7YjQZ7tD3n3N+5w6xdqTSTYf27v5Guae0JfiPTvgRiQyCtiJJyV5VucyLuT6SuG
+         C6QfMckeUDMPTkrKLRHAdhnJOh6zaeKxA+p9gQ3ntihBlS7b1Qa/YP0DV9b+arXsQS1Q
+         jvxE8XgR29GoY0K6Va24X994cHZZJPJAYS2JOWgu+4EN2PEqcCHCEF3CW/KvuPfGqVLq
+         jjvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728633028; x=1729237828;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0dwhHk8awsMSRavxKZubeQ8xdbmaW7gJbZUpETQNjUg=;
-        b=jzm1XjBVWn0DleCP6H3nrI5oQxlUDHIl5dETf2HqBAmEvUDfD9hwAnpjBbABGhsim+
-         2kXemTg+dNDwuuADDwRLUB6jYU4BPEtpOZOj0oen11fgp63oXjXEkyleJO8kUJRQmlWJ
-         +yNlkVkVkNV8pQhevcxaTK3yq4FIc2rN5wbYbbgJEd0syfPd6gfAZQZpbx+AVlMIxkfj
-         PntKvKi6eQ1VahyZ//GSeXbQxQia2WgLiRZiyfeXtJmHdi+pyR6SvLR/ARR3RURpox9T
-         Qo2RFJWw/zegdYKmImcsSS3u4vQSMdiDbtqKzV2+tMsYQi97ahgFWakHrdPL4a3CNtT1
-         8hOw==
-X-Gm-Message-State: AOJu0Yyq+yHKWqtqOOrVBb/rA/m5spcVZroM+Ov7/90er/mQAtYdYFhl
-	bCP3FZQZMQ56yq4aQVqvHAjJPFfLC11CMIEf8tzThnb//oS5pNpPPi3yZLRwNay3PXWFFJMnlxI
-	LKMnefUlx+dtYiRKCP2vVIbUdbi0Mt1CmSbToRCxjPFjppR+nJazeGTDH7ocGVNPwz8gVeMhKlP
-	U=
-X-Received: by 2002:a05:600c:45cd:b0:42c:b377:3f55 with SMTP id 5b1f17b1804b1-43115a96e9fmr53328425e9.3.1728633028050;
-        Fri, 11 Oct 2024 00:50:28 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IELynXJwl/kboAQOgwNTbu5Ppx6qhGmRv9BIpTX6XAXyanfAZkxJo/6+HtCkYwpRQn7FaBrzg==
-X-Received: by 2002:a05:600c:45cd:b0:42c:b377:3f55 with SMTP id 5b1f17b1804b1-43115a96e9fmr53328285e9.3.1728633027609;
-        Fri, 11 Oct 2024 00:50:27 -0700 (PDT)
-Received: from [192.168.88.248] (146-241-22-245.dyn.eolo.it. [146.241.22.245])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4311835d7b2sm35116595e9.42.2024.10.11.00.50.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Oct 2024 00:50:27 -0700 (PDT)
-Message-ID: <582a4bc8-5e90-4e10-9c4a-288abbc088af@redhat.com>
-Date: Fri, 11 Oct 2024 09:50:25 +0200
+        d=1e100.net; s=20230601; t=1728725794; x=1729330594;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=qSXEOsCoATa03FnwwTcrY8DbJYxH7hoYtd457rlC5SE=;
+        b=eqL4WAs2qkucd3pxyknwYTR2Pom+sby4ATNMcZKtJwoOj07GBJx3cCR1ZTJNmN2Htr
+         QVb6eCLtH1AtLK0hEpWwxovZnd3/jjVaQE2QyYO1z1wc2mvSMNWY80QjICr6TFBnbTUi
+         6kEBz1YfZkwudzGPoFF3N0Qs36XFYOceIYuwa8rWoARKNc5jP+4XcFUto6trbWe0jRSd
+         vMmbfykz7JLg+iRM7kTZ3sxlDMVhpFk3feQuQrhRXWGW+6LXe/EGVExY2NSQWCB5i+Zp
+         +DfTWSfZdWF4A42xBQdtxuHxE049WuzbC1ePa/lO+QPU/4ZtLoYVz3OBQ6a+zdp7Bali
+         T1ew==
+X-Forwarded-Encrypted: i=1; AJvYcCWDp+09YkaF0iSVW5rbuh8wLwQyzWoQmekmevkWG0Boh+2lp+KeRtmOhW/k/XCgJDUVoNEvm7Yl+64LF965Og==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yzucl4nKnyaflHBipsiOSUZ8OVnUtfupo0tLH7TziyKfSziKT9n
+	c2zYoH8UVcpwHTlJMzbYEQvahYRrAAtLc5oA9+LNGB5T1dc5gzsM
+X-Google-Smtp-Source: AGHT+IERwvEmuFlBKK/UznqaUv7bAYPq+s6exiudLF8H+1cFO8Q1vOkDTKuZgLnN+uDcSr5wEdE3eQ==
+X-Received: by 2002:a17:90a:17e2:b0:2c8:65cf:e820 with SMTP id 98e67ed59e1d1-2e3151b7869mr2705900a91.2.1728725794217;
+        Sat, 12 Oct 2024 02:36:34 -0700 (PDT)
+Received: from devant.antgroup-inc.local ([47.89.83.6])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-2e2f99f61afsm2654619a91.57.2024.10.12.02.36.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Oct 2024 02:36:33 -0700 (PDT)
+From: Xuewei Niu <niuxuewei97@gmail.com>
+X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+To: sgarzare@redhat.com
+Cc: fupan.lfp@antgroup.com,
+	mst@redhat.com,
+	niuxuewei.nxw@antgroup.com,
+	niuxuewei97@gmail.com,
+	virtio-comment@lists.linux.dev
+Subject: Re: [RESEND PATCH v4] virtio-vsock: Add support for multi devices
+Date: Sat, 12 Oct 2024 17:36:21 +0800
+Message-Id: <20241012093621.2966775-1-niuxuewei.nxw@antgroup.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <pxccl5mfv7m3r4shslqusnrd3zgwlzdwo3o45fgmulahup2jjl@dtm6dbw3fl4o>
+References: <pxccl5mfv7m3r4shslqusnrd3zgwlzdwo3o45fgmulahup2jjl@dtm6dbw3fl4o>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/2] virtio-net: define UDP tunnel segmentation offload
- feature
-To: Jason Wang <jasowang@redhat.com>
-Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com,
- Eelco Chaudron <echaudro@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>,
- Willem de Bruijn <willemb@google.com>, kshankar@marvell.com
-References: <cover.1728029499.git.pabeni@redhat.com>
- <55306969c73f62bf4d100d15074bfd6cde741417.1728029499.git.pabeni@redhat.com>
- <CACGkMEvV0gtvgpb7z1MqJLKzHm-Be_8hkf0GzqqsFsfDG8oAeA@mail.gmail.com>
- <d34f50af-4042-44c6-90e1-0acbbb899e96@redhat.com>
- <CACGkMEvrowr6CwF+=RiR+f3EagdKB=rzyCPCQcUdXee4a5MaZA@mail.gmail.com>
- <2b90c368-b514-4077-a6bf-43da075af4fc@redhat.com>
- <CACGkMEu5GWZrYVRN==F=vrRQQGnxj_WqX86YZ+diqC3s3m2m_A@mail.gmail.com>
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <CACGkMEu5GWZrYVRN==F=vrRQQGnxj_WqX86YZ+diqC3s3m2m_A@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/11/24 04:08, Jason Wang wrote:
-> On Thu, Oct 10, 2024 at 3:40 PM Paolo Abeni <pabeni@redhat.com> wrote:
->> The above means that an hypervisor with a S/W virtio implementation need
->> to deal with all sort of strange/unexpected combinations.
+> On Mon, Sep 09, 2024 at 04:51:50PM GMT, Xuewei Niu wrote:
+> >Hi Stefano,
+> >
+> >Thanks for your constructive comments and hope you had a nice vacation ;)
+> >
+> >I responded to some comments before proceeding to the next version. PTAL!
+> >
+> >Thanks,
+> >Xuewei
+> >
+> >> Hi,
+> >> sorry for the delay, I was on vacation.
+> >
+> >> On Tue, Aug 13, 2024 at 04:14:46PM GMT, Xuewei Niu wrote:
+> >> >This patch brings a new feature, called "multi devices", to the virtio
+> >> >vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, and
+> >> >a
+> >> >"index" field to the config for the virtio vsock.
+> >> >
+> >> >== Motivition ==
+> >> >
+> >> >Vsock is a lightweight and widely used data exchange mechanism between host
+> >> >and guest. Kata Containers, a secure container runtime, leverages the
+> >> >capability to exchange control data between the shim and the kata-agent.
+> >> >
+> >> >Currently, the virtio-vsock only supports one device, resulting in the
+> >> >following limitations:
+> >> >
+> >> >* Poor performance isolation: All vsock connections share the same
+> >> >virtqueue. By the way, although multi-queues can solve this problem, they
+> >> >do not conflict.
+> >> >* Cannot enable more than one backend: Virtio-vsock, vhost-vsock, and
+> >> >vhost-user-vsock cannot be enabled simultaneously on the transport.
+> >> >
+> >> >We’d like to transfer networking data, based on TSI (Transparent Socket
+> >> >Impersonation) technique, over vsock via the vhost-user protocol to reduce
+> >> >overhead. However, by default, the vsock device is occupied by the
+> >> >kata-agent, a control component for Kata Containers.
+> >> >
+> >> >== Typical Usages ==
+> >> >
+> >> >Assuming there are two virtio-vsock devices on the guest, with CIDs 3 and 4
+> >> >respectively. And the device with CID 3 is default.
+> >> >
+> >> >==== Guest -> Host ====
+> >> >
+> >> >Use the device with CID 3.
+> >> >
+> >> >```c
+> >> >fd = socket(AF_VSOCK);
+> >> >bind(fd, 3, -1);
+> >> >connect(fd, 2, 1234);
+> >> >n = write(fd, buffer);
+> >> >
+> >> >// or use default (no bind)
+> >> >fd = socket(AF_VSOCK);
+> >> >connect(fd, 2, 1234);
+> >> >n = write(fd, buffer);
+> >> >```
+> >> >
+> >> >Use the device with CID 4.
+> >> >
+> >> >```c
+> >> >fd = socket(AF_VSOCK);
+> >> >bind(fd, 4, -1);
+> >> >connect(fd, 2, 1234);
+> >> >n = write(fd, buffer);
+> >> >```
+> >> >
+> >> >==== Host -> Guest ====
+> >> >
+> >> >The usage is no changes in this case. Send to device with CID 3.
+> >> >
+> >> >```c
+> >> >fd = socket(AF_VSOCK);
+> >> >connect(fd, 3, 1234);
+> >> >n = write(fd, buffer);
+> >> >```
+> >> >
+> >> >Send to device with CID 4.
+> >> >
+> >> >```c
+> >> >fd = socket(AF_VSOCK);
+> >> >connect(fd, 4, 1234);
+> >> >n = write(fd, buffer);
+> >> >```
+> >> >
+> >> >I've pushed a version of code for the implementation of multi devices to
+> >> >lkml [1].
+> >> >
+> >> >[1] https://lore.kernel.org/virtualization/20240517144607.2595798-1-niuxuewei.nxw@antgroup.com
+> >> >
+> >> >Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
+> >>
+> >> mmm, why there is my S-o-b here?
+> >
+> >Lol. I've replaced some of descriptions with your version. So should I keep this s-o-b?
 > 
-> Driver and device doesn't trust each other, they must do necessary
-> validation no matter what features were negotiated.
+> Commonly S-o-b is to be put only if the person concerned specifies you 
+> to put it. In this case it's your work, I just made suggestions and you 
+> don't need to put my S-o-b ;-)
 
-The problem is that a non restrictive specification allows for 
-conflicting/confusing layout, hard to check hence the bugs. The goal 
-here is to try to enforce a restrictive specification for the new feature.
+Okay. Will update.
 
-i.e. if we could replace the whole 'else' statement here:
-
-https://elixir.bootlin.com/linux/v6.12-rc2/source/include/linux/virtio_net.h#L113
-
-with a simpler:
-
-	if (gso_type)
-		return -EINVAL;
-
-we would have avoid a lot of serious kernel bugs.
-
-Note that the PoC code enforces the above, but just for GSO over UDP 
-tunnel packets.
-
->> Side note: as a consequence, sice we will not have anymore DATA_VALID
->> together with VIRTIO_NET_HDR_F_GSO_UDP_TUNNEL_IPV{4,6}, the above will
->> additional avoid the 'DATA_VALID with GSO over UDP tunnel means inner
->> header is valid' strangeness.
+> >
+> >> >Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+> >> >---
+> >> > device-types/vsock/description.tex | 45 ++++++++++++++++++++++++++++--
+> >> > 1 file changed, 43 insertions(+), 2 deletions(-)
+> >> >
+> >> >diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
+> >> >index 7d91d15..5a10ae1 100644
+> >> >--- a/device-types/vsock/description.tex
+> >> >+++ b/device-types/vsock/description.tex
+> >> >@@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+> >> > \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+> >> > \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+> >> > \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not implied.
+> >> >+\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] driver supports multiple devices.
+> >>
+> >> I'd follow the the other features with something like:
+> >> "\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] multiple socket devices are supported."
+> >>
+> >> > \end{description}
+> >> >
+> >> > \drivernormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
+> >> >@@ -52,6 +53,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> >> > \begin{lstlisting}
+> >> > struct virtio_vsock_config {
+> >> > 	le64 guest_cid;
+> >> >+	le16 index;
+> >> > };
+> >> > \end{lstlisting}
+> >> >
+> >> >@@ -77,11 +79,41 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> >> > \hline
+> >> > \end{tabular}
+> >> >
+> >> >+The \field{index} field indicates index of a device, and is required for
+> >> >+each device while the VIRTIO_VSOCK_F_MULTI_DEVICES feature has been
+> >>
+> >> what about "when the VIRTIO_VSOCK_F_MULTI_DEVICES feature is negotiated" ?
+> >>
+> >> >+negotiated. The size of the \field{index} is 16 bits which supports up to
+> >> >+65,536 devices.
+> >>
+> >> What about "The \field{index} is 16 bits in size, enabling support for
+> >> up to 65,536 devices."
+> >
+> >I'll update in v5.
+> >
+> >> >+The device with the lowest index is considered as the default device. There
+> >> >+was only one device before the multi-device feature was supported. When the
+> >> >+multi-device feature is enabled (VIRTIO_VSOCK_F_MULTI_DEVICES has been
+> >> >+negotiated), the default device can be thought of as the device. It is used
+> >> >+to maintain compatibility with applications that are not yet ready to
+> >> >+support this feature.
+> >>
+> >> IMHO this part is not very clear.
+> >> I would try to explain what index is only for when
+> >> VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, something like that:
+> >>
+> >>    If VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, the index of multiple
+> >>    devices managed by the driver is used by the driver to choose the
+> >>    default device when the source socket is not bound to any CID. In this
+> >>    case, the driver uses the device with the lowest index as the default.
+> >>
+> >> I'm not sure if we need to add a specific paragraph to explain that
+> >> part better.
+> >
+> >I'd like to tell the users that what will happen if they don't update their
+> >vsock apps. But your version is more concise and clear.
+> >
+> >I think we don't need to do that, since we'll elaborate the details about
+> >the default device in the "Device Operation: Receive and Transmit".
+> >
+> >Wdyt?
 > 
-> Well, then we will still have the issue with NEEDS_CSUM? For example,
-> as I ask in patch 2, if we want to offload outer checksum where do we
-> put the out csum_start/csum_offset?
-
-I think we don't have any issue there. For GSO over UDP tunnel packets, 
-csum_start/csum_offset always refer to the inner checksum. For GSO 
-without UDP tunnel, csum_start/csum_offset refers to the only checksum.
-
-The outer checksum is offloaded with checksum partial only for GSO over 
-UDP tunnel packets, when the header carries and set the outer_th_offset 
-field:
-
-"""
-If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM feature has been negotiated,
-   and the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit is set in \field{flags},
-   both the outer UDP checksum and the inner transport checksum
-   have been validated, otherwise only one level of checksums (the inner one
-   in case of tunnels) has been validated.
-"""
-
-Note that i.e. performing USO aggregation on the outer UDP for GSO over 
-UDP tunnel packets, will cause data stream corruption, must be avoided 
-regardless of virtio.
-
-> Just to make sure we are talking the same thing. Actually, I meant for
-> TX you propose the following text:
+> Okay, let's try, I'll check the final result.
 > 
-> """
-> +The valid complete checksum of the outer UDP header of individual segments
-> +can be computed by the driver prior to segmentation only if the GSO packet
-> +size is a multiple of \field{gso_size}, because then all segments
-> +have the same size and thus all data included in the outer UDP
-> +checksum is the same for every segment. These pre-computed segment
-> +length and checksum fields are different from those of the GSO
-> +packet.
-> """
+> >
+> >> >+
+> >> >+\devicenormative{\subsubsection}{Device configuration layout}{Device
+> >> >Types / Socket Device / Device configuration layout}
+> >> >+
+> >> >+The \field{index}es don't have to be continuous. For instance, three
+> >> >+devices with \field{index} 1, 2 and 5 respectively are acceptable.
+> >> >+
+> >> >+The \field{index}es cannot have conflicts. For instance, three devices with
+> >> >+\field{index} 1, 1 and 5 respectively are prohibited.
+> >>
+> >> A normative section should use SHOULD, MAY, MUST. Please take a look at
+> >> the other normative sections.
+> >>
+> >> Should we add a line here in the normative section to specify that the
+> >> driver must use the device with the lowest index as the default?
+> >
+> >I will update it as follows in v5.
+> >
+> >```
+> >\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+> >
+> >The device MAY make \field{index}es discontinuous.
+> >
+> >The device MUST use a different \field{index}.
 > 
-> If I understand correctly, you are talking about the precomputed
-> checksum by the driver which should be TX. If no checksum offload, I
-> don't get how such pre-computing can help.
+> I think in both we need to talk about multiple devices, not the single 
+> device.
 
-The above refers to GSO over UDP tunnel, so by the spec change requires 
-that there is csum offload for the inner transport. Precomputing the 
-outer csum basically leads to checksum partial, and allows a 
-device/driver pair not supporting outer header csum offload to handle 
-GSO over UDP tunnel with outer csum enabled.
+Yes, I think I am talking about multiple devices. I'd like to point out that the
+indexes must be unique but could be discontinuous.
 
->>>> The idea is that GSO over UDP tunnel specs are new, so we can be more
->>>> strict and we try to mandate only 'sane' flag/features/layout combinations.
->>>
->>> But I don't see how mandating device to set csum stuffs can help.
->>>
->>> 1) There's no way for the driver to know if device sets csum stuffs or not
->>> 2) Driver should not trust the device, malicious device can set
->>> arbitrary value, so driver needs its own validation
->>
->> We are discussing only about csum validy, right?
+What about the following?
+
+```
+\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+
+The device MUST offer a unique \field{index}. The \field{index}es among all
+devices MAY be discontinuous.
+```
+
+> >
+> >\drivernormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+> >
+> >The driver MUST use the device with the lowest index as the default.
 > 
-> Kind of, actually the context is whether mandating the device to set
-> csum_start/offset for DATA_VALID can help.
+> IMHO "default" here is not clear, so something like, “as default device 
+> for outgoing connections”
+
+Will update.
+
+> Thanks,
+> Stefano
 > 
-> So I meant there's no difference in the following two cases:
-> 
-> 1) Device doesn't set csum_start/offset, driver need to probe and
-> validate the packet
-> 2) Device set the  csum_start/offset, driver still need to probe and
-> validate the packet
+> >```
+> >
+> >Looks good to you?
+> >
+> >> >+
+> >> > \subsection{Device Initialization}\label{sec:Device Types / Socket
+> >> > Device / Device Initialization}
+> >> >
+> >> > \begin{enumerate}
+> >> > \item The guest's cid is read from \field{guest_cid}.
+> >> >
+> >> >+\item Check for multi devices support:
+> >> >+\begin{itemize}
+> >> >+    \item If the VIRTIO_VSOCK_F_MULTI_DEVICES feature has been negotiated,
+> >> >+    the device's index will be read from \field{index}, and the driver will
+> >> >+    allow multi devices.
+> >> >+    \item If the VIRTIO_VSOCK_F_MULTI_DEVICES feature isn't negotiated, the
+> >> >+    device's index will be ignored, and the driver will deny the second and
+> >> >+    subsequent devices.
+> >> >+\end{itemize}
+> >> >+
+> >> > \item Buffers are added to the event virtqueue to receive events from the device.
+> >> >
+> >> > \item Buffers are added to the rx virtqueue to start receiving packets.
+> >> >@@ -167,6 +199,11 @@ \subsubsection{Addressing}\label{sec:Device Types / Socket Device / Device Opera
+> >> > consists of a (cid, port number) tuple. The header fields used for this are
+> >> > \field{src_cid}, \field{src_port}, \field{dst_cid}, and \field{dst_port}.
+> >> >
+> >> >+When the driver supports multiple devices (feature
+> >> >+VIRTIO_VSOCK_F_MULTI_DEVICES negotiated), if the transmitting socket is not
+> >>
+> >> s/transmitting/source
+> >
+> >I'll update in v5.
+> >
+> >> >+bound to any specific address, then \field{src_cid} should be assigned with
+> >> >+the CID of the default device.
+> >> >+
+> >> > Currently stream and seqpacket sockets are supported. \field{type} is 1 (VIRTIO_VSOCK_TYPE_STREAM)
+> >> > for stream socket types, and 2 (VIRTIO_VSOCK_TYPE_SEQPACKET) for
+> >> > seqpacket socket types.
+> >> >
+> >> >@@ -233,8 +270,12 @@ \subsubsection{Receive and Transmit}\label{sec:Device Types / Socket Device / De
+> >> >
+> >> > \drivernormative{\paragraph}{Device Operation: Receive and Transmit}{Device Types / Socket Device / Device Operation / Receive and Transmit}
+> >> >
+> >> >-The \field{guest_cid} configuration field MUST be used as the source CID when
+> >> >-sending outgoing packets.
+> >> >+The \field{guest_cid} configuration field of one device MUST be used as the
+> >> >+source CID when sending outgoing packets. When the
+> >> >+VIRTIO_VSOCK_F_MULTI_DEVICES feature is not negotiated, there is only one
+> >> >+device. When this feature has been negotiated, either use the
+> >> >+\field{guest_cid} of the device specified by the user, or use that of the
+> >> >+default device.
+> >>
+> >> We can skip the one device part, I would rephrase it to something like this:
+> >>
+> >> The \field{guest_cid} configuration field MUST be used as the source CID when
+> >> sending outgoing packets.
+> >> When the VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, the source CID
+> >> MUST be one of the \field{guest_cid} configuration field of the multiple
+> >> devices handled by the driver.
+> >
+> >I'll update in v5.
+> >
+> >> Thanks,
+> >> Stefano
+> >>
+> >> >
+> >> > A VIRTIO_VSOCK_OP_RST reply MUST be sent if a packet is received with an
+> >> > unknown \field{type} value.
+> >> >--
+> >> >2.34.1
+> >> >
+> >
 
-The current implementation is not doing (rightful) any probing when 
-csum_start/offset are available, just sanity checks, which are way 
-simpler and safer.
-
-> And as replied before, there's no way for the driver to know if device
-> set csum_start/offset or not.
-
-I don't understand this statement. According the the spec, if the device 
-has set NEEDS_CSUM it also must have set csum_start/offset. If a broken 
-or malicious device set random/bad values, sanity checks should catch it.
-
-Note that the real problems are actually in the opposite direction: the 
-driver sends bad/malicious data to the device and potentially crashing 
-the host. Strict sanity checks should avoid that.
-
->> I hope and believe that this part should have been clarified by a
->> previously discussed point: no DATA_VALID for GSO over UDP tunnel, no
->> more differentiate/confusing meaning for the DATA VALID bit.
-> 
-> Rethink of the design, the root cause is that we're trying to re-use
-> existing fields for inner which works for outer before:
-> 
-> For example. consider the case for non GSO tunneling, all
-> csum_start/offset/hdr_flags etc were for the outer, and we change the
-> semantic when GSO tunnel is supported. Such asymmetry might end up of
-> a lot of complexity in both the spec and the implementation.
-
-Have you looked at the actual PoC implementation? the proposed 
-specification allows re-using the existing code to process the inner 
-headers seamlessly:
-
-https://github.com/pabeni/linux-devel/blob/virtio_tunnel_gso_v9/include/linux/virtio_net.h#L302
-https://github.com/pabeni/linux-devel/blob/virtio_tunnel_gso_v9/include/linux/virtio_net.h#L359
-
-For non tunneling GSO, the fields refer to the _only_ transport header 
-available. You can call it 'outer' but it's just an arbitrary choice.
-
-I must admit all this discussion is quite confusing to me, as keep 
-touching consolidated and agreed stuff. My understanding was you were ok 
-with V8:
-
-https://lore.kernel.org/virtio-comment/CA+FuTSf8274uQVEiJ-R5nnqAzDR9+N3WA0YoSbC-Q7MF5+O7Mw@mail.gmail.com/T/#mb455dd5f07ac98f1ccf79ba6edbd17a75f72df0b
-
-and the only significant delta between v8 and v9 is a more restrictive 
-and defined usage of the DATA_VALID flag with GSO over UDP tunnel 
-packets (as also reported in the changelog).
-
-I think we should restrict the discussion to that point. I agree the 
-conflicting definition of DATA_VALID GSO over tunnel and GSO without 
-tunnel could be confusing.
-
-AFAICS there are 2 options to make the DATA_VALID usage with GSO over 
-UDP tunnel not contradictory with the non tunnel GSO:
-
-1) forbid DATA_VALID with GSO over UDP tunnel
-
-or
-
-2) forbid DATA_VALID with GSO over UDP tunnel without UDP tunnel 
-checksum offload. That means that DATA_VALID for GSO over UDP tunnel 
-packets could only be set when both the inner and outher header are 
-offloaded.
-
-I hope opt 1) would be simpler to define in details, opt 2 would still 
-allow for GSO over UDP tunnel HW GRO with DATA_VALID.
-
-Paolo
-
+Regards,
+Xuewei
