@@ -1,213 +1,407 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6938A13D291
-	for <virtio-comment@lists.linux.dev>; Mon, 14 Oct 2024 12:01:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A621CEAD3
+	for <virtio-comment@lists.linux.dev>; Tue, 15 Oct 2024 09:21:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1728907291; cv=none; b=CnJ4aEyURx3StAF5QFZi3edS5+2CLvoPjg/5pgyYdhbHzuws7zVIhhLIH+KlEYWyzoaoa7rC9VJ2+XMlR9HN/BFSkcgC8KLjK+oJeeq+McIASRc329pddQfaTx24rYrgqTJ2A/9EywpvWgigIumpWwCHzRGKDx6XLgrwyym6MIU=
+	t=1728984114; cv=none; b=WtbryDm2ucjWo0w9uWHUuZajXIzSZCvsqOsd/PRX8dpOk3+mr4XeCDPuplYQLE0IZlsCmg9nmLIxybEyn3HbETPJ9reLtwRTv/Xwx3cfXdEfOOONEDhO5wKECG1evtPp9Q+HOhkBrH9UFWZq0/wBsoX/gVpeGolJ1UnHx0XD0Vg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1728907291; c=relaxed/simple;
-	bh=68SMEG2l01i5d/XciVDb910jWdjhmDur76RNZy8JmcI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uaXkt3UlGF3MiGJ8g5qJHUwKZ8p9rhpc5+wFP/ne+RmUSV/Gbmn1cJb/5ZZkQ68GqdUvES48Zi4YEeAx5nl4vfXxdUIQZ3VxI8FCm06goG1+Ou963ApspgouQWB60wL/8bDABaIoS/IoO4dmHPmROmCkNGLyzFhkmQXz6fVblDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fP7nzMbw; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1728984114; c=relaxed/simple;
+	bh=wpZi/O8raqdJxiQO3/CnbhJkNgA96g+dZO4gIc66kpg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=qhfL3/xfbHUMyXIlNYXz1tFGMyk4uyhEhINh1U421qprkDiBhtzK2JabsaW/LxaPMGzBpPTriku/lrz3BzSMNXnyrmAmRJsEz1E4xQwLEKLBMawWSlZP2swSFHAFFPyV62E7iCpVRkwBtosQmsQKw/+FbGat/9a4XtM2r94SKcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WcvRZbgO; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fP7nzMbw"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WcvRZbgO"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1728907288;
+	s=mimecast20190719; t=1728984110;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=lfSjnksvHShMgQkpYu60ptALWwNi+IQwqKXSzLmONjQ=;
-	b=fP7nzMbwnZt+w0UJb6vW8k/4wUbcXuwZvmQA17OLvlzLiEDfmxat91drGmMWXuXTb5p4dh
-	RJURrrsght+RhHJKSV9L17FK0a2SK6vNQ6okWMwz4qgdP9r6+raAluTEuhUKlzmFH9xald
-	h+8BbrhT+gq8nzishbnDeWCZTwPOd3g=
-Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
- [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	 in-reply-to:in-reply-to:references:references;
+	bh=WMaFnrzaJys0/ydNUuSfptorIFshUCo4YIaN2QbszVs=;
+	b=WcvRZbgOMWonorAOVGifYbFph3YN5ebzdoI7cZk36gZBcVZw+zXKttGuIzn+oSng24U01f
+	ZYtqXoQ3bj28j2l0GAeCtYG2tjlA3sO6fWkc4pAaX91sy7sg0l9Tez1xEkNwT020cmW5GI
+	7+TJQESkOIXBVsGG2QJAOP/KjwVf9n4=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-589-gVUBJJeRNkawQ1SJNXKzyA-1; Mon, 14 Oct 2024 08:01:25 -0400
-X-MC-Unique: gVUBJJeRNkawQ1SJNXKzyA-1
-Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-539e91e12bbso1207072e87.2
-        for <virtio-comment@lists.linux.dev>; Mon, 14 Oct 2024 05:01:25 -0700 (PDT)
+ us-mta-589-Zi3gfERfNd6AjjDIdnPb8g-1; Tue, 15 Oct 2024 05:21:48 -0400
+X-MC-Unique: Zi3gfERfNd6AjjDIdnPb8g-1
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-4601a473e90so77321601cf.2
+        for <virtio-comment@lists.linux.dev>; Tue, 15 Oct 2024 02:21:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728907284; x=1729512084;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lfSjnksvHShMgQkpYu60ptALWwNi+IQwqKXSzLmONjQ=;
-        b=BxnXbOhllJAyjDFlAyRPsJGXbVWiNI0npw+gxmbU4pIIU9DM9ivBveHlY0yRvjkN8V
-         M/lNiNybC6FhRxn0w47c2cgNToHvNOHvpy3IWEbj84ETI9/3yNixcsQFKC29X5Lb7Y5V
-         HiOLwBRDj8dpecZc55Yh7o8lNxnFLkDH5GGwxjZXfrQUjyZdY9qcftjIhpIEfBLLjIBx
-         5qH3Sq2fB3q4UQo4BeG6VAk96Y9fo730MLYQaJdD02ySJcEvmkw7YDmVc5ArkNAl7jnQ
-         ouwsU3DOdL9cMStBe2xauCNU7/GXtDEuLJ989MN+f7fbD2AoVuzvVmfKHnKnEyOcABII
-         zriw==
-X-Forwarded-Encrypted: i=1; AJvYcCUkGnjfkZL6p24WSljaXlbxSwVeqc6GMsCP1Ymufr5+2dDzyOqKfSPxiFgUJj1G/LxOofhjRvJ2M+uRv0kAqg==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yz2kG8WZ+/ahaeUmujbgQ7cL9CcZDXmQlHVq4A4LuGkh44t/dxk
-	d+CYaIq1B3cILt9AvU90l4pIW0d4j3m/33I5mqJYqDhNhXw7EQo26/YjkbiwecxGi0+ABHcVJs0
-	8diYVbmUCL2w0F+T1wN2fyiN1NXLHAQcL5IueO6AKgkQ8W5riAipCPMfcN9wiX4bH
-X-Received: by 2002:a05:6512:2313:b0:533:d3e:16fe with SMTP id 2adb3069b0e04-539e571dadbmr2803089e87.38.1728907284302;
-        Mon, 14 Oct 2024 05:01:24 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHW3T1MQ56dgPC0EwBjDqCTOlNooQ/IZTipFGiEMhzGZr4EDvzIz2tyozxdPAMOM4x9yW55zA==
-X-Received: by 2002:a05:6512:2313:b0:533:d3e:16fe with SMTP id 2adb3069b0e04-539e571dadbmr2803065e87.38.1728907283786;
-        Mon, 14 Oct 2024 05:01:23 -0700 (PDT)
-Received: from ?IPV6:2a09:80c0:192:0:5dac:bf3d:c41:c3e7? ([2a09:80c0:192:0:5dac:bf3d:c41:c3e7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-430ccf49910sm151797905e9.20.2024.10.14.05.01.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Oct 2024 05:01:23 -0700 (PDT)
-Message-ID: <95f857f3-a113-401b-ae8d-7bf0a53f261a@redhat.com>
-Date: Mon, 14 Oct 2024 14:01:22 +0200
+        d=1e100.net; s=20230601; t=1728984107; x=1729588907;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=WMaFnrzaJys0/ydNUuSfptorIFshUCo4YIaN2QbszVs=;
+        b=ZMtA50Z6b494QOTo4/ep73denhocWP75xq4eq3GRMraookUalx/eZcVnj/880Vn57V
+         +lxGlEe+IDs09reg8byqsCc7q9yjERyuhrl/lieiJzazSBaIwR9884Gumz5daqohFeLo
+         dzqJLvT/8cYj2u6YNPEEfWZwkdqgs/Faa7jkGiPJZGdLK6h49R4nLMCvlZTubtQq/Z/g
+         mNhdFgKndIyoMtUiQY9NlRoxK4xToK0TSbw7v1n0DTRVcAU694XI7pq//rV6jIcOJcm2
+         UfgzQnRGybxDHlhH7NqcoNSdOs6YkFshDbwRu3Um8h4yc+9ovNcNJ/xt44IgYjWyW5hu
+         mEjQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWMcqLfAdmYIS9zowTSrlNiNILO5etoJ2lv2++bWgBUZmnUbXoX+sZ6/X21u3G9rWqUOu+iGSKeb3UUMputKw==@lists.linux.dev
+X-Gm-Message-State: AOJu0YwWHpnplQtZL8ljUnftzpkyaW5kGYATYR6OcpbOUKnii+EhIJOl
+	dHf3OdQ9fJ9ra/jLsNz3jjaGVAeLv3cdO0WpADtUQg9Tqns/a/aAkP5xUErujh/ecBZh5U/DwUo
+	Knf+XUgJ2X9je3o6z1EAdJnKxZobVxKR7IldkM/BOiCROtosGMY5RF6IqzFJnyvfF
+X-Received: by 2002:a05:622a:1f07:b0:458:3be2:d2d6 with SMTP id d75a77b69052e-4604bc39132mr252133811cf.47.1728984107465;
+        Tue, 15 Oct 2024 02:21:47 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF2yHX2n+gsH1PqVFULJ/liEKHadJKE/R8JNAvWH7G2pDGAzqtvYTPJqp/deCUdN3Owv5EG9g==
+X-Received: by 2002:a05:622a:1f07:b0:458:3be2:d2d6 with SMTP id d75a77b69052e-4604bc39132mr252133511cf.47.1728984106898;
+        Tue, 15 Oct 2024 02:21:46 -0700 (PDT)
+Received: from sgarzare-redhat (host-79-46-200-231.retail.telecomitalia.it. [79.46.200.231])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-4607b38b505sm4362751cf.83.2024.10.15.02.21.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Oct 2024 02:21:46 -0700 (PDT)
+Date: Tue, 15 Oct 2024 11:21:40 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Xuewei Niu <niuxuewei97@gmail.com>
+Cc: fupan.lfp@antgroup.com, mst@redhat.com, niuxuewei.nxw@antgroup.com, 
+	virtio-comment@lists.linux.dev
+Subject: Re: [RESEND PATCH v4] virtio-vsock: Add support for multi devices
+Message-ID: <oa3vk2dtqj33rowzehcvxvyb7rmkxb73ilggeicyqy4d5ezml2@frcvynoyxrub>
+References: <pxccl5mfv7m3r4shslqusnrd3zgwlzdwo3o45fgmulahup2jjl@dtm6dbw3fl4o>
+ <20241012093621.2966775-1-niuxuewei.nxw@antgroup.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] virtio-mem: introduce VIRTIO_MEM_F_PERSISTENT_SUSPEND
-To: Juraj Marcin <jmarcin@redhat.com>, virtio-comment@lists.linux.dev
-Cc: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>,
- Cornelia Huck <cohuck@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
-References: <20241009090202.10544-2-jmarcin@redhat.com>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; keydata=
- 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
- WNyWQQ==
-Organization: Red Hat
-In-Reply-To: <20241009090202.10544-2-jmarcin@redhat.com>
+In-Reply-To: <20241012093621.2966775-1-niuxuewei.nxw@antgroup.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On 09.10.24 11:01, Juraj Marcin wrote:
-> Before, the behavior while suspending to a deep sleep state and waking
-> up was not specified. For example, in x86 QEMU VM all devices receive a
-> reset request during wake-up. This would lead to unplugging of all the
-> plugged memory blocks. Due to this, suspending is disallowed in the
-> Linux Kernel, when plugged memory is present and
-> VIRTIO_MEM_F_PERSISTENT_SUSPEND feature flag is not advertised by the
-> virtio-mem device.
-> 
-> This new flag should signal to the guest driver, that the device can
-> correctly suspend to a deep sleep state and then wake up without
-> disrupting the plugged memory blocks. This feature flag is already
-> supported in the Linux Kernel [1] and also supported in QEMU [2].
-> 
-> [1]: https://lore.kernel.org/all/20240318120645.105664-1-david@redhat.com/
-> [2]: https://lore.kernel.org/all/20240904103722.946194-1-jmarcin@redhat.com/
-> 
-> Reviewed-by: David Hildenbrand <david@redhat.com>
-> Reviewed-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-> Signed-off-by: Juraj Marcin <jmarcin@redhat.com>
-> ---
-> v2:
-> - replaced "guest system" with "guest", suggested by Matias
-> - updated QEMU patch series link
-> ---
->   device-types/mem/description.tex | 12 ++++++++++++
->   1 file changed, 12 insertions(+)
-> 
-> diff --git a/device-types/mem/description.tex b/device-types/mem/description.tex
-> index 0a6d558..9acf63f 100644
-> --- a/device-types/mem/description.tex
-> +++ b/device-types/mem/description.tex
-> @@ -60,6 +60,8 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Device / Feature bits}
->   access unplugged memory. \footnote{On platforms with memory properties that
->   might get modified implicitly on memory access, this feature is expected to
->   be offered by the device.}
-> +\item[VIRTIO_MEM_F_PERSISTENT_SUSPEND (2)] The driver can allow the guest
-> +to enter suspended state (deep sleep, suspend-to-RAM).
->   \end{description}
->   
->   \subsection{Device configuration layout}\label{sec:Device Types / Memory Device / Device configuration layout}
-> @@ -174,6 +176,9 @@ \subsection{Device Initialization}\label{Device Types / Memory Device / Device I
->   The device MUST NOT modify memory or memory properties of plugged memory
->   blocks during device reset.
->   
-> +The device SHOULD offer VIRTIO_MEM_F_PERSISTENT_SUSPEND if the platform
-> +supports suspending (deep sleep, suspend-to-RAM) with plugged memory blocks.
-> +
->   \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Operation}
->   
->   The device notifies the driver about the amount of memory the device wants
-> @@ -268,6 +273,9 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
->   memory blocks to unplug them, or it would not be able to make use of
->   unplugged memory blocks after plugging them (e.g., alignment).
->   
-> +If VIRTIO_MEM_F_PERSISTENT_SUSPEND has not been negotiated, the driver MUST NOT
-> +allow the guest to enter a suspended state (deep sleep, suspend-to-RAM).
-> +
->   \devicenormative{\subsubsection}{Device Operation}{Device Types / Memory Device / Device Operation}
->   
->   The device MUST provide the exact same memory properties with the exact same
-> @@ -293,6 +301,10 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
->   
->   The device SHOULD unplug all memory blocks during system resets.
->   
-> +If VIRTIO_MEM_F_PERSISTENT_SUSPEND has been negotiated, the device MUST NOT not
-> +change the state of memory blocks when suspending or when waking up from
-> +suspended state (deep sleep, suspend-to-RAM).
-> +
->   \subsubsection{PLUG request}\label{sec:Device Types / Memory Device / Device Operation / PLUG request}
->   
->   Request to plug consecutive memory blocks that are currently unplugged.
+On Sat, Oct 12, 2024 at 05:36:21PM +0800, Xuewei Niu wrote:
+>> On Mon, Sep 09, 2024 at 04:51:50PM GMT, Xuewei Niu wrote:
+>> >Hi Stefano,
+>> >
+>> >Thanks for your constructive comments and hope you had a nice vacation ;)
+>> >
+>> >I responded to some comments before proceeding to the next version. PTAL!
+>> >
+>> >Thanks,
+>> >Xuewei
+>> >
+>> >> Hi,
+>> >> sorry for the delay, I was on vacation.
+>> >
+>> >> On Tue, Aug 13, 2024 at 04:14:46PM GMT, Xuewei Niu wrote:
+>> >> >This patch brings a new feature, called "multi devices", to the virtio
+>> >> >vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, and
+>> >> >a
+>> >> >"index" field to the config for the virtio vsock.
+>> >> >
+>> >> >== Motivition ==
+>> >> >
+>> >> >Vsock is a lightweight and widely used data exchange mechanism between host
+>> >> >and guest. Kata Containers, a secure container runtime, leverages the
+>> >> >capability to exchange control data between the shim and the kata-agent.
+>> >> >
+>> >> >Currently, the virtio-vsock only supports one device, resulting in the
+>> >> >following limitations:
+>> >> >
+>> >> >* Poor performance isolation: All vsock connections share the same
+>> >> >virtqueue. By the way, although multi-queues can solve this problem, they
+>> >> >do not conflict.
+>> >> >* Cannot enable more than one backend: Virtio-vsock, vhost-vsock, and
+>> >> >vhost-user-vsock cannot be enabled simultaneously on the transport.
+>> >> >
+>> >> >We’d like to transfer networking data, based on TSI (Transparent Socket
+>> >> >Impersonation) technique, over vsock via the vhost-user protocol to reduce
+>> >> >overhead. However, by default, the vsock device is occupied by the
+>> >> >kata-agent, a control component for Kata Containers.
+>> >> >
+>> >> >== Typical Usages ==
+>> >> >
+>> >> >Assuming there are two virtio-vsock devices on the guest, with CIDs 3 and 4
+>> >> >respectively. And the device with CID 3 is default.
+>> >> >
+>> >> >==== Guest -> Host ====
+>> >> >
+>> >> >Use the device with CID 3.
+>> >> >
+>> >> >```c
+>> >> >fd = socket(AF_VSOCK);
+>> >> >bind(fd, 3, -1);
+>> >> >connect(fd, 2, 1234);
+>> >> >n = write(fd, buffer);
+>> >> >
+>> >> >// or use default (no bind)
+>> >> >fd = socket(AF_VSOCK);
+>> >> >connect(fd, 2, 1234);
+>> >> >n = write(fd, buffer);
+>> >> >```
+>> >> >
+>> >> >Use the device with CID 4.
+>> >> >
+>> >> >```c
+>> >> >fd = socket(AF_VSOCK);
+>> >> >bind(fd, 4, -1);
+>> >> >connect(fd, 2, 1234);
+>> >> >n = write(fd, buffer);
+>> >> >```
+>> >> >
+>> >> >==== Host -> Guest ====
+>> >> >
+>> >> >The usage is no changes in this case. Send to device with CID 3.
+>> >> >
+>> >> >```c
+>> >> >fd = socket(AF_VSOCK);
+>> >> >connect(fd, 3, 1234);
+>> >> >n = write(fd, buffer);
+>> >> >```
+>> >> >
+>> >> >Send to device with CID 4.
+>> >> >
+>> >> >```c
+>> >> >fd = socket(AF_VSOCK);
+>> >> >connect(fd, 4, 1234);
+>> >> >n = write(fd, buffer);
+>> >> >```
+>> >> >
+>> >> >I've pushed a version of code for the implementation of multi devices to
+>> >> >lkml [1].
+>> >> >
+>> >> >[1] https://lore.kernel.org/virtualization/20240517144607.2595798-1-niuxuewei.nxw@antgroup.com
+>> >> >
+>> >> >Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
+>> >>
+>> >> mmm, why there is my S-o-b here?
+>> >
+>> >Lol. I've replaced some of descriptions with your version. So should I keep this s-o-b?
+>>
+>> Commonly S-o-b is to be put only if the person concerned specifies you
+>> to put it. In this case it's your work, I just made suggestions and you
+>> don't need to put my S-o-b ;-)
+>
+>Okay. Will update.
+>
+>> >
+>> >> >Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+>> >> >---
+>> >> > device-types/vsock/description.tex | 45 ++++++++++++++++++++++++++++--
+>> >> > 1 file changed, 43 insertions(+), 2 deletions(-)
+>> >> >
+>> >> >diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
+>> >> >index 7d91d15..5a10ae1 100644
+>> >> >--- a/device-types/vsock/description.tex
+>> >> >+++ b/device-types/vsock/description.tex
+>> >> >@@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+>> >> > \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+>> >> > \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+>> >> > \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not implied.
+>> >> >+\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] driver supports multiple devices.
+>> >>
+>> >> I'd follow the the other features with something like:
+>> >> "\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] multiple socket devices are supported."
+>> >>
+>> >> > \end{description}
+>> >> >
+>> >> > \drivernormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
+>> >> >@@ -52,6 +53,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+>> >> > \begin{lstlisting}
+>> >> > struct virtio_vsock_config {
+>> >> > 	le64 guest_cid;
+>> >> >+	le16 index;
+>> >> > };
+>> >> > \end{lstlisting}
+>> >> >
+>> >> >@@ -77,11 +79,41 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+>> >> > \hline
+>> >> > \end{tabular}
+>> >> >
+>> >> >+The \field{index} field indicates index of a device, and is required for
+>> >> >+each device while the VIRTIO_VSOCK_F_MULTI_DEVICES feature has been
+>> >>
+>> >> what about "when the VIRTIO_VSOCK_F_MULTI_DEVICES feature is negotiated" ?
+>> >>
+>> >> >+negotiated. The size of the \field{index} is 16 bits which supports up to
+>> >> >+65,536 devices.
+>> >>
+>> >> What about "The \field{index} is 16 bits in size, enabling support for
+>> >> up to 65,536 devices."
+>> >
+>> >I'll update in v5.
+>> >
+>> >> >+The device with the lowest index is considered as the default device. There
+>> >> >+was only one device before the multi-device feature was supported. When the
+>> >> >+multi-device feature is enabled (VIRTIO_VSOCK_F_MULTI_DEVICES has been
+>> >> >+negotiated), the default device can be thought of as the device. It is used
+>> >> >+to maintain compatibility with applications that are not yet ready to
+>> >> >+support this feature.
+>> >>
+>> >> IMHO this part is not very clear.
+>> >> I would try to explain what index is only for when
+>> >> VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, something like that:
+>> >>
+>> >>    If VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, the index of multiple
+>> >>    devices managed by the driver is used by the driver to choose the
+>> >>    default device when the source socket is not bound to any CID. In this
+>> >>    case, the driver uses the device with the lowest index as the default.
+>> >>
+>> >> I'm not sure if we need to add a specific paragraph to explain that
+>> >> part better.
+>> >
+>> >I'd like to tell the users that what will happen if they don't update their
+>> >vsock apps. But your version is more concise and clear.
+>> >
+>> >I think we don't need to do that, since we'll elaborate the details about
+>> >the default device in the "Device Operation: Receive and Transmit".
+>> >
+>> >Wdyt?
+>>
+>> Okay, let's try, I'll check the final result.
+>>
+>> >
+>> >> >+
+>> >> >+\devicenormative{\subsubsection}{Device configuration layout}{Device
+>> >> >Types / Socket Device / Device configuration layout}
+>> >> >+
+>> >> >+The \field{index}es don't have to be continuous. For instance, three
+>> >> >+devices with \field{index} 1, 2 and 5 respectively are acceptable.
+>> >> >+
+>> >> >+The \field{index}es cannot have conflicts. For instance, three devices with
+>> >> >+\field{index} 1, 1 and 5 respectively are prohibited.
+>> >>
+>> >> A normative section should use SHOULD, MAY, MUST. Please take a look at
+>> >> the other normative sections.
+>> >>
+>> >> Should we add a line here in the normative section to specify that the
+>> >> driver must use the device with the lowest index as the default?
+>> >
+>> >I will update it as follows in v5.
+>> >
+>> >```
+>> >\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+>> >
+>> >The device MAY make \field{index}es discontinuous.
+>> >
+>> >The device MUST use a different \field{index}.
+>>
+>> I think in both we need to talk about multiple devices, not the single
+>> device.
+>
+>Yes, I think I am talking about multiple devices. I'd like to point out that the
+>indexes must be unique but could be discontinuous.
+>
+>What about the following?
+>
+>```
+>\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+>
+>The device MUST offer a unique \field{index}. The \field{index}es among all
+>devices MAY be discontinuous.
+>```
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/207
+I think we should emphasize that this is only true when 
+VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated. Also we should better say 
+what we mean by unique, i.e., that index can be assigned to one device 
+when there are more than one.
 
-v1 was on the list for more than 2 months, and there was only a minor 
-change for v2.
+Thanks,
+Stefano
 
-Conny, Michael, can you please open a TC vote?
-
--- 
-Cheers,
-
-David / dhildenb
+>
+>> >
+>> >\drivernormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+>> >
+>> >The driver MUST use the device with the lowest index as the default.
+>>
+>> IMHO "default" here is not clear, so something like, “as default device
+>> for outgoing connections”
+>
+>Will update.
+>
+>> Thanks,
+>> Stefano
+>>
+>> >```
+>> >
+>> >Looks good to you?
+>> >
+>> >> >+
+>> >> > \subsection{Device Initialization}\label{sec:Device Types / Socket
+>> >> > Device / Device Initialization}
+>> >> >
+>> >> > \begin{enumerate}
+>> >> > \item The guest's cid is read from \field{guest_cid}.
+>> >> >
+>> >> >+\item Check for multi devices support:
+>> >> >+\begin{itemize}
+>> >> >+    \item If the VIRTIO_VSOCK_F_MULTI_DEVICES feature has been negotiated,
+>> >> >+    the device's index will be read from \field{index}, and the driver will
+>> >> >+    allow multi devices.
+>> >> >+    \item If the VIRTIO_VSOCK_F_MULTI_DEVICES feature isn't negotiated, the
+>> >> >+    device's index will be ignored, and the driver will deny the 
+>> >> >second and
+>> >> >+    subsequent devices.
+>> >> >+\end{itemize}
+>> >> >+
+>> >> > \item Buffers are added to the event virtqueue to receive events from the device.
+>> >> >
+>> >> > \item Buffers are added to the rx virtqueue to start receiving packets.
+>> >> >@@ -167,6 +199,11 @@ \subsubsection{Addressing}\label{sec:Device Types / Socket Device / Device Opera
+>> >> > consists of a (cid, port number) tuple. The header fields used for this are
+>> >> > \field{src_cid}, \field{src_port}, \field{dst_cid}, and \field{dst_port}.
+>> >> >
+>> >> >+When the driver supports multiple devices (feature
+>> >> >+VIRTIO_VSOCK_F_MULTI_DEVICES negotiated), if the transmitting socket is not
+>> >>
+>> >> s/transmitting/source
+>> >
+>> >I'll update in v5.
+>> >
+>> >> >+bound to any specific address, then \field{src_cid} should be assigned with
+>> >> >+the CID of the default device.
+>> >> >+
+>> >> > Currently stream and seqpacket sockets are supported. \field{type} is 1 (VIRTIO_VSOCK_TYPE_STREAM)
+>> >> > for stream socket types, and 2 (VIRTIO_VSOCK_TYPE_SEQPACKET) for
+>> >> > seqpacket socket types.
+>> >> >
+>> >> >@@ -233,8 +270,12 @@ \subsubsection{Receive and Transmit}\label{sec:Device Types / Socket Device / De
+>> >> >
+>> >> > \drivernormative{\paragraph}{Device Operation: Receive and Transmit}{Device Types / Socket Device / Device Operation / Receive and Transmit}
+>> >> >
+>> >> >-The \field{guest_cid} configuration field MUST be used as the source CID when
+>> >> >-sending outgoing packets.
+>> >> >+The \field{guest_cid} configuration field of one device MUST be used as the
+>> >> >+source CID when sending outgoing packets. When the
+>> >> >+VIRTIO_VSOCK_F_MULTI_DEVICES feature is not negotiated, there is only one
+>> >> >+device. When this feature has been negotiated, either use the
+>> >> >+\field{guest_cid} of the device specified by the user, or use that of the
+>> >> >+default device.
+>> >>
+>> >> We can skip the one device part, I would rephrase it to something like this:
+>> >>
+>> >> The \field{guest_cid} configuration field MUST be used as the source CID when
+>> >> sending outgoing packets.
+>> >> When the VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, the source CID
+>> >> MUST be one of the \field{guest_cid} configuration field of the multiple
+>> >> devices handled by the driver.
+>> >
+>> >I'll update in v5.
+>> >
+>> >> Thanks,
+>> >> Stefano
+>> >>
+>> >> >
+>> >> > A VIRTIO_VSOCK_OP_RST reply MUST be sent if a packet is received with an
+>> >> > unknown \field{type} value.
+>> >> >--
+>> >> >2.34.1
+>> >> >
+>> >
+>
+>Regards,
+>Xuewei
+>
 
