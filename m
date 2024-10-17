@@ -1,196 +1,316 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433041DE4CB
-	for <virtio-comment@lists.linux.dev>; Thu, 17 Oct 2024 15:34:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF3A227B80
+	for <virtio-comment@lists.linux.dev>; Thu, 17 Oct 2024 20:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1729179266; cv=none; b=HZFsgwZZ5IeuDudFukzkB3fQ96fxD946x6sOploo3VMuRpugFaJpGya5sZO6d+QNkRPDhY15Egk7N47mqJ5bvfi+79XYSjTnkMZ3RsWHzCE3Dh97DMzpgmnonmWHPv1+OznFmJkXfcESv/S+cNm5K7Llt1Hoo8yeBir3r6B//80=
+	t=1729195380; cv=none; b=enQa8IFkT0+uwAcPyhlfnVmZAiHJHut25mdUafoz3aR7NPOKlwLXFVOmGbp780OoDizOK9Gvb2TnNRXr3WuGIc9HnKCjO8SzaYsHQRBgxqkWKL8pB4Fn/Ss4jD6lrbnj0vr+dRhfStvhrvdLDE5ifWVmZqdUW83ybaBsVjtgI6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1729179266; c=relaxed/simple;
-	bh=P3njzNbIkGMtayO3ycU1q/5+8dgfRJ+6N5D4aCr/j4E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JE3q8WSV7zW+JzAhmxj0S0Ku893eRKofhu9xnmh3lgN05C1dYgVINU/WIquAjoM3k4Xuk3qi61wQJcqGoI9+AHF5c5UQTN0CUjk4VuHvJLB0bR4U2oE95ULlyuBswxIQivP8Vfro99LHAKUxnYuUD2Rtn/0TWQymBKEKBTQ5oWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dv8ZnN2h; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1729195380; c=relaxed/simple;
+	bh=q5Vz1vL87QzHcoCdzLNw3P0esct0CwurdTrPyo9TyqA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PfvGqr964OUwtVjJib7zZ/lksCk4GVrYeRzsl1tSQjveAqg99ocGDvVnjx37w5Z+B2xOejXc0JwVLwR/7JGHBKaZTT2zAShhwDv+bkIwuTXJdNhjwnu6MKrG4pD/o+Pmf8i/27pa+fh/HrsYN+jNH/3Q6eOhlGIELztrcyGpzd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=YiTTOj80; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dv8ZnN2h"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1729179260;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KAg7pPhHP5+Gpre6V63JWyN+Lrttz9LsQVlPohAxCFU=;
-	b=dv8ZnN2hgSv/p9Rrg0oiEBOw2uUshCo7y0bcQC2yJlTEdBK7fOwwF8p+Y9AlTh+vzgxXlY
-	juSJ3xriRiCjXO2MZxBoTyqf7Ujoik73gb9mykXodeYonQtrCCfQBQBDaFsEk05v+DCkCY
-	Ns+7/E7JXN8/Ysq6NtU9IuSnNfoZl2c=
-Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
- [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-77-O6PElBPWOoarWjoKhH10nQ-1; Thu, 17 Oct 2024 11:34:18 -0400
-X-MC-Unique: O6PElBPWOoarWjoKhH10nQ-1
-Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-539e03bfd4aso1069655e87.1
-        for <virtio-comment@lists.linux.dev>; Thu, 17 Oct 2024 08:34:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="YiTTOj80"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-7ea6a4b3807so174675a12.3
+        for <virtio-comment@lists.linux.dev>; Thu, 17 Oct 2024 13:02:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1729195378; x=1729800178; darn=lists.linux.dev;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6dFlabIgfFtkOED7HEZrmtxWKFOtPaxENMBXgsQ79xM=;
+        b=YiTTOj80Q7NgQz/igZ4o5n1a1EiqJRkOAG3+O9xxiKB+UYqUI4UdCpQSC5s4/XApAe
+         okdmEdbxLdRPqRiT/P2OB4D0/gEw1BFTWQ2ALTPpn4Mf91cxlDSJtbnfq/OaMP9w8M7K
+         zC3nVxLnF0SxovsQEhFvuSUd0AqMcNW/TaDsk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729179257; x=1729784057;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KAg7pPhHP5+Gpre6V63JWyN+Lrttz9LsQVlPohAxCFU=;
-        b=F6dVaMyI2h+QItLuwOCxAkw6xBxihUpHC0ZY/GKYEhmz01LmFqX9fSH37JqwS+C4jF
-         1lL8GNybxJeHaYLoPdC9dN7H0GmBPu6pBklE+rgLR0hHnpdhs2nk0Quz0E5ERgVHhD9G
-         d/5xxOL5ym82GSb7D+q8/OBtLNOTBDdoTSMJVjKVYZWNd8m/xsztruksiP4shXPCWGBf
-         QPPgXX9M/VaQsGooBzWhon+IkIpkLoxc3ZF0atmpQCZeGLqmoyqKP2YQMCx+aH7a+KeQ
-         ultUGGz9/8CKecW3K2Q4EZ4xd6QYhsJ2g25kW02uqOBAOn+cbhev8Rol/JBmWmvYNtTs
-         IPMQ==
-X-Gm-Message-State: AOJu0YwnJJnx6jophYPVz16iMT98YfMyc4R85a3V9uxKyYu8IGgtixfA
-	DCJzM5HAMlifJNIEpAaNggPlsjUEkVDIV/tKn4exCgsWtmeaOb14npvRuN9e0tilXqNmQadgXRJ
-	zhm5JsxPWAau+AeycJgVzipZXQk+vjDc8DTCPs41qt2kXyD7e/cSOlAUVAIQpMwPz
-X-Received: by 2002:a05:6512:3da2:b0:539:fc75:99ae with SMTP id 2adb3069b0e04-53a03f2eb14mr5795632e87.31.1729179257287;
-        Thu, 17 Oct 2024 08:34:17 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGnisme/nwHac8CEw8pVQvWixjIn97RcLIEksM2sUOqVJg0BUIIq2GBUPcdnDvpVj7efIySBQ==
-X-Received: by 2002:a05:6512:3da2:b0:539:fc75:99ae with SMTP id 2adb3069b0e04-53a03f2eb14mr5795602e87.31.1729179256773;
-        Thu, 17 Oct 2024 08:34:16 -0700 (PDT)
-Received: from [192.168.88.248] (146-241-63-201.dyn.eolo.it. [146.241.63.201])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-37d7fa9090asm7563324f8f.57.2024.10.17.08.34.15
+        d=1e100.net; s=20230601; t=1729195378; x=1729800178;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=6dFlabIgfFtkOED7HEZrmtxWKFOtPaxENMBXgsQ79xM=;
+        b=l0CE5RmA/Yv0IHdSGxA+kI/PszermPt5JqGDdaSb/e4rEOL9JZv8PMpDDlV+TeGPX9
+         a2BGwnq6zaOJqSrDpYZ4H4JzGEiKMgSr41rIYA6dB4cSEBq+5BLxz5YMtvS+cOEDRaZq
+         A2R8RJ3WHl+/NF7gz+WaXYQ1MmmcadKEP9w5hrbIIyEDvbQ21wzlJCjvSGEugvtpA2v9
+         VxnpIUus0sJ+cOZpI+QV20wK3vksK+h/se0/EKNSsWQGGzsMCDYFOFqsIh5pydyP8Lmp
+         9jsxNDxpD++oci4OPUCxxI1/qGbvC+70A3uxHnIRCAA9UuKoIFM96aKqSyuuPIL5Huhq
+         +7cw==
+X-Gm-Message-State: AOJu0YwoA5Cd8D24nac18uVx4KatDIm/Y6a/V2jxjjelYXJE1841+VM+
+	jL8KJJIteQvrhL8iltqwo/TZSf3CEI3Js2ZS/OcKwc6KLZV60OGQvwLqMuMz4E826yapx5e0xhw
+	yuROO
+X-Google-Smtp-Source: AGHT+IEkfmZVAURf+7jp+qcVKQU+6uyZUvPfVU2sCPAcuoba2rLsGd4q9ONYAwGk1XUDsvJRsPn9vQ==
+X-Received: by 2002:a17:90a:a883:b0:2e2:e545:82c6 with SMTP id 98e67ed59e1d1-2e5615d6183mr100502a91.2.1729195377652;
+        Thu, 17 Oct 2024 13:02:57 -0700 (PDT)
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com. [209.85.210.173])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-20e5a71ec8fsm279345ad.14.2024.10.17.13.02.54
+        for <virtio-comment@lists.linux.dev>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Oct 2024 08:34:16 -0700 (PDT)
-Message-ID: <44be2d9c-5624-4419-8e9c-e5302a5f6b2f@redhat.com>
-Date: Thu, 17 Oct 2024 17:34:14 +0200
+        Thu, 17 Oct 2024 13:02:56 -0700 (PDT)
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-71e592d7f6eso876759b3a.3
+        for <virtio-comment@lists.linux.dev>; Thu, 17 Oct 2024 13:02:54 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3cd2:b0:71e:cb:e7bf with SMTP id
+ d2e1a72fcca58-71ea31e96dfmr166120b3a.18.1729195373677; Thu, 17 Oct 2024
+ 13:02:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/2] virtio-net: define UDP tunnel segmentation offload
- feature
-To: Jason Wang <jasowang@redhat.com>
-Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com,
- Eelco Chaudron <echaudro@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>,
- Willem de Bruijn <willemb@google.com>, kshankar@marvell.com
-References: <cover.1728029499.git.pabeni@redhat.com>
- <55306969c73f62bf4d100d15074bfd6cde741417.1728029499.git.pabeni@redhat.com>
- <CACGkMEvV0gtvgpb7z1MqJLKzHm-Be_8hkf0GzqqsFsfDG8oAeA@mail.gmail.com>
- <d34f50af-4042-44c6-90e1-0acbbb899e96@redhat.com>
- <CACGkMEvrowr6CwF+=RiR+f3EagdKB=rzyCPCQcUdXee4a5MaZA@mail.gmail.com>
- <2b90c368-b514-4077-a6bf-43da075af4fc@redhat.com>
- <CACGkMEu5GWZrYVRN==F=vrRQQGnxj_WqX86YZ+diqC3s3m2m_A@mail.gmail.com>
- <10bc51b2-efbe-4f33-a1b3-827de4d0cd10@redhat.com>
- <CACGkMEuhJXMd0hGopyehESO1eNVRXVX+FaF7m8f6Y9yWCzoESA@mail.gmail.com>
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <CACGkMEuhJXMd0hGopyehESO1eNVRXVX+FaF7m8f6Y9yWCzoESA@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20241017070423.86706-1-aesteve@redhat.com> <20241017070423.86706-2-aesteve@redhat.com>
+In-Reply-To: <20241017070423.86706-2-aesteve@redhat.com>
+From: Daniel Verkamp <dverkamp@chromium.org>
+Date: Thu, 17 Oct 2024 13:02:26 -0700
+X-Gmail-Original-Message-ID: <CABVzXA=fPgzLFqhvUfAXfqC2EAym2EgW0OVf4h7kv5Z3L5e3Fg@mail.gmail.com>
+Message-ID: <CABVzXA=fPgzLFqhvUfAXfqC2EAym2EgW0OVf4h7kv5Z3L5e3Fg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/1] virtio-media: Add virtio media device specification
+To: Albert Esteve <aesteve@redhat.com>
+Cc: virtio-comment@lists.linux.dev, changyeon@google.com, 
+	daniel.almeida@collabora.com, ribalda@google.com, 
+	nicolas.dufresne@collabora.com, alex.bennee@linaro.org, eballetb@redhat.com, 
+	acourbot@chromium.org, gurchetansingh@google.com, hverkuil@xs4all.nl, 
+	cohuck@redhat.com, mst@redhat.com, agordeev@qti.qualcomm.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/17/24 08:47, Jason Wang wrote:
->> AFAICS the main argument against the layout I proposed is the
->> inconsistent usage of csum_start that will refer to the inner header for
->> GSO over udp-tunnel packets and to the outer header in when the device
->> does not expose the GSO over UDP tunnel support.
->>
->> I argue that dubbing such behavior as inconsistent is a matter of
->> interpretation: in both case the csum_start field refers to the
->> innermost header that the device is able to parse.
-> 
-> I was convinced by this argument until I see this
-> 
-> """
-> If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
-> VIRTIO_NET_HDR_F_DATA_VALID bit in flags can be set: if so, device has
-> validated the packet checksum. In case of multiple encapsulated
-> protocols, one level of checksums has been validated.
-> """
-> 
-> The "one level" seems to be ambiguous. But this reminds me that the
-> innermost assumption seems to be impractical:
-> 
-> The checksum of non GSO tunnels has been supported.
+On Thu, Oct 17, 2024 at 12:04=E2=80=AFAM Albert Esteve <aesteve@redhat.com>=
+ wrote:
+>
+> Virtio-media is an encapsulation of the V4L2 UAPI into
+> virtio, able to virtualize any video device supported
+> by V4L2
+>
+> Note that virtio-media does not require the use of a
+> V4L2 device driver or of Linux on the host or
+> guest side - V4L2 is only used as a host-guest protocol,
+> and both sides are free to convert it from/to any
+> model that they wish to use.
+>
+> Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> ---
+[...]
+> diff --git a/device-types/media/description.tex b/device-types/media/desc=
+ription.tex
+> new file mode 100644
+> index 0000000..793e9b1
+> --- /dev/null
+> +++ b/device-types/media/description.tex
+> @@ -0,0 +1,583 @@
+> +\section{Media Device}\label{sec:Device Types / Media Device}
+> +
+> +The virtio media device follow the same model (and structures) as V4L2. =
+It
+> +can be used to virtualize cameras, codec devices, or any other device
+> +supported by V4L2. The device assumes 64-bit little-endian V4L2 structur=
+es
+> +are exchanged. The complete definition of V4L2 structures and ioctls can
+> +be found under the
+> +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/index.h=
+tml}{V4L2 UAPI documentation}.
 
-I argue the above statement is again a matter of interpretation: the 
-existing specs support checksum offload of UDP packets. That UDP packet 
-may (or may not) carry a tunnel and some other headers, but such info 
-are actually irrelevant to the device: lacking the GSO over UDP tunnel 
-support, the device still parse the packet up to the (only known) 
-transport (UDP) header and offload the related checksum.
+I would omit the "The device assumes" part; this spec is defining the
+protocol used by both the device and driver.
 
-Also note that I already agreed the specification for DATA_VALID with 
-GSO over UDP tunnel packets must be changed/corrected and I proposed 2 
-options to avoid confusion there:
+It would also be nice to be a bit more explicit about the meaning of
+"64-bit"; presumably this means something like "struct layout matches
+the Linux psABI for <some 64-bit architecture>", although that's not
+great either IMO. Punting to the Linux docs rather than defining the
+structs in the virtio spec feels iffy to me (though this is also the
+approach taken by fs with fuse); hopefully none of the V4L2 structs
+use features like bitfields that could cause layout differences (and
+may not match the bit-field definition in the virtio spec), and
+hopefully Linux never introduces any new structs that don't make sense
+in virtio-media.
 
-https://lore.kernel.org/virtio-comment/CACGkMEvmhdYMHf5HKX37XqAYO2uHPq1=eWXfBPoS2gp8FJezDQ@mail.gmail.com/T/#m520efe2519200e878ab103f32598e5163cd01ec4
+Also, though this is more of an implementation-specific detail, I
+wonder how this will be handled by the Linux virtio-media driver; will
+it have code to convert between the 64-bit/little-endian layout used
+by virtio-media and the native V4L2 structs? Or is it assumed that the
+driver will never be used on a 32-bit or big-endian platform and
+structs can just be naively passed through without conversion?
 
-"""
-1) forbid DATA_VALID with GSO over UDP tunnel
+> +V4L2 is a UAPI that allows a less privileged entity (user-space) to use =
+video
+> +hardware exposed by a more privileged entity (the kernel). Virtio-media =
+is an
+> +encapsulation of this API into virtio, turning it into a virtualization =
+API
+> +for all classes of video devices supported by V4L2, where the device pla=
+ys the
+> +role of the kernel and the driver the role of user-space.
+> +
+> +The device is therefore responsible for presenting a virtual device that=
+ behaves
+> +like an actual V4L2 device, which the driver can control.
+> +
+> +Note that virtio-media does not require the use of a V4L2 device driver =
+or of
+> +Linux on any side - V4L2 is only used as a transport protocol,
+> +and both sides are free to convert it from/to any model that they wish t=
+o use.
+> +
+> +This section relies on definitions from
+> +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/index.h=
+tml}{V4L2 UAPI documentation}.
 
-or
-
-2) forbid DATA_VALID with GSO over UDP tunnel without UDP tunnel
-checksum offload. That means that DATA_VALID for GSO over UDP tunnel
-packets could only be set when both the inner and outher header are
-offloaded.
-"""
+This is probably redundant, since it just repeats the "definition of
+V4L2 structures and ioctls" link earlier in this same section.
 
 [...]
-> Such inconsistency a lot of extra statements to describe the
-> difference semantics in the spec and if/else in the code (as
-> demonstrated in your POC which uses a completely different helper to
-> do the header conversion between vnet header and skb metadata).
+> +\subsection{Device Configuration Layout}\label{sec:Device Types / Media =
+Device / Device Configuration Layout}
+> +
+> +The video device configuration space uses the following layout:
+> +
+> +\begin{lstlisting}
+> +struct virtio_media_config {
+> +    le32 device_caps;
+> +    le32 device_type;
+> +    u8 card[32];
+> +};
+> +\end{lstlisting}
+> +
+> +\begin{description}
+> +\item[\field{device_caps}] (driver-read-only) flags representing the dev=
+ice
+> +capabilities as used in
+> +\href{https://www.kernel.org/doc/html/v4.9/media/uapi/v4l/vidioc-queryca=
+p.html#c.v4l2_capability}{struct v4l2_capabilities}.
 
-I think you have misread the PoC code. It actually re-uses the exiting 
-helpers, verbatim, without the need to duplicate any existing checks.
+nit: This link is pointing to v4.9 docs rather than "latest" like the
+others. (Maybe using a specific version would be preferable to avoid
+link rot, but all the links should match.)
 
-Sure, there is some additional code in the GSO over UDP tunnel helpers, 
-as the latter must process and check additional fields. The other 
-additional conditionals you see are due to both the spec and helper 
-being very strict about the admitted packets - we want to avoid the 
-loopholes leading to nasty bugs, as already mentioned. Such code checks 
-and spec statements should (/must) be there with any layout we chose for 
-the virtio_net_hdr to support GSO over UDP tunnel.
+[...]
+> +\paragraph{Device Operation: V4L2 ioctls}
+> +
+> +\textbf{VIRTIO_MEDIA_CMD_IOCTL} Command for executing an ioctl on an ope=
+n
+> +session.
+> +
+> +This command asks the device to run one of the `VIDIOC_*` ioctls on the =
+active
+> +session.
+> +
+> +\begin{lstlisting}
+> +struct virtio_media_cmd_ioctl {
+> +    struct virtio_media_cmd_header hdr;
+> +    u32 session_id;
+> +    u32 code;
+> +    /* Followed by the relevant ioctl payload as defined in the macro */
+> +};
+> +\end{lstlisting}
+> +
+> +\begin{description}
+> +\item[\field{session_id}] specifies an identifier of thesession to run t=
+he ioctl on.
 
-Let me reiterate that, instead, using the csum_start/csum_offset fields 
-to track the outer header information, the GSO over UDP tunnel could 
-processing could not use 
-virtio_net_hdr_to_skb()/virtio_net_hdr_from_skb() to process the 
-existing fields. i.e. all the checks in
+nit: "thesession" is missing a space.
 
-https://elixir.bootlin.com/linux/v6.12-rc2/source/include/linux/virtio_net.h#L97 
-..L112
+> +\item[\field{code}] specifies the code of the \field{VIDIOC_*} ioctl to =
+run.
+> +\end{description}
+> +
+> +The code is extracted from the
+> +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/vid=
+eodev.html}{videodev2.h},
+> +header file. The file defines the ioctl's codes, type of payload, and
+> +direction. The code consists of the second argument of the \field{_IO*} =
+macro.
+> +
+> +For example, the \textit{VIDIOC_G_FMT} is defined as follows:
+> +
+> +\begin{lstlisting}
+> +#define VIDIOC_G_FMT _IOWR('V',  4, struct v4l2_format)
+> +\end{lstlisting}
 
-will be meaningless in such scenario and the GSO over UDP tunnel helper 
-code must replicate them with the correct offsets.
+This should be more specific about the ioctl encoding, which is not
+consistent across architectures (_IOC_SIZEBITS can differ).
 
-IDK which extra statements in the spec you refers to, could you please 
-be more specific?
+> +This means that its ioctl code is \textit{4}, that its payload is a
+> +\textit{struct v4l2_format}, and that its direction is \textit{WR} (i.e.=
+, the
+> +payload is written by both the driver and the device).
+> +See Section \ref{sec:Device Types / Media Device / V4L2 ioctls / Ioctls =
+payload}
+> +for more information about the direction of ioctls.
+> +
+> +The payload layout is always a 64-bit representation of the correspondin=
+g
+> +V4L2 structure.
 
-> If we introduce new fields for inner, we can stick to the guidance and
-> normatives for the new fields instead of dealing with the different
-> semantics between GSO and non-GSO tunnels.
-> 
-> 1) a patch to clarify the existing fields in vnet header were for
-> outer in there's a tunnel
+As discussed above, "64-bit representation" is pretty vague, and this
+section should probably also describe the endianness requirement.
 
-Would such patch require the sort of extra statements you don't like?!?
+> +The device responds to \textit{VIRTIO_MEDIA_CMD_IOCTL} with \textit{virt=
+io_media_resp_ioctl}.
+> +
+> +\begin{lstlisting}
+> +struct virtio_media_resp_ioctl {
+> +    struct virtio_media_resp_header hdr;
+> +    /* Followed by the ioctl payload as defined in the macro */
+> +};
+> +\end{lstlisting}
+> +
+> +\subparagraph{Ioctls payload}\label{sec:Device Types / Media Device / V4=
+L2 ioctls / Ioctls payload}
+> +
+> +Each ioctl has a payload, which is defined by the third argument of the
+> +\field{_IO*} macro defining it.
+> +
+> +The payload of an ioctl in the descriptor chain follows the command stru=
+cture,
+> +the reponse structure, or both depending on the direction:
 
-> 2) adding new fields and explain that they were used for inner, we
-> don't need to worry any possible conflict when trying to reuse fields
-> with outer (as demonstrated by DATA_VALID).
+nit: "reponse" -> "response"
 
-I must admit the 6m (or 2y?) step backward in time does sound scaring to me.
+> +\begin{itemize}
+> +\item \textbf{_IOR} is read-only for the driver, meaning the payload
+> +follows the response in the device-writable section of the descriptor ch=
+ain.
+> +\item \textbf{_IOW} is read-only for the device, meaning the payload
+> +follows the command in the driver-writable section of the descriptor cha=
+in.
+> +\item \textbf{_IOWR} is writable by both the device and driver,
+> +meaning the payload must follow both the command in the driver-writable =
+section
+> +of the descriptor chain, and the response in the device-writable section=
+.
+> +\end{itemize}
+> +
+> +A common optimization for \textit{WR} ioctls is to provide the payload u=
+sing
+> +descriptors that both point to the same buffer. This mimics the behavior=
+ of
+> +V4L2 ioctls where the data is only passed once and used as both input an=
+d
+> +output by the kernel.
+> +
+> +\devicenormative{\subparagraph}{Device Operation: V4L2 ioctls}{Device Ty=
+pes / Media Device / Device Operation / V4L2 ioctls}
+> +
+> +In case of success of a device-writable ioctl, the device MUST always wr=
+ite the
+> +payload in the device-writable part of the descriptor chain.
+> +
+> +In case of failure of a device-writable ioctl, the device is free to wri=
+te the
+> +payload in the device-writable part of the descriptor chain or not. Some=
+ errors
+> +may still result in the payload being updated, and in this case the devi=
+ce is
+> +expected to write the updated payload. If the device has not written the
+> +payload after an error, the driver MUST assume that the payload has not =
+been
+> +modified.
 
-As mentioned the above will lead to a poorer implementation, are we ok 
-with that?
+How is the driver supposed to know "[i]f the device has not written
+the payload"? It would probably be clearer to say the driver may not
+assume anything about the state of the payload when an error is
+returned.
 
-What about hdr_len field? for GSO over UDP packets should include the 
-inner hdr len or not? If not, it would be useless, otherwise would be 
-inconsistent.
-
-/P
-
+[...]
