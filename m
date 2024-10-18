@@ -1,316 +1,150 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (mail-co1nam11on2075.outbound.protection.outlook.com [40.107.220.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF3A227B80
-	for <virtio-comment@lists.linux.dev>; Thu, 17 Oct 2024 20:02:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1729195380; cv=none; b=enQa8IFkT0+uwAcPyhlfnVmZAiHJHut25mdUafoz3aR7NPOKlwLXFVOmGbp780OoDizOK9Gvb2TnNRXr3WuGIc9HnKCjO8SzaYsHQRBgxqkWKL8pB4Fn/Ss4jD6lrbnj0vr+dRhfStvhrvdLDE5ifWVmZqdUW83ybaBsVjtgI6s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1729195380; c=relaxed/simple;
-	bh=q5Vz1vL87QzHcoCdzLNw3P0esct0CwurdTrPyo9TyqA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PfvGqr964OUwtVjJib7zZ/lksCk4GVrYeRzsl1tSQjveAqg99ocGDvVnjx37w5Z+B2xOejXc0JwVLwR/7JGHBKaZTT2zAShhwDv+bkIwuTXJdNhjwnu6MKrG4pD/o+Pmf8i/27pa+fh/HrsYN+jNH/3Q6eOhlGIELztrcyGpzd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=YiTTOj80; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D117256B81
+	for <virtio-comment@lists.linux.dev>; Fri, 18 Oct 2024 03:25:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.220.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1729221910; cv=fail; b=Dct2Ya6fS7aN/+2MaDZiTBuVcm1Of274erlC1pzQrlUECPwpXtancG+FhSBklkXWF1aICQQs+M3Ao6bz81SF9UIpc2LKsO5H5wuX80O920EqJG8YK0EQ7Qc4oYo+LHZIqYzSiwdwYw0qldCBhKYxvkWVirsLlS5fK5c86KOycxI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1729221910; c=relaxed/simple;
+	bh=XUM5WPzNtI/4BD7dDJVkM24QaSHE3XMdKWEvC8kDsB4=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=l//M6XSsfjYshdra1A5nRgBK6hsN1iFBQJRtr7kStOB8BwSLHwhAxkgaPgitlOB3hHiHo5o63GPcYX1YnTY2gaelyQxRQ7LqmJaafabWXUb2uOfaL/l1DGgJ1yCfRpwg0Zs9BP6zOTgwdu8QoEgGcmt5PPBqapDDgjFN1HdG7Ho=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=LTRc1/0a; arc=fail smtp.client-ip=40.107.220.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="YiTTOj80"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-7ea6a4b3807so174675a12.3
-        for <virtio-comment@lists.linux.dev>; Thu, 17 Oct 2024 13:02:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1729195378; x=1729800178; darn=lists.linux.dev;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6dFlabIgfFtkOED7HEZrmtxWKFOtPaxENMBXgsQ79xM=;
-        b=YiTTOj80Q7NgQz/igZ4o5n1a1EiqJRkOAG3+O9xxiKB+UYqUI4UdCpQSC5s4/XApAe
-         okdmEdbxLdRPqRiT/P2OB4D0/gEw1BFTWQ2ALTPpn4Mf91cxlDSJtbnfq/OaMP9w8M7K
-         zC3nVxLnF0SxovsQEhFvuSUd0AqMcNW/TaDsk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729195378; x=1729800178;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6dFlabIgfFtkOED7HEZrmtxWKFOtPaxENMBXgsQ79xM=;
-        b=l0CE5RmA/Yv0IHdSGxA+kI/PszermPt5JqGDdaSb/e4rEOL9JZv8PMpDDlV+TeGPX9
-         a2BGwnq6zaOJqSrDpYZ4H4JzGEiKMgSr41rIYA6dB4cSEBq+5BLxz5YMtvS+cOEDRaZq
-         A2R8RJ3WHl+/NF7gz+WaXYQ1MmmcadKEP9w5hrbIIyEDvbQ21wzlJCjvSGEugvtpA2v9
-         VxnpIUus0sJ+cOZpI+QV20wK3vksK+h/se0/EKNSsWQGGzsMCDYFOFqsIh5pydyP8Lmp
-         9jsxNDxpD++oci4OPUCxxI1/qGbvC+70A3uxHnIRCAA9UuKoIFM96aKqSyuuPIL5Huhq
-         +7cw==
-X-Gm-Message-State: AOJu0YwoA5Cd8D24nac18uVx4KatDIm/Y6a/V2jxjjelYXJE1841+VM+
-	jL8KJJIteQvrhL8iltqwo/TZSf3CEI3Js2ZS/OcKwc6KLZV60OGQvwLqMuMz4E826yapx5e0xhw
-	yuROO
-X-Google-Smtp-Source: AGHT+IEkfmZVAURf+7jp+qcVKQU+6uyZUvPfVU2sCPAcuoba2rLsGd4q9ONYAwGk1XUDsvJRsPn9vQ==
-X-Received: by 2002:a17:90a:a883:b0:2e2:e545:82c6 with SMTP id 98e67ed59e1d1-2e5615d6183mr100502a91.2.1729195377652;
-        Thu, 17 Oct 2024 13:02:57 -0700 (PDT)
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com. [209.85.210.173])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-20e5a71ec8fsm279345ad.14.2024.10.17.13.02.54
-        for <virtio-comment@lists.linux.dev>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Oct 2024 13:02:56 -0700 (PDT)
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-71e592d7f6eso876759b3a.3
-        for <virtio-comment@lists.linux.dev>; Thu, 17 Oct 2024 13:02:54 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3cd2:b0:71e:cb:e7bf with SMTP id
- d2e1a72fcca58-71ea31e96dfmr166120b3a.18.1729195373677; Thu, 17 Oct 2024
- 13:02:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="LTRc1/0a"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pM5OGqtHbmAPZ2wGf+KlGu9c+tttCp2xF6pSelVhg1MPN0N0qg5C2J0q+k5LZBjllxnxVO1Ev7GWqXWdBqeOZUr78xv79XAYvKMTvGJSz0l1xzztj7+Ox0AhILxBPAx+ojxaEQppXGsD8gqqm8mdpb42++f9/agUN2iDSRt16ozZer1UkHZKWQkVRIL34dCSLDUYuFrcvqOvmChUw1A7CNm5y3iGgo32yxaHVr8uki0SKk5PghsvCzGzy6jKY16yXR3Gnab6GpolobBMp7gtTBYjMWG+Gss/Kr9AKJW3PoTQPbOkGbSsyGsoLkhypE0fJCEofkbiA/qEVMTlj0euKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bldHxeLSyHiU8Dz50LMqPhjgvFMw0WAqNgBN7oAD7bc=;
+ b=Bx13G3Kc/GLXYMGh5sfzCoU53ibPgs6lLvXXicJbHLNpO2/gl8neZrPNDtfRyMt6xFc8Q+KnV1mCzPlG6hfQNFVuF4AS1OUIUJC2WDq51dATCzrxsf4xCOT0sKOCKKJ8gAM8dFSPh7gOgZMQ4HoxqlfjIiD8O1j725TzNvUfkyNZT2+B/nfinRpmDR7MgAKVnDsI4qzN9Z3C5z5TeTqflQm8LpNwJl+9IRiHChfpV1CNdd2RuCSP5VCy+udwL5DpBpwWCFJdyY2Il7mTloHtfgMTwdCP2snIKhEBpBAM701y91+ngy8XZSOoUhWE9rTbfWQRBGBVgPnr9rzPQ0InYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bldHxeLSyHiU8Dz50LMqPhjgvFMw0WAqNgBN7oAD7bc=;
+ b=LTRc1/0aYYNZFFzPHhhBxXg52d3gtTK6OYjmxsdRNAovbKQoDrkB/9gqyhUDLjmktB5tR1Fz62GqhOj+JGU6SpnFKh2UHL0LKDnwxW80Wg+9WuRvyq/0zf9yPBUwwgkeg2aaMAjto9/GBtMjTknqt+ecuY0fCc1/rnTDvr5c3X8KCEQwNFegg/UqlpTUztRGeqdHf30ubV4Cc4Zf9wkyCxRS45Yn1XYEs4u3NOGZx1pCdrhxNi9ODcy0EUnEuyCmbp2vBMFM5VpbjtRxQ1XSLJ3oYk+OffCDabG3IHezoCUSmoEgqgVqs2mngavAHt3M/LKMM3BgexFMle997b/rMg==
+Received: from PH0P220CA0023.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:d3::23)
+ by DM3PR12MB9327.namprd12.prod.outlook.com (2603:10b6:0:42::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.18; Fri, 18 Oct
+ 2024 03:25:05 +0000
+Received: from CY4PEPF0000EDD6.namprd03.prod.outlook.com
+ (2603:10b6:510:d3:cafe::89) by PH0P220CA0023.outlook.office365.com
+ (2603:10b6:510:d3::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.18 via Frontend
+ Transport; Fri, 18 Oct 2024 03:25:04 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CY4PEPF0000EDD6.mail.protection.outlook.com (10.167.241.202) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8069.17 via Frontend Transport; Fri, 18 Oct 2024 03:25:04 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Thu, 17 Oct
+ 2024 20:24:48 -0700
+Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.230.35) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.4; Thu, 17 Oct 2024 20:24:46 -0700
+From: Parav Pandit <parav@nvidia.com>
+To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>,
+	<mvaralar@redhat.com>
+CC: <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>
+Subject: [PATCH] virtio-net: editorial: Annotate structure field
+Date: Fri, 18 Oct 2024 06:24:32 +0300
+Message-ID: <20241018032432.398821-1-parav@nvidia.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20241017070423.86706-1-aesteve@redhat.com> <20241017070423.86706-2-aesteve@redhat.com>
-In-Reply-To: <20241017070423.86706-2-aesteve@redhat.com>
-From: Daniel Verkamp <dverkamp@chromium.org>
-Date: Thu, 17 Oct 2024 13:02:26 -0700
-X-Gmail-Original-Message-ID: <CABVzXA=fPgzLFqhvUfAXfqC2EAym2EgW0OVf4h7kv5Z3L5e3Fg@mail.gmail.com>
-Message-ID: <CABVzXA=fPgzLFqhvUfAXfqC2EAym2EgW0OVf4h7kv5Z3L5e3Fg@mail.gmail.com>
-Subject: Re: [PATCH v3 1/1] virtio-media: Add virtio media device specification
-To: Albert Esteve <aesteve@redhat.com>
-Cc: virtio-comment@lists.linux.dev, changyeon@google.com, 
-	daniel.almeida@collabora.com, ribalda@google.com, 
-	nicolas.dufresne@collabora.com, alex.bennee@linaro.org, eballetb@redhat.com, 
-	acourbot@chromium.org, gurchetansingh@google.com, hverkuil@xs4all.nl, 
-	cohuck@redhat.com, mst@redhat.com, agordeev@qti.qualcomm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD6:EE_|DM3PR12MB9327:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73fdf19c-cef0-4543-92f3-08dcef24752b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?OvA85wXo9K6IWXOpOSSQZWbggGmTDougdYzWC+jas/EQgUl4Qr8P/0PU7prk?=
+ =?us-ascii?Q?m+AkNiN/SLQmyksrrIhcmjZLx20o41F2ENSrU9YQJpVqewuiY3yEC5QTHhiE?=
+ =?us-ascii?Q?I39iNY1989KDpTqaQTtOgrJm83X+RAmG7N8VDVfxkaE+mWViqxDb3PvgOnma?=
+ =?us-ascii?Q?ChAIref3qkyBbYt/P6ijnCorH7eR4vs3zmCoOvr63ocRfNMjE2zPKMD2BUZt?=
+ =?us-ascii?Q?0O/3/rsWlRtjkg1pFpo+cfUEDYgvh6+kvM4hacEoFrJxFv8WHjl/moVfKTiY?=
+ =?us-ascii?Q?mgfpAsjWFzv+MAQiOyDPHwhF+6LJREPlZBE/058i4xijZjD965KzxWrUDnN3?=
+ =?us-ascii?Q?vUbsLZpaSssFmi2hyBY7IE8ZyZtsNsXRWQFfLxFr4gFhiYGiePqGXtniVq1N?=
+ =?us-ascii?Q?kQ2RHhDsvOMaEUTa2n/ck+p/IX1jFkm23xETtgubZ1PqrdmgBJZrpm/aRNw4?=
+ =?us-ascii?Q?N/mV9vT9TXwAsDo5rN3f+ciMduChnowpSaAFwjD0+L0K9eCZPXNiHpne2p3t?=
+ =?us-ascii?Q?Hcc5t3j87Hs9Q4yPobRXy0LWCXOmJzJ6GWCyocFJY9ssBANbiLisJgstnZlG?=
+ =?us-ascii?Q?F6CVBDBf7GgXuadUF/Uy5tVnoxnBsRQHa1uWoax0MxzEJFvm2vADe/6At5mS?=
+ =?us-ascii?Q?fFnfn+93MjUeh8K5DOuH+CCdSCATXcuGaYYX4D7JuHejdtj8uXeC4YR4uXEe?=
+ =?us-ascii?Q?C+zwf2Sm5Zi2STPpaS+7JmqSME99kbDxxsm7Vof2OzUZwi30Nt6DSmcM0PTP?=
+ =?us-ascii?Q?f2UGpXet7jM8MqC0GDKOV+YxITIODgY/mAWrqIrMmRdZROheOqAae0+Cpt1u?=
+ =?us-ascii?Q?0YVABOjXql/RZ4fS1CTw7FGr09+9kMBVGCPElv4aPBdPFZ/43hXs518vZYtj?=
+ =?us-ascii?Q?chyxd0fzZGCzd8coE81Qsll6delAIzzSv/ClSFQlGdsKwiK/EyS/EbsNJDCc?=
+ =?us-ascii?Q?z2BKuiYNni8sWV31ZnHO8rGycsB7g503Z+Z7WscnhMfBEBqBZ22JkIBLCj+R?=
+ =?us-ascii?Q?PC5BAKyTV8ArI+ykPC804UUfwR1ro96cC+ZpBlgubPtPDqqztxlqg3ugVZoI?=
+ =?us-ascii?Q?B8NMa4hKuVjywZZlrtOHqFfT4uBJdDlDdCGOSjtTfQH7pnuWQmBmuAO8oP/0?=
+ =?us-ascii?Q?TkG+9BlmECnovZVpE5W5WVCXUZaCgDSWnB2LJPJxpl7v0ifrgl+NzZHdW9oU?=
+ =?us-ascii?Q?hysuavLqT1jkMDQ0WEMuyaPbpsMRVwrDxylBR3eXY7IEI563d37zQn6KkmeB?=
+ =?us-ascii?Q?ErfuEmNgoxKo11u5peMWnXPtkygM1hcH94lMjX4y7xSMl44L/7Ci99lepm3/?=
+ =?us-ascii?Q?kEG+zclijpWIx17TnL+fSobFomGkb6VKAGkyRSMUFBtFIFuRPnsM732dAyrv?=
+ =?us-ascii?Q?ujx1aSWLlsrG3bddKwHdPujGX/3kQ0LTSWJhXSrGxtJ7NZ9YJQ=3D=3D?=
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2024 03:25:04.2481
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73fdf19c-cef0-4543-92f3-08dcef24752b
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EDD6.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9327
 
-On Thu, Oct 17, 2024 at 12:04=E2=80=AFAM Albert Esteve <aesteve@redhat.com>=
- wrote:
->
-> Virtio-media is an encapsulation of the V4L2 UAPI into
-> virtio, able to virtualize any video device supported
-> by V4L2
->
-> Note that virtio-media does not require the use of a
-> V4L2 device driver or of Linux on the host or
-> guest side - V4L2 is only used as a host-guest protocol,
-> and both sides are free to convert it from/to any
-> model that they wish to use.
->
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> ---
-[...]
-> diff --git a/device-types/media/description.tex b/device-types/media/desc=
-ription.tex
-> new file mode 100644
-> index 0000000..793e9b1
-> --- /dev/null
-> +++ b/device-types/media/description.tex
-> @@ -0,0 +1,583 @@
-> +\section{Media Device}\label{sec:Device Types / Media Device}
-> +
-> +The virtio media device follow the same model (and structures) as V4L2. =
-It
-> +can be used to virtualize cameras, codec devices, or any other device
-> +supported by V4L2. The device assumes 64-bit little-endian V4L2 structur=
-es
-> +are exchanged. The complete definition of V4L2 structures and ioctls can
-> +be found under the
-> +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/index.h=
-tml}{V4L2 UAPI documentation}.
+Field command-specific-data is a structure field. Annotate it
+as a field so that generated pdf shows it accordingly.
 
-I would omit the "The device assumes" part; this spec is defining the
-protocol used by both the device and driver.
+Signed-off-by: Parav Pandit <parav@nvidia.com>
+---
+ device-types/net/description.tex | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-It would also be nice to be a bit more explicit about the meaning of
-"64-bit"; presumably this means something like "struct layout matches
-the Linux psABI for <some 64-bit architecture>", although that's not
-great either IMO. Punting to the Linux docs rather than defining the
-structs in the virtio spec feels iffy to me (though this is also the
-approach taken by fs with fuse); hopefully none of the V4L2 structs
-use features like bitfields that could cause layout differences (and
-may not match the bit-field definition in the virtio spec), and
-hopefully Linux never introduces any new structs that don't make sense
-in virtio-media.
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index b2a0d39..6950114 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -1217,7 +1217,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ #define VIRTIO_NET_ERR    1
+ \end{lstlisting}
+ 
+-The \field{class}, \field{command} and command-specific-data are set by the
++The \field{class}, \field{command} and \field{command-specific-data} are set by the
+ driver, and the device sets the \field{ack} byte and optionally
+ \field{command-specific-result}. There is little the driver can
+ do except issue a diagnostic if \field{ack} is not VIRTIO_NET_OK.
+-- 
+2.34.1
 
-Also, though this is more of an implementation-specific detail, I
-wonder how this will be handled by the Linux virtio-media driver; will
-it have code to convert between the 64-bit/little-endian layout used
-by virtio-media and the native V4L2 structs? Or is it assumed that the
-driver will never be used on a 32-bit or big-endian platform and
-structs can just be naively passed through without conversion?
-
-> +V4L2 is a UAPI that allows a less privileged entity (user-space) to use =
-video
-> +hardware exposed by a more privileged entity (the kernel). Virtio-media =
-is an
-> +encapsulation of this API into virtio, turning it into a virtualization =
-API
-> +for all classes of video devices supported by V4L2, where the device pla=
-ys the
-> +role of the kernel and the driver the role of user-space.
-> +
-> +The device is therefore responsible for presenting a virtual device that=
- behaves
-> +like an actual V4L2 device, which the driver can control.
-> +
-> +Note that virtio-media does not require the use of a V4L2 device driver =
-or of
-> +Linux on any side - V4L2 is only used as a transport protocol,
-> +and both sides are free to convert it from/to any model that they wish t=
-o use.
-> +
-> +This section relies on definitions from
-> +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/index.h=
-tml}{V4L2 UAPI documentation}.
-
-This is probably redundant, since it just repeats the "definition of
-V4L2 structures and ioctls" link earlier in this same section.
-
-[...]
-> +\subsection{Device Configuration Layout}\label{sec:Device Types / Media =
-Device / Device Configuration Layout}
-> +
-> +The video device configuration space uses the following layout:
-> +
-> +\begin{lstlisting}
-> +struct virtio_media_config {
-> +    le32 device_caps;
-> +    le32 device_type;
-> +    u8 card[32];
-> +};
-> +\end{lstlisting}
-> +
-> +\begin{description}
-> +\item[\field{device_caps}] (driver-read-only) flags representing the dev=
-ice
-> +capabilities as used in
-> +\href{https://www.kernel.org/doc/html/v4.9/media/uapi/v4l/vidioc-queryca=
-p.html#c.v4l2_capability}{struct v4l2_capabilities}.
-
-nit: This link is pointing to v4.9 docs rather than "latest" like the
-others. (Maybe using a specific version would be preferable to avoid
-link rot, but all the links should match.)
-
-[...]
-> +\paragraph{Device Operation: V4L2 ioctls}
-> +
-> +\textbf{VIRTIO_MEDIA_CMD_IOCTL} Command for executing an ioctl on an ope=
-n
-> +session.
-> +
-> +This command asks the device to run one of the `VIDIOC_*` ioctls on the =
-active
-> +session.
-> +
-> +\begin{lstlisting}
-> +struct virtio_media_cmd_ioctl {
-> +    struct virtio_media_cmd_header hdr;
-> +    u32 session_id;
-> +    u32 code;
-> +    /* Followed by the relevant ioctl payload as defined in the macro */
-> +};
-> +\end{lstlisting}
-> +
-> +\begin{description}
-> +\item[\field{session_id}] specifies an identifier of thesession to run t=
-he ioctl on.
-
-nit: "thesession" is missing a space.
-
-> +\item[\field{code}] specifies the code of the \field{VIDIOC_*} ioctl to =
-run.
-> +\end{description}
-> +
-> +The code is extracted from the
-> +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/vid=
-eodev.html}{videodev2.h},
-> +header file. The file defines the ioctl's codes, type of payload, and
-> +direction. The code consists of the second argument of the \field{_IO*} =
-macro.
-> +
-> +For example, the \textit{VIDIOC_G_FMT} is defined as follows:
-> +
-> +\begin{lstlisting}
-> +#define VIDIOC_G_FMT _IOWR('V',  4, struct v4l2_format)
-> +\end{lstlisting}
-
-This should be more specific about the ioctl encoding, which is not
-consistent across architectures (_IOC_SIZEBITS can differ).
-
-> +This means that its ioctl code is \textit{4}, that its payload is a
-> +\textit{struct v4l2_format}, and that its direction is \textit{WR} (i.e.=
-, the
-> +payload is written by both the driver and the device).
-> +See Section \ref{sec:Device Types / Media Device / V4L2 ioctls / Ioctls =
-payload}
-> +for more information about the direction of ioctls.
-> +
-> +The payload layout is always a 64-bit representation of the correspondin=
-g
-> +V4L2 structure.
-
-As discussed above, "64-bit representation" is pretty vague, and this
-section should probably also describe the endianness requirement.
-
-> +The device responds to \textit{VIRTIO_MEDIA_CMD_IOCTL} with \textit{virt=
-io_media_resp_ioctl}.
-> +
-> +\begin{lstlisting}
-> +struct virtio_media_resp_ioctl {
-> +    struct virtio_media_resp_header hdr;
-> +    /* Followed by the ioctl payload as defined in the macro */
-> +};
-> +\end{lstlisting}
-> +
-> +\subparagraph{Ioctls payload}\label{sec:Device Types / Media Device / V4=
-L2 ioctls / Ioctls payload}
-> +
-> +Each ioctl has a payload, which is defined by the third argument of the
-> +\field{_IO*} macro defining it.
-> +
-> +The payload of an ioctl in the descriptor chain follows the command stru=
-cture,
-> +the reponse structure, or both depending on the direction:
-
-nit: "reponse" -> "response"
-
-> +\begin{itemize}
-> +\item \textbf{_IOR} is read-only for the driver, meaning the payload
-> +follows the response in the device-writable section of the descriptor ch=
-ain.
-> +\item \textbf{_IOW} is read-only for the device, meaning the payload
-> +follows the command in the driver-writable section of the descriptor cha=
-in.
-> +\item \textbf{_IOWR} is writable by both the device and driver,
-> +meaning the payload must follow both the command in the driver-writable =
-section
-> +of the descriptor chain, and the response in the device-writable section=
-.
-> +\end{itemize}
-> +
-> +A common optimization for \textit{WR} ioctls is to provide the payload u=
-sing
-> +descriptors that both point to the same buffer. This mimics the behavior=
- of
-> +V4L2 ioctls where the data is only passed once and used as both input an=
-d
-> +output by the kernel.
-> +
-> +\devicenormative{\subparagraph}{Device Operation: V4L2 ioctls}{Device Ty=
-pes / Media Device / Device Operation / V4L2 ioctls}
-> +
-> +In case of success of a device-writable ioctl, the device MUST always wr=
-ite the
-> +payload in the device-writable part of the descriptor chain.
-> +
-> +In case of failure of a device-writable ioctl, the device is free to wri=
-te the
-> +payload in the device-writable part of the descriptor chain or not. Some=
- errors
-> +may still result in the payload being updated, and in this case the devi=
-ce is
-> +expected to write the updated payload. If the device has not written the
-> +payload after an error, the driver MUST assume that the payload has not =
-been
-> +modified.
-
-How is the driver supposed to know "[i]f the device has not written
-the payload"? It would probably be clearer to say the driver may not
-assume anything about the state of the payload when an error is
-returned.
-
-[...]
