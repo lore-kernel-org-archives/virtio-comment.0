@@ -1,150 +1,333 @@
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (mail-co1nam11on2075.outbound.protection.outlook.com [40.107.220.75])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D117256B81
-	for <virtio-comment@lists.linux.dev>; Fri, 18 Oct 2024 03:25:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.220.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1729221910; cv=fail; b=Dct2Ya6fS7aN/+2MaDZiTBuVcm1Of274erlC1pzQrlUECPwpXtancG+FhSBklkXWF1aICQQs+M3Ao6bz81SF9UIpc2LKsO5H5wuX80O920EqJG8YK0EQ7Qc4oYo+LHZIqYzSiwdwYw0qldCBhKYxvkWVirsLlS5fK5c86KOycxI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1729221910; c=relaxed/simple;
-	bh=XUM5WPzNtI/4BD7dDJVkM24QaSHE3XMdKWEvC8kDsB4=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=l//M6XSsfjYshdra1A5nRgBK6hsN1iFBQJRtr7kStOB8BwSLHwhAxkgaPgitlOB3hHiHo5o63GPcYX1YnTY2gaelyQxRQ7LqmJaafabWXUb2uOfaL/l1DGgJ1yCfRpwg0Zs9BP6zOTgwdu8QoEgGcmt5PPBqapDDgjFN1HdG7Ho=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=LTRc1/0a; arc=fail smtp.client-ip=40.107.220.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2581D16631C
+	for <virtio-comment@lists.linux.dev>; Fri, 18 Oct 2024 04:26:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1729225610; cv=none; b=NU1AGihclvACaxRBS1RY3sGtfGp16DL+2j8fdzqinXlPOqaoYSu4R+ujcjLRla2x8Qxlr/08ZJeYJ9UFpZYSyAlDkcZiCDsYivRzRiYp5VvQbrrE2KOdelDvK+j6BjOuHv8NowqoPFQ0WAJG8aLenF5owhZ1t55MT5OAtk3zm98=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1729225610; c=relaxed/simple;
+	bh=fqDLWea4M+jcbRTRs7zENs1VTzWoz8diZD7LWBUNaUc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lUqyQJT1CgRgo/pqB2WnE4Hlgji/FOiiMnEyJJV/QRuzoilVboxgLX+ilYdnfB8XIuQLSgn+OlCETPy767bkQ5G3z6izYjVx09S7gFfBnucQ1IPGExfIJg7BjqZYAdUV0KE91IibQ4QDN0ERz3AS3QJFpM65VEGXsiLUSfv9p6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=O9qaMotC; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="LTRc1/0a"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pM5OGqtHbmAPZ2wGf+KlGu9c+tttCp2xF6pSelVhg1MPN0N0qg5C2J0q+k5LZBjllxnxVO1Ev7GWqXWdBqeOZUr78xv79XAYvKMTvGJSz0l1xzztj7+Ox0AhILxBPAx+ojxaEQppXGsD8gqqm8mdpb42++f9/agUN2iDSRt16ozZer1UkHZKWQkVRIL34dCSLDUYuFrcvqOvmChUw1A7CNm5y3iGgo32yxaHVr8uki0SKk5PghsvCzGzy6jKY16yXR3Gnab6GpolobBMp7gtTBYjMWG+Gss/Kr9AKJW3PoTQPbOkGbSsyGsoLkhypE0fJCEofkbiA/qEVMTlj0euKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bldHxeLSyHiU8Dz50LMqPhjgvFMw0WAqNgBN7oAD7bc=;
- b=Bx13G3Kc/GLXYMGh5sfzCoU53ibPgs6lLvXXicJbHLNpO2/gl8neZrPNDtfRyMt6xFc8Q+KnV1mCzPlG6hfQNFVuF4AS1OUIUJC2WDq51dATCzrxsf4xCOT0sKOCKKJ8gAM8dFSPh7gOgZMQ4HoxqlfjIiD8O1j725TzNvUfkyNZT2+B/nfinRpmDR7MgAKVnDsI4qzN9Z3C5z5TeTqflQm8LpNwJl+9IRiHChfpV1CNdd2RuCSP5VCy+udwL5DpBpwWCFJdyY2Il7mTloHtfgMTwdCP2snIKhEBpBAM701y91+ngy8XZSOoUhWE9rTbfWQRBGBVgPnr9rzPQ0InYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bldHxeLSyHiU8Dz50LMqPhjgvFMw0WAqNgBN7oAD7bc=;
- b=LTRc1/0aYYNZFFzPHhhBxXg52d3gtTK6OYjmxsdRNAovbKQoDrkB/9gqyhUDLjmktB5tR1Fz62GqhOj+JGU6SpnFKh2UHL0LKDnwxW80Wg+9WuRvyq/0zf9yPBUwwgkeg2aaMAjto9/GBtMjTknqt+ecuY0fCc1/rnTDvr5c3X8KCEQwNFegg/UqlpTUztRGeqdHf30ubV4Cc4Zf9wkyCxRS45Yn1XYEs4u3NOGZx1pCdrhxNi9ODcy0EUnEuyCmbp2vBMFM5VpbjtRxQ1XSLJ3oYk+OffCDabG3IHezoCUSmoEgqgVqs2mngavAHt3M/LKMM3BgexFMle997b/rMg==
-Received: from PH0P220CA0023.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:d3::23)
- by DM3PR12MB9327.namprd12.prod.outlook.com (2603:10b6:0:42::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.18; Fri, 18 Oct
- 2024 03:25:05 +0000
-Received: from CY4PEPF0000EDD6.namprd03.prod.outlook.com
- (2603:10b6:510:d3:cafe::89) by PH0P220CA0023.outlook.office365.com
- (2603:10b6:510:d3::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.18 via Frontend
- Transport; Fri, 18 Oct 2024 03:25:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CY4PEPF0000EDD6.mail.protection.outlook.com (10.167.241.202) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8069.17 via Frontend Transport; Fri, 18 Oct 2024 03:25:04 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Thu, 17 Oct
- 2024 20:24:48 -0700
-Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.230.35) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Thu, 17 Oct 2024 20:24:46 -0700
-From: Parav Pandit <parav@nvidia.com>
-To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>,
-	<mvaralar@redhat.com>
-CC: <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>
-Subject: [PATCH] virtio-net: editorial: Annotate structure field
-Date: Fri, 18 Oct 2024 06:24:32 +0300
-Message-ID: <20241018032432.398821-1-parav@nvidia.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="O9qaMotC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1729225606;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LHNEJyehXWcF5Em3vQwujXkO0GnMfVOJLuwwfCQMZ1Q=;
+	b=O9qaMotCU56QiiPoSbckKuwsbNQ1IfEDQW9aoUGvwekYMvn7irxavQwEKBcG9pY1TgIYK6
+	TOyvS63il7dXdnLumXwaQ1CAqL1VtrY9qGBD2Obo5zp/YnuK2ND/ek+wPdI9gW2vomzVde
+	gacrJxJRqM1dAyj4Sn7tplfcneE3GhM=
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
+ [209.85.215.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-518-o4hI3UYyMma6MRdU0Xd2Jw-1; Fri, 18 Oct 2024 00:26:45 -0400
+X-MC-Unique: o4hI3UYyMma6MRdU0Xd2Jw-1
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-6c8f99fef10so1950540a12.3
+        for <virtio-comment@lists.linux.dev>; Thu, 17 Oct 2024 21:26:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729225604; x=1729830404;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=LHNEJyehXWcF5Em3vQwujXkO0GnMfVOJLuwwfCQMZ1Q=;
+        b=fAdkYe/asYqPDOIwTudRs719k7v7Gb0EtaA9kXSVId5HLGfy+ajkgqd8308dcXdFQU
+         i9CMAApUYHXr7o83jsFMIoOC2NaoNvN9Cwg9YppGVI8MFS8KBHML6Voqns7V66mNmrp8
+         G5aqjtK6Kg9peRmpqaeXIrIQ4Qh6i6XzN/3bpGihZ0v1D1PoBaVuZupmyW1UbNWXO+v1
+         i9UlJOlStCTbOL81vYVMxoKjIVjXyVQUCZxJ1EbKQ4NHkHdqvxrzpvD7Cawj1rzYhRIp
+         irP/p2WZtrOlGR/TzCobKD9lhLf9Iju1q9sFIDM4BDH/UMo3EFp2tOZTLzYgAcVCurXL
+         IItw==
+X-Gm-Message-State: AOJu0YwkmwtPUp1NDEvDPaHhRzxDeybIqU3BBoLgdWl+WTHbuNGOIH/E
+	O+KF/wZlRlGUbZ8DZxtT5tXTrfahxm9Vp+DOH4LikwO/9PxnoDY4QYi3nH0XaG/nmxT4o1DZfe8
+	0HWMgZdDQo9Ue2wAM+JVs2nZwjNSi3ZjY5MVkCvci/0Z7srNLAkv7+9OfSxer2HmJ/35aQ+PZx0
+	pwjDCurpyCCauWcGWBNZMm7iR7xI7TowjHgU/vqs0=
+X-Received: by 2002:a05:6a21:78d:b0:1d2:e889:1513 with SMTP id adf61e73a8af0-1d92c4e162amr1774472637.17.1729225604376;
+        Thu, 17 Oct 2024 21:26:44 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEubbykSF0U3o1IkFR5heQQmgjAmElx61wbxoBM++6gfvOQrHZMKN/2xc+Ih+smN0OW2oitUmxTKWmw7seuY2E=
+X-Received: by 2002:a05:6a21:78d:b0:1d2:e889:1513 with SMTP id
+ adf61e73a8af0-1d92c4e162amr1774451637.17.1729225603832; Thu, 17 Oct 2024
+ 21:26:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD6:EE_|DM3PR12MB9327:EE_
-X-MS-Office365-Filtering-Correlation-Id: 73fdf19c-cef0-4543-92f3-08dcef24752b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?OvA85wXo9K6IWXOpOSSQZWbggGmTDougdYzWC+jas/EQgUl4Qr8P/0PU7prk?=
- =?us-ascii?Q?m+AkNiN/SLQmyksrrIhcmjZLx20o41F2ENSrU9YQJpVqewuiY3yEC5QTHhiE?=
- =?us-ascii?Q?I39iNY1989KDpTqaQTtOgrJm83X+RAmG7N8VDVfxkaE+mWViqxDb3PvgOnma?=
- =?us-ascii?Q?ChAIref3qkyBbYt/P6ijnCorH7eR4vs3zmCoOvr63ocRfNMjE2zPKMD2BUZt?=
- =?us-ascii?Q?0O/3/rsWlRtjkg1pFpo+cfUEDYgvh6+kvM4hacEoFrJxFv8WHjl/moVfKTiY?=
- =?us-ascii?Q?mgfpAsjWFzv+MAQiOyDPHwhF+6LJREPlZBE/058i4xijZjD965KzxWrUDnN3?=
- =?us-ascii?Q?vUbsLZpaSssFmi2hyBY7IE8ZyZtsNsXRWQFfLxFr4gFhiYGiePqGXtniVq1N?=
- =?us-ascii?Q?kQ2RHhDsvOMaEUTa2n/ck+p/IX1jFkm23xETtgubZ1PqrdmgBJZrpm/aRNw4?=
- =?us-ascii?Q?N/mV9vT9TXwAsDo5rN3f+ciMduChnowpSaAFwjD0+L0K9eCZPXNiHpne2p3t?=
- =?us-ascii?Q?Hcc5t3j87Hs9Q4yPobRXy0LWCXOmJzJ6GWCyocFJY9ssBANbiLisJgstnZlG?=
- =?us-ascii?Q?F6CVBDBf7GgXuadUF/Uy5tVnoxnBsRQHa1uWoax0MxzEJFvm2vADe/6At5mS?=
- =?us-ascii?Q?fFnfn+93MjUeh8K5DOuH+CCdSCATXcuGaYYX4D7JuHejdtj8uXeC4YR4uXEe?=
- =?us-ascii?Q?C+zwf2Sm5Zi2STPpaS+7JmqSME99kbDxxsm7Vof2OzUZwi30Nt6DSmcM0PTP?=
- =?us-ascii?Q?f2UGpXet7jM8MqC0GDKOV+YxITIODgY/mAWrqIrMmRdZROheOqAae0+Cpt1u?=
- =?us-ascii?Q?0YVABOjXql/RZ4fS1CTw7FGr09+9kMBVGCPElv4aPBdPFZ/43hXs518vZYtj?=
- =?us-ascii?Q?chyxd0fzZGCzd8coE81Qsll6delAIzzSv/ClSFQlGdsKwiK/EyS/EbsNJDCc?=
- =?us-ascii?Q?z2BKuiYNni8sWV31ZnHO8rGycsB7g503Z+Z7WscnhMfBEBqBZ22JkIBLCj+R?=
- =?us-ascii?Q?PC5BAKyTV8ArI+ykPC804UUfwR1ro96cC+ZpBlgubPtPDqqztxlqg3ugVZoI?=
- =?us-ascii?Q?B8NMa4hKuVjywZZlrtOHqFfT4uBJdDlDdCGOSjtTfQH7pnuWQmBmuAO8oP/0?=
- =?us-ascii?Q?TkG+9BlmECnovZVpE5W5WVCXUZaCgDSWnB2LJPJxpl7v0ifrgl+NzZHdW9oU?=
- =?us-ascii?Q?hysuavLqT1jkMDQ0WEMuyaPbpsMRVwrDxylBR3eXY7IEI563d37zQn6KkmeB?=
- =?us-ascii?Q?ErfuEmNgoxKo11u5peMWnXPtkygM1hcH94lMjX4y7xSMl44L/7Ci99lepm3/?=
- =?us-ascii?Q?kEG+zclijpWIx17TnL+fSobFomGkb6VKAGkyRSMUFBtFIFuRPnsM732dAyrv?=
- =?us-ascii?Q?ujx1aSWLlsrG3bddKwHdPujGX/3kQ0LTSWJhXSrGxtJ7NZ9YJQ=3D=3D?=
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2024 03:25:04.2481
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73fdf19c-cef0-4543-92f3-08dcef24752b
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EDD6.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9327
+References: <cover.1728029499.git.pabeni@redhat.com> <55306969c73f62bf4d100d15074bfd6cde741417.1728029499.git.pabeni@redhat.com>
+ <CACGkMEvV0gtvgpb7z1MqJLKzHm-Be_8hkf0GzqqsFsfDG8oAeA@mail.gmail.com>
+ <d34f50af-4042-44c6-90e1-0acbbb899e96@redhat.com> <CACGkMEvrowr6CwF+=RiR+f3EagdKB=rzyCPCQcUdXee4a5MaZA@mail.gmail.com>
+ <2b90c368-b514-4077-a6bf-43da075af4fc@redhat.com> <CACGkMEu5GWZrYVRN==F=vrRQQGnxj_WqX86YZ+diqC3s3m2m_A@mail.gmail.com>
+ <10bc51b2-efbe-4f33-a1b3-827de4d0cd10@redhat.com> <CACGkMEuhJXMd0hGopyehESO1eNVRXVX+FaF7m8f6Y9yWCzoESA@mail.gmail.com>
+ <44be2d9c-5624-4419-8e9c-e5302a5f6b2f@redhat.com>
+In-Reply-To: <44be2d9c-5624-4419-8e9c-e5302a5f6b2f@redhat.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Fri, 18 Oct 2024 12:26:32 +0800
+Message-ID: <CACGkMEsgJT1c93RZur20fUyjtxSX6dMPePEJvzbmNWpAHd92Mg@mail.gmail.com>
+Subject: Re: [PATCH v9 1/2] virtio-net: define UDP tunnel segmentation offload feature
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com, 
+	Eelco Chaudron <echaudro@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, 
+	Willem de Bruijn <willemb@google.com>, kshankar@marvell.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Field command-specific-data is a structure field. Annotate it
-as a field so that generated pdf shows it accordingly.
+On Thu, Oct 17, 2024 at 11:34=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> wr=
+ote:
+>
+> On 10/17/24 08:47, Jason Wang wrote:
+> >> AFAICS the main argument against the layout I proposed is the
+> >> inconsistent usage of csum_start that will refer to the inner header f=
+or
+> >> GSO over udp-tunnel packets and to the outer header in when the device
+> >> does not expose the GSO over UDP tunnel support.
+> >>
+> >> I argue that dubbing such behavior as inconsistent is a matter of
+> >> interpretation: in both case the csum_start field refers to the
+> >> innermost header that the device is able to parse.
+> >
+> > I was convinced by this argument until I see this
+> >
+> > """
+> > If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
+> > VIRTIO_NET_HDR_F_DATA_VALID bit in flags can be set: if so, device has
+> > validated the packet checksum. In case of multiple encapsulated
+> > protocols, one level of checksums has been validated.
+> > """
+> >
+> > The "one level" seems to be ambiguous. But this reminds me that the
+> > innermost assumption seems to be impractical:
+> >
+> > The checksum of non GSO tunnels has been supported.
+>
+> I argue the above statement is again a matter of interpretation: the
+> existing specs support checksum offload of UDP packets. That UDP packet
+> may (or may not) carry a tunnel and some other headers, but such info
+> are actually irrelevant to the device: lacking the GSO over UDP tunnel
+> support, the device still parse the packet up to the (only known)
+> transport (UDP) header and offload the related checksum.
 
-Signed-off-by: Parav Pandit <parav@nvidia.com>
----
- device-types/net/description.tex | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Yes, so for non GSO tunnels, all vnet header fields (including
+csum_start/offset) were for the outer. But this proposal tries to make
+csum_start/offset an inner for GSO UDP tunnels. That seems to
+introduce inconsistency with side effects.
 
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index b2a0d39..6950114 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -1217,7 +1217,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- #define VIRTIO_NET_ERR    1
- \end{lstlisting}
- 
--The \field{class}, \field{command} and command-specific-data are set by the
-+The \field{class}, \field{command} and \field{command-specific-data} are set by the
- driver, and the device sets the \field{ack} byte and optionally
- \field{command-specific-result}. There is little the driver can
- do except issue a diagnostic if \field{ack} is not VIRTIO_NET_OK.
--- 
-2.34.1
+>
+> Also note that I already agreed the specification for DATA_VALID with
+> GSO over UDP tunnel packets must be changed/corrected and I proposed 2
+> options to avoid confusion there:
+>
+> https://lore.kernel.org/virtio-comment/CACGkMEvmhdYMHf5HKX37XqAYO2uHPq1=
+=3DeWXfBPoS2gp8FJezDQ@mail.gmail.com/T/#m520efe2519200e878ab103f32598e5163c=
+d01ec4
+>
+> """
+> 1) forbid DATA_VALID with GSO over UDP tunnel
+>
+
+If it's not too hard, I would like to keep that. Here are the reasons
+
+1) I notice that some Linux drivers uses DATA_VALID for GSO UDP tunnel
+2) when we want to add it back some day in the future, it would cost
+another feature bit
+3) It looks to me all the issues come from when we try to reuse the
+outer flags, we would not have issues if we introduce a new
+bits/fields for inner
+
+> or
+>
+> 2) forbid DATA_VALID with GSO over UDP tunnel without UDP tunnel
+> checksum offload. That means that DATA_VALID for GSO over UDP tunnel
+> packets could only be set when both the inner and outher header are
+> offloaded.
+
+This seems to be fine, but again we need to differ the outer/inner here.
+
+1) reusing DATA_VALID/NEEDS_CSUM
+2) introducing new fields and bit
+
+Reusing seems to be harder.
+
+And no matter what way we choose to go, we need clarify the following
+conditions in the normatives
+
+1) if inner is DATA_VALID but outer is NEEDS_CSUM is allowed
+2) if inner is NEEDS_CUSM but outer is DATA_VALID is allowed
+
+(It looks to me like it would be easier if we just forbid the above two).
+
+> """
+>
+> [...]
+> > Such inconsistency a lot of extra statements to describe the
+> > difference semantics in the spec and if/else in the code (as
+> > demonstrated in your POC which uses a completely different helper to
+> > do the header conversion between vnet header and skb metadata).
+>
+> I think you have misread the PoC code. It actually re-uses the exiting
+> helpers, verbatim, without the need to duplicate any existing checks.
+
+There's no duplication but new semantic for csum_start/offset:
+
+static inline int virtio_net_hdr_tnl_to_skb(struct sk_buff *skb, ...
+      ...
+      if (!gso_tunnel_type)
+           return virtio_net_hdr_to_skb(skb, hdr, little_endian); // [1]
+      ...
+      inner_th =3D __virtio16_to_cpu(little_endian, hdr->csum_start);
+      ...
+      /* Let the basic parsing deal with plain GSO features. */
+      ret =3D virtio_net_hdr_from_skb(skb, hdr, little_endian, false, // [2=
+]
+      ...
+      skb->inner_transport_header =3D inner_th
+...
+
+static inline int virtio_net_hdr_to_skb(struct sk_buff *skb, ...
+      ...
+      if (hdr->flags & VIRTIO_NET_HDR_F_NEEDS_CSUM) {
+            u32 start =3D __virtio16_to_cpu(little_endian, hdr->csum_start)=
+;
+      ...
+            if (!skb_partial_csum_set(skb, start, off))
+      ...
+}
+
+And having two calls to virtio_net_hdr_from_skb() is a hint that the
+logic needs to be extended in virtio_net_hdr_from_skb() instead.
+
+>
+> Sure, there is some additional code in the GSO over UDP tunnel helpers,
+> as the latter must process and check additional fields. The other
+> additional conditionals you see are due to both the spec and helper
+> being very strict about the admitted packets - we want to avoid the
+> loopholes leading to nasty bugs, as already mentioned. Such code checks
+> and spec statements should (/must) be there with any layout we chose for
+> the virtio_net_hdr to support GSO over UDP tunnel.
+>
+> Let me reiterate that, instead, using the csum_start/csum_offset fields
+> to track the outer header information, the GSO over UDP tunnel could
+> processing could not use
+> virtio_net_hdr_to_skb()/virtio_net_hdr_from_skb() to process the
+> existing fields. i.e. all the checks in
+>
+> https://elixir.bootlin.com/linux/v6.12-rc2/source/include/linux/virtio_ne=
+t.h#L97
+> ..L112
+>
+> will be meaningless in such scenario and the GSO over UDP tunnel helper
+> code must replicate them with the correct offsets.
+
+I don't understand here. It works like a charm for non GSO UDP tunnel,
+anything that makes it can't work for GSO?
+
+>
+> IDK which extra statements in the spec you refers to, could you please
+> be more specific?
+
+I meant statements needs to be added to
+
+1) say csum_start/offset is for inner but not outer, one example:
+
+"""
++  \item \field{outer_th_offset} field indicates the outer transport
+header within
++      the packet. This field differs from \field{csum_start} as the latter
++      points to the inner transport header within the packet.
+"""
+
+2) clarifying about other possible conflicts about such kinds of
+reusing (gso_size, flags and others). Those seem to be missed in the
+current proposal.
+
+>
+> > If we introduce new fields for inner, we can stick to the guidance and
+> > normatives for the new fields instead of dealing with the different
+> > semantics between GSO and non-GSO tunnels.
+> >
+> > 1) a patch to clarify the existing fields in vnet header were for
+> > outer in there's a tunnel
+>
+> Would such patch require the sort of extra statements you don't like?!?
+
+No, I meant, we need to clarify "one level" in the spec to align with
+the existing implementation.
+
+>
+> > 2) adding new fields and explain that they were used for inner, we
+> > don't need to worry any possible conflict when trying to reuse fields
+> > with outer (as demonstrated by DATA_VALID).
+>
+> I must admit the 6m (or 2y?) step backward in time does sound scaring to =
+me.
+
+Sometimes it might be longer than expected, but it's still much better
+than we found issues after it has been merged. Spec is kind of
+different from the code as fixing bugs might be harder for the vendor.
+Lots of vendors just start to implement their device once a feature is
+merged into the spec.
+
+>
+> As mentioned the above will lead to a poorer implementation, are we ok
+> with that?
+
+1) sticking to existing csum_start/offset semantic, both the spec and
+implementation are straightforward:
+
+Convert between skb->csum_start/offset and vnet_hdr->csum_start/offset
+with necessary checks
+if (packet is GSO_UDP)
+        Do conversion between skb->inner_XXX and vnet_hdr->inner_XXX
+with necessary checks
+
+2) with the proposal here
+
+if (packet is GSO UDP)
+        convert between skb->csum_start/offset/in_nh_offset and
+skb->inner_XXX with necessary checks
+        convert between outer_th_offset and skb->csum_start/offset
+with necessary checks
+else
+        convert between skb->csum_start/offset and
+vnet_hdr->csum_start/offset with necessary checks
+
+I think 1) are easier to implement (no mention of the issues of flags
+and other side effects caused by trying to reusing outer flags/fields
+for inner).
+
+I don't see how 1) is poorer. Or is it just because more vnet header
+fields were introduced?
+
+>
+> What about hdr_len field? for GSO over UDP packets should include the
+> inner hdr len or not? If not, it would be useless, otherwise would be
+> inconsistent.
+
+hdr_len is just a hint, various implementations just ignore that.
+Actually, it's another example that needs to be clarified in this
+proposal. Is that for outer and inner?
+
+My understanding is that new fields for new functions are easier than
+new semantics for existing fields. As the latter needs to deal with
+the possible conflicts which is not easy.
+
+By looking at your concern so far about adding new fields for inner,
+the only thing that matters seems to be the vnet header length. I
+think it's not a problem as adding a few new bytes won't impact the
+performance.
+
+Thanks
+
+>
+> /P
+>
 
