@@ -1,119 +1,242 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (mail-dm6nam11on2051.outbound.protection.outlook.com [40.107.223.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B10A20E323
-	for <virtio-comment@lists.linux.dev>; Fri, 18 Oct 2024 12:30:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1729254661; cv=none; b=qZujin9GO3Hh8zMZeJactf4LZgcHD3+wP6iTY8h38+amfKsaiSdjqNvG9BvSy8dwQOB9s2AiIQnZ+Qt5OrxRGbxwNu5QU7Bo4PS9wZ0x/K8g0wVYiBzKQNe4p6RzOkW01OYYQZP6AhQLpIkslFnHEFSi+Z01D4HLlrb9qkuIJt4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1729254661; c=relaxed/simple;
-	bh=ooEcYlBiT0E98fHmm2zYAd3LmvZ+7nlKllHs/XjAbSs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=qwZe9BwPw4pgmI/6YfFc90cG9ALMKcjMghEWvzEuM3P25ZtTX4iaKo9bDVYHQ/tY3WX35LYldo96Afj8XBGqryv39d7WvAZSyMyUocMcQrYMe/48ZiWlPj5x9K5kfyFJzbuyBFDRIZ++tgjmxiZ1wOysuh567JX1fLdyi9osa54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dKa6Bnan; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6152B20E328
+	for <virtio-comment@lists.linux.dev>; Fri, 18 Oct 2024 12:35:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.223.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1729254944; cv=fail; b=lyE/Nde7i24jTNiXqtSEit4sflVv+BzmANyuOhAU/hG1Zv22yPhNIOIL8W0mMgBv1DmnoENSOZlCuABsTO/C2Hdnal7SBA4G+gS7zzrQiTgGMCG4yBEv6OIZup0n3AlLUKedpmI86by6vTy2WDHkhgkBkdgpb3aFdCjmnr9b5Fc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1729254944; c=relaxed/simple;
+	bh=2ZRQIQ2l/Ytf24fuwVZcoZAJug4jKA+pRtuzFlpRrfM=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qJ7pdOqmzCTQjdHLdvqn10cThWX3CmOoiRhhKM3lmXBB+6/Lx2uTjiZTcABToquV1lmwHAiTxEThLHxscGaUcqhj0orpYdJ52kpxbX95+NeM/6/3ERHcn9LT9V43NzJ+C7Km3gFJRZhzPOOolcy9GrLjLORL3TPezSpV3eADsQk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=AUfTZt/d; arc=fail smtp.client-ip=40.107.223.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dKa6Bnan"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1729254659;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QeGGlR7hZVAsm1CGynGdOP22Pvn+1yFSfUULGvppyQM=;
-	b=dKa6Bnanat6K9Hs4ZWAI0uQKMEJO83JGwuRQRrfmVwkISascDDFSy+lIwn3IiM0dsD+g2+
-	YP43pZ9+q3BRGRqqqIoPvBXKXeujMC9M3g8ghnQjaAO6EplOF7DME9Z1yX+TCmVSOou/Y2
-	txxsQvJIkQvK0b35L2PxM1E9x4qp1T0=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-692-_vjHb5NCM3OBwVGNGR9RWw-1; Fri, 18 Oct 2024 08:30:57 -0400
-X-MC-Unique: _vjHb5NCM3OBwVGNGR9RWw-1
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-a93d0b27d37so141694766b.0
-        for <virtio-comment@lists.linux.dev>; Fri, 18 Oct 2024 05:30:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729254657; x=1729859457;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QeGGlR7hZVAsm1CGynGdOP22Pvn+1yFSfUULGvppyQM=;
-        b=imSokyrFSyGAP0LcbEpdAu68eyV6fCs8aBgNNtH/AHLVvAspzg+He37F5MIMzfxVTJ
-         moK2IF3/5XcjsFzwEY8mSWPRZtkGm5IBUWkhE9hdIn+2MvElz6g9+AlWxACgAQwA9rry
-         WSt8+sFwBxBRwB45CQerh6i4duQMa1ALSIUxf42Ax2CUv5NeQ4B/+nSwmdpVQ5tvD2r0
-         I51hKOwxuU8KBwoV01fIZqEn/ZbOt6hv+O4fIRcSeVYSRDv+ya9Clzw6Fo3ccQA0clJm
-         roe+ykvPxLdkfG4hUsM5SjYgDHQgXheO1UanCnzphz/88PCFE9OActKYjdWB2aVpk/V2
-         ldCA==
-X-Gm-Message-State: AOJu0YwL1q+1ssEbJ0z6BJ8KcA4lcEfX94YU6+1aLsWG2nGAYCyIfGuE
-	tw8n/A0gTeAnkWEiLM8xq1fw/kqaEhIbkRbGWhNsW4hSOSQpToWR9eUJHf2fzXhxrsEiNeQulk5
-	VF7WXaeX4K2ZYrha/5e0MyTsdeD+cs97M93KR5hFaD8RqIcjzPkfb0Vp2FG00ELTa
-X-Received: by 2002:a17:907:97cb:b0:a99:f0f4:463d with SMTP id a640c23a62f3a-a9a69a793a9mr201257166b.26.1729254656636;
-        Fri, 18 Oct 2024 05:30:56 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF0zVO/YuoQvSo3raARcssNUjNNFQ36Shs9dO6lZfxf+aKBuCflPyqxC/ZFl6/ilr5oZJItwQ==
-X-Received: by 2002:a17:907:97cb:b0:a99:f0f4:463d with SMTP id a640c23a62f3a-a9a69a793a9mr201252566b.26.1729254655881;
-        Fri, 18 Oct 2024 05:30:55 -0700 (PDT)
-Received: from sgarzare-redhat (host-79-46-200-231.retail.telecomitalia.it. [79.46.200.231])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a9a68a921b2sm92361066b.15.2024.10.18.05.30.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Oct 2024 05:30:55 -0700 (PDT)
-Date: Fri, 18 Oct 2024 14:30:50 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, 
-	"mst@redhat.com" <mst@redhat.com>, "cohuck@redhat.com" <cohuck@redhat.com>, 
-	"mvaralar@redhat.com" <mvaralar@redhat.com>, Shahaf Shuler <shahafs@nvidia.com>
-Subject: Re: [PATCH] virtio-net: editorial: Annotate structure field
-Message-ID: <6fydagxrxocjfucgmbzgzge235y74kzmfshadzu5d3hsk4mqzz@6owfvcfidwwc>
-References: <20241018032432.398821-1-parav@nvidia.com>
- <yruwppfhsjvpk47oheqhux244k4z3jyacqdx5bvywehn2qfwyv@uu5di5rkspkt>
- <CY8PR12MB7195C5BA3711596077E51860DC402@CY8PR12MB7195.namprd12.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="AUfTZt/d"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DfrR3621mFgULT1zp1JnVq85K7ZLgjPGM1hxW3jTLtUn0Pxs2iUFDItOJqCDYegcUoRxroAovz17CAOCg7Iv+1Yo9yb2a8NRA/dX3UZa8Um49fHxGsg+lT2iv2jmpvScyQm+G2sTQhGXi+9qsYtLh3pQnVDLoKrXyxAJn/nQtc419Ly8W30ChBuQ0yjwz1JpYzDp1V+T96dfzCK+4nNjitT6ivR4piBAi8TtpdoAqjMPbrwI5+9zRtKMkuXie9aMam53p0fNUYtWixqwOzGa71JJTMRMU893GGVsHhey/Flf8dEPdo4IXNB5hX8QM3TfsyN3MVFQHtUX6NoSWW5XEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pAtgX2I121AIal9OORUMeYaci/p7tbKxk4gYPr0LKXI=;
+ b=x0Un1yU0urMyC3axwyFFVz4W+qPvM2ISL7QnTTZatEiVKW4w5E49alyxQZ2t8+I0Et0xpFFubjNzn3usmqQqGqvojW7eRNIWhufgFDj48jpPho8RNn7FnazEOxIvBzYuqCS3m/ThA2B5l66DKzkJh24yOLDxP78nXOMFo7UtWQvosoUeLz+4zVl+HtxoMKQADoEI+WsoZJ14SPo2ktcTRS7b5xmVP/e6K3bOh5w5fXUdrOUfzKZ1r7RieLqIvcvVdrvx+QI4XoSPeUyg/f0u6ZjEprnJftjUnKL/1uHO34z9q6AUjmpfG5OFG8ZGbG1P1qJXCI9+VR1OmuP9B/dfmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pAtgX2I121AIal9OORUMeYaci/p7tbKxk4gYPr0LKXI=;
+ b=AUfTZt/dVLCbFOh2X/cDIwNBLggf9kRfn6ZvoDruXH6BVnSZbs/22Xlf452qP6ThUJD9kWID8bgFp/UAFBqGxbQ1kK7S9olMvs9xqK+WV47Ad6cFnAuyU9pafq1uHlfbTHHPbIQ4SgNhvojbeJbOz8dCb8D7NRh6PUwYN5KShv8WZ6eVhNyo3lMNIEE2icUDsQVCPRelv+tHFm06kGgU4TDp8nNuR/CypXy91ci0ilEmt4/usZGs3V8DkjJ4Q+tYd3IRmalJja45TP6z6WnUgq3+tPAQAqM8GloSZMTHRrfdOoiB82tVmEMjXhBfTgkPQ9JJmafrtbrCyAzJeygmdw==
+Received: from BN9PR03CA0391.namprd03.prod.outlook.com (2603:10b6:408:111::6)
+ by BY5PR12MB4113.namprd12.prod.outlook.com (2603:10b6:a03:207::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.24; Fri, 18 Oct
+ 2024 12:35:35 +0000
+Received: from BN3PEPF0000B071.namprd04.prod.outlook.com
+ (2603:10b6:408:111:cafe::57) by BN9PR03CA0391.outlook.office365.com
+ (2603:10b6:408:111::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.20 via Frontend
+ Transport; Fri, 18 Oct 2024 12:35:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN3PEPF0000B071.mail.protection.outlook.com (10.167.243.116) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8069.17 via Frontend Transport; Fri, 18 Oct 2024 12:35:33 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Fri, 18 Oct
+ 2024 05:35:17 -0700
+Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.231.35) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.4; Fri, 18 Oct 2024 05:35:15 -0700
+From: Parav Pandit <parav@nvidia.com>
+To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>,
+	<mvaralar@redhat.com>
+CC: <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>
+Subject: [PATCH v1] virtio-net: editorial: Annotate structure field
+Date: Fri, 18 Oct 2024 15:35:01 +0300
+Message-ID: <20241018123501.432708-1-parav@nvidia.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <CY8PR12MB7195C5BA3711596077E51860DC402@CY8PR12MB7195.namprd12.prod.outlook.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B071:EE_|BY5PR12MB4113:EE_
+X-MS-Office365-Filtering-Correlation-Id: 728b7673-a5fa-4235-c2fc-08dcef715c5f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?yViA4sWoFoFM9dqbihqU/ykI0A5ang9BWrACxeBlxlVEyUW7zpDE6HXNbSbu?=
+ =?us-ascii?Q?s6tlRkTkjtEcYdbnV3BrpxCsORJR0jPUQGF1J2SmppvWF9YwMsCdtkHopXo4?=
+ =?us-ascii?Q?rmnAX3atO59qiYqQBYCLP03ceO+xwik+Mp7P3vmjGgVcFSABvSuem9vjEXlT?=
+ =?us-ascii?Q?wd0ZWWiv+o1PHB/WWiSa30VwBImSc5BfRv6KmIGNCtXgdkEjn6Bj+QSbp5qZ?=
+ =?us-ascii?Q?+o2d5zNJMDFO5GFaPjM4aFMSHoXXLg4juP7A7R1JFpB8a0HbDtwJDnLXP4l/?=
+ =?us-ascii?Q?evVwqEHcFQjrLenS5IQdCvsSITS6E3vUYPZIbr+OkiYdd3neIMf0djU4IzWv?=
+ =?us-ascii?Q?KAVHYbDMGDG6hu+AytdbfBwTqxSRGmT/aD8a5EMLtUpUC5WU5dVbeu+P4R5o?=
+ =?us-ascii?Q?SrNzcAkcsr1dgwHL7l5t8r20F+Ae19EeP4wocp/UF0hvVVKQKn6fuWtU1Dd5?=
+ =?us-ascii?Q?9siitV+BnUzuA5Plq41I2Cj6h5fCEl5D7rq/qr95EvIOljogUikTcGi3/+Nf?=
+ =?us-ascii?Q?P14jYa52rwXIg2j7siK4unEvsgXjsjpQ19snK1fSWiJinx37DcuDfNeDZpLR?=
+ =?us-ascii?Q?xasMEvA6CB50RV49tLNGdhEDU77QjISM5W4TgQu68zKkjN3fav2vrd3JaKN8?=
+ =?us-ascii?Q?mSyZF1FdO28MjZC4dOd973ZgJV27P7OyFpw4NdCsx/59MFC7oz6GB+Gpafss?=
+ =?us-ascii?Q?yC3gOflmwaoXhX9XY4K3Ui30/O2iXQk6xCbCzFOnTj0dRa75awV/ZRLYn9Jo?=
+ =?us-ascii?Q?MU2gEvRns2AxdNYWaOyqzXyWBo75Fu3nazj3damim4iMT4FhKh7JXLoCVfHr?=
+ =?us-ascii?Q?MIEWktBd6RWDsWeKy6v4Rrg8vQSxUknNTKObCjVMlkFj4anuycrdULR4QbuZ?=
+ =?us-ascii?Q?7oE3IIIPfHt7nHvTYBaG+syFWLo7b6M2vM5vElnEmpFG8VkCZlYzTK/BZhj3?=
+ =?us-ascii?Q?m1N7wWy3XNcJFYWO1hchg9tC2r/AVhtcvwlwHDip215JGFbsmAZYYNrTwuTR?=
+ =?us-ascii?Q?a3cJsV23yPAjTXidF2DFengxx2AowMiwiSxurFnZ20i7ZYqPdN1+LCEYeEAs?=
+ =?us-ascii?Q?0bDN8RCvkVaWUpTN1PfTABbDL8MXfBX1YKSY9m5pvV6o+Q9r/RXVrq0Fcmk+?=
+ =?us-ascii?Q?ycswUywEf5jiEldNmBfsu9W5KlVhdkasHeVuGdseqbCnaBcRj+quesTh8dIi?=
+ =?us-ascii?Q?iLMXUuP+n/y4wABUVJ0aTliv9hMkVA70PSLpb25kXnhXECOokTSdgUc/IEPK?=
+ =?us-ascii?Q?vqL1ZH0hhSJB1871o7b10DJJLurxdbZJGtEEBGGOCXfWhTmlhcC/9KxsEM2Y?=
+ =?us-ascii?Q?QVughxhsbRs4t8tIVEFPaWkTEXYK5GbVN/Weta0u5g6DFQwY4yI/z0i3VOQY?=
+ =?us-ascii?Q?fHRbLNyAlSCRKArZzDYIDvCvW/aajRm355ez9vooowP2SPFXkA=3D=3D?=
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2024 12:35:33.7859
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 728b7673-a5fa-4235-c2fc-08dcef715c5f
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B071.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4113
 
-On Fri, Oct 18, 2024 at 10:16:09AM +0000, Parav Pandit wrote:
->Hi Stefano,
->
->> From: Stefano Garzarella <sgarzare@redhat.com>
->> Sent: Friday, October 18, 2024 12:43 PM
->>
->> On Fri, Oct 18, 2024 at 06:24:32AM +0300, Parav Pandit wrote:
->> >Field command-specific-data is a structure field. Annotate it as a
->> >field so that generated pdf shows it accordingly.
->> >
->> >Signed-off-by: Parav Pandit <parav@nvidia.com>
->> >---
->> > device-types/net/description.tex | 2 +-
->> > 1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> LGTM:
->>
->> Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
->>
->>
->> Just for curiosity, but do you know why for example in the sub-paragraph
->> "Packet Receive Filtering"", just a few lines below, we don't use \field{} at all
->> when we talk about "command-specific-data"?
->>
->Good point. I noticed those few places too now.  Sending v1 with the 
->fixes.
->
->> Looking in that document there are parts where we use \field{} and parts
->> where we don't, is there a rule to follow? (To my knowledge for future
->> reference)
->Any structure field and structure name itself should be annotated as 
->\field{} when referring in the description.
->
+Field command-specific-data is a structure field. Annotate it
+as a field so that generated pdf shows it accordingly.
 
-I see, thanks for sharing!
+Signed-off-by: Parav Pandit <parav@nvidia.com>
 
-Stefano
+---
+changelog:
+v0->v1:
+- addressed comments from Stefano
+- fixed more places which were missing the annotation
+---
+ device-types/net/description.tex | 25 +++++++++++++------------
+ 1 file changed, 13 insertions(+), 12 deletions(-)
+
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index b2a0d39..e45ecbd 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -1217,7 +1217,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ #define VIRTIO_NET_ERR    1
+ \end{lstlisting}
+ 
+-The \field{class}, \field{command} and command-specific-data are set by the
++The \field{class}, \field{command} and \field{command-specific-data} are set by the
+ driver, and the device sets the \field{ack} byte and optionally
+ \field{command-specific-result}. There is little the driver can
+ do except issue a diagnostic if \field{ack} is not VIRTIO_NET_OK.
+@@ -1255,13 +1255,13 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ commands:
+ \begin{itemize}
+ \item VIRTIO_NET_CTRL_RX_PROMISC turns promiscuous mode on and
+-off. The command-specific-data is one byte containing 0 (off) or
++off. The \field{command-specific-data} is one byte containing 0 (off) or
+ 1 (on). If promiscuous mode is on, the device SHOULD receive all
+ incoming packets.
+ This SHOULD take effect even if one of the other modes set by
+ a VIRTIO_NET_CTRL_RX class command is on.
+ \item VIRTIO_NET_CTRL_RX_ALLMULTI turns all-multicast receive on and
+-off. The command-specific-data is one byte containing 0 (off) or
++off. The \field{command-specific-data} is one byte containing 0 (off) or
+ 1 (on). When all-multicast receive is on the device SHOULD allow
+ all incoming multicast packets.
+ \end{itemize}
+@@ -1271,24 +1271,24 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ commands:
+ \begin{itemize}
+ \item VIRTIO_NET_CTRL_RX_ALLUNI turns all-unicast receive on and
+-off. The command-specific-data is one byte containing 0 (off) or
++off. The \field{command-specific-data} is one byte containing 0 (off) or
+ 1 (on). When all-unicast receive is on the device SHOULD allow
+ all incoming unicast packets.
+ \item VIRTIO_NET_CTRL_RX_NOMULTI suppresses multicast receive.
+-The command-specific-data is one byte containing 0 (multicast
++The \field{command-specific-data} is one byte containing 0 (multicast
+ receive allowed) or 1 (multicast receive suppressed).
+ When multicast receive is suppressed, the device SHOULD NOT
+ send multicast packets to the driver.
+ This SHOULD take effect even if VIRTIO_NET_CTRL_RX_ALLMULTI is on.
+ This filter SHOULD NOT apply to broadcast packets.
+ \item VIRTIO_NET_CTRL_RX_NOUNI suppresses unicast receive.
+-The command-specific-data is one byte containing 0 (unicast
++The \field{command-specific-data} is one byte containing 0 (unicast
+ receive allowed) or 1 (unicast receive suppressed).
+ When unicast receive is suppressed, the device SHOULD NOT
+ send unicast packets to the driver.
+ This SHOULD take effect even if VIRTIO_NET_CTRL_RX_ALLUNI is on.
+ \item VIRTIO_NET_CTRL_RX_NOBCAST suppresses broadcast receive.
+-The command-specific-data is one byte containing 0 (broadcast
++The \field{command-specific-data} is one byte containing 0 (broadcast
+ receive allowed) or 1 (broadcast receive suppressed).
+ When broadcast receive is suppressed, the device SHOULD NOT
+ send broadcast packets to the driver.
+@@ -1330,7 +1330,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ many addresses.
+ }. This table is set using the class
+ VIRTIO_NET_CTRL_MAC and the command VIRTIO_NET_CTRL_MAC_TABLE_SET. The
+-command-specific-data is two variable length tables of 6-byte MAC
++\field{command-specific-data} is two variable length tables of 6-byte MAC
+ addresses (as described in struct virtio_net_ctrl_mac). The first table contains unicast addresses, and the second
+ contains multicast addresses.
+ 
+@@ -1339,7 +1339,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ accepts (and if VIRTIO_NET_F_MAC has been negotiated,
+ this will be reflected in \field{mac} in config space).
+ 
+-The command-specific-data for VIRTIO_NET_CTRL_MAC_ADDR_SET is
++The \field{command-specific-data} for VIRTIO_NET_CTRL_MAC_ADDR_SET is
+ the 6-byte MAC address.
+ 
+ \devicenormative{\subparagraph}{Setting MAC Address Filtering}{Device Types / Network Device / Device Operation / Control Virtqueue / Setting MAC Address Filtering}
+@@ -1406,7 +1406,8 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ \end{lstlisting}
+ 
+ Both the VIRTIO_NET_CTRL_VLAN_ADD and VIRTIO_NET_CTRL_VLAN_DEL
+-command take a little-endian 16-bit VLAN id as the command-specific-data.
++command take a little-endian 16-bit VLAN id as the
++\field{command-specific-data}.
+ 
+ VIRTIO_NET_CTRL_VLAN_ADD command adds the specified VLAN to the
+ VLAN filter table.
+@@ -3036,10 +3037,10 @@ \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
+ \item for all commands, use a single 2-byte descriptor including the first two
+ fields: \field{class} and \field{command}
+ \item for all commands except VIRTIO_NET_CTRL_MAC_TABLE_SET
+-use a single descriptor including command-specific-data
++use a single descriptor including \field{command-specific-data}
+ with no padding.
+ \item for the VIRTIO_NET_CTRL_MAC_TABLE_SET command use exactly
+-two descriptors including command-specific-data with no padding:
++two descriptors including \field{command-specific-data} with no padding:
+ the first of these descriptors MUST include the
+ virtio_net_ctrl_mac table structure for the unicast addresses with no padding,
+ the second of these descriptors MUST include the
+-- 
+2.34.1
 
