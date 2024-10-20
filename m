@@ -1,28 +1,28 @@
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com (mail-mw2nam10on2085.outbound.protection.outlook.com [40.107.94.85])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2D684E0A
-	for <virtio-comment@lists.linux.dev>; Sun, 20 Oct 2024 11:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.93.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E9018BC20
+	for <virtio-comment@lists.linux.dev>; Sun, 20 Oct 2024 11:42:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.94.85
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1729424538; cv=fail; b=Ybq/3sIS+eqRxfX2xUiwzvoRlD4Rv/qdXaDY2M6nmnpuYGioziBTlnT4pGPQamg4DQK/bqWVx2LScZ4h7yNzmllzH+hL2IT5+cAOXKbBLSVGSmZB89uwyXWdeuG7Kf2TR82pkt9FhJZi3bFUXbu2U3A0krNxi/xfmRVLCGDCuu8=
+	t=1729424543; cv=fail; b=rZc8dLdPoAjlF8G26OtGn8cQLhuAmgPs3F+OUCZegKUJxF3sHfjBHFQFF9CwWEU/mOkMcnVBx9CrtEk/kS/liKulmAJ+7Frxu2aAtjNiYmlmxAD3FgzJY9mB5PKmDX7CPYkHDUmyFiuQefBq4SOZ4q+cQWmzAOT1MQGHmuVC3Zw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1729424538; c=relaxed/simple;
-	bh=xvBZFcikxcpixgSqVl3D42w4ALsb5EMCDru+2igXe+4=;
+	s=arc-20240116; t=1729424543; c=relaxed/simple;
+	bh=KjOgIwde3WMa59J4sSIj99v8JgsYcEnnERlgPnShiKs=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=j3XJTAVfD73+Vo9ZWAkkr4y+5vt3Mhof/SHmwhGKtBeGiIHl5DVI1a7jWPImEFcgeDXam4/KVfpiETSwyFfnZ3+8ET5SzKPxBHVUAG49CB++ZpTIw1Jl4mciOuBN0R4F8A2PbQW1My3nP+pvpJK/sIQYM/pF4acl7xL6W64XTOI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lNQbxTMe; arc=fail smtp.client-ip=40.107.93.75
+	 MIME-Version:Content-Type; b=Fr0aTx9sIvUS5eYt1PMkFyH5VmOWU/8rTqoxA05uXIE1+Evi5CV8s4hHIYNADc7djkr1aasiEzKvGG6mdN+qOQCYfVCROD9CefMlpOaxVsN5GPcbycjMmljKyCf5tu1ge9eNrqTsNPwIDPUrtZERK4castyy6U0aoIRs2Z+LaDA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lYKen9D8; arc=fail smtp.client-ip=40.107.94.85
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lNQbxTMe"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lYKen9D8"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s1q5S7wM1t6px/D0UB4mh1eBnwJRHqo77t/5g5fD8OpnvWYx/y6WJ+e3TNQaLrtETzXgPobyFnFh1KN6XJ+BIBGcW4/IKFIQLOkiV7mdvcei/EtGXLBPo1069PVTebDzVfJTrdrqWgpF3bbaDadUR19/6EJyVp4ggTHX34PJjKxTNyb61PhVNfk2+tBUTsvuo+80DKZhrjcKBxVVRdtYltoXIEE46GrQoZiCmar/Lhw7adlP8fnuE1ibGrls4BfPNAKhDKv2/jGlN89Q3uZ9IuXOjyPiLP881dw8qLsPfynDyYhnMow+/+6pmnZXsXFKaJLPfQcl8v9fgNo6MbweCw==
+ b=IQ95fuYhjCWB/16p+xq0g2R7dYcSujo9fy/4S4DMMzR+Q0wNiFz3AzNx8UePvxygLKD06HfMWscYeydjs8x3c+xFiIJYH5cihb5OxG8l0G8nLjPxAPWtjDzASEoi8ET1h92VV9KB2FKDRTq4BeKvPYMaAiL8jh6/IPCXn7R8v8KiR+5Rj3daJpK2ubZkGuFRgNCCsKyuq+zgJyqckmUILZ/mrczlSLaYDHitFpX9FhHVIq2H+/gVAAbuQlFSOkvYnwjZs2kbMUdhdJfzdsWuAsaiJ+iuNTFt1yz9j04kDZS2p/NOMpyuIFrm2YGy71QgVWeFIe/L/6qoBZCHSdaxRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0TTBWiLd4XU+HmEn1dfhGHUgN4z57+aURA11o0p1XzM=;
- b=Dhz73PY1IpE7Vsf0dRlBJ/S2RhR/+Hlyy+ZBLR10S2gy9KvclqOxPahyVjdYw9zouZXwLepnR193Wv4GgXqjOjHIXW6wyiZ7gpnHJUb+l4apnYgyr/BrGkIYBkOTDVEvEYwKtABJ9O6GfCLDAgINjF3eSoRiuQx8F5gfDmPQHRwr+T7WjkaapW6fbDlSZvv7sk+BnbaXjPjp4Yoy4HJ3VVmRT0l2+nSrvZBRCjTM8rEnvb9q+11NfUaan1f2zjUNsB31gWjqgomSzwqJIN2muFpoJJMz86RS1arrps4dAiEUUS57wA4ZW/OGcHrf3FipSXknpHi4rL8El9JBVevnXQ==
+ bh=iOmYrokQL9j/O0mW4hRuhd9A+59V+jraqLdzRCyH8vg=;
+ b=HNirVc09u+RellYft38515LXsTNLPUgvwTHfjkK3635ojtVubgsuodM6lT3Ms1mTyREzC8giBYcMorpLabC0UCNNOh5Wcmo8wzBCrho/wHYjxD+8PTw/qBXmV1DNTY8amcJJ/Qp9g3vvsUn9eUue2FmV0Yh/BBOtbsMyWMideWmkxN0sfqc14iq6KDv0yKrYQlWncV1XPFoFMQJObqFNvuH1nDLdgyAEic/FQgvQhx84Y6UHGCSNfF/CUJEqemezMiAM//c//6zJweFw2p9POIbNOiJ3UaCLomXsD+4HoXMNvCLJW9OUodLvG/+xRvD43GFD4hAuEwvVAKSjwIL2BA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.160) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0TTBWiLd4XU+HmEn1dfhGHUgN4z57+aURA11o0p1XzM=;
- b=lNQbxTMe2TNIIzjnaBE1ufsjLTdlm6GZrnZF+jVZNGDFeN13Vk4txCYbOvP1zmTxmSJDDYFJU8bxFnzgY/LIVD2TGB2ZeEOoma2UFOG97Q9kTTX7pU48nSZ1cHhGK3AKyjH30GKsafCsWjA88NJXetf8Ud6vOmU3s3iiBxg3dS1vGzZhx8ty0LAzivsq+EK8O7NiWKe6tRC5ILMJP2wUMTq3OIdIchDr2tFAwwh4HGNJmbPhpU3Vdia1C6IFFLjexVZ9hng54m0xSvbHmuNCSh4B0VoSFRHcgBngjG1sD16O25l5ZKRAR5dpSOHAtsxX7DvK5Rdp2yCslj5InhOV0A==
-Received: from MN2PR16CA0058.namprd16.prod.outlook.com (2603:10b6:208:234::27)
- by DS7PR12MB8250.namprd12.prod.outlook.com (2603:10b6:8:db::12) with
+ bh=iOmYrokQL9j/O0mW4hRuhd9A+59V+jraqLdzRCyH8vg=;
+ b=lYKen9D8ZXV+5IH5nIEN1OCMtGlLdzb0UrpEblNe28mGtvYdhxgYnIDHYHth52oPcwjQpBruwpaVARp5i6PEi0JqcFK2LrywtqixrAGU7fANNAPOM05odIcbsVKe9fbabXoi7kz7neJ7c2yBqSH1oHoAmtRaCTvD6iBa2WR2v5Wv/1X67EnEY2qzhaiYyW3KJaYWZAmuIfC0M6MYS5Qi/481AmwCajUSp5GXGZucRbxtN68/9BfPoYUtOFAeGNQ90AJV9nOi3AQlsmz+ETV0ErtNmkTh8pkelZ4YFZzBOEW+LP8VXYIyBrarYb7tAuJj/L7ywUrNWTIyGBCUgtJQtQ==
+Received: from MN2PR16CA0062.namprd16.prod.outlook.com (2603:10b6:208:234::31)
+ by IA1PR12MB8192.namprd12.prod.outlook.com (2603:10b6:208:3f9::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.26; Sun, 20 Oct
- 2024 11:42:11 +0000
+ 2024 11:42:15 +0000
 Received: from MN1PEPF0000ECD4.namprd02.prod.outlook.com
- (2603:10b6:208:234:cafe::7c) by MN2PR16CA0058.outlook.office365.com
- (2603:10b6:208:234::27) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:208:234:cafe::12) by MN2PR16CA0062.outlook.office365.com
+ (2603:10b6:208:234::31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.23 via Frontend
- Transport; Sun, 20 Oct 2024 11:42:10 +0000
+ Transport; Sun, 20 Oct 2024 11:42:15 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -51,22 +51,22 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
 Received: from mail.nvidia.com (216.228.117.160) by
  MN1PEPF0000ECD4.mail.protection.outlook.com (10.167.242.132) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8093.14 via Frontend Transport; Sun, 20 Oct 2024 11:42:10 +0000
+ 15.20.8093.14 via Frontend Transport; Sun, 20 Oct 2024 11:42:14 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
  (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Sun, 20 Oct
- 2024 04:41:59 -0700
+ 2024 04:42:04 -0700
 Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.231.35) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Sun, 20 Oct 2024 04:41:57 -0700
+ 15.2.1544.4; Sun, 20 Oct 2024 04:42:02 -0700
 From: Parav Pandit <parav@nvidia.com>
 To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>,
 	<mvaralar@redhat.com>
 CC: <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>
-Subject: [PATCH v1 1/3] device-parts: editorial: Replace duplicated part type
-Date: Sun, 20 Oct 2024 14:41:39 +0300
-Message-ID: <20241020114141.451478-2-parav@nvidia.com>
+Subject: [PATCH v1 3/3] virtio-net: Define cvq configuration related device parts
+Date: Sun, 20 Oct 2024 14:41:41 +0300
+Message-ID: <20241020114141.451478-4-parav@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241020114141.451478-1-parav@nvidia.com>
 References: <20241020114141.451478-1-parav@nvidia.com>
@@ -76,82 +76,193 @@ List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD4:EE_|DS7PR12MB8250:EE_
-X-MS-Office365-Filtering-Correlation-Id: d9cb92f6-079c-4921-b82d-08dcf0fc3bec
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD4:EE_|IA1PR12MB8192:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9c7a5d34-469d-4837-36a7-08dcf0fc3e75
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|36860700013|82310400026;
+	BCL:0;ARA:13230040|376014|36860700013|1800799024|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?hhy2OA7PIJ2qfufCXsdkI0aOfr78jgS8L3ecek8VUsK+vDYha99wr43Wzt5Q?=
- =?us-ascii?Q?XHeb790ZJPANPRK8hBxmFkpPp8PCbJRcxgGSs+2B+woYHhGH4XxyYJc2WFMo?=
- =?us-ascii?Q?Gk1ycX/592NxHTLEEMyMeLkIQIe/gvBCLoSVH9ozRp6zK1+0lUvFPWlv6ZCQ?=
- =?us-ascii?Q?rsDUBWvMamxDWDDWfaEP4Epj0rBHl+OErePDPCl7NzcId83osNQ3S6+o9LAn?=
- =?us-ascii?Q?Q3LOrlY3JMTfNKTa7Mc2yYpZuk2ZzIYLdRtxnr08zXJdkwS/3XHm0V5DeT97?=
- =?us-ascii?Q?egKyu84IWHEGmomTxC2aoFEb5MhN2VIsXaOChRE0Pgt9A8JbvpuGEO8/+wWJ?=
- =?us-ascii?Q?lDV4jLN6XFRq7slFUmxaLmj74tXfyz+E5g4MkiyiiGr/m8zQSe/5SoEC1m/F?=
- =?us-ascii?Q?ywrTzd853DgIf7fgwOXQmmj/7E0BbllUjvciI7e+rAav/eGNJ8inOIyklp8x?=
- =?us-ascii?Q?2Cw3+J2fIfgSllZ+aFJUr1/HfNnxfaJ+0JVIAC+U4HAwnYJ90rBKu/KzuyEf?=
- =?us-ascii?Q?hCM1KwfML4eT41lnV2xE4hrcsyPoHr+WAQdp51CRUgO5CtOj2MAhZgeBhRAD?=
- =?us-ascii?Q?l2tLJdNBAXZCxKwm4pPEK3fvNlZfwbM5xzqTxiadAoydPljaDPrnjyac5jhL?=
- =?us-ascii?Q?rlBr2K9mYQa5J/6HnzYYVrlzXORbR70zGj/Lbh8gSKJ9XnV/WAzfdqTUKt1f?=
- =?us-ascii?Q?MydAMTfQmyw6iMX7HiTsqU1/L+04WCTEnCSly4FKRfTd7lx34JV+tZxP2g+m?=
- =?us-ascii?Q?/ypQyWtpYaUZbTiYJqxM2T8C5pQiHWfkwfHuUDDitRyqb15GiOPk8Z3v4vhB?=
- =?us-ascii?Q?aSYh4ZswFDKQas8w8McZEURLC+LQoOW6flVovN+2MKPmKTquWA0ctPI3m/BV?=
- =?us-ascii?Q?XKpWAB7SZSXxL/lKSBTB9t8gD60KLyVjg82D2LtVnKG7jwEzL7WINOc5QCIO?=
- =?us-ascii?Q?I/MVMnv/lJ2ytV461JFgRY1801GftKxEilVRScLbhh26WeDLkF3XB3kGqjaS?=
- =?us-ascii?Q?DlkR6wVXArcJ64vY4POY6lEu4lIRY+sPPTc+OYrmk1QntY2Dzh9gdpArxIkr?=
- =?us-ascii?Q?17zFe7JVbOAjl8xELfUtACIfZokAxUdR4hiHjM8//9WXtwUwb+RPxRth16ft?=
- =?us-ascii?Q?tMXgavULRdXNB1ZErLkmzmn7Pa6FMvqyczqyo2pjs5uDSNQ0bMeQHwPoaI/Y?=
- =?us-ascii?Q?jiElXBxOR2gTVy3Z5Bm+hvIymgV9ew8TJElrEXAmVIHH0TmGdhN8w9OElIfn?=
- =?us-ascii?Q?ZYhIsuwveNrSPeNbUVpBuH0iIAM2UiURralliGonPxPqZ/3N9P8jT3ozn9Wi?=
- =?us-ascii?Q?97qSw43EWyWsXzKhB68Bv/gcARHgNIVYU6pRe4o+wI4UNlzcgLzeScnDrXUn?=
- =?us-ascii?Q?ZP7aG4gl/ZuLHTyC0HqR2uevX2i9tyKTmcSX4+2Xq72vLaOKag=3D=3D?=
+	=?utf-8?B?cEFScVJWUHVCRXVWZnFmWnBacG1FUWJudHNKMENrN3ZGOXhDQW5zTGFVNFJ2?=
+ =?utf-8?B?UXVHLzVMMWR6STVKeDFXU2NvdDA2NHNwVG1XWjU5b3RjVEgvcnM2ZDlLV3Vt?=
+ =?utf-8?B?VHBXNGNWbVEwK1JqY3FORFFGZDdncG8wbm9xN01zWTZqUUhYU1ZWQm5sVnc2?=
+ =?utf-8?B?VmNQL01oaytsR2xQamtDTnlKd1IwTnVHSFBMZnNmK0dRaGZFa0RadWkybVBI?=
+ =?utf-8?B?VU9nZVVRL1VueVd3cXE4S0IxeExCQXdQbXZEY3lWYzAvWS9RZXk3OUlCa0ww?=
+ =?utf-8?B?WG4rd0hMVFVoSW9nRDNHUTR5R2VvSHR5UDJIU1RSWlNVd1FyYTJKa1pnK2Mx?=
+ =?utf-8?B?b1lXU0NUcjRwUGltWi9WSldpNHVPQXZ4Y0kxaVdQbVh6RU8rZmZlL0ppSzZq?=
+ =?utf-8?B?QkgrOVBQQ1Z5SU9yWlBBd3p0RFhReGlldDJJYVQ2R0liZ3BtMWNWbWQzQlVp?=
+ =?utf-8?B?Sms1czdPSU9kbkJyMjkzTkZ6NCtReUxNWXNqQWl2bDYza2tyU2hnQ0xjdnhw?=
+ =?utf-8?B?ZU4vRzR2ZVRNdktHOXh0TjJhNXRmNVZ3ZXNnb3ZNNHg4VmFJa2swWDVwQWdU?=
+ =?utf-8?B?NkxHdlRJeHRqeEZ3OGc1MTJOUWJvTG5yMnAwVEFGRkJYNkg4Ui9IbEl1eHVV?=
+ =?utf-8?B?d01TMkRTQ1pxeU1ETlpycjhNMEh0NDVGMlRoOFhNWHhTSGlwNmxiSWhNd3F6?=
+ =?utf-8?B?WHlzTXpiNDFabEtNTUZudkROTkZCRHlzbWc4SUJRbUJsaW5rZmQrQUFLaGNX?=
+ =?utf-8?B?UG5kTUJMd0FncGVGeHh4K04rb0ZQN3pDcnVZdittbFMxUE51bmYwRG5scyt4?=
+ =?utf-8?B?M3FCbHJlbTRnL2Z6NWJTb2RYWmRNaHp4MjJUcjA3SlpQMDZkVUZsY2h5Rlhp?=
+ =?utf-8?B?R09FdVRHbGhqSzAyUnR0OU9FS3pIb21nRU5SUEFQclhVS0pFYUk2VkRpNUJx?=
+ =?utf-8?B?TzVWb2ZaWG02WGhOMkhpb0ZRb1REQ2ZHSXlkTnVzZ3F5VE4yRWcxL05yTGlP?=
+ =?utf-8?B?dng4aEhTQ2NhTnpMK1UyOCtqNUs2aERPaEpFTERpZ3dBKzFyNWhpRnFyRyt0?=
+ =?utf-8?B?T1dralNzSHM0QXU1cDRWVHIzaWV6bFAxNTVXWlZlT0dJcVkvRlRXSE5jdjRp?=
+ =?utf-8?B?MkxOb1ZzT1dVL3FqSmZPWVdVMk5RM3kxTEZERUxQVDhWZHBMODlNOUkrZEJv?=
+ =?utf-8?B?WmtoM1RrUXhxV3c2dklUelFxTHIxV1I3ajhPcm5WQW9MeXdoRnlUMnVVc0sz?=
+ =?utf-8?B?NmFWbDllVHJjSGp2clpqNnR0aGpFdjJGNTdsSDFSOGQ5Z1JyT0JOUTdlY1Nq?=
+ =?utf-8?B?d2wzZzBTRG1HMDc4N1JCU05zWEtrQ0hBM0FhYldrMUVOWVRFMHZDc3N3SE92?=
+ =?utf-8?B?bmNWWTE4dGhqcXVPUU00c2t6QlRMeVVwNnNEVXpHTmVQY3FvNXZ4cGRVSVNt?=
+ =?utf-8?B?dkM2NXpzM3cyMFowUVc0VjVYQ2Z1UXJUOEtTTHFzRzVJRlRXUlFwcGwvemZ4?=
+ =?utf-8?B?VnBLU2NVR1JaL2pPU01HTUNVRVBTbU9KNlVYbVdNNTB0ZDBkYjdDOFBuOXli?=
+ =?utf-8?B?MUQwRkJFR1JUQ3dySkd2NXEzU1hwTjVLTy9VUE1vK1RNTnBqNXFHMzc4WElL?=
+ =?utf-8?B?M1I4ckc0RU1vZnd2MXlMdzlacjdqVmNEQU5xU1JkaHZjRnZqcEZvU2ZDY3Y1?=
+ =?utf-8?B?d29rUUhrZ0k1WUZnVldsQkR1ajlpenYzR253RjF2cEN2SlRlWUNuQ09CYUZh?=
+ =?utf-8?B?MVFraEZHZjF3Q1VLWFpxN3ZoK2pqb3YzVTBGSklTTW5PcS9JR3NtbDJ3ODZQ?=
+ =?utf-8?B?ZjVLbG9Ma2R2TlVFNjlhZUVFeHZNQWxMUjZwUm5JNTJOdkY4SGMveUhsMVp4?=
+ =?utf-8?B?UjdBMC84N08xVytOUWZ3cWIzTjkvM2IwWGIvOFN4dkNOR1E9PQ==?=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2024 11:42:10.5530
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2024 11:42:14.8499
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9cb92f6-079c-4921-b82d-08dcf0fc3bec
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c7a5d34-469d-4837-36a7-08dcf0fc3e75
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	MN1PEPF0000ECD4.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8250
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8192
 
-Device part type VIRTIO_DEV_PART_VQ_CFG was duplicated in
-the description; it is supposed to be VIRTIO_DEV_PART_VQ_NOTIFY_CFG.
-Fix it.
+virtio net driver sends the control virtqueue commands for
+device configuration. Such driver configuration is currently
+not captured in the device parts.
+
+This series adds several of such device parts which represents
+the network device specific configuration.
+
+It is done by utilizing the existing device parts structure.
+A new generic selector format is added to enable device type
+specific device parts.
+
+This series also reuses the existing control virtqueue command
+structures, fields, and values to define the network device parts.
 
 Fixes: https://github.com/oasis-tcs/virtio-spec/issues/209
-Fixes: 617aa2d62a88 ("Signed-off-by: Parav Pandit <parav@nvidia.com>")
 Reviewed-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
 Signed-off-by: Parav Pandit <parav@nvidia.com>
----
- device-parts.tex | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/device-parts.tex b/device-parts.tex
-index 7197929..e59c0f9 100644
---- a/device-parts.tex
-+++ b/device-parts.tex
-@@ -75,7 +75,7 @@ \section{Device parts}\label{sec:Basic Facilities of a Virtio Device / Device pa
+---
+changelog:
+v0->v1:
+- addressed comments from Matias
+- fixed spelling of selectors
+---
+ device-types/net/description.tex | 90 ++++++++++++++++++++++++++++++++
+ 1 file changed, 90 insertions(+)
+
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index e45ecbd..9a87bfb 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -433,6 +433,96 @@ \subsection{Device resource objects}\label{sec:Device Types / Network Device / D
+ \hline
+ \end{tabularx}
  
- \field{selector.vq_index.index} is the index of the virtqueue. It is valid
- only when the \field{part_type} is VIRTIO_DEV_PART_VQ_CFG or
--VIRTIO_DEV_PART_VQ_CFG.
-+VIRTIO_DEV_PART_VQ_NOTIFY_CFG.
++\subsection{Device parts}\label{sec:Device Types / Network Device / Device parts}
++
++Network device parts represent the configuration done by the driver using control
++virtqueue commands. Network device part is in the format of
++\field{struct virtio_dev_part}.
++
++\begin{tabularx}{\textwidth}{ |l||l|X| }
++\hline
++Type & Name & Description \\
++\hline \hline
++0x200 & VIRTIO_NET_DEV_PART_CVQ_CFG_PART & Represents device configuration done through a control virtqueue command, see \ref{sec:Device Types / Network Device / Device parts / VIRTIO-NET-DEV-PART-CVQ-CFG-PART} \\
++\hline
++0x201 - 0x5FF & - & reserved for future \\
++\hline
++\hline
++\end{tabularx}
++
++\subsubsection{VIRTIO_NET_DEV_PART_CVQ_CFG_PART}\label{sec:Device Types / Network Device / Device parts / VIRTIO-NET-DEV-PART-CVQ-CFG-PART}
++
++For VIRTIO_NET_DEV_PART_CVQ_CFG_PART, \field{part_type} is set to 0x200. The
++VIRTIO_NET_DEV_PART_CVQ_CFG_PART part indicates configuration performed by the
++driver using a control virtqueue command.
++
++\begin{lstlisting}
++struct virtio_net_dev_part_cvq_selector {
++        u8 class;
++        u8 command;
++        u8 reserved[6];
++};
++\end{lstlisting}
++
++There is one device part of type VIRTIO_NET_DEV_PART_CVQ_CFG_PART for each
++individual configuration. Each part is identified by a unique selector value.
++The selector, \field{device_type_raw}, is in the format
++\field{struct virtio_net_dev_part_cvq_selector}.
++
++The selector consists of two fields: \field{class} and \field{command}. These
++fields correspond to the \field{class} and \field{command} defined in
++\field{struct virtio_net_ctrl}, as described in the relevant sections of
++\ref{sec:Device Types / Network Device / Device Operation / Control Virtqueue}.
++
++The value corresponding to each part’s selector follows the same format as the
++respective \field{command-specific-data} described in the relevant sections of
++\ref{sec:Device Types / Network Device / Device Operation / Control Virtqueue}.
++
++For example, when the \field{class} is VIRTIO_NET_CTRL_MAC, the \field{command}
++can be either VIRTIO_NET_CTRL_MAC_TABLE_SET or VIRTIO_NET_CTRL_MAC_ADDR_SET;
++when \field{command} is set to VIRTIO_NET_CTRL_MAC_TABLE_SET, \field{value}
++is in the format of \field{struct virtio_net_ctrl_mac}.
++
++Supported selectors are listed in the table:
++
++\begin{tabularx}{\textwidth}{ |l|X| }
++\hline
++Class selector & Command selector \\
++\hline \hline
++VIRTIO_NET_CTRL_RX & VIRTIO_NET_CTRL_RX_PROMISC \\
++\hline
++VIRTIO_NET_CTRL_RX & VIRTIO_NET_CTRL_RX_ALLMULTI \\
++\hline
++VIRTIO_NET_CTRL_RX & VIRTIO_NET_CTRL_RX_ALLUNI \\
++\hline
++VIRTIO_NET_CTRL_RX & VIRTIO_NET_CTRL_RX_NOMULTI \\
++\hline
++VIRTIO_NET_CTRL_RX & VIRTIO_NET_CTRL_RX_NOUNI \\
++\hline
++VIRTIO_NET_CTRL_RX & VIRTIO_NET_CTRL_RX_NOBCAST \\
++\hline
++VIRTIO_NET_CTRL_MAC & VIRTIO_NET_CTRL_MAC_TABLE_SET \\
++\hline
++VIRTIO_NET_CTRL_MAC & VIRTIO_NET_CTRL_MAC_ADDR_SET \\
++\hline
++VIRTIO_NET_CTRL_VLAN & VIRTIO_NET_CTRL_VLAN_ADD \\
++\hline
++VIRTIO_NET_CTRL_ANNOUNCE & VIRTIO_NET_CTRL_ANNOUNCE_ACK \\
++\hline
++VIRTIO_NET_CTRL_MQ & VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET \\
++\hline
++VIRTIO_NET_CTRL_MQ & VIRTIO_NET_CTRL_MQ_RSS_CONFIG \\
++\hline
++VIRTIO_NET_CTRL_MQ & VIRTIO_NET_CTRL_MQ_HASH_CONFIG \\
++\hline
++\hline
++\end{tabularx}
++
++For command selector VIRTIO_NET_CTRL_VLAN_ADD, device part consists of a whole
++VLAN table.
++
++\field{reserved} is reserved and set to zero.
++
+ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device Operation}
  
- \subsection{Common device parts}\label{sec:Basic Facilities of a Virtio Device / Device parts / Common device parts}
- 
+ Packets are transmitted by placing them in the
 -- 
 2.34.1
 
