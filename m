@@ -1,181 +1,458 @@
-Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FD518C93F
-	for <virtio-comment@lists.linux.dev>; Fri, 18 Oct 2024 21:11:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DFC72260C
+	for <virtio-comment@lists.linux.dev>; Sun, 20 Oct 2024 08:36:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1729285909; cv=none; b=rOhxFlzvTZ/zUvToQfuyoS12u41wzMdjqIbHFS1uYXds+7z5yOKUvan1nbHqm1AhQJj92rQLutZZBVVS0RGsyzERjpJ68Ury6ApAsD9+Ve3nO33LqWMM1SYdOusejI1B2sysW1fhWCXpQgeOihbOzcnUcxPIO1dR/YWC2AS8bz0=
+	t=1729413387; cv=none; b=qX87K+XIwsTtPz6yTWFlSnq1CH7inX+sfwDN4u4AiMMeYaopa0AjXjN1O8k597uwBM7EjZmBE8BluhxWPF+VTof0lOHKJEg4k3VXBwA1VxJxebXD8PSsqZiq3p09k23haUSN8nzKFiVFaQIXFobJi8v3mSz/0rS4nsh92D9NFc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1729285909; c=relaxed/simple;
-	bh=78eF7mJrOH96LyZsjwJmSOq4gYpU4opynNXVvA/vhbU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=YnWYepd99N/Nsy4YssIJBIFkwwqwF5/soYeDxDlK7kwrsY+Dw16mmDMukM6WsZnnsj9cgPN1uBgtvkUjk+CuFsfhOMYN0AILzTp7JUxnMwqwa+CbCU3UCJCPmLGV0WzmbrB6rl67ZYASvMY9Z92k7l1L1eGklEIruwss/rRAhu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=jG9sjAGO; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1729413387; c=relaxed/simple;
+	bh=sglgMT4cJiHr0a0LeUneSlHXffcQmfbySXBTaWllTHE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WQPdk3DfrIwcdaJgnECmLji8ZgkCa9KfrvUmDiod+B3xb1FYbAhXb/aijCBLgxiBUAtzCoU6LWGw1nvNFfZIv194dT51UgySRm8G6XhPEJTvKZLOF8RD2O/B+moshNeX5JioNhiYeLejNSHuE8C2CqjNu02c1RnJQIf/DN0Fr5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DKV3m+wb; arc=none smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="jG9sjAGO"
-Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49IA8c2P032610;
-	Fri, 18 Oct 2024 14:11:43 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pfpt0220; bh=jQsam5qQFTYPrTVAkrqy8Df
-	yRmVE+TUGOoLl8jPXZXk=; b=jG9sjAGOY8Xfqhfc+kvhpcrD+bPuBwW2o7jDUES
-	Mz6g2/+bJtgAF97Ekbdb8VQyElepEIHjFf1KkqgQwMuCAHxQJBd3p+JjAczeSE3E
-	u1smzo+yJB+LpBT1hg/GU2krsj1DLreQGRUNgIynHMTemfDFSiWUGhB9TZC0JDEd
-	8VemVrEYP657zeKVTwUyyGpkJmQuD+0OjYptIVYBTmHmIif20mI7uVD/NvYL6x3O
-	ha8CJx8yuO2RbJju3t4yzmoozYE3dO2xDLJu0T0jbJRAjm3jIxpxPr4BuWuXowAX
-	bxtGBdhARR1MnzYEX2vBcX4eRW2AQ+PUreVM28Mc4Ix1DEQ==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 42bnnbhdwy-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Oct 2024 14:11:43 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Fri, 18 Oct 2024 14:11:42 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.4 via Frontend
- Transport; Fri, 18 Oct 2024 14:11:42 -0700
-Received: from 5810.caveonetworks.com (unknown [10.29.45.105])
-	by maili.marvell.com (Postfix) with ESMTP id 14C1C3F705B;
-	Fri, 18 Oct 2024 14:11:39 -0700 (PDT)
-From: Kommula Shiva Shankar <kshankar@marvell.com>
-To: <pabeni@redhat.com>, <willemb@google.com>, <jasowang@redhat.com>,
-        <parav@nvidia.com>, <virtio-comment@lists.linux.dev>
-CC: <ndabilpuram@marvell.com>, <jerinj@marvell.com>, <rbhansali@marvell.com>
-Subject: [RFC PATCH] virtio-net: Introduce a new field to indicate outer network header offset
-Date: Sat, 19 Oct 2024 02:41:38 +0530
-Message-ID: <20241018211138.2241138-1-kshankar@marvell.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DKV3m+wb"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-7e9e38dd5f1so2670098a12.0
+        for <virtio-comment@lists.linux.dev>; Sun, 20 Oct 2024 01:36:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1729413384; x=1730018184; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8thhe/qSR7n33FjeV7qwXwNLqY1Yz/uvUdWOH7GcH1k=;
+        b=DKV3m+wbEBl9kikpx9OiiILmGv/VbkT0Iecsc+FeqvoQIbyKh9bfSWICq0C+yV+DuD
+         KIKmx3IQ+xCyG7qa2fDYygrQpt7+qw3N+YbSpCF6PHz3nR7VSMXcFq+VCZFYldygFpq7
+         riwOl7109lyThqiN2Jnhxa0eR4wle2rWEJF+RxlDBARWaMIKs8+ptP2U8bjstganC+A+
+         JUCYmCwaST24aDZsyWKNRjF9YLYTpQOdjsSOBn5NErskfZaByUrQR+xCh0L5CaX2ruRv
+         nBhyh3yF5zT9klqQSJHLwoXIRdrlvUgJIYjfNoRtvNpBN0QIFiJYfY928o/QZyEjyhOz
+         iYaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729413384; x=1730018184;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=8thhe/qSR7n33FjeV7qwXwNLqY1Yz/uvUdWOH7GcH1k=;
+        b=RjER1/Z40eBCmcbdI6FbjqL3DRLBpODsa86u5xorVfQ7ht3QveSMTi6WHVqIwwv3bE
+         EID/ckUh2Tk6167zIEhZIoytCIkqChzHiWUy3L/kM3vvufbCMq3X+BeRDha6gV7WDKXF
+         WGhy3kqRcaBZ4yyD7ZY5IYhdzG8FkNjm9DMek65k9FYuhc/09uwUjMsLHC1WWCmz4Vrt
+         C7Y40OOH4F2zK9aVDcU+WQVVFxwsf46Iie5azKAln5f3YxmcMJK9osVYcVFQw/ckhyaj
+         I1+tsC1Y4n7UezN9bOHnUSdl1isr7PPy3cVy9pDxV7FkOVeFqa80x/wUeKDgce3KCf3s
+         l/Tw==
+X-Forwarded-Encrypted: i=1; AJvYcCVyTzE5z7wH07sPGx0pUezhH8foo3AtM89nn8fGZUebkuC6y6O5Xf0/1vTryix/T1cU4k+OtAdS5Dw1wzPBhg==@lists.linux.dev
+X-Gm-Message-State: AOJu0YzlTGGV0dDReUACJQ+2AohH6UIQY7Od4NcF5nGu0tC3cNl+Ypwa
+	2V+cxw00/tkaFtFrzotG+s59pB4PUqxo8CFHQ0f5aB2MFOibr5cU
+X-Google-Smtp-Source: AGHT+IH3sQ/TaxkJ9x/270OVPr+TWZezTqlshVHSDv4ymmlhofkkfr47bWd2npIMmxJqi4w/iRXB2w==
+X-Received: by 2002:a05:6a21:78d:b0:1d9:697:6a80 with SMTP id adf61e73a8af0-1d92c4a1d16mr12017121637.10.1729413383984;
+        Sun, 20 Oct 2024 01:36:23 -0700 (PDT)
+Received: from devant.antgroup-inc.local ([47.89.83.6])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-71ec1356756sm833433b3a.93.2024.10.20.01.36.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Oct 2024 01:36:23 -0700 (PDT)
+From: Xuewei Niu <niuxuewei97@gmail.com>
+X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+To: sgarzare@redhat.com
+Cc: fupan.lfp@antgroup.com,
+	mst@redhat.com,
+	niuxuewei.nxw@antgroup.com,
+	niuxuewei97@gmail.com,
+	virtio-comment@lists.linux.dev
+Subject: Re: [RESEND PATCH v4] virtio-vsock: Add support for multi devices
+Date: Sun, 20 Oct 2024 16:36:11 +0800
+Message-Id: <20241020083611.598017-1-niuxuewei.nxw@antgroup.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <wo2m5mkxpjx4flwbbyutlhpcdsnvwxn4b73b2fmyrconhfscx6@n45dc4sepcp5>
+References: <wo2m5mkxpjx4flwbbyutlhpcdsnvwxn4b73b2fmyrconhfscx6@n45dc4sepcp5>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: 3Mf4hDRzrLS7nhDxIiNioS9e4oSaFm0D
-X-Proofpoint-ORIG-GUID: 3Mf4hDRzrLS7nhDxIiNioS9e4oSaFm0D
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 
-This patch introduces a new field in the virtio_net_header called out_nh_offset,
-along with a new net device feature, VIRTIO_NET_F_OUT_NET_HEADER.
+> On Wed, Oct 16, 2024 at 05:53:54PM +0800, Xuewei Niu wrote:
+> >> On Sat, Oct 12, 2024 at 05:36:21PM +0800, Xuewei Niu wrote:
+> >> >> On Mon, Sep 09, 2024 at 04:51:50PM GMT, Xuewei Niu wrote:
+> >> >> >Hi Stefano,
+> >> >> >
+> >> >> >Thanks for your constructive comments and hope you had a nice vacation ;)
+> >> >> >
+> >> >> >I responded to some comments before proceeding to the next version. PTAL!
+> >> >> >
+> >> >> >Thanks,
+> >> >> >Xuewei
+> >> >> >
+> >> >> >> Hi,
+> >> >> >> sorry for the delay, I was on vacation.
+> >> >> >
+> >> >> >> On Tue, Aug 13, 2024 at 04:14:46PM GMT, Xuewei Niu wrote:
+> >> >> >> >This patch brings a new feature, called "multi devices", to the virtio
+> >> >> >> >vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, and
+> >> >> >> >a
+> >> >> >> >"index" field to the config for the virtio vsock.
+> >> >> >> >
+> >> >> >> >== Motivition ==
+> >> >> >> >
+> >> >> >> >Vsock is a lightweight and widely used data exchange mechanism between host
+> >> >> >> >and guest. Kata Containers, a secure container runtime, leverages the
+> >> >> >> >capability to exchange control data between the shim and the kata-agent.
+> >> >> >> >
+> >> >> >> >Currently, the virtio-vsock only supports one device, resulting in the
+> >> >> >> >following limitations:
+> >> >> >> >
+> >> >> >> >* Poor performance isolation: All vsock connections share the same
+> >> >> >> >virtqueue. By the way, although multi-queues can solve this problem, they
+> >> >> >> >do not conflict.
+> >> >> >> >* Cannot enable more than one backend: Virtio-vsock, vhost-vsock, and
+> >> >> >> >vhost-user-vsock cannot be enabled simultaneously on the transport.
+> >> >> >> >
+> >> >> >> >We’d like to transfer networking data, based on TSI (Transparent Socket
+> >> >> >> >Impersonation) technique, over vsock via the vhost-user protocol to reduce
+> >> >> >> >overhead. However, by default, the vsock device is occupied by the
+> >> >> >> >kata-agent, a control component for Kata Containers.
+> >> >> >> >
+> >> >> >> >== Typical Usages ==
+> >> >> >> >
+> >> >> >> >Assuming there are two virtio-vsock devices on the guest, with CIDs 3 and 4
+> >> >> >> >respectively. And the device with CID 3 is default.
+> >> >> >> >
+> >> >> >> >==== Guest -> Host ====
+> >> >> >> >
+> >> >> >> >Use the device with CID 3.
+> >> >> >> >
+> >> >> >> >```c
+> >> >> >> >fd = socket(AF_VSOCK);
+> >> >> >> >bind(fd, 3, -1);
+> >> >> >> >connect(fd, 2, 1234);
+> >> >> >> >n = write(fd, buffer);
+> >> >> >> >
+> >> >> >> >// or use default (no bind)
+> >> >> >> >fd = socket(AF_VSOCK);
+> >> >> >> >connect(fd, 2, 1234);
+> >> >> >> >n = write(fd, buffer);
+> >> >> >> >```
+> >> >> >> >
+> >> >> >> >Use the device with CID 4.
+> >> >> >> >
+> >> >> >> >```c
+> >> >> >> >fd = socket(AF_VSOCK);
+> >> >> >> >bind(fd, 4, -1);
+> >> >> >> >connect(fd, 2, 1234);
+> >> >> >> >n = write(fd, buffer);
+> >> >> >> >```
+> >> >> >> >
+> >> >> >> >==== Host -> Guest ====
+> >> >> >> >
+> >> >> >> >The usage is no changes in this case. Send to device with CID 3.
+> >> >> >> >
+> >> >> >> >```c
+> >> >> >> >fd = socket(AF_VSOCK);
+> >> >> >> >connect(fd, 3, 1234);
+> >> >> >> >n = write(fd, buffer);
+> >> >> >> >```
+> >> >> >> >
+> >> >> >> >Send to device with CID 4.
+> >> >> >> >
+> >> >> >> >```c
+> >> >> >> >fd = socket(AF_VSOCK);
+> >> >> >> >connect(fd, 4, 1234);
+> >> >> >> >n = write(fd, buffer);
+> >> >> >> >```
+> >> >> >> >
+> >> >> >> >I've pushed a version of code for the implementation of multi devices to
+> >> >> >> >lkml [1].
+> >> >> >> >
+> >> >> >> >[1] https://lore.kernel.org/virtualization/20240517144607.2595798-1-niuxuewei.nxw@antgroup.com
+> >> >> >> >
+> >> >> >> >Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
+> >> >> >>
+> >> >> >> mmm, why there is my S-o-b here?
+> >> >> >
+> >> >> >Lol. I've replaced some of descriptions with your version. So should I keep this s-o-b?
+> >> >>
+> >> >> Commonly S-o-b is to be put only if the person concerned specifies you
+> >> >> to put it. In this case it's your work, I just made suggestions and you
+> >> >> don't need to put my S-o-b ;-)
+> >> >
+> >> >Okay. Will update.
+> >> >
+> >> >> >
+> >> >> >> >Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+> >> >> >> >---
+> >> >> >> > device-types/vsock/description.tex | 45 ++++++++++++++++++++++++++++--
+> >> >> >> > 1 file changed, 43 insertions(+), 2 deletions(-)
+> >> >> >> >
+> >> >> >> >diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
+> >> >> >> >index 7d91d15..5a10ae1 100644
+> >> >> >> >--- a/device-types/vsock/description.tex
+> >> >> >> >+++ b/device-types/vsock/description.tex
+> >> >> >> >@@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+> >> >> >> > \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+> >> >> >> > \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+> >> >> >> > \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not implied.
+> >> >> >> >+\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] driver supports multiple devices.
+> >> >> >>
+> >> >> >> I'd follow the the other features with something like:
+> >> >> >> "\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] multiple socket devices are supported."
+> >> >> >>
+> >> >> >> > \end{description}
+> >> >> >> >
+> >> >> >> > \drivernormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
+> >> >> >> >@@ -52,6 +53,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> >> >> >> > \begin{lstlisting}
+> >> >> >> > struct virtio_vsock_config {
+> >> >> >> > 	le64 guest_cid;
+> >> >> >> >+	le16 index;
+> >> >> >> > };
+> >> >> >> > \end{lstlisting}
+> >> >> >> >
+> >> >> >> >@@ -77,11 +79,41 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> >> >> >> > \hline
+> >> >> >> > \end{tabular}
+> >> >> >> >
+> >> >> >> >+The \field{index} field indicates index of a device, and is required for
+> >> >> >> >+each device while the VIRTIO_VSOCK_F_MULTI_DEVICES feature has been
+> >> >> >>
+> >> >> >> what about "when the VIRTIO_VSOCK_F_MULTI_DEVICES feature is negotiated" ?
+> >> >> >>
+> >> >> >> >+negotiated. The size of the \field{index} is 16 bits which supports up to
+> >> >> >> >+65,536 devices.
+> >> >> >>
+> >> >> >> What about "The \field{index} is 16 bits in size, enabling support for
+> >> >> >> up to 65,536 devices."
+> >> >> >
+> >> >> >I'll update in v5.
+> >> >> >
+> >> >> >> >+The device with the lowest index is considered as the default device. There
+> >> >> >> >+was only one device before the multi-device feature was supported. When the
+> >> >> >> >+multi-device feature is enabled (VIRTIO_VSOCK_F_MULTI_DEVICES has been
+> >> >> >> >+negotiated), the default device can be thought of as the device. It is used
+> >> >> >> >+to maintain compatibility with applications that are not yet ready to
+> >> >> >> >+support this feature.
+> >> >> >>
+> >> >> >> IMHO this part is not very clear.
+> >> >> >> I would try to explain what index is only for when
+> >> >> >> VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, something like that:
+> >> >> >>
+> >> >> >>    If VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, the index of multiple
+> >> >> >>    devices managed by the driver is used by the driver to choose the
+> >> >> >>    default device when the source socket is not bound to any CID. In this
+> >> >> >>    case, the driver uses the device with the lowest index as the default.
+> >> >> >>
+> >> >> >> I'm not sure if we need to add a specific paragraph to explain that
+> >> >> >> part better.
+> >> >> >
+> >> >> >I'd like to tell the users that what will happen if they don't update their
+> >> >> >vsock apps. But your version is more concise and clear.
+> >> >> >
+> >> >> >I think we don't need to do that, since we'll elaborate the details about
+> >> >> >the default device in the "Device Operation: Receive and Transmit".
+> >> >> >
+> >> >> >Wdyt?
+> >> >>
+> >> >> Okay, let's try, I'll check the final result.
+> >> >>
+> >> >> >
+> >> >> >> >+
+> >> >> >> >+\devicenormative{\subsubsection}{Device configuration layout}{Device
+> >> >> >> >Types / Socket Device / Device configuration layout}
+> >> >> >> >+
+> >> >> >> >+The \field{index}es don't have to be continuous. For instance, three
+> >> >> >> >+devices with \field{index} 1, 2 and 5 respectively are acceptable.
+> >> >> >> >+
+> >> >> >> >+The \field{index}es cannot have conflicts. For instance, three devices with
+> >> >> >> >+\field{index} 1, 1 and 5 respectively are prohibited.
+> >> >> >>
+> >> >> >> A normative section should use SHOULD, MAY, MUST. Please take a look at
+> >> >> >> the other normative sections.
+> >> >> >>
+> >> >> >> Should we add a line here in the normative section to specify that the
+> >> >> >> driver must use the device with the lowest index as the default?
+> >> >> >
+> >> >> >I will update it as follows in v5.
+> >> >> >
+> >> >> >```
+> >> >> >\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+> >> >> >
+> >> >> >The device MAY make \field{index}es discontinuous.
+> >> >> >
+> >> >> >The device MUST use a different \field{index}.
+> >> >>
+> >> >> I think in both we need to talk about multiple devices, not the single
+> >> >> device.
+> >> >
+> >> >Yes, I think I am talking about multiple devices. I'd like to point out that the
+> >> >indexes must be unique but could be discontinuous.
+> >> >
+> >> >What about the following?
+> >> >
+> >> >```
+> >> >\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+> >> >
+> >> >The device MUST offer a unique \field{index}. The \field{index}es among all
+> >> >devices MAY be discontinuous.
+> >> >```
+> >>
+> >> I think we should emphasize that this is only true when
+> >> VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated. Also we should better say
+> >> what we mean by unique, i.e., that index can be assigned to one device
+> >> when there are more than one.
+> >>
+> >> Thanks,
+> >> Stefano
+> >
+> >I updated it with emphasizing the condition of VIRTIO_VSOCK_F_MULTI_DEVICES
+> >and the meaning of "unique", as follows:
+> >
+> >```
+> >The device MUST offer an \field{index}, which MUST NOT be same with the
+> >\field{index} of other devices, when VIRTIO_VSOCK_F_MULTI_DEVICES is
+> >negotiated.
+> 
+> I'd put the condition first: When VIRTIO_VSOCK_F_MULTI_DEVICES is
+> negotiated ...
 
-Currently, there is no field available to directly read the outer network header offset in case of segmentation offload.
-This requires reading packet data, which significantly affects performance in datapath.
-Additionally, some hardware implementations requrie knowledege of the outer L3 offset (aka L2 length) for inline IPSec hardware acceleration.
+Will do.
 
-To address this limitation, we propose splitting the csum_offset field into two 8-bit fields named csum_offset and out_nh_offset.
-The csum_offset indicates the offset value from the csum_start and  may not exceed 256B bits(2^8) for protocols that use a
-16-bit one's complement checksum
+> Rereading these sentences, though, a doubt occurred to me:
+> 
+> What if we have multiple devices attached, but some of them have 
+> VIRTIO_VSOCK_F_MULTI_DEVICES and some don't?
+> 
+> I think we should cover this in the spec, but I'm not sure how to handle 
+> it. Maybe in this case, since without the feature we don't support, 
+> devices that don't have VIRTIO_VSOCK_F_MULTI_DEVICES may be ignored, any 
+> other ideas?
 
-Following table lists such protocols and their checksum offset fields within their headers
+Yeah, nice catch here!
 
-+-----+--------+
-|Proto|csum_off|
-+-----+--------+
-| IPV4| 10B    |
-| ICMP| 2B     |
-| IGMP| 2B     |
-|  TCP| 16B    |
-|  UDP| 6B     |
-+-----+--------+
+It would depend on the frist device:
 
-The out_nh_offset represents the start offset of the outer network header from
-the beginning of the packet data
+1. The first device has negotiated VIRTIO_VSOCK_F_MULTI_DEVICES. Then,
+ingore the following devices without VIRTIO_VSOCK_F_MULTI_DEVICES.
+2. The first device has not negotiated VIRTIO_VSOCK_F_MULTI_DEVICES. Then,
+we should consider that the multi-devices feature is disabled, and ignore
+any devices that follow.
 
-This issue was briefly discussed on the mailing list in a different thread, which can be found here
-https://lore.kernel.org/all/DM4PR18MB4269FAAC3CFC7E57E25DFBD2DF8B2@DM4PR18MB4269.namprd18.prod.outlook.com/
+I don't know if we can unregister a device after it has been registered. If
+yes, when a device with the feature enabled comes, for case 2, we could
+unregister the first device and ignore devices without
+VIRTIO_VSOCK_F_MULTI_DEVICES.
 
-Signed-off-by: Kommula Shiva Shankar <kshankar@marvell.com>
----
- device-types/net/description.tex | 26 +++++++++++++++++++++++++-
- 1 file changed, 25 insertions(+), 1 deletion(-)
+Thanks,
+Xuewei
 
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 76585b0..48c081b 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -88,6 +88,10 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
- \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
-     channel.
- 
-+\item[VIRTIO_NET_F_OUT_NET_HEADER(50)] Driver can provide the start of \field{out_nh_offset}
-+    value. Device gains advantage by not reading packet data to calculate outer network
-+    header offset.
-+
- \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header hash for encapsulated packets.
- 
- \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue notification coalescing.
-@@ -418,7 +422,13 @@ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device O
-         le16 hdr_len;
-         le16 gso_size;
-         le16 csum_start;
--        le16 csum_offset;
-+        union {
-+                le16 csum_offset;
-+                struct { (Only if VIRTIO_NET_F_OUT_NET_HEADER negotiated)
-+                        le8 csum_offset;
-+                        le8 out_nh_offset;
-+                };
-+        };
-         le16 num_buffers;
-         le32 hash_value;        (Only if VIRTIO_NET_F_HASH_REPORT negotiated)
-         le16 hash_report;       (Only if VIRTIO_NET_F_HASH_REPORT negotiated)
-@@ -457,6 +467,10 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- \item The driver can send a completely checksummed packet.  In this case,
-   \field{flags} will be zero, and \field{gso_type} will be VIRTIO_NET_HDR_GSO_NONE.
- 
-+\item If the driver negotiated VIRTIO_NET_F_OUT_NET_HEADER,
-+   \field{out_nh_offset} indicates the outer network header offset in bytes
-+    from the beginning of the packet.
-+
- \item If the driver negotiated VIRTIO_NET_F_CSUM, it can skip
-   checksumming the packet:
-   \begin{itemize}
-@@ -531,6 +545,10 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- \field{flags} to zero and SHOULD supply a fully checksummed
- packet to the device.
- 
-+If the VIRTIO_NET_F_OUT_NET_HEADER feature has been negotiated,
-+the driver MUST set \field{out_nh_offset} to point outer
-+network header start, otherwise to zero.
-+
- If VIRTIO_NET_F_HOST_TSO4 is negotiated, the driver MAY set
- \field{gso_type} to VIRTIO_NET_HDR_GSO_TCPV4 to request TCPv4
- segmentation, otherwise the driver MUST NOT set
-@@ -596,6 +614,7 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- 	the driver SHOULD set \field{hdr_len} to a value
- 	not less than the length of the headers, including the transport
- 	header.
-+
- \end{itemize}
- 
- The driver SHOULD accept the VIRTIO_NET_F_GUEST_HDRLEN feature if it has
-@@ -610,6 +629,10 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- If VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} is not set, the
- device MUST NOT use the \field{csum_start} and \field{csum_offset}.
- 
-+If the VIRTIO_NET_F_OUT_NET_HEADER feature has been negotiated,
-+the device MAY use \field{out_nh_offset} as the outer network header
-+offset, otherwise device MUST NOT use the \field{out_nh_offset} value.
-+
- If one of the VIRTIO_NET_F_HOST_TSO4, TSO6, USO or UFO options have
- been negotiated:
- \begin{itemize}
-@@ -631,6 +654,7 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- 	\begin{note}
- 	This is due to various bugs in implementations.
- 	\end{note}
-+
- \end{itemize}
- 
- If VIRTIO_NET_HDR_F_NEEDS_CSUM is not set, the device MUST NOT
--- 
-2.43.0
-
+> 
+> Thanks,
+> Stefano
+> >
+> >The device SHOULD NOT offer an \field{index} when
+> >VIRTIO_VSOCK_F_MULTI_DEVICES is not negotiated.
+> >```
+> >
+> >Does this look good to you?
+> >
+> >Thanks,
+> >Xuewei
+> >
+> >> >
+> >> >> >
+> >> >> >\drivernormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+> >> >> >
+> >> >> >The driver MUST use the device with the lowest index as the default.
+> >> >>
+> >> >> IMHO "default" here is not clear, so something like, “as default device
+> >> >> for outgoing connections”
+> >> >
+> >> >Will update.
+> >> >
+> >> >> Thanks,
+> >> >> Stefano
+> >> >>
+> >> >> >```
+> >> >> >
+> >> >> >Looks good to you?
+> >> >> >
+> >> >> >> >+
+> >> >> >> > \subsection{Device Initialization}\label{sec:Device Types / Socket
+> >> >> >> > Device / Device Initialization}
+> >> >> >> >
+> >> >> >> > \begin{enumerate}
+> >> >> >> > \item The guest's cid is read from \field{guest_cid}.
+> >> >> >> >
+> >> >> >> >+\item Check for multi devices support:
+> >> >> >> >+\begin{itemize}
+> >> >> >> >+    \item If the VIRTIO_VSOCK_F_MULTI_DEVICES feature has been negotiated,
+> >> >> >> >+    the device's index will be read from \field{index}, and the driver will
+> >> >> >> >+    allow multi devices.
+> >> >> >> >+    \item If the VIRTIO_VSOCK_F_MULTI_DEVICES feature isn't 
+> >> >> >> >negotiated, the
+> >> >> >> >+    device's index will be ignored, and the driver will deny the
+> >> >> >> >second and
+> >> >> >> >+    subsequent devices.
+> >> >> >> >+\end{itemize}
+> >> >> >> >+
+> >> >> >> > \item Buffers are added to the event virtqueue to receive events from the device.
+> >> >> >> >
+> >> >> >> > \item Buffers are added to the rx virtqueue to start receiving packets.
+> >> >> >> >@@ -167,6 +199,11 @@ \subsubsection{Addressing}\label{sec:Device Types / Socket Device / Device Opera
+> >> >> >> > consists of a (cid, port number) tuple. The header fields used for this are
+> >> >> >> > \field{src_cid}, \field{src_port}, \field{dst_cid}, and \field{dst_port}.
+> >> >> >> >
+> >> >> >> >+When the driver supports multiple devices (feature
+> >> >> >> >+VIRTIO_VSOCK_F_MULTI_DEVICES negotiated), if the transmitting socket is not
+> >> >> >>
+> >> >> >> s/transmitting/source
+> >> >> >
+> >> >> >I'll update in v5.
+> >> >> >
+> >> >> >> >+bound to any specific address, then \field{src_cid} should be assigned with
+> >> >> >> >+the CID of the default device.
+> >> >> >> >+
+> >> >> >> > Currently stream and seqpacket sockets are supported. \field{type} is 1 (VIRTIO_VSOCK_TYPE_STREAM)
+> >> >> >> > for stream socket types, and 2 (VIRTIO_VSOCK_TYPE_SEQPACKET) for
+> >> >> >> > seqpacket socket types.
+> >> >> >> >
+> >> >> >> >@@ -233,8 +270,12 @@ \subsubsection{Receive and Transmit}\label{sec:Device Types / Socket Device / De
+> >> >> >> >
+> >> >> >> > \drivernormative{\paragraph}{Device Operation: Receive and Transmit}{Device Types / Socket Device / Device Operation / Receive and Transmit}
+> >> >> >> >
+> >> >> >> >-The \field{guest_cid} configuration field MUST be used as the source CID when
+> >> >> >> >-sending outgoing packets.
+> >> >> >> >+The \field{guest_cid} configuration field of one device MUST be used as the
+> >> >> >> >+source CID when sending outgoing packets. When the
+> >> >> >> >+VIRTIO_VSOCK_F_MULTI_DEVICES feature is not negotiated, there is only one
+> >> >> >> >+device. When this feature has been negotiated, either use the
+> >> >> >> >+\field{guest_cid} of the device specified by the user, or use that of the
+> >> >> >> >+default device.
+> >> >> >>
+> >> >> >> We can skip the one device part, I would rephrase it to something like this:
+> >> >> >>
+> >> >> >> The \field{guest_cid} configuration field MUST be used as the source CID when
+> >> >> >> sending outgoing packets.
+> >> >> >> When the VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, the source CID
+> >> >> >> MUST be one of the \field{guest_cid} configuration field of the multiple
+> >> >> >> devices handled by the driver.
+> >> >> >
+> >> >> >I'll update in v5.
+> >> >> >
+> >> >> >> Thanks,
+> >> >> >> Stefano
+> >> >> >>
+> >> >> >> >
+> >> >> >> > A VIRTIO_VSOCK_OP_RST reply MUST be sent if a packet is received with an
+> >> >> >> > unknown \field{type} value.
+> >> >> >> >--
+> >> >> >> >2.34.1
+> >> >> >> >
+> >> >> >
+> >> >
+> >> >Regards,
+> >> >Xuewei
+> >> >
+> >
