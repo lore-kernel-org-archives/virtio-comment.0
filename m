@@ -1,60 +1,60 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134171E633C
-	for <virtio-comment@lists.linux.dev>; Mon, 21 Oct 2024 13:21:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04211F942A
+	for <virtio-comment@lists.linux.dev>; Mon, 21 Oct 2024 13:42:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1729516882; cv=none; b=gMGBgNo5SoVlaxgbWVZZ+oNzB7ElXTEMuvplW7fC8MeyZk0yTbrb3TFpT/boh4esEC8hQdRFD2FTW8nVULB/6be5BBlN51x0/LpDmdZ56G5Q1uh4uHrqaM6QF7R3yB3U+XS2/OyCi8slAG9VjQA1hel5tkZ4hGM2amWdBr41wf4=
+	t=1729518161; cv=none; b=ep2UdPHkVGauK55RSWWzy/vs8AaxQZoa9oGPKMevJWpSey6CF+JXsc3J0dglc7YM3XvQi28fsKJi65+Sjrn3H69qIPQj+zNi8Y9rdn8qIUraXRIs7/vaoejJbm6k7oiTIrchQP6XDngDMR7LhrCyMiDLKeXqvFHoPRjyTnabYjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1729516882; c=relaxed/simple;
-	bh=3RZQXtiv+CSgH/iA1WtqkrpGmPMzNj7F0ZcqF8orMxc=;
+	s=arc-20240116; t=1729518161; c=relaxed/simple;
+	bh=Aaqj7Q1TN3GimLNGqSQKE3LgRQOtpXr+nPI1x1U3hNs=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nXJ2p6dIvOTHhj1BgKmca+j7qyF6nK0Q8+u1VHvAS75xAL9p5DJM3HLwtROn0J20G+SwCUVHiA8+IHTt3s7YHUfTqBBCif0AZCowGtCI28pK7OECiMD9kDnLGpZt7H7eHytjHfpSD9CxYVODYygZcgoEkULcwU55KgL2LhRYJDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CjAhuL52; arc=none smtp.client-ip=170.10.133.124
+	 To:Cc:Content-Type; b=GeCQQDaUo9SRbGLPn24SAwVrn7Gi1KQY24zhSbEKUs/78WTtAAu4ZKyK3Y4szDSTePJt1xgQZ68jYwENJFZgxGtL3kzprS+rRYRRzEQVde6VWBNmg+BZglcK/uv9os2HGmmvuWtAYLkcZRrFUxLlby8pZ6Tx07jHcIds6k3eWPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ay+Bd+wN; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CjAhuL52"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ay+Bd+wN"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1729516879;
+	s=mimecast20190719; t=1729518157;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lG3zotzp/I1y0jr7f7NMYhwD5P9cdSd1Z//oBE1bvCc=;
-	b=CjAhuL52f+8DTHd/E03W2pPSBkF4JlDeIlyrpoVmMBzfUGI6NRBlEj640sCpzG0Mi3UYFd
-	bxFatCj3eYww8+O/87pBEgGTPTI75mXFWJClFQOn22De3bbM+JoA94H6TGNLhRT9y6QG+7
-	5Xx5aLYzRhDKHtvCH40/sfI6zUJX70U=
+	bh=Z2kDu09J3eYwdbf3h1pTL1TKf/V01tZjU8Yn+hO2WDA=;
+	b=Ay+Bd+wNfplx6TwG+eVNUJ7ElHTlq8QDepvVBaOcxrHaDO7pWmjtVvQnymeVYJAMvNTF7u
+	12im9wA8LauyFHvfu9PAF9eoIl77/S2aNMVR0qgo2TKlvK0Rd9wf0u3aqS3AFmMONhYEOU
+	FiHhn1PzI6F2WxMgRGX63TnZv/xIvE0=
 Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
  [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-398--dA3Sb4wOAiG0iCQ2qbG9Q-1; Mon, 21 Oct 2024 09:21:17 -0400
-X-MC-Unique: -dA3Sb4wOAiG0iCQ2qbG9Q-1
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-2e2cc47ce63so4225744a91.3
-        for <virtio-comment@lists.linux.dev>; Mon, 21 Oct 2024 06:21:17 -0700 (PDT)
+ us-mta-665-7zC9ad2hMBe3AHoH8G58TA-1; Mon, 21 Oct 2024 09:42:36 -0400
+X-MC-Unique: 7zC9ad2hMBe3AHoH8G58TA-1
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-2e59d872d09so1700848a91.0
+        for <virtio-comment@lists.linux.dev>; Mon, 21 Oct 2024 06:42:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729516877; x=1730121677;
+        d=1e100.net; s=20230601; t=1729518155; x=1730122955;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=lG3zotzp/I1y0jr7f7NMYhwD5P9cdSd1Z//oBE1bvCc=;
-        b=quFyIesthXdkg4ByI7blcJp8BBSwSX9fMwytxxvgaF2XF6jF+MVkjI6w64KSiU9NM1
-         odwV3Q4xUJvGHRAgpfvaoHqfxQX7nqdbxUvZItXPRVnvK9k4oSCXt0FRqYrtQi4Aumcf
-         uvDhrTHsKsm/95d2ifcG4lR+C8hOqnM4GgcpCu4NbM9+LyS9ESGKqNMv931xUyNeyuR2
-         io1646AbZHhylHYD0zBWUCbnVafiLiZfbJRYauHD1HRO3or29SfKNztBd9Z7262yxuGy
-         aIEaLRrpwHDOhxiLwJu7Z0rvzWLx91jdPEhaZlnE2GF3jXnwEZaIAj2rfXu/VhCIeKU1
-         jZTg==
-X-Gm-Message-State: AOJu0Yy+lsl3xRSztaIHTDSaVRNtsuYUbk4XQfr7PGKn1oLSm2JAzuC1
-	1Yfz2gB7ats3Qonp7jSnyGkHqMTmITEZzfEwLo/BSEM5KF0P4Vt6LeLWMxmdhRIX64Vhs0/II2S
-	SCzuiUHPNQVgtkMsqPtn5NYnAb8HwmIYuvJ7zXONvaheegSby8yGYmV0wD7PHTA64l1JvVUTtIQ
-	0mXcQrSZx3vRmo8AX9xFk2bA3M1I5qga2neRdhTNA=
-X-Received: by 2002:a17:90a:7406:b0:2e2:ba35:356c with SMTP id 98e67ed59e1d1-2e56172c2a4mr13091727a91.39.1729516876505;
-        Mon, 21 Oct 2024 06:21:16 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGNs/sXzG3OG8MCNFAyUVgcLKB4twtx8KjS041NLqt4JqZ93+IjWDt7+LAYCgPthOlEJlXKvFRLdi8MPiPh8Qo=
-X-Received: by 2002:a17:90a:7406:b0:2e2:ba35:356c with SMTP id
- 98e67ed59e1d1-2e56172c2a4mr13091671a91.39.1729516875713; Mon, 21 Oct 2024
- 06:21:15 -0700 (PDT)
+        bh=Z2kDu09J3eYwdbf3h1pTL1TKf/V01tZjU8Yn+hO2WDA=;
+        b=WNBShCikyl1qpG2lRRElqanUOt4FUxifVXrVw3JBIMAYbdWqLNkznuHNs+OXRBGihc
+         N4r7YZFkjZ2HQUJzpDJLh3bufYzRy4tPEEFWhUAhOqsd3BFH5zr20+YgKCyl53wx9lMQ
+         446V4ZptEb5oiTBpK+fEMSQyWOinYZlpBE0HXaGLpXXQYwuWU+idYUsjoPBpML6Vl618
+         GBSYc0+qzpsveIXVFK9LlSyIl45Nm3Zsi4DqDDP4nd/uwiSf8RXLC6zaEpoo7z4UYttQ
+         EzFmem7lvQWN3IMaUesHFP1wpRK2kriNDkikTQiMD3u5/hKAh0dfgJWFtk0VfL80LQDL
+         IdAw==
+X-Gm-Message-State: AOJu0Yxl078sNsGVKTShnoJHtmH1ca3W9fuzVCixT7Y8TbZpc7eoCieh
+	U/68twN9bFJ82rz37T6JgJaChiWeQDAp0+Bs5/dtmBPNr+68SXPIPc5BP7x4ap1KpKNzto47FCX
+	Q4/AoyW8Kqmhqt/n+J5zTEVgnEMUctsH/uoL1dyFC4UWjRw4qdLZ4mdVK/OTOIPQSAr3cEUn7xN
+	1R6MacZinHbPUkp5Y6N9ZYYQe8cV20/ALgizvW+eg=
+X-Received: by 2002:a17:90a:a018:b0:2e3:b168:70f5 with SMTP id 98e67ed59e1d1-2e56172c05fmr13383584a91.21.1729518155237;
+        Mon, 21 Oct 2024 06:42:35 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE+8pNA+njAsBCxhS24onL92TOGQijv/NinKq5R+KGCtzTYMa1Vp3S1YR8XJE5bJ0W4hzq7dTInlmmYMYoiFm0=
+X-Received: by 2002:a17:90a:a018:b0:2e3:b168:70f5 with SMTP id
+ 98e67ed59e1d1-2e56172c05fmr13383546a91.21.1729518154634; Mon, 21 Oct 2024
+ 06:42:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -62,32 +62,31 @@ List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 References: <20241017070423.86706-1-aesteve@redhat.com> <20241017070423.86706-2-aesteve@redhat.com>
- <ZxIhtQrr/oKwPUBb@fedora>
-In-Reply-To: <ZxIhtQrr/oKwPUBb@fedora>
+ <CAPBb6MXZ0mtniEDiBnbYE1zDgTAYCvQ2-g-9TxaD3t3AzwZiOQ@mail.gmail.com>
+In-Reply-To: <CAPBb6MXZ0mtniEDiBnbYE1zDgTAYCvQ2-g-9TxaD3t3AzwZiOQ@mail.gmail.com>
 From: Albert Esteve <aesteve@redhat.com>
-Date: Mon, 21 Oct 2024 15:21:04 +0200
-Message-ID: <CADSE00+=vE1Z+ocna-pnEZdhSFqnv4CndrzBSSbgUh_s4wR_xg@mail.gmail.com>
+Date: Mon, 21 Oct 2024 15:42:23 +0200
+Message-ID: <CADSE00L-4NzVMEjPhryA-_rvv0TRzsRY7FDB9iMnc7ZCujM35w@mail.gmail.com>
 Subject: Re: [PATCH v3 1/1] virtio-media: Add virtio media device specification
-To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+To: Alexandre Courbot <acourbot@chromium.org>
 Cc: virtio-comment@lists.linux.dev, changyeon@google.com, 
 	daniel.almeida@collabora.com, ribalda@google.com, 
 	nicolas.dufresne@collabora.com, alex.bennee@linaro.org, eballetb@redhat.com, 
-	acourbot@chromium.org, gurchetansingh@google.com, hverkuil@xs4all.nl, 
-	cohuck@redhat.com, mst@redhat.com, agordeev@qti.qualcomm.com
+	gurchetansingh@google.com, hverkuil@xs4all.nl, cohuck@redhat.com, 
+	mst@redhat.com, agordeev@qti.qualcomm.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 18, 2024 at 10:52=E2=80=AFAM Matias Ezequiel Vara Larsen
-<mvaralar@redhat.com> wrote:
+On Mon, Oct 21, 2024 at 9:53=E2=80=AFAM Alexandre Courbot <acourbot@chromiu=
+m.org> wrote:
 >
-> Hello Albert,
+> Hi Albert, thanks for this new revision!
 >
-> I gave a first reading. I left some minor comments below. I could not
-> cover the whole patch yet.
->
-> On Thu, Oct 17, 2024 at 09:04:23AM +0200, Albert Esteve wrote:
+> On Thu, Oct 17, 2024 at 4:04=E2=80=AFPM Albert Esteve <aesteve@redhat.com=
+> wrote:
+> >
 > > Virtio-media is an encapsulation of the V4L2 UAPI into
 > > virtio, able to virtualize any video device supported
 > > by V4L2
@@ -195,9 +194,6 @@ scription.tex
 > > +
 > > +The virtio media device follow the same model (and structures) as V4L2=
 . It
->
-> s/follow/follows
->
 > > +can be used to virtualize cameras, codec devices, or any other device
 > > +supported by V4L2. The device assumes 64-bit little-endian V4L2 struct=
 ures
@@ -254,10 +250,6 @@ dq as
 > > +soon as possible, and must never hold them for indefinite periods of t=
 ime.
 > > +
->
-> I think this is true for any device. I wonder what is specific for
-> virtio-media to put it here.
->
 > > +\drivernormative{\subsubsection}{Virtqueues}{Device Types / Media Devi=
 ce / Virtqueues}
 > > +
@@ -267,16 +259,6 @@ on the
 riods
 > > +of time.
 > > +
->
-> This is also true for any device. The mechanism to provide buffers
-> through the available ring to be consumed and then enqueued in the used
-> ring is not device specific. Is there any reason that this is different
-> for virtio-media?
-
-Not really. I think you are right and this can be skipped. Shorten the
-spec is good :)
-
->
 > > +\subsection{Feature Bits}\label{sec:Device Types / Media Device / Feat=
 ure Bits}
 > > +
@@ -303,11 +285,6 @@ evice
 cap.html#c.v4l2_capability}{struct v4l2_capabilities}.
 > > +Corresponds with the \field{device_caps} field in the \textit{struct v=
 ideo_device}.
->
-> I think you should not start a sentence with a verb. I think you should
-> add the person. Something like `It corresponds with the ...`. I see
-> other cases below.
->
 > > +\item[\field{device_type}] (driver-read-only) informs the driver of th=
 e type
 > > +of the video device. Corresponds with the \field{vfl_devnode_type} fie=
@@ -333,16 +310,6 @@ ctls in
 > > +formats or controls.
 > > +\end{enumerate}
 > > +
-> I think other devices remove `the driver` and write it as sequence by
-> starting with the verb like:
->
-> `- reads the field{}
->  - sets up the \field{}
->  ...
-> `
-> Also, the last sentence talks about `session` but it was not introduced
-> yet, what is a session?
->
 > > +\subsection{Device Operation}\label{sec:Device Types / Media Device / =
 Device Operation}
 > > +
@@ -351,11 +318,6 @@ to
 > > +process. The errors returned by each command are standard
 > > +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/gen-e=
 rrors.html}{Linux kernel error codes}.
->
-> Maybe I am missing something but where and how is stored the returned
-> error? I mean, it is stored in the device-writable area but what is the
-> structure?
->
 > > +For instance, a command that contains invalid options will return \tex=
 tit{EINVAL}.
 > > +
@@ -376,21 +338,18 @@ dle.
 > > +/* Header for all virtio commands from the driver to the device on the=
  commandq. */
 > > +struct virtio_media_cmd_header {
-> > +     u32 cmd;
-> > +     u32 __padding;
+> > +       u32 cmd;
+> > +       u32 __padding;
 > > +};
 > > +
 > > +/* Header for all virtio responses from the device to the driver on th=
 e commandq. */
 > > +struct virtio_media_resp_header {
-> > +     u32 status;
-> > +     u32 __padding;
+> > +       u32 status;
+> > +       u32 __padding;
 > > +};
 > > +\end{lstlisting}
 > > +
->
-> OK, I guess this is the structure that contains the response.
->
 > > +A command consists of a command header \textit{virtio_media_cmd_header=
 }
 > > +containing the following device-readable field:
@@ -421,11 +380,6 @@ works to
 t can
 > > +perform any useful operation on the device.
 > > +
-> I think this paragraph can be rewritten. For example, what do you mean
-> with `multiplexed`? I think I got the idea but I would elaborate it a
-> bit. Also, I think you can rewrite the last sentence to something like:
-> `Before start operating, the driver must open a session`
->
 > > +\paragraph{Device Operation: Open device}
 > > +
 > > +\textbf{VIRTIO_MEDIA_CMD_OPEN} Command for creating a new session.
@@ -456,14 +410,6 @@ tio_media_resp_open}.
 ion. The
 > > +identifier can be used to perform other commands on the session, notab=
 ly ioctls.
->
-> I would rewrite it as:
->
-> `... identifies the current session, which is used for other commands
-> like ioctls.`
->
-> But I do not have a strong opinion about it.
->
 > > +\end{description}
 > > +
 > > +\devicenormative{\subparagraph}{Device Operation: Open device}{Device =
@@ -511,10 +457,6 @@ pen
 e active
 > > +session.
 > > +
-> Why do you use `ask` here? Could it be `tells` instead? But I do not
-> have a strong opinion about it. Also, I think with `active` you mean the
-> session identified by `session_id`. I think I would not use `active`.
->
 > > +\begin{lstlisting}
 > > +struct virtio_media_cmd_ioctl {
 > > +    struct virtio_media_cmd_header hdr;
@@ -528,11 +470,6 @@ e active
 > > +\begin{description}
 > > +\item[\field{session_id}] specifies an identifier of thesession to run=
  the ioctl on.
->
-> I would rewrite it as:
->
-> `\item[\field{session_id}] identifies the session to run the ioctl on`
->
 > > +\item[\field{code}] specifies the code of the \field{VIDIOC_*} ioctl t=
 o run.
 > > +\end{description}
@@ -554,13 +491,6 @@ ideodev.html}{videodev2.h},
 > > +\textit{struct v4l2_format}, and that its direction is \textit{WR} (i.=
 e., the
 > > +payload is written by both the driver and the device).
->
-> I think you can remove some of the `thats`:
->
-> `This means that its ioctl code is \textit{4}, its payload is a
-> \textit{struct v4l2_format}, and its direction is \textit{WR} (i.e., the
-> payload is written by both the driver and the device).`
->
 > > +See Section \ref{sec:Device Types / Media Device / V4L2 ioctls / Ioctl=
 s payload}
 > > +for more information about the direction of ioctls.
@@ -586,9 +516,6 @@ V4L2 ioctls / Ioctls payload}
 e
 > > +\field{_IO*} macro defining it.
 > > +
->
-> I think you can remove `defining it`.
->
 > > +The payload of an ioctl in the descriptor chain follows the command st=
 ructure,
 > > +the reponse structure, or both depending on the direction:
@@ -685,9 +612,9 @@ d of
 > > +
 > > +\begin{lstlisting}
 > > +struct virtio_media_sg_entry {
-> > +     u64 start;
-> > +     u32 len;
-> > +     u32 __padding;
+> > +       u64 start;
+> > +       u32 len;
+> > +       u32 __padding;
 > > +};
 > > +\end{lstlisting}
 > > +
@@ -735,18 +662,112 @@ Device Types / Media Device / Device Operation / Unsupported ioctls}
 me
 > > +error response as it would for an unknown ioctl, i.e. \textit{ENOTTY}.
 > > +
+> > +\paragraph{Device Operation: Mapping a MMAP buffer}
+> > +
+> > +\textbf{VIRTIO_MEDIA_CMD_MMAP} Command for mapping a MMAP buffer into =
+the
+> > +driver's address space.
+> > +
+> > +Shared memory region ID 0 is used to map MMAP buffers with
+> > +the \textit{VIRTIO_MEDIA_CMD_MMAP} command.
+> > +
+> > +\begin{lstlisting}
+> > +#define VIRTIO_MEDIA_MMAP_FLAG_RW (1 << 0)
+> > +
+> > +struct virtio_media_cmd_mmap {
+> > +       struct virtio_media_cmd_header hdr;
+> > +       u32 session_id;
+> > +       u32 flags;
+> > +       u64 offset;
 >
-> I would rewrite it as:
+> This field is now
 >
-> `When a request is not supported, the device MUST return \textit{ENOTTY},
-> which corresponds with the response for unknown ioctls.`
+>   u32 offset;
 >
-> Matias
+> u32 is the type actually returned by V4L2_QUERYBUF for the offset
+> field, so using a u64 here made no sense. Furthermore, I realized that
+> the offset is an identifier more than an actual starting address entry
+> in a range that must cover the whole buffer's length, so there is no
+> risk of running out of space even with a u32.
 
-I am ok with most/all the rewrites you suggested. Thanks for taking a look!
+Sounds good, thanks for pointing this out.
+Parav commented to change all fields to leX (le32, le64, etc.), so
+that the endianess
+is not assumed through the spec. I think that makes sense, it was also some=
+thing
+I was pondering when writing the specs to make it consistent with all other
+structures.
+
+However, it would require changing all structures in the virtio-media
+driver and device code, and handle endianess translation where
+needed. I hope that is ok?
+
+>
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\begin{description}
+> > +\item[\field{flags}] is the set of flags for the mapping. \field{VIRTI=
+O_MEDIA_MMAP_FLAG_RW}
+> > +can be set if a read-write mapping is desired. Without this flag the m=
+apping
+> > +will be read-only.
+> > +\item[\field{offset}] corresponds to the \field{mem_offset} field of t=
+he
+> > +\textit{union v4l2_plane} for the plane to map. This field can be obta=
+ined
+> > +using the \textit{VIDIOC_QUERYBUF} ioctl.
+> > +\end{description}
+> > +
+> > +The device responds to \textit{VIRTIO_MEDIA_CMD_MMAP} with \textit{vir=
+tio_media_resp_mmap}.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_media_resp_mmap {
+> > +    struct virtio_media_resp_header hdr;
+> > +    u64 offset;
+>
+> This has been renamed to
+>
+>   u64 guest_addr;
+>
+> to avoid confusion with virtio_media_cmd_mmap's "offset" field.
+>
+> > +    u64 len;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\begin{description}
+> > +\item[\field{offset}] offset into SHM region ID 0 of the start of the =
+mapping.
+> > +\item[\field{len}] length of the mapping as indicated by the \textit{s=
+truct v4l2_plane}
+> > +the buffer belongs to.
+> > +\end{description}
+> > +
+> > +\paragraph{Device Operation: Unmapping a MMAP buffer}
+> > +
+> > +\textbf{VIRTIO_MEDIA_CMD_MUNMAP} Unmap a MMAP buffer previously mapped=
+ using \field{VIRTIO_MEDIA_CMD_MMAP}.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_media_cmd_munmap {
+> > +    struct virtio_media_cmd_header hdr;
+> > +    u64 offset;
+>
+> Similarly to above, this has been renamed to
+>
+>   u64 guest_addr;
+
+In general I am being asked to remove guest from the spec and use
+driver instead.
+So I will change it for driver_addr instead.
 
 BR,
 Albert.
 
+>
+> Cheers,
+> Alex.
 >
 
