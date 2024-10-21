@@ -1,175 +1,129 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7729229408
-	for <virtio-comment@lists.linux.dev>; Mon, 21 Oct 2024 16:27:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F0F1F4FDA
+	for <virtio-comment@lists.linux.dev>; Mon, 21 Oct 2024 17:58:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1729528046; cv=none; b=gqQx4p6fMnjPdbeyCIOl8TMzgvXHqrfjE+1I7Y6252X/uj/srq7pckT0CdE75Xg3FRteZ/Bmwd1K0Jn7Tc+8y/Ha2K8fPWi7czg6r+d1+wq75jYcxf3cFptyKtcmYK5QbX3lcgilYNocpQHOru93XTa92kzNrj6v0iLHlyKFj9g=
+	t=1729533499; cv=none; b=Hw4O16sbwkLGQu4KDqobgr5O2wFMZtOKyHLNITvtvaFPgrm6VB54OhPy8atFAHdC31dTER562t0puhx8FcPnl4JIGPru8dQ3P9v/RX6MLcyb/YunOQaotLNmrY2kxzCE/7w4qwDrD5igr4RCc51WkTVgecjqZMLQVzrGIWx4CJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1729528046; c=relaxed/simple;
-	bh=Sf2rOQPdViQFuU/S1g13RzQrwHIFt3n13KznPmKQrxs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lhyqiAxZipomzY163w3CgukEOW+XLQxdSK4WWD4P7Z+TMuJLbhntmZ8VPJJrrFZrb5UoEFvMAZVFjmzev20VeBz9nj13MXUl5f0g8jq97WFawiuYeEm1vuPquwNQIQgZmGLNAaqU4rQOQr01beBdbDZMnOZqTyRP3RnazMwdumw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KYjjcBgo; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1729533499; c=relaxed/simple;
+	bh=ZwsObqGq6jU9lZYB0K16LId4AagQEQJaaRWVoa5zUnU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=AJvFRNzkYOiPF8qTtkrxys9KnrjsoQH3QFNBRRh/A4fV9OwShdTrvEUBxZc01hl9tuV6zRn7cEIsstQWb1w4LFzKoaVu8SVAqwScL8KqR6QJ/7lqcWUYL1J6omzqWhIKuTuBABvzs4AgpTh3mCVQCM5XTsKl6iHsPNRPhk0wWuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QL8oF0Oj; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KYjjcBgo"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QL8oF0Oj"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1729528043;
+	s=mimecast20190719; t=1729533495;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=GwXPLekp3bkb/DLawB4g9WVmVSyvoH1fzN2ZzpvIy14=;
-	b=KYjjcBgo3gvpyDGTtp1gnsqqHXrTt6Yhz4nA3JCKvsbHPie5AeX8GVta60WozFTihwYy6Z
-	yI8pu5BY8RqGH3/uVJCYgO137GmRSnK/lOH+u5iXDBEaeIuaXCcirYSB7QRdjSNb+C4UZI
-	5NHx1Wv9rUkyzzYBsEdiagGgXaw77IA=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=pbHG1aiIa4D5I/U1b80jV0cWoGDmcwjBQWbWEU2mG/g=;
+	b=QL8oF0OjPwqVxX24gDWHbhOd3kQTkvtCdwvts4lxONF+prMFMykCsMVA5Dc5yvHfFHJZmr
+	cOk7tZOcGT0HM/PbidhjnyjeyO7d1Nu23CH3rSMkn2TtiJXJFrS0bCZ45RcfrlwxYwdTSi
+	VAzNBl5ifCHcl9dSaj7GkYfQsSxvNlU=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-145-xwj7zSVLPpG9VfSDMLeEsQ-1; Mon, 21 Oct 2024 12:27:21 -0400
-X-MC-Unique: xwj7zSVLPpG9VfSDMLeEsQ-1
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-37d5ca192b8so2503404f8f.1
-        for <virtio-comment@lists.linux.dev>; Mon, 21 Oct 2024 09:27:21 -0700 (PDT)
+ us-mta-127-HRQ2ZA_9POi0cMLgGiXJgg-1; Mon, 21 Oct 2024 13:58:14 -0400
+X-MC-Unique: HRQ2ZA_9POi0cMLgGiXJgg-1
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-42ac185e26cso38634055e9.3
+        for <virtio-comment@lists.linux.dev>; Mon, 21 Oct 2024 10:58:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729528040; x=1730132840;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GwXPLekp3bkb/DLawB4g9WVmVSyvoH1fzN2ZzpvIy14=;
-        b=frpgm0ai1mEItflJgRJvl0hLWr4c8pMgu6KpdbYXb6GHS+RlxmswI6Jp6OxBYvtCBK
-         gD8XrBDWUOTWsg7isjYkbv58JTIo2zJI/jtJ9TWpucZsNnngXy4+HFBR4yCme6mW94+6
-         hY8YZb+p0mSG1/zBLtonH+BU5EGjN+tKIfZ+Eay0xba9DneoqMtxP1JIZ4bJpqQrG82H
-         RjbW5JiSdvPYZCCIZ7NKpicKFPffv4EezhbDotlJQSlaeEKYZ/om50nWeGbJ04U+rkry
-         vwgxbESGkwo1RRx7BxnylJYkfkhGo2c0JjM6+4WLNLRsbKPLPVFZ35bHb1yfDZdd651Q
-         aQmw==
-X-Gm-Message-State: AOJu0Ywk8cjixgXBQ0jIPXPhRcWA4Td4EJMpRGmTTVQ/94V6jYpSvJco
-	U5dVSLzshR4CmtHTIptx1iY3CKLjgdD2GZXyBKvb4DGD9pwKX+CL2xQZXym6biM1veD+96szLR4
-	kBXK9fTSPp53YXHxsEZdcTXTqHuZIRsD5Sf5cRNEda4hDf5+pflMxh2H7HZxoCrmj
-X-Received: by 2002:adf:ec01:0:b0:37d:43a8:dee0 with SMTP id ffacd0b85a97d-37ef12a7763mr157911f8f.17.1729528040524;
-        Mon, 21 Oct 2024 09:27:20 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGJ/vtwBRbEhGG/hNW5Du/5WM6Y4ainj0/HoW5f+gda5xOOVbEzNCb5WFMLR461bJNt9WIuKw==
-X-Received: by 2002:adf:ec01:0:b0:37d:43a8:dee0 with SMTP id ffacd0b85a97d-37ef12a7763mr157894f8f.17.1729528040164;
-        Mon, 21 Oct 2024 09:27:20 -0700 (PDT)
-Received: from ?IPV6:2a0d:3344:1b73:a910::f71? ([2a0d:3344:1b73:a910::f71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4316f5c3173sm62092975e9.33.2024.10.21.09.27.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Oct 2024 09:27:19 -0700 (PDT)
-Message-ID: <7f40f3da-aa6e-437c-af73-97e44e1982d1@redhat.com>
-Date: Mon, 21 Oct 2024 18:27:18 +0200
+        d=1e100.net; s=20230601; t=1729533493; x=1730138293;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=pbHG1aiIa4D5I/U1b80jV0cWoGDmcwjBQWbWEU2mG/g=;
+        b=k6nzyeERK86gxPS/TnaNJb7qeofsW/Nmoh5Uq8H5LgY2zjG6WP6tDj2yKUbrHAw+PR
+         1Vi3fHVutkhyk36e9gOkRg47o7YizWOdU3rL1uSj9JLvGmA85qJDsxPOfYtgvuXVnneY
+         GZoe7bvPsCAE6A66ZLi4WN8BePZzr/mF6C5A7V8WeKNucr1P0OjJK2aBFDJf1qSkiqh3
+         auYSYTIc0KSk1/pvox1fY1Z7LvLhGRRTmTt54L0eOoTn7lF/xOwtNABkM6pOWYPZyY7t
+         G6p/StseAB+Ro+rUpEneEnYT9NrAxEljizUGp95sIrfT44dZ2n/tetpx3dqtKGEfETHT
+         JRYw==
+X-Gm-Message-State: AOJu0Yw8z7tI/5QNNzCRf9QY//4OwtPFN7JOMXxs5Ih+QZ7BA9LtAR08
+	fKr8EmyL7G3Vja9uu6AHYJSPaRRKnM3WgrHcn8dGwfxlSnUlZTYUwpsc6r27NNFw+PGrV0/NfpQ
+	fXoNDmc6hhkhbpi/J7G1n3jhyb37VeByRlYd8HGsSBdO5KrPZACb5VjbCHOGnpHKm
+X-Received: by 2002:a05:600c:8719:b0:42c:ba83:3f0e with SMTP id 5b1f17b1804b1-431616331ddmr91340085e9.7.1729533493350;
+        Mon, 21 Oct 2024 10:58:13 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IESfRXQMsUSv0UlpU2nKpzpf1wLriLnHYsMSg6X2UL1iBuWRlxufBEfy9+UC2kG9BCJ8mV2sA==
+X-Received: by 2002:a05:600c:8719:b0:42c:ba83:3f0e with SMTP id 5b1f17b1804b1-431616331ddmr91339925e9.7.1729533492972;
+        Mon, 21 Oct 2024 10:58:12 -0700 (PDT)
+Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-37ee0b9bb4dsm4812034f8f.97.2024.10.21.10.58.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Oct 2024 10:58:12 -0700 (PDT)
+Date: Mon, 21 Oct 2024 19:58:10 +0200
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+To: Parav Pandit <parav@nvidia.com>
+Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+	"mst@redhat.com" <mst@redhat.com>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	Shahaf Shuler <shahafs@nvidia.com>
+Subject: Re: [PATCH 2/3] device-parts: Add device type specific raw selector
+Message-ID: <ZxaWMkY2vGLS251Y@fedora>
+References: <20241018131741.443635-1-parav@nvidia.com>
+ <20241018131741.443635-3-parav@nvidia.com>
+ <ZxKJFLT5Ewn5Qhf/@fedora>
+ <CY8PR12MB7195D4B28AD9BD2944926644DC402@CY8PR12MB7195.namprd12.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/2] virtio-net: define UDP tunnel segmentation offload
- feature
-To: Jason Wang <jasowang@redhat.com>
-Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com,
- Eelco Chaudron <echaudro@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>,
- Willem de Bruijn <willemb@google.com>, kshankar@marvell.com
-References: <cover.1728029499.git.pabeni@redhat.com>
- <55306969c73f62bf4d100d15074bfd6cde741417.1728029499.git.pabeni@redhat.com>
- <CACGkMEvV0gtvgpb7z1MqJLKzHm-Be_8hkf0GzqqsFsfDG8oAeA@mail.gmail.com>
- <d34f50af-4042-44c6-90e1-0acbbb899e96@redhat.com>
- <CACGkMEvrowr6CwF+=RiR+f3EagdKB=rzyCPCQcUdXee4a5MaZA@mail.gmail.com>
- <2b90c368-b514-4077-a6bf-43da075af4fc@redhat.com>
- <CACGkMEu5GWZrYVRN==F=vrRQQGnxj_WqX86YZ+diqC3s3m2m_A@mail.gmail.com>
- <10bc51b2-efbe-4f33-a1b3-827de4d0cd10@redhat.com>
- <CACGkMEuhJXMd0hGopyehESO1eNVRXVX+FaF7m8f6Y9yWCzoESA@mail.gmail.com>
- <44be2d9c-5624-4419-8e9c-e5302a5f6b2f@redhat.com>
- <CACGkMEsgJT1c93RZur20fUyjtxSX6dMPePEJvzbmNWpAHd92Mg@mail.gmail.com>
- <3e3d6984-65d3-46b0-aaa3-e6591123f95a@redhat.com>
- <CACGkMEsiRJ2zAcys0iFQkiL0h9MY-LOE4=LP7s4ksN=T+HY_Xw@mail.gmail.com>
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <CACGkMEsiRJ2zAcys0iFQkiL0h9MY-LOE4=LP7s4ksN=T+HY_Xw@mail.gmail.com>
+In-Reply-To: <CY8PR12MB7195D4B28AD9BD2944926644DC402@CY8PR12MB7195.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 10/21/24 08:54, Jason Wang wrote:
-> On Fri, Oct 18, 2024 at 6:10 PM Paolo Abeni <pabeni@redhat.com> wrote:
->> On 10/18/24 06:26, Jason Wang wrote:
->>> On Thu, Oct 17, 2024 at 11:34 PM Paolo Abeni <pabeni@redhat.com> wrote:
->>>> i.e. all the checks in
->>>>
->>>> https://elixir.bootlin.com/linux/v6.12-rc2/source/include/linux/virtio_net.h#L97
->>>> ..L112
->>>>
->>>> will be meaningless in such scenario and the GSO over UDP tunnel helper
->>>> code must replicate them with the correct offsets.
->>>
->>> I don't understand here. It works like a charm for non GSO UDP tunnel,
->>> anything that makes it can't work for GSO?
->>
->> I we chose to use csum_start for the outer header, for GSO over UDP
->> tunnel packets:
->>
->> 1) the 'all headers in linear part' check:
->>
->> https://elixir.bootlin.com/linux/v6.12-rc3/source/include/linux/virtio_net.h#L111
->>
->> and all the need preeceeding algebra will be useless,
+On Fri, Oct 18, 2024 at 04:52:31PM +0000, Parav Pandit wrote:
 > 
-> This part I don't understand. We still need a validation for the outer
-> header and we've already done this for non GSO tunnels already.
-
-For GSO over UDP tunnel packet, what we need to ensure is that all the
-headers, comprising the inner ones, are available.
-
-Checking that the outer header are there does not avoid the need for
-checking that the inner headers are present.
-
-Checking the inners only is instead sufficient: if the inner headers are
-available any preceeding data will also be available, including the
-outer headers.
-
->> 3) the csum_start/csum_offset assignment performed by:
->>
->> https://elixir.bootlin.com/linux/v6.12-rc3/source/include/linux/virtio_net.h#L104
->>
->> will yeld the wrong values - as they should point to the inner header
->> for GSO over UDP tunnel packets.
 > 
-> See above, it just works as a non GSO UDP tunnel.
+> > From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+> > Sent: Friday, October 18, 2024 9:43 PM
+> > 
+> > On Fri, Oct 18, 2024 at 04:17:40PM +0300, Parav Pandit wrote:
+> > > The subsequent patch defines the device-type-specific parts. For these
+> > > parts, the raw selector format is defined to ensure that each device
+> > > type can specify its format accurately.
+> > >
+> > > Fixes: https://github.com/oasis-tcs/virtio-spec/issues/209
+> > > Signed-off-by: Parav Pandit <parav@nvidia.com>
+> > > ---
+> > >  device-parts.tex | 4 ++++
+> > >  1 file changed, 4 insertions(+)
+> > >
+> > > diff --git a/device-parts.tex b/device-parts.tex index
+> > > e59c0f9..ee743c2 100644
+> > > --- a/device-parts.tex
+> > > +++ b/device-parts.tex
+> > > @@ -21,6 +21,7 @@ \section{Device parts}\label{sec:Basic Facilities of a
+> > Virtio Device / Device pa
+> > >                          le16 index;
+> > >                          u8 reserved[6];
+> > >                  } vq_index;
+> > > +		u8 device_type_raw[8];
+> > >          } selector;
+> > >          le32 length;
+> > >  };
+> > > @@ -77,6 +78,9 @@ \section{Device parts}\label{sec:Basic Facilities of
+> > > a Virtio Device / Device pa  only when the \field{part_type} is
+> > > VIRTIO_DEV_PART_VQ_CFG or  VIRTIO_DEV_PART_VQ_NOTIFY_CFG.
+> > >
+> > > +\field{selector.device_type_raw} is only used when a device-specific
+> > > +part is utilized, with \field{part_type} ranging from 0x0200 to 0x05FF.
+> > 
+> > Why is important here to mention the range of `part_type`?
+> >
+> Not a lot.
+> If the rest of the text about device specific part... is clear enough than we can drop mentioning the range.
+>  
+Thanks, I just asked because I though I was missing something.
 
-Note that all this topic is about GSO over UDP tunnel packets, and which
-layout is more consistent for them.
-
-For GSO over UDP tunnel packets, if we set virtio_net_header csum_start
-to the outer, we can't reuse a single line of the existing code, as the
-tests will be unnecessary or will give the wrong results.
-
-i.e.
-
--
-https://elixir.bootlin.com/linux/v6.12-rc3/source/include/linux/virtio_net.h#L171
-
-would flag as invalid good  packets, as it would over-estimante the
-packet payload size
-
--
-https://elixir.bootlin.com/linux/v6.12-rc3/source/include/linux/virtio_net.h#L179
-
-would drop every TCP over UDP tunnel packet, as csum_offset will be 6
-even when the inner header is TCP.
-
-Instead if for GSO over UDP tunnel we set csum_start to the inner
-header, all the existing test will yield valid result - mostly because
-the Linux kernel, for such packets, expect csum_start pointing the inner
-header.
-
-And that is IMHO a clear sign that for such packet csum_offset should
-point to the inner header even for virtio_net_hdr.
-
-Cheers,
-
-Paolo
+Matias
 
