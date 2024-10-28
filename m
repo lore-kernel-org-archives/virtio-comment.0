@@ -1,108 +1,135 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3691991C3
-	for <virtio-comment@lists.linux.dev>; Mon, 28 Oct 2024 09:49:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71081D5CE0
+	for <virtio-comment@lists.linux.dev>; Mon, 28 Oct 2024 12:08:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730108964; cv=none; b=Wy869iE/S+B67DUeqlBfefSyTpaxQPvsEE3Y+JcFXjTDZUynJAyrZtQ2oljDF1nfCVG3JnfJ7kim6CWIEPIbX0GXf/0lwJnSOQGvTODynGEcHK6xSGC6rCaA1UnG9pNBjGYd/nJjwQLR8pemtSKFw6rApPSLkQ4u0THSxFh6oy4=
+	t=1730117318; cv=none; b=Ikw2+399nVfGSdE3TJJsfAcpB/iXRu44Ehkc+S+CHS9GTHse+StRAkwPKkP0x0mTBzGye2H7+FuA+nhhkFYl59hDosWE5OjB2fwkdQFa7zy+RBYjYK/2Nnf+KOQ6kAL1/ovlEmGUaCo4nuSnoTMHuFTJ3bxlu0MI9YoSQzgBY30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730108964; c=relaxed/simple;
-	bh=HOsdtcAKtjFLsecdDFJr7SQoYaUeH87WdVPWUB9+txo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=t/3ymx/eZlufmSDBTGhElvjzgNszFwvIQs8E2YeiILpf8288hr7WI43GENQz4OWcMS6J/4xTTfw5Oj80U0TKzqeRjxgVUEtqKiNLj4qpNUQZm7SvQIe51BzmRR7Ww1Zr6+kGNHZzPsbbxRcpFNNPbaIOxuCVfVTUTI39TMz/jWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OwWeFQUt; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1730117318; c=relaxed/simple;
+	bh=lve0AYolkoPYazvL63zPfuuoiC8Qg0I43gGma5f9gqE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tMMvGlOl+B6HNwcfaoP5+JO81gmmgL7gFmi0g1D/9RS3RKcLvIRRWYcMABydivZSgai/MwLLTLysWNsJD2+uvbVOg5VmQYKuEhfheWdLst95wXb9f47qh/ywrtWhldtHE1WwevH+BN2sJ0kZqVgWCvsCILtXzXzQs/Oo5IoHiV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=i+me6QVX; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OwWeFQUt"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="i+me6QVX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1730108961;
+	s=mimecast20190719; t=1730117314;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SqfhTrRC90Dd+PKtvLPkiBw2YWdMYKe2gx/XQnBau04=;
-	b=OwWeFQUt/hAMIMN0l6LEBL/c6TSSih3yZn7ReAJodZyC9hK2lL+oDxc38mHDLXp2UkO/Af
-	6blEHsuH1G+Px5pMLQ4U3mydnGTlQIQZoe6GhWlvzgjpDBdHS62xy+7IeG0L+VXphCv1aK
-	yzsxUW3H75XGOblwC34QAFMa1lSne7g=
-Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
- [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=rHj1XXNs9n2vifp0XpHEMUuX01L6P7U6x17eEEWGKWE=;
+	b=i+me6QVXfSFmJi6yxIf6iCTi/kdIov1vXP+UdH0wWoKPktr4xqN0n7xsFFTycBrl5EsPxA
+	IOuoXrDZ8Vau7O7Wr8sxncWnyQzxu3ce6JOlLiNujmprUDgkfWsUHK37WKq4LHFHYcru4O
+	yLMPbITppsF4QmO3HSogA7EX33nPoiM=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-99-idIkfLryMP2PqWVglcuDhw-1; Mon, 28 Oct 2024 05:49:20 -0400
-X-MC-Unique: idIkfLryMP2PqWVglcuDhw-1
-Received: by mail-lf1-f69.google.com with SMTP id 2adb3069b0e04-539ebb67c28so2634153e87.3
-        for <virtio-comment@lists.linux.dev>; Mon, 28 Oct 2024 02:49:19 -0700 (PDT)
+ us-mta-110--5ELaPXxM3qQ1bhdJRwu7g-1; Mon, 28 Oct 2024 08:08:33 -0400
+X-MC-Unique: -5ELaPXxM3qQ1bhdJRwu7g-1
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-43163a40ee0so32751015e9.0
+        for <virtio-comment@lists.linux.dev>; Mon, 28 Oct 2024 05:08:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730108959; x=1730713759;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SqfhTrRC90Dd+PKtvLPkiBw2YWdMYKe2gx/XQnBau04=;
-        b=i2KXWTrPRDtlHv9e75468JUaKoyzrAn3QB1D3vglm8cW5A+9VeCveQ/yMBPojM+e94
-         +qxjX8PEE/Zh4qQHoBWPL2LZlV2YVtYjmw4GhsX0tW6EpM4vaydMSQ3dFr49INWfRsz1
-         CrrJmtp4hItXHGVMwLBtCfi63UMos0B60ZZ3Q8uioGUMEJ2+y7kBGJNhJdBQ3eNmzL7I
-         J+nWvcGUtkTUd82CyAYo6eCghLzhJtMJIdGXFuCut+hSF4Fe1EgJdRNmPFko6fSbtyId
-         AKME/doqtSwD9hl4adaR731x7ow1Zbb4JLrzzM7n5BcVtWqZbhOxhqa5PwBleyWD8HwM
-         6CFw==
-X-Gm-Message-State: AOJu0YwlezIks0b+36K1MRcZt493hXyM3D7q4CGcR5pwdeVnhO8fHVaq
-	kRKQE/qYXrx0cwXbbqUJmDHaat+e6MUw0NtGZDxPkpoCDbQlJhz6o/irIXAn83tF9FWy5X5RsO6
-	ztnKlu/DEnbvEf+QLrCSffeBMrpa+XFSsppQvDQqGQ5GdsTtWyIDXN7TJ5R5gP9jT
-X-Received: by 2002:a05:6512:68d:b0:538:9e1e:b068 with SMTP id 2adb3069b0e04-53b348cf9ecmr2727176e87.15.1730108958586;
-        Mon, 28 Oct 2024 02:49:18 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFWTRHP7Im9HSEsNkGJzuAvRLS5O95OGOc5jA0iKPPSKDWaIw9AZzNUuRIN+VRk4WPa3oOHcQ==
-X-Received: by 2002:a05:6512:68d:b0:538:9e1e:b068 with SMTP id 2adb3069b0e04-53b348cf9ecmr2727160e87.15.1730108958136;
-        Mon, 28 Oct 2024 02:49:18 -0700 (PDT)
-Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-431935f74b6sm103644075e9.33.2024.10.28.02.49.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Oct 2024 02:49:17 -0700 (PDT)
-Date: Mon, 28 Oct 2024 10:49:15 +0100
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: virtio-comment@lists.linux.dev, mst@redhat.com, cohuck@redhat.com,
-	shahafs@nvidia.com
-Subject: Re: [PATCH] virtio-gpu: Fix spelling error
-Message-ID: <Zx9eG4VOSzo1UK7i@fedora>
-References: <20241027044457.495730-1-parav@nvidia.com>
+        d=1e100.net; s=20230601; t=1730117312; x=1730722112;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=rHj1XXNs9n2vifp0XpHEMUuX01L6P7U6x17eEEWGKWE=;
+        b=HFegUW6Gc2czYmKZpo6ZbWXIfNQA8CKodcVKT14pTitj6x/mtxUHNVDbqvu5LmM0Bh
+         K2LG67FG5QTHbVzq9ia5vEDYRcZFad7TktghkZXjAFBkNNzvV+hG1e5XJz3I99ItjOIc
+         7Q9WRybqrWt3oN5hLFjkjRdxpIf8ORZhIVkzdwmgdI2cNzMzv/N3gPtUEEXp8S5L0x6B
+         XoBCiwRIGlLXJogm8CCCopw+/MEk0x6X2kncofEhV+Y3wVeyK3pps5eziha/hfuFCExT
+         32frzb4iuorOLWoD16OEGjUER3he6cT9Ywn3b6G0TkOcQr9IEc80QEYRO2QCq+Y9W0EK
+         rpCQ==
+X-Gm-Message-State: AOJu0YxnH+SoFlrFt8rzY/BKm2ZgCCcxECpriFFF3o7ycxiHoBan9o+q
+	oqHHCn2gGK7X5So3zMhuWxc8LVNMFVlRC+gPu7nfPyiub7bGSX8/w4eeF+de1V3YKeYM6j0K5pB
+	/GdNs9tlnaJ/HXGlLTj5UwiPhz0dMX3YKNEOzgZ/uxR25D9dl6/JT8b8UPZefMK2V
+X-Received: by 2002:a05:600c:4694:b0:42c:b7f9:4bbd with SMTP id 5b1f17b1804b1-4319ad0aefbmr79364875e9.26.1730117312476;
+        Mon, 28 Oct 2024 05:08:32 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE/rMrkqDFPYuSOHNntAsMLPA43yyf09vg9gZHSWK0XGOzmH0C76+AbsaY6QJxwzHUDCXTmGw==
+X-Received: by 2002:a05:600c:4694:b0:42c:b7f9:4bbd with SMTP id 5b1f17b1804b1-4319ad0aefbmr79364715e9.26.1730117312145;
+        Mon, 28 Oct 2024 05:08:32 -0700 (PDT)
+Received: from [192.168.88.248] (146-241-44-112.dyn.eolo.it. [146.241.44.112])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4318b55f689sm137930285e9.16.2024.10.28.05.08.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Oct 2024 05:08:31 -0700 (PDT)
+Message-ID: <a036a534-722d-49cd-bdb2-cf60aadd249f@redhat.com>
+Date: Mon, 28 Oct 2024 13:08:30 +0100
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20241027044457.495730-1-parav@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 1/2] virtio-net: define UDP tunnel segmentation offload
+ feature
+To: Jason Wang <jasowang@redhat.com>, Willem de Bruijn <willemb@google.com>
+Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com,
+ Eelco Chaudron <echaudro@redhat.com>,
+ Stefano Garzarella <sgarzare@redhat.com>, kshankar@marvell.com
+References: <cover.1728029499.git.pabeni@redhat.com>
+ <CACGkMEvrowr6CwF+=RiR+f3EagdKB=rzyCPCQcUdXee4a5MaZA@mail.gmail.com>
+ <2b90c368-b514-4077-a6bf-43da075af4fc@redhat.com>
+ <CACGkMEu5GWZrYVRN==F=vrRQQGnxj_WqX86YZ+diqC3s3m2m_A@mail.gmail.com>
+ <10bc51b2-efbe-4f33-a1b3-827de4d0cd10@redhat.com>
+ <CACGkMEuhJXMd0hGopyehESO1eNVRXVX+FaF7m8f6Y9yWCzoESA@mail.gmail.com>
+ <44be2d9c-5624-4419-8e9c-e5302a5f6b2f@redhat.com>
+ <CACGkMEsgJT1c93RZur20fUyjtxSX6dMPePEJvzbmNWpAHd92Mg@mail.gmail.com>
+ <3e3d6984-65d3-46b0-aaa3-e6591123f95a@redhat.com>
+ <CACGkMEsiRJ2zAcys0iFQkiL0h9MY-LOE4=LP7s4ksN=T+HY_Xw@mail.gmail.com>
+ <7f40f3da-aa6e-437c-af73-97e44e1982d1@redhat.com>
+ <CACGkMEu-83JEcs73R4Eym2tkcUT5Zsj7i2qOsB-9ivmLNf0b5g@mail.gmail.com>
+ <5da197a8-a022-4c2d-a4ae-09e0948e620e@redhat.com>
+ <CACGkMEu-AQea98e5xqj4Vfo4zog_nzeJQ_pLADAOY9ZogsS8AQ@mail.gmail.com>
+ <a6ad7c40-d65d-4b95-a7ae-86d77eda4bdf@redhat.com>
+ <CACGkMEs4xb=xEH2RwQYZFEP9WGdwT2jOSERmpzTto+PQuxgcwg@mail.gmail.com>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <CACGkMEs4xb=xEH2RwQYZFEP9WGdwT2jOSERmpzTto+PQuxgcwg@mail.gmail.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Oct 27, 2024 at 06:44:57AM +0200, Parav Pandit wrote:
-> Fix spelling error.
+On 10/28/24 04:27, Jason Wang wrote:
+> As the topic becomes more complicated, I wonder if we can do something
+> easier, that is focusing on the one checksum offload first. And I
+> would like to check the current Linux behaviour first for non-GSO UDP
+> tunnel:
 > 
-> Fixes: fed64230bf31 ("Add virtio gpu device specification.")
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/192
-> Signed-off-by: Parav Pandit <parav@nvidia.com>
-> ---
+> 1) For TX, as you've mentioned, the csum_start/offset has already
+> pointed to the inner header (but is this the innermost?)
+> 2) For RX, what header would csum_start/offset points (considering we
+> have nested tunnels)
+> 
+> I'm asking to make sure our proposal doesn't conflict with the
+> existing implementation.
 
-Reviewed-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+In Linux, csum_start/offset, both for rx and tx, points to the innermost
+_offloaded_ header.
 
->  device-types/gpu/description.tex | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/device-types/gpu/description.tex b/device-types/gpu/description.tex
-> index ba4ea76..c5706bc 100644
-> --- a/device-types/gpu/description.tex
-> +++ b/device-types/gpu/description.tex
-> @@ -128,7 +128,7 @@ \subsubsection{Device Operation: Create a framebuffer and configure scanout}
->  \item Allocate a framebuffer from guest ram, and attach it as backing
->    storage to the resource just created, using
->    VIRTIO_GPU_CMD_RESOURCE_ATTACH_BACKING.  Scatter lists are
-> -  supported, so the framebuffer doesn't need to be contignous in guest
-> +  supported, so the framebuffer doesn't need to be contiguous in guest
->    physical memory.
->  \item Use VIRTIO_GPU_CMD_SET_SCANOUT to link the framebuffer to
->    a display scanout.
-> -- 
-> 2.34.1
-> 
+On RX, since GSO partial does not apply, such innermost offloaded header
+correspond the outermost/only header (when no tunnels are configured) or
+the 2nd outermost, when tunnels are configured and GRO-ed.
+
+On TX, via GSO partial and local csum offload, the csum_start can, in
+theory point to an header with an header with an arbitrary high level,
+but currently no driver/tx path allow for GSO partial with more than 1
+encapsulation level (may change in the future).
+
+The proposed specification change in v9 for NEED_CSUM matches the above.
+
+Since reaching an agreement WRT DATA_VALID handling looks problematic,
+would you consider a virtual meeting to discuss the topic?
+
+Thanks,
+
+Paolo
+
+p.s. to be clear, with 'you' I include both Jason and Willem.
 
