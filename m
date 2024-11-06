@@ -1,233 +1,225 @@
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com (mail-mw2nam04on2085.outbound.protection.outlook.com [40.107.101.85])
+Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16B11D0DF7
-	for <virtio-comment@lists.linux.dev>; Wed,  6 Nov 2024 09:00:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.101.85
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1A91DE2DC
+	for <virtio-comment@lists.linux.dev>; Wed,  6 Nov 2024 11:11:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.148.174
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1730883618; cv=fail; b=aUuSBgJkzAcDON1l6w0mSmHB/2rdk4uFjRLHNDohOThbR47apsDRvi/j78u1P3r6ESbmVrEm9f+6nh1+GschQTyHAArPQESO/w25o4rlD9p4t28AnObsGX8uviEXj9xuk1+1wcLJNgUfLKSwQCt0hhPLil8lg4SXsclGkAO+NUc=
+	t=1730891478; cv=fail; b=InpjPrxAegEX+vX0K7lYbB7ceeCeJUYN2IzbLvV3eKuSF2ZN6T4rTQgTFp3BQf9zt/aFnfvoeQuOQGaZS7miCZX+ySmre1HJi/r8ktF6AwVnf+RBRSn5VjDxb22kIG0KpFyUc5IZSSkIkZDm2dCDhdwbyDh3cEtevGyTY3Z89uo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1730883618; c=relaxed/simple;
-	bh=tGboKoTeywtNroW7J+cwn6OFgkdYgdVh+k5Bl87qt1E=;
+	s=arc-20240116; t=1730891478; c=relaxed/simple;
+	bh=QjEvJ95k6J1HjY5F+zlSBZqPiGU3XrPxQdidDfY3nZs=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=S/nBsKzURymaahWDvyZ79bFq/MhQKJJndLaPOAD4EVogTmneB2ES4dBDX9JF+WojBPJcI3F2oyghWP7oH6j832tmNVLmLy9ciqaIwIQc0PVzKjA8R1GDC/Se1tTTmsCQHCDaADNvhjGxs9hm5+MMqfGgsQlgNWzy4n8cj5AXVFM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=kmeixM2Y; arc=fail smtp.client-ip=40.107.101.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 MIME-Version:Content-Type; b=YkGzNA6FWx7bbDcRyE6jFGFMJ0+kSsoIWNDCxQV4KAzEGd/MZ7kzC2c2cnPEh2aPcmE4BhcCRU4pnYvDi7EbpdC5Nykbx4czYKtakx7iOV3GSqMH94td9uZ+ZNhiDN3exeM9el4NLWF93JTGghGi5ReAg1f7OQTq/q6JnCnp6Jk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=fail (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b=gG5Nb+SD reason="signature verification failed"; arc=fail smtp.client-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="kmeixM2Y"
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b="gG5Nb+SD"
+Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4A64KODS027114;
+	Wed, 6 Nov 2024 03:11:05 -0800
+Received: from nam11-co1-obe.outbound.protection.outlook.com (mail-co1nam11lp2176.outbound.protection.outlook.com [104.47.56.176])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 42r1b20r1m-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 06 Nov 2024 03:11:05 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wx0WrjzJYWyML4TJAPhIdVJc+F4K/VARUR4hz/KfoNkVE2L00M+0fBH2oHViHsgVXwqJA3o9qCamu2h6yWGXI94AMdQutvCm8uJhlaO6J9ZtGSVRZnHpfrzgmR0C/f9JK4kE50p40bAszHAjY9H/A4H8HapqiFs/i3WG4GSoHUSM9Y4f+8JkN6QFsfwE/yT1VQm8ycEpQdGj8OTxkADYCvbo2VM+GzD4nNo9PbgR4xcaIUkejb0XOS9nREdH5qXImRKpQNvVlawCCHovRL5xM3IE4tfq5r8R4pxLXvkykMAliQMeTMYrpuRYTYWSibC6qB8UF4SkZgcN4vQRlAZNEQ==
+ b=UyN3ETI2vC10VyWL1Tub/4rGIhrMufEEIdgQ0863tWaHvUsyk6Q3re9RmV7l4Kv3AD3RI0cBcKMFCGkbrBEQrfdTH6JhFMbfOarHAsDr3MZNUYsYIAueR7srnH2WYD5mrQ+zpfzZ+03yLvdyk2Jnt7RdVZmuoYOXNJKCj/kpaDGWqYx8KGckwfulJz07TKwCs8CttnCy9+dw16fopUfJW834DEaIsEI8fDP2iiD5TQkSFHFPbltgULrVMS0x0JlhuuB9fQ5lxiowzqadxlfBrLmEm3PAH8caPTQIuWhrP3JGSQVMB7sUigdaCYO6+2j3ov8spUjQg5kCUlYV+7NUbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SD/j18bDlrNpHNAV80kEYZtXn8BR7ruq8sitPKkVd2Q=;
- b=kWkE2c7yyRHYM7fyPTdXPnILFvqLz4f20mYoJlrWaNpFT4jQAvZS0Y3/AFpuLmbt131o0EhKy2dKfF+vaq4pCRM/TyYwr5h0kPGok0GTKHDlBMz8eBzaGU0IHkMJ3EBSeLBha+EUxEvrtVzx+YhXrX4UMZoKBZvun3XN8FkwwxtkQObsumxRcI5HSZqE65lNfYcr+dtHmrNUFIbl6HFHXpOJ9brwBAJdzvwcp4W3xBzoZuLHw2wsZTYuv5z5816tjPowKAYuwyxQdL1JT+d7dyiaLNfWWS1vO0tVr6hQGdYDMOtA4v0tXhpcQHYYT2xujQxdo3+na2UtOEfYFClVrg==
+ bh=rQpwsJn4er88T0LXEHp3ooSiEjQUDlsUeTbCbLVrEps=;
+ b=AlTbXOWGuvAKVJ/5ypWv09b9ZFEnRHeNMIfTH2SIwLcjM5cd566vPAdj/r10VM7UNeEp0s4cUuxz3M79nJB6Da6ZuoQj4m4N/jBjUruNK5RnKea6ex6EiozOh4qDcwuvtYGfRofm+d4UgazdEiQmPJc2BhF5Eu4uYAmDrQDaTVTLTgzrBp00GPSA2mbsGdtZPFxlHg5Kr9KEzGG7IkyofnKbEM3ntYmnrvDaEtRiJuJDUriCtXR//z+gbhUqGT5bvBLsC80ZV1CBieR49q93LXs4D+wvJWJNcu1GiYXmD2zkzGUQ0I1kc5NvPHkgjCTneQV1OIwiaCszysS8iGZIXQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=marvell.com; dmarc=pass action=none header.from=marvell.com;
+ dkim=pass header.d=marvell.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SD/j18bDlrNpHNAV80kEYZtXn8BR7ruq8sitPKkVd2Q=;
- b=kmeixM2YZhVQWvfKGRdPUOE4lRu6m06R4ev65mLTNxVM0uBwtNW/4WzKhvueWNAGcjbwEkAD42eGMav9faz8gU9T0aIHzIq2+vklvZCHw8FzT9kzN350eqkBCxBXwso972ex5Td+VoGHpPATJx1ZdAlJhqygL/QggLDVjFG0pVDCRENjsnQltswyIs6YhQf1FX9p2bN88VnKu2jYTtLNHg6NDgOMEhvDpL0MSQnyUQ3X/LU3YhLAUlw0gYJLqglPsrqlXzulQPT9dqmKpcIvYxIDFCMP+UpD5EH0oxrw9XdwJn9OYijBn3MEWcqrjnz/NmOu3w25jkqhPcHBrdSRKQ==
-Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
- by DM4PR12MB5844.namprd12.prod.outlook.com (2603:10b6:8:67::15) with
+ bh=rQpwsJn4er88T0LXEHp3ooSiEjQUDlsUeTbCbLVrEps=;
+ b=gG5Nb+SDk+SEAv65CBfROCyUtBgIuPFcnkhRlzlyJFaL2e4bWgGfu6l3YvdiqKMe89cuK/tfTxvPEpEBVG0K8HYPUvANYtjyPtAYZGcugqZ9+ziJh/g4VVOYN8r/NNcYqOhyVWPnq09adOgaC8fm53Y5L3pMqiOOzbI3Ji8OhQo=
+Received: from MW4PR18MB5244.namprd18.prod.outlook.com (2603:10b6:303:1e0::16)
+ by DM8PR18MB4438.namprd18.prod.outlook.com (2603:10b6:8:3d::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30; Wed, 6 Nov
- 2024 09:00:11 +0000
-Received: from CY8PR12MB7195.namprd12.prod.outlook.com
- ([fe80::c06c:905a:63f8:9cd]) by CY8PR12MB7195.namprd12.prod.outlook.com
- ([fe80::c06c:905a:63f8:9cd%6]) with mapi id 15.20.8114.028; Wed, 6 Nov 2024
- 09:00:11 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Steffen Trumtrar
-	<s.trumtrar@pengutronix.de>
-CC: Steffen Trumtrar <s.trumtrar@pengutronix.de>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	"kernel@pengutronix.de" <kernel@pengutronix.de>
-Subject: RE: [PATCH RESEND 2/4] virtio-net: support receive ptp timestamps
-Thread-Topic: [PATCH RESEND 2/4] virtio-net: support receive ptp timestamps
-Thread-Index: AQHaxicKKiZNC2sXoUSr8cQ5sBa8PrKqxfeAgAAB+ZA=
-Date: Wed, 6 Nov 2024 09:00:11 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.19; Wed, 6 Nov
+ 2024 11:11:01 +0000
+Received: from MW4PR18MB5244.namprd18.prod.outlook.com
+ ([fe80::52f3:9792:ee42:90b]) by MW4PR18MB5244.namprd18.prod.outlook.com
+ ([fe80::52f3:9792:ee42:90b%6]) with mapi id 15.20.8114.031; Wed, 6 Nov 2024
+ 11:11:01 +0000
+From: Vamsi Krishna Attunuru <vattunuru@marvell.com>
+To: Jason Wang <jasowang@redhat.com>
+CC: "Michael S. Tsirkin" <mst@redhat.com>,
+        Lege Wang
+	<lege.wang@jaguarmicro.com>,
+        "virtio-comment@lists.linux.dev"
+	<virtio-comment@lists.linux.dev>,
+        Nithin Kumar Dabilpuram
+	<ndabilpuram@marvell.com>,
+        "parav@nvidia.com" <parav@nvidia.com>,
+        Leo Liu
+	<leo.liu@jaguarmicro.com>,
+        Angus Chen <angus.chen@jaguarmicro.com>
+Subject: RE: [EXTERNAL] Re: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new
+ used buffer notification suppression mechanism
+Thread-Topic: [EXTERNAL] Re: [PATCH] VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new
+ used buffer notification suppression mechanism
+Thread-Index: AQHazoxhxQJz+J7qTka2/5VNWObx4LHnxbeAgMHaO0CAAMzpgIAAbwMw
+Date: Wed, 6 Nov 2024 11:11:00 +0000
 Message-ID:
- <CY8PR12MB719537A58251DE1CD8F5E7A8DC532@CY8PR12MB7195.namprd12.prod.outlook.com>
-References:
- <20240624-v1-4-topic-virtio-net-timestamping-v1-0-fa3c163e4aa9@pengutronix.de>
- <20240624-v1-4-topic-virtio-net-timestamping-v1-2-fa3c163e4aa9@pengutronix.de>
- <1730883117.586029-2-xuanzhuo@linux.alibaba.com>
-In-Reply-To: <1730883117.586029-2-xuanzhuo@linux.alibaba.com>
+ <MW4PR18MB5244D80FD2F2067567961722A6532@MW4PR18MB5244.namprd18.prod.outlook.com>
+References: <20240701034435.675-1-lege.wang@jaguarmicro.com>
+ <SI2PR06MB5385346C86CF45806EC6E9F6FFDF2@SI2PR06MB5385.apcprd06.prod.outlook.com>
+ <20240705035755-mutt-send-email-mst@kernel.org>
+ <MW4PR18MB52443417B7398C64244F838BA6522@MW4PR18MB5244.namprd18.prod.outlook.com>
+ <CACGkMEsrtZ8Cwby-K9Dynn5-uXu68m2s+bBEdXGW7KrxjfvcUQ@mail.gmail.com>
+In-Reply-To:
+ <CACGkMEsrtZ8Cwby-K9Dynn5-uXu68m2s+bBEdXGW7KrxjfvcUQ@mail.gmail.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|DM4PR12MB5844:EE_
-x-ms-office365-filtering-correlation-id: 2dd9d2cf-82e1-4c4d-d596-08dcfe416bef
+x-ms-traffictypediagnostic: MW4PR18MB5244:EE_|DM8PR18MB4438:EE_
+x-ms-office365-filtering-correlation-id: 0513c0d0-2361-4e3d-f51d-08dcfe53b27e
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700018;
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700018;
 x-microsoft-antispam-message-info:
- =?us-ascii?Q?3LhaUrzj4CIqyhy5AI65mp0NIjVB7ConziUMcLKe1FXmBptP+n1uHJVCneBF?=
- =?us-ascii?Q?khk62B4j0R0+3ZIMEEBTBk7tmlFO9C7rBZsnE+kNiYu4EL8chHbU0F2ZnXoD?=
- =?us-ascii?Q?bvH2eqrjG01vRfzdMER2HLfXMlPNDhRBua4nWjKzXO+wLH7RdZAv56LiMhmt?=
- =?us-ascii?Q?AqbTb4ym6ScBhNe6FS9fZPI8k9ViiM2cntsF3djZn9u4zg+IKOkucXDjMKxC?=
- =?us-ascii?Q?ifu+Jsh+mwdnjDLVFjM3OmaRmJH6Uu3TxFXRy3R2H52LWLi4i7vzv2bhiOse?=
- =?us-ascii?Q?4CULyUYBI1juUyGDk+TLEey6a5XLSwABsxIeP/r1JFUr+E8sx7IRSJ5MXU59?=
- =?us-ascii?Q?/DSlTvOiYU1InkjIN6wjYpewLXDnMR3gTQSyYUar6CKe7jWIRndKdtMslnWR?=
- =?us-ascii?Q?GFZiENUYf0wK827zW2G/8NfWI4gVx09fMY2cGCVrVXtYUWqA2diCfVK1qLal?=
- =?us-ascii?Q?1rFYwmV4MaFIcP7/Bluxgy06p8hs0Qx85HCJhPHIDx4/gQRDd398YYUKcA9Q?=
- =?us-ascii?Q?fh3E4nln2i6NummUQx6FQ3T7jTzsselGburXay31AfVqZ1+Vl39co5CERM7S?=
- =?us-ascii?Q?U1jfSNBO/fwHotnld/OU7BQ53DzfgZGNJ2oBqVtPvKnXz4HU9FTXM22KtXku?=
- =?us-ascii?Q?KUYJ1+/c4ySC480tJdK7qgtn8Q6LA/wAJFgAABrKic2PcQcdrU0xPH3Efg9I?=
- =?us-ascii?Q?oY862kCiF0NVioWAFlZ4L0rZM2GKH9CcVU0ZfablKsTAUS6i2qgnS8hF4CT4?=
- =?us-ascii?Q?A2PTuZcCVIA8XovUyAQWMnF4zgklfRg8cfoCb8y2rFg2htIuv8RsYeMU2dEB?=
- =?us-ascii?Q?fpAAesF6CR2TBvhJBQJiZV6qMErRbGJydU4wp2UTcKBWr/c+k/VaNJtZn0NT?=
- =?us-ascii?Q?3QxErrcJrFDZ2aY/ZJYdEX1DhSeBSRxwZv5Nm//X0PHSnPzqe+swRqX/7bto?=
- =?us-ascii?Q?CDHjjd8GdnWuMbQJkCreS8KBTeVitPAq4nr3jmiO1OP9HPVOH8W6qqqPH30Z?=
- =?us-ascii?Q?iqnVelifcxJ2CsO1GDXRoYz0Pp4549CuzKMV9VjTqrZt6+spYturO54q0Sow?=
- =?us-ascii?Q?m1sjQcjdww2gb45UKSEBtOz7g/8AUIGZEtxyj3/uyO9eXPxl97D7HVZaSBh3?=
- =?us-ascii?Q?CtE0n0b3XH6p3xeP2OtMCegQCkq86/0iy1qD1ds4PWrYhwX89O+G1vrqZOt1?=
- =?us-ascii?Q?OOu1pxRj9gcEjUASK4QR9HF51sVupKF+4qGDh91uUBfsh/tH7ZqFTffq+/bS?=
- =?us-ascii?Q?d+vjmL32DYHvu5FvrdGpCpUMLTctlWReEOrH9qAhFak/EULAeL7ut4EjTQqj?=
- =?us-ascii?Q?C7G/NCUkNLR4pMxBi3zFx5eVZ+AMdi5nGm3xJPze9uWDR/jDe+1I60qmKBd+?=
- =?us-ascii?Q?8CwCJ1k=3D?=
+ =?utf-8?B?c1kydDQ1c2paK2N4NFYrUmFGKy9oVnFHK2h1b3UxWU9tSEpPQjNXUWZORG1C?=
+ =?utf-8?B?UDBLL3RKczkvVVRxM2FzckhxaUFicmdVTTh4cU95T1BxUVhSTU9YcHgzTS81?=
+ =?utf-8?B?RnZPZytVVnRXMStBWURaT2NyaDJhQXNMWUh6WENZb2lKVEczUVJzQ21GTDNG?=
+ =?utf-8?B?bTVaVWhlaHVleGxJUm9PbkJCd2lVQ3NTQzR0aDByUmc1c3BnYkVMQVlVbHZC?=
+ =?utf-8?B?YnM1L0cxNEsrU3lpRmFMWGF5bitkL3JDd3NjeDJSajRlRktrL1R2NDNkUUNp?=
+ =?utf-8?B?N2hseHlwZEE2L1AyTVh4UmFjeU10RFBzTllJdC8yM3grdUFsc3JadEpPUStU?=
+ =?utf-8?B?TnpqYVE5NE5LR2czL29vZ3Jvbjdid2thSm1NSkh5b3VCRkcvdFJiK2kwbTI0?=
+ =?utf-8?B?ekxHZkRxbjEzU3d5dWhiRWhhbGc0YmtaMU5Mb3g1WXVkMzJjOWY5aXNURTdV?=
+ =?utf-8?B?MWN5SUdjcDhhbU5IcytTNTV5N0dTcDlScmE0UUl6dWJsK0l6czdPUDFwNkc0?=
+ =?utf-8?B?QjBrdGc2cTFSQWcwU3RMaW95QTgxMkU3bHJMREwwTGZDSmxZcGVMRC85MWJx?=
+ =?utf-8?B?dHdvVDNDVXBhY2w3akU5YlBkK0RhRjdBUUd0RWd2QWc4S1dNcmF3a2hGdWNS?=
+ =?utf-8?B?dkhIUFlzaFVieWd2ZTRIS3l3WjJwSmdpSXVrUkVFL0t6OXEvYTVkWlRZMlJj?=
+ =?utf-8?B?UDdFNTJ5QWxOZU5scHhmKzEvSGp1OXIwcVlrWG00MzRIYVlSamt6Zm9RanpF?=
+ =?utf-8?B?VWNwSVk1Q3BRRkdvMzZRQUw4ODA4OGxJR2c4aC9zVHVnVkg0QmQxV3k4cThw?=
+ =?utf-8?B?ODVRS0lnS1BsSlVaTVRManVHY1hGbXRYVGEwZE9DSTBHVURsQ1pSaHNBTEdE?=
+ =?utf-8?B?QUpIdFZSc2cyVGxCYVhFTG9XM2lDQTFpdWsrQWx2UkRyenZOYy9YMWdyNVIv?=
+ =?utf-8?B?L0thOXVGTkxtV0xoSktCYkFTVGEraDRTaUhFdDhacmFXZHpJSkIvZ1B0clBO?=
+ =?utf-8?B?eUNxdmJuNDduZUtLQjZsdlRFb2d1TjJOYzBJaDAxU1dYU3hCdXIyTXRLdzc2?=
+ =?utf-8?B?T1d3THFqTmhzWWZNWUI4N1p4T05KM2JkYjcvLzU3MzI3eXpoWXlyNVdKZXIw?=
+ =?utf-8?B?RkF4WC9CYm1aQzRDd0I4bGxqK2hCYnZXYnAxMGxVMXVRRzNwdjcrdjMxQWRK?=
+ =?utf-8?B?OUZSbHFzV0JRMUtnbmk1NEFtRy8vMm4wWktnUDRDR3M2QVBRTzVnelFZblJX?=
+ =?utf-8?B?MnRvVWdHT0ZTM3dHVzYrL3VrQjNVNHUySXJ0MTRNN3dKNnQvUUJOUUFxdFZn?=
+ =?utf-8?B?T3RvRGlncVJwbnhRTTBRYmpTVmtKMUNUWEZZYTdQMytRSkVlTHQ1d0kycXRK?=
+ =?utf-8?B?SHZNRm1KTnA0VVVZczlhNVJvQ1FGNzJHYS84emJjTHFMNlVLSGpxc2NvZUlx?=
+ =?utf-8?B?Vlh2N0ltYmFteXhCSVZFUlZtU0liTzhuUHRnRWliSUVpY3NLUFEvazNNc1Nv?=
+ =?utf-8?B?cExrR3lxK0Nidzhia3greDQ0UXl5ZTZjUUh6dEwvdFJrbWVMVUsrc1VoUnBG?=
+ =?utf-8?B?R0dWSmZSWGwvOCtjOFI2OStvVndWWVZTZ2lwaWRpM0Q0N0dRc1FEcGN0Ujhw?=
+ =?utf-8?B?QmlwNk9UVU1NWHJzMlF2VVhWWmtObEtLdkFlMDBia2ViUDFtbFpxRGk2ZXpn?=
+ =?utf-8?B?WDJCMzQ5QmNUODE2TnJYeXF4K0xzaHMrNERkQWF2dmZqUHlVNkFLRVdsaE9D?=
+ =?utf-8?Q?ibpg2SYSLXwoXl6usjRMHFjrXy8pMrDKlenXdYV?=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR18MB5244.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700018);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?47Wh8MfLQu3/6LfizSrGH5yo/Y/celY5dZQ9uEm7/o5W8pmZLg+gXWTmb+N/?=
- =?us-ascii?Q?pYV9UoNelkeCzDKYxHnNB86uTcBdBlixCSSHxYYgL4C/W0D5ahsBUNUyrX7X?=
- =?us-ascii?Q?qzQNTKpwI3LHwL5+yCSVawDdiXnnFjqt5N4IonlVLfZ8XFEm1XVZQ3NszIbe?=
- =?us-ascii?Q?Xb4RzLRm3Ska6cL2tTYehiGgLzUABwms8M2NhJ74vnyMpp8fu8TU3L5hTP2K?=
- =?us-ascii?Q?VUV7hx7jxuWjx3+86znUSaPWx6UHrDtpdP+yW1kQf0WB8Lw4UbGSSw9bTAZY?=
- =?us-ascii?Q?md6LDQDz6irRDFZh1Q/l+H7kEhc86R8MNK1YVm1HLV38zZtTf7oKL7PWStgo?=
- =?us-ascii?Q?TdPqI+7NM+R3Vv0KBgTd/hop1xu0X+wHtdI17AtvqlrlEj4LY5eeJgz4b8Py?=
- =?us-ascii?Q?u/5HN7mRFTYN0PE0gQIp+9F4KcGjIgY/w98os6uFsnwgp2P1TCMIEcdZEmTw?=
- =?us-ascii?Q?ueJ7TJXHnXCLR+0KiBCLrnA3d3ibs0YR6RqSWzxn4TfPSRzo8Bo/+AEg8p9V?=
- =?us-ascii?Q?bxGr5nQ933rmAn3VmkHol3hx5N8xcijmsnx5IHrw9LbkGuAUIj6xdlyut8+u?=
- =?us-ascii?Q?Xb/FYB1qexAp2euuontFnFXHIX8QKS4mZMnpq1M9v9RYrf5/gYHnEwaThT37?=
- =?us-ascii?Q?OiB081+iZCSsAQPi3eH63k/+CdjDd23Zl4YYtIHzf5boxNeT76UtEc5r32me?=
- =?us-ascii?Q?Xsr5IJ4hPaOYhk19p5vAgFoQQf7LFEZBro4bQ4K3k1ypnSCeNxNbcYbxtwwg?=
- =?us-ascii?Q?po/bRdIT0+4tszHrdtLWjlEXGvsqPKuwQuWGqxYuCJ/OmqFjX4UYWvRDDrUI?=
- =?us-ascii?Q?xC+DQ4y9hKH9wZpyf83Ss2EjIneSe99urUB5OP9w2uI8hC03Ed64SOjpMNCv?=
- =?us-ascii?Q?oc7KdXtpHcsDCeUCHcWE8n83Im0Gf73RPGWprnfxP9vzvF6KhHwrRhWzSGY5?=
- =?us-ascii?Q?AdCv9SfXzT6fnD+u2X3PAWSEWTo49uXi2Ny6cg/0wzimwIT3hXx/Rp/CS3mV?=
- =?us-ascii?Q?HtmaPwZlysNcOGFFGCXHW+gdTiEVa32BEmZefbeFiUtDtcz3tZEqKts5hJtp?=
- =?us-ascii?Q?LBogdnELUdzMpULjCe2jJ9RTkaDGWjYueWAVny/WLCdvk0JHgiMQmT8ZHmaa?=
- =?us-ascii?Q?GuaX28IutP3uUr6CFgRUxWF1690eTDNvy18FA7AEo5nBT1v8rVeGoqiGyoLf?=
- =?us-ascii?Q?Umj5HukHGuWVr62qsxDzw5xCWf/rRx4kpP7P0KJaIYdGpPmlEPZQUQj4Iw3u?=
- =?us-ascii?Q?R7wmw1hHyU5ARiN/lJEQhhoD75+dAEEfFnUS9k9/tS+wH9UM5L5kmWuwQYLV?=
- =?us-ascii?Q?wooH5HkTsA0J3j0cZ3z/cvXfALd42lSFleJbwLl77I1MaCKO95tRuwtIeenq?=
- =?us-ascii?Q?T8K7e11/dboI/beTjQf+zKURzno2pfYN0PysmcA9wptnkSfw8cls+xhAJgp0?=
- =?us-ascii?Q?1Ew1d56jasgGuFXvcDHK//2v94Rgq8tUmHC8pmtTro5XVkSJQLTV4QSo6/dD?=
- =?us-ascii?Q?SZOlx9Pqmr0DjQUnM4wPUQqfRplzPGDA/5xFBAY25XmA12M1+1WpfZ0wJ40z?=
- =?us-ascii?Q?kNTfvOvp95KjHAGSuho=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ =?utf-8?B?TnNwZEN3VXEvM2pZTFhTb05JMis4YlZGdGxlWFNjMFYvSG5JZURsM3pIMUpq?=
+ =?utf-8?B?TUpoOEY3dEJuZEpQMktnSlpJaThaS2JYQVRtM3BOZUhxazBYOUJOWGdvMm1q?=
+ =?utf-8?B?b2xHSjMyTlV6MndpZFZUbnNCMG5vcG0yc3JLRG5VZUhxMUlUaXpjMkdKdW0v?=
+ =?utf-8?B?Mzc0cDFEdXFDbEowNTFLeEVyamNFdG9JNS9icUJLV2I4MWdoUU5uUVNkeWho?=
+ =?utf-8?B?MlM5RDNmdVdhL1VTcVQwdmtOK1U5bGhmQ016SjJlQUFmQUpabzZyNHpCWDEz?=
+ =?utf-8?B?WExuWWpXRmYvcHZPN0RkRXdHQXg4Ullid0ZEQ0tvSExPTDZOcGdQRVZZQ2cv?=
+ =?utf-8?B?REplVjlLcnFNckd3Vm1hbHJyT2M0aXRBQ0hDdTM0c2grMFZrUDR1M3V4dzJw?=
+ =?utf-8?B?VmZjM25hVUdhc1k0bkNIUjJUeUtzRzJseVZaaHZmT2QvTFducWNOejlIUnNl?=
+ =?utf-8?B?Zk1udlBoUU5KeDFmbnFramRMVTc5TTlOMEJVVWJqQ0U3RDZSei90ZG1sVW5J?=
+ =?utf-8?B?cmRDVFdmZ1BlVEVmRG93aFV0cExBemNzUVN2dVlneEM0MWlFNTJzSnU5OEl4?=
+ =?utf-8?B?OEZTRThUVGJJdThNNVArRkpEMlpKSnY2dzVFa2pNS2MwOUM0dll6Y2FPTWN1?=
+ =?utf-8?B?cFZOT3EzRFZJSHZjOStNTmFJRkZEK2NWU2hoN2htNFk4NDlEVE1wUUdmbENo?=
+ =?utf-8?B?RXFneUNKTlpxaHFjOFN3b0dtMFMvSlExcU5CU2ZORVU2Zkp6Z1U1eWtpcnho?=
+ =?utf-8?B?UEs1alJoT3dzTGplL0w5VE5aa0d5WUNuRDNqSytGSVQrdTAyWHBBY0c2Zm9m?=
+ =?utf-8?B?UURkbVdBOW15U3BrZmhEdHBnV2dqSDV1Ujg1NEY5dTJkVlBpL3pjdk5TZ1hX?=
+ =?utf-8?B?dWZJSGdqUU9LeG80VU5SSHIvU0xJYmtVaFNSODloSUsyM3RVUUdWdHE1M3JY?=
+ =?utf-8?B?OElHaks1cllOclM5T1Q1RzAyRnhScXFXb242TSthc0s5aUpuV0h5THlHK01P?=
+ =?utf-8?B?Zk02Y3JlSlRCRXB2ek1FdEV5d1dJN3NSU0pTdXUwWFN1d2VnUFFhUWJnd3k3?=
+ =?utf-8?B?Z2RTNFZzUFBSaGxlYW0yWmUxYldnbUhhTmY3c0szeGNkQWdTMzJHdzZRZnJa?=
+ =?utf-8?B?b1JJamxMMXR0VVZvK2tjdjgyTzJNSnU1MFVwZnhuczdZbU5UNU9TWmlpWTZH?=
+ =?utf-8?B?Tk1lTVNIcmZUQVpZQVFFSEhaMGttVnJsZGFuc1R2K1ErVUhhR01OR3hFcXdw?=
+ =?utf-8?B?MWg5N1FpR0NKSzZia09MdzRveWVxNVR2RU9qU2MwWjh5T0RlR2NEYlhmWnB0?=
+ =?utf-8?B?cHVTZmxFNTlLRGtmeTBLNFl3Z1R2VFpFRVBsdmU4NlVCUGRlRFdjUDRYYnd4?=
+ =?utf-8?B?NXZQcEsya3NTZDh5c2dya0c3U09QVEZFMnlUd3lhcWFzZjR3SDRCQTU5RUJL?=
+ =?utf-8?B?UkdpTFliYitEQ29lYnNXTWFNYWxraVZ2d1FuSnBJcmJndlhKejdoUithY0d6?=
+ =?utf-8?B?QmdMVmJpbmtoL1JuS1NrRHExYyt2ZElycjdyNkNSSS90MFJ6SnllQVhWaW1G?=
+ =?utf-8?B?cTJVRE9uNUVVZFJjeDlGNEQrN1FGRndTVkVjRzltUzlHYmZhRVdJZWxaemFI?=
+ =?utf-8?B?V29NV2I4N2JFdlNiVW1PSENkWWVRdlc1MHBwZ1pHM1gwUlJqSmFmVmR5bWIx?=
+ =?utf-8?B?NTdONWh2Qk9XUFFoaDAwSVVkM3dpcW15Uklzc2xSWXRQMzVxTkRGYlA0K1E1?=
+ =?utf-8?B?T2R3ZGJ1V1JoT0hjQ1gwS1NYTzJCR3ZId0wxYS9FWkVHSzNueTBVK2M1Ui9v?=
+ =?utf-8?B?TjE1ZllhQkFNN01YZlpTTzJyTDV1V05yZmJ6bFc4ZnZNbi8wTStqanZndS9r?=
+ =?utf-8?B?TTlmL3dpM2lJM2ZFVC9qa1EwcDNtd2pndUNPWnFGU2tvZFJZWE52NVJJVGVr?=
+ =?utf-8?B?TDBtdTRLY3BpZ0ZnSkxEU0pQWEswY2pMM2c4NG1penljaU90Y004NllHZmtR?=
+ =?utf-8?B?WkJHVTBkakdqMUZ1QlZMSEJELzQ1Sk5XanUvQ3E2d0JGQndrUmpZVUkxUURV?=
+ =?utf-8?B?RnU4SnF2Zk81dHRzczU1aktzNmJ2NDc4Uk5nWHFQMUVZdHF2MUNUNnpZcXN4?=
+ =?utf-8?Q?DSvwROlUZHPCK2162jvRo2AHo?=
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
+X-OriginatorOrg: marvell.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2dd9d2cf-82e1-4c4d-d596-08dcfe416bef
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2024 09:00:11.6613
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR18MB5244.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0513c0d0-2361-4e3d-f51d-08dcfe53b27e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2024 11:11:00.9915
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-id: 70e1fb47-1155-421d-87fc-2e58f638b6e0
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cvL1q/yFhxpWnn+KFqfnhYS9yHsvek6S5V8sjjrvo//RKBpI0D3HPsgGIiEimkS/D5OCYVFXIRvz4ITE3PP13w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5844
+X-MS-Exchange-CrossTenant-userprincipalname: w0Enw6e+rddn8sr7TDKhINhVTm9o39narM4NhbYSM8RtPp4lnRi0owl+FMMuw70EzcGSbSC9X8BKZJcyR6GYHQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR18MB4438
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: fyIEVY19jaRGqMNApgdJV6hkl0VnMifl
+X-Proofpoint-GUID: fyIEVY19jaRGqMNApgdJV6hkl0VnMifl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 
 
 
-> From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-> Sent: Wednesday, November 6, 2024 2:22 PM
->=20
-> On Mon, 24 Jun 2024 13:09:05 +0200, Steffen Trumtrar
-> <s.trumtrar@pengutronix.de> wrote:
-> > Accurate RTT measurement requires timestamps close to the wire.
-> > Introduce virtio feature VIRTIO_NET_F_RX_TSTAMP. If negotiated, the
-> > virtio-net header is expanded with room for a timestamp.
-> >
-> > A device may pass receive timestamps for all or some packets. Flag
-> > VIRTIO_NET_HDR_F_TSTAMP signals whether a timestamp is recorded.
-> >
-> > Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> > ---
-> >  device-types/net/description.tex | 11 +++++++++++
-> >  1 file changed, 11 insertions(+)
-> >
-> > diff --git a/device-types/net/description.tex
-> > b/device-types/net/description.tex
-> > index eb2c08e..09d9c28 100644
-> > --- a/device-types/net/description.tex
-> > +++ b/device-types/net/description.tex
-> > @@ -88,6 +88,8 @@ \subsection{Feature bits}\label{sec:Device Types /
-> > Network Device / Feature bits  \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)]
-> Set MAC address through control
-> >      channel.
-> >
-> > +\item[VIRTIO_NET_F_RX_TSTAMP(48)] Device sends TAI receive time
-> > +
-> >  \item[VIRTIO_NET_F_TX_HASH(49)] Driver sends hash report
-> >
-> >  \item[VIRTIO_NET_F_DEVICE_STATS(50)] Device can provide device-level
-> > statistics @@ -415,6 +417,7 @@ \subsection{Device
-> Operation}\label{sec:Device Types / Network Device / Device O
-> >  #define VIRTIO_NET_HDR_F_NEEDS_CSUM    1
-> >  #define VIRTIO_NET_HDR_F_DATA_VALID    2
-> >  #define VIRTIO_NET_HDR_F_RSC_INFO      4
-> > +#define VIRTIO_NET_HDR_F_TSTAMP        8
-> >          u8 flags;
-> >  #define VIRTIO_NET_HDR_GSO_NONE        0
-> >  #define VIRTIO_NET_HDR_GSO_TCPV4       1
-> > @@ -659,6 +662,7 @@ \subsubsection{Packet
-> Transmission}\label{sec:Device Types / Network Device / De
-> >        __le16 flow_state;
-> >      } hash;
-> >      __u32 reserved;
-> > +    __le64 tstamp;
-> >    };
-> >  \end{lstlisting}
-> >
-> > @@ -1177,6 +1181,13 @@ \subsubsection{Processing of Incoming
-> Packets}\label{sec:Device Types / Network
-> >  #define VIRTIO_NET_HASH_REPORT_UDPv6_EX        9
-> >  \end{lstlisting}
-> >
-> > +\paragraph{Timestamping for incoming packets} \label{sec:Device Types
-> > +/ Network Device / Device Operation / Processing of Incoming Packets
-> > +/ Timestamping for incoming packets}
-> > +
-> > +If the feature VIRTIO_NET_F_RX_TSTAMP is negotiated, the \field{hdr_le=
-n}
-> is set to the size of the virtio_net_hdr_hash_ts struct.
-> > +The device may pass receive timestamps for incoming packets via
-> > +\field{tstamp} and signals this with the VIRTIO_NET_HDR_F_TSTAMP flag.
-> > +
-> >  \subsubsection{Control Virtqueue}\label{sec:Device Types / Network
-> > Device / Device Operation / Control Virtqueue}
-> >
-> >  The driver uses the control virtqueue (if VIRTIO_NET_F_CTRL_VQ is
->=20
->=20
-> This has not been updated for quite some time, but for us, the RX HW
-> timestamp feature has always been crucial. The TX HW timestamp feature,
-> however, has not progressed due to reasons we all know about.
->=20
-> Could we make a compromise in this area? First, let's complete the RX HW
-> timestamp feature. For us, the RX HW timestamp is much more important
-> than the TX HW timestamp.
->=20
-> @Jason @Michael @Parav
->=20
-> Thanks.
->=20
-Having rx timestamp in vnet header can be a good enough.
+>-----Original Message-----
+>From: Jason Wang <jasowang@redhat.com>
+>Sent: Wednesday, November 6, 2024 10:03 AM
+>To: Vamsi Krishna Attunuru <vattunuru@marvell.com>
+>Cc: Michael S. Tsirkin <mst@redhat.com>; Lege Wang
+><lege.wang@jaguarmicro.com>; virtio-comment@lists.linux.dev; Nithin
+>Kumar Dabilpuram <ndabilpuram@marvell.com>; parav@nvidia.com; Leo Liu
+><leo.liu@jaguarmicro.com>; Angus Chen <angus.chen@jaguarmicro.com>
+>Subject: Re: [EXTERNAL] Re: [PATCH]
+>VIRTIO_F_USED_EVENT_AUTO_DISABLE: add new used buffer notification
+>suppression mechanism
+>
+>On Wed, Nov 6, 2024 at 12:=E2=80=8A23 AM Vamsi Krishna Attunuru
+><vattunuru@=E2=80=8Amarvell.=E2=80=8Acom> wrote: > > Hi Wang, Michael, Jas=
+on, > > I wanted
+>to follow up on the previous discussions regarding this new used buffer
+>notification suppression.=20
+>On Wed, Nov 6, 2024 at 12:23=E2=80=AFAM Vamsi Krishna Attunuru
+><vattunuru@marvell.com> wrote:
+>>
+>> Hi Wang, Michael, Jason,
+>>
+>> I wanted to follow up on the previous discussions regarding this new used
+>buffer notification suppression.
+>>
+>> Since this proposal involves two changes, how about separating it out and
+>explore the feasibilities to support interrupt coalescing with existing op=
+tions.?
+>> 1) Support pvirtq_event_suppress/virtq_avail in PCI bar
+>> 2) Support used buffer notification coalescing
+>>
+>> Regards
+>> Vamsi
+>
+>Maybe post a new RFC to see?
+
+Sure, thanks.
+>
+>Thanks
+
