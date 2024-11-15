@@ -1,210 +1,330 @@
-Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CAAD52F9E
-	for <virtio-comment@lists.linux.dev>; Fri, 15 Nov 2024 11:45:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB681D61A1
+	for <virtio-comment@lists.linux.dev>; Fri, 15 Nov 2024 17:44:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731671142; cv=none; b=Gvt5IefZIn29M0LFL903B3eNvach0vAOQUvbrSmcJPj+3l23xOHHmvmT2dxsc3aMVJqfhuQd0N2m8Mkz0++Y3Wr5KniaqKGBXEf2nkBdberX6MZxAij740OLyJ+lnD/PHkrbWDgOZkDO8/bfGLOb+pd2lUhUjzeJCc+CLHaYXXs=
+	t=1731692692; cv=none; b=YW7qmlTTrw2A/nEeyAXIAgu2OgYFBqlpkYPJBe3v3Tx67g+hOII+ROega/bDsYETJ/RUuXMWHXDm9WCyVXhLB8pkREyDq7ae2GPh9BrYBkpsgR9Zluv4PcKE8gDvAryyCMiTDoTpNfmHSXglooEKhP6fkHR3iQ67h35iPipWzS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731671142; c=relaxed/simple;
-	bh=bGPpXbSHfhoyjBhglmksdPqOB4C4BclXj53fTAJm5DY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BOLjfsPZ1ndmueGPthzXWMDo5IxnqqinHtMpePjrjOQ2LBu+YN5zHber/divmFZRQFrsmfTM7KgAqkJYulsbb04NJnJavBRVR04k9+z9BgYg8oXpvvpxFOqp77RbDOG2Kxs0PuSDHGRu85xuJmLK/MeHBgxEAb+dqFGKTYO70Qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=Bmv1wi3p; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1731692692; c=relaxed/simple;
+	bh=u9j9jQKF+d2LrjZwv9umv07mo//oq9AI5YN5Osa+Cvg=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=CSgoT1W3/Ii/YYE90vYAkrTfFJuXiAv8zS8D8yEn17OnRaK7qVRdImq8JkyhMHC/Du5OTVk+zjyRo+rak01qtjhUcbx/XssM2e8ZoCJ4rmUddnCH3haGGj5xsh8ydt4hDMIgqp5VgmGrYKeFPwZyFfW1utbVls/p12FWTDn1EjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VdUQ8sGB; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="Bmv1wi3p"
-Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AFAEw87020274;
-	Fri, 15 Nov 2024 03:45:40 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=a
-	4mk8zJhMKAVzt7b7JQyrz2P8ppuN0MYda+RxZ4s+UQ=; b=Bmv1wi3pDZpCM2c/7
-	5/NSnjEjpue1+zC/3IXWHsh179QKyIsSIYE8cwiWK4DKXn89MXeUxPVAmmNhRKWS
-	Ui25u+Q5eFA+yx4lMjs9Oi3NUY90ARxsYRKfW2pR+9QMnjEWsqNleIvQEGNZbzho
-	rFvYgxAzpRD+HDKy7NuPkAfgJDzaq49G7Rew9w6puwKuie6Lc1Bbpn+gSUsqNhOC
-	EPGmpX2fLzw91nz9O0h9OFPb+1w0+cIu6+zXywiT+Q3LIJgzwvtg4p3btNuH7cH2
-	qQNQ9U4vfQ5NNOV1J/haeygdxIWZWFAv7Cyn24U/wvneRTyanzAaz8CbgWl8A/57
-	jlfzw==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 42x4cgr3j1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 15 Nov 2024 03:45:40 -0800 (PST)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Fri, 15 Nov 2024 03:45:39 -0800
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.4 via Frontend
- Transport; Fri, 15 Nov 2024 03:45:39 -0800
-Received: from localhost.localdomain (unknown [10.28.36.175])
-	by maili.marvell.com (Postfix) with ESMTP id 9D3323F7048;
-	Fri, 15 Nov 2024 03:45:36 -0800 (PST)
-From: Srujana Challa <schalla@marvell.com>
-To: <virtio-comment@lists.linux.dev>
-CC: <mst@redhat.com>, <cohuck@redhat.com>, <parav@nvidia.com>,
-        <sburla@marvell.com>, <ndabilpuram@marvell.com>, <jerinj@marvell.com>,
-        <anoobj@marvell.com>, <schalla@marvell.com>
-Subject: [PATCH RFC 4/4] virtio-crypto: Add device and driver requirements for IPsec operation
-Date: Fri, 15 Nov 2024 17:15:23 +0530
-Message-ID: <20241115114523.1787840-5-schalla@marvell.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20241115114523.1787840-1-schalla@marvell.com>
-References: <20241115114523.1787840-1-schalla@marvell.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VdUQ8sGB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1731692688;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1b2czIMOUssMofVQs2v0sfIWgLyy7yQeut1wTzteNY0=;
+	b=VdUQ8sGB6ZwU77uhH6ZQfKzSurlCiNJn69gX0XBfVCa/ajSJK0Kg+ZjcC+GI5TPe0Vm7kv
+	N5yWfd9+b/csHIBII2l5Djx46rt+E0eEFMnYxdq6Qzx9Pb2D6kGMu96MXYyAeZMXIkkyve
+	cBVWW3rnf1/UZD96guuq5NVEX6Fzh00=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-369-Njc4ZMIOObizOVtTZxmunQ-1; Fri, 15 Nov 2024 12:44:47 -0500
+X-MC-Unique: Njc4ZMIOObizOVtTZxmunQ-1
+X-Mimecast-MFC-AGG-ID: Njc4ZMIOObizOVtTZxmunQ
+Received: by mail-lf1-f72.google.com with SMTP id 2adb3069b0e04-539ec1a590fso1757785e87.0
+        for <virtio-comment@lists.linux.dev>; Fri, 15 Nov 2024 09:44:47 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1731692685; x=1732297485;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=1b2czIMOUssMofVQs2v0sfIWgLyy7yQeut1wTzteNY0=;
+        b=n/oLtkSQVyM05cFY505CPH8ZxXTQAByuyXff9drstxkg3r+NoYGuOAWuLzRemk1WT7
+         37lAsBkitwpj6yeIo40BybYXs7cIeJ50xzWt8a06h221U4YjLnEKBNzOdDdh9mJ+1I27
+         KfRLy5SJuKw2HIbHeyBdm807GztokUF9re679uoHqHlFimushkQOSQE/qYBMek8K77kT
+         N8VOhIGmpXNsIXB5kbEdkug21UloyGWuTP44D7tkyC/jEnQvKU+3Ztx9newMdaQXVjzO
+         N30OEDUHkDlzfxKqu0YNia0sgSsIZQ84PkHe2HtiddAAjyWYj9RCt5zZtHma5AhYQcg1
+         VmRA==
+X-Gm-Message-State: AOJu0Yz0fNNQIq0gVl3g3VVe0bm8BUzZF8ZEE9nIa3D/l+Bv87ZHFifT
+	+CNIi8YGE8FZVt6KJyKNUPC5Jt7nXiHq9sL6HHW5JT7RIkBld9KMLnP2TNBmWImv/Ix9Ox4Q5NX
+	Vzp3JtIx637WwbG4nzzMxXKw5XIY50n2bUQ1fB7JIDjlrfPHFrq/MkHKuBAe+PFX5gtiXqG1TJY
+	pX9w251Pz2x5BdJGsYADEJnY6/tyxOWUws0R9+3fOtZ/ZGkTya
+X-Received: by 2002:a05:6512:4012:b0:539:e4b5:10e5 with SMTP id 2adb3069b0e04-53dab2926e6mr1925855e87.9.1731692685246;
+        Fri, 15 Nov 2024 09:44:45 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IH7exG9BAyRfAHCTaHp9WH3tIFoFNcB+LZbhnEbznpaj7f+pbLTCoYaH/pnVyIgsONc7Ez8wQ==
+X-Received: by 2002:a05:6512:4012:b0:539:e4b5:10e5 with SMTP id 2adb3069b0e04-53dab2926e6mr1925837e87.9.1731692684583;
+        Fri, 15 Nov 2024 09:44:44 -0800 (PST)
+Received: from [192.168.88.24] (146-241-44-112.dyn.eolo.it. [146.241.44.112])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-432da280018sm64615415e9.26.2024.11.15.09.44.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 15 Nov 2024 09:44:44 -0800 (PST)
+Message-ID: <76709a7a-4c02-4bbc-b9bc-4f1105cda660@redhat.com>
+Date: Fri, 15 Nov 2024 18:44:42 +0100
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: GnE_0VDGxeXOrBwVaXg8oQ2Zy-4p_65A
-X-Proofpoint-ORIG-GUID: GnE_0VDGxeXOrBwVaXg8oQ2Zy-4p_65A
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.687,Hydra:6.0.235,FMLib:17.0.607.475
- definitions=2020-10-13_15,2020-10-13_02,2020-04-07_01
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 0/3] virtio-net: define UDP tunnel offload
+From: Paolo Abeni <pabeni@redhat.com>
+To: virtio-comment@lists.linux.dev
+Cc: maxime.coquelin@redhat.com, Eelco Chaudron <echaudro@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>,
+ Willem de Bruijn <willemb@google.com>, kshankar@marvell.com
+References: <cover.1731084277.git.pabeni@redhat.com>
+In-Reply-To: <cover.1731084277.git.pabeni@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Jdm9I5t2flaMgr70Krz8RKZ7ESYjHeY1UgF5XnJa1pc_1731692686
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add device and driver requirements for IPsec Operation.
+On 11/8/24 17:52, Paolo Abeni wrote:
+> UDP tunnel usage is ubiquitous in container deployment, and the ability
+> to offload UDP encapsulated GSO traffic impacts greatly the performances
+> and the CPU utilization of such use cases.
+> 
+> This series includes:
+> - a clarification on the current semantic of
+> NEEDS_CSUM offload (patch 1) to make later changes easier to follow,
+> - new features definition to handle both UDP tunnel segmentation
+> offload (patch 2).
+> - new features definition to handleUDP tunnel outer checksum offload
+> (patch 2).
+> 
+> A PoC implementation is available here:
+> 
+> https://github.com/pabeni/linux-devel/commits/virtio_tunnel_gso_v10/
+> https://github.com/pabeni/qemu/tree/virtio_tunnel_gso_v9
+> 
+> Note that the user-space implementation has not been updated since
+> the previous iteration, since the kernel changes are transparent to it.
+> 
+> Changes from v9:
+> - added patch 1
+> - clarified that 'hdr_len' accounts for the inner header for GSO over
+> UDP tunnel packets
+> - DATA_VALID is not be allowed for GSO over UDP tunnel packets.
+> https://lore.kernel.org/virtio-comment/cover.1728029499.git.pabeni@redhat.com/
 
-Signed-off-by: Srujana Challa <schalla@marvell.com>
----
- device-types/crypto/description.tex        | 100 +++++++++++++++++++++
- device-types/crypto/device-conformance.tex |   1 +
- device-types/crypto/driver-conformance.tex |   1 +
- 3 files changed, 102 insertions(+)
+As a reference this is the cumulative diff WRT v9:
 
-diff --git a/device-types/crypto/description.tex b/device-types/crypto/description.tex
-index 9c878f7..5ca6602 100644
---- a/device-types/crypto/description.tex
-+++ b/device-types/crypto/description.tex
-@@ -2238,3 +2238,103 @@ \subsubsection{IPSEC Service Operation}\label{sec:Device Types / Crypto Device /
- \field{src_data_len} is the length of source data.
- \field{dst_result} is the result plain IP packet and
- \field{dst_data_len} is the length of it.
+diff --git a/device-types/net/description.tex
+b/device-types/net/description.tex
+index 48e0f5e..7ca0fc2 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -582,6 +582,9 @@ \subsubsection{Packet Transmission}\label{sec:Device
+Types / Network Device / De
+     \field{hdr_len} indicates the header length that needs to be replicated
+     for each packet. It's the number of bytes from the beginning of the
+packet
+     to the beginning of the transport payload.
++    If the \field{gso_type} has the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4
+bit or
++    VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit set, \field{hdr_len}
+accounts for
++    all the headers up to and including the inner transport.
+     Otherwise, if the VIRTIO_NET_F_GUEST_HDRLEN feature has not been
+negotiated,
+     \field{hdr_len} is a hint to the device as to how much of the header
+     needs to be kept to copy into each packet, usually set to the
+@@ -712,8 +715,10 @@ \subsubsection{Packet
+Transmission}\label{sec:Device Types / Network Device / De
+ The driver MUST NOT send to the device TCP or UDP GSO packets over UDP
+tunnel
+ requiring segmentation and outer UDP checksum offload, unless both the
+ VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO and
+VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM features
+-are negotiated, in which case the driver MUST set the
+VIRTIO_NET_HDR_GSO_UDP_TUNNEL
+-bit in the \field{gso_type} and the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM
+bit in the \field{flags}.
++are negotiated, in which case the driver MUST set either the
++VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
+VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6
++bit in the \field{gso_type} and the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in
++the \field{flags}.
+
+ If VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM is not negotiated, the driver
+MUST not set
+ the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in the \field{flags} and
+@@ -738,6 +743,13 @@ \subsubsection{Packet
+Transmission}\label{sec:Device Types / Network Device / De
+ \item the driver MUST validate the packet checksum at
+ 	offset \field{csum_offset} from \field{csum_start} as well as all
+ 	preceding offsets;
++\begin{note}
++If \field{gso_type} differs from VIRTIO_NET_HDR_GSO_NONE and the
++VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
+VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6
++bit are not set in \field{gso_type}, \field{csum_offset}
++points to the only transport header present in the packet, and there are no
++additional preceding checksums validated by VIRTIO_NET_HDR_F_NEEDS_CSUM.
++\end{note}
+ \item the driver MUST set the packet checksum stored in the
+ 	buffer to the TCP/UDP pseudo header;
+ \item the driver MUST set \field{csum_start} and
+@@ -763,7 +775,10 @@ \subsubsection{Packet
+Transmission}\label{sec:Device Types / Network Device / De
+ \item If the VIRTIO_NET_F_GUEST_HDRLEN feature has been negotiated,
+ 	and \field{gso_type} differs from VIRTIO_NET_HDR_GSO_NONE,
+ 	the driver MUST set \field{hdr_len} to a value equal to the length
+-	of the headers, including the transport header.
++	of the headers, including the transport header. If \field{gso_type}
++	has the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
++	VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit set, \field{hdr_len} includes
++	the inner transport header.
+
+ \item If the VIRTIO_NET_F_GUEST_HDRLEN feature has not been negotiated,
+ 	or \field{gso_type} is VIRTIO_NET_HDR_GSO_NONE,
+@@ -988,17 +1003,10 @@ \subsubsection{Processing of Incoming
+Packets}\label{sec:Device Types / Network
+ \item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
+   VIRTIO_NET_HDR_F_DATA_VALID bit in \field{flags} can be
+   set: if so, device has validated the packet checksum.
+-  If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO feature has been negotiated,
+-  and either the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
+-  VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set,
+-  the device can additionally set the VIRTIO_NET_HDR_F_DATA_VALID bit
+-  in \field{flags}, meaning that the device validated the checksum,
+-  set the csum_start and csum_offset fields, but did not provide the
+-  partial checksum for the transport header.
+   If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM feature has been
+negotiated,
+   and the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit is set in \field{flags},
+   both the outer UDP checksum and the inner transport checksum
+-  have been validated, otherwise only one level of checksums (the inner one
++  have been validated, otherwise only one level of checksums (the outer one
+   in case of tunnels) has been validated.
+ \end{enumerate}
+
+@@ -1025,10 +1033,15 @@ \subsubsection{Processing of Incoming
+Packets}\label{sec:Device Types / Network
+   from \field{csum_start} and any preceding checksums
+   have been validated.  The checksum on the packet is incomplete and
+   if bit VIRTIO_NET_HDR_F_RSC_INFO is not set in \field{flags},
+-  then \field{csum_start} and \field{csum_offset} indicate how to
+calculate it.
+-  If the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or
+VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6
+-  bit are set, the \field{csum_start} field
+-  refers to the inner transport header offset (see Packet Transmission
+point 1).
++  then \field{csum_start} and \field{csum_offset} indicate how to
+calculate it
++  (see Packet Transmission point 1).
++\begin{note}
++If \field{gso_type} differs from VIRTIO_NET_HDR_GSO_NONE and the
++VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
+VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6
++bit are not set, \field{csum_offset}
++points to the only transport header present in the packet, and there are no
++additional preceding checksums validated by VIRTIO_NET_HDR_F_NEEDS_CSUM.
++\end{note}
+ \item If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO option was negotiated and
+   \field{gso_type} is not VIRTIO_NET_HDR_GSO_NONE, the
+   VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
+VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6
+@@ -1037,13 +1050,21 @@ \subsubsection{Processing of Incoming
+Packets}\label{sec:Device Types / Network
+   headers information.
+ \item If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM feature was
+ negotiated, and
+-  the VIRTIO_NET_HDR_GSO_UDP_TUNNEL bit is set in \field{gso_type}, the
+-  VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in the \field{flags} can be set:
+if so,
+-  the outer UDP checksum has been validated.
+-  If the VIRTIO_NET_HDR_F_DATA_VALID bit in \field{flags} is not set,
+the UDP
+-  header checksum at offset 6 from from \field{outer_th_offset}
++  the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
+VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6
++  are set in \field{gso_type}, the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit
+in the
++  \field{flags} can be set: if so, the outer UDP checksum has been
+validated
++  and the UDP header checksum at offset 6 from from \field{outer_th_offset}
+   is set to the outer UDP pseudo header checksum.
+
++\begin{note}
++If the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or
+VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6
++bit are set in \field{gso_type}, the \field{csum_start} field refers to
++the inner transport header offset (see Packet Transmission point 1).
++If the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in \field{flags} is set both
++the inner and the outer header checksums have been validated by
++VIRTIO_NET_HDR_F_NEEDS_CSUM, otherwise only the inner transport header
++checksum has been validated.
++\end{note}
+ \end{enumerate}
+
+ If applicable, the device calculates per-packet hash for incoming
+packets as
+@@ -1148,7 +1169,9 @@ \subsubsection{Processing of Incoming
+Packets}\label{sec:Device Types / Network
+ If one of the VIRTIO_NET_F_GUEST_TSO4, TSO6, UFO, USO4 or USO6 options have
+ been negotiated, the device SHOULD set \field{hdr_len} to a value
+ not less than the length of the headers, including the transport
+-header.
++header. If \field{gso_type} has the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit
++or the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit set, the referenced transport
++header is the inner one.
+
+ If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated, the
+ device MAY set the VIRTIO_NET_HDR_F_DATA_VALID bit in
+@@ -1157,19 +1180,19 @@ \subsubsection{Processing of Incoming
+Packets}\label{sec:Device Types / Network
+ been negotiated, and the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit set in
+ \field{flags}, both the outer UDP checksum and the inner transport
+ checksum have been validated, otherwise only one level of checksums
+-(the inner one in case of tunnels) has been validated. \note{This implies
+-that if either the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
++(the outer one in case of tunnels) has been validated.
 +
-+\devicenormative{\paragraph}{IPsec Service Operation}{Device Types / Crypto Device / Device Operation / IPsec Service Operation}
-+
-+When the device supports IPsec operations,
-+\begin{itemize}
-+\item the device MUST set VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP, VIRTIO_CRYPTO_IPSEC_SA_CAP
-+capability in the \field{supported_caps} in the command VIRTIO_ADMIN_CMD_CAP_SUPPORT_QUERY.
-+\item the device MUST support the administration commands
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE,
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY, VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY,
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY for the resource types
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA and VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA.
-+\end{itemize}
-+
-+When any of the VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP or VIRTIO_CRYPTO_IPSEC_SA_CAP
-+capability is disabled, the device MUST set \field{status} to
-+VIRTIO_ADMIN_STATUS_Q_INVALID_OPCODE for the commands
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE,
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY, VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY,
-+and VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY.
-+
-+The device MUST set \field{status} to VIRTIO_ADMIN_STATUS_EEXIST for the
-+command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE when the resource \field{type}
-+is VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA or VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA,
-+if the object is already exists with the supplied \field{id}.
-+
-+The device MUST set \field{status} to VIRTIO_ADMIN_STATUS_EBUSY for the
-+command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY when the resource \field{type}
-+is VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA or VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA,
-+if the object is in use.
-+
-+The device MUST fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE with
-+the \field{status} set to VIRTIO_ADMIN_STATUS_EINVAL, for the
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA object if,
-+\begin{itemize}
-+\item \field{id} is greater than or equal to \field{outb_sa_limit}.
-+\item the supplied SA parameters, such as mode, options, cipher and authentication
-+      algorithms is not supported in the capabitlity VIRTIO_CRYPTO_IPSEC_SA_CAP.
-+\end{itemize}
-+
-+The device MUST fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE with
-+the \field{status} set to VIRTIO_ADMIN_STATUS_EINVAL, for the
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA object if,
-+\begin{itemize}
-+\item \field{id} is greater than or equal to \field{inb_sa_limit}.
-+\item the supplied SA parameters, such as mode, options, cipher and authentication
-+      algorithms is not supported in the capabitlity VIRTIO_CRYPTO_IPSEC_SA_CAP.
-+\end{itemize}
-+
-+The device SHOULD maintain a table for subsequent lookups for inbound/outbound data
-+processing with the corresponding SA based on the supplied \field{id}.
-+
-+The device MUST allow recreating the resource objects using the command
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE which was previously destroyed using
-+the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY respectively without
-+undergoing a device reset.
-+
-+The device MAY fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE with
-+the \field{status} set to VIRTIO_ADMIN_STATUS_EINVAL for the
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA or VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA
-+commands if the resource object with the same \field{spi} already exists.
-+
-+On device reset, the device MUST destroy all the resource objects which have been created.
-+
-+The device MUST copy the result of IPsec operation in the \field{dst_data[]}.
-+The device MUST set the \field{status} field in struct virtio_crypto_inhdr to
-+one of the following values of enum VIRTIO_CRYPTO_STATUS:
-+\begin{itemize*}
-+\item VIRTIO_CRYPTO_OK if the operation success.
-+\item VIRTIO_CRYPTO_NOTSUPP if the requested algorithm or operation is unsupported.
-+\item VIRTIO_CRYPTO_BADMSG if the integrity check is failed for IPsec decryption.
-+\item VIRTIO_CRYPTO_INVSESS if the session ID invalid.
-+\item VIRTIO_CRYPTO_ERR if any failure not mentioned above occurs.
-+\end{itemize*}
-+
-+\drivernormative{\paragraph}{IPsec Service Operation}{Device Types / Crypto Device / Device Operation / IPsec Service Operation}
-+
-+The driver MUST query the capabilities using VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY
-+to discover the capability types the device offers.
-+
-+The driver MUST get VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP and VIRTIO_CRYPTO_IPSEC_SA_CAP
-+if listed in VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY command result, using
-+VIRTION_ADMIN_CMD_DEVICE_CAP_GET to discover the capabilities the device is
-+able to offer.
-+The driver MUST set VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP and VIRTIO_CRYPTO_IPSEC_SA_CAP
-+using VIRTIO_ADMIN_CMD_DEVICE_CAP_SET to indicate the device which capability
-+the driver uses.
-+
-+For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE, when creating a resource
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA, the driver MUST set all the parameters
-+in \field struct virtio_crypto_resource_obj_ipsec_sa with relevant values.
-+And when create a resource object VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA,
-+the driver MUST set all the parameters except
-+\field struct virtio_crypto_ipsec_tunnel_param.
-+
-+The driver MUST set \field{session_id} in struct virtio_crypto_op_header to a
-+valid VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA or
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA \field{id} .
-+The driver MUST set the \field{opcode} field in struct virtio_crypto_op_header
-+to one of VIRTIO_CRYPTO_IPSEC_OUTBOUND and VIRTIO_CRYPTO_IPSEC_INBOUND.
-diff --git a/device-types/crypto/device-conformance.tex b/device-types/crypto/device-conformance.tex
-index 1667120..5d1c59f 100644
---- a/device-types/crypto/device-conformance.tex
-+++ b/device-types/crypto/device-conformance.tex
-@@ -10,4 +10,5 @@
- \item \ref{devicenormative:Device Types / Crypto Device / Device Operation / MAC Service Operation}
- \item \ref{devicenormative:Device Types / Crypto Device / Device Operation / Symmetric algorithms Operation}
- \item \ref{devicenormative:Device Types / Crypto Device / Device Operation / AEAD Service Operation}
-+\item \ref{devicenormative:Device Types / Crypto Device / Device Operation / IPsec Service Operation}
++If either the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the
+ VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set,
+-and the set the VIRTIO_NET_HDR_F_DATA_VALID in \field{flags} is set,
+-the the VIRTIO_NET_F_GUEST_CSUM bit in \field{flags} is must be set, too}
++the device MUST NOT set the VIRTIO_NET_HDR_F_DATA_VALID bit in
++\field{flags}.
+
+ If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM feature has been negotiated
+ and either the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit is set or the
+ VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit is set in \field{gso_type}, the
+ device MAY set the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in
+-\field{flags}, if so and the VIRTIO_NET_F_DATA_VALID bit in \field{flags}
+-is not set, the device MUST set the packet outer UDP checksum stored in the
+-receive buffer to the outer UDP pseudo header.
++\field{flags}, if so the device MUST set the packet outer UDP checksum
++stored in the receive buffer to the outer UDP pseudo header.
+
+ Otherwise, the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM feature has been
+ negotiated, either the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit is set or the
+@@ -1212,13 +1235,15 @@ \subsubsection{Processing of Incoming
+Packets}\label{sec:Device Types / Network
+ the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type} are set,
+and any of
+ the following is true:
+ \begin{itemize}
+-\item the VIRTIO_NET_HDR_F_NEEDS_CSUM is not set in \field{flags}
++\item the VIRTIO_NET_HDR_F_NEEDS_CSUM bit is not set in \field{flags}
++\item the VIRTIO_NET_HDR_F_DATA_VALID bit is set in \field{flags}
+ \item the \field{gso_type} excluding the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4
+ bit and the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit is
+VIRTIO_NET_HDR_GSO_NONE
  \end{itemize}
-diff --git a/device-types/crypto/driver-conformance.tex b/device-types/crypto/driver-conformance.tex
-index 672d0f6..4083ea4 100644
---- a/device-types/crypto/driver-conformance.tex
-+++ b/device-types/crypto/driver-conformance.tex
-@@ -11,4 +11,5 @@
- \item \ref{drivernormative:Device Types / Crypto Device / Device Operation / MAC Service Operation}
- \item \ref{drivernormative:Device Types / Crypto Device / Device Operation / Symmetric algorithms Operation}
- \item \ref{drivernormative:Device Types / Crypto Device / Device Operation / AEAD Service Operation}
-+\item \ref{drivernormative:Device Types / Crypto Device / Device Operation / IPsec Service Operation}
- \end{itemize}
--- 
-2.25.1
+ the driver MUST NOT accept the packet.
+
+-If the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit in \field{flags} is set,
++If the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit and the
+VIRTIO_NET_HDR_F_NEEDS_CSUM
++bit in \field{flags} are set,
+ and both the bits VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 and
+ VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 in \field{gso_type} are not set,
+ the driver MOST NOT accept the packet.
 
