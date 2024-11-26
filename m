@@ -1,69 +1,69 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E8FA41
-	for <virtio-comment@lists.linux.dev>; Tue, 26 Nov 2024 15:30:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D9631917E6
+	for <virtio-comment@lists.linux.dev>; Tue, 26 Nov 2024 15:37:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1732635058; cv=none; b=DY7Xrm/iEblxNMmZ8l4jXC4jvTKFUj0y+XTEOKxfjmcTYWO0hvXbWm6uwcP/CY6Va8UWAX7VbuA/oNKjAAtjOuo1NGr/h3tPXBx1YjonjBJd9HHGPeEC+ORZbDXCWD5+Q605TaBwI3M1op5RtpUhGH9OY3r/BJyFBMRIYpNXAU0=
+	t=1732635435; cv=none; b=vGNXwe0Q6knDG02Ct6VpvGHxWfFV4DSFzGSkEUv03lj5vIRc+clJYx+YfJDPmVfNPKVvLR5bKZBG0hxx18QzXB8dX7sCzBLZDPCbsomjv0+v7ub4kYZQdJIB+sfZREdJAx0JMVDBg3uXY/ZS29LWTPrnNN8IsUNuI7pubOdLAxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1732635058; c=relaxed/simple;
-	bh=qo+IEP5k64RcMcnAvsK2o7lFPQfqm70itcCJ949VBzo=;
+	s=arc-20240116; t=1732635435; c=relaxed/simple;
+	bh=OWiOz/kTpwFpqYY+XJaLLKvYZYjBGh7FHMp0kv4Ydsk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D583WRO3iwKafnxWUsaktZCpTo0I40kncUKiID3n66VTpvoVzVLrNDzYgnZ0ji7FrnNHI5bOQlZFbBg/ZwA+LKKPRRGKMXS1ipPz6V1OoxJiNyTlyfq5XONyDzxUwWkXL4zNhU5k5JZ3iWUAN0DhNDHENks0CD3010WdflRFoT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Qrks/ybG; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type; b=cEEq27MSqSzkhObDuzsZpoutWbiMJD/pHncOIK0r5QIJHstr7Gx3DFAbhXC878uF3md/AxjKqznD92360PwZH3ZaiOmsSjba+vUPkffFeKt7IKLhaSEZKdrIFQYN49jwSjbixHkVvI6CGZGnppQJp5oISfigIUSrP4Due1JHGOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PmQpAe9+; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Qrks/ybG"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PmQpAe9+"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1732635055;
+	s=mimecast20190719; t=1732635432;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=glyWHN/5j+D+3QSTXN/Pa0EXNIoZmqpWXbRW99gacuw=;
-	b=Qrks/ybG1+KKxxoA1NXNqzwu6fxxI8HoPZooZKMaJFd+4RiAM8kahYitK9/ynwl9IAnsf8
-	4aJa3WRpgQM4jKoIqUGyfOowFshvAO/MRsYurbUDqjLSuH5zSD8oZGOEIdd5w7s8WLqVZc
-	sUM7ltYJ5DxqFctFFbx287gIROkGPX4=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=toPOlKv27I8bokJX2JFCU5fCDz9pUzHujJ+x3kxjLs4=;
+	b=PmQpAe9+R6fVX8lIUbAfEE7VJTb7734DoaK8RHWg524k/+ihrbYW16ibfKzzutf+KJHD5e
+	AihgGnbt4BPwt52meB7FtabEZ8SkNC+/AIkpuPcNE8LKKoBqh3eFTbWWsbYXG0aEklNlWC
+	Goxe3kojaZHQe+AREGDTk34pwrNJPvA=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-679-6EsCR-VWMhq3HIMjZMSSaQ-1; Tue, 26 Nov 2024 10:30:53 -0500
-X-MC-Unique: 6EsCR-VWMhq3HIMjZMSSaQ-1
-X-Mimecast-MFC-AGG-ID: 6EsCR-VWMhq3HIMjZMSSaQ
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-7b66eab7771so221105785a.1
-        for <virtio-comment@lists.linux.dev>; Tue, 26 Nov 2024 07:30:53 -0800 (PST)
+ us-mta-501-tusKM-tDN4mccZ4JlX-1VA-1; Tue, 26 Nov 2024 10:37:11 -0500
+X-MC-Unique: tusKM-tDN4mccZ4JlX-1VA-1
+X-Mimecast-MFC-AGG-ID: tusKM-tDN4mccZ4JlX-1VA
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-46697645ceeso30593931cf.0
+        for <virtio-comment@lists.linux.dev>; Tue, 26 Nov 2024 07:37:11 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732635053; x=1733239853;
+        d=1e100.net; s=20230601; t=1732635430; x=1733240230;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=glyWHN/5j+D+3QSTXN/Pa0EXNIoZmqpWXbRW99gacuw=;
-        b=eDoGww3JaQ9Pwq1YayREpsYc5cBIWAOuaUD4eTjHgORfRUXEW9bbm6j+Gah6Yp1xd7
-         26n8DwOlPfxR20WLCL+fqZGFqzwe9x/6i7T8dtoscgszIBMXeNqI+F/Rb68pQ3km4Dpn
-         FSVz32HshN5H1KbDdKJFI2mGfkA89FQ2X+j8m4M3CzK9mPvBAXz2KXuLwRieagGbU/iF
-         NH0CEHDlGo7HYmJQnBgafUDT3hTeTPBXXOC5WYzBIQQcD/4xRQs515N1kxaCixqEaTSy
-         pamGWabBtA9EzvIhI07FVhFEDD179ZCNrBRA6LIa1pSG/J8p2irHA8PQp0KrdcNNdqK5
-         FBMg==
-X-Gm-Message-State: AOJu0YzhlhYHWWWVCQTUUSeBIx5OIkLdIm4m/Re8EhqPh3581tHwIrU+
-	G8/aLLCRVBhI7UVlnDvBVqSdwfIlfIV6fc8YeLOJU/WeHqhbMpl2yf8Lefa1pdFIlqyhpwj9ZXx
-	KfssqJ4KQyp0SuGeqeeBdpyFM2tgXHEijhoc2/bEkB22nuF3bxsc/HdyaewE3v76O
-X-Gm-Gg: ASbGncuZSMk0trNQJ97pcGBazDxkTGQ3/sF1bPApEdYrZ2syaRA/Ua8KzcvyLB+IiWb
-	xM7lUtuAoUHclwQaUu8BWj2y4aDVFdKgWUPyrB8G9P8BvggNFY0/UY8kkZVGevT15Cf5Vt5kxuz
-	qzygDaN7OamkLQ/0GmigwSRYiX0vSmYz2dyjmwaCS8VtXDmHzPXgMecxLLfZxQnRZKC8s8SLpsY
-	GYs9/lC0QgphmCc3Te17Prmwh+z71/YpFx60bJjwHrNGX44R9mWGmQb8zAsw510luonYtM45HLV
-X-Received: by 2002:a05:620a:319b:b0:7af:cf4d:b1e6 with SMTP id af79cd13be357-7b514511023mr2279573585a.18.1732635052691;
-        Tue, 26 Nov 2024 07:30:52 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEPODTxUQU6X3KdDrJvOXbJnLDM9N1r/yPiXLpVrPylE74paJobMAwOCZXPpkLiMjWveyzC9g==
-X-Received: by 2002:a05:620a:319b:b0:7af:cf4d:b1e6 with SMTP id af79cd13be357-7b514511023mr2279570085a.18.1732635052274;
-        Tue, 26 Nov 2024 07:30:52 -0800 (PST)
+        bh=toPOlKv27I8bokJX2JFCU5fCDz9pUzHujJ+x3kxjLs4=;
+        b=C6Ar1HfU52JknWZG0cq6KvZ6aCtgbu+kXUuRhCllFsnoNeTf2+7sf0hjK9GTdtoLEn
+         kJ0B0eRt3qlTZG7qU+Ec4cab8atHYqXCwf6q/UdV5IT1zMlJZizcqz2mkkPZWbvlhfB+
+         1dH/3vyuWTvk55X/J3DwgirqGcWFuTQ4ijFzPbZoY0Pf8u8cDDoo3xorZ0Toti3US4P1
+         HfY3QH3WJZiC5CIalmhAYu6pgrJ/F2Op+1kxOBrtt5XTgSkguoInorq1kSdrHt5TqJjE
+         86RRf4o7BLS8k45rcTARiAl9cb9ThPwPOxyQ98UwyGq1BH10qjfn6Gie7hGxIJhjIzxJ
+         0hjA==
+X-Gm-Message-State: AOJu0YwOitnyzHbkgQQseu/Xru/BgCM7FyTX/pIMP3ogXVmvmgkn5JQp
+	J6KXNFJbX63F9YXWvFWqU7RRRkniG+5e3jFikuj7eUdGLJdYA7eMCWUiLRaqC14sdEo5afc2oWK
+	iqtEDWLYc+EOrgwdHM8cOJRDbtds6e0VxM7eHe6QyO0SgCBv0IWVkpgBquSwLUoZh
+X-Gm-Gg: ASbGncvcXAx2AaCTLFKHof/eGI1X7HOH5qlh1p3X9pK+3GdBfJD28jFW4PnpkSrLtxK
+	axtBEhdTOpiozJpWDuDT/jerYmQOjNR8hbdMFuLKhpKgAVvkgQj+sV6Qj1PZWaqzQ/QnPFd5Tj8
+	MRYEK+Q7SgQ7QdnJiBaUSE8osMSY/np1uJTvGCirSm6JlCuS6wur3PO7fK4+W4sCqQKG7TG5VNI
+	SlE9nHYWN1YJDNz/5Cke0HlxJ7Ro7IT7LkVarCZ2CLFEXtAuBmacAIPnt3Fyo3z3dAC9BlBw97M
+X-Received: by 2002:a05:622a:190a:b0:460:ebb5:5fe5 with SMTP id d75a77b69052e-4653d535f30mr268761591cf.10.1732635430559;
+        Tue, 26 Nov 2024 07:37:10 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFsXDK3tFs8EFvLqDNcOJC4hJIMz+ehkbZEL5HNbYZRd1F3B8Wicpgld0rXoftdVwDIOuloxw==
+X-Received: by 2002:a05:622a:190a:b0:460:ebb5:5fe5 with SMTP id d75a77b69052e-4653d535f30mr268761231cf.10.1732635430283;
+        Tue, 26 Nov 2024 07:37:10 -0800 (PST)
 Received: from [192.168.88.24] (146-241-94-87.dyn.eolo.it. [146.241.94.87])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-7b66d4ec941sm203467385a.31.2024.11.26.07.30.50
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-4653c4924a0sm60051801cf.89.2024.11.26.07.37.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 26 Nov 2024 07:30:51 -0800 (PST)
-Message-ID: <76c679d8-0674-4213-9d82-a29d458882ae@redhat.com>
-Date: Tue, 26 Nov 2024 16:30:49 +0100
+        Tue, 26 Nov 2024 07:37:09 -0800 (PST)
+Message-ID: <8cd6acf6-278b-4cf5-8b88-789cd5f25652@redhat.com>
+Date: Tue, 26 Nov 2024 16:37:06 +0100
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -71,75 +71,72 @@ List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 1/3] virtio-net: clarify NEEDS_CSUM semantic for GSO
- packats.
+Subject: Re: [PATCH v10 3/3] virtio-net: define UDP tunnel checksum offload
+ feature
 To: Jason Wang <jasowang@redhat.com>
 Cc: virtio-comment@lists.linux.dev, maxime.coquelin@redhat.com,
  Eelco Chaudron <echaudro@redhat.com>,
  Stefano Garzarella <sgarzare@redhat.com>,
  Willem de Bruijn <willemb@google.com>, kshankar@marvell.com
 References: <cover.1731084277.git.pabeni@redhat.com>
- <c03a1ec585fd7755eaeea25b690e1704ad5260db.1731084277.git.pabeni@redhat.com>
- <CACGkMEsxRJVS5vyhJedj2RYuWG6B7ME6JbVEo1H9sgTgJR=ubg@mail.gmail.com>
- <067ebefd-8d1b-437a-97c0-f5f771102a94@redhat.com>
- <CACGkMEvVAoQAfKYnvuN5ZQqG-UgG+nUuhoAHruSmmV_rDSrc5w@mail.gmail.com>
+ <4a81d0cac760abddfdeeb71da4c42ee0ba83cc4d.1731084277.git.pabeni@redhat.com>
+ <CACGkMEtR62pqGA9fi3np7fmpexq6F1MAx3XD2s0bctKKSofrug@mail.gmail.com>
+ <88fa80f1-d82a-49c8-b933-7621d24b15df@redhat.com>
+ <CACGkMEshn+s75cRO-_AxpErMisQvewVoG7dr2cr5tCgiP5zamg@mail.gmail.com>
 From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <CACGkMEvVAoQAfKYnvuN5ZQqG-UgG+nUuhoAHruSmmV_rDSrc5w@mail.gmail.com>
+In-Reply-To: <CACGkMEshn+s75cRO-_AxpErMisQvewVoG7dr2cr5tCgiP5zamg@mail.gmail.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: tLXGE5IT9HsGLHwz3GcvYbod9_a1Kvajg1BAWN5iBvc_1732635053
+X-Mimecast-MFC-PROC-ID: ssivv62qnKiwHTEBI6vNpuFNp_msg9ur1E4mVkgelV8_1732635430
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/26/24 04:01, Jason Wang wrote:
-> On Tue, Nov 26, 2024 at 12:01 AM Paolo Abeni <pabeni@redhat.com> wrote:
->> On 11/25/24 03:51, Jason Wang wrote:
->>> On Sat, Nov 9, 2024 at 12:53 AM Paolo Abeni <pabeni@redhat.com> wrote:
->>>>
->>>> The current wording is a bit unclear hinting to possible additional
->>>> nested headers. For GSO packets virtio net (currently) supports
->>>> offload for the checksum of single transport header, explicitly state
->>>> that in both the driver and device sections.
->>>>
->>>> Signed-off-by: Paolo Abeni <pabeni@redhat.com>
->>>> ---
->>>>  device-types/net/description.tex | 11 ++++++++++-
->>>>  1 file changed, 10 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/device-types/net/description.tex b/device-types/net/description.tex
->>>> index b2a0d39..3099c6f 100644
->>>> --- a/device-types/net/description.tex
->>>> +++ b/device-types/net/description.tex
->>>> @@ -605,6 +605,11 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
->>>>  \item the driver MUST validate the packet checksum at
->>>>         offset \field{csum_offset} from \field{csum_start} as well as all
->>>>         preceding offsets;
->>>> +\begin{note}
->>>> +If \field{gso_type} differs from VIRTIO_NET_HDR_GSO_NONE, \field{csum_offset}
->>>> +points to the only transport header present in the packet, and there are no
->>>> +additional preceding checksums validated by VIRTIO_NET_HDR_F_NEEDS_CSUM.
->>>> +\end{note}
+On 11/26/24 04:07, Jason Wang wrote:
+> On Tue, Nov 26, 2024 at 12:44 AM Paolo Abeni <pabeni@redhat.com> wrote:
+>> On 11/25/24 04:41, Jason Wang wrote:
+>>>> @@ -926,8 +1003,11 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
+>>>>  \item If the VIRTIO_NET_F_GUEST_CSUM feature was negotiated, the
+>>>>    VIRTIO_NET_HDR_F_DATA_VALID bit in \field{flags} can be
+>>>>    set: if so, device has validated the packet checksum.
+>>>> -  In case of multiple encapsulated protocols, one level of checksums
+>>>> -  has been validated.
+>>>> +  If the VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM feature has been negotiated,
+>>>> +  and the VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM bit is set in \field{flags},
+>>>> +  both the outer UDP checksum and the inner transport checksum
+>>>> +  have been validated, otherwise only one level of checksums (the outer one
+>>>> +  in case of tunnels) has been validated.
 >>>
->>> I wonder if this defeats the purpose of LCO where the outer checksum
->>> could be deduced.
+>>> Not a must but I'd suggest making this an independent patch. (I meant
+>>> the " (the outer one in case of tunnels) has been validated." part).
+>>>
+>>> Or after some thought, maybe it's just better to leave it as is. This
+>>> means let the device choose which part has been validated:
+>>>
+>>> 1) more flexibility that it allows the device to choose the level it
+>>> can do the validation
+>>> 2) no need to worry about the migration compatibility
+>>>
+>>> But it would
+>>>
+>>> 1) complicate the implementation of both the device and driver
 >>
->> I don't see how?!? The added statement is not a behavior change, it just
->> clarifies the existing text. I don't see any implications WRT LCO.
->>
->> Could you please describe in details the eventual problem?
+>> Note that offloading the inner checksum only would be quite useless, as
+>> AFAIK no OS as support for such a thing on RX.
 > 
-> Not a native speaker, just want to check if "no additional preceding
-> checksums validated by VIRTIO_NET_HDR_F_NEEDS_CSUM" is in conflict
-> with the case when we apply LCO for the outer. Or do we treat outer
-> checksum as "preceding checksums" here.
+> Yes it is, a small concern is that it might be too late to do such
+> clarification. Rethink this, I think it would be still better to have
+> a clarification like this.
 
-My take is that with LCO virtio is not offloading anything. The header
-subject to LCO, from virtio perspective, is just constant header, not
-offloaded via any virtio hdr field. The above spec statement applies/is
-valid verbatim even in presence of LCO.
+I'm sorry, but I'm unsure what exactly is the clarification you mention
+above.
 
-Cheers,
+Do you mean moving """(the outer one in case of tunnels)""" into a
+separate patch?
+
+I'll do that in next revision.
+
+Thanks!
 
 Paolo
 
