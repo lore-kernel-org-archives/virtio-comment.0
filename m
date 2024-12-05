@@ -1,428 +1,320 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D8B318C33C
-	for <virtio-comment@lists.linux.dev>; Thu,  5 Dec 2024 06:29:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D09FE217707
+	for <virtio-comment@lists.linux.dev>; Thu,  5 Dec 2024 12:04:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1733380162; cv=none; b=NhzkNQhjR+rmW9g3h4iRS0R4rqFXD82qjZgDTGprH87zSSAOqUi1RTAqgtTzBmtSk6URrFFPOJjbYON/rxh2ol+wr44rkDV/uQhVNtXxNZS8xQRG9Z7dGNInfD9C/upO1aro/SALYbmcXym2wZZA0i7bkfDxFkvo3fWBdqNfU+0=
+	t=1733400254; cv=none; b=cDAMsrJUh0G6rssIdLvsyVp0S7dt0QZJWTye8NgZMD9niapOLDrcjnL4k7dsfZpIzXmMX//tlWKYKIIqJ5CXAidO3f+bcvHHp6+9yd9RcZ0NDxliw2NSdDXgKVw9xupIGPu/3Lx6JLfdVIB+qgRUvBYONhmTv5NhcNFTJ0u0m08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1733380162; c=relaxed/simple;
-	bh=4xxD//DW2IaiP/HHU+usCYpt7f30xyXRlzH5koPBVKI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ASzOBfMBiZz7wQ5ERDOxU75vH4SwjG7kGeqDILlxCWEu0JnR1/iSUNCXsJo+T6fwxNi885BM0H48eS1wQnIzz9OFQG1tOnREDq4rLhZsmND/sxykfmanzaajpg0Nuvz+Z1gUGEtuuDn5Y750Fmc9oIxcs+IoprdROfbK8NqWm0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=asD+08Gv; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1733400254; c=relaxed/simple;
+	bh=o00srngiqA6v30fjulrpJ2udob9q6DRPKTnNwYQVPN4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=iEDyM5Ik6b2w77HOA/mkFYFVbrkJnjrwgaCigykKL95nI1P5Tc7o6P7HwxG6392y4ubAcSgS1g5vikLkQiNygEFXikiNq2HFnI9yhgTQ2Ce7Zk3N1yxJawLHn7fGA/IdB5Ia+YEDI/Gfrt636bDKmlBYCQtda83g/ab0OhZKe/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=I0J0lRZS; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="asD+08Gv"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-7f71f2b136eso458128a12.1
-        for <virtio-comment@lists.linux.dev>; Wed, 04 Dec 2024 22:29:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1733380159; x=1733984959; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wbHMsoaIQdSKdXE+eH84S+NTvReS7tV9iSrGxxe+ZI0=;
-        b=asD+08Gv2QT7RtzrphQ5r4Iwn3CBrPjoRTxAyStEXi+MOw7WSt4m9PaLVGpZxv22f6
-         HptYI/4Ad3dL+nF6nRIQIz1/bGWQg+NVWiq5mfp5K8LG+0noZXlr4kQr2OttHb3zLMvs
-         qJbjb2ft6+pu0L7Br/E20ZWxHSd+GBxB+e7mKi0NNjKghcbXkDP/sqC0LIXqKKEUXFIe
-         slt+G2JM/82ogMj571MjNtv3YGBXc+2ofOuzBBmjxft0Cp0FZp/MUTB8VFKpN5Sd2L8Z
-         wHLC0VoiMUbIL6Twc4wfSZxpncbDKumLh4TQ/z5nTP/sEtYq1YkawgNkXdc8K2eM2dOS
-         5uIQ==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="I0J0lRZS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1733400250;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=C0eakQUs/WFhYIQlXwgOfZmRlAlVMaGlbpxDa9zBW1A=;
+	b=I0J0lRZSgeW+pbOLHWqy/T6uY91nKSVu857LuqPIfQ84FhQyoOXj0ype3cVMS1EuTxWNC/
+	5xGCbjh0bdfjsWqD9VtBg5WCm0Dvc27U94JRlikXb/yHztu6nTuN9sa7JE26vVrfHSMFGn
+	LYY7hBY640Ige12IPfOUmggaHlwQFeU=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-494-hYrF7AiNNuujVbnqXZonyw-1; Thu, 05 Dec 2024 07:04:09 -0500
+X-MC-Unique: hYrF7AiNNuujVbnqXZonyw-1
+X-Mimecast-MFC-AGG-ID: hYrF7AiNNuujVbnqXZonyw
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-6d8d44e17a2so22576976d6.3
+        for <virtio-comment@lists.linux.dev>; Thu, 05 Dec 2024 04:04:09 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733380159; x=1733984959;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=wbHMsoaIQdSKdXE+eH84S+NTvReS7tV9iSrGxxe+ZI0=;
-        b=Tc7WlURx3pMEomk/GosZPdmxRTSYha72ImoV49C1ZfONo9mVinbBG/J6/wvBkVgP1W
-         p9HJ7ai//o/qs9eMFs/bycoEt57UlvD7k2p+d/n8zQ6YizCJNgk4vtmxoAnG2zvYGYGO
-         TSVVgQCaXjIK9r03dBDP7MBJFHjsL2TnGLJtJWENzBrdFtbqanqV68H7lNQWcosFLgI9
-         3KCBJ6hhFJK4g6WKHCQ5Wd8l4CtDrAKl71UaaTlhigHd5pWpoWLQchiQndRKIsUdCM2C
-         ZfuPTKVy6sdszUHaF67+lExoFKxPQpWnlb8XOBUO/hI77z/k6fVVJAMHFVnjlEg2AQuI
-         4CEg==
-X-Forwarded-Encrypted: i=1; AJvYcCW77vjU18bfrrJOl4b9Gsm978uW30FOnAy7g1hvIlYSXQysWBgx2KLxv1vCNywX/V2wnOCiz2TbuUCQY3ff5Q==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yzfp1NdX6hU0JL/Vu8ZT+/m/TcIL0471HW92PXK4nJfxmLyrNjT
-	3DvmXw2cm7DNGTxbhh1kEh6IKX3/bYGj5Z+zb5e5CUnPwhn59Hlw
-X-Gm-Gg: ASbGncvqG8ULfKuFpjdeDiFSvNVP40NN2tb577wxZBqPQ8H2zd1ifqcEDuSHFs3jbrv
-	XkjC+4H95waRQwW5JViMi6UEF502817U61vR7tz52JfYJRSUnyZuS9dCpH8l6yZzl+tIxRYojTY
-	WRYlNdjWR78urxRgvUitHaKo356Y0sZbpWSXhrdaSDnujP5tYRz5+hW7i8+X5YFtDST2/dMydFm
-	WoHM1vXSrNcnIoFmfdD6HWKSG+oEDwsYQka6dleHSCWxEKcMIPZyRKScobbK0Qb64+6QP/9
-X-Google-Smtp-Source: AGHT+IEnC6+t66tmPOK+E4sUKTJX9fUz1kKChWTB+PcnkIhAv2xb1OF1h/ICKmdOb/I0aD1/Wfh1hg==
-X-Received: by 2002:a05:6a21:32a4:b0:1d9:87e3:11f3 with SMTP id adf61e73a8af0-1e1653c5739mr14163336637.23.1733380158462;
-        Wed, 04 Dec 2024 22:29:18 -0800 (PST)
-Received: from devant.antgroup-inc.local ([47.89.83.6])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-725a29e8fe6sm529525b3a.46.2024.12.04.22.29.16
+        d=1e100.net; s=20230601; t=1733400249; x=1734005049;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=C0eakQUs/WFhYIQlXwgOfZmRlAlVMaGlbpxDa9zBW1A=;
+        b=hUAX/TPAGGSp5TOUbzkeQuVZ+lZYFZiFPDba29H+lQ3YColhXyn/YEHc3gxvaHNGXm
+         iJw6eEGPzUAf6OFmx6pRKtQ32F/mxKReANBj3vm1W8+fjmDzWRQ1HYP/OwXvWck0Bosb
+         Byt70Mys1KRQRUJCQb7Xax9aabue4T4ueswsaknAghJkM/zUcpMHIIdoXV/CpYgGzKUE
+         OMytyeganQxviEHPo/MLBmZGgmqaj5QMb9WHKGK85ldguh/w2AuNeKVPNirlXl1FBO3N
+         Dmz2woAZbkzKvkcdrtmORUO0ZnXDXzZ3Ezn6nJvSz0o9TpfKYZiyF65nOtTn+o6h97Wr
+         CZBA==
+X-Gm-Message-State: AOJu0YxHTAM+AF+DXhFLs7f6t6yJetLKau2mhOTpq98zM9CfwvVTine6
+	t4ZUDBmsEINo9u1Wkr5EfcfLC34hoC25EBvR2+KA8riohQ5GSog8k0SrWSvNsgsr3VJnmjOyUpR
+	0WOuXshZbaBccBtGhc2iomr3My5oORDodMlrbQ8USy8rxwBvmWq9DlRuhebWBaj+y
+X-Gm-Gg: ASbGncvN+XX+2YfPQ+F3Y4cLwsN5goc6/0G8x4z+mJBqgXR+jb7J9SrESwS0DwA1osd
+	JKjvjmq1nO8VocVEogM/6axCctPeATm9TxYxq8ZWNf5Ig2N+dY5xkR1LKORW9UJKB0jiU1cLeGe
+	fS6i3cWP29tpx4CsMudRx8mVbpk+FlzGFq6WfDb5PRnC72C+uKWX+H8umLq9aoNXEgIDGpu2e/4
+	vvFRGWcEW6hWGuRT1xw8X34FssXaDZFzrd44oxRTA==
+X-Received: by 2002:a05:6214:411a:b0:6d8:8874:2127 with SMTP id 6a1803df08f44-6d8b72e0676mr153333436d6.5.1733400249336;
+        Thu, 05 Dec 2024 04:04:09 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHl6pn1qkp54EvQy8+8IgaUMq3t1hutXoY9EOeM8OJ0rNOkqikaz3lCXb8NSAKBlgu3bpVevg==
+X-Received: by 2002:a05:6214:411a:b0:6d8:8874:2127 with SMTP id 6a1803df08f44-6d8b72e0676mr153333026d6.5.1733400248949;
+        Thu, 05 Dec 2024 04:04:08 -0800 (PST)
+Received: from fedora ([212.157.222.2])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6d8da696d9esm5811226d6.46.2024.12.05.04.04.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Dec 2024 22:29:17 -0800 (PST)
-From: Xuewei Niu <niuxuewei97@gmail.com>
-X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
-To: parav@nvidia.com
-Cc: fupan.lfp@antgroup.com,
-	mst@redhat.com,
-	niuxuewei.nxw@antgroup.com,
-	niuxuewei97@gmail.com,
-	sgarzare@redhat.com,
-	virtio-comment@lists.linux.dev
-Subject: Re: [PATCH v5] virtio-vsock: Add support for multi devices
-Date: Thu,  5 Dec 2024 14:29:08 +0800
-Message-Id: <20241205062908.4193685-1-niuxuewei.nxw@antgroup.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <CY8PR12MB7195365CEC62D25A06F20CA5DC482@CY8PR12MB7195.namprd12.prod.outlook.com>
-References: <CY8PR12MB7195365CEC62D25A06F20CA5DC482@CY8PR12MB7195.namprd12.prod.outlook.com>
+        Thu, 05 Dec 2024 04:04:08 -0800 (PST)
+Date: Thu, 5 Dec 2024 13:04:05 +0100
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+To: Srujana Challa <schalla@marvell.com>
+Cc: virtio-comment@lists.linux.dev, mst@redhat.com, cohuck@redhat.com,
+	parav@nvidia.com, sburla@marvell.com, ndabilpuram@marvell.com,
+	jerinj@marvell.com, anoobj@marvell.com
+Subject: Re: [PATCH RFC 1/4] virtio-crypto: Add IPsec service operation and
+ Capabilities
+Message-ID: <Z1GWtTWaQJvVrBxj@fedora>
+References: <20241115114523.1787840-1-schalla@marvell.com>
+ <20241115114523.1787840-2-schalla@marvell.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20241115114523.1787840-2-schalla@marvell.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Bg3gmIqXdyb4YIM05Eiipwh4EKm2YV0UMG0F9uAz3Y0_1733400249
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi Parav,
+Hello, 
 
-Sorry for the late reply. I was super busy in the past few weeks. I hope
-things become more regular from now on.
+I left some minor comments:
 
-> > From: Xuewei Niu <niuxuewei97@gmail.com>
-> > Sent: Thursday, October 24, 2024 12:38 PM
-> > 
-> > This patch brings a new feature, called "multi devices", to the virtio vsock. It
-> > introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, and a "index"
-> > field to the config for the virtio vsock.
-> > 
-> > == Motivition ==
-> > 
-> > Vsock is a lightweight and widely used data exchange mechanism between
-> > host and guest. Kata Containers, a secure container runtime, leverages the
-> > capability to exchange control data between the shim and the kata-agent.
-> > 
-> > Currently, the virtio-vsock only supports one device, resulting in the following
-> > limitations:
-> > 
-> > * Poor performance isolation: All vsock connections share the same
-> > virtqueue. 
-> Do you have rough estimates on how much performance is affected (or is poor) due to single queue?
-> I am not familiar vsock application space. 
-> It is something like 10K socket msg/sec or 10 million socket msg/sec due to single queue?
-
-Yes, but the data shows the performance doesn't grow much. I think we can
-skip the performance part for now. Here are reasons:
-
-- The biggest motivition to make us support this feautre is mutli-backends
-  support. In the Kata Containers cases, we'd like to use Transparent
-  Socket Impersonation (TSI) to use virtio-vsock for data plane. The
-  limitation of the single vsock device is quite clear.
-- This feature gives vsock device the capability to improve performance.
-  Apart from the driver side, optimizations on the VMM side are also
-  required. For example, VMM spawns an exclusive thread for each vsock
-  device. But we don't have enough time to do that.
-- Stefano said that they have a plan to add support multi-virtqueues in the
-  feature to enhance the isolation of vsock devices. We are doing the same
-  thing, but with different approaches.
-
-> > By the way, although multi-queues can solve this problem, they do
-> > not conflict.
-> > * Cannot enable more than one backend: Virtio-vsock, vhost-vsock, and
-> > vhost-user-vsock cannot be enabled simultaneously on the transport.
-> > 
-> > We'd like to transfer networking data, based on TSI (Transparent Socket
-> > Impersonation) technique, over vsock via the vhost-user protocol to reduce
-> > overhead. However, by default, the vsock device is occupied by the kata-
-> > agent, a control component for Kata Containers.
-> > 
-> > == Typical Usages ==
-> > 
-> > Assuming there are two virtio-vsock devices on the guest, with CIDs 3 and 4
-> > respectively. And the device with CID 3 is default.
-> > 
-> > ==== Guest -> Host ====
-> > 
-> > Use the device with CID 3.
-> > 
-> > ```c
-> > fd = socket(AF_VSOCK);
-> > bind(fd, 3, -1);
-> > connect(fd, 2, 1234);
-> > n = write(fd, buffer);
-> > 
-> > // or use default (no bind)
-> > fd = socket(AF_VSOCK);
-> > connect(fd, 2, 1234);
-> > n = write(fd, buffer);
-> > ```
-> > 
-> > Use the device with CID 4.
-> > 
-> > ```c
-> > fd = socket(AF_VSOCK);
-> > bind(fd, 4, -1);
-> > connect(fd, 2, 1234);
-> > n = write(fd, buffer);
-> > ```
-> Above and below example is not using the index that you are introducing in this patch.
-> Can you please elaborate?
-
-When we have many vsock devices, we need to know the position of those
-devices. The devices are arranged in a (linked) array, see below:
-
-```
-[0]: vsock device (cid=4, index=0) <default device>
-[1]: vsock device (cid=3, index=1)
-```
-
-The index is only used for determining the device position; for data
-transmission, `bind`, `connect`, etc., the CID is used.
-
-> If the binding is based on the CID, than why the new index needed?
-
-Think about the case of using the CID to determine the device position. If
-we want to change the position, we have to change the CID. If the peer
-doesn't realize the change, the connection will be broken. So we have to
-decouple the CID and the position, one for data transmission, one for
-device management. That is why we need the index.
-
-```
-==from==
-[0]: vsock device (cid=4, index=0) <default device>
-[1]: vsock device (cid=3, index=1)
-==to==
-[0]: vsock device (cid=3, index=0) <default device>
-[1]: vsock device (cid=4, index=1)
-```
-
-> Or the example is stale here in commit log?
-
-No. It's up to date.
-
+On Fri, Nov 15, 2024 at 05:15:20PM +0530, Srujana Challa wrote:
+> This commit introduces the IPsec service operation to the Crypto
+> device, enabling offloading of IPsec processing.
 > 
-> ==== Host -> Guest ====
+> Capabilities:
 > 
-> The usage is no changes in this case. Send to device with CID 3.
+> 1. IPsec Resource Capability (VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP):
+>    Indicates the device's IPsec resource limits, such as the number of
+>    outbound and inbound Security Associations (SAs).
+> 2. IPsec SA Capability (VIRTIO_CRYPTO_IPSEC_SA_CAP): Specifies the
+>    supported IPsec modes, along with the supported cryptographic
+>    algorithms, authentication algorithms, IPsec options and
+>    anti-replay window size.
 > 
-> ```c
-> fd = socket(AF_VSOCK);
-> connect(fd, 3, 1234);
-> n = write(fd, buffer);
-> ```
+> Signed-off-by: Srujana Challa <schalla@marvell.com>
+> ---
+>  device-types/crypto/description.tex | 164 +++++++++++++++++++++++++++-
+>  1 file changed, 159 insertions(+), 5 deletions(-)
 > 
-> Send to device with CID 4.
+> diff --git a/device-types/crypto/description.tex b/device-types/crypto/description.tex
+> index 5705e26..ce4b1fb 100644
+> --- a/device-types/crypto/description.tex
+> +++ b/device-types/crypto/description.tex
+> @@ -2,11 +2,11 @@ \section{Crypto Device}\label{sec:Device Types / Crypto Device}
+>  
+>  The virtio crypto device is a virtual cryptography device as well as a
+>  virtual cryptographic accelerator. The virtio crypto device provides the
+> -following crypto services: CIPHER, MAC, HASH, AEAD and AKCIPHER. Virtio crypto
+> -devices have a single control queue and at least one data queue. Crypto
+> -operation requests are placed into a data queue, and serviced by the
+> -device. Some crypto operation requests are only valid in the context of a
+> -session. The role of the control queue is facilitating control operation
+> +following crypto services: CIPHER, MAC, HASH, AEAD, AKCIPHER and IPSEC.
+> +Virtio crypto devices have a single control queue and at least one data
+> +queue. Crypto operation requests are placed into a data queue, and serviced
+> +by the device. Some crypto operation requests are only valid in the context
+> +of a session. The role of the control queue is facilitating control operation
+>  requests. Sessions management is realized with control operation
+>  requests.
+>  
+> @@ -72,6 +72,8 @@ \subsection{Supported crypto services}\label{sec:Device Types / Crypto Device /
+>  #define VIRTIO_CRYPTO_SERVICE_AEAD   3
+>  /* AKCIPHER (Asymmetric Key Cipher) service */
+>  #define VIRTIO_CRYPTO_SERVICE_AKCIPHER 4
+> +/* IPSEC service */
+> +#define VIRTIO_CRYPTO_SERVICE_IPSEC  5
+>  \end{lstlisting}
+>  
+>  The above constants designate bits used to indicate the which of crypto services are
+> @@ -318,6 +320,20 @@ \subsection{Device Initialization}\label{sec:Device Types / Crypto Device / Devi
+>  \item The driver MUST read the supported algorithms based on \field{crypto_services} field.
+>  \end{itemize*}
+>  
+> +\subsection{Device and driver capabilities}\label{sec:Device Types / Crypto Device / Device and driver capabilities}
+> +
+> +The crypto device has the following capabilities.
+> +
+> +\begin{tabularx}{\textwidth}{ |l||l|X| }
+> +\hline
+> +Identifier & Name & Description \\
+> +\hline \hline
+> +0x0800 & \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP]{VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP} & IPsec resource capability \\
+> +\hline
+> +0x0801 & \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP]{VIRTIO_CRYPTO_IPSEC_SA_CAP} & IPsec Security Association(SA) capability \\
+> +\hline
+> +\end{tabularx}
+> +
+>  \subsection{Device Operation}\label{sec:Device Types / Crypto Device / Device Operation}
+>  
+>  The operation of a virtio crypto device is driven by requests placed on the virtqueues.
+> @@ -1872,3 +1888,141 @@ \subsubsection{AKCIPHER Service Operation}\label{sec:Device Types / Crypto Devic
+>  \item VIRTIO_CRYPTO_ERR if any failure not mentioned above occurs.
+>  \end{itemize*}
+>  \end{itemize*}
+> +
+> +\subsubsection{IPSEC Service Operation}\label{sec:Device Types / Crypto Device / Device Operation / IPSEC Service Operation}
+> +
+> +A crypto device can support the programming of IPsec Security Associations(SAs).
+> +In addition to standard crypto processing, the IPsec protocol processing is
+> +also offloaded to the Crypto Device as lookaside operation.
+> +
+> +IPsec Inbound processing: The device will perform decryption, authentication,
+> +integrity checking and remove additional headers, including tunnel headers if
+> +in tunnel mode, as well as the ESP/AH header from the packet. The resulting
+> +packet contains only the plain data.
+> +
+> +IPsec Outbound processing: The device will perform encryption, attach ICV,
+> +update/add IP headers, add ESP/AH headers/trailers.
+> +
+> +A crypto device can support number of IPsec SAs, allowing it to manage multiple secure
+> +connections simultaneously.
+> +
+> +The device and the driver indicates IPsec SA resource limits using the capability
+
+s/indicates/indicate
+
+> +VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP specifying the limits on the number of IPsec outbound and
+> +inbound SA resource objects.
+> +The capability VIRTIO_CRYPTO_IPSEC_SA_CAP specifies which IPsec protocol capabilities
+> +the device supports. The driver indicates the IPsec parameters(Crypto algorithm,
+> +IPsec mode, anti-replay window size, etc.) it is using by setting the IPsec SA capability,
+> +prior to adding any resource objects.
+> +
+
+I think you mean:
+`The driver indicates the IPsec parameters by setting the IPsec SA
+capability prior to adding any resource objects`.
+
+> +The driver controls the IPsec SA resource objects using administration commands described in
+> +\ref{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}.
+> +
+> +\paragraph{Device and driver capabilities}
+> +\label{par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities}
+> +
+> +\subparagraph{VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP}
+> +\label{par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP}
+> +
+> +The capability VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP indicates the IPsec SA resource limits.
+> +\field{cap_specific_data} is in the format
+> +\field{struct virtio_crypto_ipsec_resource_cap}.
+> +
+> +\begin{lstlisting}
+> +struct virtio_crypto_ipsec_resource_cap {
+> +        le32 inb_sa_limit;
+> +        le32 outb_sa_limit;
+> +};
+> +\end{lstlisting}
+> +
+> +\field{inb_sa_limit}, and \field{outb_sa_limit} denote the maximum number of IPsec
+> +security Associations (SAs) that can be utilized for IPsec inbound and outbound processing,
+> +respectively, which the device is capable of creating.
+> +
+> +\subparagraph{VIRTIO_CRYPTO_IPSEC_SA_CAP}
+> +\label{par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP}
+> +
+> +The capability VIRTIO_CRYPTO_IPSEC_SA_CAP lists the supported IPsec modes along with
+
+I think here `capability` goes after `VIRTIO_CRYPTO_IPSEC_SA_CAP`. I
+think this also applies to cases above.
+
+> +the supported cryptographic, authentication algorithms and anti-replay window size for
+> +each IPsec mode.
+> +\field{cap_specific_data} is in the format \field{struct virtio_crypto_ipsec_sa_cap_data}.
+> +
+> +\begin{lstlisting}[label={lst:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / virtio-crypto-ipsec-mode-cap}]
+> +struct virtio_crypto_ipsec_mode_cap {
+> +        le32 replay_win_sz_max;
+> +        le32 options;
+> +        le64 cipher_algo;
+> +        le64 hmac_algo;
+> +        le32 aead_algo;
+> +        le32 max_cipher_key_len;
+> +        le32 max_auth_key_len;
+> +        u8 mode;
+> +        u8 padding[3];
+> +};
+> +
+> +struct virtio_crypto_ipsec_sa_cap_data {
+> +        u8 count;
+> +        u8 reserved[7];
+> +        struct virtio_crypto_ipsec_mode_cap mode[];
+> +};
+> +\end{lstlisting}
+> +
+> +\field{count} indicates number of valid entries in the \field{mode} array.
+> +\field{mode[]} is an array of supported IPsec modes. Within each array entry:
+> +
+> +\field{mode} specifies the IPsec mode, as defined in table
+> +\ref{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Modes}.
+> +\field{replay_win_sz_max} specifies the maximum anti-replay window size the device supports.
+> +
+> +\field{options} represents the IPsec protocol options the device supports, as defined in table
+> +\ref{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Options}.
+> +
+> +\field{cipher_algo} CIPHER algorithms mask, see \ref{sec:Device Types / Crypto Device / Supported crypto services  / CIPHER services}.
+> +
+> +\field{hmac_algo} HMAC algorithms mask, see \ref{sec:Device Types / Crypto Device / Supported crypto services  / MAC services}.
+> +
+> +\field{aead_algo} AEAD algorithms mask, see \ref{sec:Device Types / Crypto Device / Supported crypto services  / AEAD services}.
+> +
+> +\field{max_cipher_key_len} is the maximum length of cipher key supported by the device.
+> +
+> +\field{max_auth_key_len} is the maximum length of authenticated key supported by the device.
+> +
+> +\begin{table}[H]
+> +\caption{IPsec Modes}
+> +\label{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Modes}
+> +\begin{tabularx}{\textwidth}{ |l|X|X| }
+> +\hline
+> +Type & Name & Description \\
+> +\hline \hline
+> +0x0 & - & Reserved \\
+> +\hline
+> +0x1 & VIRTIO_CRYPTO_IPSEC_MODE_ESP_TUNNEL & IPsec ESP protocol in tunnel mode \\
+> +\hline
+> +0x2 & VIRTIO_CRYPTO_IPSEC_MODE_ESP_TRANSPORT & IPsec ESP protocol in transport mode \\
+> +\hline
+> +0x3 & VIRTIO_CRYPTO_IPSEC_MODE_AH_TUNNEL & IPsec AH protocol in tunnel mode \\
+> +\hline
+> +0x4 & VIRTIO_CRYPTO_IPSEC_MODE_AH_TRANSPORT & IPsec AH protocol in transport mode \\
+> +\hline
+> +\end{tabularx}
+> +\end{table}
+> +
+> +\begin{table}[H]
+> +\caption{IPsec Options}
+> +\label{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Options}
+> +\begin{tabularx}{\textwidth}{ |l|X|X| }
+> +\hline
+> +Type & Name & Description \\
+> +\hline \hline
+> +0x0 & - & Reserved \\
+> +\hline
+> +0x1 & VIRTIO_CRYPTO_IPSEC_ESN & Specifies whether extended sequence number is supported \\
+> +\hline
+> +0x2 & VIRTIO_CRYPTO_IPSEC_UDP_ENCAP & Specifies whether udp encapsulation is supported \\
+> +\hline
+> +0x3 & VIRTIO_CRYPTO_IPSEC_COPY_DSCP & Specifies whether copy dscp is supported \\
+> +\hline
+> +0x4 & VIRTIO_CRYPTO_IPSEC_DEC_TTL & Specifies whether decrementing the time to live is supported \\
+> +\hline
+> +\end{tabularx}
+> +\end{table}
+> +
+> -- 
+> 2.25.1
 > 
-> ```c
-> fd = socket(AF_VSOCK);
-> connect(fd, 4, 1234);
-> n = write(fd, buffer);
-> ```
 > 
-> I've pushed a version of code for the implementation of multi devices to lkml
-> [1].
-> 
-> [1]
 
-[..]
-
-> > 
-> > Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
-> > ---
-> >  device-types/vsock/description.tex | 46 ++++++++++++++++++++++++++++--
-> >  1 file changed, 44 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/device-types/vsock/description.tex b/device-
-> > types/vsock/description.tex
-> > index 7d91d15..f2e663b 100644
-> > --- a/device-types/vsock/description.tex
-> > +++ b/device-types/vsock/description.tex
-> > @@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types /
-> > Socket Device / Feature bits}  \item[VIRTIO_VSOCK_F_STREAM (0)] stream
-> > socket type is supported.
-> >  \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
-> >  \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not
-> > implied.
-> > +\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] multiple socket devices are
-> > supported.
-> An individual device cannot indicate what other devices are supported.
-> The question is, when multiple devices are accessible to a single driver, how should driver choose which device to use?
-> This is the question that driver needs to solve based on certain information.
-> 
-> Therefore, the only thing needed in this patch is a feature bit to say, from device point of view is:
-> 
-> VIRTIO_VSOCK_DEV_INDEX This feature indicates that device configuration space has device index.
-> 
-> And somehow application chooses which device to use to transport the vq entries.
-> 
-> Right?
-
-`VIRTIO_VSOCK_F_MULTI_DEVICES` is to let driver know that the device
-supports multi-devices feature: read the index field from the config space,
-prepare an array to store multiple devices, deny device without the
-feature, etc.
-
-IMHO, `VIRTIO_VSOCK_F_MULTI_DEVICES` is better than
-`VIRTIO_VSOCK_DEV_INDEX`.
-
-> >  \end{description}
-> > 
-> >  \drivernormative{\subsubsection}{Feature bits}{Device Types / Socket Device
-> > / Feature bits} @@ -34,6 +35,13 @@ \subsection{Feature
-> > bits}\label{sec:Device Types / Socket Device / Feature bits}
-> > VIRTIO_VSOCK_F_NO_IMPLIED_STREAM, the driver MAY act as if
-> > VIRTIO_VSOCK_F_STREAM has also been negotiated.
-> > 
-> > +If a device without VIRTIO_VSOCK_F_MULTI_DEVICES has been registered,
-> > +the driver SHOULD ignore all subsequent devices.
-> > +
-> At driver level in virtio spec, there is no concept of registered.
-> It should be something like
-> If the device index is not present, the driver SHOULD pick some default device etc.
-
-"Pick some default device" is not much accurate. When this case happened,
-it means multi-devices feature is disabled, then the driver should ignore all
-subsequent devices.
-
-Will replace the term "register", see below:
-
-If a device without VIRTIO_VSOCK_F_MULTI_DEVICES has been present, the
-driver SHOULD ignore all subsequent devices.
-
-> > +If a device with VIRTIO_VSOCK_F_MULTI_DEVICES has been registered, the
-> > +driver SHOULD accept other devices only if they expose
-> > +VIRTIO_VSOCK_F_MULTI_DEVICES.
-> > +
-> >  \devicenormative{\subsubsection}{Feature bits}{Device Types / Socket
-> > Device / Feature bits}
-> > 
-> >  The device SHOULD offer the VIRTIO_VSOCK_F_NO_IMPLIED_STREAM
-> > feature.
-> > @@ -52,6 +60,7 @@ \subsection{Device configuration
-> > layout}\label{sec:Device Types / Socket Device  \begin{lstlisting}  struct
-> > virtio_vsock_config {
-> >  	le64 guest_cid;
-> > +	le16 index;
-> >  };
-> >  \end{lstlisting}
-> > 
-> > @@ -77,11 +86,36 @@ \subsection{Device configuration
-> > layout}\label{sec:Device Types / Socket Device  \hline  \end{tabular}
-> > 
-> > +The \field{index} field indicates index of a device, and is required
-> > +for each device when VIRTIO_VSOCK_F_MULTI_DEVICES feature has been
-> > negotiated.
-> This is not needed. A driver should be able to make choice on which device to use.
-
-IMHO, this is necessary. It is a rule that DEVICE must provide the index if
-it want to enable the multi-devices feature. It's not a rule for the
-driver.
-
-BTW, making choice on which device to use by the driver is according to
-CID. The index is only used to determine position in the driver's device
-list. (This is the same as the previous explanation.)
-
-> > +The \field{index} is 16 bits in size, enabling support for up to 65,536
-> > +devices.
-> > +
-> Bit width is visible, just mentioning maximum device size is good enough.
-
-Will update in the next version.
-
-> > +The source socket is allowed to not be bound to any CID. It is required
-> > +for the driver to choose a CID for the socket. If
-> > +VIRTIO_VSOCK_F_MULTI_DEVICES is not negotiated, the one and only
-> > +device's CID is used. If VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated,
-> > +the driver uses the default device's. In this case, the driver selects
-> > +the device with the lowest index as the default.
-> > +
-> If socket can choose the CID, why does it need new index?
-> Its confusing to see relation of CID and index here.
-> Can you please explain?
-
-See "When we have many vsock devices, we...".
-
-> > +\devicenormative{\subsubsection}{Device configuration layout}{Device
-> > +Types / Socket Device / Device configuration layout}
-> > +
-> > +When VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, the device MUST
-> > offer
-> > +an \field{index}, which MUST NOT be same with the \field{index} of
-> > +other devices.
-> > +
-> > +When VIRTIO_VSOCK_F_MULTI_DEVICES is not negotiated, the device
-> > SHOULD
-> > +NOT offer an \field{index}.
-> > +
-> This should be MUST.
-
-Will update.
-
-> I don't see a need to write this.
-> In other words,
-> 
-> If VIRTIO_VSOCK_F_DEV_INDEX is offered, field index is supported.
-
-This part gives two rules:
-
-- The device MUST not provide the index that has been already used.
-- If VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, the device MUST offer
-  the index field (if not offered, the driver might read data outside the
-  config space, as the sizes are different).
-
-> >  \subsection{Device Initialization}\label{sec:Device Types / Socket Device /
-> > Device Initialization}
-> > 
-> >  \begin{enumerate}
-> >  \item The guest's cid is read from \field{guest_cid}.
-> > 
-> > +\item If VIRTIO_VSOCK_F_MULTI_DEVICES has been negotiated, the
-> > device's
-> > +index will be read from \field{index}. If not, the device's index will
-> > +be ignored.
-> > +
-> >  \item Buffers are added to the event virtqueue to receive events from the
-> > device.
-> > 
-> >  \item Buffers are added to the rx virtqueue to start receiving packets.
-> > @@ -167,6 +201,10 @@ \subsubsection{Addressing}\label{sec:Device Types
-> > / Socket Device / Device Opera  consists of a (cid, port number) tuple. The
-> > header fields used for this are  \field{src_cid}, \field{src_port}, \field{dst_cid},
-> > and \field{dst_port}.
-> > 
-> > +If at least one device has negotiated VIRTIO_VSOCK_F_MULTI_DEVICES, and
-> > +the source socket is not bound to any CID, then \field{src_cid} should
-> > +be set to the default device's CID.
-> > +
-> >  Currently stream and seqpacket sockets are supported. \field{type} is 1
-> > (VIRTIO_VSOCK_TYPE_STREAM)  for stream socket types, and 2
-> > (VIRTIO_VSOCK_TYPE_SEQPACKET) for seqpacket socket types.
-> > 
-> > @@ -233,8 +271,12 @@ \subsubsection{Receive and
-> > Transmit}\label{sec:Device Types / Socket Device / De
-> > 
-> >  \drivernormative{\paragraph}{Device Operation: Receive and
-> > Transmit}{Device Types / Socket Device / Device Operation / Receive and
-> > Transmit}
-> > 
-> > -The \field{guest_cid} configuration field MUST be used as the source CID
-> > when -sending outgoing packets.
-> > +The \field{guest_cid} configuration field MUST be used as the source
-> > +CID when sending outgoing packets.
-> > +
-> > +When VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, the source CID
-> > MUST be
-> > +one of the \field{guest_cid} configuration field of the multiple
-> > +devices handled by the driver.
-> > 
-> If the guest_cid is used to distinguish between devices, why the new field index is needed?
-> Can guest_cid be sufficient?
-
-See above "When we have many vsock devices, we..." as well. If something is
-not clear or incorrect, please feel free to let me know.
-
-> >  A VIRTIO_VSOCK_OP_RST reply MUST be sent if a packet is received with an
-> > unknown \field{type} value.
-> > --
-> > 2.34.1
-> >
-
-Thanks for your comments!
-
-Best Regards,
-Xuewei
