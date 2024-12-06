@@ -1,320 +1,391 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D09FE217707
-	for <virtio-comment@lists.linux.dev>; Thu,  5 Dec 2024 12:04:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1733400254; cv=none; b=cDAMsrJUh0G6rssIdLvsyVp0S7dt0QZJWTye8NgZMD9niapOLDrcjnL4k7dsfZpIzXmMX//tlWKYKIIqJ5CXAidO3f+bcvHHp6+9yd9RcZ0NDxliw2NSdDXgKVw9xupIGPu/3Lx6JLfdVIB+qgRUvBYONhmTv5NhcNFTJ0u0m08=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1733400254; c=relaxed/simple;
-	bh=o00srngiqA6v30fjulrpJ2udob9q6DRPKTnNwYQVPN4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=iEDyM5Ik6b2w77HOA/mkFYFVbrkJnjrwgaCigykKL95nI1P5Tc7o6P7HwxG6392y4ubAcSgS1g5vikLkQiNygEFXikiNq2HFnI9yhgTQ2Ce7Zk3N1yxJawLHn7fGA/IdB5Ia+YEDI/Gfrt636bDKmlBYCQtda83g/ab0OhZKe/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=I0J0lRZS; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18490BE46
+	for <virtio-comment@lists.linux.dev>; Fri,  6 Dec 2024 07:05:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.156.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1733468713; cv=fail; b=n3Vnd4761IpkAu45cj2AH88qD6UYB6ziPjYUovDRSPrC4EltLEU6R41HfskHWtS/ZwNDsacqPiONAvHaPEKIGUhVd5r26BuNNNSQ04lLJ3444dB4xDUnvMVI78qb4wksXLA82X4sENDGFTpGZ+QaSUquXP56E60RYSHPxvhR+bA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1733468713; c=relaxed/simple;
+	bh=dQGytofrVLd7vOLsWYC3LdyK5nfoteeUPrsY3AKSwgs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=nDsarodQWjCRSVPY74ozICe9so5ep5D+yfX3ORvFNOyTYPZG11X9PmfuNGSX7CAVzg9KXOuYLzL2+3Ac1v990sMKV1ZBx7KXh7+jaHkEzCg1WEApLlWeiOEDlnCaXRu9sYkzL/ekkc+RzS7CKiOoWk7S0XzAf4Cy4Dh1qlw+tYc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b=H78aXSzM; arc=fail smtp.client-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="I0J0lRZS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1733400250;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=C0eakQUs/WFhYIQlXwgOfZmRlAlVMaGlbpxDa9zBW1A=;
-	b=I0J0lRZSgeW+pbOLHWqy/T6uY91nKSVu857LuqPIfQ84FhQyoOXj0ype3cVMS1EuTxWNC/
-	5xGCbjh0bdfjsWqD9VtBg5WCm0Dvc27U94JRlikXb/yHztu6nTuN9sa7JE26vVrfHSMFGn
-	LYY7hBY640Ige12IPfOUmggaHlwQFeU=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-494-hYrF7AiNNuujVbnqXZonyw-1; Thu, 05 Dec 2024 07:04:09 -0500
-X-MC-Unique: hYrF7AiNNuujVbnqXZonyw-1
-X-Mimecast-MFC-AGG-ID: hYrF7AiNNuujVbnqXZonyw
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-6d8d44e17a2so22576976d6.3
-        for <virtio-comment@lists.linux.dev>; Thu, 05 Dec 2024 04:04:09 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733400249; x=1734005049;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=C0eakQUs/WFhYIQlXwgOfZmRlAlVMaGlbpxDa9zBW1A=;
-        b=hUAX/TPAGGSp5TOUbzkeQuVZ+lZYFZiFPDba29H+lQ3YColhXyn/YEHc3gxvaHNGXm
-         iJw6eEGPzUAf6OFmx6pRKtQ32F/mxKReANBj3vm1W8+fjmDzWRQ1HYP/OwXvWck0Bosb
-         Byt70Mys1KRQRUJCQb7Xax9aabue4T4ueswsaknAghJkM/zUcpMHIIdoXV/CpYgGzKUE
-         OMytyeganQxviEHPo/MLBmZGgmqaj5QMb9WHKGK85ldguh/w2AuNeKVPNirlXl1FBO3N
-         Dmz2woAZbkzKvkcdrtmORUO0ZnXDXzZ3Ezn6nJvSz0o9TpfKYZiyF65nOtTn+o6h97Wr
-         CZBA==
-X-Gm-Message-State: AOJu0YxHTAM+AF+DXhFLs7f6t6yJetLKau2mhOTpq98zM9CfwvVTine6
-	t4ZUDBmsEINo9u1Wkr5EfcfLC34hoC25EBvR2+KA8riohQ5GSog8k0SrWSvNsgsr3VJnmjOyUpR
-	0WOuXshZbaBccBtGhc2iomr3My5oORDodMlrbQ8USy8rxwBvmWq9DlRuhebWBaj+y
-X-Gm-Gg: ASbGncvN+XX+2YfPQ+F3Y4cLwsN5goc6/0G8x4z+mJBqgXR+jb7J9SrESwS0DwA1osd
-	JKjvjmq1nO8VocVEogM/6axCctPeATm9TxYxq8ZWNf5Ig2N+dY5xkR1LKORW9UJKB0jiU1cLeGe
-	fS6i3cWP29tpx4CsMudRx8mVbpk+FlzGFq6WfDb5PRnC72C+uKWX+H8umLq9aoNXEgIDGpu2e/4
-	vvFRGWcEW6hWGuRT1xw8X34FssXaDZFzrd44oxRTA==
-X-Received: by 2002:a05:6214:411a:b0:6d8:8874:2127 with SMTP id 6a1803df08f44-6d8b72e0676mr153333436d6.5.1733400249336;
-        Thu, 05 Dec 2024 04:04:09 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHl6pn1qkp54EvQy8+8IgaUMq3t1hutXoY9EOeM8OJ0rNOkqikaz3lCXb8NSAKBlgu3bpVevg==
-X-Received: by 2002:a05:6214:411a:b0:6d8:8874:2127 with SMTP id 6a1803df08f44-6d8b72e0676mr153333026d6.5.1733400248949;
-        Thu, 05 Dec 2024 04:04:08 -0800 (PST)
-Received: from fedora ([212.157.222.2])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6d8da696d9esm5811226d6.46.2024.12.05.04.04.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Dec 2024 04:04:08 -0800 (PST)
-Date: Thu, 5 Dec 2024 13:04:05 +0100
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: Srujana Challa <schalla@marvell.com>
-Cc: virtio-comment@lists.linux.dev, mst@redhat.com, cohuck@redhat.com,
-	parav@nvidia.com, sburla@marvell.com, ndabilpuram@marvell.com,
-	jerinj@marvell.com, anoobj@marvell.com
-Subject: Re: [PATCH RFC 1/4] virtio-crypto: Add IPsec service operation and
- Capabilities
-Message-ID: <Z1GWtTWaQJvVrBxj@fedora>
+	dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b="H78aXSzM"
+Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B64w9Je010782;
+	Thu, 5 Dec 2024 23:05:09 -0800
+Received: from nam11-bn8-obe.outbound.protection.outlook.com (mail-bn8nam11lp2169.outbound.protection.outlook.com [104.47.58.169])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 43bssxgbgx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Dec 2024 23:05:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZAkrCQOLQWEc/S98LHLhzxu1jidI91eXG9Nu5o6oNSgVzz0+Uy0YCQmyUY4q3AyExSKoIHPIvTW/njvz5GTPHo1sT+8FGd2UJB2TTmuRLy9l9KGYx1SNaHA91wwtVkDiywPfiozX2OMhL2+o9KCTtoEGYhPLEiHY0zwIee/JTAVj4NkwYn6lE7vLfWKCSe3ELhIshYq5bU86QL2sU5041j2Wc/MNzqKWro1bVQkBlddH4pcprhdpnWG9MRcFkEGw90wtj/WDk7CWwXfn51jevpfhSOqyi4tum+sXclaIXndM2BFqPZcii6P1e3lRKOuDMoBy/jAv5RqrbXlF5Z+/Fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dQGytofrVLd7vOLsWYC3LdyK5nfoteeUPrsY3AKSwgs=;
+ b=AkG5aPv7uwlSuqD81E6KR+kfBRt0XwCgGeVjqfN+ssN9e/rrbcq9+4k7op1qymhLpq9ocwjCW4qnCzjvmLyZlHDiIfPrvIyYgtKryM5tYLA0mroGG6uoIddY5Gq6pX1qP5etarrkg92bVhe2N18aKTlbyugW+SBQyu+dgPv7fIa99dplWov/fAJejGsZs6dBiRo7VToPbK+DBJqwmEHvjEuo//2pcfy5vK3zD/PY8uP1xk3v2uMB2Wso9fROaxoIR2dGXVKnsUdLSqdpYiYRAGA5gtfS8tNotVyyR34Alw80BHOvVyNmlYv3m+GFXP5gMq3657Ffb89bjp9lNEUh8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=marvell.com; dmarc=pass action=none header.from=marvell.com;
+ dkim=pass header.d=marvell.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dQGytofrVLd7vOLsWYC3LdyK5nfoteeUPrsY3AKSwgs=;
+ b=H78aXSzMFcDebYmj+jg74rnuPto9EWxgO5LtxhSHKX0VP/a4+jGowzzKPrsKEcx1Cdsrewyn2gvKkDe05LuH9P5Rkc0MXirbvuRR5LsK+CZtdQZLf1R0PJyw1Ixq5SGd21OiPuaqGMqJQ18yx6GGwf1x07iCGA7yTpq2k/6udi4=
+Received: from DS0PR18MB5368.namprd18.prod.outlook.com (2603:10b6:8:12f::17)
+ by IA2PR18MB5964.namprd18.prod.outlook.com (2603:10b6:208:4ad::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.23; Fri, 6 Dec
+ 2024 07:05:07 +0000
+Received: from DS0PR18MB5368.namprd18.prod.outlook.com
+ ([fe80::ad53:bef2:cc17:13ac]) by DS0PR18MB5368.namprd18.prod.outlook.com
+ ([fe80::ad53:bef2:cc17:13ac%7]) with mapi id 15.20.8230.010; Fri, 6 Dec 2024
+ 07:05:07 +0000
+From: Srujana Challa <schalla@marvell.com>
+To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+CC: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+        "mst@redhat.com" <mst@redhat.com>,
+        "cohuck@redhat.com" <cohuck@redhat.com>,
+        "parav@nvidia.com" <parav@nvidia.com>,
+        Satananda Burla <sburla@marvell.com>,
+        Nithin Kumar Dabilpuram <ndabilpuram@marvell.com>,
+        Jerin Jacob
+	<jerinj@marvell.com>, Anoob Joseph <anoobj@marvell.com>
+Subject: RE: [EXTERNAL] Re: [PATCH RFC 1/4] virtio-crypto: Add IPsec service
+ operation and Capabilities
+Thread-Topic: [EXTERNAL] Re: [PATCH RFC 1/4] virtio-crypto: Add IPsec service
+ operation and Capabilities
+Thread-Index: AQHbN1PjyEx5sz0AsUOyu2wa0yoDY7LXrOeAgAE8CzA=
+Date: Fri, 6 Dec 2024 07:05:06 +0000
+Message-ID:
+ <DS0PR18MB5368F53ED485DA329E97A387A0312@DS0PR18MB5368.namprd18.prod.outlook.com>
 References: <20241115114523.1787840-1-schalla@marvell.com>
- <20241115114523.1787840-2-schalla@marvell.com>
+ <20241115114523.1787840-2-schalla@marvell.com> <Z1GWtTWaQJvVrBxj@fedora>
+In-Reply-To: <Z1GWtTWaQJvVrBxj@fedora>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR18MB5368:EE_|IA2PR18MB5964:EE_
+x-ms-office365-filtering-correlation-id: d29bcb1a-25cb-4628-26f0-08dd15c450d4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|1800799024|10070799003|38070700018;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?UnhHWk9hU01BdkdrT1cwTzM4aWF5NmdxTmJyQ2tkbGx3VEF3enM1WWRlVHgv?=
+ =?utf-8?B?NmFwL3oveC9LbUNINzEzR0ZlNm5admZsOGtGYWNBYjA0NkQ4N09zeSszVUFH?=
+ =?utf-8?B?UEVhMGFFMzRJWTZBZ1RRY09MTTU4YlJVR3NyZHR4dURrUTJqREE1M2pobWtU?=
+ =?utf-8?B?dmp1QTViY2lpTTBsWS9jMFZvaEFIZmxRdFdub2d1ZmxFOUgrdFpEb1krVkxs?=
+ =?utf-8?B?YkZZeXpaK3M4U1UxVGxIcldndDRvczlGb0tjKzF3OGxWclhoM2VrUUZPRXZ3?=
+ =?utf-8?B?VmxSSW54NkdXMitEek9pL2lOZXpZWlI4LzFlQTR2UE84aStYeTY1QU5vNDFP?=
+ =?utf-8?B?NlZiY3dTWjVWbU14S0trRWxZYTcvL0NOd2lFNjlmT2RFNFpnakE1MCsyN1FM?=
+ =?utf-8?B?elBGZjB2RWV2eDhTN1FPS25MRUdSRHcvNFA3VVFmMlQ0RERXQWV3SVQ0Nkoy?=
+ =?utf-8?B?RWxPMmFiaUMxcSt3L1RYTytEdjF4Z0g3bUc2NHRIdm4yenUxcXNvMVFFSzhr?=
+ =?utf-8?B?ZmhmRjNOVUF5TTkydGNMTlMzUTRvRmhKbUhuWStGU0huRHFJbVJaS2l0di9C?=
+ =?utf-8?B?L1dVdWtYVXQwUnAzd090Q1hmamtsMWtOUHVoN05MdURiSkllMHk1UDQzZHJT?=
+ =?utf-8?B?dFdkQzlHUW93VmN5OS9PSnhIcThnQ1hnWkEzOHNjbENtY1paWWYvZ1k1MXBM?=
+ =?utf-8?B?ZnJiUlZZR2VpdXBwbDV1bDIrQk9TMVhMTHNtMXMxc2VSVDFsd3h0czltaG9T?=
+ =?utf-8?B?Q0tQRXBUbUxiOUZHVlBMQ21jMDBhMlpmMVYzNWs5RkRpZkZGWWxMckRCWDh2?=
+ =?utf-8?B?T2VnNTVsck1GR0h1WHFGQ1V1RVZIV0lWVE5XODVvWWFxMDRNTFJRUUE2VGU1?=
+ =?utf-8?B?SW9wVkd5VTZCdkN3WU16L0RvZDc5VytGZ0k1T2xnM3RWTzZyK3U3RncyQnZY?=
+ =?utf-8?B?WmZBZ0NhL09tdUxkSkZSR1lkYnR0Y1ZoaU5kVVM4Tm9qTWVVcjhESng2dUJO?=
+ =?utf-8?B?M0dVVzA2M2pmQlFUcDVJSURPeUZXc2taemRkd0l1U00vWlhiWUN2Zm9UblFQ?=
+ =?utf-8?B?Q3QyRFVWUXZxcFRjaXJ0N2hybTdGcnF0QWFLUW5ULzBuM056UDhYUnVaNllq?=
+ =?utf-8?B?YXNudnVlUlZCZUZ5b1lVVG0rWldIZGFoN0dIT09CdXZaYzZzNUk4WjVOQ1FP?=
+ =?utf-8?B?dit5dmZhVlBSaXAzN09vV2ZiMkRyQkZGLzR5MVJCdytFRVp0SytETGVoMzNG?=
+ =?utf-8?B?UURYL21aZ1dRMCsxSEhuRmN2SGJWWkhUbEN2RmJSVUlDNjlsbk8wbHRhNEtQ?=
+ =?utf-8?B?TnErd28vVFBBbXBBQkdhYVZ1ekhPT25IcXh3K0hGN1J1L0tPWkJMakhrTjlJ?=
+ =?utf-8?B?N1lwYnJ5enArTGpyRTBhMzhZOEwwdk84MmxjTnhxRUE3ZHBhMFZ3RWZFQ2g0?=
+ =?utf-8?B?dDdWUFo4UTY5SWFPTVdvclcxSWV2Z2YyUVpNbVFsVWZsQVN5cHNFbU1wam9j?=
+ =?utf-8?B?d2hHSHJuazZqTEVabk02WGcydGE4Sk1Hd04yUDFPOUdYRWc1QzBid080MjJt?=
+ =?utf-8?B?djFBMm1WUmRhaGpVczk1Z0RrN2o0STdrNlo4Z2t0WFM1K1FkRU1BRTliak1p?=
+ =?utf-8?B?MExKQzk3d3ljYkZiOTQvVmU0KzlabWM2QzF4alpTUFhTSFh3REUxc0tYYVlm?=
+ =?utf-8?B?Qk1GUEllazE0NTF3M1QvYjdoclhNbXhVRjk1WjMrVVprRGd1UEpOOTVISDll?=
+ =?utf-8?B?RTVmeFlxSC8vQ0JEbTdhemtHRFJiWUxDdUNRMDJvVmN4WTQ3ZkdEa2FOVmRU?=
+ =?utf-8?B?aVlNdFlybGVTLzBkOHk5ZE9DYkVGM0IvbndKNzgwVWtVZWd2VXM1bUNXdzc1?=
+ =?utf-8?B?c0EvUEQxSUVGSUpLQTBnM25FNGswajltM2pXc05uNGNoWFE9PQ==?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR18MB5368.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(10070799003)(38070700018);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?OGpCWWprUFZ5ZCtLWHhUTndPUkI1d09PYkI1a09FeUllL2lRWXR4dDgxa3h0?=
+ =?utf-8?B?Uk1iNGNGWkdOTS9wMFcvd2R0MlI0d1BicVV4YnhpL3hwekZGbXdWKytBRUoy?=
+ =?utf-8?B?Vm03WWF1YkVvbXNuSVVOVmc4aGQwY2lKdzNDbURFbzZMM2ZsUEhsVEZ4RkRn?=
+ =?utf-8?B?UFMwNlVlZGRDbHhlSlo5NDZEMjlDUGNCUk9uT0orRVJtYlZTR2duS0VKZ1hK?=
+ =?utf-8?B?bXlLWEw1T3RJVW9iWnJ3NDc5TW1lRk9WMlNjVzkrNXA3RWlmRDN3by9pbVBV?=
+ =?utf-8?B?MHZQYmk5akUwbXBPSWZuZENhbnZoenZUY2c0em1GODJUZU04LzZiR0hOMkJs?=
+ =?utf-8?B?R1U4VjF2RjBSWkJOM3MzSS9mallEdFNvRDE0UjBZQUNWRXUzaHpITEdyYzdq?=
+ =?utf-8?B?MWlJM1g0ck5aMVBhZVlrdVpTaXhiSkhvS09NbmlBRFlqQVlpN05OSWNvVE9J?=
+ =?utf-8?B?dytJWHpoUVNHQWtCZ05yYzc4YmtTMEVhRmVueE1vbUMzb0djT0crakVwQ1p0?=
+ =?utf-8?B?Q3dsMEFuell1U2Q1TWZPQWQwZ3ZIZytMdmNQcWswR2RVS2lWdnZOUWxlSnBy?=
+ =?utf-8?B?RlVnbUJzaTVFR1luUTJ3QWFreHFKaWZGMFd2QmlxRk1lTHZqUEkzcGJ2UW9Z?=
+ =?utf-8?B?dUY2UnlVSlJKa1Z5QVR3TE1rbU53Vjc0aVB0RVNEcnFkdG1Sd0I2cmw5Q0RN?=
+ =?utf-8?B?U2dQMkFJTC9uS3BDcEpLUzk5UmxuN0laeUNEZjZ5dlVvNk53MmpTWDZDQ1Y5?=
+ =?utf-8?B?N0l0dGdsU1Z2ZGFUcVAwNm5WQ2c1aGYxZVpaU0g0dkdWSFlrbjJRNjVUcy95?=
+ =?utf-8?B?dENuTkhoU0xOdzEyeEVsbDkxU0JNa0orTmFCN21OM283WHloVVRWZWMzWitr?=
+ =?utf-8?B?aGdmK01uRmFOc0xWQVNqeDZCd29Qb3RwMDZSYWJxMUl5WGkrY0MxNjNlVHVD?=
+ =?utf-8?B?WEVnZVR2TWxoV1dVd1RqK1V5UlVvdHlZTkxVd1g0c1hwSTRUQi9RN1hudEJj?=
+ =?utf-8?B?UjhDZjlQcUZHVDNONEdZN3pSV05yNUVZWjVXWWcyTDdXM3Vyc2lwbTdJbVJB?=
+ =?utf-8?B?RmRtSUFUNE1BeUpFOWprSmdjUSs5cGhlc2NpMDJnZlVud21kYW9haGlmbDVY?=
+ =?utf-8?B?aFRuTi9sNTFDR0hoQ2krWTVBaUcxYlplNjFBSHZHWUNMZHFsVlhKdktjUUpk?=
+ =?utf-8?B?K3hDVTkvZ3RvS2lUYjdnNUhMK09INkFSQnZvaVRCamRmSWdwMVQ2SXZtQVdG?=
+ =?utf-8?B?SENGS3pwQmprQW9meTdjYWpKWE5sWUxiWU04bDcwNjJQMTNoN0Z1ZWlLczB3?=
+ =?utf-8?B?YWl0MmxSRWVxZG1zR0Q3NDB6RGc1UTNDZTNITkd0R2ExV0EycXNtVWtvWWhG?=
+ =?utf-8?B?QWY5c055VnBVaERoaGpzL3Z5KzJMbzNvMHdGb0xlQzhuRWUrWm8wUlJzbDc1?=
+ =?utf-8?B?d0MweU1peGRYYzd5OUNQL01kcnc5R29jVDlSRnRGdTVxSUFhb1ZqSnJiN0Z5?=
+ =?utf-8?B?bHJvaHdIbmQ4WUtCb1hDTE9ZZy9JbU96aHdTbkZTMGFDZnoxV3lQSjlkTlE4?=
+ =?utf-8?B?OUdnRFRZTENHUFpBaW5aUXhTRC9nNXF0L0NEZ0NaQS9XZ3pjNUhPNTJraU9C?=
+ =?utf-8?B?bHpVWEZKNTJCeWRVMngwVU50blRIY3c4UzJqZFZvaEdSZTFzdzdYTzVEVmtC?=
+ =?utf-8?B?eEtJWkxqKzJyRzZaYkZxRTAvL1krRVhxU3RuZjVPeGYyNGZJaFRSWnpMaTQ4?=
+ =?utf-8?B?OExoTDRRY3JvNjU0SGJYWEp6OElqaGJUdUo1b2Fyc1gyVTJiblBZZERLOW9Z?=
+ =?utf-8?B?MVJMcnpjUFhteC9palpMK1R3cnBldGhEVlR0UStEYWpWdjJXdVl3aUFFMU9R?=
+ =?utf-8?B?V2Z6QmhBNWRRUjlTbjFMNFRReUhjQytReXlDM3ZlNHFkRlZzb0d4K1h0N2la?=
+ =?utf-8?B?Y0pNbmZvdXlJT3EyRGpDUWJsdHI5Y0M1dndWZnRwcWRZVDJWRmZzclZZSVVN?=
+ =?utf-8?B?dTYyQjJnbVorMnp2azRCY3VFYmJWWnZmcGVqcGZDYnhkdlo2WDRLQXdZUHV2?=
+ =?utf-8?B?SHRWd3BxbERUQkR3aGRmaVk4RXQ2eUdzaVh1cHFoT3E0RXNzWjh2Rm0yMXdk?=
+ =?utf-8?B?VUczOHhjRS9sYzFTdWdqTWkzSXQrazhpTlkwbWhsVmRaY2xYd3hHckZRZlQ3?=
+ =?utf-8?Q?5VqOh4URduPQ3C87zua/Y9ws58sHuyIDwSInKj+DwAbr?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20241115114523.1787840-2-schalla@marvell.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Bg3gmIqXdyb4YIM05Eiipwh4EKm2YV0UMG0F9uAz3Y0_1733400249
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-OriginatorOrg: marvell.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR18MB5368.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d29bcb1a-25cb-4628-26f0-08dd15c450d4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Dec 2024 07:05:06.9898
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 70e1fb47-1155-421d-87fc-2e58f638b6e0
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Cqg9qSzkxbVWnPg+qjZoPE1Bq5CUvSEIGVRkaYVU/8mG/eaBlprOyHuJCnbpNvGbktNwQF3s6fFoOyLm6stbEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA2PR18MB5964
+X-Proofpoint-GUID: s9ghcq93Up3SuLDmrsVVQWAgsnMCeOAu
+X-Proofpoint-ORIG-GUID: s9ghcq93Up3SuLDmrsVVQWAgsnMCeOAu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 
-Hello, 
-
-I left some minor comments:
-
-On Fri, Nov 15, 2024 at 05:15:20PM +0530, Srujana Challa wrote:
-> This commit introduces the IPsec service operation to the Crypto
-> device, enabling offloading of IPsec processing.
-> 
-> Capabilities:
-> 
-> 1. IPsec Resource Capability (VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP):
->    Indicates the device's IPsec resource limits, such as the number of
->    outbound and inbound Security Associations (SAs).
-> 2. IPsec SA Capability (VIRTIO_CRYPTO_IPSEC_SA_CAP): Specifies the
->    supported IPsec modes, along with the supported cryptographic
->    algorithms, authentication algorithms, IPsec options and
->    anti-replay window size.
-> 
-> Signed-off-by: Srujana Challa <schalla@marvell.com>
-> ---
->  device-types/crypto/description.tex | 164 +++++++++++++++++++++++++++-
->  1 file changed, 159 insertions(+), 5 deletions(-)
-> 
-> diff --git a/device-types/crypto/description.tex b/device-types/crypto/description.tex
-> index 5705e26..ce4b1fb 100644
-> --- a/device-types/crypto/description.tex
-> +++ b/device-types/crypto/description.tex
-> @@ -2,11 +2,11 @@ \section{Crypto Device}\label{sec:Device Types / Crypto Device}
->  
->  The virtio crypto device is a virtual cryptography device as well as a
->  virtual cryptographic accelerator. The virtio crypto device provides the
-> -following crypto services: CIPHER, MAC, HASH, AEAD and AKCIPHER. Virtio crypto
-> -devices have a single control queue and at least one data queue. Crypto
-> -operation requests are placed into a data queue, and serviced by the
-> -device. Some crypto operation requests are only valid in the context of a
-> -session. The role of the control queue is facilitating control operation
-> +following crypto services: CIPHER, MAC, HASH, AEAD, AKCIPHER and IPSEC.
-> +Virtio crypto devices have a single control queue and at least one data
-> +queue. Crypto operation requests are placed into a data queue, and serviced
-> +by the device. Some crypto operation requests are only valid in the context
-> +of a session. The role of the control queue is facilitating control operation
->  requests. Sessions management is realized with control operation
->  requests.
->  
-> @@ -72,6 +72,8 @@ \subsection{Supported crypto services}\label{sec:Device Types / Crypto Device /
->  #define VIRTIO_CRYPTO_SERVICE_AEAD   3
->  /* AKCIPHER (Asymmetric Key Cipher) service */
->  #define VIRTIO_CRYPTO_SERVICE_AKCIPHER 4
-> +/* IPSEC service */
-> +#define VIRTIO_CRYPTO_SERVICE_IPSEC  5
->  \end{lstlisting}
->  
->  The above constants designate bits used to indicate the which of crypto services are
-> @@ -318,6 +320,20 @@ \subsection{Device Initialization}\label{sec:Device Types / Crypto Device / Devi
->  \item The driver MUST read the supported algorithms based on \field{crypto_services} field.
->  \end{itemize*}
->  
-> +\subsection{Device and driver capabilities}\label{sec:Device Types / Crypto Device / Device and driver capabilities}
-> +
-> +The crypto device has the following capabilities.
-> +
-> +\begin{tabularx}{\textwidth}{ |l||l|X| }
-> +\hline
-> +Identifier & Name & Description \\
-> +\hline \hline
-> +0x0800 & \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP]{VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP} & IPsec resource capability \\
-> +\hline
-> +0x0801 & \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP]{VIRTIO_CRYPTO_IPSEC_SA_CAP} & IPsec Security Association(SA) capability \\
-> +\hline
-> +\end{tabularx}
-> +
->  \subsection{Device Operation}\label{sec:Device Types / Crypto Device / Device Operation}
->  
->  The operation of a virtio crypto device is driven by requests placed on the virtqueues.
-> @@ -1872,3 +1888,141 @@ \subsubsection{AKCIPHER Service Operation}\label{sec:Device Types / Crypto Devic
->  \item VIRTIO_CRYPTO_ERR if any failure not mentioned above occurs.
->  \end{itemize*}
->  \end{itemize*}
-> +
-> +\subsubsection{IPSEC Service Operation}\label{sec:Device Types / Crypto Device / Device Operation / IPSEC Service Operation}
-> +
-> +A crypto device can support the programming of IPsec Security Associations(SAs).
-> +In addition to standard crypto processing, the IPsec protocol processing is
-> +also offloaded to the Crypto Device as lookaside operation.
-> +
-> +IPsec Inbound processing: The device will perform decryption, authentication,
-> +integrity checking and remove additional headers, including tunnel headers if
-> +in tunnel mode, as well as the ESP/AH header from the packet. The resulting
-> +packet contains only the plain data.
-> +
-> +IPsec Outbound processing: The device will perform encryption, attach ICV,
-> +update/add IP headers, add ESP/AH headers/trailers.
-> +
-> +A crypto device can support number of IPsec SAs, allowing it to manage multiple secure
-> +connections simultaneously.
-> +
-> +The device and the driver indicates IPsec SA resource limits using the capability
-
-s/indicates/indicate
-
-> +VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP specifying the limits on the number of IPsec outbound and
-> +inbound SA resource objects.
-> +The capability VIRTIO_CRYPTO_IPSEC_SA_CAP specifies which IPsec protocol capabilities
-> +the device supports. The driver indicates the IPsec parameters(Crypto algorithm,
-> +IPsec mode, anti-replay window size, etc.) it is using by setting the IPsec SA capability,
-> +prior to adding any resource objects.
-> +
-
-I think you mean:
-`The driver indicates the IPsec parameters by setting the IPsec SA
-capability prior to adding any resource objects`.
-
-> +The driver controls the IPsec SA resource objects using administration commands described in
-> +\ref{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}.
-> +
-> +\paragraph{Device and driver capabilities}
-> +\label{par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities}
-> +
-> +\subparagraph{VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP}
-> +\label{par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP}
-> +
-> +The capability VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP indicates the IPsec SA resource limits.
-> +\field{cap_specific_data} is in the format
-> +\field{struct virtio_crypto_ipsec_resource_cap}.
-> +
-> +\begin{lstlisting}
-> +struct virtio_crypto_ipsec_resource_cap {
-> +        le32 inb_sa_limit;
-> +        le32 outb_sa_limit;
-> +};
-> +\end{lstlisting}
-> +
-> +\field{inb_sa_limit}, and \field{outb_sa_limit} denote the maximum number of IPsec
-> +security Associations (SAs) that can be utilized for IPsec inbound and outbound processing,
-> +respectively, which the device is capable of creating.
-> +
-> +\subparagraph{VIRTIO_CRYPTO_IPSEC_SA_CAP}
-> +\label{par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP}
-> +
-> +The capability VIRTIO_CRYPTO_IPSEC_SA_CAP lists the supported IPsec modes along with
-
-I think here `capability` goes after `VIRTIO_CRYPTO_IPSEC_SA_CAP`. I
-think this also applies to cases above.
-
-> +the supported cryptographic, authentication algorithms and anti-replay window size for
-> +each IPsec mode.
-> +\field{cap_specific_data} is in the format \field{struct virtio_crypto_ipsec_sa_cap_data}.
-> +
-> +\begin{lstlisting}[label={lst:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / virtio-crypto-ipsec-mode-cap}]
-> +struct virtio_crypto_ipsec_mode_cap {
-> +        le32 replay_win_sz_max;
-> +        le32 options;
-> +        le64 cipher_algo;
-> +        le64 hmac_algo;
-> +        le32 aead_algo;
-> +        le32 max_cipher_key_len;
-> +        le32 max_auth_key_len;
-> +        u8 mode;
-> +        u8 padding[3];
-> +};
-> +
-> +struct virtio_crypto_ipsec_sa_cap_data {
-> +        u8 count;
-> +        u8 reserved[7];
-> +        struct virtio_crypto_ipsec_mode_cap mode[];
-> +};
-> +\end{lstlisting}
-> +
-> +\field{count} indicates number of valid entries in the \field{mode} array.
-> +\field{mode[]} is an array of supported IPsec modes. Within each array entry:
-> +
-> +\field{mode} specifies the IPsec mode, as defined in table
-> +\ref{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Modes}.
-> +\field{replay_win_sz_max} specifies the maximum anti-replay window size the device supports.
-> +
-> +\field{options} represents the IPsec protocol options the device supports, as defined in table
-> +\ref{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Options}.
-> +
-> +\field{cipher_algo} CIPHER algorithms mask, see \ref{sec:Device Types / Crypto Device / Supported crypto services  / CIPHER services}.
-> +
-> +\field{hmac_algo} HMAC algorithms mask, see \ref{sec:Device Types / Crypto Device / Supported crypto services  / MAC services}.
-> +
-> +\field{aead_algo} AEAD algorithms mask, see \ref{sec:Device Types / Crypto Device / Supported crypto services  / AEAD services}.
-> +
-> +\field{max_cipher_key_len} is the maximum length of cipher key supported by the device.
-> +
-> +\field{max_auth_key_len} is the maximum length of authenticated key supported by the device.
-> +
-> +\begin{table}[H]
-> +\caption{IPsec Modes}
-> +\label{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Modes}
-> +\begin{tabularx}{\textwidth}{ |l|X|X| }
-> +\hline
-> +Type & Name & Description \\
-> +\hline \hline
-> +0x0 & - & Reserved \\
-> +\hline
-> +0x1 & VIRTIO_CRYPTO_IPSEC_MODE_ESP_TUNNEL & IPsec ESP protocol in tunnel mode \\
-> +\hline
-> +0x2 & VIRTIO_CRYPTO_IPSEC_MODE_ESP_TRANSPORT & IPsec ESP protocol in transport mode \\
-> +\hline
-> +0x3 & VIRTIO_CRYPTO_IPSEC_MODE_AH_TUNNEL & IPsec AH protocol in tunnel mode \\
-> +\hline
-> +0x4 & VIRTIO_CRYPTO_IPSEC_MODE_AH_TRANSPORT & IPsec AH protocol in transport mode \\
-> +\hline
-> +\end{tabularx}
-> +\end{table}
-> +
-> +\begin{table}[H]
-> +\caption{IPsec Options}
-> +\label{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Options}
-> +\begin{tabularx}{\textwidth}{ |l|X|X| }
-> +\hline
-> +Type & Name & Description \\
-> +\hline \hline
-> +0x0 & - & Reserved \\
-> +\hline
-> +0x1 & VIRTIO_CRYPTO_IPSEC_ESN & Specifies whether extended sequence number is supported \\
-> +\hline
-> +0x2 & VIRTIO_CRYPTO_IPSEC_UDP_ENCAP & Specifies whether udp encapsulation is supported \\
-> +\hline
-> +0x3 & VIRTIO_CRYPTO_IPSEC_COPY_DSCP & Specifies whether copy dscp is supported \\
-> +\hline
-> +0x4 & VIRTIO_CRYPTO_IPSEC_DEC_TTL & Specifies whether decrementing the time to live is supported \\
-> +\hline
-> +\end{tabularx}
-> +\end{table}
-> +
-> -- 
-> 2.25.1
-> 
-> 
-
+PiBIZWxsbywNCj4gDQo+IEkgbGVmdCBzb21lIG1pbm9yIGNvbW1lbnRzOg0KPiANCj4gT24gRnJp
+LCBOb3YgMTUsIDIwMjQgYXQgMDU6MTU6MjBQTSArMDUzMCwgU3J1amFuYSBDaGFsbGEgd3JvdGU6
+DQo+ID4gVGhpcyBjb21taXQgaW50cm9kdWNlcyB0aGUgSVBzZWMgc2VydmljZSBvcGVyYXRpb24g
+dG8gdGhlIENyeXB0bw0KPiA+IGRldmljZSwgZW5hYmxpbmcgb2ZmbG9hZGluZyBvZiBJUHNlYyBw
+cm9jZXNzaW5nLg0KPiA+DQo+ID4gQ2FwYWJpbGl0aWVzOg0KPiA+DQo+ID4gMS4gSVBzZWMgUmVz
+b3VyY2UgQ2FwYWJpbGl0eSAoVklSVElPX0NSWVBUT19JUFNFQ19SRVNPVVJDRV9DQVApOg0KPiA+
+ICAgIEluZGljYXRlcyB0aGUgZGV2aWNlJ3MgSVBzZWMgcmVzb3VyY2UgbGltaXRzLCBzdWNoIGFz
+IHRoZSBudW1iZXIgb2YNCj4gPiAgICBvdXRib3VuZCBhbmQgaW5ib3VuZCBTZWN1cml0eSBBc3Nv
+Y2lhdGlvbnMgKFNBcykuDQo+ID4gMi4gSVBzZWMgU0EgQ2FwYWJpbGl0eSAoVklSVElPX0NSWVBU
+T19JUFNFQ19TQV9DQVApOiBTcGVjaWZpZXMgdGhlDQo+ID4gICAgc3VwcG9ydGVkIElQc2VjIG1v
+ZGVzLCBhbG9uZyB3aXRoIHRoZSBzdXBwb3J0ZWQgY3J5cHRvZ3JhcGhpYw0KPiA+ICAgIGFsZ29y
+aXRobXMsIGF1dGhlbnRpY2F0aW9uIGFsZ29yaXRobXMsIElQc2VjIG9wdGlvbnMgYW5kDQo+ID4g
+ICAgYW50aS1yZXBsYXkgd2luZG93IHNpemUuDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBTcnVq
+YW5hIENoYWxsYSA8c2NoYWxsYUBtYXJ2ZWxsLmNvbT4NCj4gPiAtLS0NCj4gPiAgZGV2aWNlLXR5
+cGVzL2NyeXB0by9kZXNjcmlwdGlvbi50ZXggfCAxNjQNCj4gPiArKysrKysrKysrKysrKysrKysr
+KysrKysrKystDQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCAxNTkgaW5zZXJ0aW9ucygrKSwgNSBkZWxl
+dGlvbnMoLSkNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kZXZpY2UtdHlwZXMvY3J5cHRvL2Rlc2Ny
+aXB0aW9uLnRleA0KPiA+IGIvZGV2aWNlLXR5cGVzL2NyeXB0by9kZXNjcmlwdGlvbi50ZXgNCj4g
+PiBpbmRleCA1NzA1ZTI2Li5jZTRiMWZiIDEwMDY0NA0KPiA+IC0tLSBhL2RldmljZS10eXBlcy9j
+cnlwdG8vZGVzY3JpcHRpb24udGV4DQo+ID4gKysrIGIvZGV2aWNlLXR5cGVzL2NyeXB0by9kZXNj
+cmlwdGlvbi50ZXgNCj4gPiBAQCAtMiwxMSArMiwxMSBAQCBcc2VjdGlvbntDcnlwdG8gRGV2aWNl
+fVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzIC8NCj4gPiBDcnlwdG8gRGV2aWNlfQ0KPiA+DQo+ID4g
+IFRoZSB2aXJ0aW8gY3J5cHRvIGRldmljZSBpcyBhIHZpcnR1YWwgY3J5cHRvZ3JhcGh5IGRldmlj
+ZSBhcyB3ZWxsIGFzDQo+ID4gYSAgdmlydHVhbCBjcnlwdG9ncmFwaGljIGFjY2VsZXJhdG9yLiBU
+aGUgdmlydGlvIGNyeXB0byBkZXZpY2UNCj4gPiBwcm92aWRlcyB0aGUgLWZvbGxvd2luZyBjcnlw
+dG8gc2VydmljZXM6IENJUEhFUiwgTUFDLCBIQVNILCBBRUFEIGFuZA0KPiA+IEFLQ0lQSEVSLiBW
+aXJ0aW8gY3J5cHRvIC1kZXZpY2VzIGhhdmUgYSBzaW5nbGUgY29udHJvbCBxdWV1ZSBhbmQgYXQN
+Cj4gPiBsZWFzdCBvbmUgZGF0YSBxdWV1ZS4gQ3J5cHRvIC1vcGVyYXRpb24gcmVxdWVzdHMgYXJl
+IHBsYWNlZCBpbnRvIGENCj4gPiBkYXRhIHF1ZXVlLCBhbmQgc2VydmljZWQgYnkgdGhlIC1kZXZp
+Y2UuIFNvbWUgY3J5cHRvIG9wZXJhdGlvbg0KPiA+IHJlcXVlc3RzIGFyZSBvbmx5IHZhbGlkIGlu
+IHRoZSBjb250ZXh0IG9mIGEgLXNlc3Npb24uIFRoZSByb2xlIG9mIHRoZQ0KPiA+IGNvbnRyb2wg
+cXVldWUgaXMgZmFjaWxpdGF0aW5nIGNvbnRyb2wgb3BlcmF0aW9uDQo+ID4gK2ZvbGxvd2luZyBj
+cnlwdG8gc2VydmljZXM6IENJUEhFUiwgTUFDLCBIQVNILCBBRUFELCBBS0NJUEhFUiBhbmQgSVBT
+RUMuDQo+ID4gK1ZpcnRpbyBjcnlwdG8gZGV2aWNlcyBoYXZlIGEgc2luZ2xlIGNvbnRyb2wgcXVl
+dWUgYW5kIGF0IGxlYXN0IG9uZQ0KPiA+ICtkYXRhIHF1ZXVlLiBDcnlwdG8gb3BlcmF0aW9uIHJl
+cXVlc3RzIGFyZSBwbGFjZWQgaW50byBhIGRhdGEgcXVldWUsDQo+ID4gK2FuZCBzZXJ2aWNlZCBi
+eSB0aGUgZGV2aWNlLiBTb21lIGNyeXB0byBvcGVyYXRpb24gcmVxdWVzdHMgYXJlIG9ubHkNCj4g
+PiArdmFsaWQgaW4gdGhlIGNvbnRleHQgb2YgYSBzZXNzaW9uLiBUaGUgcm9sZSBvZiB0aGUgY29u
+dHJvbCBxdWV1ZSBpcw0KPiA+ICtmYWNpbGl0YXRpbmcgY29udHJvbCBvcGVyYXRpb24NCj4gPiAg
+cmVxdWVzdHMuIFNlc3Npb25zIG1hbmFnZW1lbnQgaXMgcmVhbGl6ZWQgd2l0aCBjb250cm9sIG9w
+ZXJhdGlvbg0KPiA+IHJlcXVlc3RzLg0KPiA+DQo+ID4gQEAgLTcyLDYgKzcyLDggQEAgXHN1YnNl
+Y3Rpb257U3VwcG9ydGVkIGNyeXB0bw0KPiBzZXJ2aWNlc31cbGFiZWx7c2VjOkRldmljZSBUeXBl
+cyAvIENyeXB0byBEZXZpY2UgLw0KPiA+ICAjZGVmaW5lIFZJUlRJT19DUllQVE9fU0VSVklDRV9B
+RUFEICAgMw0KPiA+ICAvKiBBS0NJUEhFUiAoQXN5bW1ldHJpYyBLZXkgQ2lwaGVyKSBzZXJ2aWNl
+ICovICAjZGVmaW5lDQo+ID4gVklSVElPX0NSWVBUT19TRVJWSUNFX0FLQ0lQSEVSIDQNCj4gPiAr
+LyogSVBTRUMgc2VydmljZSAqLw0KPiA+ICsjZGVmaW5lIFZJUlRJT19DUllQVE9fU0VSVklDRV9J
+UFNFQyAgNQ0KPiA+ICBcZW5ke2xzdGxpc3Rpbmd9DQo+ID4NCj4gPiAgVGhlIGFib3ZlIGNvbnN0
+YW50cyBkZXNpZ25hdGUgYml0cyB1c2VkIHRvIGluZGljYXRlIHRoZSB3aGljaCBvZg0KPiA+IGNy
+eXB0byBzZXJ2aWNlcyBhcmUgQEAgLTMxOCw2ICszMjAsMjAgQEAgXHN1YnNlY3Rpb257RGV2aWNl
+DQo+ID4gSW5pdGlhbGl6YXRpb259XGxhYmVse3NlYzpEZXZpY2UgVHlwZXMgLyBDcnlwdG8gRGV2
+aWNlIC8gRGV2aSAgXGl0ZW0gVGhlIGRyaXZlcg0KPiBNVVNUIHJlYWQgdGhlIHN1cHBvcnRlZCBh
+bGdvcml0aG1zIGJhc2VkIG9uIFxmaWVsZHtjcnlwdG9fc2VydmljZXN9IGZpZWxkLg0KPiA+ICBc
+ZW5ke2l0ZW1pemUqfQ0KPiA+DQo+ID4gK1xzdWJzZWN0aW9ue0RldmljZSBhbmQgZHJpdmVyIGNh
+cGFiaWxpdGllc31cbGFiZWx7c2VjOkRldmljZSBUeXBlcyAvDQo+ID4gK0NyeXB0byBEZXZpY2Ug
+LyBEZXZpY2UgYW5kIGRyaXZlciBjYXBhYmlsaXRpZXN9DQo+ID4gKw0KPiA+ICtUaGUgY3J5cHRv
+IGRldmljZSBoYXMgdGhlIGZvbGxvd2luZyBjYXBhYmlsaXRpZXMuDQo+ID4gKw0KPiA+ICtcYmVn
+aW57dGFidWxhcnh9e1x0ZXh0d2lkdGh9eyB8bHx8bHxYfCB9IFxobGluZSBJZGVudGlmaWVyICYg
+TmFtZSAmDQo+ID4gK0Rlc2NyaXB0aW9uIFxcIFxobGluZSBcaGxpbmUNCj4gPiArMHgwODAwICYg
+XGh5cGVycmVmW3BhcjpEZXZpY2UgVHlwZXMgLyBDcnlwdG8gRGV2aWNlIC8gRGV2aWNlDQo+ID4g
+K09wZXJhdGlvbiAvIElQc2VjIFNlcnZpY2UgT3BlcmF0aW9uIC8gRGV2aWNlIGFuZCBkcml2ZXIg
+Y2FwYWJpbGl0aWVzDQo+ID4gKy8gVklSVElPLUNSWVBUTy1JUFNFQy1SRVNPVVJDRS0NCj4gQ0FQ
+XXtWSVJUSU9fQ1JZUFRPX0lQU0VDX1JFU09VUkNFX0NBUH0NCj4gPiArJiBJUHNlYyByZXNvdXJj
+ZSBjYXBhYmlsaXR5IFxcIFxobGluZQ0KPiA+ICsweDA4MDEgJiBcaHlwZXJyZWZbcGFyOkRldmlj
+ZSBUeXBlcyAvIENyeXB0byBEZXZpY2UgLyBEZXZpY2UNCj4gPiArT3BlcmF0aW9uIC8gSVBzZWMg
+U2VydmljZSBPcGVyYXRpb24gLyBEZXZpY2UgYW5kIGRyaXZlciBjYXBhYmlsaXRpZXMNCj4gPiAr
+LyBWSVJUSU8tQ1JZUFRPLUlQU0VDLVNBLUNBUF17VklSVElPX0NSWVBUT19JUFNFQ19TQV9DQVB9
+ICYgSVBzZWMNCj4gPiArU2VjdXJpdHkgQXNzb2NpYXRpb24oU0EpIGNhcGFiaWxpdHkgXFwgXGhs
+aW5lIFxlbmR7dGFidWxhcnh9DQo+ID4gKw0KPiA+ICBcc3Vic2VjdGlvbntEZXZpY2UgT3BlcmF0
+aW9ufVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzIC8gQ3J5cHRvIERldmljZQ0KPiA+IC8gRGV2aWNl
+IE9wZXJhdGlvbn0NCj4gPg0KPiA+ICBUaGUgb3BlcmF0aW9uIG9mIGEgdmlydGlvIGNyeXB0byBk
+ZXZpY2UgaXMgZHJpdmVuIGJ5IHJlcXVlc3RzIHBsYWNlZCBvbiB0aGUNCj4gdmlydHF1ZXVlcy4N
+Cj4gPiBAQCAtMTg3MiwzICsxODg4LDE0MSBAQCBcc3Vic3Vic2VjdGlvbntBS0NJUEhFUiBTZXJ2
+aWNlDQo+ID4gT3BlcmF0aW9ufVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzIC8gQ3J5cHRvIERldmlj
+ICBcaXRlbQ0KPiBWSVJUSU9fQ1JZUFRPX0VSUiBpZiBhbnkgZmFpbHVyZSBub3QgbWVudGlvbmVk
+IGFib3ZlIG9jY3Vycy4NCj4gPiAgXGVuZHtpdGVtaXplKn0NCj4gPiAgXGVuZHtpdGVtaXplKn0N
+Cj4gPiArDQo+ID4gK1xzdWJzdWJzZWN0aW9ue0lQU0VDIFNlcnZpY2UgT3BlcmF0aW9ufVxsYWJl
+bHtzZWM6RGV2aWNlIFR5cGVzIC8NCj4gPiArQ3J5cHRvIERldmljZSAvIERldmljZSBPcGVyYXRp
+b24gLyBJUFNFQyBTZXJ2aWNlIE9wZXJhdGlvbn0NCj4gPiArDQo+ID4gK0EgY3J5cHRvIGRldmlj
+ZSBjYW4gc3VwcG9ydCB0aGUgcHJvZ3JhbW1pbmcgb2YgSVBzZWMgU2VjdXJpdHkNCj4gQXNzb2Np
+YXRpb25zKFNBcykuDQo+ID4gK0luIGFkZGl0aW9uIHRvIHN0YW5kYXJkIGNyeXB0byBwcm9jZXNz
+aW5nLCB0aGUgSVBzZWMgcHJvdG9jb2wNCj4gPiArcHJvY2Vzc2luZyBpcyBhbHNvIG9mZmxvYWRl
+ZCB0byB0aGUgQ3J5cHRvIERldmljZSBhcyBsb29rYXNpZGUgb3BlcmF0aW9uLg0KPiA+ICsNCj4g
+PiArSVBzZWMgSW5ib3VuZCBwcm9jZXNzaW5nOiBUaGUgZGV2aWNlIHdpbGwgcGVyZm9ybSBkZWNy
+eXB0aW9uLA0KPiA+ICthdXRoZW50aWNhdGlvbiwgaW50ZWdyaXR5IGNoZWNraW5nIGFuZCByZW1v
+dmUgYWRkaXRpb25hbCBoZWFkZXJzLA0KPiA+ICtpbmNsdWRpbmcgdHVubmVsIGhlYWRlcnMgaWYg
+aW4gdHVubmVsIG1vZGUsIGFzIHdlbGwgYXMgdGhlIEVTUC9BSA0KPiA+ICtoZWFkZXIgZnJvbSB0
+aGUgcGFja2V0LiBUaGUgcmVzdWx0aW5nIHBhY2tldCBjb250YWlucyBvbmx5IHRoZSBwbGFpbiBk
+YXRhLg0KPiA+ICsNCj4gPiArSVBzZWMgT3V0Ym91bmQgcHJvY2Vzc2luZzogVGhlIGRldmljZSB3
+aWxsIHBlcmZvcm0gZW5jcnlwdGlvbiwgYXR0YWNoDQo+ID4gK0lDViwgdXBkYXRlL2FkZCBJUCBo
+ZWFkZXJzLCBhZGQgRVNQL0FIIGhlYWRlcnMvdHJhaWxlcnMuDQo+ID4gKw0KPiA+ICtBIGNyeXB0
+byBkZXZpY2UgY2FuIHN1cHBvcnQgbnVtYmVyIG9mIElQc2VjIFNBcywgYWxsb3dpbmcgaXQgdG8N
+Cj4gPiArbWFuYWdlIG11bHRpcGxlIHNlY3VyZSBjb25uZWN0aW9ucyBzaW11bHRhbmVvdXNseS4N
+Cj4gPiArDQo+ID4gK1RoZSBkZXZpY2UgYW5kIHRoZSBkcml2ZXIgaW5kaWNhdGVzIElQc2VjIFNB
+IHJlc291cmNlIGxpbWl0cyB1c2luZw0KPiA+ICt0aGUgY2FwYWJpbGl0eQ0KPiANCj4gcy9pbmRp
+Y2F0ZXMvaW5kaWNhdGUNCj4gDQo+ID4gK1ZJUlRJT19DUllQVE9fSVBTRUNfUkVTT1VSQ0VfQ0FQ
+IHNwZWNpZnlpbmcgdGhlIGxpbWl0cyBvbiB0aGUNCj4gbnVtYmVyDQo+ID4gK29mIElQc2VjIG91
+dGJvdW5kIGFuZCBpbmJvdW5kIFNBIHJlc291cmNlIG9iamVjdHMuDQo+ID4gK1RoZSBjYXBhYmls
+aXR5IFZJUlRJT19DUllQVE9fSVBTRUNfU0FfQ0FQIHNwZWNpZmllcyB3aGljaCBJUHNlYw0KPiA+
+ICtwcm90b2NvbCBjYXBhYmlsaXRpZXMgdGhlIGRldmljZSBzdXBwb3J0cy4gVGhlIGRyaXZlciBp
+bmRpY2F0ZXMgdGhlDQo+ID4gK0lQc2VjIHBhcmFtZXRlcnMoQ3J5cHRvIGFsZ29yaXRobSwgSVBz
+ZWMgbW9kZSwgYW50aS1yZXBsYXkgd2luZG93DQo+ID4gK3NpemUsIGV0Yy4pIGl0IGlzIHVzaW5n
+IGJ5IHNldHRpbmcgdGhlIElQc2VjIFNBIGNhcGFiaWxpdHksIHByaW9yIHRvIGFkZGluZyBhbnkN
+Cj4gcmVzb3VyY2Ugb2JqZWN0cy4NCj4gPiArDQo+IA0KPiBJIHRoaW5rIHlvdSBtZWFuOg0KPiBg
+VGhlIGRyaXZlciBpbmRpY2F0ZXMgdGhlIElQc2VjIHBhcmFtZXRlcnMgYnkgc2V0dGluZyB0aGUg
+SVBzZWMgU0EgY2FwYWJpbGl0eQ0KPiBwcmlvciB0byBhZGRpbmcgYW55IHJlc291cmNlIG9iamVj
+dHNgLg0KPiANCj4gPiArVGhlIGRyaXZlciBjb250cm9scyB0aGUgSVBzZWMgU0EgcmVzb3VyY2Ug
+b2JqZWN0cyB1c2luZw0KPiA+ICthZG1pbmlzdHJhdGlvbiBjb21tYW5kcyBkZXNjcmliZWQgaW4g
+XHJlZntzZWM6QmFzaWMgRmFjaWxpdGllcyBvZiBhIFZpcnRpbw0KPiBEZXZpY2UgLyBEZXZpY2Ug
+Z3JvdXBzIC8gR3JvdXAgYWRtaW5pc3RyYXRpb24gY29tbWFuZHMgLyBEZXZpY2UgcmVzb3VyY2UN
+Cj4gb2JqZWN0c30uDQo+ID4gKw0KPiA+ICtccGFyYWdyYXBoe0RldmljZSBhbmQgZHJpdmVyIGNh
+cGFiaWxpdGllc30gXGxhYmVse3BhcjpEZXZpY2UgVHlwZXMgLw0KPiA+ICtDcnlwdG8gRGV2aWNl
+IC8gRGV2aWNlIE9wZXJhdGlvbiAvIElQc2VjIFNlcnZpY2UgT3BlcmF0aW9uIC8gRGV2aWNlDQo+
+ID4gK2FuZCBkcml2ZXIgY2FwYWJpbGl0aWVzfQ0KPiA+ICsNCj4gPiArXHN1YnBhcmFncmFwaHtW
+SVJUSU9fQ1JZUFRPX0lQU0VDX1JFU09VUkNFX0NBUH0NCj4gPiArXGxhYmVse3BhcjpEZXZpY2Ug
+VHlwZXMgLyBDcnlwdG8gRGV2aWNlIC8gRGV2aWNlIE9wZXJhdGlvbiAvIElQc2VjDQo+ID4gK1Nl
+cnZpY2UgT3BlcmF0aW9uIC8gRGV2aWNlIGFuZCBkcml2ZXIgY2FwYWJpbGl0aWVzIC8NCj4gPiAr
+VklSVElPLUNSWVBUTy1JUFNFQy1SRVNPVVJDRS1DQVB9DQo+ID4gKw0KPiA+ICtUaGUgY2FwYWJp
+bGl0eSBWSVJUSU9fQ1JZUFRPX0lQU0VDX1JFU09VUkNFX0NBUCBpbmRpY2F0ZXMgdGhlIElQc2Vj
+DQo+IFNBIHJlc291cmNlIGxpbWl0cy4NCj4gPiArXGZpZWxke2NhcF9zcGVjaWZpY19kYXRhfSBp
+cyBpbiB0aGUgZm9ybWF0IFxmaWVsZHtzdHJ1Y3QNCj4gPiArdmlydGlvX2NyeXB0b19pcHNlY19y
+ZXNvdXJjZV9jYXB9Lg0KPiA+ICsNCj4gPiArXGJlZ2lue2xzdGxpc3Rpbmd9DQo+ID4gK3N0cnVj
+dCB2aXJ0aW9fY3J5cHRvX2lwc2VjX3Jlc291cmNlX2NhcCB7DQo+ID4gKyAgICAgICAgbGUzMiBp
+bmJfc2FfbGltaXQ7DQo+ID4gKyAgICAgICAgbGUzMiBvdXRiX3NhX2xpbWl0Ow0KPiA+ICt9Ow0K
+PiA+ICtcZW5ke2xzdGxpc3Rpbmd9DQo+ID4gKw0KPiA+ICtcZmllbGR7aW5iX3NhX2xpbWl0fSwg
+YW5kIFxmaWVsZHtvdXRiX3NhX2xpbWl0fSBkZW5vdGUgdGhlIG1heGltdW0NCj4gPiArbnVtYmVy
+IG9mIElQc2VjIHNlY3VyaXR5IEFzc29jaWF0aW9ucyAoU0FzKSB0aGF0IGNhbiBiZSB1dGlsaXpl
+ZCBmb3INCj4gPiArSVBzZWMgaW5ib3VuZCBhbmQgb3V0Ym91bmQgcHJvY2Vzc2luZywgcmVzcGVj
+dGl2ZWx5LCB3aGljaCB0aGUgZGV2aWNlIGlzDQo+IGNhcGFibGUgb2YgY3JlYXRpbmcuDQo+ID4g
+Kw0KPiA+ICtcc3VicGFyYWdyYXBoe1ZJUlRJT19DUllQVE9fSVBTRUNfU0FfQ0FQfQ0KPiA+ICtc
+bGFiZWx7cGFyOkRldmljZSBUeXBlcyAvIENyeXB0byBEZXZpY2UgLyBEZXZpY2UgT3BlcmF0aW9u
+IC8gSVBzZWMNCj4gPiArU2VydmljZSBPcGVyYXRpb24gLyBEZXZpY2UgYW5kIGRyaXZlciBjYXBh
+YmlsaXRpZXMgLw0KPiA+ICtWSVJUSU8tQ1JZUFRPLUlQU0VDLVNBLUNBUH0NCj4gPiArDQo+ID4g
+K1RoZSBjYXBhYmlsaXR5IFZJUlRJT19DUllQVE9fSVBTRUNfU0FfQ0FQIGxpc3RzIHRoZSBzdXBw
+b3J0ZWQgSVBzZWMNCj4gPiArbW9kZXMgYWxvbmcgd2l0aA0KPiANCj4gSSB0aGluayBoZXJlIGBj
+YXBhYmlsaXR5YCBnb2VzIGFmdGVyIGBWSVJUSU9fQ1JZUFRPX0lQU0VDX1NBX0NBUGAuIEkgdGhp
+bmsNCj4gdGhpcyBhbHNvIGFwcGxpZXMgdG8gY2FzZXMgYWJvdmUuDQo+IA0KPiA+ICt0aGUgc3Vw
+cG9ydGVkIGNyeXB0b2dyYXBoaWMsIGF1dGhlbnRpY2F0aW9uIGFsZ29yaXRobXMgYW5kDQo+ID4g
+K2FudGktcmVwbGF5IHdpbmRvdyBzaXplIGZvciBlYWNoIElQc2VjIG1vZGUuDQo+ID4gK1xmaWVs
+ZHtjYXBfc3BlY2lmaWNfZGF0YX0gaXMgaW4gdGhlIGZvcm1hdCBcZmllbGR7c3RydWN0DQo+IHZp
+cnRpb19jcnlwdG9faXBzZWNfc2FfY2FwX2RhdGF9Lg0KPiA+ICsNCj4gPiArXGJlZ2lue2xzdGxp
+c3Rpbmd9W2xhYmVsPXtsc3Q6RGV2aWNlIFR5cGVzIC8gQ3J5cHRvIERldmljZSAvIERldmljZQ0K
+PiA+ICtPcGVyYXRpb24gLyBJUHNlYyBTZXJ2aWNlIE9wZXJhdGlvbiAvIERldmljZSBhbmQgZHJp
+dmVyIGNhcGFiaWxpdGllcyAvDQo+IFZJUlRJTy1DUllQVE8tSVBTRUMtU0EtQ0FQIC8gdmlydGlv
+LWNyeXB0by1pcHNlYy1tb2RlLWNhcH1dIHN0cnVjdA0KPiB2aXJ0aW9fY3J5cHRvX2lwc2VjX21v
+ZGVfY2FwIHsNCj4gPiArICAgICAgICBsZTMyIHJlcGxheV93aW5fc3pfbWF4Ow0KPiA+ICsgICAg
+ICAgIGxlMzIgb3B0aW9uczsNCj4gPiArICAgICAgICBsZTY0IGNpcGhlcl9hbGdvOw0KPiA+ICsg
+ICAgICAgIGxlNjQgaG1hY19hbGdvOw0KPiA+ICsgICAgICAgIGxlMzIgYWVhZF9hbGdvOw0KPiA+
+ICsgICAgICAgIGxlMzIgbWF4X2NpcGhlcl9rZXlfbGVuOw0KPiA+ICsgICAgICAgIGxlMzIgbWF4
+X2F1dGhfa2V5X2xlbjsNCj4gPiArICAgICAgICB1OCBtb2RlOw0KPiA+ICsgICAgICAgIHU4IHBh
+ZGRpbmdbM107DQo+ID4gK307DQo+ID4gKw0KPiA+ICtzdHJ1Y3QgdmlydGlvX2NyeXB0b19pcHNl
+Y19zYV9jYXBfZGF0YSB7DQo+ID4gKyAgICAgICAgdTggY291bnQ7DQo+ID4gKyAgICAgICAgdTgg
+cmVzZXJ2ZWRbN107DQo+ID4gKyAgICAgICAgc3RydWN0IHZpcnRpb19jcnlwdG9faXBzZWNfbW9k
+ZV9jYXAgbW9kZVtdOyB9Ow0KPiA+ICtcZW5ke2xzdGxpc3Rpbmd9DQo+ID4gKw0KPiA+ICtcZmll
+bGR7Y291bnR9IGluZGljYXRlcyBudW1iZXIgb2YgdmFsaWQgZW50cmllcyBpbiB0aGUgXGZpZWxk
+e21vZGV9IGFycmF5Lg0KPiA+ICtcZmllbGR7bW9kZVtdfSBpcyBhbiBhcnJheSBvZiBzdXBwb3J0
+ZWQgSVBzZWMgbW9kZXMuIFdpdGhpbiBlYWNoIGFycmF5DQo+IGVudHJ5Og0KPiA+ICsNCj4gPiAr
+XGZpZWxke21vZGV9IHNwZWNpZmllcyB0aGUgSVBzZWMgbW9kZSwgYXMgZGVmaW5lZCBpbiB0YWJs
+ZQ0KPiA+ICtccmVme3RhYmxlOkRldmljZSBUeXBlcyAvIENyeXB0byBEZXZpY2UgLyBEZXZpY2Ug
+T3BlcmF0aW9uIC8gSVBzZWMgU2VydmljZQ0KPiBPcGVyYXRpb24gLyBEZXZpY2UgYW5kIGRyaXZl
+ciBjYXBhYmlsaXRpZXMgLyBWSVJUSU8tQ1JZUFRPLUlQU0VDLVNBLUNBUCAvDQo+IElQc2VjIE1v
+ZGVzfS4NCj4gPiArXGZpZWxke3JlcGxheV93aW5fc3pfbWF4fSBzcGVjaWZpZXMgdGhlIG1heGlt
+dW0gYW50aS1yZXBsYXkgd2luZG93IHNpemUNCj4gdGhlIGRldmljZSBzdXBwb3J0cy4NCj4gPiAr
+DQo+ID4gK1xmaWVsZHtvcHRpb25zfSByZXByZXNlbnRzIHRoZSBJUHNlYyBwcm90b2NvbCBvcHRp
+b25zIHRoZSBkZXZpY2UNCj4gPiArc3VwcG9ydHMsIGFzIGRlZmluZWQgaW4gdGFibGUgXHJlZnt0
+YWJsZTpEZXZpY2UgVHlwZXMgLyBDcnlwdG8gRGV2aWNlIC8NCj4gRGV2aWNlIE9wZXJhdGlvbiAv
+IElQc2VjIFNlcnZpY2UgT3BlcmF0aW9uIC8gRGV2aWNlIGFuZCBkcml2ZXIgY2FwYWJpbGl0aWVz
+IC8NCj4gVklSVElPLUNSWVBUTy1JUFNFQy1TQS1DQVAgLyBJUHNlYyBPcHRpb25zfS4NCj4gPiAr
+DQo+ID4gK1xmaWVsZHtjaXBoZXJfYWxnb30gQ0lQSEVSIGFsZ29yaXRobXMgbWFzaywgc2VlIFxy
+ZWZ7c2VjOkRldmljZSBUeXBlcyAvDQo+IENyeXB0byBEZXZpY2UgLyBTdXBwb3J0ZWQgY3J5cHRv
+IHNlcnZpY2VzICAvIENJUEhFUiBzZXJ2aWNlc30uDQo+ID4gKw0KPiA+ICtcZmllbGR7aG1hY19h
+bGdvfSBITUFDIGFsZ29yaXRobXMgbWFzaywgc2VlIFxyZWZ7c2VjOkRldmljZSBUeXBlcyAvDQo+
+IENyeXB0byBEZXZpY2UgLyBTdXBwb3J0ZWQgY3J5cHRvIHNlcnZpY2VzICAvIE1BQyBzZXJ2aWNl
+c30uDQo+ID4gKw0KPiA+ICtcZmllbGR7YWVhZF9hbGdvfSBBRUFEIGFsZ29yaXRobXMgbWFzaywg
+c2VlIFxyZWZ7c2VjOkRldmljZSBUeXBlcyAvIENyeXB0bw0KPiBEZXZpY2UgLyBTdXBwb3J0ZWQg
+Y3J5cHRvIHNlcnZpY2VzICAvIEFFQUQgc2VydmljZXN9Lg0KPiA+ICsNCj4gPiArXGZpZWxke21h
+eF9jaXBoZXJfa2V5X2xlbn0gaXMgdGhlIG1heGltdW0gbGVuZ3RoIG9mIGNpcGhlciBrZXkgc3Vw
+cG9ydGVkDQo+IGJ5IHRoZSBkZXZpY2UuDQo+ID4gKw0KPiA+ICtcZmllbGR7bWF4X2F1dGhfa2V5
+X2xlbn0gaXMgdGhlIG1heGltdW0gbGVuZ3RoIG9mIGF1dGhlbnRpY2F0ZWQga2V5DQo+IHN1cHBv
+cnRlZCBieSB0aGUgZGV2aWNlLg0KPiA+ICsNCj4gPiArXGJlZ2lue3RhYmxlfVtIXQ0KPiA+ICtc
+Y2FwdGlvbntJUHNlYyBNb2Rlc30NCj4gPiArXGxhYmVse3RhYmxlOkRldmljZSBUeXBlcyAvIENy
+eXB0byBEZXZpY2UgLyBEZXZpY2UgT3BlcmF0aW9uIC8gSVBzZWMNCj4gPiArU2VydmljZSBPcGVy
+YXRpb24gLyBEZXZpY2UgYW5kIGRyaXZlciBjYXBhYmlsaXRpZXMgLw0KPiA+ICtWSVJUSU8tQ1JZ
+UFRPLUlQU0VDLVNBLUNBUCAvIElQc2VjIE1vZGVzfQ0KPiA+ICtcYmVnaW57dGFidWxhcnh9e1x0
+ZXh0d2lkdGh9eyB8bHxYfFh8IH0gXGhsaW5lIFR5cGUgJiBOYW1lICYNCj4gPiArRGVzY3JpcHRp
+b24gXFwgXGhsaW5lIFxobGluZQ0KPiA+ICsweDAgJiAtICYgUmVzZXJ2ZWQgXFwNCj4gPiArXGhs
+aW5lDQo+ID4gKzB4MSAmIFZJUlRJT19DUllQVE9fSVBTRUNfTU9ERV9FU1BfVFVOTkVMICYgSVBz
+ZWMgRVNQIHByb3RvY29sIGluDQo+ID4gK3R1bm5lbCBtb2RlIFxcIFxobGluZQ0KPiA+ICsweDIg
+JiBWSVJUSU9fQ1JZUFRPX0lQU0VDX01PREVfRVNQX1RSQU5TUE9SVCAmIElQc2VjIEVTUA0KPiBw
+cm90b2NvbCBpbg0KPiA+ICt0cmFuc3BvcnQgbW9kZSBcXCBcaGxpbmUNCj4gPiArMHgzICYgVklS
+VElPX0NSWVBUT19JUFNFQ19NT0RFX0FIX1RVTk5FTCAmIElQc2VjIEFIIHByb3RvY29sIGluDQo+
+ID4gK3R1bm5lbCBtb2RlIFxcIFxobGluZQ0KPiA+ICsweDQgJiBWSVJUSU9fQ1JZUFRPX0lQU0VD
+X01PREVfQUhfVFJBTlNQT1JUICYgSVBzZWMgQUggcHJvdG9jb2wNCj4gaW4NCj4gPiArdHJhbnNw
+b3J0IG1vZGUgXFwgXGhsaW5lIFxlbmR7dGFidWxhcnh9IFxlbmR7dGFibGV9DQo+ID4gKw0KPiA+
+ICtcYmVnaW57dGFibGV9W0hdDQo+ID4gK1xjYXB0aW9ue0lQc2VjIE9wdGlvbnN9DQo+ID4gK1xs
+YWJlbHt0YWJsZTpEZXZpY2UgVHlwZXMgLyBDcnlwdG8gRGV2aWNlIC8gRGV2aWNlIE9wZXJhdGlv
+biAvIElQc2VjDQo+ID4gK1NlcnZpY2UgT3BlcmF0aW9uIC8gRGV2aWNlIGFuZCBkcml2ZXIgY2Fw
+YWJpbGl0aWVzIC8NCj4gPiArVklSVElPLUNSWVBUTy1JUFNFQy1TQS1DQVAgLyBJUHNlYyBPcHRp
+b25zfQ0KPiA+ICtcYmVnaW57dGFidWxhcnh9e1x0ZXh0d2lkdGh9eyB8bHxYfFh8IH0gXGhsaW5l
+IFR5cGUgJiBOYW1lICYNCj4gPiArRGVzY3JpcHRpb24gXFwgXGhsaW5lIFxobGluZQ0KPiA+ICsw
+eDAgJiAtICYgUmVzZXJ2ZWQgXFwNCj4gPiArXGhsaW5lDQo+ID4gKzB4MSAmIFZJUlRJT19DUllQ
+VE9fSVBTRUNfRVNOICYgU3BlY2lmaWVzIHdoZXRoZXIgZXh0ZW5kZWQgc2VxdWVuY2UNCj4gPiAr
+bnVtYmVyIGlzIHN1cHBvcnRlZCBcXCBcaGxpbmUNCj4gPiArMHgyICYgVklSVElPX0NSWVBUT19J
+UFNFQ19VRFBfRU5DQVAgJiBTcGVjaWZpZXMgd2hldGhlciB1ZHANCj4gPiArZW5jYXBzdWxhdGlv
+biBpcyBzdXBwb3J0ZWQgXFwgXGhsaW5lDQo+ID4gKzB4MyAmIFZJUlRJT19DUllQVE9fSVBTRUNf
+Q09QWV9EU0NQICYgU3BlY2lmaWVzIHdoZXRoZXIgY29weSBkc2NwIGlzDQo+ID4gK3N1cHBvcnRl
+ZCBcXCBcaGxpbmUNCj4gPiArMHg0ICYgVklSVElPX0NSWVBUT19JUFNFQ19ERUNfVFRMICYgU3Bl
+Y2lmaWVzIHdoZXRoZXIgZGVjcmVtZW50aW5nDQo+ID4gK3RoZSB0aW1lIHRvIGxpdmUgaXMgc3Vw
+cG9ydGVkIFxcIFxobGluZSBcZW5ke3RhYnVsYXJ4fSBcZW5ke3RhYmxlfQ0KPiA+ICsNCj4gPiAt
+LQ0KPiA+IDIuMjUuMQ0KPiA+DQo+ID4NClRoYW5rIHlvdSBmb3IgcmV2aWV3aW5nIHRoZSBwYXRj
+aGVzLiBJIHdpbGwgYWRkcmVzcyB0aGUgY29tbWVudHMgYW5kIHNlbmQNCnRoZSByZXZpc2VkIHZl
+cnNpb24gc2hvcnRseS4NCg==
