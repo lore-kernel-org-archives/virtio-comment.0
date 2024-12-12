@@ -1,138 +1,224 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C47236FAA
-	for <virtio-comment@lists.linux.dev>; Wed, 11 Dec 2024 10:05:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2741E9B27
+	for <virtio-comment@lists.linux.dev>; Thu, 12 Dec 2024 09:46:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1733911517; cv=none; b=mmVdSGJbxaHmFWTKO/5D1YuOMnakUhbFu5TAE7llaMYq1/SchSGxajuopyq4BoPSarUNpWzqVpb7kemabZE2V/4QKhU5GKWwQMfCZysr/7QqhMtUNgZiPIuYQazDbCHsn3QqXsUgXz7WgjcfQ1CSV9UxrLdt/yBU7lF+I7f7ZHc=
+	t=1733996785; cv=none; b=GH3l7AQiVe7bGwufLbK7UmlcCzLjTQuAEwhkNxKVzU1awh3pvuFCHiWM0UJUXvgOw1156HiKh8DVtpXFcSzWwqsWn82ohjsNLaGnb5MSheU0E+AOXqkdJVqDKDITAb4zhlQOHLVgLr8mGmIcwFyCVmSpiHqT4xf64xNQLawsqA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1733911517; c=relaxed/simple;
-	bh=uwFuAf/tC60ky3UCqq5ScCiIjZljJddtLeRunVyeO9U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HltvIkNez3z86MvUaLTbh5VHlx9mC9wjnTffYskrYMMIp7vjTg1tXJ49m4lH4R5Sfdg88xC2c75DIhMP8m43geS6vWOHIJjeEJlxdPAAiy8ejzuiV9dTTVO21CDEXnjPCrJN1nsZSZLOLG1M9uBxFYTeeNo61Cz1KR7MWxcwfH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.trumtrar.info)
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <s.trumtrar@pengutronix.de>)
-	id 1tLJaj-0002sL-9r; Wed, 11 Dec 2024 11:05:13 +0100
-From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Wed, 11 Dec 2024 11:05:04 +0100
-Subject: [PATCH 2/2] virtio-net: support receive ptp timestamps
+	s=arc-20240116; t=1733996785; c=relaxed/simple;
+	bh=1OwEMxqFSD0C5yb4gHXEkqO/jo+Wsms3uTgI8E1H0Ws=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=P1TtwFXXEb5xpDH9ECPQiVqXu1GV+aLpHs7Qb9yu4SCxz7nCiJ1iZtsx3eP26hAQ1LhGtnadXP/3FOfUTcMMJ8OIc0mXqABhsMY65yfiCbiibISx85uRzqq6Pt2BV+nuNSVVx6hHC99+eBNW8WgXlK5Smfk94WN1sPKdLDdRluk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QVLD11xd; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QVLD11xd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1733996782;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=x8vPwTQ7Tl/1W++S2P9ht2UlXqms5Xz6HMhfiGsmLKo=;
+	b=QVLD11xdb2IzEPnCgD4eQB/I1QCXEZpensGZPnLgvjwGMPZxQXkMJ6K+Uj7qZ0G6vPSaQp
+	44iXXAiq8Jah48ezuZt2zwP5wHsHVrnwNYSPcIydEfsuSN7nBM/zfjfK6hfxd5k7MDrcXo
+	pFQR/RI49GQX9ebpsJNVigf5sREN5Uo=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-196-lS8f9ILaNeuxqFD6GsFL6w-1; Thu, 12 Dec 2024 04:46:21 -0500
+X-MC-Unique: lS8f9ILaNeuxqFD6GsFL6w-1
+X-Mimecast-MFC-AGG-ID: lS8f9ILaNeuxqFD6GsFL6w
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-385fdff9db5so189331f8f.0
+        for <virtio-comment@lists.linux.dev>; Thu, 12 Dec 2024 01:46:20 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1733996780; x=1734601580;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=x8vPwTQ7Tl/1W++S2P9ht2UlXqms5Xz6HMhfiGsmLKo=;
+        b=MON7SR35bQMHpmtU23Alqu1rjgHS00DWLUF2BLVzbrdH+ppNKJQfldwbWXnWE1sdEa
+         x9b5AhN3N21cOBch0z1EVKLb06f+VPM0WZ7kfc42aj07kb2vkssOaBncejsqyYW6VOkI
+         3FB98i9puf2CzHWsjoyDIs/fa2oXfYpi8YUJyycVXVFagEXsLdieSQqeQTMJF4H9D+8k
+         g8wgOB37mcBx+7HAT6pJZY8i+7JBYHsi96kpSCXSf5fORVh9yP/RF7CA/l1OpadNcihx
+         MrBW/vGYLhpZ4h8Y0AOxSMq01T8+JuwI8MUvFHmnWeB9jCrLESYTJQJKVEW+aYU0zx2O
+         CkAw==
+X-Gm-Message-State: AOJu0YwTiijEUyhZLm/MdHYEvxXiftg3IbL/pNpSeOwV5g7vrW1RQmsW
+	GthGSIaQJ0mwHgF9xilXmYgBlZCXExgh9X+M2mVLDihegcOscih7HMgqdQyKwGTD73zFIpyDkDx
+	njfOcJg4PwnaTifO4yoFBRRp7SLqA325KyJbtOr4wMyTZoIBwm16mWJcmmwomNcML
+X-Gm-Gg: ASbGncvNuNqNNMHXuyAwxAReIk8BE+YPyZOKsYUvJfXKV7AuVzU47sRZTEa9CWF/ZUc
+	bzijg7maAXAkosv/KUu03Al7ByF0UNP2ouGzTzOdlZAFw/L/gUClTej5HMwE+MQLBXxkzJbQlYr
+	/sChMRszK/05P7v2spva0MGw3MYH3U7hbSpo3WnuxLJOYM9JHxGzweEReMCVtG01+TuB8KBMcCd
+	esOcdzRaCyIzU/dM21fU+aoGFVKsgsTl3YDEqI7K0Wef6bE/jI=
+X-Received: by 2002:a5d:5f42:0:b0:385:e8ff:b9c9 with SMTP id ffacd0b85a97d-3864ce985bemr4180813f8f.42.1733996779789;
+        Thu, 12 Dec 2024 01:46:19 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFw4JD3DBrv0sM88zzMiw0RFXlBHaQNuJuciMXvgzURcs2VRNkGJO6yXpUBRQkTpzJskbsh3w==
+X-Received: by 2002:a5d:5f42:0:b0:385:e8ff:b9c9 with SMTP id ffacd0b85a97d-3864ce985bemr4180794f8f.42.1733996779371;
+        Thu, 12 Dec 2024 01:46:19 -0800 (PST)
+Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-387824a4a25sm3544550f8f.27.2024.12.12.01.46.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Dec 2024 01:46:18 -0800 (PST)
+Date: Thu, 12 Dec 2024 10:46:16 +0100
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+To: Srujana Challa <schalla@marvell.com>
+Cc: virtio-comment@lists.linux.dev, mst@redhat.com, cohuck@redhat.com,
+	parav@nvidia.com, sburla@marvell.com, ndabilpuram@marvell.com,
+	jerinj@marvell.com, anoobj@marvell.com
+Subject: Re: [PATCH RFC 3/4] virtio-crypto: Add new IPsec opcodes to data
+ request
+Message-ID: <Z1qw6EwP8de2PgqP@fedora>
+References: <20241115114523.1787840-1-schalla@marvell.com>
+ <20241115114523.1787840-4-schalla@marvell.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241211-v1-4-topic-virtio-net-rx-timestamping-v1-2-bdd882e7b53f@pengutronix.de>
-References: <20241211-v1-4-topic-virtio-net-rx-timestamping-v1-0-bdd882e7b53f@pengutronix.de>
-In-Reply-To: <20241211-v1-4-topic-virtio-net-rx-timestamping-v1-0-bdd882e7b53f@pengutronix.de>
-To: virtio-comment@lists.linux.dev
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>, kernel@pengutronix.de, 
- Steffen Trumtrar <s.trumtrar@pengutronix.de>
-X-Mailer: b4 0.14.2
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: virtio-comment@lists.linux.dev
+In-Reply-To: <20241115114523.1787840-4-schalla@marvell.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 8TVWRqLHtDOyUtnjD5HhAeW-n0dQFbmR4qMRMiB_Aak_1733996780
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Accurate RTT measurement requires timestamps close to the wire.
-Introduce virtio feature VIRTIO_NET_F_RX_TSTAMP. If negotiated, the
-virtio-net header is expanded with room for a timestamp.
+On Fri, Nov 15, 2024 at 05:15:22PM +0530, Srujana Challa wrote:
+> Adds new IPsec opcodes, VIRTIO_CRYPTO_IPSEC_OUTBOUND and
+> VIRTIO_CRYPTO_IPSEC_INBOUND and defines opcode specific
+> data structures for IPsec data processing.
+> 
+> Signed-off-by: Srujana Challa <schalla@marvell.com>
+> ---
 
-A device may pass receive timestamps for all or some packets. Flag
-VIRTIO_NET_HDR_F_TSTAMP signals whether a timestamp is recorded.
+Reviewed-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
 
-Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
----
- device-types/net/description.tex | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 08736b6804eafb303a5cfb2f27ec200cec8bd942..dbd8438a8a897838d7a4b1d2a94ab1d3dde053d7 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -88,6 +88,8 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
- \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
-     channel.
- 
-+\item[VIRTIO_NET_F_RX_TSTAMP(49)] Device sends TAI receive time
-+
- \item[VIRTIO_NET_F_DEVICE_STATS(50)] Device can provide device-level statistics
-     to the driver through the control virtqueue.
- 
-@@ -535,6 +537,7 @@ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device O
- #define VIRTIO_NET_HDR_F_NEEDS_CSUM    1
- #define VIRTIO_NET_HDR_F_DATA_VALID    2
- #define VIRTIO_NET_HDR_F_RSC_INFO      4
-+#define VIRTIO_NET_HDR_F_TSTAMP        8
-         u8 flags;
- #define VIRTIO_NET_HDR_GSO_NONE        0
- #define VIRTIO_NET_HDR_GSO_TCPV4       1
-@@ -551,6 +554,7 @@ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device O
-         le32 hash_value;        (Only if VIRTIO_NET_F_HASH_REPORT negotiated)
-         le16 hash_report;       (Only if VIRTIO_NET_F_HASH_REPORT negotiated)
-         le16 padding_reserved;  (Only if VIRTIO_NET_F_HASH_REPORT negotiated)
-+        le64 tstamp;            (Only if VIRTIO_NET_F_RX_TSTAMP negotiated)
- };
- \end{lstlisting}
- 
-@@ -794,6 +798,8 @@ \subsubsection{Setting Up Receive Buffers}\label{sec:Device Types / Network Devi
- When VIRTIO_NET_F_HASH_REPORT is negotiated, the required receive buffer
- size is either 65609 or 1534 bytes accounting for 20 bytes of
- \field{struct virtio_net_hdr} followed by receive packet.
-+When VIRTIO_NET_F_RX_TSTAMP is negotiated, the sizes increase by 8 byte to 65609 or 1534
-+without VIRTIO_NET_F_HASH_REPORT, and 65617 or 1542 with VIRTIO_NET_F_HASH_REPORT respectively.
- 
- \drivernormative{\paragraph}{Setting Up Receive Buffers}{Device Types / Network Device / Device Operation / Setting Up Receive Buffers}
- 
-@@ -804,13 +810,16 @@ \subsubsection{Setting Up Receive Buffers}\label{sec:Device Types / Network Devi
- 	VIRTIO_NET_F_GUEST_USO4 or VIRTIO_NET_F_GUEST_USO6 are negotiated, the driver SHOULD populate
-       the receive queue(s) with buffers of at least 65609 bytes if
-       VIRTIO_NET_F_HASH_REPORT is negotiated, and of at least 65601 bytes if not.
-+      With VIRTIO_NET_F_RX_TSTAMP negotiated, add 8 bytes to this minimal buffer sizes.
-     \item Otherwise, the driver SHOULD populate the receive queue(s)
-       with buffers of at least 1534 bytes if VIRTIO_NET_F_HASH_REPORT
-       is negotiated, and of at least 1526 bytes if not.
-+      With VIRTIO_NET_F_RX_TSTAMP negotiated, add 8 bytes to this minimal buffer sizes.
-   \end{itemize}
- \item If VIRTIO_NET_F_MRG_RXBUF is negotiated, each buffer MUST be at
- least size of \field{struct virtio_net_hdr},
--i.e. 20 bytes if VIRTIO_NET_F_HASH_REPORT is negotiated, and 12 bytes if not.
-+i.e. 20 bytes if VIRTIO_NET_F_HASH_REPORT is negotiated, and 12 bytes if not and
-+28 bytes or 20 bytes if VIRTIO_NET_F_RX_TSTAMP is also negotiated.
- \end{itemize}
- 
- \begin{note}
-@@ -819,7 +828,8 @@ \subsubsection{Setting Up Receive Buffers}\label{sec:Device Types / Network Devi
- 
- When calculating the size of \field{struct virtio_net_hdr}, the driver
- MUST consider all the fields inclusive up to \field{padding_reserved},
--i.e. 20 bytes if VIRTIO_NET_F_HASH_REPORT is negotiated, and 12 bytes if not.
-+i.e. 20 bytes if VIRTIO_NET_F_HASH_REPORT is negotiated, and 12 bytes if not and
-+28 bytes or 20 bytes if VIRTIO_NET_F_RX_TSTAMP is also negotiated.
- 
- If VIRTIO_NET_F_MQ is negotiated, each of receiveq1\ldots receiveqN
- that will be used SHOULD be populated with receive buffers.
-@@ -1284,6 +1294,12 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
- #define VIRTIO_NET_HASH_REPORT_UDPv6_EX        9
- \end{lstlisting}
- 
-+\paragraph{Timestamping for incoming packets}
-+\label{sec:Device Types / Network Device / Device Operation / Processing of Incoming Packets / Timestamping for incoming packets}
-+
-+If the feature VIRTIO_NET_F_RX_TSTAMP is negotiated, the device may pass receive timestamps for incoming packets via \field{tstamp}
-+in the \field{struct virtio_net_hdr} and signals this with the VIRTIO_NET_HDR_F_TSTAMP bit in \field{flags}.
-+
- \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Device Operation / Control Virtqueue}
- 
- The driver uses the control virtqueue (if VIRTIO_NET_F_CTRL_VQ is
-
--- 
-2.47.0
+>  device-types/crypto/description.tex | 81 ++++++++++++++++++++++++++++-
+>  1 file changed, 80 insertions(+), 1 deletion(-)
+> 
+> diff --git a/device-types/crypto/description.tex b/device-types/crypto/description.tex
+> index 7ac6f5b..9c878f7 100644
+> --- a/device-types/crypto/description.tex
+> +++ b/device-types/crypto/description.tex
+> @@ -990,6 +990,10 @@ \subsubsection{Data Virtqueue}\label{sec:Device Types / Crypto Device / Device O
+>      VIRTIO_CRYPTO_OPCODE(VIRTIO_CRYPTO_SERVICE_AKCIPHER, 0x02)
+>  #define VIRTIO_CRYPTO_AKCIPHER_VERIFY \
+>      VIRTIO_CRYPTO_OPCODE(VIRTIO_CRYPTO_SERVICE_AKCIPHER, 0x03)
+> +#define VIRTIO_CRYPTO_IPSEC_OUTBOUND \
+> +    VIRTIO_CRYPTO_OPCODE(VIRTIO_CRYPTO_SERVICE_IPSEC, 0x00)
+> +#define VIRTIO_CRYPTO_IPSEC_INBOUND \
+> +    VIRTIO_CRYPTO_OPCODE(VIRTIO_CRYPTO_SERVICE_IPSEC, 0x01)
+>      le32 opcode;
+>      /* algo should be service-specific algorithms */
+>      le32 algo;
+> @@ -1007,6 +1011,17 @@ \subsubsection{Data Virtqueue}\label{sec:Device Types / Crypto Device / Device O
+>  If VIRTIO_CRYPTO_F_REVISION_1 is negotiated but VIRTIO_CRYPTO_F_<SERVICE>_STATELESS_MODE
+>  is not negotiated, then the device SHOULD reject <SERVICE> requests if
+>  VIRTIO_CRYPTO_FLAG_SESSION_MODE is not set (in \field{flag}).
+> +
+> +For VIRTIO_CRYPTO_IPSEC_OUTBOUND and VIRTIO_CRYPTO_IPSEC_INBOUND opcodes,
+> +\field{algo} is ignored.
+> +
+> +For VIRTIO_CRYPTO_IPSEC_OUTBOUND opcode, \field{session_id} MUST be set to
+> +one of the resource objects \field{id} created using
+> +VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA resource type.
+> +
+> +For VIRTIO_CRYPTO_IPSEC_INBOUND opcode, \field{session_id} MUST be set to
+> +one of the resource objects \field{id} created using
+> +VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA resource type.
+>  \end{note}
+>  
+>  The dataq request is composed of four parts:
+> @@ -1094,6 +1109,13 @@ \subsubsection{Data Virtqueue}\label{sec:Device Types / Crypto Device / Device O
+>          and struct virtio_crypto_akcipher_data_flf is padded to 48 bytes if NOT negotiated,
+>          and \field{op_vlf} is struct virtio_crypto_akcipher_data_vlf.
+>      \end{itemize*}
+> +\item If the the opcode (in \field{header}) is VIRTIO_CRYPTO_IPSEC_OUTBOUND
+> +    or VIRTIO_CRYPTO_IPSEC_INBOUND then:
+> +    \begin{itemize*}
+> +    \item \field{op_flf} is struct virtio_crypto_ipsec_data_flf.
+> +        and \field{op_vlf} is struct virtio_crypto_ipsec_data_vlf.
+> +	Works only for session mode.
+> +    \end{itemize*}
+>  \end{itemize*}
+>  
+>  \field{inhdr} is a unified input header that used to return the status of
+> @@ -1914,8 +1936,23 @@ \subsubsection{IPSEC Service Operation}\label{sec:Device Types / Crypto Device /
+>  in tunnel mode, as well as the ESP/AH header from the packet. The resulting
+>  packet contains only the plain data.
+>  
+> +The driver can offload IPsec Inbound processing by
+> +\begin{itemize*}
+> +\item Creating inbound SAs using the VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA command.
+> +\item Setting the \field{opcode} in struct virtio_crypto_op_data_req to
+> +VIRTIO_CRYPTO_IPSEC_INBOUND.
+> +\end{itemize*}
+> +
+>  IPsec Outbound processing: The device will perform encryption, attach ICV,
+> -update/add IP headers, add ESP/AH headers/trailers.
+> +update/add IP headers, add ESP/AH headers/trailers during data processing.
+> +
+> +The driver can offload IPsec outbound processing by creating outbound SAs
+> +\begin{itemize*}
+> +\item Creating inbound SAs using the VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA command.
+> +\item Setting the \field{opcode} in struct virtio_crypto_op_data_req to
+> +VIRTIO_CRYPTO_IPSEC_OUTBOUND.
+> +\end{itemize*}
+> +See \ref{sec:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Data processing}
+>  
+>  A crypto device can support number of IPsec SAs, allowing it to manage multiple secure
+>  connections simultaneously.
+> @@ -2159,3 +2196,45 @@ \subsubsection{IPSEC Service Operation}\label{sec:Device Types / Crypto Device /
+>  capability VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP. For the IPsec inbound SA resource object
+>  \field{resource_obj_specific_data} is in the format
+>  \field{struct virtio_crypto_resource_obj_ipsec_sa}.
+> +
+> +\paragraph{Data processing}
+> +\label{par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Data processing}
+> +
+> +Data requests for IPsec processing are as follows:
+> +
+> +\begin{lstlisting}
+> +struct virtio_crypto_ipsec_data_flf {
+> +        /* length of source data, full IP/IPsec packet */
+> +        le32 src_data_len;
+> +        /* length of dst data */
+> +        le32 dst_data_len;
+> +};
+> +
+> +struct virtio_crypto_ipsec_data_vlf {
+> +        /* Device read only portion */
+> +        /* Source data */
+> +        u8 src_data[src_data_len];
+> +
+> +        /* Device write only portion */
+> +        /* Pointer to output data */
+> +        u8 dst_data[dst_data_len];
+> +};
+> +\end{lstlisting}
+> +
+> +Each data request uses the virtio_crypto_ipsec_data_flf structure and
+> +the virtio_crypto_ipsec_data_vlf structure to store information used to
+> +run the IPSEC operations.
+> +
+> +For IPsec encryption:
+> +\field{src_data} is the full IP packet that will be processed.
+> +\field{src_data_len} is the length of source data.
+> +\field{dst_result} is the result ESP encrypted packet and
+> +\field{dst_data_len} is the length of it. Please note,
+> +dst_data_len SHOULD include additional header and trailer
+> +lengths.
+> +
+> +For IPsec decryption:
+> +\field{src_data} is the IPsec packet that will be processed.
+> +\field{src_data_len} is the length of source data.
+> +\field{dst_result} is the result plain IP packet and
+> +\field{dst_data_len} is the length of it.
+> -- 
+> 2.25.1
+> 
+> 
 
