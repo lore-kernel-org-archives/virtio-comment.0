@@ -1,322 +1,1072 @@
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB1D1AAA10
-	for <virtio-comment@lists.linux.dev>; Tue,  7 Jan 2025 10:20:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.156.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1736245246; cv=fail; b=kBlO3OirfjgwLaC6MyScNQoDgis6HaKe811yQEsfcz+w5YmKP2D2ieLxntwxThnnmVlX4+Y5uMYxRwb6y/o/xvBqWj+BrMST+TvkgWuh5NZN9GL6r4uHpdZ/rtxKpp612DvLHdj5YmlWYXJtKbGCz18zazYyVZgdtx3GG4CgGHw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1736245246; c=relaxed/simple;
-	bh=CzaheqlJua8b3maFVvOGF5fAJkh1f4UXygpAcUSoQ+E=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=h9CYMqko+zX5Kg++soq/VMImXJvbh/3RPeYGGhKibn1uZu1OLfeWSyHa/swwy+BKhfM1Xgk7z/0522XEGwemSPcG5Yg/9QRqkPj5zVl/bFJBPYStKkj48D9hvffhzDcaYhNSsQPxsbRqWurTYrhNGrnkV9SOXdYh//1aZxNC0OY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b=H7oNVpsC; arc=fail smtp.client-ip=67.231.156.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896F518CBFC
+	for <virtio-comment@lists.linux.dev>; Tue,  7 Jan 2025 13:12:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1736255574; cv=none; b=jjBvJiR1/+qujd0sPCgt4KMZK7AV6mgzZ2Hx0dmOlAa1h37MrAuL4BNqVwQchIzJKWzwqRvb24phYs+xYjtA23F4G/e5Br/RagWxbTEu/1q4lpaYFEFAfV59taFXjXRNiyk0VYOB5dXTgSCu5SDhCmNdOKoei/mMKHX2jVapCN8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1736255574; c=relaxed/simple;
+	bh=WxBJb24N2+Aeo2JYHp2gI6L9B1aBymm/KQQ631JO56w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HubttW+jjh4A5iQiDblnsv7Exo01hiJ1BNLPSUHVi3bSeg6HfMwBNz6tld+GcXzJrW1VoRb2/JakQKXSe1yrCaEEHeUzJxnOS57OKLIZfGx8ZdrVnTaZjA6I8BF1cL+S/1MG7JOuPzbNaKj6lDHUqmwU3E8lNT79daYu5TFfEnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NT6Rwhw1; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b="H7oNVpsC"
-Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 507AKgB3015739;
-	Tue, 7 Jan 2025 02:20:42 -0800
-Received: from nam02-dm3-obe.outbound.protection.outlook.com (mail-dm3nam02lp2048.outbound.protection.outlook.com [104.47.56.48])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4412ecg007-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 07 Jan 2025 02:20:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rMZ23xCFDUXaK/pSDE+WBBVkSJOs+QyltYRghPnGj6fUTtNFD5bdegL1CGy55EDKnpu7VV3EAW5e+uOYDm0VsagLPNqZBwIjbHiaBcNSu1DoTvy+gQcLOcbRd/4tGmwwYh1A4xkTwyk4vOdm/z2ie1qZasxNaPEVhY4gATI+ckAUJKxV6ADng17oSSEz0SfofUnRa6cc8NNbBeEDzvQMc4kJugNusEON9wx0CIligTAc2kqB06RJKZigchoGGa3TcXGMGl26GnnZCC9x1z9z34SUCfiKUSplfzuomYn/UDLCjboMzeTfsFISao6/CePkn6z6L3Fd26yk0zy+lAdL3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CzaheqlJua8b3maFVvOGF5fAJkh1f4UXygpAcUSoQ+E=;
- b=ZrlI7mYPgmavup6++VgJx6wyBzv4eLUMpPlfGYqvHzj0YL4ZUUBieCwTwLzFvxLsaqs+xj+ifGpsBUJDvGdExA3z4iCmdDjrogSv15YqPGRbpGooc/xVQZDLQDtKGLyc9AVEU5JyjHAVWPzneosraDGyT9WPobsf/wie7lyUfsdJGX1KHs2zEFHu9Idu4HreMyHPmf/AGEOrESjsA5rmtKxX8RnJEyuNhcsDpXibJH7h8g3Ba4h9yu+C/lGKa9u3xkJhOYciz6mC/dLz92HViJRxWj1f20XthbLE5+hK5DzcRwq0Mo//s2fG5+JHpoG7rDVkDmoD9zs1qOyIyo8anw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=marvell.com; dmarc=pass action=none header.from=marvell.com;
- dkim=pass header.d=marvell.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CzaheqlJua8b3maFVvOGF5fAJkh1f4UXygpAcUSoQ+E=;
- b=H7oNVpsCL4wITK8/D9z1xB7hFfVPsTyRey++Nqx5Ywvgi91AUR0ZvFnM+se1qXn6WNkR96c1chgvQrXO21VuuNOAIWrgOrGhrq/RIZ1OobtnWsxtbEXjfbNyPt/80xDNaLmBaeBBnhOCudbcivdyRSQCWa8CEvfdn0PL3InDOv0=
-Received: from DS0PR18MB5368.namprd18.prod.outlook.com (2603:10b6:8:12f::17)
- by BY1PR18MB6109.namprd18.prod.outlook.com (2603:10b6:a03:4a6::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.17; Tue, 7 Jan
- 2025 10:20:35 +0000
-Received: from DS0PR18MB5368.namprd18.prod.outlook.com
- ([fe80::ad53:bef2:cc17:13ac]) by DS0PR18MB5368.namprd18.prod.outlook.com
- ([fe80::ad53:bef2:cc17:13ac%5]) with mapi id 15.20.8335.010; Tue, 7 Jan 2025
- 10:20:35 +0000
-From: Srujana Challa <schalla@marvell.com>
-To: Parav Pandit <parav@nvidia.com>,
-        "virtio-comment@lists.linux.dev"
-	<virtio-comment@lists.linux.dev>
-CC: "mst@redhat.com" <mst@redhat.com>,
-        "pabeni@redhat.com"
-	<pabeni@redhat.com>,
-        "jasowang@redhat.com" <jasowang@redhat.com>,
-        Satananda
- Burla <sburla@marvell.com>,
-        Nithin Kumar Dabilpuram
-	<ndabilpuram@marvell.com>,
-        Jerin Jacob <jerinj@marvell.com>
-Subject: RE: [PATCH RFC 4/4] virtio-net: Add IPsec operation device and driver
- requirements
-Thread-Topic: [PATCH RFC 4/4] virtio-net: Add IPsec operation device and
- driver requirements
-Thread-Index: AQHbT6gpylNPhsVw7E+XexNzMPH8A7MJWsYAgAHedYA=
-Date: Tue, 7 Jan 2025 10:20:35 +0000
-Message-ID:
- <DS0PR18MB5368DB6DCAAF5FDD229B0042A0112@DS0PR18MB5368.namprd18.prod.outlook.com>
-References: <20241216104859.2720719-1-schalla@marvell.com>
- <20241216104859.2720719-5-schalla@marvell.com>
- <CY8PR12MB71958EED46A3BE41BE3B41BBDC102@CY8PR12MB7195.namprd12.prod.outlook.com>
-In-Reply-To:
- <CY8PR12MB71958EED46A3BE41BE3B41BBDC102@CY8PR12MB7195.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR18MB5368:EE_|BY1PR18MB6109:EE_
-x-ms-office365-filtering-correlation-id: 32c1aa40-1640-4bae-5aae-08dd2f04ecd2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?OGhZRFlVRXNMTVZWN0MxUXBDbXFwd1p1UEFJK2lHZXZ0bXV1dUErNGJMb2hQ?=
- =?utf-8?B?aUIxSklXREs5SEozajVZWjkvVVl2RC9raFYrUmpoc1NvejFsalkrS0VqOEFE?=
- =?utf-8?B?T2V6VEhmdjJrSEdVWlhVVmdJU2VuZ3RLSDFVSm9QWTh4QlNrMU9JbjN4akVD?=
- =?utf-8?B?OXFZYmpEL1NGbGxKYmlnMEczRnRKdFpwMDVQeWMzWjhqL1hueDVScTJHcmkr?=
- =?utf-8?B?ODNQQUVxaHpLSHY3TElZblBtM211Z1U3MXNXbkJqR2V5bG1KbFd0NEpOY3RG?=
- =?utf-8?B?M1ZOdnVxUEc4SVE4Z0hjOHc2MmxYVnIzaHFsYWtNSi8rWW9yWHoxNERJeVdJ?=
- =?utf-8?B?eEw2OHhkNkwrOUowTjA4VTdzVEN0Mk5WSURmbWVJUndDMzlxNGZVS25pVlV1?=
- =?utf-8?B?bUl3NVNUa2ROb2RUMGVOdzgxMnYwR0E5UUdZcWVFYUZyVE9mdHpVUVUyK1pD?=
- =?utf-8?B?cjJiU0R1NFM3WXhueENXeUZiZVRUeTE4SUFPZEJlcXRtT1QvcnlsRlFkL0o5?=
- =?utf-8?B?WHV1K0p3MnhkdHFHcGRwaUtFV1dIQ0w4dnBTaFBHaHdIRGlCRXVNQmNiTS9J?=
- =?utf-8?B?Ry9RdU94VHBUWVdEc3lLbUlROVNiWjZtMENUbVE0bk1vazhFcjV6RHVwT2Rk?=
- =?utf-8?B?TS84SzZFRnk4R0k0cFZVQTNjeXd6SzgvSWV4N2dCVDg1Y1pNT2plcG92UHJM?=
- =?utf-8?B?Rm9XbUVOSkNwcVhxNHdaT0RoVlZrL3g2UHJ2WWkyVEllbmFZM3Y3YkZxQ1FM?=
- =?utf-8?B?cktPNW9xcEVQUXdwZWpla0pON0NrdWpXeGJKWGJudWdGRWVoVDZUeEJNYmRZ?=
- =?utf-8?B?UDZrZU9QV2xyZWtUR2VUcXNnTXVyL2tGVTVnajVDZG0zT3FpWnY5RVgvdlpz?=
- =?utf-8?B?K1FKTXIrTXowYnVZc3pFWm8vODF6VTdsS3ZwUE5TbmtPbHVVZTJLZjM1U0x0?=
- =?utf-8?B?Nkc3cEdmZGNITWtseWtrSVQ3bGZVNW9MNFovZTIvM2lDS3dFTWVHaURqSkMz?=
- =?utf-8?B?akFSZ0Y0WHdHQTBsMmNseFpYaysydXcwRjBUcDlvTFNGbEJjQjBVVGxobVZn?=
- =?utf-8?B?dFYxZHdNY0dqQ3V1dzVSU0ZzQ3EyTWRjV2VoV1I4NEpyRkp1RXAyWFA5bHQy?=
- =?utf-8?B?cDJMaExZTS9iMDNYdHZDVmNzTk8yazBoamlaWVI0KzJPR1pSclgybm9XeUhQ?=
- =?utf-8?B?elhBd01kUC9QZTlWZlE2U0JPOEFlNmlVTDlHOHhvdm1XYVlCTXhaWDVTdWNY?=
- =?utf-8?B?Q1ZUaXh4QlZ6U1hYbkd3RUlmR3crQ0pZRGg2UFpLaDJuUm9RS3ErcGkwQzZD?=
- =?utf-8?B?UnV6UzFSZkJuT3p4bExsQzhMcGlEKzRJRnRCbCtWMllzOElBQ3FtR1gvdXM3?=
- =?utf-8?B?LzVKMUlBblZCbWdpYi9pcExMY1dzL0RhTFU3Y3BOYUxhWVJOTUlOY2ZSdmtU?=
- =?utf-8?B?MjBoRHJLenI1K2hWcjU3OFIyc3BVRXcxVjV3VENyV0pjT3JKbGdhM3NETzhk?=
- =?utf-8?B?bEtOOUl4N1hWbExJOHZtQ1FiMU1nVG9udWhHOWdBWmI0dkpRTHNtNFF6Nm5t?=
- =?utf-8?B?MFB3d01sdWh3WHdsN1IxeXJwdjRYWGhycUZRVE9HaGNVWStVQUVmZGlnU2ZP?=
- =?utf-8?B?b3g1MDlHVVhQb0F2WW1qblplUmRuVzlGeURHV016U3FZa0pHNGwxb2I3bWNR?=
- =?utf-8?B?b084OTJuNUs0eHRuTERHM0NxZzcwYTY3K2FUaDFoYmVueW5EVEpNcnBSbFJU?=
- =?utf-8?B?dTdpazBZeDFMN0xrQ21hdEFVZjJ6c1V6WnZwMEVnZ1RyeG5HaVZZc2FmVGdL?=
- =?utf-8?B?cnpXZGlCalBONDB2cjNkSElRMHRlb1VwZXhsWFJaclp3QmhGSTVGZCtRY29o?=
- =?utf-8?B?cWNTYkN2ZUJ3UTVjWXVXZlZUVk9rQ2xJTnd6OCtmMlAvNWsrT0phU2tuR2Qv?=
- =?utf-8?Q?Mp+VwgpetpYl/mENxivwY7AyVXFc4oZn?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR18MB5368.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700018);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?MzF4Nkt4NFVteGlTdHlqT0E1SkptS2grc3FVbS9SZEFaTnBkOWhnOTdxYWNT?=
- =?utf-8?B?MjRVNTBSeUlKU0JrMWVlNFRhVVlUT3JTbHRjQStLcUozRFFuNmFqVkpvL1Vv?=
- =?utf-8?B?NU9iOVVubU9NaCs3SWxxcllkTzBLNnBDdGxua2U5SXMyR3BiU09JSDVsMytF?=
- =?utf-8?B?Q0lidnhDVm5YWlZHY3JDdE1VbC9penRyU2NFUGFMOElueUNMbU1WeiswWFM5?=
- =?utf-8?B?VjdRVXoyZ0FRMUJpMk95THF6alBwZUN0ZVh6SE5hb1RaaXZXKzdGQVQxalpK?=
- =?utf-8?B?bkoxTmNtSXAxYWZNaEtIaExRNWFpNEZpbGkvTWV6S0ZYUDhjSWsyZyttQzN4?=
- =?utf-8?B?RkV1ZGZOcGUxckJlUlpKRlFqOUxtMTVtSUsrT3ZsUmZLR1ZlTk1MeHBkdTJk?=
- =?utf-8?B?TlloOXBJbDBZSzF6QUgwcXhnbzh0WVc3aENLc0xab0RMN09Qa1VUYlZwZEky?=
- =?utf-8?B?TXNmV2JjdjZBalpHd2k4SDFjUmhlNUhDQXo0a2VTUG5oVkZsdGFRYmthK09B?=
- =?utf-8?B?SkIzUDZHQVdTbW5KUGpDTTBuVjY0WUVzdTdFWWNxTEdzV2VMR1c3RjRZa1pK?=
- =?utf-8?B?ZmdnZVU4UlVlSy9YTlpIcU90b3I5S0VmM0VWdmlYbmU1VTNoN2FQTHRBWHZZ?=
- =?utf-8?B?VnROdk1DRDBQdXozcnBia05LbGZiK0xjWFloMzlzOHVET0hvUmIrVldMQ05V?=
- =?utf-8?B?UHNON3A5YmhWT0JwODhiN3RyRWlMQnZ0YzZ3L3FWcDFKQjQzdnQvQ2ZNZU4y?=
- =?utf-8?B?aEp4eDUrazJWRkZhcm1odVFMTld3ZC9rQVcxMFNwWjFkei9qZytMN0FiVmhB?=
- =?utf-8?B?dnRYUm9SK2hLQlZsWThvSGhBbDUweXhTbFIvOXNNSGhmWjdFQ3d6TEkweWZQ?=
- =?utf-8?B?MUYzcDJ2UmIvRytqdllSSitnQzZlV2ZyUDV5N0h0THlLaUlHMFh3Y3crOEx6?=
- =?utf-8?B?bS9JdXhnQkN0a3RmZGw3dDdSZHdpZytvMzZ6M0lmUFo2QXl4NWYzbGFNTDRh?=
- =?utf-8?B?YjBzTEtRdXZtWnNBUVo3QWZOQldxQ1N4OEdYZG1ncXBteTRTM2FnQzc1UW5l?=
- =?utf-8?B?cXdnNkJLN2VPY0MvMWVVRHhqUTlhN01CcGY1V0JUYXhhK1ZBOCtNdW0rQzhu?=
- =?utf-8?B?eHpyb29lN09xaUdaWkNXMVo0dk9TWmQ4ZFp2d3o4bG4zd1BQR2xNYmFpcXVx?=
- =?utf-8?B?RThkMDVHOUF2dWR6YVdnbUIvcDdOWlNWWVA3d3czcUg5dXgvMkNKOTFWVVVq?=
- =?utf-8?B?cmdYbk5FOStVQ2NXWk10QkVCODRYMFJ0bC9RT1NLM1pYdDY1eDgxWFN0MjUx?=
- =?utf-8?B?d0huK0xBS2M5MTFnSFUyak9CemNBUFpqV1QwNWJTbUx4ellxZWc0TTBVeEw3?=
- =?utf-8?B?Vy9UV2NmanZpLzI2ejZqY3lKQm1RcC85QjlIZjR1QS9KbGNJK1VVVUJQemw2?=
- =?utf-8?B?bUMrMGFVZ0dyTkJSL01CT2N4VHowVERvYWlIZG1LTnl5NjZodmxQUWVhellW?=
- =?utf-8?B?cVBpcS9yUE43QnJjTjNKSzR6dGJGOVRWbW5CNGJCN2lzYmw4dG02SWc3emtp?=
- =?utf-8?B?NGNPUVo1eEdIdmFiV3FCRmptMFhsTGRzSDRYOUY2akllR1M3b05kdGxRci9s?=
- =?utf-8?B?SElQSmlmcit4UmxVMkVYRFZzKzI3ZVdTOFg5akQzaWlqOWoxZXl0dkRIYkl1?=
- =?utf-8?B?dkF1c3RyTExTenVMTzhkeHM5RDE4bjJzMTVtWDBXc0E5QjVncFMwZURrazA2?=
- =?utf-8?B?R05BS1hMUS9BK1ZYTUdTcUdNQi9FZFd5UW1ZY0tYamw1azkvVlpwSHhiUWlp?=
- =?utf-8?B?YWRISmcwV0RqQStvT1lyb2I3UWpFQmhxVUY5RVF3RFI1d0Q1VjFITXQ0TVBs?=
- =?utf-8?B?aHJyeGVCSWZxcTdkVHBOdlFrbjY5NlJtd2M3N2xaVG1WbGxETWh0RTUySHhh?=
- =?utf-8?B?Q0d1NUhkaWtxdXY1NzNUTGtpUDZad2FJL1lkT2xaMWlmM2gwbDRNMGZ6NzNa?=
- =?utf-8?B?MXdtRjYyTWNSZEVSOXpsOE1Yck85dFA4NWhrYVp5NldBU09PSUlodjJNVm5B?=
- =?utf-8?B?eVlOcktjMUdtbFVkczNCZWMxOEZZbzlkazFIRDVTaURiQlBsWEdVQlRBWGZh?=
- =?utf-8?Q?OKq8ajKihbm0J8670jbtJG4uv?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NT6Rwhw1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1736255569;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=au1zSEdmpB09qaYe5hej2TXqpD4miXljbbRAUaAj4fs=;
+	b=NT6Rwhw1dEpj9qgUXj8z0EvCxZt/M0eRSF3Zhg5A5bPc3Sd9spOX8AS0VKUIcXcOprPC6J
+	FfGCIYr1YSWexK8/gl8qouPMcwpYY6d3Np8lgyRu3xrJ/bnHNM1mJ9NqOsVIFFABG3jepd
+	GSsQm1Hy+BeLm1zJdVPU+/TnmbI1k8c=
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-348-9a5GYoepPeCZSZKFhmgFYg-1; Tue, 07 Jan 2025 08:12:47 -0500
+X-MC-Unique: 9a5GYoepPeCZSZKFhmgFYg-1
+X-Mimecast-MFC-AGG-ID: 9a5GYoepPeCZSZKFhmgFYg
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-2ee86953aeaso21967861a91.2
+        for <virtio-comment@lists.linux.dev>; Tue, 07 Jan 2025 05:12:47 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736255567; x=1736860367;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=au1zSEdmpB09qaYe5hej2TXqpD4miXljbbRAUaAj4fs=;
+        b=IiSzYXiql7TpGEmkH0zss5YWxPlFPyFzBKPfmWIuQ7Ow6R+wn4ELuNJMylDY9nE3Ty
+         5ApYyJAupeYComabC/1CNt+zwkEHWAiRf6gJNumMJNGfNtwmN4JY2fZIGR5ewK1T96S3
+         7+XXRVk6ddF72HnvyKIiQ363Abn9LhY8oEbqjjdGAw3AUIU1LgEtVunCfgLkjxCh1dCh
+         V74VcqqhIKJvlHtwieTLgZJZNCqUWYmkIUaVHGw/cqQavPLDZtDn18AFsJ8MMRIDZc+o
+         J54KYCtrkReU4SScdCww0IWbC2aVtZsCWoffDMbbryS7bI5ep0v19mEXOO+/8oVhCtdF
+         mICQ==
+X-Gm-Message-State: AOJu0YxBu35AzeB9+q5GngzSZdsHM/nxn4dm9sR/uqsSSivbRcd3At33
+	2Bd/9MnfYEyMoKMahNNY9slGZUu/TUO/zkmx4iI1GQ3UTKMK6FkmCCx3BCrGpgg1vDwB4olINF0
+	dmzWHJoKprAeK8LCQdknqdsMmiPtLV2gOUvmYqoArRJ5XoMCOGa5SJyD7XX0UDmY5Eji872OJYM
+	80EiBkcv0+F9IwN2ZJA0QqaFA7LRF4VwViR5VLzEQ=
+X-Gm-Gg: ASbGncuKOrLBQ5icuPIIUZAvHbDm7h326TdOY3sPFaH/0XcR54qqfvhbzkYrgYKapBH
+	spUcBh0I4ORC0ZpEv6xPnHD8Sy4mlt/pB8a6f9JY4
+X-Received: by 2002:a17:90b:5252:b0:2f4:49d8:e6f6 with SMTP id 98e67ed59e1d1-2f452dfd37cmr83722079a91.3.1736255566286;
+        Tue, 07 Jan 2025 05:12:46 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFoQKxywCrBcV2BxhO2k9cV4enlEoPFuiMjx79qJZq5GpgkMSFkiHSBunrKbd83utDTRc28pxleOGwkEz2IEn4=
+X-Received: by 2002:a17:90b:5252:b0:2f4:49d8:e6f6 with SMTP id
+ 98e67ed59e1d1-2f452dfd37cmr83722020a91.3.1736255565582; Tue, 07 Jan 2025
+ 05:12:45 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: marvell.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR18MB5368.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32c1aa40-1640-4bae-5aae-08dd2f04ecd2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jan 2025 10:20:35.5834
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 70e1fb47-1155-421d-87fc-2e58f638b6e0
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ulaw3Gyuz5Cza2bxnR++qXd4VvCT2rS2ZsO2cfp36L6y2eZaAE/Y/jZ2C5JM07h9TxCk8M6pcIEwx3By2EaGhA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR18MB6109
-X-Proofpoint-ORIG-GUID: kpwOO_BCLRCpgZlegJdpoiUpGScqt0eW
-X-Proofpoint-GUID: kpwOO_BCLRCpgZlegJdpoiUpGScqt0eW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.687,Hydra:6.0.235,FMLib:17.0.607.475
- definitions=2020-10-13_15,2020-10-13_02,2020-04-07_01
+References: <20241107154930.118763-1-aesteve@redhat.com> <20241107154930.118763-2-aesteve@redhat.com>
+ <Z07Q5GjhBYbpXtkF@fedora>
+In-Reply-To: <Z07Q5GjhBYbpXtkF@fedora>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Tue, 7 Jan 2025 14:12:33 +0100
+X-Gm-Features: AbW1kvYuIq8tm715K2tZPyyOLSzqZBjp-s03OO7723MNlD-8rjrGXHHbYwCZzjk
+Message-ID: <CADSE00KexjcoYaROCc9-oWBtjW-FccYKz-2=2aHNBtwcg53C6Q@mail.gmail.com>
+Subject: Re: [PATCH v4 1/1] virtio-media: Add virtio media device specification
+To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+Cc: virtio-comment@lists.linux.dev, eballetb@redhat.com, 
+	daniel.almeida@collabora.com, agordeev@qti.qualcomm.com, 
+	dverkamp@chromium.org, ribalda@google.com, alex.bennee@linaro.org, 
+	mst@redhat.com, nicolas.dufresne@collabora.com, acourbot@chromium.org, 
+	cohuck@redhat.com, changyeon@google.com, hverkuil@xs4all.nl, 
+	gurchetansingh@google.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 8iDbNHIgcyUXqrRQoBuA9ZLz0Vqqp64DXUFkaEPNxfg_1736255567
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-PiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+ID4gRnJvbTogU3J1amFuYSBDaGFsbGEg
-PHNjaGFsbGFAbWFydmVsbC5jb20+DQo+ID4gU2VudDogTW9uZGF5LCBEZWNlbWJlciAxNiwgMjAy
-NCA0OjE5IFBNDQo+ID4NCj4gPiBBZGQgZGV2aWNlIGFuZCBkcml2ZXIgcmVxdWlyZW1lbnRzIGZv
-ciBJUHNlYyBPcGVyYXRpb24uDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBTcnVqYW5hIENoYWxs
-YSA8c2NoYWxsYUBtYXJ2ZWxsLmNvbT4NCj4gPiAtLS0NCj4gPiAgZGV2aWNlLXR5cGVzL25ldC9k
-ZXNjcmlwdGlvbi50ZXggICAgICAgIHwgODMgKysrKysrKysrKysrKysrKysrKysrKysrKw0KPiA+
-ICBkZXZpY2UtdHlwZXMvbmV0L2RldmljZS1jb25mb3JtYW5jZS50ZXggfCAgMSArDQo+ID4gZGV2
-aWNlLXR5cGVzL25ldC9kcml2ZXItIGNvbmZvcm1hbmNlLnRleCB8ICAxICsNCj4gPiAgMyBmaWxl
-cyBjaGFuZ2VkLCA4NSBpbnNlcnRpb25zKCspDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvZGV2aWNl
-LXR5cGVzL25ldC9kZXNjcmlwdGlvbi50ZXggYi9kZXZpY2UtDQo+ID4gdHlwZXMvbmV0L2Rlc2Ny
-aXB0aW9uLnRleCBpbmRleCA1ZWJiMjhhLi5hNjg2YzY5IDEwMDY0NA0KPiA+IC0tLSBhL2Rldmlj
-ZS10eXBlcy9uZXQvZGVzY3JpcHRpb24udGV4DQo+ID4gKysrIGIvZGV2aWNlLXR5cGVzL25ldC9k
-ZXNjcmlwdGlvbi50ZXgNCj4gPiBAQCAtMzExNiw2ICszMTE2LDg5IEBAIFxzdWJzdWJzZWN0aW9u
-e0lQc2VjDQo+ID4gT3BlcmF0aW9ufVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzIC8gTmV0d29yayBE
-ZXZpY2UgLyBEZXZpY2UNCj4gPg0KPiA+ICBTZWUgXGh5cGVycmVmW3BhcjpEZXZpY2UgVHlwZXMg
-LyBDcnlwdG8gRGV2aWNlIC8gRGV2aWNlIE9wZXJhdGlvbiAvDQo+ID4gSVBzZWMgU2VydmljZSBP
-cGVyYXRpb24gLyBSZXNvdXJjZSBvYmplY3RzIC8NCj4gPiBWSVJUSU8tQ1JZUFRPLVJFU09VUkNF
-LU9CSi1JUFNFQy0gSU5CT1VORC0NCj4gU0Fde1ZJUlRJT19ORVRfUkVTT1VSQ0VfT0JKX0lQU0VD
-X0lOQl9TQX0uDQo+ID4NCj4gPiArXGRldmljZW5vcm1hdGl2ZXtccGFyYWdyYXBofXtJUHNlYyBP
-cGVyYXRpb259e0RldmljZSBUeXBlcyAvIE5ldA0KPiA+ICtEZXZpY2UgLyBEZXZpY2UgT3BlcmF0
-aW9uIC8gSVBzZWMgT3BlcmF0aW9ufQ0KPiA+ICsNCj4gPiArV2hlbiB0aGUgZGV2aWNlIHN1cHBv
-cnRzIElQc2VjIG9wZXJhdGlvbnMsIFxiZWdpbntpdGVtaXplfSBcaXRlbSB0aGUNCj4gPiArZGV2
-aWNlIE1VU1Qgc2V0IFZJUlRJT19ORVRfSVBTRUNfUkVTT1VSQ0VfQ0FQLA0KPiA+IFZJUlRJT19O
-RVRfSVBTRUNfU0FfQ0FQDQo+ID4gK2NhcGFiaWxpdHkgaW4gdGhlIFxmaWVsZHtzdXBwb3J0ZWRf
-Y2Fwc30gaW4gdGhlIGNvbW1hbmQNCj4gPiBWSVJUSU9fQURNSU5fQ01EX0NBUF9TVVBQT1JUX1FV
-RVJZLg0KPiA+ICtcaXRlbSB0aGUgZGV2aWNlIE1VU1Qgc3VwcG9ydCB0aGUgYWRtaW5pc3RyYXRp
-b24gY29tbWFuZHMNCj4gPiArVklSVElPX0FETUlOX0NNRF9SRVNPVVJDRV9PQkpfQ1JFQVRFLA0K
-PiA+ICtWSVJUSU9fQURNSU5fQ01EX1JFU09VUkNFX09CSl9NT0RJRlksDQo+ID4gK1ZJUlRJT19B
-RE1JTl9DTURfUkVTT1VSQ0VfT0JKX1FVRVJZLA0KPiA+ICtWSVJUSU9fQURNSU5fQ01EX1JFU09V
-UkNFX09CSl9ERVNUUk9ZIGZvciB0aGUgcmVzb3VyY2UgdHlwZXMNCj4gPiArVklSVElPX05FVF9S
-RVNPVVJDRV9PQkpfSVBTRUNfT1VUQl9TQSBhbmQNCj4gPiBWSVJUSU9fTkVUX1JFU09VUkNFX09C
-Sl9JUFNFQ19JTkJfU0EuDQo+ID4gK1xlbmR7aXRlbWl6ZX0NCj4gPiArDQo+ID4gK1doZW4gYW55
-IG9mIHRoZSBWSVJUSU9fTkVUX0lQU0VDX1JFU09VUkNFX0NBUCBvcg0KPiA+ICtWSVJUSU9fTkVU
-X0lQU0VDX1NBX0NBUCBjYXBhYmlsaXR5IGlzIGRpc2FibGVkLCB0aGUgZGV2aWNlIE1VU1Qgc2V0
-DQo+ID4gK1xmaWVsZHtzdGF0dXN9IHRvIFZJUlRJT19BRE1JTl9TVEFUVVNfUV9JTlZBTElEX09Q
-Q09ERSBmb3IgdGhlDQo+ID4gY29tbWFuZHMNCj4gPiArVklSVElPX0FETUlOX0NNRF9SRVNPVVJD
-RV9PQkpfQ1JFQVRFLA0KPiA+ICtWSVJUSU9fQURNSU5fQ01EX1JFU09VUkNFX09CSl9NT0RJRlks
-DQo+ID4gK1ZJUlRJT19BRE1JTl9DTURfUkVTT1VSQ0VfT0JKX1FVRVJZLA0KPiA+ICthbmQgVklS
-VElPX0FETUlOX0NNRF9SRVNPVVJDRV9PQkpfREVTVFJPWS4NCj4gPiArDQo+IEV4dGVuZCBhYm92
-ZSBub3JtYXRpdmUgLSBmb3IgdGhlIG9iamVjdCB0eXBlcyBYX1NBIC4uDQpXaWxsIGRvLg0KPiAN
-Cj4gPiArVGhlIGRldmljZSBNVVNUIHNldCBcZmllbGR7c3RhdHVzfSB0byBWSVJUSU9fQURNSU5f
-U1RBVFVTX0VFWElUIGZvcg0KPiA+ICt0aGUgY29tbWFuZCBWSVJUSU9fQURNSU5fQ01EX1JFU09V
-UkNFX09CSl9DUkVBVEUgd2hlbiB0aGUNCj4gPiByZXNvdXJjZQ0KPiA+ICtcZmllbGR7dHlwZX0g
-aXMgVklSVElPX05FVF9SRVNPVVJDRV9PQkpfSVBTRUNfT1VUQl9TQSBvcg0KPiA+ICtWSVJUSU9f
-TkVUX1JFU09VUkNFX09CSl9JUFNFQ19JTkJfU0EsDQo+ID4gK2lmIHRoZSBvYmplY3QgYWxyZWFk
-eSBleGlzdHMgd2l0aCB0aGUgc3VwcGxpZWQgXGZpZWxke2lkfS4NCj4gPiArDQo+ID4gK1RoZSBk
-ZXZpY2UgTVVTVCBzZXQgXGZpZWxke3N0YXR1c30gdG8gVklSVElPX0FETUlOX1NUQVRVU19FQlVT
-WSBmb3INCj4gPiB0aGUNCj4gPiArY29tbWFuZCBWSVJUSU9fQURNSU5fQ01EX1JFU09VUkNFX09C
-Sl9ERVNUUk9ZIHdoZW4gdGhlDQo+ID4gcmVzb3VyY2UNCj4gPiArXGZpZWxke3R5cGV9IGlzIFZJ
-UlRJT19ORVRfUkVTT1VSQ0VfT0JKX0lQU0VDX09VVEJfU0Egb3INCj4gPiArVklSVElPX05FVF9S
-RVNPVVJDRV9PQkpfSVBTRUNfSU5CX1NBLA0KPiA+ICtpZiB0aGUgb2JqZWN0IGlzIGluIHVzZS4N
-Cj4gPiArDQo+ID4gK1RoZSBkZXZpY2UgTVVTVCBmYWlsIHRoZSBjb21tYW5kDQo+ID4gVklSVElP
-X0FETUlOX0NNRF9SRVNPVVJDRV9PQkpfQ1JFQVRFDQo+ID4gK2ZvciB0aGUgVklSVElPX05FVF9S
-RVNPVVJDRV9PQkpfSVBTRUNfT1VUQl9TQSBvYmplY3QgaWYsDQo+ID4gK1xiZWdpbntpdGVtaXpl
-fSBcaXRlbSBcZmllbGR7aWR9IGlzIGdyZWF0ZXIgdGhhbiBvciBlcXVhbCB0bw0KPiA+ICtcZmll
-bGR7b3V0Yl9zYV9saW1pdH0uDQo+ID4gK1xpdGVtIHRoZSBzdXBwbGllZCBTQSBwYXJhbWV0ZXJz
-LCBzdWNoIGFzIG1vZGUsIG9wdGlvbnMsIGNpcGhlciBhbmQNCj4gPiBhdXRoZW50aWNhdGlvbg0K
-PiA+ICsgICAgICBhbGdvcml0aG1zIGFyZSBub3Qgc3VwcG9ydGVkIGluIHRoZSBjYXBhYml0bGl0
-eQ0KPiA+IFZJUlRJT19ORVRfSVBTRUNfU0FfQ0FQLg0KPiA+ICtcZW5ke2l0ZW1pemV9DQo+ID4g
-Kw0KPiA+ICtUaGUgZGV2aWNlIE1VU1QgZmFpbCB0aGUgY29tbWFuZA0KPiA+IFZJUlRJT19BRE1J
-Tl9DTURfUkVTT1VSQ0VfT0JKX0NSRUFURQ0KPiA+ICtmb3IgdGhlIFZJUlRJT19ORVRfUkVTT1VS
-Q0VfT0JKX0lQU0VDX0lOQl9TQSBvYmplY3QgaWYsDQo+ID4gXGJlZ2lue2l0ZW1pemV9DQo+ID4g
-K1xpdGVtIFxmaWVsZHtpZH0gaXMgZ3JlYXRlciB0aGFuIG9yIGVxdWFsIHRvIFxmaWVsZHtpbmJf
-c2FfbGltaXR9Lg0KPiA+ICtcaXRlbSB0aGUgc3VwcGxpZWQgU0EgcGFyYW1ldGVycywgc3VjaCBh
-cyBtb2RlLCBvcHRpb25zLCBjaXBoZXIgYW5kDQo+ID4gYXV0aGVudGljYXRpb24NCj4gPiArICAg
-ICAgYWxnb3JpdGhtcyBhcmUgbm90IHN1cHBvcnRlZCBpbiB0aGUgY2FwYWJpdGxpdHkNCj4gPiBW
-SVJUSU9fTkVUX0lQU0VDX1NBX0NBUC4NCj4gPiArXGVuZHtpdGVtaXplfQ0KPiA+ICsNCj4gPiAr
-VGhlIGRldmljZSBTSE9VTEQgbWFpbnRhaW4gYSB0YWJsZSBmb3Igc3Vic2VxdWVudCBsb29rdXBz
-IHRvDQo+ID4gK2luYm91bmQvb3V0Ym91bmQgZGF0YSB3aXRoIHRoZSBjb3JyZXNwb25kaW5nIFNB
-IGJhc2VkIG9uIHRoZSBzdXBwbGllZA0KPiA+IFxmaWVsZHtpZH0uDQo+ID4gKw0KPiA+ICtUaGUg
-ZGV2aWNlIE1VU1QgYWxsb3cgcmVjcmVhdGluZyB0aGUgcmVzb3VyY2Ugb2JqZWN0cyB1c2luZyB0
-aGUNCj4gPiArY29tbWFuZCBWSVJUSU9fQURNSU5fQ01EX1JFU09VUkNFX09CSl9DUkVBVEUgd2hp
-Y2ggd2FzDQo+IHByZXZpb3VzbHkNCj4gPiBkZXN0cm95ZWQNCj4gPiArdXNpbmcgdGhlIGNvbW1h
-bmQgVklSVElPX0FETUlOX0NNRF9SRVNPVVJDRV9PQkpfREVTVFJPWQ0KPiA+IHJlc3BlY3RpdmVs
-eQ0KPiA+ICt3aXRob3V0IHVuZGVyZ29pbmcgYSBkZXZpY2UgcmVzZXQuDQo+ID4gKw0KPiA+ICtU
-aGUgZGV2aWNlIE1BWSBmYWlsIHRoZSBjb21tYW5kDQo+ID4gVklSVElPX0FETUlOX0NNRF9SRVNP
-VVJDRV9PQkpfQ1JFQVRFDQo+ID4gK3dpdGggdGhlIFxmaWVsZHtzdGF0dXN9IHNldCB0byBWSVJU
-SU9fQURNSU5fU1RBVFVTX0VJTlZBTCBmb3IgdGhlDQo+ID4gK1ZJUlRJT19DUllQVE9fUkVTT1VS
-Q0VfT0JKX0lQU0VDX09VVEJfU0Egb3INCj4gPiArVklSVElPX0NSWVBUT19SRVNPVVJDRV9PQkpf
-SVBTRUNfSU5CX1NBDQo+ID4gK2NvbW1hbmRzIGlmIHRoZSByZXNvdXJjZSBvYmplY3Qgd2l0aCB0
-aGUgc2FtZSBcZmllbGR7c3BpfSBhbHJlYWR5IGV4aXN0cy4NCj4gPiArDQo+ID4gK09uIGRldmlj
-ZSByZXNldCwgdGhlIGRldmljZSBNVVNUIGRlc3Ryb3kgYWxsIHRoZSByZXNvdXJjZSBvYmplY3Rz
-DQo+ID4gK3doaWNoDQo+ID4gaGF2ZSBiZWVuIGNyZWF0ZWQuDQo+ID4gKw0KPiA+ICtcZHJpdmVy
-bm9ybWF0aXZle1xwYXJhZ3JhcGh9e0lQc2VjIE9wZXJhdGlvbn17RGV2aWNlIFR5cGVzIC8gTmV0
-DQo+ID4gK0RldmljZSAvIERldmljZSBPcGVyYXRpb24gLyBJUHNlYyBPcGVyYXRpb259DQo+ID4g
-Kw0KPiA+ICtUaGUgZHJpdmVyIE1VU1QgcXVlcnkgdGhlIGNhcGFiaWxpdGllcyB1c2luZw0KPiA+
-ICtWSVJUSU9fQURNSU5fQ01EX0NBUF9JRF9MSVNUX1FVRVJZDQo+ID4gK3RvIGRpc2NvdmVyIHRo
-ZSBjYXBhYmlsaXR5IHR5cGVzIHRoZSBkZXZpY2Ugb2ZmZXJzLg0KPiA+ICsNCj4gPiArVGhlIGRy
-aXZlciBNVVNUIGdldCBWSVJUSU9fTkVUX0lQU0VDX1JFU09VUkNFX0NBUCBhbmQNCj4gPiArVklS
-VElPX05FVF9JUFNFQ19TQV9DQVAgaWYgbGlzdGVkIGluDQo+ID4gVklSVElPX0FETUlOX0NNRF9D
-QVBfSURfTElTVF9RVUVSWQ0KPiA+ICtjb21tYW5kIHJlc3VsdCwgdXNpbmcgVklSVElPTl9BRE1J
-Tl9DTURfREVWSUNFX0NBUF9HRVQgdG8NCj4gPiBkaXNjb3ZlciB0aGUNCj4gPiArY2FwYWJpbGl0
-aWVzIHRoZSBkZXZpY2UgaXMgYWJsZSB0byBvZmZlci4NCj4gPiArVGhlIGRyaXZlciBNVVNUIHNl
-dCBWSVJUSU9fTkVUX0lQU0VDX1JFU09VUkNFX0NBUCBhbmQNCj4gPiArVklSVElPX05FVF9JUFNF
-Q19TQV9DQVAgdXNpbmcgVklSVElPX0FETUlOX0NNRF9ERVZJQ0VfQ0FQX1NFVA0KPiA+IHRvDQo+
-ID4gK2luZGljYXRlIHRoZSBkZXZpY2Ugd2hpY2ggY2FwYWJpbGl0eSB0aGUgZHJpdmVyIHVzZXMu
-DQo+ID4gKw0KPiA+ICtGb3IgdGhlIGNvbW1hbmQgVklSVElPX0FETUlOX0NNRF9SRVNPVVJDRV9P
-QkpfQ1JFQVRFLCB3aGVuDQo+ID4gY3JlYXRpbmcgYQ0KPiA+ICtyZXNvdXJjZSBWSVJUSU9fTkVU
-X1JFU09VUkNFX09CSl9JUFNFQ19PVVRCX1NBLCB0aGUgZHJpdmVyIE1VU1QNCj4gPiBzZXQgYWxs
-DQo+ID4gK3RoZSBwYXJhbWV0ZXJzIGluIFxmaWVsZCBzdHJ1Y3QgdmlydGlvX2NyeXB0b19yZXNv
-dXJjZV9vYmpfaXBzZWNfc2ENCj4gPiArd2l0aA0KPiA+IHJlbGV2YW50IHZhbHVlcy4NCj4gXGZp
-ZWxkIHtzdHJ1Y3QgLi59Lg0KPiBQbGVhc2UgY2hlY2sgb3RoZXIgcGxhY2VzIGluIHRoZSBzZXJp
-ZXMuDQpXaWxsIGRvLg0KPiANCj4gPiArQW5kIHdoZW4gY3JlYXRlIGEgcmVzb3VyY2Ugb2JqZWN0
-DQo+ID4gVklSVElPX05FVF9SRVNPVVJDRV9PQkpfSVBTRUNfSU5CX1NBLA0KPiA+ICt0aGUgZHJp
-dmVyIE1VU1Qgc2V0IGFsbCB0aGUgcGFyYW1ldGVycyBleGNlcHQgXGZpZWxkIHN0cnVjdA0KPiA+
-ICt2aXJ0aW9fY3J5cHRvX2lwc2VjX3R1bm5lbF9wYXJhbS4NCj4gDQo+IFxmaWVsZCB7c3RydWN0
-IC4ufSAuDQo+ID4gKw0KPiA+ICtUaGUgZHJpdmVyIFNIT1VMRCBOT1QgYWRkIG11bHRpcGxlIGlu
-Ym91bmQgU0Egb2JqZWN0cyB3aXRoIHRoZSBzYW1lDQo+ID4gXGZpZWxke3NwaX0uDQo+ID4gKw0K
-PiA+ICBcc3Vic3Vic2VjdGlvbntMZWdhY3kgSW50ZXJmYWNlOiBGcmFtaW5nDQo+ID4gUmVxdWly
-ZW1lbnRzfVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzIC8gTmV0d29yayBEZXZpY2UgLyBMZWdhY3kN
-Cj4gPiBJbnRlcmZhY2U6IEZyYW1pbmcgUmVxdWlyZW1lbnRzfQ0KPiA+DQo+ID4gZGlmZiAtLWdp
-dCBhL2RldmljZS10eXBlcy9uZXQvZGV2aWNlLWNvbmZvcm1hbmNlLnRleCBiL2RldmljZS0NCj4g
-PiB0eXBlcy9uZXQvZGV2aWNlLWNvbmZvcm1hbmNlLnRleCBpbmRleCBkODg0ODRjLi43ZmU4NTA1
-IDEwMDY0NA0KPiA+IC0tLSBhL2RldmljZS10eXBlcy9uZXQvZGV2aWNlLWNvbmZvcm1hbmNlLnRl
-eA0KPiA+ICsrKyBiL2RldmljZS10eXBlcy9uZXQvZGV2aWNlLWNvbmZvcm1hbmNlLnRleA0KPiA+
-IEBAIC0xOCw0ICsxOCw1IEBADQo+ID4gIFxpdGVtIFxyZWZ7ZGV2aWNlbm9ybWF0aXZlOkRldmlj
-ZSBUeXBlcyAvIE5ldHdvcmsgRGV2aWNlIC8gRGV2aWNlDQo+ID4gT3BlcmF0aW9uIC8gQ29udHJv
-bCBWaXJ0cXVldWUgLyBEZXZpY2UgU3RhdGlzdGljc30gIFxpdGVtDQo+ID4gXHJlZntkZXZpY2Vu
-b3JtYXRpdmU6RGV2aWNlIFR5cGVzIC8gTmV0d29yayBEZXZpY2UgLyBEZXZpY2UgT3BlcmF0aW9u
-DQo+ID4gLyBDb250cm9sIFZpcnRxdWV1ZSAvIFJTUyBDb250ZXh0fSAgXGl0ZW0gXHJlZntkZXZp
-Y2Vub3JtYXRpdmU6RGV2aWNlDQo+ID4gVHlwZXMgLyBOZXR3b3JrIERldmljZSAvIERldmljZSBP
-cGVyYXRpb24gLyBGbG93IGZpbHRlcn0NCj4gPiArXGl0ZW0gXHJlZntkZXZpY2Vub3JtYXRpdmU6
-RGV2aWNlIFR5cGVzIC8gTmV0d29yayBEZXZpY2UgLyBEZXZpY2UNCj4gPiArT3BlcmF0aW9uIC8g
-SVBzZWMgT3BlcmF0aW9ufQ0KPiA+ICBcZW5ke2l0ZW1pemV9DQo+ID4gZGlmZiAtLWdpdCBhL2Rl
-dmljZS10eXBlcy9uZXQvZHJpdmVyLWNvbmZvcm1hbmNlLnRleCBiL2RldmljZS0NCj4gPiB0eXBl
-cy9uZXQvZHJpdmVyLWNvbmZvcm1hbmNlLnRleCBpbmRleCBkMzQ2Yjg4Li4wZDIwMTkwIDEwMDY0
-NA0KPiA+IC0tLSBhL2RldmljZS10eXBlcy9uZXQvZHJpdmVyLWNvbmZvcm1hbmNlLnRleA0KPiA+
-ICsrKyBiL2RldmljZS10eXBlcy9uZXQvZHJpdmVyLWNvbmZvcm1hbmNlLnRleA0KPiA+IEBAIC0x
-OCw0ICsxOCw1IEBADQo+ID4gIFxpdGVtIFxyZWZ7ZHJpdmVybm9ybWF0aXZlOkRldmljZSBUeXBl
-cyAvIE5ldHdvcmsgRGV2aWNlIC8gRGV2aWNlDQo+ID4gT3BlcmF0aW9uIC8gQ29udHJvbCBWaXJ0
-cXVldWUgLyBEZXZpY2UgU3RhdGlzdGljc30gIFxpdGVtDQo+ID4gXHJlZntkcml2ZXJub3JtYXRp
-dmU6RGV2aWNlIFR5cGVzIC8gTmV0d29yayBEZXZpY2UgLyBEZXZpY2UgT3BlcmF0aW9uDQo+ID4g
-LyBDb250cm9sIFZpcnRxdWV1ZSAvIFJTUyBDb250ZXh0fSAgXGl0ZW0gXHJlZntkcml2ZXJub3Jt
-YXRpdmU6RGV2aWNlDQo+ID4gVHlwZXMgLyBOZXR3b3JrIERldmljZSAvIERldmljZSBPcGVyYXRp
-b24gLyBGbG93IGZpbHRlcn0NCj4gPiArXGl0ZW0gXHJlZntkcml2ZXJub3JtYXRpdmU6RGV2aWNl
-IFR5cGVzIC8gTmV0d29yayBEZXZpY2UgLyBEZXZpY2UNCj4gPiArT3BlcmF0aW9uIC8gSVBzZWMg
-T3BlcmF0aW9ufQ0KPiA+ICBcZW5ke2l0ZW1pemV9DQo+ID4gLS0NCj4gPiAyLjI1LjENCg0KVGhh
-bmtzLg0K
+Hi Matias,
+
+On Tue, Dec 3, 2024 at 10:35=E2=80=AFAM Matias Ezequiel Vara Larsen
+<mvaralar@redhat.com> wrote:
+>
+> Hello Albert,
+>
+> I added some minor comments below. I may need to read it again since
+> there are some points that I did not understand completely.
+>
+> On Thu, Nov 07, 2024 at 04:49:30PM +0100, Albert Esteve wrote:
+> > Virtio-media is an encapsulation of the V4L2 UAPI into
+> > virtio, able to virtualize any video device supported
+> > by V4L2.
+> >
+> > Note that virtio-media does not require the use of a
+> > V4L2 device driver on the host or guest side -
+> > V4L2 is only used as a host-guest protocol,
+> > and both sides are free to convert it from/to any
+> > model that they wish to use.
+> >
+> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> > ---
+> >  conformance.tex                           |  13 +-
+> >  content.tex                               |   1 +
+> >  device-types/media/description.tex        | 575 ++++++++++++++++++++++
+> >  device-types/media/device-conformance.tex |  10 +
+> >  device-types/media/driver-conformance.tex |   8 +
+> >  5 files changed, 603 insertions(+), 4 deletions(-)
+> >  create mode 100644 device-types/media/description.tex
+> >  create mode 100644 device-types/media/device-conformance.tex
+> >  create mode 100644 device-types/media/driver-conformance.tex
+> >
+> > diff --git a/conformance.tex b/conformance.tex
+> > index dc00e84..c369da1 100644
+> > --- a/conformance.tex
+> > +++ b/conformance.tex
+> > @@ -32,8 +32,10 @@ \section{Conformance Targets}\label{sec:Conformance =
+/ Conformance Targets}
+> >  \ref{sec:Conformance / Driver Conformance / Memory Driver Conformance}=
+,
+> >  \ref{sec:Conformance / Driver Conformance / I2C Adapter Driver Conform=
+ance},
+> >  \ref{sec:Conformance / Driver Conformance / SCMI Driver Conformance},
+> > -\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance} o=
+r
+> > -\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance}.
+> > +\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance},
+> > +\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance} o=
+r
+> > +\ref{sec:Conformance / Driver Conformance / Media Driver Conformance}.
+> > +
+> >
+> >      \item Clause \ref{sec:Conformance / Legacy Interface: Transitional=
+ Device and Transitional Driver Conformance}.
+> >    \end{itemize}
+> > @@ -59,8 +61,9 @@ \section{Conformance Targets}\label{sec:Conformance /=
+ Conformance Targets}
+> >  \ref{sec:Conformance / Device Conformance / Memory Device Conformance}=
+,
+> >  \ref{sec:Conformance / Device Conformance / I2C Adapter Device Conform=
+ance},
+> >  \ref{sec:Conformance / Device Conformance / SCMI Device Conformance},
+> > -\ref{sec:Conformance / Device Conformance / GPIO Device Conformance} o=
+r
+> > -\ref{sec:Conformance / Device Conformance / PMEM Device Conformance}.
+> > +\ref{sec:Conformance / Device Conformance / GPIO Device Conformance},
+> > +\ref{sec:Conformance / Device Conformance / PMEM Device Conformance} o=
+r
+> > +\ref{sec:Conformance / Device Conformance / Media Device Conformance}.
+> >
+> >      \item Clause \ref{sec:Conformance / Legacy Interface: Transitional=
+ Device and Transitional Driver Conformance}.
+> >    \end{itemize}
+> > @@ -152,6 +155,7 @@ \section{Conformance Targets}\label{sec:Conformance=
+ / Conformance Targets}
+> >  \input{device-types/scmi/driver-conformance.tex}
+> >  \input{device-types/gpio/driver-conformance.tex}
+> >  \input{device-types/pmem/driver-conformance.tex}
+> > +\input{device-types/media/driver-conformance.tex}
+> >
+> >  \conformance{\section}{Device Conformance}\label{sec:Conformance / Dev=
+ice Conformance}
+> >
+> > @@ -238,6 +242,7 @@ \section{Conformance Targets}\label{sec:Conformance=
+ / Conformance Targets}
+> >  \input{device-types/scmi/device-conformance.tex}
+> >  \input{device-types/gpio/device-conformance.tex}
+> >  \input{device-types/pmem/device-conformance.tex}
+> > +\input{device-types/media/device-conformance.tex}
+> >
+> >  \conformance{\section}{Legacy Interface: Transitional Device and Trans=
+itional Driver Conformance}\label{sec:Conformance / Legacy Interface: Trans=
+itional Device and Transitional Driver Conformance}
+> >  A conformant implementation MUST be either transitional or
+> > diff --git a/content.tex b/content.tex
+> > index 0a62dce..59925ae 100644
+> > --- a/content.tex
+> > +++ b/content.tex
+> > @@ -767,6 +767,7 @@ \chapter{Device Types}\label{sec:Device Types}
+> >  \input{device-types/scmi/description.tex}
+> >  \input{device-types/gpio/description.tex}
+> >  \input{device-types/pmem/description.tex}
+> > +\input{device-types/media/description.tex}
+> >
+> >  \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+> >
+> > diff --git a/device-types/media/description.tex b/device-types/media/de=
+scription.tex
+> > new file mode 100644
+> > index 0000000..d20d2f6
+> > --- /dev/null
+> > +++ b/device-types/media/description.tex
+> > @@ -0,0 +1,575 @@
+> > +\section{Media Device}\label{sec:Device Types / Media Device}
+> > +
+> > +The virtio media device follows the same model (and structures) as V4L=
+2. It
+> > +can be used to virtualize cameras, codec devices, or any other device
+> > +supported by V4L2. The complete definition of V4L2 structures and ioct=
+ls can
+> > +be found under the
+> > +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/index=
+.html}{V4L2 UAPI documentation}.
+> > +
+> > +V4L2 is a UAPI that allows a less privileged entity (user-space) to us=
+e video
+> > +hardware exposed by a more privileged entity (the kernel). Virtio-medi=
+a is an
+> > +encapsulation of this API into virtio, turning it into a virtualizatio=
+n API
+> > +for all classes of video devices supported by V4L2, where the device p=
+lays the
+> > +role of the kernel and the driver the role of user-space.
+> > +
+> > +The device is therefore responsible for presenting a virtual device th=
+at behaves
+> > +like an actual V4L2 device, which the driver can control.
+> > +
+> > +Note that virtio-media does not require the use of a V4L2 device drive=
+r or of
+> > +Linux on any side - V4L2 is only used as a transport protocol,
+> > +and both sides are free to convert it from/to any model that they wish=
+ to use.
+> > +
+> > +\subsection{Device ID}\label{sec:Device Types / Media Device / Device =
+ID}
+> > +
+> > +48
+> > +
+> > +\subsection{Virtqueues}\label{sec:Device Types / Media Device / Virtqu=
+eues}
+> > +
+> > +\begin{description}
+> > +\item[0] commandq - used for driver commands and device responses to t=
+hese
+> > +commands.
+> > +\item[1] eventq - used for events sent by the device to the driver.
+> > +\end{description}
+> > +
+> > +\subsection{Feature Bits}\label{sec:Device Types / Media Device / Feat=
+ure Bits}
+> > +
+> > +None
+> > +
+> > +\subsection{Device Configuration Layout}\label{sec:Device Types / Medi=
+a Device / Device Configuration Layout}
+> > +
+> > +The video device configuration space uses the following layout:
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_media_config {
+> > +    le32 device_caps;
+> > +    le32 device_type;
+> > +    le8 card[32];
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\begin{description}
+> > +\item[\field{device_caps}] (driver-read-only) flags representing the d=
+evice
+> > +capabilities as used in
+> > +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/v=
+idioc-querycap.html#c.V4L.v4l2_capability}{struct v4l2_capability}.
+> > +It corresponds with the \field{device_caps} field in the \textit{struc=
+t video_device}.
+> > +\item[\field{device_type}] (driver-read-only) informs the driver of th=
+e type
+> > +of the video device. It corresponds with the \field{vfl_devnode_type} =
+field of the device.
+> > +\item[\field{card}] (driver-read-only) name of the device, a NUL-termi=
+nated
+> > +UTF-8 string. It corresponds with the \field{card} field of the \texti=
+t{struct v4l2_capability}.
+> > +If all the characters of the field are used, it does not need to be NU=
+L-terminated.
+> > +\end{description}
+> > +
+> > +\subsection{Device Initialization}
+> > +
+>
+> Just to clarify, I would add a sentence here like:
+> `A driver executes the following sequence to initialize a device:`
+>
+> > +\begin{enumerate}
+> > +\item Read the \field{device_caps} and \field{device_type} fields
+> > +from the configuration layout to identify the device.
+> > +\item Set up the \field{commandq} and \field{eventq}.
+>
+> Maybe add `... \field{commandq} and \field{eventq} virtqueues`.
+>
+> > +\item May open a session (see Section \ref{sec:Device Operation: Comma=
+nd Virtqueue: Sessions})
+> > +to use the device and send V4L2 ioctls in order to receive more inform=
+ation
+> > +about the device, such as supported formats or controls.
+> > +\end{enumerate}
+> > +
+> > +\subsection{Device Operation}\label{sec:Device Types / Media Device / =
+Device Operation}
+> > +
+> > +Commands are queued on the command queue by the driver for the device =
+to
+> > +process. The errors returned by each command are standard
+>
+> I would rewrite it as below but I do not have a strong opinion:
+>
+> `The driver enqueues commands in the command queue for the device to
+> process them.`
+>
+> > +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/gen-e=
+rrors.html}{Linux kernel error codes}.
+> > +For instance, a command that contains invalid options will return \tex=
+tit{EINVAL}.
+> > +
+>
+> I think here is not the command that returns EINVAL but the device when
+> trying to process a command that has an invalid option.
+>
+> > +Events are sent on the event queue by the device for the driver to han=
+dle.
+>
+> I would rewrite it as below but I do not have a strong opinion:
+>
+> `The device enqueues events in the event queue for the driver to process
+> them.`
+>
+> > +
+> > +\subsubsection{Command Virtqueue}
+> > +
+> > +\paragraph{Device Operation: Command headers}
+> > +
+> > +\begin{lstlisting}
+> > +#define VIRTIO_MEDIA_CMD_OPEN 1
+> > +#define VIRTIO_MEDIA_CMD_CLOSE 2
+> > +#define VIRTIO_MEDIA_CMD_IOCTL 3
+> > +#define VIRTIO_MEDIA_CMD_MMAP 4
+> > +#define VIRTIO_MEDIA_CMD_MUNMAP 5
+> > +
+> > +/* Header for all virtio commands from the driver to the device on the=
+ commandq. */
+> > +struct virtio_media_cmd_header {
+> > +     le32 cmd;
+> > +     le32 __reserved;
+> > +};
+> > +
+> > +/* Header for all virtio responses from the device to the driver on th=
+e commandq. */
+> > +struct virtio_media_resp_header {
+> > +     le32 status;
+> > +     le32 __reserved;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +A command consists of a command header \textit{virtio_media_cmd_header=
+}
+> > +containing the following device-readable field:
+> > +
+> > +\begin{description}
+> > +\item[\field{cmd}] specifies a device request type (VIRTIO_MEDIA_CMD_*=
+).
+> > +\end{description}
+> > +
+> > +A response consists of a response header \textit{virtio_media_resp_hea=
+der}
+> > +containing the following device-writable field:
+> > +
+> > +\begin{description}
+> > +\item[\field{status}] indicates a device request status.
+> > +\end{description}
+> > +
+> > +The status field can take 0 if the command was successful, or one of t=
+he
+> > +standard Linux error codes if it was not.
+>
+> I would rewrite it as but I do not have a strong opinion about it:
+>
+> `When the device executes the command successfully, the value of the stat=
+us
+> field is 0. When the device fails to execute the command, the value of
+> the status field is one of the standard Linux error codes.`
+>
+> > +
+> > +\drivernormative{\paragraph}{Device Operation: Command Virtqueue: Sess=
+ions}{Device Types / Media Device / Device Operation / Command Virtqueue}
+> > +
+> > +Sessions are how the device is multiplexed, allowing several distinct =
+works to
+> > +take place simultaneously. Before start operating, the driver needs to=
+ open a
+> > +session. This is equivalent to opening the \textit{/dev/videoX} file o=
+f the
+> > +V4L2 device. Each session gets a unique ID assigned, which can be then=
+ used
+> > +to perform actions on it.
+> > +
+> > +\paragraph{Device Operation: Open device}
+> > +
+> > +\textbf{VIRTIO_MEDIA_CMD_OPEN} Command for creating a new session.
+> > +
+> > +This is the equivalent of calling \textit{open} on a V4L2 device node.
+> > +The driver uses \textit{virtio_media_cmd_open} to send an open request=
+.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_media_cmd_open {
+> > +    struct virtio_media_cmd_header hdr;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +The device responds to \textit{VIRTIO_MEDIA_CMD_OPEN} with \textit{vir=
+tio_media_resp_open}.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_media_resp_open {
+> > +    struct virtio_media_resp_header hdr;
+> > +    le32 session_id;
+> > +    le32 __reserved;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\begin{description}
+> > +\item[\field{session_id}] identifies the current session, which is use=
+d for
+> > +other commands, predominantly ioctls.
+> > +\end{description}
+> > +
+> > +\devicenormative{\subparagraph}{Device Operation: Open device}{Device =
+Types / Media Device / Device Operation / Open device}
+> > +
+> > +Upon success, the device MUST set a \field{session_id} in \textit{virt=
+io_media_resp_open}
+> > +to an integer that is NOT used by any other open session.
+> > +
+> > +\paragraph{Device Operation: Close device}
+> > +
+> > +\textbf{VIRTIO_MEDIA_CMD_CLOSE} Command for closing an active session.
+> > +
+> > +This is the equivalent of calling \textit{close} on a previously opene=
+d V4L2
+> > +device node. All resources associated with this session will be freed.
+> > +
+> > +This command does not require a response from the device.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_media_cmd_close {
+> > +    struct virtio_media_cmd_header hdr;
+> > +    le32 session_id;
+> > +    le32 __reserved;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\begin{description}
+> > +\item[\field{session_id}] specifies an identifier for the session to c=
+lose.
+>
+> I would rewrite it shorter as:
+>
+> `session_id identifies the session to close.`
+>
+> > +\end{description}
+> > +
+> > +\drivernormative{\subparagraph}{Device Operation: Close device}{Device=
+ Types / Media Device / Device Operation / Close device}
+> > +
+> > +The session ID SHALL NOT be used again after queueing this command.
+> > +
+> > +\paragraph{Device Operation: V4L2 ioctls}
+> > +
+> > +\textbf{VIRTIO_MEDIA_CMD_IOCTL} Command for executing an ioctl on an o=
+pen
+> > +session.
+> > +
+> > +This command tells the device to run one of the `VIDIOC_*` ioctls on t=
+he
+> > +session identified by \textit{session_id}.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_media_cmd_ioctl {
+> > +    struct virtio_media_cmd_header hdr;
+> > +    le32 session_id;
+> > +    le32 code;
+> > +    /* Followed by the relevant ioctl payload as defined in the macro =
+*/
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\begin{description}
+> > +\item[\field{session_id}] identifies the session to run the ioctl on.
+> > +\item[\field{code}] specifies the code of the \field{VIDIOC_*} ioctl t=
+o run.
+> > +\end{description}
+> > +
+> > +The code is extracted from the
+> > +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/v=
+ideodev.html}{videodev2.h},
+> > +header file. The file defines the ioctl's codes, type of payload, and
+> > +direction. The code consists of the second argument of the \field{_IO*=
+} macro.
+> > +
+> > +For example, the \textit{VIDIOC_G_FMT} is defined as follows:
+> > +
+> > +\begin{lstlisting}
+> > +#define VIDIOC_G_FMT _IOWR('V',  4, struct v4l2_format)
+> > +\end{lstlisting}
+> > +
+> > +This means that its ioctl code is \textit{4}, its payload is a
+> > +\textit{struct v4l2_format}, and its direction is \textit{WR} (i.e., t=
+he
+> > +payload is written by both the driver and the device).
+> > +See Section \ref{sec:Device Types / Media Device / V4L2 ioctls / Ioctl=
+s payload}
+> > +for more information about the direction of ioctls.
+> > +Note that although most architectures use this format, there
+> > +are some architecture-specific encoding differences.
+> > +See \textit{include/ARCH/ioctl.h} for more details.
+> > +
+> > +The payload struct layout always matches the 64-bit, little-endian
+> > +representation of the corresponding V4L2 structure. For most structs, =
+the
+> > +size is identical for both 32 and 64 bits versions. Otherwise, the dri=
+ver
+> > +must translate them to the aforementioned size and endianess.
+> > +
+> > +The device responds to \textit{VIRTIO_MEDIA_CMD_IOCTL} with \textit{vi=
+rtio_media_resp_ioctl}.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_media_resp_ioctl {
+> > +    struct virtio_media_resp_header hdr;
+> > +    /* Followed by the ioctl payload as defined in the macro */
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\subparagraph{Ioctls payload}\label{sec:Device Types / Media Device / =
+V4L2 ioctls / Ioctls payload}
+> > +
+> > +Each ioctl has a payload, which is defined by the third argument of th=
+e
+> > +\field{_IO*} macro.
+> > +
+> > +The payload of an ioctl in the descriptor chain follows the command st=
+ructure,
+> > +the response structure, or both depending on the direction:
+> > +
+> > +\begin{itemize}
+> > +\item \textbf{_IOR} is read-only for the driver, meaning the payload
+> > +follows the response in the device-writable section of the descriptor =
+chain.
+> > +\item \textbf{_IOW} is read-only for the device, meaning the payload
+> > +follows the command in the driver-writable section of the descriptor c=
+hain.
+> > +\item \textbf{_IOWR} is writable by both the device and driver,
+> > +meaning the payload must follow both the command in the driver-writabl=
+e section
+> > +of the descriptor chain, and the response in the device-writable secti=
+on.
+> > +\end{itemize}
+> > +
+> > +A common optimization for \textit{WR} ioctls is to provide the payload=
+ using
+> > +descriptors that both point to the same buffer. This mimics the behavi=
+or of
+> > +V4L2 ioctls where the data is only passed once and used as both input =
+and
+> > +output by the kernel.
+> > +
+> > +\devicenormative{\subparagraph}{Device Operation: V4L2 ioctls}{Device =
+Types / Media Device / Device Operation / V4L2 ioctls}
+> > +
+> > +In case of success of a device-writable ioctl, the device MUST always =
+write the
+> > +payload in the device-writable part of the descriptor chain.
+> > +
+> > +In case of failure of a device-writable ioctl, the device is free to w=
+rite the
+> > +payload in the device-writable part of the descriptor chain or not. So=
+me errors
+> > +may still result in the payload being updated, and in this case the de=
+vice is
+> > +expected to write the updated payload. If the device has not written t=
+he
+> > +payload after an error (i.e., only the header is returned), the driver=
+ MUST
+> > +assume that the payload has not been modified.
+> > +
+> > +\subparagraph{Handling of pointers in ioctl payload}
+> > +
+> > +A few structures used as ioctl payloads contain pointers to further
+> > +data needed for the ioctl. There are notably:
+> > +
+> > +\begin{itemize}
+> > +\item The \field{planes} pointer of
+>
+> Do you mean `points to`?
+
+Here we specify the type ""of"" the data the pointer is pointing to. I
+feel this construction is correct as is, although 'points to' would
+mean the same, and be equally valid. I will keep it as is unless there
+is a strong preference.
+
+
+>
+> > +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/b=
+uffer.html#struct-v4l2-buffer}{struct v4l2_buffer},
+> > +which size is determined by the length member.
+> > +\item The \field{controls} pointer of \textit{struct v4l2_ext_controls=
+}, which
+> > +size is determined by the count member.
+> > +\end{itemize}
+> > +
+> > +If the size of the pointed area is determined to be non-zero, then the=
+ main
+> > +payload is immediately followed by the pointed data in their order of
+> > +appearance in the structure, and the pointer value itself is ignored b=
+y the
+> > +device, which must also return the value initially passed by the drive=
+r.
+> > +
+> > +\subparagraph{Handling of pointers to userspace memory}
+> > +\label{sec:Device Types / Media Device / V4L2 ioctls / Userspace memor=
+y}
+> > +
+> > +A few pointers are special in that they point to userspace memory in t=
+he
+> > +original V4L2 specification. They are:
+> > +
+> > +\begin{itemize}
+> > +\item The \field{m.userptr} member of \textit{struct v4l2_buffer} and
+> > +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/b=
+uffer.html#struct-v4l2-plane}{struct v4l2_plane}
+> > +(technically an unsigned long, but designated a userspace address).
+> > +\item The \field{ptr} member of \textit{struct v4l2_ext_ctrl}.
+> > +\end{itemize}
+> > +
+> > +These pointers can cover large areas of scattered memory, which has th=
+e
+> > +potential to require more descriptors than the virtio queue can provid=
+e. For
+> > +these particular pointers only, a list of \textit{struct virtio_media_=
+sg_entry}
+> > +that covers the needed amount of memory for the pointer is used instea=
+d of
+> > +using descriptors to map the pointed memory directly.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_media_sg_entry {
+> > +     le64 start;
+> > +     le32 len;
+> > +     le32 __reserved;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +For each such pointer to read, the device reads as many SG entries as =
+needed
+> > +to cover the length of the pointed buffer, as described by its parent
+> > +structure (\field{length} member of \textit{struct v4l2_buffer} or
+> > +\textit{struct v4l2_plane} for buffer memory, and \field{size} member =
+of
+> > +\textit{struct v4l2_ext_control} for control data).
+> > +
+> > +Since the device never needs to modify the list of SG entries, it is o=
+nly
+> > +provided by the driver in the device-readable section of the descripto=
+r chain,
+> > +and not repeated in the device-writable section, even for WR ioctls.
+> > +
+> > +\subparagraph{Unsupported ioctls}
+> > +
+> > +A few ioctls are replaced by other, more suitable mechanisms.
+> > +
+> > +\begin{itemize}
+> > +\item \textit{VIDIOC_QUERYCAP} is replaced by reading the configuratio=
+n area
+> > +(see \ref{sec:Device Types / Media Device / Device Configuration Layou=
+t}).
+> > +\item \textit{VIDIOC_DQBUF} is replaced by a dedicated event
+> > +(see \ref{sec:Device Types / Media Device / Device Operation / Dequeue=
+ buffer}).
+> > +\item \textit{VIDIOC_DQEVENT} is replaced by a dedicated event
+> > +(see \ref{sec:Device Types / Media Device / Device Operation / Emit an=
+ event}).
+> > +\item \textit{VIDIOC_G_JPEGCOMP} and \textit{VIDIOC_S_JPEGCOMP} are de=
+precated
+> > +and replaced by the controls of the JPEG class.
+> > +\item \textit{VIDIOC_LOG_STATUS} is a driver-only operation and shall =
+not be
+> > +implemented by the device.
+> > +\end{itemize}
+> > +
+> > +\devicenormative{\subparagraph}{Device Operation: Unsupported ioctls}{=
+Device Types / Media Device / Device Operation / Unsupported ioctls}
+> > +
+> > +When a request is not supported, the device MUST return \textit{ENOTTY=
+},
+> > +which corresponds with the response for unknown ioctls.
+> > +
+> > +\paragraph{Device Operation: Mapping a MMAP buffer}
+> > +
+> > +\textbf{VIRTIO_MEDIA_CMD_MMAP} Command for mapping a MMAP buffer into =
+the
+> > +driver's address space.
+> > +
+> > +Shared memory region ID 0 is used to map MMAP buffers with
+> > +the \textit{VIRTIO_MEDIA_CMD_MMAP} command.
+> > +
+> > +\begin{lstlisting}
+> > +#define VIRTIO_MEDIA_MMAP_FLAG_RW (1 << 0)
+> > +
+> > +struct virtio_media_cmd_mmap {
+> > +     struct virtio_media_cmd_header hdr;
+> > +     le32 session_id;
+> > +     le32 flags;
+> > +     le32 offset;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\begin{description}
+> > +\item[\field{flags}] is the set of flags for the mapping. \field{VIRTI=
+O_MEDIA_MMAP_FLAG_RW}
+> > +can be set if a read-write mapping is desired. Without this flag the m=
+apping
+> > +will be read-only.
+> > +\item[\field{offset}] corresponds to the \field{mem_offset} field of t=
+he
+> > +\textit{union v4l2_plane} for the plane to map. This field can be obta=
+ined
+> > +using the \textit{VIDIOC_QUERYBUF} ioctl.
+> > +\end{description}
+> > +
+> > +The device responds to \textit{VIRTIO_MEDIA_CMD_MMAP} with \textit{vir=
+tio_media_resp_mmap}.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_media_resp_mmap {
+> > +    struct virtio_media_resp_header hdr;
+> > +    le64 driver_addr;
+> > +    le64 len;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\begin{description}
+> > +\item[\field{driver_addr}] offset into SHM region ID 0 of the start of=
+ the mapping.
+> > +\item[\field{len}] length of the mapping as indicated by the \textit{s=
+truct v4l2_plane}
+> > +the buffer belongs to.
+> > +\end{description}
+> > +
+> > +\paragraph{Device Operation: Unmapping a MMAP buffer}
+> > +
+> > +\textbf{VIRTIO_MEDIA_CMD_MUNMAP} Unmap a MMAP buffer previously mapped=
+ using \field{VIRTIO_MEDIA_CMD_MMAP}.
+> > +
+>
+> s/Unmap/unmaps
+>
+> > +\begin{lstlisting}
+> > +struct virtio_media_cmd_munmap {
+> > +    struct virtio_media_cmd_header hdr;
+> > +    le64 driver_addr;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\begin{description}
+> > +\item[\field{driver_addr}] offset into SHM region ID 0 previously retu=
+rned by
+> > +\textit{VIRTIO_MEDIA_CMD_MMAP} at which the buffer has been previously=
+ mapped.
+> > +\end{description}
+> > +
+> > +The device responds to \textit{VIRTIO_MEDIA_CMD_MUNMAP} with \textit{v=
+irtio_media_resp_munmap}.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_media_resp_munmap {
+> > +    struct virtio_media_resp_header hdr;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\devicenormative{\subparagraph}{Device Operation: Unmapping a MMAP buf=
+fer}{Device Types / Media Device / Device Operation / Unmapping a MMAP buff=
+er}
+> > +
+> > +The device MUST keep mappings performed using \textit{VIRTIO_MEDIA_CMD=
+_MMAP}
+> > +valid until \textit{VIRTIO_MEDIA_CMD_MUNMAP} is called, even if the bu=
+ffers or
+> > +session they belong to are released or closed by the driver.
+> > +
+> > +\paragraph{Device Operation: Memory Types}
+> > +
+> > +The semantics of the three V4L2 memory types (\textit{MMAP}, \textit{U=
+SERPTR}
+> > +and \textit{DMABUF}) can easily be mapped to both driver and device co=
+ntext.
+> > +
+> > +However, the driver shall only advertise support for \textit{MMAP} and
+> > +\textit{DMABUF} to the guest userspace. \textit{USERPTR} is merely emp=
+loyed to
+> > +discern \textit{SHARED_PAGES} buffers, similar to how \textit{DMABUF} =
+is used
+> > +to signify \textit{VIRTIO_OBJECT} buffers in the driver and device con=
+text.
+> > +
+> > +\subparagraph{MMAP}
+> > +
+> > +In virtio-media, \textit{MMAP} buffers are provisioned by the device, =
+just like
+> > +they are by the kernel in regular V4L2. Similarly to how userspace can=
+ map a
+> > +\textit{MMAP} buffer into its address space using mmap and munmap, the
+> > +virtio-media driver can map device buffers into the driver space by qu=
+eueing the
+> > +\textit{struct virtio_media_cmd_mmap} and \textit{struct virtio_media_=
+cmd_munmap}
+> > +commands to the commandq.
+> > +
+> > +\subparagraph{SHARED_PAGES}
+> > +
+> > +In virtio-media, \textit{SHARED_PAGES} buffers are provisioned by the =
+driver,
+> > +and use guest physical addresses. Instances of \textit{struct v4l2_buf=
+fer}
+> > +and \textit{struct v4l2_plane} of this type are followed by a list of
+>
+> I think here is `these types`.
+
+It refers to the memory type. I will clarify in the text.
+
+
+>
+> > +\textit{struct virtio_media_sg_entry}. For more information, see
+> > +\ref{sec:Device Types / Media Device / V4L2 ioctls / Userspace memory}
+> > +
+> > +The device must not alter the pointer values provided by the driver, i=
+.e.
+> > +\field{the m.userptr} member of \textit{struct v4l2_buffer} and
+> > +\textit{struct v4l2_plane} must be returned to the driver with the sam=
+e value
+> > +as it was provided.
+> > +
+> > +\subparagraph{VIRTIO_OBJECT}
+> > +
+> > +In virtio-media, \textit{VIRTIO_OBJECT} buffers are provisioned by a v=
+irtio
+> > +object, just like they are by a \textit{DMABUF} in regular V4L2. Virti=
+o objects
+> > +are 16-bytes UUIDs and do not fit in the placeholders for file descrip=
+tors, so
+> > +they follow their embedding data structure as needed and the device mu=
+st
+> > +leave the V4L2 structure placeholder unchanged.
+> > +
+> > +Contrary to \textit{USERPTR} buffers, virtio objects UUIDs need to be =
+added in
+> > +both the device-readable and device-writable section of the descriptor=
+ chain.
+> > +
+> I think you should use `Conversely to`.
+>
+> > +Device-allocated buffers with the \textit{V4L2_MEMORY_MMAP} memory typ=
+e can also
+> > +be exported as virtio objects for use with another virtio device using=
+ the
+> > +\textit{VIDIOC_EXPBUF} ioctl. The fd placefolder of \textit{v4l2_expor=
+tbuffer}
+> > +means that space for the UUID needs to be reserved right after that st=
+ructure
+> > +
+> > +\subsubsection{Event Virtqueue}
+> > +
+> > +Events are a way for the device to inform the driver about asynchronou=
+s events
+> > +that it should know about. In virtio-media, they are used as a replace=
+ment for
+>
+> I think you can rewrite the first sentence as (I do not have a strong
+> opinion though):
+>
+> `Events are asynchronous notifications to the driver.`
+>
+> > +the \textit{VIDIOC_DQBUF} and \textit{VIDIOC_DQEVENT} ioctls and the p=
+olling
+> > +mechanism, which would be impractical to implement on top of virtio.
+> > +
+> > +\paragraph{Device Operation: Event header}
+> > +
+> > +\begin{lstlisting}
+> > +#define VIRTIO_MEDIA_EVT_ERROR 0
+> > +#define VIRTIO_MEDIA_EVT_DQBUF 1
+> > +#define VIRTIO_MEDIA_EVT_EVENT 2
+> > +
+> > +/* Header for events queued by the device for the driver on the eventq=
+. */
+> > +struct virtio_media_event_header {
+> > +    le32 event;
+> > +    le32 session_id;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\begin{description}
+> > +\item[\field{event}] one of \field{VIRTIO_MEDIA_EVT_*}.
+> > +\item[\field{session_id}] ID of the session the event applies to.
+> > +\end{description}
+> > +
+> > +\paragraph{Device Operation: Device-side error}
+> > +
+> > +\textbf{VIRTIO_MEDIA_EVT_ERROR} Upon receiving this event, the session
+> > +mentioned in the header is considered corrupted and automatically clos=
+ed by
+> > +the device.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_media_event_error {
+> > +    struct virtio_media_event_header hdr;
+> > +    le32 errno;
+> > +    le32 __reserved;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\begin{description}
+> > +\item[\field{errno}] error code describing the kind of error that occu=
+rred.
+> > +\end{description}
+> > +
+> > +\paragraph{Device Operation: Dequeue buffer}
+> > +\label{sec:Device Types / Media Device / Device Operation / Dequeue bu=
+ffer}
+> > +
+> > +\textbf{VIRTIO_MEDIA_EVT_DQBUF} Signals that a buffer is not being use=
+d anymore
+>
+> s/Signals/signals
+>
+> > +by the device and is returned to the driver.
+> > +
+> > +A \textit{struct virtio_media_event_dqbuf} event is queued on the even=
+tq by the
+> > +device every time a buffer previously queued using the \textit{VIDIOC_=
+QBUF}
+> > +ioctl is done being processed and can be used by the driver again. Thi=
+s is like
+> > +an implicit \textit{VIDIOC_DQBUF} ioctl.
+> > +
+>
+> I think this paragraph could be rewritten. If I understand correctly,
+> every time a buffer is queued using the VIDIOC_QBUF ioctl, the device
+> queues a virtio_media_event_dqbuf event in the eventq to indicate the
+> driver that the buffer can be used again.
+
+Yes, that is more or less the idea. Once the buffer is filled (or
+displayed), and
+is ready to be reused, the device sends this event to the driver. I
+will rewrite this.
+
+Also complied with all the other changes in your comment.
+
+Thanks for taking the time to review!
+
+>
+> > +\begin{lstlisting}
+> > +struct virtio_media_event_dqbuf {
+> > +    struct virtio_media_event_header hdr;
+> > +    struct v4l2_buffer buffer;
+> > +    struct v4l2_plane planes[VIDEO_MAX_PLANES];
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\begin{description}
+> > +\item[\field{buffer}] \textit{struct v4l2_buffer} describing the buffe=
+r that has been dequeued.
+> > +\item[\field{planes}] array of \textit{struct v4l2_plane} containing t=
+he plane information for multi-planar buffers.
+> > +\end{description}
+> > +
+> > +Pointer values in the \textit{struct v4l2_buffer} and \textit{struct v=
+4l2_plane}
+> > +are meaningless and must be ignored by the driver. It is recommended t=
+hat the
+> > +device sets them to NULL in order to avoid leaking potential device ad=
+dresses.
+> > +
+> > +Note that in the case of a \field{USERPTR} buffer, the \textit{struct =
+v4l2_buffer}
+> > +used as event payload is not followed by the buffer memory: since that=
+ memory
+> > +is the same that the driver submitted with the \textit{VIDIOC_QBUF}, i=
+t would
+> > +be redundant to have it here.
+> > +
+> > +\paragraph{Device Operation: Emit an event}
+> > +\label{sec:Device Types / Media Device / Device Operation / Emit an ev=
+ent}
+> > +
+> > +\textbf{VIRTIO_MEDIA_EVT_EVENT} Signals that a V4L2 event has been emi=
+tted for a session.
+> > +
+> > +A \textit{struct virtio_media_event_event} event is queued on the even=
+tq by the
+> > +device every time an event the driver previously subscribed to using t=
+he
+> > +\textit{VIDIOC_SUBSCRIBE_EVENT} ioctl has been signaled. This is like =
+an
+> > +implicit \textit{VIDIOC_DQEVENT} ioctl.
+> > +
+> > +\begin{lstlisting}
+> > +struct virtio_media_event_event {
+> > +    struct virtio_media_event_header hdr;
+> > +    struct v4l2_event event;
+> > +};
+> > +\end{lstlisting}
+> > +
+> > +\begin{description}
+> > +\item[\field{event}] \textit{struct v4l2_event} describing the event t=
+hat occurred.
+> > +\end{description}
+> > diff --git a/device-types/media/device-conformance.tex b/device-types/m=
+edia/device-conformance.tex
+> > new file mode 100644
+> > index 0000000..1db3b03
+> > --- /dev/null
+> > +++ b/device-types/media/device-conformance.tex
+> > @@ -0,0 +1,10 @@
+> > +\conformance{\subsection}{Media Device Conformance}\label{sec:Conforma=
+nce / Device Conformance / Media Device Conformance}
+> > +
+> > +A Media device MUST conform to the following normative statements:
+> > +
+> > +\begin{itemize}
+> > +\item \ref{devicenormative:Device Types / Media Device / Device Operat=
+ion / Open device}
+> > +\item \ref{devicenormative:Device Types / Media Device / Device Operat=
+ion / V4L2 ioctls}
+> > +\item \ref{devicenormative:Device Types / Media Device / Device Operat=
+ion / Unsupported ioctls}
+> > +\item \ref{devicenormative:Device Types / Media Device / Device Operat=
+ion / Unmapping a MMAP buffer}
+> > +\end{itemize}
+> > \ No newline at end of file
+> > diff --git a/device-types/media/driver-conformance.tex b/device-types/m=
+edia/driver-conformance.tex
+> > new file mode 100644
+> > index 0000000..7e1d263
+> > --- /dev/null
+> > +++ b/device-types/media/driver-conformance.tex
+> > @@ -0,0 +1,8 @@
+> > +\conformance{\subsection}{Media Device Conformance}\label{sec:Conforma=
+nce / Driver Conformance / Media Driver Conformance}
+> > +
+> > +A Media device MUST conform to the following normative statements:
+> > +
+> > +\begin{itemize}
+> > +\item \ref{drivernormative:Device Types / Media Device / Device Operat=
+ion / Command Virtqueue}
+> > +\item \ref{drivernormative:Device Types / Media Device / Device Operat=
+ion / Close device}
+> > +\end{itemize}
+> > \ No newline at end of file
+> > --
+> > 2.47.0
+> >
+> >
+>
+
