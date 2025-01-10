@@ -1,1022 +1,126 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 729F220A5EC
-	for <virtio-comment@lists.linux.dev>; Fri, 10 Jan 2025 09:46:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8819B1C5F1D
+	for <virtio-comment@lists.linux.dev>; Fri, 10 Jan 2025 10:02:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1736502419; cv=none; b=CKmiH3j4ofnMpT5lJwybwtlUVGTZP/SYgadVAy9epj1sMFOvk+oEWG6uWwFIhL1sLwJ2qv1aRUjMuURNyCDn+/2VfhAmk8HgnWitMNzt6MSx8nmk3YMzr0+WCn9p9NOTzpevG8s10RQIc9meyDzPq3w9sIovNWUutVpeXG2/owQ=
+	t=1736503366; cv=none; b=PcjInaAACqQyUgcH9I1qY3MzWUiDO0/nOgayjvBePssAl/Dpskk3JYedi/MXuPuQrt5BRtZk2z5LLW2qaFnX1vsRLX30/PybesSCMg10sYGC3fjjsuM+2pieXye1vqiqcTtSJJ8Gr0jwU6ghYImZoDJyQnLIKikwr4Vv5ac+B/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1736502419; c=relaxed/simple;
-	bh=Sgo7KxBUQD78e0EFQ7jYFdlKb5B2jVLL2dzFDqDOXo4=;
-	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:Mime-Version:
-	 References:In-Reply-To; b=Zr1Z5fuW3q6I3/M+AKpNwQFaCxZ44nKscz90JBjvB+Pg5xG9rsw929LvWlt5mMqFcPrDD8+R5N9z//MiGeN+TvyqTFwqKDN1eiER5tLqOU8yBTiEv1aaG9aVTqEpunbr7Ddp+saCDCzSu6/LjEnWxhz1vC9gY89K4K8+vVL1KXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OIe9x7kM; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1736503366; c=relaxed/simple;
+	bh=Hq61xiQXX5hez8QJjUdhNsD1N87fPGVOlQADcLyflfo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=oWyYsaaGlMspgrKPdjAL0HmQgUfpooS0rbD+dNhR6T3gnbhxGvUljwOzCriLzGSTGEUDVsgGw4p17iT6GQ7MBObgKK1reakX3FP0TfmeidCN10x7yqkG0Ae3XWgjWf7vRox6rt4RdYDWZcUApMUeS6ETV5LCW+PFNvV+NZi7bcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=daynix.com; spf=pass smtp.mailfrom=daynix.com; dkim=pass (2048-bit key) header.d=daynix-com.20230601.gappssmtp.com header.i=@daynix-com.20230601.gappssmtp.com header.b=TAIvf3P1; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=daynix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=daynix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OIe9x7kM"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-21669fd5c7cso30280235ad.3
-        for <virtio-comment@lists.linux.dev>; Fri, 10 Jan 2025 01:46:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=daynix-com.20230601.gappssmtp.com header.i=@daynix-com.20230601.gappssmtp.com header.b="TAIvf3P1"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2156e078563so26576025ad.2
+        for <virtio-comment@lists.linux.dev>; Fri, 10 Jan 2025 02:02:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1736502416; x=1737107216; darn=lists.linux.dev;
-        h=in-reply-to:references:mime-version:content-transfer-encoding:from
-         :subject:cc:to:message-id:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=/LKr+IY3SWlg23AH99nhXKc3upDiBiY0ViINurKH1bk=;
-        b=OIe9x7kM3eDbNotU2LpXqn0B4Z79Yd+kN1XLmX02tsoz/buxE0bFfO2Eu8AyyYtqDH
-         KF+7TGnKPj+qgOXYVJppHrHuq74h99fB2paZ3eQXG6dFTkBKp7/mmyHXrQNEws5yl0FS
-         bSecwrqosOvHpiWbwVyjUrQ/EYxCP3zDkUoUhKx2sVpWxi3VC/CFUpyYxtSq4ygj2p8y
-         ZCtpB0sBkYaJwVCXBHO5xsUooJ38qpETcFqUzDJwN7JlurVq/a+8fGS90U88qwPNuaPj
-         mJCFfEGVmij+4TKIqXCL0UxJY90m9Q0Ilx/caM7gIpmYKLVm7vkomxVx4q6w/lENusxl
-         Vt1w==
+        d=daynix-com.20230601.gappssmtp.com; s=20230601; t=1736503364; x=1737108164; darn=lists.linux.dev;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RnLwk/CRtO5G/zkH3vdNMqpHufNjiVN0w65qRDD4hV4=;
+        b=TAIvf3P1K/y6UJ/KwFEh4qmFfK5DuCExXTHQMhDR7NOpeT+x4m35gDF9/Oztg3ZBUT
+         H2pxYmoFTyN1xSXpypODUns6MJedPZ7o0/dYihVRiyzIETYJx5rs1CeIhxEj66zxB5A0
+         fBUaBJz+FX8yPHXTxEe1ZQ71JRpSZzesBT58u0cnbKFYzz53R52jtVWSM/OqbMg4u5UX
+         lQFpuoNm+IjrtzEBRspNvMOV/p0Jyzzkh35wI9roe/v6+JxEolFrc1EAlc7uBonnmrht
+         t6lFV2hZdkZlGvL0XNzOIq9Jc9kVaKUDdKGkevVtrOf4+WJVVOBmrIMgMoaiWRrvPO+s
+         JnMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736502416; x=1737107216;
-        h=in-reply-to:references:mime-version:content-transfer-encoding:from
-         :subject:cc:to:message-id:date:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=/LKr+IY3SWlg23AH99nhXKc3upDiBiY0ViINurKH1bk=;
-        b=Cv66kIpyW1/b7i/zJHnDbzBeiJELJsHp4i8CYqBk2zRAAwre014FTh8/TrOMryl/tg
-         nbWd0D3O+P8oC3twwMzEIPu7TXvja9xXgkVS19zMIhxIoRukobuVTDyRppiPNLBVIZoF
-         ev6r+ZjJhUgAluIZIaOxj0NlCnNEBn8XKLpHr7/qMN8igi3b9avfq+edqN6cwADlHAhA
-         SjTLbBwJhAhvXyCKvB9RNntoxH1ZI71hvTBkDOweLQ5E6A0UdRG2P6n3ddGZVkf/UM3J
-         Q4LxVMqoIVzr7XTb9s09oN1G+ZgweiuLM/vDNb1frLyDsy6N+YwTrmiO39neQarHA2xi
-         lwjg==
-X-Gm-Message-State: AOJu0YznHbUrlXRT4611OHA3vgq4rt7pwY1TdfNeSuAmd3DyOhtalCiM
-	XJOtvqJUlh+kChJ1PczgpC4FlNf5kGBThUAVvGfWn2F5VECOqyI5
-X-Gm-Gg: ASbGncur+Vd7VDr1F60qrCoiyCHZJbRosWaOj+dr6XcRQwXHsNa1Q+6Wx/+IxmzyDat
-	byTyhfqI7SmruNUSLNIp2/PzJoYkMX49IMP1zD4ty8gZQpcsDXpMGbfnLvO1iEDa8P4D+pLuGLv
-	YrUBWN9N23B4ZuKm5IS1sfy3+jLQbho3oQcfUvegHUZxQSVLyB4Fl6D441m7+6Qd5KSu9m6rG0t
-	VeDZviw4pY4WFufa7Zw7tGRlYsjUwXKBQSf25x9MJYZ/st9
-X-Google-Smtp-Source: AGHT+IFs5gtY+SR9bvzBrYkEHr+P1+A3xM4RmXkllKgAp9gc6py/8Xg/DHlw0a6pWEtmMXEMAEzqZQ==
-X-Received: by 2002:a05:6a21:7881:b0:1cf:27bf:8e03 with SMTP id adf61e73a8af0-1e88d048873mr15998370637.26.1736502415040;
-        Fri, 10 Jan 2025 01:46:55 -0800 (PST)
-Received: from localhost ([240d:1a:f76:b500:4431:46e3:c76b:79bc])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-72d405485c2sm1200961b3a.5.2025.01.10.01.46.50
+        d=1e100.net; s=20230601; t=1736503364; x=1737108164;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=RnLwk/CRtO5G/zkH3vdNMqpHufNjiVN0w65qRDD4hV4=;
+        b=oCLGeM/EhVfcQsymC6iN0dIsJBOu6korHVm55uBNIfUGwOnlUqo6B66Yp0lCdfm5Bx
+         hc6bSnZNWaeMQ53aodNol8QbnkXZ29iJkPZPgZkP5Ce6XkapMy5Sue3+vyB6osbCJe1F
+         1T0Ug7gH82HOwEsw7pS+Qn8KMtTJZ/pv3Q0TtOap9aKztKa4ltBcQN05idE5mVtiF001
+         42KTSGqzVnJEU/IRWHq8q8pAzMKECZariABGoy7wCdZicXJ4+di/b1oWOd3ry+zDLS7I
+         STwSys9JhYsZwCK8HrF1XLa9isf0Acc325f8xdQZJvpprkc0vfKg148mcshq5sJx8PFE
+         x1fw==
+X-Gm-Message-State: AOJu0YxHnP4Bq5o1+qbh0OUGQh2iz/gCV1mD47UOLPK6y6/9amd7hRBh
+	SvK9pRU0UPUYvRHEC1HTFKkjFe5sUaT4WopIOwcxNtG5xIdOybsiVvzp4ZxaGA0=
+X-Gm-Gg: ASbGncvnaRgegDAPCpuB/wMb5BdRCD/Jzw6+FRKWguYjcoIjzFNqEs6eJRi5LfM+veI
+	Xw1By6Mp0/TRX323j5XFnvCdsKBNh4CUAhag6bduuS/1E3pT0ie1+wGMyW6sqhzG6JaKUMfFg49
+	mmCIhAYZbJ6buWqmffIdLhBLDhtgTB3ZynmrbFluhYsddPjj2sy7+Cf9fUok3E4yU6rEL5LkRKR
+	K8PnAocjlNwaD68PpdnICxRP7xyHuewrGg9koGSfmokWHpGvVyXk0BhyOE=
+X-Google-Smtp-Source: AGHT+IF1g3kZ91s2U3RrBLQX+Able/2+3I4JtFaTHxK79uPpHAygiCRxp69V2MDGGvgoBY+3FhkDxg==
+X-Received: by 2002:a05:6a00:1797:b0:728:eb62:a132 with SMTP id d2e1a72fcca58-72d21f4b09cmr12076730b3a.15.1736503363835;
+        Fri, 10 Jan 2025 02:02:43 -0800 (PST)
+Received: from localhost ([157.82.203.37])
+        by smtp.gmail.com with UTF8SMTPSA id d2e1a72fcca58-72d4067f84csm1262896b3a.142.2025.01.10.02.02.41
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jan 2025 01:46:54 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 10 Jan 2025 18:46:47 +0900
-Message-Id: <D6YAQ9B0IPR7.1ZYKATYW5K8K7@gmail.com>
-To: "Albert Esteve" <aesteve@redhat.com>, "Alexandre Courbot"
- <acourbot@chromium.org>
-Cc: <virtio-comment@lists.linux.dev>, <eballetb@redhat.com>,
- <daniel.almeida@collabora.com>, <agordeev@qti.qualcomm.com>,
- <dverkamp@chromium.org>, <ribalda@google.com>, <alex.bennee@linaro.org>,
- <mst@redhat.com>, <nicolas.dufresne@collabora.com>, <cohuck@redhat.com>,
- <changyeon@google.com>, <hverkuil@xs4all.nl>, <gurchetansingh@google.com>
-Subject: Re: [PATCH v4 1/1] virtio-media: Add virtio media device
- specification
-From: "Alexandre Courbot" <gnurou@gmail.com>
-Content-Transfer-Encoding: quoted-printable
+        Fri, 10 Jan 2025 02:02:43 -0800 (PST)
+From: Akihiko Odaki <akihiko.odaki@daynix.com>
+Date: Fri, 10 Jan 2025 19:02:35 +0900
+Subject: [PATCH v3] virtio-net: Ignore num_buffers when unused
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-X-Mailer: aerc 0.18.2-0-ge037c095a049
-References: <20241107154930.118763-1-aesteve@redhat.com>
- <20241107154930.118763-2-aesteve@redhat.com>
- <CAPBb6MVDgdBiqV0J4DXKX2u-KKpBs+119X7obNFsDpKjH0iarg@mail.gmail.com>
- <CADSE00KU+L-fByz+rEdMtUY1bg4hjyuBRkZhZy6Na5v0z6q1+Q@mail.gmail.com>
- <CADSE00+eLP+PbrmSiyvao4bJeBRSDCSBTbFUMdPomxngwz6D+w@mail.gmail.com>
-In-Reply-To: <CADSE00+eLP+PbrmSiyvao4bJeBRSDCSBTbFUMdPomxngwz6D+w@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250110-reserved-v3-1-2ade0a5d2090@daynix.com>
+X-B4-Tracking: v=1; b=H4sIADrwgGcC/22MwQ6DIBAFf8VwLg0sFaGn/kfTA4W17qFqoCEa4
+ 78XPdmkx3l5MwtLGAkTu1YLi5gp0dAXUKeK+c71L+QUCjMQcJEAmkcsRsbAQ221aGWjABQr9zF
+ iS9Oeuj8Kd5Q+Q5z3cpbb+ieSJZdcWe9qrY2xXtyCm3uazn54s62S4Wg2BxOKGdC29imcESb8m
+ Ou6fgG1PZA12wAAAA==
+To: virtio-comment@lists.linux.dev
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, 
+ Parav Pandit <parav@nvidia.com>, devel@daynix.com, 
+ Akihiko Odaki <akihiko.odaki@daynix.com>
+X-Mailer: b4 0.14-dev-fd6e3
 
-Hi Albert,
+If VIRTIO_NET_F_MRG_RXBUF has not been negotuated, vhost_net and QEMU
+leaves num_buffers uninitialized while the specification tells to set it
+to one.
 
-On Wed Jan 8, 2025 at 1:25 AM JST, Albert Esteve wrote:
-> Hi Alexandre,
->
-> Thanks for your comments! Partially covered here, responded inline
-> below. I'll go through the rest tomorrow.
->
-> On Tue, Jan 7, 2025 at 8:00=E2=80=AFAM Alexandre Courbot <acourbot@chromi=
-um.org> wrote:
-> >
-> > Hi Albert,
-> >
-> > Thanks again for driving this. The current version looks good to me,
-> > but here are a few things I found while doing another pass.
-> >
-> > On Fri, Nov 8, 2024 at 12:50=E2=80=AFAM Albert Esteve <aesteve@redhat.c=
-om> wrote:
-> > >
-> > > Virtio-media is an encapsulation of the V4L2 UAPI into
-> > > virtio, able to virtualize any video device supported
-> > > by V4L2.
-> > >
-> > > Note that virtio-media does not require the use of a
-> > > V4L2 device driver on the host or guest side -
-> > > V4L2 is only used as a host-guest protocol,
-> > > and both sides are free to convert it from/to any
-> > > model that they wish to use.
-> > >
-> > > Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> > > ---
-> > >  conformance.tex                           |  13 +-
-> > >  content.tex                               |   1 +
-> > >  device-types/media/description.tex        | 575 ++++++++++++++++++++=
-++
-> > >  device-types/media/device-conformance.tex |  10 +
-> > >  device-types/media/driver-conformance.tex |   8 +
-> > >  5 files changed, 603 insertions(+), 4 deletions(-)
-> > >  create mode 100644 device-types/media/description.tex
-> > >  create mode 100644 device-types/media/device-conformance.tex
-> > >  create mode 100644 device-types/media/driver-conformance.tex
-> > >
-> > > diff --git a/conformance.tex b/conformance.tex
-> > > index dc00e84..c369da1 100644
-> > > --- a/conformance.tex
-> > > +++ b/conformance.tex
-> > > @@ -32,8 +32,10 @@ \section{Conformance Targets}\label{sec:Conformanc=
-e / Conformance Targets}
-> > >  \ref{sec:Conformance / Driver Conformance / Memory Driver Conformanc=
-e},
-> > >  \ref{sec:Conformance / Driver Conformance / I2C Adapter Driver Confo=
-rmance},
-> > >  \ref{sec:Conformance / Driver Conformance / SCMI Driver Conformance}=
-,
-> > > -\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance}=
- or
-> > > -\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance}=
-.
-> > > +\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance}=
-,
-> > > +\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance}=
- or
-> > > +\ref{sec:Conformance / Driver Conformance / Media Driver Conformance=
-}.
-> > > +
-> > >
-> > >      \item Clause \ref{sec:Conformance / Legacy Interface: Transition=
-al Device and Transitional Driver Conformance}.
-> > >    \end{itemize}
-> > > @@ -59,8 +61,9 @@ \section{Conformance Targets}\label{sec:Conformance=
- / Conformance Targets}
-> > >  \ref{sec:Conformance / Device Conformance / Memory Device Conformanc=
-e},
-> > >  \ref{sec:Conformance / Device Conformance / I2C Adapter Device Confo=
-rmance},
-> > >  \ref{sec:Conformance / Device Conformance / SCMI Device Conformance}=
-,
-> > > -\ref{sec:Conformance / Device Conformance / GPIO Device Conformance}=
- or
-> > > -\ref{sec:Conformance / Device Conformance / PMEM Device Conformance}=
-.
-> > > +\ref{sec:Conformance / Device Conformance / GPIO Device Conformance}=
-,
-> > > +\ref{sec:Conformance / Device Conformance / PMEM Device Conformance}=
- or
-> > > +\ref{sec:Conformance / Device Conformance / Media Device Conformance=
-}.
-> > >
-> > >      \item Clause \ref{sec:Conformance / Legacy Interface: Transition=
-al Device and Transitional Driver Conformance}.
-> > >    \end{itemize}
-> > > @@ -152,6 +155,7 @@ \section{Conformance Targets}\label{sec:Conforman=
-ce / Conformance Targets}
-> > >  \input{device-types/scmi/driver-conformance.tex}
-> > >  \input{device-types/gpio/driver-conformance.tex}
-> > >  \input{device-types/pmem/driver-conformance.tex}
-> > > +\input{device-types/media/driver-conformance.tex}
-> > >
-> > >  \conformance{\section}{Device Conformance}\label{sec:Conformance / D=
-evice Conformance}
-> > >
-> > > @@ -238,6 +242,7 @@ \section{Conformance Targets}\label{sec:Conforman=
-ce / Conformance Targets}
-> > >  \input{device-types/scmi/device-conformance.tex}
-> > >  \input{device-types/gpio/device-conformance.tex}
-> > >  \input{device-types/pmem/device-conformance.tex}
-> > > +\input{device-types/media/device-conformance.tex}
-> > >
-> > >  \conformance{\section}{Legacy Interface: Transitional Device and Tra=
-nsitional Driver Conformance}\label{sec:Conformance / Legacy Interface: Tra=
-nsitional Device and Transitional Driver Conformance}
-> > >  A conformant implementation MUST be either transitional or
-> > > diff --git a/content.tex b/content.tex
-> > > index 0a62dce..59925ae 100644
-> > > --- a/content.tex
-> > > +++ b/content.tex
-> > > @@ -767,6 +767,7 @@ \chapter{Device Types}\label{sec:Device Types}
-> > >  \input{device-types/scmi/description.tex}
-> > >  \input{device-types/gpio/description.tex}
-> > >  \input{device-types/pmem/description.tex}
-> > > +\input{device-types/media/description.tex}
-> > >
-> > >  \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
-> > >
-> > > diff --git a/device-types/media/description.tex b/device-types/media/=
-description.tex
-> > > new file mode 100644
-> > > index 0000000..d20d2f6
-> > > --- /dev/null
-> > > +++ b/device-types/media/description.tex
-> > > @@ -0,0 +1,575 @@
-> > > +\section{Media Device}\label{sec:Device Types / Media Device}
-> > > +
-> > > +The virtio media device follows the same model (and structures) as V=
-4L2. It
-> > > +can be used to virtualize cameras, codec devices, or any other devic=
-e
-> > > +supported by V4L2. The complete definition of V4L2 structures and io=
-ctls can
-> > > +be found under the
-> > > +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/ind=
-ex.html}{V4L2 UAPI documentation}.
-> > > +
-> > > +V4L2 is a UAPI that allows a less privileged entity (user-space) to =
-use video
-> > > +hardware exposed by a more privileged entity (the kernel). Virtio-me=
-dia is an
-> > > +encapsulation of this API into virtio, turning it into a virtualizat=
-ion API
-> > > +for all classes of video devices supported by V4L2, where the device=
- plays the
-> > > +role of the kernel and the driver the role of user-space.
-> > > +
-> > > +The device is therefore responsible for presenting a virtual device =
-that behaves
-> > > +like an actual V4L2 device, which the driver can control.
-> > > +
-> > > +Note that virtio-media does not require the use of a V4L2 device dri=
-ver or of
-> > > +Linux on any side - V4L2 is only used as a transport protocol,
-> > > +and both sides are free to convert it from/to any model that they wi=
-sh to use.
-> > > +
-> > > +\subsection{Device ID}\label{sec:Device Types / Media Device / Devic=
-e ID}
-> > > +
-> > > +48
-> > > +
-> > > +\subsection{Virtqueues}\label{sec:Device Types / Media Device / Virt=
-queues}
-> > > +
-> > > +\begin{description}
-> > > +\item[0] commandq - used for driver commands and device responses to=
- these
-> > > +commands.
-> > > +\item[1] eventq - used for events sent by the device to the driver.
-> > > +\end{description}
-> > > +
-> > > +\subsection{Feature Bits}\label{sec:Device Types / Media Device / Fe=
-ature Bits}
-> > > +
-> > > +None
-> > > +
-> > > +\subsection{Device Configuration Layout}\label{sec:Device Types / Me=
-dia Device / Device Configuration Layout}
-> > > +
-> > > +The video device configuration space uses the following layout:
-> > > +
-> > > +\begin{lstlisting}
-> > > +struct virtio_media_config {
-> > > +    le32 device_caps;
-> > > +    le32 device_type;
-> > > +    le8 card[32];
-> > > +};
-> > > +\end{lstlisting}
-> > > +
-> > > +\begin{description}
-> > > +\item[\field{device_caps}] (driver-read-only) flags representing the=
- device
-> > > +capabilities as used in
-> > > +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/v4l=
-/vidioc-querycap.html#c.V4L.v4l2_capability}{struct v4l2_capability}.
-> > > +It corresponds with the \field{device_caps} field in the \textit{str=
-uct video_device}.
-> > > +\item[\field{device_type}] (driver-read-only) informs the driver of =
-the type
-> > > +of the video device. It corresponds with the \field{vfl_devnode_type=
-} field of the device.
-> > > +\item[\field{card}] (driver-read-only) name of the device, a NUL-ter=
-minated
-> > > +UTF-8 string. It corresponds with the \field{card} field of the \tex=
-tit{struct v4l2_capability}.
-> > > +If all the characters of the field are used, it does not need to be =
-NUL-terminated.
-> > > +\end{description}
-> > > +
-> > > +\subsection{Device Initialization}
-> > > +
-> > > +\begin{enumerate}
-> > > +\item Read the \field{device_caps} and \field{device_type} fields
-> > > +from the configuration layout to identify the device.
-> > > +\item Set up the \field{commandq} and \field{eventq}.
-> > > +\item May open a session (see Section \ref{sec:Device Operation: Com=
-mand Virtqueue: Sessions})
-> >
-> > This reference does not resolve.
-> >
-> > > +to use the device and send V4L2 ioctls in order to receive more info=
-rmation
-> > > +about the device, such as supported formats or controls.
-> > > +\end{enumerate}
-> > > +
-> > > +\subsection{Device Operation}\label{sec:Device Types / Media Device =
-/ Device Operation}
-> > > +
-> > > +Commands are queued on the command queue by the driver for the devic=
-e to
-> > > +process. The errors returned by each command are standard
-> > > +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/gen=
--errors.html}{Linux kernel error codes}.
-> > > +For instance, a command that contains invalid options will return \t=
-extit{EINVAL}.
-> > > +
-> > > +Events are sent on the event queue by the device for the driver to h=
-andle.
-> > > +
-> > > +\subsubsection{Command Virtqueue}
-> > > +
-> > > +\paragraph{Device Operation: Command headers}
-> > > +
-> > > +\begin{lstlisting}
-> > > +#define VIRTIO_MEDIA_CMD_OPEN 1
-> > > +#define VIRTIO_MEDIA_CMD_CLOSE 2
-> > > +#define VIRTIO_MEDIA_CMD_IOCTL 3
-> > > +#define VIRTIO_MEDIA_CMD_MMAP 4
-> > > +#define VIRTIO_MEDIA_CMD_MUNMAP 5
-> > > +
-> > > +/* Header for all virtio commands from the driver to the device on t=
-he commandq. */
-> > > +struct virtio_media_cmd_header {
-> > > +       le32 cmd;
-> > > +       le32 __reserved;
-> > > +};
-> > > +
-> > > +/* Header for all virtio responses from the device to the driver on =
-the commandq. */
-> > > +struct virtio_media_resp_header {
-> > > +       le32 status;
-> > > +       le32 __reserved;
-> > > +};
-> > > +\end{lstlisting}
-> > > +
-> > > +A command consists of a command header \textit{virtio_media_cmd_head=
-er}
-> > > +containing the following device-readable field:
-> > > +
-> > > +\begin{description}
-> > > +\item[\field{cmd}] specifies a device request type (VIRTIO_MEDIA_CMD=
-_*).
-> > > +\end{description}
-> > > +
-> > > +A response consists of a response header \textit{virtio_media_resp_h=
-eader}
-> > > +containing the following device-writable field:
-> > > +
-> > > +\begin{description}
-> > > +\item[\field{status}] indicates a device request status.
-> > > +\end{description}
-> > > +
-> > > +The status field can take 0 if the command was successful, or one of=
- the
-> > > +standard Linux error codes if it was not.
-> > > +
-> > > +\drivernormative{\paragraph}{Device Operation: Command Virtqueue: Se=
-ssions}{Device Types / Media Device / Device Operation / Command Virtqueue}
-> > > +
-> > > +Sessions are how the device is multiplexed, allowing several distinc=
-t works to
-> > > +take place simultaneously. Before start operating, the driver needs =
-to open a
-> >
-> > nit: "Before starting operation" maybe?
-> >
-> > > +session. This is equivalent to opening the \textit{/dev/videoX} file=
- of the
-> > > +V4L2 device. Each session gets a unique ID assigned, which can be th=
-en used
-> > > +to perform actions on it.
-> > > +
-> > > +\paragraph{Device Operation: Open device}
-> > > +
-> > > +\textbf{VIRTIO_MEDIA_CMD_OPEN} Command for creating a new session.
-> > > +
-> > > +This is the equivalent of calling \textit{open} on a V4L2 device nod=
-e.
-> > > +The driver uses \textit{virtio_media_cmd_open} to send an open reque=
-st.
-> > > +
-> > > +\begin{lstlisting}
-> > > +struct virtio_media_cmd_open {
-> > > +    struct virtio_media_cmd_header hdr;
-> > > +};
-> > > +\end{lstlisting}
-> > > +
-> > > +The device responds to \textit{VIRTIO_MEDIA_CMD_OPEN} with \textit{v=
-irtio_media_resp_open}.
-> > > +
-> > > +\begin{lstlisting}
-> > > +struct virtio_media_resp_open {
-> > > +    struct virtio_media_resp_header hdr;
-> > > +    le32 session_id;
-> > > +    le32 __reserved;
-> > > +};
-> > > +\end{lstlisting}
-> > > +
-> > > +\begin{description}
-> > > +\item[\field{session_id}] identifies the current session, which is u=
-sed for
-> > > +other commands, predominantly ioctls.
-> > > +\end{description}
-> > > +
-> > > +\devicenormative{\subparagraph}{Device Operation: Open device}{Devic=
-e Types / Media Device / Device Operation / Open device}
-> > > +
-> > > +Upon success, the device MUST set a \field{session_id} in \textit{vi=
-rtio_media_resp_open}
-> > > +to an integer that is NOT used by any other open session.
-> > > +
-> > > +\paragraph{Device Operation: Close device}
-> > > +
-> > > +\textbf{VIRTIO_MEDIA_CMD_CLOSE} Command for closing an active sessio=
-n.
-> > > +
-> > > +This is the equivalent of calling \textit{close} on a previously ope=
-ned V4L2
-> > > +device node. All resources associated with this session will be free=
-d.
-> > > +
-> > > +This command does not require a response from the device.
-> > > +
-> > > +\begin{lstlisting}
-> > > +struct virtio_media_cmd_close {
-> > > +    struct virtio_media_cmd_header hdr;
-> > > +    le32 session_id;
-> > > +    le32 __reserved;
-> > > +};
-> > > +\end{lstlisting}
-> > > +
-> > > +\begin{description}
-> > > +\item[\field{session_id}] specifies an identifier for the session to=
- close.
-> > > +\end{description}
-> > > +
-> > > +\drivernormative{\subparagraph}{Device Operation: Close device}{Devi=
-ce Types / Media Device / Device Operation / Close device}
-> > > +
-> > > +The session ID SHALL NOT be used again after queueing this command.
-> >
-> > ... until it has been obtained again through a subsequent
-> > VIRTIO_MEDIA_CMD_OPEN call. (session IDs can be recycled ; this should
-> > go without saying but it doesn't hurt to mention it)
-> >
-> > > +
-> > > +\paragraph{Device Operation: V4L2 ioctls}
-> > > +
-> > > +\textbf{VIRTIO_MEDIA_CMD_IOCTL} Command for executing an ioctl on an=
- open
-> > > +session.
-> > > +
-> > > +This command tells the device to run one of the `VIDIOC_*` ioctls on=
- the
-> > > +session identified by \textit{session_id}.
-> > > +
-> > > +\begin{lstlisting}
-> > > +struct virtio_media_cmd_ioctl {
-> > > +    struct virtio_media_cmd_header hdr;
-> > > +    le32 session_id;
-> > > +    le32 code;
-> > > +    /* Followed by the relevant ioctl payload as defined in the macr=
-o */
-> >
-> > "ioctl command payload" maybe.
-> >
-> > > +};
-> > > +\end{lstlisting}
-> > > +
-> > > +\begin{description}
-> > > +\item[\field{session_id}] identifies the session to run the ioctl on=
-.
-> > > +\item[\field{code}] specifies the code of the \field{VIDIOC_*} ioctl=
- to run.
-> > > +\end{description}
-> > > +
-> > > +The code is extracted from the
-> > > +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/v4l=
-/videodev.html}{videodev2.h},
-> > > +header file. The file defines the ioctl's codes, type of payload, an=
-d
-> > > +direction. The code consists of the second argument of the \field{_I=
-O*} macro.
-> > > +
-> > > +For example, the \textit{VIDIOC_G_FMT} is defined as follows:
-> > > +
-> > > +\begin{lstlisting}
-> > > +#define VIDIOC_G_FMT _IOWR('V',  4, struct v4l2_format)
-> > > +\end{lstlisting}
-> > > +
-> > > +This means that its ioctl code is \textit{4}, its payload is a
-> > > +\textit{struct v4l2_format}, and its direction is \textit{WR} (i.e.,=
- the
-> > > +payload is written by both the driver and the device).
-> > > +See Section \ref{sec:Device Types / Media Device / V4L2 ioctls / Ioc=
-tls payload}
-> > > +for more information about the direction of ioctls.
-> > > +Note that although most architectures use this format, there
-> > > +are some architecture-specific encoding differences.
-> > > +See \textit{include/ARCH/ioctl.h} for more details.
-> >
-> > Is the last sentence needed? videodev2.h is not architecture-specific,
-> > so I don't think this adds anything for our purpose?
->
-> Probably not. The idea was to highlight that in some cases the payload
-> may vary depending on the underlying architecture for some
-> ioctls, due to these architecture differences.
-> But I agree that it is a detail that should not concern to those wanting =
-to
-> implement the specs. So I will remove the lines.
+Let drivers ignore the field to make them compatible with
+vhost_net/QEMU, in a way similar to hdr_len field, which is also
+marked as unreliable due to implementation bugs.
 
-Thanks. My concern was that reader would try to find reasons to care
-about architecture when all they need to do is look at the ioctls
-declarations from videodev2.h and copy the second field.
+Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
+---
+Changes in v3:
+- s/MUST/SHOULD/ (Michael S. Tsirkin)
+- Link to v2: https://lore.kernel.org/r/20241227-reserved-v2-1-de9f9b0a808d@daynix.com
 
->
-> >
-> > > +
-> > > +The payload struct layout always matches the 64-bit, little-endian
-> > > +representation of the corresponding V4L2 structure. For most structs=
-, the
-> > > +size is identical for both 32 and 64 bits versions. Otherwise, the d=
-river
-> > > +must translate them to the aforementioned size and endianess.
-> > > +
-> > > +The device responds to \textit{VIRTIO_MEDIA_CMD_IOCTL} with \textit{=
-virtio_media_resp_ioctl}.
-> > > +
-> > > +\begin{lstlisting}
-> > > +struct virtio_media_resp_ioctl {
-> > > +    struct virtio_media_resp_header hdr;
-> > > +    /* Followed by the ioctl payload as defined in the macro */
-> >
-> > Similarly, "ioctl response payload"?
-> >
-> > > +};
-> > > +\end{lstlisting}
-> > > +
-> > > +\subparagraph{Ioctls payload}\label{sec:Device Types / Media Device =
-/ V4L2 ioctls / Ioctls payload}
-> > > +
-> > > +Each ioctl has a payload, which is defined by the third argument of =
-the
-> > > +\field{_IO*} macro.
-> > > +
-> > > +The payload of an ioctl in the descriptor chain follows the command =
-structure,
-> > > +the response structure, or both depending on the direction:
-> > > +
-> > > +\begin{itemize}
-> > > +\item \textbf{_IOR} is read-only for the driver, meaning the payload
-> > > +follows the response in the device-writable section of the descripto=
-r chain.
-> > > +\item \textbf{_IOW} is read-only for the device, meaning the payload
-> > > +follows the command in the driver-writable section of the descriptor=
- chain.
-> > > +\item \textbf{_IOWR} is writable by both the device and driver,
-> > > +meaning the payload must follow both the command in the driver-writa=
-ble section
-> > > +of the descriptor chain, and the response in the device-writable sec=
-tion.
-> > > +\end{itemize}
-> > > +
-> > > +A common optimization for \textit{WR} ioctls is to provide the paylo=
-ad using
-> >
-> > s/common/possible? Unless this is indeed commonly used by other
-> > devices, but I doubt it.
-> >
-> > > +descriptors that both point to the same buffer. This mimics the beha=
-vior of
-> > > +V4L2 ioctls where the data is only passed once and used as both inpu=
-t and
-> > > +output by the kernel.
-> >
-> > That's actually something I'd like to confirm - is it ok to have the
-> > device-readable and device-writable descriptors point to the same
-> > memory? I don't see why it wouldn't, but in case this is a problem we
-> > may want to change this and update the driver accordingly.
+Changes in v2:
+- Corrected the change description to tell vhost_net and QEMU leaves
+  num_buffers uninitialized where it used to tell they set it to zero.
+- Restored statements that require devices to set num_buffers to one.
+- Link to v1: https://lore.kernel.org/r/20241226-reserved-v1-1-39ca566889c0@daynix.com
+---
+ device-types/net/description.tex | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Thanks to Matias and Michael's confirmation it seems there is no problem
-doing this.
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index 76585b0..7c065f6 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -863,6 +863,12 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
+ This is due to various bugs in implementations.
+ \end{note}
+ 
++If VIRTIO_NET_F_MRG_RXBUF has not been negotiated, the driver SHOULD ignore
++\field{num_buffers}.
++\begin{note}
++This is due to bugs in implementations.
++\end{note}
++
+ If neither VIRTIO_NET_HDR_F_NEEDS_CSUM nor
+ VIRTIO_NET_HDR_F_DATA_VALID is set, the driver MUST NOT
+ rely on the packet checksum being correct.
 
-> >
-> > > +
-> > > +\devicenormative{\subparagraph}{Device Operation: V4L2 ioctls}{Devic=
-e Types / Media Device / Device Operation / V4L2 ioctls}
-> > > +
-> > > +In case of success of a device-writable ioctl, the device MUST alway=
-s write the
-> > > +payload in the device-writable part of the descriptor chain.
-> > > +
-> > > +In case of failure of a device-writable ioctl, the device is free to=
- write the
-> > > +payload in the device-writable part of the descriptor chain or not. =
-Some errors
-> > > +may still result in the payload being updated, and in this case the =
-device is
-> > > +expected to write the updated payload. If the device has not written=
- the
-> > > +payload after an error (i.e., only the header is returned), the driv=
-er MUST
-> > > +assume that the payload has not been modified.
-> >
-> > This last sentence sounds like it is driver-normative, not device-norma=
-tive.
-> >
-> > > +
-> > > +\subparagraph{Handling of pointers in ioctl payload}
-> > > +
-> > > +A few structures used as ioctl payloads contain pointers to further
-> > > +data needed for the ioctl. There are notably:
-> > > +
-> > > +\begin{itemize}
-> > > +\item The \field{planes} pointer of
-> > > +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/v4l=
-/buffer.html#struct-v4l2-buffer}{struct v4l2_buffer},
-> > > +which size is determined by the length member.
-> > > +\item The \field{controls} pointer of \textit{struct v4l2_ext_contro=
-ls}, which
-> >
-> > Since `struct v4l2_buffer` above is a link, do we want to one for
-> > `struct v4l2_ext_controls` as well?
-> >
-> > > +size is determined by the count member.
-> > > +\end{itemize}
-> > > +
-> > > +If the size of the pointed area is determined to be non-zero, then t=
-he main
-> >
-> > nit: "If the size of the pointed area is non-zero, ..."
-> >
-> > > +payload is immediately followed by the pointed data in their order o=
-f
-> > > +appearance in the structure, and the pointer value itself is ignored=
- by the
-> > > +device, which must also return the value initially passed by the dri=
-ver.
-> > > +
-> > > +\subparagraph{Handling of pointers to userspace memory}
-> >
-> > s/userspace/guest ?
->
-> To me this refers to the fact that the original fields in the related
-> structures refer to userspace memory (outside of the host/guest
-> context). I think I'd keep it as is.
->
-> Maybe changing the titles of this and the previous sections to:
-> \subparagraph{Handling of pointers to data in ioctl payload}
-> and
-> \subparagraph{Handling of pointers to userspace memory in ioctl payload}
->
-> wdyt?
+---
+base-commit: b495841a8e80d12c1130f8868f4128866291142d
+change-id: 20241226-reserved-d5960f173223
 
-Sounds good to me.
+Best regards,
+-- 
+Akihiko Odaki <akihiko.odaki@daynix.com>
 
->
-> >
-> > I'd also suggest adding a "(SHARED_PAGES memory type)" at the end of
-> > the title to make it explicit that this is specific to this particular
-> > memory type.
->
-> Maybe a clarification in the first paragraph (and a link to the related
-> section) would be enough? I feel having a memory type in the title when
-> this concept has not been yet introduced may be confusing. Having that
-> in the text allows to link the section and jump ahead to relate both conc=
-epts.
-
-Agreed, a clarification in the text is probably better for providing
-context.
-
->
-> >
-> > > +\label{sec:Device Types / Media Device / V4L2 ioctls / Userspace mem=
-ory}
-> > > +
-> > > +A few pointers are special in that they point to userspace memory in=
- the
-> > > +original V4L2 specification. They are:
-> > > +
-> > > +\begin{itemize}
-> > > +\item The \field{m.userptr} member of \textit{struct v4l2_buffer} an=
-d
-> > > +\href{https://www.kernel.org/doc/html/latest/userspace-api/media/v4l=
-/buffer.html#struct-v4l2-plane}{struct v4l2_plane}
-> > > +(technically an unsigned long, but designated a userspace address).
-> > > +\item The \field{ptr} member of \textit{struct v4l2_ext_ctrl}.
-> > > +\end{itemize}
-> >
-> > Same as above, let's either add links to all V4L2 structs, or just
-> > remove them altogether since we point to the documentation in the
-> > introduction anyway.
->
-> I added the link for your comment above, but I think with that change,
-> this is ok as it is. I only add the link to those structs that have
-> not been linked before.
->
-> >
-> > > +
-> > > +These pointers can cover large areas of scattered memory, which has =
-the
-> > > +potential to require more descriptors than the virtio queue can prov=
-ide. For
-> > > +these particular pointers only, a list of \textit{struct virtio_medi=
-a_sg_entry}
-> > > +that covers the needed amount of memory for the pointer is used inst=
-ead of
-> > > +using descriptors to map the pointed memory directly.
-> > > +
-> > > +\begin{lstlisting}
-> > > +struct virtio_media_sg_entry {
-> > > +       le64 start;
-> > > +       le32 len;
-> > > +       le32 __reserved;
-> > > +};
-> > > +\end{lstlisting}
-> > > +
-> > > +For each such pointer to read, the device reads as many SG entries a=
-s needed
-> > > +to cover the length of the pointed buffer, as described by its paren=
-t
-> > > +structure (\field{length} member of \textit{struct v4l2_buffer} or
-> > > +\textit{struct v4l2_plane} for buffer memory, and \field{size} membe=
-r of
-> > > +\textit{struct v4l2_ext_control} for control data).
-> > > +
-> > > +Since the device never needs to modify the list of SG entries, it is=
- only
-> > > +provided by the driver in the device-readable section of the descrip=
-tor chain,
-> > > +and not repeated in the device-writable section, even for WR ioctls.
-> > > +
-> > > +\subparagraph{Unsupported ioctls}
-> > > +
-> > > +A few ioctls are replaced by other, more suitable mechanisms.
-> > > +
-> > > +\begin{itemize}
-> > > +\item \textit{VIDIOC_QUERYCAP} is replaced by reading the configurat=
-ion area
-> > > +(see \ref{sec:Device Types / Media Device / Device Configuration Lay=
-out}).
-> > > +\item \textit{VIDIOC_DQBUF} is replaced by a dedicated event
-> > > +(see \ref{sec:Device Types / Media Device / Device Operation / Deque=
-ue buffer}).
-> > > +\item \textit{VIDIOC_DQEVENT} is replaced by a dedicated event
-> > > +(see \ref{sec:Device Types / Media Device / Device Operation / Emit =
-an event}).
-> > > +\item \textit{VIDIOC_G_JPEGCOMP} and \textit{VIDIOC_S_JPEGCOMP} are =
-deprecated
-> > > +and replaced by the controls of the JPEG class.
-> > > +\item \textit{VIDIOC_LOG_STATUS} is a driver-only operation and shal=
-l not be
-> > > +implemented by the device.
-> > > +\end{itemize}
-> > > +
-> > > +\devicenormative{\subparagraph}{Device Operation: Unsupported ioctls=
-}{Device Types / Media Device / Device Operation / Unsupported ioctls}
-> > > +
-> > > +When a request is not supported, the device MUST return \textit{ENOT=
-TY},
-> > > +which corresponds with the response for unknown ioctls.
-> >
-> > s/with/to
-> >
-> > > +
-> > > +\paragraph{Device Operation: Mapping a MMAP buffer}
-> > > +
-> > > +\textbf{VIRTIO_MEDIA_CMD_MMAP} Command for mapping a MMAP buffer int=
-o the
-> > > +driver's address space.
-> > > +
-> > > +Shared memory region ID 0 is used to map MMAP buffers with
-> > > +the \textit{VIRTIO_MEDIA_CMD_MMAP} command.
-> > > +
-> > > +\begin{lstlisting}
-> > > +#define VIRTIO_MEDIA_MMAP_FLAG_RW (1 << 0)
-> > > +
-> > > +struct virtio_media_cmd_mmap {
-> > > +       struct virtio_media_cmd_header hdr;
-> > > +       le32 session_id;
-> >
-> > session_id is not mentioned in the member description below.
-> >
-> > > +       le32 flags;
-> > > +       le32 offset;
-> > > +};
-> > > +\end{lstlisting}
-> > > +
-> > > +\begin{description}
-> > > +\item[\field{flags}] is the set of flags for the mapping. \field{VIR=
-TIO_MEDIA_MMAP_FLAG_RW}
-> > > +can be set if a read-write mapping is desired. Without this flag the=
- mapping
-> > > +will be read-only.
-> > > +\item[\field{offset}] corresponds to the \field{mem_offset} field of=
- the
-> > > +\textit{union v4l2_plane} for the plane to map. This field can be ob=
-tained
-> > > +using the \textit{VIDIOC_QUERYBUF} ioctl.
-> > > +\end{description}
-> > > +
-> > > +The device responds to \textit{VIRTIO_MEDIA_CMD_MMAP} with \textit{v=
-irtio_media_resp_mmap}.
-> > > +
-> > > +\begin{lstlisting}
-> > > +struct virtio_media_resp_mmap {
-> > > +    struct virtio_media_resp_header hdr;
-> > > +    le64 driver_addr;
-> > > +    le64 len;
-> > > +};
-> > > +\end{lstlisting}
-> > > +
-> > > +\begin{description}
-> > > +\item[\field{driver_addr}] offset into SHM region ID 0 of the start =
-of the mapping.
-> > > +\item[\field{len}] length of the mapping as indicated by the \textit=
-{struct v4l2_plane}
-> > > +the buffer belongs to.
-> >
-> > This makes me think: do we need to return the length of the mapping
-> > when we already know the length of the v4l2_plane and we only map
-> > whole buffers? It probably doesn't hurt to repeat that information
-> > here but maybe that's something we can optimize out?
->
-> That's a good point. Indeed, no partial mapping should be allowed, so
-> the length field does sound a bit redundant. Unless it needs error
-> checking, which probably does not, I think it can be skipped. I'll do
-> for the next version. Thanks!
-
-Thanks - I will make sure to update the driver and devices as well to
-confirm this doesn't introduce any issue in practice.
-
->
-> >
-> > > +\end{description}
-> > > +
-> > > +\paragraph{Device Operation: Unmapping a MMAP buffer}
-> > > +
-> > > +\textbf{VIRTIO_MEDIA_CMD_MUNMAP} Unmap a MMAP buffer previously mapp=
-ed using \field{VIRTIO_MEDIA_CMD_MMAP}.
-> > > +
-> > > +\begin{lstlisting}
-> > > +struct virtio_media_cmd_munmap {
-> > > +    struct virtio_media_cmd_header hdr;
-> > > +    le64 driver_addr;
-> > > +};
-> > > +\end{lstlisting}
-> > > +
-> > > +\begin{description}
-> > > +\item[\field{driver_addr}] offset into SHM region ID 0 previously re=
-turned by
-> > > +\textit{VIRTIO_MEDIA_CMD_MMAP} at which the buffer has been previous=
-ly mapped.
-> > > +\end{description}
-> > > +
-> > > +The device responds to \textit{VIRTIO_MEDIA_CMD_MUNMAP} with \textit=
-{virtio_media_resp_munmap}.
-> > > +
-> > > +\begin{lstlisting}
-> > > +struct virtio_media_resp_munmap {
-> > > +    struct virtio_media_resp_header hdr;
-> > > +};
-> > > +\end{lstlisting}
-> > > +
-> > > +\devicenormative{\subparagraph}{Device Operation: Unmapping a MMAP b=
-uffer}{Device Types / Media Device / Device Operation / Unmapping a MMAP bu=
-ffer}
-> > > +
-> > > +The device MUST keep mappings performed using \textit{VIRTIO_MEDIA_C=
-MD_MMAP}
-> > > +valid until \textit{VIRTIO_MEDIA_CMD_MUNMAP} is called, even if the =
-buffers or
-> > > +session they belong to are released or closed by the driver.
-> > > +
-> > > +\paragraph{Device Operation: Memory Types}
-> > > +
-> > > +The semantics of the three V4L2 memory types (\textit{MMAP}, \textit=
-{USERPTR}
-> > > +and \textit{DMABUF}) can easily be mapped to both driver and device =
-context.
-> > > +
-> > > +However, the driver shall only advertise support for \textit{MMAP} a=
-nd
-> > > +\textit{DMABUF} to the guest userspace. \textit{USERPTR} is merely e=
-mployed to
-> > > +discern \textit{SHARED_PAGES} buffers, similar to how \textit{DMABUF=
-} is used
-> > > +to signify \textit{VIRTIO_OBJECT} buffers in the driver and device c=
-ontext.
-> >
-> > This paragraph sounds specific to the Linux guest driver, as upstream
-> > signaled they prefer if drivers don't expose USERPTR to userspace. But
-> > it's probably not related for non-V4L2 guest drivers, so I'd suggest
-> > we remove it.
->
-> Uhm, good point. I think I am biased and failed to consider that. I
-> agree in that the spec should be kept generic and avoid guest-specific
-> details like this. I'll remove the paragraph!
->
-> >
-> > We probably also want to define the values, I am using this in the driv=
-er:
-> >
-> > enum virtio_media_memory {
-> > VIRTIO_MEDIA_MMAP =3D V4L2_MEMORY_MMAP,
-> > VIRTIO_MEDIA_SHARED_PAGES =3D V4L2_MEMORY_USERPTR,
-> > VIRTIO_MEDIA_OBJECT =3D V4L2_MEMORY_DMABUF,
-> > };
-> >
-> > > +
-> > > +\subparagraph{MMAP}
-> > > +
-> > > +In virtio-media, \textit{MMAP} buffers are provisioned by the device=
-, just like
-> > > +they are by the kernel in regular V4L2. Similarly to how userspace c=
-an map a
-> > > +\textit{MMAP} buffer into its address space using mmap and munmap, t=
-he
-> > > +virtio-media driver can map device buffers into the driver space by =
-queueing the
-> > > +\textit{struct virtio_media_cmd_mmap} and \textit{struct virtio_medi=
-a_cmd_munmap}
-> > > +commands to the commandq.
-> > > +
-> > > +\subparagraph{SHARED_PAGES}
-> >
-> > Maybe add something to say this is the semantic equivalent of
-> > V4L2_MEMORY_USERPTR.
-> >
-> > > +
-> > > +In virtio-media, \textit{SHARED_PAGES} buffers are provisioned by th=
-e driver,
-> > > +and use guest physical addresses. Instances of \textit{struct v4l2_b=
-uffer}
-> > > +and \textit{struct v4l2_plane} of this type are followed by a list o=
-f
-> > > +\textit{struct virtio_media_sg_entry}. For more information, see
-> > > +\ref{sec:Device Types / Media Device / V4L2 ioctls / Userspace memor=
-y}
-> > > +
-> > > +The device must not alter the pointer values provided by the driver,=
- i.e.
-> > > +\field{the m.userptr} member of \textit{struct v4l2_buffer} and
-> > > +\textit{struct v4l2_plane} must be returned to the driver with the s=
-ame value
-> > > +as it was provided.
-> > > +
-> > > +\subparagraph{VIRTIO_OBJECT}
-> >
-> > Similarly we probably want to say this is the semantic equivalent of
-> > V4L2_MEMORY_DMABUF.
-> >
-> > > +
-> > > +In virtio-media, \textit{VIRTIO_OBJECT} buffers are provisioned by a=
- virtio
-> > > +object, just like they are by a \textit{DMABUF} in regular V4L2. Vir=
-tio objects
-> > > +are 16-bytes UUIDs and do not fit in the placeholders for file descr=
-iptors, so
-> > > +they follow their embedding data structure as needed and the device =
-must
-> > > +leave the V4L2 structure placeholder unchanged.
-> > > +
-> > > +Contrary to \textit{USERPTR} buffers, virtio objects UUIDs need to b=
-e added in
-> > > +both the device-readable and device-writable section of the descript=
-or chain.
-> >
-> > s/USERPTR/SHARED_PAGES.
-> >
-> > I'm also not quite sure why we concluded the objects UUIDs need to be
-> > on both the device-readable and device-writable sections. Do you
-> > happen to remember?
->
-> I took this directly from the virtio-media project at
-> https://github.com/chromeos/virtio-media/blob/main/README.md?plain=3D1#L4=
-44
->
-> I do not think I got involved in any discussion regarding this detail?
-> Maybe it has to do with the fact that mmaped buffers can be exported
-> by the device, and uses the device-writable section to communicate the
-> new ID back to the driver? Just a guess though.
-
-Right, that was the reason! And indeed I don't think we discussed this
-thoroughly, and it shows. >_<
-
-The problem with the way things are currently specified is that it
-changes the behavior of e.g. VIDIOC_QBUF depending on the memory type -
-buffers backed by a virtio object need to have some space reserved in
-the device-writable part of the descriptor while SHARED_PAGES buffers
-don't. That's inconsistent.
-
-It is probably clearer and simpler to add a paragraph about the
-VIDIOC_EXPBUF ioctl and tell that space for the object ID need to be
-reserved in the device-writable part of the descriptor, as the device
-writes there. This can normally be inferred from the documentation of
-VIDIOC_EXPBUF, but I'd also explicitly state it here for clarity. WDYT?
-
-Cheers,
-Alex.
