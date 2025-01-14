@@ -1,148 +1,184 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDDE15746B
-	for <virtio-comment@lists.linux.dev>; Tue, 14 Jan 2025 15:57:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DEC423245A
+	for <virtio-comment@lists.linux.dev>; Tue, 14 Jan 2025 17:16:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1736870276; cv=none; b=YxQGWB+c87EwpG6kxzamKgzXEBiPrhEY7JHlWMU8mIxgNYk5+2gusON0lc2PZX+dyiBP0Zf+X8ZqbXoZ9lMzA3ZtCh17zR7AsJw+pb91iB+jCzCG1pohY436Z4FnF5/1Mzm/0xXjHxDRmTheqzGevfg1yZBjLqP/HIzkdyKxmo8=
+	t=1736875005; cv=none; b=rJywtStTQzinJStCx2gb2OuUEqfcuK7WsTi5s9RBuwqKM4icCDwKNXjv3INHlkQ2fHqJi1Et4gKv60+upfkMW4ew7gz6Rlv5sewDXhogqZ3aesBIMLGVgvSPU44pvGxDeoFUIgPjBIvXqh3Idd6NiOjavwZivIEkg3uMsoQizFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1736870276; c=relaxed/simple;
-	bh=Bx1CMz1XcIOtNRipzulwVEeXbW5Yx+JB9j+LFGvbaZs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NDEzXADHpc7RIQWj6Pe+Hy4k1hK80mdfPn3pOB84Fs0X2vJFOTqmsUwbOlQqs6pjIuJdqrsV0zPh9woOwXkZK1ldnsKan1gMWV0iTxf0OVZKmVtSIuaN6Tq4bbbHaY54FDYMN/tOI4PkXm8+u+5I50f8E8leF/mIx+XKJ5T9qOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XHGw1ZeW; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1736875005; c=relaxed/simple;
+	bh=koowyZmgO+H3HmUxpyjU9DALhDf/JOOyqVpGCG2XWmo=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OvQzoklkjGuVo9METuxAQ4pc8vtldTOoM5Tvml4efXDeyIe37GBTvZRtuy8FVphwSsrQhEVi9agZAh/paceuOWT7pkbwVqALSP4QFyjBHCMy/Ce3JyEdSj0YW9NVb2sXcvM+tkmYEd2QA1Ovu0HOzQSd/u33oTIv8JdcnbfgxX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=L8LMmEzg; arc=none smtp.client-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XHGw1ZeW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1736870273;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=j6TzDwFw8N6XzrETouK7pvLkyCfYvTMdnz9DGsncXyY=;
-	b=XHGw1ZeWjKd+X4w8fdADZN8urj3Z6wLwHoxvaCogyJWF1FA6s6vbkpTXWVthKYkos/FwA8
-	EqI2mokJLRSPaCaQ640AQliwLwKRGDmCPOigHF/xpD5ogdnaxqwbDAZgfUVWdbW6Dk0Whm
-	AkbkAwwJS2Tyoukoa/oO3XmLHkvYEWM=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-338-7laMOfyjN6qO0WO-1oAOQQ-1; Tue, 14 Jan 2025 10:57:51 -0500
-X-MC-Unique: 7laMOfyjN6qO0WO-1oAOQQ-1
-X-Mimecast-MFC-AGG-ID: 7laMOfyjN6qO0WO-1oAOQQ
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-3862be3bfc9so3348791f8f.3
-        for <virtio-comment@lists.linux.dev>; Tue, 14 Jan 2025 07:57:51 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736870270; x=1737475070;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=j6TzDwFw8N6XzrETouK7pvLkyCfYvTMdnz9DGsncXyY=;
-        b=Szqu9i1e2HLwHN6XNXd47fPxlp9GjbCaO014J4OGf4s894s5QrzaaqevGT2f8TakaI
-         rAyzDuWnnuuZRh95gi072TMfq88JGam5reXHYGayvvWiLdiEmOX66VfhrTtNpIu8DFWr
-         XYFDSfnK1LO2EkpABoIj1wePP7CUiodKZLSstUc+oXjLlXd76j948BHNCUeHuIFwZSKA
-         jCRikumF5fcdloFa4LpdB1JDZlN+T4lrabD4tqe7b+ZjRmw+Cniy8IZSaJAkNmnoQIxB
-         J/SFhJ2cwEyn5MMXrW/onU4jJRoiJpEHh0fQFGBNTXHvy8PP8fgWfGbxMqaxhVzQ57gI
-         wY8Q==
-X-Gm-Message-State: AOJu0Yxoh1IpHGN05dPZi+wg0+LzTwlFyJlAQ718T44A+1OkEztju2f3
-	pB0lra0myfKnJcLXycaG9Nx5EhBFuEWA7545Fb6HFxRr0J6gyiAP6oUxdRoG9Ei+fujXVHvN6m9
-	qJ7Wa8ca7+nMnGmMhUx46EE8CwTkgZf3jM5QaMse1Yi5zBFv6QYLAf8pU6GhgaXdN
-X-Gm-Gg: ASbGncvBBSSrob+pulomrrCmHHKcdYh/ydYyZZNFJu19lBYZN2oR3HBKowPKubC5Ogz
-	sBcPrJZajTPbAB4F+EovqmqRVF0FvKeu7HxuhIf9pI4S+QuoMsDf0a2J7EKUtniEbux7emidj6O
-	xaGPlhRp0W04yqyk0cxfGKoAiBpRjydLKTVnMQ61PPEhORabOf11wcTvo7MBCVhr5Z1SELR5mYp
-	fRteWni73MPq3VaoFA5i7jgl10URFud0i7afWVYPa6lZ+oICnwD0WE7YciRdpyYnLzEYHyq/1fu
-	0vV2cAzwTGE=
-X-Received: by 2002:adf:9bca:0:b0:38a:88e2:e6aa with SMTP id ffacd0b85a97d-38a88e2e719mr14331742f8f.29.1736870269084;
-        Tue, 14 Jan 2025 07:57:49 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFZWEb5+XM8jV2iNsaycjNxLJrJYvt64pmWAKvZ9h2K2gwC9nU2D7QB9Qo3DQaCx1DOaJogdg==
-X-Received: by 2002:adf:9bca:0:b0:38a:88e2:e6aa with SMTP id ffacd0b85a97d-38a88e2e719mr14331663f8f.29.1736870267191;
-        Tue, 14 Jan 2025 07:57:47 -0800 (PST)
-Received: from [192.168.88.253] (146-241-15-169.dyn.eolo.it. [146.241.15.169])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-436e2da66fcsm216801695e9.6.2025.01.14.07.57.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Jan 2025 07:57:46 -0800 (PST)
-Message-ID: <bf181935-8a71-4bd1-a675-d83258694fe6@redhat.com>
-Date: Tue, 14 Jan 2025 16:57:44 +0100
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="L8LMmEzg"
+Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50EFUTOO028458;
+	Tue, 14 Jan 2025 09:16:41 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pfpt0220; bh=STzVOGFOscSrKNmg7DgVIfy
+	ItQP7T84sFunIYkTJ0HU=; b=L8LMmEzgwV96l0t6Y+q081MACo04HajeXbUhXg9
+	ApInmN/GOImowbEXK+0olGK2rU89Oo1YCErZAEMQLPV0zi61Tl7qn7KMGf6Pbcgv
+	eOmlegiuQesSLFtafcQdfUxUeCKatZmsYyZrBDySIPKI6IgVcUnSMb36c+XZ+YHG
+	Uf4wU+joJ2obEpzkmShmaNZFnY6QNdcOCZvppOyTRxzz8I2d7LKkjRqsNXV8WrCo
+	ixOVguwrUPl/KWIuCPPM582CO+IYphiM3MpMYhRXmVqAkNE29POs8CSJTkMdNtp9
+	L9s50Rqe+ep7QcbheOEumdSRainUi7YRAf1fLCPjYSIYVvQ==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 445tmbr83b-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 14 Jan 2025 09:16:41 -0800 (PST)
+Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.4; Tue, 14 Jan 2025 09:16:40 -0800
+Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
+ (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.4 via Frontend
+ Transport; Tue, 14 Jan 2025 09:16:40 -0800
+Received: from 5810.caveonetworks.com (unknown [10.29.45.105])
+	by maili.marvell.com (Postfix) with ESMTP id AD86C3F7087;
+	Tue, 14 Jan 2025 09:16:37 -0800 (PST)
+From: Kommula Shiva Shankar <kshankar@marvell.com>
+To: <pabeni@redhat.com>, <willemb@google.com>, <jasowang@redhat.com>,
+        <parav@nvidia.com>, <virtio-comment@lists.linux.dev>
+CC: <ndabilpuram@marvell.com>, <jerinj@marvell.com>, <rbhansali@marvell.com>
+Subject: [PATCH] virtio-net: Introduce a new field to indicate outer network header offset
+Date: Tue, 14 Jan 2025 22:46:36 +0530
+Message-ID: <20250114171636.3175670-1-kshankar@marvell.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 0/4] virtio-net: define UDP tunnel offload
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
- maxime.coquelin@redhat.com, Eelco Chaudron <echaudro@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>,
- Willem de Bruijn <willemb@google.com>, kshankar@marvell.com
-References: <cover.1732699986.git.pabeni@redhat.com>
- <fe15607a-1431-438d-956b-bfec70e94507@redhat.com>
- <175a0b29-5901-4393-9390-64a018bec260@redhat.com>
- <20250114101553-mutt-send-email-mst@kernel.org>
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20250114101553-mutt-send-email-mst@kernel.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Y1gg_nAXYXqr4l1mZQqbRdKJsUonKm-guiKiNxrghec_1736870271
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: Xw5rFybUWEaDgiwS1dTS6HlwMpqV7Glh
+X-Proofpoint-GUID: Xw5rFybUWEaDgiwS1dTS6HlwMpqV7Glh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.687,Hydra:6.0.235,FMLib:17.0.607.475
+ definitions=2020-10-13_15,2020-10-13_02,2020-04-07_01
 
-On 1/14/25 4:16 PM, Michael S. Tsirkin wrote:
-> On Tue, Jan 14, 2025 at 04:04:35PM +0100, Paolo Abeni wrote:
->> On 11/27/24 10:48 AM, Paolo Abeni wrote:
->>> On 11/27/24 10:36, Paolo Abeni wrote:
->>>> UDP tunnel usage is ubiquitous in container deployment, and the ability
->>>> to offload UDP encapsulated GSO traffic impacts greatly the performances
->>>> and the CPU utilization of such use cases.
->>>>
->>>> This series includes:
->>>> - clarifications on the current semantic of NEEDS_CSUM offload
->>>> (patch 1) and DATA_VALID offload (patch 2) to make later changes easier
->>>> to follow,
->>>> - new features definition to handle both UDP tunnel segmentation
->>>> offload (patch 3).
->>>> - new features definition to handle UDP tunnel outer checksum offload
->>>> (patch 4).
->>>>
->>>> A PoC implementation is available here:
->>>>
->>>> https://github.com/pabeni/linux-devel/commits/virtio_tunnel_gso_v10/
->>>> https://github.com/pabeni/qemu/tree/virtio_tunnel_gso_v9
->>>>
->>>> Note that both implementations has not been updated since the previous
->>>> iteration, since there are no additional functional changes in v11.
->>>>
->>>> Changes from v10:
->>>> - added patch 2
->>>> - clarified only a single encapsulation level is supported (patch 3)
->>>> - s/TCP or UDP GSO packets/GSO packets/ (patch 3)
->>>> - 'to the outer UDP pseudo header' -> 'to the outer UDP pseudo header
->>>>   checksum' (patch 4)
->>>> https://lore.kernel.org/virtio-comment/cover.1731084277.git.pabeni@redhat.com/
->>
->> I understand all the points under discussion have been addressed. I'm
->> wondering the next steps are and what I could do to move things forward.
->>
->> Thanks,
->>
->> Paolo
->
-> See
-> https://github.com/oasis-tcs/virtio-spec?tab=readme-ov-file#use-of-github-issues
-> 
-> for the process to get a change merged once there is concensus.
+Hi Everyone,
+It has been some time since this patch was sent. I am resending it for your review and look forward to your feedback.
 
-Thank you for the prompt reply and useful guidance.
+This patch introduces a new field in the virtio_net_header called out_nh_offset,
+along with a new net device feature, VIRTIO_NET_F_OUT_NET_HEADER.
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/212
+Currently, there is no field available to directly read the outer network header offset in case of segmentation offload.
+This requires reading packet data, which significantly affects performance in datapath.
+Additionally, some hardware implementations requrie knowledege of the outer L3 offset (aka L2 length) for inline IPSec hardware acceleration.
 
-Could please open a voting ballot for these changes?
+To address this limitation, we propose splitting the csum_offset field into two 8-bit fields named csum_offset and out_nh_offset.
+The csum_offset indicates the offset value from the csum_start and  may not exceed 256B bits(2^8) for protocols that use a
+16-bit one's complement checksum
 
-Thanks,
+Following table lists such protocols and their checksum offset fields within their headers
 
-Paolo
++-----+--------+
+|Proto|csum_off|
++-----+--------+
+| IPV4| 10B    |
+| ICMP| 2B     |
+| IGMP| 2B     |
+|  TCP| 16B    |
+|  UDP| 6B     |
++-----+--------+
+
+The out_nh_offset represents the start offset of the outer network header from
+the beginning of the packet data
+
+This issue was briefly discussed on the mailing list in a different thread, which can be found here
+https://lore.kernel.org/all/DM4PR18MB4269FAAC3CFC7E57E25DFBD2DF8B2@DM4PR18MB4269.namprd18.prod.outlook.com/
+
+Signed-off-by: Kommula Shiva Shankar <kshankar@marvell.com>
+---
+ device-types/net/description.tex | 26 +++++++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
+
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index 76585b0..48c081b 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -88,6 +88,10 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
+ \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
+     channel.
+ 
++\item[VIRTIO_NET_F_OUT_NET_HEADER(50)] Driver can provide the start of \field{out_nh_offset}
++    value. Device gains advantage by not reading packet data to calculate outer network
++    header offset.
++
+ \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header hash for encapsulated packets.
+ 
+ \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue notification coalescing.
+@@ -418,7 +422,13 @@ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device O
+         le16 hdr_len;
+         le16 gso_size;
+         le16 csum_start;
+-        le16 csum_offset;
++        union {
++                le16 csum_offset;
++                struct { (Only if VIRTIO_NET_F_OUT_NET_HEADER negotiated)
++                        le8 csum_offset;
++                        le8 out_nh_offset;
++                };
++        };
+         le16 num_buffers;
+         le32 hash_value;        (Only if VIRTIO_NET_F_HASH_REPORT negotiated)
+         le16 hash_report;       (Only if VIRTIO_NET_F_HASH_REPORT negotiated)
+@@ -457,6 +467,10 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
+ \item The driver can send a completely checksummed packet.  In this case,
+   \field{flags} will be zero, and \field{gso_type} will be VIRTIO_NET_HDR_GSO_NONE.
+ 
++\item If the driver negotiated VIRTIO_NET_F_OUT_NET_HEADER,
++   \field{out_nh_offset} indicates the outer network header offset in bytes
++    from the beginning of the packet.
++
+ \item If the driver negotiated VIRTIO_NET_F_CSUM, it can skip
+   checksumming the packet:
+   \begin{itemize}
+@@ -531,6 +545,10 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
+ \field{flags} to zero and SHOULD supply a fully checksummed
+ packet to the device.
+ 
++If the VIRTIO_NET_F_OUT_NET_HEADER feature has been negotiated,
++the driver MUST set \field{out_nh_offset} to point outer
++network header start, otherwise to zero.
++
+ If VIRTIO_NET_F_HOST_TSO4 is negotiated, the driver MAY set
+ \field{gso_type} to VIRTIO_NET_HDR_GSO_TCPV4 to request TCPv4
+ segmentation, otherwise the driver MUST NOT set
+@@ -596,6 +614,7 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
+ 	the driver SHOULD set \field{hdr_len} to a value
+ 	not less than the length of the headers, including the transport
+ 	header.
++
+ \end{itemize}
+ 
+ The driver SHOULD accept the VIRTIO_NET_F_GUEST_HDRLEN feature if it has
+@@ -610,6 +629,10 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
+ If VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} is not set, the
+ device MUST NOT use the \field{csum_start} and \field{csum_offset}.
+ 
++If the VIRTIO_NET_F_OUT_NET_HEADER feature has been negotiated,
++the device MAY use \field{out_nh_offset} as the outer network header
++offset, otherwise device MUST NOT use the \field{out_nh_offset} value.
++
+ If one of the VIRTIO_NET_F_HOST_TSO4, TSO6, USO or UFO options have
+ been negotiated:
+ \begin{itemize}
+@@ -631,6 +654,7 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
+ 	\begin{note}
+ 	This is due to various bugs in implementations.
+ 	\end{note}
++
+ \end{itemize}
+ 
+ If VIRTIO_NET_HDR_F_NEEDS_CSUM is not set, the device MUST NOT
+-- 
+2.43.0
 
