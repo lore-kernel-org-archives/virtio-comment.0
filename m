@@ -1,64 +1,62 @@
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com (mail-bn1nam02on2075.outbound.protection.outlook.com [40.107.212.75])
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com (mail-mw2nam12on2089.outbound.protection.outlook.com [40.107.244.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC581401C
-	for <virtio-comment@lists.linux.dev>; Sun, 19 Jan 2025 08:06:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.212.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDFD1885A1
+	for <virtio-comment@lists.linux.dev>; Sun, 19 Jan 2025 09:38:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.244.89
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1737273969; cv=fail; b=b4i3L6RsoEXwGIKVCXtqHx8A6Lw/EHOLP+9pvIXQADGMqUW+mHy1bJKsYeDhgK/5QP23Y3l8C1Z06zv3cXVZ9murJOaUTrFFIN24oQL3snqfIWEmce71d0++e1aePFHY7TitKGCdb8dS1yCZpFV2zLRKwftqd9WkelOOMKLJ1Q0=
+	t=1737279489; cv=fail; b=XTsEWt5B2MoloizsNLHvsDtWnEExvh+JglfS9QSi+W7a2tLobzy5UFrNzMY5a0S9ee6fA44dhftWWLPswriOA6A7HB0qH485QWBmjnoVqNP9p46hrpmWEHbGbXqLMgE2H6qI60+szBxaq71kQmMMISf9lVC/lKCxZnLirht3mK0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1737273969; c=relaxed/simple;
-	bh=+Lk8ir4JF+eq6HH2LRI5U1PFN8vsoXGQl7mf4pzIzTg=;
+	s=arc-20240116; t=1737279489; c=relaxed/simple;
+	bh=jU51YaEtViUMcQEycK/yEZ4GBEvI2K9PiSZ1va8Y6hM=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=OT3R5DqJEC3irw+AjdnOR0r0c8CoKbTVME1E4hxTLYLIjE371mK403W05yZxPCVNc24nD/PhhcGfod7NGBsDR8UNysQoH1DfQxkOsu5k35K8/NKwmJJQIziqRFYIQxoSxw6Up0wtac7OcW+fRDugJrWqheUn1L4/5hHEZOJKimQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=StzlKoZo; arc=fail smtp.client-ip=40.107.212.75
+	 Content-Type:MIME-Version; b=FCB0Ps7cp0uif6GPU846ZPjuHzT92XSEqnrBXxIUTIvZlW/dmI2cldCOiClxsr4gzqxr8uv2PrOinZVXOqv3uLXrIwJElDOFax5hJLqebwHcNlplmCDcuZ+W9ciMIkaeuXA7h9dVorVM0G94x3Omf3h6PW1w2Sf1ptzWKESi+bw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=kGqyL2g6; arc=fail smtp.client-ip=40.107.244.89
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="StzlKoZo"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="kGqyL2g6"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GojprUoNAsawdz5iOqV3wF0lJIER8qUt22Toaml++//sabniFIrOD9sxKbzXqSFVbrFTXpbMSMFIxmGlthfn7f5TBAQBHjEyHMCAUbTP2qCVFMJl5EU3VNrBppQU19HbNNGkqbQ6C7a4BVerrj53d0dDOuMiGU6DoXCkG+Cmqubazb2TR1gHCCGY5LZkd8Xt1rD5wkz0yk9V307TOxLZNRTXfunK2NnHtElXIJNb53a+UoiGu+/URN9tww6tmYHbn/9ojfzkVnMCw/ArYo9hbI4gbrJ1xXyNqCdAJ2pXxc8AzRPoaZMjEvhTbJauNYVaURKLOK6O4zyLWY1GJL5/ag==
+ b=RAQ6pXqoO/FIqnoZ5fOiwDwQVVFlTXZiCZAME2ln/ga+yO6kFSSLZ+7EwU5kgg6XPDE6QnAfDLnxJKd9LtpydifJl00yYREyaxad9XAW/HjaqVAvES/qdpWe4l1jTAc+dd1nRY7fMCA7tYVmUAsM9xInFwwzB0VFHzA2/kHnKvGUukorFkTB28jjDKgMlkRstKvqlyzXfwxXrtK5/V5uSS8PyHC8QyW4BtENuKu2iK8QsGj1IGfKnxSNtmmu320xuX81zn7azLpwipMZyRiAJwThOuOiz/3nEFGxf+7QzAvGa1dQRaZSH5hx3y6/AsdEFFikTcBy+8lVTUw3pdQ4kQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CiVHmX/HAL4Z52SNdEmqnS4siEITyH3J+bdg05j3Sl8=;
- b=QMjcx2acGlJmN/uFC0di6S5jG4bXa9dags7MDLeFDbfmSQCjceElaQD/ej1+4tONIRyBAkYBmbRFZVd2G7N1xhlil8XaIrX0mbKyoL9GzSI/3gGN2lnH9oyyTz8sVeFSBv41PJkYaJEpx6I/YmdmN0oJkP5jHGyWmdc79K/S29OU9Gs2TEpIN2cCq8NEdamEyJ52MTqfXe+Rgt44H955gX7o3QVG1v6I4hh2hEtQUzvyhYIkrwYx8lIKhfvQqWNAdfhxD8CPiiXraCQetzT6D+OfOQGiJY7wGd2j4bMXACstJO7Dzy+NMieSQWeK2xYrohlDNMUAMnIA2D3FSgN/Jg==
+ bh=5L8DeUuP4Bie6m1FPAslOyv5tInheQKDh3JcxJ3F5v8=;
+ b=yToETYUJRpOO2h3fSdtV02Voh/DlNsz7JR/OH0HbBMVE+BQG0E9FSUMjeiOO5E6XzH8DysxQ9duKBLYPSISs6089REnidfr7VpWttrovdhqis7O4sqgOSEfBbN6k4udw7Ugyrl6Y1ky4UVrkdl2KKeozE1ysK5GnKpHuH/b0HDNamgXVo+nWc/+6oBX6xdI63N3/HDP2aKhV0MLqO9uUF4glSTpXygaP54/3XUggpH26dIA7EYiGCHcakB+VTHxsxIiPq7ifF3a0rmZxE3HOiG/JPTWRGnkbwUd/lzLOKv3C9XfI5CKwq794XyzJvmJjlQ1KAXpLCBjdzCMOfTYLrg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CiVHmX/HAL4Z52SNdEmqnS4siEITyH3J+bdg05j3Sl8=;
- b=StzlKoZokzCRnz0ezkHZrxgOvrYu2+nlNcr8gmsThWZNlSOnerSeftG/rw8BvQve5gt/vKFGTeUYqUGQSQYKkFDOh99+c6wLuavHhtoWG8G5I3R/UL1PMNzMdj9+eEzHiBQUYdBDDPVSev/dcsOM+2xy0gwj6UZBnp7RT3R9HmCOb5i4fvBszYEnY7Gc4V98YtYbIJZEQgqT8osahfCoFimrUCyHEz87qpSbkAWo4yT9seU73yDgCU/Zg0fUbz0s5aWR6knbS0YJcMNLMEmO0Q5oywKURnAidMA+tl/awD9lH7uzgvx0bnwMHryUgaRS1dfMKRMNbHktNPd+Mew4kQ==
+ bh=5L8DeUuP4Bie6m1FPAslOyv5tInheQKDh3JcxJ3F5v8=;
+ b=kGqyL2g6HfZr6jyR36JN3JsKfJVQffe8HXmJLlSSTj1AJ+THNiklwAQ4/UigEGgUJUW2VyuMv6+R08wO4j9Vmnsb4xxcdbUCoUPdAM1cJ77SNJwfkQ9gbIsU33jlMVnu3/H+gifKt3euXfCxL5pSMXQbgwSJAAIKrQm3W8z670r1b0nCrjRNKsWzeufL4l4/psUEwzaMKm0xkGfqF281mLSHaznoAj5GQ7cCB8Ti1khn7rKiMDBQDTqNsorWagRS+jT9srtCueh21FSBaP9316iswbcViNng9wljQbi2gndSukCEezfDsvt2zuBxRvUmwKI6clEsVHqE2t6k3LgqfQ==
 Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
- by MW3PR12MB4491.namprd12.prod.outlook.com (2603:10b6:303:5c::18) with
+ by SA1PR12MB8722.namprd12.prod.outlook.com (2603:10b6:806:373::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.20; Sun, 19 Jan
- 2025 08:06:03 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.17; Sun, 19 Jan
+ 2025 09:38:03 +0000
 Received: from CY8PR12MB7195.namprd12.prod.outlook.com
  ([fe80::c06c:905a:63f8:9cd]) by CY8PR12MB7195.namprd12.prod.outlook.com
  ([fe80::c06c:905a:63f8:9cd%7]) with mapi id 15.20.8356.017; Sun, 19 Jan 2025
- 08:06:03 +0000
+ 09:38:02 +0000
 From: Parav Pandit <parav@nvidia.com>
-To: Paolo Abeni <pabeni@redhat.com>, "virtio-comment@lists.linux.dev"
+To: Kommula Shiva Shankar <kshankar@marvell.com>, "pabeni@redhat.com"
+	<pabeni@redhat.com>, "willemb@google.com" <willemb@google.com>,
+	"jasowang@redhat.com" <jasowang@redhat.com>, "virtio-comment@lists.linux.dev"
 	<virtio-comment@lists.linux.dev>
-CC: "maxime.coquelin@redhat.com" <maxime.coquelin@redhat.com>, Eelco Chaudron
-	<echaudro@redhat.com>, Jason Wang <jasowang@redhat.com>, Stefano Garzarella
-	<sgarzare@redhat.com>, Willem de Bruijn <willemb@google.com>,
-	"kshankar@marvell.com" <kshankar@marvell.com>
-Subject: RE: [PATCH v11 3/4] virtio-net: define UDP tunnel segmentation
- offload feature
-Thread-Topic: [PATCH v11 3/4] virtio-net: define UDP tunnel segmentation
- offload feature
-Thread-Index: AQHbQK/3KR1RJyc06Uq86qDUg7CIZbMeDhsA
-Date: Sun, 19 Jan 2025 08:06:03 +0000
+CC: "ndabilpuram@marvell.com" <ndabilpuram@marvell.com>, "jerinj@marvell.com"
+	<jerinj@marvell.com>, "rbhansali@marvell.com" <rbhansali@marvell.com>
+Subject: RE: [PATCH] virtio-net: Introduce a new field to indicate outer
+ network header offset
+Thread-Topic: [PATCH] virtio-net: Introduce a new field to indicate outer
+ network header offset
+Thread-Index: AQHbZqgaFNqj/sEh/0yXSY3fnG9XbLMd3VcA
+Date: Sun, 19 Jan 2025 09:38:02 +0000
 Message-ID:
- <CY8PR12MB7195D914B9EF00FF62C5E1DFDCE42@CY8PR12MB7195.namprd12.prod.outlook.com>
-References: <cover.1732699986.git.pabeni@redhat.com>
- <3e1c45071c8cf4efc7ca0ecc7b52a73c6bf983fe.1732699986.git.pabeni@redhat.com>
-In-Reply-To:
- <3e1c45071c8cf4efc7ca0ecc7b52a73c6bf983fe.1732699986.git.pabeni@redhat.com>
+ <CY8PR12MB7195D27F3BB0A02F11B48106DCE42@CY8PR12MB7195.namprd12.prod.outlook.com>
+References: <20250114171636.3175670-1-kshankar@marvell.com>
+In-Reply-To: <20250114171636.3175670-1-kshankar@marvell.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -66,68 +64,68 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|MW3PR12MB4491:EE_
-x-ms-office365-filtering-correlation-id: 051cf821-2fc5-4219-dd67-08dd38601e3b
+x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|SA1PR12MB8722:EE_
+x-ms-office365-filtering-correlation-id: 34601fad-2fd6-445f-a876-08dd386cf81a
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|38070700018;
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
 x-microsoft-antispam-message-info:
- =?us-ascii?Q?h766821WbFVe20N8VsqLl8oyeebFYxh6dDSyEizK71wawsmfSKiv1VwOgBED?=
- =?us-ascii?Q?x43lTWtMvOKd5svZ0eAyZZpdXhvCPP+IGr6lewoTLfl+Mg6Lwx7NdCGjkOX0?=
- =?us-ascii?Q?YkctDYJCY0a6REVjPKtHg8j6+fCjP4wk7ce7EVVGAdQN64jqFvS7UkOhUeZ4?=
- =?us-ascii?Q?Ajm0qj/4sN9476TI0YnKJt0hXnTj6Ra1F+hdRO+Rpga9L6kvVg1G/zwNzUeh?=
- =?us-ascii?Q?/BArGldDYCqx7v/aAvR8XW7YA3eufKc1eUeHXUEcOMOnp4hnYv83kNdbubvw?=
- =?us-ascii?Q?NGuWlTr440EoRbkAg1GaIYSu4jZjJczAjPbm1t/DA7YZevoFJdSZm39DLs5H?=
- =?us-ascii?Q?53prJ2cuWnvtb+C06uCrvM2q2RUM2+k90ebd9zu7YQPPeZEv7kQh0jpExVlG?=
- =?us-ascii?Q?JpT3W+q8AXI70L0YyMWt0bKcc63SemnCq/d74EEIZ8GMkMoq0csD/SEVLkmc?=
- =?us-ascii?Q?MYvyJIVXMEoiKCdTNE9I9tPr0evrbCyBQ6OXrl+Uk5VYAbMUagmGMYB/jfly?=
- =?us-ascii?Q?DTBD9/zLuE30IMxYN7NQMldR2Y4BmRxv3vfcSL5SwCLMs7zzXHQ6rb36LSdR?=
- =?us-ascii?Q?zBjf66u3pZHxZMub08DWZEsKU9YCjBvYelrrJPKwzFSxQv47hTu8vFIOi9tc?=
- =?us-ascii?Q?P1NUF10d2zauWJKqQky9gxer8EcXZJyET7sR8vamqLC25B6voGC3LatSMwrU?=
- =?us-ascii?Q?s3Tw8aeRmXrzP0bTEjjbfOPXfSG1ko+/0s/6cN8krPnunB7hBhANsAqWsisv?=
- =?us-ascii?Q?T0niU4IVBGD+LTyFVbJHna5kfy/pIyie/6qbGaDFgPI+ZDGgqREbSKsGD009?=
- =?us-ascii?Q?/z0jTetom8E4yOgiR7MnRqjf4f4f4kV0YCHOrAhA1sNIXLm9agwOMzdZyTP1?=
- =?us-ascii?Q?GDZDipbsyfzuv9hKflA/X8AC7zyB6tQuRfl/WtUhUOSro/CC1mWrpfZQ2FQ9?=
- =?us-ascii?Q?SGqsIXIqZyQK85OEL4gU7TUWoILDJ+N3fqy8jfR8qdH5Np1/vFFBxykr46Rx?=
- =?us-ascii?Q?fjyO7LnJvcMDv5ARD2ogJNEstL5xXjq8Ra63+iiBCgWZOU6TS+D5nQPo5WRR?=
- =?us-ascii?Q?IBSuNzIM//u6mbB234F1PKIbhv5SMpix1xP5YGZmM6qatLuWCP/7bg086iZZ?=
- =?us-ascii?Q?k8FUrQ3eWrWP37G+M5NFltjHUKw52X+ZNWNoP+3K9srlSt9y5hRj9sIafqu2?=
- =?us-ascii?Q?3rUUlcDTspjD0uRzljmhcEK0anD6+D5d33dSKfbAM4rW1ds0ggE8b4jV+xxe?=
- =?us-ascii?Q?diQRHrmi9FBlHvO2FaCzCzQXgAxz/af3mML13K51LFEo96rRVeSg8HO1BBjB?=
- =?us-ascii?Q?Twq3mFr6PjIJ8VBf0jScJN4Z7c+EYxlx6J56IZRXk2OVBTNuGLGRpCfq63j1?=
- =?us-ascii?Q?lVaN11b7j3IXml8/1mK04aWJ3bxlB4y/086WR6TsH+ziXdxDr9xEguFgDl7C?=
- =?us-ascii?Q?D4Xu0vFFlRCZHBjvnFR7IVzO2Suc1umO?=
+ =?us-ascii?Q?5G8Lb3MEyAjyh/9L/Mdh2rO8G+wl8zro+RdNbz4x1Txq/U0jS1fxekEN/kzC?=
+ =?us-ascii?Q?veXZt1Syucc4l9QecLewcfO8HaN6ogyjDHhjGaIuWP9oE+pqAvHVgRQFBfgv?=
+ =?us-ascii?Q?vJ1NxvWUgZzHer+h5hFxvkomaPuWxRPpL7W/SxTEKjoSxydkkf/3tP/uYQn0?=
+ =?us-ascii?Q?XF9M7mP5zSwdONTQ0ybePcQbZGYTvWGayru8BXlk4cMz9GFaaz1INWdzOlGq?=
+ =?us-ascii?Q?MdzoSMuMbNOIjKeTeIe8Ba9rc7qSJUBWNLNnLdq7gRrFgeK+BXCyvWJKmyya?=
+ =?us-ascii?Q?RXvh5lb2hgw9G/VjdY0SKCk/9A3yQgUZ9ATAW0KFBbwdOB4w/9wqUgWMMUrE?=
+ =?us-ascii?Q?x8BR8eQ4vfoXTN6hrr0UaluE4yOOx6r2f89JNWgzRn4OltjcBlNOw/swf7CO?=
+ =?us-ascii?Q?Y8NV4QH346bRikprOe3i/apGSXjO6qVSdI9thTQPh4Lnr542qp+0qdW3cIgN?=
+ =?us-ascii?Q?ZOsmjeHIHsJsQNPTZ+4f+kb3lv/Qg85xoC1CPzZz9RPwxjaNYXyoUlrSIXvW?=
+ =?us-ascii?Q?TfPNouo2pxC3o97W4fdrHxj+cpQxxPg+/p3Up8IXSnjwK84msdPT57aDPJ0f?=
+ =?us-ascii?Q?4+x9Ycz4W3UJJcHaJWXGoTvmTTsSPorcMBbIMfAGnrJM20ovuFXQ9lap48Lh?=
+ =?us-ascii?Q?TnDgMOkF01npsGWjSGTe33or/o+XCrlFaRlOiDyNAjxb1pGtDS4aqyrUW7QH?=
+ =?us-ascii?Q?EJvlY8CUwSx/6z2TvI9qgkc2ZcbAc3J13XTv1pNNgo2RNlxsl7ZCmA7JIUou?=
+ =?us-ascii?Q?f6G/bFQ+0LNypc7lIMqgpFoHcPYz2NmRJD9WfnoqnHfqQX3qMtRTUawbi88J?=
+ =?us-ascii?Q?n1QENsA5T98F/7txtygfTUTMKSQGavvoakumavQOXjphhtLpE0Bw75h2G2mg?=
+ =?us-ascii?Q?RrvbgtDeyn2YNt7XOsepE1XiLfI5mbZupUn3eOLd9UHY0nuGR8iFCh+uAxev?=
+ =?us-ascii?Q?zgq0IyyuNqodSInZD3MmmMLKq2nrvFGZDbwSezvWZ2u53oSDDAOa+OTpd9yl?=
+ =?us-ascii?Q?60MMOS5yk0e4/B1SPdguTAyuwBOhzTLW6SCQRCQAJac0Fnf1o2yIglqoPZJg?=
+ =?us-ascii?Q?RB4OQ672B2zkqlb2endeU4lZQrbzjiPqaI1ea7ErXPO7bP4QCivMC3V3iBEC?=
+ =?us-ascii?Q?xeIXpwy+yO7SIwPQhYdAuY/EGl0ukYWTpkwCxIhxKe2NfLTygUDjkQ/BbZ9b?=
+ =?us-ascii?Q?jCyWuXR9xuMA1+Wg3WN+J3rnMKhDYp3ZV/8cxLVquHkX6KmRH0oRVJzANMBh?=
+ =?us-ascii?Q?VFTDP61Ig2YNVCL4ENlR4OjWcpuHpXNzV8q2/a9tQO2I6BlYnqdR01tYqlLS?=
+ =?us-ascii?Q?C1nbGszUhmENuUqz8x9c85r5LMvgsN5URt15YNxY7opvLZDcXZ08Mx8RFewg?=
+ =?us-ascii?Q?Ra2G01mfSQoJX5MG3eMa4mD+tIpUJlCNpBtr9BTn3L7qg/+q4s25LoBX1glq?=
+ =?us-ascii?Q?tHiSwaBEWJAg2quUrZE7ZYongiPmQVvO?=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700018);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?DIgszz/5XuRa8pgxCaLQ8szZOkFfdVy6ZBQf+LIG173iNuVaaczVAnh2eAxP?=
- =?us-ascii?Q?D3YkRRwS+EGCRL6Qk/s7p9bVmFdG3ZAQ93BizHY/Bbo3lI8PqSe1E3Qjb7Lx?=
- =?us-ascii?Q?te2mbaQI+Zy0e3Dz8RsXJeqBUERgVKlpdxAh24okVc752DGTY5UA6CCwMSlq?=
- =?us-ascii?Q?pp+7O9uSTBtojdCz0d85tbU7SqNX3rRuPFVLsySecZCPV/6OmANakOrdgljy?=
- =?us-ascii?Q?y6Xf5/bC3wB57IHBblNfzG8CNxIuiD6PWFYmKf/WhBREGApOTnBGuppx+O5z?=
- =?us-ascii?Q?Mq4O9T1+VNyYIo32K9AfYBgtqYuRdquUwxyex7PnzBpG9lQptxaIJAAXkJoi?=
- =?us-ascii?Q?pc9Arwn/fMqz60Iw3FEzVG085CLkAPU0AYDqhh16vfM9aCMK2VpJ4SPY9ZhL?=
- =?us-ascii?Q?1kXRRDjsFs1Knrml/jRYvqGnE2ipz+3djdzjdhnA0y64WL+AbNEnA4xsfPke?=
- =?us-ascii?Q?cE7mzpx3px9iBPmiMsE+UGGx5+Yw9HG5htt7c4+QcD0A9XyyPY6+L+fBBpxC?=
- =?us-ascii?Q?NLnyqnp8i1pJ5Dp1WipaC9ySF6poM2+Rz/dthj2jtUsziPzjXN1FfFEqoyt3?=
- =?us-ascii?Q?zcKpfrUV3K+T4lPqoQkB4jGn/HwSu0O5zf1ynYqkaJ66COw/qYKdILROgnx7?=
- =?us-ascii?Q?AF2jWLLTtdQAovoskdH3JAOD2efKlh7XUECMasy+VbAutT9ay5JNd1X2RrSg?=
- =?us-ascii?Q?IWrQmpfAiC1TSvKpEdVYZZUceYdwnMcrqnalpNMO/xE+WeAhlec/lQUkdrFb?=
- =?us-ascii?Q?ngzxRb8GmviHEWMGjNEUGBMn8l51ZUHtV1lobGJWlbaEt9n8+xl3TnQxw7ad?=
- =?us-ascii?Q?ppqOYUWRV2WjTqwuDFiRp7yXmWMF0HMTg1CLI2BYV8WoouVNcuvgvtssDvzP?=
- =?us-ascii?Q?BM+M6/butEdBkWp+cPcCVQmN2kcCBP9zxGuTGp/GqcQIDQ6nzkug9R0UzDXY?=
- =?us-ascii?Q?nJDLmDJ4POQ1Yljr6SAo1Qg3XSpqdgMn90qg52RCObODfGriflNjPpwDD1zu?=
- =?us-ascii?Q?TZNvr/jTfHpeVnph/PcPtRMQJL7dfEKPAqn1XpC4snpEzoZ/ewrYMrkbykxk?=
- =?us-ascii?Q?m3kAyJ3cOEPbQPtShiA8thi46d6EyYjzWHtuqc28XgB9nQ09u8vjn0iwwxcL?=
- =?us-ascii?Q?sUOWias2iyX9638fpIIO50M+Alt2YPe6jTJscVeFlPRJDxMW2eZbqRVJZVOL?=
- =?us-ascii?Q?Ep0rvnsoq8nkrrzDWS/FoBILOuTVVpk1hSM6PTLor9gMqyjNmDsvKQWrQMZ3?=
- =?us-ascii?Q?AsFNd9m4R6f8GUlzi8eGuZyEe0Yx0LxK7MMSlXit7L3e7oRmt5f/6rk2FTTG?=
- =?us-ascii?Q?Mt1WzTTD85evL4lQJkXrlVjghihxePz8pz2Ovm3jHAsZDYPjC0/zfYu06Awq?=
- =?us-ascii?Q?nmYwQV5aMb1kKZOuci6FpZhFYIfYpixow5DSleEIllqBZu4fnBb5wZE3OS3q?=
- =?us-ascii?Q?z60VETEKx8g11ZUPyIKjZ6S4vAw56B7r/MMYGmXIpiIEXr3b8z7Yzj9Pm0OO?=
- =?us-ascii?Q?jtV/Unrsd4c/0oCIrJr2sXgeTvXY1y1hCUts/Z/BrZYImlMB1dO4tudBgEDD?=
- =?us-ascii?Q?bq6TevowhvhZs6K0QZ8=3D?=
+ =?us-ascii?Q?oPpGfrWQ7WRx5ElnKcv4IZK5hsYFEkn7ITeIB4GFEFDx7ETH9qzFBD1q5/5H?=
+ =?us-ascii?Q?vWrLOExq5UXpK7B+G94sZ4GTSSFPzBTO5DSdW4DrBWkWZFm+JdVjWHjfJ17s?=
+ =?us-ascii?Q?iC/NWz1AxSfVRXjOrVXKHailzFpbCN+SVkH5g4U0/pY2DETSZ2Zztu/0uWN8?=
+ =?us-ascii?Q?DN4CFLozQW8zROhPab5N+fsw9nxkD2qK/squytDCaGiPNdY3JEvrYKQSkOGF?=
+ =?us-ascii?Q?PIRvW41JWbGJ9gV/C/jrM0Wo14sosHRZyRP6Y8bWjZsz0izkLDuX78INwN+c?=
+ =?us-ascii?Q?+eurpSU5/uMUVHHA+gNPSHiCaBnnq9cP4OEwVAEKYp3mLOZlzp4aqYZRlGYr?=
+ =?us-ascii?Q?Cj2aAsGVLrZ/r7MHYP9wI1LiKLmagKJmTVNleALRY571EN2cJNIsiDT7x5er?=
+ =?us-ascii?Q?2Ak+3JIfFO6jYqHQjRpxG6YBJM3J/HIJoyam/XkG3bsI+aRZoTstnspCJa9f?=
+ =?us-ascii?Q?irFk5VbVdLsgPY/ZqhcUnvmB9XuHdQn5fobifwCh8MFLU39GuMINogtkXO/v?=
+ =?us-ascii?Q?nmRq/pC/7yz3q343c5quslbZMnXOX4q8sbOl+6DZV4G/mT7jKlcQw7o3PiDZ?=
+ =?us-ascii?Q?BTrtbdoA97Ta7JqJ5EgAhUTtyEsTSLAePA6PO2jw1Qj/qG7TB+2nxydi+KAl?=
+ =?us-ascii?Q?HyZrHUdAIPrdDpBbmK9bV3lPo89fu7S7GJ2S1MwNydKXiNC2YDWnbNYWm0PB?=
+ =?us-ascii?Q?z/H0yIZ9/qo/m4/pTDt1im3w3eyXKGjd+kAhgkPpDfAOPDse7B1RWt2nhPhS?=
+ =?us-ascii?Q?yFAQGt6+qwN3KDe3ik/hH0IjLWL6MYXdXF1jEjtQ8Al2u3KimVukeoS8Fk7h?=
+ =?us-ascii?Q?CZvLjTpoRxoGT1PZLplx1gsdLyy99zlDPDeebgA/Zn5s+nVouHKEZi2GlrcB?=
+ =?us-ascii?Q?7bgRiZfxJbAao0/tlJdpjWbeOUHkOkXxWzGEH5PvoRUfcaRVyiaNbcTVJvb7?=
+ =?us-ascii?Q?ul/r0R9KTKdLV0WhcUN0Ibr0CIB96YUExQHE8STW5QrdnYNf+Uyf0ADx84UJ?=
+ =?us-ascii?Q?KtnenbVf2g4OOUOYX67yfuM6nmerw3wscQf6mnj/68NwEeWi+C2Qk6ahWUGJ?=
+ =?us-ascii?Q?a+RZoyiLXkkPeQVs7AyJqEWMciOYJfEBzwF8MXahljW4I9p27yvZjeDn3Sm1?=
+ =?us-ascii?Q?c26+Ofcky9+jO1Q4eXLNqamWSLpf+DR9+SUR28LXeSYnMyD9T3a3hHiOWyvz?=
+ =?us-ascii?Q?RiuObfvCuYQ/V1fbw+j0Yy/NQlzaiLyAf19VRa9eAzFnvGV3ye3fpEdHVuBS?=
+ =?us-ascii?Q?FBl9HI6nn3/ydY2ruhlqBcmruJnQLkoC6JtD37c6qx2VuhqYdVZQ3/v4TtKH?=
+ =?us-ascii?Q?ULiJKvcbDPB5PKKB6cbxphGwC9VpNXwMX2D4cwZX2/3wOO3Q64IkYZso8GPI?=
+ =?us-ascii?Q?++VyF9oExsqy1CU3PvWT7LiKNe/1aC3fJbU1TyoIdK5ERyYJfu22qNT0ZHpo?=
+ =?us-ascii?Q?UBixV/vcTU2EQ2r1Mshbv2OcPZe9Em1DoZjyzzVe+Bg9iZMO4Lsfb8vsAHOY?=
+ =?us-ascii?Q?IC9P3xZTND8IByGY4C3sbmcKVJOXO4O35vfuMUXuXyQ6Yr2asQqZRah/OyIQ?=
+ =?us-ascii?Q?kKF9VGBOoQO4BHuz0OE=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -139,68 +137,146 @@ MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 051cf821-2fc5-4219-dd67-08dd38601e3b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jan 2025 08:06:03.1168
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34601fad-2fd6-445f-a876-08dd386cf81a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jan 2025 09:38:02.6447
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pTFH6EZrUI07BWm4FMT+hxdum6QuTwdzZ5gbz3dJMtZbYNqSMu/Vb8tqhdWhrkbtUvLH+YaM7IaB9nhg3i3PRw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4491
+X-MS-Exchange-CrossTenant-userprincipalname: hyn6G1RQ4RXs5650wtdZzWY1WbhHFu5isxYKGcjS2KDLMKMt/y0jwm9Ibp5iYuxx7O2CLDDaHm76WBQCjf/b1A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8722
 
-Hi Paolo, Michael,
 
-> From: Paolo Abeni <pabeni@redhat.com>
-> Sent: Wednesday, November 27, 2024 3:07 PM
+> From: Kommula Shiva Shankar <kshankar@marvell.com>
+> Sent: Tuesday, January 14, 2025 10:47 PM
 >=20
+> Hi Everyone,
+> It has been some time since this patch was sent. I am resending it for yo=
+ur
+> review and look forward to your feedback.
 >=20
-> +\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO (46)] Driver can receive
-> GSO
-> +packets
-> +  carried by a UDP tunnel.
+> This patch introduces a new field in the virtio_net_header called
+> out_nh_offset, along with a new net device feature,
+> VIRTIO_NET_F_OUT_NET_HEADER.
+>=20
+
+> Currently, there is no field available to directly read the outer network=
+ header
+> offset in case of segmentation offload.
+> This requires reading packet data, which significantly affects performanc=
+e in
+> datapath.
+> Additionally, some hardware implementations requrie knowledege of the
+> outer L3 offset (aka L2 length) for inline IPSec hardware acceleration.
+>=20
+> To address this limitation, we propose splitting the csum_offset field in=
+to two
+> 8-bit fields named csum_offset and out_nh_offset.
+> The csum_offset indicates the offset value from the csum_start and  may n=
+ot
+> exceed 256B bits(2^8) for protocols that use a 16-bit one's complement
+> checksum
+>=20
+> Following table lists such protocols and their checksum offset fields wit=
+hin
+> their headers
+>=20
+> +-----+--------+
+> |Proto|csum_off|
+> +-----+--------+
+> | IPV4| 10B    |
+> | ICMP| 2B     |
+> | IGMP| 2B     |
+> |  TCP| 16B    |
+> |  UDP| 6B     |
+> +-----+--------+
+>=20
+> The out_nh_offset represents the start offset of the outer network header
+> from the beginning of the packet data
+>=20
+> This issue was briefly discussed on the mailing list in a different threa=
+d, which
+> can be found here
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flore.
+> kernel.org%2Fall%2FDM4PR18MB4269FAAC3CFC7E57E25DFBD2DF8B2%40
+> DM4PR18MB4269.namprd18.prod.outlook.com%2F&data=3D05%7C02%7Cpa
+> rav%40nvidia.com%7Ce81096db39a14378627708dd34bf3909%7C43083d
+> 15727340c1b7db39efd9ccc17a%7C0%7C0%7C638724718122375976%7C
+> Unknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMD
+> AwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7
+> C%7C&sdata=3DTHSOD9fclucwxtnizGLo8pIpjsTs1YoRww4VA%2FvDwgI%3D&re
+> served=3D0
+>=20
+> Signed-off-by: Kommula Shiva Shankar <kshankar@marvell.com>
+> ---
+>  device-types/net/description.tex | 26 +++++++++++++++++++++++++-
+>  1 file changed, 25 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/device-types/net/description.tex b/device-
+> types/net/description.tex
+> index 76585b0..48c081b 100644
+> --- a/device-types/net/description.tex
+> +++ b/device-types/net/description.tex
+> @@ -88,6 +88,10 @@ \subsection{Feature bits}\label{sec:Device Types /
+> Network Device / Feature bits  \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)]
+> Set MAC address through control
+>      channel.
+>=20
+> +\item[VIRTIO_NET_F_OUT_NET_HEADER(50)] Driver can provide the start of
+> \field{out_nh_offset}
+> +    value. Device gains advantage by not reading packet data to calculat=
+e outer
+> network
+> +    header offset.
 > +
-> +\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO (48)] Device can receive
-> GSO
-> +packets
-> +  carried by a UDP tunnel.
+>  \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header hash
+> for encapsulated packets.
+>=20
+>  \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue
+> notification coalescing.
+> @@ -418,7 +422,13 @@ \subsection{Device Operation}\label{sec:Device
+> Types / Network Device / Device O
+>          le16 hdr_len;
+>          le16 gso_size;
+>          le16 csum_start;
+> -        le16 csum_offset;
+> +        union {
+> +                le16 csum_offset;
+> +                struct { (Only if VIRTIO_NET_F_OUT_NET_HEADER negotiated=
+)
+> +                        le8 csum_offset;
+> +                        le8 out_nh_offset;
+> +                };
+> +        };
+>          le16 num_buffers;
+>          le32 hash_value;        (Only if VIRTIO_NET_F_HASH_REPORT negoti=
+ated)
+>          le16 hash_report;       (Only if VIRTIO_NET_F_HASH_REPORT negoti=
+ated)
+> @@ -457,6 +467,10 @@ \subsubsection{Packet
+> Transmission}\label{sec:Device Types / Network Device / De  \item The dri=
+ver
+> can send a completely checksummed packet.  In this case,
+>    \field{flags} will be zero, and \field{gso_type} will be
+> VIRTIO_NET_HDR_GSO_NONE.
+>=20
+> +\item If the driver negotiated VIRTIO_NET_F_OUT_NET_HEADER,
+> +   \field{out_nh_offset} indicates the outer network header offset in by=
+tes
+> +    from the beginning of the packet.
+> +
 
-Feature bits 42 to 49 are not applicable to device specific type. They are =
-reserved.
-Please see the note.=20
+This field is mostly useful to device when there is GSO or checksum offload=
+.
+So this should be set optionally by the driver.
+When feature is negotiated, it means that csum_offset is 8 bits in width.
+A nw header offset may/may not be present.
+When offset =3D 0, its not present (because 0 is impossible value for nw he=
+ader).
+When its non zero, it is valid value that device should use.
 
-Current spec description is:
+Can you please update the proposal to cover these aspects?
 
-0 to 23, and 50 to 127 Feature bits for the specific device type
-24 to 41 Feature bits reserved for extensions to the queue and feature nego=
-tiation mechanisms, see 6
-42 to 49, and 128 and above Feature bits reserved for future extensions.
-
-So 2 bits of these patch and of patch 4, 46 to 49 to be shifted to bits 65 =
-to 68.
-
-Or an alternative would be to amend,
-
-Bits 46 to 127 for specific device type,
-And 42 to 45 and 128 reserved for future extensions.
-
-Michael,
-Please let me know so that I can have the follow up patch to this one as vo=
-ting is started.
-And the fix is required for it.
-
-Is there any historic reason for 42-49 as reserved, or it can be used as pr=
-oposed in this patch?
-If it was only kept as elastic buffer for device generic, and device type t=
-o grow it is probably ok.
-Using 46 to 49 has small advantage to reuse in the offloads bit as below.
-Please confirm.
-
-
-> @@ -1862,6 +2068,7 @@ \subsubsection{Control
-> Virtqueue}\label{sec:Device Types / Network Device / Devi
->  #define VIRTIO_NET_F_GUEST_TSO6       8
->  #define VIRTIO_NET_F_GUEST_ECN        9
->  #define VIRTIO_NET_F_GUEST_UFO        10
-> +#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO  46
->  #define VIRTIO_NET_F_GUEST_USO4       54
->  #define VIRTIO_NET_F_GUEST_USO6       55
+Also, this may find its use even on the rx side too, so that sw does not ne=
+ed to parse it packet.
+So describe the text for it similarly.
