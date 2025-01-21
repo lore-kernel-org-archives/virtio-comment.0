@@ -1,87 +1,61 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com (mail-dm6nam04on2063.outbound.protection.outlook.com [40.107.102.63])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2265E1DA0F1
-	for <virtio-comment@lists.linux.dev>; Tue, 21 Jan 2025 18:40:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1737484817; cv=none; b=MzOMs8aHiFPNIgyHFkxLTiSb1tbyxpRYQTy5OMbqTvkwDznLE1VZoS/+sNL0PsrT5LdeviXbdC/le4fE8hmVO3tYsbTkAQmNZjoGHG4d+Gm0vErquMPWl9TH4rcT2Foop7F6cU6yCVe3WdgddZfHfX8r4tU0rmDBKesa6GzZ1Vw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1737484817; c=relaxed/simple;
-	bh=8Umang14I7w0jp2PqrEwDlbEAHriPisQwsq59SotV2k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NeWCMTPJfq8TYBZH+wvfPs8mp1EQ33BABuQzxqzr6a0gUpJoGK3PdxpDAZ0vtLQS0tr77YzydzuSSVYxL5ajRZKtJ38luq/na4LOtdQzRQUN6ha2wUxEgTfizKBWx74+na13Xk4HxnnI8fNVkFKV9cnufbTZGLR3iouLQ9uYHVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KYehTiiY; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3BB1537D4
+	for <virtio-comment@lists.linux.dev>; Tue, 21 Jan 2025 19:38:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.102.63
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1737488323; cv=fail; b=p2veHUdphspqj/jUIgglEZp3VhOk9eEYMAYfM/5Aoa96IfheEUtLtYlCzZCX9UIjlXP7hbo7uKpcEs8oJ/XFHh1A7bUT0YcDIuzPSo4YeQD6mqucBT7Rr9lOL+sILbWGCZXi5iNyMuQ2rkycvvLMiVYpbRbw6ej+CMuPxacoYL8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1737488323; c=relaxed/simple;
+	bh=3jvPww3nC48cbzDGUG+5B0G1PAOMHBj8djeKqvT+WqI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=SAjjYR6EqDU9VPULmBvfTc3ROBtpbX7WMb1T18oI6gv5tpkd7nZycU46P4xEVfE+3ePhTFjntkLIEKxFQkSjACQ0NC6SI7E+pTCfUy+W2CwOA7iJjn575ThmItqXx8x1nqG5AbLf2nbc+mam9TBwS+UwYrIkyR2Jrc5Lrzm47XU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=FUYnVvAW; arc=fail smtp.client-ip=40.107.102.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KYehTiiY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1737484812;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KzHwbVHS9mpuvTDOMyy86/45WL96UUv9P3u7nPEGq7I=;
-	b=KYehTiiY1VyPrZLsoqRpHKvrPTGAFw5pAMkmNhXi8tAnHsAe7CKQyzkzH0ti0rPdky8242
-	UhiLyJmvRJGq72ugjaNXvmAF6v2U+Cf4P1WbHBvdowv9e8ZWjntGtBB6MTIC40FSajS5ge
-	kYYqIAL7RT7hbibV/Z8kiGdone2x3jo=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-27-dPPd2lDCNqO9mXVHiIC_LA-1; Tue, 21 Jan 2025 13:40:11 -0500
-X-MC-Unique: dPPd2lDCNqO9mXVHiIC_LA-1
-X-Mimecast-MFC-AGG-ID: dPPd2lDCNqO9mXVHiIC_LA
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-38639b4f19cso4208861f8f.0
-        for <virtio-comment@lists.linux.dev>; Tue, 21 Jan 2025 10:40:11 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737484810; x=1738089610;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KzHwbVHS9mpuvTDOMyy86/45WL96UUv9P3u7nPEGq7I=;
-        b=AmwLGIhBSWO24equhhPTLR1odWy84aKjMaVuUUZOnHqMx/Fm85Pv9ALFeRXK3na3wR
-         ukJ57f+NDqZLJJ5FBCxPEliB6kMLIYnTI6IkmAiJtvcaIm1YeFe9cUjxDZar0/PuOsCZ
-         Z000txlxkPPQgPKjo8aVXIr0vQOFJb+zZZ6Pm0B7pfrewMNeTm9JW2cVWEO6+9DXRobT
-         63XpYTuATUzzMn5c/gBB9uwBwHxqAh93BVCea9aCshJ7Rgld5qauYflV4VajATIeF8kg
-         lKiu6keM05dKWcUx8YMg7FV3MmytB70Q3OW32wUVlsDrIiMEl5ljFZxxOMAL6cYgef8/
-         kcNg==
-X-Forwarded-Encrypted: i=1; AJvYcCU/RtiP38J39aRZdnwuhwtgSs54WkJjRDUK2PQ/Te6+G/+8Eqlwannf9QyAucGyEs72NZ04IcxhFfJb6C03pg==@lists.linux.dev
-X-Gm-Message-State: AOJu0YwxVuSXElxT/oxPazeKReqyxkQ6X67Qv7n/6k3C+6wVOTkJJrkX
-	rSPGalhhwEyWYCp4Oq2pOILla/8T7Iklzzw+aEAVgDo6djvBJ4nCwFR4+6TdFu9MTN8BiiWR/lo
-	jMqf1uLT1NswW7R72z8Xo1AX08JUWo8cUo0G6mhg/4JT7em1gAc+mzAuDbYrQ8b2b
-X-Gm-Gg: ASbGnct46IoXu3pfDA/8dKQheby93NXqMaD/6CtTtZLKC3ncc4t5DArPlpXDgxdFIGY
-	cxFg0WYWfbqFT8eUQuWi1K3jwMLWFFS4aBu0Nrs0vLc975TKvalizoVcz/PDwXQqpCYk5XnsXLI
-	UpuBLmma0Rv5u6wKC/XWBWqun+bdLGL8z7UkXYqN9rBgPVJmyO0rctR2FZhDcHdGtPD3D74gjLr
-	HxVlQtAYl98NbFLEgyde7ckwjn0kU2ZMNq1xXQGnKezt8DDrbl8mXPjcXFVyabfrWato9FRiR2S
-	nZjoSSPjgCHFSjdXkif/BNqb
-X-Received: by 2002:a05:6000:4011:b0:38a:4184:152a with SMTP id ffacd0b85a97d-38bf5669eb5mr19819513f8f.28.1737484810304;
-        Tue, 21 Jan 2025 10:40:10 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEVmwgyWvu1hFej953gCgTrbVkjw9Ibd3VR16W5zxNIYbXZuFM3BerD6Zv7XBWP/zTpQTyFfg==
-X-Received: by 2002:a05:6000:4011:b0:38a:4184:152a with SMTP id ffacd0b85a97d-38bf5669eb5mr19819497f8f.28.1737484809938;
-        Tue, 21 Jan 2025 10:40:09 -0800 (PST)
-Received: from [192.168.88.253] (146-241-15-169.dyn.eolo.it. [146.241.15.169])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-38bf327ded8sm13916433f8f.89.2025.01.21.10.40.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jan 2025 10:40:09 -0800 (PST)
-Message-ID: <2d27f420-d155-4aad-9626-8b42acc0cc22@redhat.com>
-Date: Tue, 21 Jan 2025 19:40:08 +0100
-Precedence: bulk
-X-Mailing-List: virtio-comment@lists.linux.dev
-List-Id: <virtio-comment.lists.linux.dev>
-List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
-List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 3/4] virtio-net: define UDP tunnel segmentation
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="FUYnVvAW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=N4tXc12Xf+kqbp5wPlkqOHknk1HksCnA3e0nkY6sNtVyXz6cSwQuJWuXeULc8N10slN2t+CyyKWupSAzBaV2b5t6z5tnoyDoIuAF34nbbXJrGX1u4431LPlJPVxZh7K5PQANbZpMLb27uqZr4T2x/b4hWPBn5iGjEEq3o3t1/9U5GnwXU1Fq+eMrB8kgYzhODxfxZ4DvH7bSqumwK6K0Ahed484u9ln6Vva1rcO7bgROrzvYC5yOBOw+JGhoj+j/sv76OnVEPWG+fRcktXe2F6Yl6iumuLI47q9bfqMirj4mrdCToowOa1Xjy8Ke9LPQDMKddbVtn+lj+xE8Yf2mVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3jvPww3nC48cbzDGUG+5B0G1PAOMHBj8djeKqvT+WqI=;
+ b=zPUZlytNfwN8BStPi6PCFBEno/ND1MsH+MO2kpI/mkF+8ygfXyPamQQMmcVHQn9TEH4bw/rT6zfOeQCgo/RZW2t4xynv4Hm7hayl3mfGTPk4nLcZvdXvE4mzUtRt8CgO0uaCBs/W04b3sTdmMg2lzPh5zDzyoQZQa1L+TtWbS5iSHMurHU2r7rBp+rNHz7/+RW2skHPKm+xdtotVv87ILLBzR14PK2zBtK87rQUO6fDw5GZVWI9ODA+DprfDljxHglsZQtls+kQJscalKpKNrcnRuWP1GzrhXtelGZQoN2O9C+mejgoxPzlNsEqqXmwy/cWsYl7fPxpjrbZere2D9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3jvPww3nC48cbzDGUG+5B0G1PAOMHBj8djeKqvT+WqI=;
+ b=FUYnVvAW3Y5SWIdh8t6hFtUIb+DgFJQwEHnQmz2PY2DFu+cxKhQoZob0N9/y7yxNuRo+l1olKO7qOmBwhrVdwwvNcwbOypLpg1/zTfP3vdTk1pfDLhzG8+grZq4+UcTckyd4VBRyA93LfnKasnQZiyyuuXd8mqIXoForz+yEdZQT++SPFSJ9bQbICYqVbb7mDZdlsKFjk1wprb5iBaEyFw4hEd6V0Z+2RdgKtIz5zPCp4O3Q9+N8J6ivU9rhovUcIBGiutA2Dkxz5j+UF/SqIi0h3206qltVFxdQdb/ivbtU/WNaT0cmKb+G1tve43DouB8J3TzdNicenPNTNvhFNA==
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
+ by PH7PR12MB7892.namprd12.prod.outlook.com (2603:10b6:510:27e::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.18; Tue, 21 Jan
+ 2025 19:38:36 +0000
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::c06c:905a:63f8:9cd]) by CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::c06c:905a:63f8:9cd%7]) with mapi id 15.20.8356.017; Tue, 21 Jan 2025
+ 19:38:36 +0000
+From: Parav Pandit <parav@nvidia.com>
+To: Paolo Abeni <pabeni@redhat.com>, Cornelia Huck <cohuck@redhat.com>,
+	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
+CC: "maxime.coquelin@redhat.com" <maxime.coquelin@redhat.com>, Eelco Chaudron
+	<echaudro@redhat.com>, Jason Wang <jasowang@redhat.com>, Stefano Garzarella
+	<sgarzare@redhat.com>, Willem de Bruijn <willemb@google.com>,
+	"kshankar@marvell.com" <kshankar@marvell.com>
+Subject: RE: [PATCH v11 3/4] virtio-net: define UDP tunnel segmentation
  offload feature
-To: Parav Pandit <parav@nvidia.com>, Cornelia Huck <cohuck@redhat.com>,
- "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
-Cc: "maxime.coquelin@redhat.com" <maxime.coquelin@redhat.com>,
- Eelco Chaudron <echaudro@redhat.com>, Jason Wang <jasowang@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>,
- Willem de Bruijn <willemb@google.com>,
- "kshankar@marvell.com" <kshankar@marvell.com>
+Thread-Topic: [PATCH v11 3/4] virtio-net: define UDP tunnel segmentation
+ offload feature
+Thread-Index:
+ AQHbQK/3KR1RJyc06Uq86qDUg7CIZbMeDhsAgAGk7ACAACgGwIAADtUAgAAhHvCAAdtqAIAAECvA
+Date: Tue, 21 Jan 2025 19:38:36 +0000
+Message-ID:
+ <CY8PR12MB719551BDC4C7500B346A27F2DCE62@CY8PR12MB7195.namprd12.prod.outlook.com>
 References: <cover.1732699986.git.pabeni@redhat.com>
  <3e1c45071c8cf4efc7ca0ecc7b52a73c6bf983fe.1732699986.git.pabeni@redhat.com>
  <CY8PR12MB7195D914B9EF00FF62C5E1DFDCE42@CY8PR12MB7195.namprd12.prod.outlook.com>
@@ -89,128 +63,199 @@ References: <cover.1732699986.git.pabeni@redhat.com>
  <CY8PR12MB719550ABC66CDDF8D71E2F7DDCE72@CY8PR12MB7195.namprd12.prod.outlook.com>
  <87ikq98yod.fsf@redhat.com>
  <PH8PR12MB7208F319B0C0380FAD5DA45DDCE72@PH8PR12MB7208.namprd12.prod.outlook.com>
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <PH8PR12MB7208F319B0C0380FAD5DA45DDCE72@PH8PR12MB7208.namprd12.prod.outlook.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Dhdx2kCjYYP8_W5nVPuTIT630d7skNvnFxrb18yLsCU_1737484810
-X-Mimecast-Originator: redhat.com
+ <2d27f420-d155-4aad-9626-8b42acc0cc22@redhat.com>
+In-Reply-To: <2d27f420-d155-4aad-9626-8b42acc0cc22@redhat.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|PH7PR12MB7892:EE_
+x-ms-office365-filtering-correlation-id: 7bb23b48-5656-453c-54ac-08dd3a533292
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|366016|10070799003|38070700018;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?QnBZTXIwbVpXdDgvTnlrSjhQZVVzaGgxTWh5THBScmF1VFRINEFoLytDb3JY?=
+ =?utf-8?B?VDQzRlFnK0xobVYyZFZtVlRhelJrWllteXl5VTB3c1ZLYjFrTGxORWEydGpm?=
+ =?utf-8?B?blA2VUFsdmVET0JDY08vWWJyQ0lZLzNjQXQ0RjYzZW4xeGZyMnBiMEVpOGVP?=
+ =?utf-8?B?ZUN0ZnlueW9xSkNWaTVKQ1hKdjZjYSt4NHdkK3dKT25tbm9QODBSYWRJRjZL?=
+ =?utf-8?B?aktxVk1odm5FMjk4UU9kNTg2RTRkNVhUUzlIS1dBdkw2YmFzSHJqREVQVHJQ?=
+ =?utf-8?B?RVo2cG9RTEdJcDh6RjRVTkZZK0pKbFFBMlhSVUJVYjRRNlZHWFIwOG45UGkw?=
+ =?utf-8?B?VU81SWlXMkRHam9USHlDdTBKZFRFcCtSOHlnbWZRcmk5eFJxQTkvc1JCcXVG?=
+ =?utf-8?B?d3ErRWdyVjJ4YWsxV1g3ZENIVGhQY2ZtTnVCQ2N1MWM2OG84L1ZSNzhFQWM4?=
+ =?utf-8?B?cVdycENkaGl6L3Z0UGM4S3FTZ3FmZXRTRTBxd2J1WTZSMVM3U2ViczY4ZDly?=
+ =?utf-8?B?dHNNYk5TTTMrU3JuODlQMnArVllBdFVnc29LR0NtSFpUMzQwTmoxV204Uk80?=
+ =?utf-8?B?R2FDOG12d0d1T3BEd2lrYzJaTEpvNW50YmJUZ1NnUkZOSm1IVXhWRDIvd0lW?=
+ =?utf-8?B?SkZtdXQ2bXBHdXk2YUwrN0ZGQ24vVGxtRDVRRmY5eUZQbTB0TXZ4UnhTR3o2?=
+ =?utf-8?B?aDNJSnlqOXhycEJPeDNIVjlscG5NZXhtdVFyN2xhVnVxbVU5WFRUSmNuMFho?=
+ =?utf-8?B?NUdCYjZJV0cra3paTGNMRUtpWjQ3YXE5Mlo0TUx5a2NGWloxaDcvcFVQRGt5?=
+ =?utf-8?B?NUV3VUdtcEtneisvK1ZYU0RNU1dYdzVUeURlOHQ1VHE3cS9tTXlLMHJMUjFR?=
+ =?utf-8?B?ZjNpWWcydWRYYkZPRmZUcWs2QmJLNlpBM2RWRHJRWGtta01DYjEyankzR1R4?=
+ =?utf-8?B?TGovM3VMc002R2VEZkw3NlNxa29NZXNLNUtZek5PTXBxSlBSbWkrTTVPZ000?=
+ =?utf-8?B?eElabk8rNjB4N2QrR0dmUHIyWFhPMEUwQXFOcmVWMlRjb0lWc0tneW9DSCtz?=
+ =?utf-8?B?VTNaV0JVYmdwSXJNMFhRalc1NE4wcGhYSVpSWkN0T3JORWcyR0dKRnQ5Y3J5?=
+ =?utf-8?B?Sm95ekF3dmk5bndEMU9QdUdtRStMa09mUFNDNnltLzNrWUJMbGUxbEp3TXJK?=
+ =?utf-8?B?bktVOGZKald5Z0h2ZlloV2FGbjk0bE0xTEV1RVd6SzJ6U041aitpeS8wY0dW?=
+ =?utf-8?B?VW4vQUVTMmFYd1dSR3pkNXFjQjRYOVNZTk9hMGZHNUlJM3pESEQzOFd4U0tq?=
+ =?utf-8?B?UTFVWUdpVGNZN0ExYzF0VERaOU9lV2owQ2dSa2J6VFJUUXNRcTdZOEtBRnR0?=
+ =?utf-8?B?V3BsS293ZGxGeitoVktmSzFkL3dSZnNidHJwcldPMUU0YmdtUG5aRFhNMUk5?=
+ =?utf-8?B?WlNmZ2tDQUJNazdCeFNUOW5rYmdBVFJNbWYrSnA4eFROSGtPRUlOWmw5NUx1?=
+ =?utf-8?B?NG12emhSWTI1TTlNQWlsMERyVXlQK2pxUXNEOTYzbEo3WkFLSzI1OExiY0dW?=
+ =?utf-8?B?SkdGbFppcFhCUlBsZGpvMG0wMzUwVnNZVEZBMVZpa0VCLzlwd3BwOFlKbzYw?=
+ =?utf-8?B?VkZrY1dOZlZZUjRwUlhFK0drYlhNdGphc2YzM2VqRnVuZUsrWFIyd1k0VjM0?=
+ =?utf-8?B?L2dxZ1d4UDhSM2k3eXVzME80Uk81cWFOdjFDMVlSQXpNSkNWUDdtTUlkR3FN?=
+ =?utf-8?B?dXA0N1BSVHB6ZWkxWVEvMGl2NkFiVDQ2b3UzRGZJTVB1WS94ZzRxWkZYQWdu?=
+ =?utf-8?B?dEdtY05TNjNwSVFrQkl2aHBhQ3ByczJDZHdBOEM1YjBtYVE5WGFHUnRzbFBq?=
+ =?utf-8?Q?KRXF3HmO78Njw?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(10070799003)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?VUh5TUVTMnlPbEJUbHM5eitNd0FtcjcyaDNuM28zTHVDYmtoMUhNb0YwcHo1?=
+ =?utf-8?B?U2JJbFVrblVROHFzakt4VVVQQ1pXMi9iTFAzYTJTTmpnWXlicUQwcDlkaGZN?=
+ =?utf-8?B?ZFpYVUdES1NQczQ0UitaY0dNUkllK1JnU1lkT1REYUYwc2ZVQjYydFBtSzlm?=
+ =?utf-8?B?K1dwd2dGdDltM2xnZWtrdTQxZVR2ZmdkRTl1UUNWTmpvSTFMZ01zczZENWRO?=
+ =?utf-8?B?YnNSNGM3c3cxNjBFQTc5eTU0dWczRzVlNjMzajlZSmJuODhIYW5PZTJDYmJT?=
+ =?utf-8?B?bUcxck8wN0RNZHRDV3d2Q1dZS01ESU9scHl6U1ArdXZmVFdWakg3MEhLdXky?=
+ =?utf-8?B?cDhJcDYvUXJ1STUvWWJmUGw2T1h5a2NCNEhVdGNQRkRwZXgwNFA0UzVwUnFJ?=
+ =?utf-8?B?SjRIZ2xLSlh0d0RtYktLTDZodWhVTDF6dzFSWDZnY0x6endVYXhQZFVFMU5k?=
+ =?utf-8?B?aXJrUFBXb2pFTUcrYk1FS044ZmNMM1lYeG1KV01QMHBHOU5FUE9hcDlrMXZK?=
+ =?utf-8?B?S3EzRjZFUUhIWERyaFMxc1A4TU1YYjZSUnlKaEVZT0RLVmovVldoVUdza2xQ?=
+ =?utf-8?B?Q1FhMm5MOHZPWW5idzE4ZVRPQW5Kbk1QY1lEMGVmUnBGQlN5cU84ejQwTGZL?=
+ =?utf-8?B?NE1HZE1TUFBIZ01wTWdpTlBzVElSTXAveVJhYitPUFlLZTBBakNYZFlhWU1X?=
+ =?utf-8?B?SlRNS3hPclpGb2JvMXdMelJ3RnRjcDR0Zkw3YVp1aGRyWWpvMk5aZ3Q2Rm1E?=
+ =?utf-8?B?clhJNnFUQTh5RmljWHJkaGxoNk15dUtpWVBVNWxGa0VWK05BTDdhR214SUo2?=
+ =?utf-8?B?VWtiQjFxUm1UNFd6dHpINTloVUUxMEIxZHEwQ05meHhrTm8ydG9jeG53alc2?=
+ =?utf-8?B?TmlkKzd4d2diamhQdGlGQWRJcTYxcEJMRWFNc01vSzBUZ3hTbVVkUnZJcFNH?=
+ =?utf-8?B?MTIyd25jMGtUUXNIazdUTGovTFpzdmJkVmQ0MjAzS0d6SGsrK2dWTHFHd2h4?=
+ =?utf-8?B?Tkt6Zi94YjRFV3dCZlhnM1MrQ0lmViswenhISGIvd0t0YjFFSksxdm90Z09y?=
+ =?utf-8?B?a1NETFFocS9ZVUpHVndHUDdkUlVra3JRQWh5UXR6cXJEOTBCTUpZbXNkbXd3?=
+ =?utf-8?B?RDhoL3JwT1o3TFF0Q0FidGtnaUhHS0Y4eWpEUUxBWWlnd0FNSnVYWTZUVXZm?=
+ =?utf-8?B?Y2FLZTdWN3ViTTFpSEQyRTQ5a3VkY3Rqa3QrUFF3ZzU0dVg3ek9vdUhPL05x?=
+ =?utf-8?B?YUw0eHVoSlNSRUNiTnVXM09zZmZ3ZWdKTm44cVhjbHR2cXlNZFliZjVZbk52?=
+ =?utf-8?B?T2huaDRPa3prcTNBRjVnejRNVWNzYjlIWEZuR1RBbW45K04yME1PajlEbUtS?=
+ =?utf-8?B?d1RjamhKdXZFUGNWaXN0eVZzUHFpQ0d2ajBNZ2FPZmQ2QXNUVnI5NGY1dGFX?=
+ =?utf-8?B?aVFSY01mNFIyczhSaXVKQ0R2UWtQK2oxak5zQ05yTkt2RWRxNzFQRTJnUWp1?=
+ =?utf-8?B?V0liSmRpMGdTejdDQ2srNDcxK2x6WmIySU9ndmIrZE1xV2JucFladEdjZlRE?=
+ =?utf-8?B?RFdidlVKZXJ1N1FEek5USmRZOE9xNTdHdGhTc1N6NEtwS2tUZll3N09UdlRo?=
+ =?utf-8?B?QlZQNUdyVUpxT3RMK09IbitJZFV1dmphVGxZME10YWRXMCs4S055dDN4U242?=
+ =?utf-8?B?QkE4YlZFZjNoS0o3SWZpREtOL3NnQzZoTmN6eVZ1SG82L1ZETFpTOHg0dlhN?=
+ =?utf-8?B?WFpwY3B4LzFUMVA4Wk5LRDdKMXV3MytLNkFIaEQzUWlFd2l5aGxhRHRhNjFD?=
+ =?utf-8?B?SXRqWU15YWtyT28rUWx0N0Z3ZEZFQXlmSGRXVVFPY2RVdDB5U0ZUZU1qNFlP?=
+ =?utf-8?B?ZmlGQW96R1BsYVFoZkdlZ0I1MjhITzcvQm9OUVU1L2NvU3pQWFMzZVcyN2xq?=
+ =?utf-8?B?MFVZcGVGSGNWemRLWi9jNTUwQUo2SHpULzUvUHYzZ1V1cFlaZzJIQytCVDZD?=
+ =?utf-8?B?Y0xxMW83UGZaaHdmWGV0dUdVbStHRWVEWWV1RkIxMmthOE83akY2Z2tYdFNq?=
+ =?utf-8?B?QU5DV1hTQ21uOVBnWE16bG1JWHdVZmtHM1RlVUpOa0h2MWRmZGNZY2ZmLy9F?=
+ =?utf-8?B?SFd3Z3Q2bDlMMXY2bzB0ZU0yNXVqRGNYWjdjWnM0Rk9iM1hLS3NkYUUrem1W?=
+ =?utf-8?Q?c67BAJSzzRgGkj+jdVjstsCMJIQSTDItiXDstyk5++8M?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Precedence: bulk
+X-Mailing-List: virtio-comment@lists.linux.dev
+List-Id: <virtio-comment.lists.linux.dev>
+List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
+List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7bb23b48-5656-453c-54ac-08dd3a533292
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jan 2025 19:38:36.1445
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wdIX/iYWRIWdD20cT6bVzBIu8SU3v8pllhcHj57el3L5C8RVkyF4VNso0DkMEV79Cm1ikhZ194cQuxw3v56qjg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7892
 
-On 1/20/25 3:19 PM, Parav Pandit wrote:
-> 
->> From: Cornelia Huck <cohuck@redhat.com>
->> Sent: Monday, January 20, 2025 5:50 PM
->>
->> On Mon, Jan 20 2025, Parav Pandit <parav@nvidia.com> wrote:
->>
->>>> From: Cornelia Huck <cohuck@redhat.com>
->>>> Sent: Monday, January 20, 2025 2:34 PM
->>>>
->>>> On Sun, Jan 19 2025, Parav Pandit <parav@nvidia.com> wrote:
->>>>
->>>>> Hi Paolo, Michael,
->>>>>
->>>>>> From: Paolo Abeni <pabeni@redhat.com>
->>>>>> Sent: Wednesday, November 27, 2024 3:07 PM
->>>>>>
->>>>>>
->>>>>> +\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO (46)] Driver can
->> receive
->>>>>> GSO
->>>>>> +packets
->>>>>> +  carried by a UDP tunnel.
->>>>>> +
->>>>>> +\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO (48)] Device can
->> receive
->>>>>> GSO
->>>>>> +packets
->>>>>> +  carried by a UDP tunnel.
->>>>>
->>>>> Feature bits 42 to 49 are not applicable to device specific type.
->>>>> They are
->>>> reserved.
->>>>> Please see the note.
->>>>>
->>>>> Current spec description is:
->>>>>
->>>>> 0 to 23, and 50 to 127 Feature bits for the specific device type
->>>>> 24 to 41 Feature bits reserved for extensions to the queue and
->>>>> feature negotiation mechanisms, see 6
->>>>> 42 to 49, and 128 and above Feature bits reserved for future extensions.
->>>>>
->>>>> So 2 bits of these patch and of patch 4, 46 to 49 to be shifted to
->>>>> bits 65 to
->>>> 68.
->>>>>
->>>>> Or an alternative would be to amend,
->>>>>
->>>>> Bits 46 to 127 for specific device type, And 42 to 45 and 128
->>>>> reserved for future extensions.
->>>>>
->>>>> Michael,
->>>>> Please let me know so that I can have the follow up patch to this
->>>>> one as
->>>> voting is started.
->>>>> And the fix is required for it.
->>>>>
->>>>> Is there any historic reason for 42-49 as reserved, or it can be
->>>>> used as
->>>> proposed in this patch?
->>>>> If it was only kept as elastic buffer for device generic, and
->>>>> device type to
->>>> grow it is probably ok.
->>>>> Using 46 to 49 has small advantage to reuse in the offloads bit as below.
->>>>> Please confirm.
->>>>
->>>> See the reasoning given in 88895f56e642 ("Reserve more feature bits
->>>> for device type usage") -- the idea was to push out the point in time
->>>> when generic feature bits will have to be in the bit area beyond 63.
->>>> Given that we only used one of those generic bits in the meantime, I
->>>> assume it will still be some time before we run out of bits, even if
->>>> we let the net driver grab some bits there. Still, I'd probably prefer that the
->> net device used different bits.
->>>> [And issues like this are easy to miss during review unfortunately.]
->>>>
->>> I made assumption that one would have picked the device specific rage.
->>> I missed to detect this early enough, my bad. :(
->>>
->>> Given that we are only left with 4 bits in range 42 to 45, at generic level, it
->> seems wise for device-type to consume feature bits in its defined range.
->>> For virtio-net, bits 65 and higher are preferred.
->>>
->>>> However, if the device was to use different bits, the clean solution
->>>> would be to withdraw, respin, and revote. If we only changed the
->>>> reserved ranges, we'd be fine with a change on top, so that would be
->>>> less hassle in the short team. If we decide that we can live with the
->>>> smaller feature bit space below 63, I'd be fine with that solution.
->>>>
->>>
->>> I am fine either way to merge this and fix immediately for using bits 65 and
->> higher.
->>> My preference is to use bits 65 and higher.
->>>
->>> Or as you suggested to respin and revote right away to forward with bit 65.
->>>
->>> Please let me know.
->>
->> Personally, I'd prefer to handle this in an "atomic" manner, i.e. making sure
->> that no version ever has the wrong bit numbers... maybe if you did a fixup
->> patch that changes the numbers, and commit these patches + the fixup all at
->> once? Less churn than doing the respin and revote dance.
->>
-> Here it is.
-> https://lore.kernel.org/virtio-comment/20250120141052.877355-1-parav@nvidia.com/T/#u
-> 
-> Do we need to open a new voting request for it? yes?
-
-I'm sorry for the latency.
-
-Please be aware that VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO and
-VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM values are reported a 2nd time in
-the "Offloads State Configuration" paragraph. I guess even such chunk
-will need patching.
-
-/P
-
+DQoNCj4gRnJvbTogUGFvbG8gQWJlbmkgPHBhYmVuaUByZWRoYXQuY29tPg0KPiBTZW50OiBXZWRu
+ZXNkYXksIEphbnVhcnkgMjIsIDIwMjUgMTI6MTAgQU0NCj4gDQo+IE9uIDEvMjAvMjUgMzoxOSBQ
+TSwgUGFyYXYgUGFuZGl0IHdyb3RlOg0KPiA+DQo+ID4+IEZyb206IENvcm5lbGlhIEh1Y2sgPGNv
+aHVja0ByZWRoYXQuY29tPg0KPiA+PiBTZW50OiBNb25kYXksIEphbnVhcnkgMjAsIDIwMjUgNTo1
+MCBQTQ0KPiA+Pg0KPiA+PiBPbiBNb24sIEphbiAyMCAyMDI1LCBQYXJhdiBQYW5kaXQgPHBhcmF2
+QG52aWRpYS5jb20+IHdyb3RlOg0KPiA+Pg0KPiA+Pj4+IEZyb206IENvcm5lbGlhIEh1Y2sgPGNv
+aHVja0ByZWRoYXQuY29tPg0KPiA+Pj4+IFNlbnQ6IE1vbmRheSwgSmFudWFyeSAyMCwgMjAyNSAy
+OjM0IFBNDQo+ID4+Pj4NCj4gPj4+PiBPbiBTdW4sIEphbiAxOSAyMDI1LCBQYXJhdiBQYW5kaXQg
+PHBhcmF2QG52aWRpYS5jb20+IHdyb3RlOg0KPiA+Pj4+DQo+ID4+Pj4+IEhpIFBhb2xvLCBNaWNo
+YWVsLA0KPiA+Pj4+Pg0KPiA+Pj4+Pj4gRnJvbTogUGFvbG8gQWJlbmkgPHBhYmVuaUByZWRoYXQu
+Y29tPg0KPiA+Pj4+Pj4gU2VudDogV2VkbmVzZGF5LCBOb3ZlbWJlciAyNywgMjAyNCAzOjA3IFBN
+DQo+ID4+Pj4+Pg0KPiA+Pj4+Pj4NCj4gPj4+Pj4+ICtcaXRlbVtWSVJUSU9fTkVUX0ZfR1VFU1Rf
+VURQX1RVTk5FTF9HU08gKDQ2KV0gRHJpdmVyIGNhbg0KPiA+PiByZWNlaXZlDQo+ID4+Pj4+PiBH
+U08NCj4gPj4+Pj4+ICtwYWNrZXRzDQo+ID4+Pj4+PiArICBjYXJyaWVkIGJ5IGEgVURQIHR1bm5l
+bC4NCj4gPj4+Pj4+ICsNCj4gPj4+Pj4+ICtcaXRlbVtWSVJUSU9fTkVUX0ZfSE9TVF9VRFBfVFVO
+TkVMX0dTTyAoNDgpXSBEZXZpY2UgY2FuDQo+ID4+IHJlY2VpdmUNCj4gPj4+Pj4+IEdTTw0KPiA+
+Pj4+Pj4gK3BhY2tldHMNCj4gPj4+Pj4+ICsgIGNhcnJpZWQgYnkgYSBVRFAgdHVubmVsLg0KPiA+
+Pj4+Pg0KPiA+Pj4+PiBGZWF0dXJlIGJpdHMgNDIgdG8gNDkgYXJlIG5vdCBhcHBsaWNhYmxlIHRv
+IGRldmljZSBzcGVjaWZpYyB0eXBlLg0KPiA+Pj4+PiBUaGV5IGFyZQ0KPiA+Pj4+IHJlc2VydmVk
+Lg0KPiA+Pj4+PiBQbGVhc2Ugc2VlIHRoZSBub3RlLg0KPiA+Pj4+Pg0KPiA+Pj4+PiBDdXJyZW50
+IHNwZWMgZGVzY3JpcHRpb24gaXM6DQo+ID4+Pj4+DQo+ID4+Pj4+IDAgdG8gMjMsIGFuZCA1MCB0
+byAxMjcgRmVhdHVyZSBiaXRzIGZvciB0aGUgc3BlY2lmaWMgZGV2aWNlIHR5cGUNCj4gPj4+Pj4g
+MjQgdG8gNDEgRmVhdHVyZSBiaXRzIHJlc2VydmVkIGZvciBleHRlbnNpb25zIHRvIHRoZSBxdWV1
+ZSBhbmQNCj4gPj4+Pj4gZmVhdHVyZSBuZWdvdGlhdGlvbiBtZWNoYW5pc21zLCBzZWUgNg0KPiA+
+Pj4+PiA0MiB0byA0OSwgYW5kIDEyOCBhbmQgYWJvdmUgRmVhdHVyZSBiaXRzIHJlc2VydmVkIGZv
+ciBmdXR1cmUNCj4gZXh0ZW5zaW9ucy4NCj4gPj4+Pj4NCj4gPj4+Pj4gU28gMiBiaXRzIG9mIHRo
+ZXNlIHBhdGNoIGFuZCBvZiBwYXRjaCA0LCA0NiB0byA0OSB0byBiZSBzaGlmdGVkIHRvDQo+ID4+
+Pj4+IGJpdHMgNjUgdG8NCj4gPj4+PiA2OC4NCj4gPj4+Pj4NCj4gPj4+Pj4gT3IgYW4gYWx0ZXJu
+YXRpdmUgd291bGQgYmUgdG8gYW1lbmQsDQo+ID4+Pj4+DQo+ID4+Pj4+IEJpdHMgNDYgdG8gMTI3
+IGZvciBzcGVjaWZpYyBkZXZpY2UgdHlwZSwgQW5kIDQyIHRvIDQ1IGFuZCAxMjgNCj4gPj4+Pj4g
+cmVzZXJ2ZWQgZm9yIGZ1dHVyZSBleHRlbnNpb25zLg0KPiA+Pj4+Pg0KPiA+Pj4+PiBNaWNoYWVs
+LA0KPiA+Pj4+PiBQbGVhc2UgbGV0IG1lIGtub3cgc28gdGhhdCBJIGNhbiBoYXZlIHRoZSBmb2xs
+b3cgdXAgcGF0Y2ggdG8gdGhpcw0KPiA+Pj4+PiBvbmUgYXMNCj4gPj4+PiB2b3RpbmcgaXMgc3Rh
+cnRlZC4NCj4gPj4+Pj4gQW5kIHRoZSBmaXggaXMgcmVxdWlyZWQgZm9yIGl0Lg0KPiA+Pj4+Pg0K
+PiA+Pj4+PiBJcyB0aGVyZSBhbnkgaGlzdG9yaWMgcmVhc29uIGZvciA0Mi00OSBhcyByZXNlcnZl
+ZCwgb3IgaXQgY2FuIGJlDQo+ID4+Pj4+IHVzZWQgYXMNCj4gPj4+PiBwcm9wb3NlZCBpbiB0aGlz
+IHBhdGNoPw0KPiA+Pj4+PiBJZiBpdCB3YXMgb25seSBrZXB0IGFzIGVsYXN0aWMgYnVmZmVyIGZv
+ciBkZXZpY2UgZ2VuZXJpYywgYW5kDQo+ID4+Pj4+IGRldmljZSB0eXBlIHRvDQo+ID4+Pj4gZ3Jv
+dyBpdCBpcyBwcm9iYWJseSBvay4NCj4gPj4+Pj4gVXNpbmcgNDYgdG8gNDkgaGFzIHNtYWxsIGFk
+dmFudGFnZSB0byByZXVzZSBpbiB0aGUgb2ZmbG9hZHMgYml0IGFzDQo+IGJlbG93Lg0KPiA+Pj4+
+PiBQbGVhc2UgY29uZmlybS4NCj4gPj4+Pg0KPiA+Pj4+IFNlZSB0aGUgcmVhc29uaW5nIGdpdmVu
+IGluIDg4ODk1ZjU2ZTY0MiAoIlJlc2VydmUgbW9yZSBmZWF0dXJlIGJpdHMNCj4gPj4+PiBmb3Ig
+ZGV2aWNlIHR5cGUgdXNhZ2UiKSAtLSB0aGUgaWRlYSB3YXMgdG8gcHVzaCBvdXQgdGhlIHBvaW50
+IGluDQo+ID4+Pj4gdGltZSB3aGVuIGdlbmVyaWMgZmVhdHVyZSBiaXRzIHdpbGwgaGF2ZSB0byBi
+ZSBpbiB0aGUgYml0IGFyZWEgYmV5b25kDQo+IDYzLg0KPiA+Pj4+IEdpdmVuIHRoYXQgd2Ugb25s
+eSB1c2VkIG9uZSBvZiB0aG9zZSBnZW5lcmljIGJpdHMgaW4gdGhlIG1lYW50aW1lLA0KPiA+Pj4+
+IEkgYXNzdW1lIGl0IHdpbGwgc3RpbGwgYmUgc29tZSB0aW1lIGJlZm9yZSB3ZSBydW4gb3V0IG9m
+IGJpdHMsIGV2ZW4NCj4gPj4+PiBpZiB3ZSBsZXQgdGhlIG5ldCBkcml2ZXIgZ3JhYiBzb21lIGJp
+dHMgdGhlcmUuIFN0aWxsLCBJJ2QgcHJvYmFibHkNCj4gPj4+PiBwcmVmZXIgdGhhdCB0aGUNCj4g
+Pj4gbmV0IGRldmljZSB1c2VkIGRpZmZlcmVudCBiaXRzLg0KPiA+Pj4+IFtBbmQgaXNzdWVzIGxp
+a2UgdGhpcyBhcmUgZWFzeSB0byBtaXNzIGR1cmluZyByZXZpZXcNCj4gPj4+PiB1bmZvcnR1bmF0
+ZWx5Ll0NCj4gPj4+Pg0KPiA+Pj4gSSBtYWRlIGFzc3VtcHRpb24gdGhhdCBvbmUgd291bGQgaGF2
+ZSBwaWNrZWQgdGhlIGRldmljZSBzcGVjaWZpYyByYWdlLg0KPiA+Pj4gSSBtaXNzZWQgdG8gZGV0
+ZWN0IHRoaXMgZWFybHkgZW5vdWdoLCBteSBiYWQuIDooDQo+ID4+Pg0KPiA+Pj4gR2l2ZW4gdGhh
+dCB3ZSBhcmUgb25seSBsZWZ0IHdpdGggNCBiaXRzIGluIHJhbmdlIDQyIHRvIDQ1LCBhdA0KPiA+
+Pj4gZ2VuZXJpYyBsZXZlbCwgaXQNCj4gPj4gc2VlbXMgd2lzZSBmb3IgZGV2aWNlLXR5cGUgdG8g
+Y29uc3VtZSBmZWF0dXJlIGJpdHMgaW4gaXRzIGRlZmluZWQgcmFuZ2UuDQo+ID4+PiBGb3Igdmly
+dGlvLW5ldCwgYml0cyA2NSBhbmQgaGlnaGVyIGFyZSBwcmVmZXJyZWQuDQo+ID4+Pg0KPiA+Pj4+
+IEhvd2V2ZXIsIGlmIHRoZSBkZXZpY2Ugd2FzIHRvIHVzZSBkaWZmZXJlbnQgYml0cywgdGhlIGNs
+ZWFuDQo+ID4+Pj4gc29sdXRpb24gd291bGQgYmUgdG8gd2l0aGRyYXcsIHJlc3BpbiwgYW5kIHJl
+dm90ZS4gSWYgd2Ugb25seQ0KPiA+Pj4+IGNoYW5nZWQgdGhlIHJlc2VydmVkIHJhbmdlcywgd2Un
+ZCBiZSBmaW5lIHdpdGggYSBjaGFuZ2Ugb24gdG9wLCBzbw0KPiA+Pj4+IHRoYXQgd291bGQgYmUg
+bGVzcyBoYXNzbGUgaW4gdGhlIHNob3J0IHRlYW0uIElmIHdlIGRlY2lkZSB0aGF0IHdlDQo+ID4+
+Pj4gY2FuIGxpdmUgd2l0aCB0aGUgc21hbGxlciBmZWF0dXJlIGJpdCBzcGFjZSBiZWxvdyA2Mywg
+SSdkIGJlIGZpbmUgd2l0aA0KPiB0aGF0IHNvbHV0aW9uLg0KPiA+Pj4+DQo+ID4+Pg0KPiA+Pj4g
+SSBhbSBmaW5lIGVpdGhlciB3YXkgdG8gbWVyZ2UgdGhpcyBhbmQgZml4IGltbWVkaWF0ZWx5IGZv
+ciB1c2luZw0KPiA+Pj4gYml0cyA2NSBhbmQNCj4gPj4gaGlnaGVyLg0KPiA+Pj4gTXkgcHJlZmVy
+ZW5jZSBpcyB0byB1c2UgYml0cyA2NSBhbmQgaGlnaGVyLg0KPiA+Pj4NCj4gPj4+IE9yIGFzIHlv
+dSBzdWdnZXN0ZWQgdG8gcmVzcGluIGFuZCByZXZvdGUgcmlnaHQgYXdheSB0byBmb3J3YXJkIHdp
+dGggYml0DQo+IDY1Lg0KPiA+Pj4NCj4gPj4+IFBsZWFzZSBsZXQgbWUga25vdy4NCj4gPj4NCj4g
+Pj4gUGVyc29uYWxseSwgSSdkIHByZWZlciB0byBoYW5kbGUgdGhpcyBpbiBhbiAiYXRvbWljIiBt
+YW5uZXIsIGkuZS4NCj4gPj4gbWFraW5nIHN1cmUgdGhhdCBubyB2ZXJzaW9uIGV2ZXIgaGFzIHRo
+ZSB3cm9uZyBiaXQgbnVtYmVycy4uLiBtYXliZQ0KPiA+PiBpZiB5b3UgZGlkIGEgZml4dXAgcGF0
+Y2ggdGhhdCBjaGFuZ2VzIHRoZSBudW1iZXJzLCBhbmQgY29tbWl0IHRoZXNlDQo+ID4+IHBhdGNo
+ZXMgKyB0aGUgZml4dXAgYWxsIGF0IG9uY2U/IExlc3MgY2h1cm4gdGhhbiBkb2luZyB0aGUgcmVz
+cGluIGFuZA0KPiByZXZvdGUgZGFuY2UuDQo+ID4+DQo+ID4gSGVyZSBpdCBpcy4NCj4gPiBodHRw
+czovL2xvcmUua2VybmVsLm9yZy92aXJ0aW8tY29tbWVudC8yMDI1MDEyMDE0MTA1Mi44NzczNTUt
+MS0NCj4gcGFyYXZAbg0KPiA+IHZpZGlhLmNvbS9ULyN1DQo+ID4NCj4gPiBEbyB3ZSBuZWVkIHRv
+IG9wZW4gYSBuZXcgdm90aW5nIHJlcXVlc3QgZm9yIGl0PyB5ZXM/DQo+IA0KPiBJJ20gc29ycnkg
+Zm9yIHRoZSBsYXRlbmN5Lg0KPiANCj4gUGxlYXNlIGJlIGF3YXJlIHRoYXQgVklSVElPX05FVF9G
+X0dVRVNUX1VEUF9UVU5ORUxfR1NPIGFuZA0KPiBWSVJUSU9fTkVUX0ZfR1VFU1RfVURQX1RVTk5F
+TF9HU09fQ1NVTSB2YWx1ZXMgYXJlIHJlcG9ydGVkIGEgMm5kDQo+IHRpbWUgaW4gdGhlICJPZmZs
+b2FkcyBTdGF0ZSBDb25maWd1cmF0aW9uIiBwYXJhZ3JhcGguIEkgZ3Vlc3MgZXZlbiBzdWNoIGNo
+dW5rDQo+IHdpbGwgbmVlZCBwYXRjaGluZy4NCj4gDQo+IC9QDQpPay4gd2lsbCBmaXggYW5kIG9w
+ZW4gZ2l0aHViIGlzc3VlIHNvIHRoYXQgd2UgY2FuIG1lcmdlIGJvdGggdGhlIHByaW1hcnkgYW5k
+IGZpeGVzIHBhdGNoZXMgaW4gb25lIGdvIGFmdGVyIGJvdGggdGhlIHZvdGluZ3MgYXJlIGRvbmUu
+DQo=
