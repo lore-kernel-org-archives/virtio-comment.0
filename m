@@ -1,193 +1,208 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 617F41C28E
-	for <virtio-comment@lists.linux.dev>; Thu, 23 Jan 2025 01:02:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C65B194A74
+	for <virtio-comment@lists.linux.dev>; Thu, 23 Jan 2025 10:16:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1737594171; cv=none; b=BIw/BOewGSYSSrdoBZrSPtOloPu4E3gI/XohDejDfI5tTyhXAPPgnXhNpremZ7rKgcbpXXZ6EYSh1aYgn50/cmlQ9mG2SE9iiagNlr9eAyYJAOxskdiv10FgQfnC8YTwbHASLjN/rGjessebOd/mQtUDxrBVCYOyI3cOKa5FmlI=
+	t=1737627403; cv=none; b=ZNntGuyc5GGDmrgY218LoYHAegQjTFpV72+D0emcP1NoiFIQQX5U57DVqjiGs82DDqhmlwTfQ1f6hMEbp6hANfKBXKmtlxRBxGs75fJsW0m3DDS5UE+iRxlm9O69iWlhzSHGpLws+5dj5FqkzHVw7e/p5PzNpJ5xekReqqOalzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1737594171; c=relaxed/simple;
-	bh=It140S2ME4K/V7IMYXM+oA6D3+rEHWJGqgdSteobh9I=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=bcv3NXzyRGmD9+mblTNxJz54qfooOm0G7YrX3+YgeiOfjqC53e4U4c/MJtuQiak5D1FIX0evrEP7QQoribXFHN58X7FzqCYZ6EtivEKPa4DYdZ1JpbHqv8ZFGOiblTvP/B8dYFPDVR7rEqf1Y2LBCmz6UwJZwD4/89aPlyEox9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m4cEcpxt; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1737627403; c=relaxed/simple;
+	bh=MXQpYBb+N2kuv6BW2oRsEjkmvW4LfskZjPLDHjCl/ng=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MxagETSq3EC0DT+hYgrzoTtTFTmdlEycAQT+kxFOP4r7oVB8DdgWe3hM/3F4IvheC/9P7qhVLJ28R6nf/c0FnKKz5rmENU72Pym6zr4rLZx5wZhmNrFKDAqJi+S0ax2v6HQaFkSXGqlCh599q3r4ZTyTkuPZVVlAAqdK9AN9hPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com; spf=pass smtp.mailfrom=quicinc.com; dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b=N1/QJLuE; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quicinc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m4cEcpxt"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-2ee9a780de4so532154a91.3
-        for <virtio-comment@lists.linux.dev>; Wed, 22 Jan 2025 17:02:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1737594169; x=1738198969; darn=lists.linux.dev;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=p8hO1LAHZovSitV0ryweOsOmHplaeWotDo3d8zgz7IY=;
-        b=m4cEcpxt7Sz1KG2c3A+BztRUVscxmTAEZNE7aBqDq5nD7/HSHy+T8PLvev75XKoPGq
-         sAEDcqZvPlJeb8iclat2QNkFIub00bREvQhFyHrMr6fOmnDheafeKkGWupAPmyv2pEDo
-         5kAuWR5bg+6v7pac8IU/O5W3pFPn57CZg2aZfoV4AW84FQS10LGy/F+lr8Ss56BUI2o6
-         98e9Kn5wroo22qqQt67UAQRHZog1AJ+FNAS+XYcindWzqUGWSfh/dmpgvm7TT4U1LuUv
-         fTgFNHNyn+1QC4IHEvsUvXSdspz1BoILqeplIpu4LnELh7c91WyVf1jPUjyWwfvmZPC2
-         hq4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1737594169; x=1738198969;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=p8hO1LAHZovSitV0ryweOsOmHplaeWotDo3d8zgz7IY=;
-        b=XY6iMCXQXvd7NkV8n8itTVDidMVZuMkVafA+csQBraa+ZYJpg7TD6WTt3vvdWLGtzY
-         LZggNrxvNbTt2UAfidcOrr8ms2SalrMsAmsSM51+th2ob3/poNN3Br24e8Xe8zB4A246
-         mvs0QhVtfjnzmoVNoQcTUiCbaLBXqy701uyTW7f3uQF7z4BNunhEOti+ybDaLXG7OSaX
-         cYNQ33xK3yItDY1aLAb/7i29/YKjvmJm7y0+MeCj0EAAs7cQ5j+GMX8Rvga/E6af/bjs
-         aEhTefjzCg1lKxd9VlmMMmz4lGk/Cd+TOn2oWy0HJypzHW4uz1vzHF8ItXLyZM3azRvm
-         bM0A==
-X-Forwarded-Encrypted: i=1; AJvYcCWWseSuaDsfHDNp43Quedn+LIkHrjp+ilyR141S7Waj/9eDvHioXFXfNTerTIJH95+08Qlfehsm5XfSGXJ89Q==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxOvqwUUf7TH6+Wrm6a9S1YaMTcDtTmaAiJy/epNS1hOB8DmZZ2
-	wjxVv5XVgKXhQ942s0LY7Zo7ttNr+fH9syJjof/rlBzKGZBzludwb8WFXtHZVRk=
-X-Gm-Gg: ASbGnctQlsVipOBEKlPEDYjrCEpdX1OPoydmx/FaZJ5F6K/dTHflfpTI8hoSIZdLSpa
-	UmpbOrYIDMW1D0PLjxl7rGE71oAjLA4acAI0/8cq0dWhX41h/2G8EdPFp/bN9+RbHn1Fs75Geq7
-	FCRWxKH4+q3KX7b5qvWjJ5jNFmJD0jGAjwQ+q7GFp43UE3q/P47mECFnMWczxaNWHPxnsGzKdoB
-	jCyNFj37+0eu3QtL3AJaHpsu3CE1dmkuL3tYJcFp89DV2e8VVtq/UooHu4er+dU8Ig1KyRN
-X-Google-Smtp-Source: AGHT+IE110SRMHFQDmFw0yEtBseukb/KpvhpmIepOBVaQyb0VWUL3a2H8W02ePXoA6Tlsla6jcZjMw==
-X-Received: by 2002:a05:6a00:240b:b0:728:b601:86df with SMTP id d2e1a72fcca58-72daf953cf5mr31225324b3a.10.1737594169029;
-        Wed, 22 Jan 2025 17:02:49 -0800 (PST)
-Received: from localhost ([240d:1a:f76:b500:4431:46e3:c76b:79bc])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-72dab817732sm12218386b3a.64.2025.01.22.17.02.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Jan 2025 17:02:48 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b="N1/QJLuE"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50N434FG015732;
+	Thu, 23 Jan 2025 10:16:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=NV/Faw1Sf2MNbqNpsM6Qhx
+	l9EmrBgw/cPjwp2p1OOUQ=; b=N1/QJLuEnTbHib8ZacCAkjAOnpV6QaO6MdrPK7
+	v6cW63rVk1NEy5VMn5ZOIu1cCZhgvfRAkd/oX9uf7MuhPT0/LPrTVdYLGKkhMrAI
+	EbLprC/4ywYyznR09SFMMqc2oFDoOxn/j+MblMuHro4ZQRZt8LmoGBZmQOnpO+gZ
+	W8xUUr5Y7kh96Y9tWkVt72tQ9fG4xoV7YqK68nfUBjaN+Izpp251bQyhYdrSEvyh
+	RjN0UtyUm/rOpSVI+zxqblVw+tua/XKZFWazDuk3lVEyscDhfY9nRyRtKVNUr0j5
+	Y9yiZLxZozEwxoM8g4r6AS71Pm/qSuXEXIWsnblGU9MOlk7Q==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44bed38t8t-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 23 Jan 2025 10:16:36 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com [10.47.209.196])
+	by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 50NAGZ1w031959
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 23 Jan 2025 10:16:35 GMT
+Received: from PHILBER.qualcomm.com (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 23 Jan
+ 2025 02:16:32 -0800
+From: Peter Hilber <quic_philber@quicinc.com>
+To: <virtio-comment@lists.linux.dev>
+CC: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>,
+        "Jason
+ Wang" <jasowang@redhat.com>,
+        David Woodhouse <dwmw2@infradead.org>,
+        "Ridoux,
+ Julien" <ridouxj@amazon.com>,
+        Trilok Soni <quic_tsoni@quicinc.com>,
+        "Srivatsa
+ Vaddagiri" <quic_svaddagi@quicinc.com>,
+        Peter Hilber
+	<quic_philber@quicinc.com>
+Subject: [PATCH v7 0/4] virtio-rtc: Add device specification
+Date: Thu, 23 Jan 2025 11:16:11 +0100
+Message-ID: <20250123101616.664-1-quic_philber@quicinc.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 23 Jan 2025 10:02:42 +0900
-Message-Id: <D791Q2LTEUEN.3M6WM486L4ETD@gmail.com>
-Cc: <agordeev@qti.qualcomm.com>, <ribalda@google.com>,
- <acourbot@chromium.org>, <gurchetansingh@google.com>, <cohuck@redhat.com>,
- <daniel.almeida@collabora.com>, <changyeon@google.com>,
- <nicolas.dufresne@collabora.com>, <eballetb@redhat.com>,
- <dverkamp@chromium.org>, <hverkuil@xs4all.nl>, <mst@redhat.com>,
- <alex.bennee@linaro.org>, <acourbot@google.com>
-Subject: Re: [PATCH v5 0/1] virtio-media: Add device specification
-From: "Alexandre Courbot" <gnurou@gmail.com>
-To: "Albert Esteve" <aesteve@redhat.com>, <virtio-comment@lists.linux.dev>
-X-Mailer: aerc 0.19.0-0-gadd9e15e475d
-References: <20250120085015.956057-1-aesteve@redhat.com>
-In-Reply-To: <20250120085015.956057-1-aesteve@redhat.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-GUID: NjcNjEd27KT9i7BRQXVEXrVWyLXeh88d
+X-Proofpoint-ORIG-GUID: NjcNjEd27KT9i7BRQXVEXrVWyLXeh88d
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-01-23_04,2025-01-22_02,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 impostorscore=0 bulkscore=0
+ suspectscore=0 lowpriorityscore=0 mlxscore=0 phishscore=0 malwarescore=0
+ spamscore=0 priorityscore=1501 clxscore=1015 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
+ definitions=main-2501230078
 
-On Mon Jan 20, 2025 at 5:50 PM JST, Albert Esteve wrote:
-> New attempt of including virtio-media
-> device specification.
+This iteration of the virtio-rtc spec removes the indication of leap
+second status and performance metrics. The reason for this is that the
+Linux kernel driver lacks a good interface to expose this information to
+user space (and an attempt to add one [4] was rejected). The
+compatibility with vmclock [3] is not affected.
 
-Thank you Albert!
+This iteration also drops the "RFC", since the remainder of the spec did
+not change significantly lately.
 
-On my end, I have (at long last) sent the driver for upstream review:
+Summary
+-------
 
-https://lore.kernel.org/linux-media/20250123-virtio-media-v1-1-81e2549b86b9=
-@gmail.com/T/#u
+The RTC (Real Time Clock) device provides information about current
+time. The device can provide different clocks, for the UTC or TAI time
+standards, or for physical time elapsed since some past epoch. For UTC
+clocks, the device can also indicate how leap seconds are handled. The
+driver can read the clocks with simple or more accurate methods.
+Optionally, the driver can set an alarm.
 
->
-> v4->v5:
-> - Rewritten/clarified some parts
->   according to the reviews received.
-> - Added missing links to V4L2
->   structures. Structs should
->   have a link on their first
->   appreance in the document.
-> - Clarified memory type
->   semantic V4L2 equivalent.
->
-> v3->v4:
-> - Updated device ID to 48
->   (moved to the first free id)
-> - Specified endianess on all
->   structures defined through
->   the spec (leXX)
-> - Slightly improved the explanation
->   of the size (and endianess)
->   of the exchanged v4l2 structs
->   as part of the ioctl command
->   payload
-> - Changed cmd_mmap offset size to
->   match the V4L2_QUERYBUF offset field
-> - Fixed most comments on previous
->   version for small typos/rewrites.
->
-> v2->v3:
-> - Updated device ID to 49
-> - Renamed virtio memory types so that
->   they are differentiated from V4L2
->   memory types
-> - Memory types description slightly
->   rewritten, explicitely excluding
->   USERPTR support for guest userspace
->
-> v1->v2:
-> - Remove naming host/guest in the text
-> - Explicitly specify endian-ness of the device
-> - Change address by offset in the MMAP operation
-> - Specify SHM region for MMAP operation
->
-> Virtio-media came from a discussion on virtio-dev
-> mailing list, which lead to presenting virtio-v4l2[1]
-> specification as an alternative to virtio-video.
->
-> Later, virtio-v4l2 was renamed to virtio-media[2]
-> and published at:
->
-> https://github.com/chromeos/virtio-media
->
-> The repository above includes a virtio-media driver able
-> to pass v4l2-compliance when proxying the vivid/vicodec
-> virtual devices or an actual UVC camera using the
-> V4L2 vhost device (available in the repository).
-> It also includes a FFmpeg-based video encoder
-> device. Steps to reproduce are also detailed[3].
->
-> Recently, virtio-media has landed in AOSP[4].
->
-> Furthermore, virtio-media got a proposal to reserve
-> device ID 48, which was finally approved for
-> inclusion in v1.4.
->
-> There is some overlap with virtio-video in regards
-> to which devices it can handle. However,
-> they take different approaches, making them
-> the preferable choice for different scenarios.
-> Moreover, as virtio-media will likely be the virtualization
-> solution for ChromeOS, Android, and possibly others, for
-> media devices, this justifies the desire to include
-> the specification in the next release despite
-> the aforementioned overlap.
->
-> Full PDF: https://drive.google.com/file/d/1XKpPDalkXcJe2ZjPpbtiOcgJRIWy-U=
-Tf/view?usp=3Dsharing
-> PDF with the media section only: https://drive.google.com/file/d/1fzvKEuY=
-31vUF7ctQ0KK0CmfrDO5CdRFj/view?usp=3Dsharing
->
-> [1] https://mail.google.com/mail/u/0?ui=3D2&ik=3D73ebd65ebd&attid=3D0.1&p=
-ermmsgid=3Dmsg-f:1767388565327924962&th=3D1887068940754ee2&view=3Datt&disp=
-=3Dinline&realattid=3Df_libalimc0
-> [2] https://www.mail-archive.com/virtio-dev@lists.oasis-open.org/msg12665=
-.html
-> [3] https://github.com/chromeos/virtio-media/blob/main/TRY_IT_OUT.md
-> [4] https://cs.android.com/android/platform/superproject/main/+/main:exte=
-rnal/virtio-media/
->
-> Albert Esteve (1):
->   virtio-media: Add virtio media device specification
->
->  conformance.tex                           |  13 +-
->  content.tex                               |   1 +
->  device-types/media/description.tex        | 617 ++++++++++++++++++++++
->  device-types/media/device-conformance.tex |  12 +
->  device-types/media/driver-conformance.tex |  10 +
->  5 files changed, 649 insertions(+), 4 deletions(-)
->  create mode 100644 device-types/media/description.tex
->  create mode 100644 device-types/media/device-conformance.tex
->  create mode 100644 device-types/media/driver-conformance.tex
+Changelog
+---------
+
+v7:
+
+- Remove leap second and performance indications from struct
+  virtio_rtc_resp_read_cross. Remove backing definitions.
+
+- Move wording change which was mistakenly placed in last patch to first
+  patch.
+
+v6:
+
+- Make leap second status information optional if the clock smears (or
+  might smear) leap seconds.
+
+- Do not use union for leap second indication.
+
+- Improve wording.
+
+- Refer to the new POSIX.1-2024 for UTC epoch definition.
+
+v5:
+
+- Change structure and wording to support adding shared memory like
+  vmclock [2].
+
+- Add dedicated clock types for UTC leap second smearing (David
+  Woodhouse).
+
+- Extend leap second indications.
+
+- Replace VIRTIO_RTC_SUBTYPE_ by VIRTIO_RTC_SMEAR_.
+
+- For Arm Generic Timer, only support Virtual Count Register (David
+  Woodhouse).
+
+- Rename MONO clock to MONOTONIC clock.
+
+- Harmonize bit widths with vmclock [2].
+
+- Change formatting.
+
+v4:
+
+- Distinguish UTC clocks with and without leap smearing (David
+  Woodhouse).
+
+- Add UTC leap second and TAI offset indication (David Woodhouse).
+
+- Add clock performance information (David Woodhouse).
+
+- Drop distinction of Arm Generic Timer virtual and physical counter.
+
+- Change requirements so that driver can reset alarm to clean slate, and
+  document how driver can achieve this (Cornelia Hell, Jason Wang).
+
+- Device should assume that driver reads clock from first vCPU (David
+  Woodhouse).
+
+- Driver should read clock to confirm that alarm has expired.
+
+- Require driver to set unused flags to zero.
+
+- Require device to support all expressible alarm times.
+
+- Formatting and wording improvements.
+
+v3:
+
+- Address comments from Parav Pandit.
+
+- Add an optional alarm feature.
+
+- Various other changes.
+
+v2:
+
+- Address comments from Cornelia Huck.
+
+[1] https://lore.kernel.org/lkml/61364452-bdf5-4bd8-adb1-a9e6236c9d26@opensynergy.com/
+[2] https://lore.kernel.org/lkml/20240708092924.1473461-1-dwmw2@infradead.org/
+[3] https://lore.kernel.org/all/78969a39b51ec00e85551b752767be65f6794b46.camel@infradead.org/
+[4] https://lore.kernel.org/lkml/20241219204208.3160-1-quic_philber@quicinc.com/
+
+
+Peter Hilber (4):
+  virtio-rtc: Add initial device specification
+  virtio-rtc: Add initial normative statements
+  virtio-rtc: Add alarm feature
+  virtio-rtc: Add normative statements for alarm feature
+
+ conformance.tex                         |    2 +
+ content.tex                             |    3 +-
+ device-types/rtc/description.tex        | 1118 +++++++++++++++++++++++
+ device-types/rtc/device-conformance.tex |   13 +
+ device-types/rtc/driver-conformance.tex |   11 +
+ introduction.tex                        |    6 +
+ 6 files changed, 1152 insertions(+), 1 deletion(-)
+ create mode 100644 device-types/rtc/description.tex
+ create mode 100644 device-types/rtc/device-conformance.tex
+ create mode 100644 device-types/rtc/driver-conformance.tex
+
+
+base-commit: b2990c8a6642e696d6f269d1db991b2c928d3a9f
+-- 
+2.43.0
 
