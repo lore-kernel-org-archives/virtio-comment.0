@@ -1,338 +1,193 @@
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B49F215774
-	for <virtio-comment@lists.linux.dev>; Wed, 22 Jan 2025 18:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.156.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1737571183; cv=fail; b=QuMQNkfqfeQl6OwCd8qyhr7qjuSXL9C/Us1OiJoPNUgMEYr1eTgdbCttkVhHdqAbbGFlskSUaVq41dMzxBNb21D0BowW6IGx7KkCFSAlVWRC4KCPzloDiVEKJINPfI9HXtPx6407CHLLt3ZwrL4kIoGa/BYm1MXRuFsdzkPi0G8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1737571183; c=relaxed/simple;
-	bh=wxG4xz4akPs62eoDlxdYWYG6rtCW7FnIxlb4mapzNsY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=D3EoAvam1z/aQdmzznE2fxucvTeD9Ntk/jaDdd4FUBZDaMrqYPMZ0cf8C79DJ/pwVCh/xvBKM1URxxl//yJg1od5Lhwm2KVfASkK7cHwb7s+x+6mKDw79FqTqQKs586LY2y6jFjhmWRSBIH5JW4KO2j3JeRglUYgZMJmunOlg5E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=fail (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b=js5gM5iq reason="signature verification failed"; arc=fail smtp.client-ip=67.231.156.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 617F41C28E
+	for <virtio-comment@lists.linux.dev>; Thu, 23 Jan 2025 01:02:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1737594171; cv=none; b=BIw/BOewGSYSSrdoBZrSPtOloPu4E3gI/XohDejDfI5tTyhXAPPgnXhNpremZ7rKgcbpXXZ6EYSh1aYgn50/cmlQ9mG2SE9iiagNlr9eAyYJAOxskdiv10FgQfnC8YTwbHASLjN/rGjessebOd/mQtUDxrBVCYOyI3cOKa5FmlI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1737594171; c=relaxed/simple;
+	bh=It140S2ME4K/V7IMYXM+oA6D3+rEHWJGqgdSteobh9I=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=bcv3NXzyRGmD9+mblTNxJz54qfooOm0G7YrX3+YgeiOfjqC53e4U4c/MJtuQiak5D1FIX0evrEP7QQoribXFHN58X7FzqCYZ6EtivEKPa4DYdZ1JpbHqv8ZFGOiblTvP/B8dYFPDVR7rEqf1Y2LBCmz6UwJZwD4/89aPlyEox9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m4cEcpxt; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b="js5gM5iq"
-Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50ME4JAS024007;
-	Wed, 22 Jan 2025 10:39:38 -0800
-Received: from nam12-dm6-obe.outbound.protection.outlook.com (mail-dm6nam12lp2170.outbound.protection.outlook.com [104.47.59.170])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 44b245gmnq-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 22 Jan 2025 10:39:38 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pS0SA/HNk4j/gAD5sjn5xXtL4uIP76a77SLi+klWAaxEVkEFavRUAf/71nPBsWx1iKgaWiijL29z/NCqlJpX0Aa1rnSnwzZfWLEjmx0sgZ370nZUR/BwrmY4R7PwCHWKFe0KeBgMJNGlFxVXlY9kJgqrt7twnxADUssayGC7f8JC8P77mmrZcSflMH8ZK9zhuIBD2aCiuFwc8bbFDbSVJ9Nbw1k+DLtgYr15jQlaxXPdjLlZwbpjj97wTkZCRgClQ6PIWzmoQnQbE6CfrQsqTWNIvhe9KPAIt1CDo8p4gNebr4hZMaUMaAdaz/PfC18ODWwcu0/LHxF1ZQF60vjdfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KGqf/Kaf97bmOVauFnkdyagTJh/FEcMuinflwlixpB8=;
- b=HUbEpduBKAEKzIYLKun7NYV35SRxnNnnhx/wrpEqoWTUbIE7PRV4JEUzvrpdxuBr+2IKuWOdVEvOAq4HD7yMBhglShIt0i9K73yVkOppR8kTSDuOfMqI/9SApm0ISZg4ybC3QoEJM2m+w6uCNSqXs3Lb17M5BoreFJ7wfTvrqZgyAPRbGiLV/7j24Iep2KSirbEIozpERmebFGTVlUoHyUyeaJiu9zac6OmnImk0Ez4ixXMNCTa/opsiSX/PABVmv9Bj8aefuMxuBSUimLCb31/L1rnWRrWHwBquj5bkcTPvEsWK+i2tKIAohTeA9T6Z+7y/GAUscFqj6D3YqGKRWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=marvell.com; dmarc=pass action=none header.from=marvell.com;
- dkim=pass header.d=marvell.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KGqf/Kaf97bmOVauFnkdyagTJh/FEcMuinflwlixpB8=;
- b=js5gM5iqIxA6cQbxLYRzomJRpj3wSY3E3FNHNRV2jhxQwPCkpTLI9xZ0aHoG3wB9xXc5VLEPhD5iQz2HMI56K5WrM6EQgvJ5cxdCVCsfR3Aq5hiEoMSgOAK8nVF/JqGbOohcTK0TjvbwIxqOIv5KWr74NVKy1zo1wWcT9thHMYI=
-Received: from DM4PR18MB4269.namprd18.prod.outlook.com (2603:10b6:5:394::18)
- by BL1PR18MB4374.namprd18.prod.outlook.com (2603:10b6:208:31d::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8293.15; Wed, 22 Jan
- 2025 18:39:34 +0000
-Received: from DM4PR18MB4269.namprd18.prod.outlook.com
- ([fe80::9796:166:30d:454a]) by DM4PR18MB4269.namprd18.prod.outlook.com
- ([fe80::9796:166:30d:454a%5]) with mapi id 15.20.8356.020; Wed, 22 Jan 2025
- 18:39:34 +0000
-From: Shiva Shankar Kommula <kshankar@marvell.com>
-To: Parav Pandit <parav@nvidia.com>
-CC: Nithin Kumar Dabilpuram <ndabilpuram@marvell.com>,
-        Jerin Jacob
-	<jerinj@marvell.com>,
-        Rahul Bhansali <rbhansali@marvell.com>,
-        "pabeni@redhat.com" <pabeni@redhat.com>,
-        "willemb@google.com"
-	<willemb@google.com>,
-        "jasowang@redhat.com" <jasowang@redhat.com>,
-        "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
-Subject: RE: [PATCH] virtio-net: Introduce a new field to indicate outer
- network header offset
-Thread-Topic: [PATCH] virtio-net: Introduce a new field to indicate outer
- network header offset
-Thread-Index: AQHbalXb2PKYJQsEM0WrX+YjR5Yy27MjCqAA
-Date: Wed, 22 Jan 2025 18:39:34 +0000
-Message-ID:
- <DM4PR18MB42691DAB8C11347CE3ED224FDFE12@DM4PR18MB4269.namprd18.prod.outlook.com>
-References: <20250114171636.3175670-1-kshankar@marvell.com>
- <CY8PR12MB7195D27F3BB0A02F11B48106DCE42@CY8PR12MB7195.namprd12.prod.outlook.com>
-In-Reply-To:
- <CY8PR12MB7195D27F3BB0A02F11B48106DCE42@CY8PR12MB7195.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR18MB4269:EE_|BL1PR18MB4374:EE_
-x-ms-office365-filtering-correlation-id: 1bc20f63-14ea-45f7-a4a3-08dd3b141e0f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?OU5qTDFKODlIUWtGZkNCcG0ybEJCcnlFUVVHMkw3NGRCbndjUHhUdXF3T0xa?=
- =?utf-8?B?Ty81WksycU0yMFFzZExCSGp2Q2pMNFFBWHBEMDY2UlhvWEZweWM3bDI2OFpS?=
- =?utf-8?B?UmROaVI4dy9BVVZpVUJjeWswL3RuLzdjY1lpS0VwbUYzRys0cE5MVEd4K0la?=
- =?utf-8?B?M3dERnhSdzRoYXorck9saEVpOTdhdlVCRVZyckh5SXdydllpUWUyNkZyTC9K?=
- =?utf-8?B?bVNtNGFGaEFhTlp0VnZKTXRjbm1XdTlrNWgrT3hYYklJdG5YeTJYN0xHckVx?=
- =?utf-8?B?bEdBRW5BU0tDdk1yaW5rM0h5K2UzN0hUbmpnMVhGOExtbEU1MHFreFl6S3lU?=
- =?utf-8?B?T2lFRkM4SmNCNmJBQmFkQUxkK0hDKzJMRUhIa3dlTkl4Y05RQ0M2SlpWMUxl?=
- =?utf-8?B?a3NmV1NZdVRVZTdSVkJwWUo4d3pZbHEvL1dHbGhENks5RityVE9OVUlBTjd3?=
- =?utf-8?B?THpTOEZzdDVwcnJDL3A2aVVjSys3SUpuTG1BZjZybkdqZGF1SklTeUlNZklI?=
- =?utf-8?B?NC9pL3pJWWFuNGdRcXZMWUtHMThEWlRBcEFUMnFyR1IxSnMwcUNibTc1aS9O?=
- =?utf-8?B?QVhDUnl5ZFZOQU9MY1Vqa0JQcWh0UjZBajVnR1NEUzZodmkrRTVEYnFQb1JS?=
- =?utf-8?B?NW9vNyt2T1RjdmFlOG55OW5tQzYvNWlYY2s3YUVsbWdBTHV3SkRFNDNFT01t?=
- =?utf-8?B?TnhYL3I1cWhTalRBVVdMOGxweWc1T3NzL0J0dkZGaGpza21MdUI4cVRWV3Zu?=
- =?utf-8?B?amFXV0drbWxtNjhvN2tPRmd2RDFiRUo0aDI2bWxtcnJTT0Y2UTB2c2s5Sy9q?=
- =?utf-8?B?ZEJhWTVuVEpIY29rVTJ2K3N6cERhMHpGc1psM20wWUhXaTNGajZia0FEZ29I?=
- =?utf-8?B?SDJEWjJYTFNyWi9nazZyTmZGSDROQTVaaW4zSlhEWU1EVWZHaEs4VHYrandN?=
- =?utf-8?B?aWRCYVRKU1NuQTFiUVEyazdEd0p0MU92T3FFeGdpNE43NFA5UEtQQXdWZlhY?=
- =?utf-8?B?aXF0bHRSQmdib0J3cy8rbzFoRHBoekhEYjZmUVZKR1BqNkZhcC9XL1V5ZUp1?=
- =?utf-8?B?SzEwM0xuRFNSejN6djMwMGszRHVZQkRyOHpUOWtlL0RWRlZpNEdrWXBVcXBT?=
- =?utf-8?B?cVpwZTQwY3FvOUNxdFU2VEl0MGNxaHlQUW5TRTRxSmU3WFE0KzVBbFkzNlkv?=
- =?utf-8?B?ZWt1aXNmQ1QrZTlXTHArTlg2SzAyYkpnUmMvS1N4alFqU0RUUDQySUhHblEr?=
- =?utf-8?B?R3g5N2xMNEc5MXJiS0RFYnZHUy9BZHM1YkhvYnJzSmRzM2dCeFlRbWthK29G?=
- =?utf-8?B?NlM3cGg1TlNoMUxKbEN5S1FIbEpHY0pvTlN4TEdTak44YTl0Ukp5YkwwTEtO?=
- =?utf-8?B?S1lnSUVuMTRNeE9FQkxqZzBUb3hLa1hNcUtVcUI1Mm91cHIxbUV3ZXMrd2U0?=
- =?utf-8?B?bGNWZFdBZ256Z0lxMEZXYmQ2bmJsVXVWRVdlRjM1VU5XZk1uOE55eExZRjZP?=
- =?utf-8?B?RXd3QXNrSmtDV29wZFMwOTJ5UVJsMVB3eGF3QlFCZTJwR3c5UHd6OU9SL1lk?=
- =?utf-8?B?clFKZnZSRUNZL01paS9oVG4rY2hJeC91dm1LNEIvNEk3ZVJQRzEycG1rZTZW?=
- =?utf-8?B?YU9YRGtSbzlhbTJhWmVkRzA4cDkxUVhkckFqSmVQYStTTVQ4SFNoY0pxT2Jo?=
- =?utf-8?B?ZVYyRis3VHVIVnZKeS8xWGJ3MXQzUC9nQzhpcTQrUkVrYW42cUNOb2NVemhu?=
- =?utf-8?B?ZVBGVEx4WEgrZmRuWmpuY3V3NW13dXdaeWRpYitvSWZDNllxNlhvS0luK21T?=
- =?utf-8?B?bExncS9IRGd6UVYrcTF4S05jOFhXd3A1VFNQb0VTc1p6VW9XMFZaM2x2WGJ2?=
- =?utf-8?B?QjE0Wi81eEYwNUJxaVh5T1dsN24vaDBiZXFkdG9IL0NYZ2c9PQ==?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR18MB4269.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?N2VMeG50ZTlMSks1dmhkODduZmxORTJIQXhCQ1ZnRllpclZWSUl0Ky9zOUtQ?=
- =?utf-8?B?c0V5T1V0NzJ6dnRqa0pleWFCdjZMQjhoMzNHY3pzU1hseGtwcGNqbXA3Sm5Z?=
- =?utf-8?B?RnJBRkZsR2ZrNU51alhVcHhkUjU3TmZPOU5WaWV0c0p3MUhVdzR0dkk2c3Rj?=
- =?utf-8?B?cTk5ci83Y3RPVkgwSmVpcEF4UTNIc1YwcGF6OHl6Wnd0dnkweXYyTGxGOXhJ?=
- =?utf-8?B?bGlWajN0QXZSZ1hvaHVTdDc5aTZyWXNBR3BVdDZoUnpvZ0J6ZEx1QTB4ZXQ2?=
- =?utf-8?B?clhuQll0eGNLVGpCamhVWkUyeExpR2c5UTdnUkpyYi9QdGxmMkJtaEw5ZXVM?=
- =?utf-8?B?MVFHc3I2eVlNS1Y4ZktvdEVOcS8yMDdEVFNUT1hlYUg5Qk9EZUNVT3RWZ2tk?=
- =?utf-8?B?alpTZkpJVTNZejZ0d0dXNDhjbExBbUpQaVZzbWI5TmxmSDQ1cm04Rm9hNmZk?=
- =?utf-8?B?MEVqWkFlb2dYNkQvcW11NXczZnQ5RHpFUDdvNTRXYkdxeFZsU01MTjVHOENo?=
- =?utf-8?B?bk9jQjBKemtOS0pXNm53SE1NUWR2cDFReU4wQUFDN0lsb1IrUTZQUWpnYzYv?=
- =?utf-8?B?V21YcERtcG5GdlR3RGRGS1ZEcjhTQnRHVnpRaUlCa0xIc3ord1BJWFdqc2Z4?=
- =?utf-8?B?elNVUnJudXRVcDRjRVR4azE4ZVZzS2lzQzNuZGlXMFQ3c0Fyb0t5MkFvQVY4?=
- =?utf-8?B?ZStQTm1zVEZvSlpjbXhZTmpGOElrb0ZoUTRWU0VPRjF6UTQ3Y25EVHFNeXM1?=
- =?utf-8?B?cnR1dVRMVjBmSFF1b3cvMkY2aHVEaTEycnNQc2ppd3FLS0VLdE1Hb2hJTFFu?=
- =?utf-8?B?Wmt6cjBuejNnY3RYTFd2ZUl6NXlrZS8vU0ZqSmRxVVdubDhIVUllSnk3MHlH?=
- =?utf-8?B?eG8zeWtqbmpRRGc4T0tYOWhGd2liYUNER2pSUXEzMTRReEI5dElud0p2NjFo?=
- =?utf-8?B?ZVl5Y0M4ZE0yWVExQW1UMGYwdit1V3hNbVA4RU55bk14QVNmcVdTYmoyT0RG?=
- =?utf-8?B?UkJYKzFCYjl6NzgrZXdMNlBZZTBpVndud1F3b3k0akp1MTc1VlpacXR1TWxH?=
- =?utf-8?B?NEdHak4xWnYzWWJHYUU0aENEWHFUa1BDamNRQ0RPVXhRNk5KcUh6czlWVi9y?=
- =?utf-8?B?b2Vxd05UZHFWMFd3SXZjcmlxVTY0MnBIRVJrVnVLd0ZtZW81V29VSlptNkR6?=
- =?utf-8?B?WWVkanBaZU5EUHhLNDVzT0RleENoWHJodTRRVjViYnVTa1dVN0lDWVpmak5i?=
- =?utf-8?B?OWk5S1pTWFRPSE82MmZWMnRoRG91L1UzUzh6V3N0Unc2NnoxUzdxZDVqWlVN?=
- =?utf-8?B?NkY5ZU9IQ2g1WXVrQVNLcFdkS0tJQmtUbWlDMk9wMzZZM1VkUHc4WnRvdG9H?=
- =?utf-8?B?ekwyb29KUVJINU8zZVVFSGMxZ2U5a1dpWHJNdXlEeFFQTEVBcDBBL2xGejlP?=
- =?utf-8?B?MU1YYnhFZjRjVEZHRUp1UU80TmF4WENXR25OMldQLzlpd1F5MFVMY3hYRUkx?=
- =?utf-8?B?UElhZWV3K2dmbTF0V1hZMUhocUZneVZzOE5MNTNHV3dIWVpncjhZYmhDZGtk?=
- =?utf-8?B?U1diR0tVekdOVTFiOXg1YW5aajlLLzY0eEg4UHFHSkt2V3NJTHlGSCtzZEFB?=
- =?utf-8?B?NVhVbjhTNlIvZ2dmSGRENlgwcWQ2aDc3bFp0Z01LUE9SMzlwSDJ6Wk04am5D?=
- =?utf-8?B?alc4ZlNLbVRzV20rcThHK0lyeHltMUlQU2YxTmQ3REcva1Noc2cvNTFwektj?=
- =?utf-8?B?d3U2dFJrVzhKQkVJUUx3RXVWaTU1TzlzMUVVVW5SQS9uMlpkY0E4Uk5QVThu?=
- =?utf-8?B?QlhFMVJLeDZ0N2djUWtYUWw3eVFkNFptUU1rdGJPZUU2UkN3OGZPQy9lajdO?=
- =?utf-8?B?ajNiaDhPeGZoYkVVSTRDcWdCaTJsM2lnQ2ZQTDFxV1dBVnAxdWlQeU5iT2Nl?=
- =?utf-8?B?c1hrU0FoSEE4RTNDSUsrWDFnOXcrK25hZHBTNFpMWlpxMXFVQko4MjhhTVB4?=
- =?utf-8?B?V2JZRnZpdFdzNXl2Umd5VktlQzZRVDdUSm01S2crelFKUWltcVdCWjNUMG5v?=
- =?utf-8?B?S1RWTVo0QUNqUms0SmtyektnNHFNbXg4cWs2SDROWG9SM0NUd2RTZllrWnFy?=
- =?utf-8?Q?vEp/66x1hT+wcHf+HA0RVQJWI?=
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m4cEcpxt"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-2ee9a780de4so532154a91.3
+        for <virtio-comment@lists.linux.dev>; Wed, 22 Jan 2025 17:02:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1737594169; x=1738198969; darn=lists.linux.dev;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=p8hO1LAHZovSitV0ryweOsOmHplaeWotDo3d8zgz7IY=;
+        b=m4cEcpxt7Sz1KG2c3A+BztRUVscxmTAEZNE7aBqDq5nD7/HSHy+T8PLvev75XKoPGq
+         sAEDcqZvPlJeb8iclat2QNkFIub00bREvQhFyHrMr6fOmnDheafeKkGWupAPmyv2pEDo
+         5kAuWR5bg+6v7pac8IU/O5W3pFPn57CZg2aZfoV4AW84FQS10LGy/F+lr8Ss56BUI2o6
+         98e9Kn5wroo22qqQt67UAQRHZog1AJ+FNAS+XYcindWzqUGWSfh/dmpgvm7TT4U1LuUv
+         fTgFNHNyn+1QC4IHEvsUvXSdspz1BoILqeplIpu4LnELh7c91WyVf1jPUjyWwfvmZPC2
+         hq4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1737594169; x=1738198969;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=p8hO1LAHZovSitV0ryweOsOmHplaeWotDo3d8zgz7IY=;
+        b=XY6iMCXQXvd7NkV8n8itTVDidMVZuMkVafA+csQBraa+ZYJpg7TD6WTt3vvdWLGtzY
+         LZggNrxvNbTt2UAfidcOrr8ms2SalrMsAmsSM51+th2ob3/poNN3Br24e8Xe8zB4A246
+         mvs0QhVtfjnzmoVNoQcTUiCbaLBXqy701uyTW7f3uQF7z4BNunhEOti+ybDaLXG7OSaX
+         cYNQ33xK3yItDY1aLAb/7i29/YKjvmJm7y0+MeCj0EAAs7cQ5j+GMX8Rvga/E6af/bjs
+         aEhTefjzCg1lKxd9VlmMMmz4lGk/Cd+TOn2oWy0HJypzHW4uz1vzHF8ItXLyZM3azRvm
+         bM0A==
+X-Forwarded-Encrypted: i=1; AJvYcCWWseSuaDsfHDNp43Quedn+LIkHrjp+ilyR141S7Waj/9eDvHioXFXfNTerTIJH95+08Qlfehsm5XfSGXJ89Q==@lists.linux.dev
+X-Gm-Message-State: AOJu0YxOvqwUUf7TH6+Wrm6a9S1YaMTcDtTmaAiJy/epNS1hOB8DmZZ2
+	wjxVv5XVgKXhQ942s0LY7Zo7ttNr+fH9syJjof/rlBzKGZBzludwb8WFXtHZVRk=
+X-Gm-Gg: ASbGnctQlsVipOBEKlPEDYjrCEpdX1OPoydmx/FaZJ5F6K/dTHflfpTI8hoSIZdLSpa
+	UmpbOrYIDMW1D0PLjxl7rGE71oAjLA4acAI0/8cq0dWhX41h/2G8EdPFp/bN9+RbHn1Fs75Geq7
+	FCRWxKH4+q3KX7b5qvWjJ5jNFmJD0jGAjwQ+q7GFp43UE3q/P47mECFnMWczxaNWHPxnsGzKdoB
+	jCyNFj37+0eu3QtL3AJaHpsu3CE1dmkuL3tYJcFp89DV2e8VVtq/UooHu4er+dU8Ig1KyRN
+X-Google-Smtp-Source: AGHT+IE110SRMHFQDmFw0yEtBseukb/KpvhpmIepOBVaQyb0VWUL3a2H8W02ePXoA6Tlsla6jcZjMw==
+X-Received: by 2002:a05:6a00:240b:b0:728:b601:86df with SMTP id d2e1a72fcca58-72daf953cf5mr31225324b3a.10.1737594169029;
+        Wed, 22 Jan 2025 17:02:49 -0800 (PST)
+Received: from localhost ([240d:1a:f76:b500:4431:46e3:c76b:79bc])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-72dab817732sm12218386b3a.64.2025.01.22.17.02.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Jan 2025 17:02:48 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-X-OriginatorOrg: marvell.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR18MB4269.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bc20f63-14ea-45f7-a4a3-08dd3b141e0f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jan 2025 18:39:34.5910
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 70e1fb47-1155-421d-87fc-2e58f638b6e0
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bwqqmfl9ykrQvoULeDJZB6HSDh785BqnZZ/EaSTnAs3/LPQKFwXpIYdJXvegzpXMFW/VgHjnZ+uuqGLdUnSNfA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR18MB4374
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: pjnli4Iy_ec_ARYMsfPjfCRT_nacLmoE
-X-Proofpoint-ORIG-GUID: pjnli4Iy_ec_ARYMsfPjfCRT_nacLmoE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-01-22_08,2025-01-22_02,2024-11-22_01
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 23 Jan 2025 10:02:42 +0900
+Message-Id: <D791Q2LTEUEN.3M6WM486L4ETD@gmail.com>
+Cc: <agordeev@qti.qualcomm.com>, <ribalda@google.com>,
+ <acourbot@chromium.org>, <gurchetansingh@google.com>, <cohuck@redhat.com>,
+ <daniel.almeida@collabora.com>, <changyeon@google.com>,
+ <nicolas.dufresne@collabora.com>, <eballetb@redhat.com>,
+ <dverkamp@chromium.org>, <hverkuil@xs4all.nl>, <mst@redhat.com>,
+ <alex.bennee@linaro.org>, <acourbot@google.com>
+Subject: Re: [PATCH v5 0/1] virtio-media: Add device specification
+From: "Alexandre Courbot" <gnurou@gmail.com>
+To: "Albert Esteve" <aesteve@redhat.com>, <virtio-comment@lists.linux.dev>
+X-Mailer: aerc 0.19.0-0-gadd9e15e475d
+References: <20250120085015.956057-1-aesteve@redhat.com>
+In-Reply-To: <20250120085015.956057-1-aesteve@redhat.com>
 
-> -----Original Message-----
-> From: Parav Pandit <parav@nvidia.com>
-> Sent: Sunday, January 19, 2025 3:08 PM
-> To: Shiva Shankar Kommula <kshankar@marvell.com>; pabeni@redhat.com;
-> willemb@google.com; jasowang@redhat.com; virtio-
-> comment@lists.linux.dev
-> Cc: Nithin Kumar Dabilpuram <ndabilpuram@marvell.com>; Jerin Jacob
-> <jerinj@marvell.com>; Rahul Bhansali <rbhansali@marvell.com>
-> Subject: [EXTERNAL] RE: [PATCH] virtio-net: Introduce a new field to indi=
-cate
-> outer network header offset
->=20
-> > From: Kommula Shiva Shankar <kshankar@=E2=80=8Amarvell.=E2=80=8Acom> > =
-Sent: Tuesday,
-> > January 14, 2025 10:=E2=80=8A47 PM > > Hi Everyone, > It has been some =
-time
-> > since this patch was sent. I am resending it for your > review and
-> > look forward
->=20
->=20
-> > From: Kommula Shiva Shankar <kshankar@marvell.com>
-> > Sent: Tuesday, January 14, 2025 10:47 PM
-> >
-> > Hi Everyone,
-> > It has been some time since this patch was sent. I am resending it for
-> > your review and look forward to your feedback.
-> >
-> > This patch introduces a new field in the virtio_net_header called
-> > out_nh_offset, along with a new net device feature,
-> > VIRTIO_NET_F_OUT_NET_HEADER.
-> >
->=20
-> > Currently, there is no field available to directly read the outer
-> > network header offset in case of segmentation offload.
-> > This requires reading packet data, which significantly affects
-> > performance in datapath.
-> > Additionally, some hardware implementations requrie knowledege of the
-> > outer L3 offset (aka L2 length) for inline IPSec hardware acceleration.
-> >
-> > To address this limitation, we propose splitting the csum_offset field
-> > into two 8-bit fields named csum_offset and out_nh_offset.
-> > The csum_offset indicates the offset value from the csum_start and
-> > may not exceed 256B bits(2^8) for protocols that use a 16-bit one's
-> > complement checksum
-> >
-> > Following table lists such protocols and their checksum offset fields
-> > within their headers
-> >
-> > +-----+--------+
-> > |Proto|csum_off|
-> > +-----+--------+
-> > | IPV4| 10B    |
-> > | ICMP| 2B     |
-> > | IGMP| 2B     |
-> > |  TCP| 16B    |
-> > |  UDP| 6B     |
-> > +-----+--------+
-> >
-> > The out_nh_offset represents the start offset of the outer network
-> > header from the beginning of the packet data
-> >
-> > This issue was briefly discussed on the mailing list in a different
-> > thread, which can be found here
-> > https://urldefense.proofpoint.com/v2/url?u=3Dhttps-
-> 3A__nam11.safelinks.protection.outlook.com_-3Furl-3Dhttps-253A-252F-
-> 252Flore&d=3DDwIFAg&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DXP728rR_yI3bCCyFq0
-> MEWPS2176D_oSryc7cD-0TRPs&m=3DTIEwJZ_xRsOSm7KLONVdffWXkShROf-
-> Sdyg3IKBNiKzIV8csp8rKVRdL0RlLde13&s=3D6cECQ7qUASslb35Xab87t1Kd3kFJyqK
-> 9iT9KzbPMN0Y&e=3D.
-> > kernel.org%2Fall%2FDM4PR18MB4269FAAC3CFC7E57E25DFBD2DF8B2%40
-> > DM4PR18MB4269.namprd18.prod.outlook.com%2F&data=3D05%7C02%7Cpa
-> > rav%40nvidia.com%7Ce81096db39a14378627708dd34bf3909%7C43083d
-> > 15727340c1b7db39efd9ccc17a%7C0%7C0%7C638724718122375976%7C
-> > Unknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMD
-> > AwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7
-> > C%7C&sdata=3DTHSOD9fclucwxtnizGLo8pIpjsTs1YoRww4VA%2FvDwgI%3D&re
-> > served=3D0
-> >
-> > Signed-off-by: Kommula Shiva Shankar <kshankar@marvell.com>
-> > ---
-> >  device-types/net/description.tex | 26 +++++++++++++++++++++++++-
-> >  1 file changed, 25 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/device-types/net/description.tex b/device-
-> > types/net/description.tex index 76585b0..48c081b 100644
-> > --- a/device-types/net/description.tex
-> > +++ b/device-types/net/description.tex
-> > @@ -88,6 +88,10 @@ \subsection{Feature bits}\label{sec:Device Types /
-> > Network Device / Feature bits  \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)]
-> > Set MAC address through control
-> >      channel.
-> >
-> > +\item[VIRTIO_NET_F_OUT_NET_HEADER(50)] Driver can provide the start
-> > +of
-> > \field{out_nh_offset}
-> > +    value. Device gains advantage by not reading packet data to
-> > + calculate outer
-> > network
-> > +    header offset.
-> > +
-> >  \item[VIRTIO_NET_F_HASH_TUNNEL(51)] Device supports inner header
-> hash
-> > for encapsulated packets.
-> >
-> >  \item[VIRTIO_NET_F_VQ_NOTF_COAL(52)] Device supports virtqueue
-> > notification coalescing.
-> > @@ -418,7 +422,13 @@ \subsection{Device Operation}\label{sec:Device
-> > Types / Network Device / Device O
-> >          le16 hdr_len;
-> >          le16 gso_size;
-> >          le16 csum_start;
-> > -        le16 csum_offset;
-> > +        union {
-> > +                le16 csum_offset;
-> > +                struct { (Only if VIRTIO_NET_F_OUT_NET_HEADER negotiat=
-ed)
-> > +                        le8 csum_offset;
-> > +                        le8 out_nh_offset;
-> > +                };
-> > +        };
-> >          le16 num_buffers;
-> >          le32 hash_value;        (Only if VIRTIO_NET_F_HASH_REPORT
-> negotiated)
-> >          le16 hash_report;       (Only if VIRTIO_NET_F_HASH_REPORT
-> negotiated)
-> > @@ -457,6 +467,10 @@ \subsubsection{Packet
-> > Transmission}\label{sec:Device Types / Network Device / De  \item The
-> > driver can send a completely checksummed packet.  In this case,
-> >    \field{flags} will be zero, and \field{gso_type} will be
-> > VIRTIO_NET_HDR_GSO_NONE.
-> >
-> > +\item If the driver negotiated VIRTIO_NET_F_OUT_NET_HEADER,
-> > +   \field{out_nh_offset} indicates the outer network header offset in =
-bytes
-> > +    from the beginning of the packet.
-> > +
->=20
-> This field is mostly useful to device when there is GSO or checksum offlo=
-ad.
-> So this should be set optionally by the driver.
-> When feature is negotiated, it means that csum_offset is 8 bits in width.
-> A nw header offset may/may not be present.
-> When offset =3D 0, its not present (because 0 is impossible value for nw
-> header).
-> When its non zero, it is valid value that device should use.
->=20
-> Can you please update the proposal to cover these aspects?
->=20
-> Also, this may find its use even on the rx side too, so that sw does not =
-need to
-> parse it packet.
-> So describe the text for it similarly.
-FWIW, while processing incoming packets, when the VIRTIO_NET_HDR_F_NEEDS_CS=
-UM flag is set=20
-by device, the csum_start and csum_offset fields indicate how to calculate =
-the checksum, which still
-involves reading packet data in software.=20
-I'm unsure how this benefit in the RX path. Could you please clarify ?
+On Mon Jan 20, 2025 at 5:50 PM JST, Albert Esteve wrote:
+> New attempt of including virtio-media
+> device specification.
+
+Thank you Albert!
+
+On my end, I have (at long last) sent the driver for upstream review:
+
+https://lore.kernel.org/linux-media/20250123-virtio-media-v1-1-81e2549b86b9=
+@gmail.com/T/#u
+
+>
+> v4->v5:
+> - Rewritten/clarified some parts
+>   according to the reviews received.
+> - Added missing links to V4L2
+>   structures. Structs should
+>   have a link on their first
+>   appreance in the document.
+> - Clarified memory type
+>   semantic V4L2 equivalent.
+>
+> v3->v4:
+> - Updated device ID to 48
+>   (moved to the first free id)
+> - Specified endianess on all
+>   structures defined through
+>   the spec (leXX)
+> - Slightly improved the explanation
+>   of the size (and endianess)
+>   of the exchanged v4l2 structs
+>   as part of the ioctl command
+>   payload
+> - Changed cmd_mmap offset size to
+>   match the V4L2_QUERYBUF offset field
+> - Fixed most comments on previous
+>   version for small typos/rewrites.
+>
+> v2->v3:
+> - Updated device ID to 49
+> - Renamed virtio memory types so that
+>   they are differentiated from V4L2
+>   memory types
+> - Memory types description slightly
+>   rewritten, explicitely excluding
+>   USERPTR support for guest userspace
+>
+> v1->v2:
+> - Remove naming host/guest in the text
+> - Explicitly specify endian-ness of the device
+> - Change address by offset in the MMAP operation
+> - Specify SHM region for MMAP operation
+>
+> Virtio-media came from a discussion on virtio-dev
+> mailing list, which lead to presenting virtio-v4l2[1]
+> specification as an alternative to virtio-video.
+>
+> Later, virtio-v4l2 was renamed to virtio-media[2]
+> and published at:
+>
+> https://github.com/chromeos/virtio-media
+>
+> The repository above includes a virtio-media driver able
+> to pass v4l2-compliance when proxying the vivid/vicodec
+> virtual devices or an actual UVC camera using the
+> V4L2 vhost device (available in the repository).
+> It also includes a FFmpeg-based video encoder
+> device. Steps to reproduce are also detailed[3].
+>
+> Recently, virtio-media has landed in AOSP[4].
+>
+> Furthermore, virtio-media got a proposal to reserve
+> device ID 48, which was finally approved for
+> inclusion in v1.4.
+>
+> There is some overlap with virtio-video in regards
+> to which devices it can handle. However,
+> they take different approaches, making them
+> the preferable choice for different scenarios.
+> Moreover, as virtio-media will likely be the virtualization
+> solution for ChromeOS, Android, and possibly others, for
+> media devices, this justifies the desire to include
+> the specification in the next release despite
+> the aforementioned overlap.
+>
+> Full PDF: https://drive.google.com/file/d/1XKpPDalkXcJe2ZjPpbtiOcgJRIWy-U=
+Tf/view?usp=3Dsharing
+> PDF with the media section only: https://drive.google.com/file/d/1fzvKEuY=
+31vUF7ctQ0KK0CmfrDO5CdRFj/view?usp=3Dsharing
+>
+> [1] https://mail.google.com/mail/u/0?ui=3D2&ik=3D73ebd65ebd&attid=3D0.1&p=
+ermmsgid=3Dmsg-f:1767388565327924962&th=3D1887068940754ee2&view=3Datt&disp=
+=3Dinline&realattid=3Df_libalimc0
+> [2] https://www.mail-archive.com/virtio-dev@lists.oasis-open.org/msg12665=
+.html
+> [3] https://github.com/chromeos/virtio-media/blob/main/TRY_IT_OUT.md
+> [4] https://cs.android.com/android/platform/superproject/main/+/main:exte=
+rnal/virtio-media/
+>
+> Albert Esteve (1):
+>   virtio-media: Add virtio media device specification
+>
+>  conformance.tex                           |  13 +-
+>  content.tex                               |   1 +
+>  device-types/media/description.tex        | 617 ++++++++++++++++++++++
+>  device-types/media/device-conformance.tex |  12 +
+>  device-types/media/driver-conformance.tex |  10 +
+>  5 files changed, 649 insertions(+), 4 deletions(-)
+>  create mode 100644 device-types/media/description.tex
+>  create mode 100644 device-types/media/device-conformance.tex
+>  create mode 100644 device-types/media/driver-conformance.tex
+
