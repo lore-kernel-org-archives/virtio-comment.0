@@ -1,65 +1,72 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (mail-dm6nam12on2084.outbound.protection.outlook.com [40.107.243.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D54320C48A
-	for <virtio-comment@lists.linux.dev>; Thu, 23 Jan 2025 10:16:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1737627413; cv=none; b=g2jURnUer5DiJT8E5QLKlITtzFUZvoe/m3mTfhxsrS01zUrUuWcCQfJMvK7AATkicvrgWa/rJh2MMCSj5QXh2Hl2/wiqt/WSyJojNFo9WxKNXHHNa+KkPLxiFpBJupwOeXWFfjLrl4hL0KIEK61TFrfUwrPayCa8ttTxoeM6j74=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1737627413; c=relaxed/simple;
-	bh=upuT344l+CmC3c3B8ZZgI2m9yi8UxUkUKFWmoHKGwBo=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=L9ALnO01fSg0Cp7Pia6jfx2Fdr4+B3g+fQiiJ5Oe4NTflvgL/WYNGJzSfu+SZmE8AmmcmYPbkY+DZjtUJBS7XnVXSimDwV7YKg5XDEND6x+cjWowlXhZVLQE9N6ya0Z+T9yF9xAKzJAdJIcxjKMV2HbGK4JGWF6gDHskrV0GiDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com; spf=pass smtp.mailfrom=quicinc.com; dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b=ZYhl8CYA; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quicinc.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D8017E
+	for <virtio-comment@lists.linux.dev>; Sun, 26 Jan 2025 06:21:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.243.84
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1737872501; cv=fail; b=QjAyjasVmcXpLe2t0kAvP5jU99pLGAX2TTD0FM9k/na13DAucYWoVQls2vIukBIcWta8rLWtZC3gvqILqHCfQtBfqlb9YxGjj6xxaNXNBLSHcJnyaNWd32Zy/6SHeRURsL59VkZuvnByE1gbIa/9PT28R+ZlRzgiEZBKQfG6j4w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1737872501; c=relaxed/simple;
+	bh=KwtHCdNrgoI4nioNYZYKY7up1640dxW/kS+JYR/K8HI=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WJ2bfFjbRHMjd3aeqo/I05sWHFRogJTcxWbKgBj2+hFwfXVr/KhfDvtVxCFSl5PZtjsaMfqtaJSV56G5rUnl1bpH+adA3qXUpxxCDoEyWckVoJ54hjP7nWCXMq0zw+gV1JFRuuhZZq7bOuzeV1rQmvcAAVmx5cqX4O0g4G/BBdc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=i6/VHgCS; arc=fail smtp.client-ip=40.107.243.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b="ZYhl8CYA"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50N4rwKT023879;
-	Thu, 23 Jan 2025 10:16:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	sEzGzp+uBEqmi+B7Y/3cjYGmH5LDH0WeAMMabW4uVKI=; b=ZYhl8CYALj/Chrt7
-	k/g0uPN0xNndlrUk4rujXFwRuHrndRj59QHk7Z+Q9Uxwvx3j3x+57WBU9UTbK1/6
-	1m6Lfdf8ZlLRt7ffBkkKYUEUazuOopAdTr0s5fM7zXxNW44nESEusRM4/Ns8713w
-	EjIo+e3jcOnj0drfuv8j2p/pBup2RkZThn0A6bPEgQqwa6HqGMHeNKu90hNb1su7
-	MLV4hpbm/5ce7Rz2ct1jLHYILJc+n0ht7v5uUTwjsjWdKmIu+MH7EjO8+SsCrtMk
-	Wxw4TqfQdQ92QKyGBlwwT5AavNDcp6WLpByBxSiTBFsn/Fbns+uA+Vk3rLDQ08pJ
-	Vo1Few==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44bf518qb4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 23 Jan 2025 10:16:48 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com [10.47.209.196])
-	by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 50NAGlOd028801
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 23 Jan 2025 10:16:47 GMT
-Received: from PHILBER.qualcomm.com (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 23 Jan
- 2025 02:16:44 -0800
-From: Peter Hilber <quic_philber@quicinc.com>
-To: <virtio-comment@lists.linux.dev>
-CC: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>,
-        "Jason
- Wang" <jasowang@redhat.com>,
-        David Woodhouse <dwmw2@infradead.org>,
-        "Ridoux,
- Julien" <ridouxj@amazon.com>,
-        Trilok Soni <quic_tsoni@quicinc.com>,
-        "Srivatsa
- Vaddagiri" <quic_svaddagi@quicinc.com>,
-        Peter Hilber
-	<quic_philber@quicinc.com>
-Subject: [PATCH v7 4/4] virtio-rtc: Add normative statements for alarm feature
-Date: Thu, 23 Jan 2025 11:16:15 +0100
-Message-ID: <20250123101616.664-5-quic_philber@quicinc.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250123101616.664-1-quic_philber@quicinc.com>
-References: <20250123101616.664-1-quic_philber@quicinc.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="i6/VHgCS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TlWC/fSklqMfLLwaKSrCW66311D1qjEg50f26fUVVXEpltQd0wkNcihvAV1dA4ltV8zMKfpzRHPH8hETw4Ln09FiOp2RvWc2raZroIEpcMAEO65tRMGFIzmjNnIAT0tnVQ5HBx6Npo1GfUC8tgrJQ5zUUKNUANH62tqgUC0aoi3vWoNx55Txewg9CJm0vCSHFHWiuC+edAYiQoc9zUueDktVXrvlUIJfH6UJsv8V5jd0UBIWBk0vc9xoxhJztYyGnZv8mXG9HUblovQzwu30Gvn6/yhNFEBgBHkA3aoKYFLSylhrRF0+DFRSVv45cx323zzIIEavC0pmEUNPqxo7FA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5IoFw/K/ngVLLG0qGLiiuKfGFdBgsGEwz8br2E5hOuo=;
+ b=VbBgIgkp7/VgJv/CvnhcTUA3Z+rIKRLOP7a2G+RdUPxx5/1bsZ5qxr6xvJCQJGK+8lR5yT52geJ2uDN48qJdTo9QIhvhy29UewhZOHThb39tH3FRIvges2bVJ6UGfSL40ZALrb1zXpv7AwFCFPJpED/tXmpmuTeMWjQzzxyx313uwm9ZZ3lth3n9R1PuqPwog8qAZ9ejlXeeictKnhRQ6CrjywSew9GaSy3xlrGEnwKTExmRsdn+VogRRLOuiv5CkmyP32elSUmAFSD6Xcbcjb6qoL2eclq1mwZxxrjo2M9Nf8zyXgSlMw16eLaRQxLauA7Tr75FEnwITBeR3+s+Iw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5IoFw/K/ngVLLG0qGLiiuKfGFdBgsGEwz8br2E5hOuo=;
+ b=i6/VHgCSzX1jBVrDk0QTa08akcPIiVJdlKr7PpQYK8LXgdz4ftqzlE2gHcuJaYWIFOy4PxoXfDAOT5w43jteUY2GmrJXsTa1In4jPHYc6pcuSXOur3eIkSnlZs/rIAob9LiNU6t6uhyMyOuXBmQSy+BUXtZDandf/9nQCn3eP8HVxs7UYxQRN4hX3If3H+ibFl8HMh/5kVoHbcmr4CBMOAAGJBOBUxgRtEkHjar4vf89JzUJ1FVBsqSGuH3fuLGZXDiXtlN5vkkX4hgfoUqnFry2abxzQ/Vz8vEg+v0mycM8LtNTeY0KRHUTbJx3IYlATs3AzwTz/eQgLDLhdwH6jA==
+Received: from SJ0PR03CA0018.namprd03.prod.outlook.com (2603:10b6:a03:33a::23)
+ by SJ2PR12MB8034.namprd12.prod.outlook.com (2603:10b6:a03:4cb::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.18; Sun, 26 Jan
+ 2025 06:21:36 +0000
+Received: from MWH0EPF000989EA.namprd02.prod.outlook.com
+ (2603:10b6:a03:33a:cafe::e) by SJ0PR03CA0018.outlook.office365.com
+ (2603:10b6:a03:33a::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8377.20 via Frontend Transport; Sun,
+ 26 Jan 2025 06:21:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ MWH0EPF000989EA.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8377.8 via Frontend Transport; Sun, 26 Jan 2025 06:21:35 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Sat, 25 Jan
+ 2025 22:21:23 -0800
+Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.231.35) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.4; Sat, 25 Jan 2025 22:21:21 -0800
+From: Parav Pandit <parav@nvidia.com>
+To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>,
+	<mvaralar@redhat.com>
+CC: <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>
+Subject: [PATCH v1] virtio-net: Fix to avoid using reserved feature bits
+Date: Sun, 26 Jan 2025 08:20:58 +0200
+Message-ID: <20250126062058.13695-1-parav@nvidia.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -68,266 +75,120 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Proofpoint-ORIG-GUID: -wZdZ5I7QMGGmIstOPJpLZ9IfBOQkOia
-X-Proofpoint-GUID: -wZdZ5I7QMGGmIstOPJpLZ9IfBOQkOia
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-01-23_04,2025-01-22_02,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 clxscore=1015
- lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501 spamscore=0
- impostorscore=0 suspectscore=0 mlxlogscore=999 mlxscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
- definitions=main-2501230078
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989EA:EE_|SJ2PR12MB8034:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb9a0eca-4fb7-42a0-9e48-08dd3dd1af89
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?V+mdqFby7hrS1yH+6e1fHSan7rqDSMJgs7Al2oRQ60erIUDl9Ws9D0zXVTUk?=
+ =?us-ascii?Q?rTlBWddxNxPaPZydrzNdlsl0hxe3WsfT1I3XNzJV4ECy6CD8LAWMIIqOgiPC?=
+ =?us-ascii?Q?mWI5jthD2NrDdzo2tTxpB9QYVeLmw78hpeS88nSdeQqsw/5hoCUvcRJcm5dN?=
+ =?us-ascii?Q?RQHzijg/vbdfgXu/unJvu3GmfncN4AS92SNqLW7oDinJbJHXUdREvuQtcZIf?=
+ =?us-ascii?Q?7uss/Jr/3Uu4Ci5b80Sd5pO5KzDDqQ7z1IYNvwA3trmboYB1H56TApwG22P8?=
+ =?us-ascii?Q?hbCtUqZw2TutnOQVAe6qvVrKjp/vvCwIDN27tg2EnyV+d6G+D7/1z40txPPq?=
+ =?us-ascii?Q?CocjO16LCwc+rzQS/34VrQ+HLFzr4oAg1o6lCapb7tWtNSJ4YhPXym7WXwG5?=
+ =?us-ascii?Q?ORhjHTzwEJybZ5dsjn4pP39Qf3YS8EHOR4wIBrQNYqghHJNWR6ZwDYnH6vL5?=
+ =?us-ascii?Q?GyZV4cZAu8OHcXDA4o4P95lFMrHh7CLg7xjlwmTKlT++1LURS0rbDyCj/4LQ?=
+ =?us-ascii?Q?CDAZKlwKlLQvwmMf+hbTSE0Vd4ROVpEpZih0PbQMYurblR3A02eghWCTqhfh?=
+ =?us-ascii?Q?xzCLtNFYS46KE6Xog8+dN8XoAtnI19bVeZwptmfes2zsrBNw3qYtAnSqc+mH?=
+ =?us-ascii?Q?D4wrfwSXmfv6MeqIexRClh+mFFHs8gJtYNSBXW3ik/zbRc7LUa+uYs4sYQsW?=
+ =?us-ascii?Q?oe4Vm3u3YBpu+Gx+KI7S4IeS3+PoZWQH/GzwNAWSf05SZX1i1bBfb+NPykjq?=
+ =?us-ascii?Q?vkCGSmL2OROQp1RV49BeuAeQW4nflEQsPg0fRdb4aYH/dhwtDW2IpqgBDUZY?=
+ =?us-ascii?Q?bFRBdCGvuAw84VOlFSsn7GJR+6T0TQIMhJfb1Su/oxafOSyAEc0Y+ta3TN9X?=
+ =?us-ascii?Q?9GMWED5IjEqz5fLKYAf80yfYM2T8nL34Ux5FYRzgAsHFUVg4W9pME+Ec2nlH?=
+ =?us-ascii?Q?o/12bTvk/V57fCxpoNgkpX0HJezNLXAqgXkjrv8gECFrhdNZ2RFPJt+/JBfs?=
+ =?us-ascii?Q?KON4+VB/R+Kd/6FA34124wY/D5twD7wLicS+v4CROAKX21hrOH6jA9MSP1xc?=
+ =?us-ascii?Q?+nFQIucFj8+wDgeQc5/d0QhgsO6SIO4FICGVXh/mieKhWIMGbmbiA3ehqb6a?=
+ =?us-ascii?Q?TC8AKo8Jra522Out2VSjppcmzB4Fsi8Y8OoAjv1vJjdKxzCGxtYQGTjiZHwU?=
+ =?us-ascii?Q?Xjx5ji8L35pC3TNI0G6mpMHwfioRUIxTDTkiMuVWc+taO7/hPBMOIxjJ7oe5?=
+ =?us-ascii?Q?XjQwWBD50RFyuAUmJhln8BLxd/x/FunA3WEQsSQiMg2my92DLDZL9/eC0pRK?=
+ =?us-ascii?Q?v2vZEibXova1r0nl2HDMr77m1ZGFYb+AthyqtjmmTOYeynRXZxb0D+tzoJNv?=
+ =?us-ascii?Q?bx0RDeynYm6WDoz6iqOJ66kLRFXMsceJHh9SdO0kaCv7ImrgJvYWQUt6aBdd?=
+ =?us-ascii?Q?xAJZ9GjVT69pCRGJyIxP2iEcMTbWyuDoE6wqdJH2Yz8ZVAdA1uZEOvnTfhY5?=
+ =?us-ascii?Q?lYbZEch7COeNj2o=3D?=
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026)(13003099007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2025 06:21:35.7406
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb9a0eca-4fb7-42a0-9e48-08dd3dd1af89
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000989EA.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8034
 
-Add the normative statements for the alarm feature added previously.
+Listed patches in the fixes tag, incorrectly used the reserved feature bits.
+Fix them to use the well defined device specific range.
 
-Signed-off-by: Peter Hilber <quic_philber@quicinc.com>
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/212
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/213
+Fixes: 8cd457d8aa82 ("virtio-net: define UDP tunnel segmentation offload feature")
+Fixes: 3fea589bd7c6 ("virtio-net: define UDP tunnel checksum offload feature")
+Signed-off-by: Parav Pandit <parav@nvidia.com>
+Reviewed-by: Cornelia Huck <cohuck@redhat.com>
+
 ---
+changelog:
+v0->v1:
+- added Cornelia's reviewed-by
+- added github issue number
+- skipped Paolo's suggestion to modify 'le64 offloads' as its only 64-bits
+  and new feature bits are in > 64 bits range
+---
+ device-types/net/description.tex | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-Notes:
-    v7:
-    
-    - Remove inadvertent v6 changes, which should have been part of
-      preceding patches.
-    
-    v4:
-    
-    - Update normative statements to match v4 changes to non-normative
-      statements (patch 3).
-    
-    - Driver should read clock to confirm that alarm has expired.
-    
-    - Formatting and wording improvements.
-
- device-types/rtc/description.tex        | 157 ++++++++++++++++++++++++
- device-types/rtc/device-conformance.tex |   4 +
- device-types/rtc/driver-conformance.tex |   2 +
- 3 files changed, 163 insertions(+)
-
-diff --git a/device-types/rtc/description.tex b/device-types/rtc/description.tex
-index 47ad50cd95ca..32fed5f8620f 100644
---- a/device-types/rtc/description.tex
-+++ b/device-types/rtc/description.tex
-@@ -32,6 +32,11 @@ \subsection{Feature bits}\label{sec:Device Types / RTC Device / Feature bits}
- VIRTIO_RTC_F_ALARM determines whether the device supports setting an
- alarm for some of the clocks.
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index efb543f..b546cd7 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -88,18 +88,6 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
+ \item[VIRTIO_NET_F_CTRL_MAC_ADDR(23)] Set MAC address through control
+     channel.
  
-+\devicenormative{\subsubsection}{Feature bits}{Device Types / RTC Device / Feature bits}
-+
-+The device SHOULD offer VIRTIO_RTC_F_ALARM if the device can support
-+setting an alarm for any of its clocks.
-+
- \subsection{Device configuration layout}\label{sec:Device Types / RTC Device / Device configuration layout}
+-\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO (46)] Driver can receive GSO packets
+-  carried by a UDP tunnel.
+-
+-\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM (47)] Driver handles packets
+-  carried by a UDP tunnel with partial csum for the outer header.
+-
+-\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO (48)] Device can receive GSO packets
+-  carried by a UDP tunnel.
+-
+-\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM (49)] Device handles packets
+-  carried by a UDP tunnel with partial csum for the outer header.
+-
+ \item[VIRTIO_NET_F_DEVICE_STATS(50)] Device can provide device-level statistics
+     to the driver through the control virtqueue.
  
- There is no configuration data for the device.
-@@ -715,6 +720,12 @@ \subsubsection{Read Requests}\label{sec:Device Types / RTC Device / Device Opera
- this specification, the device MUST use the nanosecond as unit for
- field \field{clock_reading}.
+@@ -136,6 +124,18 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
+ \item[VIRTIO_NET_F_SPEED_DUPLEX(63)] Device reports speed and duplex.
  
-+If VIRTIO_RTC_F_ALARM was negotiated, and the device sent an alarm
-+notification N for clock C with alarm time A, the device MUST, for all
-+read requests of C which the driver marks as available after the device
-+marked N as used, return a \field{clock_reading} which does not precede
-+A, unless C stepped backwards to before A.
+ \item[VIRTIO_NET_F_RSS_CONTEXT(64)] Device supports multiple RSS contexts.
 +
- \subsubsection{Alarm Operation}\label{sec:Device Types / RTC Device / Device Operation / Alarm Operation}
- 
- Through the optional alarm feature, the driver can set an alarm time. On
-@@ -828,6 +839,79 @@ \subsubsection{Alarm Operation}\label{sec:Device Types / RTC Device / Device Ope
- To prevent the above issues, the driver also marks buffers in the alarmq
- as available only after completing the above steps for all clocks.
- 
-+\devicenormative{\paragraph}{Alarm Operation}{Device Types / RTC Device / Device Operation / Alarm Operation}
++\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO (65)] Driver can receive GSO packets
++  carried by a UDP tunnel.
 +
-+The device MAY retain both \field{driver_alarm_time} and
-+\field{alarm_enabled} of a clock across a device reset.
++\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM (66)] Driver handles packets
++  carried by a UDP tunnel with partial csum for the outer header.
 +
-+If the device did not retain \field{driver_alarm_time} and
-+\field{alarm_enabled} of a clock across a device reset, the device MUST
-+initialize \field{driver_alarm_time} to 0.
++\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO (67)] Device can receive GSO packets
++  carried by a UDP tunnel.
 +
-+If the device did not retain \field{driver_alarm_time} and
-+\field{alarm_enabled} of a clock across a device reset, the device MUST
-+initialize \field{alarm_enabled} to false.
-+
-+While \field{alarm_enabled} for a clock is true, the device MUST set the
-+alarm time to \field{driver_alarm_time}.
-+
-+While \field{alarm_enabled} for a clock is false, the device MUST act as
-+if the alarm time was in the future.
-+
-+If VIRTIO_RTC_F_ALARM was negotiated, the device MUST support the alarm
-+messages, VIRTIO_RTC_REQ_READ_ALARM, VIRTIO_RTC_REQ_SET_ALARM,
-+VIRTIO_RTC_REQ_SET_ALARM_ENABLED, and VIRTIO_RTC_NOTIF_ALARM, for one or
-+more clocks.
-+
-+If VIRTIO_RTC_F_ALARM was not negotiated, the device MUST NOT support the
-+alarm messages.
-+
-+The device MUST set flag VIRTIO_RTC_FLAG_ALARM_CAP in \field{struct
-+virtio_rtc_resp_clock_cap.flags} if the respective clock supports alarm
-+messages, and clear the flag otherwise.
-+
-+The device MUST consider it an alarm expiration event when the
-+associated clock progresses (also: steps) from a time prior to the alarm
-+time to the alarm time, or to a time after the alarm time.
-+
-+The device MUST consider it an alarm expiration event when the
-+driver sets an alarm time which the associated clock has already reached
-+or passed.
-+
-+If the device retained \field{driver_alarm_time} and
-+\field{alarm_enabled} of a clock across a device reset, and the clock
-+has already reached or passed the alarm time, the device MUST consider
-+this device reset an alarm expiration event.
-+
-+If an alarm expiration event E happens, the device MUST start serving
-+the alarm expiration event E.
-+
-+If the driver successfully requests VIRTIO_RTC_REQ_SET_ALARM, or
-+VIRTIO_RTC_REQ_SET_ALARM_ENABLED, for clock C, the device MUST stop
-+serving any previous alarm expiration event for C before the device
-+marks the message as used.
-+
-+If a clock C steps to a time previous to C's alarm time, the device MUST
-+stop serving any previous alarm expiration event for C, within a grace
-+period.
-+
-+If an alarm expiration event happens for clock C, the device MUST stop
-+serving any previous alarm expiration event for C, within a grace
-+period.
-+
-+If the device is currently serving an alarm expiration event E, the
-+device MUST send a single VIRTIO_RTC_NOTIF_ALARM notification for E, as
-+soon as an alarmq buffer is available for this purpose.
-+
-+While the device is serving an alarm expiration event, the device MAY
-+execute implementation-specific alarm actions.
-+
-+The device MAY ignore the device status when executing
-+implementation-specific alarm actions.
-+
-+The device MAY ignore whether VIRTIO_RTC_F_ALARM was negotiated when
-+executing implementation-specific alarm actions.
-+
- \paragraph{Alarm Control Requests}
- 
- If VIRTIO_RTC_F_ALARM is negotiated,
-@@ -924,6 +1008,62 @@ \subsubsection{Alarm Operation}\label{sec:Device Types / RTC Device / Device Ope
- \field{driver_alarm_time}.
++\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM (68)] Device handles packets
++  carried by a UDP tunnel with partial csum for the outer header.
  \end{description}
  
-+\drivernormative{\subparagraph}{Alarm Control Requests}{Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Control Requests}
-+
-+For VIRTIO_RTC_REQ_SET_ALARM and for any clock type listed in this
-+specification, the driver MUST use the nanosecond as unit for the
-+\field{alarm_time} field.
-+
-+\devicenormative{\subparagraph}{Alarm Control Requests}{Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Control Requests}
-+
-+If VIRTIO_RTC_F_ALARM was not negotiated, the device MUST set status
-+VIRTIO_RTC_S_ENODEV for VIRTIO_RTC_REQ_READ_ALARM,
-+VIRTIO_RTC_REQ_SET_ALARM, and VIRTIO_RTC_REQ_SET_ALARM_ENABLED.
-+
-+If the clock does not support alarm messages, the device MUST set status
-+VIRTIO_RTC_S_ENODEV for VIRTIO_RTC_REQ_READ_ALARM,
-+VIRTIO_RTC_REQ_SET_ALARM, and VIRTIO_RTC_REQ_SET_ALARM_ENABLED.
-+
-+For VIRTIO_RTC_REQ_READ_ALARM, the device MUST set field
-+\field{alarm_time} to \field{driver_alarm_time}.
-+
-+For VIRTIO_RTC_REQ_READ_ALARM, the device MUST set flag
-+VIRTIO_RTC_FLAG_ALARM_ENABLED in field \field{flags} if
-+\field{alarm_enabled} is true, and clear the flag otherwise.
-+
-+For VIRTIO_RTC_REQ_READ_ALARM and for any clock type listed in this
-+specification, the device MUST use the nanosecond as unit for the
-+\field{alarm_time} field.
-+
-+For VIRTIO_RTC_REQ_SET_ALARM, the device MUST accept any
-+\field{alarm_time} value.
-+
-+If the device sets status VIRTIO_RTC_S_OK for VIRTIO_RTC_REQ_SET_ALARM,
-+the device MUST set \field{driver_alarm_time} to the time
-+represented by field \field{alarm_time}.
-+
-+If the device sets status VIRTIO_RTC_S_OK for VIRTIO_RTC_REQ_SET_ALARM,
-+the device MUST set \field{alarm_enabled} to true if flag
-+VIRTIO_RTC_FLAG_ALARM_ENABLED is set in field \field{flags}.
-+
-+If the device sets status VIRTIO_RTC_S_OK for VIRTIO_RTC_REQ_SET_ALARM,
-+the device MUST set \field{alarm_enabled} to false if flag
-+VIRTIO_RTC_FLAG_ALARM_ENABLED is cleared in field \field{flags}.
-+
-+If the device sets status VIRTIO_RTC_S_OK for
-+VIRTIO_RTC_REQ_SET_ALARM_ENABLED, the device MUST set
-+\field{alarm_enabled} to true if flag VIRTIO_RTC_FLAG_ALARM_ENABLED is
-+set in field \field{flags}.
-+
-+If the device sets status VIRTIO_RTC_S_OK for
-+VIRTIO_RTC_REQ_SET_ALARM_ENABLED, the device MUST set
-+\field{alarm_enabled} to false if flag VIRTIO_RTC_FLAG_ALARM_ENABLED is
-+cleared in field \field{flags}.
-+
-+If the device sets status VIRTIO_RTC_S_OK for
-+VIRTIO_RTC_REQ_SET_ALARM_ENABLED, the device MUST retain
-+\field{driver_alarm_time}.
-+
- \paragraph{Alarm Notifications}
- 
- If the alarmq is present, the driver should make buffers available in
-@@ -959,3 +1099,20 @@ \subsubsection{Alarm Operation}\label{sec:Device Types / RTC Device / Device Ope
- 
- \field{clock_id} identifies the expired alarm through its associated
- clock.
-+
-+\drivernormative{\subparagraph}{Alarm Notifications}{Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Notifications}
-+
-+If VIRTIO_RTC_F_ALARM was negotiated, the driver SHOULD populate the
-+alarmq with buffers.
-+
-+The driver MUST allocate enough space for any alarmq message in the
-+device-writable part of an alarmq buffer.
-+
-+If the driver receives a VIRTIO_RTC_NOTIF_ALARM notification, the driver
-+SHOULD read the associated clock instead of assuming that the alarm time
-+which the driver set last has been reached.
-+
-+\devicenormative{\subparagraph}{Alarm Notifications}{Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Notifications}
-+
-+The device MUST NOT send a VIRTIO_RTC_NOTIF_ALARM notification for a
-+clock which does not support alarm messages.
-diff --git a/device-types/rtc/device-conformance.tex b/device-types/rtc/device-conformance.tex
-index 4303cd450542..705691a7319f 100644
---- a/device-types/rtc/device-conformance.tex
-+++ b/device-types/rtc/device-conformance.tex
-@@ -3,7 +3,11 @@
- An RTC device MUST conform to the following normative statements:
- 
- \begin{itemize}
-+\item \ref{devicenormative:Device Types / RTC Device / Feature bits}
- \item \ref{devicenormative:Device Types / RTC Device / Device Operation}
- \item \ref{devicenormative:Device Types / RTC Device / Device Operation / Control Requests}
- \item \ref{devicenormative:Device Types / RTC Device / Device Operation / Read Requests}
-+\item \ref{devicenormative:Device Types / RTC Device / Device Operation / Alarm Operation}
-+\item \ref{devicenormative:Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Control Requests}
-+\item \ref{devicenormative:Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Notifications}
- \end{itemize}
-diff --git a/device-types/rtc/driver-conformance.tex b/device-types/rtc/driver-conformance.tex
-index 689c18d158d0..a87c4cde99c2 100644
---- a/device-types/rtc/driver-conformance.tex
-+++ b/device-types/rtc/driver-conformance.tex
-@@ -6,4 +6,6 @@
- \item \ref{drivernormative:Device Types / RTC Device / Device Operation}
- \item \ref{drivernormative:Device Types / RTC Device / Device Operation / Control Requests}
- \item \ref{drivernormative:Device Types / RTC Device / Device Operation / Read Requests}
-+\item \ref{drivernormative:Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Control Requests}
-+\item \ref{drivernormative:Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Notifications}
- \end{itemize}
+ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device / Feature bits / Feature bit requirements}
 -- 
-2.43.0
+2.34.1
 
