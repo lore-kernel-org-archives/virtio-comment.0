@@ -1,513 +1,390 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (mail-dm6nam11on2062.outbound.protection.outlook.com [40.107.223.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2612580C8
-	for <virtio-comment@lists.linux.dev>; Mon, 10 Feb 2025 16:33:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739205202; cv=none; b=IveIc80imiOaXtcO5mtq5KHGhAhUJ6wLYIWBznfE9E8ipK9yZTwaxRn0G+zyCkhWoTPVHGN1qQyoFPVmdejIVVFAscb60V3ClW0lcBMHB2be7cTlDXDg3QEWoB+cRf2jAczJNXnd1WO2rYgEbK7EJONfztfD3aW9zI0ziuMnCuo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739205202; c=relaxed/simple;
-	bh=L43tUqiy8VIJR4gURgnTT9AL0FeRLE2CBQiZE7hqijs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=fm7JlgXzIvPWAzRcuyjVySIg4ZpqKEc69Hv/IeLQzUI4BZLajAdjtU/S2Lm2jVpepvjsxiZhjyIm571EaY98vMs1+kunwO+3BlzG6gqkJYnom0jhpjHTcRVo4t1LhUNGjcFuPjtEa7BpVl5LShxUCsLqfM/V2+lWcEhfxBep+hQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Pyh2ubFa; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5DB925C6F9
+	for <virtio-comment@lists.linux.dev>; Mon, 10 Feb 2025 19:46:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.223.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1739216820; cv=fail; b=pMMOoV3EnI7xrGbret1obHQpbyPutopW5uDLzHf6K+GpLgIpFhj9XAAE9msCjbhOzRsWVU+DKvpdRd1fvtP5fb9qNSlvQdDORN1EXKE9oX5xJ3OtBElH5WSEBw/Z1u8ueE/G//XfnTC3hU7nkkN1MUuMjFDcccHSdcq+HiQOzXQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1739216820; c=relaxed/simple;
+	bh=YZSymHHMHF891VgDY7yj8Pym97f7Q7Tuihc5vQAVI/E=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=kt5RCEZxp83JRUQJoZN0cz4qcVRxlJihlNmq/AQlzbrNPRverglXMrwm8cbLN7DPZ8eb6g1BrfG4BfiC1dBilOF9fkr5cFahESzPVrdVorLa82rIqHK7EvXuK+Gt7Da9NGjfjFB3N/rb7d/PSv7PR46iudSzHeKK9UjSJ0h5RoY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nVSQCL7l; arc=fail smtp.client-ip=40.107.223.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Pyh2ubFa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1739205198;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jd+QOMUXEBfd627yzZ56zkxQ8G2MYZlfS/22boe8VCI=;
-	b=Pyh2ubFa38DAlXSPlJd0cZOOgXlpqHM9bLv5R8DV47ZxezMPrpwg0pnkrlHrI0zqH3yKKb
-	gwRZ3zn19YM132+fKEYtO5ynCsa1uKwjsDCFJXGjEI5975x/6Oi2417NVCw665Vn2oVZ8u
-	meZ2+IP0AGFx3LMHJAxdQClUDjkIekI=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-76-7IbEjU91P8-26xF15zzqpg-1; Mon, 10 Feb 2025 11:33:17 -0500
-X-MC-Unique: 7IbEjU91P8-26xF15zzqpg-1
-X-Mimecast-MFC-AGG-ID: 7IbEjU91P8-26xF15zzqpg
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4393e89e910so8668195e9.0
-        for <virtio-comment@lists.linux.dev>; Mon, 10 Feb 2025 08:33:16 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739205196; x=1739809996;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jd+QOMUXEBfd627yzZ56zkxQ8G2MYZlfS/22boe8VCI=;
-        b=PVzPbgQQVvTXRJmWWKRMMLkp5KBv0OmhSJ5Uvn99YqIo39iCeUTBU23F4JUfVwPuyT
-         +D/tzfv3/D4pvsT4r6GbwQXQp49h9wXKBn76hBSwm7Rdqwd11xx8OtRRSXG6Hvkb9Ia4
-         3fpbEaV6M8eX5j+RURU9mhGvthgHihar1adp3ydH2teGscrDXOOSJ+KP2kdtmBMFxPoN
-         V2ReE8uY8aqzRxCj0dCqxQpLyhnq7s374tuuUXFPf9p305gWka8JTAsqP8j+E/GSI5rh
-         69XtAQ7Xpinnrbk1gx9GOy4Fnx/jbK+5NQgBTLvDvqQse7IBmtby+UwVqX/549Rq9GUG
-         u9cA==
-X-Gm-Message-State: AOJu0YzNvXJqMDqloCAYrFyjKO3XghalxLVtVxn+w2yqUBNGoAEDfMaL
-	acVfLvwIljZQcciywg4nCgMKcsmWgGYJOSx+WVUaDINIgsaadbq8q5UhzuRM8iRv1VzkC8W8tp4
-	mgW3fiaxfuIr7lNzFM2tLcWOJJP20ExVH1KZLdTjfbKZ+emReMoV7k5c/A15WeyPR
-X-Gm-Gg: ASbGnct2Ohq9LrOJcBo8s6siCguK8XItmL9kRFQgm4427dz8sERAfnZuNzqun+tmyvP
-	u8/RdogSz8UINthMgElrL4+RkGT+y4Bv4TUX/YF8y2EOF3SIR1KhWddS01ZUIxYKcfW5lWbiuCo
-	5Hx1ClwI1DdZTXxU9dOVFgBKrThBfJ2KbHzqR/YWnl89VUZaLXgSFh3qmn/dXIraXU4nayUYJUW
-	z8DvUaoJvovccrnjIkRA5BOQrG/Vxj2OOxEi15zp6EGqTpEJjmtceFH2WI7svw9Xw/+afqzheY=
-X-Received: by 2002:a05:600c:1e0e:b0:431:5e3c:2ff0 with SMTP id 5b1f17b1804b1-439249889a8mr111804525e9.8.1739205195781;
-        Mon, 10 Feb 2025 08:33:15 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGs5aq4sIDJDp1CFDunBB7WJh325UNNXNJo45hjj3igvnwiogvIqVatMubGoJ72Sdl4DphEnw==
-X-Received: by 2002:a05:600c:1e0e:b0:431:5e3c:2ff0 with SMTP id 5b1f17b1804b1-439249889a8mr111804085e9.8.1739205195235;
-        Mon, 10 Feb 2025 08:33:15 -0800 (PST)
-Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4394679a3a1sm27589285e9.5.2025.02.10.08.33.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Feb 2025 08:33:14 -0800 (PST)
-Date: Mon, 10 Feb 2025 17:33:12 +0100
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: Peter Hilber <quic_philber@quicinc.com>
-Cc: virtio-comment@lists.linux.dev, Cornelia Huck <cohuck@redhat.com>,
-	Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	"Ridoux, Julien" <ridouxj@amazon.com>,
-	Trilok Soni <quic_tsoni@quicinc.com>,
-	Srivatsa Vaddagiri <quic_svaddagi@quicinc.com>
-Subject: Re: [PATCH v7 2/4] virtio-rtc: Add initial normative statements
-Message-ID: <Z6oqSDDOqhRgt/ZB@fedora>
-References: <20250123101616.664-1-quic_philber@quicinc.com>
- <20250123101616.664-3-quic_philber@quicinc.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nVSQCL7l"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PGCeYWvnxRCMSMj7UxjH742Ct/VH06thE926I/Y4ecuaCdmCWg7gnfFbqMKAI3luT7cBBrIl2kJJqQNbIPgoqy1+5GHKv1dQHP2tqp7FL37/Szgg8c6l/1E67+q/ZlMcZkow0ksJSyCUqHvV5LQyDLQSjtbfsT8asKFgjLRGHfD8HWlRN+K7z5SWMv4SuORVRhH6TW6wVJuV8qgraSznI4h4eoqtYLh6Qm9TClzCAFcDmfgoT5DDF4ck26X/bXkDls/2w7TCejkIYAghambxJRITKTF39nNELQNOM7uJ+0btWD9RnxGYcw6qlsXHeoHm9vxLdv1AVwEmVpGsQkDWOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ovf6nkKZmFZDM7C7Py9Y0MTtF3XDyuSMCZ8uDj3MaKk=;
+ b=cSoRzVn5jKm9NU/GR8GB74NB4BXUa1jGwtVgtHNRNAszJ8EXuLme3YxfUUU5PL8Tzr4brMa393XjVlUom04DBanbCNaeVbbBrRFbMANKtf/RYY9iE2Kv6V/xxm+lwd6nltt5mPRIkIitWtkjzLAIwaHdhc9sl6nKaxoeYFpMZUTV5kbXIm5Bj6V733BW0yxgoABt4v2oEUUfbkKdDfq/HWkxUhbfXD/kyRZq4j65lPRQCzmEl9xtLaIO81A1kGAIKw2Td3Y7XyPj1ST7WIJn03iVhf47a9HXMCHT1bqd2/PkHNidPFrw3tvSyCljJgc6VtuZgJYMphkY9C0xDjGBtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ovf6nkKZmFZDM7C7Py9Y0MTtF3XDyuSMCZ8uDj3MaKk=;
+ b=nVSQCL7lI5XUN9tdfcAIxoEGdEYXfxTPKikdT8CKAi8lF1PV2c8gTrzrYTVfO7eqW79vANbezcCUjZcx+RW5IKKG//ctPDuHyWnOupeHUBEiasjtDnNf0iqgXhZVyf5Y5DYcSuIrKvuQznzKzBt3kIm4RfCLSVk11I8TtRH3Z4PiQX9p6KfSKZZsk+7LJKg3kpYWeGaqcQAEExemOHkUXsvOT6EvGHzkUEGQiSHX5ohk72B1bVwV87hCZws5nlcJ3vjbWL+ZMvdOeZ17FM2zDIdUORU3qs5RYou4N/yUuY2OF5y122PAwjupcTWROYuu8u8s6lzzcwp+c97OSQ0ObQ==
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
+ by IA1PR12MB6283.namprd12.prod.outlook.com (2603:10b6:208:3e5::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.16; Mon, 10 Feb
+ 2025 19:46:54 +0000
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::c06c:905a:63f8:9cd]) by CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::c06c:905a:63f8:9cd%3]) with mapi id 15.20.8422.015; Mon, 10 Feb 2025
+ 19:46:53 +0000
+From: Parav Pandit <parav@nvidia.com>
+To: Srujana Challa <schalla@marvell.com>, "virtio-comment@lists.linux.dev"
+	<virtio-comment@lists.linux.dev>
+CC: "mst@redhat.com" <mst@redhat.com>, "cohuck@redhat.com"
+	<cohuck@redhat.com>, "mvaralar@redhat.com" <mvaralar@redhat.com>,
+	"sburla@marvell.com" <sburla@marvell.com>, "ndabilpuram@marvell.com"
+	<ndabilpuram@marvell.com>, "jerinj@marvell.com" <jerinj@marvell.com>,
+	"anoobj@marvell.com" <anoobj@marvell.com>
+Subject: RE: [PATCH RFC v3 1/4] virtio-crypto: Add IPsec service operation and
+ Capabilities
+Thread-Topic: [PATCH RFC v3 1/4] virtio-crypto: Add IPsec service operation
+ and Capabilities
+Thread-Index: AQHbbJVFvVnlVDpqKU+VOF/OEL44XLNBBqGA
+Date: Mon, 10 Feb 2025 19:46:53 +0000
+Message-ID:
+ <CY8PR12MB7195A39AD70B7A6034872B9ADCF22@CY8PR12MB7195.namprd12.prod.outlook.com>
+References: <20250122061644.266560-1-schalla@marvell.com>
+ <20250122061644.266560-2-schalla@marvell.com>
+In-Reply-To: <20250122061644.266560-2-schalla@marvell.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|IA1PR12MB6283:EE_
+x-ms-office365-filtering-correlation-id: 5feef81d-4112-414a-6a91-08dd4a0bab47
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?1qFeXsoR+egVIVY8DBjTAmqtukhjewWB2QYw2vYuyKTNwGbQ6JkukMPH1AZf?=
+ =?us-ascii?Q?zMLydZOUKfuk7o/NJSK0iJVJd6XqpeaSCCqcVFryC2Fs2RKuwK+Tl313D8TQ?=
+ =?us-ascii?Q?/fAq54zel+cO8GDzuDG1Fjf9SjWXxcK8AwHZNL4NOwygd+I24TE0ejvRfx6t?=
+ =?us-ascii?Q?A0s3+LLezHyS+IuyScxCh1S4puMk4VmMsjRUB1N2PgTEAVcSRhNqGd2r946k?=
+ =?us-ascii?Q?9W22D6DUqLjmFu6x2UlOKtZMK5j3Rtj4Y0DaEsHdqI00jPw7vQuj2W09I2wP?=
+ =?us-ascii?Q?shf71h69jifwTzqnGwoHpCrtKzxSRKFWnFD9SXYS61t+x/dQKSeZpBBf158d?=
+ =?us-ascii?Q?hkxeOLOZtJfGthcf1Zon7qotX9TeK4q1wOIDPEmQ5FSgpfx30hcOgDZpfFTJ?=
+ =?us-ascii?Q?rUt99f5Kb/qCydriQBr/beQX9PTRSKwcw8rQVEACEFYcfSuTjaaUt3geYLDo?=
+ =?us-ascii?Q?beM4+7Hln3IAE9gam3eTlYRV+xsUtYzaYxvVwoUECO80ArATE72HqCVRU+mf?=
+ =?us-ascii?Q?EZTuyAg1fI8iDpKw2dvqKIGgKE64N4waKSE/thXTKkzIFYMSD1hwPaqD3Qso?=
+ =?us-ascii?Q?R95NulkU2CtY1YVeLlHCD2s+pEr2vx8k4dZKYFEHjU2HNrGI46cBs6+5OrPv?=
+ =?us-ascii?Q?zgQ18ejAwFWYPorRwLWSC5/GuvCTIVLzk2HhNE3cmiNk7yXT6750fszO8dtz?=
+ =?us-ascii?Q?mVKkU7+1prt33jbV++RP0Tp+NhAuEqHJ0fUZ6pQlNrX4FZjA+Gn6EOatMrHN?=
+ =?us-ascii?Q?C/1SMjsKJmW2i+6bUuAJbscvwBC5LMnSrjUDhWM8d9s5Yqp9I1QQI1ZDuytk?=
+ =?us-ascii?Q?ySD8GUZh69P+kwBK8xOS7YFPuY24YB8jOqMxygFmG3uHkfQwDHbabYbGY0sv?=
+ =?us-ascii?Q?Mz0APh+niKAtYbR53xGJq9gYDNvNe1pID1JvrG09XCOeos04QcYPXFt6bDMw?=
+ =?us-ascii?Q?8g8NpuLCQXYwlDjpeT45/LTHxA+B3OcGvlmxJJzysMvwqFl1jDHJahzLX6hc?=
+ =?us-ascii?Q?k7t/3jYncikqhcPtWkT0cOR5eNulPjnKqaCmYvfhvDei2S1w/dyvlE/TQIIA?=
+ =?us-ascii?Q?DpkCFgVAxECvGaeJuNx3e4F9NRNn65dakVrbYe67fRgg/+nPp+wehYzFjCBo?=
+ =?us-ascii?Q?CUAA9aeCf99m3h9bssqIoFI9bl3K6/E/TsuFAhWHGXkadEy0bguLWGH5ENoB?=
+ =?us-ascii?Q?VkoO/0OTHPle9GtxUE1lH2ZaO1UUV8BaxhEjMP5ImPEpLzY9p3eNXEkJ/Dy9?=
+ =?us-ascii?Q?SM/NNwzHIliBlrs7HRNUCdBzAEXsAZ0JnHE+Tkp6sZ4P5li+Y7u9vPXHcR00?=
+ =?us-ascii?Q?V647QlMj/IQF+5K0Jh0egk2Zgkn9qFEcfqmNGWsh+UX613g4GeFO646INCzp?=
+ =?us-ascii?Q?8vcojxNy8fxFCTrQWgC6aOEjt4WllRca+1DGHW07UwF58eEN4E9Ayqpx3t25?=
+ =?us-ascii?Q?BJqxDSw5SZe+39KHcv4j7N5rTLQa8Ptl?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?okoaSMq5QDajb3+ILc8lfkFt9Eav5bKIoYBsXjbPpD6hYZPNcX4nbZ/O15AS?=
+ =?us-ascii?Q?OvPwnMRYlXSmzcyxy/cpMaol7wcNFmMroN0kTwiDBsdIbtNympcuXib5Q2+Y?=
+ =?us-ascii?Q?ZqEFUJW/2VWDoYVzsU3IsGvAyUY9HEg6g/iFieMhWKdzFQZGG9vCWsR2dGXV?=
+ =?us-ascii?Q?hWQ2lAoJqsK3Zn6eH8AwP/2JbGU9Hs/4qqAiq8TWy43dVgx8x4CELYS5qca+?=
+ =?us-ascii?Q?v6WorvaYgWpCy5ms6s0CHx45h+GS3iGnLOA94GJKcZUrlJXmfVav2fJ5YFu5?=
+ =?us-ascii?Q?7F98eRaW+uekHlm+ccmRga59UdJRtcUVYWfN7Dyz5DUfrrGk3W/hSQaXnE2Z?=
+ =?us-ascii?Q?rJISIp9MX0YqybmgDQF2opHXRGYoekGmrlALRUVkoqQP2i3AWkv9eDzMfbGb?=
+ =?us-ascii?Q?26FFsFMWo4aroSudU2wa/UVL1FEbi/LqNxQTHpZdmFpIsufRX2fk1xODH7Br?=
+ =?us-ascii?Q?kCJWCyB4V6do8x7HLI0nYqdOQU8ByxDnRZqzmkhyu6GzYQeHsA30CDoNuBjk?=
+ =?us-ascii?Q?gGRWm1xA8p0VgX0X/w5ZzkfBb5D9wttLzPJZF4lBVlE3ZSfhCX28676IE1Q5?=
+ =?us-ascii?Q?RHECIIQ7wzzFPgv/jVtN+A04w36JwuRLWIECH1Eiukd5cC0uBq2BjYaTi+C1?=
+ =?us-ascii?Q?tOUFx9xadslmW9eTmBlNB5ehWYb0zY/Ms0wLpsqG324EI+xFhz8qUK4R+m36?=
+ =?us-ascii?Q?Gv7YmFDWtlPWjHTHMMw+6wGrVI9JvjTHYtsSqC9EVfK4OblkhVjcYT0JUn4Z?=
+ =?us-ascii?Q?C9RUPqwrYqchLPYjM1P0hTJCO1tZX8KegUvl/UxWS2FdSrboyq0jI/TnEQMD?=
+ =?us-ascii?Q?x1z976epjsQp+Lj8/sp4GGTD0Bol4UF9v5rKasyUOKqovrU/AvcwqXn/f3Qw?=
+ =?us-ascii?Q?SJi7xKDzkr/jYKfcURW/eFL7I8AZO3byS19zVKCd891rKocX4IxaMM7t3U2d?=
+ =?us-ascii?Q?9Qpo9/U9XRQulBC+LrbzmPUK7TtQ0ieWAxUWNWI2rltbNiWjBvPTwSTwNwYm?=
+ =?us-ascii?Q?HFRcB5tJ0adx/xgZlfCyvNj2WReQSGj/ek/j9Ay8O5DZLII0JC7xLudvndP/?=
+ =?us-ascii?Q?RqysbAsLpv+9JU/TvYMHIO1JlX0OWkA4SbyWp3w3m2E+Nrvj3BDPjU7ZcTD5?=
+ =?us-ascii?Q?yc0gtiarUxxVa3xPNVLViwCkOSbesJx9MuZCF/9obQtxCh46d/cHys4ZZ/iP?=
+ =?us-ascii?Q?pmSDH11J/lYhH+j21olETdmnRY1ed8Na1hfzZcImXbFFr54Tz5/eWpbKTgDD?=
+ =?us-ascii?Q?ymI7fo2nbJ0lqvKIjQupxyEHMdDM/2V8aj9mMkb8C75NdDAblmz97AdIpkuN?=
+ =?us-ascii?Q?GKLmMRAolXUTBBc7RjuHoqGZ7j6J0tFMTvboQ2PIszjS+KrpFWmaw0ErsFsi?=
+ =?us-ascii?Q?7A6XLW1BB9AXrKDLUDqcK74lQxXInDIl+UUqW7z1WpnpflUBbDtm3dfuXo6S?=
+ =?us-ascii?Q?eCWS80LWgIIxKWKFhJdY5c6mBwvee2wgKoLwsK3ZxE6gdUgzykTnHG9Pjryc?=
+ =?us-ascii?Q?Quu0h0qls9GBb8ur+mSMgQW+4VX1uV1QLc2I8Qk7W21awG1kR6qtIwmfYK79?=
+ =?us-ascii?Q?PI6974cCGSc5TF9ZLUk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20250123101616.664-3-quic_philber@quicinc.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 6UGML1v2mgqj4D6oncgmAzsLsQR1Gi8pzivyK0tmOZo_1739205196
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5feef81d-4112-414a-6a91-08dd4a0bab47
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Feb 2025 19:46:53.4749
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9GKIV+zu6W3MRY3ZHsckZUDnIcddTTw2gFsEQZ5lJraS0oztDsyfzPZdHB5+bF/p1xbS+SgUf6VPk08dVqdMSg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6283
 
-On Thu, Jan 23, 2025 at 11:16:13AM +0100, Peter Hilber wrote:
-> Add the normative statements for the initial device specification.
-> 
-> Signed-off-by: Peter Hilber <quic_philber@quicinc.com>
+
+
+> From: Srujana Challa <schalla@marvell.com>
+> Sent: Wednesday, January 22, 2025 11:47 AM
+>=20
+> This commit introduces the IPsec service operation to the Crypto device,
+> enabling offloading of IPsec processing.
+>=20
+> Capabilities:
+>=20
+> 1. IPsec Resource Capability (VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP):
+>    Indicates the device's IPsec resource limits, such as the number of
+>    outbound and inbound Security Associations (SAs).
+> 2. IPsec SA Capability (VIRTIO_CRYPTO_IPSEC_SA_CAP): Specifies the
+>    supported IPsec modes, along with the supported cryptographic
+>    algorithms, authentication algorithms, IPsec options and
+>    anti-replay window size.
+>=20
+> Signed-off-by: Srujana Challa <schalla@marvell.com>
 > ---
-> 
-> Notes:
->     v7:
->     
->     - Remove obsolete requirements for leap second indication.
->     
->     v6:
->     
->     - Update requirements to make leap second status information optional if
->       if the clock smears (or might smear) leap seconds.
->     
->     - Allow indicating VIRTIO_RTC_SMEAR_UNSPECIFIED for
->       VIRTIO_RTC_CLOCK_SMEARED.
->     
->     - Shorten some requirements by omitting redundant information.
->     
->     v5:
->     
->     - Update normative statements to match v5 changes to non-normative
->       statements (patch 1).
->     
->     v4:
->     
->     - Require driver to set unused flags to zero.
->     
->     - Update normative statements to match v4 changes to non-normative
->       statements (patch 1).
->     
->     - Improve formatting.
-> 
->  conformance.tex                         |   2 +
->  device-types/rtc/description.tex        | 269 ++++++++++++++++++++++++
->  device-types/rtc/device-conformance.tex |   9 +
->  device-types/rtc/driver-conformance.tex |   9 +
->  4 files changed, 289 insertions(+)
->  create mode 100644 device-types/rtc/device-conformance.tex
->  create mode 100644 device-types/rtc/driver-conformance.tex
-> 
-> diff --git a/conformance.tex b/conformance.tex
-> index d92a2369488e..4ce86a525e84 100644
-> --- a/conformance.tex
-> +++ b/conformance.tex
-> @@ -162,6 +162,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->  \input{device-types/pmem/driver-conformance.tex}
->  \input{device-types/can/driver-conformance.tex}
->  \input{device-types/spi/driver-conformance.tex}
-> +\input{device-types/rtc/driver-conformance.tex}
->  
->  \conformance{\section}{Device Conformance}\label{sec:Conformance / Device Conformance}
->  
-> @@ -254,6 +255,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->  \input{device-types/pmem/device-conformance.tex}
->  \input{device-types/can/device-conformance.tex}
->  \input{device-types/spi/device-conformance.tex}
-> +\input{device-types/rtc/device-conformance.tex}
->  
->  \conformance{\section}{Legacy Interface: Transitional Device and Transitional Driver Conformance}\label{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}
->  A conformant implementation MUST be either transitional or
-> diff --git a/device-types/rtc/description.tex b/device-types/rtc/description.tex
-> index aae015690b26..2aefc22cb649 100644
-> --- a/device-types/rtc/description.tex
-> +++ b/device-types/rtc/description.tex
-> @@ -98,6 +98,111 @@ \subsection{Device Operation}\label{sec:Device Types / RTC Device / Device Opera
->  zero-based, dense indices. All fields named \field{clock_id} contain
->  clock identifiers.
->  
-> +\drivernormative{\subsubsection}{Device Operation}{Device Types / RTC Device / Device Operation}
+>  device-types/crypto/description.tex | 166 +++++++++++++++++++++++++++-
+>  introduction.tex                    |  12 ++
+>  2 files changed, 173 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/device-types/crypto/description.tex b/device-
+> types/crypto/description.tex
+> index 5705e26..2c00e50 100644
+> --- a/device-types/crypto/description.tex
+> +++ b/device-types/crypto/description.tex
+> @@ -2,13 +2,15 @@ \section{Crypto Device}\label{sec:Device Types / Crypto
+> Device}
+>=20
+>  The virtio crypto device is a virtual cryptography device as well as a  =
+virtual
+> cryptographic accelerator. The virtio crypto device provides the -followi=
+ng
+> crypto services: CIPHER, MAC, HASH, AEAD and AKCIPHER. Virtio crypto -
+> devices have a single control queue and at least one data queue. Crypto -
+> operation requests are placed into a data queue, and serviced by the -dev=
+ice.
+> Some crypto operation requests are only valid in the context of a -sessio=
+n.
+> The role of the control queue is facilitating control operation
+> +following crypto services: CIPHER, MAC, HASH, AEAD, AKCIPHER and IPSEC.
+> +Virtio crypto devices have a single control queue and at least one data
+> +queue. Crypto operation requests are placed into a data queue, and
+> +serviced by the device. Some crypto operation requests are only valid
+> +in the context of a session. The role of the control queue is
+> +facilitating control operation
+>  requests. Sessions management is realized with control operation  reques=
+ts.
+> +The crypto device may have administration command interface through
+> +which IPsec service capabilities and resources are configured.
+>=20
+>  \subsection{Device ID}\label{sec:Device Types / Crypto Device / Device I=
+D}
+>=20
+> @@ -72,6 +74,8 @@ \subsection{Supported crypto services}\label{sec:Device
+> Types / Crypto Device /
+>  #define VIRTIO_CRYPTO_SERVICE_AEAD   3
+>  /* AKCIPHER (Asymmetric Key Cipher) service */  #define
+> VIRTIO_CRYPTO_SERVICE_AKCIPHER 4
+> +/* IPSEC service */
+> +#define VIRTIO_CRYPTO_SERVICE_IPSEC  5
+>  \end{lstlisting}
+>=20
+>  The above constants designate bits used to indicate the which of crypto
+> services are @@ -318,6 +322,20 @@ \subsection{Device
+> Initialization}\label{sec:Device Types / Crypto Device / Devi  \item The =
+driver
+> MUST read the supported algorithms based on \field{crypto_services} field=
+.
+>  \end{itemize*}
+>=20
+> +\subsection{Device and driver capabilities}\label{sec:Device Types /
+> +Crypto Device / Device and driver capabilities}
 > +
-> +If the \field{struct virtio_rtc_resp_head} field \field{status} is not
-> +VIRTIO_RTC_S_OK, the driver MUST NOT interpret response fields other
-> +than \field{status}.
+> +The crypto device has the following capabilities.
 > +
-> +The driver MUST set \emph{reserved} fields in the device-readable part
-> +of the message to zero.
+> +\begin{tabularx}{\textwidth}{ |l||l|X| } \hline Identifier & Name &
+> +Description \\ \hline \hline
+> +0x0800 & \hyperref[par:Device Types / Crypto Device / Device Operation
+> +/ IPsec Service Operation / Device and driver capabilities /
+> +VIRTIO-CRYPTO-IPSEC-RESOURCE-
+> CAP]{VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP} &
+> +IPsec resource capability \\ \hline
+> +0x0801 & \hyperref[par:Device Types / Crypto Device / Device Operation
+> +/ IPsec Service Operation / Device and driver capabilities /
+> +VIRTIO-CRYPTO-IPSEC-SA-CAP]{VIRTIO_CRYPTO_IPSEC_SA_CAP} & IPsec
+> +Security Association(SA) capability \\ \hline \end{tabularx}
 > +
-> +The driver MUST set unnamed bits in \emph{flags} fields in the
-> +device-readable part of the message to zero.
+>  \subsection{Device Operation}\label{sec:Device Types / Crypto Device /
+> Device Operation}
+>=20
+>  The operation of a virtio crypto device is driven by requests placed on =
+the
+> virtqueues.
+> @@ -1872,3 +1890,141 @@ \subsubsection{AKCIPHER Service
+> Operation}\label{sec:Device Types / Crypto Devic  \item VIRTIO_CRYPTO_ERR
+> if any failure not mentioned above occurs.
+>  \end{itemize*}
+>  \end{itemize*}
 > +
-> +The driver MUST NOT interpret \emph{reserved} fields in the
-> +device-writable part of the message.
+> +\subsubsection{IPSEC Service Operation}\label{sec:Device Types / Crypto
+> +Device / Device Operation / IPSEC Service Operation}
 > +
-> +The driver MUST NOT interpret unnamed bits in \emph{flags} fields in the
-> +device-writable part of the message.
+> +A crypto device can support the processing of IPsec protocol operations.
+> +In addition to standard crypto processing, the IPsec protocol
+> +operations are also handled by the Crypto Device as a lookaside operatio=
+n.
 > +
-> +The driver MUST put the request into the device-readable part of the
-> +message.
-> +
-> +The driver MUST allocate enough space for the response in the
-> +device-writable part of a requestq message.
-> +
-> +\devicenormative{\subsubsection}{Device Operation}{Device Types / RTC Device / Device Operation}
-> +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_OK if the device successfully
-> +executed the request.
-> +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to a status other than VIRTIO_RTC_S_OK if the
-> +device did not successfully execute the request.
-> +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_EOPNOTSUPP if the device could not
-> +execute the specific request due to an implementation limitation.
-> +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_EOPNOTSUPP for a request with a
-> +value of the \field{msg_type} field which is not described in this
-> +specification.
-> +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_EOPNOTSUPP for a request with a
-> +value of the \field{hw_counter} field which is neither described in this
-> +specification nor otherwise known to the implementation.
-> +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_ENODEV if the \field{clock_id}
-> +field value supplied with the request does not identify a clock.
-> +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_EINVAL if the request values are
-> +inconsistent with the specification and if the inconsistence is not
-> +described by the requirements which stipulate status
-> +VIRTIO_RTC_S_EOPNOTSUPP or VIRTIO_RTC_S_ENODEV.
-> +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_EINVAL if the device read-only part
-> +of the message is too small.
+s/Crypto Device/crypto device/
 
-What do you mean with `too small`?
+> +IPsec Inbound processing: The device will perform decryption,
+> +authentication, integrity checking and remove additional headers,
+> +including tunnel header if in tunnel mode, as well as the ESP/AH header =
+from
+> the packet(See \hyperref[intro:IPSEC]{IPSEC} RFC).
+> +The resulting packet contains only the plain data.
+> +
+> +IPsec Outbound processing: The device will perform encryption, attach
+> +ICV, update/add IP header, add ESP/AH header/trailer.
+> +
+> +A crypto device can support number of IPsec SAs, allowing it to manage
+> +multiple secure connections simultaneously.
+> +
+> +The device and the driver indicate IPsec SA resource limits using the
+> +VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP capability specifying the limits on
+> +the number of IPsec outbound and inbound SA resource objects.
+> +The VIRTIO_CRYPTO_IPSEC_SA_CAP capability  specifies which IPsec
+> +protocol capabilities the device supports. The driver indicates the
+> +IPsec parameters by setting the IPsec SA capability prior to adding any
+> resource object.
+> +
+> +The driver controls the IPsec SA resource object using administration
+> +commands described in \ref{sec:Basic Facilities of a Virtio Device / Dev=
+ice
+> groups / Group administration commands / Device resource objects}.
+> +
+> +\paragraph{Device and driver capabilities} \label{par:Device Types /
+> +Crypto Device / Device Operation / IPsec Service Operation / Device and
+> +driver capabilities}
+> +
+> +\subparagraph{VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP}
+> +\label{par:Device Types / Crypto Device / Device Operation / IPsec
+> +Service Operation / Device and driver capabilities /
+> +VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP}
+> +
+> +The VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP capability indicates the IPsec SA
+> resource limits.
+> +\field{cap_specific_data} is in the format \field{struct
+> +virtio_crypto_ipsec_resource_cap}.
+> +
+> +\begin{lstlisting}
+> +struct virtio_crypto_ipsec_resource_cap {
+> +        le32 inb_sa_limit;
+> +        le32 outb_sa_limit;
+> +};
+> +\end{lstlisting}
+> +
+> +\field{inb_sa_limit}, and \field{outb_sa_limit} denote the maximum
+> +number of IPsec security Associations (SAs) that can be utilized for
+> +IPsec inbound and outbound processing, respectively, which the device is
+> capable of creating.
+> +
+> +\subparagraph{VIRTIO_CRYPTO_IPSEC_SA_CAP}
+> +\label{par:Device Types / Crypto Device / Device Operation / IPsec
+> +Service Operation / Device and driver capabilities /
+> +VIRTIO-CRYPTO-IPSEC-SA-CAP}
+> +
+> +The VIRTIO_CRYPTO_IPSEC_SA_CAP capability lists the supported IPsec
+> +modes along with the supported cryptographic, authentication algorithms
+> +and anti-replay window size for each IPsec mode.
+> +\field{cap_specific_data} is in the format \field{struct
+> virtio_crypto_ipsec_sa_cap_data}.
+> +
+> +\begin{lstlisting}[label=3D{lst:Device Types / Crypto Device / Device
+> +Operation / IPsec Service Operation / Device and driver capabilities / V=
+IRTIO-
+> CRYPTO-IPSEC-SA-CAP / virtio-crypto-ipsec-mode-cap}] struct
+> virtio_crypto_ipsec_mode_cap {
+> +        u8 mode;
+> +        u8 reserved[3];
+> +        le32 max_replay_win_sz;
+> +        le32 options;
+Please add le32 reserved for 64-bit natural alignment.
 
+> +        le64 cipher_algo;
+> +        le64 hmac_algo;
+> +        le32 aead_algo;
+> +        le32 max_cipher_key_len;
+> +        le32 max_auth_key_len;
+> +};
 > +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_EINVAL if the device write-only
-> +part of the message is too small, unless the \field{status} field does
-> +not fit into the device write-only part.
+> +struct virtio_crypto_ipsec_sa_cap_data {
+> +        u8 count;
+> +        u8 reserved[7];
+> +        struct virtio_crypto_ipsec_mode_cap mode[]; }; \end{lstlisting}
 > +
+Better to name this 'mode' or as 'cap_mode'.
 
-I think we can improve the wording by replacing `too small` with
-something else.
-
-> +For \field{struct virtio_rtc_resp_head}, the device MUST NOT set the
-> +\field{status} field if the \field{status} field does not fit into the
-> +device write-only part.
+> +\field{count} indicates number of valid entries in the \field{mode} arra=
+y.
+> +\field{mode[]} is an array of supported IPsec modes. Within each array e=
+ntry:
 > +
-> +For \field{struct virtio_rtc_resp_head}, the device MUST set the
-> +\field{status} field to VIRTIO_RTC_S_EIO if none of the previous
-> +requirements in this document stipulated another \field{status}.
+> +\field{mode} specifies the IPsec mode, as defined in table
+> +\ref{table:Device Types / Crypto Device / Device Operation / IPsec Servi=
+ce
+> Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP /
+> IPsec Modes}.
+> +\field{max_replay_win_sz} specifies the maximum anti-replay window size
+> the device supports.
+> +This field is applicable only for inbound operation.
 > +
-> +If the device read-only part of a message M is bigger than the size of
-> +the request specified for message M, the device MUST ignore the
-> +additional space.
+> +\field{options} Each bit indicates the IPsec protocol options supported
+> +by the device, as defined in table \ref{table:Device Types / Crypto Devi=
+ce /
+> Device Operation / IPsec Service Operation / Device and driver capabiliti=
+es /
+> VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Options}.
 > +
-> +If the device write-only part of a message M is bigger than the size of
-> +the response specified for message M, the device MUST ignore the
-> +additional space.
+> +\field{cipher_algo} CIPHER algorithms mask, see \ref{sec:Device Types /
+> Crypto Device / Supported crypto services  / CIPHER services}.
 > +
-> +The device MUST NOT interpret \emph{reserved} fields in the
-> +device-readable part of the message.
-
-I wonder if last three requirements are needed.
-
+> +\field{hmac_algo} HMAC algorithms mask, see \ref{sec:Device Types / Cryp=
+to
+> Device / Supported crypto services  / MAC services}.
 > +
-> +The device MUST set \emph{reserved} fields in the device-writable part
-> +of the message to zero.
+> +\field{aead_algo} AEAD algorithms mask, see \ref{sec:Device Types / Cryp=
+to
+> Device / Supported crypto services  / AEAD services}.
 > +
-> +The device MUST set unnamed bits in \emph{flags} fields in the
-> +device-writable part of the message to zero.
+> +\field{max_cipher_key_len} is the maximum length of cipher key supported
+> by the device.
 > +
-> +After feature negotiation completion the device MUST NOT change the set
-> +of clocks until device reset.
+> +\field{max_auth_key_len} is the maximum length of authenticated key
+> supported by the device.
 > +
-> +The device SHOULD NOT change the set of clocks on a device reset after
-> +the first device reset.
-> +
-> +The device MUST use non-negative integers, which are smaller than the
-> +number of clocks, as clock identifiers.
-> +
-> +For a fixed request value V, the device SHOULD either, for every request
-> +with value V, always execute successfully, or, for every request with
-> +value V, always set a fixed \field{status} other than VIRTIO_RTC_S_OK.
-
-I am not familiar enough with rtc clocks, what does `request with value
-V` mean ?
-
-> +
->  \subsubsection{Common Definitions}\label{sec:Device Types / RTC Device / Device Operation / Common Definitions}
->  
->  This section makes common definitions.
-> @@ -313,6 +418,103 @@ \subsubsection{Control Requests}\label{sec:Device Types / RTC Device / Device Op
->  
->  \end{description}
->  
-> +\drivernormative{\paragraph}{Control Requests}{Device Types / RTC Device / Device Operation / Control Requests}
-> +
-> +For VIRTIO_RTC_REQ_CROSS_CAP, the driver MUST set \field{hw_counter} to
-> +one of the hardware counter identifiers defined in this specification,
-> +or to a value between 0xF0 and 0xFE.
-> +
-> +\devicenormative{\paragraph}{Control Requests}{Device Types / RTC Device / Device Operation / Control Requests}
-> +
-> +For any clock of type VIRTIO_RTC_CLOCK_UTC, the device MUST use the UTC
-> +time standard (Coordinated Universal Time).
-> +
-> +For any clock of type VIRTIO_RTC_CLOCK_UTC_SMEARED or
-> +VIRTIO_RTC_CLOCK_UTC_MAYBE_SMEARED, the device MUST use the UTC time
-> +standard, insofar as the following requirements do not say otherwise.
-> +
-> +For any UTC-like clock, the device MUST use the time epoch of January 1,
-> +1970, 00:00 UTC.
-> +
-> +For any UTC-like clock, the device MUST count seconds since the epoch
-> +according to \hyperref[intro:EPOCH]{EPOCH}.
-> +
-> +For any clock of type VIRTIO_RTC_CLOCK_UTC, the device MUST apply a
-> +positive leap second according to the UTC time standard by
-> +instantaneously stepping the clock backwards by 1 s at the start of the
-> +leap second.
-> +
-> +For any clock of type VIRTIO_RTC_CLOCK_UTC, the device MUST apply a
-> +negative leap second according to the UTC time standard by
-> +instantaneously stepping the clock forward by 1 s at the start of the
-> +leap second.
-> +
-> +For any leap smearing clock, the device MUST NOT step the clock due to a
-> +leap second.
-> +
-> +For any leap smearing clock, on a positive leap second, the device MUST
-> +slow down the clock during part of the day containing the leap second
-> +and/or part of the day after the leap second.
-> +
-> +For any leap smearing clock, on a negative leap second, the device MUST
-> +speed up the clock during part of the day containing the leap second
-> +and/or part of the day after the leap second.
-> +
-> +For any clock with smearing variant VIRTIO_RTC_SMEAR_NOON_LINEAR, on a
-> +leap second, the device MUST change the frequency of the clock exactly
-> +from noon prior to the leap second until noon after the leap second.
-> +
-> +For any clock with smearing variant VIRTIO_RTC_SMEAR_NOON_LINEAR, while
-> +changing the frequency of the clock due to a positive leap second, the
-> +device MUST decrease the frequency of the clock by $1/86400$.
-> +
-> +For any clock with smearing variant VIRTIO_RTC_SMEAR_NOON_LINEAR, while
-> +changing the frequency of the clock due to a negative leap second, the
-> +device MUST increase the frequency of the clock by $1/86400$.
-> +
-> +For any clock with smearing variant VIRTIO_RTC_SMEAR_UTC_SLS, on a leap
-> +second, the device MUST change the frequency of the clock exactly during
-> +the last 1000 seconds of the day with the leap second.
-> +
-> +For any clock with smearing variant VIRTIO_RTC_SMEAR_UTC_SLS, while
-> +changing the frequency of the clock due to a positive leap second, the
-> +device MUST decrease the frequency of the clock by 0.1\%.
-> +
-> +For any clock with smearing variant VIRTIO_RTC_SMEAR_UTC_SLS, while
-> +changing the frequency of the clock due to a negative leap second, the
-> +device MUST increase the frequency of the clock by 0.1\%.
-> +
-> +For any clock of type VIRTIO_RTC_CLOCK_UTC_MAYBE_SMEARED, the device MAY
-> +deviate from the UTC standard with respect to leap second introduction.
-> +
-> +For any clock of type VIRTIO_RTC_CLOCK_TAI, the device MUST use the TAI
-> +time standard (International Atomic Time).
-> +
-> +For any clock of type VIRTIO_RTC_CLOCK_TAI, the device MUST use the time
-> +epoch of January 1, 1970, 00:00 TAI.
-> +
-> +For any clock of type VIRTIO_RTC_CLOCK_MONOTONIC, the device MUST use SI
-> +seconds subdivisions.
-> +
-> +For any clock of type VIRTIO_RTC_CLOCK_MONOTONIC, the device MUST use an
-> +epoch at a time instant before or during device reset.
-> +
-> +For VIRTIO_RTC_REQ_CLOCK_CAP, and clock types other than
-> +VIRTIO_RTC_CLOCK_UTC_SMEARED, the device MUST set field
-> +\field{leap_second_smearing} to VIRTIO_RTC_SMEAR_UNSPECIFIED.
-> +
-> +For VIRTIO_RTC_REQ_CLOCK_CAP, and clock type
-> +VIRTIO_RTC_CLOCK_UTC_SMEARED, the device MUST set field
-> +\field{leap_second_smearing} to VIRTIO_RTC_SMEAR_UNSPECIFIED,
-> +VIRTIO_RTC_SMEAR_NOON_LINEAR, VIRTIO_RTC_SMEAR_UTC_SLS, or to a value
-> +greater than or equal to 0xF0.
-> +
-> +For a VIRTIO_RTC_REQ_CROSS_CAP message M, the device MUST set the
-> +VIRTIO_RTC_FLAG_CROSS_CAP flag in the \field{flags} field if the device
-> +would respond to a VIRTIO_RTC_REQ_READ_CROSS message with the same
-> +\field{hw_counter} and \field{clock_id} values as in M with status
-> +VIRTIO_RTC_S_OK, and clear the flag otherwise.
-> +
->  \subsubsection{Read Requests}\label{sec:Device Types / RTC Device / Device Operation / Read Requests}
->  
->  Through \emph{read requests}, the driver requests clock readings from
-> @@ -424,3 +626,70 @@ \subsubsection{Read Requests}\label{sec:Device Types / RTC Device / Device Opera
->  \ref{sec:Device Types / RTC Device / Device Operation / Common Definitions / Hardware Counters}.
->  
->  \end{description}
-> +
-> +\drivernormative{\paragraph}{Read Requests}{Device Types / RTC Device / Device Operation / Read Requests}
-> +
-> +For VIRTIO_RTC_REQ_READ_CROSS, the driver MUST set \field{hw_counter} to
-> +one of the hardware counter identifiers defined in this specification,
-> +or to a value between 0xF0 and 0xFE.
-> +
-> +\devicenormative{\paragraph}{Read Requests}{Device Types / RTC Device / Device Operation / Read Requests}
-> +
-> +The device SHOULD continuously support reading of all clocks once
-> +DRIVER_OK has been set.
-> +
-> +For any clock C and read requests \emph{A} and \emph{B} which read C,
-> +\emph{A} being the message which the driver marks as available before
-> +\emph{B}, the device MUST obtain the \field{clock_reading} value for the
-> +message \emph{A} response before the \field{clock_reading} value for the
-> +message \emph{B} response, or the device MUST obtain the same
-> +\field{clock_reading} value for both \emph{A} and \emph{B}.
-
-Can't we just say that the device MUST processes the available ring as FIFO
-queue?
-
-> +
-> +For any clock C, the device MUST mark all read requests reading C as
-> +used in the total order in which the driver marked these messages as
-> +available.
-> +
-> +For any clock C of type VIRTIO_RTC_CLOCK_MONOTONIC and read requests
-> +\emph{A} and \emph{B} which read C, \emph{A} being the message which the
-> +driver marks as available before \emph{B}, the device MUST set the
-> +\field{clock_reading} value for the message \emph{B} response to a value
-> +greater than or equal to the \field{clock_reading} value for the message
-> +\emph{A} response.
-
-See comment above.
-
-> +
-> +The device MUST support VIRTIO_RTC_REQ_READ for every clock.
-> +
-> +For VIRTIO_RTC_REQ_READ and for any clock type listed in this
-> +specification, the device MUST use the nanosecond as unit for field
-> +\field{clock_reading}.
-
-In other parts of the document the word `field` is written after the
-name of the field. I think we could just put it after the name
-everywhere.
-
-> +
-> +For read requests, the device MUST obtain the \field{clock_reading}
-> +response value after the read request is marked as available.
-> +
-> +For VIRTIO_RTC_REQ_READ_CROSS, the device MUST set
-> +\field{counter_cycles} to a value which approximates the value which the
-> +driver would have read from the hardware counter identified by
-> +\field{hw_counter} at the time instant when the device read the
-> +\field{clock_reading} value.
-
-s/read/reads
-
-> +
-> +For VIRTIO_RTC_REQ_READ_CROSS, the device SHOULD assume that the driver
-> +reads the hardware counter identified by \field{hw_counter} through the
-> +CPU which the driver enumerates as the first.
-> +
-> +For VIRTIO_RTC_REQ_READ_CROSS, the device MUST set \field{status} to a
-> +value other than VIRTIO_RTC_S_OK if the device cannot determine the
-> +approximate value which the driver would have read from the hardware
-> +counter identified by \field{hw_counter} at the time instant when the
-> +device read the \field{clock_reading} value.
-
-s/read/reads
-
-> +
-> +For any clock C, and VIRTIO_RTC_REQ_READ_CROSS messages \emph{A} and
-> +\emph{B} which read C and which specify the same hardware counter
-> +\emph{H} through field \field{hw_counter}, \emph{A} being the message
-> +which the driver marks as available before \emph{B}, the device MUST set
-> +the \field{counter_cycles} value for \emph{B} to a value which \emph{H}
-> +shows after the \field{counter_cycles} value of \emph{A}, or the device
-> +MUST set the same \field{counter_cycles} value for \emph{A} and
-> +\emph{B}.
-
-Can't we just say that the request queue follows a FIFO semantics?
-
-> +
-> +For VIRTIO_RTC_REQ_READ_CROSS and for any clock type listed in
-> +this specification, the device MUST use the nanosecond as unit for
-> +field \field{clock_reading}.
-> diff --git a/device-types/rtc/device-conformance.tex b/device-types/rtc/device-conformance.tex
-> new file mode 100644
-> index 000000000000..4303cd450542
-> --- /dev/null
-> +++ b/device-types/rtc/device-conformance.tex
-> @@ -0,0 +1,9 @@
-> +\conformance{\subsection}{RTC Device Conformance}\label{sec:Conformance / Device Conformance / RTC Device Conformance}
-> +
-> +An RTC device MUST conform to the following normative statements:
-> +
-> +\begin{itemize}
-> +\item \ref{devicenormative:Device Types / RTC Device / Device Operation}
-> +\item \ref{devicenormative:Device Types / RTC Device / Device Operation / Control Requests}
-> +\item \ref{devicenormative:Device Types / RTC Device / Device Operation / Read Requests}
-> +\end{itemize}
-> diff --git a/device-types/rtc/driver-conformance.tex b/device-types/rtc/driver-conformance.tex
-> new file mode 100644
-> index 000000000000..689c18d158d0
-> --- /dev/null
-> +++ b/device-types/rtc/driver-conformance.tex
-> @@ -0,0 +1,9 @@
-> +\conformance{\subsection}{RTC Driver Conformance}\label{sec:Conformance / Driver Conformance / RTC Driver Conformance}
-> +
-> +An RTC driver MUST conform to the following normative statements:
-> +
-> +\begin{itemize}
-> +\item \ref{drivernormative:Device Types / RTC Device / Device Operation}
-> +\item \ref{drivernormative:Device Types / RTC Device / Device Operation / Control Requests}
-> +\item \ref{drivernormative:Device Types / RTC Device / Device Operation / Read Requests}
-> +\end{itemize}
-> -- 
-> 2.43.0
-> 
-> 
-
+Authenticated or authentication?
