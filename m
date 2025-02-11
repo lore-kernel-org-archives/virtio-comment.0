@@ -1,351 +1,331 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (mail-bn8nam12on2065.outbound.protection.outlook.com [40.107.237.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08A16FB9
-	for <virtio-comment@lists.linux.dev>; Tue, 11 Feb 2025 12:33:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739277232; cv=none; b=DjT0Ich9PgzUJlK9v47iCTAbkyKPjwcKPP3YWFZo0ILWvI+x6Rer1h921K62v3YrKGVqAgF4fqwNZ/ZyC+7UIf4SZzUdz5TXRVEwleMPSqdlalKvpyvJE49hEXayH/FTxdoezxDjpZ1dYcaU+NtpWtA3yiX6XTN+MkzZvChS+8o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739277232; c=relaxed/simple;
-	bh=3x9i7iZGqMR1WJYmfjT5Xn5SXuVmOLddPnfxikwm/0I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=gMPg4anCJl0ldl1hlwsAg70mIC1HRlTb19mXq6Z6k+GP7S1dmU3krpXQypBXeHFbvVYpYZ1+AzMh9zuWl1XvpFwTbxeJ0x6FqC6rVxJ9V3/b3eBDOsK5EZ86oTzwd2Xbd7f3PoAMfiUooabCPyKEM6bN8CpB7Ci8O+cbpZYSn0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=doo1fGEI; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F502265622
+	for <virtio-comment@lists.linux.dev>; Tue, 11 Feb 2025 19:55:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.237.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1739303759; cv=fail; b=DQCOpQbxLYuz/lqsGAiymOKM/PxgNpJcS5N4IE/4/F92Eo0VyIFO30Q6rBjchp5n2kOSgdCnE44BZdFlbV4JTPWnExbOyjDpKwRR8XG7GyT5vMRBCq471wz9gD9h1T1CVVzMGeZFC2DsynESUShLUUUPpPkI+KeZMADnzcV3FmE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1739303759; c=relaxed/simple;
+	bh=W+C6/Hj8nlA3BDRu3A+PiZQV48ritILJ0JF6jZpkvYY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=gTtz6rchyOoxE5y65uQQf0t9XE499P3XIMy0n/Vp0/2TAtMM19RMUu/+ueNOOXLIDa4EFThP9NeK2Vxc73XogHs4dkkLsmRAhC7cUyIk8EUP9ID9uFN1Tuoq1lD7GL6lBtb6B0c7VFm38KyIO9bfP37nWw0uR7/rSvcotzIpqcM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=e9Y2cUcV; arc=fail smtp.client-ip=40.107.237.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="doo1fGEI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1739277228;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F6TWWnRuiydM6uZShcuII67jJX581Wk35wqpGeGCBLc=;
-	b=doo1fGEIx2gd5n4PzrvqhpLjbmhVfLDC1CvRDVC7hFa3DnGTmxi7bjEFh2nM7VaD0aN+TZ
-	Uw4rg+UY40oKQxIZVJEo7wsdZhrZ2cZRWr6lbQdeV8Gnfbd7FBfvW0Q1+oJGfiy2KqxOs5
-	Ax7sjvYBbSUtvFwxVr1t/gdgsZYwaPc=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-588-Dc8RrBCdPQeksOmG1P9mMw-1; Tue, 11 Feb 2025 07:33:47 -0500
-X-MC-Unique: Dc8RrBCdPQeksOmG1P9mMw-1
-X-Mimecast-MFC-AGG-ID: Dc8RrBCdPQeksOmG1P9mMw
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4394b2c19ccso11324485e9.1
-        for <virtio-comment@lists.linux.dev>; Tue, 11 Feb 2025 04:33:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739277226; x=1739882026;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=F6TWWnRuiydM6uZShcuII67jJX581Wk35wqpGeGCBLc=;
-        b=ZFySJqzfPBHEPrOpDZ/gIbx8AmPL2q7/0CVuY6nt64p63x8nBkgUExdxjnBE5Y8Pxf
-         jioZhOibb+9GyfSIWTb7owkWoQ0z36CvBc/39nrCXbYyroPu2+KdwpidJF94aQxE769f
-         d+/jTUpJDBbMRNtJy+4xQEzdscXa5CUSdrHkSPJI88Hxb5Dwbdr6haVHQnAU1CGNS/mJ
-         xNQ6SIJW/1vn9NLHIUMV+50SuT5CHjK5hftrQzlGiqpLaS0sdnmoAKPWle4eZ7ko0gxP
-         +ROTsrLD/sP/+LY1abPCrwRHc8eMXzc/7P8Q04sbawp9HyfqvZyBrd60qRzX/HTcvLgL
-         9oFQ==
-X-Gm-Message-State: AOJu0Yx0UQwRWiR/BETblnjiwfggQ1bJ3HfpL0fxqsDHfOIAzzycZ+eY
-	j3PH38suWcp58rpwcQad5+wlG6zR4sJ+bKhEOjLq1JkyZ2712oWhhf3ny5cM9ANtzFSoCeWUom8
-	AbL62MwvKruOvrTM7uklCQViGfLW7Dj1tiUMQM34+/vV9rw+LxJNad33KRcpelouA
-X-Gm-Gg: ASbGncuA+z1hblwcpXwC2pwislDbXuiJofHVhO4gPpo6vZXMBalZedqpWhn8ZImCeZW
-	W53/U+fI+WNF4GnBlmME1/6nvYc5+5Ru/fEDEjDdrYHOxjk0CM7DpnHUF8DwLMadkAJOvgE8jC/
-	/c6ryveAwRZpPG1AsS5UvDXSM6r9pExf2/jfbfqs4tEfqDr9/r2VKMh98WrnjuR0An+lfF2DmsD
-	NCcE2Kcs7jESu4TJJSlfXoVa61hmMP51nMhKsphC6a7gI+l+buc+O7p9XR5fIqjxJ94AczVKw==
-X-Received: by 2002:a05:600c:1e0d:b0:439:48f6:dd6e with SMTP id 5b1f17b1804b1-43948f6de36mr57931635e9.19.1739277226128;
-        Tue, 11 Feb 2025 04:33:46 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGzNa/0LGx4hYN8wZYHn9VIHctJCHJ8938h6/KnZQRt09sEIthXr6yg2+TWskzPjfwUzZlTYg==
-X-Received: by 2002:a05:600c:1e0d:b0:439:48f6:dd6e with SMTP id 5b1f17b1804b1-43948f6de36mr57931265e9.19.1739277225706;
-        Tue, 11 Feb 2025 04:33:45 -0800 (PST)
-Received: from fedora ([78.243.229.181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4390d94d753sm209457585e9.11.2025.02.11.04.33.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Feb 2025 04:33:45 -0800 (PST)
-Date: Tue, 11 Feb 2025 13:33:42 +0100
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: Peter Hilber <quic_philber@quicinc.com>
-Cc: virtio-comment@lists.linux.dev, Cornelia Huck <cohuck@redhat.com>,
-	Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	"Ridoux, Julien" <ridouxj@amazon.com>,
-	Trilok Soni <quic_tsoni@quicinc.com>,
-	Srivatsa Vaddagiri <quic_svaddagi@quicinc.com>
-Subject: Re: [PATCH v7 4/4] virtio-rtc: Add normative statements for alarm
- feature
-Message-ID: <Z6tDpi07Pyk+Xjzi@fedora>
-References: <20250123101616.664-1-quic_philber@quicinc.com>
- <20250123101616.664-5-quic_philber@quicinc.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="e9Y2cUcV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X/2zy0A6cL132CxtbyPh+ln1CHS/8D/cM51HwePMA4FT0YpVn3AjmHldJ92qCCGNLlexx8YLOHqMYS9+LUyY2oRvr0ctPCPlZLtopyYucOypuiB5+HJeMCp2mayEFjgpfl7E+3IZ0GKZR6YySdg95CnXN2f9s7ySuzAggkkTmC8UTIqeq+ovkAQzYdFW/AjsCiPQD+g+2lVgQy1mGqOccd2GQvvK0TX8OE/PYteUwOmnIWKV2yBfsxw4hDrGwZYn8jsC+iQb/9NuTvoPW5NzoCm2Ca4/K/eEwDOnVuqaSEK462il9EuYjrGhc9lN2EOOoX6ZREOL3yoVGDOwkQk0LA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5nAUYmp8DCdt6hwKg0Kj7ZlcIizXOYCigK7l0070aGw=;
+ b=G3EgnYihy/auEpiQdvWxcHuy8599Z6nZP05BWqPDLtIGXcp77C0uTxsrqkgQqgMGcbrEHi383gEiXSPnu75aebnmQXOyxM8I8bjp1iqPD3oLwq7XjipYPgOc7pWeoIj8Cit3Ac/mIbbxDR3/IJs+Ug7cfkTRo26nXVgVRuNzoOhmLLgXNr86mopVXDEUjh9p1nNoopkZjZuY4Jr/SGAAMxqDKBh9U+UvrWLUuqcp4B0/lvv2wUsWB/E2eLFm19h4cT+2iNHQl2uG3hhDHrUThQjoP9ZA+7zWrJ13+b+oddFFQW22C1ykxIWr9bfPNfvU8stbBSlrmWb4QnVKrZDf1Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5nAUYmp8DCdt6hwKg0Kj7ZlcIizXOYCigK7l0070aGw=;
+ b=e9Y2cUcVxOYbtpLzhexpsYO5OFib7tPknTxZRRgS2352q0lzq/uIpsherGBnIacJgFDig/S9OH//AZhE/X++skwG6dqwPTSrlVsc+DOA7NGTQflLI303gBjljDC3Q4WSz4ArKyJuv2pqPecxOCfuC3+XuPOE4u7ScpM7xrSFlwMX0EOC7L4deAku2XZx5ONIaD5D99nyEMrPlbubFrXGlWCGAJoZU9xAajP86qHevoV1I3G2A5T5z9HL/1tBGXZBew8YD0S+KeubrhcZcP6Mb/fwxwb1dMCAU1g+3syBeGpTGAn/ZQQtfFUqng92Sj9qot3a9anJcejpDEmxsI9gZw==
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
+ by CH3PR12MB7716.namprd12.prod.outlook.com (2603:10b6:610:145::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.11; Tue, 11 Feb
+ 2025 19:55:50 +0000
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::c06c:905a:63f8:9cd]) by CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::c06c:905a:63f8:9cd%3]) with mapi id 15.20.8422.015; Tue, 11 Feb 2025
+ 19:55:50 +0000
+From: Parav Pandit <parav@nvidia.com>
+To: Srujana Challa <schalla@marvell.com>, "virtio-comment@lists.linux.dev"
+	<virtio-comment@lists.linux.dev>
+CC: "mst@redhat.com" <mst@redhat.com>, "pabeni@redhat.com"
+	<pabeni@redhat.com>, "jasowang@redhat.com" <jasowang@redhat.com>,
+	"sburla@marvell.com" <sburla@marvell.com>, "ndabilpuram@marvell.com"
+	<ndabilpuram@marvell.com>, "jerinj@marvell.com" <jerinj@marvell.com>
+Subject: RE: [PATCH RFC v2 1/4] virtio-net: Add IPsec operation, capabilities
+ and resource objects
+Thread-Topic: [PATCH RFC v2 1/4] virtio-net: Add IPsec operation, capabilities
+ and resource objects
+Thread-Index: AQHbbJXymazuuDriDke8oOLpStpIwbNCmHVg
+Date: Tue, 11 Feb 2025 19:55:50 +0000
+Message-ID:
+ <CY8PR12MB71958BBB9A2E8216520917FCDCFD2@CY8PR12MB7195.namprd12.prod.outlook.com>
+References: <20250122062144.266725-1-schalla@marvell.com>
+ <20250122062144.266725-2-schalla@marvell.com>
+In-Reply-To: <20250122062144.266725-2-schalla@marvell.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|CH3PR12MB7716:EE_
+x-ms-office365-filtering-correlation-id: 269e2122-362a-46d8-8e44-08dd4ad615d7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|10070799003|366016|38070700018;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?p5WMa83WBJIAjVZebtmFICRpc/QLg0DDtVDh+E9Z23+CTF5WPtalRZm7xsLc?=
+ =?us-ascii?Q?ZKHSD7B1zTv9iW9p+BcLBraHfW0xfe0jWxcvcQMKyZzGXs0/FP4byspAzaRE?=
+ =?us-ascii?Q?xDYxwB+sY0vx5bcuXoshGCDA0jti/FUHyXBCZRBHVeP8WTIK8/6x0KJE7hgF?=
+ =?us-ascii?Q?TZ2B5A8q0QOz5UQRTH1+FGM7W6nTJkHiGRCXDcDVKTalrICidsFs1jz23Mpo?=
+ =?us-ascii?Q?M5myCANvtm6BPBJuUQb79WaWhbHOIy9f10MH5vmXVHUhXtd1qdw17eSC5wea?=
+ =?us-ascii?Q?VV1AlYCzvChbRI8+O3EG22dauWlk6JcgnFigQLN5sO03Q5FdpZJ+srr/Z5PQ?=
+ =?us-ascii?Q?jX/+vM51JgwBnYvWZdJctBjg5eoO3UlsuBlz/2mwg0xGB7tpmSnqsoCujm96?=
+ =?us-ascii?Q?rTj1iw7dDr0w0CPUtTiWHuXVUurfHPbt5Rq1RwX2QPUgZWjiE15K89jQ+w0i?=
+ =?us-ascii?Q?1nyO7LaM8/kIFzxqetmdscfiPeWG4djC1UBVieRTw1Q7sT0hkeQ1m9pormOi?=
+ =?us-ascii?Q?ARIUMDkqbDqp3flsI3urSil89aGSOiwwJ/iBWgvYs4w1/plsFHpPcUHpH2TL?=
+ =?us-ascii?Q?J1CnrKcv389v4TskPHlR/Ql7BqFdokG4bvWOqHhru/TOdx9lTrOlulruQOXZ?=
+ =?us-ascii?Q?H+Y75kMVJpWqFVNy/zFaxMCdv86SUIhLXnf+VbgfNnUrcCpuzEyuKwgQzT4K?=
+ =?us-ascii?Q?GqcNZqnWqlNW0MxpEtUfQTHG5r58zEFVeYbCdM/C6kuGoeJJi66kw3u3Upzx?=
+ =?us-ascii?Q?mZMrpm7sJ6RWZulMMncbplRsQvTxgt+R5yIrUPZX1/61ZKMcmNEXVj/nUKHg?=
+ =?us-ascii?Q?B9ZiKTrbkp2DQGshnNfAcPtzLWXXyucb13YtiQnhwT+KszaUSn67Z44HIfwk?=
+ =?us-ascii?Q?vghgmMhi5OEVPuGfbgl+DxATz9t6KrEreaoY9uvZdroC2ZCg3k95knG/TuIX?=
+ =?us-ascii?Q?EbYnWgkKql5uarn+rgi7GOGt2rvvsgZolK35zuqDLSKnw7k69SK7eqlGpfLa?=
+ =?us-ascii?Q?K7ZuHZy790w4sjW4tEwDjJdNV7rD8ut9xbWFxP4LL0n4MuWVN4k82qPOEmBp?=
+ =?us-ascii?Q?v7cHb4SS49KBuXEBVUeKC/wRJyMgg11TS/E4wlPyC1aVX8XFy11+CrkF6xGq?=
+ =?us-ascii?Q?5bYbNSTDLyBvst/gVA9fduXGj+tAalU5Q3thFhm0lE1d78WO7wEWnCf1Mwwh?=
+ =?us-ascii?Q?3FT+RGjuWfz0K7vwq1U23T2bylZvH6ALwtfbZMe7keehRRhW1hoxOZm/iQZM?=
+ =?us-ascii?Q?uz+8Bkj4zmZH66JFbkdhBNjTT7FmjWiIMf4kVj6TgCkJHZK+moBcEvaQwyCB?=
+ =?us-ascii?Q?IGvu07kCcFt3z9vChGK7CqJRAphVrZD5rMN0I/PGQgm8QJg3PtKELVMD1ejE?=
+ =?us-ascii?Q?6XFDV2/rc6BDUlFqb38D3xqn7KM3yoeHzXqQ/JyrjF656IJzrtQq9rGfXrE0?=
+ =?us-ascii?Q?cDcLyfjPauxbA0Q3AjsOccZe1aOeT6tb?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(10070799003)(366016)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?LUjC3OaEyb2vVp8DrxkWw56MtLHkGfdZb5Vd94NvCAt4pCM4NRDXjDB88jt5?=
+ =?us-ascii?Q?jA/40j2BU/XaHdz9Jj62MEb6QipDM3c8NF031cJHP9omrokE2IVdVcrMsxNG?=
+ =?us-ascii?Q?JrbrhB11v8he/5Tcqw3XjPLXy6T6CDnRRlokHu8UMw0m9WSTW6LcCCkRt9SP?=
+ =?us-ascii?Q?CYd+gqEP+hIfrrgBaYv3TBMDKJ/XQNTfhInKzzkn+2FxvQTwnK8eJhGXPTcL?=
+ =?us-ascii?Q?VK19qQdU0mMJ8hkckO4KTbnRKislWewwP/QhScqtBidjSu08tY67VNi3gx+9?=
+ =?us-ascii?Q?aJ/x6eKz9Ot2vd/3bD071k86vXVIKqR8imkpsSDsB7yWW6qRyeXV320ezG0+?=
+ =?us-ascii?Q?zc/gGCUwKX2Rm619W51+o1N+D2wAwbcH9vPElOo8MSUh/cCLszAXenC5W6ok?=
+ =?us-ascii?Q?uNGJRxVb3yMkbJRnkp1+OA7eVuHtt620GozaVH51RUGciRAgPmn0VkfoZY8R?=
+ =?us-ascii?Q?UAvF7j4DSSbLAD+qBpNSRcvw+VExhk6YL/Hd/74hk13vo4VTGhL8z6xcTwvS?=
+ =?us-ascii?Q?Qrw2nmScS8VKUCyeptymr1w+Don+ld08TF9XEMfqlo6Ci3X8yJ3DG5EsYbvy?=
+ =?us-ascii?Q?Gc6ms/lUIpF4IYKOaUqUYL5Shl9VRNIcUsKgAYoXAXmWXzqp7SRDPm2s/XjF?=
+ =?us-ascii?Q?N81KYxGg2tb2gVQ8v3risvv/bidu6nkoIqfPAMoeFAhF/+F4P9QDp2CA/egB?=
+ =?us-ascii?Q?1yo3CSTTw4f0IDuQS7wIYa18Y9xHy3H6w+Elm//Glpqyy+/w38EToz+oq0uI?=
+ =?us-ascii?Q?DWqNCgSjxfQUO7gITZsxU/a8DqwoRQ3JpJSR2JAtZ4N5ZS+y5Tp/4qUgW4QG?=
+ =?us-ascii?Q?eNK2z+IoeqhS0p1i786tByXMybQRoGc5QZxG4+XFCE9Dk3nb7Kq+AC5O+Mx4?=
+ =?us-ascii?Q?mo+0rh+IRvaof4Zqk2Fo4sAOmspmvpSHkmZm6kSwhHQjtzXk0UZhSaG13anP?=
+ =?us-ascii?Q?F7y3V5YfK8PaaOhNWdXdtexJtuSArZ1gnG55urpFVpeE62N+bZmyHqd8tCnp?=
+ =?us-ascii?Q?rCdh7AChw5UkuoBIUdZHgM9s4J+AzyRbWvf4jqi6o/GAvsDjClvc/f4fCbnA?=
+ =?us-ascii?Q?lpSpOceFythCUMR9iwn1r4BhKDFCUjIdMrj1jcOMe0Dmaq3UZqngWHHWvIVn?=
+ =?us-ascii?Q?1uyceLq3MDSSxcno2+axIWrjxWK5zZSNyh8ppdCFcmL+5S2rqKZJJdT9kAuI?=
+ =?us-ascii?Q?FxkCZsLKab1wUccU70rvWH2rUb/FgIIMVyEBr34OPYft+7T79l1MWDLmvgJY?=
+ =?us-ascii?Q?tMLLQA1VqSHtQe+1GM+yTdlItxqpIrVKXn12PsSMYa5A2dWl8fXoLUzT3WtG?=
+ =?us-ascii?Q?J5J7vdJyAhcWfgrgUG8/hkTLc3uxak38U+V95+7ua35xiyb1fmtzpJQ4Pt+Z?=
+ =?us-ascii?Q?JfBpcTyvq4P/umNSzHoyOBtQCnRKuwrszatKODsH8wmYpnRFAqloVwtTwwCj?=
+ =?us-ascii?Q?X4eCWfzPIX3gxeKL7L0lDaXBl9zJk95zB3V790RdM+NSPGCOUaCbzNZPN6V0?=
+ =?us-ascii?Q?A00xPaiK1hKvETdPuJ7S8ztrw5uOSiaR8vAhOg4QouQobMv7UBFg4ipepein?=
+ =?us-ascii?Q?X0NMxJn5QAfzvNaC36d0GdyK7Kp9KMg2Gq3trGGDlneZ5JexcEn7zF4QVo8y?=
+ =?us-ascii?Q?agDO2OXhtyK0IdMSrsyoBmQ=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20250123101616.664-5-quic_philber@quicinc.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 143p17BpfOv1KTtUuuJvbkYS6Y4KTC52Gplm7YGT2KI_1739277226
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 269e2122-362a-46d8-8e44-08dd4ad615d7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Feb 2025 19:55:50.6361
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9moLi8XvRu5AYMKALbyOuRU/gZh2NKVyxE9MvltcIC5gD5FkOpaoZq1v2MlSUogZTduIp2Wv59XOtCKzs01+SA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7716
 
-On Thu, Jan 23, 2025 at 11:16:15AM +0100, Peter Hilber wrote:
-> Add the normative statements for the alarm feature added previously.
-> 
-> Signed-off-by: Peter Hilber <quic_philber@quicinc.com>
+
+> From: Srujana Challa <schalla@marvell.com>
+> Sent: Wednesday, January 22, 2025 11:52 AM
+>=20
+> This commit introduces the IPsec Operation to the Net device along with t=
+he
+> capabilities and resource objects. This enables the offloading of IPsec
+> processing, both before transmission and after reception, thereby providi=
+ng
+> inline offload capabilities.
+>=20
+> Capbilities:
+>=20
+> 1. IPsec Resource Capability (VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP):
+>    Indicates the device's IPsec resource limits, such as the number of
+>    encryption and decryption Security Associations (SAs).
+> 2. IPsec SA Capability (VIRTIO_CRYPTO_IPSEC_SA_CAP): Specifies the
+>    supported IPsec modes, along with the supported cryptographic
+>    algorithms, authentication algorithms, IPsec options and
+>    anti-replay window size.
+>=20
+> Resource objects:
+> 1. VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA
+> 2. VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA
+>=20
+> These IPsec SA resource objects encompass parameters necessary for packet
+> encryption and decryption. These include the SPI, tunnel headers, IPsec m=
+ode,
+> IPsec options, and metadata specific to cipher and authentication.
+>=20
+> This patch refers the Virtio-crypto IPsec service operation capabilities =
+and
+> resource objects data structures and crypto algorithm definitions to avoi=
+d
+> duplication, however the admin command type vaule differs between Virtio-
+> crypto and Virtio-net.
+>=20
+> Signed-off-by: Srujana Challa <schalla@marvell.com>
 > ---
-> 
-> Notes:
->     v7:
->     
->     - Remove inadvertent v6 changes, which should have been part of
->       preceding patches.
->     
->     v4:
->     
->     - Update normative statements to match v4 changes to non-normative
->       statements (patch 3).
->     
->     - Driver should read clock to confirm that alarm has expired.
->     
->     - Formatting and wording improvements.
-> 
->  device-types/rtc/description.tex        | 157 ++++++++++++++++++++++++
->  device-types/rtc/device-conformance.tex |   4 +
->  device-types/rtc/driver-conformance.tex |   2 +
->  3 files changed, 163 insertions(+)
-> 
-> diff --git a/device-types/rtc/description.tex b/device-types/rtc/description.tex
-> index 47ad50cd95ca..32fed5f8620f 100644
-> --- a/device-types/rtc/description.tex
-> +++ b/device-types/rtc/description.tex
-> @@ -32,6 +32,11 @@ \subsection{Feature bits}\label{sec:Device Types / RTC Device / Feature bits}
->  VIRTIO_RTC_F_ALARM determines whether the device supports setting an
->  alarm for some of the clocks.
->  
-> +\devicenormative{\subsubsection}{Feature bits}{Device Types / RTC Device / Feature bits}
+>  device-types/net/description.tex | 49
+> ++++++++++++++++++++++++++++++++
+>  1 file changed, 49 insertions(+)
+>=20
+> diff --git a/device-types/net/description.tex b/device-
+> types/net/description.tex
+> index b2a0d39..020d090 100644
+> --- a/device-types/net/description.tex
+> +++ b/device-types/net/description.tex
+> @@ -124,6 +124,8 @@ \subsection{Feature bits}\label{sec:Device Types /
+> Network Device / Feature bits  \item[VIRTIO_NET_F_SPEED_DUPLEX(63)]
+> Device reports speed and duplex.
+>=20
+>  \item[VIRTIO_NET_F_RSS_CONTEXT(64)] Device supports multiple RSS
+> contexts.
 > +
-> +The device SHOULD offer VIRTIO_RTC_F_ALARM if the device can support
-> +setting an alarm for any of its clocks.
-
-I think you can remove `can`.
-
-> +
->  \subsection{Device configuration layout}\label{sec:Device Types / RTC Device / Device configuration layout}
->  
->  There is no configuration data for the device.
-> @@ -715,6 +720,12 @@ \subsubsection{Read Requests}\label{sec:Device Types / RTC Device / Device Opera
->  this specification, the device MUST use the nanosecond as unit for
->  field \field{clock_reading}.
->  
-> +If VIRTIO_RTC_F_ALARM was negotiated, and the device sent an alarm
-> +notification N for clock C with alarm time A, the device MUST, for all
-> +read requests of C which the driver marks as available after the device
-> +marked N as used, return a \field{clock_reading} which does not precede
-> +A, unless C stepped backwards to before A.
-> +
-
-I wonder if there is a simpler way to rewrite this paragraph. It is a
-bit hard to follow.
-
->  \subsubsection{Alarm Operation}\label{sec:Device Types / RTC Device / Device Operation / Alarm Operation}
->  
->  Through the optional alarm feature, the driver can set an alarm time. On
-> @@ -828,6 +839,79 @@ \subsubsection{Alarm Operation}\label{sec:Device Types / RTC Device / Device Ope
->  To prevent the above issues, the driver also marks buffers in the alarmq
->  as available only after completing the above steps for all clocks.
->  
-> +\devicenormative{\paragraph}{Alarm Operation}{Device Types / RTC Device / Device Operation / Alarm Operation}
-> +
-> +The device MAY retain both \field{driver_alarm_time} and
-> +\field{alarm_enabled} of a clock across a device reset.
-> +
-> +If the device did not retain \field{driver_alarm_time} and
-> +\field{alarm_enabled} of a clock across a device reset, the device MUST
-> +initialize \field{driver_alarm_time} to 0.
-> +
-> +If the device did not retain \field{driver_alarm_time} and
-> +\field{alarm_enabled} of a clock across a device reset, the device MUST
-> +initialize \field{alarm_enabled} to false.
-> +
-> +While \field{alarm_enabled} for a clock is true, the device MUST set the
-> +alarm time to \field{driver_alarm_time}.
-> +
-> +While \field{alarm_enabled} for a clock is false, the device MUST act as
-> +if the alarm time was in the future.
-> +
-> +If VIRTIO_RTC_F_ALARM was negotiated, the device MUST support the alarm
-> +messages, VIRTIO_RTC_REQ_READ_ALARM, VIRTIO_RTC_REQ_SET_ALARM,
-> +VIRTIO_RTC_REQ_SET_ALARM_ENABLED, and VIRTIO_RTC_NOTIF_ALARM, for one or
-> +more clocks.
-> +
-> +If VIRTIO_RTC_F_ALARM was not negotiated, the device MUST NOT support the
-> +alarm messages.
-> +
-> +The device MUST set flag VIRTIO_RTC_FLAG_ALARM_CAP in \field{struct
-> +virtio_rtc_resp_clock_cap.flags} if the respective clock supports alarm
-> +messages, and clear the flag otherwise.
-> +
-> +The device MUST consider it an alarm expiration event when the
-> +associated clock progresses (also: steps) from a time prior to the alarm
-> +time to the alarm time, or to a time after the alarm time.
-> +
-> +The device MUST consider it an alarm expiration event when the
-> +driver sets an alarm time which the associated clock has already reached
-> +or passed.
-> +
-> +If the device retained \field{driver_alarm_time} and
-> +\field{alarm_enabled} of a clock across a device reset, and the clock
-> +has already reached or passed the alarm time, the device MUST consider
-> +this device reset an alarm expiration event.
-> +
-> +If an alarm expiration event E happens, the device MUST start serving
-> +the alarm expiration event E.
-> +
-> +If the driver successfully requests VIRTIO_RTC_REQ_SET_ALARM, or
-> +VIRTIO_RTC_REQ_SET_ALARM_ENABLED, for clock C, the device MUST stop
-> +serving any previous alarm expiration event for C before the device
-> +marks the message as used.
-
-What do you mean with serving?
-
-> +
-> +If a clock C steps to a time previous to C's alarm time, the device MUST
-> +stop serving any previous alarm expiration event for C, within a grace
-> +period.
-> +
-> +If an alarm expiration event happens for clock C, the device MUST stop
-> +serving any previous alarm expiration event for C, within a grace
-> +period.
-> +
-> +If the device is currently serving an alarm expiration event E, the
-> +device MUST send a single VIRTIO_RTC_NOTIF_ALARM notification for E, as
-> +soon as an alarmq buffer is available for this purpose.
-> +
-> +While the device is serving an alarm expiration event, the device MAY
-> +execute implementation-specific alarm actions.
-> +
-> +The device MAY ignore the device status when executing
-> +implementation-specific alarm actions.
-> +
-> +The device MAY ignore whether VIRTIO_RTC_F_ALARM was negotiated when
-> +executing implementation-specific alarm actions.
-> +
->  \paragraph{Alarm Control Requests}
->  
->  If VIRTIO_RTC_F_ALARM is negotiated,
-> @@ -924,6 +1008,62 @@ \subsubsection{Alarm Operation}\label{sec:Device Types / RTC Device / Device Ope
->  \field{driver_alarm_time}.
+> +\item[VIRTIO_NET_F_IPSEC(69)] Device supports inline IPsec processing.
 >  \end{description}
->  
-> +\drivernormative{\subparagraph}{Alarm Control Requests}{Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Control Requests}
+>=20
+>  \subsubsection{Feature bit requirements}\label{sec:Device Types / Networ=
+k
+> Device / Feature bits / Feature bit requirements} @@ -415,6 +417,10 @@
+> \subsection{Device and driver capabilities}\label{sec:Device Types / Netw=
+ork
+> Dev  \hline
+>  0x0802 & \hyperref[par:Device Types / Network Device / Device Operation =
+/
+> Flow filter / Device and driver capabilities / VIRTIO-NET-FF-ACTION-
+> CAP]{VIRTIO_NET_FF_ACTION_CAP} & Flow filter action capability \\  \hline
+> +0x0803 & \hyperref[par:Device Types / Crypto Device / Device Operation
+> +/ IPsec Service Operation / Device and driver capabilities /
+> +VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP]{VIRTIO_NET_IPSEC_RESOURCE_CAP}
+> &
+> +IPsec resource capability \\ \hline
+> +0x0804 & \hyperref[par:Device Types / Crypto Device / Device Operation
+> +/ IPsec Service Operation / Device and driver capabilities /
+> +VIRTIO-CRYPTO-IPSEC-SA-CAP]{VIRTIO_NET_IPSEC_SA_CAP} & IPsec Security
+> +Association(SA) capability \\ \hline
+>  \end{tabularx}
+>=20
+>  \subsection{Device resource objects}\label{sec:Device Types / Network
+> Device / Device resource objects} @@ -431,6 +437,10 @@
+> \subsection{Device resource objects}\label{sec:Device Types / Network Dev=
+ice
+> / D  \hline
+>  0x0202 & \hyperref[par:Device Types / Network Device / Device Operation =
+/
+> Flow filter / Resource objects / VIRTIO-NET-RESOURCE-OBJ-FF-
+> RULE]{VIRTIO_NET_RESOURCE_OBJ_FF_RULE} & Flow filter rule object \\
+> \hline
+> +0x0203 & \hyperref[par:Device Types / Crypto Device / Device Operation
+> +/ IPsec Service Operation / Resource objects /
+> +VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-OUTBOUND-
+> SA]{VIRTIO_NET_RESOURCE_OBJ_I
+> +PSEC_OUTB_SA} & IPsec outbound SA resource object \\ \hline
+> +0x0204 & \hyperref[par:Device Types / Crypto Device / Device Operation
+> +/ IPsec Service Operation / Resource objects /
+> +VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-INBOUND-
+> SA]{VIRTIO_NET_RESOURCE_OBJ_IP
+> +SEC_INB_SA} & IPsec inbound SA resource object \\ \hline
+>  \end{tabularx}
+>=20
+>  \subsection{Device Operation}\label{sec:Device Types / Network Device /
+> Device Operation} @@ -3020,6 +3030,45 @@ \subsubsection{Flow
+> filter}\label{sec:Device Types / Network Device / Device Ope  capability =
+and
+> the classifier object, unless the VIRTIO_NET_FF_MASK_F_PARTIAL_MASK  is
+> enabled.
+>=20
+> +\subsubsection{IPsec Operation}\label{sec:Device Types / Network Device
+> +/ Device Operation / IPsec Operation}
 > +
-> +For VIRTIO_RTC_REQ_SET_ALARM and for any clock type listed in this
-> +specification, the driver MUST use the nanosecond as unit for the
-> +\field{alarm_time} field.
+> +A network device can support the processing of IPsec operations when
+> +VIRTIO_NET_F_IPSEC feature is negotiated. In addition to standard
+> +packet processing, the IPsec protocol processing is also handled by the
+> network device.
+> +This occurs both pre-transmit and post-receive, providing inline IPsec
+> capabilities.
 > +
-> +\devicenormative{\subparagraph}{Alarm Control Requests}{Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Control Requests}
+> +IPsec Inbound processing: In receive path the device will perform
+> +decryption, authentication, integrity checking and remove additional
+> +headers, including tunnel header if in tunnel mode, as well as the
+> +ESP/AH header from the packet (See \hyperref[intro:IPSEC]{[IPSEC]}). The
+> resulting packet contains only the plain data.
 > +
-> +If VIRTIO_RTC_F_ALARM was not negotiated, the device MUST set status
-> +VIRTIO_RTC_S_ENODEV for VIRTIO_RTC_REQ_READ_ALARM,
-> +VIRTIO_RTC_REQ_SET_ALARM, and VIRTIO_RTC_REQ_SET_ALARM_ENABLED.
+The device performs..
+Please use the present tense, check the crypto series as well.
+
+
+> +IPsec Outbound processing: In transmit path the device will perform
+> +encryption, attach ICV, update/add IP header and add ESP/AH
+> +header/trailer to the packet and transmit.
 > +
-> +If the clock does not support alarm messages, the device MUST set status
-> +VIRTIO_RTC_S_ENODEV for VIRTIO_RTC_REQ_READ_ALARM,
-> +VIRTIO_RTC_REQ_SET_ALARM, and VIRTIO_RTC_REQ_SET_ALARM_ENABLED.
+Use present tense.
+Like how you wrote below for example, 'the driver controls'.
+
+> +\paragraph{Device and driver capabilities} \label{par:Device Types /
+> +Network Device / Device Operation / IPsec Operation / Device and driver
+> +capabilities}
 > +
-> +For VIRTIO_RTC_REQ_READ_ALARM, the device MUST set field
-> +\field{alarm_time} to \field{driver_alarm_time}.
+> +The device and the driver indicate IPsec SA resource limits using the
+> +capability \hyperref[par:Device Types / Crypto Device / Device
+> +Operation / IPsec Service Operation / Device and driver capabilities /
+> +VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP]{VIRTIO_NET_IPSEC_RESOURCE_CAP}
+> +The \hyperref[par:Device Types / Crypto Device / Device Operation /
+> +IPsec Service Operation / Device and driver capabilities /
+> +VIRTIO-CRYPTO-IPSEC-SA-CAP]{VIRTIO_NET_IPSEC_SA_CAP}
+> +capability specifies which IPsec protocol capabilities the device
+> +supports. The driver indicates the IPsec parameters by setting the IPsec=
+ SA
+> capability prior to adding any resource objects.
 > +
-> +For VIRTIO_RTC_REQ_READ_ALARM, the device MUST set flag
-> +VIRTIO_RTC_FLAG_ALARM_ENABLED in field \field{flags} if
-> +\field{alarm_enabled} is true, and clear the flag otherwise.
+> +\paragraph{Resource objects}
+> +\label{par:Device Types / Network Device / Device Operation / IPsec
+> +Operation / Resource objects}
 > +
-> +For VIRTIO_RTC_REQ_READ_ALARM and for any clock type listed in this
-> +specification, the device MUST use the nanosecond as unit for the
-> +\field{alarm_time} field.
+> +The driver controls the IPsec SA resource object using administration
+> +commands described in \ref{sec:Basic Facilities of a Virtio Device / Dev=
+ice
+> groups / Group administration commands / Device resource objects}.
 > +
-> +For VIRTIO_RTC_REQ_SET_ALARM, the device MUST accept any
-> +\field{alarm_time} value.
+> +The IPsec SA resource object contains necessary parameters for packet
+> +encryption and decryption. These include the SPI, tunnel headers, IPsec
+> +mode, IPsec options, and data specific to cipher and authentication.
 > +
-> +If the device sets status VIRTIO_RTC_S_OK for VIRTIO_RTC_REQ_SET_ALARM,
-> +the device MUST set \field{driver_alarm_time} to the time
-> +represented by field \field{alarm_time}.
+> +See \hyperref[par:Device Types / Crypto Device / Device Operation / IPse=
+c
+> Service Operation / Resource objects / VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-
+> OUTBOUND-SA]{VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA}.
 > +
-> +If the device sets status VIRTIO_RTC_S_OK for VIRTIO_RTC_REQ_SET_ALARM,
-> +the device MUST set \field{alarm_enabled} to true if flag
-> +VIRTIO_RTC_FLAG_ALARM_ENABLED is set in field \field{flags}.
+> +See \hyperref[par:Device Types / Crypto Device / Device Operation / IPse=
+c
+> Service Operation / Resource objects / VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-
+> INBOUND-SA]{VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA}.
 > +
-> +If the device sets status VIRTIO_RTC_S_OK for VIRTIO_RTC_REQ_SET_ALARM,
-> +the device MUST set \field{alarm_enabled} to false if flag
-> +VIRTIO_RTC_FLAG_ALARM_ENABLED is cleared in field \field{flags}.
-> +
-> +If the device sets status VIRTIO_RTC_S_OK for
-> +VIRTIO_RTC_REQ_SET_ALARM_ENABLED, the device MUST set
-> +\field{alarm_enabled} to true if flag VIRTIO_RTC_FLAG_ALARM_ENABLED is
-> +set in field \field{flags}.
-> +
-> +If the device sets status VIRTIO_RTC_S_OK for
-> +VIRTIO_RTC_REQ_SET_ALARM_ENABLED, the device MUST set
-> +\field{alarm_enabled} to false if flag VIRTIO_RTC_FLAG_ALARM_ENABLED is
-> +cleared in field \field{flags}.
-> +
-> +If the device sets status VIRTIO_RTC_S_OK for
-> +VIRTIO_RTC_REQ_SET_ALARM_ENABLED, the device MUST retain
-> +\field{driver_alarm_time}.
-> +
->  \paragraph{Alarm Notifications}
->  
->  If the alarmq is present, the driver should make buffers available in
-> @@ -959,3 +1099,20 @@ \subsubsection{Alarm Operation}\label{sec:Device Types / RTC Device / Device Ope
->  
->  \field{clock_id} identifies the expired alarm through its associated
->  clock.
-> +
-> +\drivernormative{\subparagraph}{Alarm Notifications}{Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Notifications}
-> +
-> +If VIRTIO_RTC_F_ALARM was negotiated, the driver SHOULD populate the
-> +alarmq with buffers.
-> +
-> +The driver MUST allocate enough space for any alarmq message in the
-> +device-writable part of an alarmq buffer.
-> +
-> +If the driver receives a VIRTIO_RTC_NOTIF_ALARM notification, the driver
-> +SHOULD read the associated clock instead of assuming that the alarm time
-> +which the driver set last has been reached.
-> +
-> +\devicenormative{\subparagraph}{Alarm Notifications}{Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Notifications}
-> +
-> +The device MUST NOT send a VIRTIO_RTC_NOTIF_ALARM notification for a
-> +clock which does not support alarm messages.
-> diff --git a/device-types/rtc/device-conformance.tex b/device-types/rtc/device-conformance.tex
-> index 4303cd450542..705691a7319f 100644
-> --- a/device-types/rtc/device-conformance.tex
-> +++ b/device-types/rtc/device-conformance.tex
-> @@ -3,7 +3,11 @@
->  An RTC device MUST conform to the following normative statements:
->  
->  \begin{itemize}
-> +\item \ref{devicenormative:Device Types / RTC Device / Feature bits}
->  \item \ref{devicenormative:Device Types / RTC Device / Device Operation}
->  \item \ref{devicenormative:Device Types / RTC Device / Device Operation / Control Requests}
->  \item \ref{devicenormative:Device Types / RTC Device / Device Operation / Read Requests}
-> +\item \ref{devicenormative:Device Types / RTC Device / Device Operation / Alarm Operation}
-> +\item \ref{devicenormative:Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Control Requests}
-> +\item \ref{devicenormative:Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Notifications}
->  \end{itemize}
-> diff --git a/device-types/rtc/driver-conformance.tex b/device-types/rtc/driver-conformance.tex
-> index 689c18d158d0..a87c4cde99c2 100644
-> --- a/device-types/rtc/driver-conformance.tex
-> +++ b/device-types/rtc/driver-conformance.tex
-> @@ -6,4 +6,6 @@
->  \item \ref{drivernormative:Device Types / RTC Device / Device Operation}
->  \item \ref{drivernormative:Device Types / RTC Device / Device Operation / Control Requests}
->  \item \ref{drivernormative:Device Types / RTC Device / Device Operation / Read Requests}
-> +\item \ref{drivernormative:Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Control Requests}
-> +\item \ref{drivernormative:Device Types / RTC Device / Device Operation / Alarm Operation / Alarm Notifications}
->  \end{itemize}
-> -- 
-> 2.43.0
-> 
-> 
+>  \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
+> Types / Network Device / Legacy Interface: Framing Requirements}
+>=20
+> --
+> 2.25.1
 
