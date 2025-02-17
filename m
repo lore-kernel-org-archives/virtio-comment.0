@@ -1,362 +1,1090 @@
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com (mail-bn1nam02on2067.outbound.protection.outlook.com [40.107.212.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0AD61ACECC
-	for <virtio-comment@lists.linux.dev>; Sat, 15 Feb 2025 18:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.212.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1739644519; cv=fail; b=Ci46pFYHiDdes/vaxEXdBauF31YmRgYRoGKsPjpU7uleRqpgfRih2UC2lQYbVlHi5l8VEGCbTxOuGvVjiQivRUcb6PBGJ/+q95IrepbrTzkkdMFxk3Tnynzrnxp/Ln8wLjkDTayVnLUx+PLdd8Myc9XfbYBDbGy+vXto7UanHes=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1739644519; c=relaxed/simple;
-	bh=wWak1cMZ1CH6KJV5+HrSZqrje/nB/AOnbDkVhZOaZDY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Gr+C809Kc1WPqIYPXNVhR58/REAlepAFO2eCBsJ5BthwF/qRvrMSNY2iLLO2kx3SY+N6uGaDLJgoztb2WhGIJJ/+kY0nY8h2tqn1EYtornjISUaoMruzMIyxpjFFXrMCz2o3t8aKmjdWvbaM4QTSJNMDsbS0l3odsc6k+0hgLNQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=syvK+REs; arc=fail smtp.client-ip=40.107.212.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C4C1D52B
+	for <virtio-comment@lists.linux.dev>; Mon, 17 Feb 2025 02:28:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1739759283; cv=none; b=Hb6Fxp0k5kqGwdwIsB1Yb8FHKM2iHg+fYIB100V8dCNpLxNheQqgIdHySeodpXT+WoM96k6mZ8i/nzxtSNMmBcyAy20bSks9XYI+C9je34i+fPCaxKdHc8a/7rL7HVprapZeF/Q2AbSXG/Od5wTyFFs5BYjEMJkbEThMf7CAoKk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1739759283; c=relaxed/simple;
+	bh=2x03+kRYC9s8FYtn/bbwM6EPWy6bXE3jgS8zRHJAX8k=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KylN4H2b43pgkiWMLYTKrnN+XlhiFPLPU2WVS6IS7MAP4ANmTe+7z2YUMF8f9Ti+reF7uUd9JVGwGJVoc5LHOj+AC3mlgZjtYCWIjfg6UcM1FZVeSLfIdzvvr3/zCODfBWVZT9PYaiVHIL4u1dzdCBhNXHZ7BcJKtCWVfSLZpog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iE9p+rN/; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="syvK+REs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SJv1TpRINiawYKlQpdefvkHxQYGd5h21+IUrSTXMrutjR0fwyB56KjzuxupcNsA9h49TN2hZX4oA4bnTdCgFv8atmS8cdaJ+fCpCfm4WFCSeFqODa+9sRvobKYHJw+xRsjrcsZVC9hRBGPGGIzsbgqr/RJnsRhSUH9pp9LS9kftLB2y9tzfjeNxeThTBaZa46RnDIpE402lQEc4UcjyXdqMZF/lpWAEix+LU0fbyRJhkkh23D3btbkeJcv/Y5qrr3ahHI9ENwC+mGXaiQCkeBV7FRnEWqmeBnXYlJE8JW2op3SS2RaTvxJbri+jWxjXgFkr6/m/iQF1jR5y6KZG9mA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wWak1cMZ1CH6KJV5+HrSZqrje/nB/AOnbDkVhZOaZDY=;
- b=rrQ2mw/Bzs7nLwOdhlciXNtFWXAtIEqVeubfz4F5iq+Fpy9DJLWt3tN9hxOzahPFbXTp/bGLX5T1Q/Og2YeudvIM5pxsu2rKQaC7fZ6vQ6kj7m7N2DFbx3uxxdOzgL/BvLBpz+6zVYkgKbrnWVVFe+ZiBCGseYy9vq3cS7A2d2FLnvBfGXCuLUjCXO4FvbT6cXXYq1WkUibrwEfOihdD7tPA8IDV14fTqaFD1iaNWvUPoEE/Wy3ugJX5NTTE3Bdta81dchHXIQ8E0T3P0qQ2r0Sa60pDQN7k4u5zPF/sacHtrvxlOiWNLTtDQBVV8N6hEMWh0GFxy9g0MdKQEf2AFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wWak1cMZ1CH6KJV5+HrSZqrje/nB/AOnbDkVhZOaZDY=;
- b=syvK+REss7lKSSaMKKyVOEe/HdfJVN56IBcRrah77bjeldzlQ3T7IZob530i3JETiq9xtieUupMj5uRnlt6VQa+9BNf99Tke/tEhDiOPuEvO9Z5oF0O9XiINsGYbI88RV0OG+kUePCkhzqvj2FWdtBWhjapp1AAgI1lCsU2zSdr5KpgereMB4ev9+ckrYgwP7nfK03zGjun1dBmhHQifcQVhmZTx+F0kTcWsVzYqUOfpspkubZWLbMaVAJZR3L3/+sJWgSGvhukwn9M7JmS5V6fr4l1sagkYcFbZqtqhkUmARRRZOVfL42Zq8eazvjTEeYk5JsmCtVv9qVUnj0hbww==
-Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
- by IA1PR12MB6554.namprd12.prod.outlook.com (2603:10b6:208:3a2::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.18; Sat, 15 Feb
- 2025 18:35:12 +0000
-Received: from CY8PR12MB7195.namprd12.prod.outlook.com
- ([fe80::c06c:905a:63f8:9cd]) by CY8PR12MB7195.namprd12.prod.outlook.com
- ([fe80::c06c:905a:63f8:9cd%3]) with mapi id 15.20.8445.015; Sat, 15 Feb 2025
- 18:35:12 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: Srujana Challa <schalla@marvell.com>, "virtio-comment@lists.linux.dev"
-	<virtio-comment@lists.linux.dev>
-CC: "mst@redhat.com" <mst@redhat.com>, "cohuck@redhat.com"
-	<cohuck@redhat.com>, "mvaralar@redhat.com" <mvaralar@redhat.com>, Satananda
- Burla <sburla@marvell.com>, Nithin Kumar Dabilpuram
-	<ndabilpuram@marvell.com>, Jerin Jacob <jerinj@marvell.com>, Anoob Joseph
-	<anoobj@marvell.com>
-Subject: RE: [PATCH RFC v3 2/4] virtio-crypto: Add resource objects for IPsec
- outbound and inbound SAs
-Thread-Topic: [PATCH RFC v3 2/4] virtio-crypto: Add resource objects for IPsec
- outbound and inbound SAs
-Thread-Index: AQHbbJVH2vbwekEILUSGKA0h2hr3LrNBCgRQgARl54CAA2Ye4A==
-Date: Sat, 15 Feb 2025 18:35:12 +0000
-Message-ID:
- <CY8PR12MB7195760E0CB3F693B211A069DCF92@CY8PR12MB7195.namprd12.prod.outlook.com>
-References: <20250122061644.266560-1-schalla@marvell.com>
- <20250122061644.266560-3-schalla@marvell.com>
- <CY8PR12MB71951C75DE4B72B480A64F42DCF22@CY8PR12MB7195.namprd12.prod.outlook.com>
- <PH7SPRMB0130F8B80EAA835D74D84803A0FF2@PH7SPRMB0130.namprd18.prod.outlook.com>
-In-Reply-To:
- <PH7SPRMB0130F8B80EAA835D74D84803A0FF2@PH7SPRMB0130.namprd18.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|IA1PR12MB6554:EE_
-x-ms-office365-filtering-correlation-id: 7692e5c0-838b-487d-b831-08dd4def7bb8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?RjJoeG9UNDRPcFlRTHFZdlRFUjBQSldDSjNaSTBsY1V0eEdxaGhCM01ZcXZm?=
- =?utf-8?B?bjRIK1pGbDd5MU80OS90bUd2Zi96YnNpZ1JmYjhxVWpMa2JRT3FKVXlqbmph?=
- =?utf-8?B?QVFoSWpxdHgvejVUcHRpVVZZTGE1QWFWdFNnZHpXTEZPS2ozcDlsNDQwakJm?=
- =?utf-8?B?cnJ0WGpjbkZNN2JpejU1am5wRldDMGdxVHMrSTJUaDZTUW9ZNndrZWZ5Y0FF?=
- =?utf-8?B?N3FHNjB1bWVFZGtYekpYYTQyYkhETzNObzI4TlBJZXJwRFg1TEVUeG5kdXhQ?=
- =?utf-8?B?NFFRV29JY2VSUGp5VGR4dlM1MXFLTUtVMkRabDZqcnFiVnN2ZGd0YnNaWEZo?=
- =?utf-8?B?TndiS2pSWHlCcithSC9KcTlFYlZDSDNIVUoyWm1YU0F3UHg3Uk1HVmNvYnlx?=
- =?utf-8?B?RUg1OGRWWHhLTDN3c2U0U1BlS1lNaVBtMXpGMTNVZW5RRURxMGNaWmZTNGNq?=
- =?utf-8?B?V1ZrOXVsNmdhV0NML0x6U0ljbGNjZ3cvWTlvUWp5Ly9MV2NLZEtZMUZWbzha?=
- =?utf-8?B?c0JxM1FCd0RxTEI5bVZoTjQwVEErZ2dOQThGTDdrVlMxMEVrRGhWYWhzVmlP?=
- =?utf-8?B?d3ZtaHh3eittakx1Rzd0R3VxU1lUK1NqRWlYU3NsVDVRdzFyUkxrejJUT1o1?=
- =?utf-8?B?ZUYrSXNUdGgxTGFYMDVaTlMya2kvWDI0L1dQdFBpb1BGL1dxb01xbDNWV3M5?=
- =?utf-8?B?dDN3NUdmdE1hdlVhOU5qcERSaVEyKzYrR0Jpd2NyRlVsNFh3T0ttN0dPWVJ0?=
- =?utf-8?B?aE52SzFqY2dWRVFUZHl6TVErZDNNMno1TEw4WVpvN2lnSGFGSmlRMHRBRmt1?=
- =?utf-8?B?a2RtS2xLdTgvQnpWMFErcjlPZ0xUcndRMW1EcS9LbjRaTFNjek8rYS9EOFpq?=
- =?utf-8?B?N1h0U2JadVFrVHdZTFV0cGZHd3lVb3lvblpYcUs2TmJXa1puSkpmSlI3eXpu?=
- =?utf-8?B?ME44ODZJbG94VVVoSnhpcHBxZkt2dmkvSS83cXVvS2hnRmgxNERRcS9QSGE3?=
- =?utf-8?B?QVdEQXAvU29RVUd0bU1mUzg4Wk0zSFMvbXRXbTZ2UzBXRm50b3Y5dzRwTzhE?=
- =?utf-8?B?TkJEVmVFZkZ6MDB5Z3BtSERGeGVkVGpwb2wyYmptTU9PQTRzNjQ4Zlptam50?=
- =?utf-8?B?YlcyRTVsbURMVTZ6UGZ4Uzd5OUYrdTIwWk85a2w4U0NFQllpbTAyREMzVWNY?=
- =?utf-8?B?eU93YVN5N2ZFU1NuS0R4ckVjajJldnU0bVYycGF1OUIwUHU1Y1l2aVExM241?=
- =?utf-8?B?RFJzTmhpc1BVR01mbjE1WDhpOFJlb3J0Z3l3TGxmRGszSGVHVytrUzc0USs3?=
- =?utf-8?B?VzRFbVB1RTJwblNWSUhpOXZiSzNmbkxTZlJ3Q05OV0NrNTVIQjZTSGdTUkdv?=
- =?utf-8?B?S0VTRk05alpjOENrU0xWUWpEU3V0ejQ0TVZzc2U3bWVLQk5jNlU3UVluV1pK?=
- =?utf-8?B?a0g0KzZOTVRUcEtlaTdBcFU1UnNVNmxPSWpQL2ZTYWdJT05IV0JnNjlzWG1I?=
- =?utf-8?B?dk5oZlJ4ZTliVXNqU3I4V3JKVHVyS2ZvdTliN0UrZ0lKeEtEN1R5cS82YWRH?=
- =?utf-8?B?VmU3a0FrVjQvMCtBS1M4cG1iUFNkVDFwSHlUUThqc1JPbm5qYjI1NHZ0Z2V6?=
- =?utf-8?B?Nnpad0pLVGhaTmtiUjBUMDM1eHcveVNvaU9lVnlwWU9wbTJncSsybWIvVFZu?=
- =?utf-8?B?bDFzRWFYSis4Z0V2ZmFPekZoTGlMTFo4SXV1eGdpVC90bmJYS1dUZjZIamVM?=
- =?utf-8?B?NUV1UlBNbG40dmwzTVFkY1pOemlxRzBIZmdWd2I2NmdoQThRWXJWL080N1NM?=
- =?utf-8?B?Q1d1YXI2YTA5aUdISUlIVkZhbDBUYWRFdDBMcDF1T05IaHp5Z09sRkphMks5?=
- =?utf-8?B?TDhSSWFKeGZWQi9ERTZZclp6MGlmLzB6S2RjVVVuTmYvRnEvYVZHR3hqOHV6?=
- =?utf-8?Q?w/m4pEq35jrsU0ogNhCMirOl/Xs5I7sq?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?OGlnOTcwZ0Q0WTNnTFE0UTZaUjRHbHdHcTFad1dCbEVoV2NnV255ZjU3RW16?=
- =?utf-8?B?bDBUQjNtck9heGV4dWlPL3hHNktCSlVveVFLRGRCTmxaV0xZVXIwdUZvd09W?=
- =?utf-8?B?alRSeEFEdm42eGRpNlhRa2w3NjNmUlQ1cEhvd2FaNVZaRFVFSFNodWdEWmcr?=
- =?utf-8?B?Yy9QV05OVVV2ZDNlcVNPNkVWdkJ3WmpkcFVEZ2k4RCsrRElKdnZBTG1ZT0dU?=
- =?utf-8?B?UjZNWjR6QVBzN1V3dXhnZ2JvaTl3d3VSZlJwL0MvZFQxQlUxQ3dVSndKUnJ5?=
- =?utf-8?B?YXpRNm9DUnRmcUlDQWl2Rlo4R2RhZk95QUJCaGZVblJ4cW1od2RKVTNSMkdE?=
- =?utf-8?B?OGZ5NGdmdW9Vc0VJWVAwTGpCdStUQ3JnQlN3MEtUdER1QlN0NjNRdWdSbEtE?=
- =?utf-8?B?dEZnWStQc2VvajNsSm84S1RlemN4TjNDc3lyZWJDMjZuNnVkNGladld0NVBU?=
- =?utf-8?B?M3RCcUUzM3JmTS80dmJSWGFjYjZxZ1NSeGF3N01QR1RFcDJLRTlrVWh2RnNI?=
- =?utf-8?B?cGpGK1NCTUxqY3lPQzMrdnB5ZSsyUzN4Vzlub3JSMkZqM29wdUloNXh6TDBC?=
- =?utf-8?B?aWlkY2JGTk4yR3RjbFlFLzJ1c3VKNCthRUhSNStLMzJDTGhaVmNDcjBnYWda?=
- =?utf-8?B?dVJqaUxIS2M4VEFqbnFBSlZlbWpRYXB0ZUNIcW84RXhheW96SlM5Tk02RzJo?=
- =?utf-8?B?RGMyV1ozRi9UampyS25nK0ZXMjhXMDBFbWVzd3drYzJPT0FXQ2VWOHBxUE1K?=
- =?utf-8?B?NmJGKzZDUCtmWUNmMnZBUjhybTdsVnlzcm1Jd2t3V2h4c2FLekM5MHBIcXRy?=
- =?utf-8?B?OUJZQWZxRXIrMGlhZU9FSXhjZHk0ZHRTcTc0M1BqMlJ0VFQzbHJId01GUHpN?=
- =?utf-8?B?ZEh5cEd5eXV0SmJyWGhHNjd3N0cwYzgya1V2U3B1R0pqd25xbFdybjEzUTA3?=
- =?utf-8?B?NkNlMGVCeUtEM1g0RzVaVEN3RXBxTnYvRzJwckZZd2F6YVAwSDY4YlliVGxa?=
- =?utf-8?B?NDI3enI0Wk0wY3BUa2JaRlJ0dGhvdE41cG05REJEKzFCZ1ZUaE9qbFJpS2dx?=
- =?utf-8?B?VHc5dzdjeUdkaDBlMXRlMEhrYXBEcXYvN2xnMjdPT1RHdHRkZnhQMHNjTmNa?=
- =?utf-8?B?MUMzNTU0Z0s2OHpDUS9kSHA1QkJlcVpPUW01aUNCZ1RVSW5vYlRFZjhHaUNk?=
- =?utf-8?B?RHplTUhvNW1ta2Q4ay9scnJ3NU1JUFhVTnlUR1daWWxodUxIUStZZHRoRmxH?=
- =?utf-8?B?c1FhTGZPNGhLWDRrRjdEaGpSbkdwbDVteGdnSk9pMGZVZTBtdndhdXI4L3RP?=
- =?utf-8?B?WGFpTDNOZlhTbnplOGJkZkVLb3YwamVRU3VlRjM1SThFSk10MytRU1VvTmFV?=
- =?utf-8?B?bGM0R2VIdmtrV2lQY0pVcTJRbjk0RDFsSWdFTVBvZk5kMlNjeVkwMEhUOFpJ?=
- =?utf-8?B?bElRYlJkcHVsWHdZU0Y5cG5qMXQzdkp2Um0yL3cyNmZFazlYcWIrMnZjSVIw?=
- =?utf-8?B?T3FZT3JWMTJONDMrMGVoMktURTljUDUwUFNkS1JEWFVabjJoSFpjZi83K2hJ?=
- =?utf-8?B?eVRGTDNTLzRIb0hmLzJJam0wZFJYdHRma3NvallCdCtHOFZCL2d2NlNXdlRL?=
- =?utf-8?B?SmVhZWdXYzA3MXVPWHFGTjdIVXZNOEx3R2VPak5UaVY3Uk8rL2krQTV2MWxn?=
- =?utf-8?B?dG1PcGFXdDlENjUxd2tyVlFvc1pSMHNIc0FhU2xyTXFVNHZvSTdOMHQ0N3kw?=
- =?utf-8?B?VWF3ckhMTDNCdHJUeGlyRjM5dEJLR0xnUmhBcmg1UnBYNmNLc2RVQ0l0VGNO?=
- =?utf-8?B?TzZqbmtoSllVYkFKYmMwZUpTRmMwdmFVTU1tRjJiRHoyZko1YXZMZVBjTjVz?=
- =?utf-8?B?U1RmSjBwRWNaSE1zTmxWV3RqVEh3dlo4WEp5UENqUEZqOW5IMWtCT1FDYlp2?=
- =?utf-8?B?bno4czg5a2NMK2draDRYQ3BwN0RjU3pIQzNuZm1iKytGMzNjbEV1RUVqbXVo?=
- =?utf-8?B?UTNNN2xra1orem80MFpzbTVaaHNqY0lpc0FCcjVMR0xhZkNzT1FTUTNFMldN?=
- =?utf-8?B?Qys5K2xSWHY5dmt2UWRIUDNnYTdKVlcvWFlBT1ByenJjL3Nra0xqWXlYZVlj?=
- =?utf-8?Q?hN8E=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iE9p+rN/"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-220e6028214so59904025ad.0
+        for <virtio-comment@lists.linux.dev>; Sun, 16 Feb 2025 18:28:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1739759280; x=1740364080; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5koiDOl1wV/Q04Wzsqvq2lyi22BNjIAvD7SMZoWhSVc=;
+        b=iE9p+rN/gE+KsnM7PEi2LMSNWNVsDH5e/6dNuKOQHCI5IbWFTZnJIbH8xznOaxfB7k
+         0azqtxWTeAaNfQQv0s9MSZGIebFIJd/okcdMp1MOKl7ZXXIgcfoYKJcqs9qekQ9CConL
+         vwriPsxfXhQykTDjgzewTAvIJ5OZIKNDzxUNmIQYwIhW+X18RYU5bJ/9E2aR4RqaAnsV
+         fmCxM+GHxatYl3+RQJ1LPzKR8uZjYbgbjms78P+O1VUVVqg7xUEv8NA0dBE0djXBWJcg
+         R3vQiHgkM3608TU1PYWviBN0NkRapk2EXdM4nTv4W7j5r8TzLAinhkFFsL2m32CX5GHx
+         RtQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1739759280; x=1740364080;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=5koiDOl1wV/Q04Wzsqvq2lyi22BNjIAvD7SMZoWhSVc=;
+        b=aD0YGWFrPyFxZdiGBPzOMytwLeVvmHEppaHY5mpmNWHfVtoj+GuExel1LK3oCd1M3e
+         oc2WclIGxZoK01njVv+mLJkwz0p7UX0qL5ANF8EXk8kpB7xZijEC8zFFPVrOyCoPm1iG
+         ELvILov1XDf8Q//SDH5W/18Vfy3WN7hAqw7kPTkedJVTo3wRjUxcTA/OdDwGLLyCjNCG
+         BuBBp8EGUZVhWYGmIEqCCcQImLtrhcKm64I0C8eJ/D0573uCTCRzyKJGdbG2isvo/qo6
+         Q8c1SdeVuOGdhULt2o9GIrVZr6UGGgG1AFmliZNZi68eorWUjl9zJSv7N1wvVGXBw6oO
+         KogA==
+X-Forwarded-Encrypted: i=1; AJvYcCVQUwa4FVhHB3p6EbElrL62fGOqdaIVuBEehnO3oySckbPVc+S4Gaa0kTj1q/3hbnLGZ168uR/gmwUk9g8Yeg==@lists.linux.dev
+X-Gm-Message-State: AOJu0YyUE9fYNU47bIJ+xFAwC/YXo3ODPVR5uEs2zSVH7c/iAWIYb9sz
+	pssf7jTWqWBsNuvxhuT7oRVhOXfa+Dt/9H2xAqwoYRev4BLfFPOe
+X-Gm-Gg: ASbGncvnJaOJbcCQLIHbd7RIo6unnxwHBfEQmZDoK4iiWv4wgAjIc/Qo1kFfxSGpFB6
+	D1F+IK6DXkuPyOx1rMIm+/wThQQHOEDqYMp62LL0T5FJiqfy/W+GERb6yp9ZtemznuSB/DZDzoR
+	yZLN37rA3bAtVPmm85pKNRChXw8HrzcqB57ADKZAjcxG4kiXEN+up3PE86q/lnFTlTUoRk7ioyq
+	8j7XFNyZvqCBXfmLR0XM3jj8snBGvRPqgdO7mGIhQuZn2xEwi/UWdAnB//ih3OnbV7Yi+7U3UYz
+	4XqUEBJzA66jGYAt3sKjla9ctrFT+VqxkTov4Q==
+X-Google-Smtp-Source: AGHT+IHtvxeRB1NHGo7f5FilIaS3OWX2RYJVQ4TVCCb3pgEmSoYG1gILomUZ0AdA5sSvs2QxqpQu6w==
+X-Received: by 2002:a05:6a21:3988:b0:1ee:2d62:fab with SMTP id adf61e73a8af0-1ee8cc2590dmr16272766637.36.1739759279518;
+        Sun, 16 Feb 2025 18:27:59 -0800 (PST)
+Received: from devant.antgroup-inc.local ([47.89.83.0])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-7324277f28asm6899100b3a.163.2025.02.16.18.27.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 16 Feb 2025 18:27:58 -0800 (PST)
+From: Xuewei Niu <niuxuewei97@gmail.com>
+X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+To: parav@nvidia.com
+Cc: fupan.lfp@antgroup.com,
+	mst@redhat.com,
+	niuxuewei.nxw@antgroup.com,
+	niuxuewei97@gmail.com,
+	sgarzare@redhat.com,
+	virtio-comment@lists.linux.dev
+Subject: Re: [PATCH v5] virtio-vsock: Add support for multi devices
+Date: Mon, 17 Feb 2025 10:27:48 +0800
+Message-Id: <20250217022748.278559-1-niuxuewei.nxw@antgroup.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <CY8PR12MB7195C5BE96AC5811B368882CDCF92@CY8PR12MB7195.namprd12.prod.outlook.com>
+References: <CY8PR12MB7195C5BE96AC5811B368882CDCF92@CY8PR12MB7195.namprd12.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7692e5c0-838b-487d-b831-08dd4def7bb8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Feb 2025 18:35:12.4084
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: y/1y7gRB7LyWGu+GHt1gB9JBbOCNuYCdfWpsptD6+oFyWH65p6nzV1uW+49JIJpY25fpZhcfkQfztFMuz38W8A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6554
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-DQoNCj4gRnJvbTogU3J1amFuYSBDaGFsbGEgPHNjaGFsbGFAbWFydmVsbC5jb20+DQo+IFNlbnQ6
-IFRodXJzZGF5LCBGZWJydWFyeSAxMywgMjAyNSA4OjA2IFBNDQo+IA0KPiA+IFN1YmplY3Q6IFtF
-WFRFUk5BTF0gUkU6IFtQQVRDSCBSRkMgdjMgMi80XSB2aXJ0aW8tY3J5cHRvOiBBZGQgcmVzb3Vy
-Y2UNCj4gPiBvYmplY3RzIGZvciBJUHNlYyBvdXRib3VuZCBhbmQgaW5ib3VuZCBTQXMNCj4gPg0K
-PiA+ID4gRnJvbTogU3J1amFuYSBDaGFsbGEgPHNjaGFsbGFA4oCKbWFydmVsbC7igIpjb20+ID4g
-U2VudDogV2VkbmVzZGF5LA0KPiA+ID4gSmFudWFyeSAyMiwgMjAyNSAxMTrigIo0NyBBTSA+ID4g
-VGhpcyBjb21taXQgaW50cm9kdWNlcyByZXNvdXJjZQ0KPiA+ID4gb2JqZWN0cyB0byBlbmFibGUg
-dGhlIGRyaXZlci9kZXZpY2UgdG8gY3JlYXRlID4gSVBzZWMgU2VjdXJpdHkNCj4gPiA+IEFzc29j
-aWF0aW9ucw0KPiA+ID4gKFNBcykgZm9yIGJvdGggaW5ib3VuZA0KPiA+DQo+ID4NCj4gPg0KPiA+
-ID4gRnJvbTogU3J1amFuYSBDaGFsbGEgPHNjaGFsbGFAbWFydmVsbC5jb20+DQo+ID4gPiBTZW50
-OiBXZWRuZXNkYXksIEphbnVhcnkgMjIsIDIwMjUgMTE6NDcgQU0NCj4gPiA+DQo+ID4gPiBUaGlz
-IGNvbW1pdCBpbnRyb2R1Y2VzIHJlc291cmNlIG9iamVjdHMgdG8gZW5hYmxlIHRoZSBkcml2ZXIv
-ZGV2aWNlDQo+ID4gPiB0byBjcmVhdGUgSVBzZWMgU2VjdXJpdHkgQXNzb2NpYXRpb25zIChTQXMp
-IGZvciBib3RoIGluYm91bmQgYW5kDQo+ID4gPiBvdXRib3VuZA0KPiA+IGRpcmVjdGlvbnMuDQo+
-ID4gPg0KPiA+ID4gVGhlIElQc2VjIFNBIG9iamVjdHMgaW5jbHVkZSBlc3NlbnRpYWwgcGFyYW1l
-dGVycyByZXF1aXJlZCBmb3INCj4gPiA+IHBhY2tldCBvdXRib3VuZCBhbmQgaW5ib3VuZCBwcm9j
-ZXNzaW5nLCBzdWNoIGFzIFNQSSwgdHVubmVsIGhlYWRlcnMsDQo+ID4gPiBJUHNlYyBtb2RlLCBJ
-UHNlYyBvcHRpb25zIGFuZCBjaXBoZXIvYXV0aGVudGljYXRpb24gc3BlY2lmaWMgZGF0YS4NCj4g
-PiA+DQo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBTcnVqYW5hIENoYWxsYSA8c2NoYWxsYUBtYXJ2ZWxs
-LmNvbT4NCj4gPiA+IC0tLQ0KPiA+ID4gIGRldmljZS10eXBlcy9jcnlwdG8vZGVzY3JpcHRpb24u
-dGV4IHwgMTQ1DQo+ID4gPiArKysrKysrKysrKysrKysrKysrKysrKysrKysrDQo+ID4gPiAgMSBm
-aWxlIGNoYW5nZWQsIDE0NSBpbnNlcnRpb25zKCspDQo+ID4gPg0KPiA+ID4gZGlmZiAtLWdpdCBh
-L2RldmljZS10eXBlcy9jcnlwdG8vZGVzY3JpcHRpb24udGV4IGIvZGV2aWNlLQ0KPiA+ID4gdHlw
-ZXMvY3J5cHRvL2Rlc2NyaXB0aW9uLnRleCBpbmRleCAyYzAwZTUwLi4wYmEwOWRmIDEwMDY0NA0K
-PiA+ID4gLS0tIGEvZGV2aWNlLXR5cGVzL2NyeXB0by9kZXNjcmlwdGlvbi50ZXgNCj4gPiA+ICsr
-KyBiL2RldmljZS10eXBlcy9jcnlwdG8vZGVzY3JpcHRpb24udGV4DQo+ID4gPiBAQCAtMzM2LDYg
-KzMzNiwyMCBAQCBcc3Vic2VjdGlvbntEZXZpY2UgYW5kIGRyaXZlcg0KPiA+ID4gY2FwYWJpbGl0
-aWVzfVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzIC8gQ3J5cHRvIERldmkgIFxobGluZQ0KPiA+ID4g
-XGVuZHt0YWJ1bGFyeH0NCj4gPiA+DQo+ID4gPiArXHN1YnNlY3Rpb257RGV2aWNlIHJlc291cmNl
-IG9iamVjdHN9XGxhYmVse3NlYzpEZXZpY2UgVHlwZXMgLw0KPiA+ID4gK0NyeXB0byBEZXZpY2Ug
-LyBEZXZpY2UgcmVzb3VyY2Ugb2JqZWN0c30NCj4gPiA+ICsNCj4gPiA+ICtUaGUgY3J5cHRvIGRl
-dmljZSBoYXMgdGhlIGZvbGxvd2luZyByZXNvdXJjZSBvYmplY3RzLg0KPiA+ID4gKw0KPiA+ID4g
-K1xiZWdpbnt0YWJ1bGFyeH17XHRleHR3aWR0aH17IHxsfHxsfFh8IH0gXGhsaW5lIHR5cGUgJiBO
-YW1lICYNCj4gPiA+ICtEZXNjcmlwdGlvbiBcXCBcaGxpbmUgXGhsaW5lDQo+ID4gPiArMHgwMjAw
-ICYgXGh5cGVycmVmW3BhcjpEZXZpY2UgVHlwZXMgLyBDcnlwdG8gRGV2aWNlIC8gRGV2aWNlDQo+
-ID4gPiArT3BlcmF0aW9uIC8gSVBzZWMgU2VydmljZSBPcGVyYXRpb24gLyBSZXNvdXJjZSBvYmpl
-Y3RzIC8NCj4gPiA+ICtWSVJUSU8tQ1JZUFRPLVJFU09VUkNFLU9CSi1JUFNFQy1PVVRCT1VORC0N
-Cj4gPiA+IFNBXXtWSVJUSU9fQ1JZUFRPX1JFU09VUkNFX09CDQo+ID4gPiArSl9JUFNFQ19PVVRC
-T1VORF9TQX0gJiBJUHNlYyBvdXRib3VuZCBTQSByZXNvdXJjZSBvYmplY3QgXFwgXGhsaW5lDQo+
-ID4gPiArMHgwMjAxICYgXGh5cGVycmVmW3BhcjpEZXZpY2UgVHlwZXMgLyBDcnlwdG8gRGV2aWNl
-IC8gRGV2aWNlDQo+ID4gPiArT3BlcmF0aW9uIC8gSVBzZWMgU2VydmljZSBPcGVyYXRpb24gLyBS
-ZXNvdXJjZSBvYmplY3RzIC8NCj4gPiA+ICtWSVJUSU8tQ1JZUFRPLVJFU09VUkNFLU9CSi1JUFNF
-Qy1JTkJPVU5ELQ0KPiA+ID4gU0Fde1ZJUlRJT19DUllQVE9fUkVTT1VSQ0VfT0JKDQo+ID4gPiAr
-X0lQU0VDX0lOQk9VTkRfU0F9ICYgSVBzZWMgaW5ib3VuZCBTQSByZXNvdXJjZSBvYmplY3QgXFwg
-XGhsaW5lDQo+ID4gPiArXGVuZHt0YWJ1bGFyeH0NCj4gPiA+ICsNCj4gPiA+ICBcc3Vic2VjdGlv
-bntEZXZpY2UgT3BlcmF0aW9ufVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzIC8gQ3J5cHRvDQo+ID4g
-PiBEZXZpY2UgLyBEZXZpY2UgT3BlcmF0aW9ufQ0KPiA+ID4NCj4gPiA+ICBUaGUgb3BlcmF0aW9u
-IG9mIGEgdmlydGlvIGNyeXB0byBkZXZpY2UgaXMgZHJpdmVuIGJ5IHJlcXVlc3RzDQo+ID4gPiBw
-bGFjZWQgb24gdGhlIHZpcnRxdWV1ZXMuDQo+ID4gPiBAQCAtMjAyOCwzICsyMDQyLDEzNCBAQCBc
-c3Vic3Vic2VjdGlvbntJUFNFQyBTZXJ2aWNlDQo+ID4gPiBPcGVyYXRpb259XGxhYmVse3NlYzpE
-ZXZpY2UgVHlwZXMgLyBDcnlwdG8gRGV2aWNlIC8gIFxobGluZQ0KPiA+ID4gXGVuZHt0YWJ1bGFy
-eH0gXGVuZHt0YWJsZX0NCj4gPiA+ICsNCj4gPiA+ICtccGFyYWdyYXBoe1Jlc291cmNlIG9iamVj
-dHN9DQo+ID4gPiArXGxhYmVse3BhcjpEZXZpY2UgVHlwZXMgLyBDcnlwdG8gRGV2aWNlIC8gRGV2
-aWNlIE9wZXJhdGlvbiAvIElQc2VjDQo+ID4gPiArU2VydmljZSBPcGVyYXRpb24gLyBSZXNvdXJj
-ZSBvYmplY3RzfQ0KPiA+ID4gKw0KPiA+ID4NCj4gPg0KPiArXHN1YnBhcmFncmFwaHtWSVJUSU9f
-Q1JZUFRPX1JFU09VUkNFX09CSl9JUFNFQ19PVVRCT1VORF9TQX1cbGENCj4gPiBiDQo+ID4gPiBl
-bHtwYXI6RA0KPiA+ID4gK2V2aWNlIFR5cGVzIC8gQ3J5cHRvIERldmljZSAvIERldmljZSBPcGVy
-YXRpb24gLyBJUHNlYyBTZXJ2aWNlDQo+ID4gPiArT3BlcmF0aW9uIC8gUmVzb3VyY2Ugb2JqZWN0
-cyAvDQo+ID4gPiArVklSVElPLUNSWVBUTy1SRVNPVVJDRS1PQkotSVBTRUMtT1VUQk9VTkQtU0F9
-DQo+ID4gPiArDQo+ID4gPiArQSBkcml2ZXIgY2FuIGhhdmUgb3V0Ym91bmQgU0FzIGJldHdlZW4g
-MCBhbmQgXGZpZWxke291dGJfc2FfbGltaXR9LA0KPiA+ID4gK2FzIHNwZWNpZmllZCBieSB0aGUg
-Y2FwYWJpbGl0eSBWSVJUSU9fQ1JZUFRPX0lQU0VDX1JFU09VUkNFX0NBUC4NCj4gPiA+ICtGb3Ig
-dGhlIElQc2VjIG91dGJvdW5kIFNBIHJlc291cmNlIG9iamVjdA0KPiA+ID4gK1xmaWVsZHtyZXNv
-dXJjZV9vYmpfc3BlY2lmaWNfZGF0YX0gaXMgaW4gdGhlIGZvcm1hdCBcZmllbGR7c3RydWN0DQo+
-ID4gdmlydGlvX2NyeXB0b19yZXNvdXJjZV9vYmpfaXBzZWNfc2F9Lg0KPiA+ID4gKw0KPiA+ID4g
-K1xiZWdpbntsc3RsaXN0aW5nfQ0KPiA+ID4gK3N0cnVjdCBpbl9hZGRyIHsNCj4gPiA+ICsgICAg
-ICAgIGxlMzIgc19hZGRyOw0KPiA+ID4gK307DQo+ID4gPiArDQo+ID4gPiArc3RydWN0IGluNl9h
-ZGRyIHsNCj4gPiA+ICsgICAgICAgIHVuaW9uIHsNCj4gPiA+ICsgICAgICAgICAgICAgICAgdTgg
-IFM2X3U4WzE2XTsNCj4gPiA+ICsgICAgICAgICAgICAgICAgbGUzMiBTNl91MzJbNF07DQo+ID4g
-PiArICAgICAgICAgICAgICAgIGxlNjQgUzZfdTY0WzJdOw0KPiA+ID4gKyAgICAgICAgfSBTNl91
-bjsNCj4gPiA+ICt9Ow0KPiA+ID4gKw0KPiA+IEFueSByZWFzb24gZm9yIHVuaW9uPyBDYW4gd2Ug
-anVzdCBoYXZlIHM2X3U4Pw0KPiA+IChzNiBpbiBzbWFsbCkuDQo+IEkgaGF2ZSBjb3BpZWQgZnJv
-bSB0aGUgUkZDLiAgV2lsbCBjaGFuZ2UgaXQgb3IgY2FuIHdlIGFkZCByZWZlcmVuY2UgdG8gdGhl
-IFJGQw0KPiBmb3IgdGhlc2Ugc3RydWN0dXJlcyBpbnN0ZWFkIG9mIGRlZmluaW5nIGhlcmU/DQo+
-ID4NCj4gPiA+ICtzdHJ1Y3QgdmlydGlvX2NyeXB0b19pcHNlY190dW5uZWxfcGFyYW0gew0KPiA+
-ID4gKyAgICAgICAgLyogVHVubmVsIHR5cGU6IElQdjQgb3IgSVB2NiAqLw0KPiA+ID4gKyAgICAg
-ICAgdTggdHlwZTsNCj4gPiA+ICsgICAgICAgIHU4IHJlc2VydmVkWzNdOw0KPiA+ID4gKyAgICAg
-ICAgdW5pb24gew0KPiA+ID4gKyAgICAgICAgICAgICAgICAvKiBJUHY0IHR1bm5lbCBoZWFkZXIg
-cGFyYW1ldGVycyAqLw0KPiA+ID4gKyAgICAgICAgICAgICAgICBzdHJ1Y3Qgew0KPiA+ID4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgIC8qIElQdjQgc291cmNlIGFkZHJlc3MgKi8NCj4gPiA+ICsg
-ICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgaW5fYWRkciBzcmNfaXA7DQo+ID4gPiArICAg
-ICAgICAgICAgICAgICAgICAgICAgLyogSVB2NCBkZXN0aW5hdGlvbiBhZGRyZXNzICovDQo+ID4g
-PiArICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGluX2FkZHIgZHN0X2lwOw0KPiA+ID4g
-KyAgICAgICAgICAgICAgICAgICAgICAgIC8qIElQdjQgRGlmZmVyZW50aWF0ZWQgU2VydmljZXMg
-Q29kZSBQb2ludCAqLw0KPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgIHU4IGRzY3A7DQo+
-ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgLyogSVB2NCBEb24ndCBGcmFnbWVudCBiaXQg
-Ki8NCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICB1OCBkZjsNCj4gPiA+ICsgICAgICAg
-ICAgICAgICAgICAgICAgICAvKiBJUHY0IFRpbWUgVG8gTGl2ZSAqLw0KPiA+ID4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgIHU4IHR0bDsNCj4gPiBQbGVhc2UgYWRkIHBhZGRpbmcgYnl0ZXMgdG8g
-YWxpZ24gdG8gMzItYml0Lg0KPiBXaWxsIGRvLg0KPiA+ID4gKyAgICAgICAgICAgICAgICB9IGlw
-djQ7DQo+ID4gPiArICAgICAgICAgICAgICAgIC8qIElQdjYgdHVubmVsIGhlYWRlciBwYXJhbWV0
-ZXJzICovDQo+ID4gPiArICAgICAgICAgICAgICAgIHN0cnVjdCB7DQo+ID4gPiArICAgICAgICAg
-ICAgICAgICAgICAgICAgLyogSVB2NiBzb3VyY2UgYWRkcmVzcyAqLw0KPiA+ID4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgIHN0cnVjdCBpbjZfYWRkciBzcmNfYWRkcjsNCj4gPiA+ICsgICAgICAg
-ICAgICAgICAgICAgICAgICAvKiBJUHY2IGRlc3RpbmF0aW9uIGFkZHJlc3MgKi8NCj4gPiA+ICsg
-ICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgaW42X2FkZHIgZHN0X2FkZHI7DQo+ID4gPiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgLyogSVB2NiBmbG93IGxhYmVsICovDQo+ID4gPiArICAg
-ICAgICAgICAgICAgICAgICAgICAgbGUzMiBmbGFiZWw7DQo+ID4gPiArICAgICAgICAgICAgICAg
-ICAgICAgICAgLyogSVB2NiBob3AgbGltaXQgKi8NCj4gPiA+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICB1OCBobGltaXQ7DQo+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgLyogSVB2NiBE
-aWZmZXJlbnRpYXRlZCBTZXJ2aWNlcyBDb2RlIFBvaW50ICovDQo+ID4gPiArICAgICAgICAgICAg
-ICAgICAgICAgICAgdTggZHNjcDsNCj4gPiBUaGlzIG9uZSB0b28uIFBsZWFzZSBjaGVjayBpbiBi
-b3RoIHRoZSBzZXJpZXMsIHZuZXQgaXBzZWMgYW5kIHRoaXMgb25lLg0KPiBXaWxsIGRvLg0KPiA+
-DQo+ID4gPiArICAgICAgICAgICAgICAgIH0gaXB2NjsNCj4gPiA+ICsgICAgICAgIH07DQo+ID4g
-PiArfTsNCj4gPiA+ICsNCj4gPiA+ICtzdHJ1Y3QgdmlydGlvX2NyeXB0b19yZXNvdXJjZV9vYmpf
-aXBzZWNfc2Egew0KPiA+ID4gKyAgICAgICAgbGUzMiBzcGk7DQo+ID4gPiArICAgICAgICBsZTMy
-IHNhbHQ7DQo+ID4gPiArICAgICAgICBsZTY0IG9wdGlvbnM7DQo+ID4gPiArICAgICAgICBzdHJ1
-Y3QgdmlydGlvX2NyeXB0b19pcHNlY190dW5uZWxfcGFyYW0gcGFyYW07DQo+ID4gPiArICAgICAg
-ICBsZTY0IGVzbjsNCj4gPiA+ICsgICAgICAgIGxlMTYgdWRwX3Nwb3J0Ow0KPiA+ID4gKyAgICAg
-ICAgbGUxNiB1ZHBfZHBvcnQ7DQo+ID4gPiArICAgICAgICBsZTMyIHJlcGxheV93aW5fc3o7DQo+
-ID4gPiArICAgICAgICBsZTY0IGNpcGhlcl9hbGdvOw0KPiA+ID4gKyAgICAgICAgc3RydWN0IHsN
-Cj4gPiA+ICsgICAgICAgICAgICBsZTE2IGxlbmd0aDsNCj4gPiA+ICsgICAgICAgICAgICB1OCBk
-YXRhW107DQo+ID4gPiArICAgICAgICB9IGNpcGhlcl9rZXk7DQo+ID4gPiArICAgICAgICBsZTY0
-IGF1dGhfYWxnbzsNCj4gPiA+ICsgICAgICAgIHN0cnVjdCB7DQo+ID4gPiArICAgICAgICAgICAg
-bGUxNiBsZW5ndGg7DQo+ID4gPiArICAgICAgICAgICAgdTggZGF0YVtdOw0KPiA+ID4gKyAgICAg
-ICAgfSBhdXRoX2tleTsNCj4gPiBUd28gZHluYW1pYyBhcnJheXMgaW4gb25lIGlzIHByb2JsZW1h
-dGljLg0KPiA+IEFuZCBiZWxvdyBmaWVsZHMgY2FuIG5ldmVyIGJlIHJlZmVyZW5jZWQgd2l0aG91
-dCBsZWFybmluZyB0aGUgbGVuZ3RoDQo+ID4gb2YgYXV0aF9rZXkgYW5kIGNpcGhlcl9rZXkuDQo+
-ID4gQmVsb3cgYXJlIGNyaXRpY2FsIGZpZWxkcyB0byBhY2Nlc3MgdGhlIHdob2xlIHJlc3Qgb2Yg
-dGhlIG9iamVjdC4NCj4gPiBTbyBwbGVhc2UgbW92ZSB0aGVtIGF0IHN0YXJ0Lg0KPiBXaWxsIGRv
-Lg0KPiA+DQo+ID4gQWxzbyBjYW4gd2UgaGF2ZSBhYm92ZSB0d28gZHluYW1pYyBhcnJheSBhcyBj
-b25zdGFudCBzaXplIGFycmF5LA0KPiA+IGluc3RlYWQgb2YgZHluYW1pYz8NCj4gV2Ugd291bGQg
-bGlrZSB0byBtYWtlIGl0IGEgc2luZ2xlIGR5bmFtaWMgYXJyYXkuIEhhdmUgYm90aCBsZW5ndGhz
-DQo+IGF1dGhfa2V5X2xlbiBhbmQgY2lwaGVyX2tleV9sZW4gYXQgdGhlIGVuZCBmb2xsb3dlZCBi
-eSBkYXRhW10gYXJyYXkuIFRoZSBmaXJzdA0KPiB4KGF1dGhfa2V5X2xlbikgYnl0ZXMgcmVwcmVz
-ZW50cyB0aGUgYXV0aF9rZXkgYW5kIG5leHQgeShjaXBoZXJfa2V5X2xlbikNCj4gYnl0ZXMgcmVw
-cmVzZW50cyB0aGUgY2lwaGVyIGtleS4NCj4gQ291bGQgeW91IGNvbmZpcm0gaWYgdGhpcyBhcHBy
-b2FjaCBpcyBmaW5lPw0KQ29kZSB3b250IGJlIGFibGUgdG8gbWFrZSBzdXJlIG9mIGZsZXhpYmxl
-IGFycmF5IHJlbGF0ZWQga2VybmVsIGFuZC9vciBjb21waWxlciBmYWNpbGl0aWVzLg0KSWYgbW9z
-dCBjb21tb24ga2V5cyBhcmUgMjU2LWJpdCB3aWRlLCBjYW4gd2UgbGltaXQgZWFjaCBhcnJheSBz
-aXplIGZvciA2NEIgZm9yIDUxMi1iaXRzIGZ1dHVyZSBrZXkgc2l6ZT8NClRoaXMgd2F5LCB0aGVy
-ZSBhcmUgc3RpbGwgdHdvIGFycmF5cywgc3RhdGljL2R5bmFtaWMgY2hlY2tlcnMgZW5hYmxlZCBh
-bmQgY292ZXJzIGNvbW1vbiBjYXNlcyB0b28/DQoNCkFuZCBpZiB0aGVyZSBpcyB1c2UgY2FzZSBm
-b3IgMTAyNCBvciA0SyBiaXRzIGtleSwgbWF5IGJlIGZvciBpdCBjYW4gd2UgZGVmaW5lIGp1c3Qg
-bmV3IHN0cnVjdCBmb3IgaXQ/DQpNYXkgYmUgaXBzZWNfc2FfbGFyZ2Vfa2V5IHt9IGZvciBpdCB3
-aXRoIHJlc3Qgb2YgdGhlIGZpZWxkcyBhcyBjb21tb24/DQoNCj4gPg0KPiA+ID4gKyAgICAgICAg
-bGUzMiBvYmpfaWQ7DQo+ID4gPiArICAgICAgICB1OCBtb2RlOw0KPiA+ID4gKyAgICAgICAgdTgg
-ZGlyZWN0aW9uOw0KPiA+ID4gK30NCj4gPiA+ICtcZW5ke2xzdGxpc3Rpbmd9DQo+ID4gPiArDQo+
-ID4gPiArXGZpZWxke3NwaX0gaXMgdGhlIFNlY3VyaXR5IFBhcmFtZXRlciBJbmRleChTUEkpIHVz
-ZWQgdG8gdW5pcXVlbHkNCj4gPiA+ICtpZGVudGlmeSB0aGUNCj4gPiA+IElQc2VjIFNBLg0KPiA+
-ID4gK1xmaWVsZHtzYWx0fSBpcyB0aGUgMzIgYml0IHNhbHQgdmFsdWUgdXNlZCBpbiB0aGUgY3J5
-cHRvZ3JhcGhpYyBvcGVyYXRpb25zLg0KPiA+ID4gKw0KPiA+ID4gK1xmaWVsZHtvcHRpb25zfSBz
-cGVjaWZpZXMgdGhlIE9wdGlvbnMgZm9yIGNvbmZpZ3VyaW5nIHRoZSBJUHNlYyBTQSwNCj4gPiA+
-ICtzZWUgXHJlZnt0YWJsZTpEZXZpY2UgVHlwZXMgLyBDcnlwdG8gRGV2aWNlIC8gRGV2aWNlIE9w
-ZXJhdGlvbiAvDQo+ID4gPiArSVBzZWMgU2VydmljZQ0KPiA+ID4gT3BlcmF0aW9uIC8gRGV2aWNl
-IGFuZCBkcml2ZXIgY2FwYWJpbGl0aWVzIC8NCj4gPiA+IFZJUlRJTy1DUllQVE8tSVBTRUMtU0Et
-Q0FQIC8gSVBzZWMgT3B0aW9uc30uDQo+ID4gPiArDQo+ID4gPiArXGZpZWxke3BhcmFtfSBzcGVj
-aWZpZXMgdGhlIHBhcmFtZXRlcnMgZm9yIElQc2VjIHR1bm5lbCBtb2RlLg0KPiA+ID4gK1xmaWVs
-ZHtlc259IGlzIHRoZSBzdGFydGluZyBzZXF1ZW5jZSBudW1iZXIuDQo+ID4gPiArXGZpZWxke3Vk
-cF9zcG9ydH0gaXMgdGhlIHNvdXJjZSBwb3J0IGZvciBVRFAgZW5jYXBzdWxhdGlvbi4NCj4gPiA+
-ICtcZmllbGR7dWRwX2Rwb3J0fSBpcyB0aGUgZGVzdGluYXRpb24gcG9ydCBmb3IgVURQIGVuY2Fw
-c3VsYXRpb24uDQo+ID4gPiArXGZpZWxke3JlcGxheV93aW5fc3p9IGlzIHRoZSBhbnRpLXJlcGxh
-eSB3aW5kb3cgc2l6ZSB0byBlbmFibGUNCj4gPiA+ICtzZXF1ZW5jZSByZXBsYXkgYXR0YWNrIGhh
-bmRsaW5nLCByZXBsYXkgY2hlY2tpbmcgaXMgZGlzYWJsZWQgaWYgdGhlDQo+ID4gPiArd2luZG93
-DQo+ID4gc2l6ZSBpcyAwLg0KPiA+ID4gKw0KPiA+ID4gK1xmaWVsZHtjaXBoZXJfYWxnb30gaXMg
-dGhlIGNpcGhlciBhbGdvcml0aG0gaWRlbnRpZmllciBzZWUNCj4gPiA+ICtccmVme3NlYzpEZXZp
-Y2UgVHlwZXMgLyBDcnlwdG8gRGV2aWNlIC8gU3VwcG9ydGVkIGNyeXB0byBzZXJ2aWNlcw0KPiA+
-ID4gKy8gQ0lQSEVSIHNlcnZpY2VzfSBcZmllbGR7Y2lwaGVyX2tleX0gc3BlY2lmaWVzIHRoZSBj
-aXBoZXIga2V5IGFuZCBpdHMNCj4gbGVuZ3RoLg0KPiA+ID4gK1xmaWVsZHthdXRoX2FsZ299IGlz
-IHRoZSBBdXRoZW50aWNhdGlvbiBhbGdvcml0aG0gaWRlbnRpZmllcg0KPiA+ID4gK1xmaWVsZHth
-dXRoX2tleX0gc3BlY2lmaWVzIHRoZSBhdXRoZW50aWNhdGlvbiBrZXkgZGF0YSBhbmQgaXRzIGxl
-bmd0aC4NCj4gPiA+ICtcZmllbGR7b2JqX2lkfSBzcGVjaWZpZXMgdGhlIG9iamVjdCBpZCBvZiB0
-aGUgU0EgdGhhdCBjYW4gYmUgdXNlZA0KPiA+ID4gK3RvIHJldHJpZXZlIGRyaXZlci1kZWZpbmVk
-IGRhdGEgYXNzb2NpYXRlZCB3aXRoIHRoZSBJUHNlYyBTQS4NCj4gPiA+ICsNCj4gPiA+ICtcZmll
-bGR7bW9kZX0gc3BlY2lmaWVzIHRoZSBtb2RlIG9mIHRoZSBJUHNlYyBTQSwgc2VlDQo+ID4gPiAr
-XHJlZnt0YWJsZTpEZXZpY2UgVHlwZXMgLyBDcnlwdG8gRGV2aWNlIC8gRGV2aWNlIE9wZXJhdGlv
-biAvIElQc2VjDQo+ID4gPiArU2VydmljZSBPcGVyYXRpb24gLyBEZXZpY2UNCj4gPiA+IGFuZCBk
-cml2ZXIgY2FwYWJpbGl0aWVzIC8gVklSVElPLUNSWVBUTy1JUFNFQy1TQS1DQVAgLyBJUHNlYyBN
-b2Rlc30uDQo+ID4gPiArDQo+ID4gPiArXGZpZWxke2RpcmVjdGlvbn0gc3BlY2lmaWVzIElQc2Vj
-IFNBIGRpcmVjdGlvbi4NCj4gPiA+ICsNCj4gPiA+ICtcYmVnaW57dGFibGV9W0hdDQo+ID4gPiAr
-XGNhcHRpb257SVBzZWMgRGlyZWN0aW9ufQ0KPiA+ID4gK1xsYWJlbHt0YWJsZTpEZXZpY2UgVHlw
-ZXMgLyBDcnlwdG8gRGV2aWNlIC8gRGV2aWNlIE9wZXJhdGlvbiAvDQo+ID4gPiArSVBzZWMgU2Vy
-dmljZSBPcGVyYXRpb24gLyBEZXZpY2UgYW5kIGRyaXZlciBjYXBhYmlsaXRpZXMgLw0KPiA+ID4g
-K1ZJUlRJTy1DUllQVE8tUkVTT1VSQ0UtT0JKLUlQU0VDLU9VVEJPVU5ELVNBIC8gSVBzZWMgRGly
-ZWN0aW9ufQ0KPiA+ID4gK1xiZWdpbnt0YWJ1bGFyeH17XHRleHR3aWR0aH17IHxsfFh8WHwgfSBc
-aGxpbmUgVHlwZSAmIE5hbWUgJg0KPiA+ID4gK0Rlc2NyaXB0aW9uIFxcIFxobGluZSBcaGxpbmUN
-Cj4gPiA+ICsweDAgJiAtICYgUmVzZXJ2ZWQgXFwNCj4gPiA+ICtcaGxpbmUNCj4gPiA+ICsweDEg
-JiBWSVJUSU9fQ1JZUFRPX0lQU0VDX0RJUl9PVVRCT1VORCAmIElQc2VjIGRpcmVjdGlvbg0KPiBv
-dXRib3VuZA0KPiA+ID4gXFwNCj4gPiA+ICtcaGxpbmUNCj4gPiA+ICsweDIgJiBWSVJUSU9fQ1JZ
-UFRPX0lQU0VDX0RJUl9JTkJPVU5EICYgSVBzZWMgZGlyZWN0aW9uIGluYm91bmQNCj4gXFwNCj4g
-PiA+ICtcaGxpbmUgXGVuZHt0YWJ1bGFyeH0gXGVuZHt0YWJsZX0NCj4gPiA+ICsNCj4gPiA+DQo+
-ID4NCj4gK1xzdWJwYXJhZ3JhcGh7VklSVElPX0NSWVBUT19SRVNPVVJDRV9PQkpfSVBTRUNfSU5C
-T1VORF9TQX1cbGFiZQ0KPiA+IGwNCj4gPiA+IHtwYXI6RGUNCj4gPiA+ICt2aWNlIFR5cGVzIC8g
-Q3J5cHRvIERldmljZSAvIERldmljZSBPcGVyYXRpb24gLyBJUHNlYyBTZXJ2aWNlDQo+ID4gPiAr
-T3BlcmF0aW9uIC8gUmVzb3VyY2Ugb2JqZWN0cyAvDQo+ID4gPiArVklSVElPLUNSWVBUTy1SRVNP
-VVJDRS1PQkotSVBTRUMtSU5CT1VORC1TQX0NCj4gPiA+ICsNCj4gPiA+ICtBIGRyaXZlciBjYW4g
-aGF2ZSBpbmJvdW5kIFNBcyBiZXR3ZWVuIDAgYW5kIFxmaWVsZHtpbmJfc2FfbGltaXR9LA0KPiA+
-ID4gK2FzIHNwZWNpZmllZCBieSB0aGUgY2FwYWJpbGl0eSBWSVJUSU9fQ1JZUFRPX0lQU0VDX1JF
-U09VUkNFX0NBUC4NCj4gPiA+ICtGb3IgdGhlIElQc2VjIGluYm91bmQgU0EgcmVzb3VyY2Ugb2Jq
-ZWN0DQo+ID4gPiArXGZpZWxke3Jlc291cmNlX29ial9zcGVjaWZpY19kYXRhfQ0KPiA+ID4gK2lz
-IGluIHRoZSBmb3JtYXQgXGZpZWxke3N0cnVjdCB2aXJ0aW9fY3J5cHRvX3Jlc291cmNlX29ial9p
-cHNlY19zYX0uDQo+ID4gPiAtLQ0KPiA+ID4gMi4yNS4xDQoNCg==
+> > From: Xuewei Niu <niuxuewei97@gmail.com>
+> > Sent: Monday, January 20, 2025 6:46 PM
+> > 
+> > > > From: Xuewei Niu <niuxuewei97@gmail.com>
+> > > > Sent: Tuesday, December 31, 2024 12:43 PM
+> > > >
+> > > > > > From: Xuewei Niu <niuxuewei97@gmail.com>
+> > > > > > Sent: Tuesday, December 31, 2024 11:03 AM
+> > > > > >
+> > > > > > > > From: Xuewei Niu <niuxuewei97@gmail.com>
+> > > > > > > > Sent: Thursday, December 5, 2024 11:59 AM
+> > > > > > > >
+> > > > > > > > Hi Parav,
+> > > > > > > >
+> > > > > > > > Sorry for the late reply. I was super busy in the past few
+> > > > > > > > weeks. I hope things become more regular from now on.
+> > > > > > > >
+> > > > > > > > > > From: Xuewei Niu <niuxuewei97@gmail.com>
+> > > > > > > > > > Sent: Thursday, October 24, 2024 12:38 PM
+> > > > > > > > > >
+> > > > > > > > > > This patch brings a new feature, called "multi devices",
+> > > > > > > > > > to the virtio vsock. It introduces a
+> > "VIRTIO_VSOCK_F_MULTI_DEVICES"
+> > > > > > > > > > feature
+> > > > > > > > bit, and a "index"
+> > > > > > > > > > field to the config for the virtio vsock.
+> > > > > > > > > >
+> > > > > > > > > > == Motivition ==
+> > > > > > > > > >
+> > > > > > > > > > Vsock is a lightweight and widely used data exchange
+> > > > > > > > > > mechanism between host and guest. Kata Containers, a
+> > > > > > > > > > secure container runtime, leverages the capability to
+> > > > > > > > > > exchange control data between the shim and the
+> > > > > > > > kata-agent.
+> > > > > > > > > >
+> > > > > > > > > > Currently, the virtio-vsock only supports one device,
+> > > > > > > > > > resulting in the following
+> > > > > > > > > > limitations:
+> > > > > > > > > >
+> > > > > > > > > > * Poor performance isolation: All vsock connections
+> > > > > > > > > > share the same virtqueue.
+> > > > > > > > > Do you have rough estimates on how much performance is
+> > > > > > > > > affected (or is
+> > > > > > > > poor) due to single queue?
+> > > > > > > > > I am not familiar vsock application space.
+> > > > > > > > > It is something like 10K socket msg/sec or 10 million
+> > > > > > > > > socket msg/sec due to
+> > > > > > > > single queue?
+> > > > > > > >
+> > > > > > > > Yes, but the data shows the performance doesn't grow much.
+> > > > > > > If so, please update the commit log description to not have
+> > > > > > > performance as
+> > > > > > the motivation.
+> > > > > > > Rather performance as side gain.
+> > > > > > > Please write it as main motivation is ... TSI etc details.
+> > > > > >
+> > > > > > Will do.
+> > > > > >
+> > > > > > > > I think we can
+> > > > > > > > skip the performance part for now. Here are reasons:
+> > > > > > > >
+> > > > > > > > - The biggest motivition to make us support this feautre is
+> > > > > > > > mutli-
+> > > > backends
+> > > > > > > >   support. In the Kata Containers cases, we'd like to use Transparent
+> > > > > > > >   Socket Impersonation (TSI) to use virtio-vsock for data plane. The
+> > > > > > > >   limitation of the single vsock device is quite clear.
+> > > > > > > Do you mean TSI functionality requires multiple vsock device
+> > > > > > > as the only
+> > > > > > way forward?
+> > > > > > > I thought even one vsock device can do TSI too?
+> > > > > > > Which information is mandatory from multiple devices to do TSI?
+> > > > > >
+> > > > > > Yes. TSI doesn't rely on this feature.
+> > > > > Hmm. So I lost you. :(
+> > > > > If TSI can be achieved without mult-device, you probably need to
+> > > > > rewrite it
+> > > > which one needs multi-device.
+> > > >
+> > > > Will do.
+> > > >
+> > > > > > However, we have finished a POC that integrates vhost-user-vsock
+> > > > > > with Ztunnel, a per-host proxy for Istio service mesh. The
+> > > > > > diagram is as following.
+> > > > > >
+> > > > > >
+> > > > > >
+> > > > > >
+> > > > ╔═════════════════════════════════════════
+> > > > ═══
+> > > > > > ═══╗
+> > > > > >                              ║ VMM                                           ║
+> > > > > >                              ║                                               ║
+> > > > > >                              ║   ╔═════════════╗
+> > > > ╔═════════════╗
+> > > > > > ║
+> > > > > >                              ║   ║    device   ║ <════════ ║  kata-agent ║   ║
+> > > > > >     ╔════════════════════╗   ║
+> > > > ╚═════════════╝virtio-
+> > > > > > vsock═════════════╝   ║
+> > > > > >     ║                    ║   ║                                               ║
+> > > > > >     ║  Ztunnel           ║   ║                                               ║
+> > > > > >     ║                    ║   ║                                               ║
+> > > > > >     ║    ╔═════════════╗ ║   ║    vhost-user-vsock
+> > > > > > ╔═════════════╗   ║
+> > > > > >     ║    ║    device   ║ ║
+> > > > <══════════════════════════════ ║
+> > > > > > user app  ║   ║
+> > > > > >     ║    ╚═════════════╝ ║   ║
+> > > > > > ╚═════════════╝   ║
+> > > > > >     ║                    ║   ║                                               ║
+> > > > > >     ╚════════════════════╝
+> > > > > >
+> > > > ╚═════════════════════════════════════════
+> > > > ═══
+> > > > > > ═══╝
+> > > > > >
+> > > > > > Kata-agent is a required component to manage containers in Kata
+> > > > Containers.
+> > > > > > It uses virtio-vsock to communicate with the shim.
+> > > > > >
+> > > > > > The device for networking is offloaded to the Ztunnel using
+> > > > > > vhost-user protocol in order to bypass network stacks on both
+> > > > > > host and guest. We can't achieve this without the multi-device feature.
+> > > > > The above diagram achieves the described feature using single device.
+> > > > > Or the arrow 'virtio-vsock' consist of multiple devices? If so,
+> > > > > better to
+> > > > upgrade the diagram box 'device' to 'devices'.
+> > > >
+> > > > The diagram shows two devices: one in the VMM, and one in the
+> > > > Ztunnel. So I update the diagram with number to make it clear.
+> > > >
+> > > >
+> > > > ╔═════════════════════════════════════════
+> > > > ══════╗
+> > > >                              ║ VMM                                           ║
+> > > >                              ║                                               ║
+> > > >                              ║   ╔═════════════╗
+> > ╔═════════════╗
+> > > > ║
+> > > >                              ║   ║   device1   ║ <════════ ║  kata-agent ║   ║
+> > > >     ╔════════════════════╗   ║
+> > > > ╚═════════════╝virtio-vsock═════════════╝   ║
+> > > >     ║                    ║   ║                                               ║
+> > > >     ║  Ztunnel           ║   ║                                               ║
+> > > >     ║                    ║   ║                                               ║
+> > > >     ║    ╔═════════════╗ ║   ║    vhost-user-vsock
+> > > > ╔═════════════╗   ║
+> > > >     ║    ║   device2   ║ ║
+> > > > <══════════════════════════════ ║   user app  ║   ║
+> > > >     ║    ╚═════════════╝ ║   ║
+> > > > ╚═════════════╝   ║
+> > > >     ║                    ║   ║                                               ║
+> > > >     ╚════════════════════╝
+> > > > ╚═════════════════════════════════════════
+> > > > ══════╝
+> > > >
+> > >
+> > > From my limited understanding, it appears that the driver that is using
+> > device1 and device2 are two different drivers, is that right?
+> > 
+> > Yes, you are right,
+> > 
+> > > > > > > > - This feature gives vsock device the capability to improve
+> > performance.
+> > > > > > > >   Apart from the driver side, optimizations on the VMM side are
+> > also
+> > > > > > > >   required. For example, VMM spawns an exclusive thread for
+> > > > > > > > each
+> > > > vsock
+> > > > > > > >   device. But we don't have enough time to do that.
+> > > > > > > > - Stefano said that they have a plan to add support
+> > > > > > > > multi-virtqueues in
+> > > > > > the
+> > > > > > > >   feature to enhance the isolation of vsock devices. We are
+> > > > > > > > doing the
+> > > > > > same
+> > > > > > > >   thing, but with different approaches.
+> > > > > > > >
+> > > > > > > > > > By the way, although multi-queues can solve this
+> > > > > > > > > > problem, they do not conflict.
+> > > > > > > > > > * Cannot enable more than one backend: Virtio-vsock,
+> > > > > > > > > > vhost-vsock, and vhost-user-vsock cannot be enabled
+> > > > > > > > > > simultaneously
+> > > > > > on the transport.
+> > > > > > > > > >
+> > > > > > > > > > We'd like to transfer networking data, based on TSI
+> > > > > > > > > > (Transparent Socket
+> > > > > > > > > > Impersonation) technique, over vsock via the vhost-user
+> > > > > > > > > > protocol to reduce overhead. However, by default, the
+> > > > > > > > > > vsock device is occupied by the kata- agent, a control
+> > > > > > > > > > component for Kata
+> > > > Containers.
+> > > > > > > > > >
+> > > > > > > > > > == Typical Usages ==
+> > > > > > > > > >
+> > > > > > > > > > Assuming there are two virtio-vsock devices on the
+> > > > > > > > > > guest, with CIDs
+> > > > > > > > > > 3 and 4 respectively. And the device with CID 3 is default.
+> > > > > > > > > >
+> > > > > > > > > > ==== Guest -> Host ====
+> > > > > > > > > >
+> > > > > > > > > > Use the device with CID 3.
+> > > > > > > > > >
+> > > > > > > > > > ```c
+> > > > > > > > > > fd = socket(AF_VSOCK);
+> > > > > > > > > > bind(fd, 3, -1);
+> > > > > > > > > > connect(fd, 2, 1234);
+> > > > > > > > > > n = write(fd, buffer);
+> > > > > > > > > >
+> > > > > > > > > > // or use default (no bind) fd = socket(AF_VSOCK);
+> > > > > > > > > > connect(fd, 2, 1234); n = write(fd, buffer); ```
+> > > > > > > > > >
+> > > > > > > > > > Use the device with CID 4.
+> > > > > > > > > >
+> > > > > > > > > > ```c
+> > > > > > > > > > fd = socket(AF_VSOCK);
+> > > > > > > > > > bind(fd, 4, -1);
+> > > > > > > > > > connect(fd, 2, 1234);
+> > > > > > > > > > n = write(fd, buffer);
+> > > > > > > > > > ```
+> > > > > > > > > Above and below example is not using the index that you
+> > > > > > > > > are introducing in
+> > > > > > > > this patch.
+> > > > > > > > > Can you please elaborate?
+> > > > > > > >
+> > > > > > > > When we have many vsock devices, we need to know the
+> > > > > > > > position of those devices. The devices are arranged in a (linked)
+> > array, see below:
+> > > > > > > How does the driver know how many devices would be accessible
+> > > > > > > to the
+> > > > > > driver?
+> > > > > > > I suppose it does not need to know it. It can just work with
+> > > > > > > current number
+> > > > > > of active devices. Isn't it?
+> > > > > >
+> > > > > > Seems like it is not very clean here.
+> > > > > >
+> > > > > > Yes, the driver doesn't need to know it.
+> > > > > >
+> > > > > > The "index" is not the real index of devices. It is a kind of
+> > > > > > ordering for devices. The device with less index is at the front
+> > > > > > of other devices in the device list. But the real index depends
+> > > > > > on how many
+> > > > devices are discovered.
+> > > > > >
+> > > > > > For example, there are three devices, vsock device (cid=4,
+> > > > > > index=4), vsock device (cid=3, index=5), vsock device (cid=5,
+> > > > > > index=1). The driver maintains a linked list to store the devices.
+> > > > > >
+> > > > > > Assuming that the driver firstly discovered the vsock
+> > > > > > device(4,4), then place it in the first place.
+> > > > > >
+> > > > > > ```
+> > > > > > [real index 0]: vsock device (cid=4, index=4) <default device>
+> > > > > > ```
+> > > > > >
+> > > > > > Then, the vsock device (3,5) was discovered. The driver should
+> > > > > > place it in the second place, as its index 5 is greater.
+> > > > > >
+> > > > > > ```
+> > > > > > [real index 0]: vsock device (cid=4, index=4) <default device> [real
+> > index 1]:
+> > > > > > vsock device (cid=3, index=5) ```
+> > > > > >
+> > > > > > Finally, the vsock device (5,1) was discovered. The driver
+> > > > > > should place it in the first place, as its index 1 is less than the previous
+> > devices.
+> > > > > >
+> > > > > > ```
+> > > > > > [real index 0]: vsock device (cid=5, index=1) <default device> [real
+> > index 1]:
+> > > > > > vsock device (cid=4, index=4) [real index 2]: vsock device
+> > > > > > (cid=3,
+> > > > > > index=5) ```
+> > > > > >
+> > > > > > The "index" in device's config space is a logical index to be used for
+> > sorting.
+> > > > > >
+> > > > > I see. In that case we should rename index to a more intuitive
+> > > > > name, such as
+> > > > device_order.
+> > > >
+> > > > Lol. In fact, the original name is "order", but I think it doesn't
+> > > > look pro. I don't have any problem with the name. Will change it.
+> > > >
+> > > > > > > In other words, say, if the first vsock device discovered, is
+> > > > > > > index=1, can
+> > > > > > cid==4 make progress with it?
+> > > > > >
+> > > > > > Yes. If device (3,1) is discovered first, the device (4,0) can
+> > > > > > make progress with it. Apart from that, the final order is the
+> > > > > > same with the
+> > > > below.
+> > > > > >
+> > > > > If device (3,1) can make the progress, then why any ordering is needed?
+> > > >
+> > > > Currently, the order is used to determine **the default device**. In
+> > > > the single- device mode, the user app doesn't need to specify a CID
+> > > > as there is only one CID avilable. However, we can't expect every
+> > > > app to update their code to support multiple CIDs. When the CID is
+> > > > not persent, the driver will use the default device's.
+> > > >
+> > > > Assuming that there is no `device_order`. We intent to set device
+> > > > (cid=4) to the default device. Then, we must ensure that the device
+> > > > (cid=4) is discovered before any other devices. **Indeed, we can't
+> > > > guarantee this.**
+> > > >
+> > > > Let us go through this case: The device (cid=3) is discovered firstly.
+> > > >
+> > > > ```
+> > > > [0]: vsock device (cid=3) <default device> ```
+> > > >
+> > > > Then the device (cid=4) comes:
+> > > >
+> > > > ```
+> > > > [0]: vsock device (cid=3) <default device>
+> > > > [1]: vsock device (cid=4)
+> > > > ```
+> > > >
+> > > > Now the device (cid=3) becomes the default device which is not what
+> > > > we want.
+> > > >
+> > > > If we have "device_order", the result will change. All we need to do
+> > > > is we assign device (cid=4) a less order than device (cid=3).
+> > > >
+> > > Since the connection can progress through (4,0), why (3,1) should be a
+> > default device?
+> > > What breaks if (3,0) stays as default device?
+> > 
+> > The point is that we should have an ability to specify a device as the default.
+> > 
+> > Assuming that there is no `device_order`, the devices are indicated by (4) and
+> > (3). And we want to set (4) as the default device.
+> > 
+> > We can't guarantee the order of discovery: If (3) is discovered first, there is no
+> > chance to set (4) as the default device.
+> > 
+> > With `device_order`: Although (3,1) is discovered first, (4,0) still can be the
+> > default device because of the less `device_order`.
+> > 
+> > > > ```
+> > > > [0]: vsock device (cid=3, order=1) <default device> ```
+> > > >
+> > > > Then the device (cid=4) comes:
+> > > >
+> > > > ```
+> > > > [0]: vsock device (cid=4, order=0) <default device>
+> > > > [1]: vsock device (cid=3, order=1)
+> > > > ```
+> > > >
+> > > > Now the device (cid=4) becomes the default device.
+> > > >
+> > > > Although we can use a boolean value to indicate the default device,
+> > > > I think we should keep this for future possible use of this ordering.
+> > > >
+> > > The notion and need of the default device is missing. May be is this
+> > something already explained in current spec that I should read?
+> > 
+> > Yes. For the use case, you can refer to `or use default (no bind)` at the first
+> > message in thread.
+> > 
+> > For the easy understanding, I'll explain it in the following.
+> > 
+> > When an app doesn't specify the src CID, the driver must fill one as local
+> > address.
+> > 
+> > If the system doesn't support multiple devices, i.e. there is only one device,
+> > the driver will fill the device's CID.
+> >
+> Ok. and in our updated diagram, even through there are N drivers and N devices,
+> (N > 1), there is still one to one mapping of the driver and device.
+
+Yes, there is a one-to-one mapping.
+
+> > Unlike TCP/IP, there is neither route table nor default route. If there are
+> > multiple devices and there is no default device, the driver doesn't know which
+> > CID to use, which causes the failure of communication.
+> > 
+> When driver see only one device, can that be the default device?
+
+There is only one device for a driver, so no concept of "default device"
+from point of view of the driver.
+
+Maybe I use the term "device" incorrectly.
+
+I treat a pair of device and driver as an entry, which is what I call
+"device". The "default device", more precisely the "default entry", is one
+of all available entries.
+
+```
+entry0: device0 <-> driver0 (default)
+entry1: device1 <-> driver1
+entry2: device2 <-> driver2
+```
+
+> > > > > Please let me know if I misunderstood.
+> > > > >
+> > > > > > >
+> > > > > > > ```
+> > > > > > > [0]: vsock device (cid=4, index=0) <default device>
+> > > > > > > [1]: vsock device (cid=3, index=1) ```
+> > > > > > >
+> > > > > > > The index is only used for determining the device position;
+> > > > > > > for data transmission, `bind`, `connect`, etc., the CID is used.
+> > > > > > >
+> > > > > > So why not driver maintain some linked list of devices and use one?
+> > > > > > The relation of cid and device index is not clear if there is one.
+> > > > > > If none, the device index is just driver internal detail, right?
+> > > > >
+> > > > > Yes, the driver does maintain a linked list. However, the device
+> > > > > should be able to control its position in the list. IMHO, it can't
+> > > > > be the driver
+> > > > internal detail.
+> > > > > This isn’t clear of why ordering is needed, because you explained
+> > > > > above that
+> > > > when (3,1) is discovered first, it can be used without (4,0).
+> > > > >
+> > > > > >
+> > > > > > > > > If the binding is based on the CID, than why the new index
+> > needed?
+> > > > > > > >
+> > > > > > > > Think about the case of using the CID to determine the device
+> > position.
+> > > > > > > Do you mean CID is used to derive the device index?
+> > > > > > > If yes, if there is one to one mapping, than the device
+> > > > > > > identified by the CID
+> > > > > > itself can be used directly, isn't it?
+> > > > > >
+> > > > > > Yes, but it is a counterexample. I mean using CID as the index
+> > > > > > is not a good idea.
+> > > > > I am not suggesting CID to be used as index.
+> > > > > CID is used to select the device (out of available devices).
+> > > > >
+> > > > > >
+> > > > > > I think the "index" is used to establish the one-to-one mapping.
+> > > > > > If there is only CID, I don't have an idea about how to establish the
+> > mapping.
+> > > > > >
+> > > > > I didn’t understand this part.
+> > > >
+> > > > The "device_order" ("index") is only used during the process of
+> > > > device discovery. Once the device is initialized, the device is
+> > > > identified by its CID, and the "device_order" is not used anymore.
+> > > >
+> > > Lets understand the need of default device.
+> > 
+> > > > > > > > If we
+> > > > > > > > want to change the position, we have to change the CID. If
+> > > > > > > > the peer doesn't realize the change, the connection will be broken.
+> > > > > > > > So we have to decouple the CID and the position, one for
+> > > > > > > > data transmission, one
+> > > > > > for device management.
+> > > > > > > > That is why we need the index.
+> > > > > > > >
+> > > > > > > > ```
+> > > > > > > > ==from==
+> > > > > > > > [0]: vsock device (cid=4, index=0) <default device>
+> > > > > > > > [1]: vsock device (cid=3, index=1) ==to==
+> > > > > > > > [0]: vsock device (cid=3, index=0) <default device>
+> > > > > > > > [1]: vsock device (cid=4, index=1) ```
+> > > > > > > >
+> > > > > > > How is this mapping dynamically changed? Is this driver only
+> > decision?
+> > > > > >
+> > > > > > By hot-plug/hot-unplug devices. So this is device-only decision
+> > > > > > (or VMM side).
+> > > > > >
+> > > > > > > > > Or the example is stale here in commit log?
+> > > > > > > >
+> > > > > > > > No. It's up to date.
+> > > > > > > >
+> > > > > > > > >
+> > > > > > > > > ==== Host -> Guest ====
+> > > > > > > > >
+> > > > > > > > > The usage is no changes in this case. Send to device with CID 3.
+> > > > > > > > >
+> > > > > > > > > ```c
+> > > > > > > > > fd = socket(AF_VSOCK);
+> > > > > > > > > connect(fd, 3, 1234);
+> > > > > > > > > n = write(fd, buffer);
+> > > > > > > > > ```
+> > > > > > > > >
+> > > > > > > > > Send to device with CID 4.
+> > > > > > > > >
+> > > > > > > > > ```c
+> > > > > > > > > fd = socket(AF_VSOCK);
+> > > > > > > > > connect(fd, 4, 1234);
+> > > > > > > > > n = write(fd, buffer);
+> > > > > > > > > ```
+> > > > > > > > >
+> > > > > > > > > I've pushed a version of code for the implementation of
+> > > > > > > > > multi devices to lkml [1].
+> > > > > > > > >
+> > > > > > > > > [1]
+> > > > > > > >
+> > > > > > > > [..]
+> > > > > > > >
+> > > > > > > > > >
+> > > > > > > > > > Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+> > > > > > > > > > ---
+> > > > > > > > > >  device-types/vsock/description.tex | 46
+> > > > > > > > > > ++++++++++++++++++++++++++++--
+> > > > > > > > > >  1 file changed, 44 insertions(+), 2 deletions(-)
+> > > > > > > > > >
+> > > > > > > > > > diff --git a/device-types/vsock/description.tex
+> > > > > > > > > > b/device- types/vsock/description.tex index
+> > > > > > > > > > 7d91d15..f2e663b 100644
+> > > > > > > > > > --- a/device-types/vsock/description.tex
+> > > > > > > > > > +++ b/device-types/vsock/description.tex
+> > > > > > > > > > @@ -20,6 +20,7 @@ \subsection{Feature
+> > > > > > > > > > bits}\label{sec:Device Types / Socket Device / Feature
+> > > > > > > > > > bits} \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket
+> > > > > > > > > > type is
+> > > > supported.
+> > > > > > > > > >  \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket
+> > > > > > > > > > type is
+> > > > > > > > supported.
+> > > > > > > > > >  \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream
+> > > > > > > > > > socket
+> > > > > > type
+> > > > > > > > > > is not implied.
+> > > > > > > > > > +\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] multiple socket
+> > > > > > > > > > +devices are
+> > > > > > > > > > supported.
+> > > > > > > > > An individual device cannot indicate what other devices
+> > > > > > > > > are
+> > > > supported.
+> > > > > > > > > The question is, when multiple devices are accessible to a
+> > > > > > > > > single driver, how
+> > > > > > > > should driver choose which device to use?
+> > > > > > > > > This is the question that driver needs to solve based on
+> > > > > > > > > certain
+> > > > > > information.
+> > > > > > > > >
+> > > > > > > > > Therefore, the only thing needed in this patch is a
+> > > > > > > > > feature bit to say, from
+> > > > > > > > device point of view is:
+> > > > > > > > >
+> > > > > > > > > VIRTIO_VSOCK_DEV_INDEX This feature indicates that device
+> > > > > > > > > configuration
+> > > > > > > > space has device index.
+> > > > > > > > >
+> > > > > > > > > And somehow application chooses which device to use to
+> > > > > > > > > transport the vq
+> > > > > > > > entries.
+> > > > > > > > >
+> > > > > > > > > Right?
+> > > > > > > >
+> > > > > > > > `VIRTIO_VSOCK_F_MULTI_DEVICES` is to let driver know that
+> > > > > > > > the device supports multi-devices feature: read the index
+> > > > > > > > field from the config space, prepare an array to store
+> > > > > > > > multiple devices, deny device without the feature, etc.
+> > > > > > > >
+> > > > > > > How does driver prepare the array, if it does not know the array size?
+> > > > > >
+> > > > > > The devices are stored in a linked list, so it does not need to
+> > > > > > know the array size.
+> > > > > >
+> > > > > In the example of (3,1) you explained it can use it.
+> > > > > So I do not follow the need of priority or order.
+> > > > > Any number of devices can be in the group of multiple devices as
+> > > > > long as they can establish identity about some kind of 'group' of them,
+> > Right?
+> > > > >
+> > > > > > > What if two PCI hardware devices are plugged in, from two
+> > > > > > > different
+> > > > > > physical cards and each has the duplicate index?
+> > > > > >
+> > > > > > The latter one will be denied by the driver because of the conflicts.
+> > > > > >
+> > > > > How does it know that there is conflict?
+> > > > > For example, lets say discovery occurred as follows:
+> > > > > Phy_device_A: index_0
+> > > > > Phy_device_B: index_1
+> > > > > Phy_device_A: index_1
+> > > > >
+> > > > > You probably wanted to group A_0, A_1. But in current scheme A_0,
+> > > > > B_1
+> > > > gets grouped as there is no notion of a group.
+> > > >
+> > > > I have two questions:
+> > > >
+> > > > - Why can `Phy_device_A` be discovered twice?
+> > > > - Why do you want to group A_0 and A_1?
+> > > >
+> > > The way I was seeing it as, phy_device_A = single backend creating multiple
+> > vsock devices A_0 and A_1.
+> > > So related devices are A_X to group.
+> > > And skip grouping unrelated devices.
+> > 
+> > I am not an expert on PCI. So I am not sure if a PCI backend can create
+> > multiple devices. But in the context of vsock, "single backend creating multiple
+> > vsock devices" is not possible. IMHO, single backend = one device, and one
+> > device corresponds to one driver.
+> > 
+> > This feature allows to have N devices (i.e. N drivers). Without this, only
+> > 1 device (i.e. 1 driver) is allowed. So I update the diagram with drivers.
+> > 
+> > 
+> > +────────────────────────────────────────────────────────────
+> > ───+
+> >  │ VMM                                                           │
+> >  │                 +───────────────────────────────────────────+ │
+> >  │                 │ Guest          virtio-vsock               │ │
+> >  │ +────────────+  │   +──────────────+     +──────────────+   │ │
+> >  │ │  device0   │<─────│    driver0   │<────│  kata-agent  │   │ │
+> >  │ +────────────+  │   +──────────────+     +──────────────+   │ │
+> >  │                 │                                           │ │
+> >  │                 │   +──────────────+     +──────────────+   │ │
+> >  │        +────────────│    driver1   │<────│   user app   │   │ │
+> >  │        │        │   +──────────────+     +──────────────+   │ │
+> >  │  vhost-user-vsock                                           │ │
+> >  │        │        +───────────────────────────────────────────+ │
+> >  │        │                                                      │
+> > 
+> > +────────│───────────────────────────────────────────────────
+> > ───+
+> >           │
+> >  +────────V─────────+
+> >  │  +───────────+   │
+> >  │  │  device1  │   │
+> >  │  +───────────+   │
+> >  │           Ztunnel│
+> >  +──────────────────+
+> >
+> So in this example, there is one to one mapping of driver and device.
+> Hence, device0 can be the default device for driver0.
+> And same for driver1.
+> Do I still miss something?
+
+I believe the "default device" is a misnomer, as I've explained above. If I
+am wrong, please correct me.
+
+> > > > Would you mind explaining more? Plus, all devices are placed in one
+> > > > list, that is, in one group. IMHO, there is no group concept in term of
+> > vsock.
+> > > >
+> > > > > > > > IMHO, `VIRTIO_VSOCK_F_MULTI_DEVICES` is better than
+> > > > > > > > `VIRTIO_VSOCK_DEV_INDEX`.
+> > > > > > > >
+> > > > > > > > > >  \end{description}
+> > > > > > > > > >
+> > > > > > > > > >  \drivernormative{\subsubsection}{Feature bits}{Device
+> > > > > > > > > > Types / Socket Device / Feature bits} @@ -34,6 +35,13 @@
+> > > > > > > > > > \subsection{Feature bits}\label{sec:Device Types /
+> > > > > > > > > > Socket Device / Feature bits}
+> > > > > > > > > > VIRTIO_VSOCK_F_NO_IMPLIED_STREAM, the driver
+> > > > > > MAY
+> > > > > > > > > > act as if VIRTIO_VSOCK_F_STREAM has also been negotiated.
+> > > > > > > > > >
+> > > > > > > > > > +If a device without VIRTIO_VSOCK_F_MULTI_DEVICES has
+> > > > > > > > > > +been registered, the driver SHOULD ignore all subsequent
+> > devices.
+> > > > > > > > > > +
+> > > > > > > > > At driver level in virtio spec, there is no concept of registered.
+> > > > > > > > > It should be something like If the device index is not
+> > > > > > > > > present, the driver SHOULD pick some default
+> > > > > > > > device etc.
+> > > > > > > >
+> > > > > > > > "Pick some default device" is not much accurate. When this
+> > > > > > > > case happened, it means multi-devices feature is disabled,
+> > > > > > > > then the driver should ignore all subsequent devices.
+> > > > > > > Multiple vsock devices belong to some single group is what is
+> > > > > > > needed, if
+> > > > > > that definition is needed.
+> > > > > > > And just providing an index does not help for it in my view.
+> > > > > > >
+> > > > > > > Is this some kind of multi-pathing?
+> > > > > > > If so, providing some common such identification is necessary
+> > > > > > > between two
+> > > > > > devices to indicate they are part of some group.
+> > > > > > >
+> > > > > > > Please explain more I misunderstood.
+> > > > > >
+> > > > > > In the term of vsock, there is no concept for "group".
+> > > > > >
+> > > > > > I mean the driver will fallback to single-device mode if the
+> > > > > > device index is not present. In this case, any subsequent
+> > > > > > devices will be denied. In other words, there is only one vsock device
+> > avilable in the driver.
+> > > > > >
+> > > > > I understood what you are proposing.
+> > > > > But it is not looking correct way to solve it to me, because you
+> > > > > want some
+> > > > kind of grouping functionality that indicates that 'these N devices
+> > > > belong to same group', hence transport those sockets in this group.'
+> > > >
+> > > > No. Indeed, every connection uses one vsock device, not group of devices.
+> > > >
+> > > > Without this patch, there is only one vsock device available. With
+> > > > this patch, there are N vsock devices available.
+> > > >
+> > > Well, it can be available without this patch too.
+> > > What prevents it from?
+> > 
+> > No, multiple devices are not available. The difference is the number of
+> > availbale devices: 1 or N.
+> > 
+> > - Without this patch: 1 driver (frontend) = 1 device (backend)
+> > - With this patch: N drivers (frontends) = N devices (backends)
+> > 
+> Ok, but driver still has one to one mapping for all N entries.
+> 
+> > > > But in the process of data transmit, the user usually gives a CID to
+> > > > select a particular vsock device.
+> > > >
+> > > So each device can have unique CID? And if so, may be that's enough.
+> > 
+> > Yes.
+> > 
+> > > You tried to explain it, but I fail to understand why CID is not sufficient, like
+> > the way you mentioned exactly the same i.e. "CID to select the particular
+> > vsock device".
+> > 
+> > The CID can be considered like an IP address which can't be changed casually.
+> > The changes must be notified to the peer. Otherwise, the communication will
+> > fail.
+> > 
+> > The `device_order`, as a local variable, is relatively easily to change the default
+> > device.
+> >
+> So can the driver pick one?
+
+The order is for the entries as well.
+
+> > > > To make it clear, let us talk about the network.
+> > > >
+> > > > Without this patch, driver is allowed to have only one NIC.
+> > > Not really. Today driver instance handles multiple NICs already. Each nic has
+> > different transport level address. For example, for PCI, it has different RID
+> > (BDF).
+> > > Each device also may/may not have same mac address.>
+> > 
+> > > > But with this patch,
+> > > > driver is allowed to have N NICs. While there are N NICs available,
+> > > > a particular NIC identified by route table or something is used.
+> > > >
+> > > > > > > > Will replace the term "register", see below:
+> > > > > > > >
+> > > > > > > > If a device without VIRTIO_VSOCK_F_MULTI_DEVICES has been
+> > > > > > > > present, the driver SHOULD ignore all subsequent devices.
+> > > > > > > >
+> > > > > > >
+> > > > > > > > > > +If a device with VIRTIO_VSOCK_F_MULTI_DEVICES has been
+> > > > > > > > > > +registered, the driver SHOULD accept other devices only
+> > > > > > > > > > +if they expose VIRTIO_VSOCK_F_MULTI_DEVICES.
+> > > > > > > > > > +
+> > > > > > > > > >  \devicenormative{\subsubsection}{Feature bits}{Device
+> > > > > > > > > > Types / Socket Device / Feature bits}
+> > > > > > > > > >
+> > > > > > > > > >  The device SHOULD offer the
+> > > > > > VIRTIO_VSOCK_F_NO_IMPLIED_STREAM
+> > > > > > > > > > feature.
+> > > > > > > > > > @@ -52,6 +60,7 @@ \subsection{Device configuration
+> > > > > > > > > > layout}\label{sec:Device Types / Socket Device
+> > > > > > > > > > \begin{lstlisting} struct virtio_vsock_config {
+> > > > > > > > > >  	le64 guest_cid;
+> > > > > > > > > > +	le16 index;
+> > > > > > > > > >  };
+> > > > > > > > > >  \end{lstlisting}
+> > > > > > > > > >
+> > > > > > > > > > @@ -77,11 +86,36 @@ \subsection{Device configuration
+> > > > > > > > > > layout}\label{sec:Device Types / Socket Device  \hline
+> > > > > > > > > > \end{tabular}
+> > > > > > > > > >
+> > > > > > > > > > +The \field{index} field indicates index of a device,
+> > > > > > > > > > +and is required for each device when
+> > > > > > > > > > +VIRTIO_VSOCK_F_MULTI_DEVICES feature has been
+> > > > > > > > > > negotiated.
+> > > > > > > > > This is not needed. A driver should be able to make choice
+> > > > > > > > > on which device to
+> > > > > > > > use.
+> > > > > > > >
+> > > > > > > > IMHO, this is necessary. It is a rule that DEVICE must
+> > > > > > > > provide the index if it want to enable the multi-devices
+> > > > > > > > feature. It's not a rule for the
+> > > > > > driver.
+> > > > > > > >
+> > > > > > > > BTW, making choice on which device to use by the driver is
+> > > > > > > > according to
+> > > > > > CID.
+> > > > > > > So let driver maintain its own data structure without the device
+> > index.
+> > > > > > > Why won't it work?
+> > > > > >
+> > > > > > Because the device (VMM side) should be able to decide the
+> > > > > > postion of the devices. And the driver should follow the device's
+> > decision.
+> > > > > >
+> > > > > (3,1) example shows that single device can also work without
+> > > > > strictly
+> > > > attaching to the position.
+> > > > > So lets try to achieve without such strict index, but rather
+> > > > > achieve is using a
+> > > > generic group concept.
+> > > > > A group of devices has wider use case. If needed, I will explain
+> > > > > later in the
+> > > > thread.
+> > > >
+> > > > Yes please. Thanks a lot!
+> > > >
+> > > There are two PCI devices exposed. Each is connected to different numa
+> > node on the host.
+> > > For two devices there is need to create single netdevice so that RSS RQs can
+> > span across two devices.
+> > > These two virtio PCI devices are part of one group so that driver needs to
+> > learn and create only one protocol level netdev.
+> > > There may be other totally unrelated virtio net pci devices at the
+> > > same time which shouldn’t be grouped this way.>
+> > 
+> > > Vsock case you are explaining is similar, with exception that at OS driver
+> > level, you still have two vsock devices, and application somehow is
+> > doing/learning its group.
+> > > So a base infrastructure to grouping the device and using it differently based
+> > on driver side usecase is desired.
+> > 
+> > I think I am understanding the concept of "group" you said. I believe we are
+> > talking about the different things.
+> >
+> I was explaining a scenario where a front end driver was given multiple devices.
+> For example, driver0 is given device0 and device1.
+> And in this case driver0 to choose which device0 or device1 to use?
+
+Vsock hasn't supported 1 driver with multiple devices so far.
+
+Only one vsock entry is available without this patch, while multiple vsock
+entries are able to be available with this patch.
+
+> > You are saying that 1 driver can handle multiple devices, right?
+> >
+> Right.
+> 
+>  
+> > Now, the system is limited to have only 1 driver and 1 device. I am trying to
+> > remove this limitation by allowing to have N drivers and N devices. But from a
+> > single driver's perspective, it is still have only 1 device (see the above
+> > diagram).
+> >
+> Ok. so that is the default device to use for the driver, right?
+
+The default device should be updated to "default entry". Each entry is
+assigned a vsock CID. If the user app don't specify a CID, the system will
+use the default entry's CID.
+
+> > > > I have two questions:
+> > > >
+> > > > - How much groups do we need?
+> > > > - How can driver know which group the device belongs to?
+> > > >
+> > > The device tells the driver its group id. So, devices with same group id
+> > belongs to one group.
+> > > One may use UUID to define a group.
+> > >
+> > > > > > > > The index is only used to determine position in the driver's
+> > > > > > > > device list. (This is the same as the previous explanation.)
+> > > > > > > >
+> > > > > > > > > > +The \field{index} is 16 bits in size, enabling support
+> > > > > > > > > > +for up to
+> > > > > > > > > > +65,536 devices.
+> > > > > > > > > > +
+> > > > > > > > > Bit width is visible, just mentioning maximum device size
+> > > > > > > > > is good
+> > > > > > enough.
+> > > > > > > >
+> > > > > > > > Will update in the next version.
+> > > > > > > >
+> > > > > > > > > > +The source socket is allowed to not be bound to any
+> > > > > > > > > > +CID. It is required for the driver to choose a CID for the socket.
+> > > > > > > > > > +If VIRTIO_VSOCK_F_MULTI_DEVICES is not negotiated, the
+> > > > > > > > > > +one and only device's CID is used. If
+> > > > > > > > > > +VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, the driver
+> > > > > > > > > > +uses the default device's. In this case, the driver
+> > > > > > > > > > +selects the device with
+> > > > the lowest index as the default.
+> > > > > > > > > > +
+> > > > > > > > > If socket can choose the CID, why does it need new index?
+> > > > > > > > > Its confusing to see relation of CID and index here.
+> > > > > > > > > Can you please explain?
+> > > > > > > >
+> > > > > > > > See "When we have many vsock devices, we...".
+> > > > > > > >
+> > > > > > > > > > +\devicenormative{\subsubsection}{Device configuration
+> > > > > > > > > > +layout}{Device Types / Socket Device / Device
+> > > > > > > > > > +configuration layout}
+> > > > > > > > > > +
+> > > > > > > > > > +When VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, the
+> > > > > > > > > > +device MUST
+> > > > > > > > > > offer
+> > > > > > > > > > +an \field{index}, which MUST NOT be same with the
+> > > > > > > > > > +\field{index} of other devices.
+> > > > > > > > > > +
+> > > > > > > > > > +When VIRTIO_VSOCK_F_MULTI_DEVICES is not negotiated,
+> > > > > > > > > > +the
+> > > > > > device
+> > > > > > > > > > SHOULD
+> > > > > > > > > > +NOT offer an \field{index}.
+> > > > > > > > > > +
+> > > > > > > > > This should be MUST.
+> > > > > > > >
+> > > > > > > > Will update.
+> > > > > > > >
+> > > > > > > > > I don't see a need to write this.
+> > > > > > > > > In other words,
+> > > > > > > > >
+> > > > > > > > > If VIRTIO_VSOCK_F_DEV_INDEX is offered, field index is
+> > supported.
+> > > > > > > >
+> > > > > > > > This part gives two rules:
+> > > > > > > >
+> > > > > > > > - The device MUST not provide the index that has been already
+> > used.
+> > > > > > > > - If VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, the device
+> > > > > > > > MUST
+> > > > > > offer
+> > > > > > > >   the index field (if not offered, the driver might read data outside
+> > the
+> > > > > > > >   config space, as the sizes are different).
+> > > > > > > >
+> > > > > > > > > >  \subsection{Device Initialization}\label{sec:Device
+> > > > > > > > > > Types / Socket Device / Device Initialization}
+> > > > > > > > > >
+> > > > > > > > > >  \begin{enumerate}
+> > > > > > > > > >  \item The guest's cid is read from \field{guest_cid}.
+> > > > > > > > > >
+> > > > > > > > > > +\item If VIRTIO_VSOCK_F_MULTI_DEVICES has been
+> > > > > > > > > > +negotiated, the
+> > > > > > > > > > device's
+> > > > > > > > > > +index will be read from \field{index}. If not, the
+> > > > > > > > > > +device's index will be ignored.
+> > > > > > > > > > +
+> > > > > > > > > >  \item Buffers are added to the event virtqueue to
+> > > > > > > > > > receive events from the device.
+> > > > > > > > > >
+> > > > > > > > > >  \item Buffers are added to the rx virtqueue to start
+> > > > > > > > > > receiving
+> > > > packets.
+> > > > > > > > > > @@ -167,6 +201,10 @@
+> > > > > > > > > > \subsubsection{Addressing}\label{sec:Device
+> > > > > > > > > > Types / Socket Device / Device Opera  consists of a
+> > > > > > > > > > (cid, port
+> > > > > > > > > > number) tuple. The header fields used for this are
+> > > > > > > > > > \field{src_cid}, \field{src_port}, \field{dst_cid}, and
+> > \field{dst_port}.
+> > > > > > > > > >
+> > > > > > > > > > +If at least one device has negotiated
+> > > > > > > > > > +VIRTIO_VSOCK_F_MULTI_DEVICES, and the source socket is
+> > > > > > > > > > +not bound to any CID, then \field{src_cid} should be
+> > > > > > > > > > +set to the default
+> > > > > > device's CID.
+> > > > > > > > > > +
+> > > > > > > > > >  Currently stream and seqpacket sockets are supported.
+> > > > > > > > > > \field{type} is 1
+> > > > > > > > > > (VIRTIO_VSOCK_TYPE_STREAM)  for stream socket types, and
+> > > > > > > > > > 2
+> > > > > > > > > > (VIRTIO_VSOCK_TYPE_SEQPACKET) for seqpacket socket types.
+> > > > > > > > > >
+> > > > > > > > > > @@ -233,8 +271,12 @@ \subsubsection{Receive and
+> > > > > > > > > > Transmit}\label{sec:Device Types / Socket Device / De
+> > > > > > > > > >
+> > > > > > > > > >  \drivernormative{\paragraph}{Device Operation: Receive
+> > > > > > > > > > and Transmit}{Device Types / Socket Device / Device
+> > > > > > > > > > Operation / Receive and Transmit}
+> > > > > > > > > >
+> > > > > > > > > > -The \field{guest_cid} configuration field MUST be used
+> > > > > > > > > > as the source CID when -sending outgoing packets.
+> > > > > > > > > > +The \field{guest_cid} configuration field MUST be used
+> > > > > > > > > > +as the source CID when sending outgoing packets.
+> > > > > > > > > > +
+> > > > > > > > > > +When VIRTIO_VSOCK_F_MULTI_DEVICES is negotiated, the
+> > > > > > > > > > +source
+> > > > > > CID
+> > > > > > > > > > MUST be
+> > > > > > > > > > +one of the \field{guest_cid} configuration field of the
+> > > > > > > > > > +multiple devices handled by the driver.
+> > > > > > > > > >
+> > > > > > > > > If the guest_cid is used to distinguish between devices,
+> > > > > > > > > why the new field
+> > > > > > > > index is needed?
+> > > > > > > > > Can guest_cid be sufficient?
+> > > > > > > >
+> > > > > > > > See above "When we have many vsock devices, we..." as well.
+> > > > > > > > If something is not clear or incorrect, please feel free to let me
+> > know.
+> > > > > > > >
+> > > > > > > > > >  A VIRTIO_VSOCK_OP_RST reply MUST be sent if a packet is
+> > > > > > > > > > received with an unknown \field{type} value.
+> > > > > > > > > > --
+> > > > > > > > > > 2.34.1
+> > > > > > > > > >
+> > > > > > > >
+> > > > > > > > Thanks for your comments!
+> > > > > > > >
+> > > > > > > > Best Regards,
+> > > > > > > > Xuewei
+> > > > > >
+> > > > > > Thanks,
+> > > > > > Xuewei
+> > > >
+> > > > Thanks,
+> > > > Xuewei
+> > 
+> > Thanks,
+> > Xuewei
+
+Thanks,
+Xuewei
