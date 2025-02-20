@@ -1,846 +1,399 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B35204864
-	for <virtio-comment@lists.linux.dev>; Thu, 20 Feb 2025 15:56:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E8C71DF75B
+	for <virtio-comment@lists.linux.dev>; Thu, 20 Feb 2025 16:36:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740067022; cv=none; b=roLWPtSvzKcsmxmudpawy84ghm5/3WROpiWTgbDcvosMb/wvuq64UkO4GbUthS6DqG0ig00bWgQx61kjLyEwzKGBoFoTlViceZmj1vFCdljPFxGB1wZVCLN2DLKyNNPyjqQNticxK+WwWeEkDJUN6Vc/zaCPvIabseq+wMBoeSM=
+	t=1740069389; cv=none; b=fjKG3VJNq9qtp3wnS+D7FWoXqXXHt/5spLp9oUr+B02v1zDg1MAep7M9TipXxiv1GYYJXVQZTkTAp4lSDOBWwvefmCUyA5JqYhRatUunSyVSZKDb19dVwncX2xbZFTuwZdLGCRDmYfXBqSZoQa2xbSSnJQO2PQ2luG5PjGhEOF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740067022; c=relaxed/simple;
-	bh=ijx5au/sZcNx5Cpgr7I3Fze8A1S2OTEbrZX8HPF1hqc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:content-type; b=eC/bNNbXKaGrmiAiAxgTWO2or86x/YGhP0kMkQPdx21uWty4NiD4RPHJMxbiBl1v4ASvNssese1p1o7kErDvi66FFFH+wWa32yh4viNVNteCQ5xhGaf/XZJ0IcYWMpj6+3o8T8xVJiBTLQFtoP8BTlEeF4i2DOvghCWOklmWd3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ech5f2MZ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1740069389; c=relaxed/simple;
+	bh=fJtGmkNWoVLN0tTplA6g35ik0avQtP7091+QUMDhaug=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F9IhOF54/d0XaHJXAGppzOYt68ea2VOgAg70f3DswxOo+bUQYoxlyJLltbd8C3ggnyUYqQmbicW8D1SPjx3MSuWAOtHiL4wj0OMZahSESs1G6DkKehT7fSNmSGw2X1DOan582uHhhb9mR15Uf07EmH8u0dxd6eIar+PA2iHO71A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com; spf=pass smtp.mailfrom=quicinc.com; dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b=gV5meTz+; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quicinc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ech5f2MZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1740067018;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fquHy/9rNY1HFfMS5frzfpn1PX87fKygKAEcvVbCC3s=;
-	b=Ech5f2MZEQ4Q4XpESPQ+nAbeg5v+QZsBxYcExHgobGBWQAJelG7zS6YXAC5bGiXuM1yvxt
-	hRhT1wrT8L0iBrT+cH2+DuLl+jZMtfRdaUZ3TFrNEeFNb+TQXypWbECME+dn+c7fvELvfw
-	A25DeT2/eAucJFuAdDV8P+gCLpUFR5I=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-33-kWrnO5pNMpSPrEzWHtzF-Q-1; Thu,
- 20 Feb 2025 10:56:55 -0500
-X-MC-Unique: kWrnO5pNMpSPrEzWHtzF-Q-1
-X-Mimecast-MFC-AGG-ID: kWrnO5pNMpSPrEzWHtzF-Q_1740067013
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 56B7319783B2;
-	Thu, 20 Feb 2025 15:56:53 +0000 (UTC)
-Received: from fedora.redhat.com (unknown [10.44.33.76])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 69D22180035F;
-	Thu, 20 Feb 2025 15:56:46 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-To: virtio-comment@lists.linux.dev
-Cc: nicolas.dufresne@collabora.com,
-	cohuck@redhat.com,
-	hverkuil@xs4all.nl,
-	adelva@google.com,
-	gnurou@gmail.com,
-	eballetb@redhat.com,
-	mst@redhat.com,
-	ribalda@google.com,
-	changyeon@google.com,
-	mvaralar@redhat.com,
-	daniel.almeida@collabora.com,
-	dverkamp@chromium.org,
-	agordeev@qti.qualcomm.com,
-	gurchetansingh@google.com,
-	alex.bennee@linaro.org,
-	Albert Esteve <aesteve@redhat.com>
-Subject: [PATCH v7 1/1] virtio-media: Add virtio media device specification
-Date: Thu, 20 Feb 2025 16:56:36 +0100
-Message-ID: <20250220155636.577400-2-aesteve@redhat.com>
-In-Reply-To: <20250220155636.577400-1-aesteve@redhat.com>
-References: <20250220155636.577400-1-aesteve@redhat.com>
+	dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b="gV5meTz+"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51KG1igN031612;
+	Thu, 20 Feb 2025 16:36:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=LBSEtA6kd4btp09FK0vB5ppK
+	0OJtO6oHppVRX34L+rI=; b=gV5meTz+AwF/hoV1OB7sKUDuIr3zh1EYFIJj68Fd
+	Y3aEjhaBmq4+/5UryDfU0gMZ6oxTsj1YQv2mKX/kIdEg2rk2joVBBhRGWVzfo3OU
+	1V8Da0RyWZo2DT0Dp+NT20N/OEyWQVfZtC5yPaiH9u6Ur6euuc0yr9tBJDdgPj+E
+	zzxVrqrYpVCuHmE6Kq2VIvmxHynAe9Fbuqsc2ayBNNcy5NNkhHt29IPBeUo3kPoD
+	V0PmzaNK3GRx0LbKNUI+GC/8m/e6HuMcXk4yLaBwlmv0EEDAN/FqgvL0T7Gg9htp
+	paoLQR3TWlnX0qepVyrY6vfOlmFRut8UYywlwSiZO/sSQQ==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44vyy5eqv1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 20 Feb 2025 16:36:21 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com [10.47.209.196])
+	by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51KGaKWT011153
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 20 Feb 2025 16:36:20 GMT
+Received: from PHILBER.na.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Thu, 20 Feb 2025 08:36:18 -0800
+Date: Thu, 20 Feb 2025 17:36:15 +0100
+From: Peter Hilber <quic_philber@quicinc.com>
+To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+CC: <virtio-comment@lists.linux.dev>, Cornelia Huck <cohuck@redhat.com>,
+        "Parav Pandit" <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
+        David
+ Woodhouse <dwmw2@infradead.org>,
+        "Ridoux, Julien" <ridouxj@amazon.com>,
+        Trilok Soni <quic_tsoni@quicinc.com>,
+        Srivatsa Vaddagiri
+	<quic_svaddagi@quicinc.com>
+Subject: Re: [PATCH v7 2/4] virtio-rtc: Add initial normative statements
+Message-ID: <n2i6ucm6mns2gf7mjf7fswj6temfobuet2xemhmjnq6vn5qv4r@tvhl7soxyf42>
+References: <20250123101616.664-1-quic_philber@quicinc.com>
+ <20250123101616.664-3-quic_philber@quicinc.com>
+ <Z6oqSDDOqhRgt/ZB@fedora>
+ <uiejj47qg5cu4vfplk2ir4qy3j4leo52uiqw3xxgskfwjlwv4x@urzsoe62n6fq>
+ <Z7XxoQDRT/d8H/PE@fedora>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: xlRSgTmgc0rRUllrYcn6XlwcdM_WNxhxoqGCWGxAjmM_1740067013
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <Z7XxoQDRT/d8H/PE@fedora>
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-ORIG-GUID: DFBrpoMAU5Wlcb_OznX_lprPzVsPUuxd
+X-Proofpoint-GUID: DFBrpoMAU5Wlcb_OznX_lprPzVsPUuxd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-20_07,2025-02-20_02,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ mlxlogscore=999 spamscore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ adultscore=0 malwarescore=0 mlxscore=0 lowpriorityscore=0 impostorscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2502100000 definitions=main-2502200116
 
-Virtio-media is an encapsulation of the V4L2 UAPI into
-virtio, able to virtualize any video device supported
-by V4L2.
+On Wed, Feb 19, 2025 at 03:58:41PM +0100, Matias Ezequiel Vara Larsen wrote:
+> On Thu, Feb 13, 2025 at 07:13:12PM +0100, Peter Hilber wrote:
+> > On Mon, Feb 10, 2025 at 05:33:12PM +0100, Matias Ezequiel Vara Larsen wrote:
+> > > On Thu, Jan 23, 2025 at 11:16:13AM +0100, Peter Hilber wrote:
+> > > > Add the normative statements for the initial device specification.
+> > > > 
+> > > > Signed-off-by: Peter Hilber <quic_philber@quicinc.com>
+> > > > ---
+> > > > 
+> > > > Notes:
+> > > >     v7:
+> > > >     
+> > > >     - Remove obsolete requirements for leap second indication.
+> > > >     
+> > > >     v6:
+> > > >     
+> > > >     - Update requirements to make leap second status information optional if
+> > > >       if the clock smears (or might smear) leap seconds.
+> > > >     
+> > > >     - Allow indicating VIRTIO_RTC_SMEAR_UNSPECIFIED for
+> > > >       VIRTIO_RTC_CLOCK_SMEARED.
+> > > >     
+> > > >     - Shorten some requirements by omitting redundant information.
+> > > >     
+> > > >     v5:
+> > > >     
+> > > >     - Update normative statements to match v5 changes to non-normative
+> > > >       statements (patch 1).
+> > > >     
+> > > >     v4:
+> > > >     
+> > > >     - Require driver to set unused flags to zero.
+> > > >     
+> > > >     - Update normative statements to match v4 changes to non-normative
+> > > >       statements (patch 1).
+> > > >     
+> > > >     - Improve formatting.
+> > > > 
+> > > >  conformance.tex                         |   2 +
+> > > >  device-types/rtc/description.tex        | 269 ++++++++++++++++++++++++
+> > > >  device-types/rtc/device-conformance.tex |   9 +
+> > > >  device-types/rtc/driver-conformance.tex |   9 +
+> > > >  4 files changed, 289 insertions(+)
+> > > >  create mode 100644 device-types/rtc/device-conformance.tex
+> > > >  create mode 100644 device-types/rtc/driver-conformance.tex
+> > > > 
 
-Note that virtio-media does not require the use of a
-V4L2 device driver on the host or guest side -
-V4L2 is only used as a host-guest protocol,
-and both sides are free to convert it from/to any
-model that they wish to use.
+[...]
+ 
+> > > > +For \field{struct virtio_rtc_resp_head}, the device MUST NOT set the
+> > > > +\field{status} field if the \field{status} field does not fit into the
+> > > > +device write-only part.
+> > > > +
+> > > > +For \field{struct virtio_rtc_resp_head}, the device MUST set the
+> > > > +\field{status} field to VIRTIO_RTC_S_EIO if none of the previous
+> > > > +requirements in this document stipulated another \field{status}.
+> > > > +
+> > > > +If the device read-only part of a message M is bigger than the size of
+> > > > +the request specified for message M, the device MUST ignore the
+> > > > +additional space.
+> > > > +
+> > > > +If the device write-only part of a message M is bigger than the size of
+> > > > +the response specified for message M, the device MUST ignore the
+> > > > +additional space.
+> > > > +
+> > > > +The device MUST NOT interpret \emph{reserved} fields in the
+> > > > +device-readable part of the message.
+> > > 
+> > > I wonder if last three requirements are needed.
+> > > 
+> > 
+> > I included them because in my understanding this is not specified in the
+> > generic part of the spec, and because I tried to be *somewhat*
+> > forward-compatible.
+> 
+> I see.
+> 
+> > 
+> > Do you think they are unneeded because they are self-evident? Then I
+> > think they could be dropped indeed. However, the IOMMU device explicitly
+> > requires the device to reject a request if some reserved field is not
+> > zero, and to ignore some other reserved field. 
+> 
+> I think is OK to have a requirement that says that the device rejects a
+> request if reserved fields are not zero. For the other requirements, if
+> you drop them, they will be implementation-specific. What is the
+> drawback of doing this?
+> 
 
-Reviewed-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
- conformance.tex                           |  13 +-
- content.tex                               |   1 +
- device-types/media/description.tex        | 637 ++++++++++++++++++++++
- device-types/media/device-conformance.tex |  15 +
- device-types/media/driver-conformance.tex |  11 +
- 5 files changed, 673 insertions(+), 4 deletions(-)
- create mode 100644 device-types/media/description.tex
- create mode 100644 device-types/media/device-conformance.tex
- create mode 100644 device-types/media/driver-conformance.tex
+If the ignore-size-is-bigger requirements are dropped, it complicates
+the driver handling of any message which is lengthened through feature
+bits in the future: the driver would then need to size the
+request/response according to the negotiated features, instead of using
+sizeof.
 
-diff --git a/conformance.tex b/conformance.tex
-index dc00e84..c369da1 100644
---- a/conformance.tex
-+++ b/conformance.tex
-@@ -32,8 +32,10 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \ref{sec:Conformance / Driver Conformance / Memory Driver Conformance},
- \ref{sec:Conformance / Driver Conformance / I2C Adapter Driver Conformance},
- \ref{sec:Conformance / Driver Conformance / SCMI Driver Conformance},
--\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance} or
--\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance}.
-+\ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance},
-+\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance} or
-+\ref{sec:Conformance / Driver Conformance / Media Driver Conformance}.
-+
- 
-     \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
-   \end{itemize}
-@@ -59,8 +61,9 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \ref{sec:Conformance / Device Conformance / Memory Device Conformance},
- \ref{sec:Conformance / Device Conformance / I2C Adapter Device Conformance},
- \ref{sec:Conformance / Device Conformance / SCMI Device Conformance},
--\ref{sec:Conformance / Device Conformance / GPIO Device Conformance} or
--\ref{sec:Conformance / Device Conformance / PMEM Device Conformance}.
-+\ref{sec:Conformance / Device Conformance / GPIO Device Conformance},
-+\ref{sec:Conformance / Device Conformance / PMEM Device Conformance} or
-+\ref{sec:Conformance / Device Conformance / Media Device Conformance}.
- 
-     \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
-   \end{itemize}
-@@ -152,6 +155,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \input{device-types/scmi/driver-conformance.tex}
- \input{device-types/gpio/driver-conformance.tex}
- \input{device-types/pmem/driver-conformance.tex}
-+\input{device-types/media/driver-conformance.tex}
- 
- \conformance{\section}{Device Conformance}\label{sec:Conformance / Device Conformance}
- 
-@@ -238,6 +242,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \input{device-types/scmi/device-conformance.tex}
- \input{device-types/gpio/device-conformance.tex}
- \input{device-types/pmem/device-conformance.tex}
-+\input{device-types/media/device-conformance.tex}
- 
- \conformance{\section}{Legacy Interface: Transitional Device and Transitional Driver Conformance}\label{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}
- A conformant implementation MUST be either transitional or
-diff --git a/content.tex b/content.tex
-index 0a62dce..59925ae 100644
---- a/content.tex
-+++ b/content.tex
-@@ -767,6 +767,7 @@ \chapter{Device Types}\label{sec:Device Types}
- \input{device-types/scmi/description.tex}
- \input{device-types/gpio/description.tex}
- \input{device-types/pmem/description.tex}
-+\input{device-types/media/description.tex}
- 
- \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
- 
-diff --git a/device-types/media/description.tex b/device-types/media/description.tex
-new file mode 100644
-index 0000000..2256cae
---- /dev/null
-+++ b/device-types/media/description.tex
-@@ -0,0 +1,637 @@
-+\section{Media Device}\label{sec:Device Types / Media Device}
-+
-+The virtio media device follows the same model (and structures) as V4L2. It
-+can be used to virtualize cameras, codec devices, or any other device
-+supported by V4L2. The complete definition of V4L2 structures and ioctls can
-+be found under the
-+\href{https://www.kernel.org/doc/html/latest/userspace-api/media/index.html}{V4L2 UAPI documentation}.
-+
-+V4L2 is a UAPI that allows a less privileged entity (user-space) to use video
-+hardware exposed by a more privileged entity (the kernel). Virtio-media is an
-+encapsulation of this API into virtio, turning it into a virtualization API
-+for all classes of video devices supported by V4L2, where the device plays the
-+role of the kernel and the driver the role of user-space.
-+
-+The device is therefore responsible for presenting a virtual device that behaves
-+like an actual V4L2 device, which the driver can control.
-+
-+Note that virtio-media does not require the use of a V4L2 device driver or of
-+Linux on any side - V4L2 is only used as a transport protocol,
-+and both sides are free to convert it from/to any model that they wish to use.
-+
-+\subsection{Device ID}\label{sec:Device Types / Media Device / Device ID}
-+
-+48
-+
-+\subsection{Virtqueues}\label{sec:Device Types / Media Device / Virtqueues}
-+
-+\begin{description}
-+\item[0] commandq - used for driver commands and device responses to these
-+commands.
-+\item[1] eventq - used for events sent by the device to the driver.
-+\end{description}
-+
-+\subsection{Feature Bits}\label{sec:Device Types / Media Device / Feature Bits}
-+
-+None
-+
-+\subsection{Device Configuration Layout}\label{sec:Device Types / Media Device / Device Configuration Layout}
-+
-+The video device configuration space uses the following layout:
-+
-+\begin{lstlisting}
-+struct virtio_media_config {
-+    le32 device_caps;
-+    le32 device_type;
-+    le8 card[32];
-+};
-+\end{lstlisting}
-+
-+\begin{description}
-+\item[\field{device_caps}] (driver-read-only) flags representing the device
-+capabilities as used in
-+\href{https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/vidioc-querycap.html#c.V4L.v4l2_capability}{struct v4l2_capability}.
-+It corresponds with the \field{device_caps} field in the \textit{struct video_device}.
-+\item[\field{device_type}] (driver-read-only) informs the driver of the type
-+of the video device. It corresponds with the \field{vfl_devnode_type} field of the device.
-+\item[\field{card}] (driver-read-only) name of the device, a NUL-terminated
-+UTF-8 string. It corresponds with the \field{card} field of the \textit{struct v4l2_capability}.
-+If all the characters of the field are used, it does not need to be NUL-terminated.
-+\end{description}
-+
-+\subsection{Device Initialization}
-+
-+A driver executes the following sequence to initialize a device:
-+
-+\begin{enumerate}
-+\item Read the \field{device_caps} and \field{device_type} fields
-+from the configuration layout to identify the device.
-+\item Set up the \field{commandq} and \field{eventq} virtqueues.
-+\item May open a session (see Section \ref{sec:Device Types / Media Device / Device Operation / Open Device})
-+to use the device and send V4L2 ioctls in order to receive more information
-+about the device, such as supported formats or controls.
-+\end{enumerate}
-+
-+\subsection{Device Operation}\label{sec:Device Types / Media Device / Device Operation}
-+
-+The driver enqueues commands in the command queue for the device to process.
-+The errors returned by each command are standard
-+\href{https://www.kernel.org/doc/html/latest/userspace-api/media/gen-errors.html}{Linux kernel error codes}.
-+For instance, a driver sending a command that contains invalid options will
-+receive \textit{EINVAL} in return, after the device tries to process it.
-+
-+The device enqueues events in the event queue for the driver to process.
-+
-+\subsubsection{Command Virtqueue}
-+
-+\paragraph{Device Operation: Command headers}
-+
-+\begin{lstlisting}
-+#define VIRTIO_MEDIA_CMD_OPEN 1
-+#define VIRTIO_MEDIA_CMD_CLOSE 2
-+#define VIRTIO_MEDIA_CMD_IOCTL 3
-+#define VIRTIO_MEDIA_CMD_MMAP 4
-+#define VIRTIO_MEDIA_CMD_MUNMAP 5
-+
-+/* Header for all virtio commands from the driver to the device on the commandq. */
-+struct virtio_media_cmd_header {
-+	le32 cmd;
-+	le32 __reserved;
-+};
-+
-+/* Header for all virtio responses from the device to the driver on the commandq. */
-+struct virtio_media_resp_header {
-+	le32 status;
-+	le32 __reserved;
-+};
-+\end{lstlisting}
-+
-+A command consists of a command header \textit{virtio_media_cmd_header}
-+containing the following device-readable field:
-+
-+\begin{description}
-+\item[\field{cmd}] specifies a device request type (VIRTIO_MEDIA_CMD_*).
-+\end{description}
-+
-+A response consists of a response header \textit{virtio_media_resp_header}
-+containing the following device-writable field:
-+
-+\begin{description}
-+\item[\field{status}] indicates a device request status.
-+\end{description}
-+
-+When the device executes the command successfully, the value of the status
-+field is 0. Conversely, when the device fails to execute the command, the value
-+of the status fields corresponds with one of the standard Linux error codes.
-+
-+\drivernormative{\paragraph}{Device Operation: Command Virtqueue: Sessions}{Device Types / Media Device / Device Operation / Command Virtqueue}
-+
-+Sessions are how the device is multiplexed, allowing several distinct works to
-+take place simultaneously. Before starting operation, the driver needs to open
-+a session. This is equivalent to opening the \textit{/dev/videoX} file of the
-+V4L2 device. Each session gets a unique ID assigned, which can be then used
-+to perform actions on it.
-+
-+\paragraph{Device Operation: Open device}\label{sec:Device Types / Media Device / Device Operation / Open Device}
-+
-+\textbf{VIRTIO_MEDIA_CMD_OPEN} Command for creating a new session.
-+
-+This is the equivalent of calling \textit{open} on a V4L2 device node.
-+The driver uses \textit{virtio_media_cmd_open} to send an open request.
-+
-+\begin{lstlisting}
-+struct virtio_media_cmd_open {
-+    struct virtio_media_cmd_header hdr;
-+};
-+\end{lstlisting}
-+
-+The device responds to \textit{VIRTIO_MEDIA_CMD_OPEN} with \textit{virtio_media_resp_open}.
-+
-+\begin{lstlisting}
-+struct virtio_media_resp_open {
-+    struct virtio_media_resp_header hdr;
-+    le32 session_id;
-+    le32 __reserved;
-+};
-+\end{lstlisting}
-+
-+\begin{description}
-+\item[\field{session_id}] identifies the current session, which is used for
-+other commands, predominantly ioctls.
-+\end{description}
-+
-+\devicenormative{\subparagraph}{Device Operation: Open device}{Device Types / Media Device / Device Operation / Open device}
-+
-+Upon success, the device MUST set a \field{session_id} in \textit{virtio_media_resp_open}
-+to an integer that is NOT used by any other open session.
-+
-+\paragraph{Device Operation: Close device}
-+
-+\textbf{VIRTIO_MEDIA_CMD_CLOSE} Command for closing an active session.
-+
-+This is the equivalent of calling \textit{close} on a previously opened V4L2
-+device node. All resources associated with this session will be freed.
-+
-+This command does not require a response from the device.
-+
-+\begin{lstlisting}
-+struct virtio_media_cmd_close {
-+    struct virtio_media_cmd_header hdr;
-+    le32 session_id;
-+    le32 __reserved;
-+};
-+\end{lstlisting}
-+
-+\begin{description}
-+\item[\field{session_id}] identifies the session to close.
-+\end{description}
-+
-+\drivernormative{\subparagraph}{Device Operation: Close device}{Device Types / Media Device / Device Operation / Close device}
-+
-+The session ID SHALL NOT be used again after queueing this command, until it has
-+been obtained again through a subsequent \textit{VIRTIO_MEDIA_CMD_OPEN} call.
-+
-+\paragraph{Device Operation: V4L2 ioctls}
-+
-+\textbf{VIRTIO_MEDIA_CMD_IOCTL} Command for executing an ioctl on an open
-+session.
-+
-+This command tells the device to run one of the `VIDIOC_*` ioctls on the
-+session identified by \textit{session_id}.
-+
-+\begin{lstlisting}
-+struct virtio_media_cmd_ioctl {
-+    struct virtio_media_cmd_header hdr;
-+    le32 session_id;
-+    le32 code;
-+    /* Followed by the relevant ioctl command payload as defined in the macro */
-+};
-+\end{lstlisting}
-+
-+\begin{description}
-+\item[\field{session_id}] identifies the session to run the ioctl on.
-+\item[\field{code}] specifies the code of the \field{VIDIOC_*} ioctl to run.
-+\end{description}
-+
-+The code is extracted from the
-+\href{https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/videodev.html}{videodev2.h},
-+header file. The file defines the ioctl's codes, type of payload, and
-+direction. The code consists of the second argument of the \field{_IO*} macro.
-+
-+For example, the \textit{VIDIOC_G_FMT} is defined as follows:
-+
-+\begin{lstlisting}
-+#define VIDIOC_G_FMT _IOWR('V',  4, struct v4l2_format)
-+\end{lstlisting}
-+
-+This means that its ioctl code is \textit{4}, its payload is a
-+\textit{struct v4l2_format}, and its direction is \textit{WR} (i.e., the
-+payload is written by both the driver and the device).
-+See Section \ref{sec:Device Types / Media Device / V4L2 ioctls / Ioctls payload}
-+for more information about the direction of ioctls.
-+
-+The payload struct layout always matches the 64-bit, little-endian
-+representation of the corresponding V4L2 structure.
-+
-+The device responds to \textit{VIRTIO_MEDIA_CMD_IOCTL} with \textit{virtio_media_resp_ioctl}.
-+
-+\begin{lstlisting}
-+struct virtio_media_resp_ioctl {
-+    struct virtio_media_resp_header hdr;
-+    /* Followed by the ioctl response payload as defined in the macro */
-+};
-+\end{lstlisting}
-+
-+\subparagraph{Ioctls payload}\label{sec:Device Types / Media Device / V4L2 ioctls / Ioctls payload}
-+
-+Each ioctl has a payload, which is defined by the third argument of the
-+\field{_IO*} macro. 
-+
-+The payload of an ioctl in the descriptor chain follows the command structure,
-+the response structure, or both depending on the direction:
-+
-+\begin{itemize}
-+\item \textbf{_IOR} is read-only for the driver, meaning the payload
-+follows the response in the device-writable section of the descriptor chain.
-+\item \textbf{_IOW} is read-only for the device, meaning the payload
-+follows the command in the device-readable section of the descriptor chain.
-+\item \textbf{_IOWR} is writable by both the device and driver,
-+meaning the payload must follow both the command in the device-readable section
-+of the descriptor chain, and the response in the device-writable section.
-+\end{itemize}
-+
-+A possible optimization for \textit{WR} ioctls is to provide the payload using
-+descriptors that both point to the same buffer. This mimics the behavior of
-+V4L2 ioctls where the data is only passed once and used as both input and
-+output by the kernel.
-+
-+\devicenormative{\subparagraph}{Device Operation: V4L2 ioctls}{Device Types / Media Device / Device Operation / V4L2 ioctls}
-+
-+In case of success of a device-writable ioctl, the device MUST always write the
-+payload in the device-writable part of the descriptor chain.
-+
-+In case of failure of a device-writable ioctl, the device is free to write the
-+payload in the device-writable part of the descriptor chain or not. Some errors
-+may still result in the payload being updated, and in this case the device is
-+expected to write the updated payload. 
-+
-+\drivernormative{\subparagraph}{Device Operation: V4L2 ioctls}{Device Types / Media Device / Device Operation / V4L2 ioctls}
-+
-+For most V4L2 structures, the size is identical for both 32 and 64 bits versions.
-+If the payload struct layout size differs for 32 and 64 bits, the driver
-+MUST translate them to its the 64-bit, little-endian representation.
-+
-+If the device has not written the payload after an error (i.e., only the
-+header is returned), the driver MUST assume that the payload has not
-+been modified.
-+
-+\subparagraph{Handling of pointers to data in ioctl payload}
-+\label{sec:Device Types / Media Device / V4L2 ioctls / Pointers in V4l2 ioctls}
-+
-+A few structures used as ioctl payloads contain pointers to further
-+data needed for the ioctl. There are notably:
-+
-+\begin{itemize}
-+\item The \field{planes} pointer of
-+\href{https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/buffer.html#struct-v4l2-buffer}{struct v4l2_buffer},
-+which size is determined by the length member.
-+\item The \field{controls} pointer of
-+\href{https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/vidioc-g-ext-ctrls.html#c.V4L.v4l2_ext_controls}{struct v4l2_ext_controls},
-+which size is determined by the count member.
-+\end{itemize}
-+
-+If the size of the pointed area is non-zero, then the main
-+payload is immediately followed by the pointed data in their order of
-+appearance in the structure.
-+
-+\devicenormative{\subparagraph}{Handling of pointers to data in ioctl payload}{Device Types / Media Device / Device Operation / Pointers in V4l2 ioctls}
-+
-+The pointer value, when its area is non-zero, is ignored by the device,
-+which MUST return the value initially passed by the driver.
-+
-+
-+\subparagraph{Handling of pointers to userspace memory in ioctl payload}
-+\label{sec:Device Types / Media Device / V4L2 ioctls / Userspace memory}
-+
-+A few pointers (used for \textit{SHARED_PAGES} memory type,
-+see \ref{sec:Device Types / Media Device / Device Operation / Shared Pages})
-+are special in that they point to userspace memory in the
-+original V4L2 specification. They are:
-+
-+\begin{itemize}
-+\item The \field{m.userptr} member of \textit{struct v4l2_buffer} and
-+\href{https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/buffer.html#struct-v4l2-plane}{struct v4l2_plane}
-+(technically an unsigned long, but designated a userspace address).
-+\item The \field{ptr} member of \textit{struct v4l2_ext_ctrl}.
-+\end{itemize}
-+
-+These pointers may cover large areas of scattered memory, which has the
-+potential to require more descriptors than the virtio queue can provide. For
-+these particular pointers only, a list of \textit{struct virtio_media_sg_entry}
-+that covers the needed amount of memory for the pointer is used instead of
-+using descriptors to map the pointed memory directly.
-+
-+\begin{lstlisting}
-+struct virtio_media_sg_entry {
-+	le64 start;
-+	le32 len;
-+	le32 __reserved;
-+};
-+\end{lstlisting}
-+
-+For each such pointer to read, the device reads as many SG entries as needed
-+to cover the length of the pointed buffer, as described by its parent
-+structure (\field{length} member of \textit{struct v4l2_buffer} or
-+\textit{struct v4l2_plane} for buffer memory, and \field{size} member of
-+\textit{struct v4l2_ext_control} for control data).
-+
-+Since the device never needs to modify the list of SG entries, it is only
-+provided by the driver in the device-readable section of the descriptor chain,
-+and not repeated in the device-writable section, even for WR ioctls.
-+
-+\subparagraph{Unsupported ioctls}
-+
-+A few ioctls are replaced by other, more suitable mechanisms.
-+
-+\begin{itemize}
-+\item \textit{VIDIOC_QUERYCAP} is replaced by reading the configuration area
-+(see \ref{sec:Device Types / Media Device / Device Configuration Layout}).
-+\item \textit{VIDIOC_DQBUF} is replaced by a dedicated event
-+(see \ref{sec:Device Types / Media Device / Device Operation / Dequeue buffer}).
-+\item \textit{VIDIOC_DQEVENT} is replaced by a dedicated event
-+(see \ref{sec:Device Types / Media Device / Device Operation / Emit an event}).
-+\item \textit{VIDIOC_G_JPEGCOMP} and \textit{VIDIOC_S_JPEGCOMP} are deprecated
-+and replaced by the controls of the JPEG class.
-+\item \textit{VIDIOC_LOG_STATUS} is a driver-only operation and shall not be
-+implemented by the device.
-+\end{itemize}
-+
-+\devicenormative{\subparagraph}{Device Operation: Unsupported ioctls}{Device Types / Media Device / Device Operation / Unsupported ioctls}
-+
-+When a request is not supported, the device MUST return \textit{ENOTTY},
-+which corresponds to the response for unknown ioctls.
-+
-+\paragraph{Device Operation: Mapping a MMAP buffer}
-+
-+\textbf{VIRTIO_MEDIA_CMD_MMAP} Command for mapping a MMAP buffer into the
-+driver's address space.
-+
-+Shared memory region ID 0 is used to map MMAP buffers with
-+the \textit{VIRTIO_MEDIA_CMD_MMAP} command.
-+
-+\begin{lstlisting}
-+#define VIRTIO_MEDIA_MMAP_FLAG_RW (1 << 0)
-+
-+struct virtio_media_cmd_mmap {
-+	struct virtio_media_cmd_header hdr;
-+	le32 session_id;
-+	le32 flags;
-+	le32 offset;
-+};
-+\end{lstlisting}
-+
-+\begin{description}
-+\item[\field{session_id}] identifies the session which the mapped buffer pertains to.
-+\item[\field{flags}] is the set of flags for the mapping. \field{VIRTIO_MEDIA_MMAP_FLAG_RW}
-+can be set if a read-write mapping is desired. Without this flag the mapping
-+will be read-only.
-+\item[\field{offset}] corresponds to the \field{mem_offset} field of the
-+\textit{union v4l2_plane} for the plane to map. This field can be obtained
-+using the \textit{VIDIOC_QUERYBUF} ioctl.
-+\end{description}
-+
-+The device responds to \textit{VIRTIO_MEDIA_CMD_MMAP} with \textit{virtio_media_resp_mmap}.
-+
-+\begin{lstlisting}
-+struct virtio_media_resp_mmap {
-+    struct virtio_media_resp_header hdr;
-+    le64 driver_addr;
-+    le64 len;
-+};
-+\end{lstlisting}
-+
-+\begin{description}
-+\item[\field{driver_addr}] offset into SHM region ID 0 of the start of the mapping.
-+\item[\field{len}] length of the mapping as indicated by the \textit{struct v4l2_plane}
-+the buffer belongs to.
-+\end{description}
-+
-+\devicenormative{\subparagraph}{Device Operation: Mapping a MMAP buffer}{Device Types / Media Device / Device Operation / Mapping a MMAP buffer}
-+
-+The \textit{len} parameter of the \textit{virtio_media_resp_mmap} response sent
-+by the device MUST always be equal to the length of the buffer.
-+
-+\paragraph{Device Operation: Unmapping a MMAP buffer}
-+
-+\textbf{VIRTIO_MEDIA_CMD_MUNMAP} unmaps a MMAP buffer previously mapped using \field{VIRTIO_MEDIA_CMD_MMAP}.
-+
-+\begin{lstlisting}
-+struct virtio_media_cmd_munmap {
-+    struct virtio_media_cmd_header hdr;
-+    le64 driver_addr;
-+};
-+\end{lstlisting}
-+
-+\begin{description}
-+\item[\field{driver_addr}] offset into SHM region ID 0 previously returned by 
-+\textit{VIRTIO_MEDIA_CMD_MMAP} at which the buffer has been previously mapped.
-+\end{description}
-+
-+The device responds to \textit{VIRTIO_MEDIA_CMD_MUNMAP} with \textit{virtio_media_resp_munmap}.
-+
-+\begin{lstlisting}
-+struct virtio_media_resp_munmap {
-+    struct virtio_media_resp_header hdr;
-+};
-+\end{lstlisting}
-+
-+\devicenormative{\subparagraph}{Device Operation: Unmapping a MMAP buffer}{Device Types / Media Device / Device Operation / Unmapping a MMAP buffer}
-+
-+The device MUST keep mappings performed using \textit{VIRTIO_MEDIA_CMD_MMAP}
-+valid until \textit{VIRTIO_MEDIA_CMD_MUNMAP} is called, even if the buffers or
-+session they belong to are released or closed by the driver.
-+
-+\paragraph{Device Operation: Memory Types}
-+
-+The semantics of the three V4L2 memory types (\textit{MMAP}, \textit{USERPTR}
-+and \textit{DMABUF}) can easily be mapped to both driver and device context.
-+
-+\begin{lstlisting}
-+enum virtio_media_memory {
-+    VIRTIO_MEDIA_MMAP = V4L2_MEMORY_MMAP,
-+    VIRTIO_MEDIA_SHARED_PAGES = V4L2_MEMORY_USERPTR,
-+    VIRTIO_MEDIA_OBJECT = V4L2_MEMORY_DMABUF,
-+};
-+\end{lstlisting}
-+
-+\subparagraph{MMAP}
-+
-+\textit{MMAP} memory type is the semantic equivalent of
-+\textit{V4L2_MEMORY_MMAP} in regular V4L2. 
-+
-+In virtio-media, \textit{MMAP} buffers are provisioned by the device, just like
-+they are by the kernel in regular V4L2. Similarly to how userspace can map a
-+\textit{MMAP} buffer into its address space using mmap and munmap, the
-+virtio-media driver can map device buffers into the driver space by queueing the
-+\textit{struct virtio_media_cmd_mmap} and \textit{struct virtio_media_cmd_munmap}
-+commands to the commandq.
-+
-+\subparagraph{SHARED_PAGES}
-+\label{sec:Device Types / Media Device / Device Operation / Shared Pages}
-+
-+\textit{SHARED_PAGES} memory type is the semantic equivalent of
-+\textit{V4L2_MEMORY_USERPTR} in regular V4L2. 
-+
-+In virtio-media, \textit{SHARED_PAGES} buffers are provisioned by the driver,
-+and use guest physical addresses. Instances of \textit{struct v4l2_buffer}
-+and \textit{struct v4l2_plane} of this memory type are followed by a list of
-+\textit{struct virtio_media_sg_entry}. For more information, see
-+\ref{sec:Device Types / Media Device / V4L2 ioctls / Userspace memory}
-+
-+\devicenormative{\subparagraph}{Device Operation: Shared Pages}{Device Types / Media Device / Device Operation / Shared Pages}
-+
-+The device MUST not alter the pointer values provided by the driver, i.e.
-+\field{the m.userptr} member of \textit{struct v4l2_buffer} and
-+\textit{struct v4l2_plane} MUST be returned to the driver with the same value
-+as it was provided.
-+
-+\subparagraph{VIRTIO_OBJECT}
-+\label{sec:Device Types / Media Device / Device Operation / Virtio Object}
-+
-+\textit{VIRTIO_OBJECT} memory type is the semantic equivalent of
-+\textit{V4L2_MEMORY_DMABUF} in regular V4L2. 
-+
-+In virtio-media, \textit{VIRTIO_OBJECT} buffers are provisioned by a virtio
-+object, just like they are by a \textit{DMABUF} in regular V4L2. Virtio objects
-+are 16-bytes UUIDs and do not fit in the placeholders for file descriptors, so
-+they follow their embedding data structure as needed. For example, in multi-planar
-+buffers, \textit{struct v4l2_plane} structures are located after the
-+\textit{struct v4l2_buffer} in the memory layout. Then, after the last plane,
-+the memory contains an array of UUIDs in which the first element corresponds
-+with the first plane, and so on.
-+
-+Conversely to \textit{SHARED_PAGES} buffers, virtio objects UUIDs need to be added in
-+both the device-readable and device-writable section of the descriptor chain.
-+
-+Device-allocated buffers with the \textit{VIRTIO_MEDIA_MMAP} memory type may also
-+be exported as virtio objects for use with another virtio device using the
-+\textit{VIDIOC_EXPBUF} ioctl. The fd placefolder of \textit{v4l2_exportbuffer}
-+means that space for the UUID needs to be reserved right after that structure.
-+
-+\devicenormative{\subparagraph}{Device Operation: Virtio Object}{Device Types / Media Device / Device Operation / Virtio Object}
-+
-+The device MUST leave the V4L2 structure placeholder unchanged.
-+
-+\subsubsection{Event Virtqueue}
-+
-+Events are asynchronous notifications to the driver. In virtio-media,
-+they are used as a replacement for the \textit{VIDIOC_DQBUF} and
-+\textit{VIDIOC_DQEVENT} ioctls and the polling mechanism, which would be
-+impractical to implement on top of virtio.
-+
-+\paragraph{Device Operation: Event header}
-+
-+\begin{lstlisting}
-+#define VIRTIO_MEDIA_EVT_ERROR 0
-+#define VIRTIO_MEDIA_EVT_DQBUF 1
-+#define VIRTIO_MEDIA_EVT_EVENT 2
-+
-+/* Header for events queued by the device for the driver on the eventq. */
-+struct virtio_media_event_header {
-+    le32 event;
-+    le32 session_id;
-+};
-+\end{lstlisting}
-+
-+\begin{description}
-+\item[\field{event}] one of \field{VIRTIO_MEDIA_EVT_*}.
-+\item[\field{session_id}] ID of the session the event applies to.
-+\end{description}
-+
-+\paragraph{Device Operation: Device-side error}
-+
-+\textbf{VIRTIO_MEDIA_EVT_ERROR} Upon receiving this event, the session
-+mentioned in the header is considered corrupted and automatically closed by
-+the device.
-+
-+\begin{lstlisting}
-+struct virtio_media_event_error {
-+    struct virtio_media_event_header hdr;
-+    le32 errno;
-+    le32 __reserved;
-+};
-+\end{lstlisting}
-+
-+\begin{description}
-+\item[\field{errno}] error code describing the kind of error that occurred.
-+\end{description}
-+
-+\devicenormative{\subparagraph}{Device Operation: Device-side error}{Device Types / Media Device / Device Operation / Device-side error}
-+
-+After an error is signaled, when the device considers the session as
-+non-existing, the device MUST NOT recycle the session ID until the driver has
-+explicitly closed it.
-+
-+\drivernormative{\subparagraph}{Device Operation: Device-side error}{Device Types / Media Device / Device Operation / Device-side error}
-+
-+Upon receiving an error event for a session, the driver MUST
-+explicitly close the session using a \textit{VIRTIO_MEDIA_CMD_CLOSE} command.
-+
-+\paragraph{Device Operation: Dequeue buffer}
-+\label{sec:Device Types / Media Device / Device Operation / Dequeue buffer}
-+
-+\textbf{VIRTIO_MEDIA_EVT_DQBUF} signals that a buffer is not being used anymore
-+by the device and is returned to the driver.
-+
-+Every time a buffer previously queued (i.e., using the
-+\textit{VIDIOC_QBUF} ioctl) is done being processed, the
-+device queues a \textit{struct virtio_media_event_dqbuf} event on
-+the eventq, signifying that the buffer may be used again by the driver.
-+This is like an implicit \textit{VIDIOC_DQBUF} ioctl.
-+
-+\begin{lstlisting}
-+#define VIRTIO_MEDIA_MAX_PLANES 8
-+
-+struct virtio_media_event_dqbuf {
-+    struct virtio_media_event_header hdr;
-+    struct v4l2_buffer buffer;
-+    struct v4l2_plane planes[VIRTIO_MEDIA_MAX_PLANES];
-+};
-+\end{lstlisting}
-+
-+\begin{description}
-+\item[\field{buffer}] \textit{struct v4l2_buffer} describing the buffer that has been dequeued.
-+\item[\field{planes}] array of \textit{struct v4l2_plane} containing the plane information for multi-planar buffers.
-+\end{description}
-+
-+Note that in the case of a \field{SHARED_PAGES} buffer, the \textit{struct v4l2_buffer}
-+used as event payload is not followed by the buffer's SG entries: since that memory
-+is the same that the driver submitted with the \textit{VIDIOC_QBUF}, it would
-+be redundant to have it here.
-+
-+\drivernormative{\subparagraph}{Device Operation: Dequeue buffer}{Device Types / Media Device / Device Operation / Dequeue buffer}
-+
-+Pointer values in the \textit{struct v4l2_buffer} and \textit{struct v4l2_plane}
-+are meaningless and MUST be ignored by the driver. It is recommended that the
-+device sets them to NULL in order to avoid leaking potential device addresses.
-+
-+\paragraph{Device Operation: Emit an event}
-+\label{sec:Device Types / Media Device / Device Operation / Emit an event}
-+
-+\textbf{VIRTIO_MEDIA_EVT_EVENT} Signals that a V4L2 event has been emitted for a session.
-+
-+Every time an event for which the driver has been previously subcribed to
-+(i.e., using the \textit{VIDIOC_SUBSCRIBE_EVENT} ioctl) is signaled, the
-+device queues a \textit{struct virtio_media_event_event} event on the eventq.
-+This is like an implicit \textit{VIDIOC_DQEVENT} ioctl.
-+
-+\begin{lstlisting}
-+struct virtio_media_event_event {
-+    struct virtio_media_event_header hdr;
-+    struct v4l2_event event;
-+};
-+\end{lstlisting}
-+
-+\begin{description}
-+\item[\field{event}] \textit{struct v4l2_event} describing the event that occurred.
-+\end{description}
-diff --git a/device-types/media/device-conformance.tex b/device-types/media/device-conformance.tex
-new file mode 100644
-index 0000000..67f0db5
---- /dev/null
-+++ b/device-types/media/device-conformance.tex
-@@ -0,0 +1,15 @@
-+\conformance{\subsection}{Media Device Conformance}\label{sec:Conformance / Device Conformance / Media Device Conformance}
-+
-+A Media device MUST conform to the following normative statements:
-+
-+\begin{itemize}
-+\item \ref{devicenormative:Device Types / Media Device / Device Operation / Open device}
-+\item \ref{devicenormative:Device Types / Media Device / Device Operation / V4L2 ioctls}
-+\item \ref{devicenormative:Device Types / Media Device / Device Operation / Pointers in V4l2 ioctls}
-+\item \ref{devicenormative:Device Types / Media Device / Device Operation / Unsupported ioctls}
-+\item \ref{devicenormative:Device Types / Media Device / Device Operation / Mapping a MMAP buffer}
-+\item \ref{devicenormative:Device Types / Media Device / Device Operation / Unmapping a MMAP buffer}
-+\item \ref{devicenormative:Device Types / Media Device / Device Operation / Shared Pages}
-+\item \ref{devicenormative:Device Types / Media Device / Device Operation / Virtio Object}
-+\item \ref{devicenormative:Device Types / Media Device / Device Operation / Device-side error}
-+\end{itemize}
-\ No newline at end of file
-diff --git a/device-types/media/driver-conformance.tex b/device-types/media/driver-conformance.tex
-new file mode 100644
-index 0000000..9637719
---- /dev/null
-+++ b/device-types/media/driver-conformance.tex
-@@ -0,0 +1,11 @@
-+\conformance{\subsection}{Media Driver Conformance}\label{sec:Conformance / Driver Conformance / Media Driver Conformance}
-+
-+A Media driver MUST conform to the following normative statements:
-+
-+\begin{itemize}
-+\item \ref{drivernormative:Device Types / Media Device / Device Operation / Command Virtqueue}
-+\item \ref{drivernormative:Device Types / Media Device / Device Operation / Close device}
-+\item \ref{drivernormative:Device Types / Media Device / Device Operation / V4L2 ioctls}
-+\item \ref{drivernormative:Device Types / Media Device / Device Operation / Device-side error}
-+\item \ref{drivernormative:Device Types / Media Device / Device Operation / Dequeue buffer}
-+\end{itemize}
-\ No newline at end of file
--- 
-2.48.1
+As for ignoring reserved fields in the device-readable part
+(effectively: in the request), there is arguably no good reason for the
+driver to put data in the request which the device will not process
+according to the negotiated feature bits. 
 
+But does the device actually need to check that reserved fields are
+zero? I would say no. Depending on future additions, there could also be
+multiple reserved fields per request.
+
+So my suggestion would be to drop the last requirement and retain the
+other two.
+
+(For the response, adding extra information not negotiated by feature
+bits should be unproblematic. I think I added the requirement on the
+request for symmetry.)
+
+> > 
+> > > > +
+> > > > +The device MUST set \emph{reserved} fields in the device-writable part
+> > > > +of the message to zero.
+> > > > +
+> > > > +The device MUST set unnamed bits in \emph{flags} fields in the
+> > > > +device-writable part of the message to zero.
+> > > > +
+> > > > +After feature negotiation completion the device MUST NOT change the set
+> > > > +of clocks until device reset.
+> > > > +
+> > > > +The device SHOULD NOT change the set of clocks on a device reset after
+> > > > +the first device reset.
+> > > > +
+> > > > +The device MUST use non-negative integers, which are smaller than the
+> > > > +number of clocks, as clock identifiers.
+> > > > +
+> > > > +For a fixed request value V, the device SHOULD either, for every request
+> > > > +with value V, always execute successfully, or, for every request with
+> > > > +value V, always set a fixed \field{status} other than VIRTIO_RTC_S_OK.
+> > > 
+> > > I am not familiar enough with rtc clocks, what does `request with value
+> > > V` mean ?
+> > > 
+> > 
+> > I tried to avoid ambiguity by emulating the language used in semi-formal
+> > proofs. "V" refers to any particular request, e.g. VIRTIO_REQ_READ with
+> > clock_id 1. For any such particular request the device SHOULD either
+> > always return success, or always return the same error code.
+> > 
+> > Maybe I could rephrase like this:
+> > 
+> > 	The device SHOULD always set the same \field{status} in response
+> > 	to identical requests.
+> > 
+> 
+> Oh, I see. Do you think we could drop this requirement? It is not clear
+> to me if it is required.
+> 
+
+This requirement says that the device SHOULD respond to requests in an
+consistent way, i.e. it SHOULD not sporadically fail requests. If there
+are sporadic failures, clock synchronization daemons such as chrony may
+choose a suboptimal clock reading method, i.e. one without READ_CROSS.
+
+OTOH there is another requirement
+
+	The device SHOULD continuously support reading of all clocks
+	once DRIVER_OK has been set.
+
+I think the latter might suffice and the former could indeed be dropped.
+
+> > > > +
+> > > > +For any clock C and read requests \emph{A} and \emph{B} which read C,
+> > > > +\emph{A} being the message which the driver marks as available before
+> > > > +\emph{B}, the device MUST obtain the \field{clock_reading} value for the
+> > > > +message \emph{A} response before the \field{clock_reading} value for the
+> > > > +message \emph{B} response, or the device MUST obtain the same
+> > > > +\field{clock_reading} value for both \emph{A} and \emph{B}.
+> > > 
+> > > Can't we just say that the device MUST processes the available ring as FIFO
+> > > queue?
+> > > 
+> > 
+> > The spec mandates FIFO processing for all the readings *of the same
+> > clock* by the above requirement (in conjunction with the below
+> > requirement, if you care about the used order).
+> > 
+> > The ordering requirement only applies to readings of the same clock, so
+> > that clocks which are slow to read (such as GPS clocks read over UART),
+> > or future slow commands, do not necessarily stall other processing, such
+> > as fast clock readings.
+> > 
+> > To guarantee that a clock never goes backwards (unless the clock is
+> > stepped backwards), the spec explicitly specifies the order of
+> > clock_reading values of successive clock readings. Just mandating FIFO
+> > processing would not prohibit a clock from going backwards.
+> > 
+> > E.g. when hardware counters are not properly synchronized across a
+> > multi-core device, the clock can go backwards when read on different
+> > cores. The spec mandates that the device avoid this. By this, the
+> > driver does not have to do mitigation.
+> 
+> The example helped a lot. You mean that the device must ensure that
+> requests that are read in order from the available ring, their output
+> values must respect that order. In a multicore system, I think
+> measurements should base always on the same physical clock for a given
+> clock to prevent getting the value from the clock in which the request
+> is processed. Does it make sense? 
+> 
+
+I would not say that the device always needs to use the same physical
+clock (counter). It suffices if the physical clocks are synchronized
+good enough so that the clock never goes backwards between successive
+requests.
+
+> > 
+> > > > +
+> > > > +For any clock C, the device MUST mark all read requests reading C as
+> > > > +used in the total order in which the driver marked these messages as
+> > > > +available.
+> > > > +
+> > > > +For any clock C of type VIRTIO_RTC_CLOCK_MONOTONIC and read requests
+> > > > +\emph{A} and \emph{B} which read C, \emph{A} being the message which the
+> > > > +driver marks as available before \emph{B}, the device MUST set the
+> > > > +\field{clock_reading} value for the message \emph{B} response to a value
+> > > > +greater than or equal to the \field{clock_reading} value for the message
+> > > > +\emph{A} response.
+> > > 
+> > > See comment above.
+> > > 
+> > > > +
+> > > > +The device MUST support VIRTIO_RTC_REQ_READ for every clock.
+> > > > +
+> > > > +For VIRTIO_RTC_REQ_READ and for any clock type listed in this
+> > > > +specification, the device MUST use the nanosecond as unit for field
+> > > > +\field{clock_reading}.
+> > > 
+> > > In other parts of the document the word `field` is written after the
+> > > name of the field. I think we could just put it after the name
+> > > everywhere.
+> > > 
+> > 
+> > OK.
+> > 
+> > > > +
+> > > > +For read requests, the device MUST obtain the \field{clock_reading}
+> > > > +response value after the read request is marked as available.
+> > > > +
+> > > > +For VIRTIO_RTC_REQ_READ_CROSS, the device MUST set
+> > > > +\field{counter_cycles} to a value which approximates the value which the
+> > > > +driver would have read from the hardware counter identified by
+> > > > +\field{hw_counter} at the time instant when the device read the
+> > > > +\field{clock_reading} value.
+> > > 
+> > > s/read/reads
+> > > 
+> > 
+> > "read" seems correct to me. The last "read" in the above sentence is
+> > simple past tense, since the device sets the field after reading the
+> > clock_reading value. 
+> > 
+> 
+> I wonder if it is not `have read` them, I may be wrong and simple past
+> tense is OK.
+> 
+
+Can somebody help? I looked at some grammar website and I still think
+simple past is the appropriate tense, because "the device read the
+clock_reading value" describes something which finished in the past.
+
+> > > > +
+> > > > +For VIRTIO_RTC_REQ_READ_CROSS, the device SHOULD assume that the driver
+> > > > +reads the hardware counter identified by \field{hw_counter} through the
+> > > > +CPU which the driver enumerates as the first.
+> > > > +
+> > > > +For VIRTIO_RTC_REQ_READ_CROSS, the device MUST set \field{status} to a
+> > > > +value other than VIRTIO_RTC_S_OK if the device cannot determine the
+> > > > +approximate value which the driver would have read from the hardware
+> > > > +counter identified by \field{hw_counter} at the time instant when the
+> > > > +device read the \field{clock_reading} value.
+> > > 
+> > > s/read/reads
+> > > 
+> > 
+> > The last "read" above is simple past tense, too.
+> > 
+> > > > +
+> > > > +For any clock C, and VIRTIO_RTC_REQ_READ_CROSS messages \emph{A} and
+> > > > +\emph{B} which read C and which specify the same hardware counter
+> > > > +\emph{H} through field \field{hw_counter}, \emph{A} being the message
+> > > > +which the driver marks as available before \emph{B}, the device MUST set
+> > > > +the \field{counter_cycles} value for \emph{B} to a value which \emph{H}
+> > > > +shows after the \field{counter_cycles} value of \emph{A}, or the device
+> > > > +MUST set the same \field{counter_cycles} value for \emph{A} and
+> > > > +\emph{B}.
+> > > 
+> > > Can't we just say that the request queue follows a FIFO semantics?
+> > > 
+> > 
+> > As discussed above, this would not guarantee that the counter_cycles
+> > value does not decrease across reads (ignoring rollovers), e.g. if
+> > successive READ_CROSS messages are processed on different cores whose
+> > hardware counters are not properly synchronized.
+> 
+> Got it. Is that not a wrong implementation? Because the device must base
+> on the same physical clock. It must not base on the clock in which the
+> request is processed. In other words, the device should ensure that
+> request to a given clock (virtual) are got always from the same physical
+> clock.
+> 
+> Matias
+> 
+
+I think it should be up to the implementation to use any suitable
+physical clock and translation mechanism to virtual clock (if required).
+It should be possible to implement the device as a program which can
+migrate across cores. The spec should only mandate that the responses to
+the driver are self-consistent (which relieves the driver of
+post-processing).
+
+Thanks for the reply,
+
+Peter
