@@ -1,60 +1,62 @@
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080612571D3
-	for <virtio-comment@lists.linux.dev>; Tue, 25 Feb 2025 13:48:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0EE7233714
+	for <virtio-comment@lists.linux.dev>; Tue, 25 Feb 2025 13:48:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740491314; cv=none; b=CMnGbimk/zLBvQxbvdQ4hj+LkJiOzJYwyf8p7RfQmbW+n/Y7za1xYOY/ODqFUUbKUcVF9WZBguKwVrTWbjqDhRC8QpSoZnZgpHPbw19GZsQGvNaKvz0pUdxESLGeEKDWAwkbRNeP0SVD2z85DvNdlbi7B1iZYIXY0VLjLhXwXWk=
+	t=1740491321; cv=none; b=D9fKVpiH2tRSPS1VR/yJC10iB2PZMf4T8PZfx0ZItBzirO2/6sUFBmEaiRU4ZN+uDH6XjIwo/81EvxMkm8Vb28TMtZjn+hkI6to8iaZGnAEp7gIxIHZJAK4qLd92f2NwkBFOrs0Md4kxD+dQ7pzXI1XOr/qikPN2bn7H0i5/w0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740491314; c=relaxed/simple;
-	bh=4S2hrARxjxBgFJQtccC6+al3kAPmKCThMXUdvJSL2Ow=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oCtg2vMWZHQ0jolnsyEmsLvRMdgVIaHNvgsTn/CdPLLCPlU1Or1mZGn1ycSJ8m3dU7rQRxmy3uL3aH72+XCRBWQMcUV97W6qEPHaPPtX50UzSB/1czRGht+Xrca58P6NGKnN8KhKVecCh85/FM0CGzoPJGzTgVejUqIW4akxrjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Wnvuwp10; arc=none smtp.client-ip=209.85.222.177
+	s=arc-20240116; t=1740491321; c=relaxed/simple;
+	bh=/dFMq3pnpx7HCw9MlFgca0ETNAJrTEBSfuc1LFbidsU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=GELiaEvAPrFhWc+OsZ8kzLebMDLwt9/Aj8VHiScWwKCcANTakWBh9aCk82A38ibaAH33tT1KnHks3p5gyZvc5wtR0sLmfuvSQFej3/mCqTYG7TeVcpiSzaC8okubtcw9JHsVJ7dnImK29wR16DfOWbJ0MM/tUch3uy5g4TuAZ7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=PJdnN+MS; arc=none smtp.client-ip=209.85.222.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Wnvuwp10"
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-7c07cd527e4so524002485a.3
-        for <virtio-comment@lists.linux.dev>; Tue, 25 Feb 2025 05:48:31 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="PJdnN+MS"
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-7be8f281714so717943385a.1
+        for <virtio-comment@lists.linux.dev>; Tue, 25 Feb 2025 05:48:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1740491310; x=1741096110; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=rLuZNZ7E886EXQyb+MHO6WqDWo4Tjq1jj0D2QEr928I=;
-        b=Wnvuwp10v9POB77LHVcxjQsBrAdIGQe8ZZhsZcSSmxoro6Xs0ib8kZP6djuhXLPoE9
-         Rxv3ezJuSb9TAkz9zpMJBr3Wn60M6X+9SLCyyqnVpKQKBribbrOvBNNk0Vk4eUxyQ66Q
-         oQMBV5nd/ulbOYIRPQNR9QggAbp9KG9UdZKU3T13m+Gv1Ga4o8s1gLFf8Pi91mCvC+4W
-         eB+LdnrjBPKpmne0/fv6FeEm+P9S+X8g5jwL7PHdjl0N4MLZclwv6VzxRodYsutCEnF8
-         XnHjQP/ViL9h9plWmL0ap1+okeUirJjedtt0WuSkIHvs5P53CJDZWIfFpHyDovIlW/mi
-         aqHQ==
+        d=linaro.org; s=google; t=1740491317; x=1741096117; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=u8kBXO0g7uNacorlMzyyEZhTFrR8Ex7pb3C5wSE2q0o=;
+        b=PJdnN+MSifyCOMzvAYjmR91ILUxXOAOaUmPeRdRQ4ICTgaSbo3Q295XY/6tlkvuwzj
+         y4NJUINGuOYLM+DHoHI6E3zYu76m3qoL84rFf+Lz+gz8Ztn+OgP2NuxlYhhH1gJO/9nZ
+         6Wi0M38mDRMVPSahuAXdKynexIIob00KZc++LpTlPxsGMcwg9fqcnPb2lWC/3O3IfizL
+         RNDB5yEFrm1ClMkQt866VX92XpZbk2zqsuNRwfzExX96jhSnpWRL67fvft3YIpbCNfC5
+         qtCeNAWMq5WTrQolnJNJRB3pyqfYMRvftQM1VyzW9b2ztUl4WOoyxc9W1pBjjnZlmWr0
+         Yvgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740491310; x=1741096110;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rLuZNZ7E886EXQyb+MHO6WqDWo4Tjq1jj0D2QEr928I=;
-        b=NVdr7KOXcXP84abeUruLraU/4Xd/FZyWi+yNUDUxwGH23b4LPAz1kHTjBesmpvDSmJ
-         kOFSnFBcMCCurBI/ON8Vs/HrkLgcBVCvuoVTmLIkJMwu3OCnXnEtOtPINcVKtbcFa0j8
-         vI0cq3c7qGeYRYeeFZkSFYVKzkdkpbZGBFANR8ArmAqKCRvqUTIwUzIxqzYTlTYwo1yD
-         j+p7w5dyF96Eh6gNVPW9IkuxCRgWqDDVVw3vUbIWhmKrbAgPOFvTs3hv/1WUVxcRy1sb
-         94zph/Hu+QwTZa4Umh8SlbIR5198IaBFvbLvQLw2fz3K9vD/rRyazN6231LZhRdFCKHE
-         piJQ==
-X-Gm-Message-State: AOJu0YxJC+2gKIdYKDINBY7pKkBMMswZij/K0MzLzzHlk7Qt0M/n57m+
-	IML1K2/4RXcK9Zyy6QhjLoPyU+wLjhR5e6IxF5pXt41xVehR8jdEuXosI6YpsX2dBFlI+WYvdE3
-	0
-X-Gm-Gg: ASbGncvH/Xam2hzI5YySFMtoW5rDBkeDITw0gUc0eeDzgqJQLB6EsIrf3pDDxYX/0ml
-	dm7nIjPsDhvHhcpTm6uNoF00OGG+q+duuqyuj9Y6EFbsMVHaeZRXu5wPNmEhtuLZR1+kzvCJxcw
-	9ue7DJ6yZ4n7gZuaxFDBlsiQF2A67Pw0GQqIDQ6zKc0Qj93AF2OFJRZBaEWe8gpmZXigL2BcniE
-	93YkN23Xkx9Hi0qsZX1Qf2w7HjSSXvifaO1UK8ny5rzIoMjw+4MqVDRVUGgbj+Z5N2l+BYpeB3d
-	F7eQ4ux3KBx1LhTR3vKb+rFCdZsqR4cTsPddpFKsXW4xOD7rwszC8vL8vVz0HR1zl1y01BE=
-X-Google-Smtp-Source: AGHT+IGZ2RdB8+3+aBrfj+Ra2u6fJ6k0yK3feqxTWMbjzhdOa0ryEwLmxVoDTnAOab9mwAICrAG53A==
-X-Received: by 2002:a05:6214:2482:b0:6e4:8774:3743 with SMTP id 6a1803df08f44-6e6ae9a8768mr182756556d6.41.1740491310395;
-        Tue, 25 Feb 2025 05:48:30 -0800 (PST)
+        d=1e100.net; s=20230601; t=1740491317; x=1741096117;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=u8kBXO0g7uNacorlMzyyEZhTFrR8Ex7pb3C5wSE2q0o=;
+        b=bVo+wvteDypGc7VM1KMqcx6GzmaG/+nZHQ7McY3e0FzhDneR3bb24wLUTv4ZOtwcP5
+         oTHfVnDu/GQqpLqgS1NAuizGrQR/hBGNT+ulDLGU5sfNIXzISIm6gpiXIG/lMGK4ddoV
+         jkArsCbrw1FpbAK8wSiWGuTu9C/hBzFGWNeFAOsxSc56xDjTT6nIlasQilJf8cnelCpv
+         WcKCoVGptVJM8rrTMhDOLJENq1MwLqHG0h7FhzVNc3FgCtUUhBuXqCD5ZdCodf+lZ6cC
+         qxUv/oYH1KJg3vyun/BU7wrfgjvsS1NQQui+DaifMtXdYupOd9g+iJKXY3VqNbzeIi7h
+         GmrQ==
+X-Gm-Message-State: AOJu0YxmM2czcWlN39YVWosTGOGMJV0+eOhhLjfpVzqoyqMRYVY2Nr4i
+	7bnabUguuw/fSoL+sPS0+UsDedt0BkNm/VFY8MMy/eVZTcYudLJMG0naMTBJVCZi0PcqoZu6RTH
+	G
+X-Gm-Gg: ASbGncteB1KuIAevqn6xngXOim8sNBlnqKpMysLgMiRhnLHoUPzvbaz+ql262ojUMPa
+	6NokPKOWTQFyqGL7O1IcmEIn++fU4CAMN+0+8RONMIft3kLSIIeyQwk2PGNCrvDDDNWrIqCI76p
+	rFTwG+A2sPt4iribnge7vkeqF9OlbPX2REW+8vGL8zYbmjxtbo2ayVHvXkoT2PEeOHZk0ikyQ7M
+	hbgPdp7gp5//fB3RKqvOmJAhzbRx+P93kbrYPFeNu+vJOXe/6q7bFu691ouFcNMLsixQ2t9bT1T
+	9bNlp7oeHh7FbxAXL4DzR/sZxHlpgdBisl/DNUMBYtSBAQ15YV6rZ1bs2t3BN1cxK6bQwZc=
+X-Google-Smtp-Source: AGHT+IHs+lFq5Aw0ooKl48WWZrOYyvNWPGDmDt5jnemARYlEJXEjd0ajcd7X/TQ4kg2STbguZoHHkw==
+X-Received: by 2002:a05:620a:24ce:b0:7c0:a550:89b5 with SMTP id af79cd13be357-7c23bd49358mr456009985a.0.1740491316600;
+        Tue, 25 Feb 2025 05:48:36 -0800 (PST)
 Received: from rocky.home (pool-72-83-14-124.washdc.fios.verizon.net. [72.83.14.124])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-7c23c327238sm107222485a.67.2025.02.25.05.48.28
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-7c23c327238sm107222485a.67.2025.02.25.05.48.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Feb 2025 05:48:29 -0800 (PST)
+        Tue, 25 Feb 2025 05:48:36 -0800 (PST)
 From: Bill Mills <bill.mills@linaro.org>
 To: virtio-comment@lists.linux.dev
 Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
@@ -63,10 +65,12 @@ Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
 	Viresh Kumar <viresh.kumar@linaro.org>,
 	Alex Bennee <alex.bennee@linaro.org>,
 	Bill Mills <bill.mills@linaro.org>
-Subject: [PATCH RFC v1 0/1] virtio-msg transport layer
-Date: Tue, 25 Feb 2025 08:48:00 -0500
-Message-Id: <20250225134801.3546224-1-bill.mills@linaro.org>
+Subject: [PATCH RFC v1 1/1] virtio-msg: Add virtio-msg, a message based virtio transport layer
+Date: Tue, 25 Feb 2025 08:48:01 -0500
+Message-Id: <20250225134801.3546224-2-bill.mills@linaro.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250225134801.3546224-1-bill.mills@linaro.org>
+References: <20250225134801.3546224-1-bill.mills@linaro.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -75,108 +79,734 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds the virtio-msg transport layer.
+Add a new transport layer that is based on messages.
 
-The individuals and organizations involved in this effort have had difficulty in
-using the existing virtio-transports in various situations and desire to add one
-more transport that performs its transport layer operations by sending and
-receiving messages.
+This transport layer still uses virtqueues as the other transport layers do
+but implements transport layer operations by sending and receiving messages
+instead of the "MMR" reads and writes used in virtio-mmio and virtio-pci.
 
-Implementations of virtio-msg will normally be done in multiple layers:
-* common / device level
-* bus level
+This transport is useful when the device and driver are both implemented in
+software but the trap and emulate operations of virtio-mmio and virtio-pci
+can not be used.
 
-The common / device level defines the messages exchanged between the driver
-and a device. This common part should lead to a common driver holding most
-of the virtio specifics and can be shared by all virtio-msg bus implementations.
-The kernel implementation in [3] shows this separation. As with other transport
-layers, virtio-msg should not require modifications to existing virtio device
-implementations (virtio-net, virtio-blk etc). The common / device level is the
-main focus of this version of the patch series.
+This transport is intended to be used in many situations, including:
+* between a host processor and its co-processors
+* between two different systems (not SMP) connected via PCIe
+* between normal and secure worlds
+* host to vm
+* vm to vm
 
-The virtio-msg bus level implements the normal things a bus defines
-(enumeration, dma operations, etc) but also implements the message send and
-receive operations. A number of bus implementations are envisioned,
-some of which will be reusable and general purpose. Other bus implementations
-might be unique to a given situation, for example only used by a PCIe card
-and its driver.
+This is an RFC and not yet intended to be merged. There are multiple
+know issues including not conforming to virtio spec standards.
 
-How much of the bus level should be described in the virtio spec is one item
-we wish to discuss. This draft takes a middle approach by describing the bus
-level and defining some standard bus level messages that MAY be used by the bus.
-It also describes a range of bus messages that are implementation dependent.
-
-The standard bus messages are an effort to avoid different bus implementations
-doing the same thing in different ways for no good reason. However the
-different environments will require different things. Instead of trying to
-anticipate all needs and provide something very abstract, we think
-implementation specific messages will be needed at the bus level. Over time,
-if we see similar messages across multiple bus implementations, we will move to
-standardize a bus level message for that.
-
-We are working on two reusable bus implementations:
-
-* virtio-msg-ffa based on Arm FF-A interface for use between:
-  * normal world and secure world
-  * host and VM or VM to VM
-  * Can be used w/ or with out a hypervisor
-  * Any Hypervisor that implements FF-A can be used
-
-* virtio-msg-amp for use between heterogenous systems
-  * The main processors and its co-processors on an AMP SOC
-  * Two or more systems connected via PCIe
-  * Minimal requirements: bi-directional interrupts and
-    at least one shared memory area
-
-We also anticipate a third:
-
-* virtio-msg-xen specific to Xen
-  * Usable on any Xen system (including x86 where FF-A does not exist)
-  * Using Xen events and page grants
-
-This series is a work in progress and we acknowledge at least the following
-issues we need to work on:
-
-* Conform to virtio spec nouns (device/driver vs frontend/backend)
-  and verbs (must/may)
-* Perhaps move error definition elsewhere it the spec and align on its symbols
-  and numeric values
-* Allow message size to be greater than 40 bytes and allow bus implementations
-  to define their max message size
-* Add a way to discover the protocol version
-* Add a better description of the types of things a bus can do, specifically
-  including out-of-band notification and memory area sharing/discovery
-* Maybe redo configuration generation handling
-
-Background info and work in progress implementations:
-* HVAC project page with intro slides [1]
-* HVAC demo repo w/ instructions in README.md [2]
-* Kernel w/ virtio-msg common level and ffa support [3]
-* QEMU w/ support for one form of virtio-msg-amp [4]
-* Portable RTOS library w/ one form of virtio-msg-amp [5]
-
-In addition to the QEMU system based demos in the hvac-demo repo, we also have
-two hardware systems running:
-* AMD x86 + AMD Arm Versal connected via PCIe
-* ST STM32MP157 A7 Linux using virtio-i2c provided by M4 Zephyr
-
-Please note that although the demos work, they are not yet aligned with each
-other nor this version of the spec.
-
-[1] https://linaro.atlassian.net/wiki/spaces/HVAC/overview
-[2] https://github.com/wmamills/hvac-demo
-[3] https://git.kernel.org/pub/scm/linux/kernel/git/vireshk/linux.git/log/?h=virtio/msg
-[4] https://github.com/edgarigl/qemu/commits/edgar/virtio-msg-new
-[5] https://github.com/arnopo/open-amp/commits/virtio-msg/
-
-Bill Mills (1):
-  virtio-msg: Add virtio-msg, a message based virtio transport layer
-
+Signed-off-by: Bill Mills <bill.mills@linaro.org>
+Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+---
  content.tex       |   1 +
  transport-msg.tex | 680 ++++++++++++++++++++++++++++++++++++++++++++++
  2 files changed, 681 insertions(+)
  create mode 100644 transport-msg.tex
 
+diff --git a/content.tex b/content.tex
+index 67b1bf3..510e306 100644
+--- a/content.tex
++++ b/content.tex
+@@ -638,6 +638,7 @@ \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
+ \input{transport-pci.tex}
+ \input{transport-mmio.tex}
+ \input{transport-ccw.tex}
++\input{transport-msg.tex}
+ 
+ \chapter{Device Types}\label{sec:Device Types}
+ 
+diff --git a/transport-msg.tex b/transport-msg.tex
+new file mode 100644
+index 0000000..bda0881
+--- /dev/null
++++ b/transport-msg.tex
+@@ -0,0 +1,680 @@
++\section{Virtio Over Messages}\label{sec:Virtio Transport Options / Virtio Over Messages}
++
++The goal of the messages transport is to have commands communicated between the
++frontend (driver) and backend (device) sides over a message based conduit
++allowing to reach destination endpoints such as another VM, a TEE or a remote
++compute engine using different communication channels.
++
++The messages transport is designed to work efficiently between VMs on an hypervisor
++based configuration or between heterogeneous systems by using messages to
++reduce the number of context switches between the device and the driver sides
++when each of them is in a different VM. In the same way, this is also reducing
++cross system communications required in an heterogeneous system configuration.
++
++\subsection{Messages Format}\label{sec:Virtio Transport Options / Virtio Over Messages / Messages Format}
++
++The messages have the following properties:
++\begin{itemize}
++\item A message size is 40 bytes.
++\item Most messages are driver/device initialization messages.
++\item Messages are expected to be sent at low frequencies and quick round-trip is
++  not necessary and should not impact global performances (as communication
++  requiring performance should use virtqueues).
++\end{itemize}
++
++The virtio-MSG messages are encoded as following:
++
++\begin{tabularx}{\textwidth}{|l|l|l|X|}
++\hline
++Name & Offset & Size (bytes) & Content \\
++\hline \hline
++VIRTIO_MSG_TYPE & 0 & 1 & Bit[0]: 0=Request, 1=Answer \newline Bit[1]: 0=virtio-msg, 1=bus-msg \newline Bit[2-7]: Reserved \\
++\hline
++VIRTIO_MSG_ID & 1 & 1 & Message ID \\
++\hline
++VIRTIO_MSG_DEV_ID & 2 & 2 & Device ID, must be set to 0 if VIRTIO_MSG_TYPE Bit[1]=1\\
++\hline
++VIRTIO_MSG_PAYLOAD & 4 & 36 & Payload \\
++\hline
++\end{tabularx}
++
++\subsection{Errors Definition}\label{sec::Virtio Transport Options / Virtio Over Messages / Errors Definition}
++
++The Virtio Message transport defines a list of error codes that are used in
++the VIRTIO\_MSG\_ERROR message.
++
++\begin{tabular}{|l|l|l|}
++\hline
++Error Code & Name & Description \\
++\hline \hline
++1  & EINVAL & Invalid parameter or feature \\
++2  & ENOTSUPP & Unsupported function or feature \\
++3  & EBUSY & Device or ressource unavailable \\
++4  & EABORT & Request was aborted \\
++5  & EIO & Input/Output error \\
++6  & ENOMEM & No memory available \\
++7  & EPERM & Permission denied \\
++8  & EFAULT & Bad address \\
++9  & ENODEV & No such device \\
++\hline
++\end{tabular}
++
++
++\subsection{Messages Definition}\label{sec:Virtio Transport Options / Virtio Over Messages / Messages Definition}
++
++The following table is listing the different Virtio-MSG messages and the sender
++for each of them.
++
++\begin{tabular}{|l|l|l|}
++\hline
++Name & ID & Sender \\
++\hline
++\hline
++Reserved                      & 0x0 & \\
++\hline
++VIRTIO_MSG_ERROR              & 0x1  & Any    \\
++\hline
++VIRTIO_MSG_GET_DEVICE_INFO    & 0x2  & Driver \\
++\hline
++VIRTIO_MSG_GET_FEATURES       & 0x3  & Driver \\
++\hline
++VIRTIO_MSG_SET_FEATURES       & 0x4  & Driver \\
++\hline
++VIRTIO_MSG_GET_CONFIG         & 0x5  & Driver \\
++\hline
++VIRTIO_MSG_SET_CONFIG         & 0x6  & Driver \\
++\hline
++VIRTIO_MSG_GET_CONFIG_GEN     & 0x7  & Driver \\
++\hline
++VIRTIO_MSG_GET_DEVICE_STATUS  & 0x8  & Driver \\
++\hline
++VIRTIO_MSG_SET_DEVICE_STATUS  & 0x9  & Driver \\
++\hline
++VIRTIO_MSG_GET_VQUEUE         & 0xA  & Driver \\
++\hline
++VIRTIO_MSG_SET_VQUEUE         & 0xB  & Driver \\
++\hline
++VIRTIO_MSG_RESET_VQUEUE       & 0xC  & Driver \\
++\hline
++VIRTIO_MSG_EVENT_CONFIG       & 0x20 & Device \\
++\hline
++VIRTIO_MSG_EVENT_AVAIL        & 0x21 & Driver \\
++\hline
++VIRTIO_MSG_EVENT_USED         & 0x22 & Device \\
++\hline
++\end{tabular}
++
++The following sections are giving more details of the usage of each message
++and the encoding of the payload for the request and answer (when applicable).
++
++\newcommand{\msgdef}[1]{\subsubsection{VIRTIO_MSG_#1}\label{sec:Virtio Transport Options / Virtio Over Messages / Messages Definition / VIRTIO_MSG_#1}}
++
++\msgdef{ERROR}
++
++The error message is used to signal to the driver or the device that a received
++message is not valid or cannot be addressed. It can also be used to report an
++internal error to the other entity.
++
++This message can be received by the driver or the device and can be sent as an
++answer to an other message by the driver or the device.
++
++The message contains a Virtio Message error code and the Message ID of the
++request that triggerred the error (or 0 if the error was not in answer to a
++specific request).
++
++The message also contains a Data Type that can be set to STRING to use the
++rest of the payload to give a NULL terminating string that can be used to carry
++extra printable information.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Any     & 0 & 4 & Virtio Message Error Code \\
++        & 4 & 1 & Message ID which generated an error or 0 if none \\
++        & 5 & 1 & Data Type: 0 (Reserved), 1 (STRING), 2-255 (Implementation Defined) \\
++        & 6 & 30 & Null Terminated String if Data Type is STRING else Implementation Defined \\
++\hline
++\end{tabular}
++
++\msgdef{GET_DEVICE_INFO}
++
++The get device information message is used by the driver to retrieve the device
++version, device ID and vendor ID.
++
++This message is sent by the driver to the device and expects an answer from the
++device.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 36 & Reserved (MBZ) \\
++\hline
++Answer & 0 & 4 & Device version \\
++& 4 & 4 & Device ID \\
++& 8 & 4 & Vendor ID \\
++& 12 & 24 & Reserved (MBZ) \\
++\hline
++\end{tabular}
++
++\msgdef{GET_FEATURES}
++
++The get features message is used to retrieve 256 bits of feature information
++from the device. The driver requests features at an index and the device answers
++with the features bits at 256*index.
++
++If there are no features available at the requested index but there are
++features available after the index, the backend must return an all-zero
++response.
++If there are no features available at and after the requested index, the
++backend must return an ERROR message to inform the frontend that it does not
++need to scan features further.
++
++This message is sent by the driver to the device and expects an answer from the
++device.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 4 & Feature index \\
++& 4 & 32 & Reserved (MBZ) \\
++\hline
++Answer & 0 & 4 & Feature index \\
++& 4 & 32 & Feature data \\
++\hline
++\end{tabular}
++
++\msgdef{SET_FEATURES}
++
++The set features message is used by the driver to configure the features of a
++device. The driver configures 256 bits a time a given index. The device
++provides in the answer the actual features value at the index after having
++configured the bit requested giving an opportunity for the driver to detect if
++some of the bits it tried to set were not accepted.
++
++This message is sent by the driver to the device and expects an answer from the
++device.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 4 & Feature index \\
++& 4 & 32 & Feature data \\
++\hline
++Answer & 0 & 4 & Feature index \\
++& 4 & 32 & Feature data \\
++\hline
++\end{tabular}
++
++\msgdef{GET_CONFIG}
++
++The get configuration message is used by the driver to retrieve a part of the
++configuration values of the device. The driver can request up to 256 bits at
++a given offset in the device configuration space.
++
++This message is sent by the driver to the device and expects an answer from the
++device.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 3 & Configuration offset \\
++& 3 & 1 & Number of bytes (1-32) \\
++& 4 & 32 & Reserved (MBZ) \\
++\hline
++Answer & 0 & 3 & Configuration offset \\
++& 3 & 1 & Number of bytes (1-32) \\
++& 4 & 32 & Configuration data \\
++\hline
++\end{tabular}
++
++\msgdef{SET_CONFIG}
++
++The set configuration message is used by the driver to modify a part of the
++configuration values of the device. The driver can modify up to 256 bits at a
++given offset in the device configuration. The device answers with the actual
++configuration value at the offset after the modification to give a chance to the
++driver to detect changes that have not been accepted by the device.
++
++This message is sent by the driver to the device and expects an answer from the
++device.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 3 & Configuration offset \\
++& 3 & 1 & Number of bytes (1-32) \\
++& 4 & 32 & Configuration data \\
++\hline
++Answer & 0 & 3 & Configuration offset \\
++& 3 & 1 & Number of bytes (1-32) \\
++& 4 & 32 & Configuration data \\
++\hline
++\end{tabular}
++
++\msgdef{GET_CONFIG_GEN}
++
++The get configuration generation message is used by the driver to retrieve the
++device configuration atomicity value.
++
++TODO: need help to have a complete description here.
++
++This message is sent by the driver to the device and expects an answer from the
++device.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 36 & Reserved (MBZ) \\
++\hline
++Answer & 0 & 4 & Atomicity value \\
++& 4 & 32 & Reserved (MBZ) \\
++\hline
++\end{tabular}
++
++\msgdef{GET_DEVICE_STATUS}
++
++The get device status message is used by the driver to retrieve the device
++status fields.
++
++This message is sent by the driver to the device and expects an answer from the
++device.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 36 & Reserved (MBZ) \\
++\hline
++Answer & 0 & 4 & Device status \\
++& 4 & 32 & Reserved (MBZ) \\
++\hline
++\end{tabular}
++
++\msgdef{SET_DEVICE_STATUS}
++
++The set device status message is used by the driver to modify the device status
++fields. Writing a status of 0 triggers a device reset.
++
++This message is sent by the driver to the device and expects an answer from the
++device.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 4 & Device status \\
++& 4 & 32 & Reserved (MBZ) \\
++\hline
++Answer & 0 & 36 & Reserved (MBZ) \\
++\hline
++\end{tabular}
++
++\msgdef{GET_VQUEUE}
++
++The get vqueue message is used to retrieve the maximum virtqueue size and
++information about the vqueue if it was already configured (all information are
++0 if the virtqueue was not configured).
++
++This message is sent by the driver to the device and expects an answer from the
++device.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 4 & Virtqueue index \\
++& 4 & 32 & Reserved (MBZ) \\
++\hline
++Answer & 0 & 4 & Virtqueue index \\
++& 4 & 4 & Max virtqueue size \\
++& 8 & 4 & Virtqueue size \\
++& 12 & 8 & Descriptor address \\
++& 20 & 8 & Driver address \\
++& 28 & 8 & Device address \\
++\hline
++\end{tabular}
++
++\msgdef{SET_VQUEUE}
++
++The set vqueue message is used to configure a virtqueue.
++Setting the virtqueue size to 0 is disabling the virtqueue without modifying
++the rest of the parameters (those should be ignored by the device).
++If a driver needs to complete reset a virtqueue, the RESET\_VQUEUE message
++should be used instead.
++
++This message is sent by the driver to the device and expects an answer from the
++device.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 4 & Virtqueue index \\
++& 4 & 4 & Reserved (MBZ) \\
++& 8 & 4 & Virtqueue size \\
++& 12 & 8 & Descriptor address \\
++& 20 & 8 & Driver address \\
++& 28 & 8 & Device address \\
++\hline
++Answer & 0 & 4 & Virtqueue index \\
++& 4 & 4 & Reserved (MBZ) \\
++& 8 & 4 & Virtqueue size \\
++& 12 & 8 & Descriptor address \\
++& 20 & 8 & Driver address \\
++& 28 & 8 & Device address \\
++\hline
++\end{tabular}
++
++\msgdef{RESET_VQUEUE}
++
++The reset vqueue message is used to disable and reset a virtqueue.
++
++This message is sent by the driver to the device and expects an answer from the
++device.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 4 & Virtqueue index \\
++& 4 & 32 & Reserved (MBZ) \\
++\hline
++Answer & 0 & 36 & Reserved (MBZ) \\
++\hline
++\end{tabular}
++
++\msgdef{EVENT_CONFIG}
++
++The event config message is sent by the device to signal to the driver that one
++or several values in the device configuration have changed. The message
++contains the current device status (as encoded in the GET\_DEVICE\_STATUS
++answer) and optionally the part of the configuration that has been modified. If
++this is not provided, the driver will have to use the GET\_CONFIG to retrieve
++the configuration and discover what has changed.
++
++This message is sent by the device to the driver and does not expect any
++answer.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 4 & Device status \\
++& 4 & 3 & Configuration offset \\
++& 7 & 1 & Number of bytes (1-16) \\
++& 8 & 16 & Configuration data \\
++& 24 & 12 & Reserved (MBZ) \\
++\hline
++\end{tabular}
++
++\msgdef{EVENT_AVAIL}
++
++The event available message is sent by the driver to the device to signal that
++some data are available to process in a virtqueue. If the NOTIFICATION\_DATA
++was negotiated, the message can also include more details on what is actually
++available.
++
++This message is sent by the driver to the device and does not expect any
++answer.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 4 & Virtqueue index \\
++& 4 & 4 & Next offset \\
++& 8 & 4 & Next wrap \\
++& 12 & 24 & Reserved (MBZ) \\
++\hline
++\end{tabular}
++
++\msgdef{EVENT_USED}
++
++The event used message is sent by the device to the driver to signal that some
++data is available or has been processed in the a virtqueue.
++
++This message is sent by the device to the driver and does not expect any
++answer.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 4 & Virtqueue index \\
++& 4 & 32 & Reserved (MBZ) \\
++\hline
++\end{tabular}
++
++\subsection{Message Bus}\label{sec:Virtio Transport Options / Virtio Over Messages / Message Bus}
++
++The Message Bus acts as a communication channel between two endpoints,
++providing a standardized abstraction to exchange messages.
++
++The Message Bus transmits the messages between the frontend and the backend in
++both directions.
++
++A system can have several Message Buses and it must respect the following
++principles:
++
++\begin{itemize}
++\item One Message Bus has a backend and a frontend side located in 2 different
++      endpoints (an endpoint can be a VM, a secure Partition or a remote OS).
++\item One Message Bus has one or more devices on the backend side handled by
++      drivers on the frontend side.
++\item An endpoint can be connected to several Message Buses.
++\end{itemize}
++
++A Message Bus implementation must provide interfaces to transmit and receive
++messages with the other side.
++
++While the bus implementation and how communication of the messages is done
++between the devices and the drivers is completely out of the scope of the
++specification, this chapter provides a set of Bus messages to help
++standardizing as much as possible a part of the bus implementation.
++
++\subsubsection{Discovery}\label{sec:Virtio Transport Options / Virtio Over Messages / Message Bus / Discovery}
++
++The Message Bus is responsible of listing the available buses and to enumerate
++all devices available on each bus.
++
++The frontend may use a predefined virtio devices ID list (static way), or may
++use the BUS_MSG_GET_DEVICES message to discover devices IDs available on the
++backend (dynamic way), or a combination of the two methods.
++
++The backend may use a predefined virtio devices ID list that can be provided to
++the driver on BUS_MSG_GET_DEVICES request, or may announce device IDs using
++the BUS_MSG_DEVICE_ADDED and BUS_MSG_DEVICE_REMOVED messages, or a combination
++of the two methods.
++
++\subsubsection{Message Definition}\label{sec:Virtio Transport Options / Virtio Over Messages / Message Bus / Message Definition}
++
++The Bus messages are transferred using the \emph{bus-msg} type by setting the
++Bit[1] of the VIRTIO\_MSG\_TYPE field.
++
++The following table is listing the different Virtio-MSG Bus messages and the
++sender for each of them.
++
++\begin{tabular}{|l|l|l|}
++\hline
++Name & ID & Sender \\
++\hline
++\hline
++Reserved                    & 0x0  &        \\
++\hline
++BUS_MSG_ERROR               & 0x1  & Any    \\
++\hline
++BUS_MSG_GET_DEVICES         & 0x2  & Driver \\
++\hline
++BUS_MSG_DEVICE_ADDED        & 0x3  & Device \\
++\hline
++BUS_MSG_DEVICE_REMOVED      & 0x4  & Device \\
++\hline
++BUS_MSG_PING                & 0x5  & Any    \\
++\hline
++BUS_MSG_RESET               & 0x6  & Driver  \\
++\hline
++\end{tabular}
++
++Bus message ID 6-127 are reserved for future use in the specification and
++message ID 128-255 can be used for implementation specific needs.
++
++The following sections are giving more details of the usage of each message
++and the encoding of the payload for the request and answer (when applicable).
++
++\newcommand{\busdef}[1]{\paragraph{BUS_MSG_#1}\label{sec:Virtio Transport Options / Virtio Over Messages / Message Bus / Message Definition / BUS_MSG_#1}}
++
++\busdef{ERROR}
++
++The Error message is used by one side of the bus to inform the other side that
++one message could not be processed correctly. The message contains a Virtio
++Message error code.
++
++This message shall be used for Bus errors not specific to a particular device.
++In case of a device specific error not impacting the complete bus, the
++VIRTIO_MSG_ERROR shall be used.
++
++This message is using the same payload format as the VIRTIO_MSG_ERROR message.
++
++This message can be received by the frontend or the backend side and can be
++send as answer to an other message or directly to signal an error.
++
++\busdef{GET_DEVICES}
++
++The Get Devices message is used by the frontend to retrieve the IDs of the
++devices available on the backend of the bus.
++
++The frontend requests the availability of a group of 256 device IDs and the
++backend returns a bitmap indicating which device IDs are available at the
++requested device ID offset.
++
++A request at offset X gives the availability of device IDs X*256 to (X+1)*256-1.
++
++The backend also returns a next offset indicating to the frontend what device
++ID offset should be requested next. This is to reduce the number of messages
++required to scan all IDs when the backend has device IDs far from each other.
++
++This message shall be used in the following way:
++\begin{itemize}
++\item frontend request device IDs at offset X.
++\item backend answers with the availability of device IDs X*256 to (X+1)*256-1
++  and indicates to the frontend which offset to request after using the next
++  offset.
++\end{itemize}
++The frontend starts by doing a request with offset 0 and then iterates using
++the next offset returned by the backend until the backend gives a next offset
++of 0.
++
++This message is sent by the frontend side of the bus to the backend side and
++expects an answer from the backend side.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 2 & Offset \\
++        & 2 & 36 & Reserved (MBZ) \\
++\hline
++Answer & 0 & 2 & Offset \\
++       & 2 & 2 & Next offset or 0 if no devices after Offset \\
++       & 4 & 32 & Bit[n]: Device[offset*256 + n] not available(0)/available(1) \\
++\hline
++\end{tabular}
++
++\busdef{DEVICE_ADDED}
++
++This message is sent by the backend of the bus to signal to the frontend that
++a new device appeared on the bus.
++
++This message is sent by the backend of the bus and does not expect any answer.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 2 & Device ID \\
++        & 2 & 34 & Reserved (MBZ) \\
++\hline
++\end{tabular}
++
++\busdef{DEVICE_REMOVED}
++
++This message is sent by the backend of the bus to signal to the frontend that
++a device was removed from the bus.
++
++This message is sent by the backend of the bus and does not expect any answer.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 2 & Device ID \\
++        & 2 & 34 & Reserved (MBZ) \\
++\hline
++\end{tabular}
++
++\busdef{PING}
++
++The ping message can be sent by the backend or the frontend side of the bus
++to check that the other side is responding properly.
++
++This message can be used by either side to monitor that the other side of the
++bus is available and functional.
++
++The message contains a 32bit data field with a custom value that must be copied
++back by the receiver in its answer.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 4 & Data \\
++        & 4 & 32 & Reserved (MBZ) \\
++\hline
++Answer & 0 & 4 & Request Data \\
++       & 4 & 32 & Reserved (MBZ) \\
++\hline
++\end{tabular}
++
++\busdef{STATUS}
++
++This message can be sent by the backend or the frontend to signal to the other
++side that its own status has changed which required the other side to take
++global actions.
++
++For example this message can be send by the frontend when it starts to
++request the backend to reset the bus and all devices on it or when the backend
++stops to signal to the backend to shutdown everything on the bus.
++
++The backend can use it to signal to the frontend that for some reason it will
++shutdown which shall trigger the frontend to disable all drivers.
++
++The message contains a New state field which gives to the receiving the new
++state the sender is going into for which the following values are defined:
++\begin{itemize}
++\item 0: Reset.
++\item 1: Shutdown.
++\item 2: Suspend.
++\item 4: Resume.
++\item 5-127: Reserved.
++\item 128-255: Implementation Defined.
++\end{itemize}
++
++This message can be sent by the frontend or the backend side of the bus and
++does not expect any answer.
++
++\begin{tabular}{|l|l|l|l|}
++\hline
++Type & Offset & Size (bytes) & Content \\
++\hline \hline
++Request & 0 & 1 & New state \\
++        & 1 & 35 & Reserved (MBZ) \\
++\hline
++\end{tabular}
++
 -- 
 2.34.1
 
