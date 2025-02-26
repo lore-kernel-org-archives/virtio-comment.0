@@ -1,195 +1,352 @@
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com (mail-bn1nam02on2084.outbound.protection.outlook.com [40.107.212.84])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D27C18BBAE
-	for <virtio-comment@lists.linux.dev>; Wed, 26 Feb 2025 02:26:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.212.84
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740536797; cv=fail; b=CbJBFQJ2k1n5NWeZCGY2JqbfoPYtPsmMa/VPusJfn808+AkxpjUN4STJG2/4UPe2VutRWzcDItH5djRJpyw1P/b7pI/Pym/GaEQKpgLfr7FQBf501/k2Zr/P3RlMOv91zpTs4s3HR08SF3H2xHiz8t3yQZT+JvmR8PGvE5hLeDI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740536797; c=relaxed/simple;
-	bh=F9DOVniqtGLkMMAAGxBDLLP4TvOXQJfYhnGcoSuaHpY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=qYA+t95KZq8+MVjJ5ZWBq50PTxtK5i6Gi+ZiHxutBEZ8hQv1OQEMXMaGkX5KP3oazJ8hadTZqlF3ulGnQgYxAthXp/QVg9t/Y5EH+1A8uZRvMntNVUXvW5xaUyt0+io0mLQxGgcEzgpGwcDMdsRuUG731HvvhIGJK430tXunFyk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=B5HF/1xL; arc=fail smtp.client-ip=40.107.212.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB198152196
+	for <virtio-comment@lists.linux.dev>; Wed, 26 Feb 2025 05:56:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1740549364; cv=none; b=MRCkm5GsrzxBu1Mv9fM7h6+AmLgBwGn8NVGnomOZHM/zNiVF+pG/uct507xPsxdOatxRFkBJn4j9dUxN5LVQ5eHLOI6AYMnIn9W+h5a1gT27uDDdZmCUxVt5H01LD5jXQ3NCJdfvz1S1WDDh3WT68mpVKSE0nvC6i2Xc7PHKGWY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1740549364; c=relaxed/simple;
+	bh=l/ZJrGi0Nmng9V5PTrnDTL2vkh6dD1Zej9pKSkWMmZU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QpsSFggb2hEENcGKEJ/7qTEC3xJPJEW9KyT1JTDpUratKTnuqTYvo4RuWR7gy6O99YrgzB8qoccx+5KXvB075K7gJdupmZHvdYSVFZcGUX/vSCtXO9Pq6CC3l19Ia1XQwPpY6RmTVfqrNbCDKQPajMbYbJ/uJb0ktzHnaI6qzPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fsQmGlNJ; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="B5HF/1xL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TnB5Nk84xaurfjhJw4EonwG3y4sJSkSXy5aS+UQjwgqLj/Xc3iSvw6ilQ3x1GcvLrdGki5kAJPuIXJGMTH1skKLuoDfwbnW2rIEW/u6j5j6J8Qu3f2YPtkfCCZoA2YBXUgRw2n+AYs8sDsRr8bSOZTU+zbijj0IpW0Tern3QnkvlXbBa6+R+PkNBLKzHDdmXqzF5wFwA/zlyiwoirD13Os0w5ABJF+kUsHkhI9frdJI1kXtNVDgLpbRK/DWq/UnNUjxAFNZ0oS97WGQvU823QPbs3qPrCB6rdDKzCeZxVRRf8lETUkl9gFnOhorEgw12OkHgPhtXSheE63Owm21fXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F9DOVniqtGLkMMAAGxBDLLP4TvOXQJfYhnGcoSuaHpY=;
- b=DzJN/IbvQIAflfuK54ztbmT7fC+WwddctmvObyc/A9kSIWz1NlQjkBeJZv74zZyhWgXcjq7lq99YWkQH6FyVF0LutQb82Mx65WrJb9Ch68KyyFpf9zeAsOdVpZet5EYv7Z3qjGMOM0MqXVAaz68tVhYIazKrGdvcH1qr8iWNc9ZmZVohvaqdohMnvmG9XjQ5maWAQRy6eKhXo6XcM8mTWAA1eF1uoqkZHJZ0J7yRpLGxmLz5mL652CH0+4rEX+/6uH3W2Ze3VeBr6YG2lewCjHMBGVzvZ/hul2yosJB+jaEDrOUd8AX1DtA0FVahb9GCHcCZ7mOcL8gcYhs5kHq+Tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F9DOVniqtGLkMMAAGxBDLLP4TvOXQJfYhnGcoSuaHpY=;
- b=B5HF/1xLAc9Web87sxpFiq4l2KfXADYdm6wNPsnCcF56ZK0PDhKTjPPUO7SFrRk6n6FBezwH5ekZ7V3JgY7yVeEugQCOnzYpqgH/0D5oHV7xpYqZcT+nruc7mLPpJVlVz69iXgBL05bMXMb0b9gOaTBcHHUE7ZNQ4szxgGSk7bA=
-Received: from IA1PR12MB6532.namprd12.prod.outlook.com (2603:10b6:208:3a3::12)
- by SA1PR12MB7104.namprd12.prod.outlook.com (2603:10b6:806:29e::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.19; Wed, 26 Feb
- 2025 02:26:32 +0000
-Received: from IA1PR12MB6532.namprd12.prod.outlook.com
- ([fe80::dc05:a63a:39fa:ff0b]) by IA1PR12MB6532.namprd12.prod.outlook.com
- ([fe80::dc05:a63a:39fa:ff0b%7]) with mapi id 15.20.8466.016; Wed, 26 Feb 2025
- 02:26:32 +0000
-From: "Zhang, Julia" <Julia.Zhang@amd.com>
-To: "Michael S . Tsirkin" <mst@redhat.com>
-CC: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, "Chen,
- Jiqian" <Jiqian.Chen@amd.com>, "Zhu, Lingshan" <Lingshan.Zhu@amd.com>, Matias
- Ezequiel Vara Larsen <mvaralar@redhat.com>, "Huang, Ray" <Ray.Huang@amd.com>
-Subject: Re: [PATCH] virtio-gpu: get p2pdma distance
-Thread-Topic: [PATCH] virtio-gpu: get p2pdma distance
-Thread-Index: AQHbZm3XXTToiiiJ+Uysz720Z0iEzbMhTNOAgDhW3gA=
-Date: Wed, 26 Feb 2025 02:26:32 +0000
-Message-ID:
- <IA1PR12MB6532FC13BDCAF1D2E0D336E0F2C22@IA1PR12MB6532.namprd12.prod.outlook.com>
-References: <20250114101612.88304-1-julia.zhang@amd.com>
- <Z4+og7rL0h5JGYCd@fedora>
-In-Reply-To: <Z4+og7rL0h5JGYCd@fedora>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-imapappendstamp: IA1PR12MB6532.namprd12.prod.outlook.com
- (15.20.8466.015)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA1PR12MB6532:EE_|SA1PR12MB7104:EE_
-x-ms-office365-filtering-correlation-id: 4e041849-cac1-4506-a038-08dd560cfc27
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?eGJkei9pREorZHRKMWhXdVNkVkhkWGFmYzU4RG8vdnZlY3RhV3FBbmVTNGtI?=
- =?utf-8?B?U2VSLzl1aXdVNUsxRTFrWFZWMHJFZXkwSlQ0cmFRMk5CNlZUUWYwYTVPZkgy?=
- =?utf-8?B?Znl5djJxaE5YemdXMEVRbVFwUFZrd1JHbmVuTVAvTkN1bUZIalN5bWZOZEQ4?=
- =?utf-8?B?aDJDVldTT1luWDVnT0tFRHd4azJZekxVRFZlcy9nOUNTT2NneGtJek5yeUVK?=
- =?utf-8?B?eHZxY0ZIQng3Q0VpL1R0VC9yZ3AvSmFvQkhJSUZ6bTU4aE5LdDFxNjFmalpZ?=
- =?utf-8?B?cFFrUWd2ZElhbk5ab0toNGRGZEFnSnRyR1o2VGdDb05sUDdVN2FraUZVVzdB?=
- =?utf-8?B?ckY4bkV4Tk05YisvcmpZU0pLYnMwUmRQN3JBMFkxb2FYcnVLRkJESWpScjRR?=
- =?utf-8?B?NlBTaWtQYzA3SS8wQ3h3SkFVMXJFTTN6aHFvZkwvRzRRQ0xUUTRTZ0J2cVR6?=
- =?utf-8?B?TmNCUTVnQy9jK3VXblpKUzVOSDZUdjZuNFgyRVhQMDYxdVFQLzRFNXBQUTFm?=
- =?utf-8?B?Q1dSbzRDUVJSbHF4TTI1NFduNWhlL21FUkt4a1VvcDRXNjRLY2Y0ZjlJWWFu?=
- =?utf-8?B?VU03M0dpUmdFSU1tWWg3VS9MMGpVVy9rcDJ0OVQ1aTJSQW5MWHJDaDZXbGpJ?=
- =?utf-8?B?YnpyOEY3ODh4VkZPREFXNzNSVVJEVzFhMVRYTE1OZEVYREVkd1BkTDkrNVUw?=
- =?utf-8?B?dFBJdTZRcG03VFlpODlSdkdHMmVKZDNONHV3NktvMWh2Kyt1SWxSZ2xhaWNz?=
- =?utf-8?B?SlZ4UUVleU02WjJtMzBlZU5lOEtCbkFZU1FlZFdlbXg5QTdrNUo0bStsbUt3?=
- =?utf-8?B?c0lhMmFhVXk0WHZTb0hCajhmb3RtVWl3Y1loWW8vTWhHTFVEN1JSN3U1OUdI?=
- =?utf-8?B?c0Y1K2JjYVdrajFvQWgvZE1kbi9BMzJqMnh4TWRGbFVFYTFwUENxTmtkVnpD?=
- =?utf-8?B?UUVjdFhZZ2VrbGl3bkdmWjBuZEJSWVRYd08xL0FrQlJSQjh5R0lMdGJkSGhE?=
- =?utf-8?B?UHlzZDJLcFB5eVZzblh4ZEZBbVd5SC90b2lFb3FKMmFCL1ZWZUIvc2Y3NjZX?=
- =?utf-8?B?U0IyMVFSMU1xSG1OWlF2Q3BJSnUrSHJQQ2Q2cHBIU1JaRUtkY2tKZi81b0Rn?=
- =?utf-8?B?U1gxR1BzSG5NZnMxdUpuNFBnYzJXTHBObllkOXE3ZklxSGdwRmRQUnZIYTl0?=
- =?utf-8?B?K1VmS2VVeWc3ektQclRWdVJveDJSMmxXRUFVS0Qxc0xVZTZaVWhCcWszV1kv?=
- =?utf-8?B?OEd3eGJaQkN2bDl4cGRJVmF4dnFNMTdaUW91T245MTFxc3A3UTFXUndHWG9p?=
- =?utf-8?B?eFozNEtQcmd4ZmNvSE5KNTdOUjhDWGZEY3k5Ri9YS3BWcjJxMGMvR1ErTGN1?=
- =?utf-8?B?aUhPZm1tTVNZVVBGcmtUQUxBaWRWMGorMmpldHMzU1Nma09QbnZhWjZQOTlS?=
- =?utf-8?B?V3RUZjdSR1lhcGtCclhmbmpQR2owRHFxNDJQUzk2LzJvNEhCSVk0enF2cHdG?=
- =?utf-8?B?bFVHNU9ERUtSVk9mNVBIVFo1YTFsbXh3OEd2dkN3eXRsSkVJaVBqU3p5ZTRB?=
- =?utf-8?B?SFlld1Z2Ym5WbHkvc2U5TEI3V2EzNmQ1MkU0NmxGNldrdjY3a3dFYVpLNmtu?=
- =?utf-8?B?UkRmeFM2ZDBsVVptdWVQZ2NiZjFVS3pLaUlLa2wyTXVKUkNxN0NMdkI2cmZR?=
- =?utf-8?B?Z0pMc0FpK3dsb3FkUWlEVG9GSGVoZitrOXNVdzdNbXZNR2QyZDU3RDd6aW1j?=
- =?utf-8?B?VjJ3dXc5czlSa3hab2x6NlhoeGlVNHowaDFoaVFEcXJ5ZFZiaWtFc2VVUHow?=
- =?utf-8?B?bFFNeDcxLzFUUndITGhiZ0NVTFhNekE1NHZkYzN1VEdhWlJXd3FKWXVMd1hr?=
- =?utf-8?B?c3l3Wk9leHhBQ3hPNUkvdVd6SEh0Z0FobmJqdlNwSER2M3VSem1seVdLeUwz?=
- =?utf-8?Q?nyyBmQtHP0GBXT71xKI5nlHpZwxnWSzB?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB6532.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?cjNqeE5sSDJDWjVpTEIyVXl6T21BVTJxVUNPRlRVbm94U2wvK1BYRFFLU24x?=
- =?utf-8?B?RW5QL1F6YUN0OWlNcitYZUZHcmFxOTdiWTFvQi9YTTZCM3BHdmtrTlJLSytF?=
- =?utf-8?B?RnY4WVlpMFFoK21JZkVjck9KUTdJRjBsS2xWWUtkNERmaUI1VUNxWWN6cjh1?=
- =?utf-8?B?dzhBTm0xc1B3NCsxanN1RlpRVkZ5YnNETXcvVENueUp2dU1zQVFvNnk1Tm5D?=
- =?utf-8?B?QTdzRjJrSEQxYkRqc0U0ankrUXNWcUJlM0FJOWhreHZsREdhemRBK0o4dU56?=
- =?utf-8?B?cW16ZVhRWU5jMDhxc0NrT084UENENWpnSUs5aXBRZVo4ZTBvZWtqRDJvTWJi?=
- =?utf-8?B?anp3aityam4zcEI1WkkzK0xiNUM5aXFZUjlqL0ozeU80QWt6enJaRUZqcnZE?=
- =?utf-8?B?allaRjdkQTBPZU9pS0k1dUNNOUNVeEFRb3ArRmQ3aWwwWmZJbEhTcDBETDBo?=
- =?utf-8?B?TGgwb1NsMjdWdTdkbVNseHJUZnZzbGZiclBNSGFOZVRaZFEzcXVSN3ZCdEdP?=
- =?utf-8?B?VzJkQlA2cEI2UGVHUHg0K21qSE5JemprNG5lOFRaZHB6WVh2aEptQlRyNmV1?=
- =?utf-8?B?T1EyOG9nZ1hHNzZCK2xCZ1djMm5JQVg1OHJQMVprTVFsbzlndWp6b1J0eCt1?=
- =?utf-8?B?RnlZaG4xakQwQ2tQZ1VETm9LMFJBNm4vUGxxZlFkWlBRTVZ4bzlTdmI5bXVm?=
- =?utf-8?B?azRkMmFocFNISVgxK3pUdmZVMmdCSTN3YzNENkdheWEvZHA5b2swQmxjRzU4?=
- =?utf-8?B?dnRjclFIaGF3N29BbytIWHBDcmROdHE1NWw1b2JSMHhXSmxUbFlYWDdrVTVD?=
- =?utf-8?B?MndDaWFxbzVBOStjdFVQN1JOY2Z3TGt4UW1wZHdHbUcwMU90Y0ozWG5tTUlk?=
- =?utf-8?B?dkRHWnlPK05EaDIzUHJmVm9LVzhkZ1VOUkthYndlZDJzb2syU0VPOGhsNmEz?=
- =?utf-8?B?MmhRVDZTVGdzYWovcit5Q29uOGdwUWFvSUd4ZlZsRGVsaEMvVVpTaXVtOFVa?=
- =?utf-8?B?ZXZmSW9LWkVrRFNsRVJKd0FyaGpzNGJSR2VDL2xwMnpSaHRxRWllUW9WelNS?=
- =?utf-8?B?MEJQVUdoZE15TjFGSmtJVTdmMFJ5cSsxRTlTalZFTFBBb0tOWVFhYTNXVCtw?=
- =?utf-8?B?MTlqNjhVMEVlL0QzRlpTMHVHeTl1eWVFdWxFMW1WaFp6T2dSS1J5SDkyQWNZ?=
- =?utf-8?B?RHpVVExmMHE1MnloSGhYSTN0bGlxSlRwQTdnWGJhWkswYXk5Y2dxa21hM3Fx?=
- =?utf-8?B?dUpVZjVaYys3MS9leFliaVRwUzZXRzVySWZna1ljQ00xVGhTUkVvTkozbG9w?=
- =?utf-8?B?R0MraVZTenIwdkRnTnhQSEljeTEzdFE1RzZOdis4UDV0WFpHTm1QMnJ0L3RO?=
- =?utf-8?B?Tmg3aFVjYXR4d1dObHRlOHozQU92Q3llMHQ5NzZnaW1hNkJ3bGY1SUZqb3Ri?=
- =?utf-8?B?a3BGR1JLYkJmZmhZM2hyNkxlb2M2c3JhQktDNFE3L1VYaStqQWxVcE1TWnJw?=
- =?utf-8?B?Y1BiVTgvdzM5dXozV01RWGhBSmlhRVZmd1hxbEZ0aW5DVTVydEZLQXRQSmQw?=
- =?utf-8?B?Y2hNNnM3bVFwRndPSUt4V2ppTFB2Q2JpTGl5Y2lnc3A1dXkwTEw1L2piM1M4?=
- =?utf-8?B?L0tMUmRxM0JmNXRpTGwzcDUrWXJjWW9kVTVrMkFNakJxbndnVnZMaCsxajJj?=
- =?utf-8?B?a2tySWF1N2gzRjM4M3lnbWFTd2ZjTGhsaVN3QnlYSkRhRjEyNytGdTdNWjVH?=
- =?utf-8?B?aVhEKzR4Ri9heEJ5Uk8wd1VITkJlQytpTzZjb3NDR2pPTzVqZkF2T0syUGlO?=
- =?utf-8?B?Z2U4WHJhcE9NZGExUXBOQVhPOEVVd2o2S0JkRk41clFURjYvbEd0TnpvaDcr?=
- =?utf-8?B?NGJGQkdOeXYyNkxudkZvNitvN0svdVd6M3VjbWs3emF6YTZLb3dmRzRTUGd2?=
- =?utf-8?B?dWttQ1Q1WWFXOFZVVFAxeUE4K0xsVDNPUGdkRlJYcUcrZEtYZktQazlrajlT?=
- =?utf-8?B?TGdLR1Zma05OY1VQNkNxLzkweTA2UVNSSkx5aW5kYWo4NWpCbjZrNGdwQmoz?=
- =?utf-8?B?WDF6SHB2c0VLQkRqVG85TEJjdmFzQzRkMVJkOW5ieVBaVEpVV29ZQWZJMVN3?=
- =?utf-8?Q?2LGc=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <F12CC956EC902448AB2566D47EBA4F0D@amdcloud.onmicrosoft.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fsQmGlNJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1740549360;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=00EdWVHPoMQHvlzIUwN8uPs6Nz8Xc2iFclE8/2Qqlew=;
+	b=fsQmGlNJjcj8Ao2WFzVcciqcRfFCiCQdzjyXJabSXTBx4z1kC2V72ETbOxylbd4a7hJLt4
+	7FudiIcGce52/CqWZps3qaCTVx1/5FEZRoaXc7QHRMTzY1yGwEXQu8/zuZ9P8eFMQy53kg
+	ipQqfbDPy5arf3/iSw6wLFtyXgdMW7U=
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-489-GasNoNU-PS-g47jpML1EqA-1; Wed, 26 Feb 2025 00:55:59 -0500
+X-MC-Unique: GasNoNU-PS-g47jpML1EqA-1
+X-Mimecast-MFC-AGG-ID: GasNoNU-PS-g47jpML1EqA_1740549357
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-2fe870bc003so481113a91.1
+        for <virtio-comment@lists.linux.dev>; Tue, 25 Feb 2025 21:55:58 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1740549356; x=1741154156;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=00EdWVHPoMQHvlzIUwN8uPs6Nz8Xc2iFclE8/2Qqlew=;
+        b=Xk80wnC4Ownj8f+XJRNLYjZlzI1BRr5xr/o1qTTlEtAIk0V7SsPLEI2nZchaqa6kH0
+         dcG/RbWH8UKf6A+/i5qdYTFvpugo77b4rqK7hiTaNJs7s4r7Uc5rtj0IDiIjRY+pXrrY
+         JcMxKLrL1qBSGlDSPhkALa+q6Lr8UdsrgWO8/EDSJrWZ0T4/IuNPGNQFNsc0abHVJG1k
+         QZ9uKUBleMEBqeRUzqy8Szvj14XW2CkEFDzD2WAV5s3SfHZCyhwplBxxfAsUEGtYYMwa
+         WNXzcRcUfyMvrhB4IhagcuLuLaC8X5eeoZlUgn4KvDSYgy8ly1HKwY3bupFwGKtlC20P
+         5wig==
+X-Forwarded-Encrypted: i=1; AJvYcCUgobdF1gscckFB3Zl5QIE9TBox1msGnFqQVbeuX0qGL1jVsXCo2JBHzDTcbmAjBIvlm43NIzHJcUrAFCM5og==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yxg8RVIC/5lNEFo9Yplk0vDDmh4PyF4wp+kodCAk4Dq6ttfjtdE
+	dkMuFyoKlJpewVoE69t13jcDYpBdEKtD7GRW2fSLcRsT8DYjCnQTLhy48CZ+gcTfw7nTBgpUx/u
+	vNA6H4sWTi9WUIHxxa4I73fx6iCrzyClcNjVgV4EuoJn+ldJns9xnRaNz4pa1DwLICshZcra4Cw
+	evd8sB/w7WltiuQ1rXMIALHmUOa6p6grGjV5uJ9qDXDHvKUT/z7feSeT4=
+X-Gm-Gg: ASbGncsUuHGIm616rsDQHgg0qoSf2TrlKyPEbo789U8QKudCwWPKKOCRaPipDYtCHic
+	+ly+hspylOj3Gp+H7PLtMsDrMKbbDSCycIIS1sL+i7DARnwuFMrvIZohJTKN/Ne7vDaqQCkkOEA
+	==
+X-Received: by 2002:a17:90b:3883:b0:2fa:42f3:e3e4 with SMTP id 98e67ed59e1d1-2fccc0f838amr38036582a91.3.1740549356434;
+        Tue, 25 Feb 2025 21:55:56 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGk97iXEFnGt57SX3WuIURN5w0UtApBCHGNS/tjVdRDkC29XbM1MZOjFaHqRlKDFxrVFmK4JA83+4rMU9pflpw=
+X-Received: by 2002:a17:90b:3883:b0:2fa:42f3:e3e4 with SMTP id
+ 98e67ed59e1d1-2fccc0f838amr38036561a91.3.1740549356041; Tue, 25 Feb 2025
+ 21:55:56 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6532.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e041849-cac1-4506-a038-08dd560cfc27
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Feb 2025 02:26:32.6434
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: yDDMYMxud4NN/vWW7HRvvXwzhVkgixrxhJCOakM0zzUG3+LfxXj3/QaNXq8oo7tzf+EyDa9hn6D6I4/+ejKw/g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7104
+References: <20250217172509.107212-1-kshankar@marvell.com> <CACGkMEubUH6YtZHK7sEjj6fvWZ5_k0rQ9H6U2Li4GP0Txi-yJA@mail.gmail.com>
+ <CH0PR18MB426010C71F7B3681C14C6F95DFC52@CH0PR18MB4260.namprd18.prod.outlook.com>
+ <CACGkMEvZ7YfQr262Qe_ocsjN_ULeqh_sHkJqeqAaOoqOy7OoVQ@mail.gmail.com> <DM4PR18MB42695701DC0DB5AB4FABE902DFC02@DM4PR18MB4269.namprd18.prod.outlook.com>
+In-Reply-To: <DM4PR18MB42695701DC0DB5AB4FABE902DFC02@DM4PR18MB4269.namprd18.prod.outlook.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Wed, 26 Feb 2025 13:55:44 +0800
+X-Gm-Features: AWEUYZk4ungrntkvJyw6zcRji_4MMy5pfNWFhJPZ2z6RFfkOUTOVy-xNHPdOUVI
+Message-ID: <CACGkMEuUsQuQ5zNu=kqdTQ9-zWsNc3zdFYVre03fuNnE6tKjog@mail.gmail.com>
+Subject: Re: [EXTERNAL] Re: [PATCH v3] virtio-net: Introduce a new field to
+ indicate outer network header offset
+To: Shiva Shankar Kommula <kshankar@marvell.com>
+Cc: "pabeni@redhat.com" <pabeni@redhat.com>, "willemb@google.com" <willemb@google.com>, 
+	"parav@nvidia.com" <parav@nvidia.com>, 
+	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, 
+	Nithin Kumar Dabilpuram <ndabilpuram@marvell.com>, Jerin Jacob <jerinj@marvell.com>, 
+	Rahul Bhansali <rbhansali@marvell.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: _JfeaCZmqwKi3ByAEy5Jh2Vlkux66Qvee2CTd2o43Ik_1740549357
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SGkgTVNULA0KDQpPbiAyMDI1LzEvMjEgMjI6MDAsIE1hdGlhcyBFemVxdWllbCBWYXJhIExhcnNl
-biB3cm90ZToNCj4gT24gVHVlLCBKYW4gMTQsIDIwMjUgYXQgMDY6MTY6MTNQTSArMDgwMCwgSnVs
-aWEgWmhhbmcgd3JvdGU6DQo+PiBQQ0kgcGVlci10by1wZWVyIERNQSB0cmFuc2FjdGlvbiBtYXkg
-YmUgdXNlZCBpbiBndWVzdCBmb3Igc29tZSBzY2VuZXMuDQo+PiBGb3IgZXhhbXBsZSwgZEdQVSBw
-cmltZSBmZWF0dXJlIHdpbGwgbGV0IHZpcnRpby1pR1BVIGFjY2VzcyB0bw0KPj4gcGFzc3Rocm91
-Z2ggZEdQVSBidWZmZXIuDQo+Pg0KPj4gVG8gc3VwcG9ydCBQMlAgRE1BIHRyYW5zYWN0aW9uIGlu
-IGd1ZXN0LCB2aXJ0aW8tZ3B1IG5lZWRzIHRvIGNoZWNrIHRoZQ0KPj4gY29tcGF0aWJpbGl0eSB3
-aGljaCBpcyByZXByZXNlbnRlZCBieSBwMnBkbWFfZGlzdGFuY2UuIFRoaXMgZGVmaW5lcyBhDQo+
-PiBjb21tYW5kIFZJUlRJT19HUFVfQ01EX1AyUERNQV9ESVNUQU5DRSB0byBhbGxvdyBndWVzdCBz
-ZW5kIHZpcnR1YWwgcGNpDQo+PiBub3RhdGlvbiBvZiB0d28gZGV2aWNlcyB0byBob3N0IGFuZCBn
-ZXQgaG9zdCBwaHlzaWNhbCBwMnBkbWFfZGlzdGFuY2UNCj4+IG9mIHRoZXNlIHR3byBQQ0kgZGV2
-aWNlcy4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBKdWxpYSBaaGFuZyA8anVsaWEuemhhbmdAYW1k
-LmNvbT4NCj4+IC0tLQ0KPj4gSGkgYWxsLA0KPj4NCj4+IFdlIGFyZSB0cnlpbmcgdG8gaW1wbGVt
-ZW50IGRHUFUgcHJpbWUgZmVhdHVyZSBpbiBndWVzdCB3aGljaCB3aWxsIGxldA0KPj4gdmlydGlv
-LWlHUFUgcmVhZCByZW5kZXJlZCBkYXRhIG9mIHBhc3N0aHJvdWdoIGRHUFUuIEJlZm9yZSB0aGF0
-LA0KPj4gdmlydGlvIGdwdSBkcml2ZXIgbmVlZHMgdG8gZ2V0IHAycGRtYV9kaXN0YW5jZSB0byBj
-aGVjayBpZiBQMlAgRE1BDQo+PiB0cmFuc2FjdGlvbiBpcyBwb3NzaWJsZSBvciBub3QuDQo+Pg0K
-Pj4gVG8gaW1wbGVtZW50IGdldHRpbmcgcDJwZG1hX2Rpc3RhbmNlLCBRRU1VIG5lZWRzIHRvIGhh
-bmRsZSB0aGUgY29tbWFuZA0KPj4gZnJvbSBndWVzdCB3aXRoIHZpcnR1YWwgcGNpIG5vdGF0aW9u
-cyBvZiB0d28gUENJIGRldmljZXMgYW5kIHNlbmQgaXQgdG8NCj4+IGhvc3Qga2VybmVsIGFuZCBy
-ZXR1cm4gaG9zdCBwaHlzaWNhbCBkaXN0YW5jZSBiYWNrIHRvIGd1ZXN0Lg0KPj4NCj4+IFNvIHRo
-aXMgZGVmaW5lcyB0aGUgbmV3IGNvbW1hbmQgZm9sbG93IHRoZSBzdWdnZXN0aW9uIGluDQo+PiBo
-dHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNDEyMDcxMDU1MzcuNTQyNDQxLTQtanVsaWEu
-emhhbmdAYW1kLmNvbS8NCj4+DQo+PiBSZWdhcmRzLA0KPj4gSnVsaWENCj4+IC0tLQ0KPj4gICBk
-ZXZpY2UtdHlwZXMvZ3B1L2Rlc2NyaXB0aW9uLnRleCB8IDI5ICsrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrDQo+PiAgIDEgZmlsZSBjaGFuZ2VkLCAyOSBpbnNlcnRpb25zKCspDQo+Pg0KPiAN
-Cj4gUmV2aWV3ZWQtYnk6IE1hdGlhcyBFemVxdWllbCBWYXJhIExhcnNlbiA8bXZhcmFsYXJAcmVk
-aGF0LmNvbT4NCj4gDQpEb2VzIHRoaXMgcGF0Y2ggbWVldCBhbGwgcmVxdWlyZW1lbnRzIGZvciBt
-ZXJnaW5nPyBJZiBub3QsIHdoYXQgc2hvdWxkIEkgDQpkbyBuZXh0IHN0ZXA/IFNob3VsZCBJIGNy
-ZWF0ZSBhIE1SIG9uIGdpdGh1Yj8NCg0KUmVnYXJkcywNCkp1bGlhDQo=
+On Tue, Feb 25, 2025 at 1:48=E2=80=AFAM Shiva Shankar Kommula
+<kshankar@marvell.com> wrote:
+>
+> > -----Original Message-----
+> > From: Jason Wang <jasowang@redhat.com>
+> > Sent: Thursday, February 20, 2025 7:20 AM
+> > To: Shiva Shankar Kommula <kshankar@marvell.com>
+> > Cc: pabeni@redhat.com; willemb@google.com; parav@nvidia.com; virtio-
+> > comment@lists.linux.dev; Nithin Kumar Dabilpuram
+> > <ndabilpuram@marvell.com>; Jerin Jacob <jerinj@marvell.com>; Rahul
+> > Bhansali <rbhansali@marvell.com>
+> > Subject: Re: [EXTERNAL] Re: [PATCH v3] virtio-net: Introduce a new fiel=
+d to
+> > indicate outer network header offset
+> >
+> > On Wed, Feb 19, 2025 at 2:=E2=80=8A40 PM Shiva Shankar Kommula
+> > <kshankar@=E2=80=8Amarvell.=E2=80=8Acom> wrote: > > > > > -----Original=
+ Message----- > >
+> > From: Jason Wang <jasowang@=E2=80=8Aredhat.=E2=80=8Acom> > > Sent: Wedn=
+esday, February
+> > 19, 2025
+> > On Wed, Feb 19, 2025 at 2:40=E2=80=AFPM Shiva Shankar Kommula
+> > <kshankar@marvell.com> wrote:
+> > >
+> > >
+> > >
+> > > > -----Original Message-----
+> > > > From: Jason Wang <jasowang@redhat.com>
+> > > > Sent: Wednesday, February 19, 2025 9:00 AM
+> > > > To: Shiva Shankar Kommula <kshankar@marvell.com>
+> > > > Cc: pabeni@redhat.com; willemb@google.com; parav@nvidia.com; virtio=
+-
+> > > > comment@lists.linux.dev; Nithin Kumar Dabilpuram
+> > > > <ndabilpuram@marvell.com>; Jerin Jacob <jerinj@marvell.com>; Rahul
+> > > > Bhansali <rbhansali@marvell.com>
+> > > > Subject: [EXTERNAL] Re: [PATCH v3] virtio-net: Introduce a new fiel=
+d
+> > > > to indicate outer network header offset
+> > > >
+> > > > On Tue, Feb 18, 2025 at 1:=E2=80=8A25 AM Kommula Shiva Shankar <ksh=
+ankar@
+> > > > marvell.=E2=80=8Acom> wrote: > > This patch introduces a new field =
+in the
+> > > > virtio_net_header called out_nh_offset, along with a new net device
+> > > > feature, VIRTIO_NET_F_OUT_NET_HEADER.
+> > > > On Tue, Feb 18, 2025 at 1:25=E2=80=AFAM Kommula Shiva Shankar
+> > > > <kshankar@marvell.com> wrote:
+> > > > >
+> > > > > This patch introduces a new field in the virtio_net_header called
+> > > > out_nh_offset, along with a new net device feature,
+> > > > VIRTIO_NET_F_OUT_NET_HEADER.
+> > > > >
+> > > > > Currently, drivers lack a dedicated field to signal the start of
+> > > > > the network header to the device when performing checksum offload
+> > > > > and
+> > > > segmentation offload. This requires reading packet, which
+> > > > significantly affects performance in datapath.
+> > > > > Additionally, some hardware implementations requrie knowledege of
+> > > > > the
+> > > > outer L3 offset (aka L2 length) for inline IPSec hardware accelerat=
+ion.
+> > > > >
+> > > > > To address this limitation, we propose splitting the csum_offset
+> > > > > field into
+> > > > two 8-bit fields named csum_offset and out_nh_offset.
+> > > > > The csum_offset indicates the offset value from the csum_start an=
+d
+> > > > > may not exceed 256B bits(2^8) for protocols that use a 16-bit
+> > > > > one's complement checksum
+> > > > >
+> > > > > Following table lists such protocols and their checksum offset
+> > > > > fields within their headers
+> > > > >
+> > > > > +-----+--------+
+> > > > > |Proto|csum_off|
+> > > > > +-----+--------+
+> > > > > | IPV4| 10B    |
+> > > > > | ICMP| 2B     |
+> > > > > | IGMP| 2B     |
+> > > > > |  TCP| 16B    |
+> > > > > |  UDP| 6B     |
+> > > > > +-----+--------+
+> > > > >
+> > > > > The out_nh_offset represents the start byte offset of the outer
+> > > > > network header from the beginning of the packet
+> > > > >
+> > > > > This issue was briefly discussed on the mailing list in a
+> > > > > different thread, which can be found here
+> > > > > https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__lore.kerne=
+l.o
+> > > > > rg_a
+> > > <https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__lore.kernel.o=
+rg_
+> > > a  >> > > ll_DM4PR18MB4269FAAC3CFC7E57E25DFBD2DF8B2-
+> > > > 40DM4PR18MB4269.namprd18.pro
+> > > > >
+> > > >
+> > d.outlook.com_&d=3DDwIFaQ&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DXP728rR_yI3b
+> > > > CCyFq0M
+> > > > > EWPS2176D_oSryc7cD-
+> > > > 0TRPs&m=3DjajIHiJb18aASNFHlkOtvANrA_06lDHp6zG9AEFU8u_
+> > > > > nHyksxDbHI3UT0OFedi-b&s=3DMR9AX0Md9PFbZjQM-
+> > > > bwJAmO13ZwETRZJCm9qFIYDy6E&e=3D
+> > > > >
+> > > > > v2 -> v3:
+> > > > >  - Rebase to virtio-1.4
+> > > > >  - Addressed pending review commnets related to wording.
+> > > > >
+> > > > > v2 -
+> > > > > https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__lore.kerne=
+l.o
+> > > > > rg_a
+> > > <https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__lore.kernel.o=
+rg_
+> > > a  >> > > ll_20250128142152.3662988-2D1-2Dkshankar-
+> > > > 40marvell.com_&d=3DDwIFaQ&c=3DnKj
+> > > > >
+> > Wec2b6R0mOyPaz7xtfQ&r=3DXP728rR_yI3bCCyFq0MEWPS2176D_oSryc7cD-
+> > > > 0TRPs&m=3Dja
+> > > > >
+> > jIHiJb18aASNFHlkOtvANrA_06lDHp6zG9AEFU8u_nHyksxDbHI3UT0OFedi-
+> > > > b&s=3DjvYZB
+> > > > > QtOwWyydI5lFvCFz4hF94jDmU70nROTU44Ma0M&e=3D
+> > > > >
+> > > > > v1 -> v2:
+> > > > >  - explicitly state that the out_nh_offset can be set only when a
+> > > > > valid
+> > > > network header is present.
+> > > > >  - updated out_nh_offset usage in the RX direction.
+> > > > >  - minor word cleanup.
+> > > > >
+> > > > > v1 -
+> > > > > https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__lore.kerne=
+l.o
+> > > > > rg_v
+> > > <https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__lore.kernel.o=
+rg_
+> > > v  >> > > irtio-2Dcomment_20250114171636.3175670-2D1-2Dkshankar-
+> > > > 40marvell.com_&d
+> > > > >
+> > > >
+> > =3DDwIFaQ&c=3DnKjWec2b6R0mOyPaz7xtfQ&r=3DXP728rR_yI3bCCyFq0MEWPS217
+> > > > 6D_oSryc7
+> > > > > cD-
+> > > >
+> > 0TRPs&m=3DjajIHiJb18aASNFHlkOtvANrA_06lDHp6zG9AEFU8u_nHyksxDbHI3UT
+> > > > 0OF
+> > > > > edi-b&s=3DrzyoQrmZTznG5V9N03u7bpPbG1uQC0WPFmypJJKS9r8&e=3D
+> > > > >
+> > > > > Signed-off-by: Kommula Shiva Shankar <kshankar@marvell.com>
+> > > > > ---
+> > > > >  device-types/net/description.tex | 37
+> > > > > ++++++++++++++++++++++++++++++++
+> > > > >  1 file changed, 37 insertions(+)
+> > > > >
+> > > > > diff --git a/device-types/net/description.tex
+> > > > > b/device-types/net/description.tex
+> > > > > index b546cd7..2a4aa66 100644
+> > > > > --- a/device-types/net/description.tex
+> > > > > +++ b/device-types/net/description.tex
+> > > > > @@ -136,6 +136,10 @@ \subsection{Feature bits}\label{sec:Device
+> > > > > Types / Network Device / Feature bits
+> > > > >
+> > > > >  \item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM (68)] Device
+> > > > handles packets
+> > > > >    carried by a UDP tunnel with partial csum for the outer header=
+.
+> > > > > +
+> > > > > +\item[VIRTIO_NET_F_OUT_NET_HEADER(69)] Driver can provide the
+> > > > > +start of \field{out_nh_offset}  value. Device gains advantage by
+> > > > > +not reading packet to calculate outer network  header offset
+> > > > >  \end{description}
+> > > > >
+> > > > >  \subsubsection{Feature bit requirements}\label{sec:Device Types =
+/
+> > > > > Network Device / Feature bits / Feature bit requirements} @@
+> > > > > -592,6
+> > > > +596,13 @@ \subsection{Device Operation}\label{sec:Device Types /
+> > > > +Network
+> > > > Device / Device O
+> > > > >          le16 hdr_len;
+> > > > >          le16 gso_size;
+> > > > >          le16 csum_start;
+> > > > > +        union {
+> > > > > +                le16 csum_offset;
+> > > > > +                struct {        /* Only if VIRTIO_NET_F_OUT_NET_=
+HEADER
+> > > > negotiated */
+> > > > > +                        le8 csum_offset;
+> > > > > +                        le8 out_nh_offset;
+> > > >
+> > > > Need some explanation why reusing csum_offset is better than
+> > > > introducing new fields.
+> > > Our objective is to preserve the current size of the virtio_net_hdr s=
+tructure,
+> > to ensure compatibility with the existing header size.
+> > > (unlike other features such as hash reporting). Given that the
+> > > csum_offset represents an offset within the header and may not exceed
+> > 2^8, we propose utilizing the existing space to accommodate this newly
+> > introduced field.
+> > >
+> > > Would it be more prudent to add a new field for this feature ? Do you
+> > foresee any issues with this approach ?
+> >
+> > It might have some compatibility issue. For example in the current Linu=
+x
+> > implementation, csum_offset were 1:1 mapped to skb->csum_offset which i=
+s
+> > a u16.
+> >
+> > I haven't checked all the protocols (especially the tunnels) but if one=
+ day
+> > there's a protocol that uses a csum_offset >=3D 256, it would be proble=
+matic.
+> >
+> I agree with the 1:1 mapping between csum_offset and skb->checksum_offset=
+.
+> Given that the virtio net header size is already a scarce resource for ad=
+ding new fields,
+> additionally increasing it for every new feature might impact performance=
+ in the data path.
+
+New fields were added when new features were added. It doesn't harm
+too much as long as it doesn't cost more than one cacheline.
+
+And addressing this "issue" seems to be orthogonal to the proposal
+here. Once we get a better way to place vnet header, network header
+will work there as well.
+
+> Would it be fine to add a note stating that when the VIRTIO_NET_F_OUT_NET=
+_HEADER
+> feature is negotiated, checksum_offset cannot exceed 2^8 offset ?
+
+So if one day there's a protocol that uses a cusm_offset >=3D 256 with
+the network header, we need to invent new fields which are kind of not
+elegant.
+
+I think it would be cleaner if we just introduce a new field.
+
+Thanks
+
+>
+> > Thanks
+> >
+> > > >
+> > > > > +                };
+> > > > > +        };
+> > > > >          le16 csum_offset;
+> > > >
+> > > > It seems like it needs to be removed.
+> > > ACK .
+> > > Inadvertently included in version 3. Will fix up and send version4
+> > > >
+> > > > >          le16 num_buffers;
+> > > > >          le32 hash_value;        (Only if VIRTIO_NET_F_HASH_REPOR=
+T
+> > > > negotiated)
+> > > >
+> > > > Thanks
+> > >
+>
+
