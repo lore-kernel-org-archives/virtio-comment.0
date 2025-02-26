@@ -1,121 +1,184 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1263212FB4
-	for <virtio-comment@lists.linux.dev>; Wed, 26 Feb 2025 17:29:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 750D62253EA
+	for <virtio-comment@lists.linux.dev>; Wed, 26 Feb 2025 17:50:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740590975; cv=none; b=bx664UvjgIUl9Olfx8Oh2d9ecNTaQEFPiPYIouwle/dNc1Fw40Fnl2V8hOhLYnbfdo+1LVdiq7CF3pWrJIldQ7Bui8hy++OYDgMLdBYb7sGLKHr5ous9blGb1QnxWzJp9R+xA5E0TNqMrGqlbJ+XCJIEAWBouxr2c+Yq+qzgH7g=
+	t=1740592206; cv=none; b=FNLn9dVY2ss3NfhBD9BGFrotkY+MO1r6z0iheo9nj5EjZx2bIAwDdEwgzNGRLT4yARet4ALpMz0Trs4JA9R+FDfWpsYU3UyLqJY5BNJuLoDTWaUS6kWUMTPKSLaJsMe11xYSWtKn7CSc3VumghZ83ddifof8rck4eZa/BQpz+4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740590975; c=relaxed/simple;
-	bh=43B8S8/3cOWM2wT57nWXqZ6AzNtPbX/MQ29XJc4ppVU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=qFeBKAC+xwe9lKHCxw/Me4/4Yc4VjxuftXCCfoGGhLA2grms1r4yFNIsTqJcuXI9oqMgtCDIF4RHS/GKlwtqp+g4bNkJGMb+GWzDmyV7U3xcaJ10tFRNODYz4XIvM/i6gqb1HL1dlJUc/G+l0WTSVYfWku4/KGBV742twsPZua4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AFx5U6PX; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1740592206; c=relaxed/simple;
+	bh=yVyHS5zraagKnP2oqBezrMRU2lVHk20KAeo2oW1tLBw=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Content-Type; b=Wxx0pv1ZmkH2b6dynSX5tJfM6+MlhezN+my7SyV03HKymI8IfIML1PWVFYpGTYap53R9ec6m/fN5fItbymf/fJe3OepJkLiCwJdW2re4ZeqVlpfNpx3AmzU6jP4BXNCTg0rOeRg70O0o5YuuF8DHn/fQRmIrDBTkFnlpyKs2cQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=X6H1T4Sr; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AFx5U6PX"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="X6H1T4Sr"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1740590972;
+	s=mimecast20190719; t=1740592203;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=eVgzGpBOdVG4Dimb9/AaKHgXzhV/wXCh9/eXafRcuu4=;
-	b=AFx5U6PXEDVQoJNI4pOuBO81Zvc348pa+aWIsslJLeGdwC5iDlHXzuIkR07tQKpPdNJT2f
-	vH3mPmOUsnommCDqP0IOpNeDQS1YefPNDHiYlnrUp0TTaRhYO5dW4ektn286HglZifGpsr
-	cp89Yi19PjmWgIjl4egTLdoJ7iKd+Us=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=TWQnDLWwfk/gdwhYVgbsYed0bpQxyjJZnaf5I8fs8SU=;
+	b=X6H1T4Sr1tqltMc1yo1cCo9ihELpJRuaVZ666zJu/KEniZsQ797cwCmXlkW5EyP3jYiBSj
+	WZtEiapnYzQ5dX+V1AWJUonXLJ/R+PujbaHuaOWU1970Z+S0X5C13LHg+YqLBqig1MvLNS
+	qswg5RAL2QtzukOMaXKgJwCW3z35uJU=
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-251-r8NhNEh3N5aG6mPgP3JGIg-1; Wed, 26 Feb 2025 12:29:31 -0500
-X-MC-Unique: r8NhNEh3N5aG6mPgP3JGIg-1
-X-Mimecast-MFC-AGG-ID: r8NhNEh3N5aG6mPgP3JGIg_1740590970
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-38f455a8e43so2732f8f.0
-        for <virtio-comment@lists.linux.dev>; Wed, 26 Feb 2025 09:29:30 -0800 (PST)
+ us-mta-225-VgBMUk__Ps-QCLPEDR9kuQ-1; Wed, 26 Feb 2025 12:50:01 -0500
+X-MC-Unique: VgBMUk__Ps-QCLPEDR9kuQ-1
+X-Mimecast-MFC-AGG-ID: VgBMUk__Ps-QCLPEDR9kuQ_1740592200
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-2fc4dc34291so214886a91.3
+        for <virtio-comment@lists.linux.dev>; Wed, 26 Feb 2025 09:50:01 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1740590970; x=1741195770;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eVgzGpBOdVG4Dimb9/AaKHgXzhV/wXCh9/eXafRcuu4=;
-        b=XoxxkSeiZQ2/X7WdLUiUpcr+Uqf+Na+cdY56kP557xP5RGY/FtarX8CA9ZrJAnijkk
-         31A9jAPdFP0CDjQIN1FMP4KfB2YpnXVyidXCp8jlm5d04jC1gqQiiJqJ8x1k5EOMWBYy
-         j6aJ8bN7MmNBFlsjgdFMIZbYbCBiIkzYCCeZJkFP63ko4YLdx3qNC1YVUlXA8wKHIGOP
-         ycEu4vAwQfumbYPOIHzVLXqu2mDbniCqxxlsRGmoFL9oUaFOEUEshj+5BtIFE/AVTg1+
-         2wTj09ltfghbJbISQvYPOVKWqNghZpF6/HtHLN9+l4IbJGllYaNAA4Y/Os8ytvfdZXG7
-         /bIA==
-X-Forwarded-Encrypted: i=1; AJvYcCVX7rjvTcuxS79afKVcOEfDUXTdwL99kuAOVVY8K6jIR4rCGo/YHbM9rfLJr9ru7wGHe6jC3g27m3d/KwqpHA==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxBZ3mfcsMmlckS3KFWrCbBFnpc1b3Y6RuohVdtsz+jiKXYKsA/
-	sOjA6c5MHiu7YBAFHragU/p6XzfUybc2OjxGZEP14LZzGVrRcUpM21tH4tgp3f+NxiZRCcD5f8M
-	mqNSfFfKvwcIJMWVKHj2S6CVHd/QqUvcPpXgln6VG4hfa5EM2dWTXZZwhziCuefdD
-X-Gm-Gg: ASbGncvSQ0LYaw36O6E4ajNtYUOLlRafNhGpHOxEawvWfDET+6vsT1IQsJDp1FuoTHV
-	d4WlB9fiUsG65AnmlyseIBz1Pj8XnBHWfk5o82da/gbuzSrSSeM0Q4p3v0lXRj2bMLQAGZxbglq
-	xfHXSgZ2Ymfet2Kbg2nhjtILoRovCXAT/LCNAjvg5DFPSJwRZO5vcioa8y3XwVBupB22cYAQbaR
-	K8q8FTsDMQemNLjgrF7ntJVUj3kbj/KCSrkXlgPPISdyfDM8JEbBpGxS0/SkiphkOjw5xfg/P9R
-	Vc8AEy9a6w==
-X-Received: by 2002:a5d:6c68:0:b0:38b:ed1c:a70d with SMTP id ffacd0b85a97d-390cc3b1c30mr7188777f8f.0.1740590969791;
-        Wed, 26 Feb 2025 09:29:29 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGXhcRpHU25jUvD2zIMMEJp8vjNyiH+0BXVs3wR578ndom46uZ0rTwdTfx0iu1gGkdsWNCQOA==
-X-Received: by 2002:a5d:6c68:0:b0:38b:ed1c:a70d with SMTP id ffacd0b85a97d-390cc3b1c30mr7188749f8f.0.1740590969399;
-        Wed, 26 Feb 2025 09:29:29 -0800 (PST)
-Received: from redhat.com ([2a02:14f:1eb:e270:8595:184c:7546:3597])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-43aba539450sm28481295e9.21.2025.02.26.09.29.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Feb 2025 09:29:28 -0800 (PST)
-Date: Wed, 26 Feb 2025 12:29:24 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Rob Clark <robdclark@gmail.com>, Huang Rui <ray.huang@amd.com>,
-	Sergio Lopez <slp@redhat.com>,
-	Akihiko Odaki <akihiko.odaki@daynix.com>,
-	virtio-comment@lists.linux.dev
-Subject: Re: [PATCH v3 0/3] VirtIO-GPU spec improvements
-Message-ID: <20250226122903-mutt-send-email-mst@kernel.org>
-References: <20240719120638.196052-1-dmitry.osipenko@collabora.com>
- <de02684a-8f36-48ba-b505-85b6d74f5e8b@collabora.com>
- <Z788Yrh6qy9dJOVP@fedora>
+        d=1e100.net; s=20230601; t=1740592200; x=1741197000;
+        h=to:subject:message-id:date:mime-version:references:in-reply-to:from
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=TWQnDLWwfk/gdwhYVgbsYed0bpQxyjJZnaf5I8fs8SU=;
+        b=CGHIxK0m0rMEvTNK0fIxcORgD4iOilYn10vvqUBbVdVFu9eZNuF78dmC4Tb5yUVlqu
+         yqbID6gg89caJyAd9jwqT3XkIBDkGHR33vM0GpWa1kuUD8wqL9+VmTJAUgqz8jSToT3V
+         g0LR4RRKgb4T/PduvKOR5fApVWvkGdY8CBu8t2/8V2rLwsqai/Zk2afAfeTffsOeTyIy
+         9eVo7bf1DFME8p9E7ZlDrazi71nDku1LxzzdftSiokAnWAT58hRuyjKRPdjxrerc3soK
+         waToF57XgZHlWM5fhO3mu8M4kBgz61lRHppBn7NMB0beCmwrLJI1lQk0oGpauf9iBerJ
+         rwaw==
+X-Forwarded-Encrypted: i=1; AJvYcCWYwUnoUv02akwAHbLHY4oZqNT8tiiSB3p3hxhAfErTUUF5TN8iWmLkDs8OSwUOK4sC6Ivlmx3Kh9sM48Cupw==@lists.linux.dev
+X-Gm-Message-State: AOJu0Ywdy7KlvLYemTrghndAOlkCqGeKybAN28QzdDMdRZ/BJXx8G9dt
+	LZhd+6hotB+XdIvliIUeS7CWQqgy81Ui9SwrtEV+3x8AHmCVBHznFOGtCo4lv5GOn/UPefrQDOo
+	mPFEwEh1orHjLBrVBlyMfinSdlUfV9j8ucmsX/UXgkFvy/2qnDAK3aPkVaFXaSR1EZtWBETuxHM
+	mIfyNPgVF8n0nQoqPY15HxyBRC583T85jCaTYHIkGLlQ1GHoI=
+X-Gm-Gg: ASbGncs+xorkyin83hmTBsyvHTTsMLtgxbyuuiyrTSsrxoQToiOWvKyTFjbVljJrIvm
+	RNThXDBucbzTVLX6YhlQwoiItPer8DVo3GGlQQa7YevFC0QdzsZsVCttypN5z6ElquOkf
+X-Received: by 2002:a17:90b:2e47:b0:2fe:99cf:f579 with SMTP id 98e67ed59e1d1-2fe99cff844mr1408312a91.4.1740592200036;
+        Wed, 26 Feb 2025 09:50:00 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGbLcXaO8aoTOpjWo3T9sEiMzcOEgHJ8zPHwaYXbgntcyuEOhOx48Ufg60JQfxT9gPGgjG11S+DYbVy1ngH0f4=
+X-Received: by 2002:a17:90b:2e47:b0:2fe:99cf:f579 with SMTP id
+ 98e67ed59e1d1-2fe99cff844mr1408286a91.4.1740592199649; Wed, 26 Feb 2025
+ 09:49:59 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 26 Feb 2025 09:49:58 -0800
+From: Sergio Lopez Pascual <slp@redhat.com>
+In-Reply-To: <CY8PR12MB7195A2AFBB7530874D228954DCC12@CY8PR12MB7195.namprd12.prod.outlook.com>
+References: <20250217115227.4961-1-slp@redhat.com> <20250217115227.4961-2-slp@redhat.com>
+ <CY8PR12MB7195A2AFBB7530874D228954DCC12@CY8PR12MB7195.namprd12.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <Z788Yrh6qy9dJOVP@fedora>
+Date: Wed, 26 Feb 2025 09:49:58 -0800
+X-Gm-Features: AQ5f1Jqyq1zJfzU47DcZGPyUujQDZei_X3kdDD3wFJKHyEGuiq0USO1LDCWGjOM
+Message-ID: <CAAiTLFV2Dn_WztJ4evXLN4tFJGJ_Fqkw=xk5DD5jukvze0snQg@mail.gmail.com>
+Subject: RE: [PATCH 1/3] shared-mem: introduce page alignment restrictions
+To: Parav Pandit <parav@nvidia.com>, 
+	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 4kFoFXV1X4MGTxbcxC_J10vNep67bbGUpyjo-L7Kokk_1740590970
+X-Mimecast-MFC-PROC-ID: cQ6C44bkDpPh-ZBAf2CYp-fQ2NfNSPW2HAY9U78_4jY_1740592200
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Feb 26, 2025 at 05:08:02PM +0100, Matias Ezequiel Vara Larsen wrote:
-> On Wed, Feb 26, 2025 at 01:59:06PM +0300, Dmitry Osipenko wrote:
-> > On 7/19/24 15:06, Dmitry Osipenko wrote:
-> > > Hi,
-> > > 
-> > > This is a repost of v2 to the new virtio-comment mailing list.
-> > > Michael Tsirkin suggested to repost the patches, here they are.
-> > > 
-> > > Dmitry Osipenko (3):
-> > >   virtio-gpu: Rename GFXSTREAM context capset to GFXSTREAM_VULKAN
-> > >   virtio-gpu: Document VIRTIO_GPU_CAPSET_DRM
-> > >   virtio-gpu: Update venus-protocol URL
-> > > 
-> > >  device-types/gpu/description.tex | 11 +++++++----
-> > >  1 file changed, 7 insertions(+), 4 deletions(-)
-> > > 
-> > 
-> > Fixes: https://github.com/oasis-tcs/virtio-spec/issues/182
-> > 
-> I think what is missing is to explicitly request a vote as is explained
-> in 2) at
-> https://github.com/oasis-tcs/virtio-spec/blob/master/README.md#use-of-github-issues.
-> 
-> Thanks, Matias
+Parav Pandit <parav@nvidia.com> writes:
 
+>> From: Sergio Lopez <slp@redhat.com>
+>> Sent: Monday, February 17, 2025 5:22 PM
+>>
+>> Add a subsection for page alignment restrictions and introduce the
+>> VIRTIO_F_SHM_PAGE_SIZE feature bit.
+>>
+>> Signed-off-by: Sergio Lopez <slp@redhat.com>
+>> ---
+>>  content.tex    | 3 +++
+>>  shared-mem.tex | 7 +++++++
+>>  2 files changed, 10 insertions(+)
+>>
+>> diff --git a/content.tex b/content.tex
+>> index c17ffa6..575065d 100644
+>> --- a/content.tex
+>> +++ b/content.tex
+>> @@ -872,6 +872,9 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved
+>> Feature Bits}
+>>  	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits}
+>> for
+>>  	handling features reserved for future use.
+>>
+>> +  \item[VIRTIO_F_SHM_PAGE_SIZE(42)] This feature indicates that the
+>> + device  transport provides information about the supported page size.
+>> +
+>
+> Please extend the description around "Feature Bits" section to increase 24 to 41 -> 24 to 42.
 
-if a vote is already desired, then yes.
+Ack.
+
+>>  \end{description}
+>>
+>>  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits} diff
+>> --git a/shared-mem.tex b/shared-mem.tex index 6e6f6c4..dd90cb7 100644
+>> --- a/shared-mem.tex
+>> +++ b/shared-mem.tex
+>> @@ -34,6 +34,13 @@ \subsection{Addressing within regions}\label{sec:Basic
+>> Facilities of a Virtio De  The \field{shmid} may be explicit or may be inferred
+>> from the  context of the reference.
+>>
+>> +\subsection{Page alignment restrictions}\label{sec:Basic Facilities of
+>> +a Virtio Device / Shared Memory Regions / Page alignment restrictions}
+>> +
+>> +If VIRTIO_F_SHM_PAGE_SIZE has been negotiated, when requesting the
+>> +device to map memory into a shared memory region, the driver MUST
+>> +obtain the page size information from the transport and honor the page
+>> +alignment constrains derived from that page size.
+>> +
+> A device requirement is also needed to indicate that pci capability field is only valid after/when the feature is negotiated.
+
+Ack.
+
+>>  \devicenormative{\subsection}{Shared Memory Regions}{Basic Facilities of a
+>> Virtio  Device / Shared Memory Regions}  Shared memory regions MUST NOT
+>> expose shared memory regions which
+>> --
+>> 2.48.1
+>>
+> 1. Shared memory cap is already defined as VIRTIO_PCI_CAP_SHARED_MEMORY_CFG.
+> This capability should be extended instead of polluting generic structure field of padding.
+>
+> If its done in generic way like proposed, you need to call out that page_size field is only valid for VIRTIO_PCI_CAP_SHARED_MEMORY_CFG.
+>
+> Overall extending pci cap structure is not good idea even though it may appear as small change for below reasons.
+>
+> 1. PCI spec already ran out of total bytes that can be stored in the capability section. Extending it will not help.
+> A virtio level extended capability is not good either due to below guidance from PCI-SIG.
+>
+> 2. PCI spec highly discouraged putting vendor specific bits like this in the capability section.
+> Citation: "It is strongly recommended that PCI Express devices place no registers in Configuration Space other than those in
+> headers or Capability structures architected by applicable PCI specifications."
+
+Honestly, making it clear that the field is only valid for
+VIRTIO_PCI_CAP_SHARED_MEMORY_CFG _and_ when VIRTIO_F_SHM_PAGE_SIZE has
+been negotiated (I can extend the comment of the field itself to clarify
+that, otherwise, it just acts as padding), I fail to see which kind
+of problems might bring, but admitedly I'm not a PCI expert by any
+means.
+
+If using the padding is really not an option, would it be reasonable to
+introduce a different variant of "virtio_pci_cap64" struct, including
+the page_size, to be used when VIRTIO_F_SHM_PAGE_SIZE has been
+negotiated?
+
+IIUC, "virtio_pci_cap64" is VIRTIO-specific, so this shouldn't have
+impact anywhere else.
+
+> So, you should consider discovering the shared memory page size and more such fields using device administration commands.
+>
+> It may sound overkill to use administration commands for 8-bits of page size,
+> but as more generic and device specific things evolve, it is likely useful vehicle where you don't have to search hard to squeeze things in some existing structure like pci capability.
+
+Do you mean using an adminitration queue (VIRTIO_F_ADMIN_VQ)? If so,
+yes, I think it's extremely overkill for both the device and the driver.
+If possible, I would like explore every other option before resorting to
+this one.
+
+Thanks!
+Sergio.
 
