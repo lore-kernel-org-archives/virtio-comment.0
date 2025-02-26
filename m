@@ -1,81 +1,115 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7070137E
-	for <virtio-comment@lists.linux.dev>; Wed, 26 Feb 2025 10:59:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740567565; cv=pass; b=X3YdB/TGxrOGd7hYBipvDp6HDyAWR/iL/HXnn5p2laJtpv1r0raFs/gn5WIak013dIFl8fJFNZWXOjua5O6lnuyoj/syVgU59n8dKmxnhdjxZ3v5lwYSgrstodvnzWZCevQrYBR4FwSkEEhpjMd1dqJqXMowfcDn/5YdnS2Isvk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740567565; c=relaxed/simple;
-	bh=X7jfuMgAarI2R1XFEqioXUugNdfrA3ElV7TyaAEbKzY=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=Bje6dSA8CyupCiuNFZ5FIcJOK0y9Hh6Jr7aCX2DOjkt9s5iIx/IhZBVvNP/wDCrPO7jDbd8f5ByxlGLJt4GOn/GDri0+j9rcaNDI9a3eYjwwZQrjoliN5rECoAaHf40MG0EeCpPx5UEHuu5mJInj/SFR5/iZNvrQmlNr/kdams8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=XAFKFZGZ; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DECE3209
+	for <virtio-comment@lists.linux.dev>; Wed, 26 Feb 2025 15:33:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1740584015; cv=none; b=QV6LGX1RClxsC5lKLXu0s/66An36MlSnKYvuYanUs0h8oTVBGACIRe2mSFbrZIE/C5MVVBmnai5xBs4j12aK9syX6p8qkR+7moy9ijxEDgvOvN6ftcmsKod8+hoE97LWNiaq88420oTzRBlI37o8wfzgDNBOZ1Dkz3lldUpJ3Ks=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1740584015; c=relaxed/simple;
+	bh=Y4NaxZM7qi6B20dFSmkFi/RblVayAsyA8Oj/SSqhdMI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:content-type; b=oC5vmPa3sIPlui+d9eHMxU+SyNkb4w1bnOAkPT18hl7gdhl1XKmkgnu7fY3fWys1jdIMQR1fUAh3Q0mhThkzimUdw2aWYLc7tRuzxFzlwhIzHD3jjprWSyjkUPjDEApQRkuKDuCtxzANM0Xn5uE/NIsNd887Y/mcoROf2Tunbrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hAx1fra7; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="XAFKFZGZ"
-ARC-Seal: i=1; a=rsa-sha256; t=1740567554; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=UUGcdbjgdkZ91lncinD5U5hVd0MQk7KcWcA85BkIWNQg5u9OG10FCB6HDd2lwUKet8l1GaEEiyLLf8+QwQ3Ndjo9QwecTriWs8j8n6JmqFa0E8DxKGk16cVtjUBrAX+/frTPk7kQEKAhwYLWA2L5NwGFkWQ42svNjZIfV/DuckM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1740567554; h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc; 
-	bh=AsNMbHZ/Hyy5Cv/7d2T9n4v9UAbKCsKpNexJkB7PqEg=; 
-	b=Vf7Mqy10RzGH4XqwvsLgomV2U8gStqWNg54rIaCFV0FOjhZboWCUm4pt5F/bPHzYq1WsHqrUAZXMxsFfWogK79d4ZVqM076cBffdCUJhCgO7JC55CpF/S/kgjbJe12G01awWV3jGR6sGIZ8cy0YSkHS1f1XgvppjVDd84nJtrqI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1740567554;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
-	bh=AsNMbHZ/Hyy5Cv/7d2T9n4v9UAbKCsKpNexJkB7PqEg=;
-	b=XAFKFZGZIaa+Yke2s0PSmGbhSm5zIRzp/EHc9LgNoDbqPaQCz6SeHhhjxWnTXtAx
-	KKFLXIP6rB5rZ3hRyG2vZGbLO4N4Ll7GEVhYpHFTK0aGxt/AQ+SXSFRdzCQopl7XZg2
-	yur+ARaLfhx/4wf+Vd7mFS0Fk1lEwiJexmlKXipI=
-Received: by mx.zohomail.com with SMTPS id 1740567551873493.9576012227186;
-	Wed, 26 Feb 2025 02:59:11 -0800 (PST)
-Message-ID: <de02684a-8f36-48ba-b505-85b6d74f5e8b@collabora.com>
-Date: Wed, 26 Feb 2025 13:59:06 +0300
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hAx1fra7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1740584012;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Li/VWSV8RmKfS4i5wjmx/z2jz2Jpz7NukpOicbHl7qE=;
+	b=hAx1fra7rrnzv/qbQfqRWc0W/j+OSOxpNh0de9L73TZPtc19TYtAo8J952XX/UCRbRbJou
+	bP6WyuhOmIAAPAaKAhfVD3lYpLNgSzLU3QxXpTTQgdNhHXlTwOc1+MDieIiPv2jlaLqK35
+	Hs8c6vLGHpPG2nWZRdxXWPG6bOuW7jE=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-352-BA9RY-3_OjGxyri18f_zow-1; Wed, 26 Feb 2025 10:33:30 -0500
+X-MC-Unique: BA9RY-3_OjGxyri18f_zow-1
+X-Mimecast-MFC-AGG-ID: BA9RY-3_OjGxyri18f_zow_1740584010
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-38f29b4d4adso2818997f8f.3
+        for <virtio-comment@lists.linux.dev>; Wed, 26 Feb 2025 07:33:30 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1740584009; x=1741188809;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Li/VWSV8RmKfS4i5wjmx/z2jz2Jpz7NukpOicbHl7qE=;
+        b=WQ3h58uOd0YyVhIceQVv9YSiGFfbhEfsu7/lV+/qw8hn1iAo1Z+9KsJAgXnSYB7aoU
+         a54kBGT/QUUuIUY+SFWj2J5Szw3i1Xd0Bfi7jPntXt1CGUPlc2JurBVwlxZBvWljmh+b
+         xcYXMZAwtCVpVzgXbMfBHiUi44pWMxP5K1P7h7h1tvXm+UEcdrTG7OuxXO8rwJs9VhKY
+         QFFhVjUFzn/Yo5qXDUeSv2INdM3714+wr368MN/OfoaICdiCod/OCyz5uo2dopX0th+d
+         EAr7D8iwBWFbMKLisReVaKtkdsTF8mjtRITTDXBiHOHRpEEcXOCZmZn2b4ivpEv11cFk
+         FD9w==
+X-Gm-Message-State: AOJu0YyEpIRBafTa2J9xQx4zQPQJLw9O2ZXe2mM4XFZk6qQ5RJoMshCs
+	yRATXmxJnHnuOogLMSYWr3Upa5IWT/blMrhKkc45Ct4Dg5YEwGCd6BvWadinYGc6ZLEchlHoF/r
+	mxn4RLDcOjM0imQVtHFPVwaouzsJBYuh1T+iEJ0ve8W1UScGlznoKY48cLm34tLgbmX/nqzG7ip
+	o1HGx08AtdJOFXJgUYka65IEbdcwRUON0QHbU2qkWyeHw9V86i
+X-Gm-Gg: ASbGncveuBglLzUlzvLkOKqWM9/lpC9pdIiE5kA9P9SCcEJz8Corw9PmLWGlHOmfOk4
+	pnEVTcwPERXsG2EpcIrxemDQTHIa34e6yGZxVVEliKdUZecOw6M76LAIOq1UYpM9upYEPpKEHFm
+	4dF/Lo5VNmQBFMOnoiRYRKyy2P0yenclEAGpngUCYhTY63er12P/riUofKwZVmk4OOCFwX6j1Nq
+	SBJ7gJTHOODDhfRWnIO5wd7I9KwyXgELNZq3+uNpmoXiNT2xAc1u/12qp185P5DSjWpF1QZj+9g
+	xVjsVgDWnaqgBx8mAk8=
+X-Received: by 2002:a5d:64a2:0:b0:38d:e078:43a5 with SMTP id ffacd0b85a97d-38f6e947079mr19589032f8f.13.1740584009150;
+        Wed, 26 Feb 2025 07:33:29 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEnoV+ruYSW7Zfm5NL/whOvf+XcghwxOSNMGo26b8KGxp66oSNlJPDZW0RLYnmmFzUsCdz9tA==
+X-Received: by 2002:a5d:64a2:0:b0:38d:e078:43a5 with SMTP id ffacd0b85a97d-38f6e947079mr19588988f8f.13.1740584008592;
+        Wed, 26 Feb 2025 07:33:28 -0800 (PST)
+Received: from localhost ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-390cd86caa8sm5923444f8f.25.2025.02.26.07.33.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Feb 2025 07:33:28 -0800 (PST)
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+To: virtio-comment@lists.linux.dev
+Cc: cohuck@redhat.com,
+	parav@nvidia.com,
+	mst@redhat.com,
+	Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+Subject: [PATCH] README.md: add example email for TC vote request
+Date: Wed, 26 Feb 2025 16:33:18 +0100
+Message-ID: <20250226153318.1243033-1-mvaralar@redhat.com>
+X-Mailer: git-send-email 2.42.0
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] VirtIO-GPU spec improvements
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Huang Rui <ray.huang@amd.com>,
- Sergio Lopez <slp@redhat.com>, Akihiko Odaki <akihiko.odaki@daynix.com>,
- virtio-comment@lists.linux.dev, "Michael S . Tsirkin" <mst@redhat.com>
-References: <20240719120638.196052-1-dmitry.osipenko@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20240719120638.196052-1-dmitry.osipenko@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: lU0A9OYJtPgSIrtcUK24Ct5Qg_3oSZ0wu6yGB0U02co_1740584010
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 
-On 7/19/24 15:06, Dmitry Osipenko wrote:
-> Hi,
-> 
-> This is a repost of v2 to the new virtio-comment mailing list.
-> Michael Tsirkin suggested to repost the patches, here they are.
-> 
-> Dmitry Osipenko (3):
->   virtio-gpu: Rename GFXSTREAM context capset to GFXSTREAM_VULKAN
->   virtio-gpu: Document VIRTIO_GPU_CAPSET_DRM
->   virtio-gpu: Update venus-protocol URL
-> 
->  device-types/gpu/description.tex | 11 +++++++----
->  1 file changed, 7 insertions(+), 4 deletions(-)
-> 
+Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+---
+ README.md | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/182
+diff --git a/README.md b/README.md
+index c06caf6..5f76e0d 100644
+--- a/README.md
++++ b/README.md
+@@ -206,7 +206,13 @@ The mail requesting the vote should include the following, on a line by itself:<
+ <code>
+ Fixes: https://github.com/oasis-tcs/virtio-spec/issues/NNN
+ </code>
+-(NNN is the issue number)</li>
++(NNN is the issue number)<br>
++For example, you can use the following template when requesting the TC vote:<br>
++<code>
++Could please open a voting ballot for these changes?
++
++Fixes: https://github.com/oasis-tcs/virtio-spec/issues/NNN
++</code></li>
+ <li>Please make sure to allow time for review between posting a comment
+ and asking for a vote. </li>
+ </ol>
 
+base-commit: 124fcd0e97f209aab19639e7369116d99ede22a2
 -- 
-Best regards,
-Dmitry
+2.42.0
+
