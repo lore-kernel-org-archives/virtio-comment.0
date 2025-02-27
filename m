@@ -1,188 +1,208 @@
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com (mail-dm3nam02on2050.outbound.protection.outlook.com [40.107.95.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD00716F288
-	for <virtio-comment@lists.linux.dev>; Thu, 27 Feb 2025 10:20:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.95.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740651605; cv=fail; b=NzHZ5uOc/ktwEpZY381MpcaHxjh9Qs6lvM1MQVaz1X22Byy9ZANhD7ZyIM5feSCdcQG/ft+cC1p5jdnqCX5N7pUA+LosujYqhUgDQ/DnB1ujaB3HTmB/bieJTvtNRcI9+CJtsYLfUXR1yF/2DBkUiP1eVdj5F1OrmFMT3g9TcDw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740651605; c=relaxed/simple;
-	bh=JpqebgGsDbsCSVkZjuR8yzI635U+/uCSDtomzzVd+sU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=UZrWPoXC2IrPf3vhmoXg9EXZVwzdmZS/GwGaIlAuXmFzXphgivQk0dbGovxMqfZEiGmylJjZEPWQg/FFLWGrhdG1MmHbNG17yY1xD16TQFPi0zHonQMXN3IBQvosK++uUBFhBFvn5ufL6ke/1uqzca1GQziI8n1qbgHs3m7Fe8I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VGC7XR08; arc=fail smtp.client-ip=40.107.95.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D695236A62
+	for <virtio-comment@lists.linux.dev>; Thu, 27 Feb 2025 14:40:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1740667208; cv=none; b=fYF8mVt4g3kAd1amcnm3DiXhgbumsUWzhrfc4kOQSnSJZTySJEOcIYBRr4OHplfD1Z2WWqmva5ezO/3u35dJDMYrOjdSUHgCcL9m6OAeGpb78TCQhRicM3xHaTEVTAgWo8j05wW5Ps/Jy7+cvSXyYLJUvmJEB3NuHpjHaG11E3g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1740667208; c=relaxed/simple;
+	bh=MMSlk0yE6ZkAGDCjB3wnWsWx1QpImSC7xbDQkSWgLI4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ml55F9XldPc09qMrNQbcZazRTRHONrHjoYGsC/Iy568Is5+vZ11ZPI3cwd9/YxYQ2dNGU5NiY7NJSRoP2ugrXVl6lOjnkht0YlLr5jDJBJmtX1ZDwB9caQuIYtgWyIjiw2xZZG6Vp/+DGfYor43UCwLyCW94haTByX/KXB9mUjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=kHrdIU6+; arc=none smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VGC7XR08"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e9Y2KUQoS4W2cYJLZUFgjHeTivoq++VAo+h888pHOHGEaY52OVlCNRq7kYR309CuYTT8CfjHN8qvK+GrbpUgqTj89W8KXK+npAPq+Jrd7CZqBp9Qqoj0OQBDNaWaCDAd98E8KaZLWjad3jCmUNGu0amOKz56pswEHCfhUDK0lN4aSTFwSxoRk+EpLt1M0+jVV7Y1F18cDYPe76X4/SQnEb4fJRUPYkpxGD/lqZNYCuTx6GdyW9JmypoVpyB5cxIDido57oIaCEteonOM8po6CWQLepwhhw+M8BtB/xeasnRExY/lPj9wsBRxZpw1K5fKXGg24n8WKezI0JdszbRTJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JpqebgGsDbsCSVkZjuR8yzI635U+/uCSDtomzzVd+sU=;
- b=nOckuznLradBhsu3s/67UWeSjqFC3AeMp2fYj6bwOFRfuxvQJmTPlK8TMw/k448ODaUcAWzKiy1Ccs8oRxmT+vf+Efz2IAA3M5Cm0ZNoR1Z81X7Jii2jd7VQthn5tXp7IUlfwedY65afdxHR6XH7SlI6uXO+AdRc4vcLSzNXP0lR74MJaIGzuCle5odX04YtR/aItAjrkyZdeFASAp6+/OI1uvMGDaP+sXu9fkzVVI89GLO0RbASSXW3a9jxR8QdwaJet5pbeyBT2bPr0/kNmGm215W0vyxOqQJ5Huhof1iNwKLMcWUPOfNWj6yU1yMJSJzC23T1D5YMVJlKNsZgHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JpqebgGsDbsCSVkZjuR8yzI635U+/uCSDtomzzVd+sU=;
- b=VGC7XR08ajyKpiJTAo3R7V0fFE8QaycF3HnF99mdeGwHvzSzi9pN0B2D8e4mpZqN1NsxSBc5Jj3PUpQaXiu8WFMlptl9cbcKPeynHWNcKaZKjv0LuZCOJnMut6QBBm6jwwCDVtPAfgqSTJ6Ovt0mNiCIYLGuMf2yvEvE3Dicb3lZshjLNUY2d0dMnBNl+RS+YTTIxTN5xdfuHktsFrwcPybdcF0OFDbpVV3eY/gQ2Z+nBuiFwQaVKSGRChNfJaIAUS28J0SoEOnRDlx6rct09funcVsM/Cutw/RXM7/gRGpIW+H0tzp9yErD6LA2iAVsuLeLx925/N2a3X05UASmag==
-Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
- by DM4PR12MB5795.namprd12.prod.outlook.com (2603:10b6:8:62::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8466.18; Thu, 27 Feb 2025 10:19:59 +0000
-Received: from CY8PR12MB7195.namprd12.prod.outlook.com
- ([fe80::c06c:905a:63f8:9cd]) by CY8PR12MB7195.namprd12.prod.outlook.com
- ([fe80::c06c:905a:63f8:9cd%3]) with mapi id 15.20.8466.013; Thu, 27 Feb 2025
- 10:19:59 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: Shiva Shankar Kommula <kshankar@marvell.com>, Jason Wang
-	<jasowang@redhat.com>
-CC: "pabeni@redhat.com" <pabeni@redhat.com>, "willemb@google.com"
-	<willemb@google.com>, "virtio-comment@lists.linux.dev"
-	<virtio-comment@lists.linux.dev>, Nithin Kumar Dabilpuram
-	<ndabilpuram@marvell.com>, Jerin Jacob <jerinj@marvell.com>, Rahul Bhansali
-	<rbhansali@marvell.com>
-Subject: RE: [EXTERNAL] Re: [PATCH v3] virtio-net: Introduce a new field to
- indicate outer network header offset
-Thread-Topic: [EXTERNAL] Re: [PATCH v3] virtio-net: Introduce a new field to
- indicate outer network header offset
-Thread-Index:
- AQHbgWDwSYToX/CSwkOk56bKWmWaZLNN+nsAgAA074CAAUF3gIAHVNKAgAJdsACAAdORgIAAB1SQ
-Date: Thu, 27 Feb 2025 10:19:59 +0000
-Message-ID:
- <CY8PR12MB7195255494ABF756FE5414FCDCCD2@CY8PR12MB7195.namprd12.prod.outlook.com>
-References: <20250217172509.107212-1-kshankar@marvell.com>
- <CACGkMEubUH6YtZHK7sEjj6fvWZ5_k0rQ9H6U2Li4GP0Txi-yJA@mail.gmail.com>
- <CH0PR18MB426010C71F7B3681C14C6F95DFC52@CH0PR18MB4260.namprd18.prod.outlook.com>
- <CACGkMEvZ7YfQr262Qe_ocsjN_ULeqh_sHkJqeqAaOoqOy7OoVQ@mail.gmail.com>
- <DM4PR18MB42695701DC0DB5AB4FABE902DFC02@DM4PR18MB4269.namprd18.prod.outlook.com>
- <CACGkMEuUsQuQ5zNu=kqdTQ9-zWsNc3zdFYVre03fuNnE6tKjog@mail.gmail.com>
- <DM4PR18MB42695063456CE2F746EEDB0BDFCD2@DM4PR18MB4269.namprd18.prod.outlook.com>
-In-Reply-To:
- <DM4PR18MB42695063456CE2F746EEDB0BDFCD2@DM4PR18MB4269.namprd18.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|DM4PR12MB5795:EE_
-x-ms-office365-filtering-correlation-id: 244f623b-e52e-4297-619f-08dd57184a53
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|10070799003|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?WmU5M2svUVg1b1dncXhmZFZuZEQ2S1FLSzQ0clEwTzR4dDVBalkzSXlsOE1k?=
- =?utf-8?B?M201Vi9Nb2hoK0RTVHVkSkRXbHV0Q1FNYTdyUytMVmRmUXhrb1NxaVdBME1K?=
- =?utf-8?B?bDlDTUc3OFprZ2hoSWZ5R3I5LzluRW5vNFZ4SGNEZ2VvcUhJUVBWOVM0Qkdl?=
- =?utf-8?B?OXBzZ21nRkQvQjNha1RQYmRUZ1ZUeWhVYXVVZXJlYlliS0pINUUyVktOTnR6?=
- =?utf-8?B?UDhNL1BOWjNzODM1ZWU5bXF1QlcrVC9UcTUyVWxhTHZRbU1aakNPUVpua2tM?=
- =?utf-8?B?b0FMTzRvanFhR1N0RTMrVURkVllobjZhRDFsTmFWWXRwWEMrbVRZMlkwZy9J?=
- =?utf-8?B?MVhNTGVaaGphVFFHMm9PWDJRNHdrZmFYVk13TXY3b1J6TWpURHI2bFdHWGoy?=
- =?utf-8?B?eStpV0EwUWFNUFdLNlpZRzlHNlFjQW5mTUZ6TFprMkdYamM5T2ZnazFsQzlJ?=
- =?utf-8?B?TjQ0WUJ5SFR1WEFkNEF4S2hKd1cxaHM0dnl1bVFyMGJiK0N6T2pqQ09tUC9M?=
- =?utf-8?B?dFA4cXJucC9lVzd3UmpQa2hkaGRsRjRpOHNtTVhYWEpwTHo5eTh4ampSbTZ4?=
- =?utf-8?B?QmE2aFZ5TkRMMW5jUEYzc2xDMFVaTzZBcWNSeWROTS9oeWlPQ1lpUWl1c0w1?=
- =?utf-8?B?QkxyZi9UNk82Sy9Db215QzhxNjQ4VTBkUFRNMG1PY3Bnbm14YjA5bmdNQmpU?=
- =?utf-8?B?aTBHTEFONG5uS3ZUV2JwbmNGbE1nWUwzWmFmZmdwMXBRUFJlRGtTb2l2UWR3?=
- =?utf-8?B?WmttV2FKZkFlVXk3SVRSNHBjVHUyVVEyZXJpYUR4bDVhWGJYRWw0T0piaWN0?=
- =?utf-8?B?WncyeVNJUjJpUjJlMG1rUkpnbUkvaEVTN1N3eTJzTTl1S1hZUnlpWFR0YjNs?=
- =?utf-8?B?Z0xrb2xlNExqdno3VTE0NVlMalJDN2krWGhCNGo5KzV2bTZ1OVF0RlVzT0dI?=
- =?utf-8?B?STd5OXUzNnpMMFpYdzhrYm11TFVyajB4US9GNHN0QzBHUVhjQ203OUpqVjZ4?=
- =?utf-8?B?Q0xHNU0xSmRtNE5HWEF0YzFlL3dZSjM2TjFsODlvWGhqZXYvZDhTVTBHaytB?=
- =?utf-8?B?SUNidW9XaFNZQURhQTczcUFYQUpvaEI0T3h5ckxjdHBtZGE5aFFhV1R1YnNX?=
- =?utf-8?B?MnQ5WldlVG04bnJ6Y21PN08raHd6bG1QUDhVWEpTbGJoanB6K1ZOdDBZbFlO?=
- =?utf-8?B?VkhCS29zYnowSHl5RXA0SGNmOUVnT09QTEx1STJqQURBMWMxMnluWThNZ25p?=
- =?utf-8?B?eWh3L3VzcC9SK2UzZmFHVjl6ZzhlUFhvUnZzaXcwcEtvdzE2NFJiWlpheVZF?=
- =?utf-8?B?eGJ2bmxoOHltczFDbDlQNXJFTVQxR3MzZGhrTDZDV04rTTZwNlo4TzRmL3VR?=
- =?utf-8?B?TlZvYXZIQVJJdGJMZWkrREhjeVRoV2RGNzZHbWRxdVpKeGhjTUlwbGw2Q2Jx?=
- =?utf-8?B?VGRQYW9UbVdrRDlVU3hQamMzTnMxQVhKdzdXR1BiTDk3Q0NEaFo0T3o5aFlQ?=
- =?utf-8?B?WFhYWFdrOG5CWjBvektlT3ZMK1R6aTVQMlFtRnNXeDlqd0lUZzJIenlrbUkv?=
- =?utf-8?B?eVRvVjl5UDlkMFlhL1p5bm1JY2V3QWhPUXNMb3ljOGJQL2dGaWxFZ1JWS3c0?=
- =?utf-8?B?MU5ZNXA0ZC9GemUrRTN5Q3BaRFQvV1RRZDI0ZU11Q2xOYWFjK3dZOVV0T1JM?=
- =?utf-8?B?STdqS3dIQk9KT3d0d0FRT3ZPMnU0bHQzMmdTc0lOSXRrd2R2VkJOdWtUbnY5?=
- =?utf-8?B?QVJmRUFaWkRDZnBGZ2ZydmtBN1B2aDZ3VUVvV3FnNEprSE1ua283TkxIWEhr?=
- =?utf-8?B?MDFxb2pNVk1RUUsxdUlNdUNHV09DNjBzejFiRnM0TGM3Q3NuRVF3cldjOFRN?=
- =?utf-8?B?RVNZVEszNXVEUWZnY0dWcklxaWFlQTNQMHpXc05hdVhpWjN2SlNyMXFxOTNi?=
- =?utf-8?Q?AIEa/Ygcw7R5X/QVBPNxUqFpfcmt3Ae2?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(10070799003)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?SWFBT2ZvVmhPWUswREhRUU93Z1dhc292b3B0dzBOYlkrZDdwTHl5UFFjdjRU?=
- =?utf-8?B?Z3RGL2IxYzNkOWZPNHNta3pDWFZHeGcrWFVBSE5wMWNFNTgvU3NNTXFOSHEv?=
- =?utf-8?B?UVlGMEEzcEw1VzJFbUVQRW1OamxDZWRybWhsK1o2Y3d3WSs2K3FXV2Z6dlpm?=
- =?utf-8?B?TFdaNlNRYnkxMEtvNmE0aEZ1S0FRLzBKVXo1SEFISkNnbk5OV2JycjVMYnhO?=
- =?utf-8?B?blA5SisrMktic0hWaW9wdlM2a1JTaVhLZ2J1TVlzY1ZrYzNSTThHZHRlVUNV?=
- =?utf-8?B?L2crSENySE5FQ1NDTnFTdUJmODI0bExPeDZRQ0N4MFRMK1c5UmRoWEtQUUJw?=
- =?utf-8?B?dVFyVTNUck1CV2ZWanpUTS90b2NhMG9NOVhTSy90aUxpQlNURGJKcFFQaitN?=
- =?utf-8?B?SGx4bzk5VTZzYXJjV0xSL3ozcjVZeVVNdkNzeko5QzEvVkQvWU1RNTdxNVhs?=
- =?utf-8?B?SzVESTUzUVExVkhScHlBZi83WVhYajdSbjdWenhxQ09wUnNUR3J3OWplSFBt?=
- =?utf-8?B?Uk5DdjVTc29tWkNrOHg2NFplZ20vUW1jV1NlKzgvRVloSUN5VHhkOXFSdFpn?=
- =?utf-8?B?WS9RRUdlLzJyV1dvdmorY0UwL3h3VUE1NG03ZkJ5ZWJUK0RKajR3U01hcWxP?=
- =?utf-8?B?L0lid3JCUDN2d1VkNkZRTUQ3ajhnaXRaQS8xUWNtSTdDVDEzZVpLc3VBeXMy?=
- =?utf-8?B?Z05wLzREbk9pY29oSk5ZaUs1RVRNaHhIVUtKYXVpTGwvVXNxcFhrS245WCtP?=
- =?utf-8?B?S1FnVUxlckpaNnJsZThaWFVqUTU0Ri9RaTRzU2hMS2swMnRxclh0ZjBNb29G?=
- =?utf-8?B?NHZWd1J1bERaaEt3RkxDcmtKMXFmbC82WG0vWFljY3hwV3dtTFJTQ2I5WDVo?=
- =?utf-8?B?N3oyUGVrUjBWaS85RHdOQjdZVWhZQXVjdE01UnliWHA5ekFzaFgrbkVUYlYy?=
- =?utf-8?B?dFM1d1FPREk1bUI1d2kwR1NNS2xnUFpXc01hT1I4aUVXM1JuVUxoa09hRzFQ?=
- =?utf-8?B?L1NsaHRQMGZ5NC9aN3Y0N25SaTdUdEZnbTMvWWEwditxUjlSS2I2ZEdoU1pz?=
- =?utf-8?B?bW82cEhLMklVTkl2VEVjQWVOaVAxckV5M3UxNDZiVzl6QnFRVnk3TzVWcExH?=
- =?utf-8?B?SzFyMndReXUzT1MreWQ0dU8yZEh1QW9tRzlJQXcxOGI2UUhYV3VhODB5UUY2?=
- =?utf-8?B?RXhHRmxEOS83YXEwNWswdERmQUJtU2ZISVluYkxDcEdxZ28zcVlrOFRHWWgr?=
- =?utf-8?B?RXJ4ejFUVHlDbTlPQlMzVkxQRUlnWjNmTExWKzZMWjBEMGtvRnRSeVZBd2py?=
- =?utf-8?B?K2JqdFRoNm5tcEFnL3lpQm5lM0c4WkplWWR0SmsxbjlvOURGWWJYQlJFc3RX?=
- =?utf-8?B?aXROL1pGY2gwV1o0RzRRTUtSMUpKWjQ3SkR2YmI1S3lxLzBiOStPbENCQ3Bn?=
- =?utf-8?B?RnRwQ0k3alAwWEZ0WVJxQlFWTTA0SGRQUnFlaFFtYllNUWk0Q1IwREYzOEFr?=
- =?utf-8?B?dDcwOExkcVUrR2I3eHdkNGE0Y0pBZGs3M0JDdGVGVDA3MDVwSlBBK2EvakJO?=
- =?utf-8?B?TG00RU4rVXpVOUlBUzJ3djZGejhQS2NlQVB3Zm4vTzZKVEZSc2JJZk9PVlpK?=
- =?utf-8?B?YXdMVGlHQk1DQjRRUW9hQUVIQjJKM294WVVMb2xNNDNyaXRWaWZlMkNVb1Mv?=
- =?utf-8?B?S3lmeERpaCs3QXltWG1kYXI1bE5XVHphdk1CbGswcFQwaDJvZWpyL2Y0bk1T?=
- =?utf-8?B?Zmk1d1c0aGQyazhXM1pJYnhlU1p0NFFPWFRDZHhlQU5rb3RzZXhGZ3J6V1ZO?=
- =?utf-8?B?NWUvUmJxb3M1aUJvYWlmL3RvSFdaTXIyQzdxSmJodXp5Zi9weGVpdzVLUi80?=
- =?utf-8?B?Zjk1Yko2cHY1U1JiZzNmbzhiUHROVkprR08vRWtXWk1EMzdpY1lqSnhNZkN2?=
- =?utf-8?B?b1V1VCtFM2RvQ2k1aEl6RFRXQzRvV3M2b1FEQXJUWS9Ra0NtaFFTSTZnRUNT?=
- =?utf-8?B?SlJEZTFCdXBiYzhhTVM2ZFpnNXRVQXZUb1NqbFZBL28zK21UbkFnL3QrOEcv?=
- =?utf-8?B?ck4wNEVPY2ErSEhtamNydTk1L2FPTjZsdU54ZGdtVFdnVUp5UU5ZdWFOQnhU?=
- =?utf-8?B?ZWd5YkZYd2JzY252ZEdPd1Q5YkFCMEI4ZXhHNFYwUDJlUVN4bERGVFJ3NVUv?=
- =?utf-8?Q?RS69Ccl8H77YQWBlWyAbgu4=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="kHrdIU6+"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-4721aede532so9755371cf.2
+        for <virtio-comment@lists.linux.dev>; Thu, 27 Feb 2025 06:40:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1740667205; x=1741272005; darn=lists.linux.dev;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=hfqGEnH1zsi90WG5moiK284lqrnXszOVJWx6wmnnDN0=;
+        b=kHrdIU6+R/IqN+k6wxC/Mt4VCSsaRst4W5aFvWTwRjtKSr5aw3Bw9W+R7Fq6uxz8Za
+         duchkxENnz1XKFUaWOh22Egtc71dZeX5Eb7rjCk1xjvNxsfKc5oOjiJnrckB3vS9mo+Y
+         J6IXgDs8gv4i/RlCl+uXv6bziGNWM2q1VdDuIDYQB9ad/1hSoF9qBvMNsAmTi8LpCv61
+         LG/IDrgfhGSE1hj9cuVIP4heDqkrcWfqKPVO55Y4VxJ3qK5f59VshpxH9W9GV2rtfhMX
+         BoLFUeOsqTru5LHMnr8SGcZaILqiinPmK6iBJxjHNngkv8yN+Ow8/OHZ7B2oT5ciAR6r
+         eDog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1740667205; x=1741272005;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=hfqGEnH1zsi90WG5moiK284lqrnXszOVJWx6wmnnDN0=;
+        b=ueS17quMe2nL/jzPLPbiydk0z0ZBhT8nVUwfcXUmBbjqmyKIs2nMueXeHsMEkr/tvv
+         mgw4/a4wR8VUOfRSjubrdMYT08wFtvMmba6hRW4fHDM+kmygew8KDCKZV6SFHVHR1PAi
+         AUF5tUObcCrnRgrHD9/Ou0xxHRzsmP/BwlwFxwJYLCenr+lesOuDAN02qkjJryFsMXlw
+         PLuhJUGN8RfEiB5ccdtL47nxX24sUA7YB2h4+bgT9S4SybL+yGNe5OSCEozAHJ6gzcRs
+         D4mVEC04ReGvzyrDFNBjuX2G5b1lrMbwJsEYcygkX0brKi4Hi06t07Ta13Cc7EzpV7SK
+         fKPg==
+X-Gm-Message-State: AOJu0YzBrsve4B6S+R5pcY60QnfJBiNdd0u7AbtbuHUiwMZmOCeBYpL5
+	htUfWxw2xKMuG7mbeF2ujqW9kGNIg8QQv+wjGzcO1ZqC9rlN98AKkI3aKaaqhAo=
+X-Gm-Gg: ASbGnctEk4izVUF1np56QXAcmzjzvwoa2S45roxrQixWqn6zB3EAHnHMiFQw13AulMg
+	bXaQuSHJ8MT1+z3R4l6u32xsGZSrEVZuPzhBShdboRGPyX0tpAEkSQm4FSODVUeh/ujo7f8V7eN
+	0MuXsnv+PnBRiE1fEvVy2hhPQqytGTp2wcxgBYyP0ako8CH+oD0PvYUNuh8vF/ZA9WFWPbNQ5JF
+	3EvS/hLUbYrT4siOQzd9J3tebN7OfciaCMs6hby9QUVX/fwoyacQj6f/TTAnEmXO6N+NhuN0ve6
+	T/tmanCwmdtOrXkb4cViaC5T98eM8zZgYpbGSZwSvo0OW09CuzAVgtexUSHxyVkRFBur0QKtACo
+	=
+X-Google-Smtp-Source: AGHT+IH4n0SUkDxC9uJp84hDCmUSvp4uXoDUFhlHyB12/hYqy0t4z48yaxtAxasyRkuhEjPzoR9RfA==
+X-Received: by 2002:ac8:7dc2:0:b0:472:17b5:dc44 with SMTP id d75a77b69052e-4722473c3efmr313326771cf.12.1740667205170;
+        Thu, 27 Feb 2025 06:40:05 -0800 (PST)
+Received: from [192.168.2.7] (pool-72-83-14-124.washdc.fios.verizon.net. [72.83.14.124])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-47472432d52sm11415411cf.79.2025.02.27.06.40.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Feb 2025 06:40:04 -0800 (PST)
+Message-ID: <2f095da4-44a8-48ae-a078-60ec3e04d3b8@linaro.org>
+Date: Thu, 27 Feb 2025 09:40:03 -0500
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 244f623b-e52e-4297-619f-08dd57184a53
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Feb 2025 10:19:59.3939
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vszojUPhgcDUFZBQD5hKIIFjj7sQD46suIHhwnKon4W69E7+2t8N8dMOYHyMz5KjX0OxmzPKq0az6wy7GW+e6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5795
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v1 0/1] virtio-msg transport layer
+To: Jason Wang <jasowang@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-comment@lists.linux.dev,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Alex Bennee <alex.bennee@linaro.org>
+References: <20250225134801.3546224-1-bill.mills@linaro.org>
+ <20250227025757-mutt-send-email-mst@kernel.org>
+ <CACGkMEsmvBkfPffDGxpnArOuz_JqYfwZ-uA-H=hWKr5QyjjSwA@mail.gmail.com>
+ <CACGkMEtxuSZ-Qk7kP8fEzLG1zo3a-=XuZKhd1J5h7ZtFQT3JMw@mail.gmail.com>
+Content-Language: en-US
+From: Bill Mills <bill.mills@linaro.org>
+In-Reply-To: <CACGkMEtxuSZ-Qk7kP8fEzLG1zo3a-=XuZKhd1J5h7ZtFQT3JMw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-DQo+IEZyb206IFNoaXZhIFNoYW5rYXIgS29tbXVsYSA8a3NoYW5rYXJAbWFydmVsbC5jb20+DQo+
-IFNlbnQ6IFRodXJzZGF5LCBGZWJydWFyeSAyNywgMjAyNSAzOjE5IFBNDQoNCj4gPiBOZXcgZmll
-bGRzIHdlcmUgYWRkZWQgd2hlbiBuZXcgZmVhdHVyZXMgd2VyZSBhZGRlZC4gSXQgZG9lc24ndCBo
-YXJtDQo+ID4gdG9vIG11Y2ggYXMgbG9uZyBhcyBpdCBkb2Vzbid0IGNvc3QgbW9yZSB0aGFuIG9u
-ZSBjYWNoZWxpbmUuDQpIYXZlIHlvdSBjb25zaWRlcmVkIHRvIGhhdmluZyBmaXhlZCB2bmV0IGhl
-YWRlciBvZiA2NEIgc2l6ZSBmb3IgdGhpcyArIGFueSBuZXcgZmllbGRzPw0KVGhpcyBlbGltaW5h
-dGVzIHRoZSBleGlzdGluZyBwcm9ibGVtIHdoZXJlIGEgcGFydGlhbCBjYWNoZSBsaW5lIGNhbiBi
-ZSB3cml0dGVuIGZvciB0aGUgdm5ldCBoZWFkZXIgb24gcnggcGF0aC4NCkJlY2F1c2UgdGhlIGRh
-dGEgaXMgdHlwaWNhbGx5IHdyaXR0ZW4gYnkgb25lIERNQSBhbmQgdm5ldCBoZWFkZXIgYXMgc2Vj
-b25kIERNQSBhcyB0aGV5IG9yaWdpbmF0ZSBmcm9tIGRpZmZlcmVudCBzb3VyY2VzIHdpdGhpbiB0
-aGUgZGV2aWNlLg0KQSBkZXZpY2UgY2FuIGFsd2F5cyBkbyBzaW5nbGUgRE1BIHRvbyB0byBhdm9p
-ZCBwYXJ0aWFsIGNhY2hlIGxpbmUgd3JpdGUgYnV0IGl0IGRvZXMgbm90IHNlZW0gcHJhY3RpY2Fs
-IGVub3VnaC4NCg==
+Hi Jason and Michael,
+
+Thanks for taking a look, we appreciate it.
+
+On 2/27/25 3:34 AM, Jason Wang wrote:
+> On Thu, Feb 27, 2025 at 4:32 PM Jason Wang <jasowang@redhat.com> wrote:
+>>
+>> On Thu, Feb 27, 2025 at 4:09 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+>>>
+>>> On Tue, Feb 25, 2025 at 08:48:00AM -0500, Bill Mills wrote:
+>>>> This series adds the virtio-msg transport layer.
+>>>>
+>>>> The individuals and organizations involved in this effort have had difficulty in
+>>>> using the existing virtio-transports in various situations and desire to add one
+>>>> more transport that performs its transport layer operations by sending and
+>>>> receiving messages.
+>>>>
+>>>> Implementations of virtio-msg will normally be done in multiple layers:
+>>>> * common / device level
+>>>> * bus level
+>>>>
+>>>> The common / device level defines the messages exchanged between the driver
+>>>> and a device. This common part should lead to a common driver holding most
+>>>> of the virtio specifics and can be shared by all virtio-msg bus implementations.
+>>>> The kernel implementation in [3] shows this separation. As with other transport
+>>>> layers, virtio-msg should not require modifications to existing virtio device
+>>>> implementations (virtio-net, virtio-blk etc). The common / device level is the
+>>>> main focus of this version of the patch series.
+>>>>
+>>>> The virtio-msg bus level implements the normal things a bus defines
+>>>> (enumeration, dma operations, etc) but also implements the message send and
+>>>> receive operations. A number of bus implementations are envisioned,
+>>>> some of which will be reusable and general purpose. Other bus implementations
+>>>> might be unique to a given situation, for example only used by a PCIe card
+>>>> and its driver.
+>>>>
+>>>> How much of the bus level should be described in the virtio spec is one item
+>>>> we wish to discuss. This draft takes a middle approach by describing the bus
+>>>> level and defining some standard bus level messages that MAY be used by the bus.
+>>>> It also describes a range of bus messages that are implementation dependent.
+>>>>
+>>>> The standard bus messages are an effort to avoid different bus implementations
+>>>> doing the same thing in different ways for no good reason. However the
+>>>> different environments will require different things. Instead of trying to
+>>>> anticipate all needs and provide something very abstract, we think
+>>>> implementation specific messages will be needed at the bus level. Over time,
+>>>> if we see similar messages across multiple bus implementations, we will move to
+>>>> standardize a bus level message for that.
+>>>>
+>>>> We are working on two reusable bus implementations:
+>>>>
+>>>> * virtio-msg-ffa based on Arm FF-A interface for use between:
+>>>>   * normal world and secure world
+>>>>   * host and VM or VM to VM
+>>>>   * Can be used w/ or with out a hypervisor
+>>>>   * Any Hypervisor that implements FF-A can be used
+>>>>
+>>>> * virtio-msg-amp for use between heterogenous systems
+>>>>   * The main processors and its co-processors on an AMP SOC
+>>>>   * Two or more systems connected via PCIe
+>>>>   * Minimal requirements: bi-directional interrupts and
+>>>>     at least one shared memory area
+>>>>
+>>>> We also anticipate a third:
+>>>>
+>>>> * virtio-msg-xen specific to Xen
+>>>>   * Usable on any Xen system (including x86 where FF-A does not exist)
+>>>>   * Using Xen events and page grants
+>>>
+>>> I am also interested in virtio-msg-admin-cmd, sending messages to VFs
+>>> over the admin commands of the PF.
+>>
+>> One more thing, there used to be a similar proposal which is the
+>> transport virtqueue which also defines the message. And it has the
+>> chance to be unified with the admin command. Need to think about the
+>> (dis)advantages of each proposal.
+
+If you are taking about replacing virtqueues with messages, this is a very
+different concept.  That certainly has merit but is not this model.
+
+The size of "direct" messages in FF-A has to fit into registers and normal
+world to secure world needs direct messages (I am told.  I am not the
+secure world or FF-A expert).
+
+In many of our use cases this would require one or two more memcpy's for
+the buffers.
+
+If I am wrong about the context of you comment, please let me know and if
+you have a reference that would be great.
+
+>>
+>> What's more, if the actual method to send and receive the message,
+> 
+> I meant "if the actual method to send and receive the message is
+> implementation or architecture specific".
+> 
+>> can
+>> we still call this a transport or not?
+>>
+
+Yes I understand the issue.  It is really a spec for a family of transports
+that have a lot in common.
+
+virtio-msg-ffa will be a fully specified transport.  We do plan to write a
+spec for that but it will also include lots of FF-A specific things and
+include details about how to setup shared memory areas, map them, and how
+the bus addresses in the virtqueue should look like.  These are details
+that are not normally addressed in the virtio spec.  I think Arm was
+thinking this would be an Arm document adjacent to or included in the FF-A
+spec.  I could also see it as an appendix to the virtio spec or something
+similar.
+
+Likewise, the virtio-msg-amp will be a full transport layer but will need
+DT bindings to find its shared memories, know how to map that memory, what
+IRQ to expect, and how to poke the other side.  It will also be able to be
+used w/o DT from a PCI driver that knows how to specify these things. I
+plan to also write a spec addendum for virtio-msg-amp.
+
+All good questions and comments.  Please take a look at what we have right
+now for the big picture and we can work the form
+
+Thanks,
+Bill
