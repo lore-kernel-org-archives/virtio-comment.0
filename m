@@ -1,124 +1,140 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6199A27C15E
-	for <virtio-comment@lists.linux.dev>; Tue,  4 Mar 2025 16:11:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13331205E0D
+	for <virtio-comment@lists.linux.dev>; Tue,  4 Mar 2025 16:25:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1741104691; cv=none; b=T7/je18jHo9G/fWsXvGfVICJVe62RI7bYTOMnMkkjhaQX07TNsdXACtEXy6ZwmWYwO1Y2kLsFeBuglNrKyMtw84M1LQOjLgVTd9QAerfUbFpZWm7joE4p3LqQTfgHOeZHaT/FydajkQWbZJ3t6izWZ6S2UqDkHK7HN0W9BhA8PU=
+	t=1741105513; cv=none; b=J6yZ05WJyZZTz7k3EJa4JXoTqvekcPj9PcTixGw2c9BL3Oa/cYsDVm+WgISvCPflY4RDxxgnNvgMkYcibEivJc/3FlLRmyIRJNmlJwCWyJGdvMyZvxIIGIQzEgJm2Pb13j91nPOGzZex4U4LWVa9ywBHkVVt7BgCBf8FjG3TK8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1741104691; c=relaxed/simple;
-	bh=dySMsQ81B9B7dQKXiYRABC8FY7PBhdnP9lIaEyQwKj4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:content-type; b=pefA4xVDIfdjpLjCBNHk8c7E+21VP1QRqOCj2p7NJ0QyPA0L/3GtvBDCnBgxk9hIUrT+b6RTPrC9P6LNJr73G9hUPxVYuIXNhCotGw51qiLXJMkj5iO/G6SwN66ITcyuV38n6y2v1S7McMP0q8o12oZzxhRRWjdXl2NbmPwPs+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QP8rtCpw; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1741105513; c=relaxed/simple;
+	bh=jVpIXjW5qVqj+BGmeGilMkv8JjHmIu6rAoTOwb+lQ8k=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Li7H8uHnGT5ARUetmtvYZGkaKvOJ5YS3TpqX1uCOhKeuMkwWb8DAvXRoRSWuWbJDmdXoHrqK1vSWfLj8rZxDiJX5lL/YCA5bHxrn8uzwl9syzkZ4mzx+bAN9Mt0fUXyIZBmiwDrxqcPghONdxldW9FBYA8DXc4EcVj1l5auqe8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com; spf=pass smtp.mailfrom=quicinc.com; dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b=aq2W4KDQ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quicinc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QP8rtCpw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1741104688;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=WPy4elQmIzEHlqtUojPHwn+vZbkkDNTFnKGbK+QX+6s=;
-	b=QP8rtCpwDZfxG5MsVmFDlV9oZalJX8j4usSTgdoZpkUEHCnqBWZx74JEQSWSIvTY3NaxOH
-	zdrtqu9HM8epQGheqgVVq5knhk5irVfGhTFHMmc67Sa6fTw+JE33Ct4LZ4UHT1SXDdpP/y
-	kHvE9+sKNYWGYQM9dDotWXS+NeX8+FQ=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-593-omEzFyaPOI-4sT4aVDKoFA-1; Tue, 04 Mar 2025 11:11:22 -0500
-X-MC-Unique: omEzFyaPOI-4sT4aVDKoFA-1
-X-Mimecast-MFC-AGG-ID: omEzFyaPOI-4sT4aVDKoFA_1741104681
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-43947a0919aso52633915e9.0
-        for <virtio-comment@lists.linux.dev>; Tue, 04 Mar 2025 08:11:21 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741104680; x=1741709480;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WPy4elQmIzEHlqtUojPHwn+vZbkkDNTFnKGbK+QX+6s=;
-        b=J0guu+FIGx9e7Yq0W1Ic/psEjbvz1ImlN3Pg+lASyq4I4G1LH+moLTmimMfQs5U0pE
-         7+8d5pbIHi/vpPy23Smljhu/H0qK1u7LT9ZDnke8/+ohT3FcE0vE5Exk2dgVngWcYm3B
-         0uvsq0tnYboQPsAFI6bhAwP6KMTFRdzlmR9xwYMkKA1uHE3gSNQhamc7bbxWzlBvP5SY
-         rItMe611RE/sims6wqbH2lmbh0eJLTbtupqO/6HP+/y/JnHC50jCzYbQTHFW1SWBHWk4
-         ovAw6DffOds8Dura6k7v2aOyCIyyQGuYqPTRcu+kNFSvYB00e/aOL1tUnicM2O/+Nykj
-         NQtQ==
-X-Gm-Message-State: AOJu0YwDXyd5fflSsZEH4reRSlADb8/YzmyYPA0DTaJqkicm1jyPHVU0
-	tAS3txDjCtWdf3x/RRHx9CSHcJF+iWHhIEkoCIxZzoN0grU2vBSJl3tLilhHvvH7DMAhVre1/Af
-	rA6qF4fmjhQZOKksB5ufUGq5OWfB23ZDQLMHFkNM6hauM5rQ4rVIuQ/H+aKCmnCC5w06pDtYOW7
-	8U3m4GQa1a4SkE2qltyz4TnWCp0GFgbVaBtIInJShaP9LqwJss
-X-Gm-Gg: ASbGncuRnJC9C7HNa6Pskijv1l8bQEdz5UmzQU7PyW2tEajvz3/6r8ScTw4PmsswHiJ
-	Pq9WGgwLyRYtGUoQXRepkifbAxk2DkJwz1CkPl8Ixh0E50SwKbAHNj/daGOdQ1s1DVw/nD4tnOw
-	YdYSuiOh7GXgGCLpTvOAqsKvEvhxd41QReGJpsSMbsih9MHtz7+DkGHJw30voz1wEnPQi6kU18o
-	mI+as2+u3UGLrhJx20o+L8z9RLO/AzIcNXFvSQQ59BZOVvbB4MwHyibzL0xQClzX1sSlOHYZEV2
-	EXwQ0VKl110+cfvN9GA=
-X-Received: by 2002:a05:600c:4685:b0:439:a0a3:a15 with SMTP id 5b1f17b1804b1-43ba67045camr188939145e9.14.1741104680575;
-        Tue, 04 Mar 2025 08:11:20 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHw/xVisvp99KNcwrdBcFaeaa5F0G3y2hlpfTkdhj5+1QOF5wP9b+uQk8AVvUT3Yg9SwkS8Dg==
-X-Received: by 2002:a05:600c:4685:b0:439:a0a3:a15 with SMTP id 5b1f17b1804b1-43ba67045camr188938845e9.14.1741104680214;
-        Tue, 04 Mar 2025 08:11:20 -0800 (PST)
-Received: from localhost ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-43bc2d76c9esm72728955e9.26.2025.03.04.08.11.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Mar 2025 08:11:19 -0800 (PST)
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: virtio-comment@lists.linux.dev
-Cc: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-Subject: [PATCH] git-publish: add profile
-Date: Tue,  4 Mar 2025 17:11:13 +0100
-Message-ID: <20250304161113.1445602-1-mvaralar@redhat.com>
-X-Mailer: git-send-email 2.42.0
+	dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b="aq2W4KDQ"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 524AG4Xb000796;
+	Tue, 4 Mar 2025 16:25:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Z1GCLjhIqT9ZuijX0/hCHODH
+	+FFx41WeAc6ToOewTco=; b=aq2W4KDQn9oMsNYqjf4NgWK3m8rQ2/P14sxzgRtg
+	zj/OZV56fYb5OhFCqbm47DcNa18IDbT3l1ud5UQpL3LJhiDJoVN85UW3oJE6xNfO
+	gOTfQNc8BPxZeXpLdZaQDGwu8ubARrQjoqzBFR31YXBaRt2bsa+mloZfgPRBD6+d
+	Fu1bVmjWv6L85nC9r8nbwGSOpe4lsNv90g/Y40kK6V8xl56GaF6uYTWChPDqg2El
+	vq1DRO3hrcbrXUjOOzT0kxcWdNKO8EUK832lg5tltMaxeVDbVwkW9u/KhfjfJ9HE
+	aIo9nsgGgS8Um50b6R/apApwRoKup/f0Iw/vlIdN5GrsbA==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 455p6vjgnh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 04 Mar 2025 16:25:05 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com [10.47.209.196])
+	by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 524GP54p010181
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 4 Mar 2025 16:25:05 GMT
+Received: from PHILBER.na.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Tue, 4 Mar 2025 08:25:03 -0800
+Date: Tue, 4 Mar 2025 17:25:00 +0100
+From: Peter Hilber <quic_philber@quicinc.com>
+To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+CC: <virtio-comment@lists.linux.dev>, Cornelia Huck <cohuck@redhat.com>,
+        "Parav Pandit" <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
+        David
+ Woodhouse <dwmw2@infradead.org>,
+        "Ridoux, Julien" <ridouxj@amazon.com>,
+        Trilok Soni <quic_tsoni@quicinc.com>,
+        Srivatsa Vaddagiri
+	<quic_svaddagi@quicinc.com>
+Subject: Re: [PATCH v7 4/4] virtio-rtc: Add normative statements for alarm
+ feature
+Message-ID: <au2i2ziiyiz3zwp3qtw34xbh2qqtlpnt3al52xmtx2ryxvjxox@t2tybspz53so>
+References: <20250123101616.664-1-quic_philber@quicinc.com>
+ <20250123101616.664-5-quic_philber@quicinc.com>
+ <Z6tDpi07Pyk+Xjzi@fedora>
+ <cyjnfnuijj57k32t2naprt65jsvm4bxc3ehkpdmempp2kgkg5i@kkere6bvir6d>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: y9Wi_3RnhEj8S_pcjzEqwsdW0OtWSz2x7d27bkNysF0_1741104681
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <cyjnfnuijj57k32t2naprt65jsvm4bxc3ehkpdmempp2kgkg5i@kkere6bvir6d>
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-GUID: sT1yUo_xR88XJNLfWDE7Pv7HLWmklMhM
+X-Authority-Analysis: v=2.4 cv=LYfG6ifi c=1 sm=1 tr=0 ts=67c72961 cx=c_pps a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17 a=GEpy-HfZoHoA:10 a=kj9zAlcOel0A:10 a=Vs1iUdzkB0EA:10 a=COk6AnOGAAAA:8 a=SmhjHTpgqMcAHezR3NEA:9 a=CjuIK1q_8ugA:10
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: sT1yUo_xR88XJNLfWDE7Pv7HLWmklMhM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-04_07,2025-03-03_04,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ spamscore=0 clxscore=1015 phishscore=0 adultscore=0 lowpriorityscore=0
+ impostorscore=0 bulkscore=0 mlxscore=0 suspectscore=0 malwarescore=0
+ mlxlogscore=945 classifier=spam authscore=0 adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2502100000 definitions=main-2503040133
 
-Add git-publish profile and document how to use it.
+On Thu, Feb 13, 2025 at 07:14:35PM +0100, Peter Hilber wrote:
+> On Tue, Feb 11, 2025 at 01:33:42PM +0100, Matias Ezequiel Vara Larsen wrote:
+> > On Thu, Jan 23, 2025 at 11:16:15AM +0100, Peter Hilber wrote:
+> > > Add the normative statements for the alarm feature added previously.
+> > > 
+> > > Signed-off-by: Peter Hilber <quic_philber@quicinc.com>
+> > > ---
+> > > 
+> > > Notes:
+> > >     v7:
+> > >     
+> > >     - Remove inadvertent v6 changes, which should have been part of
+> > >       preceding patches.
+> > >     
+> > >     v4:
+> > >     
+> > >     - Update normative statements to match v4 changes to non-normative
+> > >       statements (patch 3).
+> > >     
+> > >     - Driver should read clock to confirm that alarm has expired.
+> > >     
+> > >     - Formatting and wording improvements.
+> > > 
+> > >  device-types/rtc/description.tex        | 157 ++++++++++++++++++++++++
+> > >  device-types/rtc/device-conformance.tex |   4 +
+> > >  device-types/rtc/driver-conformance.tex |   2 +
+> > >  3 files changed, 163 insertions(+)
+> > > 
+> > > diff --git a/device-types/rtc/description.tex b/device-types/rtc/description.tex
+> > > index 47ad50cd95ca..32fed5f8620f 100644
+> > > --- a/device-types/rtc/description.tex
+> > > +++ b/device-types/rtc/description.tex
+> > > @@ -32,6 +32,11 @@ \subsection{Feature bits}\label{sec:Device Types / RTC Device / Feature bits}
+> > >  VIRTIO_RTC_F_ALARM determines whether the device supports setting an
+> > >  alarm for some of the clocks.
+> > >  
+> > > +\devicenormative{\subsubsection}{Feature bits}{Device Types / RTC Device / Feature bits}
+> > > +
+> > > +The device SHOULD offer VIRTIO_RTC_F_ALARM if the device can support
+> > > +setting an alarm for any of its clocks.
+> > 
+> > I think you can remove `can`.
+> > 
+> 
+> OK.
+> 
 
-Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
----
- .gitpublish | 3 +++
- README.md   | 9 +++++++++
- 2 files changed, 12 insertions(+)
- create mode 100644 .gitpublish
+After looking at the context, I think `can support` is better here,
+since in the paragraph above the normative requirement, `supports
+setting an alarm` implies that the feature was actually negotiated.
 
-diff --git a/.gitpublish b/.gitpublish
-new file mode 100644
-index 0000000..d412896
---- /dev/null
-+++ b/.gitpublish
-@@ -0,0 +1,3 @@
-+[gitpublishprofile "default"]
-+base = master
-+to = virtio-comment@lists.linux.dev
-diff --git a/README.md b/README.md
-index c06caf6..39f22d4 100644
---- a/README.md
-+++ b/README.md
-@@ -110,6 +110,15 @@ git format-patch -o proposal1/ HEAD~1..<br>
- git send-email --to=virtio-comment@lists.linux.dev proposal1/0001-*
- </code>
- 
-+<dl>Optionally, you can use git-publisher to submit a patch. The procedure is the following:
-+<code>
-+git checkout master -b my-feature<br>
-+# work on new commits, add your 'Signed-off-by' lines to each<br>
-+git publish<br>
-+... more work, rebase on master, ...<br>
-+git publish # will send a v2<br>
-+</code>
-+</dl>
- <dl>
- <dt>When to use the virtio-comment mailing list:</dt>
- <dd>
--- 
-2.42.0
+So I now propose not to remove `can`.
 
+Peter
