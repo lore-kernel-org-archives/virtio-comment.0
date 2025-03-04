@@ -1,135 +1,149 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCFC81EDA1E
-	for <virtio-comment@lists.linux.dev>; Tue,  4 Mar 2025 11:44:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5D378F33
+	for <virtio-comment@lists.linux.dev>; Tue,  4 Mar 2025 12:51:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1741088691; cv=none; b=tJPtHuJVTWAAH5b3B4w9DmcfC60E3R4BWLLiK0QJi4+hFWlFD56wRebRfcGxLo8aprkvcHL8NY/2O+CNdAeW4Xb515hgPsHPiD4xf3V6AO+Dm1cu8GkWa7BuXzjL9XEAg7xVxxDl7g5UGwaDSJkKuWdnC1Zwnec6cjgFfSCDIbY=
+	t=1741092677; cv=none; b=Rccw/yzd7MzkAk/SkwvG/eyEQgpJQBgmSwtodkUNQbyCpyO+f3AS7FpamjqM/655XHSesw+N5ZT3Y36oTdn4MMjiJu9eGjU+bl2oh7ej8axSxBoupETkwxDYf96SdeLtkNFzTJPbR6x7CeLpUDbAwu1whIDijhzCQJ+Qs6ubhqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1741088691; c=relaxed/simple;
-	bh=MIn3PnFd1kv7Q0NylDBS51pvaDNn+5UxBTGVU+ZXy9o=;
+	s=arc-20240116; t=1741092677; c=relaxed/simple;
+	bh=7EFjl7iSzjQ5bzDXQRBp+Bt2ssxPDS4WMPVwSQ5PVlE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=SOPMwkarpc3K+G+14T5AyoKwM8trTvl0Zw9fvmr39xhzFYcLd9BiTF1QOcQJyuLhnf/Zus8QJDCxqMDCCFeuDZvDJ+lcG3HY6hjAT5KfF/FM16XTJdbz2js7bmZw3hmji0DCCa7boB7E1vIvgwG6w2r1jUJPoY3L7cRNvzNlp5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aVLGcWjI; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=HhKzlZ+RHrdsVdcXwNWUJ0694PrcPnKNwVgMJVGqCWzcQ0kg4kcu3b5ulvQxw9np4q71h+EG3tyMbxDRZn81CAxxfzNgOxxSyYN+7zj/uriM+36VcK8jp3NG8C04DN2Lmr2XXhS9ibUe5403O4NIrYpd0d6wIs5tQznCgE90itY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=I4yJFh0g; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aVLGcWjI"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="I4yJFh0g"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1741088688;
+	s=mimecast20190719; t=1741092672;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Kt8GrdeD+/rbO53kj0m0X7FqnH9WeqeY2nrNbI1NALg=;
-	b=aVLGcWjIQc0EL74Lwfey24MPw/1qADa9pmhKWyYfpKTTLnZbW7jgwFzoeeDik3MXYaJ0fy
-	Asl8f+gYJj2Bqy3PiVLd+PX4LSxE/gwr2XiICxpP9Lm2jgsD9PwqcPhiztmJt+64eUQ1Xj
-	3pLGeqlnOHOcik7dTPagoMiI7PcdsVw=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=/G89Hv+nNbPI48WNg2ic6mMNBvGsG17nIx+RXzJGRUI=;
+	b=I4yJFh0gyVoCTiRErDzdAIdDcUddzTYP+vYGbGfbxf0BLcxJA5IRfmcUVrctf0g6CL7yYR
+	7jsisM5f7jBxASVY0ySNrWTzmEe94ZkGf6+9URVlZc+nAdFfzipPmguD+9NfB6CMor7YxJ
+	DEMSoxjUvlTaCdTobpdq3k7BDwcKBSw=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-219-_cKdhy_aMoezyuVwlWrDog-1; Tue, 04 Mar 2025 06:44:47 -0500
-X-MC-Unique: _cKdhy_aMoezyuVwlWrDog-1
-X-Mimecast-MFC-AGG-ID: _cKdhy_aMoezyuVwlWrDog_1741088686
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-438e4e9a53fso38983605e9.1
-        for <virtio-comment@lists.linux.dev>; Tue, 04 Mar 2025 03:44:47 -0800 (PST)
+ us-mta-629-A4Qj7JmYMc-RmmS7SUgq0w-1; Tue, 04 Mar 2025 07:51:01 -0500
+X-MC-Unique: A4Qj7JmYMc-RmmS7SUgq0w-1
+X-Mimecast-MFC-AGG-ID: A4Qj7JmYMc-RmmS7SUgq0w_1741092660
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-390de58dc09so3826537f8f.0
+        for <virtio-comment@lists.linux.dev>; Tue, 04 Mar 2025 04:51:01 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741088686; x=1741693486;
+        d=1e100.net; s=20230601; t=1741092660; x=1741697460;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Kt8GrdeD+/rbO53kj0m0X7FqnH9WeqeY2nrNbI1NALg=;
-        b=ZUMLdRaLsU7Q3M/8RXDKI26pLt3VBUhDqNuPWmW4P0Wpn6EbTt1pmhe6VpQ4aaupwz
-         AYeU6GXqTYjbHK5f+N8pvDvOYzAWt3mgGQA1qftKuljcp7zb45tmi7v1+3DxZOEUvMBy
-         MoxKMtFPzpkLSyfAiAJBzhFBnjSBBj5RwUNiAC7dbYXkfunjlee49r+L34rjQCWsk8ls
-         F0UloQPwZBRha8seQQd17H/KoNGFI3pHQnSGjd84HqFZv70Jh9uUXjuVpoBdrSTO7oBV
-         Mz+HUyyxiGErJaLP0HyZJ+yJluIW8P8QNeQ2owPW5QVEeGZpe3X7IM9V79Hu8dP5lqAN
-         4wRw==
-X-Gm-Message-State: AOJu0YyhfR56F+ScbZCOuAF9L2/0Oxy1xxwwbevpL2ed2NIKWkPHco/6
-	G47R5yqJBBFN+9Tlj66qeipfAHvCn0FQ9dWJ8CFihTcZZ6TVcNk2tVsmFTUekBz6FWurmkYJsCf
-	4yxkdkAFSIcOwJNGqTz8QaL7a+UB07Kmkkc05JfcUslF+R4Kp8gJtOP8dIWj8XqGYRbIYnAVF
-X-Gm-Gg: ASbGnctM42T4TBXIYJv32XxBQcbpbJ8iJeVupZyGJA3j7EWrv6AXOHAWdRrddJNZVs6
-	C0xRLYNEyZOAd4cvcj38YLhQW0NKd7mOlGNy92T7sn+vDoUY6bKy8aUka2mLoN3eHD+Az0Jk6mH
-	5d0Q4erUM+7nSEFokocMOG/08UP1coxTqketNlzwOs88+sjSKOWQ7mr7LL3bUxbmM3KkER4P2LT
-	tJR6Sd0okIkVzuZKEq390HZAIT8sKBGoEPqGllZ8sR4exxU80aC0dA0alHZJIXjjdtM2blT6mWA
-	/qY2dyH/2w==
-X-Received: by 2002:a05:600c:5cb:b0:43b:c962:ad1c with SMTP id 5b1f17b1804b1-43bc962ae71mr45318415e9.15.1741088686212;
-        Tue, 04 Mar 2025 03:44:46 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFmT6A2h3BkQmDOzkEfLuRBj2Uqs/XBGLCkpY1NmZ/xkCD0JSq1uHaFPhEZc8OoTTLNX6275g==
-X-Received: by 2002:a05:600c:5cb:b0:43b:c962:ad1c with SMTP id 5b1f17b1804b1-43bc962ae71mr45318185e9.15.1741088685822;
-        Tue, 04 Mar 2025 03:44:45 -0800 (PST)
-Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-43bcc8cb8c9sm16323585e9.35.2025.03.04.03.44.45
+        bh=/G89Hv+nNbPI48WNg2ic6mMNBvGsG17nIx+RXzJGRUI=;
+        b=EM+9+3/DmX3dLoE3hTrr6+CJbftSXaLH7kq+9n8uTnlVTfSJ02uXsaDTKwv+AfZQWO
+         jib9yCQ13MHuVTNq15nHh1SWFX9gJUZJyUui6kM7rofqrprLIQhhD+GVbED8YZ3ertc0
+         laYpIAkjUNOv04UcD2PiicxcCC8cmzD8VlcYR4NR6fMbtHdTU6b+cAMGdCvbu93o6RyM
+         JFLQ33wuKXbbvTJaxD9HRFNF3Aa3Psb46/RBqAXieeJhgl6pm3PE7vqImO4Go5au38Pl
+         X3+b8MsTy7DJ4XFrw699vgGSW+OjAjR4XglhjGuTUAXtNPDZWS0JjARyMS2N50JszMer
+         phnA==
+X-Forwarded-Encrypted: i=1; AJvYcCVj2p10Oi5vNFhuPhM/cIn28KLE23qPamMRW1sDRIeOHOpyXEHC/2M3RgkEcziWCBUKzbcFHX4ZqLIsCk4nDw==@lists.linux.dev
+X-Gm-Message-State: AOJu0YwvL5hTsHHjc9x26R13QH9m3flcjiBH7IiGR3Lo2lkVYNr8KPFs
+	PpsPChUCtltblkFgsDVBPl0fGFK1zz4P+IEBH7C/b4dflfZhuLsELLAmIsB0wdou2VSIrbC1S6V
+	opDPMtuvTV0Cy2BannS0dldFNcE2sVk/2uDftQapVs7GG4/tguQnNx5DOpIERxWae
+X-Gm-Gg: ASbGnctDsZYI+aAaBD8pDkHXwLOPbGhbIasz2y+/ukjd/MwEqPAv8V+qsai4KBIBTMs
+	EpshBuBGUb7hwJ1Z/VetG36qnw19SPq7QPfsxDed16/uW+3hhusz/0/qpYQGEZLa+i4SzY/fGK2
+	csTKhC5VTeGXNQEB6jKrA1oP78VJI/EExGrmTrUfvz+9udG4JvkGTIFpwyvJg4Pea8l450E7A67
+	mqbQ5qdXn0EtWGw9fNNIdcLfT5L5uMfRS/BY25mMqxvssIkzZojLpUu+s00+xCLhiCZ+zpq9Gax
+	TZ0lfhlN9Q==
+X-Received: by 2002:a05:6000:1a8c:b0:390:eebc:6f36 with SMTP id ffacd0b85a97d-390eebc721cmr14359570f8f.55.1741092660196;
+        Tue, 04 Mar 2025 04:51:00 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGZvf4goLBrvBZhrumn5Gz+8E9z1nnygqsH6G+Q4dnW+669ct2chrz5umpoaDi4K88cBc7txQ==
+X-Received: by 2002:a05:6000:1a8c:b0:390:eebc:6f36 with SMTP id ffacd0b85a97d-390eebc721cmr14359554f8f.55.1741092659861;
+        Tue, 04 Mar 2025 04:50:59 -0800 (PST)
+Received: from redhat.com ([2a0d:6fc0:1514:ea00:6409:9e94:fe6f:3eb6])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-390e4795d44sm17365047f8f.8.2025.03.04.04.50.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Mar 2025 03:44:45 -0800 (PST)
-Date: Tue, 4 Mar 2025 12:44:38 +0100
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+        Tue, 04 Mar 2025 04:50:59 -0800 (PST)
+Date: Tue, 4 Mar 2025 07:50:56 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
-Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"mst@redhat.com" <mst@redhat.com>
-Subject: Re: [PATCH v2] README.md: add example email for TC vote request
-Message-ID: <Z8bnpjiYpmiFH7+7@fedora>
-References: <20250227150241.1274768-1-mvaralar@redhat.com>
- <CY8PR12MB71951BEE03E73E7CF1715A91DCCF2@CY8PR12MB7195.namprd12.prod.outlook.com>
+Cc: Sergio Lopez <slp@redhat.com>,
+	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
+Subject: Re: [PATCH 1/3] shared-mem: introduce page alignment restrictions
+Message-ID: <20250304074145-mutt-send-email-mst@kernel.org>
+References: <20250217115227.4961-1-slp@redhat.com>
+ <20250217115227.4961-2-slp@redhat.com>
+ <CY8PR12MB7195A2AFBB7530874D228954DCC12@CY8PR12MB7195.namprd12.prod.outlook.com>
+ <20250304055002-mutt-send-email-mst@kernel.org>
+ <CY8PR12MB719587D7511B659F5D3BAD56DCC82@CY8PR12MB7195.namprd12.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <CY8PR12MB71951BEE03E73E7CF1715A91DCCF2@CY8PR12MB7195.namprd12.prod.outlook.com>
+In-Reply-To: <CY8PR12MB719587D7511B659F5D3BAD56DCC82@CY8PR12MB7195.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: P_CZ9HeN1N0LjYp4bUEqM6zGHWDkK5Ua_-KwXgj0F4g_1741088686
+X-Mimecast-MFC-PROC-ID: rSlx_32t7wuPJgAtC7HT9cIl9Uzu9V3WmV3DatKvUak_1741092660
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Sat, Mar 01, 2025 at 06:08:32AM +0000, Parav Pandit wrote:
+On Tue, Mar 04, 2025 at 10:58:14AM +0000, Parav Pandit wrote:
 > 
 > 
-> > From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-> > Sent: Thursday, February 27, 2025 8:33 PM
+> > From: Michael S. Tsirkin <mst@redhat.com>
+> > Sent: Tuesday, March 4, 2025 4:23 PM
 > > 
-> > Acked-by: Cornelia Huck <cohuck@redhat.com>
-> > Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-> > ---
-> > v1 -> v2: add Subject and To
-> > ---
-> >  README.md | 11 ++++++++++-
-> >  1 file changed, 10 insertions(+), 1 deletion(-)
+> > On Sun, Feb 23, 2025 at 05:21:00AM +0000, Parav Pandit wrote:
+> > > Overall extending pci cap structure is not good idea even though it may
+> > appear as small change for below reasons.
+> > >
+> > > 1. PCI spec already ran out of total bytes that can be stored in the capability
+> > section. Extending it will not help.
+> > > A virtio level extended capability is not good either due to below guidance
+> > from PCI-SIG.
+> > >
+> > > 2. PCI spec highly discouraged putting vendor specific bits like this in the
+> > capability section.
+> > > Citation: "It is strongly recommended that PCI Express devices place
+> > > no registers in Configuration Space other than those in headers or Capability
+> > structures architected by applicable PCI specifications."
 > > 
-> > diff --git a/README.md b/README.md
-> > index c06caf6..731838b 100644
-> > --- a/README.md
-> > +++ b/README.md
-> > @@ -206,7 +206,16 @@ The mail requesting the vote should include the
-> > following, on a line by itself:<  <code>
-> >  Fixes: https://github.com/oasis-tcs/virtio-spec/issues/NNN
-> >  </code>
-> > -(NNN is the issue number)</li>
-> > +(NNN is the issue number)<br>
-> > +For example, you can use the following template when requesting the TC
-> > +vote:<br> <code>
-> > +Subject: PATCH [description of changes]<br>
-> > +To: virtio-comment@lists.linux.dev<br>
-> > +
-> > +Could please open a voting ballot for these changes?
-> > +
-> > +Fixes: https://github.com/oasis-tcs/virtio-spec/issues/NNN
-> > +</code></li>
-> >  <li>Please make sure to allow time for review between posting a comment
-> > and asking for a vote. </li>  </ol>
 > > 
-> > base-commit: 124fcd0e97f209aab19639e7369116d99ede22a2
+> > We can argue about new capabilities, but this is not doing it - it is merely
+> > extending the existing one.
+> > 
+> This patch is not even extending it. it is reusing the pad field, which is good.
+> Extending capability is problematic.
+> 
+> > So I do not really get any of these arguments.
+> >
+> I asked him to explore what all options did he consider.
+>  
+> > 
+> > I'd be open to an alternative way to discover capabilities, as long as we don't
+> > do that, I don't really see a reason to block minor tweaks like this one.
+> > 
+> I am not blocking it.
+
+Sorry if it sounded I implied you do. I just said we shouldn't :)
+
+> would like to know what other options were
+> considered if the shared memory is going to grow or its just one-off
+> field that can live in PCI capability field.
+> I suggest, that this should be done without negotiating a feature bit. Because the device is just telling the restrictions...
+
+True. But the feature is helpful for device to discover whether driver
+follows them. If not it can fail FEATURES_OK if it wants to.
+
+> > At the same time, I am not sure why this is a capability at all.
+> > why not in config space?
+> > 
+> When you say "config space", you meant "virtio config space" and not "pci config space".
+> Assuming yes, I believe the problem is, Sergio needs to add this field in ALL 19+ devices config space, which is not good.
+
+Aha.
+
 > > --
-> > 2.42.0
-> Reviewed-by: Parav Pandit <parav@nvidia.com>
-> 
-
-Could please open a voting ballot for these changes?
-
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/219 
-
-Thanks, Matias.
+> > MST
 
