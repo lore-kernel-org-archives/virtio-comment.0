@@ -1,127 +1,144 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D8C43AB7
-	for <virtio-comment@lists.linux.dev>; Wed,  5 Mar 2025 05:51:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96092E3360
+	for <virtio-comment@lists.linux.dev>; Wed,  5 Mar 2025 08:05:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1741153875; cv=none; b=LEbOZIlVkyUe1jCN7FhpmPvLusnejl9SjhjiLEajMrfTcd1OI6mE7eN6AzEVeYjQF8h/J78skTY8iEg9WGw1hJwb4vPp6ij+ZtIRa2RpE8BD677WxTI8JiEKoj/2UJFL3+lNatm0qLHgaweGLHglLyhrtpRKl2cCS6BvG5ND/Bw=
+	t=1741161916; cv=none; b=G1d6qEzkE44mcYSP5oepbRdlCml2fA0EikFTXiN+dpSwfoWZ39jA0rJp9sy/jQL8q4RFWBiSY0vA8rUDh6B6bMNwdPt43K2cthS39zLplJKs/fVKpaAPMOM93gDB/OqVECyl6pKkpxjGvRu3nmlg++4O7wFhMv9dI/3rK06vA2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1741153875; c=relaxed/simple;
-	bh=v4ZPVFjK0Zpf0Ywy2rT5FwrSdGMUu4QfVOVa63tbNRM=;
+	s=arc-20240116; t=1741161916; c=relaxed/simple;
+	bh=FRG9o2XJe3yv7+g1gk57/SAV8XfJqpW35FWEb5pwIXk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kAeslm2aCWISX0nplcibP7V9qkXW42DYEW+ORNoyLyRNoNwdgkj6mVw5fdbpjl0gJ7doxXDK85oGU/hHlUuLYRAhKu4PPEGA8d4EDBXDmKBzKzquh/5CtCP/dyfyZDa9vYdwtWPVEKCfK/4GJJTshte/h4g9wSNRqd6Uat2W80c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KQGik5pL; arc=none smtp.client-ip=170.10.129.124
+	 To:Cc:Content-Type; b=pX8RGKgmwGg341auwF4UMmrjKKSotoCIIKUfr+Q0v7ZJ5K0Lr2LMZER1mKATkQzv34l9S1unX4LaKu+5ZXPMlPgX1EAbKy5qRNh6oQMNly74tAy4VjLTa8NVbsdbqii4cmCthkY3La3muvyEZBwpzJ/iBNmi8rvszaXO9fSxlVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bp5EC2H5; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KQGik5pL"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bp5EC2H5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1741153872;
+	s=mimecast20190719; t=1741161913;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=h3MnD0o7TtWnAO1zjPybOSES7sp+ncahr95809p0rE8=;
-	b=KQGik5pLy/nZqTYY85Of+l++A6WFy+jlerV2k6/subAhgb9G3lupIGc6tmrZuCbFu92Ziy
-	Ho9zPnl7lgH6vPa0/WnaXuRNOm/nGyygPBD3VEyV6OECKMEVdFnLsfkGSMOSs/+uN8tH2D
-	OhB3iflPUhn3b8n2pRbEVMoFBYCmQCs=
+	bh=C2hXXK5UrZhFMSotrqOTpI8iz+6BqOCOmYt6SchKciM=;
+	b=bp5EC2H5+Q8G7Y307xVuScS0KwpLtLCbCe3BLXx9KPit85Ky4qCtrvlxam9E79ta85e3s5
+	qThTeKVqQnXVlHQZchC3KdavN/429oIzve3dTiVSVKfmdSwlgHQS/nNF1XfbKA75nZNf9T
+	KqDpkcM4HEEGcr5oKr/aiQsDXY9Wf/4=
 Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
  [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-631-s9oWKa2zN0q2Ahc2VohkOw-1; Wed, 05 Mar 2025 00:51:05 -0500
-X-MC-Unique: s9oWKa2zN0q2Ahc2VohkOw-1
-X-Mimecast-MFC-AGG-ID: s9oWKa2zN0q2Ahc2VohkOw_1741153865
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-2f816a85facso12309927a91.3
-        for <virtio-comment@lists.linux.dev>; Tue, 04 Mar 2025 21:51:05 -0800 (PST)
+ us-mta-685-4u4xm6lzMiOGaaRYg2wbqw-1; Wed, 05 Mar 2025 03:05:12 -0500
+X-MC-Unique: 4u4xm6lzMiOGaaRYg2wbqw-1
+X-Mimecast-MFC-AGG-ID: 4u4xm6lzMiOGaaRYg2wbqw_1741161911
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-2fee7f85d03so11356357a91.3
+        for <virtio-comment@lists.linux.dev>; Wed, 05 Mar 2025 00:05:11 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741153864; x=1741758664;
+        d=1e100.net; s=20230601; t=1741161911; x=1741766711;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=h3MnD0o7TtWnAO1zjPybOSES7sp+ncahr95809p0rE8=;
-        b=kwtmHxrA2vaK4iBQh9vfWgUUY2/fc1YgTJHw4qj2f0QXCxl9F6dnUkfFQ5g2XAVPx0
-         RdEB3L1tdSSznmzqqPLfF/Jd1eNf7ZPEv5M+yjCzS79n8iuKjAOXn/6t3FjAIu4PoenF
-         XJkP89DgSBAjpHiqbe+kf6+Ch+VPMiKtV+t3OFnAyFyIfiI4W/UrIrr/3glVao152Me8
-         c6jsaq4sgDw5ysIFiS8UCKR1GwKeErvKhfbbQmQdIwENhed+y4PNJkg4Tblri8gEylbQ
-         0WbiDRbNoARHvTKE5w+3YzfkfbZaXEW75QlEvcYoSPepvng3pUVbX5fycxwQx6Fv9reW
-         IR0g==
-X-Gm-Message-State: AOJu0YzK0ufnzlDwZzXZu4GIivKYm5mBQ8e4hXUfhhENxWWNcXOhzj9C
-	6+E+WFHxj4dlGT/QMqNHPgr43UBFdOH8jkCsLstLLMH76rJB53HchBu3Jrj5FmooW4ddLL/1Cko
-	dQNCE6Np5VhFW0c+qcD/NBhWBlg7/LT0Ot2neZw08P0Hg6Qn6MtRzSsfdMmMyd4vmcbrcNrgU0u
-	YvFq/hXA+eOf+99Ca0zHs7GwziCqjELMRRELVTsXU=
-X-Gm-Gg: ASbGnctG0gwkipiq8oDoxhfiRXVvFdt41RGcFpoXhT/Q4h0Aty1x5YvkjNOf18GaX46
-	btB8I4AVF5k3oSZuNEpBDNUFY8tlLbEUKT04lhDwNJxq0x38FDRn5o35rKd2xIM9RjiRV8S4dbw
-	==
-X-Received: by 2002:a17:90b:2e42:b0:2ee:ee77:227c with SMTP id 98e67ed59e1d1-2ff4975abe0mr3168892a91.3.1741153864674;
-        Tue, 04 Mar 2025 21:51:04 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGVvjlaDRwgupfdm2wYRmycf2R60HgTbRhk8Wf0xEV0Rs5dkGqDXg2QcF5VjRqb3f0ckt22SYbwQ35X4ue0Dfs=
-X-Received: by 2002:a17:90b:2e42:b0:2ee:ee77:227c with SMTP id
- 98e67ed59e1d1-2ff4975abe0mr3168867a91.3.1741153864336; Tue, 04 Mar 2025
- 21:51:04 -0800 (PST)
+        bh=C2hXXK5UrZhFMSotrqOTpI8iz+6BqOCOmYt6SchKciM=;
+        b=at0lbOXT9cfbt8Pd9DtvZc2Tkqzllm7Wm7MpiQPepeUq6GgKwPsSEJalFj5xncwU9s
+         yDlMPbTVOfpGLROR87lvJAcjM5E+ebLrMlTWVC9fSjyesI8rBwjCrxwAE5z7WOqYvRQ4
+         TrjVZ6DWF+BEIProele0H6wurr4RJwogPO0lXzVdUira2n6mRYxh4JHb0QfqsJPoiY4F
+         dyinYiWTGAsurwFwW8BT/258QjMUTF5SVWF5oRJzelNpBoyJ5KENjJ5JjAcRHqycYgVl
+         HvUsyQ9DQkvMpGtqk/4M51znNfnphmvjp4U252303QtYcHhZ4MpLFSZW4dHV4oshB5IN
+         S/tA==
+X-Gm-Message-State: AOJu0Yx+lktyNtbjKlVjmMNTldcfb/4khK3lt3/wTaKWr0UDnqLQPRCx
+	FdPvHF/0dv5IrfVS0QmLmTb9x3c/0bLRktADcDwUP4kqhg1t2k50lbv8eMzqFeTo6Z8jA0i5PHa
+	+TEWAAuZQ/EAK37QAqmMaYXGapWYM2Jqs8OqGomdU3PVp9UtRoj04/gKsG1qoXZ+CfEX58VxCUq
+	f+bSfUQtJU4dYYbX1ErxIPUwi5b2qwmqqfu4Ar/Ik=
+X-Gm-Gg: ASbGncv+4VQllbSFuqMiuYdtPrxegTIcBxVFNUwHT+DnQzkvothdMW5ZV8wSXBG6cXU
+	UZyF27L5ljLLD4T3JA1F7wCjWeKsjYuqwmkwwc+r7Wb3scf/7PN91+EY4ZUsP/NJ9Mvht5W1Ym9
+	I=
+X-Received: by 2002:a17:90a:d2c3:b0:2ff:52b8:2767 with SMTP id 98e67ed59e1d1-2ff52b8281cmr826706a91.19.1741161910990;
+        Wed, 05 Mar 2025 00:05:10 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE61h096JAWjD32TBmAJcBJM5GkanFAsPhkdpiRpPCOBR91q1PLxQdb5nVm9QzT5BC8sHSek+Pbw+f0P0ALx9o=
+X-Received: by 2002:a17:90a:d2c3:b0:2ff:52b8:2767 with SMTP id
+ 98e67ed59e1d1-2ff52b8281cmr826688a91.19.1741161910663; Wed, 05 Mar 2025
+ 00:05:10 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20250222233040.29738-1-chia-yu.chang@nokia-bell-labs.com> <20250222233040.29738-2-chia-yu.chang@nokia-bell-labs.com>
-In-Reply-To: <20250222233040.29738-2-chia-yu.chang@nokia-bell-labs.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Wed, 5 Mar 2025 13:50:52 +0800
-X-Gm-Features: AQ5f1JrjMiJhhpBXDGRbIpN1BTtyVVN7dJ5Dhde87O0mj3rXRzDFByEW9joPU38
-Message-ID: <CACGkMEvaUOqDUOgs8Guhm4iMce4qi=ThEeq_nkT674JzTBLJog@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] virtio-net: Fix ECN feature descritpion
-To: chia-yu.chang@nokia-bell-labs.com
-Cc: virtio-comment@lists.linux.dev, mst@redhat.com, cohuck@redhat.com, 
-	mvaralar@redhat.com, xuanzhuo@linux.alibaba.com, eperezma@redhat.com, 
-	ij@kernel.org, ncardwell@google.com, koen.de_schepper@nokia-bell-labs.com, 
-	g.white@cablelabs.com, vidhi_goel@apple.com, ingemar.s.johansson@ericsson.com, 
-	mirja.kuehlewind@ericsson.com
+References: <20250304161113.1445602-1-mvaralar@redhat.com>
+In-Reply-To: <20250304161113.1445602-1-mvaralar@redhat.com>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Wed, 5 Mar 2025 09:04:59 +0100
+X-Gm-Features: AQ5f1Jq1bH-2YzQNXJjUVRHLTMlc3ojUnI8mQ3xHfkxsrEj7obXo4y-n6XJk2Oc
+Message-ID: <CADSE00JHFcsg2vHVOymDd9pawbGWPiBOpZ1guRivAOOOK33xKQ@mail.gmail.com>
+Subject: Re: [PATCH] git-publish: add profile
+To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+Cc: virtio-comment@lists.linux.dev
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 1Eyl5mLyLKlIbNCgvvWWyCLYAUFs9z0hHpknhlGTOic_1741153865
+X-Mimecast-MFC-PROC-ID: DMV7TZTjp_WCXwWy564KdAk9hTSM5zkaIUjCZtJoUkU_1741161911
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Feb 23, 2025 at 7:31=E2=80=AFAM <chia-yu.chang@nokia-bell-labs.com>=
- wrote:
+On Tue, Mar 4, 2025 at 7:47=E2=80=AFPM Matias Ezequiel Vara Larsen
+<mvaralar@redhat.com> wrote:
 >
-> From: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
+> Add git-publish profile and document how to use it.
 >
-> Clarify that the VIRTIO_NET_HDR_GSO_ECN gso_type flag does not mean that
-> TCP has IP-ECN set, instead it identifies TCP CWR flag is set and will be
-> cleared from the second segment. This is used to offload TCP CWR flag in =
-a
-> way that is compatible with RFC3168 ECN but is problematic for non-RFC316=
-8
-> use of CWR flag.
->
-> Signed-off-by: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
+> Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
 > ---
->  device-types/net/description.tex | 29 +++++++++++++++++------------
->  1 file changed, 17 insertions(+), 12 deletions(-)
+>  .gitpublish | 3 +++
+>  README.md   | 9 +++++++++
+>  2 files changed, 12 insertions(+)
+>  create mode 100644 .gitpublish
 >
-> diff --git a/device-types/net/description.tex b/device-types/net/descript=
-ion.tex
-> index b546cd7..104a32f 100644
-> --- a/device-types/net/description.tex
-> +++ b/device-types/net/description.tex
-> @@ -54,7 +54,9 @@ \subsection{Feature bits}\label{sec:Device Types / Netw=
-ork Device / Feature bits
+> diff --git a/.gitpublish b/.gitpublish
+> new file mode 100644
+> index 0000000..d412896
+> --- /dev/null
+> +++ b/.gitpublish
+> @@ -0,0 +1,3 @@
+> +[gitpublishprofile "default"]
+> +base =3D master
+> +to =3D virtio-comment@lists.linux.dev
+> diff --git a/README.md b/README.md
+> index c06caf6..39f22d4 100644
+> --- a/README.md
+> +++ b/README.md
+> @@ -110,6 +110,15 @@ git format-patch -o proposal1/ HEAD~1..<br>
+>  git send-email --to=3Dvirtio-comment@lists.linux.dev proposal1/0001-*
+>  </code>
 >
->  \item[VIRTIO_NET_F_GUEST_TSO6 (8)] Driver can receive TSOv6.
->
-> -\item[VIRTIO_NET_F_GUEST_ECN (9)] Driver can receive TSO with ECN.
-> +\item[VIRTIO_NET_F_GUEST_ECN (9)] Driver can receive TSO with TCP CWR fl=
-ag set,
-> +    which will be applied to the 1st segment of an aggregated segment an=
-d
-> +    be cleared from the 2nd segment of an aggregated segment.
->
+> +<dl>Optionally, you can use git-publisher to submit a patch. The procedu=
+re is the following:
 
-Beside the question for patch 2. It would be also better to give a
-link to RFC3168 in the "Normative References" chapter.
+s/git-publisher/git-publish/ ?
 
-Thanks
+Maybe even worth adding a link to the project repository?
+```
+\href{https://github.com/stefanha/git-publish}{git-publish}
+```
+Especially since you need to install and set up the tool beforehand,
+so it is nice to have the link pointing to the project documentation.
+
+> +<code>
+> +git checkout master -b my-feature<br>
+> +# work on new commits, add your 'Signed-off-by' lines to each<br>
+> +git publish<br>
+
+The first run (unless you pre-configure your profile in the project
+git config) needs to specify the recipient (with --to) and and cc's.
+I'd add at least the `--to` to the example.
+
+> +... more work, rebase on master, ...<br>
+> +git publish # will send a v2<br>
+> +</code>
+> +</dl>
+>  <dl>
+>  <dt>When to use the virtio-comment mailing list:</dt>
+>  <dd>
+> --
+> 2.42.0
+>
+>
 
