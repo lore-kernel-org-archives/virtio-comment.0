@@ -1,254 +1,165 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011028.outbound.protection.outlook.com [52.101.70.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1384E253343
-	for <virtio-comment@lists.linux.dev>; Wed,  5 Mar 2025 19:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1741201737; cv=none; b=qZpz/x9TmMTAM+0eqrvTOljdwLEsv60Hn3WWG34strffWbO1gypu7RePi0ECyf4o5Izhn60TtzZU+RT8uJETfXBQUDgy6Ci1CzgtwEfXr632Dz+mHx47yUqCnTu42xPKGf22vP4PxlL6XOPDig7jIv04KOKaCGDH93ozILbtP9k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1741201737; c=relaxed/simple;
-	bh=gWmcbZqnFevQz6cUj6VmgbHv1hjYUGl+kru7814eViw=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Content-Type; b=l+wp5ClQPsm2sOXk+1BTLwppiwF/zTO/LsHs5EIYnwnbrzR/VDA8rQTbvt3+hYmSsE8BznnYFdrSjRWT0CkdCh1DkbgAWl3paVmHTYYdUXbXuTo+csnDni/HaVzOdeTxRAJsrl77TTqaXAUoJcSsGPd2X543tOSv/HsbSVPhiFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TWhejz8e; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B8D4A33
+	for <virtio-comment@lists.linux.dev>; Wed,  5 Mar 2025 22:36:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1741214171; cv=fail; b=oRhCrIxtBIdx29G2cI9+WC/MrIyeP6e9v0ZD06JCUsQKNbf07vbS+M0EU4uUVf4VerD8qk29PF5e+Z/kIWrhcEahdDRvtMuzJDMwWwljyEvxiaEUkZK4Z4ktxdVOonVnE0NgGqJivAKHo6LwNfOt/zCVkJme2rh31q5oiyd9LBA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1741214171; c=relaxed/simple;
+	bh=OCn0ZmptqG68VoBWnaLyBPPOxm3uCs5JLGw2idbCXxw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=QI092O0ppTGfIIbDcqNjcoRdhKJxjoT3Xpq0iM/ZHabkBkgZVpwFR7GTfo5pVuCZUVz5z5w7Tp6rKn82Am5I9vafSovbyZ8sGAOgp1Q8Ir/O+gRM7iQ0oG9Gx5kLLb5GriyXekhJTsAMCHUHGYx/5sA0+1AYlKjQOEFYofXoJhw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia-bell-labs.com; spf=fail smtp.mailfrom=nokia-bell-labs.com; dkim=pass (2048-bit key) header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.b=B2Z3N3cS; arc=fail smtp.client-ip=52.101.70.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia-bell-labs.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nokia-bell-labs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TWhejz8e"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1741201732;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vnNkr05smpDdTPQPiDC5CpnngY84PrEW5U6ErKIz4jA=;
-	b=TWhejz8ebP7En7/JTiiZCuJaHhGxwXL9UULJTEcv21zbjsyHUEpTU4cVea0Vm9WoOCFqla
-	u1HccDGJ1WBS1HYSiVgsyGSdZpmrVErY3utCo0VHG74xeKQtY9ELwAouihaWYaPIEV85Zi
-	iTc6ljZoIT/sdHaHJCehvpTv6qyeZI0=
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-218-shl9iznFPeSqsT-rPUJrcg-1; Wed, 05 Mar 2025 14:08:36 -0500
-X-MC-Unique: shl9iznFPeSqsT-rPUJrcg-1
-X-Mimecast-MFC-AGG-ID: shl9iznFPeSqsT-rPUJrcg_1741201715
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-2fe8c697ec3so2132932a91.1
-        for <virtio-comment@lists.linux.dev>; Wed, 05 Mar 2025 11:08:36 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741201714; x=1741806514;
-        h=content-transfer-encoding:to:subject:message-id:date:mime-version
-         :references:in-reply-to:from:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=8hT4IhhEMOqh2L7n7a3CbdylrVRb8pPCAm9kvx+1paY=;
-        b=n+gqV4vxFXeVNjqk4HhWdobtVj7WXunyTV+Tuqxxy6X6ap5kk+g7xkYsaMMlwqqr60
-         FaoLmHlOAJ5+1dO17OjSHMVbTgwidzLTtt4SYmNAx3A9A6coDlpy4/YNPObmqE5EDCcN
-         1xrLs4S1WENCqZzqaDZ5YJke3gXgCa0HR5GOQySA+VZLYAv+GlQOynrKKNKoup0shzKI
-         7UHLmk4XeVgKsIImnqBAuyyO5pjBCZAaL6nBDlZUkYcjU3zJ9J2rJ5e2RpAdEuRBCz9c
-         dodBuOtZ9KnNJypagQDa6CRMW8dfnYhpwPXRm/773viaPtaTm1IqGKF1TD5yhahNh0Ii
-         +45g==
-X-Forwarded-Encrypted: i=1; AJvYcCUYZddHqdsBLYXMbQ2h0N/8pIxPxByLSLJIa3sZBgsCRa+lrD0/mJvNF8rysDzcFu7eNw68W3CK03uXM5001Q==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yz60PmD3qqsc9LbnSTc0S8CXwzaJ1nOBZbMeIPqUxvZq+ciV66A
-	LKtVXRLLm+1vKCB1WmG4QDsywGqUny3p59BkAkQGrH70EYGtjda5X6ecUX5S+hMxNJIFeOyBSMS
-	GpjyrcXUyFKUOcLBlQ1+K4g6/lLmxeGDwxktiz7qoicIcAsYj4PCli9J/yDKF/k0CNxC55D536Q
-	PlGYN61QsCbnK6L7S0s0Uvjq9hGA5d2HsUR4m97klPCoC9zkU=
-X-Gm-Gg: ASbGncuWk29LDdX6Is+jnd//wljoSUH3wm8oNzsLsVEJQMgy5MBsr2Rf51zYTIwuNki
-	aOabnl3Nf6BYHLMUzs22GZvQGyfy48kKB0b8ZdFyHM1OUtiziRUQBx9g7Ow9VtbUG/iyF
-X-Received: by 2002:a17:90b:2b4c:b0:2f9:d0cd:3403 with SMTP id 98e67ed59e1d1-2ff617bbe47mr736034a91.16.1741201714534;
-        Wed, 05 Mar 2025 11:08:34 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHXNZUT1/icOl0EzLDC4MLZpaMQbr3TIN2F6CRDrb53+0KeVXnxiw8WUuiW7SsVVf8VhnnxBr2faTV6qXMv7Nw=
-X-Received: by 2002:a17:90b:2b4c:b0:2f9:d0cd:3403 with SMTP id
- 98e67ed59e1d1-2ff617bbe47mr736001a91.16.1741201714139; Wed, 05 Mar 2025
- 11:08:34 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 5 Mar 2025 13:08:33 -0600
-From: Sergio Lopez Pascual <slp@redhat.com>
-In-Reply-To: <CY8PR12MB7195D6E4C35686620499D7A0DCCB2@CY8PR12MB7195.namprd12.prod.outlook.com>
-References: <20250217115227.4961-1-slp@redhat.com> <20250217115227.4961-2-slp@redhat.com>
- <CY8PR12MB7195A2AFBB7530874D228954DCC12@CY8PR12MB7195.namprd12.prod.outlook.com>
- <CAAiTLFV2Dn_WztJ4evXLN4tFJGJ_Fqkw=xk5DD5jukvze0snQg@mail.gmail.com> <CY8PR12MB7195D6E4C35686620499D7A0DCCB2@CY8PR12MB7195.namprd12.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.b="B2Z3N3cS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G0+u0RgBG7rpRUBt6Zb1bSf6Kh0dUeNcrUFZzeRg3YqSX+R4LGzq5qazlLWrlcnjVPmmcB79UNFut3LFFaL/z6gC4MiMvrjSCkzFU4muOihpwktTnKgUbEi36yGbEKLM7pgtoHf+3IIXKTraKq/kaOHFAjKzrVXomYVFQb1fl4PhpCc+bCNsRGNbdBWrwjNd51JIKXvx0UijZ98Pg9SXdBKXSL8NFZFoHRHdNFx6aykSyeLVEWpsYHQx7lzyIc/VOGd0OUIJAf3rgguYQCOAGxeRlClTxUuIFdHbopaCKkAsMx1c8LG1NDw3gITqFEqoaAMkYa9P7GJn8EQw1BstLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MExeLKBkd9O6tjF0fzv9XBMAEvmq3XSBQlgMk2982dk=;
+ b=IdjzfypbLZ61PZGtHomT9+N6RfswhzhHhIWVnU1VI5a8EHyALgbw1wOSfD2LzRsH8JlPIwL3yQopTyK+GNco7gZv2sRgdPtfaN7NoRcI5R0+95FjrPAkS7qKFPpbFcjtiO4OZA+YNZummZCpvN4X4Doics8c8tG0bka+L+j+k58hf+QPUQcgsgn+sqzL2g4zYW958fKAB1LN0RtAKAkV/yvNdx9YC5doRuLaZicZVBKJtPVlgqAlwNBb8eV99M8AfVsscd3Q2xI911mdlvVdA2qJBOY0fzFnNBEEXsnPqiDBAQZQnS2vuEOnN9AJESNoPfGX0ICZXeVBVB5VXQYLBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 131.228.2.29) smtp.rcpttodomain=apple.com smtp.mailfrom=nokia-bell-labs.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=nokia-bell-labs.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nokia-bell-labs.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MExeLKBkd9O6tjF0fzv9XBMAEvmq3XSBQlgMk2982dk=;
+ b=B2Z3N3cSr7wEVCbrB16nqbHaF7B8kLNEb8gI7c3UE33T5+ExP0cXlabuna0zlw/rzQbtoPvsh4tQIOhnnCqcBD2CvImJabeT20+OK1oYDGar2IL70hnO5CdPoGQDrlWGMxIweshZHddyxE8/NJPwWMohbBdZI5/CB+GNt7pxi4YwgAxwY+HthISMz7p8++JhdL15L6ndPO/SkoT0FQYBMiTf5ehvgC3/whTFy8cv2tGvlefuwdAFyp+WMJ5LLGtyiu9/+W+q7X7uUsL6CIJ+eiKue82kyI7dsPJ8SA6UQILGcQnNnkdT68Ve6QEniDwEgG6DiZu+dmsl8j84bNQ3+A==
+Received: from PA7P264CA0313.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:395::27)
+ by PA4PR07MB8573.eurprd07.prod.outlook.com (2603:10a6:102:26b::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.28; Wed, 5 Mar
+ 2025 22:36:05 +0000
+Received: from AM1PEPF000252DE.eurprd07.prod.outlook.com
+ (2603:10a6:102:395:cafe::a5) by PA7P264CA0313.outlook.office365.com
+ (2603:10a6:102:395::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.16 via Frontend Transport; Wed,
+ 5 Mar 2025 22:36:04 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 131.228.2.29)
+ smtp.mailfrom=nokia-bell-labs.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nokia-bell-labs.com;
+Received-SPF: Pass (protection.outlook.com: domain of nokia-bell-labs.com
+ designates 131.228.2.29 as permitted sender) receiver=protection.outlook.com;
+ client-ip=131.228.2.29; helo=fihe3nok0735.emea.nsn-net.net; pr=C
+Received: from fihe3nok0735.emea.nsn-net.net (131.228.2.29) by
+ AM1PEPF000252DE.mail.protection.outlook.com (10.167.16.56) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.15
+ via Frontend Transport; Wed, 5 Mar 2025 22:36:04 +0000
+Received: from sarah.nbl.nsn-rdnet.net (sarah.nbl.nsn-rdnet.net [10.0.73.150])
+	by fihe3nok0735.emea.nsn-net.net (Postfix) with ESMTP id A2E69205D6;
+	Thu,  6 Mar 2025 00:36:03 +0200 (EET)
+From: chia-yu.chang@nokia-bell-labs.com
+To: virtio-comment@lists.linux.dev,
+	mst@redhat.com,
+	cohuck@redhat.com,
+	mvaralar@redhat.com,
+	jasowang@redhat.com,
+	xuanzhuo@linux.alibaba.com,
+	eperezma@redhat.com,
+	ij@kernel.org,
+	ncardwell@google.com,
+	koen.de_schepper@nokia-bell-labs.com,
+	g.white@cablelabs.com,
+	vidhi_goel@apple.com,
+	ingemar.s.johansson@ericsson.com,
+	mirja.kuehlewind@ericsson.com
+Cc: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
+Subject: [PATCH v4 0/2] Update ECN and Add ACCECN feature
+Date: Wed,  5 Mar 2025 23:35:42 +0100
+Message-Id: <20250305223544.85812-1-chia-yu.chang@nokia-bell-labs.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Date: Wed, 5 Mar 2025 13:08:33 -0600
-X-Gm-Features: AQ5f1JqI7x1icCZVwn_-LT6ygosWWSVv6BQC0CgcwUWVvDw6Z0N5ivDFhHh_Fr4
-Message-ID: <CAAiTLFVwogMWq6LbxJhXqP7f=uFYnTpVxYimCmKPF8NrACDSuA@mail.gmail.com>
-Subject: RE: [PATCH 1/3] shared-mem: introduce page alignment restrictions
-To: Parav Pandit <parav@nvidia.com>, 
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: UVr_TRMUwnhnGHzDeZPOU5bgFplD0iV6vodsXeHhAl0_1741201715
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM1PEPF000252DE:EE_|PA4PR07MB8573:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: da8d2b09-4844-4acc-1bcc-08dd5c361d6e
+X-LD-Processed: 5d471751-9675-428d-917b-70f44f9630b0,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|36860700013|82310400026|7416014|376014|1800799024|921020;
+X-Microsoft-Antispam-Message-Info:
+ =?us-ascii?Q?4U9xmU/gTbAe/dNLZBNyAyxQSLfsyfH0G2uBtwTfEqNscGb5Kn4Hlv1NrMgF?=
+ =?us-ascii?Q?T8nKhTjfquXkASc4CLcVdpxSSHaUb8FUzY9+tYcJ7qDSFnMQowC4PTp13bvr?=
+ =?us-ascii?Q?OHtAqGREGLSNRhq3pNi2pd6JrPvWazHr6lPlIfbkzfEQtugh8L/5IlUxfsQB?=
+ =?us-ascii?Q?Ve/DPjM9szwSCP8HDe8iLeRd4/KoTWifMRqBDhhiS/Yfv8MbCvmnYtBF+yxZ?=
+ =?us-ascii?Q?008+mQ64XqjkAkWmCTWvLKvQvD3JrkEiPVw1BkXAYK56aw57xIlouVoxrBTn?=
+ =?us-ascii?Q?e7/WKRM0Az5715vEuzVMxnEBKaplghb6tMHp1snvuiwRnG8W2HzcXhYO1WKs?=
+ =?us-ascii?Q?hr+lDstG9XkmmLLFsV/2uPSGM58J9dPVfqDzlNtyFX0B3CmAoTkU+ntxNB9b?=
+ =?us-ascii?Q?pH51N96fzJbD4FSzTG4UYctxGNiu8T9avZVwESdbFYbp9X6huYgLW8Ghuu5G?=
+ =?us-ascii?Q?8PWuv6arBmCyXhG96qYQt6OOWjd26s65xrhIWpeYHtRiZ18SISzL1iEcpEB3?=
+ =?us-ascii?Q?EdQSRnOFez1xDET/uDzH0JcmGHngiJqzSAT1cXg+dFZo+lHiW2iv1D4eiu9C?=
+ =?us-ascii?Q?thnvK60HLMCWlsFZtp9OV/xwN4LaB8LB0CW93d/GXm4g8I5OHAKlv3QVAaTR?=
+ =?us-ascii?Q?S7pjWHsKLdvT6RYO/kfVEsxhvI81zCJVkgOl1W1HNVuooaIblokh665xs0HB?=
+ =?us-ascii?Q?T4IzH5Cv7R5i5hAkXYeTd/Oy1kVroK5Zlz6kOcfgoU4lEDDdHfEXKcR1VdcX?=
+ =?us-ascii?Q?REFmx43lkOnqBa//cpp/jBlTKoTdyWw71W1PdfX3yWHZzCXa4O0O0AoIzBGV?=
+ =?us-ascii?Q?24vhrhcdL3y0NkFdYYVKeJy++/evidgR5RbDoN2klrPvysPIKD0X2O8WsXa4?=
+ =?us-ascii?Q?pfbcHI89fIH9zkUOoLsWSasy0UVMVqAdT4KaovNmMrMgM07eWTZ2miXFLQc9?=
+ =?us-ascii?Q?oQgcaDiUnIavdAk+RZ/nk6K80zgInIzgELt6BZhP6CMbR91VlRvII7pXGtyS?=
+ =?us-ascii?Q?uvuRvRbQrVD2dy8l4a3e2eBuycXQHa8dMYaxUsdy0uEFYFXe7ZoWQ93V4rxZ?=
+ =?us-ascii?Q?rGR92lHwXiG7i07d/AYkUvOb2tWVtB91WDNeehdtNe0JQltBUwo2JlaNiWs5?=
+ =?us-ascii?Q?nFQOdU+D0tB4YyRYcj8X4jpgVIpin5NjvvUFjfT6vfCYz3MzPR35Cwxeo554?=
+ =?us-ascii?Q?wv7r2fqclJJ05/NSPRe19MRCL6XKA3QK2RdGYek128IB3HUNj64PEa7ypl5F?=
+ =?us-ascii?Q?xTRORjyHy02L9ONkfVbuMIlo3LhoUv3fzzPSDoJC/8jkaR3WmLTl8vvXayAh?=
+ =?us-ascii?Q?egogQ7is++IBU2RYsMDOfpzYKBk4D/iglcyagYUAZlcu9CUETQ2o4AXrvRaf?=
+ =?us-ascii?Q?r9UrZc5Qcu8a8+/OT3bL3Ng9oInbRVsviSgIhwEC+I4nBDVpKjm0keI8j8tA?=
+ =?us-ascii?Q?KICdcML85wwOfoP9mPHj0ICGxs6XSIDW0lUCeGL8iH/A4kRTAX+yE95KVIbG?=
+ =?us-ascii?Q?Hw7Vp+Kuh4FeJxbEwhz2N5xGYmiHS/TCYI3I?=
+X-Forefront-Antispam-Report:
+ CIP:131.228.2.29;CTRY:FI;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:fihe3nok0735.emea.nsn-net.net;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(7416014)(376014)(1800799024)(921020);DIR:OUT;SFP:1101;
+X-OriginatorOrg: nokia-bell-labs.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2025 22:36:04.7285
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: da8d2b09-4844-4acc-1bcc-08dd5c361d6e
+X-MS-Exchange-CrossTenant-Id: 5d471751-9675-428d-917b-70f44f9630b0
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=5d471751-9675-428d-917b-70f44f9630b0;Ip=[131.228.2.29];Helo=[fihe3nok0735.emea.nsn-net.net]
+X-MS-Exchange-CrossTenant-AuthSource: AM1PEPF000252DE.eurprd07.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR07MB8573
 
-Parav Pandit <parav@nvidia.com> writes:
+From: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
 
->> From: Sergio Lopez Pascual <slp@redhat.com>
->> Sent: Wednesday, February 26, 2025 11:20 PM
->> Parav Pandit <parav@nvidia.com> writes:
->>
->> >> From: Sergio Lopez <slp@redhat.com>
->> >> Sent: Monday, February 17, 2025 5:22 PM
->> >>
->> >> Add a subsection for page alignment restrictions and introduce the
->> >> VIRTIO_F_SHM_PAGE_SIZE feature bit.
->> >>
->> >> Signed-off-by: Sergio Lopez <slp@redhat.com>
->> >> ---
->> >>  content.tex    | 3 +++
->> >>  shared-mem.tex | 7 +++++++
->> >>  2 files changed, 10 insertions(+)
->> >>
->> >> diff --git a/content.tex b/content.tex index c17ffa6..575065d 100644
->> >> --- a/content.tex
->> >> +++ b/content.tex
->> >> @@ -872,6 +872,9 @@ \chapter{Reserved Feature
->> >> Bits}\label{sec:Reserved Feature Bits}
->> >>  =09\ref{devicenormative:Basic Facilities of a Virtio Device / Featur=
-e
->> >> Bits} for
->> >>  =09handling features reserved for future use.
->> >>
->> >> +  \item[VIRTIO_F_SHM_PAGE_SIZE(42)] This feature indicates that the
->> >> + device  transport provides information about the supported page siz=
-e.
->> >> +
->> >
->> > Please extend the description around "Feature Bits" section to increas=
-e 24
->> to 41 -> 24 to 42.
->>
->> Ack.
->>
->> >>  \end{description}
->> >>
->> >>  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature
->> >> Bits} diff --git a/shared-mem.tex b/shared-mem.tex index
->> >> 6e6f6c4..dd90cb7 100644
->> >> --- a/shared-mem.tex
->> >> +++ b/shared-mem.tex
->> >> @@ -34,6 +34,13 @@ \subsection{Addressing within
->> >> regions}\label{sec:Basic Facilities of a Virtio De  The \field{shmid}
->> >> may be explicit or may be inferred from the  context of the reference=
-.
->> >>
->> >> +\subsection{Page alignment restrictions}\label{sec:Basic Facilities
->> >> +of a Virtio Device / Shared Memory Regions / Page alignment
->> >> +restrictions}
->> >> +
->> >> +If VIRTIO_F_SHM_PAGE_SIZE has been negotiated, when requesting the
->> >> +device to map memory into a shared memory region, the driver MUST
->> >> +obtain the page size information from the transport and honor the
->> >> +page alignment constrains derived from that page size.
->> >> +
->> > A device requirement is also needed to indicate that pci capability fi=
-eld is
->> only valid after/when the feature is negotiated.
->>
->> Ack.
-> I don=E2=80=99t think this is necessary because you say "driver obtains t=
-he information".
-> So to obtain a free information, feature bit is not necessary, this can b=
-e self-described in the pci capability itself.
-> If a pci capability padding_bit_0 is set, it can tell rest of the bits ha=
-ve abc meaning.
-> This way pci capabilities are self-contained.
->
->>
->> >>  \devicenormative{\subsection}{Shared Memory Regions}{Basic
->> >> Facilities of a Virtio  Device / Shared Memory Regions}  Shared
->> >> memory regions MUST NOT expose shared memory regions which
->> >> --
->> >> 2.48.1
->> >>
->> > 1. Shared memory cap is already defined as
->> VIRTIO_PCI_CAP_SHARED_MEMORY_CFG.
->> > This capability should be extended instead of polluting generic struct=
-ure
->> field of padding.
->> >
->> > If its done in generic way like proposed, you need to call out that pa=
-ge_size
->> field is only valid for VIRTIO_PCI_CAP_SHARED_MEMORY_CFG.
->> >
->> > Overall extending pci cap structure is not good idea even though it ma=
-y
->> appear as small change for below reasons.
->> >
->> > 1. PCI spec already ran out of total bytes that can be stored in the c=
-apability
->> section. Extending it will not help.
->> > A virtio level extended capability is not good either due to below gui=
-dance
->> from PCI-SIG.
->> >
->> > 2. PCI spec highly discouraged putting vendor specific bits like this =
-in the
->> capability section.
->> > Citation: "It is strongly recommended that PCI Express devices place
->> > no registers in Configuration Space other than those in headers or Cap=
-ability
->> structures architected by applicable PCI specifications."
->>
->> Honestly, making it clear that the field is only valid for
->> VIRTIO_PCI_CAP_SHARED_MEMORY_CFG _and_ when
->> VIRTIO_F_SHM_PAGE_SIZE has been negotiated (I can extend the comment of
->> the field itself to clarify that, otherwise, it just acts as padding), I=
- fail to see
->> which kind of problems might bring, but admitedly I'm not a PCI expert b=
-y any
->> means.
->>
-> Feature negotiation for information exposed by the device is not needed.
->
->> If using the padding is really not an option, would it be reasonable to
->> introduce a different variant of "virtio_pci_cap64" struct, including th=
-e
->> page_size, to be used when VIRTIO_F_SHM_PAGE_SIZE has been negotiated?
->>
-> It can be extended. It just not right way to do so in pci specs boundary.
->
->> IIUC, "virtio_pci_cap64" is VIRTIO-specific, so this shouldn't have impa=
-ct
->> anywhere else.
->>
->> > So, you should consider discovering the shared memory page size and mo=
-re
->> such fields using device administration commands.
->> >
->> > It may sound overkill to use administration commands for 8-bits of
->> > page size, but as more generic and device specific things evolve, it i=
-s likely
->> useful vehicle where you don't have to search hard to squeeze things in =
-some
->> existing structure like pci capability.
->>
->> Do you mean using an adminitration queue (VIRTIO_F_ADMIN_VQ)? If so, yes=
-,
->> I think it's extremely overkill for both the device and the driver.
->> If possible, I would like explore every other option before resorting to=
- this
->> one.
->>
-> Right. I agree that exposing this information via admin command is overki=
-ll.
-> Do you agree that shared memory interface wont grow anymore further, only=
- thing it needs now or in any near term is just one or two bytes of page si=
-ze information?
-> If yes, packing inside the pci cap seems fine.
-> If one needs to start expanding this more, than more mature interface lik=
-e admin cmd will be useful.
+Hello,
 
-I can't think of any more information that would be needed to be added
-to the SHM interface beyond the page size. In a certain sense, it could
-be argued that it should have been there when shared memory regions were
-first introduced, since knowing the alignment restrictions for the maps
-is a requirement to able to make use of the region. It worked so far
-just because 4K page systems/VMs were prevalent.
+  Please find ECN and ACCECN feature patch v4.
 
-Thanks!
-Sergio.
+v4
+- Update commit message of AccECN patch
+- Add reference to RFC3168 ECN and Accurate ECN
+- Simplify feature bit descriptinos to avoid duplication of text
+
+v3
+- Separate the original patch into 2 different patches
+- Fix several reabase issues in v2
+
+v2
+- Reabase the patch on top of v1.4 virtio-spec
+
+Best Regards,
+Chia-Yu
+
+Chia-Yu Chang (2):
+  virtio-net: Fix ECN feature descritpion
+  virtio-net: define Accurate ECN feature in virtio-spec
+
+ device-types/net/description.tex | 78 ++++++++++++++++++++++----------
+ introduction.tex                 |  6 +++
+ 2 files changed, 61 insertions(+), 23 deletions(-)
+
+-- 
+2.34.1
 
