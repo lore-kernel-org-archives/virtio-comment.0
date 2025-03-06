@@ -1,148 +1,142 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7547120A5D8
-	for <virtio-comment@lists.linux.dev>; Thu,  6 Mar 2025 09:58:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D287341C92
+	for <virtio-comment@lists.linux.dev>; Thu,  6 Mar 2025 10:04:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1741255130; cv=none; b=CqZwHfglPr5I0b8hefH9Xwh1dgF7SJX2zoBVFt6ohtXACV3gQFUCmy00ImJx1z5GsqUAo44rU11C5zBarMUmwC5SHIquLnqdPxLXxXARujW/yaY5wwHQeKPELF20krTu4YfUQ04uQJzyhEQjLpbg48GrsgWIDft0oUE0a4IdtKs=
+	t=1741255490; cv=none; b=Jg/DWkaOuCK48qvgX8/oOtF1+CF0NywQ8+O+gk4cWFlo5NY9z1dWbAZ7GV5ws0I29nLLA3KtkTGAwqcqCdgczmBII3/0sMrDfVu4rlyfVT9N6wxzensR3gFuFQNfBYkY/rjExq5E8t+phudKmS0NKKgjPxvZ+BranlnWNBYC9EM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1741255130; c=relaxed/simple;
-	bh=75FiD9q+Q1Iw9xQGv9unO0TQ3V3rX+n3EywodKBaQAQ=;
+	s=arc-20240116; t=1741255490; c=relaxed/simple;
+	bh=wFOwehBngk/MBMAlWYxSBtFUicwrTDH0wiTwjakvFis=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=GQLjqehTHx5vc7IJK/Vy6CLvz7RYxtuBQpiBzIbSMFe3ThOWiFTxdiimDxYVEi34T9fn4qxu9DVjL1yYvWKpYaMHVvFMPUEcniBsDJLABiQ2ueGLN4fHrb8FOLstD28gcToCq7JkgqSIctQaz8YNup54Ode8/KyYf3mETolmOJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=P5aIk2BD; arc=none smtp.client-ip=170.10.133.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=OZHgViYVUWlmEEF9wCxFdRPlo/pqWvk8aV+s3Jbt1dlLbzqaIWs4sl/wL1J5PP9QwUr8Ma17xH2OfdTbDc8pvBvjF+08bRYViCkQf2hyZRSuHAq9g4oGQLYAON2A6R69AM1BQx04P90e8g8A2FtWbkDQ2FUCnWCA1anjrwcKg4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DQj6+Bz2; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="P5aIk2BD"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DQj6+Bz2"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1741255127;
+	s=mimecast20190719; t=1741255487;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=8TjuJ7RAwzVhvM9QHtl+UNCzTuxwgpEM/3+1IpYPAbI=;
-	b=P5aIk2BD6Lpk8XoO5o3ui74wV2i4ExVhA0gVzv8xxtwmMVBLdPZ9sc/KMf6z25cS3p7+Qt
-	/hRcCNNwd3g0gBCXH4IO5NGl1iZnB7+oorNSShZskklY7CSQzHWP96DhYTcYO6LuQmRbCR
-	MA60CNMQgTavRg/x0Dir4NlGrQ+XehY=
+	bh=QlhBdAe3RlBL+8vXPxEGqzXg9VWRsMbstrjoF0onZ9E=;
+	b=DQj6+Bz2N7QsVHtYQrlrqZNhVmTBZyDSJVOaglDOzW4sL4y2WhYkUNHFn5tnXCAqR9GHVc
+	BQBWldVwO2vDDgQgmtqDxVkxZQFgdYXhAZnntgQSm1Z+3Y3txoZzHCm4EbdcEhnmYR0Q9X
+	xhl9ZUKJ2MZgx5ux/vM+5KjTPTubPUo=
 Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
  [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-198-I9GtmZLMMNqY6jH39TTw7A-1; Thu, 06 Mar 2025 04:58:41 -0500
-X-MC-Unique: I9GtmZLMMNqY6jH39TTw7A-1
-X-Mimecast-MFC-AGG-ID: I9GtmZLMMNqY6jH39TTw7A_1741255120
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-43bd0586b86so3087535e9.3
-        for <virtio-comment@lists.linux.dev>; Thu, 06 Mar 2025 01:58:40 -0800 (PST)
+ us-mta-608-_OgW9DCSN9W874mupESCmQ-1; Thu, 06 Mar 2025 05:04:45 -0500
+X-MC-Unique: _OgW9DCSN9W874mupESCmQ-1
+X-Mimecast-MFC-AGG-ID: _OgW9DCSN9W874mupESCmQ_1741255485
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-43941ad86d4so2027795e9.2
+        for <virtio-comment@lists.linux.dev>; Thu, 06 Mar 2025 02:04:45 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741255120; x=1741859920;
+        d=1e100.net; s=20230601; t=1741255484; x=1741860284;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8TjuJ7RAwzVhvM9QHtl+UNCzTuxwgpEM/3+1IpYPAbI=;
-        b=fXv5FHFwvoPdvgfMJrcqV35q9ojpZ6QigLW6Vx8ln43eatQPU722kt6yLG3Q1Y7X38
-         DrkG1RPO/xFlHxXUB4dTk6PyRST2iIg/W1GWVoAh0+mFS7sxb2WExefYk6Z4SUdQ0/5D
-         aM38swO8gQ6cfixEwRv/E/NWfeR4VO2SuxdS0MpfkbS4J9F9kV8z1yRULO6WLOgN6Ti6
-         4SRptyQJitIm/WukxZhqYdQD/8UES7Von0MxwHQYK6Hw3jKtRSdGt7/Wbft6Xa62Ee2s
-         FCsL5J0k+zbOltRE932FvU1x0j3h9WbMxeOdFcjQl7tYuq/ijRYr/apOutrdhXw0tpbq
-         WLyA==
-X-Forwarded-Encrypted: i=1; AJvYcCWbSxD/EBIdly3+X0mZ38+xoUer9n7d77IH0ESdH0qCGtNrcTHmAQ1e4rEHCOtVWmjSFa/JRxzri5W5vWM0tQ==@lists.linux.dev
-X-Gm-Message-State: AOJu0YzUJA3bUWztrxpqBMjdzd7bmtoQRnnkCoNifAg8JL/RpICQNZD8
-	7a2hpSVKHs+2jcywNt4u5knti5q5JYP4UyJeguQ2rjpXXPHlJJxv5RGw0ij4FS2DuooPke1w+hI
-	QO55X4NtcVqO/4CaCrPttF2DWjS1UkcCkoKAQKdGIc0wTwNwU8HU+gjelSQHO1+aP
-X-Gm-Gg: ASbGncvelOf26XtCgPUXdoLtCfAlE3MAH0Wc0vVh14SG0oNeY9GDtPbosIiI+uL19+n
-	Q7JvF/QXVyrq/pjoyDKI/XkmHW6vY8jlbxc833SYxLxtUHTUPyuoLbrL1FLKmrKGEzXlQV3PsxD
-	ThqncB7Ra1pXzZhmAQKtDHxudUODL6uYWgZkCK1TeKC8qZkw77Ep7kO2+NPXzG26kRheIYXdczX
-	57w7G9Z5z3/c/DdLcaPaaIoVyHmkt9fsSrBCWHgRVjYe4G7gP+rb+IduNiVV3eqBxY7yGDadZCF
-	6n4eH/2puTYDjKtvQv8XMsKs9hAf7JY5e1w9/32M4R+2FuDHbaclr+0Ikb+Nshog
-X-Received: by 2002:a05:600c:35d4:b0:43b:ccfe:eeee with SMTP id 5b1f17b1804b1-43bd296df70mr63095435e9.11.1741255119924;
-        Thu, 06 Mar 2025 01:58:39 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IE/7xlpfUfKfELEXKmwJUo2L2DNwjfdQJXtJLro0owGwauWvhDA29PxcWujsV7yB9eJFXMXbA==
-X-Received: by 2002:a05:600c:35d4:b0:43b:ccfe:eeee with SMTP id 5b1f17b1804b1-43bd296df70mr63095195e9.11.1741255119338;
-        Thu, 06 Mar 2025 01:58:39 -0800 (PST)
+        bh=QlhBdAe3RlBL+8vXPxEGqzXg9VWRsMbstrjoF0onZ9E=;
+        b=rNI6X4FSqbJ2fLyQnfyelBlZhzHit9RUlu98S1yC0HzIGS0sjmjYsCooIRtLNgysx2
+         t4/CzCqHuvl0ehzwMBETrnJ52GJ97FeQwrVcaaUx4rM0G3SUw+kAPXUnEoToKA/bi1OI
+         47THuPdIARMcOh5E65cd1wN2qLS1zG6Otv9bHtxEnP1tiN9yQ7nS9UFals1pjc9sQqDH
+         9NZeO1OeTHp/mVBGEffIs2DpIyG7CeKOHzPpbZVnPs8g3w4bMvl2IdCjYQclpVUDTaVs
+         Jvo8PUyT9LT1YZC454bv/k5U7cNyZ9kmqSJ2U+rFPrICiPoSJtfrc1o8h5kOc3/LcTMa
+         iWoQ==
+X-Gm-Message-State: AOJu0YyA+NYdXeD6IB8frWx29Q65pQv3qQ9/Sv3I8d5Qao4kjco/XqCI
+	8b5rV2hkqxq0GVvSvi2mId9v27cb9xBcUON5eyq/mxiSCGPB+krKh6LRouvU7HhgzaUCHCWAAFG
+	7JbT0g5Wj9NHw95lFuXBmtDbU4/wsH3RWLTlelLOeKeJrOII4ug5A4nRac2dxzb/S
+X-Gm-Gg: ASbGncvEs7i1mmFJ7BPAdLr/ydlVWA94ZAPtPa5NaG8sZnhQ7umHtX2nIZ4oopXdwad
+	oGSiBmVXP779nwqUK09Tsw0b2yCGFKU/R+Xk5+f07b9XrMrzMspH/5bNvrO2cnb4S+Q2vBAa7Df
+	j7b6e15PWKJjBkILVoL0bjycfpTCyUUFggWYv5hM4Gfi/brqe9Bp654LvduPOOL9Pi/YL0xbcTL
+	Wu3k+a7GNRuRgBq2gy6XipQNW+84o82/Qokx4WVSDCECx1ihSA5I8nrGat71upW04Ke1XtTJfu1
+	meotXRcyjHqcgKo0alp9OT8l/FrHZq48VCe7OE0BB5OumdyYVDJs7WiMQp8Pyuvi
+X-Received: by 2002:a05:6000:4007:b0:38d:dffc:c133 with SMTP id ffacd0b85a97d-3911f7c3ee6mr6912554f8f.44.1741255484649;
+        Thu, 06 Mar 2025 02:04:44 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE1Ad8fSjieE07JixpFT4fA8fk75Wup2QpoYnk0fzXzE88Q0GKsfF4OW1Ud3SJZ1Z45kt/c+g==
+X-Received: by 2002:a05:6000:4007:b0:38d:dffc:c133 with SMTP id ffacd0b85a97d-3911f7c3ee6mr6912510f8f.44.1741255484139;
+        Thu, 06 Mar 2025 02:04:44 -0800 (PST)
 Received: from sgarzare-redhat (host-79-46-200-29.retail.telecomitalia.it. [79.46.200.29])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-43bdd8dbb2fsm14724475e9.20.2025.03.06.01.58.38
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-43bd429195csm44556475e9.10.2025.03.06.02.04.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Mar 2025 01:58:38 -0800 (PST)
-Date: Thu, 6 Mar 2025 10:58:33 +0100
+        Thu, 06 Mar 2025 02:04:43 -0800 (PST)
+Date: Thu, 6 Mar 2025 11:04:31 +0100
 From: Stefano Garzarella <sgarzare@redhat.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>, 
-	virtio-comment@lists.linux.dev, aesteve@redhat.com
+To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+Cc: virtio-comment@lists.linux.dev, aesteve@redhat.com
 Subject: Re: [PATCH v3] git-publish: add profile
-Message-ID: <CAGxU2F6DBhLhEGmABm6RrR=mXh9iwScWoqWeV0BxejH97Yik1w@mail.gmail.com>
+Message-ID: <b6twcw3oji3qcjiestjvtpjknnczsrpfphbu43dlwcybukz3lh@pbt6fpqf23ds>
 References: <20250305164546.1484029-1-mvaralar@redhat.com>
- <20250306052231.GE303194@fedora>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20250306052231.GE303194@fedora>
+In-Reply-To: <20250305164546.1484029-1-mvaralar@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: edK7iw6iodUKH-lCJt27bWg7VBzJn92qw7vjStNOC2w_1741255120
+X-Mimecast-MFC-PROC-ID: 3qHwnrEzA5u7HoA1YVxj1gM_Jj_USL1Og3Gb7ebsb1M_1741255485
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
 
-On Thu, 6 Mar 2025 at 06:24, Stefan Hajnoczi <stefanha@redhat.com> wrote:
+On Wed, Mar 05, 2025 at 05:45:46PM +0100, Matias Ezequiel Vara Larsen wrote:
+>Add git-publish profile and document how to use it.
 >
-> On Wed, Mar 05, 2025 at 05:45:46PM +0100, Matias Ezequiel Vara Larsen wrote:
-> > Add git-publish profile and document how to use it.
-> >
-> > Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-> > ---
-> > v2 -> v3:
-> >    * remove uppercase and the line split and use italic
-> > v1 -> v2:
-> >    * add link to git-publish
-> >    * document that the project contains a profile already
-> > ---
-> >  .gitpublish |  3 +++
-> >  README.md   | 15 +++++++++++++++
-> >  2 files changed, 18 insertions(+)
-> >  create mode 100644 .gitpublish
-> >
-> > diff --git a/.gitpublish b/.gitpublish
-> > new file mode 100644
-> > index 0000000..d412896
-> > --- /dev/null
-> > +++ b/.gitpublish
-> > @@ -0,0 +1,3 @@
-> > +[gitpublishprofile "default"]
->
-> Great, this will make it easier to send spec changes!
->
-> > +base = master
-> > +to = virtio-comment@lists.linux.dev
->
-> From https://github.com/oasis-tcs/virtio-spec?tab=readme-ov-file:
->
->   When not to use the virtio-comment mailing list:
->     questions and change proposals for Virtio drivers and devices
->     implementing the specification. (please use the virtio-dev mailing
->     list for this).
+>Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+>---
+>v2 -> v3:
+>   * remove uppercase and the line split and use italic
+>v1 -> v2:
+>   * add link to git-publish
+>   * document that the project contains a profile already
+>---
+> .gitpublish |  3 +++
+> README.md   | 15 +++++++++++++++
+> 2 files changed, 18 insertions(+)
+> create mode 100644 .gitpublish
 
-That statement talks about the driver and device "implementing" the 
-spec, not the spec itself, indeed there is another statement:
-
-  When to use the virtio-comment mailing list:
-     questions and change proposals for the Virtio specification,
-     including the specification of basic functionality, transports and
-     devices.
-
-So I guess this patch is right, since here we are talking about spec 
-changes.
-
-BTW I'm honest, I'm always confused about virtio-comment and virtio-dev 
-xD, so another "Thank you" to Matias for this patch!
+Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
 
 >
-> This also matches what I found in my .git/config where gitpublishto was
-> set to virtio-dev rather than virtio-comment.
-
-IIUC this is wrong, you should use virtio-comment for spec changes.
-
-Thanks,
-Stefano
+>diff --git a/.gitpublish b/.gitpublish
+>new file mode 100644
+>index 0000000..d412896
+>--- /dev/null
+>+++ b/.gitpublish
+>@@ -0,0 +1,3 @@
+>+[gitpublishprofile "default"]
+>+base = master
+>+to = virtio-comment@lists.linux.dev
+>diff --git a/README.md b/README.md
+>index c06caf6..b521978 100644
+>--- a/README.md
+>+++ b/README.md
+>@@ -110,6 +110,21 @@ git format-patch -o proposal1/ HEAD~1..<br>
+> git send-email --to=virtio-comment@lists.linux.dev proposal1/0001-*
+> </code>
+>
+>+<dl>Optionally, you can use <a
+>+href="https://github.com/stefanha/git-publish">git-publish</a> to submit a
+>+patch. This project already contains a <em>git-publish</em> profile that will
+>+configure some fields, e.g., <em>To</em> field with the right address. After you have
+>+installed <em>git-publish</em>, the procedure is the following:
+>+
+>+<code>
+>+<p>
+>+git checkout master -b my-feature<br>
+>+# work on new commits, add your 'Signed-off-by' lines to each<br>
+>+git publish<br>
+>+# more work, rebase on master, ...<br>
+>+git publish # will send a v2<br>
+>+</code>
+>+</dl>
+> <dl>
+> <dt>When to use the virtio-comment mailing list:</dt>
+> <dd>
+>-- 
+>2.42.0
+>
 
