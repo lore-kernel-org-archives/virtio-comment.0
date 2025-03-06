@@ -1,512 +1,148 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6982080D7
-	for <virtio-comment@lists.linux.dev>; Thu,  6 Mar 2025 09:51:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7547120A5D8
+	for <virtio-comment@lists.linux.dev>; Thu,  6 Mar 2025 09:58:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1741254713; cv=none; b=aEEm/JUEdNixZNr2zVYe77ae60jonvnw4c+pDizHQVHk3HndMtvsnRmAHfm0qNJcIEQsALi6XFKOSDDeMv8BjJZn2bii9HzD3j+b02RZmN1htifqHhXDJTMwZac9fHggCIiJxJeZLJGfV8s2xtfa55uyk36U+IaNKva3ksTd2JU=
+	t=1741255130; cv=none; b=CqZwHfglPr5I0b8hefH9Xwh1dgF7SJX2zoBVFt6ohtXACV3gQFUCmy00ImJx1z5GsqUAo44rU11C5zBarMUmwC5SHIquLnqdPxLXxXARujW/yaY5wwHQeKPELF20krTu4YfUQ04uQJzyhEQjLpbg48GrsgWIDft0oUE0a4IdtKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1741254713; c=relaxed/simple;
-	bh=S0aYzpvB6NZVDn6xvkggDdVdinNiUy1H93deHkyfmgQ=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lnxARb/XcjlZhcdz9Z0sIdGSQ3PlenWNXLetxFK0uUtUiO5AGIP4nIfWQlpaKLD2aDtiUP6pPGxb1nc3XmpFoOQcqFAopC4HF2zepfPyYdDFq+1tQcQAmwvvILHy/4YQu+DuLt/BCSjMHfZcwHi7sfM/UOFO8GtymsAZuMFkre0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com; spf=pass smtp.mailfrom=quicinc.com; dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b=Jc03zSaH; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quicinc.com
+	s=arc-20240116; t=1741255130; c=relaxed/simple;
+	bh=75FiD9q+Q1Iw9xQGv9unO0TQ3V3rX+n3EywodKBaQAQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=GQLjqehTHx5vc7IJK/Vy6CLvz7RYxtuBQpiBzIbSMFe3ThOWiFTxdiimDxYVEi34T9fn4qxu9DVjL1yYvWKpYaMHVvFMPUEcniBsDJLABiQ2ueGLN4fHrb8FOLstD28gcToCq7JkgqSIctQaz8YNup54Ode8/KyYf3mETolmOJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=P5aIk2BD; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b="Jc03zSaH"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5269p5LE028808;
-	Thu, 6 Mar 2025 09:51:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0rZacjUY8C9KfXXUoGM4/9v+qmFHK1zcsvgdsvUYBK8=; b=Jc03zSaHTCsV1I/b
-	Fp08bKbCJTsUEH4AdjrgsiiTg9WhxYKisSi0b3/ENDgFNymgTQuPtSInd/5BOWWN
-	V5N7D2W1z4L1mNIBgPSnYvpoHNDtVGfLJwPmeQHSuRuh2V7144E0WCMolDFDxzgG
-	q/f+P4HIwQc5+U3dflAoXDpdoWfsvOyccKNQLWWNbDAsgvGJEv+fELcNbilPbx+q
-	n3snoEQCYYrgN6XhySTz8mvUJMA4OQl2Wxw+ola2nk9fQF1r/1XC8SCJ+FX4q3Ep
-	OjaCPY3enUtzbO7OnmrlBA1OsBKRyukVzCsjzOgTE2Gb3hEXUOug50pDIYfRk2CR
-	ZSbL1w==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 455p6trfm3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 06 Mar 2025 09:51:39 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com [10.47.209.196])
-	by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5269pccw030789
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 6 Mar 2025 09:51:38 GMT
-Received: from PHILBER.qualcomm.com (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 6 Mar 2025
- 01:51:35 -0800
-From: Peter Hilber <quic_philber@quicinc.com>
-To: <virtio-comment@lists.linux.dev>
-CC: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>,
-        "Jason
- Wang" <jasowang@redhat.com>,
-        David Woodhouse <dwmw2@infradead.org>,
-        "Ridoux,
- Julien" <ridouxj@amazon.com>,
-        Trilok Soni <quic_tsoni@quicinc.com>,
-        "Matias
- Ezequiel Vara Larsen" <mvaralar@redhat.com>,
-        Peter Hilber
-	<quic_philber@quicinc.com>
-Subject: [PATCH v8 2/4] virtio-rtc: Add initial normative statements
-Date: Thu, 6 Mar 2025 10:51:10 +0100
-Message-ID: <20250306095112.1293-3-quic_philber@quicinc.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250306095112.1293-1-quic_philber@quicinc.com>
-References: <20250306095112.1293-1-quic_philber@quicinc.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="P5aIk2BD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1741255127;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8TjuJ7RAwzVhvM9QHtl+UNCzTuxwgpEM/3+1IpYPAbI=;
+	b=P5aIk2BD6Lpk8XoO5o3ui74wV2i4ExVhA0gVzv8xxtwmMVBLdPZ9sc/KMf6z25cS3p7+Qt
+	/hRcCNNwd3g0gBCXH4IO5NGl1iZnB7+oorNSShZskklY7CSQzHWP96DhYTcYO6LuQmRbCR
+	MA60CNMQgTavRg/x0Dir4NlGrQ+XehY=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-198-I9GtmZLMMNqY6jH39TTw7A-1; Thu, 06 Mar 2025 04:58:41 -0500
+X-MC-Unique: I9GtmZLMMNqY6jH39TTw7A-1
+X-Mimecast-MFC-AGG-ID: I9GtmZLMMNqY6jH39TTw7A_1741255120
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-43bd0586b86so3087535e9.3
+        for <virtio-comment@lists.linux.dev>; Thu, 06 Mar 2025 01:58:40 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1741255120; x=1741859920;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8TjuJ7RAwzVhvM9QHtl+UNCzTuxwgpEM/3+1IpYPAbI=;
+        b=fXv5FHFwvoPdvgfMJrcqV35q9ojpZ6QigLW6Vx8ln43eatQPU722kt6yLG3Q1Y7X38
+         DrkG1RPO/xFlHxXUB4dTk6PyRST2iIg/W1GWVoAh0+mFS7sxb2WExefYk6Z4SUdQ0/5D
+         aM38swO8gQ6cfixEwRv/E/NWfeR4VO2SuxdS0MpfkbS4J9F9kV8z1yRULO6WLOgN6Ti6
+         4SRptyQJitIm/WukxZhqYdQD/8UES7Von0MxwHQYK6Hw3jKtRSdGt7/Wbft6Xa62Ee2s
+         FCsL5J0k+zbOltRE932FvU1x0j3h9WbMxeOdFcjQl7tYuq/ijRYr/apOutrdhXw0tpbq
+         WLyA==
+X-Forwarded-Encrypted: i=1; AJvYcCWbSxD/EBIdly3+X0mZ38+xoUer9n7d77IH0ESdH0qCGtNrcTHmAQ1e4rEHCOtVWmjSFa/JRxzri5W5vWM0tQ==@lists.linux.dev
+X-Gm-Message-State: AOJu0YzUJA3bUWztrxpqBMjdzd7bmtoQRnnkCoNifAg8JL/RpICQNZD8
+	7a2hpSVKHs+2jcywNt4u5knti5q5JYP4UyJeguQ2rjpXXPHlJJxv5RGw0ij4FS2DuooPke1w+hI
+	QO55X4NtcVqO/4CaCrPttF2DWjS1UkcCkoKAQKdGIc0wTwNwU8HU+gjelSQHO1+aP
+X-Gm-Gg: ASbGncvelOf26XtCgPUXdoLtCfAlE3MAH0Wc0vVh14SG0oNeY9GDtPbosIiI+uL19+n
+	Q7JvF/QXVyrq/pjoyDKI/XkmHW6vY8jlbxc833SYxLxtUHTUPyuoLbrL1FLKmrKGEzXlQV3PsxD
+	ThqncB7Ra1pXzZhmAQKtDHxudUODL6uYWgZkCK1TeKC8qZkw77Ep7kO2+NPXzG26kRheIYXdczX
+	57w7G9Z5z3/c/DdLcaPaaIoVyHmkt9fsSrBCWHgRVjYe4G7gP+rb+IduNiVV3eqBxY7yGDadZCF
+	6n4eH/2puTYDjKtvQv8XMsKs9hAf7JY5e1w9/32M4R+2FuDHbaclr+0Ikb+Nshog
+X-Received: by 2002:a05:600c:35d4:b0:43b:ccfe:eeee with SMTP id 5b1f17b1804b1-43bd296df70mr63095435e9.11.1741255119924;
+        Thu, 06 Mar 2025 01:58:39 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE/7xlpfUfKfELEXKmwJUo2L2DNwjfdQJXtJLro0owGwauWvhDA29PxcWujsV7yB9eJFXMXbA==
+X-Received: by 2002:a05:600c:35d4:b0:43b:ccfe:eeee with SMTP id 5b1f17b1804b1-43bd296df70mr63095195e9.11.1741255119338;
+        Thu, 06 Mar 2025 01:58:39 -0800 (PST)
+Received: from sgarzare-redhat (host-79-46-200-29.retail.telecomitalia.it. [79.46.200.29])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-43bdd8dbb2fsm14724475e9.20.2025.03.06.01.58.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Mar 2025 01:58:38 -0800 (PST)
+Date: Thu, 6 Mar 2025 10:58:33 +0100
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>, 
+	virtio-comment@lists.linux.dev, aesteve@redhat.com
+Subject: Re: [PATCH v3] git-publish: add profile
+Message-ID: <CAGxU2F6DBhLhEGmABm6RrR=mXh9iwScWoqWeV0BxejH97Yik1w@mail.gmail.com>
+References: <20250305164546.1484029-1-mvaralar@redhat.com>
+ <20250306052231.GE303194@fedora>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Authority-Analysis: v=2.4 cv=PMb1+eqC c=1 sm=1 tr=0 ts=67c9702b cx=c_pps a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17 a=GEpy-HfZoHoA:10 a=Vs1iUdzkB0EA:10 a=COk6AnOGAAAA:8 a=PMpmp11FIaaH1W8-CUIA:9 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: Sivc5cBL8ElV4CdhN0NS9hJQEkH_yTia
-X-Proofpoint-GUID: Sivc5cBL8ElV4CdhN0NS9hJQEkH_yTia
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-06_04,2025-03-06_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 bulkscore=0 mlxlogscore=999
- phishscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
- mlxscore=0 adultscore=0 spamscore=0 suspectscore=0 impostorscore=0
- clxscore=1015 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502100000
- definitions=main-2503060073
+In-Reply-To: <20250306052231.GE303194@fedora>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: edK7iw6iodUKH-lCJt27bWg7VBzJn92qw7vjStNOC2w_1741255120
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Add the normative statements for the initial device specification.
+On Thu, 6 Mar 2025 at 06:24, Stefan Hajnoczi <stefanha@redhat.com> wrote:
+>
+> On Wed, Mar 05, 2025 at 05:45:46PM +0100, Matias Ezequiel Vara Larsen wrote:
+> > Add git-publish profile and document how to use it.
+> >
+> > Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+> > ---
+> > v2 -> v3:
+> >    * remove uppercase and the line split and use italic
+> > v1 -> v2:
+> >    * add link to git-publish
+> >    * document that the project contains a profile already
+> > ---
+> >  .gitpublish |  3 +++
+> >  README.md   | 15 +++++++++++++++
+> >  2 files changed, 18 insertions(+)
+> >  create mode 100644 .gitpublish
+> >
+> > diff --git a/.gitpublish b/.gitpublish
+> > new file mode 100644
+> > index 0000000..d412896
+> > --- /dev/null
+> > +++ b/.gitpublish
+> > @@ -0,0 +1,3 @@
+> > +[gitpublishprofile "default"]
+>
+> Great, this will make it easier to send spec changes!
+>
+> > +base = master
+> > +to = virtio-comment@lists.linux.dev
+>
+> From https://github.com/oasis-tcs/virtio-spec?tab=readme-ov-file:
+>
+>   When not to use the virtio-comment mailing list:
+>     questions and change proposals for Virtio drivers and devices
+>     implementing the specification. (please use the virtio-dev mailing
+>     list for this).
 
-Signed-off-by: Peter Hilber <quic_philber@quicinc.com>
----
+That statement talks about the driver and device "implementing" the 
+spec, not the spec itself, indeed there is another statement:
 
-Notes:
-    v8:
-    
-    - Drop requirement to ignore reserved fields in the device-readable part
-      of the message (Matias Ezequiel Vara Larsen).
-    
-    - Drop requirement about returning same status in response to identical
-      requests (Matias Ezequiel Vara Larsen).
-    
-    - Reword requirements about size mismatches for device
-      read-only/write-only parts of the message (Matias Ezequiel Vara
-      Larsen).
-    
-    - Change word order from "field X" to "the X field" (Matias Ezequiel
-      Vara Larsen).
-    
-    v7:
-    
-    - Remove obsolete requirements for leap second indication.
-    
-    v6:
-    
-    - Update requirements to make leap second status information optional if
-      if the clock smears (or might smear) leap seconds.
-    
-    - Allow indicating VIRTIO_RTC_SMEAR_UNSPECIFIED for
-      VIRTIO_RTC_CLOCK_SMEARED.
-    
-    - Shorten some requirements by omitting redundant information.
-    
-    v5:
-    
-    - Update normative statements to match v5 changes to non-normative
-      statements (patch 1).
-    
-    v4:
-    
-    - Require driver to set unused flags to zero.
-    
-    - Update normative statements to match v4 changes to non-normative
-      statements (patch 1).
-    
-    - Improve formatting.
+  When to use the virtio-comment mailing list:
+     questions and change proposals for the Virtio specification,
+     including the specification of basic functionality, transports and
+     devices.
 
- conformance.tex                         |   2 +
- device-types/rtc/description.tex        | 272 +++++++++++++++++++++++-
- device-types/rtc/device-conformance.tex |   9 +
- device-types/rtc/driver-conformance.tex |   9 +
- 4 files changed, 288 insertions(+), 4 deletions(-)
- create mode 100644 device-types/rtc/device-conformance.tex
- create mode 100644 device-types/rtc/driver-conformance.tex
+So I guess this patch is right, since here we are talking about spec 
+changes.
 
-diff --git a/conformance.tex b/conformance.tex
-index d92a2369488e..4ce86a525e84 100644
---- a/conformance.tex
-+++ b/conformance.tex
-@@ -162,6 +162,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \input{device-types/pmem/driver-conformance.tex}
- \input{device-types/can/driver-conformance.tex}
- \input{device-types/spi/driver-conformance.tex}
-+\input{device-types/rtc/driver-conformance.tex}
- 
- \conformance{\section}{Device Conformance}\label{sec:Conformance / Device Conformance}
- 
-@@ -254,6 +255,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
- \input{device-types/pmem/device-conformance.tex}
- \input{device-types/can/device-conformance.tex}
- \input{device-types/spi/device-conformance.tex}
-+\input{device-types/rtc/device-conformance.tex}
- 
- \conformance{\section}{Legacy Interface: Transitional Device and Transitional Driver Conformance}\label{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}
- A conformant implementation MUST be either transitional or
-diff --git a/device-types/rtc/description.tex b/device-types/rtc/description.tex
-index 5d8cf91a6991..f2a3907de511 100644
---- a/device-types/rtc/description.tex
-+++ b/device-types/rtc/description.tex
-@@ -73,7 +73,7 @@ \subsection{Device Operation}\label{sec:Device Types / RTC Device / Device Opera
- VIRTIO_RTC_S_EOPNOTSUPP indicates that the device could not execute the
- specific request due to an implementation limitation. The device also
- returns status VIRTIO_RTC_S_EOPNOTSUPP for requests with unknown values
--in the fields \field{msg_type} or \field{hw_counter}.
-+in the \field{msg_type} or \field{hw_counter} fields.
- 
- VIRTIO_RTC_S_ENODEV indicates that the \field{clock_id} field value
- supplied with the request does not identify a clock.
-@@ -98,6 +98,106 @@ \subsection{Device Operation}\label{sec:Device Types / RTC Device / Device Opera
- zero-based, dense indices. All fields named \field{clock_id} contain
- clock identifiers.
- 
-+\drivernormative{\subsubsection}{Device Operation}{Device Types / RTC Device / Device Operation}
-+
-+If the \field{struct virtio_rtc_resp_head} field \field{status} is not
-+VIRTIO_RTC_S_OK, the driver MUST NOT interpret response fields other
-+than \field{status}.
-+
-+The driver MUST set \emph{reserved} fields in the device-readable part
-+of the message to zero.
-+
-+The driver MUST set unnamed bits in \emph{flags} fields in the
-+device-readable part of the message to zero.
-+
-+The driver MUST NOT interpret \emph{reserved} fields in the
-+device-writable part of the message.
-+
-+The driver MUST NOT interpret unnamed bits in \emph{flags} fields in the
-+device-writable part of the message.
-+
-+The driver MUST put the request into the device-readable part of the
-+message.
-+
-+The driver MUST allocate enough space for the response in the
-+device-writable part of a requestq message.
-+
-+\devicenormative{\subsubsection}{Device Operation}{Device Types / RTC Device / Device Operation}
-+
-+For \field{struct virtio_rtc_resp_head}, the device MUST set the
-+\field{status} field to VIRTIO_RTC_S_OK if the device successfully
-+executed the request.
-+
-+For \field{struct virtio_rtc_resp_head}, the device MUST set the
-+\field{status} field to a status other than VIRTIO_RTC_S_OK if the
-+device did not successfully execute the request.
-+
-+For \field{struct virtio_rtc_resp_head}, the device MUST set the
-+\field{status} field to VIRTIO_RTC_S_EOPNOTSUPP if the device could not
-+execute the specific request due to an implementation limitation.
-+
-+For \field{struct virtio_rtc_resp_head}, the device MUST set the
-+\field{status} field to VIRTIO_RTC_S_EOPNOTSUPP for a request with a
-+value of the \field{msg_type} field which is not described in this
-+specification.
-+
-+For \field{struct virtio_rtc_resp_head}, the device MUST set the
-+\field{status} field to VIRTIO_RTC_S_EOPNOTSUPP for a request with a
-+value of the \field{hw_counter} field which is neither described in this
-+specification nor otherwise known to the implementation.
-+
-+For \field{struct virtio_rtc_resp_head}, the device MUST set the
-+\field{status} field to VIRTIO_RTC_S_ENODEV if the \field{clock_id}
-+field value supplied with the request does not identify a clock.
-+
-+For \field{struct virtio_rtc_resp_head}, the device MUST set the
-+\field{status} field to VIRTIO_RTC_S_EINVAL if the request values are
-+inconsistent with the specification and if the inconsistence is not
-+described by the requirements which stipulate status
-+VIRTIO_RTC_S_EOPNOTSUPP or VIRTIO_RTC_S_ENODEV.
-+
-+For \field{struct virtio_rtc_resp_head}, the device MUST set the
-+\field{status} field to VIRTIO_RTC_S_EINVAL if the request specified in
-+the request header through the \field{msg_type} field does not fit into
-+the device read-only part of the actual message.
-+
-+For \field{struct virtio_rtc_resp_head}, the device MUST set the
-+\field{status} field to VIRTIO_RTC_S_EINVAL if the response specified in
-+the request header through the \field{msg_type} field does not fit into
-+the device write-only part of the actual message, unless the
-+\field{status} field does not fit into the device write-only part.
-+
-+For \field{struct virtio_rtc_resp_head}, the device MUST NOT set the
-+\field{status} field if the \field{status} field does not fit into the
-+device write-only part.
-+
-+For \field{struct virtio_rtc_resp_head}, the device MUST set the
-+\field{status} field to VIRTIO_RTC_S_EIO if none of the previous
-+requirements in this document stipulated another \field{status}.
-+
-+If the device read-only part of a message M is bigger than the size of
-+the request specified for message M, the device MUST ignore the
-+additional space.
-+
-+If the device write-only part of a message M is bigger than the size of
-+the response specified for message M, the device MUST ignore the
-+additional space.
-+
-+The device MUST set \emph{reserved} fields in the device-writable part
-+of the message to zero.
-+
-+The device MUST set unnamed bits in \emph{flags} fields in the
-+device-writable part of the message to zero.
-+
-+After feature negotiation completion the device MUST NOT change the set
-+of clocks until device reset.
-+
-+The device SHOULD NOT change the set of clocks on a device reset after
-+the first device reset.
-+
-+The device MUST use non-negative integers, which are smaller than the
-+number of clocks, as clock identifiers.
-+
- \subsubsection{Common Definitions}\label{sec:Device Types / RTC Device / Device Operation / Common Definitions}
- 
- This section makes common definitions.
-@@ -253,7 +353,7 @@ \subsubsection{Control Requests}\label{sec:Device Types / RTC Device / Device Op
- };
- \end{lstlisting}
- 
--Field \field{num_clocks} contains the number of clocks. A device
-+The \field{num_clocks} field contains the number of clocks. A device
- provides zero or more clocks. Valid clock ids are those smaller than
- \field{num_clocks}.
- 
-@@ -281,8 +381,8 @@ \subsubsection{Control Requests}\label{sec:Device Types / RTC Device / Device Op
- zero or more clocks for a clock type.
- 
- Clocks of type VIRTIO_RTC_CLOCK_UTC_SMEARED indicate the \emph{smearing
--variant} through field \field{leap_second_smearing}. All other clocks
--set \field{leap_second_smearing} to VIRTIO_RTC_SMEAR_UNSPECIFIED.
-+variant} through the \field{leap_second_smearing} field. All other
-+clocks set \field{leap_second_smearing} to VIRTIO_RTC_SMEAR_UNSPECIFIED.
- 
- \item[VIRTIO_RTC_REQ_CROSS_CAP] discovers whether the device supports
- cross-timestamping for a particular pair of clock and hardware counter.
-@@ -315,6 +415,103 @@ \subsubsection{Control Requests}\label{sec:Device Types / RTC Device / Device Op
- 
- \end{description}
- 
-+\drivernormative{\paragraph}{Control Requests}{Device Types / RTC Device / Device Operation / Control Requests}
-+
-+For VIRTIO_RTC_REQ_CROSS_CAP, the driver MUST set \field{hw_counter} to
-+one of the hardware counter identifiers defined in this specification,
-+or to a value between 0xF0 and 0xFE.
-+
-+\devicenormative{\paragraph}{Control Requests}{Device Types / RTC Device / Device Operation / Control Requests}
-+
-+For any clock of type VIRTIO_RTC_CLOCK_UTC, the device MUST use the UTC
-+time standard (Coordinated Universal Time).
-+
-+For any clock of type VIRTIO_RTC_CLOCK_UTC_SMEARED or
-+VIRTIO_RTC_CLOCK_UTC_MAYBE_SMEARED, the device MUST use the UTC time
-+standard, insofar as the following requirements do not say otherwise.
-+
-+For any UTC-like clock, the device MUST use the time epoch of January 1,
-+1970, 00:00 UTC.
-+
-+For any UTC-like clock, the device MUST count seconds since the epoch
-+according to \hyperref[intro:EPOCH]{EPOCH}.
-+
-+For any clock of type VIRTIO_RTC_CLOCK_UTC, the device MUST apply a
-+positive leap second according to the UTC time standard by
-+instantaneously stepping the clock backwards by 1 s at the start of the
-+leap second.
-+
-+For any clock of type VIRTIO_RTC_CLOCK_UTC, the device MUST apply a
-+negative leap second according to the UTC time standard by
-+instantaneously stepping the clock forward by 1 s at the start of the
-+leap second.
-+
-+For any leap smearing clock, the device MUST NOT step the clock due to a
-+leap second.
-+
-+For any leap smearing clock, on a positive leap second, the device MUST
-+slow down the clock during part of the day containing the leap second
-+and/or part of the day after the leap second.
-+
-+For any leap smearing clock, on a negative leap second, the device MUST
-+speed up the clock during part of the day containing the leap second
-+and/or part of the day after the leap second.
-+
-+For any clock with smearing variant VIRTIO_RTC_SMEAR_NOON_LINEAR, on a
-+leap second, the device MUST change the frequency of the clock exactly
-+from noon prior to the leap second until noon after the leap second.
-+
-+For any clock with smearing variant VIRTIO_RTC_SMEAR_NOON_LINEAR, while
-+changing the frequency of the clock due to a positive leap second, the
-+device MUST decrease the frequency of the clock by $1/86400$.
-+
-+For any clock with smearing variant VIRTIO_RTC_SMEAR_NOON_LINEAR, while
-+changing the frequency of the clock due to a negative leap second, the
-+device MUST increase the frequency of the clock by $1/86400$.
-+
-+For any clock with smearing variant VIRTIO_RTC_SMEAR_UTC_SLS, on a leap
-+second, the device MUST change the frequency of the clock exactly during
-+the last 1000 seconds of the day with the leap second.
-+
-+For any clock with smearing variant VIRTIO_RTC_SMEAR_UTC_SLS, while
-+changing the frequency of the clock due to a positive leap second, the
-+device MUST decrease the frequency of the clock by 0.1\%.
-+
-+For any clock with smearing variant VIRTIO_RTC_SMEAR_UTC_SLS, while
-+changing the frequency of the clock due to a negative leap second, the
-+device MUST increase the frequency of the clock by 0.1\%.
-+
-+For any clock of type VIRTIO_RTC_CLOCK_UTC_MAYBE_SMEARED, the device MAY
-+deviate from the UTC standard with respect to leap second introduction.
-+
-+For any clock of type VIRTIO_RTC_CLOCK_TAI, the device MUST use the TAI
-+time standard (International Atomic Time).
-+
-+For any clock of type VIRTIO_RTC_CLOCK_TAI, the device MUST use the time
-+epoch of January 1, 1970, 00:00 TAI.
-+
-+For any clock of type VIRTIO_RTC_CLOCK_MONOTONIC, the device MUST use SI
-+seconds subdivisions.
-+
-+For any clock of type VIRTIO_RTC_CLOCK_MONOTONIC, the device MUST use an
-+epoch at a time instant before or during device reset.
-+
-+For VIRTIO_RTC_REQ_CLOCK_CAP, and clock types other than
-+VIRTIO_RTC_CLOCK_UTC_SMEARED, the device MUST set the
-+\field{leap_second_smearing} field to VIRTIO_RTC_SMEAR_UNSPECIFIED.
-+
-+For VIRTIO_RTC_REQ_CLOCK_CAP, and clock type
-+VIRTIO_RTC_CLOCK_UTC_SMEARED, the device MUST set the
-+\field{leap_second_smearing} field to VIRTIO_RTC_SMEAR_UNSPECIFIED,
-+VIRTIO_RTC_SMEAR_NOON_LINEAR, VIRTIO_RTC_SMEAR_UTC_SLS, or to a value
-+greater than or equal to 0xF0.
-+
-+For a VIRTIO_RTC_REQ_CROSS_CAP message M, the device MUST set the
-+VIRTIO_RTC_FLAG_CROSS_CAP flag in the \field{flags} field if the device
-+would respond to a VIRTIO_RTC_REQ_READ_CROSS message with the same
-+\field{hw_counter} and \field{clock_id} values as in M with status
-+VIRTIO_RTC_S_OK, and clear the flag otherwise.
-+
- \subsubsection{Read Requests}\label{sec:Device Types / RTC Device / Device Operation / Read Requests}
- 
- Through \emph{read requests}, the driver requests clock readings from
-@@ -426,3 +623,70 @@ \subsubsection{Read Requests}\label{sec:Device Types / RTC Device / Device Opera
- \ref{sec:Device Types / RTC Device / Device Operation / Common Definitions / Hardware Counters}.
- 
- \end{description}
-+
-+\drivernormative{\paragraph}{Read Requests}{Device Types / RTC Device / Device Operation / Read Requests}
-+
-+For VIRTIO_RTC_REQ_READ_CROSS, the driver MUST set \field{hw_counter} to
-+one of the hardware counter identifiers defined in this specification,
-+or to a value between 0xF0 and 0xFE.
-+
-+\devicenormative{\paragraph}{Read Requests}{Device Types / RTC Device / Device Operation / Read Requests}
-+
-+The device SHOULD continuously support reading of all clocks once
-+DRIVER_OK has been set.
-+
-+For any clock C and read requests \emph{A} and \emph{B} which read C,
-+\emph{A} being the message which the driver marks as available before
-+\emph{B}, the device MUST obtain the \field{clock_reading} value for the
-+message \emph{A} response before the \field{clock_reading} value for the
-+message \emph{B} response, or the device MUST obtain the same
-+\field{clock_reading} value for both \emph{A} and \emph{B}.
-+
-+For any clock C, the device MUST mark all read requests reading C as
-+used in the total order in which the driver marked these messages as
-+available.
-+
-+For any clock C of type VIRTIO_RTC_CLOCK_MONOTONIC and read requests
-+\emph{A} and \emph{B} which read C, \emph{A} being the message which the
-+driver marks as available before \emph{B}, the device MUST set the
-+\field{clock_reading} value for the message \emph{B} response to a value
-+greater than or equal to the \field{clock_reading} value for the message
-+\emph{A} response.
-+
-+The device MUST support VIRTIO_RTC_REQ_READ for every clock.
-+
-+For VIRTIO_RTC_REQ_READ and for any clock type listed in this
-+specification, the device MUST use the nanosecond as unit for the
-+\field{clock_reading} field.
-+
-+For read requests, the device MUST obtain the \field{clock_reading}
-+response value after the read request is marked as available.
-+
-+For VIRTIO_RTC_REQ_READ_CROSS, the device MUST set
-+\field{counter_cycles} to a value which approximates the value which the
-+driver would have read from the hardware counter identified by
-+\field{hw_counter} at the time instant when the device read the
-+\field{clock_reading} value.
-+
-+For VIRTIO_RTC_REQ_READ_CROSS, the device SHOULD assume that the driver
-+reads the hardware counter identified by \field{hw_counter} through the
-+CPU which the driver enumerates as the first.
-+
-+For VIRTIO_RTC_REQ_READ_CROSS, the device MUST set \field{status} to a
-+value other than VIRTIO_RTC_S_OK if the device cannot determine the
-+approximate value which the driver would have read from the hardware
-+counter identified by \field{hw_counter} at the time instant when the
-+device read the \field{clock_reading} value.
-+
-+For any clock C, and VIRTIO_RTC_REQ_READ_CROSS messages \emph{A} and
-+\emph{B} which read C and which specify the same hardware counter
-+\emph{H} through the \field{hw_counter} field, \emph{A} being the
-+message which the driver marks as available before \emph{B}, the device
-+MUST set the \field{counter_cycles} value for \emph{B} to a value which
-+\emph{H} shows after the \field{counter_cycles} value of \emph{A}, or
-+the device MUST set the same \field{counter_cycles} value for \emph{A}
-+and \emph{B}.
-+
-+For VIRTIO_RTC_REQ_READ_CROSS and for any clock type listed in this
-+specification, the device MUST use the nanosecond as unit for the
-+\field{clock_reading} field.
-diff --git a/device-types/rtc/device-conformance.tex b/device-types/rtc/device-conformance.tex
-new file mode 100644
-index 000000000000..4303cd450542
---- /dev/null
-+++ b/device-types/rtc/device-conformance.tex
-@@ -0,0 +1,9 @@
-+\conformance{\subsection}{RTC Device Conformance}\label{sec:Conformance / Device Conformance / RTC Device Conformance}
-+
-+An RTC device MUST conform to the following normative statements:
-+
-+\begin{itemize}
-+\item \ref{devicenormative:Device Types / RTC Device / Device Operation}
-+\item \ref{devicenormative:Device Types / RTC Device / Device Operation / Control Requests}
-+\item \ref{devicenormative:Device Types / RTC Device / Device Operation / Read Requests}
-+\end{itemize}
-diff --git a/device-types/rtc/driver-conformance.tex b/device-types/rtc/driver-conformance.tex
-new file mode 100644
-index 000000000000..689c18d158d0
---- /dev/null
-+++ b/device-types/rtc/driver-conformance.tex
-@@ -0,0 +1,9 @@
-+\conformance{\subsection}{RTC Driver Conformance}\label{sec:Conformance / Driver Conformance / RTC Driver Conformance}
-+
-+An RTC driver MUST conform to the following normative statements:
-+
-+\begin{itemize}
-+\item \ref{drivernormative:Device Types / RTC Device / Device Operation}
-+\item \ref{drivernormative:Device Types / RTC Device / Device Operation / Control Requests}
-+\item \ref{drivernormative:Device Types / RTC Device / Device Operation / Read Requests}
-+\end{itemize}
--- 
-2.43.0
+BTW I'm honest, I'm always confused about virtio-comment and virtio-dev 
+xD, so another "Thank you" to Matias for this patch!
+
+>
+> This also matches what I found in my .git/config where gitpublishto was
+> set to virtio-dev rather than virtio-comment.
+
+IIUC this is wrong, you should use virtio-comment for spec changes.
+
+Thanks,
+Stefano
 
