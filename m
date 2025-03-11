@@ -1,58 +1,58 @@
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (mail-dm6nam11on2085.outbound.protection.outlook.com [40.107.223.85])
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (mail-bn7nam10on2060.outbound.protection.outlook.com [40.107.92.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08CE566A
-	for <virtio-comment@lists.linux.dev>; Tue, 11 Mar 2025 03:27:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.223.85
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FCC1D555
+	for <virtio-comment@lists.linux.dev>; Tue, 11 Mar 2025 04:00:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.92.60
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1741663655; cv=fail; b=titUNk5zCzWkwjVz1b7p0tS68z1yhHUJPoEPE+6quElB6QDHDuoZnlPggeNH9pPYLU5HoZa2YXzHvO84hjIiys6Z88/JnoBx4Yo9YezMNsY7fhr854onbdTg/E7TMdrbcMVCwY1cCM9PjfLAdWU5wg0WxNEA0eLskJZKtpiBgdA=
+	t=1741665652; cv=fail; b=TN6Y1FYFJ+uj08QsVYsaGw8Z3xeCKQ2fGXwI5KZ9tug4ZRGC7oZqFvhM57MQJIOO4gzYuhN6jrJGP/YmLAMg4mjtBwFGD6OOcINEVZRCF9oukEWkfe/myyGkHZCR/kQ+EicTQiJeofTUtvekTR/cnUQiXrPT5OWiBaReVkqGhxE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1741663655; c=relaxed/simple;
-	bh=fsPeKVlQ2dYYbdqWiiIRLX/2GZZtwm4k9XDFgrx6M5w=;
+	s=arc-20240116; t=1741665652; c=relaxed/simple;
+	bh=LImwHobWT0knlnDHWlEk8xdZeMdTBCM3w73QiMa+k8E=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=K6Zpu/mtT35s7Duok/Dt1JjZ0LlrjDSNtsJCIXJoPjmrIGHiruApDNPHH0/xQhXVeamGDsObhhnn211ENOdIceDMaMjo7gr4Al7+1uFi8/Jz8UJS1ScPpFO5vAmLkvgnpWmuKiI1k4NgDIZWTeTSJV/swshMGx4R+26uITBNP8k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=TYH+lxm/; arc=fail smtp.client-ip=40.107.223.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	 Content-Type:MIME-Version; b=mJ7PR+BBEE1Mk9wJY+MKTZZz4jBEKePh1dimSvsbOe6ZxEt1OFEc5vvzQccO/hxG78CI4JWJqLPDNFgOPLq7baBAtzwq1k4rx/J+s5idUApa7RuUWaJ8fG8+5vE4dAxMMMhbIPccIXYZrXeWIwKKKqGLTfqime1EMvDrBFWWR3c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=qcW257it; arc=fail smtp.client-ip=40.107.92.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="TYH+lxm/"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="qcW257it"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f9J0zM4ubYZSh7Umt8vytYYln+jPMbNKtJW2l4ASmjxIRR4sUu6y6wLaW4anaMPspjXfMZyYsFN2L21E2oQ242zikj5CluBcd2ZNpS0ZjM9UchpFZIbS9WVisA257tiktQ8BqlrZCO+H1jmBCjIY37aWXcY2sxDBl9LftZ6haMQ+BEs3USACEFEoRBcrrQXgF5LvylGoHSBmcbTQAqoVrvCDsoKCDfm3V0rXhJ0S5/7zQrqZa9/B7XEqqygaYUHxQ1tnkZFmV6PsGvd/9qeQurrKtvs6kZRWCbfSOM0Y2+awO+8MG+mB07RXpnce0czLgAfDpnsjDQ2o+4GyK3PJXw==
+ b=c6iB21r0aaWaaVv6obI+5zQfYWfmUEeaghUzVHFwhjifgKNKnGr1fRzuGawvSkUvcYMsi8133WKd6lp73k284x9nIDz5mCpt2LyZyX4rNSYgRxZO0BI5cYza/lB/mLrEGRIeJE6J/cD1f54T7JKddChRBmPGIg6d4AczLaKxOFjCvOr9s9p+VihNfqHMomTemug5hAya436Iql1tit4j18xf0MTk+4F6MrdCgELLZuBJFNrDeCqBMmIiOvDkUnNshzFUJBFDBI7oOgxwRw5Vt3b84eceDbgd7qpAqMbHli4zvCzowMlGGR5iEjfqkjLYtUVxsrAB9g/qR35LZYWM+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fsPeKVlQ2dYYbdqWiiIRLX/2GZZtwm4k9XDFgrx6M5w=;
- b=c0hCCeQWervPO7RBaKbgOuvB2X0ai89fkYAXvisZkpOEoamn9Gvh+lVq5vtMooE8CB4Ds61YqOxVhq7qf0gSEvpd/6ljwgAJc2F92//Id3Z5tVnOHDqVjWsfqk7E5dmI8U4GP3aHQUqGwzff+/ClXm1agQcvaDWEzhg400x/U7rOV4LhbMOro8j8hVOIUU7197fP+1+9oYKeaj4d6/KljJ2mN259rC4GznaJXDSLdp/5/nqXOsx/Besv6+wlr6QiA6EtZ3v5aRv5Nc7MQ5S+9IYzRzAmXTakmLqTJRIyiwznf/+/c8GjoyIjI392FlBJDvz5SD/LsnbX9L16XAP3kw==
+ bh=xXGW09nQoUviMpdrfiG+X/mqBW2yr2iO3B8wUUwpXTU=;
+ b=Es2hRu98TifN0ilh37H+DjLS8CpQNcsUodpfeJoJOxb3c/Um0jl5J4B5k1czOGYlqsFy+PARRhkQ32H6hfoqpSZknoO9Gez8s4UFjkRYQ+Vu39zX9X6Cz8bayML8ilzS1SmY0cQ7ofnbGQ9k8vi7TCJNWbVEpSXXsongBnSVI6ixB/sdPcmJczHOkFyLm3pw3Rh3uC1MrxlpiJTGXPtqcmdTNAlLGABfS4/ez+9RqVIZk33UaTDqQqIUfOQCOvmTubrejbpoam69ZcFaLEnYpKP/MERzWW6/M/4ZZvw2StqBuHuV1jYLhuIHvQ4XAasRpHkV/rFPjfCQOIBBgt5jdQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fsPeKVlQ2dYYbdqWiiIRLX/2GZZtwm4k9XDFgrx6M5w=;
- b=TYH+lxm/EE/+0tF9pA+hoxdvD47QHFOMZiLgYFSeMb408lBx+b+fqtlMgQhS9AF+8Nhe3+yDHO+0RlBnArfPvwQip3HY1wTvyCWazsNgBROzEtt8/Yc8UG/UNa262BRIi1mm2Vri2abVTJ33ZICHpAHWQnwZ/YMGLM+qe1kM+uc=
-Received: from IA1PR12MB6532.namprd12.prod.outlook.com (2603:10b6:208:3a3::12)
- by IA1PR12MB6139.namprd12.prod.outlook.com (2603:10b6:208:3e9::16) with
+ bh=xXGW09nQoUviMpdrfiG+X/mqBW2yr2iO3B8wUUwpXTU=;
+ b=qcW257itQJmY8g9uy84MwvmzMOCbeuxr4TezWztn7/fWZkAMey5qDmoc7Y9g4JIaTJjlknVr96AWcuRfqu8wFYG5WBU7Ghwub0PW7KqDQLPQ7PoADwX16a/JGbFGVttFViD8ueppgReObGbGmiGMi2bRBdTLDEjQU1vwrVEa0hAEalSmwZOu3CIfydiQZclWZ4xcjjjCZeNQcLIrRXdSLpjUirzPN+aK/nFjIChtHlozLMEaiX2rLrYpKMd09AARxcrfVPQQdefUM4mWsUeFZv+jYIiJ8b0rF6UgHcbaGURrhBjHPM4u5OKigx8Lv/EFQ3yTvVz/BZlitMsgUUMSNw==
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
+ by IA1PR12MB7566.namprd12.prod.outlook.com (2603:10b6:208:42e::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Tue, 11 Mar
- 2025 03:27:30 +0000
-Received: from IA1PR12MB6532.namprd12.prod.outlook.com
- ([fe80::dc05:a63a:39fa:ff0b]) by IA1PR12MB6532.namprd12.prod.outlook.com
- ([fe80::dc05:a63a:39fa:ff0b%7]) with mapi id 15.20.8511.026; Tue, 11 Mar 2025
- 03:27:30 +0000
-From: "Zhang, Julia" <Julia.Zhang@amd.com>
-To: Parav Pandit <parav@nvidia.com>, "Zhang, Julia" <Julia.Zhang@amd.com>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, "Michael S
- . Tsirkin" <mst@redhat.com>
+ 2025 04:00:45 +0000
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::c06c:905a:63f8:9cd]) by CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::c06c:905a:63f8:9cd%3]) with mapi id 15.20.8511.026; Tue, 11 Mar 2025
+ 04:00:45 +0000
+From: Parav Pandit <parav@nvidia.com>
+To: "Zhang, Julia" <Julia.Zhang@amd.com>, "virtio-comment@lists.linux.dev"
+	<virtio-comment@lists.linux.dev>, "Michael S . Tsirkin" <mst@redhat.com>
 CC: "Chen, Jiqian" <Jiqian.Chen@amd.com>, "Zhu, Lingshan"
 	<Lingshan.Zhu@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, Matias Ezequiel
  Vara Larsen <mvaralar@redhat.com>
-Subject: Re: [PATCH v2 1/1] virtio-gpu: get p2pdma distance
+Subject: RE: [PATCH v2 1/1] virtio-gpu: get p2pdma distance
 Thread-Topic: [PATCH v2 1/1] virtio-gpu: get p2pdma distance
 Thread-Index:
- AQHbiDDqEEldwfUQwEWlrThUs+ZiJLNZaHcAgAuAK4CAAKefAIAAtF0AgAWJooCAAMV1AP//p4KAgAGlUQA=
-Date: Tue, 11 Mar 2025 03:27:30 +0000
+ AQHbiDDvdx0hNqTsk0elfmK82iBGrrNZZ+iQgAr+CgCAASisMIAAMHuAgAYLvtCAAENTAIAAK3ywgAEhAgCAAAdoAA==
+Date: Tue, 11 Mar 2025 04:00:44 +0000
 Message-ID:
- <IA1PR12MB6532B13A9BE99961E6D79722F2D12@IA1PR12MB6532.namprd12.prod.outlook.com>
+ <CY8PR12MB71950B845BB9E5C10D864F39DCD12@CY8PR12MB7195.namprd12.prod.outlook.com>
 References: <20250226092753.1082042-1-julia.zhang@amd.com>
  <CY8PR12MB71955656F340C5EAC2F1C925DCC22@CY8PR12MB7195.namprd12.prod.outlook.com>
  <IA1PR12MB65328A537B37ED3A091A8407F2CB2@IA1PR12MB6532.namprd12.prod.outlook.com>
@@ -61,358 +61,506 @@ References: <20250226092753.1082042-1-julia.zhang@amd.com>
  <CY8PR12MB7195D7401E120B34306AD4E5DCD62@CY8PR12MB7195.namprd12.prod.outlook.com>
  <IA1PR12MB6532E2CFEC070CFDF3D4E115F2D62@IA1PR12MB6532.namprd12.prod.outlook.com>
  <CY8PR12MB719585647964E525917BD761DCD62@CY8PR12MB7195.namprd12.prod.outlook.com>
+ <IA1PR12MB6532B13A9BE99961E6D79722F2D12@IA1PR12MB6532.namprd12.prod.outlook.com>
 In-Reply-To:
- <CY8PR12MB719585647964E525917BD761DCD62@CY8PR12MB7195.namprd12.prod.outlook.com>
+ <IA1PR12MB6532B13A9BE99961E6D79722F2D12@IA1PR12MB6532.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
-x-ms-exchange-imapappendstamp: IA1PR12MB6532.namprd12.prod.outlook.com
- (15.20.8511.025)
 authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-exchange-messagesentrepresentingtype: 1
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA1PR12MB6532:EE_|IA1PR12MB6139:EE_
-x-ms-office365-filtering-correlation-id: 4921f781-704d-4cf5-3b50-08dd604ca7b8
+x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|IA1PR12MB7566:EE_
+x-ms-office365-filtering-correlation-id: 583de8e3-acd3-4b90-dfd1-08dd60514ca1
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
 x-microsoft-antispam-message-info:
- =?utf-8?B?Q3ZodHZSOVhOTlVlK3QwQUNoVHJyVndCTmZ5bGxza3VPczFrWjdOcHBYMk95?=
- =?utf-8?B?M1hnRzBRRm9KYVdXN1lxb0R6T3BES1RoMTZQQ1k1cGJoWlZvQVZlSkVpc1dQ?=
- =?utf-8?B?YUlmMkZyMDBnQVRnYWtTZVMxNmgrOEZiT0s1UjlTUXliTVo2SkJPTEhQQzlF?=
- =?utf-8?B?WWJnQ01mRng1cjFSR0dpVmwvZDBrZGhIVFlkQlk2RjJUdkM0Zk5YWjA4Znlt?=
- =?utf-8?B?emIySTE3OWE1S3pCMmVDbGNhZEZueU9BbXhUK0tlZGRZOEZRMTFSVWE4Y2ll?=
- =?utf-8?B?alNVQXRzZjlEYnh1K0hYMGV5SVJiM3ZFdEVJYm92SEZHUUpMOGhlTnpNODE4?=
- =?utf-8?B?dlo4c1dIcEpQQVhQZVo3QkVRRVpoait5TExhOU9iTzZSaGVETUphVjFnWXkw?=
- =?utf-8?B?VUtFOTJNQ1UrKzEzalhTQlF4YjNjdVJOQnc4SUc5RVV3WGdaZS9zbVZkL3dX?=
- =?utf-8?B?Vmt4cytMWS9qN1dRbW44WWI4MlRCellvSmg1ZndXY3ZmNzE2NmwrVEpiN28w?=
- =?utf-8?B?Y3lMajFzT3dlMUJRMDlTOURRck9BS0lxSGxpZU1wRW9qcm0rRkpYOTBzWkJJ?=
- =?utf-8?B?d2ZyaUpmTXYzN1R5Ym54NHZnYjdKYzc5WFJTV0YxeGsrY0twOEhkejA3em1Q?=
- =?utf-8?B?bnBNejVySUVtOWo3ZzVsWFh4Y3UxMCtMajVENGNyQWpSMUZpTHBxNEtYTVBC?=
- =?utf-8?B?cnRBSVJBR2NXakRIVklvYlE5VW9pWUh4cFhKSUNCUTR2VXArOE5NbXR5Uytq?=
- =?utf-8?B?RHErMzhVY0pSdElBYkpSTkFoOGtSTGsxMW55NTVRUnl2cGpzTEhiSE8yeGdy?=
- =?utf-8?B?S2phUDVQMG1HMmxQUEJoYVFiSXJjUHFRYnhJN0F2SzU5NDBJalJoL3hFNmxU?=
- =?utf-8?B?TXRmWUZpYmJsSWFlTHZ3N3hFUGdLMlErd3o0Wm1hTmxhamFEc0VETTdiQzZT?=
- =?utf-8?B?M1IyeHgvQkJCR0g0NDBvOG1WMTJJZ21SaC9RK2pDak4rcDdiRkphTjU3OWpZ?=
- =?utf-8?B?MU9HWndSc0V3Njk3SjVNU0JkNVhSRk1nbTV5eWg1YjBtWnczeW9jeXJKaUE1?=
- =?utf-8?B?NWhQUXNFRzRJRzY5ckI2cWxvbGxWWm9JK0xxaGZoakh5MEV4ZnBnaFdtZXJw?=
- =?utf-8?B?ODkydkp0RlVFOEdIS2lSeElJUmg0bmlNVko3NHExVjZWM0g1VlptZDlqdUJM?=
- =?utf-8?B?T1Y4bHR6SzZDWkhON08rWmpRaWVDTnZBNlZQNzZvYVh0cW1XLzVoZExRZ1NN?=
- =?utf-8?B?Wnk5OTFDTTZ5TUxqZFZWTXhLMmUzelJScU5DT29QUjgzK1kvNUgyK3V3Tnd6?=
- =?utf-8?B?ampGRGZKQ1F3cTBTOHkwb1hWQzQ1a0thNkF6ZTNYN0VLTkFQVVVNd08vU1JQ?=
- =?utf-8?B?RnRWdHc2eDRkT1JUejRSRGdJWHdsZUpzQWRYM0c0R1p0SEpFaFY1K2l0S3FM?=
- =?utf-8?B?YkoySStKeUJiZlJVNHpQMW94MlhPb3hybHhiVEZ2UjBpZFVYYmFvQXZ1MGlS?=
- =?utf-8?B?Zk41aEFGZUk3M2phTEExQmVMMWh5VEdDa1hLWWhvUWZNV0JvSmROOUdLMDVY?=
- =?utf-8?B?RkZoN2dZM0ozR2szdU53WUhkOGdwNS8xc1JzT1lPQ2NQa29zYnFGbWF0Z0Jk?=
- =?utf-8?B?QndTS1Z6bitkQjQ0ODh2WU51NGZFdlRDODh4ZEwvMCtuWW1Za3ZESk41eXRv?=
- =?utf-8?B?b0l0cnVYZXNzWnFEZDMxOU1pb0s4TXZyYnhYYzBoYzVMeEEybURqdEU2c1hl?=
- =?utf-8?B?WjJVU2dJQjRMRHV5dkpUQjBRK3d2ZnVqNEp0NFA1Z01heTJoV2FiK1Rrblhn?=
- =?utf-8?B?amtjZTFQZGwrNHpUOEdHUFI3K2R6ZU4xVWFBckxQaXBKbUZ5UGpGeHUvc21Z?=
- =?utf-8?B?MVk1cTNISi82MDVGZ2s5N0djcXYraTVYUTdIMmFqUXc5c042bC9zWGNScXp4?=
- =?utf-8?Q?wCNv56oZxISquOJlbodAWVLtRXz/IR5q?=
+ =?us-ascii?Q?iUu5NIlD1p1ZAMr1nrsg3Pt5lAcdv9n2V+2fCWPRolvf4Cr/he4+YKUvD3/X?=
+ =?us-ascii?Q?vbpDgm+cgbOBCUUm3Su5QgJqh6nUpIR+JSUYxOAO/KR1qeliYvWveVdY5dF1?=
+ =?us-ascii?Q?Lo15NuwXn8lXHCG3lhR/hi22u5VaIazyj1H//WGeZFeJRiJCApNuL6k6EJMd?=
+ =?us-ascii?Q?WN2Fel1FwqQeLyAwwZAQvE0fRwZ8haFXHaXKoIF6zZ8X37zCCUbJZtNyGGOd?=
+ =?us-ascii?Q?6Sa3FvA7pEBm1cd3fPE1l3mXzgo+n5kLVVfuZRWyNtTXXwDsk3NInyHnfk9N?=
+ =?us-ascii?Q?t3l+A6v/ata8nx9ekHFPZRsJDuV5p+qzKY7LbJh7oAVysSejn3a4IbE5Ueks?=
+ =?us-ascii?Q?/ZgwiT8CnioEq5FCX3SLBJpuAHm6EXrAwpRQTYcq2mZDlq8hrkwq1hk5XGPt?=
+ =?us-ascii?Q?a3iF9SiGMkq5gOemzcPPRsU1XtOlnt8Guws/3zQdDVs/oxwOMg1RI82ITDNs?=
+ =?us-ascii?Q?sqF1wHTzdSo3Qf6N/HkATqbEuDXin5r2084jJslea1S1XqMeBdfzwlmbAKYf?=
+ =?us-ascii?Q?aqvJUMteOR0COzJix0LdBomLFu9c4NZknPX2T4+RQBh2nlxJcbvT3fw24YYR?=
+ =?us-ascii?Q?bZes+6UG6mYvZRZoCcRDQU+49zoQ1PJqi/yPxsIlx7ZRdz3+1yCKmUQnYfLY?=
+ =?us-ascii?Q?+Ft+/7hxF+XQ7Rh6HqdYK+ZOGtx9cbXxgl0xaKM2MAFbkTqnZHgz/LI0bBAZ?=
+ =?us-ascii?Q?2+Cop9uSIRfiY68VUWMRqlCgccktcCHuNvcTnWKd0y06Xz9nf6a9uuZK1HvK?=
+ =?us-ascii?Q?l/uEcHRQgoHtMVi9vxyCShGf3NHbdqVMr6BmvjmZC2rMl7ppQQOkSZnB7oPx?=
+ =?us-ascii?Q?al798kZkvRAa8EfOQFCqg6LpFWrEGPcj9v5geqSBAzewMj25FOWAwHgDGfyM?=
+ =?us-ascii?Q?xeNuY7N2r8fxbdcdLj1i32ZWnZ6EGw4BB4kU8ljuDV0qtzxc+a+O8fGo74UW?=
+ =?us-ascii?Q?d3WBRG/w0N5vbq17hd+Y5ItesXc3GWbiR8hv/H6KwrQ9GVdeKn7UjHTk0oAt?=
+ =?us-ascii?Q?OdS9IHoRGHgJTMa0H/hcvA669jZFC0q/iJcBit5LsmTY6ZvHTB2QK0231cTP?=
+ =?us-ascii?Q?yv6uAa+h9HEZNXgFr+Ba5X6BfeSmLyUfelmhshs7TKWK1LGhO+ZqIaoWrrMb?=
+ =?us-ascii?Q?2kIPcMvBX1HeOcYy8pq49x2QGxE7EiA/5Ont0ws1m5gJcnorihG1V1sew6d7?=
+ =?us-ascii?Q?O4BZ4x9EAXnv6Q+CGCkO3M+dLRtUCyFHHQ+t709J3O8oKiNuQoSD7+wjD7TJ?=
+ =?us-ascii?Q?qCoLFgIVKipMIOpNzth8b4kyfPWm17Hd7GYN+HpqLKQ+ssFymqd+lSdNqoqu?=
+ =?us-ascii?Q?jO8c+3cd6yT26G2wP56AVqWD2wcvUvrPgYutqc2pxv5kuVhfVNlC4TVDewsE?=
+ =?us-ascii?Q?5MKWmaJESlHxqkKNY+VetPtDCnig63PDYTnNmooxSx5JgmxIgMoBnPINpR6f?=
+ =?us-ascii?Q?Ic17u2lF9Kymzs4tGp7vYLXesU0atiJt?=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB6532.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?RXZ0MXI2RStMRVdJR1Z5d3VDdmRnQTRyTTRNemp4dnhFWi9MYXgrdTZOUFVs?=
- =?utf-8?B?TDZ6Z09hSzNHM1NQRVBUaG5RclVMNGJ3YmhFd0kwZXJOMzR3QTZOWjJ5ZmVW?=
- =?utf-8?B?QWMrNEFKcy92VXVMc2EyWTQweDd2VlFJc0VIbFJEK0JnczQ2dUJFVTk3WVNn?=
- =?utf-8?B?NWZRTmkyMlc2cUNEZUZxWWZ4ZkVpQzREUldIdUxOUDN1TzJweUkwd0hJLzJ3?=
- =?utf-8?B?ZXpoR1N1L0xCdHFUWmVxbm1uWHp4TitScFlIVS92aE1udmJIbmpBNGxrYVBO?=
- =?utf-8?B?ditoaHJteDF4TVJrb2lPL0pWUWZmVloyV0NpZXFoUHYyckJRUjBzaTF1OGRp?=
- =?utf-8?B?c0JuQ1hvNVl0d0pLNmkvUmxVSlY3ajNZZG13MVRYM2dZSklIVkpoZ0lrV3lM?=
- =?utf-8?B?ckIxT3hsUFZWQW1tcmtDYUZvb3FIWk04KytsMDNBckFCSmlrUS95b0RVczN3?=
- =?utf-8?B?MktaWjVZM0hpSEgwRWZKZkhXWXN4b2VpNDFjWnl2WUtjZkFNbzB3NFFxSGUr?=
- =?utf-8?B?aThZQWRvMlB1eHErVkdVaVBCaGkra2xkM1RyaFZ3dFZ4aGhYM3hYUit3U0ly?=
- =?utf-8?B?MU1GVGRDTEp6d2R1U1BNcmova2d4RUhJMloxYzM1Mlp5cWxUejhsczBIcndI?=
- =?utf-8?B?QjhoT1hsUXJOMW9vMm4xSU5KdGN3U3JzUXJhbWI0ampkeXJHeVIwVGViU3Vz?=
- =?utf-8?B?djY1dVMxWUMzbnE2NXRZUGptRURLbllWUHRMNTlJVEdrNERQc1BRWE0yWlBt?=
- =?utf-8?B?c0JOdUZaeUlla2lNRVUxS3BTOFVCWXNGalYrTjVvNS9MaVhIOHFyR2ZYYUtY?=
- =?utf-8?B?OENwTkhCd1JXekxwTWhDU0c2T2xYMmJxUXNQUkozNGlQa2w2dDNCbVhERmdn?=
- =?utf-8?B?UURQTTVPaDVaZ0FKdXl3SzlvUWR5cjAzRTI1aThsTFBMVVA5VmxRMTdTTTBX?=
- =?utf-8?B?bGVIYzdLSU9sbVZRSE5KNVJTQ3dkWVhRdGRvTEtwNU5LTXRmL2liSE1PdTNX?=
- =?utf-8?B?bHM0UTJWVWdIamVZRmg1RG9GR1d6V0UxcEUrd01uT0R5Y3FwL0dKYW1OWXZQ?=
- =?utf-8?B?SlhCS1Roemk2RFBLbG9ZOU90ZEZiZW1NUUZ0RVFZZTI5T2ZNbTFjejdOTGhs?=
- =?utf-8?B?bU1vbmFtd0l6U3hCQndONHV5QjNvZTMxanpFSklTcGFBaUZlRzlLOXJXZ3Q1?=
- =?utf-8?B?bDE3STVSNTltcnNpeGtQa29nZzRCdUdaNGlLcHVUdFFsSWtlTFdCQVF5RlZQ?=
- =?utf-8?B?MWNKVkp6T2FIYURWM3pycTlpOXFHUUtkRGpjOXB5aGV0SnBnd2JzUytQTU1u?=
- =?utf-8?B?VUpRQW9icWpRWGhUZlozM01xa2dSQWFZbm1jOHA1QjlibHdTUkNXV1p5cWNq?=
- =?utf-8?B?dCtSVnRVMWUzYitxUEFONEQ0Vk4yNWxzVnQzR01TYnJUS1hadFBweVJxSnhX?=
- =?utf-8?B?UDQzS1VHSm9FNG9qZ2FiWHYwdTNkTmttZDh0NWpmKzZza3pMeWlUZUo4REpR?=
- =?utf-8?B?ZjJkN0JoSUVZMzlQcFN6Sks3M29WWGRRZ3RnMTR2YWFUNmZ5RThOQk5CVzM4?=
- =?utf-8?B?TThmYXQ1akJPTEkybXYyZ3U4OFRSSzBpYlhEbnI2RzBQNmlTZVhVZDg1dG1t?=
- =?utf-8?B?Q2FVWUR1R0RIbXdFNUdabzUrN2xLQ3I4OVc1aktuKy8raVZTWVFsZ0dGbFhp?=
- =?utf-8?B?WStsMTR1MVV1Ylk1cy9od3RlWlpDa1VvN2o1enR4aEtWMHI1ZGlrN29WTmtr?=
- =?utf-8?B?a3lLbHhMVjBPWko5by91U1hWQmZJWWRCNklVSWxsRTdRWUo5bys4aWhqbk55?=
- =?utf-8?B?S290WUJhQWY5aGN0Z0ZlQ0NhYWxxVmN1TS9tcThnRjk0N2VBK0I2U1FDRUxi?=
- =?utf-8?B?NGJLUzU4U3hSU25sbElPMGlBVFhzM29VdUJqakVXNkdXRjc5dEwwY2MvNzJ5?=
- =?utf-8?B?d0k1dmdjYUNCNDJldmR1eWZJRXR4T0hiNXo2QlRhRDVpSnplWXkyKy9KZnFm?=
- =?utf-8?B?RFhYdE9yeTJxOEN2VG12ck5kR3d6OHlkVzVCNkltbDkxZUhUMmpnQk8xQXBY?=
- =?utf-8?B?RnExNGRCd2dUS3Brc2ZKdSt1ejk4Y01jdVZiUW9UYkZWQTVXVzhpVk9ZZDJ4?=
- =?utf-8?Q?i5PQ=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <D92633A3061DBB46A1F9F237D1FE06F4@amdcloud.onmicrosoft.com>
-Content-Transfer-Encoding: base64
+ =?us-ascii?Q?FGSIPBeGeikvkZn57oymcF8ReAv1jMhpctxbjkm7itNT198RenVsltFP5QBa?=
+ =?us-ascii?Q?XDyHMDFkWvse8Rbqxa+zNsxZZPBlx8wV0SWEZyr0aHcGXMqQF4ynyirNxw5Q?=
+ =?us-ascii?Q?q6LAE5STRRiUttufZIogNADyf7UrWgtWQXrD1jqkUyOFozFlHTRhCmB5h0dZ?=
+ =?us-ascii?Q?CtIcyTbncOhhYdX+wm3SK0WXpGx3gsc4c9vDSDJbkdcxZI9gdsSWlYMXRD0Z?=
+ =?us-ascii?Q?tp2w12IuSy5Idi4tj2LCMhi1+gWcBZzL8IN4vMT48jeM01E56tpuQD/rdyXG?=
+ =?us-ascii?Q?WkAC3J98/ujd/KlBNt6SC5GhGv3lBfXFDiJ4tmjT/lSzi5v3RDi2hCp2+IYP?=
+ =?us-ascii?Q?+aP/MIcnKBY4rGmxRfhfnGAM5Osi15y46We7lW6/akHi1M+nwLkTANpk7ybX?=
+ =?us-ascii?Q?Qr5WZn78yrJweqVaBCJbdQVB0Cd/13W5Y3dhgswIqXVrqWgEGRuOiZ5dDn6S?=
+ =?us-ascii?Q?GkqlRP2pldWoAs++2ghl/DWiXqVJsZZMI8bWhsOyqV4NLYi2DgLhm5oP59Hs?=
+ =?us-ascii?Q?Oo7TyAjLOk338TycR77fa3Nazf85uCNGEhxxOrA8rMcY0FeN5rIRSG0tRGyx?=
+ =?us-ascii?Q?56SfF5xXEDxnryxwCq1KUTU0UMlAgETWc4HtdFovEQAtfhUAMeZgP4HIVH4W?=
+ =?us-ascii?Q?MQpFlKpblK0YU0oGF9ChJQnaBnWFl/zUkxgzqUt8ePZlFKBTwvI5soZPVAgW?=
+ =?us-ascii?Q?heXONvr14avKRQfrm4foVUpRyVeDYgtL9odhhbCMW4FBhIVIHvUsie9LtPWV?=
+ =?us-ascii?Q?Kcc2e4A1R0OuClMlHP86x6s8Cj7tUSkMeDmrzo/oL1sHhKqdhX2kvTM+tc4t?=
+ =?us-ascii?Q?Em1RNw8wHSxpp1GgmQOFDNq/dhs7Ggafp/rLePl2mA/nv3t/p4K2IzarC2Re?=
+ =?us-ascii?Q?bv3DlD+oM4Zk8NgU/exgbrAKTGCUdpuhU10dsmGfQR+eTBr06S25xkicLTF2?=
+ =?us-ascii?Q?OS2gc8xbXFD4U383vknIqMjIsjevVLgMArtMEm1ANcpgOYqAO6ZYXXOW0bW2?=
+ =?us-ascii?Q?ofgtb2TWBLkEWanBW+EnNWlb2YQRno6vGS2zAdsOn6YRReskDzEmRuvErRZT?=
+ =?us-ascii?Q?hF6DkRIVJ+XYmY7g1C/tJSEQaiNxi772OubPRAvaOqN3lJQ5ztVgqa/JTnGG?=
+ =?us-ascii?Q?O3Zay0SldKQn3Sb812mGtxsdqH0LQxd+qC80LHZ3AQGwucipL8zQOWG/9SU4?=
+ =?us-ascii?Q?vhG1R5EbzZ1fkGFaSQRHwf+CpCWXRdyEnTsWBguVrHvaaL2dS6DrzvsvSys1?=
+ =?us-ascii?Q?IYlow2U36dWmNMsA3DuZxELvB4oxMOOWPQDN+2PzcnNYtkfarpLQ3zf9MCZh?=
+ =?us-ascii?Q?GQOSO0fwtIXbWHVeDLlz77ksulVOLJavTU0tgeujpJSEnIFBbCXVH7WMaepp?=
+ =?us-ascii?Q?S9AsRH9zI0IKfWFPUvAGh4w30cEQ6CB1maIQbLs0/kfeju9CW5TIxNcz9Z7c?=
+ =?us-ascii?Q?eUsff8Yfv/fvwWtfxscrBnC6Rmuo7MLStxM9jjej/bkz6vC349xmcWMJimO5?=
+ =?us-ascii?Q?VMtp4iZweRkTGBGLDsBDPE+4XClz9kKFv0zT/Lb4SZAu6gHK/YkIMPHoYcKP?=
+ =?us-ascii?Q?9bz6mKBYwXr0r3SNnu0=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
+X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6532.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4921f781-704d-4cf5-3b50-08dd604ca7b8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Mar 2025 03:27:30.3724
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 583de8e3-acd3-4b90-dfd1-08dd60514ca1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Mar 2025 04:00:45.0153
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0dZzpl4DVUWk6VfNUp+g9qv+O2d9yi83t1H8k5hfiJ7l9cnl1bOJ4cjCQ+/04KE4y03QW1AC29tiK4hIujcSog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6139
+X-MS-Exchange-CrossTenant-userprincipalname: 4RxAWEYodNmsJVZEFF7453w7Cijh84jdcpDfzroavmWwRZZgkbJwy2+JuxVHmvnLv3U5YtGOi32qzanC3snh/A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7566
 
-DQoNCk9uIDIwMjUvMy8xMCAxODoxOCwgUGFyYXYgUGFuZGl0IHdyb3RlOg0KPiANCj4+IEZyb206
-IFpoYW5nLCBKdWxpYSA8SnVsaWEuWmhhbmdAYW1kLmNvbT4NCj4+IFNlbnQ6IE1vbmRheSwgTWFy
-Y2ggMTAsIDIwMjUgMTowNyBQTQ0KPj4NCj4+IE9uIDIwMjUvMy8xMCAxMTo0OCwgUGFyYXYgUGFu
-ZGl0IHdyb3RlOg0KPj4+DQo+Pj4NCj4+Pj4gRnJvbTogWmhhbmcsIEp1bGlhIDxKdWxpYS5aaGFu
-Z0BhbWQuY29tPg0KPj4+PiBTZW50OiBUaHVyc2RheSwgTWFyY2ggNiwgMjAyNSAxMjo0NyBQTQ0K
-Pj4+Pg0KPj4+PiBPbiAyMDI1LzMvNiAxMjoyOSwgUGFyYXYgUGFuZGl0IHdyb3RlOg0KPj4+Pj4+
-IEZyb206IFpoYW5nLCBKdWxpYSA8SnVsaWEuWmhhbmdAYW1kLmNvbT4NCj4+Pj4+PiBTZW50OiBX
-ZWRuZXNkYXksIE1hcmNoIDUsIDIwMjUgNDoxMiBQTQ0KPj4+Pj4+DQo+Pj4+Pj4gT24gMjAyNS8y
-LzI2IDE4OjUxLCBQYXJhdiBQYW5kaXQgd3JvdGU6DQo+Pj4+Pj4+DQo+Pj4+Pj4+PiBGcm9tOiBK
-dWxpYSBaaGFuZyA8anVsaWEuemhhbmdAYW1kLmNvbT4NCj4+Pj4+Pj4+IFNlbnQ6IFdlZG5lc2Rh
-eSwgRmVicnVhcnkgMjYsIDIwMjUgMjo1OCBQTQ0KPj4+Pj4+Pj4gVG86IHZpcnRpby1jb21tZW50
-QGxpc3RzLmxpbnV4LmRldg0KPj4+Pj4+Pj4gQ2M6IE1pY2hhZWwgUyAuIFRzaXJraW4gPG1zdEBy
-ZWRoYXQuY29tPjsgQ2hlbiBKaXFpYW4NCj4+Pj4+Pj4+IDxKaXFpYW4uQ2hlbkBhbWQuY29tPjsg
-Wmh1IExpbmdzaGFuIDxsaW5nc2hhbi56aHVAYW1kLmNvbT47DQo+Pj4+IEh1YW5nDQo+Pj4+Pj4g
-UnVpDQo+Pj4+Pj4+PiA8cmF5Lmh1YW5nQGFtZC5jb20+OyBKdWxpYSBaaGFuZyA8anVsaWEuemhh
-bmdAYW1kLmNvbT47IE1hdGlhcw0KPj4+Pj4+Pj4gRXplcXVpZWwgVmFyYSBMYXJzZW4gPG12YXJh
-bGFyQHJlZGhhdC5jb20+DQo+Pj4+Pj4+PiBTdWJqZWN0OiBbUEFUQ0ggdjIgMS8xXSB2aXJ0aW8t
-Z3B1OiBnZXQgcDJwZG1hIGRpc3RhbmNlDQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4gUENJIHBlZXItdG8t
-cGVlciBETUEgdHJhbnNhY3Rpb24gbWF5IGJlIHVzZWQgaW4gZ3Vlc3QgZm9yIHNvbWUNCj4+Pj4g
-c2NlbmVzLg0KPj4+Pj4+Pj4gRm9yIGV4YW1wbGUsIGRHUFUgcHJpbWUgZmVhdHVyZSB3aWxsIGxl
-dCB2aXJ0aW8taUdQVSBhY2Nlc3MgdG8NCj4+Pj4+Pj4+IHBhc3N0aHJvdWdoIGRHUFUgYnVmZmVy
-Lg0KPj4+Pj4gVmlydGlvIHNwZWNpZmljYXRpb24gZG9lcyBub3QgZGVzY3JpYmUgZEdQVSBhbmQg
-aUdQVS4NCj4+Pj4+IFNvIGVpdGhlciBkZXNjcmliZSBpdCBpbiB0aGUgZGVzY3JpcHRpb24gb3Ig
-cGxlYXNlIGRyb3AgdGhhdCBhbmQNCj4+Pj4+IGV4cGxhaW4gdGhlDQo+Pj4+IG1vdGl2YXRpb24g
-d2l0aG91dCByZWZlcnJpbmcgdG8gdGhvc2UgdGVybXMuDQo+Pj4+DQo+Pj4+IE9LIEkgc2VlLg0K
-Pj4+Pg0KPj4+Pj4NCj4+Pj4+Pj4+DQo+Pj4+Pj4+PiBUbyBzdXBwb3J0IFAyUCBETUEgdHJhbnNh
-Y3Rpb24gaW4gZ3Vlc3QsIHZpcnRpby1ncHUgbmVlZHMgdG8NCj4+Pj4+Pj4+IGNoZWNrIHRoZSBj
-b21wYXRpYmlsaXR5IHdoaWNoIGlzIHJlcHJlc2VudGVkIGJ5IHAycGRtYV9kaXN0YW5jZS4NCj4+
-Pj4+Pj4+IFRoaXMgZGVmaW5lcyBhIGNvbW1hbmQgVklSVElPX0dQVV9DTURfUDJQRE1BX0RJU1RB
-TkNFIHRvDQo+PiBhbGxvdw0KPj4+PiBndWVzdA0KPj4+Pj4+IHNlbmQNCj4+Pj4+Pj4+IHZpcnR1
-YWwgcGNpIG5vdGF0aW9uIG9mIHR3byBkZXZpY2VzIHRvIGhvc3QgYW5kIGdldCBob3N0IHBoeXNp
-Y2FsDQo+Pj4+Pj4+PiBwMnBkbWFfZGlzdGFuY2Ugb2YgdGhlc2UgdHdvIFBDSSBkZXZpY2VzLg0K
-Pj4+Pj4+Pj4NCj4+Pj4+IFsuLl0NCj4+Pj4+Pj4+IElmc20xTTV4SWIzN1Q5VGclM0QmcmVzZXJ2
-ZWQ9MA0KPj4+Pj4+Pj4gU2lnbmVkLW9mZi1ieTogSnVsaWEgWmhhbmcgPGp1bGlhLnpoYW5nQGFt
-ZC5jb20+DQo+Pj4+Pj4+PiBSZXZpZXdlZC1ieTogTWF0aWFzIEV6ZXF1aWVsIFZhcmEgTGFyc2Vu
-IDxtdmFyYWxhckByZWRoYXQuY29tPg0KPj4+Pj4+Pj4gLS0tDQo+Pj4+Pj4+PiBIaSBhbGwsDQo+
-Pj4+Pj4+Pg0KPj4+Pj4+Pj4gV2UgYXJlIHRyeWluZyB0byBpbXBsZW1lbnQgZEdQVSBwcmltZSBm
-ZWF0dXJlIGluIGd1ZXN0IHdoaWNoIHdpbGwNCj4+Pj4+Pj4+IGxldA0KPj4+Pj4+Pj4gdmlydGlv
-LSBpR1BVIHJlYWQgcmVuZGVyZWQgZGF0YSBvZiBwYXNzdGhyb3VnaCBkR1BVLiBCZWZvcmUgdGhh
-dCwNCj4+Pj4+Pj4+IHZpcnRpbyBncHUgZHJpdmVyIG5lZWRzIHRvIGdldCBwMnBkbWFfZGlzdGFu
-Y2UgdG8gY2hlY2sgaWYgUDJQDQo+Pj4+Pj4+PiBETUEgdHJhbnNhY3Rpb24gaXMgcG9zc2libGUg
-b3Igbm90Lg0KPj4+Pj4+Pj4NCj4+Pj4+Pj4+IFRvIGltcGxlbWVudCBnZXR0aW5nIHAycGRtYV9k
-aXN0YW5jZSwgUUVNVSBuZWVkcyB0byBoYW5kbGUgdGhlDQo+Pj4+Pj4+PiBjb21tYW5kIGZyb20g
-Z3Vlc3Qgd2l0aCB2aXJ0dWFsIHBjaSBub3RhdGlvbnMgb2YgdHdvIFBDSSBkZXZpY2VzDQo+Pj4+
-Pj4+PiBhbmQgc2VuZCBpdCB0byBob3N0IGtlcm5lbCBhbmQgcmV0dXJuIGhvc3QgcGh5c2ljYWwg
-ZGlzdGFuY2UgYmFjaw0KPj4+Pj4+Pj4gdG8NCj4+Pj4gZ3Vlc3QuDQo+Pj4+Pj4+Pg0KPj4+Pj4+
-Pj4gU28gdGhpcyBkZWZpbmVzIHRoZSBuZXcgY29tbWFuZCBmb2xsb3cgdGhlIHN1Z2dlc3Rpb24g
-aW4gaHR0cHM6DQo+Pj4+Pj4+PiAvL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNDEyMDcxMDU1Mzcu
-NTQyNDQxLTQtDQo+PiBqdWxpYS56aGFuZ0BhbWQuY29tDQo+Pj4+Pj4+PiAvDQo+Pj4+Pj4+Pg0K
-Pj4+Pj4+Pj4gY2hhbmdlcyBmcm9tIHYxOg0KPj4+Pj4+Pj4gICAgICAtIGFkZCBpc3N1ZSBsaW5r
-IHRvIGNvbW1pdCBtc2cNCj4+Pj4+Pj4+DQo+Pj4+Pj4+PiBSZWdhcmRzLA0KPj4+Pj4+Pj4gSnVs
-aWENCj4+Pj4+Pj4+IC0tLQ0KPj4+Pj4+Pj4gICAgICBkZXZpY2UtdHlwZXMvZ3B1L2Rlc2NyaXB0
-aW9uLnRleCB8IDI5DQo+Pj4+Pj4gKysrKysrKysrKysrKysrKysrKysrKysrKysrKysNCj4+Pj4+
-Pj4+ICAgICAgMSBmaWxlIGNoYW5nZWQsIDI5IGluc2VydGlvbnMoKykNCj4+Pj4+Pj4+DQo+Pj4+
-Pj4+PiBkaWZmIC0tZ2l0IGEvZGV2aWNlLXR5cGVzL2dwdS9kZXNjcmlwdGlvbi50ZXggYi9kZXZp
-Y2UtDQo+Pj4+Pj4+PiB0eXBlcy9ncHUvZGVzY3JpcHRpb24udGV4IGluZGV4IDQ0MzUyNDguLjlk
-MGYzMGIgMTAwNjQ0DQo+Pj4+Pj4+PiAtLS0gYS9kZXZpY2UtdHlwZXMvZ3B1L2Rlc2NyaXB0aW9u
-LnRleA0KPj4+Pj4+Pj4gKysrIGIvZGV2aWNlLXR5cGVzL2dwdS9kZXNjcmlwdGlvbi50ZXgNCj4+
-Pj4+Pj4+IEBAIC0yMjMsNiArMjIzLDcgQEAgXHN1YnN1YnNlY3Rpb257RGV2aWNlIE9wZXJhdGlv
-bjogUmVxdWVzdA0KPj4+Pj4+Pj4gaGVhZGVyfVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzIC8gR1BV
-IERlDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgVklSVElPX0dQVV9DTURfU1VCTUlUXzNELA0KPj4+
-Pj4+Pj4gICAgICAgICAgICAgIFZJUlRJT19HUFVfQ01EX1JFU09VUkNFX01BUF9CTE9CLA0KPj4+
-Pj4+Pj4gICAgICAgICAgICAgIFZJUlRJT19HUFVfQ01EX1JFU09VUkNFX1VOTUFQX0JMT0IsDQo+
-Pj4+Pj4+PiArICAgICAgICBWSVJUSU9fR1BVX0NNRF9QMlBETUFfRElTVEFOQ0UsDQo+Pj4+Pj4+
-Pg0KPj4+Pj4+Pj4gICAgICAgICAgICAgIC8qIGN1cnNvciBjb21tYW5kcyAqLw0KPj4+Pj4+Pj4g
-ICAgICAgICAgICAgIFZJUlRJT19HUFVfQ01EX1VQREFURV9DVVJTT1IgPSAweDAzMDAsIEBAIC0y
-MzYsNg0KPj4+PiArMjM3LDcNCj4+Pj4+PiBAQA0KPj4+Pj4+Pj4gXHN1YnN1YnNlY3Rpb257RGV2
-aWNlIE9wZXJhdGlvbjogUmVxdWVzdCBoZWFkZXJ9XGxhYmVse3NlYzpEZXZpY2UNCj4+Pj4+Pj4+
-IFR5cGVzIC8gR1BVIERlDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgVklSVElPX0dQVV9SRVNQX09L
-X0VESUQsDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgVklSVElPX0dQVV9SRVNQX09LX1JFU09VUkNF
-X1VVSUQsDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgVklSVElPX0dQVV9SRVNQX09LX01BUF9JTkZP
-LA0KPj4+Pj4+Pj4gKyAgICAgICAgVklSVElPX0dQVV9SRVNQX09LX1AyUERNQV9ESVNUQU5DRSwN
-Cj4+Pj4+Pj4+DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgLyogZXJyb3IgcmVzcG9uc2VzICovDQo+
-Pj4+Pj4+PiAgICAgICAgICAgICAgVklSVElPX0dQVV9SRVNQX0VSUl9VTlNQRUMgPSAweDEyMDAs
-IEBAIC03OTEsNg0KPj4+Pj4+Pj4gKzc5MywzMyBAQCBcc3Vic3Vic2VjdGlvbntEZXZpY2UgT3Bl
-cmF0aW9uOiBjb250cm9scQ0KPj4+Pj4+Pj4gKDNkKX1cbGFiZWx7c2VjOkRldmljZSBUeXBlcyAv
-IEdQVSBEZXYgIH07ICBcZW5ke2xzdGxpc3Rpbmd9DQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4gK1xpdGVt
-W1ZJUlRJT19HUFVfQ01EX1AyUERNQV9ESVNUQU5DRV0gY2FsY3VsYXRlcyB0aGUNCj4+Pj4gY3Vt
-dWxhdGl2ZQ0KPj4+Pj4+Pj4gK2Rpc3RhbmNlDQo+Pj4+Pj4+PiArICBiZXR3ZWVuIHR3byBkZXZp
-Y2VzIGJlZm9yZSBQZWVyLXRvLVBlZXIoUDJQKSB0cmFuc2FjdGlvbi4NCj4+Pj4+Pj4+ICtSZXF1
-ZXN0IGRhdGENCj4+Pj4+Pj4+ICsgIGlzIFxmaWVsZHtzdHJ1Y3QgdmlydGlvX2dwdV9kZXZpY2Vf
-cDJwZG1hX2Rpc3RhbmNlfS4gUmVzcG9uc2UNCj4+Pj4+Pj4+ICt0eXBlIGlzDQo+Pj4+Pj4+PiAr
-ICBWSVJUSU9fR1BVX1JFU1BfT0tfUDJQRE1BX0RJU1RBTkNFLiBSZXNwb25zZSBkYXRhIGlzDQo+
-Pj4+Pj4+PiArICBcZmllbGR7dmlydGlvX2dwdV9yZXNwX2Rpc3RhbmNlfS4NCj4+Pj4+Pj4+ICsN
-Cj4+Pj4+Pj4+ICtcYmVnaW57bHN0bGlzdGluZ30NCj4+Pj4+Pj4+ICtzdHJ1Y3QgdmlydGlvX2dw
-dV9kZXZpY2VfcDJwZG1hX2Rpc3RhbmNlIHsNCj4+Pj4+Pj4+ICsgICAgICAgIHN0cnVjdCB2aXJ0
-aW9fZ3B1X2N0cmxfaGRyIGhkcjsNCj4+Pj4+Pj4+ICsgICAgICAgIGxlMzIgcHJvdmlkZXJfYnVz
-Ow0KPj4+Pj4+Pj4gKyAgICAgICAgbGUzMiBwcm92aWRlcl9zbG90Ow0KPj4+Pj4+Pj4gKyAgICAg
-ICAgbGUzMiBwcm92aWRlcl9mdW5jOw0KPj4+Pj4+Pj4gKyAgICAgICAgbGUzMiBjbGllbnRfYnVz
-Ow0KPj4+Pj4+Pj4gKyAgICAgICAgbGUzMiBjbGllbnRfc2xvdDsNCj4+Pj4+Pj4+ICsgICAgICAg
-IGxlMzIgY2xpZW50X2Z1bmM7DQo+Pj4+Pj4+PiArfTsNCj4+Pj4+IFRoZSByZXF1ZXN0ZXIgZGV2
-aWNlJ3MgUENJIFJJRCBpcyBhbnl3YXkga25vd24gdG8gdGhlIHJlc3BvbmRlci4gU28NCj4+Pj4+
-IG5vDQo+Pj4+IG5lZWQgdG8gcGFzcyBpdCBoZXJlLg0KPj4+Pj4gSXQgaXMgdW5jbGVhciBpZiBp
-dHMgcHJvdmlkZXIgb3IgdGhlIGNsaWVudC4NCj4+Pj4NCj4+Pj4gSSBkb24ndCB0aGluayByZXF1
-ZXN0ZXIgZGV2aWNlJ3MgUENJIFJJRCBpcyBrbm93biB0byB0aGUgcmVzcG9uZGVyLA0KPj4+PiBz
-aW5jZSB0aGUgZXhpc3RpbmcgZnVuY3Rpb24gcGNpX3AycGRtYV9kaXN0YW5jZSgpIGFsc28gcmVx
-dWlyZQ0KPj4+PiBwcm92aWRlciBhbmQgY2xpZW50IGluZm9ybWF0aW9uLg0KPj4+Pg0KPj4+IFRo
-ZSBleGlzdGluZyBmdW5jdGlvbiB0YWtlcyB0aGUgcHJvdmlkZXIgcGNpIGRldmljZSBhcyBpbnB1
-dCBhdCBDIGNvZGUgbGV2ZWwuDQo+Pj4gQW5kIHByb3Bvc2VkIGV4dGVuc2lvbiAod2l0aG91dCBw
-cm92aWRlciBCREYpIHdpbGwgYWxzbyBvcGVyYXRlIG9uIHRoZQ0KPj4gcHJvdmlkZXIgZGV2aWNl
-IG9uIHdoaWNoIHRoZSByZXF1ZXN0L3Jlc3BvbnNlIHRyYW5zYWN0aW9uIGlzIGhhcHBlbmluZy4N
-Cj4+DQo+PiBXZWxsIGF0IGZpcnN0LCBJIGp1c3Qgd2FudCB2aXJ0aW8gR1BVIHRvIGhhbmRsZSB0
-aGUgY29tbWFuZCB0byBnZXQNCj4+IHAycGRtYV9kaXN0YW5jZSBvZiB0d28gUENJIGRldmljZXMo
-bWF5YmUgbm9uZSBvZiB0aGVtIGlzIHZpcnRpbyBHUFUpLg0KPiBVc2luZyB2aXJ0aW8gZ3B1IHRv
-IGZpbmQgdGhlIGRpc3RhbmNlIGJldHdlZW4gdHdvIGFyYml0cmFyeSBkZXZpY2VzIHdoaWNoIGFy
-ZSBub3QgdmlydGlvIGlzIGNlcnRhaW5seSBvdXRzaWRlIHRoZSBzY29wZSBhbmQgbG9va3Mgd3Jv
-bmcuDQo+IEl0IHNob3VsZCBiZSBkb25lIGF0IHNvbWUgUENJIHRvcG9sb2d5IGxldmVsIHdobyBl
-eHBvc2VkIHRoaXMgZGV2aWNlcy4NCkZvciBvdXIgdXNlIGNhc2UsIHZpcnRpbyBHUFUgaXMgdGhl
-IHByb3ZpZGVyLCB3ZSBhcmUgdXNpbmcgdmlydGlvIEdQVSB0byANCmNhbGN1bGF0ZSBkaXN0YW5j
-ZSBiZXR3ZWVuIHZpcnRpbyBHUFUgYW5kIGRHUFUsIHdoaWNoIGFyZSBub3QgYXJiaXRyYXJ5IA0K
-ZGV2aWNlcy4NCj4gDQo+PiBTbw0KPj4gd2hlbiBndWVzdCBuZWVkcyB0byBjYWxjdWxhdGUgZGlz
-dGFuY2Ugb2YgYW55IHR3byBQQ0kgZGV2aWNlcywgaXQgY2FuIHJldXNlDQo+PiB0aGlzIGNvbW1h
-bmQuIEJ1dCBpbmRlZWQsIHdlIG9ubHkgaGF2ZSB0aGlzIG9uZSB1c2UgY2FzZSBhdCB0aGlzIG1v
-bWVudCwgSQ0KPj4gZ3Vlc3MgY29uc2lkZXJpbmcgdmlydGlvIEdQVSBhcyBwcm92aWRlciBhbmQg
-cmVtb3ZlIHByb3ZpZGVyIFBDSSBSSUQgb2YgdGhpcw0KPj4gc3RydWN0IGlzIGZpbmUuDQo+IFJp
-Z2h0LiBBIGRyaXZlciBjYW4gaXNzdWUgdGhlIGNvbW1hbmQgdG8gZGV2aWNlIHdpdGhvdXQgbWVu
-dGlvbmluZyBpdHMgb3duIGRldmljZSBpZGVudGlmaWVyLg0KU2luY2UgY2FsbGluZyBmdW5jdGlv
-biBwY2lfcDJwZG1hX2Rpc3RhbmNlKCkgc3RpbGwgbmVlZHMgdG8gcGFzcyBpdHMgb3duIA0KUklE
-LCBJIHRoaW5rIGF0IGxlYXN0IFFFTVUgaGFzIHRvIHRlbGwgaG9zdCBrZXJuZWwgdGhlIFJJRCBv
-ZiB2aXJpdG8gR1BVLg0KPiANCj4+DQo+PiBCdXQgdGhlcmUncyBhbm90aGVyIHByb2JsZW06IGhv
-dyBkb2VzIGhvc3Qga2VybmVsIGdldCB2aXJ0aW8gR1BVIFJJRCBhbmQNCj4+IGNhbGN1bGF0ZSBk
-aXN0YW5jZSBiZXR3ZWVuIHZpcnRpbyBHUFUgYW5kIGRHUFU/IElmIEkgcmVtb3ZlIHByb3ZpZGVy
-DQo+PiBpbmZvcm1hdGlvbiBvZiB0aGlzIHN0cnVjdCwgdGhlbiBRRU1VIHN0aWxsIG5lZWRzIHRv
-IHBhc3MgdmlydGlvIEdQVSBSSUQgdG8NCj4+IGhvc3Qga2VybmVsIHNpZGUuDQo+IFRoZSBkZXZp
-Y2UgaW1wbGVtZW50YXRpb24gc2lkZSBjYW4gZ2V0IHRvIGtub3cgYWJvdXQgdGhpcyBhcyBpdCBo
-YXMgcGx1Z2dlZCBpbiBhbmQgYnVpbHQgdGhlIHRvcG9sb2d5Lg0KPiBUaGUgUklEIHdlIGFyZSBk
-aXNjdXNzaW5nIGFyZSB0aGUgdlJJRCBzZWVuIGJ5IHRoZSBndWVzdCBkcml2ZXIuDQo+IEkgcHJv
-YmFibHkgbWlzc2VkIHRvIGNsYXJpZnkgdGhpcy4NCkJ1dCBvbmx5IGdldHRpbmcgdGhlIGRpc3Rh
-bmNlIG9uIHRoZSB2aXJ0dWFsIFBDSSBpbnNpZGUgdGhlIGd1ZXN0IGlzIG5vdCANCmVub3VnaCB0
-byBmaWd1cmUgb3V0IGlmIFAyUCBpcyBwb3NzaWJsZSBvciBub3QuIFdlIG5lZWQgdG8gZ2V0IHRo
-ZSByZWFsIA0KZGlzdGFuY2UgZnJvbSBob3N0IHNpZGUuIFBsZWFzZSB0YWtlIGEgbG9vayBhdCB0
-aGUgZGlzY3Vzc2lvbiBoZXJlOiANCmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC9iZmU2YThi
-Ny1hZGNmLTQwZTItYjdhMi00ZTY0ZGM5Njg2MmRAYW1kLmNvbS8NCg0KSGkgTVNULA0KV2UgYXJl
-IHRhbGtpbmcgYWJvdXQgaG93IHRvIGdldCB0aGUgY29ycmVjdCBwMnBkbWFfZGlzdGFuY2UgZnJv
-bSBob3N0IA0Kc2lkZSBhbmQgcGFzcyBpdCB0byBndWVzdCBzaWRlLiBEbyB5b3UgaGF2ZSBhbnkg
-c3VnZ2VzdGlvbnM/DQoNCkp1bGlhDQoNCj4+DQo+Pj4NCj4+Pj4gRG8geW91IG1lYW4gdGhhdCBJ
-IHNob3VsZCBjb25zaWRlciB2aXJ0aW8gR1BVIGFzIHByb3ZpZGVyIGJ5IGRlZmF1bHQ/DQo+Pj4g
-WWVzLg0KPj4+DQo+Pj4+IFRoZW4gdGhpcyBjb21tYW5kIHdpbGwgb25seSB3b3JrIGZvciB0aGlz
-IHNwZWNpZmljIHVzZSBjYXNlIGluc3RlYWQgb2YNCj4+IGJlaW5nDQo+Pj4+IHVzZWQgYXMgYSBj
-b21tb24gZnVuY3Rpb24uDQo+Pj4+DQo+Pj4gTGludXgga2VybmVsIEFQSSBpcyBvcGVyYXRpbmcg
-b24gdGhlIGRldmljZS4gU2ltaWxhcmx5IHByb3Bvc2VkIGV4dGVuc2lvbg0KPj4gd2lsbCBhbHNv
-IGJlIG9uIHRoZSBkZXZpY2UgbGV2ZWwuDQo+Pj4gSWYgbmVlZGVkLCBhbiBoaWdoZXItbGV2ZWwg
-c29mdHdhcmUgd2lsbCBpdGVyYXRlIG92ZXIgdGhlIGludGVyZXN0aW5nIFBDSQ0KPj4gZGV2aWNl
-cyBhbmQgaW52b2tlIHRoZSBwY2lfcDJwZG1hX2Rpc3RhbmNlKCkgQVBJLg0KPj4NCj4+IFRoZSBy
-ZWFzb24gb2YgcGFzc2luZyB0aGlzIGNvbW1hbmQgZnJvbSBndWVzdCB0byBob3N0IGlzIHRoYXQg
-aW4gb3VyDQo+PiBjYXNlLCB3ZSBuZWVkIHRvIGNhbGN1bGF0ZSBwMnBkbWFfZGlzdGFuY2Ugb2Yg
-dmlydGlvIEdQVSBhbmQgZEdQVSBvbg0KPj4gaG9zdCBzaWRlLiBTbyBteSBvcmlnaW5hbCBkZXNp
-Z24gaXMgcXVpZXQgc2ltcGxlOg0KPj4gMS4gUGFzcyByaWQgb2YgdmlydGlvIEdQVShwcm92aWRl
-cikgYW5kIGRHUFUoY2xpZW50KSB0byBob3N0IHNpZGUNCj4+IDIuIEhvc3Qga2VybmVsIGNhbGN1
-bGF0ZSByZWFsIHAycGRtYV9kaXN0YW5jZSBvZiB0aGVzZSBkZXZpY2VzLg0KPj4gMy4gUmV0dXJu
-IHAycGRtYV9kaXN0YW5jZSB0byBndWVzdCBzaWRlLg0KPj4NCj4gVGhlIHZpcnRpbyBHUFUgaXMg
-YXNraW5nIGluZm9ybWF0aW9uIGFib3V0IHNvbWUgb3RoZXIgbm9uIHZpcnRpbyBkZXZpY2UgaW4g
-dGhlIHN5c3RlbSBkb2VzIG5vdCBsb29rIGNvcnJlY3QgdG8gbWUuDQo+IEkgYmVsaWV2ZSB0aGlz
-IGlzIHRoZSBQQ0llIHRvcG9sb2d5IGxldmVsIHNob3VsZCBiZSBhYmxlIHRvIHByb3ZpZGUgdGhl
-IGluZm8gd2l0aG91dCBlbmNhcHN1bGF0aW5nIHRoaXMgdmlhIHNvbWUgYXJiaXRyYXJ5IGRldmlj
-ZSB0eXBlIGxpa2UgdmlydGlvIGdwdS4NCj4gDQo+PiBBbmQgSSB0aGluayB0aGUgaGlnaGVyLWxl
-dmVsIHNvZnR3YXJlIHNob3VsZCBrbm93IHRoZSBleGFjdCBSSUQgb2YgdHdvDQo+PiBkZXZpY2Vz
-IGFuZCB0aGVuIGludm9rZSBwY2lfcDJwZG1hX2Rpc3RhbmNlKCkgdG8gY2FsY3VsYXRlIGRpc3Rh
-bmNlLg0KPiBOb3Qgc3VyZS4gaWYgdGhpcyBjYW4gYmUgZGlzY292ZXJlZCBpbiBwaHlzaWNhbCBs
-ZXZlbCwgaXQgY2FuIGJlIGRpc2NvdmVyZWQgYXQgdmlydHVhbCBndWVzdCBWTSBsZXZlbCB0b28g
-YXMgbG9uZyBhcyBRRU1VIGJ1aWxkcyBpdCBpbiByaWdodCB3YXkuDQo+IA0KPj4gU28NCj4+IEkg
-c3RpbGwgdGhpbmsgd2Ugc2hvdWxkIGtlZXAgcHJvdmlkZXIgaW5mb3JtYXRpb24gaW4gdGhpcyBz
-dHJ1Y3QgYW5kDQo+PiBmb2xsb3dpbmcgdGhlIGV4aXN0aW5nIGxvZ2ljIG9mIGdldHRpbmcgcDJw
-ZG1hX2Rpc3RhbmNlLg0KPj4NCj4+IFJlZ2FyZHMsDQo+PiBKdWxpYQ0KPj4NCj4+Pj4+DQo+Pj4+
-PiBZb3Ugb25seSBuZWVkIHRvIHN1cHBseSB0aGUgb3RoZXIgZGV2aWNlIFJJRC4NCj4+Pj4+IElu
-IFBDSSBzcGVjIHRoZSBSSUQgaXMgMTYtYml0LiBDb25zaWRlcmluZyBvdGhlciBhZHZhbmNlbWVu
-dHMsIFJJRCBvZiAzMi0NCj4+IGJpdA0KPj4+PiB3b3VsZCBiZSBvayB0b28uDQo+Pj4+Pg0KPj4+
-Pj4gU28gcGxlYXNlIHJlbW92ZSBjbGllbnRfKi4NCj4+Pj4+IFJlcGxhY2UgcHJvdmlkZXJfWCB3
-aXRoIGxlMzIgb3RoZXJfZGV2aWNlX3BjaV9SSUQuDQo+Pj4+Pg0KPj4+Pj4gTWVudGlvbiB0aGF0
-IG90aGVyX2RldmljZV9SSUQgZm9sbG93cyBQQ0kgc3BlY2lmaWNhdGlvbiBSSUQgbm90YXRpb24u
-DQo+Pj4+DQo+Pj4+IE9LIEkgd2lsbCBtb2RpZnkgaXQuDQo+Pj4+DQo+Pj4+Pg0KPj4+Pj4+Pj4g
-Kw0KPj4+Pj4+PiBJIGFzc3VtZSBhYm92ZSBiZGYgaW5mb3JtYXRpb24gaXMgd2hhdCBpcyB2aXNp
-YmxlIHRvIHRoZSBndWVzdD8NCj4+Pj4+Pj4gV2h5IGNhbm5vdCBpdCBzZWUgdGhpcyBkaXN0YW5j
-ZSBpbiB0aGUgZ3Vlc3QgVk0gaXRzZWxmPw0KPj4+Pj4+DQo+Pj4+Pj4gR3Vlc3QgY2FuIHNlZSB2
-aXJ0dWFsIGJkZiBpbmZvcm1hdGlvbiB3aGljaCBpcyBub3QgdGhlIHJlYWwgYmRmDQo+Pj4+Pj4g
-aW5mb3JtYXRpb24gb2YgdGhlIGhvc3QuIFNvIGd1ZXN0IGNhbid0IGdldCB0aGUgY29ycmVjdCBk
-aXN0YW5jZS4NCj4+Pj4+PiBUaGF0J3Mgd2h5IEkgbmVlZCB0byBpbXBsZW1lbnQgYSBuZXcgY29t
-bWFuZCB0byBnZXQgYW5kIHBhc3MgdGhlDQo+PiByZWFsDQo+Pj4+IGRpc3RhbmNlLg0KPj4+Pj4+
-DQo+Pj4+PiBbLi5dDQo+Pj4+Pg0KPj4+Pj4+DQo+Pj4+Pj4+DQo+Pj4+Pj4+PiArc3RydWN0IHZp
-cnRpb19ncHVfcmVzcF9kaXN0YW5jZSB7DQo+Pj4+Pj4+PiArICAgICAgICBzdHJ1Y3QgdmlydGlv
-X2dwdV9jdHJsX2hkciBoZHI7DQo+Pj4+Pj4+PiArICAgICAgICBsZTMyIGRpc3RhbmNlOw0KPj4+
-Pj4+Pj4gK30NCj4+Pj4+Pj4+ICtcZW5ke2xzdGxpc3Rpbmd9DQo+Pj4+Pj4+IEkgYW0gbm90IGdw
-dSBleHBlcnQgc28gZGlkbid0IHBheSBhdHRlbnRpb24gdG8gZGV0YWlscy4NCj4+Pj4+Pj4gSSBi
-ZWxpZXZlIHlvdSBhcmUgbWlzc2luZyBiYXNpYyBpbmZvcm1hdGlvbiBpbiB0aGUgcGF0Y2ggaXMg
-d2hhdCBpcw0KPj4+Pj4+PiB0aGUgdW5pdCBvZg0KPj4+Pj4+IGRpc3RhbmNlPw0KPj4+Pj4+PiBD
-YW4geW91IHBsZWFzZSBhZGQ/DQo+Pj4+Pj4NCj4+Pj4+PiBUaGUgZGVmaW5pdGlvbiBvZiBkaXN0
-YW5jZSBpcyBleHBsYWluZWQgaW4ga2VybmVsIGZpbGU6DQo+PiBkcml2ZXIvcGNpL3AycGRtYS5j
-Og0KPj4+Pj4+DQo+Pj4+PiBEZXNjcmlwdGlvbiBpcyBnb29kLiBFaXRoZXIgaXQgbmVlZHMgdG8g
-YmUgaW4gdGhlIGluY2x1ZGUvTGludXgvdWFwaS9mb28uaA0KPj4gZmlsZQ0KPj4+PiBhbmQgcmVm
-ZXIgdG8gaXQgaGVyZS4NCj4+Pj4+IE9yIHBsZWFzZSBhZGQgdGhlIGRlc2NyaXB0aW9uIGFzIHBh
-cnQgb2YgdGhpcyBwYXRjaC4NCj4+Pj4+IFJlZmVyZW5jZSB0byBrZXJuZWwgaW50ZXJuYWwgZmls
-ZXMgY2FuIGNoYW5nZSBhbmQgaGVuY2UgY2Fubm90IGJlIHRha2VuDQo+PiBhcw0KPj4+PiByZWZl
-cmVuY2UgZm9yIHZpcnRpbyBuZXQgc3BlYy4NCj4+Pj4+DQo+Pj4+Pj4gLyoNCj4+Pj4+PiAgICAg
-KiBDYWxjdWxhdGUgdGhlIFAyUERNQSBtYXBwaW5nIHR5cGUgYW5kIGRpc3RhbmNlIGJldHdlZW4g
-dHdvIFBDSQ0KPj4+Pj4+IGRldmljZXMuDQo+Pj4+Pj4gICAgICoNCj4+Pj4+PiAgICAgKiBJZiB0
-aGUgdHdvIGRldmljZXMgYXJlIHRoZSBzYW1lIFBDSSBmdW5jdGlvbiwgcmV0dXJuDQo+Pj4+Pj4g
-ICAgICogUENJX1AyUERNQV9NQVBfQlVTX0FERFIgYW5kIGEgZGlzdGFuY2Ugb2YgMC4NCj4+Pj4+
-PiAgICAgKg0KPj4+Pj4+ICAgICAqIElmIHRoZXkgYXJlIHR3byBmdW5jdGlvbnMgb2YgdGhlIHNh
-bWUgZGV2aWNlLCByZXR1cm4NCj4+Pj4+PiAgICAgKiBQQ0lfUDJQRE1BX01BUF9CVVNfQUREUiBh
-bmQgYSBkaXN0YW5jZSBvZiAyIChvbmUgaG9wIHVwIHRvDQo+PiB0aGUNCj4+Pj4+PiBicmlkZ2Us
-DQo+Pj4+Pj4gICAgICogdGhlbiBvbmUgaG9wIGJhY2sgZG93biB0byBhbm90aGVyIGZ1bmN0aW9u
-IG9mIHRoZSBzYW1lIGRldmljZSkuDQo+Pj4+Pj4gICAgICoNCj4+Pj4+PiAgICAgKiBJbiB0aGUg
-Y2FzZSB3aGVyZSB0d28gZGV2aWNlcyBhcmUgY29ubmVjdGVkIHRvIHRoZSBzYW1lIFBDSWUNCj4+
-IHN3aXRjaCwNCj4+Pj4+PiAgICAgKiByZXR1cm4gYSBkaXN0YW5jZSBvZiA0LiBUaGlzIGNvcnJl
-c3BvbmRzIHRvIHRoZSBmb2xsb3dpbmcgUENJIHRyZWU6DQo+Pj4+Pj4gICAgICoNCj4+Pj4+PiAg
-ICAgKiAgICAgLSsgIFJvb3QgUG9ydA0KPj4+Pj4+ICAgICAqICAgICAgXCsgU3dpdGNoIFVwc3Ry
-ZWFtIFBvcnQNCj4+Pj4+PiAgICAgKiAgICAgICArLSsgU3dpdGNoIERvd25zdHJlYW0gUG9ydCAw
-DQo+Pj4+Pj4gICAgICogICAgICAgKyBcLSBEZXZpY2UgQQ0KPj4+Pj4+ICAgICAqICAgICAgIFwt
-KyBTd2l0Y2ggRG93bnN0cmVhbSBQb3J0IDENCj4+Pj4+PiAgICAgKiAgICAgICAgIFwtIERldmlj
-ZSBCDQo+Pj4+Pj4gICAgICoNCj4+Pj4+PiAgICAgKiBUaGUgZGlzdGFuY2UgaXMgNCBiZWNhdXNl
-IHdlIHRyYXZlcnNlIGZyb20gRGV2aWNlIEEgdG8gRG93bnN0cmVhbQ0KPj4+PiBQb3J0IDANCj4+
-Pj4+PiAgICAgKiB0byB0aGUgY29tbW9uIFN3aXRjaCBVcHN0cmVhbSBQb3J0LCBiYWNrIGRvd24g
-dG8gRG93bnN0cmVhbQ0KPj4gUG9ydA0KPj4+Pj4+IDEgYW5kDQo+Pj4+Pj4gICAgICogdGhlbiB0
-byBEZXZpY2UgQi4gVGhlIG1hcHBpbmcgdHlwZSByZXR1cm5lZCBkZXBlbmRzIG9uIHRoZSBBQ1MN
-Cj4+Pj4+PiAgICAgKiByZWRpcmVjdGlvbiBzZXR0aW5nIG9mIHRoZSBwb3J0cyBhbG9uZyB0aGUg
-cGF0aC4NCj4+Pj4+PiAgICAgKg0KPj4+Pj4+ICAgICAqIElmIEFDUyByZWRpcmVjdCBpcyBzZXQg
-b24gYW55IHBvcnQgaW4gdGhlIHBhdGgsIHRyYWZmaWMgYmV0d2VlbiB0aGUNCj4+Pj4+PiAgICAg
-KiBkZXZpY2VzIHdpbGwgZ28gdGhyb3VnaCB0aGUgaG9zdCBicmlkZ2UsIHNvIHJldHVybg0KPj4+
-Pj4+ICAgICAqIFBDSV9QMlBETUFfTUFQX1RIUlVfSE9TVF9CUklER0U7IG90aGVyd2lzZSByZXR1
-cm4NCj4+Pj4+PiAgICAgKiBQQ0lfUDJQRE1BX01BUF9CVVNfQUREUi4NCj4+Pj4+PiAgICAgKg0K
-Pj4+Pj4+ICAgICAqIEFueSB0d28gZGV2aWNlcyB0aGF0IGhhdmUgYSBkYXRhIHBhdGggdGhhdCBn
-b2VzIHRocm91Z2ggdGhlIGhvc3QNCj4+IGJyaWRnZQ0KPj4+Pj4+ICAgICAqIHdpbGwgY29uc3Vs
-dCBhIHdoaXRlbGlzdC4gSWYgdGhlIGhvc3QgYnJpZGdlIGlzIGluIHRoZSB3aGl0ZWxpc3QsIHJl
-dHVybg0KPj4+Pj4+ICAgICAqIFBDSV9QMlBETUFfTUFQX1RIUlVfSE9TVF9CUklER0Ugd2l0aCB0
-aGUgZGlzdGFuY2Ugc2V0IHRvDQo+PiB0aGUNCj4+Pj4+PiBudW1iZXIgb2YNCj4+Pj4+PiAgICAg
-KiBwb3J0cyBwZXIgYWJvdmUuIElmIHRoZSBkZXZpY2UgaXMgbm90IGluIHRoZSB3aGl0ZWxpc3Qs
-IHJldHVybg0KPj4+Pj4+ICAgICAqIFBDSV9QMlBETUFfTUFQX05PVF9TVVBQT1JURUQuDQo+Pj4+
-Pj4gICAgICovDQo+Pj4+Pj4NCj4+Pj4+PiBJIGRpZG4ndCBjaGFuZ2UgdGhlIHVuaXQsIGRvIHlv
-dSBtZWFuIHRoYXQgSSBzaG91bGQgYWRkIGFib3ZlDQo+Pj4+Pj4gaW5mb3JtYXRpb24gdG8gdGhp
-cyBwYXRjaD8NCj4+Pj4+Pg0KPj4+Pj4gWWVzLiBwbGVhc2Ugc2VlIGFib3ZlLg0KPj4+Pg0KPj4+
-PiBPSywgd2lsbCBkby4NCj4+Pj4NCj4+Pj4gSnVsaWENCj4+Pj4NCj4+Pj4+DQo+Pj4+Pj4gUmVn
-YXJkcywNCj4+Pj4+PiBKdWxpYQ0KPj4+Pj4+DQo+Pj4+Pj4+DQo+Pj4+Pj4+IENhbiB5b3UgcGxl
-YXNlIHdhaXQgZm9yIGZldyBkYXlzIHRvIHJhaXNlIHRoZSB2b3RlIGFuZCBzb3J0IG91dCB0aGlz
-DQo+PiBkZXRhaWw/DQo+Pj4+Pj4+DQo+Pj4+Pj4+PiArDQo+Pj4+Pj4+PiArVGhlIHJlcXVlc3Qg
-ZGF0YSBjb250YWlucyBndWVzdCB2aXJ0dWFsIHBjaSBub3RhdGlvbnMgb2YgcDJwZG1hDQo+Pj4+
-Pj4+PiArcHJvdmlkZXIgYW5kIGNsaWVudC4gVGhlIHJlc3BvbnNlIGNvbnRhaW5zIHRoZSBkaXN0
-YW5jZSBiZXR3ZWVuDQo+Pj4+Pj4+PiArcHJvdmlkZXIgYW5kIGNsaWVudCwgd2hpY2ggcmVwcmVz
-ZW50cyB0aGUgY29tcGF0aWJpbGl0eSBvZiB0aGVzZQ0KPj4+Pj4+Pj4gK3R3byBQQ0kNCj4+Pj4+
-Pj4+IGRldmljZXMuDQo+Pj4+Pj4+PiArDQo+Pj4+Pj4+PiAgICAgIFxlbmR7ZGVzY3JpcHRpb259
-DQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4gICAgICBcc3Vic3Vic2VjdGlvbntEZXZpY2UgT3BlcmF0aW9u
-OiBjdXJzb3JxfVxsYWJlbHtzZWM6RGV2aWNlIFR5cGVzDQo+Pj4+Pj4+PiAvIEdQVSBEZXZpY2Ug
-LyBEZXZpY2UgT3BlcmF0aW9uIC8gRGV2aWNlIE9wZXJhdGlvbjogY3Vyc29ycX0NCj4+Pj4+Pj4+
-IC0tDQo+Pj4+Pj4+PiAyLjM0LjENCj4+Pj4+Pj4+DQo+Pj4+Pj4+DQo=
+
+
+> From: Zhang, Julia <Julia.Zhang@amd.com>
+> Sent: Tuesday, March 11, 2025 8:58 AM
+>=20
+> On 2025/3/10 18:18, Parav Pandit wrote:
+> >
+> >> From: Zhang, Julia <Julia.Zhang@amd.com>
+> >> Sent: Monday, March 10, 2025 1:07 PM
+> >>
+> >> On 2025/3/10 11:48, Parav Pandit wrote:
+> >>>
+> >>>
+> >>>> From: Zhang, Julia <Julia.Zhang@amd.com>
+> >>>> Sent: Thursday, March 6, 2025 12:47 PM
+> >>>>
+> >>>> On 2025/3/6 12:29, Parav Pandit wrote:
+> >>>>>> From: Zhang, Julia <Julia.Zhang@amd.com>
+> >>>>>> Sent: Wednesday, March 5, 2025 4:12 PM
+> >>>>>>
+> >>>>>> On 2025/2/26 18:51, Parav Pandit wrote:
+> >>>>>>>
+> >>>>>>>> From: Julia Zhang <julia.zhang@amd.com>
+> >>>>>>>> Sent: Wednesday, February 26, 2025 2:58 PM
+> >>>>>>>> To: virtio-comment@lists.linux.dev
+> >>>>>>>> Cc: Michael S . Tsirkin <mst@redhat.com>; Chen Jiqian
+> >>>>>>>> <Jiqian.Chen@amd.com>; Zhu Lingshan <lingshan.zhu@amd.com>;
+> >>>> Huang
+> >>>>>> Rui
+> >>>>>>>> <ray.huang@amd.com>; Julia Zhang <julia.zhang@amd.com>;
+> Matias
+> >>>>>>>> Ezequiel Vara Larsen <mvaralar@redhat.com>
+> >>>>>>>> Subject: [PATCH v2 1/1] virtio-gpu: get p2pdma distance
+> >>>>>>>>
+> >>>>>>>> PCI peer-to-peer DMA transaction may be used in guest for some
+> >>>> scenes.
+> >>>>>>>> For example, dGPU prime feature will let virtio-iGPU access to
+> >>>>>>>> passthrough dGPU buffer.
+> >>>>> Virtio specification does not describe dGPU and iGPU.
+> >>>>> So either describe it in the description or please drop that and
+> >>>>> explain the
+> >>>> motivation without referring to those terms.
+> >>>>
+> >>>> OK I see.
+> >>>>
+> >>>>>
+> >>>>>>>>
+> >>>>>>>> To support P2P DMA transaction in guest, virtio-gpu needs to
+> >>>>>>>> check the compatibility which is represented by p2pdma_distance.
+> >>>>>>>> This defines a command VIRTIO_GPU_CMD_P2PDMA_DISTANCE to
+> >> allow
+> >>>> guest
+> >>>>>> send
+> >>>>>>>> virtual pci notation of two devices to host and get host
+> >>>>>>>> physical p2pdma_distance of these two PCI devices.
+> >>>>>>>>
+> >>>>> [..]
+> >>>>>>>> Ifsm1M5xIb37T9Tg%3D&reserved=3D0
+> >>>>>>>> Signed-off-by: Julia Zhang <julia.zhang@amd.com>
+> >>>>>>>> Reviewed-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+> >>>>>>>> ---
+> >>>>>>>> Hi all,
+> >>>>>>>>
+> >>>>>>>> We are trying to implement dGPU prime feature in guest which
+> >>>>>>>> will let
+> >>>>>>>> virtio- iGPU read rendered data of passthrough dGPU. Before
+> >>>>>>>> that, virtio gpu driver needs to get p2pdma_distance to check
+> >>>>>>>> if P2P DMA transaction is possible or not.
+> >>>>>>>>
+> >>>>>>>> To implement getting p2pdma_distance, QEMU needs to handle the
+> >>>>>>>> command from guest with virtual pci notations of two PCI
+> >>>>>>>> devices and send it to host kernel and return host physical
+> >>>>>>>> distance back to
+> >>>> guest.
+> >>>>>>>>
+> >>>>>>>> So this defines the new command follow the suggestion in https:
+> >>>>>>>> //lore.kernel.org/all/20241207105537.542441-4-
+> >> julia.zhang@amd.com
+> >>>>>>>> /
+> >>>>>>>>
+> >>>>>>>> changes from v1:
+> >>>>>>>>      - add issue link to commit msg
+> >>>>>>>>
+> >>>>>>>> Regards,
+> >>>>>>>> Julia
+> >>>>>>>> ---
+> >>>>>>>>      device-types/gpu/description.tex | 29
+> >>>>>> +++++++++++++++++++++++++++++
+> >>>>>>>>      1 file changed, 29 insertions(+)
+> >>>>>>>>
+> >>>>>>>> diff --git a/device-types/gpu/description.tex b/device-
+> >>>>>>>> types/gpu/description.tex index 4435248..9d0f30b 100644
+> >>>>>>>> --- a/device-types/gpu/description.tex
+> >>>>>>>> +++ b/device-types/gpu/description.tex
+> >>>>>>>> @@ -223,6 +223,7 @@ \subsubsection{Device Operation: Request
+> >>>>>>>> header}\label{sec:Device Types / GPU De
+> >>>>>>>>              VIRTIO_GPU_CMD_SUBMIT_3D,
+> >>>>>>>>              VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB,
+> >>>>>>>>              VIRTIO_GPU_CMD_RESOURCE_UNMAP_BLOB,
+> >>>>>>>> +        VIRTIO_GPU_CMD_P2PDMA_DISTANCE,
+> >>>>>>>>
+> >>>>>>>>              /* cursor commands */
+> >>>>>>>>              VIRTIO_GPU_CMD_UPDATE_CURSOR =3D 0x0300, @@ -236,6
+> >>>> +237,7
+> >>>>>> @@
+> >>>>>>>> \subsubsection{Device Operation: Request
+> >>>>>>>> header}\label{sec:Device Types / GPU De
+> >>>>>>>>              VIRTIO_GPU_RESP_OK_EDID,
+> >>>>>>>>              VIRTIO_GPU_RESP_OK_RESOURCE_UUID,
+> >>>>>>>>              VIRTIO_GPU_RESP_OK_MAP_INFO,
+> >>>>>>>> +        VIRTIO_GPU_RESP_OK_P2PDMA_DISTANCE,
+> >>>>>>>>
+> >>>>>>>>              /* error responses */
+> >>>>>>>>              VIRTIO_GPU_RESP_ERR_UNSPEC =3D 0x1200, @@ -791,6
+> >>>>>>>> +793,33 @@ \subsubsection{Device Operation: controlq
+> >>>>>>>> (3d)}\label{sec:Device Types / GPU Dev  };  \end{lstlisting}
+> >>>>>>>>
+> >>>>>>>> +\item[VIRTIO_GPU_CMD_P2PDMA_DISTANCE] calculates the
+> >>>> cumulative
+> >>>>>>>> +distance
+> >>>>>>>> +  between two devices before Peer-to-Peer(P2P) transaction.
+> >>>>>>>> +Request data
+> >>>>>>>> +  is \field{struct virtio_gpu_device_p2pdma_distance}.
+> >>>>>>>> +Response type is
+> >>>>>>>> +  VIRTIO_GPU_RESP_OK_P2PDMA_DISTANCE. Response data is
+> >>>>>>>> +  \field{virtio_gpu_resp_distance}.
+> >>>>>>>> +
+> >>>>>>>> +\begin{lstlisting}
+> >>>>>>>> +struct virtio_gpu_device_p2pdma_distance {
+> >>>>>>>> +        struct virtio_gpu_ctrl_hdr hdr;
+> >>>>>>>> +        le32 provider_bus;
+> >>>>>>>> +        le32 provider_slot;
+> >>>>>>>> +        le32 provider_func;
+> >>>>>>>> +        le32 client_bus;
+> >>>>>>>> +        le32 client_slot;
+> >>>>>>>> +        le32 client_func;
+> >>>>>>>> +};
+> >>>>> The requester device's PCI RID is anyway known to the responder.
+> >>>>> So no
+> >>>> need to pass it here.
+> >>>>> It is unclear if its provider or the client.
+> >>>>
+> >>>> I don't think requester device's PCI RID is known to the responder,
+> >>>> since the existing function pci_p2pdma_distance() also require
+> >>>> provider and client information.
+> >>>>
+> >>> The existing function takes the provider pci device as input at C cod=
+e level.
+> >>> And proposed extension (without provider BDF) will also operate on
+> >>> the
+> >> provider device on which the request/response transaction is happening=
+.
+> >>
+> >> Well at first, I just want virtio GPU to handle the command to get
+> >> p2pdma_distance of two PCI devices(maybe none of them is virtio GPU).
+> > Using virtio gpu to find the distance between two arbitrary devices whi=
+ch
+> are not virtio is certainly outside the scope and looks wrong.
+> > It should be done at some PCI topology level who exposed this devices.
+> For our use case, virtio GPU is the provider, we are using virtio GPU to
+> calculate distance between virtio GPU and dGPU, which are not arbitrary
+> devices.
+The fact that in physical world this distance is calculated without involvi=
+ng the individual provider and client EP PCI devices, in virtual world doin=
+g this via virtual PCI EP devices does not look correct abstraction to me.
+I tend to imagine that one needs to build a right virtual topology in QEMU =
+or somewhere else who is providing these PCI devices such that guest kernel=
+ can calculate it accurately without depending on the EP PCI devices.
+
+
+> >
+> >> So
+> >> when guest needs to calculate distance of any two PCI devices, it can
+> >> reuse this command. But indeed, we only have this one use case at
+> >> this moment, I guess considering virtio GPU as provider and remove
+> >> provider PCI RID of this struct is fine.
+> > Right. A driver can issue the command to device without mentioning its =
+own
+> device identifier.
+> Since calling function pci_p2pdma_distance() still needs to pass its own =
+RID, I
+> think at least QEMU has to tell host kernel the RID of virito GPU.
+Probably yes, would be interesting to see this UAPI on the host kernel too,=
+ (unrelated to this patch).
+
+> >
+> >>
+> >> But there's another problem: how does host kernel get virtio GPU RID
+> >> and calculate distance between virtio GPU and dGPU? If I remove
+> >> provider information of this struct, then QEMU still needs to pass
+> >> virtio GPU RID to host kernel side.
+> > The device implementation side can get to know about this as it has plu=
+gged
+> in and built the topology.
+> > The RID we are discussing are the vRID seen by the guest driver.
+> > I probably missed to clarify this.
+> But only getting the distance on the virtual PCI inside the guest is not =
+enough
+> to figure out if P2P is possible or not. We need to get the real distance=
+ from
+> host side. Please take a look at the discussion here:
+> https://lore.kernel.org/all/bfe6a8b7-adcf-40e2-b7a2-4e64dc96862d@amd.com/
+
+Finding out the distance between two PCI devices in physical world is role =
+of the PCI bridge/switch topology builder.
+So why should it change for the guest VM?
+Why virtualized topology cannot be build in a way such that it matches to t=
+he physical world to get the accurate distance?
+At least to me, doing this in the pci RP domain (and not PCI EP domain) see=
+ms the right way to go forward.
+
+>=20
+> Hi MST,
+> We are talking about how to get the correct p2pdma_distance from host sid=
+e
+> and pass it to guest side. Do you have any suggestions?
+>=20
+> Julia
+>=20
+> >>
+> >>>
+> >>>> Do you mean that I should consider virtio GPU as provider by default=
+?
+> >>> Yes.
+> >>>
+> >>>> Then this command will only work for this specific use case instead
+> >>>> of
+> >> being
+> >>>> used as a common function.
+> >>>>
+> >>> Linux kernel API is operating on the device. Similarly proposed
+> >>> extension
+> >> will also be on the device level.
+> >>> If needed, an higher-level software will iterate over the
+> >>> interesting PCI
+> >> devices and invoke the pci_p2pdma_distance() API.
+> >>
+> >> The reason of passing this command from guest to host is that in our
+> >> case, we need to calculate p2pdma_distance of virtio GPU and dGPU on
+> >> host side. So my original design is quiet simple:
+> >> 1. Pass rid of virtio GPU(provider) and dGPU(client) to host side 2.
+> >> Host kernel calculate real p2pdma_distance of these devices.
+> >> 3. Return p2pdma_distance to guest side.
+> >>
+> > The virtio GPU is asking information about some other non virtio device=
+ in
+> the system does not look correct to me.
+> > I believe this is the PCIe topology level should be able to provide the=
+ info
+> without encapsulating this via some arbitrary device type like virtio gpu=
+.
+> >
+> >> And I think the higher-level software should know the exact RID of
+> >> two devices and then invoke pci_p2pdma_distance() to calculate distanc=
+e.
+> > Not sure. if this can be discovered in physical level, it can be discov=
+ered at
+> virtual guest VM level too as long as QEMU builds it in right way.
+> >
+> >> So
+> >> I still think we should keep provider information in this struct and
+> >> following the existing logic of getting p2pdma_distance.
+> >>
+> >> Regards,
+> >> Julia
+> >>
+> >>>>>
+> >>>>> You only need to supply the other device RID.
+> >>>>> In PCI spec the RID is 16-bit. Considering other advancements, RID
+> >>>>> of 32-
+> >> bit
+> >>>> would be ok too.
+> >>>>>
+> >>>>> So please remove client_*.
+> >>>>> Replace provider_X with le32 other_device_pci_RID.
+> >>>>>
+> >>>>> Mention that other_device_RID follows PCI specification RID notatio=
+n.
+> >>>>
+> >>>> OK I will modify it.
+> >>>>
+> >>>>>
+> >>>>>>>> +
+> >>>>>>> I assume above bdf information is what is visible to the guest?
+> >>>>>>> Why cannot it see this distance in the guest VM itself?
+> >>>>>>
+> >>>>>> Guest can see virtual bdf information which is not the real bdf
+> >>>>>> information of the host. So guest can't get the correct distance.
+> >>>>>> That's why I need to implement a new command to get and pass the
+> >> real
+> >>>> distance.
+> >>>>>>
+> >>>>> [..]
+> >>>>>
+> >>>>>>
+> >>>>>>>
+> >>>>>>>> +struct virtio_gpu_resp_distance {
+> >>>>>>>> +        struct virtio_gpu_ctrl_hdr hdr;
+> >>>>>>>> +        le32 distance;
+> >>>>>>>> +}
+> >>>>>>>> +\end{lstlisting}
+> >>>>>>> I am not gpu expert so didn't pay attention to details.
+> >>>>>>> I believe you are missing basic information in the patch is what
+> >>>>>>> is the unit of
+> >>>>>> distance?
+> >>>>>>> Can you please add?
+> >>>>>>
+> >>>>>> The definition of distance is explained in kernel file:
+> >> driver/pci/p2pdma.c:
+> >>>>>>
+> >>>>> Description is good. Either it needs to be in the
+> >>>>> include/Linux/uapi/foo.h
+> >> file
+> >>>> and refer to it here.
+> >>>>> Or please add the description as part of this patch.
+> >>>>> Reference to kernel internal files can change and hence cannot be
+> >>>>> taken
+> >> as
+> >>>> reference for virtio net spec.
+> >>>>>
+> >>>>>> /*
+> >>>>>>     * Calculate the P2PDMA mapping type and distance between two
+> >>>>>> PCI devices.
+> >>>>>>     *
+> >>>>>>     * If the two devices are the same PCI function, return
+> >>>>>>     * PCI_P2PDMA_MAP_BUS_ADDR and a distance of 0.
+> >>>>>>     *
+> >>>>>>     * If they are two functions of the same device, return
+> >>>>>>     * PCI_P2PDMA_MAP_BUS_ADDR and a distance of 2 (one hop up
+> to
+> >> the
+> >>>>>> bridge,
+> >>>>>>     * then one hop back down to another function of the same devic=
+e).
+> >>>>>>     *
+> >>>>>>     * In the case where two devices are connected to the same
+> >>>>>> PCIe
+> >> switch,
+> >>>>>>     * return a distance of 4. This corresponds to the following PC=
+I tree:
+> >>>>>>     *
+> >>>>>>     *     -+  Root Port
+> >>>>>>     *      \+ Switch Upstream Port
+> >>>>>>     *       +-+ Switch Downstream Port 0
+> >>>>>>     *       + \- Device A
+> >>>>>>     *       \-+ Switch Downstream Port 1
+> >>>>>>     *         \- Device B
+> >>>>>>     *
+> >>>>>>     * The distance is 4 because we traverse from Device A to
+> >>>>>> Downstream
+> >>>> Port 0
+> >>>>>>     * to the common Switch Upstream Port, back down to Downstream
+> >> Port
+> >>>>>> 1 and
+> >>>>>>     * then to Device B. The mapping type returned depends on the A=
+CS
+> >>>>>>     * redirection setting of the ports along the path.
+> >>>>>>     *
+> >>>>>>     * If ACS redirect is set on any port in the path, traffic betw=
+een the
+> >>>>>>     * devices will go through the host bridge, so return
+> >>>>>>     * PCI_P2PDMA_MAP_THRU_HOST_BRIDGE; otherwise return
+> >>>>>>     * PCI_P2PDMA_MAP_BUS_ADDR.
+> >>>>>>     *
+> >>>>>>     * Any two devices that have a data path that goes through the
+> >>>>>> host
+> >> bridge
+> >>>>>>     * will consult a whitelist. If the host bridge is in the white=
+list, return
+> >>>>>>     * PCI_P2PDMA_MAP_THRU_HOST_BRIDGE with the distance set to
+> >> the
+> >>>>>> number of
+> >>>>>>     * ports per above. If the device is not in the whitelist, retu=
+rn
+> >>>>>>     * PCI_P2PDMA_MAP_NOT_SUPPORTED.
+> >>>>>>     */
+> >>>>>>
+> >>>>>> I didn't change the unit, do you mean that I should add above
+> >>>>>> information to this patch?
+> >>>>>>
+> >>>>> Yes. please see above.
+> >>>>
+> >>>> OK, will do.
+> >>>>
+> >>>> Julia
+> >>>>
+> >>>>>
+> >>>>>> Regards,
+> >>>>>> Julia
+> >>>>>>
+> >>>>>>>
+> >>>>>>> Can you please wait for few days to raise the vote and sort out
+> >>>>>>> this
+> >> detail?
+> >>>>>>>
+> >>>>>>>> +
+> >>>>>>>> +The request data contains guest virtual pci notations of
+> >>>>>>>> +p2pdma provider and client. The response contains the distance
+> >>>>>>>> +between provider and client, which represents the
+> >>>>>>>> +compatibility of these two PCI
+> >>>>>>>> devices.
+> >>>>>>>> +
+> >>>>>>>>      \end{description}
+> >>>>>>>>
+> >>>>>>>>      \subsubsection{Device Operation: cursorq}\label{sec:Device
+> >>>>>>>> Types / GPU Device / Device Operation / Device Operation:
+> >>>>>>>> cursorq}
+> >>>>>>>> --
+> >>>>>>>> 2.34.1
+> >>>>>>>>
+> >>>>>>>
