@@ -1,120 +1,115 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F3FA21E098
-	for <virtio-comment@lists.linux.dev>; Thu, 20 Mar 2025 11:43:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14CA1E7C05
+	for <virtio-comment@lists.linux.dev>; Fri, 21 Mar 2025 07:01:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1742471024; cv=none; b=XLSt/SQzMNWYgNcWe2ofYarXF1hIMd3zXLUHugClXIPSiGLeRL0ADUu0gBdBtuE1BHIc2vrYlc8y9gW52fDFG7r+o8/yjyaucvJfRPnFaWVmA9hkf731F7S9f5SXWijRRGpjnk4A3/Ehhhz2bsQDJ6oZp0iXl+o6dC6+yhJcFbI=
+	t=1742540491; cv=none; b=aZCRkFm/zMmGVRWWyX+NFpoZLquf3bcVKj7v9m9uuPdF2foReuIB3MiI05Cn6rzTIi4+CmTZukK8tN0f+YlGbeLOMrbqK1J6kXR+JBEHa5ZqBeBkLX2KIuPZsmhcD3NmnpDmYmCqPma/1sU9qhwdF1WNw413k1Dq5UwNUNjIvWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1742471024; c=relaxed/simple;
-	bh=J/qLx/Cma9wd1wUOCQWIa5qTTB0L4FbuzEKNwp/0c9o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:content-type; b=nWPf4sKghO2IEml89wMNSvKd7awSLgFRPZWGkC9Hdno3qL11HmQcXy2LTiLbDTEpA36JPxhJbVo5YLEUlMlyR0QI8y1JkKAl3B5BV8aSjsGnCqVpupjXueOEJ5m3DZKIuwirwOymoW4ntHfxHdIci2QEfzUwNG/jn2MR8aex0Z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JL8XSDDZ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1742540491; c=relaxed/simple;
+	bh=muipbQ7Lkz1KxI9izFgySQspWk+deBC9Y3KJJcUx3pc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tKZ5Sh5U2UH7zx0ZmZAm0q2VBvZGpNW4n/xIVeaLnc8rVeQHvFnSU+WFeacepUWNFN7VhceeiK6ir/ahgLhNVUYHzsWY7A+C6u51kYUUViU9pV79LW4yKg7NAEZXauiqJ3tUupSDG0BVx0YIvnEuOsqOZrmYKRacYjcDHMGas/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=daynix.com; spf=pass smtp.mailfrom=daynix.com; dkim=pass (2048-bit key) header.d=daynix-com.20230601.gappssmtp.com header.i=@daynix-com.20230601.gappssmtp.com header.b=097NX8ZF; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=daynix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=daynix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JL8XSDDZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1742471021;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=8/kgBG/0AMPOgDydkyyRF4CGCx10th+qQaBXE+E4/kw=;
-	b=JL8XSDDZpyQjLsE8G4AmVrC3mXk6DfVNK1aDQgsYrSxzFJ5Bvk70ZATUfddl/vUYU5T9aq
-	BocwrwjP1poOc7eYgDmVBCQgwX3zCRop7yaTNl952RO3LNxidbdvZwo6y1AklaqI+1m8E1
-	5zuXvYd1gpewuYnsORDqD9zWCE9BoRA=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-99-UhbfT5jhO7-cprVR5XP5cQ-1; Thu, 20 Mar 2025 07:43:40 -0400
-X-MC-Unique: UhbfT5jhO7-cprVR5XP5cQ-1
-X-Mimecast-MFC-AGG-ID: UhbfT5jhO7-cprVR5XP5cQ_1742471019
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-39135d31ca4so384235f8f.1
-        for <virtio-comment@lists.linux.dev>; Thu, 20 Mar 2025 04:43:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=daynix-com.20230601.gappssmtp.com header.i=@daynix-com.20230601.gappssmtp.com header.b="097NX8ZF"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-22398e09e39so33112805ad.3
+        for <virtio-comment@lists.linux.dev>; Fri, 21 Mar 2025 00:01:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=daynix-com.20230601.gappssmtp.com; s=20230601; t=1742540489; x=1743145289; darn=lists.linux.dev;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Eoz/n6p/8pTkgnGF8SI8o2U5CAREZ7JoZMbljMZKTC0=;
+        b=097NX8ZFNw1Ny/NTHVz4dHbJzgMRcVuzRhRS6xXpsE7kE5ulj0dTOKR/MN+PSxR3Z7
+         xiyXDToFxLCm9+CtAXgT7AXIE8KmFeNOIAAFRaAkwmpe3D01JG9ioM6BFTBuwukd8bXV
+         JEeSv3sEiCsC6RDpsOo6i1mwr9OItIoshffB2XD7AJQk+934LZ/yYchWKuPiMBKpMXis
+         DALvc+LDtHetXraQFfXPeRlZeCdl7CyT61dIeEMc0A/oEQmhPiRz4OuZJFP+g0HQOM7f
+         9NPetbabW2DcHFDnqsrheQTWe2T2YwUiBbw5SZ1k3hJEP1UkTqIeuHZSW6PstA9nYdal
+         x3gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742471019; x=1743075819;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1742540489; x=1743145289;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=8/kgBG/0AMPOgDydkyyRF4CGCx10th+qQaBXE+E4/kw=;
-        b=SnMDdmjWhNculePLh6hLZWgqkYhDJFgfVsfoknoPjZsGBSZ9009+JzPWJYd38NUz3m
-         dsh3iwXnndyVUBwu8TrGT1xFTEvD93h61lBt/qCU+zeN+dp2Bs8lGc1JewfYS7EexQ7E
-         6A4kQ8/uJz8H+Sx1v0tyKXWfYfOka/WcII5YDST01VIzUX0iyxjCMgknUEJ0qeWKZEP/
-         gnG3akekhbii/GcBdunCDl68x1W7I1WfJRUOcVQo+8U/UQ6BMZ1A9tZC0/m4MmgkzmrX
-         uAR+p12PDlizWi7eLTBBcdUA+xsIvjH1kTGUmOK2XZhdgCwFNI2W+e4Uk9BOdvfNZ60u
-         A9CA==
-X-Gm-Message-State: AOJu0Yydw9B3yQKfqEBKSzh4wwqmfpLdXHSDFs3ggnx3TKfKM9scdsGx
-	z0P4sVHk0MRobvRLthNithhnb8ER79tfSJMHVHFYgo7QhJVM66caePH4kjsG0p+GZspFYoEDhF0
-	Yp2Awkl7yYaWrD/hjUWi8lFMNyQBaL1XuHZji+cICl9Rgf28oRSt4F++a03hqwTIPN7BwGPSBlv
-	3spEEeUrHZB32/MS6ldXBB1kHqHGLO5DMG4TSTNCpby3Kg+OHf
-X-Gm-Gg: ASbGncur14ytervNAINzUec7NlooOEcBEL6X58xoXsqxpQ55xL+lkRfUp6/fdIzQoPq
-	8Gd2TjiXFUL4RsjUZikaPUbcA8DsxJF5GdLAMtTJmTkn5Px5HFr4XtLuQ7iskdPOWtcz0m962Ha
-	uZb8tVZ5IkEaVKkviEM05/XJiQNfJAJFVtvWDe538o8ohODyWSqUZOrJhq+nY9UfSJyokTU7FC6
-	7ciDPkYln3rJIpf7u7hLJtiS7CDDr1SJZ2/a3y/eAUOZeTzT1TXZExSky3AhrAH7Y9XqkzT2fsv
-	Xu6q/zQh4scGyHIhkQ0=
-X-Received: by 2002:a05:6000:186f:b0:390:e535:8750 with SMTP id ffacd0b85a97d-39979576d8cmr2311573f8f.9.1742471018948;
-        Thu, 20 Mar 2025 04:43:38 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG/LVfwNA3SY6VNrNZQM67QqETAtANrJlXyEg1vJnkIV/tYn0T19VEoCEuth8vIaX56MLGI2g==
-X-Received: by 2002:a05:6000:186f:b0:390:e535:8750 with SMTP id ffacd0b85a97d-39979576d8cmr2311553f8f.9.1742471018454;
-        Thu, 20 Mar 2025 04:43:38 -0700 (PDT)
-Received: from localhost ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-395c83b748bsm23909714f8f.39.2025.03.20.04.43.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Mar 2025 04:43:38 -0700 (PDT)
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: virtio-comment@lists.linux.dev
-Cc: cohuck@redhat.com,
-	parav@nvidia.com,
-	mst@redhat.com,
-	Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-Subject: [PATCH v5] README.md: add example email for TC vote request
-Date: Thu, 20 Mar 2025 12:43:26 +0100
-Message-ID: <20250320114326.2075821-1-mvaralar@redhat.com>
-X-Mailer: git-send-email 2.42.0
+        bh=Eoz/n6p/8pTkgnGF8SI8o2U5CAREZ7JoZMbljMZKTC0=;
+        b=jZg+vzdk7dC41AxNXvjMWzheEGPbVZ2iiqvNHUDhqtKswOCbdIsDnhtwtpEqUiHEry
+         JCCgAMm9Mghf4Wcks7bdyWTNPeyQs9uSFrd94NKujUr80Lrzsv3qoOR02ysGlBiLwkk3
+         u20OIYjddZOUnVqYyYkS2uVAu1oCW2i9r3F9B7f4mISzoN5uuCTSBKQdhl1OlcH9gLKu
+         bDZm9+fv8MomicEvHPw85cJsnAWiQRYd1y77Vd9sbPFbCRBzhU0PuXI5rzeOcVHfuT9q
+         VW7DDb4T0a8Jj1WJy/m8mX2RyAoWjubb/99sDRUKemJGEm7cYBPCAMGq3MPrPyv0sg6m
+         ALIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWtoUslCvk2N1cue7kiZz178gwNbm1A5QEBtMrGLaq5K/DBl84yrGjD99T5sUh1mDjvxpj7byPCNBSdxvcp9g==@lists.linux.dev
+X-Gm-Message-State: AOJu0YxbHZEadGa2x1HjpPijzx3oYj7W0ZJV2C09EwFQztcPZHsWgdRL
+	x2l8HiH+/+ewOlkhChdOKcquiCEUODJjzAtX52ykyKwD5pjp2cDPNzv4mKekx48=
+X-Gm-Gg: ASbGncsc642y58IXI2GBxo03tKc0SRt8JliB+HhhQENH+L+eA5LB+U+7gm/1MQBVMk+
+	oRBYBQPJpD3AiSQF4k9jRgFF6iCYS/3Nd1xwyeGHJbpfSS1hQf7PmCUBWHAZ+IdEDsuagBjIN7q
+	beXCbSYO3gehSCioDd92F8R60OhfQ1jWld52bveRoK9osAvdseG2KR2HeFgO7V6Yjgal02fLLIJ
+	s1d1xVAZY1IExr6xeM4UWocvnxNf0qFFtohdNWZNEhymtiqeSkLd76aKaihlwGsKjUQxve06Zcy
+	qKGEn4nZBvHt6a37msAJbmrlsnWF/FD/8romBpbQLzTFWIou
+X-Google-Smtp-Source: AGHT+IHxC7cqcRT2zOFm25SplI1RpvQaP9dFkqBeZhstHSHW55BwR6bVojnmgU6aY5ijlJW/TVo0tQ==
+X-Received: by 2002:a17:902:f68c:b0:223:37b8:c213 with SMTP id d9443c01a7336-22780e3fcfdmr25391005ad.52.1742540489065;
+        Fri, 21 Mar 2025 00:01:29 -0700 (PDT)
+Received: from localhost ([157.82.207.107])
+        by smtp.gmail.com with UTF8SMTPSA id d9443c01a7336-227811da347sm9226915ad.161.2025.03.21.00.01.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 21 Mar 2025 00:01:28 -0700 (PDT)
+From: Akihiko Odaki <akihiko.odaki@daynix.com>
+Date: Fri, 21 Mar 2025 16:01:23 +0900
+Subject: [PATCH] virtio-net: Update the max_tx_vq description
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: dlkmBId9XXqsi4z3_zXXZtHb_xqXQnfdiBVJTzUzMYc_1742471019
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250321-tx-v1-1-dd21fbdedf7a@daynix.com>
+X-B4-Tracking: v=1; b=H4sIAMIO3WcC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDI1MDYyND3ZIKXXOLVBOTZFODRANjUyWgwoKi1LTMCrAh0bG1tQB8nPS0VAA
+ AAA==
+X-Change-ID: 20250321-tx-78e44c50a035
+To: Jason Wang <jasowang@redhat.com>, virtio-comment@lists.linux.dev
+Cc: devel@daynix.com, Akihiko Odaki <akihiko.odaki@daynix.com>
+X-Mailer: b4 0.15-dev-edae6
 
-Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+The previous description said:
+> A driver sets \field{max_tx_vq} to inform a device how many transmit
+> virtqueues it may use (transmitq1\ldots transmitq \field{max_tx_vq}).
+
+However, it also controls how many receive virtqueues a device MAY use.
+Copy the description of the virtqueue_pairs field of struct
+virtio_net_ctrl_mq_pairs_set, which also has the identical semantics, to
+clarify that.
+
+Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
 ---
-v4 -> v5: drop subject and only leave body
-v3 -> v4: add "[]"
-v2 -> v3: use "()"
-v1 -> v2: add Subject and To
+ device-types/net/description.tex | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index 76585b0..5178191 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -1578,7 +1578,9 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+ 
+ Field \field{indirection_table} is an array of receive virtqueues ids.
+ 
+-A driver sets \field{max_tx_vq} to inform a device how many transmit virtqueues it may use (transmitq1\ldots transmitq \field{max_tx_vq}).
++Field \field{max_tx_vq} specifies the number of the transmit and receive queues
++to be used up to \field{max_virtqueue_pairs}; subsequently, transmitq1\ldots
++transmitqn and receiveq1\ldots receiveqn where n=\field{max_tx_vq} MAY be used.
+ 
+ Fields \field{hash_key_length} and \field{hash_key_data} define the key to be used in hash calculation.
+ 
+
 ---
- README.md | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+base-commit: b495841a8e80d12c1130f8868f4128866291142d
+change-id: 20250321-tx-78e44c50a035
 
-diff --git a/README.md b/README.md
-index c06caf6..0be389e 100644
---- a/README.md
-+++ b/README.md
-@@ -206,7 +206,13 @@ The mail requesting the vote should include the following, on a line by itself:<
- <code>
- Fixes: https://github.com/oasis-tcs/virtio-spec/issues/NNN
- </code>
--(NNN is the issue number)</li>
-+(NNN is the issue number)<br>
-+For example, you can use the following template when requesting the TC vote:<br>
-+<code>
-+Could please open a voting ballot for these changes?<br>
-+<br>
-+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/NNN<br>
-+</code></li>
- <li>Please make sure to allow time for review between posting a comment
- and asking for a vote. </li>
- </ol>
-
-base-commit: 124fcd0e97f209aab19639e7369116d99ede22a2
+Best regards,
 -- 
-2.42.0
+Akihiko Odaki <akihiko.odaki@daynix.com>
 
