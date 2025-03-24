@@ -1,134 +1,124 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D822E338F
-	for <virtio-comment@lists.linux.dev>; Mon, 24 Mar 2025 04:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C04B36D
+	for <virtio-comment@lists.linux.dev>; Mon, 24 Mar 2025 06:40:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1742788989; cv=none; b=m1RzT9OHvkKYJICruZUsJXlVp6K6KG/yg5m57JYzPY480jKdTzKXQrF/yA1/jsQJV12kCSlyWfNzK3N1ufEWYo1tFmdPEhsl06sZW5XatGaVD+ReVuRtD3sodGjV6iqleiK4Z0Z3u+LU0umQDbkTWkb6lnu6z0PFk3HqgjExmFk=
+	t=1742798451; cv=none; b=rt/wvKbBqLvfW4MnvdoCjA/GwYMoXmhJ+rkB1rY6/wGZpnd2DzH9veQfeCycWFVFcdSxtwqynunwvKdpkpmf9oVFgM5NauELJSxUDLo5x+3btV+Oyxy1Z2MZJlIgulYHMtayD7L1EFEhl9dJkwxCWJvoGNFwBC92lFSBS659asI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1742788989; c=relaxed/simple;
-	bh=vBPHAkGRLNnd1sa2w6VED+r/WKp18KZXbyKcX+QX8Eo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PU0fbgMVaB8UHsZuX/RuyYbFskD2S9Pu/GqkH6scZNnGVPo4hJKuitl4iSlD+vDFsr0nbXuV/VnvLaOgYIDacj56TsnfuFT9VzdUVYPSqxYMQ10Kwg89lI6Y+gStVOeiXObmZRunIPRb8eb5xfmH6axHqAkRk6R9E5EOvgQoUR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZDQkBhPd; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1742798451; c=relaxed/simple;
+	bh=A0hN2ebXnzIWrAEyaj7POStyo0PxbK3tcbVpggQJscM=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=eTXTKfg/nFzlso3iJAHFLEsno5jqM1oE1HJi6+vg6P/xt2JCMqCfBRYNJSi9o21duAkZC6nNvSk3DHaCpWOxwI8gNvIkBCStXjdWo/IIx3y2msf75E6V4+Z8Isgm80PbrREsZWW9RfGWxVvVsgKNUAi8pcl1Vqtly0BfGD2/CNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=J2Bo4Lv7; arc=none smtp.client-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZDQkBhPd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1742788986;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=edAeZ46TjlI0zYXQJMTSsHs34llrlm9AlrXc3GZS/tA=;
-	b=ZDQkBhPdKtC9xKm69XM5POb3dHrrClA1I15jwtoRJkkwlPJ0jM2fwZ1PQJS8zZ3usRxqK6
-	ce8LNIU+/7OSzGKF/sQY31qyeSVA1tzNVibMrLDpd9/o0V7GMqASnD1bcdgCBTp1s9jwt6
-	r8Z5NchT7W3+NjadNG3Uboh7Dz4+hc4=
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-389-Or9ZngG4N7m2cTDgiIBdmA-1; Mon, 24 Mar 2025 00:03:04 -0400
-X-MC-Unique: Or9ZngG4N7m2cTDgiIBdmA-1
-X-Mimecast-MFC-AGG-ID: Or9ZngG4N7m2cTDgiIBdmA_1742788983
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-2ff68033070so5953151a91.2
-        for <virtio-comment@lists.linux.dev>; Sun, 23 Mar 2025 21:03:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742788983; x=1743393783;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=edAeZ46TjlI0zYXQJMTSsHs34llrlm9AlrXc3GZS/tA=;
-        b=Pxe2NN1rm3jR8pw/huvR3ld3NRtMbvoor0kZFl3erAv7y6428bIMEBuIJQaWbT57wG
-         dYMX0wiOo2IZ7kZDGb/CnWc1RzLsSB/NJq4MHgrizbu+RKqD6cgnkV14s4+urhG4hKk6
-         /E7r0ohjt3cXwqjAnDbmnocvHn3nEZ7LzblDBgAkJk2X9/OyRttvMITEEzp4ux0Azjxg
-         NKSSg0bq1BtEbgTwx/tS7rJcxvhNhQwbsYxrryp5Ga++WtPzDdPp8mW3R1cEquaW3f7h
-         EXwAWodRh7jPetEmYRsgEAWXB+jr0K+wpM3rNWkBSgplvdrdF4HLeIhsUrnuuJkiAaz5
-         N9aw==
-X-Gm-Message-State: AOJu0YxOgfOwZeQ+utwn5RxrE/PzMbbJQV1Qdg62ChEIWgxKyJ6LPxXE
-	Dmt4psnuKZ2Vv59w6oVEyIB0YOEWZiP6afP6l3HFYZ3Lzej2wr4kMvcdI51P6U3sSfb8LXUAoaA
-	qtlA7LYfrocLuyjmHLcJPDRJlBap6vRvOkH7bQm/BlX/+DJuhaqP7GhAOPbEYaWVlZYjCuCwGKj
-	+cL6UzEWqc8jJbh45s1NWN2JKHvTdSdj3o04Kxe+A=
-X-Gm-Gg: ASbGncvXOUfPS5Q3GRtDiDVx+j9K9utx1+gLkJDupvUScUd4IrO96dWOqZ6UAZa3a9c
-	7KvZD9p0UI8NCrEdIo5oIunPR9poEA3M7V9SPHTXk3gM4uYh/jpff4F5j0QxfUQ0k73/yfLo=
-X-Received: by 2002:a17:90b:5450:b0:2fa:1e3e:9be7 with SMTP id 98e67ed59e1d1-3030fe6944amr17221948a91.5.1742788983333;
-        Sun, 23 Mar 2025 21:03:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFhLTAqWAp5mkfbPWa9Qopv7KCmDzlPCLmFviYF2A31yDUjR/i+0Tpuf/oj3n37HMaZbTCkD7H0dYznjEzeeUc=
-X-Received: by 2002:a17:90b:5450:b0:2fa:1e3e:9be7 with SMTP id
- 98e67ed59e1d1-3030fe6944amr17221912a91.5.1742788982797; Sun, 23 Mar 2025
- 21:03:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="J2Bo4Lv7"
+Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52O65RsI016893;
+	Sun, 23 Mar 2025 23:38:49 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pfpt0220; bh=ty2W76eBpjiqBPLWq+WEYfH
+	NSwH7MKRSqR6XqMSICH4=; b=J2Bo4Lv7TJlx8V6DGheo4A16ZrwhpFkSiaxzJLz
+	ALC0YzFsvvEnJ7bz0AcwCX8Z3Jlx4ycPp2eDPoXQ6XTPTl7HYjsPY8Lb/8ER/J+7
+	82iHNWQQrZj5nQf0y5odlyN1KDlm4VoefO4IfPEZ3/FTlZpzg4YrAQEAgtst47EE
+	HZomuV0RBJXTuneFquONmmouBJZp+Z8i67kANcqFoLQok/ao54Mj4izBS5Mu9MQ9
+	jZgGHDP41fmSscBmGPlOK7T3S1g5m7/hb6xRIpFzbclycvqokJpQAfmcORKqzzNn
+	50xJAxl/k0U7FWLTwIt5AjQo0HaDWi0lLWVnof8j2+MGjOg==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 45hvqjjg4j-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 23 Mar 2025 23:38:49 -0700 (PDT)
+Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.4; Sun, 23 Mar 2025 23:38:47 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
+ (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.4 via Frontend
+ Transport; Sun, 23 Mar 2025 23:38:47 -0700
+Received: from localhost.localdomain (unknown [10.28.36.175])
+	by maili.marvell.com (Postfix) with ESMTP id A296B3F70DE;
+	Sun, 23 Mar 2025 23:38:44 -0700 (PDT)
+From: Srujana Challa <schalla@marvell.com>
+To: <virtio-comment@lists.linux.dev>
+CC: <mst@redhat.com>, <cohuck@redhat.com>, <mvaralar@redhat.com>,
+        <parav@nvidia.com>, <sma@napatech.com>, <sburla@marvell.com>,
+        <ndabilpuram@marvell.com>, <jerinj@marvell.com>, <anoobj@marvell.com>,
+        <schalla@marvell.com>
+Subject: [PATCH RFC v4 0/4] introduce IPsec Service in virtio-crypto
+Date: Mon, 24 Mar 2025 12:08:39 +0530
+Message-ID: <20250324063843.1599512-1-schalla@marvell.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20250321-tx-v1-1-dd21fbdedf7a@daynix.com>
-In-Reply-To: <20250321-tx-v1-1-dd21fbdedf7a@daynix.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Mon, 24 Mar 2025 12:02:50 +0800
-X-Gm-Features: AQ5f1JrQTrfIfvmS5-oc5Az368YlzBePTlsfGOulleRtZdQI71CX1KbFsNj54As
-Message-ID: <CACGkMEtGx7ajAmJUib++qJ2=rhZjyj5p=7iN2xBvba4gcBAQtg@mail.gmail.com>
-Subject: Re: [PATCH] virtio-net: Update the max_tx_vq description
-To: Akihiko Odaki <akihiko.odaki@daynix.com>
-Cc: virtio-comment@lists.linux.dev, devel@daynix.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 66cHhqiK2IRtgxWuvYloOVs3lxhyT5MiovwBGu97aJY_1742788983
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: VC8NUQde_i0rC7iRdIVceOkb5rJhEjc1
+X-Proofpoint-GUID: VC8NUQde_i0rC7iRdIVceOkb5rJhEjc1
+X-Authority-Analysis: v=2.4 cv=YYO95xRf c=1 sm=1 tr=0 ts=67e0fdf9 cx=c_pps a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17 a=Vs1iUdzkB0EA:10 a=mchOrBHCVxKrAIYRA8sA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-24_03,2025-03-21_01,2024-11-22_01
 
-On Fri, Mar 21, 2025 at 3:01=E2=80=AFPM Akihiko Odaki <akihiko.odaki@daynix=
-.com> wrote:
->
-> The previous description said:
-> > A driver sets \field{max_tx_vq} to inform a device how many transmit
-> > virtqueues it may use (transmitq1\ldots transmitq \field{max_tx_vq}).
->
-> However, it also controls how many receive virtqueues a device MAY use.
-> Copy the description of the virtqueue_pairs field of struct
-> virtio_net_ctrl_mq_pairs_set, which also has the identical semantics, to
-> clarify that.
+This series enhances virtio-crypto by adding support for IPsec
+services. These patches aim to extend the capabilities of virtio-crypto,
+enabling it to handle IPsec operations efficiently. In addition
+to standard crypto processing, the IPsec protocol processing is
+also offloaded to the Crypto device as lookaside operation.
 
-Thanks for doing this, I wonder if it's time to rename as "max_tx_vq"
-sounds like a TX only thing.
+It utilizes new virtio basic facilities, including capability and
+resource objects. Below is a summary of the changes introduced:
 
->
-> Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
-> ---
->  device-types/net/description.tex | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/device-types/net/description.tex b/device-types/net/descript=
-ion.tex
-> index 76585b0..5178191 100644
-> --- a/device-types/net/description.tex
-> +++ b/device-types/net/description.tex
-> @@ -1578,7 +1578,9 @@ \subsubsection{Control Virtqueue}\label{sec:Device =
-Types / Network Device / Devi
->
->  Field \field{indirection_table} is an array of receive virtqueues ids.
->
-> -A driver sets \field{max_tx_vq} to inform a device how many transmit vir=
-tqueues it may use (transmitq1\ldots transmitq \field{max_tx_vq}).
-> +Field \field{max_tx_vq} specifies the number of the transmit and receive=
- queues
-> +to be used up to \field{max_virtqueue_pairs}; subsequently, transmitq1\l=
-dots
-> +transmitqn and receiveq1\ldots receiveqn where n=3D\field{max_tx_vq} MAY=
- be used.
->
->  Fields \field{hash_key_length} and \field{hash_key_data} define the key =
-to be used in hash calculation.
->
->
-> ---
-> base-commit: b495841a8e80d12c1130f8868f4128866291142d
-> change-id: 20250321-tx-78e44c50a035
->
-> Best regards,
-> --
-> Akihiko Odaki <akihiko.odaki@daynix.com>
->
+Patch1:
+This patch introduces the foundational support for IPsec services within
+the virtio-crypto framework, outlining the necessary capabilities for
+IPsec operations.
+
+Patch2:
+This patch adds resource objects required for programming IPsec Security
+Associations (SAs) for both encryption and decryption processes.
+
+Patch3:
+This patch includes new opcodes specific to IPsec operations,
+facilitating the handling of IPsec data requests within the
+virtio-crypto driver.
+
+Patch4:
+This patch specifies the requirements for both the device and the driver
+to support IPsec operations.
+
+These enhancements are for providing support for IPsec within the
+virtio-crypto device/driver, improving security and performance for
+virtualized environments. We believe these additions will significantly
+benefit users who rely on virtio-crypto for secure data transmission.
+
+v2:
+- Addressed the review comments from Matias.
+v3:
+- Addressed the review comments from Parav Pandit.
+v4:
+- Introduced COPY_DF, ECN and SA LIFETIME to the SA options.
+- Introduced SA lifetime to the SA resource object data structure.
+- Set cipher and auth key arrays to fixed sizes.
+
+Srujana Challa (4):
+  virtio-crypto: Add IPsec service operation and Capabilities
+  virtio-crypto: Add resource objects for IPsec outbound and inbound SAs
+  virtio-crypto: Add new IPsec opcodes to data request
+  virtio-crypto: Add device and driver requirements for IPsec operation
+
+ device-types/crypto/description.tex        | 510 ++++++++++++++++++++-
+ device-types/crypto/device-conformance.tex |   1 +
+ device-types/crypto/driver-conformance.tex |   1 +
+ introduction.tex                           |  12 +
+ 4 files changed, 519 insertions(+), 5 deletions(-)
+
+-- 
+2.25.1
 
