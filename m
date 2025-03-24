@@ -1,193 +1,260 @@
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550D5EEAB
-	for <virtio-comment@lists.linux.dev>; Mon, 24 Mar 2025 06:46:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31A425D55A
+	for <virtio-comment@lists.linux.dev>; Mon, 24 Mar 2025 13:51:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1742798810; cv=none; b=PZZlY5TgszIRcmaB9dbfsYCKrjr0MyprBP4gvskjhvoHVqBnlLwjTdpHCdIKZTRqV4u4F39d/Pk/BYQgDilVI+X5jr9nkN7TyHNgmgQgnnYSODNNANpYl7Oh5ISQGn9QzUFqrvDW+4mLKdtgioVyXhe05sOmqYJAwOE9xYy3zmM=
+	t=1742824302; cv=none; b=O4yKdLh4YgbQomGesEa+fOq2XpakL7GtdLMKKg23kxDZ/ZmG2exstU61WTz80u0OpZIDtS7mtlcSm8dIPJQQDeOOM7DVc0iyl876ejBOmjm2Y3GFec2oi5pXexmrmwX5Q0Z+9d4+JlKssZtrtwIc6Zph+sKYrdMy75QBPgqUkmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1742798810; c=relaxed/simple;
-	bh=HpgscUt2m3+VJhofWjsvnq8NJ4Gz1IsvQfniMCBr4ms=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Tsf+QGciM1TmtAZe5vFpG59UHBHXDf26Xcaax+CdzebA58KvpO65mrw8Y/QB0xyZDgNdlrJXQ/El8Vnkf1rzkHK0iO+zqhBoz0VFM9MFADkdXwDRne3YYvMOdW9ZuYI9NG29gLY96zsTUWeb5FfqAnDmqGqmZNB4UwiThyefUNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=hP4BoEqs; arc=none smtp.client-ip=67.231.156.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1742824302; c=relaxed/simple;
+	bh=BA9mAAhtEucG3TnG+UyWVvdMM6Owf6FsqXy0UCRHv/w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=ezTMQdZj/cpB0KBrt04etzk/c1nT1kXEBxi1RpidcrhB+0pOQ3XvuVVTtMkHCqZj6OaVlCdZmZJffhB/tYVQTpV6XOMROARNS2BBMbHtElgHYf8ferc905nGCq49gXDOg8a6dSnxn6W7cbIrV2lOpZIl+K9du9TysUqBSxLoLzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fX3bo4GR; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="hP4BoEqs"
-Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52NNnHm0029203;
-	Sun, 23 Mar 2025 23:46:48 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=g
-	w17a43/iaCvrV4oQt7bzExY+QBtOwsudzwPyUgu8bc=; b=hP4BoEqs4n69QX1OY
-	RHVKNdNmaROVOgk/9XhZ9cSjme5nNqF5ETouP+YyJMc57+KTs2+IiJJyooN06ehI
-	Ngm3WrLlw9wGVtVnFZauSyVRf6IUUpt2qlQZ4wJL8U0YJOMvvBOnVPqpWAKqfqTZ
-	pn1DKVQIrEn8kA/4AtXyop63cT6Qn+x0fC8FBlob3fQbSkZeRBnWIwDOUc++Yy2z
-	D4I/Cp/6uCPMiDnkO/EJnP90hC4Asrd9+dKm0IEKPeeK8Ns7Wa791yd4QaBReFjm
-	vHs2IWpxwq3xuP+bq9zE28NRoDQHpVXhuGgXrtJJWbyLf8eCvFI7XGoZ2fB1nqpz
-	mgXAA==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 45hvqjjget-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 23 Mar 2025 23:46:47 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Sun, 23 Mar 2025 23:46:47 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.4 via Frontend
- Transport; Sun, 23 Mar 2025 23:46:47 -0700
-Received: from localhost.localdomain (unknown [10.28.36.175])
-	by maili.marvell.com (Postfix) with ESMTP id 5F6E43F70DE;
-	Sun, 23 Mar 2025 23:46:44 -0700 (PDT)
-From: Srujana Challa <schalla@marvell.com>
-To: <virtio-comment@lists.linux.dev>
-CC: <mst@redhat.com>, <pabeni@redhat.com>, <jasowang@redhat.com>,
-        <parav@nvidia.com>, <sburla@marvell.com>, <ndabilpuram@marvell.com>,
-        <jerinj@marvell.com>, <schalla@marvell.com>
-Subject: [PATCH RFC v3 4/4] virtio-net: Add IPsec operation device and driver requirements
-Date: Mon, 24 Mar 2025 12:16:30 +0530
-Message-ID: <20250324064630.1601356-5-schalla@marvell.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250324064630.1601356-1-schalla@marvell.com>
-References: <20250324064630.1601356-1-schalla@marvell.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fX3bo4GR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1742824299;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kx62/dNi6SDaFIgG9Pla8t8SQ4VDex8JClA6dIpEnhE=;
+	b=fX3bo4GRJjLu/QJE/enbCg2h9E6/umH3iUSnNU911mY36XRVSHEXAyRp7m4rKoW4sUJHDI
+	HGB90w65bmjDSw8uwlVR0jIyX60tlrtSphNr2YFww/miVE1R+c/85AEGNSqLDQlMPOrqrc
+	h5HIyQDrA/rhHaS4G8UDzeV0XunQMr0=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-345-hpwRbh4xMBa1PvLGfUi_ZA-1; Mon, 24 Mar 2025 09:51:37 -0400
+X-MC-Unique: hpwRbh4xMBa1PvLGfUi_ZA-1
+X-Mimecast-MFC-AGG-ID: hpwRbh4xMBa1PvLGfUi_ZA_1742824297
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-43d51bd9b45so17798265e9.1
+        for <virtio-comment@lists.linux.dev>; Mon, 24 Mar 2025 06:51:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742824296; x=1743429096;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=kx62/dNi6SDaFIgG9Pla8t8SQ4VDex8JClA6dIpEnhE=;
+        b=hV+lzqlZ+Ikf/ViUFALBP+Kldfm67vgvydtoeWQbsfRcHOprCMBo2FeBxQhswQrKXm
+         GGTKl9UcjUokzY2IMT1WB//d3JRLv74TC3U2fUJYYuIcKFC4rwPmfb8osojhhof70E4S
+         TCSkKUEHRWcz4f7NZRIhzHbxWKuEEVZfOyq9uzcLFEHYl4IAD/L5CXfm3g+bwL2N3pub
+         7L6NGuYH2j1o70Z68WaVzk9ySH62riy6QPcNeb8vKFStRYevp1oBX1N9bEfATP+mAByN
+         fswTxaLHWto74S7YQQhJcKWEe1LJPB+jQ6JZO7DPAOc4XLsVXaZb98IN9QHotl4qwzT8
+         aCzg==
+X-Forwarded-Encrypted: i=1; AJvYcCW+ea7FQ4/2RRnel/dZjDzU0cO6W7mA3FZEUSgBrmCdm2PIGmzw1EcXFiKWF2Wf2p7qGwnZa910ONcL7uefCg==@lists.linux.dev
+X-Gm-Message-State: AOJu0YwlbTnl3QD12aTkuPGN/MGB4RCpJqAGG7ywJsI2UONq32TjZYox
+	HyWhJIk6C4qggYrXip8zR8YwQSFTgUND6EtD7KMFMoJsa7n91PchU7UDxrF2WK25oqi6hJvnB5l
+	0O94vz0HeqNNgRpOtbJPUo3NlsMPYzsWGib3Mmxlit6lpdSVxrgRfpLNO3qPIK0U/
+X-Gm-Gg: ASbGncvhoVodSneQW+1h3IK16moNI7qxShuV2H+Pm0vsn0j0FmUTHjs5BIDFN0KlVet
+	IGI72HtbnAThnd1enNiCkXi4GyeVIB6vPsF5qxHUmorLteo8se7nVQXe27dZyyo+gwlZbLtNG44
+	K66IGLk4GINFOA5uBdAX9FXfTGO8t3JALjwIk/9vwAgbqXD4OhiMHNPQeCGEX70H+z0hdIJ2cef
+	rENOeSl3I0rL/2mEpJ+4S2ywxtB5erRtTHX0z/iCGf4pIv54Dnhm4Y0KBcI5gAx3XP3nwZ93ilk
+	5XOIEEX4NfEjE/gJqUvD+ezEJxWAm2IK4YyFcvEyCLJWGmamECBeT0Ioomal5PAc
+X-Received: by 2002:a5d:64e5:0:b0:38f:2b77:a9f3 with SMTP id ffacd0b85a97d-3997f932cc8mr12434037f8f.43.1742824296421;
+        Mon, 24 Mar 2025 06:51:36 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG2etnusgkE8HQe3O17zTVQZkih0resMyBA2B+/seTKdvbZnc7PPxVVMkP8QS9SkL13rvzenQ==
+X-Received: by 2002:a5d:64e5:0:b0:38f:2b77:a9f3 with SMTP id ffacd0b85a97d-3997f932cc8mr12433999f8f.43.1742824295789;
+        Mon, 24 Mar 2025 06:51:35 -0700 (PDT)
+Received: from sgarzare-redhat (host-87-12-25-55.business.telecomitalia.it. [87.12.25.55])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3997f9e65e0sm11235059f8f.61.2025.03.24.06.51.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Mar 2025 06:51:35 -0700 (PDT)
+Date: Mon, 24 Mar 2025 14:51:31 +0100
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Xuewei Niu <niuxuewei97@gmail.com>
+Cc: parav@nvidia.com, mst@redhat.com, fupan.lfp@antgroup.com, 
+	virtio-comment@lists.linux.dev, Xuewei Niu <niuxuewei.nxw@antgroup.com>
+Subject: Re: [PATCH v6 RESEND] virtio-vsock: Add support for multi devices
+Message-ID: <h5vwvrs7gsnkyw3vmkumhbtuqdecfmksnwlvfmxr62t2lhz3hc@lpinl24bwkte>
+References: <20250324064335.1845722-1-niuxuewei.nxw@antgroup.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+In-Reply-To: <20250324064335.1845722-1-niuxuewei.nxw@antgroup.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: pqe0T9NihR9arcJdxDmvYHiaQkHjteUECqTHt9MnrTs_1742824297
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: csPA8l_mhnkjPL0vOyaZOQPERNeEpduC
-X-Proofpoint-GUID: csPA8l_mhnkjPL0vOyaZOQPERNeEpduC
-X-Authority-Analysis: v=2.4 cv=YYO95xRf c=1 sm=1 tr=0 ts=67e0ffd8 cx=c_pps a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17 a=Vs1iUdzkB0EA:10 a=M5GUcnROAAAA:8 a=0Bqn2NRVGHtwe3UJoIIA:9 a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-24_03,2025-03-21_01,2024-11-22_01
 
-Add device and driver requirements for IPsec Operation.
+On Mon, Mar 24, 2025 at 02:43:35PM +0800, Xuewei Niu wrote:
+>This patch brings a new feature, called "multi devices", to the virtio
+>vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, and a
+>"device_order" field to the config for the virtio vsock.
+>
+>== Motivition ==
+>
+>Vsock is a lightweight and widely used data exchange mechanism between host
+>and guest. Currently, the virtio-vsock only supports one device, resulting
+>in the inability to enable more than one backend. For instance, two devices
+>are required: one to transfer data to the VMM via virtio-vsock,
 
-Signed-off-by: Srujana Challa <schalla@marvell.com>
----
- device-types/net/description.tex        | 79 +++++++++++++++++++++++++
- device-types/net/device-conformance.tex |  1 +
- device-types/net/driver-conformance.tex |  1 +
- 3 files changed, 81 insertions(+)
+Come to think of it, AF_VSOCK defines CID 0 (VMADDR_CID_HYPERVISOR) to 
+communicate with the hypervisor, but in virtio-vsock we never supported 
+it. Could this be the use case?
 
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index a3ff93e..6137d04 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -3558,6 +3558,85 @@ \subsubsection{IPsec Operation}\label{sec:Device Types / Network Device / Device
- 
- See \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Resource objects / VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-INBOUND-SA]{VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA}.
- 
-+\devicenormative{\paragraph}{IPsec Operation}{Device Types / Net Device / Device Operation / IPsec Operation}
-+
-+When the device supports IPsec operations,
-+\begin{itemize}
-+\item the device MUST set VIRTIO_NET_IPSEC_RESOURCE_CAP, VIRTIO_NET_IPSEC_SA_CAP
-+capability in the \field{supported_caps} in the command VIRTIO_ADMIN_CMD_CAP_SUPPORT_QUERY.
-+\item the device MUST support the administration commands
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE,
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY, VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY,
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY for the resource types
-+VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA and VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA.
-+\end{itemize}
-+
-+When any of the VIRTIO_NET_IPSEC_RESOURCE_CAP or VIRTIO_NET_IPSEC_SA_CAP
-+capability is disabled, the device MUST set \field{status} to
-+VIRTIO_ADMIN_STATUS_Q_INVALID_OPCODE for the commands
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE,
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY, VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY,
-+and VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY for the resource types
-+VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA and VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA.
-+
-+The device MUST set \field{status} to VIRTIO_ADMIN_STATUS_EEXIT for the
-+command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE when the resource \field{type}
-+is VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA or VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA,
-+if the object already exists with the supplied \field{id}.
-+
-+The device MUST fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE for the
-+VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA object if,
-+\begin{itemize}
-+\item \field{id} is greater than or equal to \field{outb_sa_limit}.
-+\item the supplied SA parameters, such as mode, options, cipher and authentication
-+      algorithms are not supported in the capabitlity VIRTIO_NET_IPSEC_SA_CAP.
-+\end{itemize}
-+
-+The device MUST fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE for the
-+VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA object if,
-+\begin{itemize}
-+\item \field{id} is greater than or equal to \field{inb_sa_limit}.
-+\item the supplied SA parameters, such as mode, options, cipher and authentication
-+      algorithms are not supported in the capabitlity VIRTIO_NET_IPSEC_SA_CAP.
-+\end{itemize}
-+
-+The device SHOULD maintain a table for subsequent lookups to inbound/outbound data
-+with the corresponding SA based on the supplied \field{id}.
-+
-+The device MUST allow recreating the resource objects using the command
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE which was previously destroyed using
-+the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY respectively without
-+undergoing a device reset.
-+
-+The device MAY fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE with
-+the \field{status} set to VIRTIO_ADMIN_STATUS_EINVAL for the
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTB_SA or VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INB_SA
-+commands if the resource object with the same \field{spi} already exists.
-+
-+On device reset, the device MUST destroy all the resource objects which have been created.
-+
-+\drivernormative{\paragraph}{IPsec Operation}{Device Types / Net Device / Device Operation / IPsec Operation}
-+
-+The driver MUST query the capabilities using VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY
-+to discover the capability types the device offers.
-+
-+The driver MUST get VIRTIO_NET_IPSEC_RESOURCE_CAP and VIRTIO_NET_IPSEC_SA_CAP
-+if listed in VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY command result, using
-+VIRTION_ADMIN_CMD_DEVICE_CAP_GET to discover the capabilities the device is
-+able to offer.
-+The driver MUST set VIRTIO_NET_IPSEC_RESOURCE_CAP and VIRTIO_NET_IPSEC_SA_CAP
-+using VIRTIO_ADMIN_CMD_DEVICE_CAP_SET to indicate the device which capability
-+the driver uses.
-+
-+For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE, when creating a resource
-+VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA, the driver MUST set all the parameters
-+in \field{struct virtio_crypto_resource_obj_ipsec_sa} with relevant values.
-+And when create a resource object VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA,
-+the driver MUST set all the parameters except
-+\field{struct virtio_crypto_ipsec_tunnel_param}.
-+
-+The driver SHOULD NOT add multiple inbound SA objects with the same \field{spi}.
-+
- \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
- Types / Network Device / Legacy Interface: Framing Requirements}
- 
-diff --git a/device-types/net/device-conformance.tex b/device-types/net/device-conformance.tex
-index d88484c..7fe8505 100644
---- a/device-types/net/device-conformance.tex
-+++ b/device-types/net/device-conformance.tex
-@@ -18,4 +18,5 @@
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Flow filter}
-+\item \ref{devicenormative:Device Types / Network Device / Device Operation / IPsec Operation}
- \end{itemize}
-diff --git a/device-types/net/driver-conformance.tex b/device-types/net/driver-conformance.tex
-index d346b88..0d20190 100644
---- a/device-types/net/driver-conformance.tex
-+++ b/device-types/net/driver-conformance.tex
-@@ -18,4 +18,5 @@
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Flow filter}
-+\item \ref{drivernormative:Device Types / Network Device / Device Operation / IPsec Operation}
- \end{itemize}
--- 
-2.25.1
+We could in this way add a new feature for those devices that 
+communicate only with the VMM, where the CID of the VM is quite useless.  
+So instead of having multiple CIDs per VM, we could continue to have a 
+single CID, but the transport could support 2 devices, one to 
+communicate with the VMM (CID = 0) and one to communicate with the host 
+apps (CID = 2).
+
+Maybe this is orthogonal to this proposal, though, because it might 
+still make sense to have multiple vsock devices, even though it's not 
+very clear to me.
+
+> and another to a user process via vhost-user-vsock.
+
+So to recap, one device would be used only to communicate with the VMM, 
+and the other device to communicate with other external processes, 
+right?
+
+Do you have any other use cases?
+
+>
+>Apart from that, a side gain is that theoretically the performance might be
+>improved since each device has its own queue. But it varies depending on
+>the implementation.
+
+This though might be easier to implement supported multi-queue in the 
+device, instead of adding n devices to the VM.
+
+>
+>== Typical Usages ==
+>
+>Assuming there are two virtio-vsock devices on the guest, with CIDs 3 and 4
+>respectively. And the device with CID 3 is default.
+>
+>Connect to the host using the device with CID 3.
+>
+>```c
+>// use default one (no bind)
+>fd = socket(AF_VSOCK);
+>connect(fd, 2, 1234);
+>n = write(fd, buffer);
+>
+>// or bind explicitly
+>fd = socket(AF_VSOCK);
+>bind(fd, 3, -1);
+>connect(fd, 2, 1234);
+>n = write(fd, buffer);
+>```
+>
+>Connect to the host using the device with CID 4.
+>
+>```c
+>// must bind explicitly as the device with CID 4 is not default.
+>fd = socket(AF_VSOCK);
+>bind(fd, 4, -1);
+>connect(fd, 2, 1234);
+>n = write(fd, buffer);
+>```
+>
+>The first version of multi-devices implementation is available at [1].
+>
+>[1] https://lore.kernel.org/virtualization/20240517144607.2595798-1-niuxuewei.nxw@antgroup.com
+>
+>Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+>---
+> device-types/vsock/description.tex | 30 ++++++++++++++++++++++++++++--
+> 1 file changed, 28 insertions(+), 2 deletions(-)
+>
+>diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
+>index 7d91d15..7d0cfe4 100644
+>--- a/device-types/vsock/description.tex
+>+++ b/device-types/vsock/description.tex
+>@@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+> \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+> \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+> \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not implied.
+>+\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] multiple devices feature is supported.
+> \end{description}
+>
+> \drivernormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
+>@@ -34,6 +35,12 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+> VIRTIO_VSOCK_F_NO_IMPLIED_STREAM, the driver MAY act as if
+> VIRTIO_VSOCK_F_STREAM has also been negotiated.
+>
+>+The driver SHOULD ignore devices that do not have
+>+VIRTIO_VSOCK_F_MULTI_DEVICES if the feature has been negotiated.
+>+
+>+The driver SHOULD ignore all subsequent devices if a device without
+>+VIRTIO_VSOCK_F_MULTI_DEVICES is present.
+>+
+> \devicenormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
+>
+> The device SHOULD offer the VIRTIO_VSOCK_F_NO_IMPLIED_STREAM feature.
+>@@ -52,6 +59,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> \begin{lstlisting}
+> struct virtio_vsock_config {
+> 	le64 guest_cid;
+>+	le16 device_order;
+> };
+> \end{lstlisting}
+>
+>@@ -77,11 +85,27 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> \hline
+> \end{tabular}
+>
+>+The \field{device_order} is used to identify the default device. Up to
+>+65,535 devices can be supported due to the size.
+>+
+>+\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+>+
+>+The device MUST provide a distinct \field{device_order} if
+>+VIRTIO_VSOCK_F_MULTI_DEVICES feature has been negotiated.
+>+
+>+\drivernormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+>+
+>+The driver MUST treat the device with the lowest \field{device_order} as
+>+the default device.
+>+
+> \subsection{Device Initialization}\label{sec:Device Types / Socket Device / Device Initialization}
+>
+> \begin{enumerate}
+> \item The guest's cid is read from \field{guest_cid}.
+>
+>+\item If VIRTIO_VSOCK_F_MULTI_DEVICES has been negotiated, the device's
+>+order will be read from \field{device_order}.
+>+
+> \item Buffers are added to the event virtqueue to receive events from the device.
+>
+> \item Buffers are added to the rx virtqueue to start receiving packets.
+>@@ -233,8 +257,10 @@ \subsubsection{Receive and Transmit}\label{sec:Device Types / Socket Device / De
+>
+> \drivernormative{\paragraph}{Device Operation: Receive and Transmit}{Device Types / Socket Device / Device Operation / Receive and Transmit}
+>
+>-The \field{guest_cid} configuration field MUST be used as the source CID when
+>-sending outgoing packets.
+>+If \field{src_cid} is missing in outgoing packets, the driver MUST assign
+
+I think here we have to define what the driver does, since the driver 
+has to populate that field, how is it missing?
+
+Maybe we are confusing interaction with user space, so we should say 
+something like, “If the source socket is not bound to any source CID, 
+the driver MUST assign ...”
+
+Thanks,
+Stefano
+
+>+one. If more than one device is present, the driver SHOULD use the default
+>+device's \field{guest_cid} configuration. Otherwise, the driver SHOULD use
+>+the \field{guest_cid} of the only available device.
+>
+> A VIRTIO_VSOCK_OP_RST reply MUST be sent if a packet is received with an
+> unknown \field{type} value.
+>-- 
+>2.34.1
+>
 
