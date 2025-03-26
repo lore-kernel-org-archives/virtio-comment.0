@@ -1,62 +1,62 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45A313D8A0
-	for <virtio-comment@lists.linux.dev>; Tue, 25 Mar 2025 03:20:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D0E32C8B
+	for <virtio-comment@lists.linux.dev>; Wed, 26 Mar 2025 03:00:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1742872820; cv=none; b=fVdFsTqVUBLlln3S0XREWzFttZFMJISot/AgqSl3nMy8Dc9jIQ6lGni+qSIX3qK+AdNWwQ6UX5fbIgJPO4ZnD3DITUTEqwILMkKpCo928AxWpkFHyW2QokY0jUzsF9Ii2KqOLmDvngDd0GQHfniuwBGCepCH/g5WQ+LDxqWyX1o=
+	t=1742958011; cv=none; b=FqtGyXfwJntQlQEfAPOvm19CsJAouCUHWeVgJn1P0DKCg6UM9ax2VryYcFYCBWtosA4OlJaFJlh0Y5a94tf9hf8dQJ8r9qg0J7sFqsXcPZAtsBQ2LIO3xdlTVXa6Qe/8erU/toJDdgSrZ6/k1iUXauCFP+YyzJJpBldRKYjV4xM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1742872820; c=relaxed/simple;
-	bh=sxV+Wdx0nyrxLrKX7EZmETI3TgWDnJMIpnQJi5pVqdk=;
+	s=arc-20240116; t=1742958011; c=relaxed/simple;
+	bh=jThaFqpxh6n3H99LnsjneRbxudaY5R8WF8zltjv9vxI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rBeKLKKq9QgPRZI+jk8Ow27Zh0eYd0XW0UOTi5exJ+pV+cl5qDTxTXljWAHBZt6UPRak6nRnnKZqbclzQSMdJI05SNmRXED4OqNAg64L9zeQwG3eKhzmhJApPTqTPxJcFxg3tR5OXuxhKiKXYgZfo8wHKTqcq1z3IAPEnZ+e1n4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bhno9hWC; arc=none smtp.client-ip=209.85.214.177
+	 MIME-Version:Content-Type; b=QFNv91iTYOZaSDN0bPa8PmkgHyi/aUJuJub76CKF0dhgoVUumZV2tdzUce1z1lzLyVHZM5Hzb/OKZUeTzo6LoMaQTmzCAfCRmGbbCqzcBKvAPXHB1mtTTt/begMaPB/4rlKvJJtraqxqL/g0ANuEXct9OrKrOdZ2nH52bnb5eTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gt5aeZO0; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bhno9hWC"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-225df540edcso118161875ad.0
-        for <virtio-comment@lists.linux.dev>; Mon, 24 Mar 2025 20:20:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gt5aeZO0"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-22409077c06so140156755ad.1
+        for <virtio-comment@lists.linux.dev>; Tue, 25 Mar 2025 20:00:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1742872818; x=1743477618; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1742958008; x=1743562808; darn=lists.linux.dev;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jS4PFp/Z2gK1VjiGoOuexiADWbCuZpo9M2b5QYeiEYQ=;
-        b=bhno9hWCE+ABCAmcuIW9xS2FK8lPhRIIWzGg2TX+NsoP5cSBalSiy5oFite7YJQN65
-         Jr/EnRa+UPlW5c3RTQluV0itpvUcWkiger1Ks0y1taupvjurhzsbbK3NXGqeLOQXEgIE
-         8gf5SmYMgRf2PCPXMpC0b+rms2I4ycq7BbesIiqSBQZTK1U/UFxEgjUaFG1mWcVBOGpv
-         ha3VCv9aKkIoJ7S5xjMjU3wEdfr+LaQ2AIvPZLFe5AA23qB4+RRqXWxCZjCIVNFnPKmx
-         cbwYXTeVxqPaL0+gGU9LAHB0DE1rKbiWOj90m44NavWHlTVtKke5XgBivf29AKGh189l
-         upFg==
+        bh=hp3qXQoGgV38cJOCwy8DoP98vs60YbQHhFic2/GshXw=;
+        b=Gt5aeZO0JTkVrkNnYmTnffMapf8SbdHp50UCyxnlIM3eSreyMejYJy9jzBQ9CMJTZm
+         4I84a03W41DmbnUXR4BgoOMdMv/zX3f08+65TtQGHJG29iIn0USb7mJOxIHZcsMPrkXJ
+         JoabRQLLjOgNEZ8mBdF5kGR49jlloDAHZJRYIrNyg3CUcauPcryMXCok9zYKzfgJlqMZ
+         iCPLYZdthfYRmTPNOR3AZbEPTvIsbRT2e4JvmxJQ01N12pEzDEr8Gn9P73hPGkGNsslL
+         2f0gfCJd/J/UGn5Pj99jU3rvrkKQ3Yrbb0szYim+Cug7wsSJjnSCk1prxWtPW3hDEdew
+         10Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742872818; x=1743477618;
+        d=1e100.net; s=20230601; t=1742958008; x=1743562808;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=jS4PFp/Z2gK1VjiGoOuexiADWbCuZpo9M2b5QYeiEYQ=;
-        b=jqsJxsEgC4YiFBv/ceJqvbCbQb3djeTGc0fyA3Sh4DIz6sJAY9aPpcMA0P6J7JMKGE
-         HcmVhIinFd9xsxtjwoJfz8HHagIFFm9z6LRMuLKIaNMvkdYKyb0AA1Xpina4LaxAq9zy
-         aFOCAW0HrQpHpB84YmPrjh+ct2ETicJpiQwwb0VxzK1X3X3BrRzqC/plH/z3c7s7WT8d
-         yxMOXV0pOmlhwZTEYBclxlt63PrtVT3A5Y7w/rjm6ks02HbXECPNy2u0jwXj7+YMbGI3
-         gBdbQdvK0Ge7lGAnBRpl3SNsMsjrRdEcKril9/+gqldeKcsJ388ryxvGUEdoqX+xswT6
-         w8lQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWnntOK+klNaw9L/mFAsGtq5Bokl6ZamiGuaXalLBgKkgQrTjb99civFz5JiichFA6/Ju1iVB50+gNaeG2RMg==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yzw1+XColSTzRH6yAA08EH4ixr3JphDFLFsPLPZDyudHy/1QDF9
-	eunmS1mhXrfG21gTivTiwMJJUJNBG1K6d71uRvYa54vBx9kT5T8U
-X-Gm-Gg: ASbGncuWhkrKu9kAEoW/aSHJJMAB2gpoxiXY6tbkhsuZHBA9Nu1JC7ALKgNnZb/qwAs
-	/oAnN0JDh7nCnmgbFnIEx33ANSXYIw8lfHo91RhbIgw01+MKYjTheHBQClcxYKVOgw8OQTNec11
-	Qqxm1f2qPDZ+3u6WBfloWTuF0f7WftbbUBjQRLRjkHTLe55lG5gqwG4o2+jnkwkpRS4SWETc9PT
-	j9fhXNKkySb5YQt0VZlUmoYJxEK6FRvEDdXLkFkMYtJcDM+F7PNk7tRqWWHZpLOExvEU/GWAvnW
-	/y1OWQBmILBiDUg/mnB0vrG94ccZppApbdPMohDqq3QtlocTQOiHJNdURYUMNZh/rYY=
-X-Google-Smtp-Source: AGHT+IFCPp80ullWIrYouVHAmZseNOiq2ANzAPr3uyqPNOQOmBQ12CRu+EBxANN1AI6dtaDTfDp6jw==
-X-Received: by 2002:a05:6a00:2e26:b0:732:56a7:a935 with SMTP id d2e1a72fcca58-7377a1de977mr34477592b3a.12.1742872817696;
-        Mon, 24 Mar 2025 20:20:17 -0700 (PDT)
+        bh=hp3qXQoGgV38cJOCwy8DoP98vs60YbQHhFic2/GshXw=;
+        b=l4okz8nOGJy8JWZ6lB50bMOh9u74XkFnu+KDl5MAjhmxOz3ud3WU+VHLhnGAsRMD3q
+         AmBa93KWGOGlc6v1RSiapx9qWYQXDSQ8EgjLGOFkiohePUPV1vgR8/KyAppSoKBg5RKI
+         JEvN+KfRJMcO+9ND2U8+NIJoQ2Ps6xCpidG8PLIcJG33V+PWyBT3FfO8e5tNpj5w3k4y
+         bVlY9vtbZ2Tp0Xgb7zhCgyqYD1fWgmAzMmnustUR6z3ZId6aiUpTfMRSeFwmc/+VQ4gP
+         vUGVN4AW09ZdHCYXVkjAKkj1vET9sfZkQ25YddbuAF6Eg0wzZEX5ccxluiiLrjWkGfJd
+         PN5g==
+X-Forwarded-Encrypted: i=1; AJvYcCURhN2chtb7ybFh1+09xVDQEaZEppASIk7eeshx9cTf6Rt1LvfDyxTcGeATPTaB0daF1GSYRwuMhkpXStw5FQ==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yx9EcK3nKMtvw8DNiuZ5beHRjzcNC173ZdEL6Rc+M5SWPK5Gb2r
+	h2YZ39xPBHJSqj8yNyhdts/hbqSfNOdFBEsjTscaT06JsAaVM4Fs
+X-Gm-Gg: ASbGncuxen+kdQ4IA3XMVxeLWW1jAKz34ADmgz9Chl1906GjuUfMWqbmKWHMVx6QnAy
+	6RQICdmA1YGSMvMyVSf9bPCS3/LNkImz3h7I0cIMYg5VezmBYZq1bqjG2RSZfAv+9r/4j2aEK4P
+	oICM9E9kkLWenHHyL66fcXJfxm2XhWAfgGH/IZ74OTquCEvDqLlv1Vv4iNaCw9ngUTZ+IPuaP3E
+	Er7NQ4QfL1JfFoWfGAbiWqD2JaFHmb3740sCV3M73oPt1PGKtboplj3Gb0RUvBiT78iVa8ueOW3
+	YKSSc9rvlCKLIdfnc4rqfO4ekr5jtezEpqPE8naG15/KuKv1MvY0c6v9R3iatKGhWB4=
+X-Google-Smtp-Source: AGHT+IHc6zFLG+pDMLddKm7subdww0VCmbGEmpYMyxtBNlv+N1Zb7PsjT/vYxKmAhjVasdvn0g8wPw==
+X-Received: by 2002:a05:6a20:a126:b0:1f5:8eb1:d5d2 with SMTP id adf61e73a8af0-1fe42f35a89mr34779032637.13.1742958008321;
+        Tue, 25 Mar 2025 20:00:08 -0700 (PDT)
 Received: from devant.antgroup-inc.local ([47.89.83.0])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-73905fa92dfsm8829906b3a.5.2025.03.24.20.20.15
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-73905fa92dfsm10939285b3a.5.2025.03.25.20.00.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Mar 2025 20:20:17 -0700 (PDT)
+        Tue, 25 Mar 2025 20:00:07 -0700 (PDT)
 From: Xuewei Niu <niuxuewei97@gmail.com>
 X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
 To: sgarzare@redhat.com
@@ -67,8 +67,8 @@ Cc: fupan.lfp@antgroup.com,
 	parav@nvidia.com,
 	virtio-comment@lists.linux.dev
 Subject: Re: [PATCH v6 RESEND] virtio-vsock: Add support for multi devices
-Date: Tue, 25 Mar 2025 11:19:46 +0800
-Message-Id: <20250325031946.1934483-1-niuxuewei.nxw@antgroup.com>
+Date: Wed, 26 Mar 2025 10:59:52 +0800
+Message-Id: <20250326025952.2027968-1-niuxuewei.nxw@antgroup.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <h5vwvrs7gsnkyw3vmkumhbtuqdecfmksnwlvfmxr62t2lhz3hc@lpinl24bwkte>
 References: <h5vwvrs7gsnkyw3vmkumhbtuqdecfmksnwlvfmxr62t2lhz3hc@lpinl24bwkte>
@@ -107,30 +107,7 @@ Content-Transfer-Encoding: 8bit
 > Maybe this is orthogonal to this proposal, though, because it might 
 > still make sense to have multiple vsock devices, even though it's not 
 > very clear to me.
-
-In terms of the current situation, two devices are enough.
-
-We are the team of Kata Containers, so we are focusing on cloud-native
-computing. What I mentioned below might be beyond the scope of the virtio
-spec, just for your reference.
-
-The background is that the architecture of proxy mesh has been evolved over
-the past few years: from per-pod to per-host (e.g. Istio Ambient Mesh[1]).
-
-Thanks to the TSI[2] and vhost-user protocol, network packets can bypass
-both host and guest network stacks. It is possible to establish a fast path
-between the pod and the proxy.
-
-When we have multiple networks, it is intuitive to have multiple NICs. So
-does vsock.
-
-When multiple networks are availble, it means that it is possible to have
-multiple proxies(i.e. user processes). In this case, two devices are not
-enough. This feature makes vsock more flexible and scalable.
-
-Looks like you don't like the design of multiple devices. May I ask why? Is
-it too heavy for you?
-
+> 
 > > and another to a user process via vhost-user-vsock.
 > 
 > So to recap, one device would be used only to communicate with the VMM, 
@@ -139,6 +116,7 @@ it too heavy for you?
 > 
 > Do you have any other use cases?
 > 
+> >
 > >Apart from that, a side gain is that theoretically the performance might be
 > >improved since each device has its own queue. But it varies depending on
 > >the implementation.
@@ -146,12 +124,16 @@ it too heavy for you?
 > This though might be easier to implement supported multi-queue in the 
 > device, instead of adding n devices to the VM.
 
-I think multi-queue and multi-device are independent of each other, just
-like what network devices do. A single vsock device can be considered as a
-group of queues (if multi-queue is supported), and it can be assigned a
-thread to handle the traffic.
+How to specify virtqueue for a connection?
 
-So I accepted Parav's sugguestion, mentioned it as a side gain.
+For example, I have a higher priority connection, and some of lower
+connections. How to route the higher one to vq0 group (including tx and
+rx), and route the lower to vq1?
+
+I think it could be easier to be achieved with multi-device feature.
+
+Thanks,
+Xuewei
 
 > >== Typical Usages ==
 > >
@@ -267,9 +249,10 @@ So I accepted Parav's sugguestion, mentioned it as a side gain.
 > Maybe we are confusing interaction with user space, so we should say 
 > something like, “If the source socket is not bound to any source CID, 
 > the driver MUST assign ...”
-
-Will do.
-
+> 
+> Thanks,
+> Stefano
+> 
 > >+one. If more than one device is present, the driver SHOULD use the default
 > >+device's \field{guest_cid} configuration. Otherwise, the driver SHOULD use
 > >+the \field{guest_cid} of the only available device.
@@ -278,9 +261,3 @@ Will do.
 > > unknown \field{type} value.
 > >-- 
 > >2.34.1
-
-[1]: https://istio.io/latest/blog/2022/introducing-ambient-mesh/
-[2]: https://github.com/containers/libkrun?tab=readme-ov-file#networking
-
-Thanks,
-Xuewei
