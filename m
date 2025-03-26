@@ -1,93 +1,92 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44105C8FE
-	for <virtio-comment@lists.linux.dev>; Wed, 26 Mar 2025 08:50:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7730118C32C
+	for <virtio-comment@lists.linux.dev>; Wed, 26 Mar 2025 09:04:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1742979035; cv=none; b=DAJOPQNFErx49Zv46fr2J6xRREC9jh0y9MDPOq9+ePXzRl1EVEO3aZVc7FGeunFxF/e20tUg5m8BGY8PYzJg5/EGQX6zejBOqkkPhQPdGFfwWorwcphKzMG2wflb8FS6KzQJ+jjD1Np2e5buS8c7C/SubHa2cMLyohaigqnxgZg=
+	t=1742979867; cv=none; b=LfT8RLfB2xUy8TXmJ1oAf7a11L3ue7/FUWjOwesyL+ojsrFs2M/Um094QhtExvPlQn4a2IUiVsAxEbPshiyBTEkiHgDvTHe/0wZwND2X4O/8z654KAl+Nsyyi2L7fNVnRk9vwtic4fq+AxvTuVnarxq+yV2UElyu2ETeiruI9f4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1742979035; c=relaxed/simple;
-	bh=5DxdXCscwDSdaEnjUZnaage81foEM4wQzT8AZTeR2qA=;
+	s=arc-20240116; t=1742979867; c=relaxed/simple;
+	bh=UM5E5WKo/qTJmlWej1b4mj3dx0JHGLSPLO5zdcwU0yQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=fczz0zanxrHMTa6cpJFZ0v8YJ2x+q7EUlgXnRCz2il4zTkXyl3ztVVTOwj5rbA4KvJ1glIMxJC4DlzHJvCexMAh4PEzjg9SNEinwqytKLA2yqFEtZ/1DJj99JbdMmertCvJg+QEf4o5PHL6VtIGVLGnDrrbwqaiGujDajRlLTXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TV3RNbUT; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=JWM8pjRaaLk1saQNfZS/PZme2P5TQ/9JdkuIfyZdyENJ7Xe5JUOODqp84I5mRUtL4A14Y9yTLcLzeicf/5qS4tZLD83LDDxNnnvDTNCZEMMM7JFnn1gDTHQ8Fdoj80S6kW1gmFYKUPBUbKnEHtEo+lmetP/5s8kZjgCM3NGISqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SPcOlVdF; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TV3RNbUT"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SPcOlVdF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1742979032;
+	s=mimecast20190719; t=1742979864;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=tVFZ0yNI+Rwc8UHocmR+RenGpQk8RfqaRvuMLXDJxHA=;
-	b=TV3RNbUTo8lM9us/W/KDS/x+54TESty55Clv92QrH/0gGjoWUfY4SF2Jk/UNelSE8mSLKs
-	rHlnaz1shDXj0JwZ2hedmdvQ8fUe9l4nAAnj5L4RGE9HLNB1rO8/usU3ZlCTsJ90asp3sK
-	obPtvOPmTnDmvQldrsBx0I3J/+UWxW0=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=hUZPEpqXaLYy//2IXAdqOsKfV/msQxZCN6p6R+PAWo0=;
+	b=SPcOlVdFGqQxKucrRT65RJWJXHDFtHxIFiHpuJ3eD+ZNiQvrC7Ovjav92pRLWirtHPTFY0
+	9+Rz5raUxTj46aYZrjGnnjPIYSmzNsOqiRYjjHVmP75GFvqyGilFoQ5wwij9W0kEH/+usr
+	fCN6Hdwcr2G8LQ7hsGOAUlO4OEHeiKM=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-413-tRI_V66dM2GpVEOVreK-9Q-1; Wed, 26 Mar 2025 04:50:30 -0400
-X-MC-Unique: tRI_V66dM2GpVEOVreK-9Q-1
-X-Mimecast-MFC-AGG-ID: tRI_V66dM2GpVEOVreK-9Q_1742979029
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-43cf446681cso36619185e9.1
-        for <virtio-comment@lists.linux.dev>; Wed, 26 Mar 2025 01:50:30 -0700 (PDT)
+ us-mta-5-WUSaVOSbMlyGYwn9N-B0wQ-1; Wed, 26 Mar 2025 05:03:53 -0400
+X-MC-Unique: WUSaVOSbMlyGYwn9N-B0wQ-1
+X-Mimecast-MFC-AGG-ID: WUSaVOSbMlyGYwn9N-B0wQ_1742979832
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-39131f2bbe5so2725343f8f.3
+        for <virtio-comment@lists.linux.dev>; Wed, 26 Mar 2025 02:03:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742979029; x=1743583829;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=tVFZ0yNI+Rwc8UHocmR+RenGpQk8RfqaRvuMLXDJxHA=;
-        b=B8lyFHy9NtCUOZZy971ibic9nuciYaC5AYxW8UfkeKDFKgIaISVzNb0pH4P+Cg/Cy1
-         h1gwKbXlPQmPE5eQR2Ua3tvUbrnU7NtqQ7At09sDUDKT2JDoXwXq/2VubUS3OJ0P/AC+
-         lCpw9TFdNKM17+xcxhCNrw5LS/co3BzHiMyD9qh+8o40cvtoN4NpPYq9vPPivyeFHsaX
-         tzL24XjyRoktkPhPbvxdFGaWICLA+kTINn7fPkMUbd2FF/q+AERXVzoDgkhnzbiGjiRw
-         SKqK9lVEiDyXw3rk0na3nIwQ5ZKU0QwHOYgBh3CM6BaEx0zi200R2Ic/wQtMgVUbDhPR
-         Q5TA==
-X-Forwarded-Encrypted: i=1; AJvYcCXA49yp80EI3cL3UWAfYYSFgv6Giwcn1iqVEpdI8PrSOnXJ5FlPVX5Uv0p52acjkJXYLgdPYijQAogqzXn8XQ==@lists.linux.dev
-X-Gm-Message-State: AOJu0YwNW/eqh3LcMy/eS6/gOuv542hx22lKnKAFBbsebOcG5qSizWe1
-	/iYJDsvJ4EXcjt8+7rwzDICcIGjZOr19M79A+jenoP2DEdG3MkSbN9d1JX+54yEl6wRyf08fNRS
-	/4Py63G8qknWmJbhm3MOTaBOCsu5mKYgVaE9rziSNSIPxZ5r/K20SHr8WABXfH9sC
-X-Gm-Gg: ASbGnctisZHWRy7y2T/ucblH846UqX8pREUIMSBmpncUt/o+4J9Um5elI5llRgc/dBV
-	+GHDz01h5WxpQ7Vvdo6kBp8F4LhvcLDr4ff51c2M68AGBUJsnUUtKIDV9IP4GiaBb1XShmd9cbD
-	1Jc75uDGKsE8QylyiBjbyTToGx3kOUkPP/ElOpdeupE8E3QzjRUt0AykioHzh1hw2DkYmZM5qe0
-	lMnGk1RyxubheWJrA19anc8QSQNSCKBlvDAJd4RmP7BtlbH89bcOKhqpwTI7T1egR2/DuTzBXRj
-	O5x7+f2VkqdjYWH4DSHYLfq6cCtJlMVHdWx3szZQX+xC0AJcTCvHlrwxJQgbT29T
-X-Received: by 2002:a05:600c:1d95:b0:43c:fd72:f028 with SMTP id 5b1f17b1804b1-43d50a4b226mr209010325e9.29.1742979029186;
-        Wed, 26 Mar 2025 01:50:29 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEgAs4ymad/q+WmHBIhO9YLR4WfeQ1bEwcWgZk8+LTlWOsrItfRvhjXYBuDW3TTdZE1JSdr9g==
-X-Received: by 2002:a05:600c:1d95:b0:43c:fd72:f028 with SMTP id 5b1f17b1804b1-43d50a4b226mr209009925e9.29.1742979028610;
-        Wed, 26 Mar 2025 01:50:28 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1742979832; x=1743584632;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hUZPEpqXaLYy//2IXAdqOsKfV/msQxZCN6p6R+PAWo0=;
+        b=DmhbUt70QU0oyXcAlfEGfPwwiOwEyeNEN0YsF5CWV01xRMxovrhVvNcDCXcZgFqQ47
+         sQ5PWlbQdnRtYkaTg66WbfEEhUgcHP61jUL5DTgQZjaszacXeZ07ONjfWDCzbkk4p9m1
+         AR3s0lgLEr485ffOBkrU9Px26ZJNXXhG5hGmvSvS0iyDsdlBAlw4T/iWyxeYNYl5qyVB
+         37lkqxnFY9qbi8ZuFB0QnYnyUFUZgfpHA7yge31NtXczg0vbdNv+ujTS3iRcd69w38ij
+         +yNZVOo1jnso7cX+Q1P1q6ogcf68x3Vr1FaruwaNNkW0OgwoDD9ose7JboLHnc9DIJX1
+         mAFA==
+X-Forwarded-Encrypted: i=1; AJvYcCVHEnWcxHVm16/ZSgTDSkhQEgKaEkKGbwZXMT4x+NHvNEfoX8+rVFuQnuE4R5SK38tF4iF/8gDMrNB7SzdjeA==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yyfks2jn5lpzC6pAQQCaQeJn3ggJE3g/SYRXW5XN/HBdPfVY9iT
+	X5/71QzSz8JwCnh5/2zBpJDHJ0j8KQzM5S937EiurvHXp4j7xHoZC6i00S6JT1zRqA7H78KJThx
+	BKXbE8LvhdhTDMqOXzd0VkXTIVHXoTfq4LqBF3HW7ItLPgZi9027kpRhFGZdPE3fA
+X-Gm-Gg: ASbGncsiQN1VUxexz+/ts0lFtNLHwT1NU7xYnNPKDCWmukvasVtUHPj0VrKby1qquCN
+	C7eQ97yJXJ+Y6jnrMSI2RbhDVH2Hib9oOC8rIvoXRX339ttu9V761IgI4hvTZDcInBaCbTIPLpf
+	BRNKWK/zsWY0/NqVYICXBHcFzzJvJ73e4eQl2UzxpSdo/8FUJDvn41ExVpyttH/6/327ifSuePC
+	9tEjfnGpFH+2si45Em+XTYUh0d/nO9+3OjumLChkHyYmLaMzQkLKepJSDa0JrXB6iLj2QWbN1/v
+	m3qHer+rGBwgnjXzBOM00Qbhm0HraTWDVlsM88LLFmRolLpm0RHmO+w0JI2giH2K
+X-Received: by 2002:a05:6000:2187:b0:39a:ca0b:e7c7 with SMTP id ffacd0b85a97d-39aca0be8demr3345659f8f.36.1742979831753;
+        Wed, 26 Mar 2025 02:03:51 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEp+7HSnaQMyoXzQRNT5cuZm+GXLQoVGutTVumWGefbrPFRAbFOMOtUjjNYRyepeJuBVQpNJA==
+X-Received: by 2002:a05:6000:2187:b0:39a:ca0b:e7c7 with SMTP id ffacd0b85a97d-39aca0be8demr3345636f8f.36.1742979831178;
+        Wed, 26 Mar 2025 02:03:51 -0700 (PDT)
 Received: from sgarzare-redhat (host-87-12-25-55.business.telecomitalia.it. [87.12.25.55])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-43d4fd27980sm178736265e9.21.2025.03.26.01.50.27
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3997f9b26a6sm15970652f8f.44.2025.03.26.02.03.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Mar 2025 01:50:27 -0700 (PDT)
-Date: Wed, 26 Mar 2025 09:50:23 +0100
+        Wed, 26 Mar 2025 02:03:50 -0700 (PDT)
+Date: Wed, 26 Mar 2025 10:03:46 +0100
 From: Stefano Garzarella <sgarzare@redhat.com>
-To: Xuewei Niu <niuxuewei97@gmail.com>
+To: Xuewei Niu <niuxuewei97@gmail.com>, mst@redhat.com, 
+	stefanha@redhat.com
 Cc: fupan.lfp@antgroup.com, mst@redhat.com, niuxuewei.nxw@antgroup.com, 
 	parav@nvidia.com, virtio-comment@lists.linux.dev
 Subject: Re: [PATCH v6 RESEND] virtio-vsock: Add support for multi devices
-Message-ID: <7o7pkrmbwp6zyybgqqliybesezk2zpnopwwgzlbfpnw2m7relz@mxyhzve6lote>
+Message-ID: <jvqe4zwumc5lxpcltzjfgtwi3uppi4hc2wpbgphpb2vbezsg3b@n5hmgt3gwayk>
 References: <h5vwvrs7gsnkyw3vmkumhbtuqdecfmksnwlvfmxr62t2lhz3hc@lpinl24bwkte>
- <20250325031946.1934483-1-niuxuewei.nxw@antgroup.com>
+ <20250326025952.2027968-1-niuxuewei.nxw@antgroup.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20250325031946.1934483-1-niuxuewei.nxw@antgroup.com>
+In-Reply-To: <20250326025952.2027968-1-niuxuewei.nxw@antgroup.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ffltxnGMB5NX19Kb72gOMZF8hJundt3fo3mSKHdlCj8_1742979029
+X-Mimecast-MFC-PROC-ID: EYUPujfKicbHoq0YFNqnSlyJo6plGqhhGVglTT7tZgg_1742979832
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 
-On Tue, Mar 25, 2025 at 11:19:46AM +0800, Xuewei Niu wrote:
+On Wed, Mar 26, 2025 at 10:59:52AM +0800, Xuewei Niu wrote:
 >> On Mon, Mar 24, 2025 at 02:43:35PM +0800, Xuewei Niu wrote:
 >> >This patch brings a new feature, called "multi devices", to the virtio
 >> >vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, and a
@@ -114,56 +113,7 @@ On Tue, Mar 25, 2025 at 11:19:46AM +0800, Xuewei Niu wrote:
 >> Maybe this is orthogonal to this proposal, though, because it might
 >> still make sense to have multiple vsock devices, even though it's not
 >> very clear to me.
->
->In terms of the current situation, two devices are enough.
->
->We are the team of Kata Containers, so we are focusing on cloud-native
->computing. What I mentioned below might be beyond the scope of the virtio
->spec, just for your reference.
->
->The background is that the architecture of proxy mesh has been evolved over
->the past few years: from per-pod to per-host (e.g. Istio Ambient Mesh[1]).
->
->Thanks to the TSI[2] and vhost-user protocol, network packets can bypass
->both host and guest network stacks. It is possible to establish a fast path
->between the pod and the proxy.
->
->When we have multiple networks, it is intuitive to have multiple NICs. So
->does vsock.
-
-Be careful though, we don't want to complicate vsock to become like a 
-NIC.
-
->
->When multiple networks are availble, it means that it is possible to have
->multiple proxies(i.e. user processes). In this case, two devices are not
->enough. This feature makes vsock more flexible and scalable.
-
-This is a good point, but I really don't understand why a VM should have 
-multiple CIDs assigned.
-
->
->Looks like you don't like the design of multiple devices. May I ask why? Is
->it too heavy for you?
-
-Yes, I am concerned that we are over complicating vsock.
-Since AF_VSOCK already defines an address to communicate with the 
-hypervisor, why can't the device that ends up in the VMM (TSI) use that?
-
-I believe that having multiple devices only introduces a complication in 
-the user. What source device/CID should the user use and for what 
-reason?
-
-All this should be hidden and especially in your case, this is already 
-easily done by using VMADDR_CID_HYPERVISOR to communicate with the VMM 
-and VMADDR_CID_HOST to communicate with applications in the host. So 
-maybe we only need to handle 2 device types in the driver, without 
-adding this functionality but just introducing a new device type (via a 
-feature) that handles VMADDR_CID_HYPERVISOR, so that the driver knows 
-that at most it can have 2 devices, one for the VMM and one for the 
-host.
-
->
+>>
 >> > and another to a user process via vhost-user-vsock.
 >>
 >> So to recap, one device would be used only to communicate with the VMM,
@@ -172,6 +122,7 @@ host.
 >>
 >> Do you have any other use cases?
 >>
+>> >
 >> >Apart from that, a side gain is that theoretically the performance might be
 >> >improved since each device has its own queue. But it varies depending on
 >> >the implementation.
@@ -179,151 +130,53 @@ host.
 >> This though might be easier to implement supported multi-queue in the
 >> device, instead of adding n devices to the VM.
 >
->I think multi-queue and multi-device are independent of each other, just
->like what network devices do. A single vsock device can be considered as a
->group of queues (if multi-queue is supported), and it can be assigned a
->thread to handle the traffic.
+>How to specify virtqueue for a connection?
 
-That's right
-    multi-queue -> performance
-    multi-device -> more addresses
+This should not be done by the user, and that's exactly the problem with 
+having multiple devices!
 
-And that's where I worry, why complicate vsock to get more addresses for 
-a VM?
+How do you decide which application should use one device and which 
+should use another device? You have to add some kind of scheduler or 
+static assignment that really makes it super complicated.
+
+This has to be transparent to the user, so if you have multiple queues 
+(usually one per vCPU), the driver automatically uses the right queue 
+according to the vCPU it's running on avoiding the bottleneck with the 
+other vCPUs.
 
 >
->So I accepted Parav's sugguestion, mentioned it as a side gain.
+>For example, I have a higher priority connection, and some of lower
+>connections. How to route the higher one to vq0 group (including tx and
+>rx), and route the lower to vq1?
+
+That's still another problem, some kind of QOS and again, this shouldn't 
+be done by inventing some kind of logic that the user has to use device 
+X instead of device Y because X is higher priority.
+
+We should just expose a sockopt like SO_PRIORITY to the user to decide 
+the priority and the driver decides which queue to use according to it 
+(e.g. we could have an extra queue only for those at higher priority, 
+etc.).
+
 >
->> >== Typical Usages ==
->> >
->> >Assuming there are two virtio-vsock devices on the guest, with CIDs 3 and 4
->> >respectively. And the device with CID 3 is default.
->> >
->> >Connect to the host using the device with CID 3.
->> >
->> >```c
->> >// use default one (no bind)
->> >fd = socket(AF_VSOCK);
->> >connect(fd, 2, 1234);
->> >n = write(fd, buffer);
->> >
->> >// or bind explicitly
->> >fd = socket(AF_VSOCK);
->> >bind(fd, 3, -1);
->> >connect(fd, 2, 1234);
->> >n = write(fd, buffer);
->> >```
->> >
->> >Connect to the host using the device with CID 4.
->> >
->> >```c
->> >// must bind explicitly as the device with CID 4 is not default.
->> >fd = socket(AF_VSOCK);
->> >bind(fd, 4, -1);
->> >connect(fd, 2, 1234);
->> >n = write(fd, buffer);
->> >```
->> >
->> >The first version of multi-devices implementation is available at [1].
->> >
->> >[1] https://lore.kernel.org/virtualization/20240517144607.2595798-1-niuxuewei.nxw@antgroup.com
->> >
->> >Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
->> >---
->> > device-types/vsock/description.tex | 30 ++++++++++++++++++++++++++++--
->> > 1 file changed, 28 insertions(+), 2 deletions(-)
->> >
->> >diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
->> >index 7d91d15..7d0cfe4 100644
->> >--- a/device-types/vsock/description.tex
->> >+++ b/device-types/vsock/description.tex
->> >@@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
->> > \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
->> > \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
->> > \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not implied.
->> >+\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] multiple devices feature is supported.
->> > \end{description}
->> >
->> > \drivernormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
->> >@@ -34,6 +35,12 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
->> > VIRTIO_VSOCK_F_NO_IMPLIED_STREAM, the driver MAY act as if
->> > VIRTIO_VSOCK_F_STREAM has also been negotiated.
->> >
->> >+The driver SHOULD ignore devices that do not have
->> >+VIRTIO_VSOCK_F_MULTI_DEVICES if the feature has been negotiated.
->> >+
->> >+The driver SHOULD ignore all subsequent devices if a device without
->> >+VIRTIO_VSOCK_F_MULTI_DEVICES is present.
->> >+
->> > \devicenormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
->> >
->> > The device SHOULD offer the VIRTIO_VSOCK_F_NO_IMPLIED_STREAM feature.
->> >@@ -52,6 +59,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
->> > \begin{lstlisting}
->> > struct virtio_vsock_config {
->> > 	le64 guest_cid;
->> >+	le16 device_order;
->> > };
->> > \end{lstlisting}
->> >
->> >@@ -77,11 +85,27 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
->> > \hline
->> > \end{tabular}
->> >
->> >+The \field{device_order} is used to identify the default device. Up to
->> >+65,535 devices can be supported due to the size.
->> >+
->> >+\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
->> >+
->> >+The device MUST provide a distinct \field{device_order} if
->> >+VIRTIO_VSOCK_F_MULTI_DEVICES feature has been negotiated.
->> >+
->> >+\drivernormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
->> >+
->> >+The driver MUST treat the device with the lowest \field{device_order} as
->> >+the default device.
->> >+
->> > \subsection{Device Initialization}\label{sec:Device Types / Socket Device / Device Initialization}
->> >
->> > \begin{enumerate}
->> > \item The guest's cid is read from \field{guest_cid}.
->> >
->> >+\item If VIRTIO_VSOCK_F_MULTI_DEVICES has been negotiated, the device's
->> >+order will be read from \field{device_order}.
->> >+
->> > \item Buffers are added to the event virtqueue to receive events from the device.
->> >
->> > \item Buffers are added to the rx virtqueue to start receiving packets.
->> >@@ -233,8 +257,10 @@ \subsubsection{Receive and Transmit}\label{sec:Device Types / Socket Device / De
->> >
->> > \drivernormative{\paragraph}{Device Operation: Receive and Transmit}{Device Types / Socket Device / Device Operation / Receive and Transmit}
->> >
->> >-The \field{guest_cid} configuration field MUST be used as the source CID when
->> >-sending outgoing packets.
->> >+If \field{src_cid} is missing in outgoing packets, the driver MUST assign
->>
->> I think here we have to define what the driver does, since the driver
->> has to populate that field, how is it missing?
->>
->> Maybe we are confusing interaction with user space, so we should say
->> something like, “If the source socket is not bound to any source CID,
->> the driver MUST assign ...”
->
->Will do.
->
->> >+one. If more than one device is present, the driver SHOULD use the default
->> >+device's \field{guest_cid} configuration. Otherwise, the driver SHOULD use
->> >+the \field{guest_cid} of the only available device.
->> >
->> > A VIRTIO_VSOCK_OP_RST reply MUST be sent if a packet is received with an
->> > unknown \field{type} value.
->> >--
->> >2.34.1
->
->[1]: https://istio.io/latest/blog/2022/introducing-ambient-mesh/
->[2]: https://github.com/containers/libkrun?tab=readme-ov-file#networking
->
->Thanks,
->Xuewei
->
+>I think it could be easier to be achieved with multi-device feature.
+
+No, I don't think QOS and performance should be solved by adding 
+devices, but by adding queues.
+
+More devices are only needed to use addresses differently or because 
+virtqueue needs to be consumed in different entities, but again we don't 
+have to complicate the user's life at all who has to use one device or 
+another for QOS or performance.
+
+That said, I'm not totally against this change; it might make sense to 
+attach a virtio-vsock device consumed by the VMM, one consumed by 
+vhost-vsock, and one consumed by vhost-user-vsock to the VM. I simply 
+would not use performance or QOS to justify this, but your original 
+problem might be a justification.
+
+@Michael, @Stefan, any thoughts on this?
+
+Thanks,
+Stefano
 
