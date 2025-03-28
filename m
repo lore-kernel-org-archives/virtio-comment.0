@@ -1,45 +1,45 @@
 Received: from NAM02-SN1-obe.outbound.protection.outlook.com (mail-sn1nam02on2079.outbound.protection.outlook.com [40.107.96.79])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7C81D86ED
-	for <virtio-comment@lists.linux.dev>; Fri, 28 Mar 2025 18:13:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33551DE8AB
+	for <virtio-comment@lists.linux.dev>; Fri, 28 Mar 2025 18:13:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.96.79
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743185592; cv=fail; b=Vdy6HfEWIKsgLNKfgbm0KzioL5mHJrz0b1/LHD5s+6OsiPrpy/4A3VO5O73fb/8rX7RyuOkZTwTJ6UnRy97gXIb+hdXWdBXqwuhQQmhkiaQ/pjaikSSNHgxTj7Uyc8je4kviK1Dzc+V93TFQ2AkxJSNyV10+PiwxfWZeHK/k1ok=
+	t=1743185594; cv=fail; b=LlXXvasRioDuLl3LHWqrAgOm0pnrcq7FW6XxXXHx/08/4amaI66akeqYRcIk17VlXooPzsX7wNApRtjcqnC8ldSuMI4YsjJKrlzsqS7ySy7YglFleyyeG4wmfV+MEKNvt5pYjV5585alEt1Jm9Qt7t+E3dWxaY5Ylsy9iSC0MEA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743185592; c=relaxed/simple;
-	bh=6ev9YsIetHSsIBX9Y1MFB2qTtCa1QdB+SQuESbcZlmI=;
+	s=arc-20240116; t=1743185594; c=relaxed/simple;
+	bh=Fl+eCb9/JSZTHhv/vCPYcXEcurUOK/JP+AHcrS71y6E=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=LFi+YIxyJp966aHrK2JdmGChWdPXopmwP1Ea6O3j/T1qQlPJKmsUIwZW6VQgLvG/78efyUcOLOS9Bn7kyTPItQ+ofumJpdTLv+9fD6gscau2SSkqCVcqvhc0aGI1GDOEKnvv9usoOeAEgTz6dz/DfopA+Wb2edRr4cJX/8XdTxk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YgFp/Qd7; arc=fail smtp.client-ip=40.107.96.79
+	 Content-Type:MIME-Version; b=LGuvKclq8jBeGVCpk0sq/IPDiorrtv0Wj6T3v6/ZiFgk6P71u6adSb0Y1rTKuI+sa/wKYmQAlPfVlFGG6gSoIRSegNDX8gCcZckqDlEtxSRqlbOWtw1ua+B+2qSeWIUiSPMJ5LTTTYR7Y+CugEBOIkPhnIbn3jJOIoKh67OpUek=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=aMvPw6A0; arc=fail smtp.client-ip=40.107.96.79
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YgFp/Qd7"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="aMvPw6A0"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=COkStOeg2qnXjyW0c5n/hX3Mim7TzkYVHtA24WriNWBtlRZ/CFkinjWmfKJX27QeFJuhTcBA/XScx3GyxEHmEILQ4q5Zo8fqlVVu3H7cinTcqooz3Gne/A4GzLaw4CmoM69FuuLQ6VH/IrJwbFtAPSApxWi0MPxn5aZj6m3Dl10fg5/Gz9y7VI5x+0znSuQuP5k2l9RqZKl0O+i7v6lYNFXGto3eiwk12QFLG4FK4LTWRvIPTRfKc5s+kGvUcLqsh7eMsuFWNponCjJ/l+yR6SpP8h0rTLoVd8+M5p4r2agnAZ5I68C1d/P0huVHM2CR4G9ygp1isXMPwrcEK3b7mw==
+ b=alp3caRjA6J5Qp4ytJhY7FrOS3wgoRjyGAP3jEqdgMAkV4iNYzu1AxrsLe9j5pDDbKOAVDWNcOWUkxy7eDHNdeARNavNXxbAoivVAKsRKxqKrp5H0foZTDceaD0qec2YOLiR3cPSj/zj7dxFwczHTfS0PIjgtKMkLpyQZeaWOhNsPEe2xi612AzdS+qb3Ga/3LhhxrJhy6pxkgoIORi0sWpJ21N63zcIEmyiwWl3T3RGhH9DISgnj/wDkWAmHGAjslVmtz4neIO9hIASuuDWjbXP+/SOxdbhtt1gERlRbE+V3ioW5511ViLAOB+w9dsOs+7/fw4JMyRjxHPFWb9uJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nbhYc56PqoT46ZtM3O157RECIhqGwRFKMO3dgZgwGKE=;
- b=zRhovdzT37dcTr/Zy7V2vwu9OViMdc9IQn4IHrAqMgNnJhR4i2WM/sxLrwCu9o9lb7h4jHpLJ15cC5wAo6ckeRCXD3M6Hxg6b7SgYhkZaJFhU9e/9O9qcwzcVh24Bsmm3IrZCdZT3ZBneuFUCUYsZL7j3GYWNYRVXDmnqSNwqgjCr7b/2DDWD6+qkS651qyj+6Q+NUY7wTaZJYDW0zrw160iDbMZScjPeXCM4+QEmt7fg7dRPYYLBvLxEphJ0XfRoIbteHpksz9VYUFS/CXzaU0BFM16wHsH1U70gjjbc0HJbiLa/h/5oWgHdowwIoEsrpYKri1GmKie+abojvd1zw==
+ bh=BZS1uE3vsyuZj5X4dOats9cz0g+0HVvq8EIdHACMuMk=;
+ b=o5F6pRh8N2/xM4cfe3m/Vjs7XmRjWhfQcjPW7I3gsQMh6/fGbt+8CbqqwTBiblY/CIIxOWAuNPFH6D/FVOmAYKI9RxBFYmSp8cMDcGcFqiWon6Ibo3asv2ad9/7Rf1oJ23v0PmRrif1+hZNH7llvRgqu2bWo9zcVLNdllHHKytWGBy4DTWK0tDk525ASNzTz1LBM9yImiIZCrme3Wrxdhf0M6taOr1xxa2hPQ0h6PLi1Qvs0M7b936WkfMcAY+6Jq3Bq0crLHSIfsD1/LCTncuPYjs4Ae1CySRPXcPWxkTkYZu39YsWgytcN5aTc8SYch1X+Q2/5uYaWboq8Wci+hg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nbhYc56PqoT46ZtM3O157RECIhqGwRFKMO3dgZgwGKE=;
- b=YgFp/Qd76XjymqiVwzix0LF8XdDSkC20x5nInF3/ZUklIDOtX1iZKFdn47GGnx9L839uMMqOMhaSIGLRZDAgjSUYfz8TsI9HUvDAaJkInA+bqj4YlhTmw+t3pFY7iryXlZ7wkrBzgODj9Kl/RetBasfcfjbrWdfx7VpV+uoJU1Q68bjyQ4B73tDpEGz4MZTHp7ouLVsTxU/B91duxWly7yZKE3I09Q0wtkj3zOIp6V+o2/58vXkvC2uvnIowOLF9MjNNPhV4ZVAdYQkvXzxJNpAoifIg+5oFj500mtmbaOIszkGIhL/nK+EyV2SsJ9Cc40st0j06/prwV6WYttzbpA==
+ bh=BZS1uE3vsyuZj5X4dOats9cz0g+0HVvq8EIdHACMuMk=;
+ b=aMvPw6A0bIL7625u7vaqBmk4HZBrQktKklDlI07DVxRFMSQ8lElRGf1KNi8opRCsVuVqxjl1nYLOat7G61I3y5Iw52VfBqbeBUbZ1+Wle1/X+mpUntiYljv3nfWpObIRowGyfhCsJddEW7iio2ArQjU40L4iBlJ0vDyhZDrKC29yMF156nhqAXRo0oZ3n8bebi9P+9wybTqSSmuTA0rG92+2KHGm8mFcIGoVyCK32Ny2xwthqVGK8kF99lPTcBhMniWhjFc/e81ZrEw37xbmntvrhrHJh1ZkhnWghoVAbkhwvlApJkkyaDAcxAEEQB3vhmSqRFnIXK1hTa0JTBKHCw==
 Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
  by DS5PPFF2923D4C1.namprd12.prod.outlook.com (2603:10b6:f:fc00::669) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Fri, 28 Mar
- 2025 18:13:07 +0000
+ 2025 18:13:11 +0000
 Received: from CY8PR12MB7195.namprd12.prod.outlook.com
  ([fe80::c06c:905a:63f8:9cd]) by CY8PR12MB7195.namprd12.prod.outlook.com
  ([fe80::c06c:905a:63f8:9cd%3]) with mapi id 15.20.8534.043; Fri, 28 Mar 2025
- 18:13:07 +0000
+ 18:13:11 +0000
 From: Parav Pandit <parav@nvidia.com>
 To: Srujana Challa <schalla@marvell.com>, "virtio-comment@lists.linux.dev"
 	<virtio-comment@lists.linux.dev>
@@ -47,17 +47,17 @@ CC: "mst@redhat.com" <mst@redhat.com>, "pabeni@redhat.com"
 	<pabeni@redhat.com>, "jasowang@redhat.com" <jasowang@redhat.com>,
 	"sburla@marvell.com" <sburla@marvell.com>, "ndabilpuram@marvell.com"
 	<ndabilpuram@marvell.com>, "jerinj@marvell.com" <jerinj@marvell.com>
-Subject: RE: [PATCH RFC v3 1/4] virtio-net: Add IPsec operation, capabilities
- and resource objects
-Thread-Topic: [PATCH RFC v3 1/4] virtio-net: Add IPsec operation, capabilities
- and resource objects
-Thread-Index: AQHbnIiDKRvGAT/4I0yMUHzNDzVQs7OI2+Nw
-Date: Fri, 28 Mar 2025 18:13:07 +0000
+Subject: RE: [PATCH RFC v3 2/4] virtio-net: Add new flow filter selector and
+ action for IPsec
+Thread-Topic: [PATCH RFC v3 2/4] virtio-net: Add new flow filter selector and
+ action for IPsec
+Thread-Index: AQHbnIiG8FiuLQQN/02JgxLbPSfYybOI3aDA
+Date: Fri, 28 Mar 2025 18:13:11 +0000
 Message-ID:
- <CY8PR12MB7195AEA5E7E388E6A8043125DCA02@CY8PR12MB7195.namprd12.prod.outlook.com>
+ <CY8PR12MB71951F4D0AC947F53CD6C9F6DCA02@CY8PR12MB7195.namprd12.prod.outlook.com>
 References: <20250324064630.1601356-1-schalla@marvell.com>
- <20250324064630.1601356-2-schalla@marvell.com>
-In-Reply-To: <20250324064630.1601356-2-schalla@marvell.com>
+ <20250324064630.1601356-3-schalla@marvell.com>
+In-Reply-To: <20250324064630.1601356-3-schalla@marvell.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -66,67 +66,67 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|DS5PPFF2923D4C1:EE_
-x-ms-office365-filtering-correlation-id: 878ced93-86ee-4102-bb41-08dd6e2430ae
+x-ms-office365-filtering-correlation-id: 7db416b7-f2bc-4dbc-9972-08dd6e243313
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
 x-microsoft-antispam-message-info:
- =?us-ascii?Q?WztufoGBDLl+Xr06OxpeLKasbdfLoX7+sOBerKVOk6Jq4VXoDz/Oqc5pbFiY?=
- =?us-ascii?Q?bzNuiBRdGXgPKaIMTESV8zLL1DxPlced3q5LzxIkekppeH2e5x4m+e4f3X2h?=
- =?us-ascii?Q?g87Aqi9W25eQjqp//t+33092a8fjznxUiXRPu6YN21c0wRAMp3F9vncUmtJG?=
- =?us-ascii?Q?EXEbltAoJK49lSI5JyJEDiTRHj+gxSzPRqoJIeaCCXS/Al6cuZtWKjE9QeUj?=
- =?us-ascii?Q?7fcgc8yAaPzkACz3YIkGXadpnc2tbPki33nwzVJ09sMkeSS+v9HjbMeUciTf?=
- =?us-ascii?Q?DVgpTB4+5RbMAavNspCxDKnbEwigdxm6hKeY3/wSvCFeiJQgKRFcIEc1fvk/?=
- =?us-ascii?Q?q6wKUAXJdZ9bbIWIy3uOfMunlTTeCWZO7j6eZBomceM+hBXVXT3LoIpMPaVV?=
- =?us-ascii?Q?wtgV/sSxQWo3ya9eseikgnJmh39eSe07IktHfNHCwITNt7wkRWosUeMzZlo7?=
- =?us-ascii?Q?nHF+m1ROGWvGrrb14dD4xsnUJcusyiCJOecUfxh8OHK69zQjsB3ImMWuh60n?=
- =?us-ascii?Q?lK8u3uhjY0qjSTKuFBLonedYuZSEbhnd6jZl+3j684se1+s/Kut2tIjBRUND?=
- =?us-ascii?Q?CGaBpa9HthWskh9HHjL0bfh8M0rF080fbwGwa8bb0wABdtseeNn/dTIoT/Rd?=
- =?us-ascii?Q?XhhAfkxvyazWMHC3luJ5vzGSHMGjWSCII+4qX8RKLpw2QkssQ3E/yeOZq0or?=
- =?us-ascii?Q?szi8NjPksaa5SlYO3zu6NcXKOehEsyAXx6XK+7MTQsOQr+wtvhNg0A7EoB8M?=
- =?us-ascii?Q?Iaa7rekNAcVwPxyNsZnl46xUIbQ7vAJZ3MzbSTjY6tNUezj2RplLwk3XAl3m?=
- =?us-ascii?Q?xO2hCL+a1UEEPWUuj6gpmGACPnKq1q6b8AGCd+0DymDCITyfW4HQ7ZJ3Jsfm?=
- =?us-ascii?Q?0FFvJ7+kijGf7/JmdouHKU5OG3cOS/0p+a0oWBiZQsZgZNowJPC8GiECBLN8?=
- =?us-ascii?Q?+6h2b0/kjE2qjzEwr5Be+2yw9B5QQJ4d1bqcAQ1bx2ZUpxpR1Yxw5IYPr2JF?=
- =?us-ascii?Q?jjMpTrMNUytqtaVmaYEO1rhoer2YimzK00v9E8kBBUXGuEwxaaC7/aZLW9KX?=
- =?us-ascii?Q?RbqUaFaPPneVwatZvowxxJAhTfJ4uqEpS3NNZ5p7e0n1q0Vqh3H0yWwPclMS?=
- =?us-ascii?Q?MTwjCffUUIV3Akh7r/cPWX1YaeVoa73VBVJjY75CLrOIj4DIdhjI+lRgBCGA?=
- =?us-ascii?Q?Rw7rE/uIp33+tkOB9+UHfTbGNIFiaqETOwHYgDvZOfzEFyrHqoUqB3vSYPUY?=
- =?us-ascii?Q?vvZT8rcJ3TYmHuSvp8ccdOveNFkS1/qsxmWAY2vRZYqZyuzPeLRANqtg05Oa?=
- =?us-ascii?Q?Ct7IbPTlg/7s+1V2QXNlPeyAquSieYVtwo+m5p3W3AqfF7nhjFzfUzX7bfx/?=
- =?us-ascii?Q?17lLeGHluuLeULQc1frEhYa0kJKBxadg6pMUYajX0/IXNB1l3ZKFBIde2bqe?=
- =?us-ascii?Q?Es8c8zed/zpL2veS9puXjM2WOaLJBiOa?=
+ =?us-ascii?Q?vn8AehySs4nt4vbnFiGWGzyiYJsq4hEwFvM0vuvfTJxdp72PqSbdCp/13dO3?=
+ =?us-ascii?Q?hTbuL89pIrPI9gJS8LII2JDSzSeNqYpjkrrP9Mr+FdVuZ/OxTh1kxWGphTHr?=
+ =?us-ascii?Q?fdYZ27q4DAE2qCZz3P/7gGI6qPlCqSNtEwoSHafS5pcWJdsDs0Bxi/f9lbx3?=
+ =?us-ascii?Q?otwVka3fc6F4iQD5wqNrlbO3m60GsrdZ8wmu4RtI85g+rQ44jiCYH+uWWN4L?=
+ =?us-ascii?Q?zOb9AnhNxlOEQCVfjWVMpBb+AkMLcE74Hk3GeIRRz6dlA3Le1/0QCmCZV1YQ?=
+ =?us-ascii?Q?LM0FxmAaXcnDJaqFvfIcSdlhlvKJn4nDnQu5XzP1l5GYWKGxZG8TkEL/Ujwl?=
+ =?us-ascii?Q?4bLbD/an9rp2p9SEhre7lUXkFFYnRB60iPbETGfNBmqg4YQQI+uTjBzE5qcu?=
+ =?us-ascii?Q?oqC+QSXXCMHSP1/SYmzfNdjpGRmzw66d0I4VAQ+WW8AvxkoIcd864+DA7iWN?=
+ =?us-ascii?Q?gvedX+4jIO3bxzzLYHLF7NRrFcvfmmWv11oIWBw9bSXED06J9PTMofZf/K50?=
+ =?us-ascii?Q?68f3zOzAbuSsueupWnb6zUO+pLbp7d85Rj5ikxJxCqJmHOta2FKrh/YKfXm0?=
+ =?us-ascii?Q?XKIEnIVhQHCNbQdL/AwmHtVgwiuxXtpzekJ/BG4VBNpZEpd9N5wG6b3tuFR8?=
+ =?us-ascii?Q?6p5pWLz9colr6OaPC0KmsZpA4dJaZFnHaJ0LRN0xNfWwbU8bW7u4K0Idiyo2?=
+ =?us-ascii?Q?rFFyFxUFIypZyHHZBQdZXrrhvioPv99vB8muif9UCle+ww9UWBsWzvQQMQG9?=
+ =?us-ascii?Q?WZDDnR11i2zHvH/IT/K7OhT5CtQT2dk6Fm4Eqxy0GMMQ4YzMSWkSNfkMRVbO?=
+ =?us-ascii?Q?MjBGJ7uSKuqlmzguF+wr5qkr+skoo9IKs58fbqKctf3cCGJAVq9xtxmDIirk?=
+ =?us-ascii?Q?/TToG7rOMpTVIWepscQYPdvM9nMCu4WPtGKr2/vXaonD4f2e1KZUdM7Sk6RL?=
+ =?us-ascii?Q?3PwYd++W98hwJEVgrobXASKSNUz6A4CSvc5ueGpCCHeBx4IrvJ3AxKRmxkMY?=
+ =?us-ascii?Q?7zPmmHO31sVmL4XnKXjq92yrIqSkLI718zPgLbhiPQS7CZ/7jhwybOrlE2nF?=
+ =?us-ascii?Q?9o7ZQkQohT2voMNd0J5ZN6NtG2XJjxISxk84iJOrZOPS38JCudBZ/YwPq7DD?=
+ =?us-ascii?Q?1i2+u6dmVydBEdZH+zos74h9eWkU6erY9uOaUBMb88Ut001APVOovN2XRm/L?=
+ =?us-ascii?Q?N6BnvQfsbwbPrKLd/jpe09wGfQ+6UyHub7+vTezpcbVw2X8h4MF/Q2ErcxmG?=
+ =?us-ascii?Q?bzGLF0e62FbMV0ko2vYd6OmdH829r2ZQW1WMvNTFNd1/I7Im8R1cxiAUrXcP?=
+ =?us-ascii?Q?WKx5mbXbs7BX8w2L/SgBB39wfB4yulKNcKyXSpSa1DC+boHEQN5Y+xfXCuDt?=
+ =?us-ascii?Q?84Xs2teKMtayvcXN6jDpzst9ZeybS4TqMMzYn4XTOc6HBVAD2SzgSSZAlEwW?=
+ =?us-ascii?Q?ZC8bVWftjNIAEDOdbA9MU4gZhQbIhedP?=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?hsuZRaVapmuayhXlzxo46ZSyDob39U8CUf1JdkR4Q4q5+hTrrbGASP3pnQBd?=
- =?us-ascii?Q?Qby0ry7MEcLhQSaBADnGw7YoMULNJpdR6WPeNJCWHZb8a103IXtxDFIidDx8?=
- =?us-ascii?Q?RYM6Ri0uPa4Af+bDqXWD0N/cyXB366NVXa6dU+UvWsO2obpdu3ObsSyMxL8S?=
- =?us-ascii?Q?NLsChF+aaD+c2Fq+u5lKbDZixVDsvlp7LAVnWH5/b16A5dL1BU/OsCefL2+M?=
- =?us-ascii?Q?LkUdx0hrXqQ/2Gygx+drOSCBa6DSRaGMA3PqovcomFZcGO0bhguRjrSlQnCy?=
- =?us-ascii?Q?wE4WrL0Mone0kyg9braDJrvAcqopWaM1VH74jlU1nQ9k76JFsSsDKct/D7Ey?=
- =?us-ascii?Q?78SMrtTh/QUyitiy6tFRGxLQ2RMJsOM1AZNPFWvQIrB3dCU6DOAU/w6iG9Zk?=
- =?us-ascii?Q?cEQ+fjNebF+X38cuXozfZVrmqZN/476byE0s5YYAHj+noWzsNw9ET2wDAOUY?=
- =?us-ascii?Q?Gwg0RMFItd0EBvwjVLdSXtXWqNxGeMrxnbCoOq9KFbrtcB1FwGsu7UFGnrR/?=
- =?us-ascii?Q?Dp8bmPIj4K7C3KjzCEwXsKMbtz2YYx7zoRdK4JV7zA2W3s2UOLaQaSg61I9u?=
- =?us-ascii?Q?CenyzbJrOnVHU2f0b+LtlW0ljfHYn4vbUhEct1XTEfUt7YTxJuXytfnF3N4h?=
- =?us-ascii?Q?FnaAlOpfomk/gH20wFMJgb0j2mt7+htBbjjPbIPc5Ozh6o5FUlmo1nPKnIrP?=
- =?us-ascii?Q?8AIYgBJUwNIVYxr6+grRTkD2fM9hnYMvcbeVsoslNcrO+2pVCRl8QAc1QbbY?=
- =?us-ascii?Q?KcwWi4cC/GBCtZH/M0hxFuyQ0P4B3fN/HUnQfwug6yoJGPGWYgZvRneZvugl?=
- =?us-ascii?Q?akLfpTLb7b9fuTQzEauozy3xMlGAHjztz0pBfvU0wq+TFW/V3XzV8TrO2cQw?=
- =?us-ascii?Q?Zn64sHpGSAzM6od2zwnlU+McOMoepUo7XPfXACucf/Ts38tO5xNE+gkkittu?=
- =?us-ascii?Q?gCrkT/mVPOOwoSHYUi5aH2tkxR5XaOXTOGth91y3RkqK+ohHH6VEKgGpUFMv?=
- =?us-ascii?Q?GuIE7xunZxei55sRJRSB+AD0zQkCFg5DF2jd4OOFHw6LAvOOoqSCUsqEKCpT?=
- =?us-ascii?Q?ILVu1aPRThCoE7TfseMFOiKwRahB1QqSseIeb6hJXg/b3x+awT9Krvuw8bfj?=
- =?us-ascii?Q?F/w+cIaqoajs4KWPNd8akz1M48rJPTNGA3bjvCNElP3lMEuSkBsXFbARLMDm?=
- =?us-ascii?Q?WshcqR2so1DldBgX+JULbcV3+WfL9jTLrYNf+8dOK9k7qu7N127LEOUKAoqd?=
- =?us-ascii?Q?o5ZV0fQE2lU+uJEv90kxmRP3EosLKNtRV069EOVyI972TCTX7UDV1hI/JXR2?=
- =?us-ascii?Q?w9VGCqNzeCjdiis6LZUyZ54i9heoSHstssvxgCZVNgZZX2QQJW+e23z4t96Z?=
- =?us-ascii?Q?4CC7rbMyhT225znqEbYPI7h8Wqfe5qlfiflavHNAKCtjMU1co1eO7UCB+spg?=
- =?us-ascii?Q?hi96CQq00lXruRJ8agZkEKdTtPReK/Umfj1Ri0EkicddaYfjJpj/w4jM7VUA?=
- =?us-ascii?Q?Sp3fNNo+hBmF5WXBmLMcFnQOSPG2CBlluTnn/OZ4RBq+RtQEv1cpzZDKHnBe?=
- =?us-ascii?Q?MWO6zP+G8a1i52iHaAs=3D?=
+ =?us-ascii?Q?5sC3FlLMy1e9Rlx/O1rtFvFuWTUoseb2uBoApvEnJ9qI9kjtw8b8MIqiwlNZ?=
+ =?us-ascii?Q?xcDNfsziKuPGF/qU55Z5FTnkFVh0Mw0mD73wkJuEpWlWDmUEeAlC9cRDSJ8z?=
+ =?us-ascii?Q?UYjQvUS6dcxcr0VSIQBHisIFyGD83RAhROSF9/IQj9JcgzWTAs/Z4NGS5dPf?=
+ =?us-ascii?Q?C723Kp3jmiUPUxlZDP7TjJbQ+LwLZCdK+3D4L4vDckCN+LOhm7e8V1qsKtue?=
+ =?us-ascii?Q?Yc6HUF0JCnJV5hPJuAUIjWhhXf/JPKRNHLlt1l84Pk64ADvk9ygyQbnPo/HM?=
+ =?us-ascii?Q?zoT82mtmz0RXkoGyqTkIKXdGrubRiAYlqbkYaMaPoki/Lk5m2XIxIVVi5wHN?=
+ =?us-ascii?Q?1Au8DAHH+OStwySXDWo9BSN1OqG24iBF5TZ1fzGEwoWsdgNqk1hlGhoJQK1k?=
+ =?us-ascii?Q?vxr5ThOpsRhnVRH7j4j7+IfHufwiEQggcN0sFrhjZNz+DVyP8zqVtCBDJ3Ii?=
+ =?us-ascii?Q?KtGbPHKjkF621EAyTMCN01EXudY3xmixOYcPVBX0EF4xaEODDgQ+p26be1Z8?=
+ =?us-ascii?Q?bbpnmYm0lP9Sz5nIqISwKIO6euG09sS7YmHmRzVEZou0t/sRusv3vwaJ0TA3?=
+ =?us-ascii?Q?qDfGj/XvLeEEpTyNr8MjyTvqG418V1DsJRj2iCIAJsj63lOMDAS5wMShL096?=
+ =?us-ascii?Q?C2YCu+bhgulYRaHPQ1wGYcKTAde5t2im5wYD1GU60OopDo3EOubOXKtzX6C0?=
+ =?us-ascii?Q?pEd09zyJfXGpEwosxNWhezlUmtqRDfHcrSYiNajeNmK5g4IOY4pBbzQkRGKk?=
+ =?us-ascii?Q?X7ylNMnGBZ+kFuW1wr2f8t1yBNudvxqgowoR0sMRfeUWElUeoCjg+USRVyPK?=
+ =?us-ascii?Q?v/mkfyeO6cpuHHIHeVKEESxIOeyOYhyDpI6oSz2HveXBBoOXl60MT6mbQq1f?=
+ =?us-ascii?Q?e2o2Rs7sOeleIp9CYAhq+S5aZDYuMQfUutygxRKRbBUHiZKIaNvKsuMs+HH1?=
+ =?us-ascii?Q?y+3xasbxJtJtNhDZ0A4wKWXhnVVMNvgOdfVGeFg8Ek/F/qeHI/sJYHmb9biI?=
+ =?us-ascii?Q?BYfmnuJDZ9rEL43FPowe9jFlzs5IUOoASuL7GUOLFm1Y3sIFKsiynOKgUM6b?=
+ =?us-ascii?Q?2yCOCn5c6gyPyZCe083yPDOQNTYAIEnZPieGeXUdtGE6EvbyQTtti+LSueS6?=
+ =?us-ascii?Q?v0T6AHUlQjuO4TumADpBIBiPftMZYrb9jBp+6nQJR8deOk4EATPLInJzoZDS?=
+ =?us-ascii?Q?CtobkYGsUUynn0eMiHyVgxZhqOFiLeVUcfsIY89NUJvu0Z0NJPv/9o7qTH2Z?=
+ =?us-ascii?Q?LjgM2Na9TiSWWOMlvWX71kXq4ltVSBDP61Sqpm80coyt1IQB15Za16g4oF1Q?=
+ =?us-ascii?Q?aVeC1cosArUp3O0ygz0/8g6+ATpsJiJ/2BqukCk4fkrIP4WrK1TcCh6iWzGt?=
+ =?us-ascii?Q?561ziFiNMU8cqXLXjAsALaloggxitVC0wZWzhnecOuHf5ztdkETPasAoWY0q?=
+ =?us-ascii?Q?DZNHnMdpM2HOj8Tdrdj0APYfpDrdj5z5ytsHtHCvxg9UveSGsyd7SmU6gwdz?=
+ =?us-ascii?Q?1BiH+/KlT6xUPLNBoDpEZX1F9s0mxl93uHEtF9HiwxRnYgpMJYnXG4LK83qA?=
+ =?us-ascii?Q?mWmmQtRNhoHjiID3lIU=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -138,200 +138,109 @@ MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 878ced93-86ee-4102-bb41-08dd6e2430ae
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Mar 2025 18:13:07.0978
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7db416b7-f2bc-4dbc-9972-08dd6e243313
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Mar 2025 18:13:11.1100
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: t6d+s+izRWbqCKECxyXvkFKZjBdgGXMFBtJD+MejUXRwKb/3zwAdVRRXAx4v5CW75cwxTROBpH+YZqE3gPrN8g==
+X-MS-Exchange-CrossTenant-userprincipalname: eiMpOei/70kGuzA9jicfzKI3VhuwyrpdqbTX/ovwZR2svBbSnoXKS3KOj2IZFivSqJ9ZDXHdH2nOWSImx4LyVg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFF2923D4C1
 
 > From: Srujana Challa <schalla@marvell.com>
 > Sent: Monday, March 24, 2025 12:16 PM
 >=20
-> This commit introduces the IPsec Operation to the Net device along with t=
-he
-> capabilities and resource objects. This enables the offloading of IPsec
-> processing, both before transmission and after reception, thereby providi=
-ng
-> inline offload capabilities.
->=20
-> Capbilities:
->=20
-> 1. IPsec Resource Capability (VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP):
->    Indicates the device's IPsec resource limits, such as the number of
->    encryption and decryption Security Associations (SAs).
-> 2. IPsec SA Capability (VIRTIO_CRYPTO_IPSEC_SA_CAP): Specifies the
->    supported IPsec modes, along with the supported cryptographic
->    algorithms, authentication algorithms, IPsec options and
->    anti-replay window size.
->=20
-> Resource objects:
-> 1. VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA
-> 2. VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA
->=20
-> These IPsec SA resource objects encompass parameters necessary for packet
-> encryption and decryption. These include the SPI, tunnel headers, IPsec m=
-ode,
-> IPsec options, and metadata specific to cipher and authentication.
->=20
-> This patch refers the Virtio-crypto IPsec service operation capabilities =
-and
-> resource objects data structures and crypto algorithm definitions to avoi=
-d
-> duplication, however the admin command type vaule differs between Virtio-
-> crypto and Virtio-net.
+> This update introduces a new flow filter selector to match the ESP header=
+ and
+> adds a new flow filter action for IPsec processing.
 >=20
 > Signed-off-by: Srujana Challa <schalla@marvell.com>
 > ---
->  device-types/net/description.tex | 50
-> ++++++++++++++++++++++++++++++++
->  1 file changed, 50 insertions(+)
+>  device-types/net/description.tex | 25 +++++++++++++++++++++----
+>  1 file changed, 21 insertions(+), 4 deletions(-)
 >=20
 > diff --git a/device-types/net/description.tex b/device-
 > types/net/description.tex
-> index 1b6b54d..fb25c6a 100644
+> index fb25c6a..c721bf4 100644
 > --- a/device-types/net/description.tex
 > +++ b/device-types/net/description.tex
-> @@ -136,6 +136,9 @@ \subsection{Feature bits}\label{sec:Device Types /
-> Network Device / Feature bits
->=20
->  \item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM (68)] Device handles
-> packets
->    carried by a UDP tunnel with partial csum for the outer header.
-> +
-> +\item[VIRTIO_NET_F_IPSEC(69)] Device supports inline IPsec processing.
-> +
-If I recall correctly, one of the motivation for adding the outer header of=
-fset was to also speed up the ipsec processing.
-If so, since Shiva has that patch in progress already, NET_F_IPSEC should u=
-se the bit 70 and also mention that this patch depends on it.
-
-I think the requirement (or the limitation) comes from the vnet header sizi=
-ng.
-The IPSec related enablement within the device literally happens when the c=
-apabilities are negotiated and resources are created.
-
-So it would be better to just indicate the real meaning of this feature bit=
-,=20
-That is, when _IPSEC is negotiated, the vnet_hdr size expand upto field FOO=
-.
-
->  \end{description}
->=20
->  \subsubsection{Feature bit requirements}\label{sec:Device Types / Networ=
-k
-> Device / Feature bits / Feature bit requirements} @@ -458,6 +461,10 @@
-> \subsection{Device and driver capabilities}\label{sec:Device Types / Netw=
-ork
-> Dev  \hline
->  0x0802 & \hyperref[par:Device Types / Network Device / Device Operation =
-/
-> Flow filter / Device and driver capabilities / VIRTIO-NET-FF-ACTION-
-> CAP]{VIRTIO_NET_FF_ACTION_CAP} & Flow filter action capability \\  \hline
-> +0x0803 & \hyperref[par:Device Types / Crypto Device / Device Operation
-> +/ IPsec Service Operation / Device and driver capabilities /
-> +VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP]{VIRTIO_NET_IPSEC_RESOURCE_CAP}
-> &
-> +IPsec resource capability \\ \hline
-> +0x0804 & \hyperref[par:Device Types / Crypto Device / Device Operation
-> +/ IPsec Service Operation / Device and driver capabilities /
-> +VIRTIO-CRYPTO-IPSEC-SA-CAP]{VIRTIO_NET_IPSEC_SA_CAP} & IPsec Security
-> +Association(SA) capability \\ \hline
+> @@ -3060,7 +3060,9 @@ \subsubsection{Flow filter}\label{sec:Device Types
+> / Network Device / Device Ope  \hline
+>  0x5 & VIRTIO_NET_FF_MASK_TYPE_UDP & 8 bytes of UDP header described
+> in \hyperref[intro:UDP]{UDP} \\  \hline
+> -0x6 - 0xFF & & Reserved for future \\
+> +0x6 & VIRTIO_NET_FF_MASK_TYPE_ESP & 8 bytes of ESP header \\ \hline
+> +0x7 - 0xFF & & Reserved for future \\
+>  \hline
 >  \end{tabularx}
->=20
->  \subsection{Device resource objects}\label{sec:Device Types / Network
-> Device / Device resource objects} @@ -474,6 +481,10 @@
-> \subsection{Device resource objects}\label{sec:Device Types / Network Dev=
-ice
-> / D  \hline
->  0x0202 & \hyperref[par:Device Types / Network Device / Device Operation =
-/
-> Flow filter / Resource objects / VIRTIO-NET-RESOURCE-OBJ-FF-
-> RULE]{VIRTIO_NET_RESOURCE_OBJ_FF_RULE} & Flow filter rule object \\
-> \hline
-> +0x0203 & \hyperref[par:Device Types / Crypto Device / Device Operation
-> +/ IPsec Service Operation / Resource objects /
-> +VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-OUTBOUND-
-> SA]{VIRTIO_NET_RESOURCE_OBJ_I
-> +PSEC_OUTB_SA} & IPsec outbound SA resource object \\ \hline
-> +0x0204 & \hyperref[par:Device Types / Crypto Device / Device Operation
-> +/ IPsec Service Operation / Resource objects /
-> +VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-INBOUND-
-> SA]{VIRTIO_NET_RESOURCE_OBJ_IP
-> +SEC_INB_SA} & IPsec inbound SA resource object \\ \hline
+>  \end{table}
+> @@ -3120,7 +3122,11 @@ \subsubsection{Flow filter}\label{sec:Device
+> Types / Network Device / Device Ope  \hline
+>  0x2 & VIRTIO_NET_FF_ACTION_DIRECT_RX_VQ & Matching packet will be
+> directed to a receive queue \\  \hline
+> -0x3 - 0xFF & & Reserved for future \\
+> +0x3 & VIRTIO_NET_FF_ACTION_IPSEC & Matching packet will undergo IPsec
+> +processing \\ \hline
+> +0x4 & VIRTIO_NET_FF_ACTION_IPSEC_RECIRCULATE & Matching packet will
+> +first undergo IPsec processing, followed by the flow filter rules again
+> +\\ \hline
+> +0x5 - 0xFF & & Reserved for future \\
+>  \hline
 >  \end{tabularx}
+>  \end{table}
+> @@ -3173,8 +3179,8 @@ \subsubsection{Flow filter}\label{sec:Device Types
+> / Network Device / Device Ope
 >=20
->  \subsection{Device parts}\label{sec:Device Types / Network Device / Devi=
-ce
-> parts} @@ -3445,6 +3456,45 @@ \subsubsection{Flow
-> filter}\label{sec:Device Types / Network Device / Device Ope  capability =
-and
-> the classifier object, unless the VIRTIO_NET_FF_MASK_F_PARTIAL_MASK  is
-> enabled.
+>  The first selector is always VIRTIO_NET_FF_MASK_TYPE_ETH. When there are
+> multiple  selectors, a second selector can be either
+> VIRTIO_NET_FF_MASK_TYPE_IPV4 -or VIRTIO_NET_FF_MASK_TYPE_IPV6. If
+> the third selector exists, the third -selector can be either
+> VIRTIO_NET_FF_MASK_TYPE_UDP or VIRTIO_NET_FF_MASK_TYPE_TCP.
+> +or VIRTIO_NET_FF_MASK_TYPE_IPV6. If the third selector exists, it can
+> +be set to VIRTIO_NET_FF_MASK_TYPE_UDP,
+> VIRTIO_NET_FF_MASK_TYPE_TCP and VIRTIO_NET_FF_MASK_TYPE_ESP.
+>  For example, to match a Ethernet IPv6 UDP packet,  \field{selectors[0].t=
+ype}
+> is set to VIRTIO_NET_FF_MASK_TYPE_ETH, \field{selectors[1].type}  is set =
+to
+> VIRTIO_NET_FF_MASK_TYPE_IPV6 and \field{selectors[2].type} is @@ -
+> 3472,6 +3478,17 @@ \subsubsection{IPsec Operation}\label{sec:Device Types
+> / Network Device / Device  attach ICV, update/add IP header and add ESP/A=
+H
+> header/trailer to the packet  and transmit.
 >=20
-> +\subsubsection{IPsec Operation}\label{sec:Device Types / Network Device
-> +/ Device Operation / IPsec Operation}
-> +
-> +A network device can support the processing of IPsec operations when
-> +VIRTIO_NET_F_IPSEC feature is negotiated. In addition to standard
-> +packet processing, the IPsec protocol processing is also handled by the
-> network device.
-> +This occurs both pre-transmit and post-receive, providing inline IPsec
-> capabilities.
-> +
-> +IPsec Inbound processing: In receive path the device performs
-> +decryption, authentication, integrity checking and remove additional
-> +headers, including tunnel header if in tunnel mode, as well as the
-> +ESP/AH header from the packet (See \hyperref[intro:IPSEC]{[IPSEC]}). The
-> resulting packet contains only the plain data.
-> +
-> +IPsec Outbound processing: In transmit path the device performs
-> +encryption, attach ICV, update/add IP header and add ESP/AH
-> +header/trailer to the packet and transmit.
-> +
-> +\paragraph{Device and driver capabilities} \label{par:Device Types /
-> +Network Device / Device Operation / IPsec Operation / Device and driver
-> +capabilities}
-> +
-> +The device and the driver indicate IPsec SA resource limits using the
-> +capability \hyperref[par:Device Types / Crypto Device / Device
-> +Operation / IPsec Service Operation / Device and driver capabilities /
-> +VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP]{VIRTIO_NET_IPSEC_RESOURCE_CAP}
-> +The \hyperref[par:Device Types / Crypto Device / Device Operation /
-> +IPsec Service Operation / Device and driver capabilities /
-> +VIRTIO-CRYPTO-IPSEC-SA-CAP]{VIRTIO_NET_IPSEC_SA_CAP}
-> +capability specifies which IPsec protocol capabilities the device
-> +supports. The driver indicates the IPsec parameters by setting the IPsec=
- SA
-> capability prior to adding any resource objects.
-> +
-> +\paragraph{Resource objects}
+> +\paragraph{Packet processing order}
 > +\label{par:Device Types / Network Device / Device Operation / IPsec
-> +Operation / Resource objects}
+> +Operation / Packet processing order}
 > +
-> +The driver controls the IPsec SA resource object using administration
-> +commands described in \ref{sec:Basic Facilities of a Virtio Device / Dev=
-ice
-> groups / Group administration commands / Device resource objects}.
+> +If an IPsec action rule, either VIRTIO_NET_FF_ACTION_IPSEC or
+> +VIRTIO_NET_FF_ACTION_IPSEC_RECIRCULATE,
+> +is matched during flow filter processing, IPsec processing is applied on=
+ the
+> packet.
+> +In the case of VIRTIO_NET_FF_ACTION_IPSEC_RECIRCULATE, the packet goes
+> +through IPsec processing and is then recirculated only once to avoid the
+> infinite loops in the device.
 > +
-> +The IPsec SA resource object contains necessary parameters for packet
-> +encryption and decryption. These include the SPI, tunnel headers, IPsec
-> +mode, IPsec options, and data specific to cipher and authentication.
+I think I understand your comment/question now in our previous recirculate =
+discussion.
+The action IPSEC_RECIRCULATE is sort of overloaded where we say two things.
+1. perform ipsec processing, that generates and output
+2. feed this generated output to flow filter again.
+
+The action is defined cleverly to do two tasks. :)
+
+This is why a generic _recirculate is not enough. I answered myself now. :)
+
+You can ignore that question in crypto series.
+=20
+> +See \ref{sec:Device Types / Network Device / Device Operation / Flow
+> +filter} for details about flow filter.
 > +
-> +See \hyperref[par:Device Types / Crypto Device / Device Operation / IPse=
-c
-> Service Operation / Resource objects / VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-
-> OUTBOUND-SA]{VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA}.
-> +
-> +See \hyperref[par:Device Types / Crypto Device / Device Operation / IPse=
-c
-> Service Operation / Resource objects / VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-
-> INBOUND-SA]{VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA}.
-> +
->  \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
-> Types / Network Device / Legacy Interface: Framing Requirements}
+>  \paragraph{Device and driver capabilities}  \label{par:Device Types / Ne=
+twork
+> Device / Device Operation / IPsec Operation / Device and driver capabilit=
+ies}
 >=20
 > --
 > 2.25.1
