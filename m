@@ -1,132 +1,132 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DE913B59B
-	for <virtio-comment@lists.linux.dev>; Mon, 31 Mar 2025 12:20:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0EF71E5B8A
+	for <virtio-comment@lists.linux.dev>; Mon, 31 Mar 2025 12:36:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743423620; cv=none; b=UOWEjmpdXBC3/2tRuuuDas6tzvV/v5qz6IqY7OFg053qE65pvbhXH6O2A8J1Xnkx5AEyFdoUZfFC5GNtrWV6YMy3Sj1cNi7ft6sjkTePCCnfAQjxJlArDEDEaF7T0KjK/iJDT8zn5dbihYCPifMbKve2c4LnhmqVbxMwr7zdJlw=
+	t=1743424617; cv=none; b=k2rs5viOmvLs5tl4zzxmGehPO9pih6Ti446fRTznX92ag74aFE0Jc4FDYg8su6BWZuN5NOXsswGrj76KrC9zX8U7IVpdPr2qAw4/I9Ag48FqAoEOWqFJzbRhDsSP33ciafYTbUWkwZfR1HbXYkzD9XdVvl+LVUrzmi3XLGgEbVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743423620; c=relaxed/simple;
-	bh=Mcuo82e3bedOnkYCnMSto9KYztISX1z5XNXm5/fMziA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ppKN0xNxDwvKslapIvCbPqFlpYcp+bsSKZmd8aDKA3G2XC3Wlq42kHWKW1TEqVK+21WGgCN5jptJdcuOlVgMqqrGYSxYIL6fA4bG5hzdPoimxZkRQmKtaVHqo39xgEQsfodrkYWt9rJLk1/y/UJJUqqi5fAF3CJvnuVh0rUFAX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hrsEjUND; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1743424617; c=relaxed/simple;
+	bh=Ise6kFs+Bk9HvZp8Y/NAwr6k28qs0LjsdtQM3/5aZRs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=YGIZ7d6s+veg4Lb2c13kjmHoGWqjSDuuvLKw2nz5YJuT05zqpd2ffFi4OnMPSG/SLPMfKeCtGBxxd9QX4j2LzANz/GM1N5lcVKqeGboe3pjIgLS8sP4o+QmOGzSJYMqeBpCmx2LLKAFZtdr5It/qfboybOAPL+Lz7Ac19vr5pCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=iurXzh6d; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hrsEjUND"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1743423617;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CRakDc7PqzvR6cPiRlYWPeF36XguxfG77r5itvmH1Js=;
-	b=hrsEjUNDR0egMiEMryDOJVUkuDL7YFyReUX3Lu3Av/xgL2rtw+u4SoeBXqnBUmL/mnS5N+
-	XsDHNzXnfcJ+A4JIFEVMDiTde+qMhS4a7U7g2cNFbvOAaNU0WauRE3zBFkYWKQ9VgWjn5O
-	w/2KRsOIXYF7amM8obwZMcqucbqJldo=
-Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-484-RMo1IX2kPyq0ehHLdWCLJg-1; Mon,
- 31 Mar 2025 08:20:13 -0400
-X-MC-Unique: RMo1IX2kPyq0ehHLdWCLJg-1
-X-Mimecast-MFC-AGG-ID: RMo1IX2kPyq0ehHLdWCLJg_1743423611
-Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DF6DA195608A;
-	Mon, 31 Mar 2025 12:20:10 +0000 (UTC)
-Received: from localhost (unknown [10.2.16.29])
-	by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DE5571956094;
-	Mon, 31 Mar 2025 12:20:09 +0000 (UTC)
-Date: Mon, 31 Mar 2025 08:20:08 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>
-Cc: Stefan Hajnoczi <stefanha@gmail.com>,
-	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
-	Rust VMM <rust-vmm@lists.opendev.org>,
-	QEMU Devel <qemu-devel@nongnu.org>, virtio-comment@lists.linux.dev,
-	VirtIO Dev List <virtio-dev@lists.linux.dev>,
-	Bill Mills <bill.mills@linaro.org>,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	David Hildenbrand <david@redhat.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Matias Vara Larsen <mvaralar@redhat.com>,
-	Sergio Lopez <slp@redhat.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="iurXzh6d"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-43cf06eabdaso41271575e9.2
+        for <virtio-comment@lists.linux.dev>; Mon, 31 Mar 2025 05:36:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1743424612; x=1744029412; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Ise6kFs+Bk9HvZp8Y/NAwr6k28qs0LjsdtQM3/5aZRs=;
+        b=iurXzh6difCb2vSr4Jq6Ax7qYgpwn+5KIUP5FSqK3vThCx0Nl+0GfRiUb7aFsfKSU5
+         XqhpFKCO0dMLh3znk7xEuAGM9uHUN9YZDe0a7XfziUkDHjtA+OuLNZ/rVgyIHO5EG4Va
+         7C595y4rRrAfK3TtsZGSASXTiRf25Bg8BtZT8YonXGUhU5jB5A8pwnVHCtCtA7W/24HD
+         DqASvaLHrQAIFpMoOrNUNtdCCCsjEHzM0l5HlzND46IqQni+VI1B7yOZ9FU2BMNgqp74
+         aNnxAVBhdHY+4OqcPB++zW9AUqjeZEEeqsZ974hAsOuGJ76HbwwTg4hEykkwGkx4MyzD
+         mfnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743424612; x=1744029412;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Ise6kFs+Bk9HvZp8Y/NAwr6k28qs0LjsdtQM3/5aZRs=;
+        b=rAAP4rvsPsYIkRvKcT0cIIaVJ6QPLrX0s0gwqge7RMExKIEsIZvfTIgkRdKhjKgcy9
+         +ky862UVodlqOvp4kTZ49jlTHabD+LZ0aYrzFFwkt96IzeOywk5Lr+bHDBPnFqpx5298
+         zyb7HL4zU/yrR0G4lYjwrRvghYb5v14YBDOpApD1AzLCePABaXUdpaohhWOFqS2ffLQh
+         eQ5xALuqTwE8ggz0ep1FQgiqlOW3F+LUL2yIL9LHifmtkY/9TLtgvglnc6W2OnnTVTm6
+         qcKkl/YpEPPqp8la7z7r2xYzC9IBEOFhX2nAISIRioyljgrZC70+bnzn5f+NvM4S7N6c
+         d6LA==
+X-Forwarded-Encrypted: i=1; AJvYcCU4GUeWw3WexQeq5VkdQBVyTveTThclxn2kR0g6xhHpqudQ0XsfXdLTwGrAUkAB0aIDaaRfSStbvSD+mc3uGw==@lists.linux.dev
+X-Gm-Message-State: AOJu0Ywuxj02MLeLnMHiSnFqlvVluKDlRtP4jEel1363ax7/XrZGBGD/
+	HoaTKIlpXhrgdTL/lsNT9xeVN7YbKLmsInWwO1Ck2tOS1seHMnGT6gxT8T7E5Bw=
+X-Gm-Gg: ASbGnct0ZQXrOyabQWYUlQaJyUmfBDuPMeWXOdDVxlqXMhitrUL0CDUk+U4HF9YiKwq
+	mmf5sgmoRH1HY612Wu9n4924RSfvsI/S2+27tPjrPKyqwAg6ymFf7JhHB2LnuCtvAwFxdFOhti3
+	vLJkpjQnvbFFrJwixdWd23BnEnJtRaAZGQXOMK6CwFXzT4H6GUoxU0TJUxbjPhOdXgGJ5OhcvTc
+	+8fxOJt1m2Ne7XIcyW28zPpQC9Hpt27jKZS+1kuC4vLcZV65nnmcno00si7NAryJUhI6771iple
+	0DhdPXEIqgHpH7Fh77uH6X0rVu6Qkr4Vyv9vZJsY4iuPYww=
+X-Google-Smtp-Source: AGHT+IGISowd1iMuLNmrzCa8B/xCpLWjevxA2URko9uRdlwBGYeLcU6CR4bEnHadtTGpS4ZA1/RFWA==
+X-Received: by 2002:a05:600c:4593:b0:43d:23fe:e8a6 with SMTP id 5b1f17b1804b1-43db61e037emr74333555e9.5.1743424612045;
+        Mon, 31 Mar 2025 05:36:52 -0700 (PDT)
+Received: from draig.lan ([185.126.160.109])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-43d8ff042bcsm119988695e9.28.2025.03.31.05.36.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Mar 2025 05:36:50 -0700 (PDT)
+Received: from draig (localhost [IPv6:::1])
+	by draig.lan (Postfix) with ESMTP id BBD5D5F88A;
+	Mon, 31 Mar 2025 13:36:49 +0100 (BST)
+From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Stefan Hajnoczi <stefanha@gmail.com>
+Cc: Rust VMM <rust-vmm@lists.opendev.org>,  QEMU Devel
+ <qemu-devel@nongnu.org>,  virtio-comment@lists.linux.dev,  VirtIO Dev List
+ <virtio-dev@lists.linux.dev>,  Bill Mills <bill.mills@linaro.org>,  Manos
+ Pitsidianakis <manos.pitsidianakis@linaro.org>,  "Michael S. Tsirkin"
+ <mst@redhat.com>,  David Hildenbrand <david@redhat.com>,  Stefan Hajnoczi
+ <stefanha@redhat.com>,  Stefano Garzarella <sgarzare@redhat.com>,  Dmitry
+ Osipenko <dmitry.osipenko@collabora.com>,  Matias Vara Larsen
+ <mvaralar@redhat.com>,  Sergio Lopez <slp@redhat.com>
 Subject: Re: Central repo for VirtIO conformance tests?
-Message-ID: <20250331122008.GA190936@fedora>
+In-Reply-To: <CAJSP0QW6=SvLwkuTsZTKqCH9OQJdH8XV32hDZ9Z4o6AbCbOqiA@mail.gmail.com>
+	(Stefan Hajnoczi's message of "Mon, 31 Mar 2025 07:58:22 -0400")
 References: <87semtpjrt.fsf@draig.linaro.org>
- <CAJSP0QXX-hpOJ_E1oaR6NcyvBnC2mVAwfd8NYUWTDqPrtctAuQ@mail.gmail.com>
- <Z-qHKUveoHc85koj@redhat.com>
+	<CAJSP0QW6=SvLwkuTsZTKqCH9OQJdH8XV32hDZ9Z4o6AbCbOqiA@mail.gmail.com>
+User-Agent: mu4e 1.12.9; emacs 30.1
+Date: Mon, 31 Mar 2025 13:36:49 +0100
+Message-ID: <87msd1peam.fsf@draig.linaro.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="1UzjfE4LHL1iuGco"
-Content-Disposition: inline
-In-Reply-To: <Z-qHKUveoHc85koj@redhat.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
-
-
---1UzjfE4LHL1iuGco
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Mar 31, 2025 at 01:14:33PM +0100, Daniel P. Berrang=C3=A9 wrote:
-> On Mon, Mar 31, 2025 at 07:52:33AM -0400, Stefan Hajnoczi wrote:
-> > On Mon, Mar 31, 2025 at 6:39=E2=80=AFAM Alex Benn=C3=A9e <alex.bennee@l=
-inaro.org> wrote:
-> > > So what do people think? Where would be a good place for common test
-> > > repository to live?
-> >=20
-> > Maintaining the tests alongside the VIRTIO spec seems like a good fit
-> > to me. Here is information on how to create a GitHub repo under the
-> > OASIS VIRTIO Technical Committee:
-> > https://www.oasis-open.org/open-repositories/
-> >=20
-> > I don't see a reason to maintain the tests under QEMU or rust-vmm
-> > unless they provide some unique project infrastructure that an
-> > independent project would lack or need to reinvent.
->=20
-> IMHO opening that very link above illustrates the reason why *NOT* to
-> host this under OASIS. Any potential contributor is faced with a 4 page
-> long blurb of all sorts of rules & legal requirements, including
->=20
->   "Each TC Open Repository shall be subject to a Contributor
->    License Agreement (=E2=80=9CCLA=E2=80=9D) by which all persons making =
-repo
->    contributions into it are bound."
->=20
-> Hosting anywhere else would be better from the POV of removing barriers
-> to potential contribution.
+Stefan Hajnoczi <stefanha@gmail.com> writes:
 
-I didn't notice the CLA requirement. I agree, it's better to host it
-elsewhere.
+> On Mon, Mar 31, 2025 at 6:39=E2=80=AFAM Alex Benn=C3=A9e <alex.bennee@lin=
+aro.org> wrote:
+>> The unikernel utilizes rcore-os's no_std VirtIO drivers to discover and
+>> initialize a range of VirtIO devices.
+>
+> https://github.com/rcore-os/virtio-drivers
+>
+> I noticed that VIRTIO_F_VERSION_1, VIRTIO_F_RING_PACKED, and hardware
+> device support are missing according to the readme. Those are
+> important features for real-world test coverage.
 
-Stefan
+At the moment most of the testing is around feature negotiation so we
+don't get to the point that we are need packed virtqs. However it would
+be useful to upstream such support for their use generally - I know
+there are some downstream projects that have stuff to upstream in due
+course.
 
---1UzjfE4LHL1iuGco
-Content-Type: application/pgp-signature; name=signature.asc
+The original idea for the feature bit tests was to utilise the kernels
+kunit framework. However that was outside the scope of what kunit which
+is really focused on testing kernel internals rather than the HW
+interface.
 
------BEGIN PGP SIGNATURE-----
+We did consider expanding the kvm-unit-test uni-kernels but that would
+either involve importing kernel bits or a fairly big C re-implementation
+of it. At least by expanding the rcore-os drivers we will have two
+different driver stacks in two different languages.
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmfqiHgACgkQnKSrs4Gr
-c8imawgAupoyqxCLxGFaH4fb9FOtzqOvMBpqPWfWZ+2v3WsDyUGU2aVaWS01EwUp
-nGP8qqrN7OO0ykPLqKPlLdNi5KT4reRDC00lZMU5dSmRUjiWpns8GzTvTsI2VLof
-9vih/PdJ5NUPpSvpWfSHVJh6WGKeaqWb1lm03hDx/c4Ce9GUpTbGiGOqlkrDGcNK
-YDe0f9qjGnpHAZB3aa2OPGWj6AAFrRuJn+DLFGsAsi8qJRdZk5ExEkys2s9QjL6y
-l9V697MvY1v6qqUau5maQqUu0+tlIXRST2Y22xJRexwlguivjWDpuJEwGuMS6eBE
-S84Y9haeM5aG78cmjMmBDLJCn01nWw==
-=l7dj
------END PGP SIGNATURE-----
+> Or is the idea to use the unikernel for low-level device
+> initialization and the Linux image for tests that do I/O?
 
---1UzjfE4LHL1iuGco--
+So far the rootfs images get by far the largest coverage because they
+can more easily trigger a whole range of conditions. While VirtIO is
+intended to be OS and hypervisor agnostic Linux remains the system with
+the widest and most functional coverage of the interfaces.
 
+>
+> Stefan
+
+--=20
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
