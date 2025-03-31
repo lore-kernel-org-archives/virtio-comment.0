@@ -1,132 +1,108 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0EF71E5B8A
-	for <virtio-comment@lists.linux.dev>; Mon, 31 Mar 2025 12:36:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5501F213244
+	for <virtio-comment@lists.linux.dev>; Mon, 31 Mar 2025 15:59:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743424617; cv=none; b=k2rs5viOmvLs5tl4zzxmGehPO9pih6Ti446fRTznX92ag74aFE0Jc4FDYg8su6BWZuN5NOXsswGrj76KrC9zX8U7IVpdPr2qAw4/I9Ag48FqAoEOWqFJzbRhDsSP33ciafYTbUWkwZfR1HbXYkzD9XdVvl+LVUrzmi3XLGgEbVA=
+	t=1743436768; cv=none; b=OhBjoackN467N/aN/7N6JRDUmIbHyXmrQTkkcDExm8yXHbtKn5SdvNaK2d4mE3dD7fayQJIj1l3kC54eCs+X4tUsGSNScJH44YaF85C0Eovz2X2EMKdnDg7fZUeylWcgubENJaKjIuwHhqo4g9BjoAOwkPRBFuAiIjch0w3JtvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743424617; c=relaxed/simple;
-	bh=Ise6kFs+Bk9HvZp8Y/NAwr6k28qs0LjsdtQM3/5aZRs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=YGIZ7d6s+veg4Lb2c13kjmHoGWqjSDuuvLKw2nz5YJuT05zqpd2ffFi4OnMPSG/SLPMfKeCtGBxxd9QX4j2LzANz/GM1N5lcVKqeGboe3pjIgLS8sP4o+QmOGzSJYMqeBpCmx2LLKAFZtdr5It/qfboybOAPL+Lz7Ac19vr5pCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=iurXzh6d; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1743436768; c=relaxed/simple;
+	bh=Q9qihBivVirfaCTv/SHLfTkpmWMuVNLIMyS+B+5ghRk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LCN+QKtF9zpo2vdwdelb0iqOO9mGasaOhNgeHpF3WVe6WzqnsBeVR/JySSuwOcWlW40DdQt8UdfxIM4+cViqltec7Vhj+TRJx4sKzlvppx+wLPnnJV7LaS6rBeCkaPAh9IlS9h8MmdljPnd+S5zqG6wOZ/NK4VhuIfDKEFqpCHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RIxzhU7S; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="iurXzh6d"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-43cf06eabdaso41271575e9.2
-        for <virtio-comment@lists.linux.dev>; Mon, 31 Mar 2025 05:36:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1743424612; x=1744029412; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ise6kFs+Bk9HvZp8Y/NAwr6k28qs0LjsdtQM3/5aZRs=;
-        b=iurXzh6difCb2vSr4Jq6Ax7qYgpwn+5KIUP5FSqK3vThCx0Nl+0GfRiUb7aFsfKSU5
-         XqhpFKCO0dMLh3znk7xEuAGM9uHUN9YZDe0a7XfziUkDHjtA+OuLNZ/rVgyIHO5EG4Va
-         7C595y4rRrAfK3TtsZGSASXTiRf25Bg8BtZT8YonXGUhU5jB5A8pwnVHCtCtA7W/24HD
-         DqASvaLHrQAIFpMoOrNUNtdCCCsjEHzM0l5HlzND46IqQni+VI1B7yOZ9FU2BMNgqp74
-         aNnxAVBhdHY+4OqcPB++zW9AUqjeZEEeqsZ974hAsOuGJ76HbwwTg4hEykkwGkx4MyzD
-         mfnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743424612; x=1744029412;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Ise6kFs+Bk9HvZp8Y/NAwr6k28qs0LjsdtQM3/5aZRs=;
-        b=rAAP4rvsPsYIkRvKcT0cIIaVJ6QPLrX0s0gwqge7RMExKIEsIZvfTIgkRdKhjKgcy9
-         +ky862UVodlqOvp4kTZ49jlTHabD+LZ0aYrzFFwkt96IzeOywk5Lr+bHDBPnFqpx5298
-         zyb7HL4zU/yrR0G4lYjwrRvghYb5v14YBDOpApD1AzLCePABaXUdpaohhWOFqS2ffLQh
-         eQ5xALuqTwE8ggz0ep1FQgiqlOW3F+LUL2yIL9LHifmtkY/9TLtgvglnc6W2OnnTVTm6
-         qcKkl/YpEPPqp8la7z7r2xYzC9IBEOFhX2nAISIRioyljgrZC70+bnzn5f+NvM4S7N6c
-         d6LA==
-X-Forwarded-Encrypted: i=1; AJvYcCU4GUeWw3WexQeq5VkdQBVyTveTThclxn2kR0g6xhHpqudQ0XsfXdLTwGrAUkAB0aIDaaRfSStbvSD+mc3uGw==@lists.linux.dev
-X-Gm-Message-State: AOJu0Ywuxj02MLeLnMHiSnFqlvVluKDlRtP4jEel1363ax7/XrZGBGD/
-	HoaTKIlpXhrgdTL/lsNT9xeVN7YbKLmsInWwO1Ck2tOS1seHMnGT6gxT8T7E5Bw=
-X-Gm-Gg: ASbGnct0ZQXrOyabQWYUlQaJyUmfBDuPMeWXOdDVxlqXMhitrUL0CDUk+U4HF9YiKwq
-	mmf5sgmoRH1HY612Wu9n4924RSfvsI/S2+27tPjrPKyqwAg6ymFf7JhHB2LnuCtvAwFxdFOhti3
-	vLJkpjQnvbFFrJwixdWd23BnEnJtRaAZGQXOMK6CwFXzT4H6GUoxU0TJUxbjPhOdXgGJ5OhcvTc
-	+8fxOJt1m2Ne7XIcyW28zPpQC9Hpt27jKZS+1kuC4vLcZV65nnmcno00si7NAryJUhI6771iple
-	0DhdPXEIqgHpH7Fh77uH6X0rVu6Qkr4Vyv9vZJsY4iuPYww=
-X-Google-Smtp-Source: AGHT+IGISowd1iMuLNmrzCa8B/xCpLWjevxA2URko9uRdlwBGYeLcU6CR4bEnHadtTGpS4ZA1/RFWA==
-X-Received: by 2002:a05:600c:4593:b0:43d:23fe:e8a6 with SMTP id 5b1f17b1804b1-43db61e037emr74333555e9.5.1743424612045;
-        Mon, 31 Mar 2025 05:36:52 -0700 (PDT)
-Received: from draig.lan ([185.126.160.109])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-43d8ff042bcsm119988695e9.28.2025.03.31.05.36.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Mar 2025 05:36:50 -0700 (PDT)
-Received: from draig (localhost [IPv6:::1])
-	by draig.lan (Postfix) with ESMTP id BBD5D5F88A;
-	Mon, 31 Mar 2025 13:36:49 +0100 (BST)
-From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Stefan Hajnoczi <stefanha@gmail.com>
-Cc: Rust VMM <rust-vmm@lists.opendev.org>,  QEMU Devel
- <qemu-devel@nongnu.org>,  virtio-comment@lists.linux.dev,  VirtIO Dev List
- <virtio-dev@lists.linux.dev>,  Bill Mills <bill.mills@linaro.org>,  Manos
- Pitsidianakis <manos.pitsidianakis@linaro.org>,  "Michael S. Tsirkin"
- <mst@redhat.com>,  David Hildenbrand <david@redhat.com>,  Stefan Hajnoczi
- <stefanha@redhat.com>,  Stefano Garzarella <sgarzare@redhat.com>,  Dmitry
- Osipenko <dmitry.osipenko@collabora.com>,  Matias Vara Larsen
- <mvaralar@redhat.com>,  Sergio Lopez <slp@redhat.com>
-Subject: Re: Central repo for VirtIO conformance tests?
-In-Reply-To: <CAJSP0QW6=SvLwkuTsZTKqCH9OQJdH8XV32hDZ9Z4o6AbCbOqiA@mail.gmail.com>
-	(Stefan Hajnoczi's message of "Mon, 31 Mar 2025 07:58:22 -0400")
-References: <87semtpjrt.fsf@draig.linaro.org>
-	<CAJSP0QW6=SvLwkuTsZTKqCH9OQJdH8XV32hDZ9Z4o6AbCbOqiA@mail.gmail.com>
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Mon, 31 Mar 2025 13:36:49 +0100
-Message-ID: <87msd1peam.fsf@draig.linaro.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RIxzhU7S"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1743436766;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=j8p+UlpdcS6D/co3tFKHQHx8KvUjFV9Atn6iIp1dKyw=;
+	b=RIxzhU7SL8W2EwdZuMarc5mVPjjjQv+dmDFEmRn006/vtJS1Olf5D71FWcCcYvDubSs7wU
+	BMztBdwwnSMRqhOcGHn0XIsbPjwTXABLy07O7L/D1mb6cvPqT2rJZjaalkh5uh7LkXDqZQ
+	Rg4qA+6yc8Z6IbGkjxM0TGpvDCPOby0=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-147-KnY4_XAyNFOjXcN8QeEMQg-1; Mon,
+ 31 Mar 2025 11:59:23 -0400
+X-MC-Unique: KnY4_XAyNFOjXcN8QeEMQg-1
+X-Mimecast-MFC-AGG-ID: KnY4_XAyNFOjXcN8QeEMQg_1743436762
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EEC081800260;
+	Mon, 31 Mar 2025 15:59:21 +0000 (UTC)
+Received: from f41vm.. (unknown [10.45.224.27])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id BE0C61801752;
+	Mon, 31 Mar 2025 15:59:19 +0000 (UTC)
+From: Sergio Lopez <slp@redhat.com>
+To: virtio-comment@lists.linux.dev
+Cc: dmitry.osipenko@collabora.com,
+	parav@nvidia.com,
+	mst@redhat.com,
+	Sergio Lopez <slp@redhat.com>
+Subject: [PATCH v2 0/3] shared-mem: introduce page alignment restrictions
+Date: Mon, 31 Mar 2025 11:05:45 -0400
+Message-ID: <20250331150548.50595-1-slp@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 4Dd1XInwCgSTxFhsfOWuhrD8pfdea27M-l9Mu3vYuYY_1743436762
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Stefan Hajnoczi <stefanha@gmail.com> writes:
+There's an incresing number of machines supporting multiple page sizes
+and, on these machines, the host and a guest can be running with
+different pages sizes.
 
-> On Mon, Mar 31, 2025 at 6:39=E2=80=AFAM Alex Benn=C3=A9e <alex.bennee@lin=
-aro.org> wrote:
->> The unikernel utilizes rcore-os's no_std VirtIO drivers to discover and
->> initialize a range of VirtIO devices.
->
-> https://github.com/rcore-os/virtio-drivers
->
-> I noticed that VIRTIO_F_VERSION_1, VIRTIO_F_RING_PACKED, and hardware
-> device support are missing according to the readme. Those are
-> important features for real-world test coverage.
+In addition to this, there might be devices that have a required and/or
+preferred page size for mapping memory.
 
-At the moment most of the testing is around feature negotiation so we
-don't get to the point that we are need packed virtqs. However it would
-be useful to upstream such support for their use generally - I know
-there are some downstream projects that have stuff to upstream in due
-course.
+In this series we extend the "Shared Memory Regions" with a subsection
+explaining the posible existence of page alignment restrictions.
 
-The original idea for the feature bit tests was to utilise the kernels
-kunit framework. However that was outside the scope of what kunit which
-is really focused on testing kernel internals rather than the HW
-interface.
+For the device to provide the page size information to the driver, we
+need to extend the PCI and MMIO transports. For the former, we borrow
+8 bits from the 16 bit padding in virtio_pci_cap to hold a page_shift
+field which can be used to derive the page size by using the following
+formula: (page_size = 1 << (page_shift + 12)).
 
-We did consider expanding the kvm-unit-test uni-kernels but that would
-either involve importing kernel bits or a fairly big C re-implementation
-of it. At least by expanding the rcore-os drivers we will have two
-different driver stacks in two different languages.
+For MMIO, we add a the SHMPageShift register at offset 0x0c4, also
+holding the page_shift value. Since MMIO registers are 32 bit wide, we
+could have asked the device to directly provide page_size instead of
+page_shift, but seems reasonable to be consistent across transports.
 
-> Or is the idea to use the unikernel for low-level device
-> initialization and the Linux image for tests that do I/O?
+An implementation of the changes proposed in this series has been
+published as an RFC to the LKML, to be used as a reference:
 
-So far the rootfs images get by far the largest coverage because they
-can more easily trigger a whole range of conditions. While VirtIO is
-intended to be OS and hypervisor agnostic Linux remains the system with
-the widest and most functional coverage of the interfaces.
+https://lore.kernel.org/all/20250214-virtio-shm-page-size-v2-0-aa1619e6908b@redhat.com/
 
->
-> Stefan
+v2:
+ - Remove the VIRTIO_F_SHM_PAGE_SIZE feature bit, exposing page_shift
+   in the transports unconditionally (thanks Parav Pandit).
+ - Didn't pick up R-b due to the significant change between revisions.
 
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
+Sergio Lopez (3):
+  shared-mem: introduce page alignment restrictions
+  transport-pci: introduce page_shift field for SHM
+  transport-mmio: introduce SHMPageShift register
+
+ shared-mem.tex     |  6 ++++++
+ transport-mmio.tex |  8 ++++++++
+ transport-pci.tex  | 10 +++++++++-
+ 3 files changed, 23 insertions(+), 1 deletion(-)
+
+-- 
+2.49.0
+
