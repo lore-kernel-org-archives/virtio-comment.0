@@ -1,173 +1,99 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153411D79BE
-	for <virtio-comment@lists.linux.dev>; Mon, 31 Mar 2025 10:38:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC113FFD;
+	Mon, 31 Mar 2025 11:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743417515; cv=none; b=ajbiw5ZX5jHEf2dweYZNw42c9tgXFb9IAiATIs/XYfsNwhTxCla66GvPkBN30LahRNT5tWDcJ29EHeMZJ+WVFC2Sn3Na5jvf7pHjq/e7Zxj4aRx4Ov25L2YEay6Pk0p2/wgLtZ5r4xuNTQdYZhdLWU8aDnCtO+QGfu+J+YVsy5c=
+	t=1743421968; cv=none; b=JKi5B8FDyPBscNHMDj3lrQ3GcxecBoOf8mt42yTOkz/6jNauDUELe43CF05vDMGHLlVj8VvVnbrlQC0H6wZqEjHbyowVorbWqBRXMiAXvNHicBlIGEAdRF8DyEfLnTmf7H90Mpschlb+au2OQgIdB+Bub4Q0SUyJPX603ZKCp30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743417515; c=relaxed/simple;
-	bh=honV8eiPucrAK5Fl+ZactaCppFabUYDF3xqNrh+c5oQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=E+gryyNmbrBM9NgBdswb0Vi5buLSVEufdXEDJ4E3Mk2Jiy5IvzKtviVHzxzI5LzjSPOO7LCPkn+2RsjQLJ4yFefx7MfBpQciqifxP3FCaLR/ntUSboWxzxn9k1+x79JOuF/acUPDA6+wrKkAct8IJ3CtsWFTzvXq8pQF4ighv1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=YAgtzBtS; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1743421968; c=relaxed/simple;
+	bh=s/G950E4iUD7P22iYcY1O+KKVXQiUvh2OUJBF7gOlhc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IxNCEZ0ywxMIfG+vNfcVSQIJjOx/ojoYhLfc32tsI4t9AefUuFK16m70v8a8U6p/5NQbCbBvhFhSvOfnedeqhujBrFbQpq99wHG796F0jgFjwgWbSowcac1nOUuWC9MgTaRrT5HN4xAYkSgUDOB1aEDHcXC9xdWQEoR0czNZsnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OAOncKQD; arc=none smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="YAgtzBtS"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-ac6e8cf9132so763486866b.2
-        for <virtio-comment@lists.linux.dev>; Mon, 31 Mar 2025 03:38:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OAOncKQD"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-5ed43460d6bso7228682a12.0;
+        Mon, 31 Mar 2025 04:52:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1743417512; x=1744022312; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=YyESUsuWRi1PC7E+N28GieaBOXFK2R42TwhkserlSiM=;
-        b=YAgtzBtSSHdPWr3M/w75ec/WzjoAGyBs+UuCqM5BiHzOH9qj3zmUS8syEJtS1ehKJA
-         aws13aRUMKG1XfXEyFzrB/xMSEq3Oy09zjqUfL26a5rENU/1iiMno9M95P9nzH0fp0gi
-         1Em+zwnSopC7kR31HSQxsOY0Nl/34JX4bwcyEwOVOae/RdxnK3wqrkQig7iSZWxaQgag
-         vujP0Vb7L4dxAPVtvD5UjNILRDcWaG4QUCZDgusUFdAy17RCOBPkGTKM3sU8Hf6VU3Zl
-         aecgRflHy/hlmOZ9X4Ly6EkmBagrWY2P/nQalOsDwZ4+879qSTvJMqZvLpXMlXHSQJFH
-         HYkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743417512; x=1744022312;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :subject:cc:to:from:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1743421965; x=1744026765; darn=lists.linux.dev;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YyESUsuWRi1PC7E+N28GieaBOXFK2R42TwhkserlSiM=;
-        b=noKAWh5PVCdZ3QdK6gYHXtBjxJh8SpKXFzW5UX+MBBawmFcNcZBmmWY3EbmZBocXEa
-         Tv1vYVarQjdsn+/dNQRJQ0m9AzHYluYuSUpIQ2iigk9hZOmCbZzt0Bt03i98W/oITRc+
-         DQfPubH+rTjsOV8oeo3xZskzXORa6qjSWa0hRexrx+ONObM4oqx6sfyxOKpmCr3y5PoE
-         R8D4eVW7y/u+oXO3D2LUl8J/n+etb3QbXrBplv7tuPIV9qnG87FeUWyH2mAXyRghVw1M
-         BPBOnUiwAQgkBPBXPxA/8rKxf5zqzodIp+YWMYS/ZZqCHLe1dCg4U4y5bu3r5n1SK5Tf
-         Sarw==
-X-Forwarded-Encrypted: i=1; AJvYcCU3UMqrjfIQ3aXtyldxdEKho+l0PlVX9vqBDnsMAVWumfM5FABmcTh5wsOpUi9iA8tB38sg0iIw/DHCz//nIw==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yz/n8NsXGb39rN8bIVE6yNp0X4GAVqokPEHcU5uDoi8BvE9bPjF
-	VQY9pnj4ZNyiY58EkmFHoddfXbnL0SpTF5q2DqNPuLlja8djDOmsv44NfK8eOXI=
-X-Gm-Gg: ASbGncsEO7igEvWtjuWxL1JD8uoUf0hysIgOC79cdHLzCyf2Xiur95vYZms70ut/+S1
-	3WEYgnmbwTTS+bTcVTR4X1BxGMTtC9zBudGmDCNTGJEhzgesNWB4iguzaqIzF95ANSKV2NR2+BF
-	wTq+pfHjGJ1fWgHXnAESJ/+O9xj0FEqtzof1FLOFvydRXrM1kOWgjvfJXKLBRFilRAd8cXrSoNd
-	N1dZpzv559pnznB7Oc1MbyqVQEYsO5KAgxfPRFi92ccKluf+ganfjWtHBGn+DV+dei1TdV52RtA
-	ofMJzoaS2DRzmMujWNb4U7z8xzfRSeszkNN4kG9LomZfjS0=
-X-Google-Smtp-Source: AGHT+IFSJNZuM5smiQqA7G8jICfD2gJxiBrKvXpSL+O5/DVYSx9dIZxsljVHBGy5SlucMLLSuG8ouA==
-X-Received: by 2002:a17:907:6092:b0:ac1:f002:d85d with SMTP id a640c23a62f3a-ac738a0c8ebmr784282666b.6.1743417512285;
-        Mon, 31 Mar 2025 03:38:32 -0700 (PDT)
-Received: from draig.lan ([185.126.160.109])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ac71927b205sm618212266b.60.2025.03.31.03.38.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Mar 2025 03:38:31 -0700 (PDT)
-Received: from draig (localhost [IPv6:::1])
-	by draig.lan (Postfix) with ESMTP id BC9785F88A;
-	Mon, 31 Mar 2025 11:38:30 +0100 (BST)
-From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Rust VMM <rust-vmm@lists.opendev.org>, QEMU Devel
- <qemu-devel@nongnu.org>, virtio-comment@lists.linux.dev, VirtIO Dev List
- <virtio-dev@lists.linux.dev>
-Cc: Bill Mills <bill.mills@linaro.org>,	Manos Pitsidianakis
- <manos.pitsidianakis@linaro.org>, Michael S. Tsirkin <mst@redhat.com>,
- David Hildenbrand <david@redhat.com>, Stefan Hajnoczi
- <stefanha@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, Dmitry
- Osipenko <dmitry.osipenko@collabora.com>, Matias Vara Larsen
- <mvaralar@redhat.com>, Sergio Lopez <slp@redhat.com>
-Subject: Central repo for VirtIO conformance tests?
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Mon, 31 Mar 2025 11:38:30 +0100
-Message-ID: <87semtpjrt.fsf@draig.linaro.org>
+        bh=s/G950E4iUD7P22iYcY1O+KKVXQiUvh2OUJBF7gOlhc=;
+        b=OAOncKQDuXAsNB0V25TcVMIYC/A87n3hlDqyOq041kQMJqSK14DAc+fUzT8FRpoYxK
+         iAfBArNwiJJ9nT5QLbpgvEAY6DJVNeCZUvDUIFTLogZQ0vSmNrkUsI3EIKsh9e/j9Fj1
+         37YGfwQvOib14vG/G1Ne0ZfZhU7z5XUXppRZzTlZ7YQ8JrPpjMDTORxJhiAkuqzPudCG
+         nHzjSJQsQuQ1oNPC1yXSF8JPITDWfrInCDLNCofyRHvuegHidvPo+TEQTyea73HeN9FU
+         XK+P398oQmypRuGypLRT4PpYGINYn72pI0DDCqYoG+0aWrimpn8sQrl6B8ipFirLUvPp
+         1pxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743421965; x=1744026765;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=s/G950E4iUD7P22iYcY1O+KKVXQiUvh2OUJBF7gOlhc=;
+        b=edfhxvA5H5M+1CHmZ4xYyrrDj3w1cp+jh83V/VMKnKUx7Hnitavv5QbCXVoeHFvQ4w
+         F1K9YWEzgMS/d9eYUtV1tciKDoFTw3CFdIC9P0yVGZXjUanJEJUvQG+8QX3wqSbj8Bqe
+         Wi132zo8Ne9D8sz2SDO8OtdFoK9b9h10lSDNp2CS9pKbjnLMJlD/9MiRcdRMgMe7CuUo
+         0TdQ1AXR9huIukEI89le1r2DKgSqgNZ8aHQnb/5Q4xHJ2No+m5lZ7vtKqlMStKUGfj9e
+         HLfYxk/vOKGyxYLfgA+z9Ji7zNzYQ8vhmCJ7G8dtVNzBXMBmkIoQWvc4N39AFVdRtHbZ
+         KqXg==
+X-Forwarded-Encrypted: i=1; AJvYcCUTfcdC/VQePd3JKSEsdYk+HO+iidtGFY87y0uI03wDDOonreUdvgweAIGbr2yFvc1f6KmzuA8uhygs0A==@lists.linux.dev, AJvYcCVuabVVeRMNhrSAu7DNs6qdgc+7Nzf7v3NVn/KqnG/YZDWDRkth3RH9j3HzRc4wxiHiSzAF83Rr8kumnpRcTQ==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yzl4WwAMyT2LUUVYYaU/vtZs1xPPyzMoAEadIekSthgT0TaHfMX
+	SmZiGkiPL9oJGI47IzzipY88wrJg0mQw8V7HTf0080U1ijzdlCDl83psBfC4hBa0eKnuAcdzz5b
+	4pd6++eAA8w7LpRqxFBdNHSVcIms=
+X-Gm-Gg: ASbGncuPiyrDQ3c35WQs2AjuGO38pD0Bv2w2vgGjCvsSvlP7yufucsWbr4LM1kDg3Be
+	9mC3ulJ60utCDDHGXWzUJ5IodstLyNpBM1+gZ0chABw+OfzfpsFAqfS1rMCsIof12oW+qdjg3+P
+	LAJTku0axxIZXkSI9CvTtOzZHW
+X-Google-Smtp-Source: AGHT+IHOrbPkbxgomn6Y+2zZLrB8tIiuu6p3PN58MiFeCvs+JPDdFCqU+2M7cjlk2IA/yHfECxpphkuq7EWXpx4ezvM=
+X-Received: by 2002:a05:6402:4408:b0:5de:cbed:c955 with SMTP id
+ 4fb4d7f45d1cf-5edfd13cf32mr6865080a12.17.1743421965108; Mon, 31 Mar 2025
+ 04:52:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <87semtpjrt.fsf@draig.linaro.org>
+In-Reply-To: <87semtpjrt.fsf@draig.linaro.org>
+From: Stefan Hajnoczi <stefanha@gmail.com>
+Date: Mon, 31 Mar 2025 07:52:33 -0400
+X-Gm-Features: AQ5f1JoNUr2f9qRRayGY4AUInfDfArDciuLHO5VI_yHaTZ_LFyrfTuqkkH5rixQ
+Message-ID: <CAJSP0QXX-hpOJ_E1oaR6NcyvBnC2mVAwfd8NYUWTDqPrtctAuQ@mail.gmail.com>
+Subject: Re: Central repo for VirtIO conformance tests?
+To: =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>
+Cc: Rust VMM <rust-vmm@lists.opendev.org>, QEMU Devel <qemu-devel@nongnu.org>, 
+	virtio-comment@lists.linux.dev, VirtIO Dev List <virtio-dev@lists.linux.dev>, 
+	Bill Mills <bill.mills@linaro.org>, 
+	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	David Hildenbrand <david@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, 
+	Stefano Garzarella <sgarzare@redhat.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+	Matias Vara Larsen <mvaralar@redhat.com>, Sergio Lopez <slp@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
+On Mon, Mar 31, 2025 at 6:39=E2=80=AFAM Alex Benn=C3=A9e <alex.bennee@linar=
+o.org> wrote:
+> So what do people think? Where would be a good place for common test
+> repository to live?
 
-Hi,
+Maintaining the tests alongside the VIRTIO spec seems like a good fit
+to me. Here is information on how to create a GitHub repo under the
+OASIS VIRTIO Technical Committee:
+https://www.oasis-open.org/open-repositories/
 
-We've been working with Panasonic to expand the testing of VirtIO across
-a range of hypervisors and VMMs. We've tackled this with two approaches:
+I don't see a reason to maintain the tests under QEMU or rust-vmm
+unless they provide some unique project infrastructure that an
+independent project would lack or need to reinvent.
 
-  - simple unikernel to verify features and basic functions common
-  - rootfs images to exercise the whole device
+If it is not possible to host the tests under OASIS then they could be
+hosted independently (as a separate organization on Codeberg, GitLab,
+GitHub, etc) and not on any contributor company's infrastructure to
+make them more sustainable and neutral for the long term.
 
-The unikernel utilizes rcore-os's no_std VirtIO drivers to discover and
-initialize a range of VirtIO devices. The tests mostly focus on checking
-no unknown feature bits are advertised as well as ensuring features
-dependencies are properly realizable. This is useful for those
-interested in moving workloads between hypervisors to ensure you don't
-end up relying on a proprietary feature that aren't available elsewhere.
-
-The virgl test also does some very basic blob mapping to check the
-underlying mechanics are working.
-
-The unikernel outputs a TAP stream to make integrating into a test
-harness easier.
-
-You can find the current state here:
-
-  https://git.codelinaro.org/manos.pitsidianakis/virtio-tests
-
-While we only build an aarch64 unikernel the upstream drivers have
-examples for riscv and x86_64 as well.
-
-As more complex VirtIO devices like GPUs tend to have a significant
-user-space component, we have also started building Linux rootfs images
-to exercise those. The images themselves are built against a baseline
-architecture so they can be used on as wide a range of hardware as
-possible. They have been built with buildroot to make them lightweight
-and as close to the upstream projects as possible without relying on
-particular distro support. You may have seen the recent aarch64 GPU
-image being added to QEMU's functional tests recently:
-
-  https://gitlab.com/qemu-project/qemu/-/blob/master/tests/functional/test_=
-aarch64_virt_gpu.py
-
-I'm currently working on a similar image utilizing a subset of the
-blktests project to exercise the VirtIO block devices. The various
-recipes can be found here:
-
-  https://gitlab.com/stsquad/buildroot/-/tree/adding-blktests?ref_type=3Dhe=
-ads
-
-although the intention is for all the recipes and basic QEMU based tests
-to be up-streamed into buildroot in due course. While I will no doubt
-expand the functional tests in QEMU over time to utilize these images,
-there is a wider question of where would be a good place to host a more
-comprehensive VirtIO test suite? While useful for validating proprietary
-hypervisors there are also a bunch of other VMMs and VirtIO backends
-other than QEMU:
-
-  - rust-vmm's vhost-device collection of vhost-user backends
-  - CrosVM
-  - Cloud Hypervisor
-  - libkrun
-
-As well as using VirtIO backends with other hypervisors such as Xen,
-Gunyah and WHPX.
-
-So this brings me to the question posed in the subject. Where would a
-good place be to host these conformance tests?
-
-My initial thought was to see if this is something OASIS could host as
-part of the specification however I'm not sure OASIS is set up for such a
-thing.
-
-We could host it as part of the QEMU project as a service to the wider
-community. While it should be pretty easy to expand QEMU's own tests to
-work with multiple hypervisors, its test machinery isn't really setup
-for non-QEMU VMMs. Ideally we would want the core repository to be able
-to run on multiple hypervisors and use different VMMs and backends
-depending on where they are being run.
-
-The other option I considered was hosting with the rust-vmm project -
-although maybe that just makes sense for the unikernel tests as they are
-rust based. We certainly need more automated testing of the vhost-device
-repository which can serve as a backend to multiple VMMs and
-hypervisors.
-
-So what do people think? Where would be a good place for common test
-repository to live?
-
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
+Stefan
