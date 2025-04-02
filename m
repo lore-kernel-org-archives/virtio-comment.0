@@ -1,204 +1,163 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B4E1853
-	for <virtio-comment@lists.linux.dev>; Wed,  2 Apr 2025 07:32:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288402E336E
+	for <virtio-comment@lists.linux.dev>; Wed,  2 Apr 2025 07:37:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743579175; cv=none; b=DjpzGOLNmrxTKQldX0Zh+GaC6AubNlwTebDpqXIydE9LYiREfVavzqQolQ6ZII/yX7IdBGzOgJWlKxWf3ep+ITwNLwnje3n18FmwcFaLTBTDOudAk8R8XfdPwKo3KZQMjW9FgrpgupYDtanqPEUxp8nkL/AbMPKfbs+hGNNHy8k=
+	t=1743579461; cv=none; b=WFYRemzM2+pB1pyXRCxfklf3kKq2bhuSQZyNwChDWFFcuR/L7m7R9HF77vVvP9lzfjlcA+EX4H5Bz7uuKJ2f2m0hbBZX2oOuJFZ3gpuvJrfjBAJ9ewjK+DBe1GfI3wZrCOE/e3wedyxcCis6hUkz0ylUk1NL+tbH1aqJjXzV0yw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743579175; c=relaxed/simple;
-	bh=DitRX6vtcpILM7LwoKR2Twg1EwF1PWd65cbu5/HGs6A=;
+	s=arc-20240116; t=1743579461; c=relaxed/simple;
+	bh=bFcnCeGfDX2DQTOUaEIrc+joROW0nAHPWCS7GUjolpc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=mK/16m0DC2HILZbZFEzKGzCqxb+m3me8q7KGIms860jrmoLBu4JPtOMoOX/l2LO+uiA4/bAy7zlmzxeW1beL9OzeAflLJd/pkURD61mjT/6L2uuSK0BjxIKKVSryRWYKN5qxr5mBqxJu5g8LlAev3EpNSLyxEdYUho2eLX9M1Qw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Kmr/KNoM; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=YLGPJ/gkGM/WyFM2IR3ZUpFjvXD0uOHxMDNDUvVWhM2GPRkaLjWRLG/FG+S1CoV7E/8+UxABmM1lUOS/4DDJmnIkVRprl0+BmywpXnrIW/BjCtVgy9UFaeDPOZ3WhGfE0oQth9Z+ljv4FJG+hvh0a614anZB6DXghMUsqFIA0m8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dQdZPx69; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Kmr/KNoM"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dQdZPx69"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1743579171;
+	s=mimecast20190719; t=1743579458;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iZznx/aXBelvcdsFIi20WziZXc9ykl+Z9v5n+3LZmv8=;
-	b=Kmr/KNoMTCpb5Gw78os5pLsyy2oW4lBs0F9MpXs5WittSCNxv0+Mdq/lCPVxO6sdOsy3KH
-	MMMtJhxNSA3WjP6K1uVUmorPg74mI4MFfJa3JbkjzzY3P48nl6N81CK5VpGKme6r5+i6Mi
-	hnfNMcC7AWxGJayI5HFTI0VLMmaq6+o=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=HwTYlYGUZ4tRN7L178v1kECO77wnHGX39ydHH3MB3cA=;
+	b=dQdZPx69hy2jSa/97LsoT6gGvdnkcG/c3RQSuwnBBezNx1Ei65C47LyWdOfSWEfxBMgeEn
+	tsoyOg1ZwVu/7/uOSqWvVPX5nmj/DUZK+uRmzxBmLTs5j3zL9Lth/oZpPcAv+3pDbLna1m
+	ddcUKlM9WOw9M8AbwwLCu+a4vHaKCLU=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-539-mjgmDQ8_Og6OES9FtMGaIw-1; Wed, 02 Apr 2025 03:32:50 -0400
-X-MC-Unique: mjgmDQ8_Og6OES9FtMGaIw-1
-X-Mimecast-MFC-AGG-ID: mjgmDQ8_Og6OES9FtMGaIw_1743579169
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-3978ef9a284so2990261f8f.3
-        for <virtio-comment@lists.linux.dev>; Wed, 02 Apr 2025 00:32:50 -0700 (PDT)
+ us-mta-493-0Me1MD9kNEi6OAEZsu-uBw-1; Wed, 02 Apr 2025 03:37:36 -0400
+X-MC-Unique: 0Me1MD9kNEi6OAEZsu-uBw-1
+X-Mimecast-MFC-AGG-ID: 0Me1MD9kNEi6OAEZsu-uBw_1743579455
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-43941ad86d4so32918465e9.2
+        for <virtio-comment@lists.linux.dev>; Wed, 02 Apr 2025 00:37:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743579169; x=1744183969;
+        d=1e100.net; s=20230601; t=1743579455; x=1744184255;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iZznx/aXBelvcdsFIi20WziZXc9ykl+Z9v5n+3LZmv8=;
-        b=L535NcPSypmI4KkhJCRWgdtIun0mWtE0vbWzJowq1LFwDMoX3/3liDEFktx/t5ewdz
-         xP4Z1cq/bOXREimEIuLG4wn08sVuyTWHtPGF66HXAZYrpWwSa/IAABOEHOa8i+12XHN2
-         I2bxaYAHKhc3Qc7kjEDwCqE6wxJfWwSjBwIzRG9imKbX0fi2qKJg17tllpT4v56QWKl4
-         QIzn9PqqOCei0w/NT91Eud27PbjrwAJQizVWuFBudTxp9v3RqTRd4497us5myyRm/Ul8
-         zDo0ENX8SuseDnbyNNuWjB/9QQ0D3z00CgpFUTKSjnDCmdDlDGy0XA0LPxjOKktxnlmr
-         r28g==
-X-Gm-Message-State: AOJu0YyHWpKo/kD4NiYxlzoh6QMNXb8tSePA4tQQU7e3bH7bIhJpxGBV
-	Rs793Oju3yVyUc+LGBnlfXhI1KZRmh+ARJF/Doffk9NiytXvkgkhIc6aX+LuFib5vH0IW+Alfc+
-	nPqxp1KuGY/2v3hIynjc8LOlejpNzQpdyrcvK87o3cgBdsjy778+dj2OZwOWa/rEF
-X-Gm-Gg: ASbGncufvJx0FoJb3tsSv9pKt+mydx8ZWuvLu+RfHSjo/6U5nsoef9JnbjgqA25fQRz
-	ys00/Sxeby9Q4gONEUqklCqYSku/rGEIziUNl3N6U9D55rf7ADgaJzNLGSqeVi6Kz0C2MDgojQD
-	MbJ8cLZhvqVcqYxSR9ghqDXoxlTy70viTUq69VczRA/h4V9dlAgB2rwmkzSYXka/6XALhTSt89X
-	5kq9Yh2vczNkoi3njCLe/3I08cRc++FFElnhcVU2ww4avT026mie3lASeFOn92Vr9rF99B98wFV
-	T9q7iwaXjA==
-X-Received: by 2002:a05:6000:402a:b0:390:f9d0:5e4 with SMTP id ffacd0b85a97d-39c120de3f8mr11187993f8f.21.1743579169334;
-        Wed, 02 Apr 2025 00:32:49 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFyJRdj6HrkxKrh7nTgaokanIbSoCegS5ImrscWFCc/Nfp193pGLecQW+xvo9hLoULjWsO9Bg==
-X-Received: by 2002:a05:6000:402a:b0:390:f9d0:5e4 with SMTP id ffacd0b85a97d-39c120de3f8mr11187973f8f.21.1743579169024;
-        Wed, 02 Apr 2025 00:32:49 -0700 (PDT)
+        bh=HwTYlYGUZ4tRN7L178v1kECO77wnHGX39ydHH3MB3cA=;
+        b=Nn1GwaRl2mDwMWIviLVDFO2qJvL9seKv+0crmvDuk2nlV5vqs2ZIZcYL+FEnDQzg5M
+         ebz21c0DYdjGER5H/w5UaZq3R/euzN7qZ0+TVvbTZ3YSokDQeoxWrPCXtgf5b63UAKdL
+         w12zXnIEOujl2k4V6SFtt8Zv7iaNEry/69HaN98iVCYjN0YkT4ICFyNy+DNN7kSjYxwY
+         xYTAksDwLzRLnJ6+z/8M9o1zzhB4mlfCu4FloL98FUOCv+QkIgBeoPilyXVNArN9AwLn
+         H1oHCz8DSUnJA9aDw6aAXxoPI5xO0DQuh0YpP0wzMR++7Jh35xl0eHGcBckf63qBb9r9
+         a+4w==
+X-Gm-Message-State: AOJu0YyeWK0EHbNcVAywzTn5pI17SJNReWutgk7/iS1lain5WhHkXztr
+	f74Fws0RxLdtAVUmda7YD4qtO3bbmX9UKC24chw91srKJs63hc365Uv+PGPULwlxpsgCP9BAtks
+	cSv29G7W+FIYcB9GCY/PSscIFQk3GI6n+RcX56kN109AYAELhy4zhrbIg7N9N4tRO
+X-Gm-Gg: ASbGnct8fU20blOb3HGEIZNHYOtTMeaI/wZNQjuiES/T/27iN7rV5NyLAYXBsBzV8wg
+	TtIE5/wwp6GONK8oY4VHXrOfD1fG/ZEdZQyME5WVLyi3uGyVD8RzEpl70i8imWQgO12pJg9qfTc
+	H4/5AhuIqi8FXSr0dYXPhqBLbWdQG+1wKmGNwncu9BBjRUwBTogjnmfF32W68w9GMha4Haqean8
+	NwL5x+wHEV57yEdatsXK/0bVnjld67UxZ8Y8MfUS20RjiHrv8GdE6iZYi7zOyvV1GABQHLCya2o
+	1/qlLOXSJg==
+X-Received: by 2002:a05:600c:3d06:b0:43d:42b:e186 with SMTP id 5b1f17b1804b1-43eb5c18562mr12087755e9.8.1743579455390;
+        Wed, 02 Apr 2025 00:37:35 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF/Bsv+YVJmyumwsuHHg3TjbAfMQ3+nfdnfbNkFn+co5D1EHjkQaWa9bSVvFVfzeNeRctBrHQ==
+X-Received: by 2002:a05:600c:3d06:b0:43d:42b:e186 with SMTP id 5b1f17b1804b1-43eb5c18562mr12087525e9.8.1743579454889;
+        Wed, 02 Apr 2025 00:37:34 -0700 (PDT)
 Received: from redhat.com ([2a0d:6fc0:1517:1000:ea83:8e5f:3302:3575])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-43eb60ec915sm11787595e9.28.2025.04.02.00.32.47
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-43ea8d1673dsm35711475e9.0.2025.04.02.00.37.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Apr 2025 00:32:48 -0700 (PDT)
-Date: Wed, 2 Apr 2025 03:32:45 -0400
+        Wed, 02 Apr 2025 00:37:34 -0700 (PDT)
+Date: Wed, 2 Apr 2025 03:37:31 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Sergio Lopez <slp@redhat.com>
 Cc: virtio-comment@lists.linux.dev, dmitry.osipenko@collabora.com,
 	parav@nvidia.com
-Subject: Re: [PATCH v3 1/3] shared-mem: introduce page alignment restrictions
-Message-ID: <20250402030335-mutt-send-email-mst@kernel.org>
+Subject: Re: [PATCH v3 0/3] shared-mem: introduce page alignment restrictions
+Message-ID: <20250402033354-mutt-send-email-mst@kernel.org>
 References: <20250331213711.63398-1-slp@redhat.com>
- <20250331213711.63398-2-slp@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20250331213711.63398-2-slp@redhat.com>
+In-Reply-To: <20250331213711.63398-1-slp@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Q0m3SDd6369cw8MD7dZyfGgqIxT7unhHKnvFcq6cBso_1743579169
+X-Mimecast-MFC-PROC-ID: vHVXbpDWQOPm9C8sWpN1Yy-vWBjTRf12fiy__2vRsp4_1743579455
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Mar 31, 2025 at 05:37:09PM -0400, Sergio Lopez wrote:
-> Add a subsection for page alignment restrictions and introduce the
-> VIRTIO_F_SHM_PAGE_SIZE feature bit.
+On Mon, Mar 31, 2025 at 05:37:08PM -0400, Sergio Lopez wrote:
+> There's an incresing number of machines supporting multiple page sizes
+> and, on these machines, the host and a guest can be running with
+> different pages sizes.
 > 
-> Signed-off-by: Sergio Lopez <slp@redhat.com>
-> ---
->  content.tex    | 10 ++++++++--
->  shared-mem.tex |  7 +++++++
->  2 files changed, 15 insertions(+), 2 deletions(-)
+> In addition to this, there might be devices that have a required and/or
+> preferred page size for mapping memory.
 > 
-> diff --git a/content.tex b/content.tex
-> index c17ffa6..c8826a2 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -99,10 +99,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
->  \begin{description}
->  \item[0 to 23, and 50 to 127] Feature bits for the specific device type
->  
-> -\item[24 to 41] Feature bits reserved for extensions to the queue and
-> +\item[24 to 42] Feature bits reserved for extensions to the queue and
->    feature negotiation mechanisms, see \ref{sec:Reserved Feature Bits}
->  
-> -\item[42 to 49, and 128 and above] Feature bits reserved for future extensions.
-> +\item[43 to 49, and 128 and above] Feature bits reserved for future extensions.
->  \end{description}
->  
->  \begin{note}
-> @@ -872,6 +872,12 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
->  	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits} for
->  	handling features reserved for future use.
->  
-> +  \item[VIRTIO_F_SHM_PAGE_SIZE(42)] This feature indicates that the device
-> +  transport provides information about the supported page size and expects the
-> +  driver to honor the alignment restrictions derived from it when requesting
-> +  mappings on the corresponding shared memory region.
-> +  See also \ref {sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Page alignment restrictions}.
-> +
->  \end{description}
->  
->  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
-> diff --git a/shared-mem.tex b/shared-mem.tex
-> index 6e6f6c4..dd90cb7 100644
-> --- a/shared-mem.tex
-> +++ b/shared-mem.tex
-> @@ -34,6 +34,13 @@ \subsection{Addressing within regions}\label{sec:Basic Facilities of a Virtio De
->  The \field{shmid} may be explicit or may be inferred from the
->  context of the reference.
->  
-> +\subsection{Page alignment restrictions}\label{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Page alignment restrictions}
-> +
-> +If VIRTIO_F_SHM_PAGE_SIZE has been negotiated, when requesting
-> +the device to map memory into a shared memory region, the driver
+> In this series we extend the "Shared Memory Regions" with a subsection
+> explaining the posible existence of page alignment restrictions when
+> the VIRTIO_F_SHM_PAGE_SIZE feature has been negotiated.
+> 
+> For the device to provide the page size information to the driver, we
+> need to extend the PCI and MMIO transports. For the former, we borrow
+> 8 bits from the 16 bit padding in virtio_pci_cap to hold a page_shift
+> field which can be used to derive the page size by using the following
+> formula: (page_size = 1 << (page_shift + 12)).
+> 
+> For MMIO, we add a the SHMPageShift register at offset 0x0c4, also
+> holding the page_shift value. Since MMIO registers are 32 bit wide, we
+> could have asked the device to directly provide page_size instead of
+> page_shift, but seems reasonable to be consistent across transports.
+> 
+> An implementation of the changes proposed in this series has been
+> published as an RFC to the LKML, to be used as a reference:
+> 
+> https://lore.kernel.org/all/20250214-virtio-shm-page-size-v2-0-aa1619e6908b@redhat.com/
 
-the shared memory region - it is this specific one.
 
-> +MUST obtain the page size information from the transport
+Can you explain the use a bit more please?
 
-avoid MUST. Also not "from the transport". In a transport-specific way.
+- looks like this is exposed to userspace?
+  but userspace can not be trusted not to violate the spec.
+  how can that be sufficient to satisfy MUST requirements?
 
-> and honor
-> +the page alignment constrains derived from that page size.
+  what are these mappings and what are the alignment restrictions,
+  in fact?
 
-Also explain here it is only supported for pci for now, to make
-sure people do not go looking for it on other transports.
 
-> +
->  \devicenormative{\subsection}{Shared Memory Regions}{Basic Facilities of a Virtio
->  Device / Shared Memory Regions}
->  Shared memory regions MUST NOT expose shared memory regions which
+Looking at that patch, I begin to suspect that while the spec patch talks about
+device mapping requests, it is actually the other way around:
+the restriction is on guest virtual to guest physical mappings?
+
+
+Does the feature affect other device types besides gpu, and how?
 
 
 
-I have a problem with this wording in that "map" and "request mapping"
-is actually a device type specific thing. Someone reading this
-paragraph will not know what this term means. Note also that the
-term "map" has two meanings, e.g. device-types/fs/description.tex
-says 
-	In cases where data transfer is
-	undesirable, the device can map file contents into the DAX window shared memory
-	region. 
-but also
-	Drivers map this shared
-	memory region with writeback caching as if it were regular RAM. 
-
-I am guessing the "request mapping" refers to the 1st but not the 2nd
-type of map, but neither mentions "request mapping".
-
-My suggestions, but really just suggestions:
-
-- update device specific text to mention alignment where appropriate,
-  using MUST there.
-
-- Remove the MUST here, it is not good to have MUST outside non
-conformance sections anyway.
-
-- Avoid saying map since that is not
-a generic term.
-Just say generally
-"information about the supported page size" and put all
-the detail in device specific sections.
-Also "device expects" is really a weird way to put things.
-device does abc. driver does abc. that is all.
-
-E.g. 
-	When VIRTIO_F_SHM_PAGE_SIZE is negotiated, driver aligns
-	device requests
-	using shared memory regions on the supported page size of each
-	memory region, in a device-specific way. The supported
-	page size is retrieved in a transport-specific way. This feature
-	is only supported for the PCI transport (see ref to the relevant section).
 
 
-And add device specific text where it applies.
 
 
+> v3:
+>  - Reintroduce the VIRTIO_F_SHM_PAGE_SIZE feature bit, but limit its
+>    scope to page alignment restrictions, still exposing page shift
+>    data in the transports unconditionally (thanks Michael S. Tsirkin)
+>  - Adjust the feature bits to reflect we're using another one (thanks
+>    Parav Pandit).
+> 
+> v2:
+>  - Remove the VIRTIO_F_SHM_PAGE_SIZE feature bit, exposing page_shift
+>    in the transports unconditionally (thanks Parav Pandit).
+>  - Didn't pick up R-b due to the significant change between revisions.
+> 
+> Sergio Lopez (3):
+>   shared-mem: introduce page alignment restrictions
+>   transport-pci: introduce page_shift field for SHM
+>   transport-mmio: introduce SHMPageShift register
+> 
+>  content.tex        | 10 ++++++++--
+>  shared-mem.tex     |  7 +++++++
+>  transport-mmio.tex |  8 ++++++++
+>  transport-pci.tex  | 10 +++++++++-
+>  4 files changed, 32 insertions(+), 3 deletions(-)
+> 
 > -- 
 > 2.49.0
 
