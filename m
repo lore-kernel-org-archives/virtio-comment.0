@@ -1,215 +1,130 @@
-Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128F73594F
-	for <virtio-comment@lists.linux.dev>; Tue,  1 Apr 2025 19:57:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD3B204693
+	for <virtio-comment@lists.linux.dev>; Wed,  2 Apr 2025 07:02:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743537424; cv=none; b=opgTpu4PXav0kyOwbGBtmIo7TM48RPBDAXV61WfVDtWFYl6HffSI4AuvLqM90s6vfFaamodfq1qAyxLuj26i0rAcViEYCjSSjYo8a6LDuqI8Kwh7nWElvrza9PIF339Hfg2RAXgVrf3igd3CnAVuGzRxezQ4Ln9MGSBncyujQBQ=
+	t=1743577372; cv=none; b=qsX1pvAjkAoYc8ephV3w2JUwJMA1yysuh6QYhJVlcJeu4k2X4CX5ahbqQuzzRNUZUOrBkYMX9L7+GJ/1wgrpcNOr2w+U8H3SS41TdEhvSG9wRjnlq+nRR1m0BerwNnWnH+4efWeIjsHr5nVqvGbpJiyKN0YF+lJ4oe46aPKfeyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743537424; c=relaxed/simple;
-	bh=c8hbBU1zy8iBfOuL4LAyxBAbqCQDg/W3cbGK/iRRxR0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Jr4+PVVI+w5CreoX0GHEtfWx7yQAFBal0p8GuKwcC2xQjgblmNVIChjPC81tHAVZ2RZrYsEvWIoFMb9ybDZWbt0VULxXySBZ+ZJbS/oYzqJODeK3wDQ7lEjoCftMyybL64YuFHc+GsQIToKnQkF6hXuwUlfhC6tdZgG5W4oIrN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=Bc2r4tcL; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1743577372; c=relaxed/simple;
+	bh=/NJHgskf0pdtqyuASbJI3hNuRXO5s86RM6lr+tfZmpY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=rKRe2ZWaJ7v8+WUwjvEpaspifLa/rHRfpPrkFxm5HWKBxxRIlj+L8PMaRrn5/4Y7ImgbhXuXcFc3fNMQi+UfUJ5+mWBiakgvXz8WdmME727BH1gpDhA+BWmjV+kKBKtR4HD/kQmuykTuJ/0kgBuHTaWwQGvFl52tS191py/vYaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ehp/Alom; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="Bc2r4tcL"
-Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 531GdgvO013704;
-	Tue, 1 Apr 2025 12:57:00 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pfpt0220; bh=o42e8a+7xf2Y9wQc3BHKRmL
-	tcCXkSmfYGmvsYcnTgDs=; b=Bc2r4tcLN5L0EFPaUp2yiwgLyAiCIqcZwbB6YS8
-	8qxJqWmvVRPRD8FvmJACsf05a45LiBNzvDWT9bOsSQJ6K0BKH4M6vihfA+o8fY3/
-	BcFzboN4wU9S1EB5NS5tjBbeVHJ/5PKCWnNL28AF4c2ISNNlLzfzG7P0T6VaYMrp
-	mQaSYi2VnP7lSzUiAKFfZ4YJXybqEgzCz6OiE06WbwtWLKQrNLyZYnk3Us5m5N9Q
-	w+zL097Hx+g1JfVaMxbn7OadN3lxQ+JjnQ2bpK8PN4j/Lciq2FpZR90ev1nLd0WE
-	t6ZM8LmtBzn7N2JgUPl3jl48sXDc2Lre/4O1CCs1h93yctA==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 45rbgq1pmt-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 01 Apr 2025 12:57:00 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Tue, 1 Apr 2025 12:56:59 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.4 via Frontend
- Transport; Tue, 1 Apr 2025 12:56:59 -0700
-Received: from 5810.marvell.com (unknown [10.29.45.105])
-	by maili.marvell.com (Postfix) with ESMTP id 67F975C68F1;
-	Tue,  1 Apr 2025 12:56:56 -0700 (PDT)
-From: Kommula Shiva Shankar <kshankar@marvell.com>
-To: <pabeni@redhat.com>, <willemb@google.com>, <jasowang@redhat.com>,
-        <parav@nvidia.com>, <virtio-comment@lists.linux.dev>
-CC: <ndabilpuram@marvell.com>, <jerinj@marvell.com>, <rbhansali@marvell.com>
-Subject: [PATCH v5] virtio-net: Introduce a new field to indicate outer network header offset
-Date: Wed, 2 Apr 2025 01:26:55 +0530
-Message-ID: <20250401195655.486230-1-kshankar@marvell.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ehp/Alom"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1743577369;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xc1y3x2DwaDPBzrAvw1ihp3NSdBOwiC9/V8nkv3Z8g4=;
+	b=Ehp/AlomYE2vNH86Y0GXwVXaG5khav8pTy2t/ghlcIYPEP/qC19VSKraG47HXEGdn4tz3G
+	pGKFjlpP43MfM+hFf73WAbH8SbOZ413bndCdYmTGQmNr2/JlA3tpE5gkQ75zHLSV84BN5g
+	hdy+fs5p9jePe3dH0AFW7W6x3KXaDLI=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-326-Iaof9QUoOqSFXUiHq7Clbw-1; Wed, 02 Apr 2025 03:02:48 -0400
+X-MC-Unique: Iaof9QUoOqSFXUiHq7Clbw-1
+X-Mimecast-MFC-AGG-ID: Iaof9QUoOqSFXUiHq7Clbw_1743577367
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-43cf44b66f7so45809335e9.1
+        for <virtio-comment@lists.linux.dev>; Wed, 02 Apr 2025 00:02:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743577366; x=1744182166;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=xc1y3x2DwaDPBzrAvw1ihp3NSdBOwiC9/V8nkv3Z8g4=;
+        b=sFAagpL4TLrqbfSqnF7inIrTe3PLs6CLV/I6fYV+i/gwq0N6qtsff47fRRQclKFC09
+         aYDivs9TxDgm/dd+xZ1UQWpjvBlcCMS1b6KMAd4O17oI3+onxMqty4NAqYU8eWF7sa90
+         nw2/hlBtJPA6rO1CfL0h1uBlNxdF2OjgtXw8586uVUHdv2H3sA8s8T3va63//ApW3+8e
+         yBaQuzFPSgidSvdrqZEGtWn4rljBGLt2EWf5NmFnX2d1jX/EwzuH7S/tnNBTTPcx8P1W
+         DHBNYK1bNxDgbv6/PizqT6koxHGlrHRHSrKtfLDwLY8I2ozE631ZOZjmq0GZdN8SNjb3
+         W2iA==
+X-Gm-Message-State: AOJu0Yx6FSNmTlpXhMunZz2fYReUkE7XgsrF/SkPnQ4Np18/ABFi4A1F
+	HLn+UTM+g3+hjhnrQKkJRIiTG8/w4dCla/8IagzcIvykYSF1Ac5WX2D5OAPJjSFmEqyX3Wyc7i9
+	GdzympWVniEKovXSLsz52L7Vw94xtEQeXMVvhgr0NUiXpozHpTspyro1bZFxDAkH9DnFh3GXr
+X-Gm-Gg: ASbGncu68NRM6/cMD7u6oJ0F4XA0Zc9HNJio2Wc5qewDjco8r6FP4YETBy+U2JVmFe2
+	AQJgaPAcbKnLAciOhPobwU/5QlATKP90IwB8C+DBsWO7GlJ17wd6o1XbJd/rvbl1jjZq8pPMfxH
+	ApT9uegZS6iIlb+vOoOwdEOS8vdU9HFyPzdIgRrp4oA+bWOXju1eeogTKOgzWfmCHvaPGb+iW5X
+	raxucxitRCdWqTnigEjiWIukl0ycWx+hnfAl+BEZwzU7DpccLJcFzTJc7FE36k+HDj127o9o0Mf
+	Dy7BFMeqgg==
+X-Received: by 2002:a05:600c:3c82:b0:43d:172:50b1 with SMTP id 5b1f17b1804b1-43eb5c966ebmr9988905e9.29.1743577366091;
+        Wed, 02 Apr 2025 00:02:46 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHqZSZjZZ7gRLi5DDsKbJzJiXwkCj1bC2GCya4wXXYbzFsUJaiBrOXmpWIClYg6qUrD6DR3NA==
+X-Received: by 2002:a05:600c:3c82:b0:43d:172:50b1 with SMTP id 5b1f17b1804b1-43eb5c966ebmr9988605e9.29.1743577365681;
+        Wed, 02 Apr 2025 00:02:45 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:1517:1000:ea83:8e5f:3302:3575])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-43eb5fc67b3sm11503135e9.6.2025.04.02.00.02.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Apr 2025 00:02:44 -0700 (PDT)
+Date: Wed, 2 Apr 2025 03:02:42 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+Cc: virtio-comment@lists.linux.dev, cohuck@redhat.com, parav@nvidia.com
+Subject: Re: [PATCH 00/13] Backport 1.4 fixes to 1.3
+Message-ID: <20250402030215-mutt-send-email-mst@kernel.org>
+References: <20250401133543.801184-1-mvaralar@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+In-Reply-To: <20250401133543.801184-1-mvaralar@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: B8bhyCuXs50yr8O7J7WQfv6iiKd-5LhUPeb6jIr9yBc_1743577367
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Authority-Analysis: v=2.4 cv=TLxFS0la c=1 sm=1 tr=0 ts=67ec450c cx=c_pps a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17 a=XR8D0OoHHMoA:10 a=VwQbUJbxAAAA:8 a=UqCG9HQmAAAA:8 a=M5GUcnROAAAA:8 a=79TnrLaLj9gRDcMoekYA:9 a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-GUID: RtMt9-5iCY856NHHe4DjBjvllL2AdqR8
-X-Proofpoint-ORIG-GUID: RtMt9-5iCY856NHHe4DjBjvllL2AdqR8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-01_08,2025-04-01_01,2024-11-22_01
 
-This patch introduces a new field in the virtio_net_hdr called outer_nh_offset, along with a new net device feature, VIRTIO_NET_F_OUT_NET_HEADER.
+On Tue, Apr 01, 2025 at 03:35:00PM +0200, Matias Ezequiel Vara Larsen wrote:
+> Backport commits from 1.4 branch into 1.3 in preparation for releasing
+> v1.3.
+> 
+> Haixu Cui (1):
+>   content: Rename SPI master to SPI controller
+> 
+> Martin Kröning (1):
+>   virtio_pci_cap64: specify offset_hi, length_hi endianness
+> 
+> Paolo Abeni (2):
+>   virtio-net: clarify NEEDS_CSUM semantic for GSO packats.
+>   virtio-net: clarify DATA_VALID semantic for encap protos.
+> 
+> Parav Pandit (8):
+>   conformance: Add missing virtqueue reset conformance references
+>   packed-ring: Change host,guest to device,driver
+>   description: Avoid splitting the word virtqueue
+>   virtio-blk: Fix data type of num_queues field
+>   virtio-net: Fix receive buffer size calculation text
+>   virtio-net: Clarify the size of the struct virtio_net_hdr for tx
+>   virtio-net: Annotate virtio_net_hdr as field
+>   gpu: editorial: Fix spelling errors
+> 
+> Steffen Trumtrar (1):
+>   virtio-net: Fix receive buffer size typo
 
-Currently, drivers lack a dedicated field to signal the start of the network header to the device when performing checksum offload
-and segmentation offload. This requires the device to read the packet in data path, which significantly affects performance.
-Additionally, some hardware implementations require knowledge of the outer L3 offset (aka L2 length) for inline IPsec hardware acceleration.
 
-To address this limitation, we propose to introduce a new field in the virtio_net_hdr called
-outer_nh_offset.
+Backport Looks good to me.
 
-The outer_nh_offset represents the start byte offset of the outer network header from the beginning of the packet.
-
-This issue was briefly discussed on the mailing list in a different thread, which can be found here.
-https://lore.kernel.org/all/DM4PR18MB4269FAAC3CFC7E57E25DFBD2DF8B2@DM4PR18MB4269.namprd18.prod.outlook.com/
-
-v4->v5
- - Added padding bytes to virtio_net_hdr to ensure 64b alignment
- - Addressed pending review comments
-v4:https://lore.kernel.org/virtio-comment/20250304075955.208450-1-kshankar@marvell.com/
-
-v3 -> v4
- - Removed the union of new flag with existing flags. Added as a separate field
-   in the virtio net header
- - Renamed out_nh_offset to outer_nh_offset to maintain consistency with other fields
- - Spellchecks in commit message description
-v3:https://lore.kernel.org/all/20250217172509.107212-1-kshankar@marvell.com
-
-v2 -> v3:
- - Rebase to virtio-1.4
- - Addressed pending review comments related to wording.
-v2:https://lore.kernel.org/all/20250128142152.3662988-1-kshankar@marvell.com/
-
-v1 -> v2:
- - explicitly state that the out_nh_offset can be set only when a valid network header is present.
- - updated out_nh_offset usage in the RX direction.
- - minor word cleanup.
-v1: https://lore.kernel.org/virtio-comment/20250114171636.3175670-1-kshankar@marvell.com/
-
-Signed-off-by: Kommula Shiva Shankar <kshankar@marvell.com>
----
- device-types/net/description.tex | 37 +++++++++++++++++++++++++++++++-
- 1 file changed, 36 insertions(+), 1 deletion(-)
-
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 1b6b54d..0bb1cef 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -136,6 +136,10 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
- 
- \item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM (68)] Device handles packets
-   carried by a UDP tunnel with partial csum for the outer header.
-+
-+\item[VIRTIO_NET_F_OUT_NET_HEADER(69)] Driver can provide the start of
-+ \field{outer_nh_offset} value. Device gains advantage by not reading packet
-+  to calculate outer network header offset.
- \end{description}
- 
- \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device / Feature bits / Feature bit requirements}
-@@ -599,6 +603,8 @@ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device O
-         le16 padding_reserved;  (Only if VIRTIO_NET_F_HASH_REPORT negotiated)
-         le16 outer_th_offset    (Only if VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO or VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO negotiated)
-         le16 inner_nh_offset;   (Only if VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO or VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO negotiated)
-+        le16 outer_nh_offset;   /* Only if VIRTIO_NET_F_OUT_NET_HEADER negotiated */
-+        u8 padding_reserved_2[6]; /* Only if VIRTIO_NET_F_OUT_NET_HEADER negotiated */
- };
- \end{lstlisting}
- 
-@@ -633,6 +639,11 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- \item The driver can send a completely checksummed packet.  In this case,
-   \field{flags} will be zero, and \field{gso_type} will be VIRTIO_NET_HDR_GSO_NONE.
- 
-+\item When VIRTIO_NET_F_OUT_NET_HEADER is negotiated, the driver MAY optionally provide
-+   the \field{outer_nh_offset} value. A nonzero value of \field{outer_nh_offset} indicates
-+   a valid outer network header with in the packet, and specifies the offset in bytes from
-+   the beginning of the packet. Otherwise \field{outer_nh_offset} MUST not be used.
-+
- \item If the driver negotiated VIRTIO_NET_F_CSUM, it can skip
-   checksumming the packet:
-   \begin{itemize}
-@@ -767,6 +778,11 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- \field{flags} to zero and SHOULD supply a fully checksummed
- packet to the device.
- 
-+If the VIRTIO_NET_F_OUT_NET_HEADER feature has been negotiated,
-+the driver MAY set \field{outer_nh_offset} to nonzero value to indicate
-+the start of the outer network header offset, if the packet contains a
-+valid network header. Otherwise, \field{outer_nh_offset} is not used.
-+
- If VIRTIO_NET_F_HOST_TSO4 is negotiated, the driver MAY set
- \field{gso_type} to VIRTIO_NET_HDR_GSO_TCPV4 to request TCPv4
- segmentation, otherwise the driver MUST NOT set
-@@ -948,6 +964,11 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- If VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} is not set, the
- device MUST NOT use the \field{csum_start} and \field{csum_offset}.
- 
-+If the VIRTIO_NET_F_OUT_NET_HEADER feature has been negotiated,
-+and \field{outer_nh_offset} is nonzero, the device MAY use \field{outer_nh_offset}
-+as the outer network header offset. Otherwise, device MUST NOT use
-+the \field{outer_nh_offset}.
-+
- If one of the VIRTIO_NET_F_HOST_TSO4, TSO6, USO or UFO options have
- been negotiated:
- \begin{itemize}
-@@ -1049,7 +1070,9 @@ \subsubsection{Setting Up Receive Buffers}\label{sec:Device Types / Network Devi
- \end{note}
- 
- When calculating the size of \field{struct virtio_net_hdr}, the driver
--MUST consider all the fields inclusive up to \field{padding_reserved},
-+MUST consider all the fields inclusive up to \field{padding_reserved_2},
-+i.e. 32 bytes if VIRTIO_NET_F_OUT_NET_HEADER is negotiated or up to \field{inner_nh_offset}
-+i.e. 24 bytes if VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO is negotiated or up to \field{padding_reserved}
- i.e. 20 bytes if VIRTIO_NET_F_HASH_REPORT is negotiated, and 12 bytes if not.
- 
- If VIRTIO_NET_F_MQ is negotiated, each of receiveq1\ldots receiveqN
-@@ -1102,6 +1125,9 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
-   both the outer UDP checksum and the inner transport checksum
-   have been validated, otherwise only one level of checksums (the outer one
-   in case of tunnels) has been validated.
-+\item If the VIRTIO_NET_F_OUT_NET_HEADER has been negotiated, and if the packet
-+  contains a valid network header, \field{outer_nh_offset} MAY be set to nonzero
-+  value to indicate the outer network header offset in packet.
- \end{enumerate}
- 
- Additionally, VIRTIO_NET_F_GUEST_CSUM, TSO4, TSO6, UDP, UDP_TUNNEL
-@@ -1215,6 +1241,11 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
- device MUST set the VIRTIO_NET_HDR_GSO_ECN bit in
- \field{gso_type}.
- 
-+If VIRTIO_NET_F_OUT_NET_HEADER has been negotiated, the device MAY
-+set the \field{outer_nh_offset} to nonzero value to indicate outer network header offset,
-+if packet contains a valid network header. Otherwise, the device MUST not
-+use \field{outer_nh_offset}.
-+
- If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated, the
- device MAY set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
- \field{flags}, if so:
-@@ -1302,6 +1333,10 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
- 
- The driver MUST ignore \field{flag} bits that it does not recognize.
- 
-+If VIRTIO_NET_F_OUT_NET_HEADER has been negotiated, and if \field{outer_nh_offset}
-+is nonzero, the driver MAY use \field{outer_nh_offset} as outer network header
-+offset. Otherwise, the driver MUST not use the \field{outer_nh_offset}.
-+
- If VIRTIO_NET_HDR_F_NEEDS_CSUM bit in \field{flags} is not set or
- if VIRTIO_NET_HDR_F_RSC_INFO bit \field{flags} is set, the
- driver MUST NOT use the \field{csum_start} and \field{csum_offset}.
--- 
-2.43.0
+>  conformance.tex                  |  2 ++
+>  content.tex                      |  2 +-
+>  device-types/blk/description.tex |  2 +-
+>  device-types/gpu/description.tex |  6 ++--
+>  device-types/net/description.tex | 52 +++++++++++++++++++++++---------
+>  packed-ring.tex                  |  4 +--
+>  transport-pci.tex                |  4 +--
+>  7 files changed, 49 insertions(+), 23 deletions(-)
+> 
+> 
+> base-commit: b495841a8e80d12c1130f8868f4128866291142d
+> -- 
+> 2.42.0
 
