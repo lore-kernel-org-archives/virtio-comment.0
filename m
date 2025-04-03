@@ -1,285 +1,200 @@
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com (mail-dm3nam02on2060.outbound.protection.outlook.com [40.107.95.60])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 641EF2A8D0
-	for <virtio-comment@lists.linux.dev>; Thu,  3 Apr 2025 08:38:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.95.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743669485; cv=fail; b=XGuiucRBlARPdka3U/vvIWj1y96jzW9ynt6StxFf+ShEwncQJbtOPxHLT/jf3GHT/B6tgbZM9EPbgjTINhBQDEApt/98KkJI3WB9NhFSxsrFgWxYoOQeojEYTUcVm0IMrgNnkQZdFTom6msQTgBjsZIf4xJgpiw+HeFc4hxycy0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743669485; c=relaxed/simple;
-	bh=4K0XeEyYL+qNh8xXvL01ICEgRTM+UDcF+bQaEblZC+s=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Cl04CQHVVuOk3wtGikYaJB75pu+s0ELd1BH3WbDdy3PhMsPRgXE2PiZr7V6gFee6GHticabdwCE+O1YTXJubKSHVxsQ/GgE1yUXThV68UDlIAVedZbFTkmOj9GMkySqHgH6xv1Qs4eNAZ6NQ8ut9dx1dc8J5ujESdcTE2PC30E4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=KqhqxJoS; arc=fail smtp.client-ip=40.107.95.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81DB51F03CB;
+	Thu,  3 Apr 2025 08:44:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1743669887; cv=none; b=X8zik5sGNxrZlzCCYW5VQZYw7tbaDv9J7UaDVUCRAs6mXzTmc00ICV+L0aBcjohV0kMvOB6ol8A8NideM/D2MIWZfV/WCx4tFHGv+WtbMkNNae0AeRVfRpfBYjUUI5RaGV6Rh1EDbrK4sIm/ULHDpRCgmprZH5+7Dq7144KqTaQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1743669887; c=relaxed/simple;
+	bh=ejpz0C9p0sj8LeedkfpJfsI6Y07oE/bpgaABFOQUH7E=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZoThIzkz6OitlDhzYRHFBOzOxcPGXIWzP53Pu1u6qwNx4xAhMrJx6wuXXYSH5mRjYYZ4x9GsxjXIcsCtNzHrK5LiOItFLzlPGncz4qGnr08nZG37brtss3vJDj9jI8YXFO1agRTH7+j6xveBIup1dC8+y2EVaOUaKf9uYhzm2Xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=KxLRCtSp; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="KqhqxJoS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BDYbWMRczAmmwdeEiD3c9kPiPxFdwp836nFiufyihCsp+muRTWIJ+xsOA1Pdeca4iwucN8JPvus1yXR2XSeveIzAOzijqtoIkluq9IJ5N0+yCsD2BBAuOyaLvHmkPQ1rzpvJfXz/9VMBXYKvWqblY1KedP7IKc0sd8YjPcZwuMxUjWVDgeKi36eYCKSuJNKgEpAOA2i9rcp6SSnpCDvqRzWGDc2XkFe73hl8O2zTKqXWSNqCiPHs0aDaRZaZ0FeTvphhFVxu3ljJnfKZomlGrSkfM2kb7xWs1uecPSQIphQXvZbFEGh+I477nlRt5J6p7vnurJzyCGdIZ8GPxb9Ojg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Dfx+Ii4EG7pr0h3+01VJsuK+eW8OTmP9rClx8+cScOU=;
- b=gEukvWCw5x6ANHl9P+nFzKvxFhPKTM+HMWUMtLlU8Ztrh8dfGFPxHqP9U4dH7RRegrJPfUxqf1Vfj5UnivP4l4qRZJw91uvEkJmk7O/rQ7qgmdUM83x2NOBt201UMahagI2AMb1y6W6okp6IuC/2V5xzAAEzEiIBqFKReHDKjBtNuFUOH1+LvytzP1Mot/8cCPKptYrz+IC2T17Ipe9h6T0YWNP4n/xG6bev0+5Rl2vSoYLVnrU7lSyJY9LfkraLTv6fOWMq16/Yu0ky4HUifEXKKnVe4s2xelNIE+cOxBP0/TNZ381sAqJg5frg9JuOzu6yHDfdGdxaxFbwRhou+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dfx+Ii4EG7pr0h3+01VJsuK+eW8OTmP9rClx8+cScOU=;
- b=KqhqxJoSpkZUQZlAt/X0lNN1XTJYG6qyfAaUVf9GvekX44JDXNt2A1vqDXX50ftynmTA6df52Lw1VyswGD5psCx9JrR0w5O5EmUAY6RdjXBvdTcaPPAVmXbQI+8Bv7g3Us93K/pH05Dd5gVQSg3qk4vW/qgS7xfgBJPdWUIOgV4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
- by DM6PR12MB4268.namprd12.prod.outlook.com (2603:10b6:5:223::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Thu, 3 Apr
- 2025 08:38:01 +0000
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8%7]) with mapi id 15.20.8534.043; Thu, 3 Apr 2025
- 08:38:01 +0000
-Message-ID: <8bf37fba-8c7e-4b9f-9864-4ca2a6c5c657@amd.com>
-Date: Thu, 3 Apr 2025 16:37:53 +0800
-User-Agent: Mozilla Thunderbird
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="KxLRCtSp"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=ejpz0C9p0sj8LeedkfpJfsI6Y07oE/bpgaABFOQUH7E=; b=KxLRCtSpgoBWJVr1Gmgh4D5PAF
+	k3jXaKZXgS4wcxQ45TAXwOZZlxcDiHHcI3iLU63KLijhsH3HVu7H6C6h+2xrTQfamykS+Rk/A/BaM
+	ZAVaWNtV4pA7WREoAceL75bMs7VxzVrbP+o+blX7x2Kw2+Eyz9zVmUeKQu+QI1JcJrp+i4cO3PznK
+	uhv013QxJ4HI/eWUfGXxV+Gudy8RKtj4yEKS2eTcjfcYIx1ZklqvZWcdZR+z1Ieo3fKziHx/1+ihN
+	VbZ3rNxQACz6kAbfvyo1h0FgwTfa4SQtHRiYa9WRWjR7/bpVV6Q1N1BNGP5F1jhGN/XS2ZJ94K6f6
+	kUpGR1kg==;
+Received: from [172.31.31.145] (helo=u09cd745991455d.ant.amazon.com)
+	by desiato.infradead.org with esmtpsa (Exim 4.98.1 #2 (Red Hat Linux))
+	id 1u0GBl-000000079n1-3xKw;
+	Thu, 03 Apr 2025 08:44:42 +0000
+Message-ID: <228b84cf77d3dfe6c4a80a68c051d530286e1f55.camel@infradead.org>
 Subject: Re: [RFC PATCH 3/3] transport-pci: Add SWIOTLB bounce buffer
  capability
+From: David Woodhouse <dwmw2@infradead.org>
 To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: David Woodhouse <dwmw2@infradead.org>, virtio-comment@lists.linux.dev,
- hch@infradead.org, Claire Chang <tientzu@chromium.org>,
- linux-devicetree <devicetree@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, =?UTF-8?Q?J=C3=B6rg_Roedel?=
- <joro@8bytes.org>, iommu@lists.linux-foundation.org,
- linux-kernel@vger.kernel.org, graf@amazon.de
+Cc: virtio-comment@lists.linux.dev, hch@infradead.org, Claire Chang
+ <tientzu@chromium.org>, linux-devicetree <devicetree@vger.kernel.org>, Rob
+ Herring <robh+dt@kernel.org>, =?ISO-8859-1?Q?J=F6rg?= Roedel
+ <joro@8bytes.org>,  iommu@lists.linux-foundation.org,
+ linux-kernel@vger.kernel.org, graf@amazon.de,  Zhu Lingshan
+ <lingshan.zhu@amd.com>
+Date: Thu, 03 Apr 2025 09:44:41 +0100
+In-Reply-To: <20250403032152-mutt-send-email-mst@kernel.org>
 References: <20250402112410.2086892-1-dwmw2@infradead.org>
- <20250402112410.2086892-4-dwmw2@infradead.org>
- <20250403032152-mutt-send-email-mst@kernel.org>
- <9635c502-3635-4875-ae1f-53b4b7aed855@amd.com>
- <20250403033718-mutt-send-email-mst@kernel.org>
- <d151e78f-aed2-49c7-8f59-abb23db4cbf4@amd.com>
- <20250403041519-mutt-send-email-mst@kernel.org>
-Content-Language: en-US
-From: Zhu Lingshan <lingshan.zhu@amd.com>
-In-Reply-To: <20250403041519-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SG2PR04CA0202.apcprd04.prod.outlook.com
- (2603:1096:4:187::20) To SN7PR12MB7835.namprd12.prod.outlook.com
- (2603:10b6:806:328::22)
+	 <20250402112410.2086892-4-dwmw2@infradead.org>
+	 <20250403032152-mutt-send-email-mst@kernel.org>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-7264tQMZj4EnbCmJz1TX"
+User-Agent: Evolution 3.52.3-0ubuntu1 
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|DM6PR12MB4268:EE_
-X-MS-Office365-Filtering-Correlation-Id: 59d87edd-78ce-409b-fa9b-08dd728ad7d6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|7416014|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TWJOeG1vSGIrTlBYb2hZQXBBVWlndVloaXZKNTF6NnZqRlEzb1ZJZlFlSHBM?=
- =?utf-8?B?YkdsRHgzVkM3OXFnSWE3TVdYaWdxVk9jNVd5bHQ4TWRGY0ZJSHhqOHBLOFZB?=
- =?utf-8?B?cGRqci8wSnJTdEtmWERxU3d1K1lZUzd1M3hEc1E2dGE1QmpwYlcyVmxTbm5t?=
- =?utf-8?B?UGx4ZTRzQnliZ0VpVG5zSkw3LzB3dFIrdG9tZmJYYTNiVEZsbm0wS0h3SUZF?=
- =?utf-8?B?NGl4UU5WWktvQzZUL0hYaDArQ1JHblZYVUVCWDc3UHd3TU10eHhRZlVqby9F?=
- =?utf-8?B?T0xUNUI3cGZ0eGFOajFoVWNQbHFLUDk3OXprTjdMNWNCOXZZME1EUTlMa0JK?=
- =?utf-8?B?UGYwWEdNcWlUMCt5K2RKZHNJVFAwRDlWRTdXSHo3Qk05ODFuamZZckJQdHBt?=
- =?utf-8?B?Q2daTkFWWjFvNTdVd1crTzZ5OG5mdmxoVWhPdHdrdE5WRXRqOVZYdERiUTRK?=
- =?utf-8?B?RHlaMWFubTRGMVR5QVd1bFVLQS8zMm1keU1hRy9HbzhDcENHWXVtOFl2bFQz?=
- =?utf-8?B?V2xQZGtkNUJHTGtkTlRxaTlCS1VzVm53azNHalZMSlVLeklkeU0xUmRaejNK?=
- =?utf-8?B?SGs1RURYUGRHL1VycHRqc2JkNmszNGtGTmNjZmFDa3htbkFJYWxobzJjdzNv?=
- =?utf-8?B?d2gwQ3U0U1hiekRsMllhZVpEUEowOHJZOWl2VE4vc1dCQTRUMXlvRkNack15?=
- =?utf-8?B?TmdlaWlnR3M1MEVNQlFTbENqb3RhdnZsQ1ArOUtIUGtYNUtIT3ZxTzg5Umpm?=
- =?utf-8?B?MktIcHBEWnE2NytUcWpqeVhvbzNEREFpcXVvZnliL2xnNFVDV2xsZUhlQU1q?=
- =?utf-8?B?VkQ2Q1l2NCt2MThhem9CTXpUWTg2bDJienpKaURpRlpiR2NHRXhLdGFmemsr?=
- =?utf-8?B?ZGVYblJEdGU0NHpTVUQwMm1INHM2dHA0OEpLa3Y0Sk1jeDB6VmZxbnRCNmt5?=
- =?utf-8?B?ZWcwN3R0dWpYQWdJbS8wOU1iSGJqQS90MlpUKzJhbFhvTDY0RW9QWmxCaEQz?=
- =?utf-8?B?cnVWdk9SRTFFRzd1WUhpY25OMVc3NDFFeThBMzRubWxHa1Y4dTZSbWV0alRs?=
- =?utf-8?B?N2VCOHBQdUFSN2psSjU5RTZIRlF2WHJxKzVtYnE1OVJwQ0dJK3JudXF5RExF?=
- =?utf-8?B?R0ZyaDBzMDBrUHVROWJNOHFKaXI5MGNRL1lFVjEwNVlJMzhYTTZtVVBnYXl2?=
- =?utf-8?B?V2xiTGhsenBrSjZMaERJeHdTbS9UR21telV4Q3BUd1Z2dEZieVF1QVNlckI4?=
- =?utf-8?B?UXpxeVExbnhyTWtJRVRwNVpDdWR3NjlNY05obDFzNUhwRm5DaVZERHhkYzhO?=
- =?utf-8?B?ZCt4Y1pzSWc0ekR0YlZUSys1bzhBakhNL2cwVmtEc1ZOdjZramJsN3d5ajNH?=
- =?utf-8?B?MmU2K3ZaUXFNS1VwTHVFZ0poNmVMMjMwNUhsRndDN3dlMGlWWlJBSWNQb3Rn?=
- =?utf-8?B?U2NOSzVVeTUrMllGc1J5S3BYY3o1RHNJcGNId2lROU1iUEoxbGVXcklCUjZ0?=
- =?utf-8?B?djY2S3l3NmMvUUVjMGpSdnNDUEtMV1U1amtSTEx0RlA3bWVlVitkU2dSZDVY?=
- =?utf-8?B?aTNWTEJtMEMzd01DN2kyb2VkZTRHOC96VEJhRjk2Y1FrbGNCbWw4K2Zac244?=
- =?utf-8?B?ZzVVUnRRQU1Xa3lLZDAwNFZjMGpkKzFKUkluNXhqdlk1NHRENWk4NHplVUdv?=
- =?utf-8?B?OXZPM2N2Zjh5Qk9JYWdkUzZ3OHBxc252MmR1TUc5dXdHTGlFcFpZTG8vS2Vy?=
- =?utf-8?B?d1dzRkRML21QUWNad3dteDZCSmE5MTFaeTdBZ1RCWHdhSE1EVEtOaGdkVzE0?=
- =?utf-8?B?YXJIMnAyS2ovYlNoOGNCMTZkV1RoVStVRDZOV1Qrcnk0VXd2T09JQno2SG9i?=
- =?utf-8?Q?UkS0P0f5cRESb?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB7835.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RTdNZDhFbGpwa1ByN3FyNFlvdHJxeUc1QXRyMmwxTko3VXNoekJJNm9vbFc4?=
- =?utf-8?B?UW9pdXlWOUh2MUY2RWtnazlRSjZDb1FXRzU5ZFlTdUhiTXgwcERKdTdLY0x4?=
- =?utf-8?B?MW9vVkJmTHhmRVFHeUlGUUdoTUpJS29HZzRjZHhuVTlGTGs5a1JDOUZvL3Fy?=
- =?utf-8?B?S01FVzlJMlZXTGsvNytEelV0R2lMdnI4ektJWlRsaGNHVGJxcmhSSVo0bm1i?=
- =?utf-8?B?ZWpnMFc2eUI1cXJrQ01KQjRPSVBrQTZadEp5Umg5UzIzNXF5YUJIdktDUHh1?=
- =?utf-8?B?YXpXRU9IRE1iV0lSeXZISVZSS2ExNEdzVktNUlVzMFc0cnYrdUJOL1FtK3BZ?=
- =?utf-8?B?WjY1aEdOcWxydnZXS1QrNm12ZG5xbHZlNlBCc3NMQjRmMEdJOWZjMEwyZjRj?=
- =?utf-8?B?OUQzZ0FKNXQ2eE43STdrV0dnY3VTcitYYlZNcjVWVVJhV25RZWhOQXZlSENW?=
- =?utf-8?B?ejFJc3Ivb28yR1R4SFhWTFd1N1JmT3RYcXJ2Smg0S2JKTHFveTRSWERSb0Fz?=
- =?utf-8?B?RzhuangxN24xcHNrOFBFNkFXMDFxVUpmRnVwSCtKOVNYUlNialBxRFMyeVNZ?=
- =?utf-8?B?MldkQ0E4QVJQNlRTRGdWYzZ2cEp2SkdxenF5MFo0RDVObDBRY0p2Q3o1aGxY?=
- =?utf-8?B?QS9veWdFV3RiYjhxS1JuVzN2UHJRUmdZNmd1T0gyVXdlMENBc2JSaXYyRU91?=
- =?utf-8?B?bmVxaWFKUG5NSlhTV1JrWG5NcnJ1UXJYM3h1R2RGbW9zYnVEVlZSMDdFV3Yr?=
- =?utf-8?B?SzZwSDFFbm00THZDZlZVUDJSRzdOVXBhdEo0RGRVL3lLOEZFQm5CRGhaVFha?=
- =?utf-8?B?NDBrL01Mc21hZWFZbURPS3czQW1BWkQ5M0RrQURYdG5qNEo5VEtjNW1YanZY?=
- =?utf-8?B?M3lZTS9XVkpCcFQwUUtibkFVT1BrNGR6ZjNmcG91Vm1VWmxUSXZta2lhMWgv?=
- =?utf-8?B?Y1c4d3hBbXJBK2N5QVhaQWUrWDVwbzlUWkZIVHlOUUhYZURPNm5uTW9nRUtm?=
- =?utf-8?B?MkpzTDQ0eE03cURhYWxxZDlodFhxSGt4WVhhS2hOMEZZQ0RqYUl0UGxVZElN?=
- =?utf-8?B?c05FdVduTTNSc2U1SVhESGNXUWVrditIdGR4TlhaLzRWVklqcXhXL3ZsTUh2?=
- =?utf-8?B?OVZ6S2M0SU1mWThmYWVraWFhR2VkbnVVODcxK3hJQ3NBOTZZdTNxcmJ5YnJF?=
- =?utf-8?B?QU9qMEIvRTY3Q1VnbkZWT01naGxGSnlkMHRUZmdDeGlaL0lUWE85cFoyL2JE?=
- =?utf-8?B?alBMQWtNZUVvejdGMXc3ZStCTy9icVRLVkxTU0dDdFhXa0Y0emwwVkpvbUk4?=
- =?utf-8?B?Q2Z3VkMrN0w3Z1lSeE5BOHBLc2ZqUlJZaldCVHMzMCtwZEtNZXU0YWJEMC9F?=
- =?utf-8?B?cjhxWVBUV0hyYlhZaXllSXRCM1Y0YUdwQ1VhbG4rUjNlMGJzODVXNVFhZVZH?=
- =?utf-8?B?US9WUW1uUUUvV3BKZ2pKTHoyQWNMMHErV1hvUXFDOGZkbUQ2MFBhRDRtKzZh?=
- =?utf-8?B?dVR6UUNKUnNFYlNZWU9VZGFoV1M4enZDbjdzSzhRK2dYbTVwU21GN2NUKzZ5?=
- =?utf-8?B?U1ZnY3V4T1BFVExvMDlUcUk3TzZVc285aTNLdTU5aXJEZDdOY01SOVdpcVhy?=
- =?utf-8?B?R2JjZktNUEZQckd6bytCbnRIZlZUWW1mYmdCU292TGNZQmlnOGRiWjAvQlhs?=
- =?utf-8?B?dEZNV1QvWXpmWVZldC9XcDNPOVpaMzVmay81c2lPWnRHT0toK0E3djcxQ1hU?=
- =?utf-8?B?MGdNOUlFNWt4VUJnbE13d1RhdlNNanZEQk9PMkYrYU9HTmxtM3Y4K2NzQlBF?=
- =?utf-8?B?akJjZTR6U3Y5QmFTcmdKYU5nb0EvV3ovVmN6OUZGRk50QmJRYXhHWCtBRXAx?=
- =?utf-8?B?ckd3VWtvMEFnVWZXcm52S0dQbzBTcmFlME84S0J5ck1qK3VOektuNDFwUXVh?=
- =?utf-8?B?V25LYmVjK0cwVmZrM3pTRWorRGdGY3d6Vmx0VEFPT2VMdVFlNjdzenQvM0V2?=
- =?utf-8?B?N3Q4cHorN2RvRDdJRC90WEVoQjBmbTFROHB1UVF1a1NVWFV1My9tdmprR1pE?=
- =?utf-8?B?OGQxUjU3a3FnU0pVbHJjYmYvNkMvaDJSdXp2aEFwLzFFdVFFcHdyNEU3MC9Q?=
- =?utf-8?Q?va5CT6tNQm9+MhlKDCfK5Vxr/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59d87edd-78ce-409b-fa9b-08dd728ad7d6
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2025 08:38:01.1444
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qjFmR2bvqo8PpQnCHr4aC3YLEEhQSBBEQbLHEIBiIj2UtjidwV2JWQSDGDBHwee/HtCKm/GtfjE0Bv1/fPYYGA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4268
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-On 4/3/2025 4:16 PM, Michael S. Tsirkin wrote:
-> On Thu, Apr 03, 2025 at 04:12:20PM +0800, Zhu Lingshan wrote:
->> On 4/3/2025 3:37 PM, Michael S. Tsirkin wrote:
->>> On Thu, Apr 03, 2025 at 03:36:04PM +0800, Zhu Lingshan wrote:
->>>> On 4/3/2025 3:27 PM, Michael S. Tsirkin wrote:
->>>>> On Wed, Apr 02, 2025 at 12:04:47PM +0100, David Woodhouse wrote:
->>>>>> From: David Woodhouse <dwmw@amazon.co.uk>
->>>>>>
->>>>>> Add a VIRTIO_PCI_CAP_SWIOTLB capability which advertises a SWIOTLB bounce
->>>>>> buffer similar to the existing `restricted-dma-pool` device-tree feature.
->>>>>>
->>>>>> The difference is that this is per-device; each device needs to have its
->>>>>> own. Perhaps we should add a UUID to the capability, and have a way for
->>>>>> a device to not *provide* its own buffer, but just to reference the UUID
->>>>>> of a buffer elsewhere?
->>>>>>
->>>>>> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
->>>>>> ---
->>>>>>  transport-pci.tex | 33 +++++++++++++++++++++++++++++++++
->>>>>>  1 file changed, 33 insertions(+)
->>>>>>
->>>>>> diff --git a/transport-pci.tex b/transport-pci.tex
->>>>>> index a5c6719..23e0d57 100644
->>>>>> --- a/transport-pci.tex
->>>>>> +++ b/transport-pci.tex
->>>>>> @@ -129,6 +129,7 @@ \subsection{Virtio Structure PCI Capabilities}\label{sec:Virtio Transport Option
->>>>>>  \item ISR Status
->>>>>>  \item Device-specific configuration (optional)
->>>>>>  \item PCI configuration access
->>>>>> +\item SWIOTLB bounce buffer
->>>>>>  \end{itemize}
->>>>>>  
->>>>>>  Each structure can be mapped by a Base Address register (BAR) belonging to
->>>>>> @@ -188,6 +189,8 @@ \subsection{Virtio Structure PCI Capabilities}\label{sec:Virtio Transport Option
->>>>>>  #define VIRTIO_PCI_CAP_SHARED_MEMORY_CFG 8
->>>>>>  /* Vendor-specific data */
->>>>>>  #define VIRTIO_PCI_CAP_VENDOR_CFG        9
->>>>>> +/* Software IOTLB bounce buffer */
->>>>>> +#define VIRTIO_PCI_CAP_SWIOTLB           10
->>>>>>  \end{lstlisting}
->>>>>>  
->>>>>>          Any other value is reserved for future use.
->>>>>> @@ -744,6 +747,36 @@ \subsubsection{Vendor data capability}\label{sec:Virtio
->>>>>>  The driver MUST qualify the \field{vendor_id} before
->>>>>>  interpreting or writing into the Vendor data capability.
->>>>>>  
->>>>>> +\subsubsection{Software IOTLB bounce buffer capability}\label{sec:Virtio
->>>>>> +Transport Options / Virtio Over PCI Bus / PCI Device Layout /
->>>>>> +Software IOTLB bounce buffer capability}
->>>>>> +
->>>>>> +The optional Software IOTLB bounce buffer capability allows the
->>>>>> +device to provide a memory region which can be used by the driver
->>>>>> +driver for bounce buffering. This allows a device on the PCI
->>>>>> +transport to operate without DMA access to system memory addresses.
->>>>>> +
->>>>>> +The Software IOTLB region is referenced by the
->>>>>> +VIRTIO_PCI_CAP_SWIOTLB capability. Bus addresses within the referenced
->>>>>> +range are not subject to the requirements of the VIRTIO_F_ORDER_PLATFORM
->>>>>> +capability, if negotiated.
->>>>>> +
->>>>>> +\devicenormative{\paragraph}{Software IOTLB bounce buffer capability}{Virtio
->>>>>> +Transport Options / Virtio Over PCI Bus / PCI Device Layout /
->>>>>> +Software IOTLB bounce buffer capability}
->>>>>> +
->>>>>> +Devices which present the Software IOTLB bounce buffer capability
->>>>>> +SHOULD also offer the VIRTIO_F_SWIOTLB feature.
->>>>>> +
->>>>>> +\drivernormative{\paragraph}{Software IOTLB bounce buffer capability}{Virtio
->>>>>> +Transport Options / Virtio Over PCI Bus / PCI Device Layout /
->>>>>> +Software IOTLB bounce buffer capability}
->>>>>> +
->>>>>> +The driver SHOULD use the offered buffer in preference to passing system
->>>>>> +memory addresses to the device. If the driver accepts the VIRTIO_F_SWIOTLB
->>>>>> +feature, then the driver MUST use the offered buffer and never pass system
->>>>>> +memory addresses to the device.
->>>>>> +
->>>>>>  \subsubsection{PCI configuration access capability}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / PCI configuration access capability}
->>>>>>  
->>>>>>  The VIRTIO_PCI_CAP_PCI_CFG capability
->>>>>> -- 
->>>>>> 2.49.0
->>>>>>
->>>>> So on the PCI option. The normal mapping (ioremap) for BAR is uncached. If done
->>>>> like this, performance will suffer. But if you do normal WB, since device
->>>> and this even possibly can cause TLB thrashing.... which is a worse case.
->>>>
->>>> Thanks
->>>> Zhu Lingshan
->>> Hmm which TLB? I don't get it.
->> CPU TLB, because a device side bounce buffer design requires mapping
->> device memory to CPU address space, so that CPU to help copy data,
->> and causing a more frequent TLB switch.
-> Lost me here. It's mapped, why switch?
-Because the number of TLB entries is quite limited.
-But never mind, this is not a key topic of this discussion.
 
-Thanks
-Zhu Lingshan
->
->> TLB thrashing will occur when many devices doing DMA through
->> the device side bounce buffer, or scattered DMA.
-> Yea I don't think this idea even works. Each device can only use
-> its own swiotlb.
->
->> If the bounce buffer resides in the hypervisor, for example QEMU,
->> then TLB switch while QEMU process context switch which already occur all the time.
->>
->> Thanks
->> Zhu Lingshan
->>>>> accesses do not go on the bus, they do not get synchronized with driver
->>>>> writes and there's really no way to synchronize them.
->>>>>
->>>>> First, this needs to be addressed.
->>>>>
->>>>> In this age of accelerators for everything, building pci based
->>>>> interfaces that can't be efficiently accelerated seems shortsighted ...
->>>>>
+--=-7264tQMZj4EnbCmJz1TX
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, 2025-04-03 at 03:27 -0400, Michael S. Tsirkin wrote:
+>=20
+> So on the PCI option. The normal mapping (ioremap) for BAR is uncached. I=
+f done
+> like this, performance will suffer. But if you do normal WB, since device
+> accesses do not go on the bus, they do not get synchronized with driver
+> writes and there's really no way to synchronize them.
+>=20
+> First, this needs to be addressed.
+
+I was assuming the bounce buffer region would generally be in a BAR of
+its own. Would a write-combining mapping not suffice?
+
+In the case of a virtual device where the hypervisor *knows* it's all
+just host memory anyway and is cache-coherent, doesn't the hypervisor
+get to just make it normally cached anyway, regardless of what the
+guest asks for? I forget all the bizarre rules about guest/host PAT
+combinations now, and that's just x86 anyway...
+
+I think it's OK to have a feature which makes more sense for a virtual
+device than it does for a physical device.
+
+For example, it doesn't make any sense for a physical device *not* to
+have VIRTIO_F_ACCESS_PLATFORM, does it? That is only possible because
+virtual devices are "special" and can have the bug^Wmicro-optimisation
+of which we spoke.
+
+The intended use case for this bounce buffering *is* more targeted at
+virtual devices than physical, and yes, it'll probably perform better
+on virtual devices than physical too.
+
+But if a physical device finds itself in a system where it actually
+*cannot* do DMA to system memory, and provides this bounce-buffer...
+then however slow it is, it's still going to have better performance
+than the complete lack of functionality that would otherwise result :)
+
+
+
+
+--=-7264tQMZj4EnbCmJz1TX
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
+ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
+MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
+a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
+jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
+GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
+aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
+nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
+8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
+IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
+KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
+BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
+QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
+QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
+ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
+/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
+uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
+xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
+W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
+c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
+VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
+NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
+DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
+sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
+w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
+i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
+kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
+0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
+ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
+blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
+hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
+VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
+HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
+ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
+AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
+cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
+cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
+AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
+aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
+hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
+iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
+8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
+JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
+xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
+EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
+B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
+MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
+KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
+Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
+nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
+WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
+W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
+nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
+g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
+9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
+9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
+sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
+a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
+ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
+AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
+dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
+MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
+YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
+4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
+6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
+QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
+nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
+MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
+VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
+ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDQwMzA4NDQ0
+MVowLwYJKoZIhvcNAQkEMSIEIBkGP1RMA2Z24nCNR0GN2hjKA41W+a0X+EmuaqPR3qw1MGQGCSsG
+AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
+cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
+VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
+cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAYKWNbAtIQzDB
+Lu8HjnjJC7iHJ3HcHtvoMvgWJAYq0WzcL8rMT5pdffL2J/5yNEe0Uq055ZpTHvFfekL0fMPuoHPk
+Nv8BzAljhw9vidmsy+qANpUuaxD36Ya5o2q75DNvvGHKGaz4rUCJPexnqw5uJ+0d/1parCtH25O0
+motSQ6fQt7CPblVmsrtzVaF8IYY0EhHUTGoKCOlvJHsd1Li/cNY3uh4VDlpPVIwyPTAyB3M6En9P
+k7pWvaKYRPoYZlK01EPDS0jOm2MR8Tm2J5TJleRd5RDcP9Y3v/S5pGl0TgH0ToG56WwdrRwN41vL
+bGLwU5Mo86Km8HaNaRn/Yzn7wudiP6bsJhW/lH8PLoLH+bOkECY5GCL1czcVONeaX6UXQX5Dk/48
+SNO3NrJ1WPxIdQUJNEfxGb0FFeqzz+c0HbBMjxMyDfgzIaPAHFQ4gqnnbanxaHf6qMG2YloHAqK4
+8ZPM3/KofR5qJADTnkNr3M+377I980NhWDCLXCyh4nhOYrQVCnJsbO+Nh8+blwQfq7HHa3G0f7k+
+/MGg2piCI0Q0xYYnCBXdtpPSzR396D4udYBH1L0V13rndn5uRo7JASgG66BrRzDpR3r3EohsEAxF
+Bb5jR2y+tLzfJ1xkoOVCtZpx9fKf1PweiB7cKlvDWAp/xoaKZVU68wnobA5/eG8AAAAAAAA=
+
+
+--=-7264tQMZj4EnbCmJz1TX--
