@@ -1,54 +1,61 @@
 Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1627E7081A;
-	Thu,  3 Apr 2025 08:06:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11C04241676;
+	Thu,  3 Apr 2025 08:10:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743667601; cv=none; b=IM6ecGO/JoCt5+NiN+ChGbFXqVyE++ZislzB8lUvravRzSaVGodLFI/HikE4nqprfsJrZoz5v9ryk5LdM6lC1wU6G0054wImgYqhsr3KQATtFk4ShF3kz5Du+1EFx6vUnWPDrstnkxWR8YkLIDwEuFoDvxbfb+/uf5ERbsR8v7w=
+	t=1743667845; cv=none; b=ZYAZvsCrw0euAOMgLCPrxTPI/SEYiiTKtqOvDXUceiXzFgApvWaLQEMTTh6zh0N7Wjk5u2zh2QTYKVADx2icCM6xeJN19ooFg7sV8M2ZpK0ULBqwmqU1FtVPE6thHgAZuRRlnAxCyODqRdkSa2hGH8tkQ67QIFD1v15OvCnsL0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743667601; c=relaxed/simple;
-	bh=gp5tWnDXcOV5s16reD5BLLdT93SBzIWov6/vEDh91Ko=;
+	s=arc-20240116; t=1743667845; c=relaxed/simple;
+	bh=yRINf8NCBCvDr3SI7DevhOlkyKdNKV40uEvwq7n8GdM=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mdNdhx96jWzqbjJO8SMyZ09ubPWHb6vVFIjUBA4Wj13uYdY6AtJ1BfmplW5KyLmG+wIiE/R/Iw04z9iUpBT1eZJOS0y4GPootexD06JBXpMZwh+VlWk8HI55BPtLiHyIQ6I0BG5hlIs2dDfNCKimLytWsyLOlfuoKBxSKxWRWcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=OpTSq6PS; arc=none smtp.client-ip=90.155.92.199
+	 Content-Type:MIME-Version; b=EJPTWCRyNp/2JlxlmTcaTO3W+b/LIlDrXbydSLitWVz7wgiOdxQQrlHi+solUyWdqnednpyHxVDo2EuRWe8FPdoPCZICKcu/bcqjTvAYqZeUIQ9PdFhyOw0xDTfqK0BsdffLTrbg0y+nQg3ePX1AXv0jSVI8xgthAJhnM8kCv7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=UG2NET9Z; arc=none smtp.client-ip=90.155.92.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="OpTSq6PS"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="UG2NET9Z"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=gp5tWnDXcOV5s16reD5BLLdT93SBzIWov6/vEDh91Ko=; b=OpTSq6PSBjmHGAuLVN9JPs/5pd
-	DhWtNAT/LYBKI9c11FXilbqF3iachdnuDwtJFJ6aZtOt/QOFtBjFFR5PqcSbHw1p9BWVt1XAJB+tW
-	kUHk5y6CI1CX8W3GHmFaYx6GYGhFrIySrtU96J+ovhUtlmJVQgKpznsSIE81q9U4RSeJcGD6w3xxn
-	Ax5HWvI4yCRvyHYgGlzMpOkBWHu8P6OPUygGt9hN87VNvVLpPjIPusj6ggwqtGPeif15QFqQgfNiV
-	20cWQ8Tsq4GdwUYG4gpgqIUbtLqkmZFLMerecKQOavGoXG5Jh6rxW07POCZcsCOxnTeh+hZkLBGG8
-	VhtUSE1A==;
+	bh=yRINf8NCBCvDr3SI7DevhOlkyKdNKV40uEvwq7n8GdM=; b=UG2NET9ZYcw3/6fx5VAYk9Zi8m
+	id36Zki5XeFV+nNtjCZAcaCD35et/Lhz2D+O9smCk5qC8U4ikdFBh6XReMFoIW51JIdUJnEHUEXIf
+	1EbyqDKAoaJNr+lOmmFikSZnJJ27P/K9mfYfbS8WKEqIhnCM1ufp2g4PEmASQJNQd6O9NwOUzZMmf
+	GVRVD/ZJnLwlL7OSbAFr7kQ38kNPIs6MMsVSBMLlRH2TSPFnFf9gdsC8aJfx1X3ED9Ps8BEILbi9D
+	lBh84FrneIpW4X8Lvlw5mxE9VknIptG7AR9FAAiJVfNA81L3SB29qvnM2Qj+TFIt7XS+E/hHlLxTc
+	/De0MYPg==;
 Received: from [172.31.31.145] (helo=u09cd745991455d.ant.amazon.com)
 	by desiato.infradead.org with esmtpsa (Exim 4.98.1 #2 (Red Hat Linux))
-	id 1u0Fav-000000079Yy-1Ajg;
-	Thu, 03 Apr 2025 08:06:37 +0000
-Message-ID: <05abb68286dd4bc17b243130d7982a334503095b.camel@infradead.org>
+	id 1u0Fer-000000079al-2CJq;
+	Thu, 03 Apr 2025 08:10:41 +0000
+Message-ID: <cdd979bca2b8cc4ff170442d968b63f2b3f0ccd6.camel@infradead.org>
 Subject: Re: [RFC PATCH 1/3] content: Add VIRTIO_F_SWIOTLB to negotiate use
  of SWIOTLB bounce buffers
 From: David Woodhouse <dwmw2@infradead.org>
 To: Christoph Hellwig <hch@infradead.org>
-Cc: virtio-comment@lists.linux.dev, mst@redhat.com, Claire Chang
- <tientzu@chromium.org>, linux-devicetree <devicetree@vger.kernel.org>, Rob
- Herring <robh+dt@kernel.org>, =?ISO-8859-1?Q?J=F6rg?= Roedel
- <joro@8bytes.org>,  iommu@lists.linux-foundation.org,
- linux-kernel@vger.kernel.org, graf@amazon.de
-Date: Thu, 03 Apr 2025 09:06:37 +0100
-In-Reply-To: <Z-46TDmspmX0BJ2H@infradead.org>
-References: <20250402112410.2086892-1-dwmw2@infradead.org>
-	 <20250402112410.2086892-2-dwmw2@infradead.org>
-	 <Z-43svGzwoUQaYvg@infradead.org>
-	 <148a3c8ee53af585b42ec025c2c7821ad852c66c.camel@infradead.org>
-	 <Z-46TDmspmX0BJ2H@infradead.org>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, virtio-comment@lists.linux.dev, 
+ Claire Chang <tientzu@chromium.org>, linux-devicetree
+ <devicetree@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ =?ISO-8859-1?Q?J=F6rg?= Roedel <joro@8bytes.org>, 
+ iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
+ graf@amazon.de
+Date: Thu, 03 Apr 2025 09:10:41 +0100
+In-Reply-To: <Z-47O3vkyIf0mzdw@infradead.org>
+References: <20250402105137-mutt-send-email-mst@kernel.org>
+	 <19ba662feeb93157bc8a03fb0b11cb5f2eca5e40.camel@infradead.org>
+	 <20250402111901-mutt-send-email-mst@kernel.org>
+	 <6b3b047f1650d91abe5e523dd7f862c6f7ee6611.camel@infradead.org>
+	 <20250402114757-mutt-send-email-mst@kernel.org>
+	 <965ccf2f972c5d5f1f4edacb227f03171f20e887.camel@infradead.org>
+	 <20250402124131-mutt-send-email-mst@kernel.org>
+	 <eaef09ab218900a53347987a62fee1787283d9ed.camel@infradead.org>
+	 <Z-44wXdyia4RC6Cr@infradead.org>
+	 <06465bcf4422d088df2a0ce9cdb09767dac83118.camel@infradead.org>
+	 <Z-47O3vkyIf0mzdw@infradead.org>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-yjqyb/yyn6sdY8Wu8COa"
+	boundary="=-mv6TI6TyS2mihHsGmBJj"
 User-Agent: Evolution 3.52.3-0ubuntu1 
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
@@ -59,74 +66,45 @@ MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-yjqyb/yyn6sdY8Wu8COa
+--=-mv6TI6TyS2mihHsGmBJj
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2025-04-03 at 00:35 -0700, Christoph Hellwig wrote:
-> On Thu, Apr 03, 2025 at 08:28:19AM +0100, David Woodhouse wrote:
-> > Linux has 'SWIOTLB' support, but I didn't see it as a term specific to
-> > that particular implementation; it seemed like a concept would would be
-> > understood elsewhere. But sure, I'm happy to rename it to just 'bounce
-> > buffers' or something like that. I'll see what I can come up with that
-> > is succinct enough to use in VIRTIO_F_xxx and VIRTIO_PCI_CAP_xxx names.
+On Thu, 2025-04-03 at 00:39 -0700, Christoph Hellwig wrote:
+> On Thu, Apr 03, 2025 at 08:37:20AM +0100, David Woodhouse wrote:
+> > Hm. I was just trying to point out what seemed obvious, that when a PCI
+> > device does 'DMA' to an address region which is actually within one of
+> > its *own* BARs,
 >=20
-> I think you still miss the point.
+> PCIe devices can't do DMA to their own BARs by definition, see the route
+> to self rule.
 >=20
-> What you describing is either:
+> Pretending that they do it by parsing the addresses is bound to fail
+> because the addresses seen by the driver and the device can be
+> different.
 >=20
-> =C2=A01) A BAR (or BAR-like region on MMIO) that can be used to stage
-> =C2=A0=C2=A0=C2=A0 indirect I/O
->=20
-> and
->=20
-> =C2=A02a) a device that doesn't have any DMA capabilities, but instead
-> =C2=A0=C2=A0=C2=A0=C2=A0 requires use for the above staging region
->=20
-> and/or
->=20
-> =C2=A02b) a system configuration where devices are prevented from accessi=
-ng
-> =C2=A0=C2=A0=C2=A0=C2=A0 guest memory
-> =C2=A0
-> 1) makes perfect sense in virtio.=C2=A0 It is the equivalent of the NVMe =
-CMB
-> and similar features on various devices.
->=20
-> 2a) would make sense if we actually have such devices and not just
-> system configs, which I doubt.
->=20
-> 2b) is the job of ACPI or DT to communicate, not that of virtio
->=20
+> NVMe got this wrong not just once but twice and is still suffering from
+> this misunderstanding.=C2=A0 If you want to enhance a protocol to support
+> addressing a local indirection buffer do not treat it as fake DMA
+> but rather use explicit addressing for it, or you will be in a world of
+> trouble.
 
-I am designing virtual systems, with the constraint in your (2b):
-The virtual devices implemented in the *VMM* are prevented from
-accessing guest memory. (Physical devices are actually fine because
-there's a two-stage IOMMU which copes with those.)
+This is, of course, the other benefit of pointing out the "obvious".
 
-I am describing the solution in your (1): Give them an on-device
-bounce-buffer.
+Because you can get corrected when you've got it wrong :)
 
-The implementation of (1) is to offer them a device which doesn't have
-DMA capabilities (because *I* as the system designer know that it can't
-use them). Which is your (2a).
+Thanks. I'll take a closer look at handling that. I think it's
+reasonable for the negotiation of the VIRTIO_F_SWIOTLB feature to be
+the thing that switches *all* addresses to be on-device, and the on-
+device buffer can't be accessed unless VIRTIO_F_SWIOTLB has been
+negotiated.
 
-You are right, in theory, that (2b) is the job of ACPI or DT to
-communicate. But virtio is presented as just another PCI device,
-indistinguishable by the guest from other PCI devices which *are*
-actually able to do DMA through the hardware's two-stage IOMMU.
+Which neatly sidesteps the original thing I was trying to clarify
+anyway.
 
-To my knowledge there isn't a clean way, across platforms, to tell an
-operating system that a certain device just *can't* do DMA at all. And
-even if there was, why offer a device model that could *theoretically*
-do DMA, just to tell the guest through some other channel that it
-can't?
 
-What's wrong with a simple option to indicate, in the device model that
-the system designer chooses to build for the guest, that it can't do
-DMA?
 
---=-yjqyb/yyn6sdY8Wu8COa
+--=-mv6TI6TyS2mihHsGmBJj
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -205,21 +183,21 @@ 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
-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
+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
-cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIA1kngouNL3m3V
-a3+rt+nHwfRedtyge38OoWanMKATSAUtrov+gFf2tah4SM/QQlnsXyTIAjZbZzmMBNcTgtN7UjKy
-9Z2DEebbnD301LUGy3fhck+eK6ugx1paJnh5zTenOJ2Me1cSv+C4WsDKgHO0dY8hTpFpCLdfzbZF
-Q+AvC9f1Ll5B2jOykIstCB8wQG/GvBytn3QQh0FIOQ9UuoUEeblYOZ/m/pvCJ3EpyRZJFV500Q7l
-GWBj+csNfNLM8mIOpJoiYnM26Bqr1h0GYLAuVP7PC0JGafWTqLUUs5WGgqeJkBKBRz6TAycWYaHz
-zbI+QpgHSVGzoAAgdqvLBaIDxP+VCS4NFtGnZshIiHOt18VYeT0c/WyRUA1JgT4z2dnIB63cdAFG
-XjJKxwxEtidO92PdXLZGgGepOoFoxM2eK6JEZhn6XxEZUjdQp0QXvwz0kO6JpITkkeIjKbpttE88
-ycz0sauZMHfUtM3hwxsHqmiZ3FQSOCsAppRrTVTcLcTv66k9UguudKnuoeK/eFeXIG/zia7zT0fm
-G91ysJsaWBJ1EUa+wvn0r58TemBkb5T3xg8PS0YSwwruNkNE47RsKYheBxZBejzWflZBRnmnvHek
-ruVVpHieLixtzGIsF9mdy8gfmaucDUg3HfMfSx/17tR55WTrU1F5yuv6kDWOcEwAAAAAAAA=
+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
 
 
---=-yjqyb/yyn6sdY8Wu8COa--
+--=-mv6TI6TyS2mihHsGmBJj--
