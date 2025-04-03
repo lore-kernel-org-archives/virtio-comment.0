@@ -1,182 +1,214 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69857241688
-	for <virtio-comment@lists.linux.dev>; Thu,  3 Apr 2025 08:14:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F9C1991C1
+	for <virtio-comment@lists.linux.dev>; Thu,  3 Apr 2025 08:16:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743668099; cv=none; b=WD+L2tq/OVSbbV3OmS8Xi4jnM1g3ffH1ifD1j2UQh3IR28EmRG4+/1MJczYJ8iRO9kIOO+9se8lj3WIv9jJNrLN61TMypx5Du/bO1NB64Pr3rkfv2S1XZ6lk8c+vwDsnbUqedrQ0X0ow+3Ly36141J6G/81eoR+/L3K/sVPZgjI=
+	t=1743668193; cv=none; b=aKcs28JBoxGK6JsmRduYXU5QB+CBeMgT8dzsvd7usil3AhrIdYMKkhDs5akS049wYr5g0UIrgTCqWeu7S7zw6cqy0TorH9KbJUW/KpWjp+uCdaZdCv6PnycTKxTjvpteiCjGZXboovSXqPrNrdkR6ikgX4rPY5R9rM+/gp1J6ZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743668099; c=relaxed/simple;
-	bh=qs5Dc//XbmmLFt5TtR8y7sEXYZFbnXU8Phb0GgLoAWY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KYzeCmCsi5aQ3rKAkqtdWkM2wbObZh9aUPDRgPCxt81ze2gohj2L3SJKob6ausSyPNCjYnWvzIkdHKGkjmlzMtBJQ9CxGZOSZw24eHCgF+/EjC7JBsC3gOlfmTC2EA874DcAFFuRCV2xR/n17RnYK4NXgKBvtc4jUkJiX5CTiwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VlGnHgVA; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1743668193; c=relaxed/simple;
+	bh=GWwbMSZcEnPjv8a/YQDtHhLzZikLoFIojw/ld2qRZwk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=g0t9UbyZ54MuB18fTPJ0UZfk1Agzhub65N/0ifbJ3ddRJofbZrttlVKKhlfqCqr7bFaH/tsHJxrmsVwrIswlVW1tNAFKUQUO9WBvpIi38YsS04dTVA387m+Ta/l3ipIFoDMsLsd6swj/G0N3k6QGhDLIZ08G9fKfXLXWdxfCWI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WN6pG0Zz; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VlGnHgVA"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WN6pG0Zz"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1743668096;
+	s=mimecast20190719; t=1743668190;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=m7fIovHPzqzlBjqJSWxBsPjR3AkxviZ81vXe2bJjv6Y=;
-	b=VlGnHgVAf2mbeopKrda1o2d3R1hOn6h3DaEWBozXAYOF4Uf7zESqFUcAaCV1hnI7XK0/gF
-	uMpM5d9oBF3dUStuc0rXuiJSptSKZKpo9GQhEqW2Y4b6tGXUsJG7Tn/JJunHLSxracINTI
-	DyP90+BSEN2SvmFM4JoFp8Wop3cDgCQ=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=AMjMT1SJKidKNaVJP0NOddv08RtyFnxBqT7a9qmfnH4=;
+	b=WN6pG0ZzlTB73ZYS49/8nbdNbRd0ZZrR5tXpkFbtMDxJfRPY6sGPAw5WkgcTuqDGhzGR5z
+	VoqzkM0tF7nD9ZY1TY084i/lC7MIiynMkcSWpwE7xaJIMlpzVVKR4AAc97WeX4C2YF1U1l
+	/DVkcU8qGYaPRo3vPOAo/4AIW42CxL4=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-371-tv2ICX6xMf6yZMV_F1S2pg-1; Thu, 03 Apr 2025 04:14:54 -0400
-X-MC-Unique: tv2ICX6xMf6yZMV_F1S2pg-1
-X-Mimecast-MFC-AGG-ID: tv2ICX6xMf6yZMV_F1S2pg_1743668094
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-ac31adc55e4so53908866b.3
-        for <virtio-comment@lists.linux.dev>; Thu, 03 Apr 2025 01:14:54 -0700 (PDT)
+ us-mta-137-nexepG8XOkit07J4UenkeQ-1; Thu, 03 Apr 2025 04:16:29 -0400
+X-MC-Unique: nexepG8XOkit07J4UenkeQ-1
+X-Mimecast-MFC-AGG-ID: nexepG8XOkit07J4UenkeQ_1743668188
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-3912a0439afso269238f8f.3
+        for <virtio-comment@lists.linux.dev>; Thu, 03 Apr 2025 01:16:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743668094; x=1744272894;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=m7fIovHPzqzlBjqJSWxBsPjR3AkxviZ81vXe2bJjv6Y=;
-        b=RVJcC+y35LOjm6X2MupFPvbL9+SftXgkgcANKpiZ6LqYdcdBhD9g64K8GxVD2lz8Dv
-         +T8o+umEqeMHb7DzwJqVS1h4GizA7TLpiETnzXQ7dr4hVwqKBU/UX+HkvGputexuLBgK
-         3NPRUAw/IuzeuELK3rg1QzjW7WdKIa2cU+N+4avLt+DQEjG9SqZ6BstTtT3w0rdHTj22
-         geDDUmPsigr44YsKxECN+4rMurLIz1NqQoo2oKqLRlsTHk46jMjoxAxmuPo6zmhOtg8m
-         jhQH98S2YEQfwJsR1TKZ4L4YGTJJOAT8WwJl2Y0Y0aE5XHupB646aL2yAE4vxqG59zA8
-         T7yw==
-X-Forwarded-Encrypted: i=1; AJvYcCXfDwwFeLg+yzd2+MExkoWaRMSK4kMwCUT36v0+L/fm4ixr/UKVppEeE26q8iII3pAvS/e2vomlW+i5HsYP+Q==@lists.linux.dev
-X-Gm-Message-State: AOJu0YwcWOZXyutGZj/AfCRhz0UwWVsy4V0YwlXgn1cqsHpr+fsyn990
-	LqaJ5RG8mMR51SCi+AoeFHmnPcUrvmUJ4u3OTzKKtgF28jeX5nYeE2j5GQl8v+lMoC+8U4KCZiU
-	K8cChMXIdqBl9ZFEJc4lDTPHV23VAw0lD1/eML8iXFFJIm+1X7bpxyBRB686Y5tVx6LrNGRqALt
-	YITNT8w4zQPnUDjuDM3yRsn1puCBBoSAqs/jZQp04=
-X-Gm-Gg: ASbGnctwEu0jqE91FL8eo6KGZv6Aml8QwaPJMCtdtW+NU7JY6F2IVlnfs6HN5q4Ftc1
-	OE2u9mQHzfEWxnaxtJsLuY7mFgzm68iVJjC0tzKZUiSPFTqb9Jg4bMXarGQtasuoB0Q2tq8n7B+
-	u5D/pWWxJdj0dQuj2ry5OVZf/mDYkD
-X-Received: by 2002:a17:906:d204:b0:ac3:f0a3:582e with SMTP id a640c23a62f3a-ac7c0a558ccmr98185166b.41.1743668093653;
-        Thu, 03 Apr 2025 01:14:53 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG+KPUrSZD14Zwb67FalGQiou11JHLP5270rwaOCVmtcXWjkwQl+rQtPMdLo6QaCoCzUjDtHU8MnEqWdY3bdCY=
-X-Received: by 2002:a17:906:d204:b0:ac3:f0a3:582e with SMTP id
- a640c23a62f3a-ac7c0a558ccmr98182866b.41.1743668093201; Thu, 03 Apr 2025
- 01:14:53 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1743668188; x=1744272988;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AMjMT1SJKidKNaVJP0NOddv08RtyFnxBqT7a9qmfnH4=;
+        b=qtWqTMhVenybmODkSDZFoTfHQqG4/uQD4lQ5RChWR3IQ+KXbVoVQhd536iEwc7ZmYE
+         bW3Ul32SqMCr7RvhMshA8QgiaUiOuXGl2LNlyiiKboFsC0tUu34I8i+yYK1bhnZbJatT
+         /kmNDES7TJ7CJRlYGxZfKuWGYk1NamanmCJZ0DeFcPjvZqQnXaqk7FBxI3NqxfQGKs42
+         oPFN8ekkk8YkMqMM0jhqjJiwsnVKgsUun9dpfBYdF0mzI6BEWEDihteucaxIc6oahbQa
+         A25NxSHh4iZe71RP8SODOzdlBz94XOcZ1ZKrNNBU90THN80v8rhWkJhlbYjNlaIIssya
+         Zt0g==
+X-Forwarded-Encrypted: i=1; AJvYcCVHB38hIXsnN2dRaiRgcVuMj809vkNh4eyOcpnXH3+hn+G9OllRGexrvFgS1V58nRHG2KMBI99pxThX4YCpgw==@lists.linux.dev
+X-Gm-Message-State: AOJu0YyquVhqvzzXi/kjJ7c0VFgGI7KnyPnHBR8Ha1uB9O7OAt5ODHnN
+	ckTZJ+xdpMvF/xBxVxhb273utKm/TU1zhJj3Zs3jw4AOg4/D1hOihwX0i77mWKG/zN9SCeGS8BA
+	Co/E+Aj6shHqWPGXuTe4XbhZjzMc8ts7nAHcJ2cNBwV/IZuWqz70l3sb9cd42x7F7eCShyMIQ
+X-Gm-Gg: ASbGncvY7BBaDD3ncYamMdLdsaM3TdTQqlLyyH3p8yMXYyiWOP7TRpl9ieSHxb10DYl
+	vcWtrbCZdPKKkEcdo6WASHLxzA55ckoQ3kMUvmbab20p+Vm3Qoc8qC4XQtVikY6JRpj0srjxB3r
+	6iTxqeMCTUI7AheDbbIeqAyLJ5dxoaCi35nt8MuYJ6ojdjNqk2ZN4cdEkx4sWycTWTAvSmJXer2
+	0mBgnkRGjg7bihMKnUXIOm9kA0pRTlXhlfv3BH7vn+2wkA3nUOQR/dhpNv7rP0Q5l/bB0qqoJCc
+	YQiyFIiX7Q==
+X-Received: by 2002:a5d:64c9:0:b0:39c:1f10:ba54 with SMTP id ffacd0b85a97d-39c29769561mr4806604f8f.35.1743668187997;
+        Thu, 03 Apr 2025 01:16:27 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEfoZZSHHa6ypQcxrzlOMGNw4qiS4wPoWXMjv/Vi3mNeeAHklcIJVDTjhIMU8Wa13rlzMTysw==
+X-Received: by 2002:a5d:64c9:0:b0:39c:1f10:ba54 with SMTP id ffacd0b85a97d-39c29769561mr4806574f8f.35.1743668187615;
+        Thu, 03 Apr 2025 01:16:27 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:1517:1000:ea83:8e5f:3302:3575])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-39c30096bb2sm1118566f8f.12.2025.04.03.01.16.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Apr 2025 01:16:26 -0700 (PDT)
+Date: Thu, 3 Apr 2025 04:16:24 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Zhu Lingshan <lingshan.zhu@amd.com>
+Cc: David Woodhouse <dwmw2@infradead.org>, virtio-comment@lists.linux.dev,
+	hch@infradead.org, Claire Chang <tientzu@chromium.org>,
+	linux-devicetree <devicetree@vger.kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	=?iso-8859-1?Q?J=F6rg?= Roedel <joro@8bytes.org>,
+	iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
+	graf@amazon.de
+Subject: Re: [RFC PATCH 3/3] transport-pci: Add SWIOTLB bounce buffer
+ capability
+Message-ID: <20250403041519-mutt-send-email-mst@kernel.org>
+References: <20250402112410.2086892-1-dwmw2@infradead.org>
+ <20250402112410.2086892-4-dwmw2@infradead.org>
+ <20250403032152-mutt-send-email-mst@kernel.org>
+ <9635c502-3635-4875-ae1f-53b4b7aed855@amd.com>
+ <20250403033718-mutt-send-email-mst@kernel.org>
+ <d151e78f-aed2-49c7-8f59-abb23db4cbf4@amd.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20250401133543.801184-1-mvaralar@redhat.com> <87y0wiapex.fsf@redhat.com>
- <CY8PR12MB71956AADC6DBE9891FE9CA9BDCAF2@CY8PR12MB7195.namprd12.prod.outlook.com>
- <CAHYGQ0x2_QtLBrMmxmzcdNUki5Xjjhvg7e=khYVFWbtnGrYgvQ@mail.gmail.com>
- <CY8PR12MB7195C055D9C78F68CCD1AE61DCAF2@CY8PR12MB7195.namprd12.prod.outlook.com>
- <CAHYGQ0z69kwemGBahoEBz7Est8+8e2GjsFH_Xx-kA=51iomMqQ@mail.gmail.com>
-In-Reply-To: <CAHYGQ0z69kwemGBahoEBz7Est8+8e2GjsFH_Xx-kA=51iomMqQ@mail.gmail.com>
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-Date: Thu, 3 Apr 2025 10:14:42 +0200
-X-Gm-Features: ATxdqUF9ntjZBjO0PG04htOgZ95bTjUGe4Hl7pd09hPGZQ5Qoc7GTbAYukb8Dds
-Message-ID: <CAHYGQ0xfGzxqgBsZuyH7-WPTobkKq+fw+z_G5nq4xyJdzPvmbA@mail.gmail.com>
-Subject: Re: [PATCH 00/13] Backport 1.4 fixes to 1.3
-To: Parav Pandit <parav@nvidia.com>
-Cc: Cornelia Huck <cohuck@redhat.com>, 
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, "mst@redhat.com" <mst@redhat.com>
+In-Reply-To: <d151e78f-aed2-49c7-8f59-abb23db4cbf4@amd.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 0aA3tVQZwmbDnJ2tCbFGOHHeLaBDVnvMaZZL4N5cnF0_1743668094
+X-Mimecast-MFC-PROC-ID: uPAcZIemhvaFio0kGvcBpoERaOfXPrjA-qHd4uLsZwg_1743668188
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Wed, Apr 2, 2025 at 5:24=E2=80=AFPM Matias Ezequiel Vara Larsen
-<mvaralar@redhat.com> wrote:
->
-> On Wed, Apr 2, 2025 at 12:59=E2=80=AFPM Parav Pandit <parav@nvidia.com> w=
-rote:
+On Thu, Apr 03, 2025 at 04:12:20PM +0800, Zhu Lingshan wrote:
+> On 4/3/2025 3:37 PM, Michael S. Tsirkin wrote:
+> > On Thu, Apr 03, 2025 at 03:36:04PM +0800, Zhu Lingshan wrote:
+> >> On 4/3/2025 3:27 PM, Michael S. Tsirkin wrote:
+> >>> On Wed, Apr 02, 2025 at 12:04:47PM +0100, David Woodhouse wrote:
+> >>>> From: David Woodhouse <dwmw@amazon.co.uk>
+> >>>>
+> >>>> Add a VIRTIO_PCI_CAP_SWIOTLB capability which advertises a SWIOTLB bounce
+> >>>> buffer similar to the existing `restricted-dma-pool` device-tree feature.
+> >>>>
+> >>>> The difference is that this is per-device; each device needs to have its
+> >>>> own. Perhaps we should add a UUID to the capability, and have a way for
+> >>>> a device to not *provide* its own buffer, but just to reference the UUID
+> >>>> of a buffer elsewhere?
+> >>>>
+> >>>> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> >>>> ---
+> >>>>  transport-pci.tex | 33 +++++++++++++++++++++++++++++++++
+> >>>>  1 file changed, 33 insertions(+)
+> >>>>
+> >>>> diff --git a/transport-pci.tex b/transport-pci.tex
+> >>>> index a5c6719..23e0d57 100644
+> >>>> --- a/transport-pci.tex
+> >>>> +++ b/transport-pci.tex
+> >>>> @@ -129,6 +129,7 @@ \subsection{Virtio Structure PCI Capabilities}\label{sec:Virtio Transport Option
+> >>>>  \item ISR Status
+> >>>>  \item Device-specific configuration (optional)
+> >>>>  \item PCI configuration access
+> >>>> +\item SWIOTLB bounce buffer
+> >>>>  \end{itemize}
+> >>>>  
+> >>>>  Each structure can be mapped by a Base Address register (BAR) belonging to
+> >>>> @@ -188,6 +189,8 @@ \subsection{Virtio Structure PCI Capabilities}\label{sec:Virtio Transport Option
+> >>>>  #define VIRTIO_PCI_CAP_SHARED_MEMORY_CFG 8
+> >>>>  /* Vendor-specific data */
+> >>>>  #define VIRTIO_PCI_CAP_VENDOR_CFG        9
+> >>>> +/* Software IOTLB bounce buffer */
+> >>>> +#define VIRTIO_PCI_CAP_SWIOTLB           10
+> >>>>  \end{lstlisting}
+> >>>>  
+> >>>>          Any other value is reserved for future use.
+> >>>> @@ -744,6 +747,36 @@ \subsubsection{Vendor data capability}\label{sec:Virtio
+> >>>>  The driver MUST qualify the \field{vendor_id} before
+> >>>>  interpreting or writing into the Vendor data capability.
+> >>>>  
+> >>>> +\subsubsection{Software IOTLB bounce buffer capability}\label{sec:Virtio
+> >>>> +Transport Options / Virtio Over PCI Bus / PCI Device Layout /
+> >>>> +Software IOTLB bounce buffer capability}
+> >>>> +
+> >>>> +The optional Software IOTLB bounce buffer capability allows the
+> >>>> +device to provide a memory region which can be used by the driver
+> >>>> +driver for bounce buffering. This allows a device on the PCI
+> >>>> +transport to operate without DMA access to system memory addresses.
+> >>>> +
+> >>>> +The Software IOTLB region is referenced by the
+> >>>> +VIRTIO_PCI_CAP_SWIOTLB capability. Bus addresses within the referenced
+> >>>> +range are not subject to the requirements of the VIRTIO_F_ORDER_PLATFORM
+> >>>> +capability, if negotiated.
+> >>>> +
+> >>>> +\devicenormative{\paragraph}{Software IOTLB bounce buffer capability}{Virtio
+> >>>> +Transport Options / Virtio Over PCI Bus / PCI Device Layout /
+> >>>> +Software IOTLB bounce buffer capability}
+> >>>> +
+> >>>> +Devices which present the Software IOTLB bounce buffer capability
+> >>>> +SHOULD also offer the VIRTIO_F_SWIOTLB feature.
+> >>>> +
+> >>>> +\drivernormative{\paragraph}{Software IOTLB bounce buffer capability}{Virtio
+> >>>> +Transport Options / Virtio Over PCI Bus / PCI Device Layout /
+> >>>> +Software IOTLB bounce buffer capability}
+> >>>> +
+> >>>> +The driver SHOULD use the offered buffer in preference to passing system
+> >>>> +memory addresses to the device. If the driver accepts the VIRTIO_F_SWIOTLB
+> >>>> +feature, then the driver MUST use the offered buffer and never pass system
+> >>>> +memory addresses to the device.
+> >>>> +
+> >>>>  \subsubsection{PCI configuration access capability}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / PCI configuration access capability}
+> >>>>  
+> >>>>  The VIRTIO_PCI_CAP_PCI_CFG capability
+> >>>> -- 
+> >>>> 2.49.0
+> >>>>
+> >>>
+> >>> So on the PCI option. The normal mapping (ioremap) for BAR is uncached. If done
+> >>> like this, performance will suffer. But if you do normal WB, since device
+> >> and this even possibly can cause TLB thrashing.... which is a worse case.
+> >>
+> >> Thanks
+> >> Zhu Lingshan
 > >
-> >
-> > > From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-> > > Sent: Wednesday, April 2, 2025 3:59 PM
-> > >
-> > > On Wed, Apr 2, 2025 at 12:25=E2=80=AFPM Parav Pandit <parav@nvidia.co=
-m> wrote:
-> > > >
-> > > >
-> > > > > From: Cornelia Huck <cohuck@redhat.com>
-> > > > > Sent: Wednesday, April 2, 2025 2:53 PM
-> > > > >
-> > > > > On Tue, Apr 01 2025, Matias Ezequiel Vara Larsen
-> > > > > <mvaralar@redhat.com>
-> > > > > wrote:
-> > > > >
-> > > > > > Backport commits from 1.4 branch into 1.3 in preparation for
-> > > > > > releasing v1.3.
-> > > > > >
-> > > > > > Haixu Cui (1):
-> > > > > >   content: Rename SPI master to SPI controller
-> > > > > >
-> > > > > > Martin Kr=C3=B6ning (1):
-> > > > > >   virtio_pci_cap64: specify offset_hi, length_hi endianness
-> > > > > >
-> > > > > > Paolo Abeni (2):
-> > > > > >   virtio-net: clarify NEEDS_CSUM semantic for GSO packats.
-> > > > > >   virtio-net: clarify DATA_VALID semantic for encap protos.
-> > > > > >
-> > > > > > Parav Pandit (8):
-> > > > > >   conformance: Add missing virtqueue reset conformance referenc=
-es
-> > > > > >   packed-ring: Change host,guest to device,driver
-> > > > > >   description: Avoid splitting the word virtqueue
-> > > > > >   virtio-blk: Fix data type of num_queues field
-> > > > > >   virtio-net: Fix receive buffer size calculation text
-> > > > > >   virtio-net: Clarify the size of the struct virtio_net_hdr for=
- tx
-> > > > > >   virtio-net: Annotate virtio_net_hdr as field
-> > > > > >   gpu: editorial: Fix spelling errors
-> > > > > >
-> > > > > > Steffen Trumtrar (1):
-> > > > > >   virtio-net: Fix receive buffer size typo
-> > > > > >
-> > > > > >  conformance.tex                  |  2 ++
-> > > > > >  content.tex                      |  2 +-
-> > > > > >  device-types/blk/description.tex |  2 +-
-> > > > > > device-types/gpu/description.tex |  6 ++--
-> > > > > > device-types/net/description.tex | 52 +++++++++++++++++++++++--=
--------
-> > > > > >  packed-ring.tex                  |  4 +--
-> > > > > >  transport-pci.tex                |  4 +--
-> > > > > >  7 files changed, 49 insertions(+), 23 deletions(-)
-> > > > > >
-> > > > > >
-> > > > > > base-commit: b495841a8e80d12c1130f8868f4128866291142d
-> > > > >
-> > > > > Looks good to me.
-> > > >
-> > > > I did dry run and was able to merge them to master successfully wit=
-h pdf
-> > > diff too.
-> > > > Do we need a vote for it or because these changes are already voted
-> > > somewhere else or they are editorial, can I merge the changes now?
-> > > >
-> > >
-> > > Cool, thanks. I do not know how this usually works. I was planning to=
- follow
-> > > the normal procedure: 1. open an issue, 2. comment in the thread, 3. =
-open a
-> > > ballot.
-> > >
-> > Sounds good to me.
-> >
-> > We need below fix too.
-> >
-> > 124fcd0 virtio-net: Fix receive buffer size typo
->
-> I think it is in `[PATCH 13/13] virtio-net: Fix receive buffer size typo`=
-.
->
-> Matias
+> > Hmm which TLB? I don't get it.
+> CPU TLB, because a device side bounce buffer design requires mapping
+> device memory to CPU address space, so that CPU to help copy data,
+> and causing a more frequent TLB switch.
 
-Could please open a voting ballot for these changes?
+Lost me here. It's mapped, why switch?
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/220
+> TLB thrashing will occur when many devices doing DMA through
+> the device side bounce buffer, or scattered DMA.
 
-Thanks, Matias.
+Yea I don't think this idea even works. Each device can only use
+its own swiotlb.
+
+> If the bounce buffer resides in the hypervisor, for example QEMU,
+> then TLB switch while QEMU process context switch which already occur all the time.
+> 
+> Thanks
+> Zhu Lingshan
+> >
+> >>> accesses do not go on the bus, they do not get synchronized with driver
+> >>> writes and there's really no way to synchronize them.
+> >>>
+> >>> First, this needs to be addressed.
+> >>>
+> >>> In this age of accelerators for everything, building pci based
+> >>> interfaces that can't be efficiently accelerated seems shortsighted ...
+> >>>
 
