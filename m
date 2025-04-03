@@ -1,129 +1,182 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C2124167F
-	for <virtio-comment@lists.linux.dev>; Thu,  3 Apr 2025 08:14:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69857241688
+	for <virtio-comment@lists.linux.dev>; Thu,  3 Apr 2025 08:14:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743668049; cv=none; b=gJVILS6os6axc7UUMagp+hKBX5JOgXe8PAI8etAmnefD+TkMDMTzTCA/50pJgcT6+155iz6n4lPUUSxLKWDWCoIECkQ1bbcH5OK6FPipWElbo50tWMR3vLd41vZQEjbUhPQ3GhoedRmYd9BWQUICE/Zkklw47XGkqthKLQwWg/w=
+	t=1743668099; cv=none; b=WD+L2tq/OVSbbV3OmS8Xi4jnM1g3ffH1ifD1j2UQh3IR28EmRG4+/1MJczYJ8iRO9kIOO+9se8lj3WIv9jJNrLN61TMypx5Du/bO1NB64Pr3rkfv2S1XZ6lk8c+vwDsnbUqedrQ0X0ow+3Ly36141J6G/81eoR+/L3K/sVPZgjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743668049; c=relaxed/simple;
-	bh=8ljqiGcCt0GZtC0zTI0Y+omskizGFKR2m3xQkFkwDCY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=ESxupj1FNqDw5rzCi4/FpKVyN9zCTkEG3865PCNPh8J4aWEuE1jKp7IcmHZnrz82Ltjbw1jmk/1s1/7jmaFO9lFd5obS02WMtYMwMfg5uzoU+IBruRqwEeT45rJDSk9lhiHCTIkROkSuD9P2DwEOQe214H+QZjjfMq6DvBvd2jU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Istdqy2a; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1743668099; c=relaxed/simple;
+	bh=qs5Dc//XbmmLFt5TtR8y7sEXYZFbnXU8Phb0GgLoAWY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KYzeCmCsi5aQ3rKAkqtdWkM2wbObZh9aUPDRgPCxt81ze2gohj2L3SJKob6ausSyPNCjYnWvzIkdHKGkjmlzMtBJQ9CxGZOSZw24eHCgF+/EjC7JBsC3gOlfmTC2EA874DcAFFuRCV2xR/n17RnYK4NXgKBvtc4jUkJiX5CTiwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VlGnHgVA; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Istdqy2a"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VlGnHgVA"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1743668046;
+	s=mimecast20190719; t=1743668096;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rzWYYjEiaRBeSb8Vj5o/F0qgZqnmjAeBb2PcLQ2qM0A=;
-	b=Istdqy2aql8pku8BsvYLPuALoApc4nA0hBIruC9aLcKMQHCy1AD6vbKoT2O0EdMEt0ZZfC
-	43/eNxS+/+3DbkAgN60GF/BqqiY7Gij7hw2u2mbeiUFtiuZ9IJHNDDkLQcRWc0jpOkIQy5
-	HcbTR9C62TL+dzKYLuDELpwEV/RJEpA=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=m7fIovHPzqzlBjqJSWxBsPjR3AkxviZ81vXe2bJjv6Y=;
+	b=VlGnHgVAf2mbeopKrda1o2d3R1hOn6h3DaEWBozXAYOF4Uf7zESqFUcAaCV1hnI7XK0/gF
+	uMpM5d9oBF3dUStuc0rXuiJSptSKZKpo9GQhEqW2Y4b6tGXUsJG7Tn/JJunHLSxracINTI
+	DyP90+BSEN2SvmFM4JoFp8Wop3cDgCQ=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-642-RtnKS0SnNW6QP2MtvmPvfw-1; Thu, 03 Apr 2025 04:14:05 -0400
-X-MC-Unique: RtnKS0SnNW6QP2MtvmPvfw-1
-X-Mimecast-MFC-AGG-ID: RtnKS0SnNW6QP2MtvmPvfw_1743668044
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-43e9a3d2977so3904705e9.1
-        for <virtio-comment@lists.linux.dev>; Thu, 03 Apr 2025 01:14:04 -0700 (PDT)
+ us-mta-371-tv2ICX6xMf6yZMV_F1S2pg-1; Thu, 03 Apr 2025 04:14:54 -0400
+X-MC-Unique: tv2ICX6xMf6yZMV_F1S2pg-1
+X-Mimecast-MFC-AGG-ID: tv2ICX6xMf6yZMV_F1S2pg_1743668094
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-ac31adc55e4so53908866b.3
+        for <virtio-comment@lists.linux.dev>; Thu, 03 Apr 2025 01:14:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743668043; x=1744272843;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rzWYYjEiaRBeSb8Vj5o/F0qgZqnmjAeBb2PcLQ2qM0A=;
-        b=vTcKHHTCxDtd7hPYB5lrQbDjM6HqTPT1LhtMb7rQvp+nvaGHOCpGuiJNZRYyoiV2m0
-         5bHDyF9Gq85HChe85BzS5bOkUeUBvIxQzEZb2lSOQ/OQc6AphMGw5opWNP+0lLd3SAdV
-         M7+y5qmioOtAWYWuHE/wkGtlPjXtWW5JfhnwDjySSg0+9pC/fD+evmfmCODfS717rb4Z
-         PHB/sNQ0hzgQ+WsPdxtqq8uI2ZS7kj+Fecc3u0B7yUfTCuHDwxHTYPHZKY5DKooRGEMx
-         /ab78eEbwogNdUixdRqWiQ/fXAXiKbj407UhsoFsIK7/Z6L+TlMoGzhJSiJPVYF/o+n6
-         JACQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXwsGORDCPHWIhWgV0DY9zIAg1+F6xWaYb2OonizHT94V6MRjYxhN22VB1oO4wXRxQHsOC0CCnTjz6rUrumlA==@lists.linux.dev
-X-Gm-Message-State: AOJu0YwnA/ZyOPNmKcRwEGRe/FyW/ggLC1QGd/LVENbWy93h2NIkXzrF
-	UepHiRFVX1HlvY5GCpEKlZxLUxo5en82nhwUHOG38TFT61oBEkbZ/cAArJRKofnQi3PehH5jEFY
-	QloYWWG1K+XXkB4NmcIdOzWodw402mkec87xRePJYi5Hwfi0XbQRBas7vmCeDHmr17E3MEV4c
-X-Gm-Gg: ASbGncte4teplSD9iGwK6D/I+25VjkYvLz45wdLTQ/Pm+UroQq9uRNvWsCNLbj+6BeT
-	BpqJqTWl2vgJJxfCYQgkd6gQ+UWLZAyyfCfJGWoJLf1kCNCnOfxIS/bjF5iyYHenJ9OB56AJWp5
-	1tHQBkelksXJcUbW3xXHn3jIaAPGa3YFnXTCOJWdgFZ3/BFBNaNlz+vCEqJeuXROwSE00rRh575
-	7MfBK97jLP1DTQwAnt9O6I+9GvUDaeqI0NGbR4k6QSIlbvE/FsyyJZwyfxNIvzR6lcH9G4gtzNd
-	xpQcf7Ichw==
-X-Received: by 2002:a05:6000:1788:b0:399:7f43:b3a4 with SMTP id ffacd0b85a97d-39c120e088cmr16478330f8f.24.1743668043526;
-        Thu, 03 Apr 2025 01:14:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFCqc+UbMw4reOC94Om0ACCo9roOZqNjIluH63XAEl0e6Z4bIUmGEN7/qCnuIYAa0IiNtTjgg==
-X-Received: by 2002:a05:6000:1788:b0:399:7f43:b3a4 with SMTP id ffacd0b85a97d-39c120e088cmr16478308f8f.24.1743668043180;
-        Thu, 03 Apr 2025 01:14:03 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:1517:1000:ea83:8e5f:3302:3575])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-39c301b9d55sm1070866f8f.42.2025.04.03.01.14.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Apr 2025 01:14:02 -0700 (PDT)
-Date: Thu, 3 Apr 2025 04:13:59 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: Zhu Lingshan <lingshan.zhu@amd.com>, virtio-comment@lists.linux.dev,
-	hch@infradead.org, Claire Chang <tientzu@chromium.org>,
-	linux-devicetree <devicetree@vger.kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	=?iso-8859-1?Q?J=F6rg?= Roedel <joro@8bytes.org>,
-	iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
-	graf@amazon.de
-Subject: Re: [RFC PATCH 1/3] content: Add VIRTIO_F_SWIOTLB to negotiate use
- of SWIOTLB bounce buffers
-Message-ID: <20250403040643-mutt-send-email-mst@kernel.org>
-References: <20250402112410.2086892-1-dwmw2@infradead.org>
- <20250402112410.2086892-2-dwmw2@infradead.org>
- <1966cbf1-a430-480e-a78d-3d6bbcb4ada4@amd.com>
- <20250403033230-mutt-send-email-mst@kernel.org>
- <59be937432fe73b5781ecb04aad501ae5a11be23.camel@infradead.org>
+        d=1e100.net; s=20230601; t=1743668094; x=1744272894;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=m7fIovHPzqzlBjqJSWxBsPjR3AkxviZ81vXe2bJjv6Y=;
+        b=RVJcC+y35LOjm6X2MupFPvbL9+SftXgkgcANKpiZ6LqYdcdBhD9g64K8GxVD2lz8Dv
+         +T8o+umEqeMHb7DzwJqVS1h4GizA7TLpiETnzXQ7dr4hVwqKBU/UX+HkvGputexuLBgK
+         3NPRUAw/IuzeuELK3rg1QzjW7WdKIa2cU+N+4avLt+DQEjG9SqZ6BstTtT3w0rdHTj22
+         geDDUmPsigr44YsKxECN+4rMurLIz1NqQoo2oKqLRlsTHk46jMjoxAxmuPo6zmhOtg8m
+         jhQH98S2YEQfwJsR1TKZ4L4YGTJJOAT8WwJl2Y0Y0aE5XHupB646aL2yAE4vxqG59zA8
+         T7yw==
+X-Forwarded-Encrypted: i=1; AJvYcCXfDwwFeLg+yzd2+MExkoWaRMSK4kMwCUT36v0+L/fm4ixr/UKVppEeE26q8iII3pAvS/e2vomlW+i5HsYP+Q==@lists.linux.dev
+X-Gm-Message-State: AOJu0YwcWOZXyutGZj/AfCRhz0UwWVsy4V0YwlXgn1cqsHpr+fsyn990
+	LqaJ5RG8mMR51SCi+AoeFHmnPcUrvmUJ4u3OTzKKtgF28jeX5nYeE2j5GQl8v+lMoC+8U4KCZiU
+	K8cChMXIdqBl9ZFEJc4lDTPHV23VAw0lD1/eML8iXFFJIm+1X7bpxyBRB686Y5tVx6LrNGRqALt
+	YITNT8w4zQPnUDjuDM3yRsn1puCBBoSAqs/jZQp04=
+X-Gm-Gg: ASbGnctwEu0jqE91FL8eo6KGZv6Aml8QwaPJMCtdtW+NU7JY6F2IVlnfs6HN5q4Ftc1
+	OE2u9mQHzfEWxnaxtJsLuY7mFgzm68iVJjC0tzKZUiSPFTqb9Jg4bMXarGQtasuoB0Q2tq8n7B+
+	u5D/pWWxJdj0dQuj2ry5OVZf/mDYkD
+X-Received: by 2002:a17:906:d204:b0:ac3:f0a3:582e with SMTP id a640c23a62f3a-ac7c0a558ccmr98185166b.41.1743668093653;
+        Thu, 03 Apr 2025 01:14:53 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG+KPUrSZD14Zwb67FalGQiou11JHLP5270rwaOCVmtcXWjkwQl+rQtPMdLo6QaCoCzUjDtHU8MnEqWdY3bdCY=
+X-Received: by 2002:a17:906:d204:b0:ac3:f0a3:582e with SMTP id
+ a640c23a62f3a-ac7c0a558ccmr98182866b.41.1743668093201; Thu, 03 Apr 2025
+ 01:14:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <59be937432fe73b5781ecb04aad501ae5a11be23.camel@infradead.org>
+References: <20250401133543.801184-1-mvaralar@redhat.com> <87y0wiapex.fsf@redhat.com>
+ <CY8PR12MB71956AADC6DBE9891FE9CA9BDCAF2@CY8PR12MB7195.namprd12.prod.outlook.com>
+ <CAHYGQ0x2_QtLBrMmxmzcdNUki5Xjjhvg7e=khYVFWbtnGrYgvQ@mail.gmail.com>
+ <CY8PR12MB7195C055D9C78F68CCD1AE61DCAF2@CY8PR12MB7195.namprd12.prod.outlook.com>
+ <CAHYGQ0z69kwemGBahoEBz7Est8+8e2GjsFH_Xx-kA=51iomMqQ@mail.gmail.com>
+In-Reply-To: <CAHYGQ0z69kwemGBahoEBz7Est8+8e2GjsFH_Xx-kA=51iomMqQ@mail.gmail.com>
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+Date: Thu, 3 Apr 2025 10:14:42 +0200
+X-Gm-Features: ATxdqUF9ntjZBjO0PG04htOgZ95bTjUGe4Hl7pd09hPGZQ5Qoc7GTbAYukb8Dds
+Message-ID: <CAHYGQ0xfGzxqgBsZuyH7-WPTobkKq+fw+z_G5nq4xyJdzPvmbA@mail.gmail.com>
+Subject: Re: [PATCH 00/13] Backport 1.4 fixes to 1.3
+To: Parav Pandit <parav@nvidia.com>
+Cc: Cornelia Huck <cohuck@redhat.com>, 
+	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, "mst@redhat.com" <mst@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: lTBogPtNP2niBsjXr7aovZcq96RYxhXa-Kig0Dgybko_1743668044
+X-Mimecast-MFC-PROC-ID: 0aA3tVQZwmbDnJ2tCbFGOHHeLaBDVnvMaZZL4N5cnF0_1743668094
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 03, 2025 at 08:54:45AM +0100, David Woodhouse wrote:
-> On Thu, 2025-04-03 at 03:34 -0400, Michael S. Tsirkin wrote:
-> > 
-> > Indeed I personally do not exactly get why implement a virtual system
-> > without an IOMMU when virtio-iommu is available.
-> > 
-> > I have a feeling it's about lack of windows drivers for virtio-iommu
-> > at this point.
-> 
-> And a pKVM (etc.) implementation of virtio-iommu which would allow the
-> *trusted* part of the hypervisor to know which guest memory should be
-> shared with the VMM implementing the virtio device models?
+On Wed, Apr 2, 2025 at 5:24=E2=80=AFPM Matias Ezequiel Vara Larsen
+<mvaralar@redhat.com> wrote:
+>
+> On Wed, Apr 2, 2025 at 12:59=E2=80=AFPM Parav Pandit <parav@nvidia.com> w=
+rote:
+> >
+> >
+> > > From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+> > > Sent: Wednesday, April 2, 2025 3:59 PM
+> > >
+> > > On Wed, Apr 2, 2025 at 12:25=E2=80=AFPM Parav Pandit <parav@nvidia.co=
+m> wrote:
+> > > >
+> > > >
+> > > > > From: Cornelia Huck <cohuck@redhat.com>
+> > > > > Sent: Wednesday, April 2, 2025 2:53 PM
+> > > > >
+> > > > > On Tue, Apr 01 2025, Matias Ezequiel Vara Larsen
+> > > > > <mvaralar@redhat.com>
+> > > > > wrote:
+> > > > >
+> > > > > > Backport commits from 1.4 branch into 1.3 in preparation for
+> > > > > > releasing v1.3.
+> > > > > >
+> > > > > > Haixu Cui (1):
+> > > > > >   content: Rename SPI master to SPI controller
+> > > > > >
+> > > > > > Martin Kr=C3=B6ning (1):
+> > > > > >   virtio_pci_cap64: specify offset_hi, length_hi endianness
+> > > > > >
+> > > > > > Paolo Abeni (2):
+> > > > > >   virtio-net: clarify NEEDS_CSUM semantic for GSO packats.
+> > > > > >   virtio-net: clarify DATA_VALID semantic for encap protos.
+> > > > > >
+> > > > > > Parav Pandit (8):
+> > > > > >   conformance: Add missing virtqueue reset conformance referenc=
+es
+> > > > > >   packed-ring: Change host,guest to device,driver
+> > > > > >   description: Avoid splitting the word virtqueue
+> > > > > >   virtio-blk: Fix data type of num_queues field
+> > > > > >   virtio-net: Fix receive buffer size calculation text
+> > > > > >   virtio-net: Clarify the size of the struct virtio_net_hdr for=
+ tx
+> > > > > >   virtio-net: Annotate virtio_net_hdr as field
+> > > > > >   gpu: editorial: Fix spelling errors
+> > > > > >
+> > > > > > Steffen Trumtrar (1):
+> > > > > >   virtio-net: Fix receive buffer size typo
+> > > > > >
+> > > > > >  conformance.tex                  |  2 ++
+> > > > > >  content.tex                      |  2 +-
+> > > > > >  device-types/blk/description.tex |  2 +-
+> > > > > > device-types/gpu/description.tex |  6 ++--
+> > > > > > device-types/net/description.tex | 52 +++++++++++++++++++++++--=
+-------
+> > > > > >  packed-ring.tex                  |  4 +--
+> > > > > >  transport-pci.tex                |  4 +--
+> > > > > >  7 files changed, 49 insertions(+), 23 deletions(-)
+> > > > > >
+> > > > > >
+> > > > > > base-commit: b495841a8e80d12c1130f8868f4128866291142d
+> > > > >
+> > > > > Looks good to me.
+> > > >
+> > > > I did dry run and was able to merge them to master successfully wit=
+h pdf
+> > > diff too.
+> > > > Do we need a vote for it or because these changes are already voted
+> > > somewhere else or they are editorial, can I merge the changes now?
+> > > >
+> > >
+> > > Cool, thanks. I do not know how this usually works. I was planning to=
+ follow
+> > > the normal procedure: 1. open an issue, 2. comment in the thread, 3. =
+open a
+> > > ballot.
+> > >
+> > Sounds good to me.
+> >
+> > We need below fix too.
+> >
+> > 124fcd0 virtio-net: Fix receive buffer size typo
+>
+> I think it is in `[PATCH 13/13] virtio-net: Fix receive buffer size typo`=
+.
+>
+> Matias
 
-Is there a blocker here?
+Could please open a voting ballot for these changes?
 
-> You'd also end up in a situation where you have a virtio-iommu for some
-> devices, and a real two-stage IOMMU (e.g. SMMU or AMD's vIOMMU) for
-> other devices. Are guest operating systems going to cope well with
-> that?
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/220
 
-They should. In particular because systems with multiple IOMMUs already
-exist.
-
-> Do the available discovery mechanisms for all the relevant IOMMUs
-> even *allow* for that to be expressed?
-
-I think yes. But, it's been a while since I played with this, let me
-check what works, what does not, and get back to you on this.
-
--- 
-MST
-
+Thanks, Matias.
 
