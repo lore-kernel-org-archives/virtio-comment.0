@@ -1,214 +1,214 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F9C1991C1
-	for <virtio-comment@lists.linux.dev>; Thu,  3 Apr 2025 08:16:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5EE224B15;
+	Thu,  3 Apr 2025 08:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743668193; cv=none; b=aKcs28JBoxGK6JsmRduYXU5QB+CBeMgT8dzsvd7usil3AhrIdYMKkhDs5akS049wYr5g0UIrgTCqWeu7S7zw6cqy0TorH9KbJUW/KpWjp+uCdaZdCv6PnycTKxTjvpteiCjGZXboovSXqPrNrdkR6ikgX4rPY5R9rM+/gp1J6ZU=
+	t=1743668581; cv=none; b=YIwyJmv/bw83BgpCIXEpI7pmCN9vAR6k6J9DVP00kxz4nKRjaTiXb7QXEQU9P3SKj8Wq0SmKSoFz6tdcd1SrH8MFbxv5pEmUj9gHz1HAvDjx3I4OUjFU1iG4IyC3kZlMYclpZ6CnDthUa6TDd61cJL3B0J1xKftH4sw+qUCXtvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743668193; c=relaxed/simple;
-	bh=GWwbMSZcEnPjv8a/YQDtHhLzZikLoFIojw/ld2qRZwk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=g0t9UbyZ54MuB18fTPJ0UZfk1Agzhub65N/0ifbJ3ddRJofbZrttlVKKhlfqCqr7bFaH/tsHJxrmsVwrIswlVW1tNAFKUQUO9WBvpIi38YsS04dTVA387m+Ta/l3ipIFoDMsLsd6swj/G0N3k6QGhDLIZ08G9fKfXLXWdxfCWI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WN6pG0Zz; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1743668581; c=relaxed/simple;
+	bh=QysrNo7bPLz+xumBlVzsWzdRyZrvyMtoWZ7xvstxwuc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jc6ovKIbsYFR6+esCyA5y7omTVy3TOMA8qk5JGHgERfuI4N2bcto83VcsPWJNWkUd/JwwnFqV3nmcgJZ+OV7SwHSDU8NiAzfjvUpkT3Jy8PWEyZGN3jI3fUjFkLKhtrjh8sw02RuoWPeccoNEUBEhAhLfd1ZChBl7OCt7X4udhA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=WsE1DMig; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WN6pG0Zz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1743668190;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AMjMT1SJKidKNaVJP0NOddv08RtyFnxBqT7a9qmfnH4=;
-	b=WN6pG0ZzlTB73ZYS49/8nbdNbRd0ZZrR5tXpkFbtMDxJfRPY6sGPAw5WkgcTuqDGhzGR5z
-	VoqzkM0tF7nD9ZY1TY084i/lC7MIiynMkcSWpwE7xaJIMlpzVVKR4AAc97WeX4C2YF1U1l
-	/DVkcU8qGYaPRo3vPOAo/4AIW42CxL4=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-137-nexepG8XOkit07J4UenkeQ-1; Thu, 03 Apr 2025 04:16:29 -0400
-X-MC-Unique: nexepG8XOkit07J4UenkeQ-1
-X-Mimecast-MFC-AGG-ID: nexepG8XOkit07J4UenkeQ_1743668188
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-3912a0439afso269238f8f.3
-        for <virtio-comment@lists.linux.dev>; Thu, 03 Apr 2025 01:16:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743668188; x=1744272988;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AMjMT1SJKidKNaVJP0NOddv08RtyFnxBqT7a9qmfnH4=;
-        b=qtWqTMhVenybmODkSDZFoTfHQqG4/uQD4lQ5RChWR3IQ+KXbVoVQhd536iEwc7ZmYE
-         bW3Ul32SqMCr7RvhMshA8QgiaUiOuXGl2LNlyiiKboFsC0tUu34I8i+yYK1bhnZbJatT
-         /kmNDES7TJ7CJRlYGxZfKuWGYk1NamanmCJZ0DeFcPjvZqQnXaqk7FBxI3NqxfQGKs42
-         oPFN8ekkk8YkMqMM0jhqjJiwsnVKgsUun9dpfBYdF0mzI6BEWEDihteucaxIc6oahbQa
-         A25NxSHh4iZe71RP8SODOzdlBz94XOcZ1ZKrNNBU90THN80v8rhWkJhlbYjNlaIIssya
-         Zt0g==
-X-Forwarded-Encrypted: i=1; AJvYcCVHB38hIXsnN2dRaiRgcVuMj809vkNh4eyOcpnXH3+hn+G9OllRGexrvFgS1V58nRHG2KMBI99pxThX4YCpgw==@lists.linux.dev
-X-Gm-Message-State: AOJu0YyquVhqvzzXi/kjJ7c0VFgGI7KnyPnHBR8Ha1uB9O7OAt5ODHnN
-	ckTZJ+xdpMvF/xBxVxhb273utKm/TU1zhJj3Zs3jw4AOg4/D1hOihwX0i77mWKG/zN9SCeGS8BA
-	Co/E+Aj6shHqWPGXuTe4XbhZjzMc8ts7nAHcJ2cNBwV/IZuWqz70l3sb9cd42x7F7eCShyMIQ
-X-Gm-Gg: ASbGncvY7BBaDD3ncYamMdLdsaM3TdTQqlLyyH3p8yMXYyiWOP7TRpl9ieSHxb10DYl
-	vcWtrbCZdPKKkEcdo6WASHLxzA55ckoQ3kMUvmbab20p+Vm3Qoc8qC4XQtVikY6JRpj0srjxB3r
-	6iTxqeMCTUI7AheDbbIeqAyLJ5dxoaCi35nt8MuYJ6ojdjNqk2ZN4cdEkx4sWycTWTAvSmJXer2
-	0mBgnkRGjg7bihMKnUXIOm9kA0pRTlXhlfv3BH7vn+2wkA3nUOQR/dhpNv7rP0Q5l/bB0qqoJCc
-	YQiyFIiX7Q==
-X-Received: by 2002:a5d:64c9:0:b0:39c:1f10:ba54 with SMTP id ffacd0b85a97d-39c29769561mr4806604f8f.35.1743668187997;
-        Thu, 03 Apr 2025 01:16:27 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEfoZZSHHa6ypQcxrzlOMGNw4qiS4wPoWXMjv/Vi3mNeeAHklcIJVDTjhIMU8Wa13rlzMTysw==
-X-Received: by 2002:a5d:64c9:0:b0:39c:1f10:ba54 with SMTP id ffacd0b85a97d-39c29769561mr4806574f8f.35.1743668187615;
-        Thu, 03 Apr 2025 01:16:27 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:1517:1000:ea83:8e5f:3302:3575])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-39c30096bb2sm1118566f8f.12.2025.04.03.01.16.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Apr 2025 01:16:26 -0700 (PDT)
-Date: Thu, 3 Apr 2025 04:16:24 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Zhu Lingshan <lingshan.zhu@amd.com>
-Cc: David Woodhouse <dwmw2@infradead.org>, virtio-comment@lists.linux.dev,
-	hch@infradead.org, Claire Chang <tientzu@chromium.org>,
-	linux-devicetree <devicetree@vger.kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	=?iso-8859-1?Q?J=F6rg?= Roedel <joro@8bytes.org>,
-	iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
-	graf@amazon.de
-Subject: Re: [RFC PATCH 3/3] transport-pci: Add SWIOTLB bounce buffer
- capability
-Message-ID: <20250403041519-mutt-send-email-mst@kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="WsE1DMig"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=QysrNo7bPLz+xumBlVzsWzdRyZrvyMtoWZ7xvstxwuc=; b=WsE1DMigNubE/ElPwA1FimdHaC
+	hOH7jqsRk0cHaUKl97SNwwaCkk0IxlCO/ix/nvrjkE0jCR6Y19Ip3ShPteNUcuQXRL65SpZcbhXCW
+	4MYO/XMSC+04NyAUNPTvHRxkOPMOHOs6pqlEGRDbLh+jURh0CU8xGLMlwgoBMFTT8OUq0WpxfD34U
+	a2mFnHYEbDR/jzUbqQLUZ83D8G7m3gQxlfBIZ5gwec+HsJpy5+D6xf+tPjCqyP9ozErFLIeYez1KM
+	Bd4pUCNm5i9UeOrSefB2iedeqzV0+0XHbTpsQ79D1C2WI5A1Hjx0Kiq5Kk1vey8eRjCq68chHXagz
+	AZaCtIfQ==;
+Received: from [172.31.31.145] (helo=u09cd745991455d.ant.amazon.com)
+	by desiato.infradead.org with esmtpsa (Exim 4.98.1 #2 (Red Hat Linux))
+	id 1u0Fqj-000000079gE-0oYN;
+	Thu, 03 Apr 2025 08:22:57 +0000
+Message-ID: <0261dfd09a5c548c1a0f56c89c7302e9701b630d.camel@infradead.org>
+Subject: Re: [RFC PATCH 1/3] content: Add VIRTIO_F_SWIOTLB to negotiate use
+ of SWIOTLB bounce buffers
+From: David Woodhouse <dwmw2@infradead.org>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Zhu Lingshan <lingshan.zhu@amd.com>, virtio-comment@lists.linux.dev, 
+	hch@infradead.org, Claire Chang <tientzu@chromium.org>, linux-devicetree
+	 <devicetree@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>, 
+ =?ISO-8859-1?Q?J=F6rg?= Roedel
+	 <joro@8bytes.org>, iommu@lists.linux-foundation.org, 
+	linux-kernel@vger.kernel.org, graf@amazon.de
+Date: Thu, 03 Apr 2025 09:22:57 +0100
+In-Reply-To: <20250403040643-mutt-send-email-mst@kernel.org>
 References: <20250402112410.2086892-1-dwmw2@infradead.org>
- <20250402112410.2086892-4-dwmw2@infradead.org>
- <20250403032152-mutt-send-email-mst@kernel.org>
- <9635c502-3635-4875-ae1f-53b4b7aed855@amd.com>
- <20250403033718-mutt-send-email-mst@kernel.org>
- <d151e78f-aed2-49c7-8f59-abb23db4cbf4@amd.com>
+	 <20250402112410.2086892-2-dwmw2@infradead.org>
+	 <1966cbf1-a430-480e-a78d-3d6bbcb4ada4@amd.com>
+	 <20250403033230-mutt-send-email-mst@kernel.org>
+	 <59be937432fe73b5781ecb04aad501ae5a11be23.camel@infradead.org>
+	 <20250403040643-mutt-send-email-mst@kernel.org>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-Pdiw6S/CK/grIWdI4MBF"
+User-Agent: Evolution 3.52.3-0ubuntu1 
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <d151e78f-aed2-49c7-8f59-abb23db4cbf4@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: uPAcZIemhvaFio0kGvcBpoERaOfXPrjA-qHd4uLsZwg_1743668188
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-On Thu, Apr 03, 2025 at 04:12:20PM +0800, Zhu Lingshan wrote:
-> On 4/3/2025 3:37 PM, Michael S. Tsirkin wrote:
-> > On Thu, Apr 03, 2025 at 03:36:04PM +0800, Zhu Lingshan wrote:
-> >> On 4/3/2025 3:27 PM, Michael S. Tsirkin wrote:
-> >>> On Wed, Apr 02, 2025 at 12:04:47PM +0100, David Woodhouse wrote:
-> >>>> From: David Woodhouse <dwmw@amazon.co.uk>
-> >>>>
-> >>>> Add a VIRTIO_PCI_CAP_SWIOTLB capability which advertises a SWIOTLB bounce
-> >>>> buffer similar to the existing `restricted-dma-pool` device-tree feature.
-> >>>>
-> >>>> The difference is that this is per-device; each device needs to have its
-> >>>> own. Perhaps we should add a UUID to the capability, and have a way for
-> >>>> a device to not *provide* its own buffer, but just to reference the UUID
-> >>>> of a buffer elsewhere?
-> >>>>
-> >>>> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> >>>> ---
-> >>>>  transport-pci.tex | 33 +++++++++++++++++++++++++++++++++
-> >>>>  1 file changed, 33 insertions(+)
-> >>>>
-> >>>> diff --git a/transport-pci.tex b/transport-pci.tex
-> >>>> index a5c6719..23e0d57 100644
-> >>>> --- a/transport-pci.tex
-> >>>> +++ b/transport-pci.tex
-> >>>> @@ -129,6 +129,7 @@ \subsection{Virtio Structure PCI Capabilities}\label{sec:Virtio Transport Option
-> >>>>  \item ISR Status
-> >>>>  \item Device-specific configuration (optional)
-> >>>>  \item PCI configuration access
-> >>>> +\item SWIOTLB bounce buffer
-> >>>>  \end{itemize}
-> >>>>  
-> >>>>  Each structure can be mapped by a Base Address register (BAR) belonging to
-> >>>> @@ -188,6 +189,8 @@ \subsection{Virtio Structure PCI Capabilities}\label{sec:Virtio Transport Option
-> >>>>  #define VIRTIO_PCI_CAP_SHARED_MEMORY_CFG 8
-> >>>>  /* Vendor-specific data */
-> >>>>  #define VIRTIO_PCI_CAP_VENDOR_CFG        9
-> >>>> +/* Software IOTLB bounce buffer */
-> >>>> +#define VIRTIO_PCI_CAP_SWIOTLB           10
-> >>>>  \end{lstlisting}
-> >>>>  
-> >>>>          Any other value is reserved for future use.
-> >>>> @@ -744,6 +747,36 @@ \subsubsection{Vendor data capability}\label{sec:Virtio
-> >>>>  The driver MUST qualify the \field{vendor_id} before
-> >>>>  interpreting or writing into the Vendor data capability.
-> >>>>  
-> >>>> +\subsubsection{Software IOTLB bounce buffer capability}\label{sec:Virtio
-> >>>> +Transport Options / Virtio Over PCI Bus / PCI Device Layout /
-> >>>> +Software IOTLB bounce buffer capability}
-> >>>> +
-> >>>> +The optional Software IOTLB bounce buffer capability allows the
-> >>>> +device to provide a memory region which can be used by the driver
-> >>>> +driver for bounce buffering. This allows a device on the PCI
-> >>>> +transport to operate without DMA access to system memory addresses.
-> >>>> +
-> >>>> +The Software IOTLB region is referenced by the
-> >>>> +VIRTIO_PCI_CAP_SWIOTLB capability. Bus addresses within the referenced
-> >>>> +range are not subject to the requirements of the VIRTIO_F_ORDER_PLATFORM
-> >>>> +capability, if negotiated.
-> >>>> +
-> >>>> +\devicenormative{\paragraph}{Software IOTLB bounce buffer capability}{Virtio
-> >>>> +Transport Options / Virtio Over PCI Bus / PCI Device Layout /
-> >>>> +Software IOTLB bounce buffer capability}
-> >>>> +
-> >>>> +Devices which present the Software IOTLB bounce buffer capability
-> >>>> +SHOULD also offer the VIRTIO_F_SWIOTLB feature.
-> >>>> +
-> >>>> +\drivernormative{\paragraph}{Software IOTLB bounce buffer capability}{Virtio
-> >>>> +Transport Options / Virtio Over PCI Bus / PCI Device Layout /
-> >>>> +Software IOTLB bounce buffer capability}
-> >>>> +
-> >>>> +The driver SHOULD use the offered buffer in preference to passing system
-> >>>> +memory addresses to the device. If the driver accepts the VIRTIO_F_SWIOTLB
-> >>>> +feature, then the driver MUST use the offered buffer and never pass system
-> >>>> +memory addresses to the device.
-> >>>> +
-> >>>>  \subsubsection{PCI configuration access capability}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / PCI configuration access capability}
-> >>>>  
-> >>>>  The VIRTIO_PCI_CAP_PCI_CFG capability
-> >>>> -- 
-> >>>> 2.49.0
-> >>>>
-> >>>
-> >>> So on the PCI option. The normal mapping (ioremap) for BAR is uncached. If done
-> >>> like this, performance will suffer. But if you do normal WB, since device
-> >> and this even possibly can cause TLB thrashing.... which is a worse case.
-> >>
-> >> Thanks
-> >> Zhu Lingshan
-> >
-> > Hmm which TLB? I don't get it.
-> CPU TLB, because a device side bounce buffer design requires mapping
-> device memory to CPU address space, so that CPU to help copy data,
-> and causing a more frequent TLB switch.
 
-Lost me here. It's mapped, why switch?
+--=-Pdiw6S/CK/grIWdI4MBF
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> TLB thrashing will occur when many devices doing DMA through
-> the device side bounce buffer, or scattered DMA.
+On Thu, 2025-04-03 at 04:13 -0400, Michael S. Tsirkin wrote:
+> On Thu, Apr 03, 2025 at 08:54:45AM +0100, David Woodhouse wrote:
+> > On Thu, 2025-04-03 at 03:34 -0400, Michael S. Tsirkin wrote:
+> > >=20
+> > > Indeed I personally do not exactly get why implement a virtual system
+> > > without an IOMMU when virtio-iommu is available.
+> > >=20
+> > > I have a feeling it's about lack of windows drivers for virtio-iommu
+> > > at this point.
+> >=20
+> > And a pKVM (etc.) implementation of virtio-iommu which would allow the
+> > *trusted* part of the hypervisor to know which guest memory should be
+> > shared with the VMM implementing the virtio device models?
+>=20
+> Is there a blocker here?
 
-Yea I don't think this idea even works. Each device can only use
-its own swiotlb.
+Only the amount of complexity in what should be a minimal Trusted
+Compute Base. (And ideally subject to formal methods of proving its
+correctness too.)
 
-> If the bounce buffer resides in the hypervisor, for example QEMU,
-> then TLB switch while QEMU process context switch which already occur all the time.
-> 
-> Thanks
-> Zhu Lingshan
-> >
-> >>> accesses do not go on the bus, they do not get synchronized with driver
-> >>> writes and there's really no way to synchronize them.
-> >>>
-> >>> First, this needs to be addressed.
-> >>>
-> >>> In this age of accelerators for everything, building pci based
-> >>> interfaces that can't be efficiently accelerated seems shortsighted ...
-> >>>
+And frankly, if we were going to accept a virtio-iommu in the TCB why
+not just implement enough virtqueue knowledge to build something where
+the trusted part just snoops on the *actual* e.g. virtio-net device to
+know which buffers the VMM was *invited* to access, and facilitate
+that?
 
+We looked at doing that. It's awful.
+
+> > You'd also end up in a situation where you have a virtio-iommu for some
+> > devices, and a real two-stage IOMMU (e.g. SMMU or AMD's vIOMMU) for
+> > other devices. Are guest operating systems going to cope well with
+> > that?
+>=20
+> They should. In particular because systems with multiple IOMMUs already
+> exist.
+>=20
+> > Do the available discovery mechanisms for all the relevant IOMMUs
+> > even *allow* for that to be expressed?
+>=20
+> I think yes. But, it's been a while since I played with this, let me
+> check what works, what does not, and get back to you on this.
+
+Even if it could work in theory, I'll be astonished if it actually
+works in practice across a wide set of operating systems, and if it
+*ever* works for Windows.
+
+Compared with the simple option of presenting a device which
+conceptually doesn't even *do* DMA, which is confined to its own
+modular device driver...=20
+
+--=-Pdiw6S/CK/grIWdI4MBF
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
+ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
+MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
+a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
+jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
+GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
+aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
+nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
+8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
+IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
+KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
+BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
+QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
+QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
+ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
+/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
+uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
+xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
+W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
+c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
+VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
+NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
+DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
+sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
+w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
+i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
+kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
+0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
+ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
+blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
+hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
+VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
+HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
+ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
+AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
+cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
+cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
+AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
+aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
+hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
+iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
+8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
+JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
+xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
+EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
+B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
+MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
+KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
+Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
+nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
+WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
+W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
+nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
+g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
+9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
+9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
+sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
+a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
+ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
+AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
+dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
+MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
+YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
+4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
+6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
+QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
+nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
+MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
+VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
+ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDQwMzA4MjI1
+N1owLwYJKoZIhvcNAQkEMSIEIPDnXL7rjX26Zxk2dPd3Eni7pwjbtBp6czBQnSfHavgrMGQGCSsG
+AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
+cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
+VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
+cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAXdhL63eh2FK+
+srnMaDCKSvv9AtrM6Jiq5JYrcvvCkMOBDxueApYSEZrJn0nNQ6wJT/qHfKiPDbZHFaemOIAGnxrU
+WsOz9EqRStedTDIeJvuEPArVTpuCEkhaF4b2Up5jyTyyS079+jntN4yiFir9DM4dM9c+95dJr8H1
+xltJrFnmg+p0h4B7xq6w+im9TR3taHuHBw/g9OcchcTsQZUfycA2JKGcohv7qK7gGKYjHogyONFp
+7jl38Ic4C7lWX5ncHG2qyKMCgS1K0ofjgLDdmD8/1GXtaFz/2gSLdSiM7Jrj4aMUygm6pRNdnY24
+5pgrrm+gEjMCosuLiRKRcX2gSx5AcGunzGCty+NKwMgc4sb3PgI2TepX5Ypb84b5Csrs2VOLp39H
+xbUqidwH/DoY/DArmIgDCBJSJSpJ38/qlTcxvtw70WMftq1h58Ori9WhjQU3qwG+EL7/OYpGZrEa
+WU0BXqBJgV0HaAZz9/D519BngflCyWTjr0ho7KohshS0vsmglyIUH33oFCkMyjbWoudY5HHMLz6l
+1eDEhOJKdu7r86C+JXKY3C9eEriiprjaWmNhaZG8YK7j0S04jCZ0G0lGrTA3m8svvOweLWb3mHAk
+lAG8IgJbxZIy/5HSyVIZk95ox7wdz7nI5b/OTj6qtsAkRYeom55iE6bPdp0i0xMAAAAAAAA=
+
+
+--=-Pdiw6S/CK/grIWdI4MBF--
