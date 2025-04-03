@@ -1,60 +1,54 @@
 Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6201D7081A;
-	Thu,  3 Apr 2025 07:45:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDCBD241672;
+	Thu,  3 Apr 2025 07:54:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1743666327; cv=none; b=n9y729vY6GHt6uWqrfrvwdjo49bpMOAJ17taX/gQb4cXuN9FRedknmmEi0VPlwFTWujDyC9iwURIc2tR/PhWtqWjbd1nT1bQTJmNWPUoLqNPiWckT7/sWo2ok21xNPgnkZhGu4jLMOryUYnOVPO4OTp/z/SNrU8NlN0woXXzuJE=
+	t=1743666890; cv=none; b=OmuX1i2Ydk0fPJrPwGKx+qUbmgobR+QJ0/3SDFk/4tw4CBf7nz2N9mthojAkU2cewbwQbJaMAUPTLe54bGaiEdagcWWTdlObRnztdxdRO84/prqd2vsn3EkmCNf/Y0+05DeMugtNQWiaGBn4Vv1mfcJSqWxLEDA6tX+byia91Gw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1743666327; c=relaxed/simple;
-	bh=uL/lg5BdNmKGt1WZrNGz6jLQ6UPuY7pGKIuQFDFHlz0=;
+	s=arc-20240116; t=1743666890; c=relaxed/simple;
+	bh=4YxWk7nR0sfP6A6btxiho4DZWgzoOOzoCn0vJ71lc6k=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rwOd50TjlHeT87zfHjWYbZLz4T9s7pM4uU1mspzpXtEqbdNZLYp23zYfiIcI9yMZa//PA5gsOL6oBCKPXkOHNErzrQlCEPmLPybkpJC6UwOqnH4TcfmTR78h3+fAy2+jalHIslf3/fd0/nqCf8asssP0BKdKxhD9mwHSn0b6eKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Qy8nlVKx; arc=none smtp.client-ip=90.155.92.199
+	 Content-Type:MIME-Version; b=tLwPe1S5fRbhd1nKhMYoS9j9g792G722eg2ZmfnJ8k/ZT8NSiY8zWpiqpHI4GZMDMov6eSwjQwRetjs/4n4SOfwhxIMhCTQDD65faup/bmghw2R2EEfmksYLR6uj9TnEk9+Q2fSh/+XLcKvm+b24WFR1dU0RZP/6AnCSlrawVJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ZMSog3qR; arc=none smtp.client-ip=90.155.92.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Qy8nlVKx"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZMSog3qR"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=0YpUO2qavfZOpm/jT5Zv3m9+M20M7flgExLbMTG8BC8=; b=Qy8nlVKxOmHN+ME2WYDspQHp+G
-	LfF/N9hw8ex8/QplcM603h/jFzHm/Wjb98zQF9zK9bbk6yN6gFGGv3wbLjCgm152Q0nAY1kRQbzx8
-	xLhxylDA8Y3p4Biuvv+RmOLCi1BTygb1dhGe9FTKO6+KfqeSQY2ES01GkswP5v/tt7wvdYFO1fUsI
-	VkN5s7YI0hmRgQkHRPHNnWRYGiVI6uFCqku4DPqQddEPgxubfINwSjIP3Sop+wUc3g31Ujur17CLZ
-	mMVM48uJ6kE+sMxXMK58ez+A4Y4xzakPuYDxJ8NoqAkdJAOK/ENAqTTM06leuKz8J6A8Z4W1r84CA
-	M8oF4rZQ==;
+	bh=4YxWk7nR0sfP6A6btxiho4DZWgzoOOzoCn0vJ71lc6k=; b=ZMSog3qR4eN1aznF1yQyOQbKgf
+	85QGXnfBZZyLWcXPh5gRrQqsa7FkoWLoCSQCQqzaWPYSEsJ5669Ap55CvxS1oEilYC78D27VjIsUy
+	vVbUkQpi3PwXdyRdmOFyFexPeAc4BLIliTN8sJVf1i0+nUjZJQVodkMO4IIVwdAjxdxOrmldR3ilh
+	p1qsIQo/9avjrlCsO9369lJO0k0Pjbiss0O++L5mIxruuCojXIlBNCXyuISpxBYSdz6w/+8iEqapY
+	hNeBz3aQGeAtSkUhaKBwW/VSLaTId0N6vNSZ20d7IaRSNlHXkyscTQMNqXIN0FRbjfp8Bv0Ker5Q3
+	7yGfwO6g==;
 Received: from [172.31.31.145] (helo=u09cd745991455d.ant.amazon.com)
 	by desiato.infradead.org with esmtpsa (Exim 4.98.1 #2 (Red Hat Linux))
-	id 1u0FGM-000000079Or-2NH4;
-	Thu, 03 Apr 2025 07:45:22 +0000
-Message-ID: <2f1b06fea126352b153faf44911a7066c83faa82.camel@infradead.org>
+	id 1u0FPR-000000079Rd-342g;
+	Thu, 03 Apr 2025 07:54:46 +0000
+Message-ID: <59be937432fe73b5781ecb04aad501ae5a11be23.camel@infradead.org>
 Subject: Re: [RFC PATCH 1/3] content: Add VIRTIO_F_SWIOTLB to negotiate use
  of SWIOTLB bounce buffers
 From: David Woodhouse <dwmw2@infradead.org>
-To: "Michael S. Tsirkin" <mst@redhat.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>, Zhu Lingshan
+ <lingshan.zhu@amd.com>
 Cc: virtio-comment@lists.linux.dev, hch@infradead.org, Claire Chang
  <tientzu@chromium.org>, linux-devicetree <devicetree@vger.kernel.org>, Rob
  Herring <robh+dt@kernel.org>, =?ISO-8859-1?Q?J=F6rg?= Roedel
  <joro@8bytes.org>,  iommu@lists.linux-foundation.org,
  linux-kernel@vger.kernel.org, graf@amazon.de
-Date: Thu, 03 Apr 2025 08:45:22 +0100
-In-Reply-To: <20250403032729-mutt-send-email-mst@kernel.org>
+Date: Thu, 03 Apr 2025 08:54:45 +0100
+In-Reply-To: <20250403033230-mutt-send-email-mst@kernel.org>
 References: <20250402112410.2086892-1-dwmw2@infradead.org>
 	 <20250402112410.2086892-2-dwmw2@infradead.org>
-	 <20250402105137-mutt-send-email-mst@kernel.org>
-	 <19ba662feeb93157bc8a03fb0b11cb5f2eca5e40.camel@infradead.org>
-	 <20250402111901-mutt-send-email-mst@kernel.org>
-	 <6b3b047f1650d91abe5e523dd7f862c6f7ee6611.camel@infradead.org>
-	 <20250402114757-mutt-send-email-mst@kernel.org>
-	 <965ccf2f972c5d5f1f4edacb227f03171f20e887.camel@infradead.org>
-	 <20250402124131-mutt-send-email-mst@kernel.org>
-	 <eaef09ab218900a53347987a62fee1787283d9ed.camel@infradead.org>
-	 <20250403032729-mutt-send-email-mst@kernel.org>
+	 <1966cbf1-a430-480e-a78d-3d6bbcb4ada4@amd.com>
+	 <20250403033230-mutt-send-email-mst@kernel.org>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-u8V1ZKTNClVVRzG2jB6n"
+	boundary="=-0dq+4WNW8WdmjIGmXIyE"
 User-Agent: Evolution 3.52.3-0ubuntu1 
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
@@ -65,76 +59,29 @@ MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-u8V1ZKTNClVVRzG2jB6n
+--=-0dq+4WNW8WdmjIGmXIyE
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2025-04-03 at 03:31 -0400, Michael S. Tsirkin wrote:
-> On Wed, Apr 02, 2025 at 06:10:53PM +0100, David Woodhouse wrote:
-> > On Wed, 2025-04-02 at 12:43 -0400, Michael S. Tsirkin wrote:
-> > >=20
-> > > yes.
-> > >=20
-> > > I know a bit more about PCI, and for PCI I prefer just not saying
-> > > anything. The platform already defines whether it is behind an iommu
-> > > or not, and duplication is not good.
-> >=20
-> > Not a hill for me to die on I suppose, but I would personally prefer to
-> > spell it out in words of one syllable or fewer, to make *sure* that
-> > device and driver authors get it right even though it's "obvious".
-> >=20
-> > After all, if we could trust them to do their thinking, we would never
-> > have had the awful situation that led to VIRTIO_F_ACCESS_PLATFORM
-> > existing in the first place; the legacy behaviour we get when that bit
-> > *isn't* set would never have happened.
+On Thu, 2025-04-03 at 03:34 -0400, Michael S. Tsirkin wrote:
 >=20
-> Oh, you are wrong here. It's not implementer's fault.
-> virtio just was not designed with real DMA
-> in mind, and micro-optimizing by bypassing the DMA API
-> was very much intentional.
-
-That's one point of view, I suppose. In the early days of IOMMUs, and
-DMA ops coming to mainstream platforms, we found a *lot* of device
-drivers that had the same "micro-optimisation" of just handing physical
-addresses directly to devices. We called them 'bugs' though.
-
-And the thing that was different for virtio-pci was that the host side
-had the *same* bug, as I recall, so we had to introduce a feature bit
-to declare/negotiate the "natural" behaviour.
-
-But we're a long way from the original topic here.
-
-> > > For mmio it is my understanding that the "restricted" does the same
-> > > already? or is it required in the spec for some reason?
-> >=20
-> > No, it's exactly the same. But I still don't trust driver authors to
-> > realise the obvious, or VMM implementations either for that matter.
-> >=20
-> > I'm not sure I see the *harm* in spelling out explicitly for the hard-
-> > of-thinking.
+> Indeed I personally do not exactly get why implement a virtual system
+> without an IOMMU when virtio-iommu is available.
 >=20
-> I don't want people to make assumptions, like crashing if device is
-> behind an iommu or whatnot.
+> I have a feeling it's about lack of windows drivers for virtio-iommu
+> at this point.
 
-Why would that happen? If we explicitly document that "on-device memory
-access don't go through an external IOMMU that sits all the way over
-the other side of the PCI bus between the device and system memory",
-which is what I was trying to say...  it doesn't *matter* if the device
-is behind an IOMMU or not. It doesn't ever *do* any DMA on the PCI bus.
+And a pKVM (etc.) implementation of virtio-iommu which would allow the
+*trusted* part of the hypervisor to know which guest memory should be
+shared with the VMM implementing the virtio device models?
 
-> We can go with something informative.
->=20
-> "It is expected that for most implementations, when using this feature,
-> the behaviour with and without ACCESS_PLATFORM is the same"
+You'd also end up in a situation where you have a virtio-iommu for some
+devices, and a real two-stage IOMMU (e.g. SMMU or AMD's vIOMMU) for
+other devices. Are guest operating systems going to cope well with
+that? Do the available discovery mechanisms for all the relevant IOMMUs
+even *allow* for that to be expressed?
 
-I'd prefer to say nothing. Saying nothing relies on people to do their
-thinking and realise that on-device access doesn't cross the PCI bus.
-This version actually seems to hint that it's a *choice*, and hints
-that it might be OK if the external IOMMU *does* intervene in on-device
-memory accesses.
-
-
---=-u8V1ZKTNClVVRzG2jB6n
+--=-0dq+4WNW8WdmjIGmXIyE
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -213,21 +160,21 @@ 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
-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
+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
-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
+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
 
 
---=-u8V1ZKTNClVVRzG2jB6n--
+--=-0dq+4WNW8WdmjIGmXIyE--
