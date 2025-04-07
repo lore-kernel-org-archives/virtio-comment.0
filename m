@@ -1,61 +1,61 @@
 Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB96226170;
-	Mon,  7 Apr 2025 12:46:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F86A1DFE12;
+	Mon,  7 Apr 2025 14:59:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1744029984; cv=none; b=QLA5G2yYd6tyKyBtV3kouHUua5+IxfQWP6S/7oaT8kJxuXaD0GWaRAu0I32erIreNJdMThsMpwvYD64H1LwFMWUB18Gv09aZJB1U/zIp5jDnZYbtoEyb9UeolpXL30lT0cFnJpiicbxQgtHNy7SVhlz4F+ehbd8HQYF3xITrfLw=
+	t=1744037953; cv=none; b=i4bCT3pHT+dEHxyI3T1dhhA6QzyPbd4Oy9aWipBrlnkzNCo4PNOQESOQC0k85rPZjY1GWIOTg+rEdj/TtlFs+o/JCSmhatm5x8fSbm+/TQ70uiqPhqunGnQyREJca8Sf7bssgO66CcA+4vf9q1hEYxl9Ny11Bx//GuWEAIU5JrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1744029984; c=relaxed/simple;
-	bh=awrNsZWV5nSX7p7ue6vo+aZV8nLHTp/fCQJTnQ2xznE=;
+	s=arc-20240116; t=1744037953; c=relaxed/simple;
+	bh=AhPmjpq0qyhSX5vVWXOFVA58oUUgjHy5WEesBT7EWSk=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bcwpiFHoyzR1g90HaXHnrpeXLe+durqt1dWYifenBQk9eiqrseYXbzEz0AGuykKs0KE18Hxh6F4W5/DXXSFV2Rtd2l07mPSVp1RQPEA8br1JOtXlnQ5z0/1na63BXkkXyunJBDfYjeF4onSAAQnc59Dst6rqkKCxZtCuKD5ndOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ITll9t9T; arc=none smtp.client-ip=90.155.92.199
+	 Content-Type:MIME-Version; b=ZFLCxzR3JtK3k2652kbbV5HnXVfgp2V5NfZnyv92lFAk/5S0XibkZIjoz8SBIBPjHR+9Yw1oRj45XIC7ZBFwFqDmLP33wVwhcyBBYCHhULUAFNefWI3kVbtmI7YRMDPC0btJh2fOmK40q187GvtQSDGN+TOsk3+VG+w/c0x57Ro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=bJ7edHze; arc=none smtp.client-ip=90.155.92.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ITll9t9T"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="bJ7edHze"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=awrNsZWV5nSX7p7ue6vo+aZV8nLHTp/fCQJTnQ2xznE=; b=ITll9t9TxcrxD0Cqp1O68TplCj
-	VFGMn5jVkNVqvsdmmHe/MSMt0Lq1R0loIOJa7snvWlowxybUnshwYw1gAOaqpJZ98rvM/8aJpss3Q
-	SM4qcjg5yrpUi5ii//v9EgzmFHgSXhuBdYTDrCfenraSjThnuaLVvP+jC8/H7VZn+9rm63XFtGxuH
-	Kf98X9F717CjoUAKqmwJ1DruC9QmmVWGZ1NuwmqNIgZWSf7ZQnB85JYBY5zDoEdKQHfC4O5LReIbh
-	kZcvoNCrHrovVO0OiJSi7Dep09xT1Kiu0E2q9Q/ykmIj5gBQdEdPu6T3Uzeol9V4YFe1nh9dXZUJu
-	T76dTd2Q==;
+	bh=fiiz6N2vHALzfLWvzDVyDHebS2Xevm6nKgKnzMNpz7g=; b=bJ7edHzelD2Hsp+1NHmyJdTD1i
+	JN99fdUcBrz1nYgxuUoK4IMU/uXjriMcP5nyms1Bh62lV7NLEZiMKZrkHshX0PjGAaaqQjgoiyjIA
+	yCwpe5qmQLz/5ret7QENZN/T2Nii6mURvouuHYghHtRFQManmD01sMvxxei9KmaeMJkkHgjQrf2lk
+	L98HLpOIlHLdXP57eYbtQTBS/sarJZzjTvvSysBeEFLS0iAAqdPZW/XlObKIq+IIpLCLg39PXJKWT
+	CxbZkLmNe2e3jotSYKBS58gkXlSA+z3X3pUWz65h1VnGKMRITpqHACzf3/bH9vbDuM+VZLHQ/6Nga
+	AnaguazQ==;
 Received: from [172.31.31.145] (helo=u09cd745991455d.ant.amazon.com)
 	by desiato.infradead.org with esmtpsa (Exim 4.98.1 #2 (Red Hat Linux))
-	id 1u1lrl-00000007wyi-0CT5;
-	Mon, 07 Apr 2025 12:46:17 +0000
-Message-ID: <8f85d15478a578f7d9ab63b7e5edecda94830a84.camel@infradead.org>
+	id 1u1nwF-0000000801w-11UA;
+	Mon, 07 Apr 2025 14:59:03 +0000
+Message-ID: <dec21a7dd4ba0f095009f9bf4657c5e8c0a4d9da.camel@infradead.org>
 Subject: Re: [RFC PATCH 1/3] content: Add VIRTIO_F_SWIOTLB to negotiate use
  of SWIOTLB bounce buffers
 From: David Woodhouse <dwmw2@infradead.org>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Christoph Hellwig <hch@infradead.org>, virtio-comment@lists.linux.dev, 
+To: Christoph Hellwig <hch@infradead.org>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, virtio-comment@lists.linux.dev, 
  Claire Chang <tientzu@chromium.org>, linux-devicetree
  <devicetree@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
  =?ISO-8859-1?Q?J=F6rg?= Roedel <joro@8bytes.org>, 
  iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
  graf@amazon.de
-Date: Mon, 07 Apr 2025 13:46:16 +0100
-In-Reply-To: <20250407081110-mutt-send-email-mst@kernel.org>
-References: <05abb68286dd4bc17b243130d7982a334503095b.camel@infradead.org>
-	 <Z-99snVF5ESyJDDs@infradead.org>
-	 <fb7ea3ee5bf970fa36b012e16750f533b72903a0.camel@infradead.org>
-	 <20250404040838-mutt-send-email-mst@kernel.org>
-	 <67bd998bfe385088ef863342b9f8714754585476.camel@infradead.org>
+Date: Mon, 07 Apr 2025 15:59:03 +0100
+In-Reply-To: <Z_Pb3PPIJNp4ZTjY@infradead.org>
+References: <67bd998bfe385088ef863342b9f8714754585476.camel@infradead.org>
 	 <20250404043016-mutt-send-email-mst@kernel.org>
 	 <F30D33D5-38CC-4397-8DC8-9EE1B0FEF40D@infradead.org>
 	 <5cc2f558b0f4d387349c3a2936ff00430804536d.camel@infradead.org>
 	 <20250404062409-mutt-send-email-mst@kernel.org>
 	 <7fd789b61a586417add2115f6752ebec5e7b81bf.camel@infradead.org>
-	 <20250407081110-mutt-send-email-mst@kernel.org>
+	 <Z_N_DNXq9VbPvTfA@infradead.org>
+	 <f54f46399aa2d0066231d95ef9e98526cf217115.camel@infradead.org>
+	 <Z_OVbRNHU1LXU368@infradead.org>
+	 <c08d3fd2bdae1b0fa629ecd9261a5ca9549ce9aa.camel@infradead.org>
+	 <Z_Pb3PPIJNp4ZTjY@infradead.org>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-CvO4McfBwZWmhMi4ADxu"
+	boundary="=-X4Wvl5Dn79Iwla08Tm8+"
 User-Agent: Evolution 3.52.3-0ubuntu1 
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
@@ -66,85 +66,98 @@ MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-CvO4McfBwZWmhMi4ADxu
+--=-X4Wvl5Dn79Iwla08Tm8+
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2025-04-07 at 08:14 -0400, Michael S. Tsirkin wrote:
-> On Fri, Apr 04, 2025 at 12:15:52PM +0100, David Woodhouse wrote:
-> > > What I don't get, is what does the *device* want, exactly?
+On Mon, 2025-04-07 at 07:06 -0700, Christoph Hellwig wrote:
+> On Mon, Apr 07, 2025 at 11:09:54AM +0100, David Woodhouse wrote:
+> > > should be usable for all devices bar actual addressing limits that ar=
+e
+> > > handled in the dma layer already.=C2=A0 The only things you need is:
+> > >=20
+> > > =C2=A0a) a way to declare one or more pools
+> > > =C2=A0b) a way to destinguish between devices behind a two stage IOMM=
+U vs not
+> > > =C2=A0=C2=A0=C2=A0 to figure out if they need to use a pool
 > >=20
-> > The device wants to know that a driver won't try to use it without
-> > understanding the restriction. Because otherwise the driver will just
-> > give it system addresses for DMA and be sad, without any coherent
-> > error/failure report about why.
-> >=20
-> > (You could ask the same question about what the *device* wants with
-> > VIRTIO_F_ACCESS_PLATFORM, and the answer is much the same).
-> >=20
-> > Or maybe not the *device* per se, but the *system integrator* wants to
-> > know that only operating systems which understand the restriction
-> > described above, will attempt to drive the device in question.
-> >=20
-> > We could achieve that by presenting the device with a completely new
-> > PCI device/vendor ID so that old drivers don't match, or in the DT
-> > model you could make a new "compatible" string for it. I chose to use a
-> > VIRTIO_F_ bit for it instead, which seemed natural and allows the
-> > device model (under the influence of the system integrator) to *choose*
-> > whether a failure to negotiate such bit is fatal or not.
+> > I'm not averse to that, but it's different to the `restricted-dma-pool`
+> > model that's defined today which has explicit matching. So I'd like to
+> > reconcile them =E2=80=94 and preferably literally use PRP0001 to expose
+> > `restricted-dma-pool` even under ACPI.
 >=20
-> Let's focus on the mmio part, for simplicity.
-> So IIUC there's a devicetree attribute restricted dma, that
-> guests currently simply ignore.
+> A per-device flag is probably fine and easier for some things like
+> pool sizing.=C2=A0 It also would be worse for other things like eventuall=
+y
+> implementing percpu pools.
 
-No, I think Linux guests with CONFIG_DMA_RESTRICTED_POOL enabled will
-honour it just fine and do the right thing. For virtio-mmio.
+What exactly are you thinking of when you say a 'per-device' flag?
 
-> You want to fix it in the guest, but you also want to find a clean way
-> to detect that it's fixed. Right?
+> > Maybe it's as simple as a flag/property on the `restricted-dma-pool`
+> > node which declares that it's a 'catch-all', and that *all* devices
+> > which aren't explicitly bound to an IOMMU or other DMA operations (e.g.
+> > explicitly bound to a different restricted-dma-pool) should use it?
+>=20
+> Yeah.=C2=A0 Similar what we do with the generic shared-dma-pool.
 
-For virtio-mmio I believe there's no bug to fix.
+Yeah, I was trying to work that one out, and it looks like I'm almost
+describing the 'linux,dma-default' property. Except that seems to be
+only for coherent allocations on the `shared-dma-pool`.
 
-Sure, it would have been nice if a feature bit had been added when this
-attribute was defined, so that a device which *knows* it has this
-restriction could gracefully decline to operate with a driver which
-doesn't understand it.
+Maybe it makes sense for 'linux,dma-default' on a restricted-dma-pool
+to mean that it should be used as a swiotlb for *all* DMA?
 
-But as you pointed out, that ship has sailed. Enforcing a new feature
-bit now for virtio-mmio devices would break compatibility even with
-existing drivers in kernels which *do* have CONFIG_DMA_RESTRICTED_POOL
-enabled and which do work today.
+I don't much like the "linux," prefix but can live with that if that's
+the precedent.
 
-There's nothing to fix here for virtio-mmio.
+> > Either way, we'd still ideally want a virtio feature bit to say "don't
+> > touch me if you don't understand my DMA restrictions", to prevent older
+> > drivers (on older operating systems) from failing.
+>=20
+> As said before they really need system level awareness of a coco host.
+> That's not something to be hacked into virtio drivers.
 
-> And if so, my question is, why this specific bug especially?
-> There likely are a ton of bugs, some more catastrophic than just
-> crashing the guest, like data corruption.
-> Is it because we were supposed to add it to the virtio spec but
-> did not?
+Nah. As long as they use the IOMMU they're offered, guests don't need
+any awareness at all that they're running in an environment where the
+VMM can't access all their memory. There is precisely *zero* enablement
+required in the guest for that.
 
-If I could easily expose virtio-mmio on an ACPI-afflicted guest instead
-of using virtio-pci, maybe that might suffice=C2=B9.
+The only problem is virtual devices which are provided by that VMM.
 
-But while we might be able to hack that up for Linux guests, I don't
-think that's feasible for the general case. So what I'm trying to do
-here is just bring the same capability to virtio-pci, that already
-exists for virtio-mmio.
+If the guests *do* have system level awareness of the particular
+variant of CoCo host they're running on, then sure, they can explicitly
+manage sharing/encryption/whatever with a system-specific set of DMA
+operations and the problem goes away. But that's a long way off.
 
-And if we do so I *would* like to get it right this time and add that
-feature bit.
+How does this sound as a plan...
+
+ 1. Define 'linux,dma-default' on a 'restricted-dma-pool' object to
+    mean that it should be used as a fallback SWIOTLB for *all* devices
+    (basically, as if each device explicitly referenced it as they do
+    today).
+
+ 2. Provide a way to represent `restricted-dma-pool` in ACPI (which
+    ought to work naturally as PRP0001 and it's mostly a matter of
+    untangling it from OF-specific code on the guest side).
+
+ 3. Add a VIRTIO_F_RESTRICTED_DMA feature to virtio, so that devices
+    which *know* they have such a limitation can gracefully decline
+    to operate with a driver which doesn't support it.
+
+ 4. Add a way for a virtio-pci device to explicitly reference a given
+    `restricted-dma-pool` like virtio-mmio devices can today. And it
+    probably makes sense for a virtio-pci device which requires the
+    VIRTIO_F_RESTRICTED_DMA feature to explicitly reference such a
+    pool even if that pool has the `linux,dma-default' property?
+
+With #1 and #2 we provide this facility even for passthrough PCI
+devices. And with #3 and #4 we make it work *better* for virtio, which
+is the more important use case (since those two-stage IOMMUs *do* exist
+in the cases of CoCo-supporting hardware; it's just that they don't
+enable *virtual* devices).
 
 
-
-
-=C2=B9 It'd want MSI support, and the CONFIG_DMA_RESTRICTED_POOL support in
-the kernel is a bit OF-specific and probably needs to be made a bit
-more generic in some places. But I'm prepared to consider those as
-implementation details, and the latter probably needs to be done anyway
-for any of the approaches we've considered for supporting this in
-virtio-pci.
-
---=-CvO4McfBwZWmhMi4ADxu
+--=-X4Wvl5Dn79Iwla08Tm8+
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -223,21 +236,21 @@ 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
-ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDQwNzEyNDYx
-NlowLwYJKoZIhvcNAQkEMSIEIJ6IEqHhkM5rvYz/uum1QYqq0maKbj6eyg95ssXaSL5AMGQGCSsG
+ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDQwNzE0NTkw
+M1owLwYJKoZIhvcNAQkEMSIEIP6sJUbRW0GlvzpC/r6n5S7LEcPHMgaCvQmD6qegYObbMGQGCSsG
 AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
 cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
 VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
-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
+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
 
 
---=-CvO4McfBwZWmhMi4ADxu--
+--=-X4Wvl5Dn79Iwla08Tm8+--
