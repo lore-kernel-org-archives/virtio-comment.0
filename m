@@ -1,256 +1,223 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F86A1DFE12;
-	Mon,  7 Apr 2025 14:59:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C09D161321
+	for <virtio-comment@lists.linux.dev>; Tue,  8 Apr 2025 06:33:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1744037953; cv=none; b=i4bCT3pHT+dEHxyI3T1dhhA6QzyPbd4Oy9aWipBrlnkzNCo4PNOQESOQC0k85rPZjY1GWIOTg+rEdj/TtlFs+o/JCSmhatm5x8fSbm+/TQ70uiqPhqunGnQyREJca8Sf7bssgO66CcA+4vf9q1hEYxl9Ny11Bx//GuWEAIU5JrA=
+	t=1744094011; cv=none; b=Qcm6mThtP9CtB9dKy5HjkjVFKlgEJL5oelbMmKKR2vHZf0OBoZSraaLolBFuWA+10vOsP7lH9q80EvEfOmYekON12xIFeMBzJ0amVGfMziTCkdPBslvPEB+ADaU0lvaltTAh0x0bN/aVLZWf+Axp8hXwqlcGG3hiXkJcL/CUwtA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1744037953; c=relaxed/simple;
-	bh=AhPmjpq0qyhSX5vVWXOFVA58oUUgjHy5WEesBT7EWSk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZFLCxzR3JtK3k2652kbbV5HnXVfgp2V5NfZnyv92lFAk/5S0XibkZIjoz8SBIBPjHR+9Yw1oRj45XIC7ZBFwFqDmLP33wVwhcyBBYCHhULUAFNefWI3kVbtmI7YRMDPC0btJh2fOmK40q187GvtQSDGN+TOsk3+VG+w/c0x57Ro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=bJ7edHze; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
+	s=arc-20240116; t=1744094011; c=relaxed/simple;
+	bh=szlBC6oUBhSr/UVCzbhsTBxLTcfQAeiyQXiGi6nFnqU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GCNfsvP4dKM3qFXF++vQdm0SinhgzqU9vSAGWih0RnSkeMVtOe5Me+fRhGIXXPKzs5vT4OnGwWBInSWDOMVgUY1vLpMT3DaOq7eM9nTr2jTKaCbbyXLh+AveMBOKH0FzZhaPvm8VHjY5QsI5phUtJYmyRFz7k2iHC5cUwS98At0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hXVRXTR7; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="bJ7edHze"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=fiiz6N2vHALzfLWvzDVyDHebS2Xevm6nKgKnzMNpz7g=; b=bJ7edHzelD2Hsp+1NHmyJdTD1i
-	JN99fdUcBrz1nYgxuUoK4IMU/uXjriMcP5nyms1Bh62lV7NLEZiMKZrkHshX0PjGAaaqQjgoiyjIA
-	yCwpe5qmQLz/5ret7QENZN/T2Nii6mURvouuHYghHtRFQManmD01sMvxxei9KmaeMJkkHgjQrf2lk
-	L98HLpOIlHLdXP57eYbtQTBS/sarJZzjTvvSysBeEFLS0iAAqdPZW/XlObKIq+IIpLCLg39PXJKWT
-	CxbZkLmNe2e3jotSYKBS58gkXlSA+z3X3pUWz65h1VnGKMRITpqHACzf3/bH9vbDuM+VZLHQ/6Nga
-	AnaguazQ==;
-Received: from [172.31.31.145] (helo=u09cd745991455d.ant.amazon.com)
-	by desiato.infradead.org with esmtpsa (Exim 4.98.1 #2 (Red Hat Linux))
-	id 1u1nwF-0000000801w-11UA;
-	Mon, 07 Apr 2025 14:59:03 +0000
-Message-ID: <dec21a7dd4ba0f095009f9bf4657c5e8c0a4d9da.camel@infradead.org>
-Subject: Re: [RFC PATCH 1/3] content: Add VIRTIO_F_SWIOTLB to negotiate use
- of SWIOTLB bounce buffers
-From: David Woodhouse <dwmw2@infradead.org>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, virtio-comment@lists.linux.dev, 
- Claire Chang <tientzu@chromium.org>, linux-devicetree
- <devicetree@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
- =?ISO-8859-1?Q?J=F6rg?= Roedel <joro@8bytes.org>, 
- iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
- graf@amazon.de
-Date: Mon, 07 Apr 2025 15:59:03 +0100
-In-Reply-To: <Z_Pb3PPIJNp4ZTjY@infradead.org>
-References: <67bd998bfe385088ef863342b9f8714754585476.camel@infradead.org>
-	 <20250404043016-mutt-send-email-mst@kernel.org>
-	 <F30D33D5-38CC-4397-8DC8-9EE1B0FEF40D@infradead.org>
-	 <5cc2f558b0f4d387349c3a2936ff00430804536d.camel@infradead.org>
-	 <20250404062409-mutt-send-email-mst@kernel.org>
-	 <7fd789b61a586417add2115f6752ebec5e7b81bf.camel@infradead.org>
-	 <Z_N_DNXq9VbPvTfA@infradead.org>
-	 <f54f46399aa2d0066231d95ef9e98526cf217115.camel@infradead.org>
-	 <Z_OVbRNHU1LXU368@infradead.org>
-	 <c08d3fd2bdae1b0fa629ecd9261a5ca9549ce9aa.camel@infradead.org>
-	 <Z_Pb3PPIJNp4ZTjY@infradead.org>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-X4Wvl5Dn79Iwla08Tm8+"
-User-Agent: Evolution 3.52.3-0ubuntu1 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hXVRXTR7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1744094008;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kXzKehP7pD2FUxFjQMlWthkC7uwrdmU1t256Yjcgmhs=;
+	b=hXVRXTR70TschbXhSbaX9sSFxsURgd9c3ss9xnApb5KGLzfKACLQANdBwFmEuOGypgva1M
+	An3Kd9z4if2aAVXWpTVdwzNp7DafGmIvCLUJPqH3p4iMVODO+B1FTVzGYNsqdEOTYvNqKK
+	eSwsq96EDA470zYvQH1MCaEAJtLRYJg=
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
+ [209.85.222.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-326-hUxY6iagOHeyT5aGi0bdXQ-1; Tue, 08 Apr 2025 02:33:27 -0400
+X-MC-Unique: hUxY6iagOHeyT5aGi0bdXQ-1
+X-Mimecast-MFC-AGG-ID: hUxY6iagOHeyT5aGi0bdXQ_1744094006
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-86d04803f24so1619602241.0
+        for <virtio-comment@lists.linux.dev>; Mon, 07 Apr 2025 23:33:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744094005; x=1744698805;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=kXzKehP7pD2FUxFjQMlWthkC7uwrdmU1t256Yjcgmhs=;
+        b=dVN/oPt5bt8WK5HFOsZSJIwPt6w6M+lkIcmMg1+wLG+mzi1+g7yJBceJFzm/SNBPGv
+         EDwV2zmw/fbzH8xJ4Hs8nNemHTX4BXnioDrPHuLlEUwT/odIlh4cBFlBebqWke4rhCUt
+         7G+s+bXd/gMuq/4fCcpASA9CokZ3rsPJXU4V8WnhlN9zBQhcpCkgjO8AcVPyW7uSuCnR
+         C2M7lwWM7RwOlen9h6s4MK48Aes2yTPLJPazYbRi9NVCsNExprTXp/rKACvXaf5iy5w4
+         SX9A//fXTevCN+Xtdd0N/kkwfKqpivtA6v2AWfn6pEbN/5zzFuIZPYmrGe8Z7Jcxb5lW
+         JjXg==
+X-Gm-Message-State: AOJu0Yzau2G9tnGwqTRwisYwLJ4EB/h6HAAIB3HNtDAqMH3hzg4BbUQV
+	lYQRaZc1iLbd9qaYTNRddMcRfw0v0f/CMX+EE2xmcmQLLIsZ+09P3yfbJ+aKwbVzN/1vmYWn++V
+	8UGq0bn8pVvwl5MokFDUCVgwERN/mMbkhpsfOVzdBpsmDbtCTzzLSQuvCgkard05M8vYgVMgUEp
+	BwO0t4do9lWmeW9j/Dvv3voXErZNsglyTa6Qm07jkM7zxb3nF/hQ==
+X-Gm-Gg: ASbGnctAnBjkb8XC7S2T0pyeJaKnDF15SbVMvUgbDvQxH7QcYgkRlagkgnkgLTmehSY
+	NW92FjXRALo8Es1AdxRqZTQx8g2NLfozHkaPANcKYaCPnxrg0uuuH4/yH7w5f0I3Q+wtghfvb
+X-Received: by 2002:a05:6102:330b:b0:4c1:85d9:5641 with SMTP id ada2fe7eead31-4c8553cdf61mr12840737137.11.1744094005302;
+        Mon, 07 Apr 2025 23:33:25 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHGaB9034m1PZjZH1yD/9B1DC5b34ICi+rRRvnaDyCaYRAz0xeWhr13jZERAQ0zJhHR4dLouR5QFowIsmDXPpA=
+X-Received: by 2002:a05:6102:330b:b0:4c1:85d9:5641 with SMTP id
+ ada2fe7eead31-4c8553cdf61mr12840735137.11.1744094004956; Mon, 07 Apr 2025
+ 23:33:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
-
-
---=-X4Wvl5Dn79Iwla08Tm8+
+References: <20250321-tx-v1-1-dd21fbdedf7a@daynix.com> <CACGkMEtGx7ajAmJUib++qJ2=rhZjyj5p=7iN2xBvba4gcBAQtg@mail.gmail.com>
+ <afd70f86-a248-460c-b82f-c3bbbf62c0f1@daynix.com> <CACGkMEtqXtLeNTdcg0j57EX-4953htM9PWH+KQdRLBM=3jWgjg@mail.gmail.com>
+ <6edb002d-406f-4f50-827a-14fe2228a650@daynix.com>
+In-Reply-To: <6edb002d-406f-4f50-827a-14fe2228a650@daynix.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Tue, 8 Apr 2025 14:33:11 +0800
+X-Gm-Features: ATxdqUH1r5aPWZ4zkf3FqRQp2MGncgulMAhn9-LPlaCJ04z97j0hHTIQOSdQrlU
+Message-ID: <CACGkMEuuK4uUgfdcYaGnGhTvbwzcrVL4Po2UFanPPObSX7oskA@mail.gmail.com>
+Subject: Re: [PATCH] virtio-net: Update the max_tx_vq description
+To: Akihiko Odaki <akihiko.odaki@daynix.com>
+Cc: virtio-comment@lists.linux.dev, devel@daynix.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: j1JYK3ORNfCmpxjEm_3G44mXdq8PYqYYDv-NRXmb-ig_1744094006
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2025-04-07 at 07:06 -0700, Christoph Hellwig wrote:
-> On Mon, Apr 07, 2025 at 11:09:54AM +0100, David Woodhouse wrote:
-> > > should be usable for all devices bar actual addressing limits that ar=
-e
-> > > handled in the dma layer already.=C2=A0 The only things you need is:
-> > >=20
-> > > =C2=A0a) a way to declare one or more pools
-> > > =C2=A0b) a way to destinguish between devices behind a two stage IOMM=
-U vs not
-> > > =C2=A0=C2=A0=C2=A0 to figure out if they need to use a pool
-> >=20
-> > I'm not averse to that, but it's different to the `restricted-dma-pool`
-> > model that's defined today which has explicit matching. So I'd like to
-> > reconcile them =E2=80=94 and preferably literally use PRP0001 to expose
-> > `restricted-dma-pool` even under ACPI.
->=20
-> A per-device flag is probably fine and easier for some things like
-> pool sizing.=C2=A0 It also would be worse for other things like eventuall=
-y
-> implementing percpu pools.
+On Mon, Apr 7, 2025 at 11:43=E2=80=AFAM Akihiko Odaki <akihiko.odaki@daynix=
+.com> wrote:
+>
+> On 2025/04/07 11:41, Jason Wang wrote:
+> > On Sat, Mar 29, 2025 at 4:32=E2=80=AFPM Akihiko Odaki <akihiko.odaki@da=
+ynix.com> wrote:
+> >>
+> >> On 2025/03/24 13:02, Jason Wang wrote:
+> >>> On Fri, Mar 21, 2025 at 3:01=E2=80=AFPM Akihiko Odaki <akihiko.odaki@=
+daynix.com> wrote:
+> >>>>
+> >>>> The previous description said:
+> >>>>> A driver sets \field{max_tx_vq} to inform a device how many transmi=
+t
+> >>>>> virtqueues it may use (transmitq1\ldots transmitq \field{max_tx_vq}=
+).
+> >>>>
+> >>>> However, it also controls how many receive virtqueues a device MAY u=
+se.
+> >>>> Copy the description of the virtqueue_pairs field of struct
+> >>>> virtio_net_ctrl_mq_pairs_set, which also has the identical semantics=
+, to
+> >>>> clarify that.
+> >>>
+> >>> Thanks for doing this, I wonder if it's time to rename as "max_tx_vq"
+> >>> sounds like a TX only thing.
+> >>
+> >> I'm no longer pursuing this change. Please see the discussion at:
+> >> https://lore.kernel.org/r/765a23aa-bb6b-4a01-89f1-31ad213b4715@daynix.=
+com
+> >>
+> >> Please also review a change for QEMU based on the discussion:
+> >> https://lore.kernel.org/qemu-devel/20250322-vq-v2-1-cee0aafe6404@dayni=
+x.com
+> >
+> > Ok, so it seems that RSS implement a async RX/TX queue model instead
+> > of the MQ queue pairs:
+> >
+> > 1) rx available queue were controlled by indirection table
+> > 2) tx available queue were controlled by max_tx_vq
+> >
+> > So it introduces more "issues" like:
+> >
+> > 1) This calls a new uAPI as I suggested in another thread instead of
+> > reusing TUN_SET_QUEUE
+>
+> QEMU applies the same approach for both VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET
+> and VIRTIO_NET_CTRL_MQ_RSS_CONFIG, which is to parse the configuration
+> passed by the guest in QEMU and to pass the parsed configuration to TUN
+> via TUNSETQUEUE. Please see the patch for QEMU I mentioned in the
+> previous email for the actual implementation.
 
-What exactly are you thinking of when you say a 'per-device' flag?
+If this is true, even if guests want to have an async tx/rx queue
+number, the underlayer TAP will still choose a combined queue pair
+model.
 
-> > Maybe it's as simple as a flag/property on the `restricted-dma-pool`
-> > node which declares that it's a 'catch-all', and that *all* devices
-> > which aren't explicitly bound to an IOMMU or other DMA operations (e.g.
-> > explicitly bound to a different restricted-dma-pool) should use it?
->=20
-> Yeah.=C2=A0 Similar what we do with the generic shared-dma-pool.
+>
+> > 2) If both MQ and RSS are negotiated, what happens if the driver is
+> > using both max_tx_vq and virtqueue_pairs. This seems unclear in the
+> > spec itself.
+>
+> The spec says the last one sent by the driver will be used. In version
+> 1.2, 5.1.6.5.5 "Device operation in multiqueue mode" says:
+>  > The driver enables multiqueue by sending a command using class
+>  > VIRTIO_NET_CTRL_MQ. The command selects the mode of multiqueue
+>  > operation, as follows:
+>  >  #define VIRTIO_NET_CTRL_MQ    4
+>  >  #define VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET        0 (for automatic
+>  >  receive steering)
+>  >  #define VIRTIO_NET_CTRL_MQ_RSS_CONFIG          1 (for configurable
+>  >  receive steering)
+>  >  #define VIRTIO_NET_CTRL_MQ_HASH_CONFIG         2 (for configurable
+>  >  hash calculation)
+>  >
+>  > If more than one multiqueue mode is negotiated, the resulting device
+>  > configuration is defined by the last command sent by the driver.
 
-Yeah, I was trying to work that one out, and it looks like I'm almost
-describing the 'linux,dma-default' property. Except that seems to be
-only for coherent allocations on the `shared-dma-pool`.
+I think it doesn't clarify all the cases. Consider we:
 
-Maybe it makes sense for 'linux,dma-default' on a restricted-dma-pool
-to mean that it should be used as a swiotlb for *all* DMA?
+1) configure flow A to use rx queue 4
+2) set curr_queue_paris to 2
 
-I don't much like the "linux," prefix but can live with that if that's
-the precedent.
+How to choose the rx queue in flow A? This needs some clarification
+e.g whether unclassified or automq or drop
 
-> > Either way, we'd still ideally want a virtio feature bit to say "don't
-> > touch me if you don't understand my DMA restrictions", to prevent older
-> > drivers (on older operating systems) from failing.
->=20
-> As said before they really need system level awareness of a coco host.
-> That's not something to be hacked into virtio drivers.
+Thanks
 
-Nah. As long as they use the IOMMU they're offered, guests don't need
-any awareness at all that they're running in an environment where the
-VMM can't access all their memory. There is precisely *zero* enablement
-required in the guest for that.
+>
+> Regards,
+> Akihiko Odaki
+>
+> >
+> > THanks
+> >
+> >
+> >>
+> >>>
+> >>>>
+> >>>> Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
+> >>>> ---
+> >>>>    device-types/net/description.tex | 4 +++-
+> >>>>    1 file changed, 3 insertions(+), 1 deletion(-)
+> >>>>
+> >>>> diff --git a/device-types/net/description.tex b/device-types/net/des=
+cription.tex
+> >>>> index 76585b0..5178191 100644
+> >>>> --- a/device-types/net/description.tex
+> >>>> +++ b/device-types/net/description.tex
+> >>>> @@ -1578,7 +1578,9 @@ \subsubsection{Control Virtqueue}\label{sec:De=
+vice Types / Network Device / Devi
+> >>>>
+> >>>>    Field \field{indirection_table} is an array of receive virtqueues=
+ ids.
+> >>>>
+> >>>> -A driver sets \field{max_tx_vq} to inform a device how many transmi=
+t virtqueues it may use (transmitq1\ldots transmitq \field{max_tx_vq}).
+> >>>> +Field \field{max_tx_vq} specifies the number of the transmit and re=
+ceive queues
+> >>>> +to be used up to \field{max_virtqueue_pairs}; subsequently, transmi=
+tq1\ldots
+> >>>> +transmitqn and receiveq1\ldots receiveqn where n=3D\field{max_tx_vq=
+} MAY be used.
+> >>>>
+> >>>>    Fields \field{hash_key_length} and \field{hash_key_data} define t=
+he key to be used in hash calculation.
+> >>>>
+> >>>>
+> >>>> ---
+> >>>> base-commit: b495841a8e80d12c1130f8868f4128866291142d
+> >>>> change-id: 20250321-tx-78e44c50a035
+> >>>>
+> >>>> Best regards,
+> >>>> --
+> >>>> Akihiko Odaki <akihiko.odaki@daynix.com>
+> >>>>
+> >>>
+> >>
+> >
+>
 
-The only problem is virtual devices which are provided by that VMM.
-
-If the guests *do* have system level awareness of the particular
-variant of CoCo host they're running on, then sure, they can explicitly
-manage sharing/encryption/whatever with a system-specific set of DMA
-operations and the problem goes away. But that's a long way off.
-
-How does this sound as a plan...
-
- 1. Define 'linux,dma-default' on a 'restricted-dma-pool' object to
-    mean that it should be used as a fallback SWIOTLB for *all* devices
-    (basically, as if each device explicitly referenced it as they do
-    today).
-
- 2. Provide a way to represent `restricted-dma-pool` in ACPI (which
-    ought to work naturally as PRP0001 and it's mostly a matter of
-    untangling it from OF-specific code on the guest side).
-
- 3. Add a VIRTIO_F_RESTRICTED_DMA feature to virtio, so that devices
-    which *know* they have such a limitation can gracefully decline
-    to operate with a driver which doesn't support it.
-
- 4. Add a way for a virtio-pci device to explicitly reference a given
-    `restricted-dma-pool` like virtio-mmio devices can today. And it
-    probably makes sense for a virtio-pci device which requires the
-    VIRTIO_F_RESTRICTED_DMA feature to explicitly reference such a
-    pool even if that pool has the `linux,dma-default' property?
-
-With #1 and #2 we provide this facility even for passthrough PCI
-devices. And with #3 and #4 we make it work *better* for virtio, which
-is the more important use case (since those two-stage IOMMUs *do* exist
-in the cases of CoCo-supporting hardware; it's just that they don't
-enable *virtual* devices).
-
-
---=-X4Wvl5Dn79Iwla08Tm8+
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
-ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
-MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
-a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
-jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
-GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
-aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
-nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
-8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
-HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
-IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
-KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
-BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
-QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
-QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
-ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
-/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
-uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
-xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
-W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
-c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
-VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
-NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
-DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
-sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
-w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
-i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
-kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
-0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
-ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
-blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
-hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
-VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
-HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
-ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
-AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
-cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
-cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
-AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
-aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
-hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
-iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
-8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
-JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
-xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
-EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
-B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
-MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
-KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
-Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
-nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
-WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
-W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
-nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
-g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
-9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
-9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
-sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
-a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
-ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
-AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
-dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
-MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
-YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
-4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
-6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
-QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
-nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
-MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
-VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
-ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDQwNzE0NTkw
-M1owLwYJKoZIhvcNAQkEMSIEIP6sJUbRW0GlvzpC/r6n5S7LEcPHMgaCvQmD6qegYObbMGQGCSsG
-AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
-cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
-VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
-cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAeOgGgm5JHwbM
-nmZwyFimIefatdf+PWA7USobHXrEOkohFkDzhGqp4zeBtlYoncqPyfULjG2ByZMq0ynNTaXc1eTZ
-ECGIz6aowG4rXmShUUBgIm8kIPrXUhwx/5DTatJ2p7VmnEYMV3gK419yCQemZv6gRzRjykXgEq36
-jz24SNGRXk/VNnosmpLGiiqAadXLHeXFSTw4ApW0JLKEdXi0MUqNV/4LuqF0xP0XViQ9uNaRBche
-8c9wzBEM1FM8urMCo3Gw+BpkhFP2eVBClPiBUH8qdOY/7GBwVcqgqtgjBxcDh7rXA+Qxt5xqZM0t
-URHArlZHAfO6YDBP00accu689qliy9jMeytCe+QeISZXVGvDF0n9lxg6FPNfKvspduVorfuZqovo
-2NK1T9Kfd84wQHfnKDEiQzaIb+GaZf0PH5v8Kz9zxMthp9yBhAZW0okSgFFLdq/m1371yqXpooiY
-1DXpgNoJY0g/yssjFz1K0HqjW5LuQkwxeA0odWtU3zccmCTw23Q1LOwyC+rGNEVqEYNju74/p2xh
-FA32fQOItxUNMpBNik0id/e2lc+tqPIws4i458eZJ11E87N3IuCMMgGEVMBtXhmMoFRiUDGfo3Of
-AG6car0INyNwhgrj9Q1IRNdYbfCaI5yLuxVaqBurGV1ZTVQaRm3kvt7E2oETDWQAAAAAAAA=
-
-
---=-X4Wvl5Dn79Iwla08Tm8+--
