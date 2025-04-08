@@ -1,223 +1,323 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C09D161321
-	for <virtio-comment@lists.linux.dev>; Tue,  8 Apr 2025 06:33:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E752620C2
+	for <virtio-comment@lists.linux.dev>; Tue,  8 Apr 2025 07:35:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1744094011; cv=none; b=Qcm6mThtP9CtB9dKy5HjkjVFKlgEJL5oelbMmKKR2vHZf0OBoZSraaLolBFuWA+10vOsP7lH9q80EvEfOmYekON12xIFeMBzJ0amVGfMziTCkdPBslvPEB+ADaU0lvaltTAh0x0bN/aVLZWf+Axp8hXwqlcGG3hiXkJcL/CUwtA=
+	t=1744097724; cv=none; b=ZVidezkRlvt5YamiTse8I5tq3DZQ4Xh5he0LbX+brK4BhWwAz56+B/8bfYzoGAeNx7+7YYBIi6fjbY4cCbyU38PDzeDKm3h2YiKdnODEkUjMPrkNp163Y3UP0ogN2MQZ9fRQSM+FHNzjAf5Jozp7jKvGtVD5+T9rEsK27+i0HfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1744094011; c=relaxed/simple;
-	bh=szlBC6oUBhSr/UVCzbhsTBxLTcfQAeiyQXiGi6nFnqU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GCNfsvP4dKM3qFXF++vQdm0SinhgzqU9vSAGWih0RnSkeMVtOe5Me+fRhGIXXPKzs5vT4OnGwWBInSWDOMVgUY1vLpMT3DaOq7eM9nTr2jTKaCbbyXLh+AveMBOKH0FzZhaPvm8VHjY5QsI5phUtJYmyRFz7k2iHC5cUwS98At0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hXVRXTR7; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1744097724; c=relaxed/simple;
+	bh=ojOdrkSABmp5I4OErdolYOLy98KBAoaygbBKnMhNstU=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=I5kQzr/T5fe/01IT1++a3qt3VFE6iiX01tNe1u2vClT5rOZRH2H3tlzcQNmMhgrbidny9sIUN6IuwdZvJiXe83f7QNwlOnSKHLFyfhRuXM7AYXtBra2KUiZs54JjSB3qPd9bl7vE35PzDAUawxDy4qXVoqBvI776i8X2AHYdV2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=C1VbCfYd; arc=none smtp.client-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hXVRXTR7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1744094008;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kXzKehP7pD2FUxFjQMlWthkC7uwrdmU1t256Yjcgmhs=;
-	b=hXVRXTR70TschbXhSbaX9sSFxsURgd9c3ss9xnApb5KGLzfKACLQANdBwFmEuOGypgva1M
-	An3Kd9z4if2aAVXWpTVdwzNp7DafGmIvCLUJPqH3p4iMVODO+B1FTVzGYNsqdEOTYvNqKK
-	eSwsq96EDA470zYvQH1MCaEAJtLRYJg=
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
- [209.85.222.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-326-hUxY6iagOHeyT5aGi0bdXQ-1; Tue, 08 Apr 2025 02:33:27 -0400
-X-MC-Unique: hUxY6iagOHeyT5aGi0bdXQ-1
-X-Mimecast-MFC-AGG-ID: hUxY6iagOHeyT5aGi0bdXQ_1744094006
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-86d04803f24so1619602241.0
-        for <virtio-comment@lists.linux.dev>; Mon, 07 Apr 2025 23:33:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744094005; x=1744698805;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=kXzKehP7pD2FUxFjQMlWthkC7uwrdmU1t256Yjcgmhs=;
-        b=dVN/oPt5bt8WK5HFOsZSJIwPt6w6M+lkIcmMg1+wLG+mzi1+g7yJBceJFzm/SNBPGv
-         EDwV2zmw/fbzH8xJ4Hs8nNemHTX4BXnioDrPHuLlEUwT/odIlh4cBFlBebqWke4rhCUt
-         7G+s+bXd/gMuq/4fCcpASA9CokZ3rsPJXU4V8WnhlN9zBQhcpCkgjO8AcVPyW7uSuCnR
-         C2M7lwWM7RwOlen9h6s4MK48Aes2yTPLJPazYbRi9NVCsNExprTXp/rKACvXaf5iy5w4
-         SX9A//fXTevCN+Xtdd0N/kkwfKqpivtA6v2AWfn6pEbN/5zzFuIZPYmrGe8Z7Jcxb5lW
-         JjXg==
-X-Gm-Message-State: AOJu0Yzau2G9tnGwqTRwisYwLJ4EB/h6HAAIB3HNtDAqMH3hzg4BbUQV
-	lYQRaZc1iLbd9qaYTNRddMcRfw0v0f/CMX+EE2xmcmQLLIsZ+09P3yfbJ+aKwbVzN/1vmYWn++V
-	8UGq0bn8pVvwl5MokFDUCVgwERN/mMbkhpsfOVzdBpsmDbtCTzzLSQuvCgkard05M8vYgVMgUEp
-	BwO0t4do9lWmeW9j/Dvv3voXErZNsglyTa6Qm07jkM7zxb3nF/hQ==
-X-Gm-Gg: ASbGnctAnBjkb8XC7S2T0pyeJaKnDF15SbVMvUgbDvQxH7QcYgkRlagkgnkgLTmehSY
-	NW92FjXRALo8Es1AdxRqZTQx8g2NLfozHkaPANcKYaCPnxrg0uuuH4/yH7w5f0I3Q+wtghfvb
-X-Received: by 2002:a05:6102:330b:b0:4c1:85d9:5641 with SMTP id ada2fe7eead31-4c8553cdf61mr12840737137.11.1744094005302;
-        Mon, 07 Apr 2025 23:33:25 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHGaB9034m1PZjZH1yD/9B1DC5b34ICi+rRRvnaDyCaYRAz0xeWhr13jZERAQ0zJhHR4dLouR5QFowIsmDXPpA=
-X-Received: by 2002:a05:6102:330b:b0:4c1:85d9:5641 with SMTP id
- ada2fe7eead31-4c8553cdf61mr12840735137.11.1744094004956; Mon, 07 Apr 2025
- 23:33:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="C1VbCfYd"
+Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5387Bo3v029881;
+	Tue, 8 Apr 2025 00:35:20 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=F
+	/9KkdNivOl6LarMwG5YM4Gda3Try8CwK+IM19YdfNc=; b=C1VbCfYdGOC9Mwwz8
+	kX9PJy/r6Qo6VAjrALa601Oc8lN35zrMmpfhbmku9IaCtCDYKn0t/6tb2ALo6Jmn
+	vhsvPqQ3RhmmllhAfH/bGrDzbhXbRc1Ab5Q5b9Y45X7VyQ/SAJLvvLY8fqNr5v9v
+	+fHuazdplzgzIjjnKmytKeENpXva84qoFzq81sXja5OpJv2XaVBUVSpcYBBPFuIG
+	aqJehJgfr2qiJ0yCL7TXqNPIM2pRlSVPI24rgg9rj4hDz4WjLXReF5laq/JoUOle
+	AahVG7iukdRCf8Lih4p/sU+DE1x2YeWmcmuquhUaXVpfHQJknMq0BpAT7pCCavBo
+	ayjjw==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 45u1vp5mbg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 08 Apr 2025 00:35:20 -0700 (PDT)
+Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.4; Tue, 8 Apr 2025 00:35:19 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
+ (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.4 via Frontend
+ Transport; Tue, 8 Apr 2025 00:35:19 -0700
+Received: from localhost.localdomain (unknown [10.28.36.175])
+	by maili.marvell.com (Postfix) with ESMTP id B46243F7119;
+	Tue,  8 Apr 2025 00:35:16 -0700 (PDT)
+From: Srujana Challa <schalla@marvell.com>
+To: <virtio-comment@lists.linux.dev>
+CC: <mst@redhat.com>, <cohuck@redhat.com>, <mvaralar@redhat.com>,
+        <parav@nvidia.com>, <sma@napatech.com>, <sburla@marvell.com>,
+        <ndabilpuram@marvell.com>, <jerinj@marvell.com>, <anoobj@marvell.com>,
+        <schalla@marvell.com>
+Subject: [PATCH RFC v5 1/4] virtio-crypto: Add IPsec service operation and Capabilities
+Date: Tue, 8 Apr 2025 13:05:09 +0530
+Message-ID: <20250408073512.1783641-2-schalla@marvell.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20250408073512.1783641-1-schalla@marvell.com>
+References: <20250408073512.1783641-1-schalla@marvell.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20250321-tx-v1-1-dd21fbdedf7a@daynix.com> <CACGkMEtGx7ajAmJUib++qJ2=rhZjyj5p=7iN2xBvba4gcBAQtg@mail.gmail.com>
- <afd70f86-a248-460c-b82f-c3bbbf62c0f1@daynix.com> <CACGkMEtqXtLeNTdcg0j57EX-4953htM9PWH+KQdRLBM=3jWgjg@mail.gmail.com>
- <6edb002d-406f-4f50-827a-14fe2228a650@daynix.com>
-In-Reply-To: <6edb002d-406f-4f50-827a-14fe2228a650@daynix.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Tue, 8 Apr 2025 14:33:11 +0800
-X-Gm-Features: ATxdqUH1r5aPWZ4zkf3FqRQp2MGncgulMAhn9-LPlaCJ04z97j0hHTIQOSdQrlU
-Message-ID: <CACGkMEuuK4uUgfdcYaGnGhTvbwzcrVL4Po2UFanPPObSX7oskA@mail.gmail.com>
-Subject: Re: [PATCH] virtio-net: Update the max_tx_vq description
-To: Akihiko Odaki <akihiko.odaki@daynix.com>
-Cc: virtio-comment@lists.linux.dev, devel@daynix.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: j1JYK3ORNfCmpxjEm_3G44mXdq8PYqYYDv-NRXmb-ig_1744094006
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: k3PgR0OZrD_O45D6coNmotmlBj89NJVN
+X-Authority-Analysis: v=2.4 cv=YbC95xRf c=1 sm=1 tr=0 ts=67f4d1b8 cx=c_pps a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17 a=XR8D0OoHHMoA:10 a=BqEg4_3jAAAA:8 a=M5GUcnROAAAA:8 a=V35hCYzM3wOqFGfn7v4A:9 a=0mFWnFbQd5xWBqmg7tTt:22
+ a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-GUID: k3PgR0OZrD_O45D6coNmotmlBj89NJVN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-08_02,2025-04-07_01,2024-11-22_01
 
-On Mon, Apr 7, 2025 at 11:43=E2=80=AFAM Akihiko Odaki <akihiko.odaki@daynix=
-.com> wrote:
->
-> On 2025/04/07 11:41, Jason Wang wrote:
-> > On Sat, Mar 29, 2025 at 4:32=E2=80=AFPM Akihiko Odaki <akihiko.odaki@da=
-ynix.com> wrote:
-> >>
-> >> On 2025/03/24 13:02, Jason Wang wrote:
-> >>> On Fri, Mar 21, 2025 at 3:01=E2=80=AFPM Akihiko Odaki <akihiko.odaki@=
-daynix.com> wrote:
-> >>>>
-> >>>> The previous description said:
-> >>>>> A driver sets \field{max_tx_vq} to inform a device how many transmi=
-t
-> >>>>> virtqueues it may use (transmitq1\ldots transmitq \field{max_tx_vq}=
-).
-> >>>>
-> >>>> However, it also controls how many receive virtqueues a device MAY u=
-se.
-> >>>> Copy the description of the virtqueue_pairs field of struct
-> >>>> virtio_net_ctrl_mq_pairs_set, which also has the identical semantics=
-, to
-> >>>> clarify that.
-> >>>
-> >>> Thanks for doing this, I wonder if it's time to rename as "max_tx_vq"
-> >>> sounds like a TX only thing.
-> >>
-> >> I'm no longer pursuing this change. Please see the discussion at:
-> >> https://lore.kernel.org/r/765a23aa-bb6b-4a01-89f1-31ad213b4715@daynix.=
-com
-> >>
-> >> Please also review a change for QEMU based on the discussion:
-> >> https://lore.kernel.org/qemu-devel/20250322-vq-v2-1-cee0aafe6404@dayni=
-x.com
-> >
-> > Ok, so it seems that RSS implement a async RX/TX queue model instead
-> > of the MQ queue pairs:
-> >
-> > 1) rx available queue were controlled by indirection table
-> > 2) tx available queue were controlled by max_tx_vq
-> >
-> > So it introduces more "issues" like:
-> >
-> > 1) This calls a new uAPI as I suggested in another thread instead of
-> > reusing TUN_SET_QUEUE
->
-> QEMU applies the same approach for both VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET
-> and VIRTIO_NET_CTRL_MQ_RSS_CONFIG, which is to parse the configuration
-> passed by the guest in QEMU and to pass the parsed configuration to TUN
-> via TUNSETQUEUE. Please see the patch for QEMU I mentioned in the
-> previous email for the actual implementation.
+This commit introduces the IPsec service operation to the Crypto
+device, enabling offloading of IPsec processing.
 
-If this is true, even if guests want to have an async tx/rx queue
-number, the underlayer TAP will still choose a combined queue pair
-model.
+Capabilities:
 
->
-> > 2) If both MQ and RSS are negotiated, what happens if the driver is
-> > using both max_tx_vq and virtqueue_pairs. This seems unclear in the
-> > spec itself.
->
-> The spec says the last one sent by the driver will be used. In version
-> 1.2, 5.1.6.5.5 "Device operation in multiqueue mode" says:
->  > The driver enables multiqueue by sending a command using class
->  > VIRTIO_NET_CTRL_MQ. The command selects the mode of multiqueue
->  > operation, as follows:
->  >  #define VIRTIO_NET_CTRL_MQ    4
->  >  #define VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET        0 (for automatic
->  >  receive steering)
->  >  #define VIRTIO_NET_CTRL_MQ_RSS_CONFIG          1 (for configurable
->  >  receive steering)
->  >  #define VIRTIO_NET_CTRL_MQ_HASH_CONFIG         2 (for configurable
->  >  hash calculation)
->  >
->  > If more than one multiqueue mode is negotiated, the resulting device
->  > configuration is defined by the last command sent by the driver.
+1. IPsec Resource Capability (VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP):
+   Indicates the device's IPsec resource limits, such as the number of
+   outbound and inbound Security Associations (SAs).
+2. IPsec SA Capability (VIRTIO_CRYPTO_IPSEC_SA_CAP): Specifies the
+   supported IPsec modes, along with the supported cryptographic
+   algorithms, authentication algorithms, IPsec options and
+   anti-replay window size.
 
-I think it doesn't clarify all the cases. Consider we:
+Signed-off-by: Srujana Challa <schalla@marvell.com>
+---
+ device-types/crypto/description.tex | 174 +++++++++++++++++++++++++++-
+ introduction.tex                    |  12 ++
+ 2 files changed, 181 insertions(+), 5 deletions(-)
 
-1) configure flow A to use rx queue 4
-2) set curr_queue_paris to 2
-
-How to choose the rx queue in flow A? This needs some clarification
-e.g whether unclassified or automq or drop
-
-Thanks
-
->
-> Regards,
-> Akihiko Odaki
->
-> >
-> > THanks
-> >
-> >
-> >>
-> >>>
-> >>>>
-> >>>> Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
-> >>>> ---
-> >>>>    device-types/net/description.tex | 4 +++-
-> >>>>    1 file changed, 3 insertions(+), 1 deletion(-)
-> >>>>
-> >>>> diff --git a/device-types/net/description.tex b/device-types/net/des=
-cription.tex
-> >>>> index 76585b0..5178191 100644
-> >>>> --- a/device-types/net/description.tex
-> >>>> +++ b/device-types/net/description.tex
-> >>>> @@ -1578,7 +1578,9 @@ \subsubsection{Control Virtqueue}\label{sec:De=
-vice Types / Network Device / Devi
-> >>>>
-> >>>>    Field \field{indirection_table} is an array of receive virtqueues=
- ids.
-> >>>>
-> >>>> -A driver sets \field{max_tx_vq} to inform a device how many transmi=
-t virtqueues it may use (transmitq1\ldots transmitq \field{max_tx_vq}).
-> >>>> +Field \field{max_tx_vq} specifies the number of the transmit and re=
-ceive queues
-> >>>> +to be used up to \field{max_virtqueue_pairs}; subsequently, transmi=
-tq1\ldots
-> >>>> +transmitqn and receiveq1\ldots receiveqn where n=3D\field{max_tx_vq=
-} MAY be used.
-> >>>>
-> >>>>    Fields \field{hash_key_length} and \field{hash_key_data} define t=
-he key to be used in hash calculation.
-> >>>>
-> >>>>
-> >>>> ---
-> >>>> base-commit: b495841a8e80d12c1130f8868f4128866291142d
-> >>>> change-id: 20250321-tx-78e44c50a035
-> >>>>
-> >>>> Best regards,
-> >>>> --
-> >>>> Akihiko Odaki <akihiko.odaki@daynix.com>
-> >>>>
-> >>>
-> >>
-> >
->
+diff --git a/device-types/crypto/description.tex b/device-types/crypto/description.tex
+index e053cc7..1f2d336 100644
+--- a/device-types/crypto/description.tex
++++ b/device-types/crypto/description.tex
+@@ -2,13 +2,15 @@ \section{Crypto Device}\label{sec:Device Types / Crypto Device}
+ 
+ The virtio crypto device is a virtual cryptography device as well as a
+ virtual cryptographic accelerator. The virtio crypto device provides the
+-following crypto services: CIPHER, MAC, HASH, AEAD and AKCIPHER. Virtio crypto
+-devices have a single control queue and at least one data queue. Crypto
+-operation requests are placed into a data queue, and serviced by the
+-device. Some crypto operation requests are only valid in the context of a
+-session. The role of the control queue is facilitating control operation
++following crypto services: CIPHER, MAC, HASH, AEAD, AKCIPHER and IPSEC.
++Virtio crypto devices have a single control queue and at least one data
++queue. Crypto operation requests are placed into a data queue, and serviced
++by the device. Some crypto operation requests are only valid in the context
++of a session. The role of the control queue is facilitating control operation
+ requests. Sessions management is realized with control operation
+ requests.
++The crypto device may have administration command interface through which
++IPsec service capabilities and resources are configured.
+ 
+ \subsection{Device ID}\label{sec:Device Types / Crypto Device / Device ID}
+ 
+@@ -72,6 +74,8 @@ \subsection{Supported crypto services}\label{sec:Device Types / Crypto Device /
+ #define VIRTIO_CRYPTO_SERVICE_AEAD   3
+ /* AKCIPHER (Asymmetric Key Cipher) service */
+ #define VIRTIO_CRYPTO_SERVICE_AKCIPHER 4
++/* IPSEC service */
++#define VIRTIO_CRYPTO_SERVICE_IPSEC  5
+ \end{lstlisting}
+ 
+ The above constants designate bits used to indicate the which of crypto services are
+@@ -318,6 +322,20 @@ \subsection{Device Initialization}\label{sec:Device Types / Crypto Device / Devi
+ \item The driver MUST read the supported algorithms based on \field{crypto_services} field.
+ \end{itemize*}
+ 
++\subsection{Device and driver capabilities}\label{sec:Device Types / Crypto Device / Device and driver capabilities}
++
++The crypto device has the following capabilities.
++
++\begin{tabularx}{\textwidth}{ |l||l|X| }
++\hline
++Identifier & Name & Description \\
++\hline \hline
++0x0800 & \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP]{VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP} & IPsec resource capability \\
++\hline
++0x0801 & \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP]{VIRTIO_CRYPTO_IPSEC_SA_CAP} & IPsec Security Association(SA) capability \\
++\hline
++\end{tabularx}
++
+ \subsection{Device Operation}\label{sec:Device Types / Crypto Device / Device Operation}
+ 
+ The operation of a virtio crypto device is driven by requests placed on the virtqueues.
+@@ -1872,3 +1890,149 @@ \subsubsection{AKCIPHER Service Operation}\label{sec:Device Types / Crypto Devic
+ \item VIRTIO_CRYPTO_ERR if any failure not mentioned above occurs.
+ \end{itemize*}
+ \end{itemize*}
++
++\subsubsection{IPSEC Service Operation}\label{sec:Device Types / Crypto Device / Device Operation / IPSEC Service Operation}
++
++A crypto device can support the processing of IPsec protocol operations.
++In addition to standard crypto processing, the IPsec protocol operations
++are also handled by the crypto device as a lookaside operation.
++
++IPsec Inbound processing: The device performs decryption, authentication,
++integrity checking and remove additional headers, including tunnel header if
++in tunnel mode, as well as the ESP/AH header on the given packet(See \hyperref[intro:IPSEC]{IPSEC} RFC).
++The resulting packet contains only the plain data.
++
++IPsec Outbound processing: The device performs encryption, attach ICV,
++update/add IP header and add ESP/AH header/trailer. The resulting packet
++contains encrypted data along with the IPsec header and trailer.
++
++A crypto device can support number of IPsec SAs, allowing it to manage multiple secure
++connections simultaneously.
++
++The device and the driver indicate IPsec SA resource limits using the
++VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP capability specifying the limits on the number of
++IPsec outbound and inbound SA resource objects.
++The VIRTIO_CRYPTO_IPSEC_SA_CAP capability  specifies the IPsec protocol capabilities
++supported by the device. The driver indicates the IPsec parameters by setting
++VIRTIO_CRYPTO_IPSEC_SA_CAP capability prior to adding any resource object.
++
++The driver controls the IPsec SA resource object using administration commands described in
++\ref{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}.
++
++\paragraph{Device and driver capabilities}
++\label{par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities}
++
++\subparagraph{VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP}
++\label{par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP}
++
++The VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP capability indicates the IPsec SA resource limits.
++\field{cap_specific_data} is in the format
++\field{struct virtio_crypto_ipsec_resource_cap}.
++
++\begin{lstlisting}
++struct virtio_crypto_ipsec_resource_cap {
++        le32 inb_sa_limit;
++        le32 outb_sa_limit;
++};
++\end{lstlisting}
++
++\field{inb_sa_limit}, and \field{outb_sa_limit} denote the maximum number of IPsec
++security Associations (SAs) that can be utilized for IPsec inbound and outbound processing,
++respectively, which the device is capable of creating.
++
++\subparagraph{VIRTIO_CRYPTO_IPSEC_SA_CAP}
++\label{par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP}
++
++The VIRTIO_CRYPTO_IPSEC_SA_CAP capability lists the supported IPsec modes along with
++the supported cryptographic, authentication algorithms and anti-replay window size for
++each IPsec mode.
++\field{cap_specific_data} is in the format \field{struct virtio_crypto_ipsec_sa_cap_data}.
++
++\begin{lstlisting}[label={lst:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / virtio-crypto-ipsec-mode-cap}]
++struct virtio_crypto_ipsec_mode_cap {
++        u8 mode;
++        u8 reserved[3];
++        le32 max_replay_win_sz;
++        le32 options;
++        le32 reserved1;
++        le64 cipher_algo;
++        le64 hmac_algo;
++        le32 aead_algo;
++        le32 max_cipher_key_len;
++        le32 max_auth_key_len;
++};
++
++struct virtio_crypto_ipsec_sa_cap_data {
++        u8 count;
++        u8 reserved[7];
++        struct virtio_crypto_ipsec_mode_cap cap_mode[];
++};
++\end{lstlisting}
++
++\field{count} indicates number of valid entries in the \field{mode} array.
++\field{mode[]} is an array of supported IPsec modes. Within each array entry:
++
++\field{mode} specifies the IPsec mode, as defined in table
++\ref{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Modes}.
++\field{max_replay_win_sz} specifies the maximum anti-replay window size the device supports.
++This field is applicable only for inbound operation.
++
++\field{options} Each bit indicates the IPsec protocol options supported by the device, as defined in table
++\ref{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Options}.
++
++\field{cipher_algo} CIPHER algorithms mask, see \ref{sec:Device Types / Crypto Device / Supported crypto services  / CIPHER services}.
++
++\field{hmac_algo} HMAC algorithms mask, see \ref{sec:Device Types / Crypto Device / Supported crypto services  / MAC services}.
++
++\field{aead_algo} AEAD algorithms mask, see \ref{sec:Device Types / Crypto Device / Supported crypto services  / AEAD services}.
++
++\field{max_cipher_key_len} is the maximum length of cipher key supported by the device.
++
++\field{max_auth_key_len} is the maximum length of authentication key supported by the device.
++
++\begin{table}[H]
++\caption{IPsec Modes}
++\label{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Modes}
++\begin{tabularx}{\textwidth}{ |l|X|X| }
++\hline
++Type & Name & Description \\
++\hline \hline
++0x0 & - & Reserved \\
++\hline
++0x1 & VIRTIO_CRYPTO_IPSEC_MODE_ESP_TUNNEL & IPsec ESP protocol in tunnel mode \\
++\hline
++0x2 & VIRTIO_CRYPTO_IPSEC_MODE_ESP_TRANSPORT & IPsec ESP protocol in transport mode \\
++\hline
++0x3 & VIRTIO_CRYPTO_IPSEC_MODE_AH_TUNNEL & IPsec AH protocol in tunnel mode \\
++\hline
++0x4 & VIRTIO_CRYPTO_IPSEC_MODE_AH_TRANSPORT & IPsec AH protocol in transport mode \\
++\hline
++\end{tabularx}
++\end{table}
++
++See \hyperref[intro:IPSEC]{IPSEC} for more information on tunnel and transport modes in ESP/AH IPsec processing.
++
++\begin{table}[H]
++\caption{IPsec Options}
++\label{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Options}
++\begin{tabularx}{\textwidth}{ |l|X|X| }
++\hline
++Bit Number & Name & Description \\
++\hline \hline
++0 & VIRTIO_CRYPTO_IPSEC_ESN & Specifies whether extended sequence number is supported, as described in \hyperref[intro:ESN]{ESN}\\
++\hline
++1 & VIRTIO_CRYPTO_IPSEC_UDP_ENCAP & Specifies whether udp encapsulation is supported, as described in
++                                    \hyperref[intro:UDP-Encapsulation]{UDP Encapsulation}, applicable only for ESP IPsec processing \\
++\hline
++2 & VIRTIO_CRYPTO_IPSEC_COPY_DSCP & Specifies whether copy dscp is supported, as described in \hyperref[intro:IPSEC]{IPSEC} \\
++\hline
++3 & VIRTIO_CRYPTO_IPSEC_DEC_TTL & Specifies whether decrementing the time to live is supported, as described in \hyperref[intro:IPSEC]{IPSEC} \\
++\hline
++4 & VIRTIO_CRYPTO_IPSEC_COPY_DF & Specifies whether copy Don't Fragment bit is supported, as described in \hyperref[intro:IPSEC]{IPSEC} \\
++\hline
++5 & VIRTIO_CRYPTO_IPSEC_ECN & Specifies whether copy Explicit Congestion Notification is supported, as described in \hyperref[intro:IPSEC]{IPSEC} \\
++\hline
++6 & VIRTIO_CRYPTO_IPSEC_SA_LIFETIME & Specifies whether SA lifetime feature is supported, as described in \hyperref[intro:IPSEC]{IPSEC} \\
++\hline
++\end{tabularx}
++\end{table}
+diff --git a/introduction.tex b/introduction.tex
+index e60298a..80aa67a 100644
+--- a/introduction.tex
++++ b/introduction.tex
+@@ -162,6 +162,18 @@ \section{Normative References}\label{sec:Normative References}
+ 	\phantomsection\label{intro:TCP-Header-Format}\textbf{[TCP Header Format]} &
+     TCP Header Format
+ 	\newline\url{https://www.rfc-editor.org/rfc/rfc9293#name-header-format}\\
++	\phantomsection\label{intro:IPSEC}\textbf{[IPSEC]} &
++    IPsec Protocol
++	\newline\url{https://www.rfc-editor.org/rfc/rfc4301}\\
++	\phantomsection\label{intro:ESP}\textbf{[ESP]} &
++    IPsec ESP
++	\newline\url{https://www.rfc-editor.org/rfc/rfc4303}\\
++	\phantomsection\label{intro:ESN}\textbf{[ESN]} &
++    IPsec ESN
++	\newline\url{https://www.rfc-editor.org/rfc/rfc4304}\\
++	\phantomsection\label{intro:UDP-Encapsulation}\textbf{[UDP Encapsulation]} &
++    IPsec UDP Encapsulation
++	\newline\url{https://www.rfc-editor.org/rfc/rfc3948}\\
+ 	\phantomsection\label{intro:CAN}\textbf{[CAN]} &
+     ISO 11898-1:2015 Road vehicles -- Controller area network (CAN) -- Part 1: Data link layer and physical signalling\\
+ 	\phantomsection\label{intro:rfc8174}\textbf{[RFC8174]} &
+-- 
+2.25.1
 
