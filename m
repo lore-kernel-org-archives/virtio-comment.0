@@ -1,240 +1,273 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC5781F9F73
-	for <virtio-comment@lists.linux.dev>; Wed, 16 Apr 2025 14:44:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5D622087
+	for <virtio-comment@lists.linux.dev>; Wed, 16 Apr 2025 14:59:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1744814688; cv=none; b=duKlee9/1CtZ6MRrPhX9mRdM4HicpIvmn2IP4WF4+XjMdFDy4mJ9AX8Aa3fvBwwJ/UXw4tOfe2x5DMIJmRv7a5IQmgTjqCXEVDqikbysdxe2Ox4GJWfqKrFfed0PhmoyuPKpWdu5uddfpcUVwrh7k0yDMvnnDYiZGfX9VT5TSpQ=
+	t=1744815580; cv=none; b=TuutUX3HmDW6muQ5cYHZtnF4awxmp4gEyIMoRonqRCpFsYW+nIKE1EABxh77rMIJghenBM7vIjQBkJuEdYZbR2lO+hMcTdk+Ao+FXbCq2ZPn53F+nBhHRYbO8a5MnPdMS3GwXLuMQ8tTUeG/d+9RrLead0OeqMuiPj8adNIIRuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1744814688; c=relaxed/simple;
-	bh=BbLUCcFZeQu55tjB9lyv6V6V5kahYCyIk+/Eqn7mP94=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mlLzU/Iw4zGEz0psupHlkTBinD2spR6IBUQYYEgAbJGjtBMTZ5cYIQ5RPvuybzgxqYMgwvYGLzycgMhEeU+d9FXxSy2SYfX6S5px2SusGPv8FSrbrViWr3PKhJYqyxT46qB/X5wAe6KgGn4C1sDwHRc1gAzbXRXtGZ2yWL5l/jg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com; spf=pass smtp.mailfrom=quicinc.com; dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b=Hin/f/7M; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quicinc.com
+	s=arc-20240116; t=1744815580; c=relaxed/simple;
+	bh=mzD2uZqbITX53fKlZSd7+BxLYfGC3ENUYfwzBoSfTdM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fVv7L0tmYUJwLSXF0OBK6f6xKrl0vMKwpD4mGm/eO6Wxi4U/Zh131Rasn52uyg+NMBDsjJbtw8a4eyadnrgW1IWy60lrsg0aMvGaeYn8s0ZANfjW6R+dvUK8xed63luhflLFJA2DHeIKzaDTHE5MyhfSNAu7b/6Zpiyby3749bc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hZyee2cl; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b="Hin/f/7M"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53G9mG3W003453;
-	Wed, 16 Apr 2025 14:44:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=tstVSU1xXELvA6zdtLMgcSH8
-	tHa31pQbYG/WgbHh6xY=; b=Hin/f/7MOU+tf45D6IuBRjlerz5BiPxB1m5XfWN5
-	0OD/sxPde4drBhiVu7sZw3XqCxAqoPLuwRvo3niNcXIEGrm2VLedF4gZv1wFkiij
-	crXy4BJC8hwe5SOlzOXR75433nV/J4Yjp+3LINLB4yHncFdWLLwWXWQThBfmYF1t
-	h7QC7jDeXkB6KIvU8CAryt9aNfmOX7K+1dbzGbt68BNflLMCKGyE5NtCYL2BMNOq
-	n0Nb3IkipwF0Zp8XicXv+xY/4OaEKv4UDtZ7uwyPn8b1SlwtjfuU7pngvOCLm1O6
-	SI3EOyYqYmZMNKNJK+3RfWjIDvOtajdhvVLUPBv3W3pfyQ==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4628rv92qx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 16 Apr 2025 14:44:38 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com [10.47.209.196])
-	by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 53GEibl1030308
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 16 Apr 2025 14:44:37 GMT
-Received: from PHILBER.na.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Wed, 16 Apr 2025 07:44:35 -0700
-Date: Wed, 16 Apr 2025 16:44:32 +0200
-From: Peter Hilber <quic_philber@quicinc.com>
-To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-CC: <virtio-comment@lists.linux.dev>, Cornelia Huck <cohuck@redhat.com>,
-        "Parav Pandit" <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
-        David
- Woodhouse <dwmw2@infradead.org>,
-        "Ridoux, Julien" <ridouxj@amazon.com>,
-        Trilok Soni <quic_tsoni@quicinc.com>
-Subject: Re: [PATCH v8 0/4] virtio-rtc: Add device specification
-Message-ID: <o24texxar6qou44fvtul24x7q3ymd7vrq6m4k6kkvgh7rpwvqk@7p44quglxnql>
-References: <20250306095112.1293-1-quic_philber@quicinc.com>
- <Z/+qe+tyH5EGaIXq@fedora>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hZyee2cl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1744815577;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=M90aQgUTFK/P3jbkYiOzEpfhfkPkAJiGzu6cEWsw73E=;
+	b=hZyee2clcgp1zdJaoNUvu6uOVNGtpC6XWD/xmvWR+d3LGET1K3QBrEKT7aJXSWImNg1Uku
+	WBkKXfJFHYoewaOVHZz9a5l/JkMnEJbAYyFCWUcZdw3MVh0w3FcqSEI7g2YsHngwk64NiU
+	lX2BXGjn6NR0QuZ3M6rYPDQODdl9E4o=
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-611-r-265ctSOIaZhXbGKgj8HQ-1; Wed, 16 Apr 2025 10:59:35 -0400
+X-MC-Unique: r-265ctSOIaZhXbGKgj8HQ-1
+X-Mimecast-MFC-AGG-ID: r-265ctSOIaZhXbGKgj8HQ_1744815574
+Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-5f435440b1cso3329894a12.3
+        for <virtio-comment@lists.linux.dev>; Wed, 16 Apr 2025 07:59:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744815574; x=1745420374;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=M90aQgUTFK/P3jbkYiOzEpfhfkPkAJiGzu6cEWsw73E=;
+        b=tFMcgkzm2Fm3x0ahldc6UkmvSJV1vpSdZAeATIavKjt5nwGXwEnKTO4OjI4q0hxhwX
+         15+15za4td4pL1INYqreh+WhotpIU76HNmA1NyFlc9UoeZ2pcXDI19gIyw8jm0OUP6Z5
+         jt+S+pPLxNZmJabtl2DEmWoAC5vhBAATJfZASt+fWZHikj+0AacygkQrzu/A8mOcTprY
+         lO/nKL3FA0imtWMTZissFAQSJhXpVkhWVzYXOvz0Lgu6cP8c4tEQsSNdwRNqOqCxuq+5
+         7TIhvqMEuy3Ct+Pl2/KKJCZvxIKk/t7SSkxfDMkdSc4C/txjx1oBwTdcyw1G6Osz1NWH
+         dzFQ==
+X-Gm-Message-State: AOJu0YzKXe4cPEsET3DAoNJRXWr8PaZKh7+vlwZXHgQFbMjG2bYdtR/n
+	EyeskQyisOTj5evL5ItYr8aJ2PlE4qfQ/NMMIM3NJp3qr15dYIWKci1fJ92oV5gzpyTLAlf/U3/
+	OgVS/qoBnpLPnrq1PRcBikHAmelcku5m2gNcEZFqatJFrAld5xeTWs2yc3FiOhErgrqdo0Vn+ON
+	ZgAcKRODQJuSMdfUjWz9SqcdOsPRByXc+jGeuRbVM=
+X-Gm-Gg: ASbGnctyhTR0gd2ozDd07t4euZSrqgCt8XloobiE/QPzyBZbvYHFZX4p5uhWo2GjaBL
+	Cr/hDl6sOsQ/laF1IKhj8sXGIz0LQdJjYfc4OjqAxmXRuDqy8f1Gu1l33eizKhc5cxRjRiSBox2
+	GaAyO3/23HJet68yy/sq1AKlvQ
+X-Received: by 2002:a05:6402:4404:b0:5ed:6535:b6d2 with SMTP id 4fb4d7f45d1cf-5f4b7343608mr2113757a12.15.1744815573934;
+        Wed, 16 Apr 2025 07:59:33 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFuhrS7h8S6h/1U9VA4V57KYUt/iXFcY6I/35VYJabXu+f08FPTCw3cT+qoBtT+tII359i3yvmNhfBXwEK+6Y8=
+X-Received: by 2002:a05:6402:4404:b0:5ed:6535:b6d2 with SMTP id
+ 4fb4d7f45d1cf-5f4b7343608mr2113731a12.15.1744815573547; Wed, 16 Apr 2025
+ 07:59:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <Z/+qe+tyH5EGaIXq@fedora>
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Proofpoint-ORIG-GUID: 9G2VOrAZhUdTb_z0ydBEDV9jBzNM-TUi
-X-Authority-Analysis: v=2.4 cv=RbSQC0tv c=1 sm=1 tr=0 ts=67ffc256 cx=c_pps a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17 a=GEpy-HfZoHoA:10 a=kj9zAlcOel0A:10 a=XR8D0OoHHMoA:10 a=VwQbUJbxAAAA:8 a=bs-e4Z8cAAAA:8 a=JfrnYn6hAAAA:8
- a=COk6AnOGAAAA:8 a=p-8UUv7kwcenDKhPCq0A:9 a=CjuIK1q_8ugA:10 a=YFpLQiK6rFjqGb8m0bXF:22 a=1CNFftbPRP8L7MoqJWF3:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: 9G2VOrAZhUdTb_z0ydBEDV9jBzNM-TUi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-16_04,2025-04-15_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxlogscore=999
- suspectscore=0 adultscore=0 impostorscore=0 clxscore=1015 bulkscore=0
- phishscore=0 priorityscore=1501 spamscore=0 mlxscore=0 lowpriorityscore=0
- malwarescore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2504160120
+References: <20250306095112.1293-1-quic_philber@quicinc.com>
+ <Z/+qe+tyH5EGaIXq@fedora> <o24texxar6qou44fvtul24x7q3ymd7vrq6m4k6kkvgh7rpwvqk@7p44quglxnql>
+In-Reply-To: <o24texxar6qou44fvtul24x7q3ymd7vrq6m4k6kkvgh7rpwvqk@7p44quglxnql>
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+Date: Wed, 16 Apr 2025 16:59:22 +0200
+X-Gm-Features: ATxdqUGIL4P9mD_hmVw4N2pi2bGVMsdfkJXDdGY17dE1K0ozq0A0tjMJJZztgkY
+Message-ID: <CAHYGQ0zj3ZDCuUxK=r61dSzeS=8m2rwJvBjiMMx1mk__N8DroA@mail.gmail.com>
+Subject: Re: [PATCH v8 0/4] virtio-rtc: Add device specification
+To: Peter Hilber <quic_philber@quicinc.com>
+Cc: virtio-comment@lists.linux.dev, Cornelia Huck <cohuck@redhat.com>, 
+	Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>, 
+	David Woodhouse <dwmw2@infradead.org>, "Ridoux, Julien" <ridouxj@amazon.com>, 
+	Trilok Soni <quic_tsoni@quicinc.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: WYkmZvLFJM8hstyXjqcpX8Y_fTrH01I1V-5AgsmKlZs_1744815574
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Apr 16, 2025 at 03:02:51PM +0200, Matias Ezequiel Vara Larsen wrote:
-> Hello Peter,
-> 
-> I only now had time to share my comments. I could not cover all the
-> patches though. These are minor changes. Apologies for the delay.
+On Wed, Apr 16, 2025 at 4:45=E2=80=AFPM Peter Hilber <quic_philber@quicinc.=
+com> wrote:
+>
+> On Wed, Apr 16, 2025 at 03:02:51PM +0200, Matias Ezequiel Vara Larsen wro=
+te:
+> > Hello Peter,
+> >
+> > I only now had time to share my comments. I could not cover all the
+> > patches though. These are minor changes. Apologies for the delay.
+>
+> Hi Matias,
+>
+> not sure which patches you did not address. I got your replies for all 4
+> patches. Is it the Linux kernel driver patches?
+>
 
-Hi Matias,
+No, sorry I meant that I could not cover all the sections in the
+patches. I think I stopped at Device Requirements: Alarm Operation.
 
-not sure which patches you did not address. I got your replies for all 4
-patches. Is it the Linux kernel driver patches?
+Matias
 
-Thanks for the comments,
+> Thanks for the comments,
+>
+> Peter
+>
+> >
+> > Matias
+> >
+> > On Thu, Mar 06, 2025 at 10:51:08AM +0100, Peter Hilber wrote:
+> > > This iteration of the spec should address multiple review findings fr=
+om
+> > > Matias Ezequiel Vara Larsen.
+> > >
+> > > Summary
+> > > -------
+> > >
+> > > The RTC (Real Time Clock) device provides information about current
+> > > time. The device can provide different clocks, for the UTC or TAI tim=
+e
+> > > standards, or for physical time elapsed since some past epoch. For UT=
+C
+> > > clocks, the device can also indicate how leap seconds are handled. Th=
+e
+> > > driver can read the clocks with simple or more accurate methods.
+> > > Optionally, the driver can set an alarm.
+> > >
+> > > Changelog
+> > > ---------
+> > >
+> > > v8:
+> > >
+> > > - Explicitly describe alarm enabled status, where relevant (Matias Ez=
+equiel
+> > >   Vara Larsen).
+> > >
+> > > - Reword multiple sentences and requirements (Matias Ezequiel Vara La=
+rsen).
+> > >
+> > > - Drop unnecessary or redundant requirements (Matias Ezequiel Vara La=
+rsen).
+> > >
+> > > - Change word order from "field X" to "the X field" (Matias Ezequiel =
+Vara
+> > >   Larsen).
+> > >
+> > > - Change word order from "flag X" to "the X flag" or "X".
+> > >
+> > > - Move requirements to serve alarm expiration events before requireme=
+nts
+> > >   about stopping to serve (Matias Ezequiel Vara Larsen).
+> > >
+> > > v7:
+> > >
+> > > - Remove leap second and performance indications from struct
+> > >   virtio_rtc_resp_read_cross. Remove backing definitions.
+> > >
+> > > - Move wording change which was mistakenly placed in last patch to fi=
+rst
+> > >   patch.
+> > >
+> > > v6:
+> > >
+> > > - Make leap second status information optional if the clock smears (o=
+r
+> > >   might smear) leap seconds.
+> > >
+> > > - Do not use union for leap second indication.
+> > >
+> > > - Improve wording.
+> > >
+> > > - Refer to the new POSIX.1-2024 for UTC epoch definition.
+> > >
+> > > v5:
+> > >
+> > > - Change structure and wording to support adding shared memory like
+> > >   vmclock [2].
+> > >
+> > > - Add dedicated clock types for UTC leap second smearing (David
+> > >   Woodhouse).
+> > >
+> > > - Extend leap second indications.
+> > >
+> > > - Replace VIRTIO_RTC_SUBTYPE_ by VIRTIO_RTC_SMEAR_.
+> > >
+> > > - For Arm Generic Timer, only support Virtual Count Register (David
+> > >   Woodhouse).
+> > >
+> > > - Rename MONO clock to MONOTONIC clock.
+> > >
+> > > - Harmonize bit widths with vmclock [2].
+> > >
+> > > - Change formatting.
+> > >
+> > > v4:
+> > >
+> > > - Distinguish UTC clocks with and without leap smearing (David
+> > >   Woodhouse).
+> > >
+> > > - Add UTC leap second and TAI offset indication (David Woodhouse).
+> > >
+> > > - Add clock performance information (David Woodhouse).
+> > >
+> > > - Drop distinction of Arm Generic Timer virtual and physical counter.
+> > >
+> > > - Change requirements so that driver can reset alarm to clean slate, =
+and
+> > >   document how driver can achieve this (Cornelia Hell, Jason Wang).
+> > >
+> > > - Device should assume that driver reads clock from first vCPU (David
+> > >   Woodhouse).
+> > >
+> > > - Driver should read clock to confirm that alarm has expired.
+> > >
+> > > - Require driver to set unused flags to zero.
+> > >
+> > > - Require device to support all expressible alarm times.
+> > >
+> > > - Formatting and wording improvements.
+> > >
+> > > v3:
+> > >
+> > > - Address comments from Parav Pandit.
+> > >
+> > > - Add an optional alarm feature.
+> > >
+> > > - Various other changes.
+> > >
+> > > v2:
+> > >
+> > > - Address comments from Cornelia Huck.
+> > >
+> > > [1] https://lore.kernel.org/lkml/61364452-bdf5-4bd8-adb1-a9e6236c9d26=
+@opensynergy.com/
+> > > [2] https://lore.kernel.org/lkml/20240708092924.1473461-1-dwmw2@infra=
+dead.org/
+> > > [3] https://lore.kernel.org/all/78969a39b51ec00e85551b752767be65f6794=
+b46.camel@infradead.org/
+> > > [4] https://lore.kernel.org/lkml/20241219204208.3160-1-quic_philber@q=
+uicinc.com/
+> > >
+> > >
+> > > Peter Hilber (4):
+> > >   virtio-rtc: Add initial device specification
+> > >   virtio-rtc: Add initial normative statements
+> > >   virtio-rtc: Add alarm feature
+> > >   virtio-rtc: Add normative statements for alarm feature
+> > >
+> > >  conformance.tex                         |    2 +
+> > >  content.tex                             |    3 +-
+> > >  device-types/rtc/description.tex        | 1100 +++++++++++++++++++++=
+++
+> > >  device-types/rtc/device-conformance.tex |   13 +
+> > >  device-types/rtc/driver-conformance.tex |   11 +
+> > >  introduction.tex                        |    6 +
+> > >  6 files changed, 1134 insertions(+), 1 deletion(-)
+> > >  create mode 100644 device-types/rtc/description.tex
+> > >  create mode 100644 device-types/rtc/device-conformance.tex
+> > >  create mode 100644 device-types/rtc/driver-conformance.tex
+> > >
+> > >
+> > > base-commit: 124fcd0e97f209aab19639e7369116d99ede22a2
+> > > --
+> > > 2.43.0
+> > >
+> >
+>
 
-Peter
-
-> 
-> Matias
-> 
-> On Thu, Mar 06, 2025 at 10:51:08AM +0100, Peter Hilber wrote:
-> > This iteration of the spec should address multiple review findings from
-> > Matias Ezequiel Vara Larsen.
-> > 
-> > Summary
-> > -------
-> > 
-> > The RTC (Real Time Clock) device provides information about current
-> > time. The device can provide different clocks, for the UTC or TAI time
-> > standards, or for physical time elapsed since some past epoch. For UTC
-> > clocks, the device can also indicate how leap seconds are handled. The
-> > driver can read the clocks with simple or more accurate methods.
-> > Optionally, the driver can set an alarm.
-> > 
-> > Changelog
-> > ---------
-> > 
-> > v8:
-> > 
-> > - Explicitly describe alarm enabled status, where relevant (Matias Ezequiel
-> >   Vara Larsen).
-> > 
-> > - Reword multiple sentences and requirements (Matias Ezequiel Vara Larsen).
-> > 
-> > - Drop unnecessary or redundant requirements (Matias Ezequiel Vara Larsen).
-> > 
-> > - Change word order from "field X" to "the X field" (Matias Ezequiel Vara
-> >   Larsen).
-> > 
-> > - Change word order from "flag X" to "the X flag" or "X".
-> > 
-> > - Move requirements to serve alarm expiration events before requirements
-> >   about stopping to serve (Matias Ezequiel Vara Larsen).
-> > 
-> > v7:
-> > 
-> > - Remove leap second and performance indications from struct
-> >   virtio_rtc_resp_read_cross. Remove backing definitions.
-> > 
-> > - Move wording change which was mistakenly placed in last patch to first
-> >   patch.
-> > 
-> > v6:
-> > 
-> > - Make leap second status information optional if the clock smears (or
-> >   might smear) leap seconds.
-> > 
-> > - Do not use union for leap second indication.
-> > 
-> > - Improve wording.
-> > 
-> > - Refer to the new POSIX.1-2024 for UTC epoch definition.
-> > 
-> > v5:
-> > 
-> > - Change structure and wording to support adding shared memory like
-> >   vmclock [2].
-> > 
-> > - Add dedicated clock types for UTC leap second smearing (David
-> >   Woodhouse).
-> > 
-> > - Extend leap second indications.
-> > 
-> > - Replace VIRTIO_RTC_SUBTYPE_ by VIRTIO_RTC_SMEAR_.
-> > 
-> > - For Arm Generic Timer, only support Virtual Count Register (David
-> >   Woodhouse).
-> > 
-> > - Rename MONO clock to MONOTONIC clock.
-> > 
-> > - Harmonize bit widths with vmclock [2].
-> > 
-> > - Change formatting.
-> > 
-> > v4:
-> > 
-> > - Distinguish UTC clocks with and without leap smearing (David
-> >   Woodhouse).
-> > 
-> > - Add UTC leap second and TAI offset indication (David Woodhouse).
-> > 
-> > - Add clock performance information (David Woodhouse).
-> > 
-> > - Drop distinction of Arm Generic Timer virtual and physical counter.
-> > 
-> > - Change requirements so that driver can reset alarm to clean slate, and
-> >   document how driver can achieve this (Cornelia Hell, Jason Wang).
-> > 
-> > - Device should assume that driver reads clock from first vCPU (David
-> >   Woodhouse).
-> > 
-> > - Driver should read clock to confirm that alarm has expired.
-> > 
-> > - Require driver to set unused flags to zero.
-> > 
-> > - Require device to support all expressible alarm times.
-> > 
-> > - Formatting and wording improvements.
-> > 
-> > v3:
-> > 
-> > - Address comments from Parav Pandit.
-> > 
-> > - Add an optional alarm feature.
-> > 
-> > - Various other changes.
-> > 
-> > v2:
-> > 
-> > - Address comments from Cornelia Huck.
-> > 
-> > [1] https://lore.kernel.org/lkml/61364452-bdf5-4bd8-adb1-a9e6236c9d26@opensynergy.com/
-> > [2] https://lore.kernel.org/lkml/20240708092924.1473461-1-dwmw2@infradead.org/
-> > [3] https://lore.kernel.org/all/78969a39b51ec00e85551b752767be65f6794b46.camel@infradead.org/
-> > [4] https://lore.kernel.org/lkml/20241219204208.3160-1-quic_philber@quicinc.com/
-> > 
-> > 
-> > Peter Hilber (4):
-> >   virtio-rtc: Add initial device specification
-> >   virtio-rtc: Add initial normative statements
-> >   virtio-rtc: Add alarm feature
-> >   virtio-rtc: Add normative statements for alarm feature
-> > 
-> >  conformance.tex                         |    2 +
-> >  content.tex                             |    3 +-
-> >  device-types/rtc/description.tex        | 1100 +++++++++++++++++++++++
-> >  device-types/rtc/device-conformance.tex |   13 +
-> >  device-types/rtc/driver-conformance.tex |   11 +
-> >  introduction.tex                        |    6 +
-> >  6 files changed, 1134 insertions(+), 1 deletion(-)
-> >  create mode 100644 device-types/rtc/description.tex
-> >  create mode 100644 device-types/rtc/device-conformance.tex
-> >  create mode 100644 device-types/rtc/driver-conformance.tex
-> > 
-> > 
-> > base-commit: 124fcd0e97f209aab19639e7369116d99ede22a2
-> > -- 
-> > 2.43.0
-> > 
-> 
