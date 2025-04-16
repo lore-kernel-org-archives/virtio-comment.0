@@ -1,253 +1,482 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770441A8F9E
-	for <virtio-comment@lists.linux.dev>; Wed, 16 Apr 2025 07:39:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75AC822F384
+	for <virtio-comment@lists.linux.dev>; Wed, 16 Apr 2025 08:17:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1744789145; cv=none; b=fDryT5gHcHmBZ9AGux7cQYaAKxuleu6ANWJLmyOLvqrtSIrRkWP33+FBBw5/QnVSQwJ4d79dbIL7U6A6jlpsbugiYuOi/9hr+ilkTLMY8/jYwR6vcVLe0JzNZlwkGuhxWdel8M5lL2AkDWBzA99ZViFa6u+IGUp532gmgFbHW6M=
+	t=1744791482; cv=none; b=FCkqhcTwju2hesSIT4DBvSWP9Ag8hN/tgbMdOLfuNyLezy6jbOJ13T1lNzJY8NGR3esFpfNrEymQwMPiVITy/qUXnCUyDqxF6jh21UrVjwglYm21BOV1EhzdAj3/DcdO98ah4pYXyPvgrYCs9ll7FBCJWbCfQtfwBSxK49SnuGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1744789145; c=relaxed/simple;
-	bh=ZMYL59uzyWvkwxRUyBg73E4EkYB9PGIWA8cxso011Q4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qT4iAsDNAwz3WGUiFOWc2uM1Du6RHDgIi/Kz3XgqDBPudToSc4zMgSoPkwdOz/TXcRMW6ehfCmj7AW4GlAIfrYR23hkjTW6AW7ie/Tk4wExGau0Qiv1jd7VuA135/oYpJXmYqbP2rok+LpVASBV3kto6dU97J4Mm7b7b7vydINo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BxVqhS+y; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1744791482; c=relaxed/simple;
+	bh=uBa/6/j1T1mRYoCSEbhf5UnHoSinSY2pTCIsYIE8kfg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=jcCwlYxPadGepmq2SHtQPchDyWBPDMQfms+dtU/sRfLibjjaWwAuF4CzUIWfVzSpYr63VqXNf27k6v2XeCea2hyhshCD4ajMDoLtKLwUYxWsXDbzx2lWqBlngS5gh7dM/9aBK/FHdQGjpodGfJVqN5O82XZevyBZ4PVMGeCSrbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bv9G2M5X; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BxVqhS+y"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bv9G2M5X"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1744789142;
+	s=mimecast20190719; t=1744791477;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=MEGOskScDR7mjR7fbnJQ7l2qkYivKTv7+ZygnJfu1qU=;
-	b=BxVqhS+yp87GhvqeI+tqy5waFHKxm7NF19cvTGr5nK5IS6Dc/9abZ2O1Uf06OVeWrRg/ZX
-	vX8VPq/XaTW0gbwNudt5071wqD5Y2UbAuum/LhLSPbhuX+sb8FPaWUeuz9Fp6rYlxA+hfC
-	D8OK3z1uCQlnGlB5LePKEc90t3KNepE=
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=qmzkeGsTlYa7RefCEr/CknJSFADxUMRU3ypL5nyeFI4=;
+	b=bv9G2M5X1gIYpajem3AGB33Kernpbv3zOInrL8BZdTz0QGXSjPJSEWkz3g6r/sRG334Vfu
+	0HpmHodVvbSTIT8K+STIFEBIS5gYaxdN6de+vSj10KbsQ84KWkqs+1zuu03wnmWsd1O3zO
+	x4mqOEzQFNTcDFdZVmd74fOLdkBZTU8=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-389-PhSbcTkhNIadiYNRoUqmjA-1; Wed, 16 Apr 2025 03:39:00 -0400
-X-MC-Unique: PhSbcTkhNIadiYNRoUqmjA-1
-X-Mimecast-MFC-AGG-ID: PhSbcTkhNIadiYNRoUqmjA_1744789139
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-22650077995so89585505ad.3
-        for <virtio-comment@lists.linux.dev>; Wed, 16 Apr 2025 00:39:00 -0700 (PDT)
+ us-mta-111-RaW-oMFYMLqN9WlxUbxRIg-1; Wed, 16 Apr 2025 04:17:39 -0400
+X-MC-Unique: RaW-oMFYMLqN9WlxUbxRIg-1
+X-Mimecast-MFC-AGG-ID: RaW-oMFYMLqN9WlxUbxRIg_1744791458
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-43e9a3d2977so50317015e9.1
+        for <virtio-comment@lists.linux.dev>; Wed, 16 Apr 2025 01:17:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744789139; x=1745393939;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=MEGOskScDR7mjR7fbnJQ7l2qkYivKTv7+ZygnJfu1qU=;
-        b=FeQzlYStSn8S0GNuimb+wwXiEzcFC14UJzJGQE2w/IAexCUo4qh8aBtEfO8b6GleHt
-         OetzgMQ412aORVFAGkDfxW2ew4M0CvOmxIh3+X77ee23Fo9OwRGLcH0YhUKBW7eDhpb4
-         aefaQ0z1z+CQ3q9pvYv7ju24akDbdCzN5FDXWZIuc7kMepNj2WS/mZxtTCgEAIfaXfqh
-         8U5/osanUFmbxCFgRVVdVdclx53EOh4DUy/dJBEgeBZ1a9SEmu6pHRLJPjjNZsyXojvc
-         ZALXZsFwwcbQjixHyDmzBnqn/iZ9CLoT3HbvjB1VHFD6zk2jtr1xtvZFsAGlAkL5FKrC
-         emQQ==
-X-Gm-Message-State: AOJu0YwrXTZ18iIIJh/3BfZX84NuF8nb4OUoLUFipRFsIzDUe04hu54h
-	xj6gnbYSxWVuUXP1TRmsGpe+wvY1HWJS8h/4tBSxr7bvgerp+OQZENPYngS12H1MhXyUJU2N7Md
-	VCUJAZPGNLOecz3ieTGE3JZ5EY+MhSmCOU3U7YngRzQdKF3BVWU5NYthkYRZbTlaj/u1Bvf9hUp
-	ip7qtOi/GPusTAOeLSxU0fWKftmqv0COwZ0KU75DQ=
-X-Gm-Gg: ASbGncuZr0zuSy03U8mimwEHPKXd+NLRDhGL7JpokgZXNe5fVQwy15NzD4Ybv/fD8K/
-	fwWgB2picyJ/IXkPuMRK4QjI1zNWkKYE/Pey/CwunDpYA3cUWSULx5JTOCeESKsmZ/HHs
-X-Received: by 2002:a17:902:d2c7:b0:220:ff3f:6cba with SMTP id d9443c01a7336-22c3596b9dcmr16780065ad.38.1744789139527;
-        Wed, 16 Apr 2025 00:38:59 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGz+bnmE2B208jdo7obP+LEdKINTMxQYnKnuK8Lm41/4igXF6C7sB0+8QRtz16uNwGmOjP6Xo+DmwPxyGIAHLU=
-X-Received: by 2002:a17:902:d2c7:b0:220:ff3f:6cba with SMTP id
- d9443c01a7336-22c3596b9dcmr16779745ad.38.1744789139161; Wed, 16 Apr 2025
- 00:38:59 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1744791458; x=1745396258;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qmzkeGsTlYa7RefCEr/CknJSFADxUMRU3ypL5nyeFI4=;
+        b=doWaOixfra2JdWAlkVMXrtITi2fnfgpUb9UvCi2tB34mgdH6es6g+i9tQEbHUCj2v/
+         F81ehWrUdeg6FUiT1uHgIIExtQ/fUGRAx7aVVenJhGYn6bp9CGY4iXFVcjDwwZhKLdP3
+         RMuEsbOXQQ/Yx3Xbrv4x3WfcfvQZ9EJkxZDuNiZEEFXzhkxf6DRC5kaiyyBw2/19zQEY
+         PadIrGKAFixnnjG4P3IiURCDbqxUsWocOSbSKiiBMhEhYlNvK3hknH0AOAnKCArupIlk
+         B83w9TJLdGtNoNzskUWwBXZm3R4lg/Uu401KYz7mjDiQXwaOTV8kfJQEB02imm2gadV3
+         +SJg==
+X-Gm-Message-State: AOJu0YzoJprHAdIyreA8WSSGYe8WXzmnQLYgWhvLMLJIreA0OeY4WfvJ
+	iDgm4vJ8MgRH+mKaVUVk2XNfNzipJkTnnq7qrvlioxEmBybvH9elZNdL2C4k0R4QQktRJdRTwF2
+	T5IAZQQQw2FGAkuUplw4x0BRBeS2erDJ9F8h3T0iYw49KaWY32uoClQi4KMxnDkhP
+X-Gm-Gg: ASbGncuOl5eGb7WEHvGEogjK/Zn9835AzfDzzpgv5+YmA/Pvn9G5GUNqogvL564UaWm
+	tGa61ncWXwjFcw9RuQBmlNK5209FireeRc1azNF0KH1fx3BSGFiNXBw/B2L/uHTPoCpt9IUS9nO
+	cpLHNOWWSazibo7lGKFDmIHBk+wtedq2QXDHCoBT6K0iupeu16mv4Bd2EaMHSTxZXHCcD8hqfn3
+	NWKiy80NNTw8L3aejc1ftRExqoOptl8oPMpQiTseU0gzekgsldjmbDAFUIzmqMNKfbLAlEvGTRH
+	OTLUEQ==
+X-Received: by 2002:a05:6000:184e:b0:399:7f43:b3a4 with SMTP id ffacd0b85a97d-39ee5b1665emr971669f8f.24.1744791457601;
+        Wed, 16 Apr 2025 01:17:37 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IECqU3SXIUZAcwdp0v/Qfkbtw41r5jk6Ni0Rzd92sYtmjXgw24mm5P2HZj2gGWuSJPchgXkeg==
+X-Received: by 2002:a05:6000:184e:b0:399:7f43:b3a4 with SMTP id ffacd0b85a97d-39ee5b1665emr971635f8f.24.1744791457094;
+        Wed, 16 Apr 2025 01:17:37 -0700 (PDT)
+Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-39eae96c123sm16967542f8f.36.2025.04.16.01.17.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Apr 2025 01:17:35 -0700 (PDT)
+Date: Wed, 16 Apr 2025 10:17:33 +0200
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+To: Peter Hilber <quic_philber@quicinc.com>
+Cc: virtio-comment@lists.linux.dev, Cornelia Huck <cohuck@redhat.com>,
+	Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	"Ridoux, Julien" <ridouxj@amazon.com>,
+	Trilok Soni <quic_tsoni@quicinc.com>
+Subject: Re: [PATCH v8 3/4] virtio-rtc: Add alarm feature
+Message-ID: <Z/9nnYxbkOcyR131@fedora>
+References: <20250306095112.1293-1-quic_philber@quicinc.com>
+ <20250306095112.1293-4-quic_philber@quicinc.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20250321-tx-v1-1-dd21fbdedf7a@daynix.com> <CACGkMEtGx7ajAmJUib++qJ2=rhZjyj5p=7iN2xBvba4gcBAQtg@mail.gmail.com>
- <afd70f86-a248-460c-b82f-c3bbbf62c0f1@daynix.com> <CACGkMEtqXtLeNTdcg0j57EX-4953htM9PWH+KQdRLBM=3jWgjg@mail.gmail.com>
- <6edb002d-406f-4f50-827a-14fe2228a650@daynix.com> <CACGkMEuuK4uUgfdcYaGnGhTvbwzcrVL4Po2UFanPPObSX7oskA@mail.gmail.com>
- <1024b26d-ad8e-4ad6-a7c7-232d32e5e872@daynix.com>
-In-Reply-To: <1024b26d-ad8e-4ad6-a7c7-232d32e5e872@daynix.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Wed, 16 Apr 2025 15:38:48 +0800
-X-Gm-Features: ATxdqUGngZg-vmMryaAsnGMDIpSFDRMQR1QRy5rSGCfoa97dPklATV4GFcWPCPU
-Message-ID: <CACGkMEvAf=4kL6L1rSGBT5tAdnaE6m1tG_GuA6Jghb5E4WZb1A@mail.gmail.com>
-Subject: Re: [PATCH] virtio-net: Update the max_tx_vq description
-To: Akihiko Odaki <akihiko.odaki@daynix.com>
-Cc: virtio-comment@lists.linux.dev, devel@daynix.com
+In-Reply-To: <20250306095112.1293-4-quic_philber@quicinc.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 561pNe2UGSYEvR8Na6RXps8xAUxW7OTsDhD1bomEVlg_1744789139
+X-Mimecast-MFC-PROC-ID: we7HH40EiV2bnnlf7zyqjxyD0P3NTrhV4yRFWFRHIhs_1744791458
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Fri, Apr 11, 2025 at 3:41=E2=80=AFPM Akihiko Odaki <akihiko.odaki@daynix=
-.com> wrote:
->
-> On 2025/04/08 15:33, Jason Wang wrote:
-> > On Mon, Apr 7, 2025 at 11:43=E2=80=AFAM Akihiko Odaki <akihiko.odaki@da=
-ynix.com> wrote:
-> >>
-> >> On 2025/04/07 11:41, Jason Wang wrote:
-> >>> On Sat, Mar 29, 2025 at 4:32=E2=80=AFPM Akihiko Odaki <akihiko.odaki@=
-daynix.com> wrote:
-> >>>>
-> >>>> On 2025/03/24 13:02, Jason Wang wrote:
-> >>>>> On Fri, Mar 21, 2025 at 3:01=E2=80=AFPM Akihiko Odaki <akihiko.odak=
-i@daynix.com> wrote:
-> >>>>>>
-> >>>>>> The previous description said:
-> >>>>>>> A driver sets \field{max_tx_vq} to inform a device how many trans=
-mit
-> >>>>>>> virtqueues it may use (transmitq1\ldots transmitq \field{max_tx_v=
-q}).
-> >>>>>>
-> >>>>>> However, it also controls how many receive virtqueues a device MAY=
- use.
-> >>>>>> Copy the description of the virtqueue_pairs field of struct
-> >>>>>> virtio_net_ctrl_mq_pairs_set, which also has the identical semanti=
-cs, to
-> >>>>>> clarify that.
-> >>>>>
-> >>>>> Thanks for doing this, I wonder if it's time to rename as "max_tx_v=
-q"
-> >>>>> sounds like a TX only thing.
-> >>>>
-> >>>> I'm no longer pursuing this change. Please see the discussion at:
-> >>>> https://lore.kernel.org/r/765a23aa-bb6b-4a01-89f1-31ad213b4715@dayni=
-x.com
-> >>>>
-> >>>> Please also review a change for QEMU based on the discussion:
-> >>>> https://lore.kernel.org/qemu-devel/20250322-vq-v2-1-cee0aafe6404@day=
-nix.com
-> >>>
-> >>> Ok, so it seems that RSS implement a async RX/TX queue model instead
-> >>> of the MQ queue pairs:
-> >>>
-> >>> 1) rx available queue were controlled by indirection table
-> >>> 2) tx available queue were controlled by max_tx_vq
-> >>>
-> >>> So it introduces more "issues" like:
-> >>>
-> >>> 1) This calls a new uAPI as I suggested in another thread instead of
-> >>> reusing TUN_SET_QUEUE
-> >>
-> >> QEMU applies the same approach for both VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SE=
-T
-> >> and VIRTIO_NET_CTRL_MQ_RSS_CONFIG, which is to parse the configuration
-> >> passed by the guest in QEMU and to pass the parsed configuration to TU=
-N
-> >> via TUNSETQUEUE. Please see the patch for QEMU I mentioned in the
-> >> previous email for the actual implementation.
-> >
-> > If this is true, even if guests want to have an async tx/rx queue
-> > number, the underlayer TAP will still choose a combined queue pair
-> > model.
-> >
-> >>
-> >>> 2) If both MQ and RSS are negotiated, what happens if the driver is
-> >>> using both max_tx_vq and virtqueue_pairs. This seems unclear in the
-> >>> spec itself.
-> >>
-> >> The spec says the last one sent by the driver will be used. In version
-> >> 1.2, 5.1.6.5.5 "Device operation in multiqueue mode" says:
-> >>   > The driver enables multiqueue by sending a command using class
-> >>   > VIRTIO_NET_CTRL_MQ. The command selects the mode of multiqueue
-> >>   > operation, as follows:
-> >>   >  #define VIRTIO_NET_CTRL_MQ    4
-> >>   >  #define VIRTIO_NET_CTRL_MQ_VQ_PAIRS_SET        0 (for automatic
-> >>   >  receive steering)
-> >>   >  #define VIRTIO_NET_CTRL_MQ_RSS_CONFIG          1 (for configurabl=
-e
-> >>   >  receive steering)
-> >>   >  #define VIRTIO_NET_CTRL_MQ_HASH_CONFIG         2 (for configurabl=
-e
-> >>   >  hash calculation)
-> >>   >
-> >>   > If more than one multiqueue mode is negotiated, the resulting devi=
-ce
-> >>   > configuration is defined by the last command sent by the driver.
-> >
-> > I think it doesn't clarify all the cases. Consider we:
-> >
-> > 1) configure flow A to use rx queue 4
-> > 2) set curr_queue_paris to 2
-> >
-> > How to choose the rx queue in flow A? This needs some clarification
-> > e.g whether unclassified or automq or drop
->
-> Such a configuration is not possible. If VIRTIO_NET_CTRL_MQ_RSS_CONFIG
-> configures flow A to use rx queue 4, the resulting number of queue pairs
-> will be at least 5.
+On Thu, Mar 06, 2025 at 10:51:11AM +0100, Peter Hilber wrote:
+> Add the VIRTIO_RTC_F_ALARM feature (without normative statements).
+> 
+> The intended use case is: A driver needs to react when an alarm time has
+> been reached, but at alarm time, the driver may be in a sleep state or
+> powered off. The alarm feature can resume and notify the driver in this
+> case. Alarms may be retained across device resets (including reset on
+> boot).
+> 
+> Peculiarities
+> -------------
+> 
+> Unlike usual alarm clocks, a virtio-rtc alarm-capable clock may step
+> autonomously at any time: An alarm may change back from "expired" to
+> "not expired" before the driver has started processing an alarm
+> notification.
+> 
+> To address the above, and the device resets, define "alarm expiration"
+> in such a way that the driver always has a chance to react to an alarm,
+> and make the device always responsible for notifying the driver about an
+> alarm expiration.
+> 
+> The VIRTIO_RTC_REQ_SET_ALARM_ENABLED request is there so that the Linux
+> ioctls RTC_AIE_ON and RTC_AIE_OFF only need to emit one request.
+> 
+> Signed-off-by: Peter Hilber <quic_philber@quicinc.com>
+> ---
+> 
+> Notes:
+>     v8:
+>     
+>     - Explicitly describe alarm enabled status, where relevant (Matias
+>       Ezequiel Vara Larsen).
+>     
+>     - Change word order from "field X" to "the X field" (Matias Ezequiel
+>       Vara Larsen).
+>     
+>     - Change word order from "flag X" to "the X flag" or "X".
+>     
+>     - Change "once" to "when" (Matias Ezequiel Vara Larsen).
+>     
+>     v7:
+>     
+>     - Change flag numeric value due to removing leap second indication.
+>     
+>     v5:
+>     
+>     - Reformat.
+>     
+>     v4:
+>     
+>     - Change requirements so that driver can reset alarm to clean slate, and
+>       document how driver can achieve this (Cornelia Hell, Jason Wang) [1].
+>     
+>     - Require device to support all expressible alarm times.
+>     
+>     - Formatting and wording improvements.
+>     
+>     [1] https://lore.kernel.org/all/2ae67401-a8f5-4686-9321-cb3105df594d@opensynergy.com/
+> 
+>  device-types/rtc/description.tex | 262 ++++++++++++++++++++++++++++++-
+>  1 file changed, 260 insertions(+), 2 deletions(-)
+> 
+> diff --git a/device-types/rtc/description.tex b/device-types/rtc/description.tex
+> index f2a3907de511..93bcf178b042 100644
+> --- a/device-types/rtc/description.tex
+> +++ b/device-types/rtc/description.tex
+> @@ -4,6 +4,7 @@ \section{RTC Device}\label{sec:Device Types / RTC Device}
+>  time. The device can provide different clocks, e.g.\ for the UTC or TAI
+>  time standards, or for physical time elapsed since some past epoch. The
+>  driver can read the clocks with simple or more accurate methods.
+> +Optionally, the driver can set an alarm.
+>  
+>  \subsection{Device ID}\label{sec:Device Types / RTC Device / Device ID}
+>  
+> @@ -13,13 +14,23 @@ \subsection{Virtqueues}\label{sec:Device Types / RTC Device / Virtqueues}
+>  
+>  \begin{description}
+>  \item[0] requestq
+> +\item[1] alarmq
+>  \end{description}
+>  
+>  The driver enqueues requests to the requestq.
+>  
+> +Through the alarmq, the device notifies the driver about alarm
+> +expirations. The alarmq exists only if VIRTIO_RTC_F_ALARM was
+> +negotiated.
+> +
+>  \subsection{Feature bits}\label{sec:Device Types / RTC Device / Feature bits}
+>  
+> -No device-specific feature bits are defined yet.
+> +\begin{description}
+> +\item[VIRTIO_RTC_F_ALARM (0)] Device supports alarm.
+> +\end{description}
+> +
+> +VIRTIO_RTC_F_ALARM determines whether the device supports setting an
+> +alarm for some of the clocks.
+>  
+>  \subsection{Device configuration layout}\label{sec:Device Types / RTC Device / Device configuration layout}
+>  
+> @@ -373,7 +384,8 @@ \subsubsection{Control Requests}\label{sec:Device Types / RTC Device / Device Op
+>          struct virtio_rtc_resp_head head;
+>          u8 type;
+>          u8 leap_second_smearing;
+> -        u8 reserved[6];
+> +        u8 flags;
+> +        u8 reserved[5];
+>  };
+>  \end{lstlisting}
+>  
+> @@ -384,6 +396,15 @@ \subsubsection{Control Requests}\label{sec:Device Types / RTC Device / Device Op
+>  variant} through the \field{leap_second_smearing} field. All other
+>  clocks set \field{leap_second_smearing} to VIRTIO_RTC_SMEAR_UNSPECIFIED.
+>  
+> +The \field{flags} field provides the following information:
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_RTC_FLAG_ALARM_CAP               (1 << 0)
+> +\end{lstlisting}
+> +
+> +If VIRTIO_RTC_F_ALARM was negotiated, the VIRTIO_RTC_FLAG_ALARM_CAP flag
+> +indicates that the clock supports an alarm.
+> +
+>  \item[VIRTIO_RTC_REQ_CROSS_CAP] discovers whether the device supports
+>  cross-timestamping for a particular pair of clock and hardware counter.
+>  
+> @@ -690,3 +711,240 @@ \subsubsection{Read Requests}\label{sec:Device Types / RTC Device / Device Opera
+>  For VIRTIO_RTC_REQ_READ_CROSS and for any clock type listed in this
+>  specification, the device MUST use the nanosecond as unit for the
+>  \field{clock_reading} field.
+> +
+> +\subsubsection{Alarm Operation}\label{sec:Device Types / RTC Device / Device Operation / Alarm Operation}
+> +
+> +Through the optional alarm feature, the driver can set an alarm time. On
+> +alarm expiration, the device notifies the driver. On alarm expiration,
+> +the device may also wake up the driver, while the driver is in a sleep
+> +state, or while the driver is powered off. How this is done is beyond
+> +the scope of the specification. The driver can set one alarm time per
+> +clock, if the clock supports this.
+> +
+> +The device may retain alarm times across device resets.\footnote{Drivers
+> +        may reset the device on boot or on resume from sleep state. It
+> +        can make sense for the device to retain the alarm time then,
+> +        similar to other alarm clocks.}
+> +
+> +The alarm feature, and the associated alarmq for notifications from the
+> +device, are available if VIRTIO_RTC_F_ALARM was negotiated. 
 
-Yes, this could be prevented by a well formed driver. But I mean from
-the device side, such commands could be sent from the driver that is
-something both spec and the implementation (e.g TAP) needs to
-consider.
+"If the VIRTIO_xxx has been negotiated, ..."
 
-Thanks
+> In addition,
+> +if the driver previously set an alarm time, even if the device no longer
+> +both
+> +
+> +\begin{itemize}
+> +\item is live and
+> +\item has negotiated VIRTIO_RTC_F_ALARM,
+> +\end{itemize}
+> +
+> +the device may still execute implementation-specific actions on alarm
+> +expiration.
+> +
+> +An alarm expires
 
+I think you can add the "when" after "expires" and then remove it
+afterward.
 
->
-> Regards,
-> Akihiko Odaki
->
-> >
-> > Thanks
-> >
-> >>
-> >> Regards,
-> >> Akihiko Odaki
-> >>
-> >>>
-> >>> THanks
-> >>>
-> >>>
-> >>>>
-> >>>>>
-> >>>>>>
-> >>>>>> Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
-> >>>>>> ---
-> >>>>>>     device-types/net/description.tex | 4 +++-
-> >>>>>>     1 file changed, 3 insertions(+), 1 deletion(-)
-> >>>>>>
-> >>>>>> diff --git a/device-types/net/description.tex b/device-types/net/d=
-escription.tex
-> >>>>>> index 76585b0..5178191 100644
-> >>>>>> --- a/device-types/net/description.tex
-> >>>>>> +++ b/device-types/net/description.tex
-> >>>>>> @@ -1578,7 +1578,9 @@ \subsubsection{Control Virtqueue}\label{sec:=
-Device Types / Network Device / Devi
-> >>>>>>
-> >>>>>>     Field \field{indirection_table} is an array of receive virtque=
-ues ids.
-> >>>>>>
-> >>>>>> -A driver sets \field{max_tx_vq} to inform a device how many trans=
-mit virtqueues it may use (transmitq1\ldots transmitq \field{max_tx_vq}).
-> >>>>>> +Field \field{max_tx_vq} specifies the number of the transmit and =
-receive queues
-> >>>>>> +to be used up to \field{max_virtqueue_pairs}; subsequently, trans=
-mitq1\ldots
-> >>>>>> +transmitqn and receiveq1\ldots receiveqn where n=3D\field{max_tx_=
-vq} MAY be used.
-> >>>>>>
-> >>>>>>     Fields \field{hash_key_length} and \field{hash_key_data} defin=
-e the key to be used in hash calculation.
-> >>>>>>
-> >>>>>>
-> >>>>>> ---
-> >>>>>> base-commit: b495841a8e80d12c1130f8868f4128866291142d
-> >>>>>> change-id: 20250321-tx-78e44c50a035
-> >>>>>>
-> >>>>>> Best regards,
-> >>>>>> --
-> >>>>>> Akihiko Odaki <akihiko.odaki@daynix.com>
-> >>>>>>
-> >>>>>
-> >>>>
-> >>>
-> >>
-> >
->
+> +
+> +\begin{itemize}
+> +\item when the associated clock progresses (also: steps) from a time
+> +        prior to the alarm time to the alarm time, or to a time after
+> +        the alarm time, while the alarm is enabled, or
+> +
+> +\item when the driver sets an alarm time which is not in the future,
+> +        while also setting the alarm to enabled, or
+> +
+> +\item when the driver sets the alarm to enabled, and the alarm time is
+> +        not in the future, or
+> +
+> +\item when the device is reset, if the alarm time is retained and not in
+> +        the future, and if the alarm is enabled.\footnote{The device is
+> +                always responsible for detecting alarm expiration
+> +                events. This avoids that the driver needs to reason
+> +                about when it shall poll for alarm expiration.}
+> +\end{itemize}
+> +
+> +When an alarm expires, the driver can disable it. Otherwise, the alarm
+> +expires each time when one of the above expiration events occurs, even
+> +if it occurred before.\footnote{This avoids that the driver may
+> +        miss an alarm when the clock steps backwards after alarm
+> +        expiration, but before the driver has resumed operation. This
+> +        also facilitates distinct drivers using the same device,
+> +        e.g.\ a driver in the bootloader, and a driver in the OS.}
+> +
+> +On alarm expiration, the device executes the alarm actions. The alarm
+> +actions are:
+> +
+> +\begin{itemize}
+> +\item The device notifies the driver through the alarmq. If the device
+> +        is not live, or no buffers are available in the alarmq, the
+> +        device will notify once the device is live and buffers are
+> +        available.
+> +
+> +\item Optionally, the device executes other, implementation-specific,
+> +        actions. The device may execute those immediately, regardless of
+> +        the device state.
+> +\end{itemize}
+> +
+
+I think that, on alarm expiration, you can remove the optionally part
+and then just talk about alarm expiration thus removing the `alarm
+actions` wording.  
+
+> +An alarm \emph{expiration} becomes obsolete
+> +
+> +\begin{itemize}
+> +\item when the driver disables the alarm, or
+> +
+> +\item when the driver sets an alarm time, or
+> +
+> +\item when the clock jumps backwards, before the alarm time, or
+> +
+> +\item when another alarm expiration event happens.
+> +\end{itemize}
+> +
+> +If an alarm expiration becomes obsolete, it is unspecified which alarm
+> +actions the device executes for this alarm expiration, and the device
+> +stops executing these alarm actions after a grace period.
+
+Can't you leave this paragraph implementation-specific and thus
+removing it completely?
+
+> +
+> +The device supports all alarm time values which the driver can request
+> +through alarm control requests.
+> +
+> +Initially, the alarm time is the epoch of the clock ($0$), and the alarm
+> +is disabled.
+
+I would rewrite it as:
+
+"Every alarm initializes with an alarm time to 0 and disabled."
+
+> +
+> +Alarms set prior to reset may cause unwanted alarm expiration
+> +notifications, and information leakage, after the reset. To prevent both
+> +issues, the driver can do the following after the reset, for each clock
+> +which supports alarm:
+> +
+> +\begin{enumerate}
+> +\item Send a VIRTIO_RTC_REQ_SET_ALARM message, with \field{alarm_time}
+> +        set to 0, and \field{flags} set to 0.
+> +
+> +\item Wait until the device marks the VIRTIO_RTC_REQ_SET_ALARM message
+> +        as used, with status VIRTIO_RTC_S_OK.
+> +\end{enumerate}
+> +
+> +To prevent the above issues, the driver also marks buffers in the alarmq
+> +as available only after completing the above steps for all clocks.
+> +
+> +\paragraph{Alarm Control Requests}
+> +
+> +If VIRTIO_RTC_F_ALARM is negotiated,
+> +
+> +\begin{itemize}
+> +\item the driver can determine if a clock supports an alarm through the
+> +        VIRTIO_RTC_FLAG_ALARM_CAP flag in the VIRTIO_RTC_REQ_CLOCK_CAP
+> +        response,
+> +
+> +\item the driver can enqueue the alarm control requests into the
+> +        requestq: VIRTIO_RTC_REQ_READ_ALARM, VIRTIO_RTC_REQ_SET_ALARM,
+> +        and VIRTIO_RTC_REQ_SET_ALARM_ENABLED.
+> +\end{itemize}
+> +
+> +The unit of all \field{alarm_time} fields is 1 nanosecond.
+> +
+> +\begin{description}
+> +\item[VIRTIO_RTC_REQ_READ_ALARM] reads the current alarm.
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_RTC_REQ_READ_ALARM 0x1003 /* message type */
+> +
+> +struct virtio_rtc_req_read_alarm {
+> +        struct virtio_rtc_req_head head;
+> +        le16 clock_id;
+> +        u8 reserved[6];
+> +};
+> +
+> +struct virtio_rtc_resp_read_alarm {
+> +        struct virtio_rtc_resp_head head;
+> +        le64 alarm_time;
+> +#define VIRTIO_RTC_FLAG_ALARM_ENABLED   (1 << 0)
+> +        u8 flags;
+> +        u8 reserved[7];
+> +};
+> +\end{lstlisting}
+> +
+> +\field{clock_id} identifies the alarm through its associated clock. The
+> +\field{alarm_time} field returns the alarm time. In the \field{flags}
+> +field, VIRTIO_RTC_FLAG_ALARM_ENABLED indicates whether the alarm is
+> +enabled.
+> +
+> +\item[VIRTIO_RTC_REQ_SET_ALARM] sets the alarm.
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_RTC_REQ_SET_ALARM 0x1004 /* message type */
+> +
+> +struct virtio_rtc_req_set_alarm {
+> +        struct virtio_rtc_req_head head;
+> +        le64 alarm_time;
+> +        le16 clock_id;
+> +        /* flag: VIRTIO_RTC_FLAG_ALARM_ENABLED */
+> +        u8 flags;
+> +        u8 reserved[5];
+> +};
+> +
+> +struct virtio_rtc_resp_set_alarm {
+> +        struct virtio_rtc_resp_head head;
+> +        /* no response params */
+> +};
+> +\end{lstlisting}
+> +
+> +\field{clock_id} identifies the alarm through its associated clock. The
+> +\field{alarm_time} field sets the alarm time. If
+> +VIRTIO_RTC_FLAG_ALARM_ENABLED is set in the \field{flags} field, the
+> +device enables the alarm; otherwise, the device disables the alarm.
+> +
+> +\item[VIRTIO_RTC_REQ_SET_ALARM_ENABLED] enables or disables the alarm.
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_RTC_REQ_SET_ALARM_ENABLED 0x1005 /* message type */
+> +
+> +struct virtio_rtc_req_set_alarm_enabled {
+> +        struct virtio_rtc_req_head head;
+> +        le16 clock_id;
+> +        /* flag: VIRTIO_RTC_FLAG_ALARM_ENABLED */
+> +        u8 flags;
+> +        u8 reserved[5];
+> +};
+> +
+> +struct virtio_rtc_resp_set_alarm_enabled {
+> +        struct virtio_rtc_resp_head head;
+> +        /* no response params */
+> +};
+> +\end{lstlisting}
+> +
+> +\field{clock_id} identifies the alarm through its associated clock. If
+> +VIRTIO_RTC_FLAG_ALARM_ENABLED is set in the \field{flags} field, the
+> +device enables the alarm; otherwise, the device disables the alarm.
+> +
+> +When processing this request, the device retains the alarm time.
+> +
+> +\end{description}
+> +
+> +\paragraph{Alarm Notifications}
+> +
+> +If the alarmq is present, the driver should make buffers available in
+> +the alarmq, which the device uses for alarm notification messages. All
+> +alarmq fields are device-writable. The alarmq uses a common notification
+> +header.
+> +
+> +\begin{lstlisting}
+> +/* common notification header */
+> +struct virtio_rtc_notif_head {
+> +        le16 msg_type;
+> +        u8 reserved[6];
+> +};
+> +\end{lstlisting}
+> +
+> +The \field{msg_type} field identifies the message type.
+> +
+> +\begin{description}
+> +\item[VIRTIO_RTC_NOTIF_ALARM] notifies the driver about an alarm
+> +        expiration.
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_RTC_NOTIF_ALARM 0x2000 /* message type */
+> +
+> +struct virtio_rtc_notif_alarm {
+> +        struct virtio_rtc_notif_head head;
+> +        le16 clock_id;
+> +        u8 reserved[6];
+> +};
+> +\end{lstlisting}
+> +
+> +\end{description}
+> +
+> +\field{clock_id} identifies the expired alarm through its associated
+> +clock.
+> -- 
+> 2.43.0
+> 
 
