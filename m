@@ -1,237 +1,156 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com (mail-db8eur05on2057.outbound.protection.outlook.com [40.107.20.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A48F156F20
-	for <virtio-comment@lists.linux.dev>; Wed, 16 Apr 2025 15:43:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1744818216; cv=none; b=jKskfEhd3F4GL5p5Bw2KaJbnvIoSrTwNegE6qVSN76cLQDTzhBPjKuT9wZQN1fzquHRyNJDoxFtUFzT7hgnXGJYvz1R8Lf1Hxt63dW9VADQ2SAu9eF79oado4NgeSGv3VK3H6T3cEqCPcrfO8uiCbOTgHg0YGW3CA6WJaKSkuks=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1744818216; c=relaxed/simple;
-	bh=q0JTitLyQiOHV+TJs7lLCCuA2k6TwXoziDnDRP8nHgQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=CBIeFnr4GzV/wT5ZnG8GCD2AV0nrSl1ABXmdGo5+2rQJFO8dllW582hEZoo9HkuhKjjOttgqRIwRWeZwo3iOpLYLlbG6TT+msOwHnZKhi9KQ24Wd3yzlPjHx8pKqR2yV8KC0MNiDtOnkTDE4O9LrkwIU/qCSLlRKvhgQMw4OlFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FRBhLoBJ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBD617B50F
+	for <virtio-comment@lists.linux.dev>; Wed, 16 Apr 2025 15:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.20.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1744818756; cv=fail; b=f4h0ZdDxdGFLSn/5dgdQQUbnksC08zeCaXryACG07rbHvzTkoAOUVD8oRj3ZemA5Wy9igm4JExLZb1cjcNipjpUzJreXLqWXUTZthSWkiH6c1+h5sDUxdsIkDF/q013kJzA3uqRnA+FUfSO8i6NCIzlz7WzgeEjtB/0vnsvNULI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1744818756; c=relaxed/simple;
+	bh=XVrcCCegYykI0zHHKZnlP0PYA1qae4PM87C1aydiTfg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=QkTx2S7kZX0oBehL6drWIuW6A+ZssYKbdcYyuKG3HCPc+FptdJzqAEdm1O5FqD3kJljrVsvydkl+L759Gy2mNMiphfdI/YsO+zavutDS5RMB0TdSUJQICeZc6738jejbslxbBdjnRZphLcXlCdCh0G8wN/ONK75JYllwwc7L4u0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia-bell-labs.com; spf=fail smtp.mailfrom=nokia-bell-labs.com; dkim=pass (2048-bit key) header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.b=RZn1Ao0h; arc=fail smtp.client-ip=40.107.20.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia-bell-labs.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nokia-bell-labs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FRBhLoBJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1744818213;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/+/JFMcRPxMtbGMwRkdiuiKFRkeuXtsbRNuNPEXYx88=;
-	b=FRBhLoBJqS/AelIknAPvZZcdDlgv1//J0sahc31mb1SbfV3MgXTp0f3ibDM6hNv/hVekE2
-	m32SxSERk6Cb6WmgOrseEtU46qTzi6z0dsvFxLA373lfAA3V8jkSxk9LgjIdeBcUAJjpHt
-	eSLE5344cTrWei1GGtA4oV4D46Q7e6E=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-279-vgXfAfrZP4C4D9n9f5kj7g-1; Wed, 16 Apr 2025 11:43:29 -0400
-X-MC-Unique: vgXfAfrZP4C4D9n9f5kj7g-1
-X-Mimecast-MFC-AGG-ID: vgXfAfrZP4C4D9n9f5kj7g_1744818209
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-39c30f26e31so4670143f8f.3
-        for <virtio-comment@lists.linux.dev>; Wed, 16 Apr 2025 08:43:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744818208; x=1745423008;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/+/JFMcRPxMtbGMwRkdiuiKFRkeuXtsbRNuNPEXYx88=;
-        b=ATobDwJlykyutMPENWQwcPPo0DXepC/CRnj1InAD7lbrxC6gdK5GG8wANs6FXJe8Tc
-         PBx7g++BE2BXtM7pK+QkYITR8m7psSSBgSWnqW6gywrifOw7AlUn3hxSt7H1qlL42rPD
-         9yzxajYOqboYCakj61Qt7TTlNZDPprL8NzYK/mbKclILe1jZPYQ4luyRxYoq2Z+zoRbc
-         T6R1PMNkvzkNBlDDqC4lK4XftX5kRuFxi0hHQCabeNwwIWxDigcCk5eP2rWiuPrWoLac
-         h5xB0LclN4OvT5dUkAEufS6fAsLmXTFm7BxUQlA5laat6Z1ALvzOeUXDgrnGmAcK+wes
-         Hipg==
-X-Gm-Message-State: AOJu0YymwKprwfXFZ/OlPo4lGtJMImHIkKNEeIA3Z4QqDvMY6jLRmsrU
-	lk+PkB87RKpV9TrsoTWPmlWwAZL89D40dlTzXIJ1TE7SriGzg63HByiB82sSXI62XNsWX6rZRmN
-	U8isPSMRYS2Wf3zVJg25FPTQ9lz5jPWYB8mCzsqSbkeCMJVgrHXkW8nF25BSrslrN
-X-Gm-Gg: ASbGncs1tspdjZTSRMpH7dshs5cBCmvn12iC3j7qJmoA+HlxZhzfp3QcUNwXk4MmE8M
-	mCeKiiywcKC0xZmy71VDe2TTD9iEg4eC2iLcybcKeY0kny7w+2DbPFB2vXt1uw+/8fNl+h/6CSG
-	PUlp1b7c33WcsQ3V+O/pSYLu4afDP8N8W0anXGd2F8AVq9jmcVpmD6RFpxfUmRGAMPli51aCDIB
-	ejLOcW64fAjs7d4oYpREgdLPnFuJQWbsUxXDcv1JMpDgWEtn63NTTrg+wcF8wDCFQN01pHflw3e
-	4y03dw==
-X-Received: by 2002:a5d:5848:0:b0:39c:2678:302e with SMTP id ffacd0b85a97d-39ee5b99257mr2531072f8f.45.1744818208538;
-        Wed, 16 Apr 2025 08:43:28 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEG2s0kOWMUoFNsuxEm1HEsF2y2m/i4jiuhjtFHzoyze1UBVAtrWvrnLbysf0biBKUNi1X23w==
-X-Received: by 2002:a5d:5848:0:b0:39c:2678:302e with SMTP id ffacd0b85a97d-39ee5b99257mr2531042f8f.45.1744818208095;
-        Wed, 16 Apr 2025 08:43:28 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:1517:1000:ea83:8e5f:3302:3575])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-39eae9640bcsm17326118f8f.1.2025.04.16.08.43.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Apr 2025 08:43:27 -0700 (PDT)
-Date: Wed, 16 Apr 2025 11:43:25 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Peter Hilber <quic_philber@quicinc.com>
-Cc: virtio-comment@lists.linux.dev, Cornelia Huck <cohuck@redhat.com>,
-	Parav Pandit <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	"Ridoux, Julien" <ridouxj@amazon.com>,
-	Trilok Soni <quic_tsoni@quicinc.com>,
-	Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-Subject: Re: [PATCH v8 0/4] virtio-rtc: Add device specification
-Message-ID: <20250416114208-mutt-send-email-mst@kernel.org>
-References: <20250306095112.1293-1-quic_philber@quicinc.com>
+	dkim=pass (2048-bit key) header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.b="RZn1Ao0h"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=k6VocHVgQskrV6imTC8cL4+9PzjreC+8Kg0jI0scR5Wds7YQbd6LhANrwBsnsE7B51DS2UxS9B1LvRsuyqEUPXtjRmUxsJOGEbY26bUMp9WH2186cDaqwCHUBSnp5OoKcbRTYE7n3+Ribqf2Srpezp4/qgDmWG5f+v0PXKY2bh9g82ooPqqtfc+3EEURI4cTG1Pkip8twX7FjZyFTn+D5g0XHeVxnzVf0GO5OSm1RQtcaSrkCMCGZsfJouaYzBoQ0QnolsGT5yUMF5M7MMEIfg2XMVwn+LiJiUOD6qwN+GTHnIEABJ6tuws7TtwZBDR75yVtP2fnyjMMuuJSQT6v2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t3szJGmQ+I+u0qWi1WDrTcbXQKBFLKF7sBXcmOBUUzc=;
+ b=QucOxuVljFnVunU7j3KEVm6j4funaWMWv+mWOKjvpz4dOgVkQD99ahXeSJlOzwxPhoe0sIFyqeYBU13Oi0+LGbluf1xJKUjM71Axvg2Y5z/UgyNST6bc2rsI6AVawuKlRB+A4di62q65o+H5Y2XIWLAkrOKdKYMob0ONW3zCt3LzCpSI6kYg5Ig6jJziqHXoF2L6moNsYBn8RD9Vcx8CKzX4Jm/mmTQFNOA1lEFB38Sig+0hCCFPBV0osXmojYr1xEWDSf6c+6jtIzcqiwREROv9FMNUaEr5qQ90PDVOszpeH+REJprT/rIhCSfIjTnZkmZIKRn/CuaKTL9zxzgLzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 131.228.2.29) smtp.rcpttodomain=apple.com smtp.mailfrom=nokia-bell-labs.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=nokia-bell-labs.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nokia-bell-labs.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t3szJGmQ+I+u0qWi1WDrTcbXQKBFLKF7sBXcmOBUUzc=;
+ b=RZn1Ao0hStJ8FgiG/oq/T7fFOiXrlFAcLFDX1Qfn1JjNOqajYTsnKlU6EfA15T+v0Z1eCeMv86ny8e2AS6BbcFh2jAjKJDB6u73b6kfmOa2E3E05sk/5KhJTQ/NpHqPG8YXg3zv+ldg83/lgDQlnrCA8DYLmAl3o8O/AQCn/dPd9DFAjhuMLc5RqrJE371amPeOJXV2kCu0O2t3WggGm7nihiZn9zsZ7XPWeK+EAhpA6fGqBPJQLsn4tQnwodesiRIMucLJT4ws+mPueAGdh/qsSvzPHirwoqm7CEfwTl5mNxIzmBCYLN4StkGrHpDzGvVZtuvkgZ9mSm0LHf4aCuw==
+Received: from DUZPR01CA0308.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4ba::19) by VI1PR07MB9801.eurprd07.prod.outlook.com
+ (2603:10a6:800:1d9::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.27; Wed, 16 Apr
+ 2025 15:52:30 +0000
+Received: from DU6PEPF0000A7E2.eurprd02.prod.outlook.com
+ (2603:10a6:10:4ba:cafe::13) by DUZPR01CA0308.outlook.office365.com
+ (2603:10a6:10:4ba::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.36 via Frontend Transport; Wed,
+ 16 Apr 2025 15:52:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 131.228.2.29)
+ smtp.mailfrom=nokia-bell-labs.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nokia-bell-labs.com;
+Received-SPF: Pass (protection.outlook.com: domain of nokia-bell-labs.com
+ designates 131.228.2.29 as permitted sender) receiver=protection.outlook.com;
+ client-ip=131.228.2.29; helo=fihe3nok0735.emea.nsn-net.net; pr=C
+Received: from fihe3nok0735.emea.nsn-net.net (131.228.2.29) by
+ DU6PEPF0000A7E2.mail.protection.outlook.com (10.167.8.42) with Microsoft SMTP
+ Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.12 via
+ Frontend Transport; Wed, 16 Apr 2025 15:52:30 +0000
+Received: from sarah.nbl.nsn-rdnet.net (sarah.nbl.nsn-rdnet.net [10.0.73.150])
+	by fihe3nok0735.emea.nsn-net.net (Postfix) with ESMTP id 511E52080E;
+	Wed, 16 Apr 2025 18:52:29 +0300 (EEST)
+From: chia-yu.chang@nokia-bell-labs.com
+To: virtio-comment@lists.linux.dev,
+	mst@redhat.com,
+	cohuck@redhat.com,
+	mvaralar@redhat.com,
+	jasowang@redhat.com,
+	xuanzhuo@linux.alibaba.com,
+	eperezma@redhat.com,
+	ij@kernel.org,
+	ncardwell@google.com,
+	koen.de_schepper@nokia-bell-labs.com,
+	g.white@cablelabs.com,
+	vidhi_goel@apple.com,
+	ingemar.s.johansson@ericsson.com,
+	mirja.kuehlewind@ericsson.com
+Cc: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
+Subject: [PATCH v1 0/1] Update ECN feature
+Date: Wed, 16 Apr 2025 17:52:22 +0200
+Message-Id: <20250416155223.16422-1-chia-yu.chang@nokia-bell-labs.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20250306095112.1293-1-quic_philber@quicinc.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: r6GIVzQSYxWo5_eKg2n0fR6VyIBgB_kAiHvksP4W-xY_1744818209
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU6PEPF0000A7E2:EE_|VI1PR07MB9801:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 0513b1bd-a098-4269-e9e5-08dd7cfeb1dc
+X-LD-Processed: 5d471751-9675-428d-917b-70f44f9630b0,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|7416014|36860700013|376014|82310400026|1800799024|921020;
+X-Microsoft-Antispam-Message-Info:
+ =?us-ascii?Q?6BbZ8bsZN2BJOYS+kwabsFw4stmhx489HTdBr28m4ilJaDQdnhahiOtU9QLA?=
+ =?us-ascii?Q?z5iAoHD2sIFv4d60CRJgwXsi+KOQzsg3JkA6BS6eRoftYUltT8ojxigAGfbp?=
+ =?us-ascii?Q?6qSFYRKfLfeWjy/uq6OOOnuisn5Do0cqCrEqSj1LGkjqm/Sbg36ugy0QEGOX?=
+ =?us-ascii?Q?RVCuAKiR9oRfwQzQdkshabxO3N9r+4fOIAFQQUV6z4YO8Op89qi5Qa+j8Bak?=
+ =?us-ascii?Q?w6H6mHUjsAk9bvW8/eAWhsVpY1tIroJyBvYKT9HqhbGJEhuEC6injqSM8RUu?=
+ =?us-ascii?Q?0MFPb0aGr+1A3jHPDOZbRJYm50Bp6ngKluEI9kZNs8KpaR8TmvLwP/BQS6eB?=
+ =?us-ascii?Q?ap4YEs9U4SdX9AmK4pJ/KEs/tFTQdCW0SI2zlw+Wly0IjfY0ll9no5izzAGL?=
+ =?us-ascii?Q?x/NCthQqI01mnVoyaXRYJgg2MnEJw+0ySKsoRy//RUyi6+h6QlZ8RJHls68A?=
+ =?us-ascii?Q?76eeWvzv8Boe7d3BJ0m2F25VC/bHq6K8GZRUybESg8+KqT3tnt29jMclwQcL?=
+ =?us-ascii?Q?DiJjolOV5Z0Mq0kBXK6L2jNPeT+4ECVkzWYIc4cKeWLa3005ZPwcEVw7oink?=
+ =?us-ascii?Q?wsYKsL4vEjzfzUuacGN4TgROLOjacrmED3qZkrdtGqbWkm/GKDy2z7IP+Ts8?=
+ =?us-ascii?Q?Qy1vfS27YhmnFlUV3YtA+Zfb8t93qCsLn7by4Un8Cffr3RJc+KqtTwVF4N4W?=
+ =?us-ascii?Q?IANCoNH/SCIfAgwJKk/a4TtmrAQHYb0Lug4nYn6zMX4UjZXka/xrTnnggtaR?=
+ =?us-ascii?Q?sWaf4raBYw60opIyJ33JHMzlOxPYDVhPVHQZZ3hQAsKC5Odz23Fth1kzu3LK?=
+ =?us-ascii?Q?vhRc6iLImaDxJtnarWJ9Lq5vjxpfwOaeKpjY9Ta0LO3CyNs59fla4Ugk958y?=
+ =?us-ascii?Q?WpRO97tucvWG70jBvEd46b+JMn0NWtN5AHs/BxGtjc+W9XRKKGOBvnGYMu4J?=
+ =?us-ascii?Q?sddHvY/yvJBFm9ysUFxA+cjou7KxzwTHIHUWZCu8O6lNMKjJn+mWvvJnIpQB?=
+ =?us-ascii?Q?5opS1M7S9aS+4KFCF4+3EgwIWxVMwsLaAoUTNLxLEWDxHqrAjsA/WumxohqI?=
+ =?us-ascii?Q?zp4SkHKivLgRQP3Qj28/Ya9hKN87U8DBpG0gy+ZbFDoHJHG4raJrKrCH/Mfn?=
+ =?us-ascii?Q?sBRIapYN8KcL+ffTh/2vlGuidEZ8XCuT9Dw/prknXdMSDW3HSoW/S8pcUIKT?=
+ =?us-ascii?Q?kCn+0GgB6naVb0ws//3sH0JeAds0HtsHCFO5NJ1e2gBPr1bxf38gy4O7jORw?=
+ =?us-ascii?Q?IDSr0FPLms9CylNC4XNJ6L2IOqjzDKPeWtGQPOQRtOagnxq6rFbG9Dlfnk0u?=
+ =?us-ascii?Q?F330qsdCbjiXWcesrwwu0f2YjB4FFHnrFYij1D7HbM4QcfFo1zB5OVEZXXGr?=
+ =?us-ascii?Q?01q7EFrn3Jzvgl+bZiTwzrnQKwCi4mNaGoL++WN/8YbFMEVR0Y/J17k0PUkS?=
+ =?us-ascii?Q?T0+GJdMYWYDqtwfILkDIiQVZvmvhTLtpUkv1TbPraIRiwNiYemsb0OP1tMVo?=
+ =?us-ascii?Q?mMKjcwVWGbL9BITC8Of4cZGcLVLMwYrYErsv9v+s2HaZXhxF/BZYlEjcLg?=
+ =?us-ascii?Q?=3D=3D?=
+X-Forefront-Antispam-Report:
+ CIP:131.228.2.29;CTRY:FI;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:fihe3nok0735.emea.nsn-net.net;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(36860700013)(376014)(82310400026)(1800799024)(921020);DIR:OUT;SFP:1101;
+X-OriginatorOrg: nokia-bell-labs.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2025 15:52:30.3123
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0513b1bd-a098-4269-e9e5-08dd7cfeb1dc
+X-MS-Exchange-CrossTenant-Id: 5d471751-9675-428d-917b-70f44f9630b0
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=5d471751-9675-428d-917b-70f44f9630b0;Ip=[131.228.2.29];Helo=[fihe3nok0735.emea.nsn-net.net]
+X-MS-Exchange-CrossTenant-AuthSource: DU6PEPF0000A7E2.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR07MB9801
 
+From: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
 
+Hello,
 
-Good work. I sent some comments but they are pretty minor. Thanks!
+  Please find ECN feature patch v1:
 
-On Thu, Mar 06, 2025 at 10:51:08AM +0100, Peter Hilber wrote:
-> This iteration of the spec should address multiple review findings from
-> Matias Ezequiel Vara Larsen.
-> 
-> Summary
-> -------
-> 
-> The RTC (Real Time Clock) device provides information about current
-> time. The device can provide different clocks, for the UTC or TAI time
-> standards, or for physical time elapsed since some past epoch. For UTC
-> clocks, the device can also indicate how leap seconds are handled. The
-> driver can read the clocks with simple or more accurate methods.
-> Optionally, the driver can set an alarm.
+v1 (16-Apr-2025)
+- Backport ECN patch to master branch
 
-A bit more text on the motivation, when to do you intend to use this
-device, would be good.
+Best Regards,
+Chia-Yu
 
+Chia-Yu Chang (1):
+  virtio-net: Fix ECN feature descritpion
 
-> Changelog
-> ---------
+ device-types/net/description.tex | 33 +++++++++++++++++---------------
+ introduction.tex                 |  3 +++
+ 2 files changed, 21 insertions(+), 15 deletions(-)
 
-> v8:
-> 
-> - Explicitly describe alarm enabled status, where relevant (Matias Ezequiel
->   Vara Larsen).
-> 
-> - Reword multiple sentences and requirements (Matias Ezequiel Vara Larsen).
-> 
-> - Drop unnecessary or redundant requirements (Matias Ezequiel Vara Larsen).
-> 
-> - Change word order from "field X" to "the X field" (Matias Ezequiel Vara
->   Larsen).
-> 
-> - Change word order from "flag X" to "the X flag" or "X".
-> 
-> - Move requirements to serve alarm expiration events before requirements
->   about stopping to serve (Matias Ezequiel Vara Larsen).
-> 
-> v7:
-> 
-> - Remove leap second and performance indications from struct
->   virtio_rtc_resp_read_cross. Remove backing definitions.
-> 
-> - Move wording change which was mistakenly placed in last patch to first
->   patch.
-> 
-> v6:
-> 
-> - Make leap second status information optional if the clock smears (or
->   might smear) leap seconds.
-> 
-> - Do not use union for leap second indication.
-> 
-> - Improve wording.
-> 
-> - Refer to the new POSIX.1-2024 for UTC epoch definition.
-> 
-> v5:
-> 
-> - Change structure and wording to support adding shared memory like
->   vmclock [2].
-> 
-> - Add dedicated clock types for UTC leap second smearing (David
->   Woodhouse).
-> 
-> - Extend leap second indications.
-> 
-> - Replace VIRTIO_RTC_SUBTYPE_ by VIRTIO_RTC_SMEAR_.
-> 
-> - For Arm Generic Timer, only support Virtual Count Register (David
->   Woodhouse).
-> 
-> - Rename MONO clock to MONOTONIC clock.
-> 
-> - Harmonize bit widths with vmclock [2].
-> 
-> - Change formatting.
-> 
-> v4:
-> 
-> - Distinguish UTC clocks with and without leap smearing (David
->   Woodhouse).
-> 
-> - Add UTC leap second and TAI offset indication (David Woodhouse).
-> 
-> - Add clock performance information (David Woodhouse).
-> 
-> - Drop distinction of Arm Generic Timer virtual and physical counter.
-> 
-> - Change requirements so that driver can reset alarm to clean slate, and
->   document how driver can achieve this (Cornelia Hell, Jason Wang).
-> 
-> - Device should assume that driver reads clock from first vCPU (David
->   Woodhouse).
-> 
-> - Driver should read clock to confirm that alarm has expired.
-> 
-> - Require driver to set unused flags to zero.
-> 
-> - Require device to support all expressible alarm times.
-> 
-> - Formatting and wording improvements.
-> 
-> v3:
-> 
-> - Address comments from Parav Pandit.
-> 
-> - Add an optional alarm feature.
-> 
-> - Various other changes.
-> 
-> v2:
-> 
-> - Address comments from Cornelia Huck.
-> 
-> [1] https://lore.kernel.org/lkml/61364452-bdf5-4bd8-adb1-a9e6236c9d26@opensynergy.com/
-> [2] https://lore.kernel.org/lkml/20240708092924.1473461-1-dwmw2@infradead.org/
-> [3] https://lore.kernel.org/all/78969a39b51ec00e85551b752767be65f6794b46.camel@infradead.org/
-> [4] https://lore.kernel.org/lkml/20241219204208.3160-1-quic_philber@quicinc.com/
-> 
-> 
-> Peter Hilber (4):
->   virtio-rtc: Add initial device specification
->   virtio-rtc: Add initial normative statements
->   virtio-rtc: Add alarm feature
->   virtio-rtc: Add normative statements for alarm feature
-> 
->  conformance.tex                         |    2 +
->  content.tex                             |    3 +-
->  device-types/rtc/description.tex        | 1100 +++++++++++++++++++++++
->  device-types/rtc/device-conformance.tex |   13 +
->  device-types/rtc/driver-conformance.tex |   11 +
->  introduction.tex                        |    6 +
->  6 files changed, 1134 insertions(+), 1 deletion(-)
->  create mode 100644 device-types/rtc/description.tex
->  create mode 100644 device-types/rtc/device-conformance.tex
->  create mode 100644 device-types/rtc/driver-conformance.tex
-> 
-> 
-> base-commit: 124fcd0e97f209aab19639e7369116d99ede22a2
-> -- 
-> 2.43.0
-> 
+-- 
+2.34.1
 
