@@ -1,322 +1,324 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013033.outbound.protection.outlook.com [52.101.72.33])
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com (mail-am6eur05on2049.outbound.protection.outlook.com [40.107.22.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C9A2063C2
-	for <virtio-comment@lists.linux.dev>; Thu, 17 Apr 2025 21:57:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B811F585C
+	for <virtio-comment@lists.linux.dev>; Thu, 17 Apr 2025 22:04:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.22.49
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1744927071; cv=fail; b=pmXJFED35Te5UAB87jnQr/DcR1Sk3IIsoBDZXetoqtUDPGNap1c0Vyw25slAwarwMf7GvuldJW/12uMMajs+C8uMDdjurMXy/Gz02yUtwSw/IxunKaJ8sKI9azXPPOj4deqxRJjrM3fqqSbCydJBzKh/4YZ6osP2DDSW5Nsm9z0=
+	t=1744927473; cv=fail; b=tPs0qYZDGSK5KHA56MpboDpsbuEyUsWP25NHUT/2uD1EZr7srwLLRkibzmxu4Oeaa91URdEFPtKWCZjlnOSdLn3V6hvHEEy9fQ6WDOvAvMGSIbbbqeNNhQmoid27chKzLSwWdI3yMFlDZ5lbP8i+sumIRKMT9HkawFZn6TVX9Xg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1744927071; c=relaxed/simple;
-	bh=50Zsiu1Ozh8wtJhHikhNvbrARtrTC1YaKNyEj8UT8jc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ebfN/rZxwV28EH6trt2CFozsNz5+uFaioAlrJBkAa40gbqXBMQRB8MMwh68cT3tJcDQz7hAXh9OQHXMBCIE9AOcuLKxSkezqjAL0j/JdKnPeEtx0tbWxOxAxrZs1ADxKrL4J07E1s+eEqvC9bkhXeRWuDcOmE9ztEQAEkPfVNyY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia-bell-labs.com; spf=fail smtp.mailfrom=nokia-bell-labs.com; dkim=pass (2048-bit key) header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.b=WDCsKeRl; arc=fail smtp.client-ip=52.101.72.33
+	s=arc-20240116; t=1744927473; c=relaxed/simple;
+	bh=EYQAHhC2YX+7Opi+DBf8RCBJ6aWp1G9IIASaLpzo72A=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=fd/P7n6PKmgJAMdA85RPYcQ1Meh4xteyNNCNZWjnzed2AY+YKv6ZfjL7Upszzu0HE2P/eLvsbfa51BD0RHGbNKQRpLItfikoUrAPOc5qI60xZTli+cZg1R7AEYPkuOMl3MGDiD6JWSp9CNu3uZeOEUjK6f0r4vr+o+qwcuqh6CU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia-bell-labs.com; spf=fail smtp.mailfrom=nokia-bell-labs.com; dkim=pass (2048-bit key) header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.b=W05lpOHR; arc=fail smtp.client-ip=40.107.22.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia-bell-labs.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nokia-bell-labs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.b="WDCsKeRl"
+	dkim=pass (2048-bit key) header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.b="W05lpOHR"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vuH5Mh/qkYPXdK3KetMERdEK3rIMAwb6Qkcmx8BghOQ6OW/vT1hxBWi8D4y/8Xm18/yXqpZgRiAtRCmD+/KFgNAZTOTaiOFpoeNCBlKyqbg9EgyjfbfxyGAwv8ll0ShH9yJHYpgOPfvVHdPgFHfLmq7rgykWgwjEv+kAPMWhzFvfKVTZEjkG17BvMpuEwWDZi9hoqq/Y5HanLxLGxw7nZhZVnCrdxBH3sUKfBcT4EJmcRKVOHXuc9sWrx7n9X0ILQpYHetXDKm8F1UFUNkXO/NSENsQrDWFV0DQBbwp7RwI7JHIFcCQ7AD8JYdTwSWtCZPJMj2B4Jo84llenLXBakA==
+ b=RB0RGj/hvEqcIysE3/ySJ4C8HURUXczIz8HPTb6XhsBpk7kATUQOrDUGROweuED5UnGj/SczmGfUDTnsdkjSeFMhyGs6naTxN1Mdjl2f5NRit/ZZS/ceG5aFKZe41kFNvhA0mbkYk2lycjpNUlPlX0MhMi3WI7InXyKE6JTvz5J/zWK1ZMw4FzB4gMb704jkhyCtjs5ZVzxn2uU12r1aylavZrvHK+Ynl4XUM/w0QHLKmtX/R4ACjMg1gtVkTktPa8b9D0+7Z/ifNZUYKKL3YNY7BkzCLgNU3B3URklahw3x9HoevQwJMsBBhgaWl9hm/hkzJMJj4IXXsHHf3zJTgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AGF5FbavGPsXatO6OaQSaXcZ04UQLeLrKXkyiceNDjQ=;
- b=DMPiV7mI6+D0WV70yM0PZmOb86VujDfXWwfDzzrLT3Hv0OnkI6fMKy2FXNldiMqEor89oDiRV7aVVGppriPoprr/Ec4xF1857n/QtMgy/Gn9uHR7p2j5DZFUO07fF4ZnAdQAEjz/1y94cRWbJ4w1P9jkZ6bZrBg2CP4OPk8G0LpGobXHlkYl/SpR0LrtEjpXJajMJ4WceZ3Svsg8PwUphpTYSkiYPRRQWgI7ErL0/+GI7i0P/6q1o13QGHerrl1Ygx2WJRI7yG1GpQEJnaBpNKmNemK0esbS+sgttdK89T/QRvRMgl6Sc9izQAsGmEIyN/dnbeUSVa4KvXJhwOT2oA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 131.228.2.20) smtp.rcpttodomain=apple.com smtp.mailfrom=nokia-bell-labs.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nokia-bell-labs.com; dkim=none (message not signed); arc=none (0)
+ bh=yF/z7GAONK62KmaTqDGN8OMv9PsLP/S0Vmb2bb5h9Vg=;
+ b=UKZpYBA4kRtpKU4fA9TBCB2EGIMZKkdXNmEZtY7EdFzJKewhL4TUIZFNtAUMRfpxBxSMnlNbN/sY4O2VZXPimmQ09Z/DUXx5p5/cy2KBXY1S3hvotfGt7xKbvvXeaid21pMHyjD19TGvfBXfjrGcjiFdw1lQG0iLEBZv6N1kA9DNYnJQ5AOy5hlfkjhxJYq2pdnSxCAAmo+dmvhzKwHwpmeJYzRbyjYB2IWviKqCqFvUh0PXiuJOCz4lcbwof09w4AMBtCNR6VN/R30tsc3eeYiAAyNb7owZ2L6aWCsv/EVaLMrWXfems/E28gDoFDfsFvPzLUEWXokKQ5hQlovxtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nokia-bell-labs.com; dmarc=pass action=none
+ header.from=nokia-bell-labs.com; dkim=pass header.d=nokia-bell-labs.com;
+ arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nokia-bell-labs.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AGF5FbavGPsXatO6OaQSaXcZ04UQLeLrKXkyiceNDjQ=;
- b=WDCsKeRlhzVHh/HXa7wxGeYmlHFxjJwZ/xIZ1p1nrShWorLNkmGtEQzkY/3NzxEUTg+BmkNgBtKgAkuLLkGJ/WsEesWh+Df898XmtAL1YeDxinXtvTJjCwdBduja57d4/3ld19QqccLwJImVUurS3rHdJ61YVxb7BukpBJvNvK1kxeCei4SoBmiyBpzz8sJOXA9aLVwO0xxfUdhSpzALBw9IZNgD+f0uARbJTY137il6w09fXxOdvs6gQSqTD1gwXSr8mHieORGoCn7PgCDoQjLLWMX2kUrcXP0nSy0Uh14WAxn4TxrYboAb1KfVAuNouMnYbWgiyKBL6wRWouTcfw==
-Received: from CWLP123CA0045.GBRP123.PROD.OUTLOOK.COM (2603:10a6:401:58::33)
- by PAWPR07MB9901.eurprd07.prod.outlook.com (2603:10a6:102:38d::16) with
+ bh=yF/z7GAONK62KmaTqDGN8OMv9PsLP/S0Vmb2bb5h9Vg=;
+ b=W05lpOHRvswidleW0f7jhGajqlMDUyv2o8vhZHT40rinA7GfXMK0bq/bghZ3XyZfrMuxPas0XcydEQZkuY4vU+A2PcbvVvHKU9kQjynr2Go95exo5YYywrpCDiKRhQVK5aXpUun+gxX6CI330za161kOtUTPae3Cv//DUM4htWR+Ge15B0Pns0szMFw/dKBxaSEXwmuFq7ZkaRlspMV0wXONTKHVr/boaFPKNDoFfz4t5gekizcI9MC2DCPzra3o/3CvttLRpK+URW2VFcma7EDs0sqyvs7T8l5J8T60+6INvn6/gJVLs52ZpBRuotcf31ZnFfmzJJROTmE9otFfMw==
+Received: from PAXPR07MB7984.eurprd07.prod.outlook.com (2603:10a6:102:133::12)
+ by VI1PR07MB6512.eurprd07.prod.outlook.com (2603:10a6:800:179::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.29; Thu, 17 Apr
- 2025 21:57:42 +0000
-Received: from AM4PEPF00027A67.eurprd04.prod.outlook.com
- (2603:10a6:401:58:cafe::f6) by CWLP123CA0045.outlook.office365.com
- (2603:10a6:401:58::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.18 via Frontend Transport; Thu,
- 17 Apr 2025 21:57:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 131.228.2.20)
- smtp.mailfrom=nokia-bell-labs.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nokia-bell-labs.com;
-Received-SPF: Pass (protection.outlook.com: domain of nokia-bell-labs.com
- designates 131.228.2.20 as permitted sender) receiver=protection.outlook.com;
- client-ip=131.228.2.20; helo=fihe3nok0734.emea.nsn-net.net; pr=C
-Received: from fihe3nok0734.emea.nsn-net.net (131.228.2.20) by
- AM4PEPF00027A67.mail.protection.outlook.com (10.167.16.84) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.12
- via Frontend Transport; Thu, 17 Apr 2025 21:57:42 +0000
-Received: from sarah.nbl.nsn-rdnet.net (sarah.nbl.nsn-rdnet.net [10.0.73.150])
-	by fihe3nok0734.emea.nsn-net.net (Postfix) with ESMTP id 2A0BD2004B;
-	Fri, 18 Apr 2025 00:57:41 +0300 (EEST)
-From: chia-yu.chang@nokia-bell-labs.com
-To: virtio-comment@lists.linux.dev,
-	mst@redhat.com,
-	cohuck@redhat.com,
-	mvaralar@redhat.com,
-	jasowang@redhat.com,
-	xuanzhuo@linux.alibaba.com,
-	eperezma@redhat.com,
-	ij@kernel.org,
-	ncardwell@google.com,
-	koen.de_schepper@nokia-bell-labs.com,
-	g.white@cablelabs.com,
-	vidhi_goel@apple.com,
-	ingemar.s.johansson@ericsson.com,
-	mirja.kuehlewind@ericsson.com
-Cc: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
-Subject: [PATCH v7 2/2] virtio-net: define Accurate ECN feature in virtio-spec
-Date: Thu, 17 Apr 2025 23:57:35 +0200
-Message-Id: <20250417215735.20982-3-chia-yu.chang@nokia-bell-labs.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250417215735.20982-1-chia-yu.chang@nokia-bell-labs.com>
-References: <20250417215735.20982-1-chia-yu.chang@nokia-bell-labs.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.35; Thu, 17 Apr
+ 2025 22:04:27 +0000
+Received: from PAXPR07MB7984.eurprd07.prod.outlook.com
+ ([fe80::b7f8:dc0a:7e8d:56]) by PAXPR07MB7984.eurprd07.prod.outlook.com
+ ([fe80::b7f8:dc0a:7e8d:56%2]) with mapi id 15.20.8655.022; Thu, 17 Apr 2025
+ 22:04:26 +0000
+From: "Chia-Yu Chang (Nokia)" <chia-yu.chang@nokia-bell-labs.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+CC: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+	"cohuck@redhat.com" <cohuck@redhat.com>, "mvaralar@redhat.com"
+	<mvaralar@redhat.com>, "jasowang@redhat.com" <jasowang@redhat.com>,
+	"xuanzhuo@linux.alibaba.com" <xuanzhuo@linux.alibaba.com>,
+	"eperezma@redhat.com" <eperezma@redhat.com>, "ij@kernel.org" <ij@kernel.org>,
+	"ncardwell@google.com" <ncardwell@google.com>, "Koen De Schepper (Nokia)"
+	<koen.de_schepper@nokia-bell-labs.com>, g.white <g.white@cablelabs.com>,
+	vidhi_goel <vidhi_goel@apple.com>, "ingemar.s.johansson@ericsson.com"
+	<ingemar.s.johansson@ericsson.com>, "mirja.kuehlewind@ericsson.com"
+	<mirja.kuehlewind@ericsson.com>
+Subject: RE: [PATCH v1 1/1] virtio-net: Fix ECN feature descritpion
+Thread-Topic: [PATCH v1 1/1] virtio-net: Fix ECN feature descritpion
+Thread-Index: AQHbrueSD67uea9kzU2jlHKNZQ6WtLOmoZeAgAHJukA=
+Date: Thu, 17 Apr 2025 22:04:26 +0000
+Message-ID:
+ <PAXPR07MB79841E4D0A7571EC2B950B2EA3BC2@PAXPR07MB7984.eurprd07.prod.outlook.com>
+References: <20250416155223.16422-1-chia-yu.chang@nokia-bell-labs.com>
+ <20250416155223.16422-2-chia-yu.chang@nokia-bell-labs.com>
+ <20250416144453-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20250416144453-mutt-send-email-mst@kernel.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nokia-bell-labs.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAXPR07MB7984:EE_|VI1PR07MB6512:EE_
+x-ms-office365-filtering-correlation-id: dab030db-89b9-45fb-3eb0-08dd7dfbd1c6
+x-ld-processed: 5d471751-9675-428d-917b-70f44f9630b0,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|1800799024|7416014|366016|38070700018;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?vMWH7t1T+5UnlLt0Ydgsj+QP2CJB/mmKO9r0V1ZkC7fLkuYWrKN/MUIGKV37?=
+ =?us-ascii?Q?iuzXJoGLTdevDJJIROqVvXZXvP9BaE3kWCWR1lMFTqV2V5a+oeqtSfXZe1Bf?=
+ =?us-ascii?Q?MFB7ZmNKSvTfJn3+TRFj7SLfsBymIcwNnvbNzSQwe2utfVei/z0LhGm3G5o6?=
+ =?us-ascii?Q?YTCaIHPomZep6rOGkn59kYLTs//xfCXPyTeeQfMzqUnM/kYKH7yARbeAb5Qi?=
+ =?us-ascii?Q?qWAkJKuTccc7REsiF2GToXv1B3Z8JQWinOhDWfDm/XFUArtg0Qhw20rsQIzu?=
+ =?us-ascii?Q?rIuDDuds/kwNkxh8G00rhEbwgjrHcF8QSNgPtIWUT4DmgcG/Ww/D7MJduPKB?=
+ =?us-ascii?Q?DMV4nOYbCg9MC3+hPrBdksQbZ+87x9hgoFGOXbxpdtkjTe9T4d9x4Ov8HIjk?=
+ =?us-ascii?Q?FR1jBwjPFCg/dxaISHXiLAjhc3m5o7ux9o8CGiOhar+z/FPxfpLQdLfmUYhu?=
+ =?us-ascii?Q?BLzGPrmb+SYVpzMONsE3edyO8sn/mfG3K0wWw8IYVfynIhCq48UtUKTKzQQ3?=
+ =?us-ascii?Q?n+QNaSarzx30b+xXDXFDDXQMH3fE2TEye7czhAZ45ppLEIa0PaGNnX2f8Og+?=
+ =?us-ascii?Q?Cx1hSDVjoIZSjJOkd6bJK0tMzMf5PPZsLUF9+WTqMWhI16zCvaJwLcKQwF+Z?=
+ =?us-ascii?Q?O0RQF8vLM6OMR9jf3KkTn2ejNR1WnLnUngsPQS6PX1n8n4nkWT5z1W6Z/Gv4?=
+ =?us-ascii?Q?xplXVSl9x1vn7shNq4HzLtS+tnrZpH71Q5jehx+edz8AGsc1TiII5NRW6UC/?=
+ =?us-ascii?Q?fsEWyRKHk8VakKCr7N4clBy4sUzXFLqR0MtxIOOzzknfIsJagnev62zbVe1Z?=
+ =?us-ascii?Q?X+yW7aCpxFex9E+M2ioUMX6ApATY8aD7iUqX6VYcHPNCuy++FfNBanRvdg4h?=
+ =?us-ascii?Q?alBgGIovOJ/c8/PL5+fQwta0mN6ykWld1LWNITYrPSSelXZ4Nw4zY3yP3nJb?=
+ =?us-ascii?Q?ULaXAt5F4hC439BZJ1aC8VRs0MjbO/lVrSDxQ8ByDuav3vP9BlqnIua1VHmP?=
+ =?us-ascii?Q?d4bwXWUoj1GAQTFJ+cnrzKqweEOEawXX5cSQUkSQGbzXeD5qIEgtxPlF+yEE?=
+ =?us-ascii?Q?QG+74Kdn5l8tIbbG3RVdgYgYjWVI1OzxOk6Xy5+kzO9pmeTZ4L9Xi72Tdw1m?=
+ =?us-ascii?Q?NgBu8EuNob+T1qPgAkUj3p22fg0PXbgGf7BRqpHQwhKoFXWP88wTyvt0tOxl?=
+ =?us-ascii?Q?GpVfdgkU4CxMFpi+D7AKy9zn9wPNlOWnw+L1lMx9+7hOrNmzbu9et8RkwKVu?=
+ =?us-ascii?Q?he/9PU4PtJ99q5eAAQL0xX12+MQ72nTuXn3qY/xL9OoHoTB1WyWDHkkp4jaC?=
+ =?us-ascii?Q?NZQNk6EWgN3UiKO7/fLUh+4ky+QP30P6L+VVxTXQGCYUiaQMHMzKmFDwrPOq?=
+ =?us-ascii?Q?3fQ9fmiu4ZI3xthaRKXq4B8Xh+87qPNubLfYBMPgx6MT7OdsYNgl5OREO10t?=
+ =?us-ascii?Q?odHA8NMAd/ySGKX/SAh3T9SkaTPiyWrATmyZfnDndWEeiqOOgDMMtH/ylBlJ?=
+ =?us-ascii?Q?7eN3Ycuw4nNn0Hw=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR07MB7984.eurprd07.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?w4bCHg3DGhFhE0EriKDUKpSeShYSJ49XlGAWoqubMko7xPn9UeEjP6b1pmsl?=
+ =?us-ascii?Q?9q9YNZr+MnIEin3vOeER2Z5sbFXdWEY+V8yUD3PtmeRAht40ykISN0z/oWYp?=
+ =?us-ascii?Q?AZIh8Sl+fYjRBxJyuMA28BimJK4E/k6vkEfj/s4H1Vi3nRZoXCm6Az3q6HeM?=
+ =?us-ascii?Q?zAFRMz6ymxzagn1ySQ/plVJ80G7PAzNNV4KIUSRj1qxI+DPovpFGbb/poKM1?=
+ =?us-ascii?Q?hFkmo8MPxOGUoF1Zsu0inKEhuj7xmFB0QoJld0qhzHEEBjpG4xq8Dx6Yr9Pj?=
+ =?us-ascii?Q?F4Fi+L5RkLNUgNGV6IUaeLnZaK7+WdRWmRaxfmMebL5ZAan0ZAQkTQWPHNAM?=
+ =?us-ascii?Q?GfgB4CmQk28tkS/AzFAFC0cevXOZvchdomv/yGhsgpyDG3fxFtrtnDW9G2Gm?=
+ =?us-ascii?Q?Rezj3QjZ9cYU+gA9OGNOD1Mlzx8spkhX2/a3hbhEkDc8tXOBJLpQ+WDwgdcM?=
+ =?us-ascii?Q?S76t7QX902W2tI8J9UwO+F3cDukQcWq8QHzQ6i9CZ0eXgIKjE4knU7944K1X?=
+ =?us-ascii?Q?0qjjw26IcomDvfB72wdSmyMvfzP85TmiTauNCZ0FJ7Gan7E8oOEQNATwXwa0?=
+ =?us-ascii?Q?7bRWprbKv5cBtMTD4byNA5M4OmyqatLaUJuTEIk/KbI9bf5DsJMpHmAmsDnG?=
+ =?us-ascii?Q?FheUUTNvdvyj2Qc9Zqcb/eHIEcYfGMw5C8JuWMcN5ZlA2VhItKb4U8i932MY?=
+ =?us-ascii?Q?NJLMf3fyYB0eadHxVpU4Z45C60v9tAQ/8aYKUNAcuXBwdKgTp9iIdo4HCENP?=
+ =?us-ascii?Q?6/HsQM/JsvXnhnGRiPvtJeN7BbsNOdcluRJto09dN67xnAE/9GXwyt4lVuIc?=
+ =?us-ascii?Q?x/+bAiNZesZYq2KhfWOl4lyjfuIK7uQalaMHMXEyUsqUragkCxxy0l9uCKJO?=
+ =?us-ascii?Q?rwXDECFmHRj1P+SHEetcLW/BliWX0SUjVCrcBw4kxDvBjVZeWJRQd2X90XJo?=
+ =?us-ascii?Q?x1qSYQCl7OqWVKPQPcWXvu9h5dyrzTNfE21pevSYIkrtniUei7izaIofVuuF?=
+ =?us-ascii?Q?JTOLwSKSanXyAE3/k/ALtIjW68oFu9M3gHZA/s+g8fNIIuGN+fzM+jt8ktUK?=
+ =?us-ascii?Q?XGDY2E+RyUqLpJ/JvtE0Hk2w6vjajtbyvwD/nL4l1jjjrec4+xYnS71M+j8I?=
+ =?us-ascii?Q?7rvFjLAknDcKLT8rflcl5o5qXsxyNwCi+01sxjfln/mAX6sibT7/vG/Wgnah?=
+ =?us-ascii?Q?JYfhPKjrj5DxtGYG3XSnDaE29za4/Bq1WnejUz9R9lLkvz177ZXzD0FG7emp?=
+ =?us-ascii?Q?iZ7Z3HlXq35PKU+fAr4ZLm20cCDqHWIFDKfPNuIG9bJZWIHY2JHf1OCKCwvn?=
+ =?us-ascii?Q?3l9DUtn9tvEia3sidSPGYDpnS7QVUcpiHMHmswG+O59RTAQV29ZBEHjKRc9s?=
+ =?us-ascii?Q?fVEPAJ5juNokawF/7vm70n9qnad2xi3dt9hG42TE89p6EWEYScJ+lQ8xj/lG?=
+ =?us-ascii?Q?i8lQsBluAU9XjybuaWZvUxS5mgc223CA9dwGTm+Iqu3FQFyiU5LC52QieBSQ?=
+ =?us-ascii?Q?pzj85kVIrGMz0Tpa+3pQQFxbRuAi6LZc+sMtgdVwLoL9oFJa0s8nIGPZ8mAD?=
+ =?us-ascii?Q?qecXkzChmclcL6oszeOBCJFVti8bOCxHI+54a75xtoqJHhi3a09Zg1xAHdzC?=
+ =?us-ascii?Q?Ew=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM4PEPF00027A67:EE_|PAWPR07MB9901:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: c4906885-f3f3-40b3-11e8-08dd7dfae0be
-X-LD-Processed: 5d471751-9675-428d-917b-70f44f9630b0,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|36860700013|1800799024|82310400026|7416014|376014|921020|13003099007;
-X-Microsoft-Antispam-Message-Info:
- =?us-ascii?Q?yvZZfMkF+cjKiTnctNtKXk9vuSDXOh+ChYelejEOBNH6gq95uJjygdIMsOzK?=
- =?us-ascii?Q?8TCRsNvj0wwBrF2RadB0wef3Z91R0Eq1h33iRirCu9dei647tjRMuoJpeVN7?=
- =?us-ascii?Q?WpFTI4/phmEGVyNDlPUgskDEv8fcRsCEM/VORoZE2xlkGZzh+YNnQ2S607xA?=
- =?us-ascii?Q?wn3Ss27Gni7OydOqZgq2Ca/itn2Ec3WiWDzY3A/vLeYCxl2I+l1xi2yLq7+e?=
- =?us-ascii?Q?gdOoX1+Kt9D6ojt/FFxe4iYh1ZlckNHRBtOz/tNkxkWNr85mrgqJXxJ0rZVC?=
- =?us-ascii?Q?qYqUXLj74ALD4JYw22jqk6IqEpJuIaQvBrsWjHEsTAgx1b6VzhBzBTJLc0hL?=
- =?us-ascii?Q?iYYEEyOEfAWTcuczxQsuddiBpZfYo1xEfnLAuTpk2ngKrMWbUQIiaQ/1qFtU?=
- =?us-ascii?Q?uaJQOB7MelUQgpJjvgkn3cBjQAVYAQ+Xki5e3TAFTFwMKGoY/A4CUuWVYPLv?=
- =?us-ascii?Q?+ur1/5rm9Zlv4E6LLKUs+9zamNcHXilsxxbmK/6QFANJxdLOCqB6ijnNGGRn?=
- =?us-ascii?Q?27++cx882xvQkx7UiD+a1GSBV1KfFPOtwRIW6Jc7suu7GqBjeRdYf21cA0vb?=
- =?us-ascii?Q?x1pokPxfTSRkc4TZ5kbezTsNybdKaQQ+R9dmuvBXOZKQlKnYGWywgfEs2jkv?=
- =?us-ascii?Q?Dhp2BGuKntVLfnoaTEtcyvhHgBDeV3uHJ2LwhsiECJ9+yN24QtJmyj+xWcEz?=
- =?us-ascii?Q?B1fnoOd7rHVo6JpTrU520BBMxGE0ZefC2ig1IY4EscMXzlTKAvI2s2lDJW7i?=
- =?us-ascii?Q?gg12dAku+E/OYZdKGcs7TJccEGpMT6UrPSkIDi1RmB6HuhnfwR3ORjL5nIyk?=
- =?us-ascii?Q?97hBbM5oEMhc6FmsagO74veBeK/tlFiQROn2SfKi1BoM+4vUX3wYy8qeeLpZ?=
- =?us-ascii?Q?zhYfn+5LmYwuwgMh7agkQnynTJpNB5l51QQhZKJn4mHpH8OA3GoWpBLYuag6?=
- =?us-ascii?Q?pPjaCiQRVcH3yHlgn9CrmOfYw88oCe45zPGtoDCNvyTuRRbd2kebRPk1OduN?=
- =?us-ascii?Q?t9tzvJvsG7hO4FoQTaODgwa2jBjtu7ITe0HJhSw8C13UeZVqPwujl+e/aSyC?=
- =?us-ascii?Q?tcz4/PTa5BclsqJw3o1CZHn888dCXEd3/HjMd0TXEQpKdLDVQJqNsipYoCIn?=
- =?us-ascii?Q?aDz3e/d1IfIdcv8Wc+jpCPzUseCV5tihs48NNq5oHXAY7MpYo6fhEMIjSxd6?=
- =?us-ascii?Q?Pwa2VuEYbOa41RFGRecd7cieYQzEBi+zvSVLqP4wdDpwn8MUnu/aiIOaVLM7?=
- =?us-ascii?Q?BsCN/R/5PVoGa3wwW+mDV9cZt3rJLiYAgBOPE5HSwHN9ZmfheHfLVYOT1tgT?=
- =?us-ascii?Q?jWTK3eFT9Rn4E1nj3bxfy88dBx42pQQ7UMx3BA8BHmUtIZb63pupJ+6+uhBF?=
- =?us-ascii?Q?MQGgj8lMxkpxdGAEOSjvDyYFwOSgw10JVtF2S7McLq9mxmuQ+hEytOJjV+7P?=
- =?us-ascii?Q?u8qtQWHL+eJLD2ltUlafMl3doYYhoQpC4RJNHec0RtePwz3reEL2QTyNKRb2?=
- =?us-ascii?Q?Aj+F77c3fDr54YGU8TZNe5djwCyAphdW5cMMMLsnPe0TAWcs8XmTnkIcZw?=
- =?us-ascii?Q?=3D=3D?=
-X-Forefront-Antispam-Report:
- CIP:131.228.2.20;CTRY:FI;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:fihe3nok0734.emea.nsn-net.net;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(7416014)(376014)(921020)(13003099007);DIR:OUT;SFP:1101;
 X-OriginatorOrg: nokia-bell-labs.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2025 21:57:42.1389
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR07MB7984.eurprd07.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dab030db-89b9-45fb-3eb0-08dd7dfbd1c6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Apr 2025 22:04:26.5959
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c4906885-f3f3-40b3-11e8-08dd7dfae0be
-X-MS-Exchange-CrossTenant-Id: 5d471751-9675-428d-917b-70f44f9630b0
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=5d471751-9675-428d-917b-70f44f9630b0;Ip=[131.228.2.20];Helo=[fihe3nok0734.emea.nsn-net.net]
-X-MS-Exchange-CrossTenant-AuthSource: AM4PEPF00027A67.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR07MB9901
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 5d471751-9675-428d-917b-70f44f9630b0
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KCT2V0L14RN613C3MrvormvxslzvdHNXDP0nvRP3aSLjqhcgdZujtuTCWBMl2Dl1SjItqiwuCkNmaU/jSSqBHGJLdWqwTOns6v6sIPqtkIn1ueqkqpflnkpGB8HTdVXb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR07MB6512
 
-From: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
+> -----Original Message-----
+> From: Michael S. Tsirkin <mst@redhat.com>=20
+> Sent: Wednesday, April 16, 2025 8:45 PM
+> To: Chia-Yu Chang (Nokia) <chia-yu.chang@nokia-bell-labs.com>
+> Cc: virtio-comment@lists.linux.dev; cohuck@redhat.com; mvaralar@redhat.co=
+m; jasowang@redhat.com; xuanzhuo@linux.alibaba.com; eperezma@redhat.com; ij=
+@kernel.org; ncardwell@google.com; Koen De Schepper (Nokia) <koen.de_schepp=
+er@nokia-bell-labs.com>; g.white <g.white@cablelabs.com>; vidhi_goel <vidhi=
+_goel@apple.com>; ingemar.s.johansson@ericsson.com; mirja.kuehlewind@ericss=
+on.com
+> Subject: Re: [PATCH v1 1/1] virtio-net: Fix ECN feature descritpion
+>=20
+>=20
+> CAUTION: This is an external email. Please be very careful when clicking =
+links or opening attachments. See the URL nok.it/ext for additional informa=
+tion.
+>=20
+>=20
+>=20
+> On Wed, Apr 16, 2025 at 05:52:23PM +0200, chia-yu.chang@nokia-bell-labs.c=
+om wrote:
+> > From: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
+> >
+> > Clarify that the VIRTIO_NET_HDR_GSO_ECN gso_type flag does not mean=20
+> > that TCP has IP-ECN set, instead it identifies TCP CWR flag is set and=
+=20
+> > will be cleared from the second segment. This is used to offload TCP=20
+> > CWR flag in a way that is compatible with RFC3168 ECN but is=20
+> > problematic for non-RFC3168 use of CWR flag.
+> >
+> > Signed-off-by: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
+>=20
+> Can you pls send a patch sans typos? Thanks!
 
-This change implements Accurate ECN based on AccECN specifications:
-  https://tools.ietf.org/id/draft-ietf-tcpm-accurate-ecn-28.txt
+Hello,
 
-Unlike RFC 3168 ECN, Accurate ECN uses the CWR flag as part of the ACE
-field to count new packets with CE mark; however, RFC 3168 ECN-aware TSO
-will clean CWR flag from the 2nd segment of an aggregated segment.
-Therefore, fallback shall be applied by setting NETIF_F_GSO_ACCECN to
-ensure that the CWR flag should not be changed within a aggregated segment
-(e.g., super-skb in Linux).
+I've just sent v7 of RFC3168 ECN and AccECN patch to v1.4 branch
+And this single patch is to backport the RFC3168 ECN to the master branch (=
+v1.3).
+Is this being the right way to do the backporting for v1.3 standard? Thanks=
+.
 
-To apply it in virtio-spec, new feature bits for host and guest are added
-for feature negotiation between driver and device. And the translation
-of Accurate ECN GSO flag between virtio_net_hdr and skb header for
-NETIF_F_GSO_ACCECN is also added to avoid CWR flag corruption due to
-RFC3168 ECN TSO.
+Chia-Yu
 
-Signed-off-by: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
----
- device-types/net/description.tex | 50 +++++++++++++++++++++++++-------
- introduction.tex                 |  3 ++
- 2 files changed, 42 insertions(+), 11 deletions(-)
-
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index a2c9de8..61e2aac 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -140,6 +140,14 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
- 
- \item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM (68)] Device handles packets
-   carried by a UDP tunnel with partial csum for the outer header.
-+
-+\item[VIRTIO_NET_F_HOST_ACCECN (69)] Device can receive TSO with TCP CWR flag set
-+  and follow the ACE bits handling approach mentioned in
-+  \hyperref[intro:accecn]{[AccECN]}.
-+
-+\item[VIRTIO_NET_F_GUEST_ACCECN (70)] Driver can receive TSO with TCP CWR flag set
-+  and follow the ACE bits handling approach mentioned in
-+  \hyperref[intro:accecn]{[AccECN]}.
- \end{description}
- 
- \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device / Feature bits / Feature bit requirements}
-@@ -151,6 +159,7 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
- \item[VIRTIO_NET_F_GUEST_TSO4] Requires VIRTIO_NET_F_GUEST_CSUM.
- \item[VIRTIO_NET_F_GUEST_TSO6] Requires VIRTIO_NET_F_GUEST_CSUM.
- \item[VIRTIO_NET_F_GUEST_ECN] Requires VIRTIO_NET_F_GUEST_TSO4 or VIRTIO_NET_F_GUEST_TSO6.
-+\item[VIRTIO_NET_F_GUEST_ACCECN] Requires VIRTIO_NET_F_GUEST_TSO4 or VIRTIO_NET_F_GUEST_TSO6.
- \item[VIRTIO_NET_F_GUEST_UFO] Requires VIRTIO_NET_F_GUEST_CSUM.
- \item[VIRTIO_NET_F_GUEST_USO4] Requires VIRTIO_NET_F_GUEST_CSUM.
- \item[VIRTIO_NET_F_GUEST_USO6] Requires VIRTIO_NET_F_GUEST_CSUM.
-@@ -161,6 +170,7 @@ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device
- \item[VIRTIO_NET_F_HOST_TSO4] Requires VIRTIO_NET_F_CSUM.
- \item[VIRTIO_NET_F_HOST_TSO6] Requires VIRTIO_NET_F_CSUM.
- \item[VIRTIO_NET_F_HOST_ECN] Requires VIRTIO_NET_F_HOST_TSO4 or VIRTIO_NET_F_HOST_TSO6.
-+\item[VIRTIO_NET_F_HOST_ACCECN] Requires VIRTIO_NET_F_HOST_TSO4 or VIRTIO_NET_F_HOST_TSO6.
- \item[VIRTIO_NET_F_HOST_UFO] Requires VIRTIO_NET_F_CSUM.
- \item[VIRTIO_NET_F_HOST_USO] Requires VIRTIO_NET_F_CSUM.
- \item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO] Requires VIRTIO_NET_F_HOST_TSO4, VIRTIO_NET_F_HOST_TSO6
-@@ -284,11 +294,11 @@ \subsection{Device configuration layout}\label{sec:Device Types / Network Device
- The device MUST NOT modify \field{mtu} once it has been set.
- 
- The device MUST NOT pass received packets that exceed \field{mtu} (plus low
--level ethernet header length) size with \field{gso_type} NONE or ECN
-+level ethernet header length) size with \field{gso_type} NONE, ECN or ACCECN
- after VIRTIO_NET_F_MTU has been successfully negotiated.
- 
- The device MUST forward transmitted packets of up to \field{mtu} (plus low
--level ethernet header length) size with \field{gso_type} NONE or ECN, and do
-+level ethernet header length) size with \field{gso_type} NONE, ECN or ACCECN, and do
- so without fragmentation, after VIRTIO_NET_F_MTU has been successfully
- negotiated.
- 
-@@ -338,11 +348,11 @@ \subsection{Device configuration layout}\label{sec:Device Types / Network Device
- 
- If the driver negotiates VIRTIO_NET_F_MTU, it MUST supply enough receive
- buffers to receive at least one receive packet of size \field{mtu} (plus low
--level ethernet header length) with \field{gso_type} NONE or ECN.
-+level ethernet header length) with \field{gso_type} NONE, ECN or ACCECN.
- 
- If the driver negotiates VIRTIO_NET_F_MTU, it MUST NOT transmit packets of
- size exceeding the value of \field{mtu} (plus low level ethernet header length)
--with \field{gso_type} NONE or ECN.
-+with \field{gso_type} NONE, ECN or ACCECN.
- 
- A driver SHOULD negotiate the VIRTIO_NET_F_STANDBY feature if the device offers it.
- 
-@@ -433,7 +443,7 @@ \subsection{Device Initialization}\label{sec:Device Types / Network Device / Dev
-    The VIRTIO_NET_F_GUEST_CSUM feature indicates that partially
-   checksummed packets can be received, and if it can do that then
-   the VIRTIO_NET_F_GUEST_TSO4, VIRTIO_NET_F_GUEST_TSO6,
--  VIRTIO_NET_F_GUEST_UFO, VIRTIO_NET_F_GUEST_ECN, VIRTIO_NET_F_GUEST_USO4,
-+  VIRTIO_NET_F_GUEST_UFO, VIRTIO_NET_F_GUEST_ECN, VIRTIO_NET_F_GUEST_ACCECN, VIRTIO_NET_F_GUEST_USO4,
-   VIRTIO_NET_F_GUEST_USO6 VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO and
-   VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM are the input equivalents of
-   the features described above.
-@@ -592,6 +602,7 @@ \subsection{Device Operation}\label{sec:Device Types / Network Device / Device O
- #define VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 0x20
- #define VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 0x40
- #define VIRTIO_NET_HDR_GSO_ECN      0x80
-+#define VIRTIO_NET_HDR_GSO_ACCECN   0x10
-         u8 gso_type;
-         le16 hdr_len;
-         le16 gso_size;
-@@ -702,6 +713,12 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
-     indicates that the TCP packet has TCP CWR flag set and the flag will be handled differently to all segements of
-     an aggregated segment, as mentioned in \hyperref[intro:rfc3168]{[RFC3168]}
-     \footnote{This case is not handled by some older hardware, so is called out specifically in the protocol.}.
-+
-+  \item If the driver negotiated the VIRTIO_NET_F_HOST_ACCECN feature,
-+    the VIRTIO_NET_HDR_GSO_ACCECN bit in \field{gso_type}
-+    indicates that the TCP packet has TCP CWR flag set and the flag will be applied to all segments of an aggregated
-+    segment, as mentioend in \hyperref[intro:accecn]{[AccECN]}
-+    \footnote{This case is not handled by some older hardware, so is called out specifically in the protocol.}.
-    \end{itemize}
- 
- \item If the driver negotiated the VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO feature and the
-@@ -797,6 +814,11 @@ \subsubsection{Packet Transmission}\label{sec:Device Types / Network Device / De
- \hyperref[intro:rfc3168]{[RFC3168]}, unless the VIRTIO_NET_F_HOST_ECN feature is
- negotiated, in which case the driver MUST set the VIRTIO_NET_HDR_GSO_ECN bit in \field{gso_type}.
- 
-+The driver SHOULD NOT send to the device TCP packets requiring segmentation offload
-+which have the TCP CWR flag set and require the flag be applied as mentioend in
-+\hyperref[intro:accecn]{[AccECN]}, unless the VIRTIO_NET_F_HOST_ACCECN feature is
-+negotiated, in which case the driver MUST set the VIRTIO_NET_HDR_GSO_ACCECN bit in \field{gso_type}.
-+
- If VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO is negotiated, the driver MAY set
- VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV4 bit or the VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 bit
- in \field{gso_type} according to the inner network header protocol type
-@@ -1108,12 +1130,12 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
-   in case of tunnels) has been validated.
- \end{enumerate}
- 
--Additionally, VIRTIO_NET_F_GUEST_CSUM, TSO4, TSO6, UDP, UDP_TUNNEL
--and ECN features enable receive checksum, large receive offload and RFC3168
--ECN support which are the input equivalents of the transmit checksum,
--transmit segmentation offloading and RFC3168 ECN features, as described
--in \ref{sec:Device Types / Network Device / Device Operation /
--Packet Transmission}:
-+Additionally, VIRTIO_NET_F_GUEST_CSUM, TSO4, TSO6, UDP, UDP_TUNNEL, ECN and
-+ACCECN features enable receive checksum, large receive offload, RFC3168 ECN
-+and Accurate ECN support which are the input equivalents of the transmit
-+checksum, transmit segmentation offloading, RFC3168 ECN and Accurate ECN
-+features, as described in \ref{sec:Device Types / Network Device /
-+Device Operation / Packet Transmission}:
- \begin{enumerate}
- \item If the VIRTIO_NET_F_GUEST_TSO4, TSO6, UFO, USO4 or USO6 options were
-   negotiated, then \field{gso_type} MAY be something other than
-@@ -1218,6 +1240,11 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
- \hyperref[intro:rfc3168]{[RFC3168]}, unless the VIRTIO_NET_F_GUEST_ECN feature is
- negotiated, in which case the device MUST set the VIRTIO_NET_HDR_GSO_ECN bit in \field{gso_type}.
- 
-+The device SHOULD NOT send to the driver TCP packets requiring segmentation offload
-+which have the TCP CWR flag set and require the flag be handled as mentioned in
-+\hyperref[intro:accecn]{[AccECN]}, unless the VIRTIO_NET_F_GUEST_ACCECN feature is
-+negotiated, in which case the device MUST set the VIRTIO_NET_HDR_GSO_ACCECN bit in \field{gso_type}.
-+
- If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated, the
- device MAY set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in
- \field{flags}, if so:
-@@ -2193,6 +2220,7 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
- #define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM 47
- #define VIRTIO_NET_F_GUEST_USO4       54
- #define VIRTIO_NET_F_GUEST_USO6       55
-+#define VIRTIO_NET_F_GUEST_ACCECN     70
- 
- #define VIRTIO_NET_CTRL_GUEST_OFFLOADS       5
-  #define VIRTIO_NET_CTRL_GUEST_OFFLOADS_SET   0
-diff --git a/introduction.tex b/introduction.tex
-index d52622e..9320ca1 100644
---- a/introduction.tex
-+++ b/introduction.tex
-@@ -171,6 +171,9 @@ \section{Normative References}\label{sec:Normative References}
- 	\phantomsection\label{intro:rfc3168}\textbf{[RFC3168]} &
-     S. Floyd., ``The Addition of Explicit Congestion Notification (ECN) to IP'', September 2001.
- 	\newline\url{http://www.ietf.org/rfc/rfc3168.txt}\\
-+        \phantomsection\label{intro:accecn}\textbf{[AccECN]} &
-+    B. Briscoe., ``More Accurate Explicit Congestion Notification (AccECN) Feedback in TCP'', February 2025.
-+        \newline\url{https://www.ietf.org/archive/id/draft-ietf-tcpm-accurate-ecn-33.txt}\\
- \end{longtable}
- 
- \section{Non-Normative References}
--- 
-2.34.1
+>=20
+> > ---
+> >  device-types/net/description.tex | 33 +++++++++++++++++---------------
+> >  introduction.tex                 |  3 +++
+> >  2 files changed, 21 insertions(+), 15 deletions(-)
+> >
+> > diff --git a/device-types/net/description.tex=20
+> > b/device-types/net/description.tex
+> > index 4494633..f15b74a 100644
+> > --- a/device-types/net/description.tex
+> > +++ b/device-types/net/description.tex
+> > @@ -54,7 +54,9 @@ \subsection{Feature bits}\label{sec:Device Types /=20
+> > Network Device / Feature bits
+> >
+> >  \item[VIRTIO_NET_F_GUEST_TSO6 (8)] Driver can receive TSOv6.
+> >
+> > -\item[VIRTIO_NET_F_GUEST_ECN (9)] Driver can receive TSO with ECN.
+> > +\item[VIRTIO_NET_F_GUEST_ECN (9)] Driver can receive TSO with TCP CWR =
+flag set
+> > +    and follow the ACE bits handling approach mentioned in
+> > +    \hyperref[intro:rfc3168]{[RFC3168]}.
+> >
+> >  \item[VIRTIO_NET_F_GUEST_UFO (10)] Driver can receive UFO.
+> >
+> > @@ -62,7 +64,9 @@ \subsection{Feature bits}\label{sec:Device Types /=20
+> > Network Device / Feature bits
+> >
+> >  \item[VIRTIO_NET_F_HOST_TSO6 (12)] Device can receive TSOv6.
+> >
+> > -\item[VIRTIO_NET_F_HOST_ECN (13)] Device can receive TSO with ECN.
+> > +\item[VIRTIO_NET_F_HOST_ECN (13)] Device can receive TSO with TCP CWR =
+flag set
+> > +    and follow the ACE bits handling approach mentioend in
+> > +    \hyperref[intro:rfc3168]{[RFC3168]}.
+> >
+> >  \item[VIRTIO_NET_F_HOST_UFO (14)] Device can receive UFO.
+> >
+> > @@ -512,8 +516,9 @@ \subsubsection{Packet=20
+> > Transmission}\label{sec:Device Types / Network Device / De
+> >
+> >    \item If the driver negotiated the VIRTIO_NET_F_HOST_ECN feature,
+> >      the VIRTIO_NET_HDR_GSO_ECN bit in \field{gso_type}
+> > -    indicates that the TCP packet has the ECN bit set\footnote{This ca=
+se is not handled by some older hardware, so is called out
+> > -specifically in the protocol.}.
+> > +    indicates that the TCP packet has TCP CWR flag set and the flag wi=
+ll be handled differently to all segements of
+> > +    an aggregated segment, as mentioned in \hyperref[intro:rfc3168]{[R=
+FC3168]}
+> > +    \footnote{This case is not handled by some older hardware, so is c=
+alled out specifically in the protocol.}.
+> >     \end{itemize}
+> >
+> >  \item \field{num_buffers} is set to zero.  This field is unused on tra=
+nsmitted packets.
+> > @@ -555,10 +560,9 @@ \subsubsection{Packet=20
+> > Transmission}\label{sec:Device Types / Network Device / De  \field{gso_=
+type} to VIRTIO_NET_HDR_GSO_UDP_L4.
+> >
+> >  The driver SHOULD NOT send to the device TCP packets requiring=20
+> > segmentation offload -which have the Explicit Congestion Notification=20
+> > bit set, unless the -VIRTIO_NET_F_HOST_ECN feature is negotiated, in=20
+> > which case the -driver MUST set the VIRTIO_NET_HDR_GSO_ECN bit in=20
+> > -\field{gso_type}.
+> > +which have the TCP CWR flag set and require the flag be handled as=20
+> > +mentioned in \hyperref[intro:rfc3168]{[RFC3168]}, unless the=20
+> > +VIRTIO_NET_F_HOST_ECN feature is negotiated, in which case the driver =
+MUST set the VIRTIO_NET_HDR_GSO_ECN bit in \field{gso_type}.
+> >
+> >  If the VIRTIO_NET_F_CSUM feature has been negotiated, the  driver MAY=
+=20
+> > set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in @@ -748,9 +752,9 @@=20
+> > \subsubsection{Processing of Incoming Packets}\label{sec:Device Types=20
+> > / Network  \end{enumerate}
+> >
+> >  Additionally, VIRTIO_NET_F_GUEST_CSUM, TSO4, TSO6, UDP and ECN=20
+> > -features enable receive checksum, large receive offload and ECN=20
+> > -support which are the input equivalents of the transmit checksum,=20
+> > -transmit segmentation offloading and ECN features, as described
+> > +features enable receive checksum, large receive offload and RFC3168=20
+> > +ECN support which are the input equivalents of the transmit checksum,=
+=20
+> > +transmit segmentation offloading and RFC3168 ECN features, as=20
+> > +described
+> >  in \ref{sec:Device Types / Network Device / Device Operation / =20
+> > Packet Transmission}:
+> >  \begin{enumerate}
+> > @@ -821,10 +825,9 @@ \subsubsection{Processing of Incoming=20
+> > Packets}\label{sec:Device Types / Network  the device MUST NOT set \fie=
+ld{gso_type} to VIRTIO_NET_HDR_GSO_UDP_L4.
+> >
+> >  The device SHOULD NOT send to the driver TCP packets requiring=20
+> > segmentation offload -which have the Explicit Congestion Notification=20
+> > bit set, unless the -VIRTIO_NET_F_GUEST_ECN feature is negotiated, in=20
+> > which case the -device MUST set the VIRTIO_NET_HDR_GSO_ECN bit in=20
+> > -\field{gso_type}.
+> > +which have the TCP CWR flag set and require the flag be handled as=20
+> > +mentioned in \hyperref[intro:rfc3168]{[RFC3168]}, unless the=20
+> > +VIRTIO_NET_F_GUEST_ECN feature is negotiated, in which case the device=
+ MUST set the VIRTIO_NET_HDR_GSO_ECN bit in \field{gso_type}.
+> >
+> >  If the VIRTIO_NET_F_GUEST_CSUM feature has been negotiated, the =20
+> > device MAY set the VIRTIO_NET_HDR_F_NEEDS_CSUM bit in diff --git=20
+> > a/introduction.tex b/introduction.tex index 44c4ca4..8b79cba 100644
+> > --- a/introduction.tex
+> > +++ b/introduction.tex
+> > @@ -145,6 +145,9 @@ \section{Normative References}\label{sec:Normative =
+References}
+> >      Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Wo=
+rds", BCP
+> >      14, RFC 8174, DOI 10.17487/RFC8174, May 2017
+> >          \newline\url{http://www.ietf.org/rfc/rfc8174.txt}\\
+> > +        \phantomsection\label{intro:rfc3168}\textbf{[RFC3168]} &
+> > +    S. Floyd., ``The Addition of Explicit Congestion Notification (ECN=
+) to IP'', September 2001.
+> > +        \newline\url{http://www.ietf.org/rfc/rfc3168.txt}\\
+> >  \end{longtable}
+> >
+> >  \section{Non-Normative References}
+> > --
+> > 2.34.1
 
