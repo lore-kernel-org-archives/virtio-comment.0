@@ -1,155 +1,158 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30BAD2820B2
-	for <virtio-comment@lists.linux.dev>; Wed, 23 Apr 2025 16:29:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 880301A315C
+	for <virtio-comment@lists.linux.dev>; Wed, 23 Apr 2025 18:07:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745425782; cv=none; b=n6aHdJnJsf9+rgSA7hw8FSOSwaLnacaQUZu1J4fhd0D51ufiF14Q8bOWWQ98tSyFS81hTBgdtwaoRnXo6QAL4F1IOrOEcIMBj17KnA1AiwXC+dHuAXgRQ1V/FrZNQtRiaGNUpG0lZeehfddWtIz4Sbz74Fx3gRmrATGoSWM70WE=
+	t=1745431648; cv=none; b=Z4K+3XZN3kvaOb6v7yCdi81QvOuCeK26nV+y8yjAtLrd6MvwM9C+DB/aUwnOtszMIGqHeHx12SNpLlDBXixstqKdFlPaCHecT8dIfskNwwg88tGJwmOQl2zLDnGKJzANJKAvTZiSWBjvgcBjftB02M2v8RUTTKNAEsx/8czmtfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1745425782; c=relaxed/simple;
-	bh=UW4B+YHjHcZX1NmyFbqlK/7bttKnRAO3my0HPi2qI5w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MEMjdqCjCHsyP+yDeXZWGdp6vbFLHrHqHaHw/2PZnBsOPtJcz1oeB+2Fm3muWqoTxy9V7Fdr82xHSsuu/rjQF4S+fYzXKS3W0auwn87sPSd98qhrNd6MZanrzUQ9zWPsTrCtTp5ud4jnkW2sBGvi4dfm06ODUlNU0EBjtGzoaPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=dXp8F0PI; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1745431648; c=relaxed/simple;
+	bh=mOCS3XlrU2/XDJFSqFU/sS/jT/+h5C9m/PYyLBwPcR4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=C2g5nK7F2zNlLyQHHPv+mNcG/EvriUMVDZzLZMOrkMfx1z82EIFA1ne8zIN8JaJpI1a3XvxfWg0CX0UO6mRyFnhdjeULRprwuEhKZMqlTZZWsyrHva7leUaaQSlKFT5sdrKw/8IpG1L4Y7pqFaeDG7wK7LXKZUQPMfJvHG5aO8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DYWmIY0f; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="dXp8F0PI"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-301a8b7398cso10937a91.1
-        for <virtio-comment@lists.linux.dev>; Wed, 23 Apr 2025 09:29:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1745425780; x=1746030580; darn=lists.linux.dev;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eUCuv4HdQ89hZaxOQeTu1OXW8KOtDSV1N7bdWGEVI6w=;
-        b=dXp8F0PINr1cnr7HfL7l2rS8MVS05rbKKlxLwaYQ+7J1YV/5Yw7gO6rKTKGzSznYNq
-         KvtitB1wCBiaZoHWBxfBn4zLiOjYzPMU/yygFw2pXkWvph9meRBKBUnf1zfhAq8GU9Wn
-         AQh7/MMiLyNPWjasDDtnf6urn812TwiWWnaoU=
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DYWmIY0f"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1745431645;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jglduVQtvk+nZ5CtUTy8iH4v24cHRkDWhkmD8cUdpRs=;
+	b=DYWmIY0fnDfU76+qEP7JANljT2DJtlYjzXdbd1g3Awp/OlW6jh+IjDMXspeD1Nj2SQ8PiL
+	W3RED0CbFWAH51S2fTNptgVIVSStfccSvAFPN2GdxsbjXH/6y8/l49bBPNV73+InsSmC0z
+	C8VohwEgz4n60U8icFNXOl2Qc9uwxMU=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-483-9MfKZpNONBWsaNwVQCo-JA-1; Wed, 23 Apr 2025 14:07:23 -0400
+X-MC-Unique: 9MfKZpNONBWsaNwVQCo-JA-1
+X-Mimecast-MFC-AGG-ID: 9MfKZpNONBWsaNwVQCo-JA_1745431643
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-43d733063cdso843465e9.0
+        for <virtio-comment@lists.linux.dev>; Wed, 23 Apr 2025 11:07:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745425780; x=1746030580;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=eUCuv4HdQ89hZaxOQeTu1OXW8KOtDSV1N7bdWGEVI6w=;
-        b=NTpCoQ+76EBDNAevbdq2Yy+DhIjIIYdbdTC/JYXMIiP539PkPXfgQvn3fw51pLmG1D
-         mG50bM056mUDqYQ9aQ0ycp7z7u9Hiu0vKJ5hWY8rh0vFB3JbT1esep0xMioSBXAPvjNO
-         VneJiifROHCNmc8fB4bghe/ir4FzENADFlqQx4WMTQtHBLhuszKrPCkg5g9jV588mEM4
-         wmIlYCaoCumgUHB6unvM81NEK5KRvNOM7X0tXVVc5EN72H4c/Ee1ZMs3gaHTHApDkMSZ
-         /vhRjIZSv7KMSHAAp7FOPKrKE0vWt+CWOxhRAIKleeU+qEVkD2SQ1ZvhS6ATlbnj4XHQ
-         E+Yg==
-X-Forwarded-Encrypted: i=1; AJvYcCUmH11QVwLHR0Mg6Xg2/WMqzG67GsXmD/yxEQdyyP/Cm0ZbORozJ+m4XpBPJ3brpLvsOVGkNPeNoI0XBOtpJQ==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yy02+z6qfS+54R2Qg4It+d6c+18Kxg9pb2E0VGng6GdnzDQDVE6
-	5rHZuqA6dzPpxuq/euUOMg1uQaFx0m12lqTFUE61PLJjDY80NJepBD1Xa0kfPZAorPCYLW0/OeI
-	=
-X-Gm-Gg: ASbGncvvKgwUYgKALlCJd86EOaMHOOJ7XAoGNF1SUQOmGN9KFD7eijpFfc8aBhrIdTS
-	rNTzRMjqgJ+3oiCo8r6sXc5hZ+8olOwElEW3o8veN9rIl3F6eB4avFE/JoUuT3r3VlKRoS9NL34
-	ZqOegmtvpjp92LJuNfq1wE7Ql9gTfWBY03sJKMxii8uyMv0yunqhSQ0ZO+QWO58EhoC47Z9SSTa
-	lMlnBZ3IKJUBJZ17yspvHx/j8nwxNoC+GNlHIA9GqmIHMd+VHo1/CMwwBbZtIfTbEA/A3vhq7+q
-	1YFeRLzu1cOiHLqGICXagPEH2hJFTsofZOo7E3+vXxt48zV5l+/Ebyj3H6Ol5zrSR9um/p5v0gt
-	PnCHIRgMN3ZZXNRxbgIo=
-X-Google-Smtp-Source: AGHT+IGCjbCqI6lSWYO3F2rYTtV2tyEjteI8jB3wbf691Fny5Jk1RkE/pzlLADc2+ZUdDL69E8FAcA==
-X-Received: by 2002:a17:90b:1c82:b0:2fe:b879:b68c with SMTP id 98e67ed59e1d1-309dee5db21mr1839674a91.6.1745425780245;
-        Wed, 23 Apr 2025 09:29:40 -0700 (PDT)
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com. [209.85.215.169])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-309dfa0aa9esm1855118a91.13.2025.04.23.09.29.38
-        for <virtio-comment@lists.linux.dev>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Apr 2025 09:29:39 -0700 (PDT)
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-879d2e419b9so5578858a12.2
-        for <virtio-comment@lists.linux.dev>; Wed, 23 Apr 2025 09:29:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCVuI7q01pYbzZX30x7Nx0l0o37jpqIfIkb+NssiOfLczLPmK38+YZkkwno/swEYVElx+F95YK8LWqMDSD6kRQ==@lists.linux.dev
-X-Received: by 2002:a05:6a21:648c:b0:1f5:59e5:8ad2 with SMTP id
- adf61e73a8af0-204410a8d05mr164059637.24.1745425778099; Wed, 23 Apr 2025
- 09:29:38 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1745431643; x=1746036443;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=jglduVQtvk+nZ5CtUTy8iH4v24cHRkDWhkmD8cUdpRs=;
+        b=dAG3N95wrDbkaaEPb3UfHFtLB8GmA5vDZQe5soSMo8uKAVpPnD2fDWxv+uG1sJw+E4
+         wUsM/DdPF63kICR+ZV7i++TVM/ybYUjsoL/5XQiJqGUTHQmqkWannJ1FZzmLVtFwEKb2
+         UmvbjCAmBLmPlSpV05L65ESRQiaOEk8lblMiV448Pu9WrlncR2qTfgViHw4j1O4KJuP2
+         UPjKn3xzOSCt4r9fwxn597RhizDFWYbQ8sq8uYDaP2LYC7Dn7dd2zW52YECJ4kI6+KyU
+         /9a6vgW03GcSzee95eQKHMBQ2c+xzxAPMtySxgvCh8xknU5tQ44px37q5kFT0VureMVV
+         KFDA==
+X-Forwarded-Encrypted: i=1; AJvYcCUANfZvlEr/ZtvHtB9nJPGirHB9oJ0DVRU/r7ZGum2zEE+G3hwlCt2ay1zcjz8nxIw9zLyXoHsXl5W8pbastw==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yyn0GAauJ9H/pH0m5S2WTxeE5Uu794zCApDPbCIbRsP8ogWKOTc
+	6+Cgi8izK1H7RyEgfBpGzCw1hO6DS1RudJgzbsJvqaJqb9LiHq5pmO4eC+zf/o7lIR4j+rf0rMj
+	t61hHzOiz2crRUnAz1mqieIMzPH2KbBXsxBnsGrf3JK/ocW9Wi0zyN1vQ0aE/Zttg
+X-Gm-Gg: ASbGncsezLRet2lsbI6VtmSLxyXWGvzyAQYCemvSI5DeodC/SItMf2knpU/cLxPw/RG
+	dgKrXnyGtJzq3XY0OpAiGZChPwKFBfruzw66xNo9xqq9nCeLHOfDe+Fo7QiA+fV98vV5Nm3JTtX
+	0AL2H+Ue2+KGFOCAMw9lXbutvqht9mZcCS4fCKt+mNhvW8mL6F5WVsYUgm5yiK8dv0H/ydwN4pb
+	Yzps4uFJFa1rVbBwIdd8HOPsp2hvpjPKWebENPtJgLwrKTcWKhsRi2x8lPl80ZLgjb/zqDsdLs/
+	6AiQ1Q==
+X-Received: by 2002:a05:600c:1e12:b0:43d:fa59:af98 with SMTP id 5b1f17b1804b1-4409a1e3a00mr4220415e9.33.1745431642760;
+        Wed, 23 Apr 2025 11:07:22 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFORwrgVQdrDQ3RE3fpEjnB+b8lTkQY/GoEGmsFI/v3hbMlMh38G+Pzoy9fF1ryVxaZmSSCdQ==
+X-Received: by 2002:a05:600c:1e12:b0:43d:fa59:af98 with SMTP id 5b1f17b1804b1-4409a1e3a00mr4220045e9.33.1745431642267;
+        Wed, 23 Apr 2025 11:07:22 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:1517:1000:ea83:8e5f:3302:3575])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-44092db2b0fsm34570375e9.32.2025.04.23.11.07.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Apr 2025 11:07:21 -0700 (PDT)
+Date: Wed, 23 Apr 2025 14:07:17 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Daniel Verkamp <dverkamp@chromium.org>
+Cc: Paolo Abeni <pabeni@redhat.com>, Parav Pandit <parav@nvidia.com>,
+	virtio-comment@lists.linux.dev, cohuck@redhat.com,
+	mvaralar@redhat.com, Jason Wang <jasowang@redhat.com>,
+	shahafs@nvidia.com, Willem de Bruijn <willemb@google.com>
+Subject: Re: [PATCH v1] virtio-net: Fix to avoid using reserved feature bits
+Message-ID: <20250423140404-mutt-send-email-mst@kernel.org>
+References: <20250126062058.13695-1-parav@nvidia.com>
+ <d76dc63e-8d4b-4a90-8765-0148d9c7b885@redhat.com>
+ <20250423014257-mutt-send-email-mst@kernel.org>
+ <CABVzXA=Uof+TdU6H+eoiOOVjCZwfXfnLV8wAMP87Gz4G92fncA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20250126062058.13695-1-parav@nvidia.com> <d76dc63e-8d4b-4a90-8765-0148d9c7b885@redhat.com>
- <20250423014257-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20250423014257-mutt-send-email-mst@kernel.org>
-From: Daniel Verkamp <dverkamp@chromium.org>
-Date: Wed, 23 Apr 2025 09:29:11 -0700
-X-Gmail-Original-Message-ID: <CABVzXA=Uof+TdU6H+eoiOOVjCZwfXfnLV8wAMP87Gz4G92fncA@mail.gmail.com>
-X-Gm-Features: ATxdqUGGfNGtqpgp5rpW4KIvD4T2l47-OK_ot7Qa-QK158AQjKC6Q4QIFtNrczQ
-Message-ID: <CABVzXA=Uof+TdU6H+eoiOOVjCZwfXfnLV8wAMP87Gz4G92fncA@mail.gmail.com>
-Subject: Re: [PATCH v1] virtio-net: Fix to avoid using reserved feature bits
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Paolo Abeni <pabeni@redhat.com>, Parav Pandit <parav@nvidia.com>, virtio-comment@lists.linux.dev, 
-	cohuck@redhat.com, mvaralar@redhat.com, Jason Wang <jasowang@redhat.com>, 
-	shahafs@nvidia.com, Willem de Bruijn <willemb@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CABVzXA=Uof+TdU6H+eoiOOVjCZwfXfnLV8wAMP87Gz4G92fncA@mail.gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: wi5aUbQJxlKXvfdXOQ7AZwUDMwK372gsu0QnWkUCd1w_1745431643
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Tue, Apr 22, 2025 at 10:46=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com=
-> wrote:
->
-> On Tue, Apr 22, 2025 at 07:49:41PM +0200, Paolo Abeni wrote:
-> > On 1/26/25 7:20 AM, Parav Pandit wrote:
-> > > @@ -136,6 +124,18 @@ \subsection{Feature bits}\label{sec:Device Types=
- / Network Device / Feature bits
-> > >  \item[VIRTIO_NET_F_SPEED_DUPLEX(63)] Device reports speed and duplex=
-.
+On Wed, Apr 23, 2025 at 09:29:11AM -0700, Daniel Verkamp wrote:
+> On Tue, Apr 22, 2025 at 10:46 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> >
+> > On Tue, Apr 22, 2025 at 07:49:41PM +0200, Paolo Abeni wrote:
+> > > On 1/26/25 7:20 AM, Parav Pandit wrote:
+> > > > @@ -136,6 +124,18 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
+> > > >  \item[VIRTIO_NET_F_SPEED_DUPLEX(63)] Device reports speed and duplex.
+> > > >
+> > > >  \item[VIRTIO_NET_F_RSS_CONTEXT(64)] Device supports multiple RSS contexts.
+> > > > +
+> > > > +\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO (65)] Driver can receive GSO packets
+> > > > +  carried by a UDP tunnel.
+> > > > +
+> > > > +\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM (66)] Driver handles packets
+> > > > +  carried by a UDP tunnel with partial csum for the outer header.
+> > > > +
+> > > > +\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO (67)] Device can receive GSO packets
+> > > > +  carried by a UDP tunnel.
+> > > > +
+> > > > +\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM (68)] Device handles packets
+> > > > +  carried by a UDP tunnel with partial csum for the outer header.
+> > > >  \end{description}
 > > >
-> > >  \item[VIRTIO_NET_F_RSS_CONTEXT(64)] Device supports multiple RSS con=
-texts.
-> > > +
-> > > +\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO (65)] Driver can receive GSO=
- packets
-> > > +  carried by a UDP tunnel.
-> > > +
-> > > +\item[VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM (66)] Driver handles pa=
-ckets
-> > > +  carried by a UDP tunnel with partial csum for the outer header.
-> > > +
-> > > +\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO (67)] Device can receive GSO =
-packets
-> > > +  carried by a UDP tunnel.
-> > > +
-> > > +\item[VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO_CSUM (68)] Device handles pac=
-kets
-> > > +  carried by a UDP tunnel with partial csum for the outer header.
-> > >  \end{description}
+> > > I'm finally trying to finalize the implementation and I must admit I
+> > > underlooked the implication of using features bit >= 64.
+> > >
+> > > AFAICS all the virtio drivers in the Linux kernel and qemu assume that
+> > > the features can be represented with a single u64.
+> > >
+> > > Supporting the above requires major reworks in both user-space and
+> > > kernel space. At least on the kernel side a similar rework (extending
+> > > the _netdev_ features field) has proven to be complex enough to defeat
+> > > any implementation attempts for years and in the end it was dismissed in
+> > > favor of lower bits reuse.
+> > >
+> > > I'm wondering if we could reconsider using reserved bits here?
+> > >
+> > > Thanks!
+> > >
+> > > Paolo
 > >
-> > I'm finally trying to finalize the implementation and I must admit I
-> > underlooked the implication of using features bit >=3D 64.
+> > :(
 > >
-> > AFAICS all the virtio drivers in the Linux kernel and qemu assume that
-> > the features can be represented with a single u64.
+> > It's been there for 2 months now.
 > >
-> > Supporting the above requires major reworks in both user-space and
-> > kernel space. At least on the kernel side a similar rework (extending
-> > the _netdev_ features field) has proven to be complex enough to defeat
-> > any implementation attempts for years and in the end it was dismissed i=
-n
-> > favor of lower bits reuse.
+> > And if you want to avoid using all bits > 63 then it's even more of
+> > a mess, you need to move VIRTIO_NET_F_RSS_CONTEXT which has been
+> > there for a year and a half.
 > >
-> > I'm wondering if we could reconsider using reserved bits here?
-> >
-> > Thanks!
-> >
-> > Paolo
->
-> :(
->
-> It's been there for 2 months now.
->
-> And if you want to avoid using all bits > 63 then it's even more of
-> a mess, you need to move VIRTIO_NET_F_RSS_CONTEXT which has been
-> there for a year and a half.
->
-> I'm afraid we'll have to bite the bullet.
+> > I'm afraid we'll have to bite the bullet.
+> 
+> One other issue with bits > 63 is that the vhost-user protocol
+> VHOST_USER_GET_FEATURES and VHOST_USER_SET_FEATURES messages use u64
+> to represent the features, so vhost-user-net devices can't query or
+> enable these features. vhost-user is outside the scope of the virtio
+> spec, though, and I think it's reasonable to extend the protocol to
+> enable high feature bits rather than avoiding them forever.
+> 
+> Thanks,
+> -- Daniel
 
-One other issue with bits > 63 is that the vhost-user protocol
-VHOST_USER_GET_FEATURES and VHOST_USER_SET_FEATURES messages use u64
-to represent the features, so vhost-user-net devices can't query or
-enable these features. vhost-user is outside the scope of the virtio
-spec, though, and I think it's reasonable to extend the protocol to
-enable high feature bits rather than avoiding them forever.
 
-Thanks,
--- Daniel
+Yes you would use VHOST_USER_SET_PROTOCOL_FEATURES to make VHOST_USER_GET_FEATURES
+return two u64s, or even a new message returning an array.
+
