@@ -1,57 +1,57 @@
 Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642B82522BC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6425C25229C
 	for <virtio-comment@lists.linux.dev>; Thu, 24 Apr 2025 09:31:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745487116; cv=none; b=dHaFl3pt42JCS6UxVadJJecuty8nATT25M7TMMXGxAYXH61X7zPA8GtMD7xXuaKeiAXEujp9Gsz1AgP1qXi8EDdDWYBQmav49x2VAkAWs/J0tzQA0fCkQk5qaW418uILbheSuef97rZcwxZzAg8xH8JQyT0SGNQMJoXx89PqJCM=
+	t=1745487116; cv=none; b=Ra9YAnqV6naiZwHpnbRJjEiQ3S240cBNgDjwAVsHvfzBGh+ITaGCBc2H+qMzFO35i2K7Pxwn+iMfy5I8uBbsDO8xxuMTqEpwSRETOdWD7VOrcTgrvoe2XxFLS6+RuKx1i0Kois1OQFCo93Atv8hiZXZVZA9VjaLdpbOVAWAbYXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1745487116; c=relaxed/simple;
-	bh=yTlC03+MBl3P+0nHNA8oOzz6dWtrs+YOp4FfB0rrS5w=;
+	bh=SEXId/etjxRyy6IR6KDdr8r2VvV+gKbAPZatRBK+oII=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CnBz7q5ub5DfMrlZQR4l8PTsRVzbbpwjW1uFG6+eWz6tuhoyr0LHphxfpq1hQgAZ6qUnR7f7X+6Tcglgnj0wCLxVLT7QzxTKLdxscENzDQKdn5FVz6Lf5N6Hu2PnYc3xES8x3iFjjCD5c8s4TRsUtyJaiQ7ojNysvUM7APbvFHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=VJom53bM; arc=none smtp.client-ip=67.231.156.173
+	 MIME-Version:Content-Type; b=a/J13nrQSv2DUn49WWNSczJ9xScIcJmHbg7zM9Nkzm9fV+Zp023z0+dh8AhJYTKxByqPTYNFBcpqiUTi5nbkSEJGCAufsDXNXqlgisolF/3nk1+SHzHE5ieaIJ2Kxkry12dIo6oGKnibZX1cXAjHUzIuAUC3qgB6l+TZTcmui7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=hCTVHyAs; arc=none smtp.client-ip=67.231.156.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="VJom53bM"
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="hCTVHyAs"
 Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53O9Vmko013317;
-	Thu, 24 Apr 2025 02:31:52 -0700
+	by mx0b-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53O9Vmkp013317;
+	Thu, 24 Apr 2025 02:31:53 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=V
-	mX/avhJEyY8a79K0rHCblvNtGFBKC7otB8K2Z8cfZ4=; b=VJom53bMjg080qE8A
-	SXP6GozCNckOcFIW6YQJLY4/CExtBnFc71+RGDhzazSsyqZIgfSlpiBVuUBLXVMI
-	3NvwWZ2mYli5/T8BBhU4FdLNq5a8FSGm8caNDggU3d2dO/3TpudMQb5oDZs2UlKh
-	eRoocMswjRKSQEbyKm6+Xnp+2csvyJKfvm2edWfu2WJZCyCsUl9aVyqL5wdxhJBy
-	fQ9+ZLuQXG3zLJ/OgA3FDaH4YZkP9VQ2qAUpItKNRfcAPL8ody/6/ApXyjtXo/O8
-	KTSRtf/nt8z9spFoyiv7xPlhFVCznU5dn9TYOs+EHIiU95TS+rIEi3QB86PHyYnO
-	wTbfw==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 466jk3464u-3
+	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=L
+	OQtuvy8xr++tvX2Eq4JDWqis3pRHiJ1T7h8TZgFwQc=; b=hCTVHyAs3ea1oZakT
+	ZTwvaz2dLiPW+GhrPB+VHLZAouqDdwtsDUr7s9fTRKqJpLL9W1drQh2rksYIcP1n
+	V620D6CVzFbywNvaMmX6JT2tqzdastyqpcXytCugJb+CoWTmp2sM+PbwEReCN/bi
+	m83jDjeXImIpVwPOLeblZ/SPrSIHdjrmVKoqSEwD9O8KqJstL5ppP6sBC+YS+t5k
+	EPH5WcRX+Lrr0Am5TXOKCEY0m+z6jxelIsVqhPCELuuil1l4nN6ZbtFxTiiv9m83
+	61ClrYWXvgSeywbOsHPsq4qmJGSWFCgyfMIYQ19thykoq0UusMUT2VPiOAysT3Oh
+	gJ9gA==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 466jk3461n-3
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 24 Apr 2025 02:31:49 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+	Thu, 24 Apr 2025 02:31:50 -0700 (PDT)
+Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Thu, 24 Apr 2025 02:31:07 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.4 via Frontend
- Transport; Thu, 24 Apr 2025 02:31:07 -0700
+ 15.2.1544.4; Thu, 24 Apr 2025 02:30:55 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
+ (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.4 via Frontend
+ Transport; Thu, 24 Apr 2025 02:30:55 -0700
 Received: from localhost.localdomain (unknown [10.28.36.175])
-	by maili.marvell.com (Postfix) with ESMTP id E217A3F7097;
-	Thu, 24 Apr 2025 02:31:03 -0700 (PDT)
+	by maili.marvell.com (Postfix) with ESMTP id C7ACD3F705D;
+	Thu, 24 Apr 2025 02:30:51 -0700 (PDT)
 From: Srujana Challa <schalla@marvell.com>
 To: <virtio-comment@lists.linux.dev>
 CC: <mst@redhat.com>, <cohuck@redhat.com>, <mvaralar@redhat.com>,
         <parav@nvidia.com>, <sma@napatech.com>, <sburla@marvell.com>,
         <ndabilpuram@marvell.com>, <jerinj@marvell.com>, <anoobj@marvell.com>,
         <schalla@marvell.com>
-Subject: [PATCH RFC v6 4/4] virtio-crypto: Add device and driver requirements for IPsec operation
-Date: Thu, 24 Apr 2025 15:00:46 +0530
-Message-ID: <20250424093046.1927395-5-schalla@marvell.com>
+Subject: [PATCH RFC v6 1/4] virtio-crypto: Add IPsec service operation and Capabilities
+Date: Thu, 24 Apr 2025 15:00:43 +0530
+Message-ID: <20250424093046.1927395-2-schalla@marvell.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250424093046.1927395-1-schalla@marvell.com>
 References: <20250424093046.1927395-1-schalla@marvell.com>
@@ -63,151 +63,264 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI0MDA2MyBTYWx0ZWRfX9p/PgnoQMWyA ofSKfYET4QbrsfpD/qoTrFj5eTex7i37Lc2yIdw1LkYB/N8zkW9S2ylXXv9RWY1+AVDpVwe5Ou7 hwHJqvCpVpEveKqhahhS/5mtrartaJfG6KG+/HNmbRZ7QH17KV0gSIjsUW+ZLN5h4QDE9+jsT/l
- a4x2843pxHKqyC5DDfq5TMnlkQCR7Ml8braCl3y6Thecow3ZhJSG04cvb3NcCP2UAGNm7Jv/bAT v2PUPFDmOlP1MNtpmZcutYen+earueHRqh6Eu2HLsrB4+a9/HpWQTfACZLpN7BaWLOG/XaLlte4 sCL7YXjvna+oXS4gvMfrWq4ji/wfAPFJVNLuMJEK0y5/nlPW0CvOeE0juQZue4E3XDvHPlnWija
- G8sYdMyxltZXDIBtrwHVJWbP6SxlXEevfU2kv9WYfPF9G/CW49MCoEBvgTsDB0HM2WRw6BzQ
-X-Proofpoint-GUID: w5kLe43VxgdNCYs2d1n8rS4EJij_cad2
-X-Proofpoint-ORIG-GUID: w5kLe43VxgdNCYs2d1n8rS4EJij_cad2
-X-Authority-Analysis: v=2.4 cv=M89NKzws c=1 sm=1 tr=0 ts=680a0505 cx=c_pps a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17 a=XR8D0OoHHMoA:10 a=Ikd4Dj_1AAAA:8 a=M5GUcnROAAAA:8 a=I2nkbDfs0ME7We_epX0A:9 a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI0MDA2MyBTYWx0ZWRfX6yN1a2HcbStz QN8JVsNxeROjgzDCqNwOc8S7uDBeRjyz/JwwcVnwvtGDdNY04iDsWdldZL5vn53lzkJmC7MV7iD T8SSQLqORHQti+lBXNwbLY1aYPc1+QFYMEbor6C4Qd+FUESB/Ph6eU+r19bVAhnazfoIkd3CKsZ
+ 7p7SBBZCDY4ydt97qLYmbEaE42mF2PfZtETahOrnmuicOt93BocIL7v6u1BRSXQ2rLnbrby0Zf3 MJAKwwoQg1JZGe4PF+frWKPxHQoERTiESHkcFoK7F+Cow4m1aVeC4mtDUbYAQkzBc/h6JraCrjk xTbcaaxouj4o/wgZd3DdTH5rhvu+k6hk1WQ3quFQSE5Q+0e4cRbAdzvAwjYHYO01vj2L+a3zx0B
+ cVDpxfNWuWWT9P11uNcA45wXtf88ldy4JFAG8VRxrcic56sjNS14Y+/Ksgx29JIIXN55D4zy
+X-Proofpoint-GUID: 8ikwFjYFe1DhictUGfI4_DfVgpwVregV
+X-Proofpoint-ORIG-GUID: 8ikwFjYFe1DhictUGfI4_DfVgpwVregV
+X-Authority-Analysis: v=2.4 cv=M89NKzws c=1 sm=1 tr=0 ts=680a0506 cx=c_pps a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17 a=XR8D0OoHHMoA:10 a=BqEg4_3jAAAA:8 a=M5GUcnROAAAA:8 a=V35hCYzM3wOqFGfn7v4A:9 a=0mFWnFbQd5xWBqmg7tTt:22
+ a=OBjm3rFKGHvpk9ecZwUJ:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.680,FMLib:17.12.80.40
  definitions=2025-04-24_04,2025-04-22_01,2025-02-21_01
 
-Add device and driver requirements for IPsec Operation.
+This commit introduces the IPsec service operation to the Crypto
+device, enabling offloading of IPsec processing.
 
-Reviewed-by: Parav Pandit <parav@nvidia.com>
+Capabilities:
+
+1. IPsec Resource Capability (VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP):
+   Indicates the device's IPsec resource limits, such as the number of
+   outbound and inbound Security Associations (SAs).
+2. IPsec SA Capability (VIRTIO_CRYPTO_IPSEC_SA_CAP): Specifies the
+   supported IPsec modes, along with the supported cryptographic
+   algorithms, authentication algorithms, IPsec options and
+   anti-replay window size.
+
 Signed-off-by: Srujana Challa <schalla@marvell.com>
 ---
- device-types/crypto/description.tex        | 97 ++++++++++++++++++++++
- device-types/crypto/device-conformance.tex |  1 +
- device-types/crypto/driver-conformance.tex |  1 +
- 3 files changed, 99 insertions(+)
+ device-types/crypto/description.tex | 174 +++++++++++++++++++++++++++-
+ introduction.tex                    |  12 ++
+ 2 files changed, 181 insertions(+), 5 deletions(-)
 
 diff --git a/device-types/crypto/description.tex b/device-types/crypto/description.tex
-index 794b9b4..c952fd1 100644
+index e053cc7..f4978f0 100644
 --- a/device-types/crypto/description.tex
 +++ b/device-types/crypto/description.tex
-@@ -2275,3 +2275,100 @@ \subsubsection{IPSEC Service Operation}\label{sec:Device Types / Crypto Device /
- \field{src_data_len} is the length of source data.
- \field{dst_result} is the result plain IP packet and
- \field{dst_data_len} is the length of it.
+@@ -2,13 +2,15 @@ \section{Crypto Device}\label{sec:Device Types / Crypto Device}
+ 
+ The virtio crypto device is a virtual cryptography device as well as a
+ virtual cryptographic accelerator. The virtio crypto device provides the
+-following crypto services: CIPHER, MAC, HASH, AEAD and AKCIPHER. Virtio crypto
+-devices have a single control queue and at least one data queue. Crypto
+-operation requests are placed into a data queue, and serviced by the
+-device. Some crypto operation requests are only valid in the context of a
+-session. The role of the control queue is facilitating control operation
++following crypto services: CIPHER, MAC, HASH, AEAD, AKCIPHER and IPSEC.
++Virtio crypto devices have a single control queue and at least one data
++queue. Crypto operation requests are placed into a data queue, and serviced
++by the device. Some crypto operation requests are only valid in the context
++of a session. The role of the control queue is facilitating control operation
+ requests. Sessions management is realized with control operation
+ requests.
++The crypto device may have administration command interface through which
++IPsec service capabilities and resources are configured.
+ 
+ \subsection{Device ID}\label{sec:Device Types / Crypto Device / Device ID}
+ 
+@@ -72,6 +74,8 @@ \subsection{Supported crypto services}\label{sec:Device Types / Crypto Device /
+ #define VIRTIO_CRYPTO_SERVICE_AEAD   3
+ /* AKCIPHER (Asymmetric Key Cipher) service */
+ #define VIRTIO_CRYPTO_SERVICE_AKCIPHER 4
++/* IPSEC service */
++#define VIRTIO_CRYPTO_SERVICE_IPSEC  5
+ \end{lstlisting}
+ 
+ The above constants designate bits used to indicate the which of crypto services are
+@@ -318,6 +322,20 @@ \subsection{Device Initialization}\label{sec:Device Types / Crypto Device / Devi
+ \item The driver MUST read the supported algorithms based on \field{crypto_services} field.
+ \end{itemize*}
+ 
++\subsection{Device and driver capabilities}\label{sec:Device Types / Crypto Device / Device and driver capabilities}
 +
-+\devicenormative{\paragraph}{IPsec Service Operation}{Device Types / Crypto Device / Device Operation / IPsec Service Operation}
++The crypto device has the following capabilities.
 +
-+When the device supports IPsec operations,
-+\begin{itemize}
-+\item the device MUST set VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP, VIRTIO_CRYPTO_IPSEC_SA_CAP
-+capability in the \field{supported_caps} in the command VIRTIO_ADMIN_CMD_CAP_SUPPORT_QUERY.
-+\item the device MUST support the administration commands
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE,
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY, VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY,
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY for the resource types
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA and VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA.
-+\end{itemize}
++\begin{tabularx}{\textwidth}{ |l||l|X| }
++\hline
++Identifier & Name & Description \\
++\hline \hline
++0x0800 & \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP]{VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP} & IPsec resource capability \\
++\hline
++0x0801 & \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP]{VIRTIO_CRYPTO_IPSEC_SA_CAP} & IPsec Security Association(SA) capability \\
++\hline
++\end{tabularx}
 +
-+When any of the VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP or VIRTIO_CRYPTO_IPSEC_SA_CAP
-+capability is disabled, the device MUST set \field{status} to
-+VIRTIO_ADMIN_STATUS_Q_INVALID_OPCODE for the commands
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE,
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY, VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY,
-+and VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY for the resource types
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA and VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA.
+ \subsection{Device Operation}\label{sec:Device Types / Crypto Device / Device Operation}
+ 
+ The operation of a virtio crypto device is driven by requests placed on the virtqueues.
+@@ -1872,3 +1890,149 @@ \subsubsection{AKCIPHER Service Operation}\label{sec:Device Types / Crypto Devic
+ \item VIRTIO_CRYPTO_ERR if any failure not mentioned above occurs.
+ \end{itemize*}
+ \end{itemize*}
 +
-+The device MUST set \field{status} to VIRTIO_ADMIN_STATUS_EEXIST for the
-+command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE when the resource \field{type}
-+is VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA or VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA,
-+if the object already exists with the supplied \field{id}.
++\subsubsection{IPSEC Service Operation}\label{sec:Device Types / Crypto Device / Device Operation / IPSEC Service Operation}
 +
-+The device MUST fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE with
-+the \field{status} set to VIRTIO_ADMIN_STATUS_EINVAL, for the
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA object if,
-+\begin{itemize}
-+\item \field{id} is greater than or equal to \field{outb_sa_limit}.
-+\item the supplied SA parameters, such as mode, options, cipher and authentication
-+      algorithms are not supported in the capabitlity VIRTIO_CRYPTO_IPSEC_SA_CAP.
-+\end{itemize}
++A crypto device can support the processing of IPsec protocol operations.
++In addition to standard crypto processing, the IPsec protocol operations
++are also handled by the crypto device as a lookaside operation.
 +
-+The device MUST fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE with
-+the \field{status} set to VIRTIO_ADMIN_STATUS_EINVAL, for the
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA object if,
-+\begin{itemize}
-+\item \field{id} is greater than or equal to \field{inb_sa_limit}.
-+\item the supplied SA parameters, such as mode, options, cipher and authentication
-+      algorithms are not supported in the capabitlity VIRTIO_CRYPTO_IPSEC_SA_CAP.
-+\end{itemize}
++IPsec Inbound processing: The device performs decryption, authentication,
++integrity checking and remove additional headers, including tunnel header if
++in tunnel mode, as well as the ESP/AH header on the given packet(See \hyperref[intro:IPSEC]{IPSEC} RFC).
++The resulting packet contains only the plain data.
 +
-+The device SHOULD maintain a table for subsequent lookups for inbound/outbound data
-+processing with the corresponding SA based on the supplied \field{id}.
++IPsec Outbound processing: The device performs encryption, attach ICV,
++update/add IP header and add ESP/AH header/trailer. The resulting packet
++contains encrypted data along with the IPsec header and trailer.
 +
-+The device MUST allow recreating the resource objects using the command
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE which was previously destroyed using
-+the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY respectively without
-+undergoing a device reset.
++A crypto device can support number of IPsec SAs, allowing it to manage multiple secure
++connections simultaneously.
 +
-+The device MAY fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE with
-+the \field{status} set to VIRTIO_ADMIN_STATUS_EINVAL for the
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA or VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA
-+commands if the resource object with the same \field{spi} already exists.
++The device and the driver indicate IPsec SA resource limits using the
++VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP capability specifying the limits on the number of
++IPsec outbound and inbound SA resource objects.
++The VIRTIO_CRYPTO_IPSEC_SA_CAP capability  specifies the IPsec protocol capabilities
++supported by the device. The driver indicates the IPsec parameters by setting
++VIRTIO_CRYPTO_IPSEC_SA_CAP capability prior to adding any resource object.
 +
-+On device reset, the device MUST destroy all the resource objects which have been created.
++The driver controls the IPsec SA resource object using administration commands described in
++\ref{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}.
 +
-+The device MUST copy the result of IPsec operation in the \field{dst_data[]}.
-+The device MUST set the \field{status} field in struct virtio_crypto_inhdr to
-+one of the following values of enum VIRTIO_CRYPTO_STATUS:
-+\begin{itemize*}
-+\item VIRTIO_CRYPTO_OK if the operation success.
-+\item VIRTIO_CRYPTO_NOTSUPP if the requested algorithm or operation is unsupported.
-+\item VIRTIO_CRYPTO_BADMSG if the integrity check is failed for IPsec decryption.
-+\item VIRTIO_CRYPTO_INVSESS if the session ID invalid.
-+\item VIRTIO_CRYPTO_ERR if any failure not mentioned above occurs.
-+\item VIRTIO_CRYPTO_IPSEC_SA_SOFT_EXPIRY if an IPsec SA reaches the SA soft expiry limit
-+configured in \field{struct virtio_crypto_ipsec_lifetime}.
-+\end{itemize*}
++\paragraph{Device and driver capabilities}
++\label{par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities}
 +
-+\drivernormative{\paragraph}{IPsec Service Operation}{Device Types / Crypto Device / Device Operation / IPsec Service Operation}
++\subparagraph{VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP}
++\label{par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP}
 +
-+The driver MUST query the capabilities using VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY
-+to discover the capability types the device offers.
++The VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP capability indicates the IPsec SA resource limits.
++\field{cap_specific_data} is in the format
++\field{struct virtio_crypto_ipsec_resource_cap}.
 +
-+The driver MUST get VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP and VIRTIO_CRYPTO_IPSEC_SA_CAP
-+if listed in VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY command result, using
-+VIRTION_ADMIN_CMD_DEVICE_CAP_GET to discover the capabilities the device is
-+able to offer.
-+The driver MUST set VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP and VIRTIO_CRYPTO_IPSEC_SA_CAP
-+using VIRTIO_ADMIN_CMD_DEVICE_CAP_SET to indicate the device which capability
-+the driver uses.
++\begin{lstlisting}
++struct virtio_crypto_ipsec_resource_cap {
++        le32 inb_sa_limit;
++        le32 outb_sa_limit;
++};
++\end{lstlisting}
 +
-+For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE, when creating a resource
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA, the driver MUST set all the parameters
-+in \field{struct virtio_crypto_resource_obj_ipsec_sa} with relevant values.
-+And when create a resource object VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA,
-+the driver MUST set all the parameters except \field{struct virtio_crypto_ipsec_tunnel_param}.
++\field{inb_sa_limit}, and \field{outb_sa_limit} denote the maximum number of IPsec
++security Associations (SAs) that can be utilized for IPsec inbound and outbound processing,
++respectively, which the device is capable of creating.
 +
-+The driver MUST set \field{session_id} in struct virtio_crypto_op_header to a
-+valid VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA or
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA \field{id}.
-+The driver MUST set the \field{opcode} field in struct virtio_crypto_op_header
-+to one of VIRTIO_CRYPTO_IPSEC_OUTBOUND and VIRTIO_CRYPTO_IPSEC_INBOUND.
-diff --git a/device-types/crypto/device-conformance.tex b/device-types/crypto/device-conformance.tex
-index 1667120..5d1c59f 100644
---- a/device-types/crypto/device-conformance.tex
-+++ b/device-types/crypto/device-conformance.tex
-@@ -10,4 +10,5 @@
- \item \ref{devicenormative:Device Types / Crypto Device / Device Operation / MAC Service Operation}
- \item \ref{devicenormative:Device Types / Crypto Device / Device Operation / Symmetric algorithms Operation}
- \item \ref{devicenormative:Device Types / Crypto Device / Device Operation / AEAD Service Operation}
-+\item \ref{devicenormative:Device Types / Crypto Device / Device Operation / IPsec Service Operation}
- \end{itemize}
-diff --git a/device-types/crypto/driver-conformance.tex b/device-types/crypto/driver-conformance.tex
-index 672d0f6..4083ea4 100644
---- a/device-types/crypto/driver-conformance.tex
-+++ b/device-types/crypto/driver-conformance.tex
-@@ -11,4 +11,5 @@
- \item \ref{drivernormative:Device Types / Crypto Device / Device Operation / MAC Service Operation}
- \item \ref{drivernormative:Device Types / Crypto Device / Device Operation / Symmetric algorithms Operation}
- \item \ref{drivernormative:Device Types / Crypto Device / Device Operation / AEAD Service Operation}
-+\item \ref{drivernormative:Device Types / Crypto Device / Device Operation / IPsec Service Operation}
- \end{itemize}
++\subparagraph{VIRTIO_CRYPTO_IPSEC_SA_CAP}
++\label{par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP}
++
++The VIRTIO_CRYPTO_IPSEC_SA_CAP capability lists the supported IPsec modes along with
++the supported cryptographic, authentication algorithms and anti-replay window size for
++each IPsec mode.
++\field{cap_specific_data} is in the format \field{struct virtio_crypto_ipsec_sa_cap_data}.
++
++\begin{lstlisting}[label={lst:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / virtio-crypto-ipsec-mode-cap}]
++struct virtio_crypto_ipsec_mode_cap {
++        u8 mode;
++        u8 reserved[3];
++        le32 max_replay_win_sz;
++        le32 options;
++        le32 reserved1;
++        le64 cipher_algo;
++        le64 hmac_algo;
++        le32 aead_algo;
++        le32 max_cipher_key_len;
++        le32 max_auth_key_len;
++};
++
++struct virtio_crypto_ipsec_sa_cap_data {
++        u8 count;
++        u8 reserved[7];
++        struct virtio_crypto_ipsec_mode_cap cap_mode[];
++};
++\end{lstlisting}
++
++\field{count} indicates number of valid entries in the \field{mode} array.
++\field{cap_mode[]} is an array of supported IPsec modes. Within each array entry:
++
++\field{mode} specifies the IPsec mode, as defined in table
++\ref{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Modes}.
++\field{max_replay_win_sz} specifies the maximum anti-replay window size the device supports.
++This field is applicable only for inbound operation.
++
++\field{options} Each bit indicates the IPsec protocol options supported by the device, as defined in table
++\ref{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Options}.
++
++\field{cipher_algo} CIPHER algorithms mask, see \ref{sec:Device Types / Crypto Device / Supported crypto services  / CIPHER services}.
++
++\field{hmac_algo} HMAC algorithms mask, see \ref{sec:Device Types / Crypto Device / Supported crypto services  / MAC services}.
++
++\field{aead_algo} AEAD algorithms mask, see \ref{sec:Device Types / Crypto Device / Supported crypto services  / AEAD services}.
++
++\field{max_cipher_key_len} is the maximum length of cipher key supported by the device.
++
++\field{max_auth_key_len} is the maximum length of authentication key supported by the device.
++
++\begin{table}[H]
++\caption{IPsec Modes}
++\label{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Modes}
++\begin{tabularx}{\textwidth}{ |l|X|X| }
++\hline
++Type & Name & Description \\
++\hline \hline
++0x0 & - & Reserved \\
++\hline
++0x1 & VIRTIO_CRYPTO_IPSEC_MODE_ESP_TUNNEL & IPsec ESP protocol in tunnel mode \\
++\hline
++0x2 & VIRTIO_CRYPTO_IPSEC_MODE_ESP_TRANSPORT & IPsec ESP protocol in transport mode \\
++\hline
++0x3 & VIRTIO_CRYPTO_IPSEC_MODE_AH_TUNNEL & IPsec AH protocol in tunnel mode \\
++\hline
++0x4 & VIRTIO_CRYPTO_IPSEC_MODE_AH_TRANSPORT & IPsec AH protocol in transport mode \\
++\hline
++\end{tabularx}
++\end{table}
++
++See \hyperref[intro:IPSEC]{IPSEC} for more information on tunnel and transport modes in ESP/AH IPsec processing.
++
++\begin{table}[H]
++\caption{IPsec Options}
++\label{table:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP / IPsec Options}
++\begin{tabularx}{\textwidth}{ |l|X|X| }
++\hline
++Bit Number & Name & Description \\
++\hline \hline
++0 & VIRTIO_CRYPTO_IPSEC_ESN & Specifies whether extended sequence number is supported, as described in \hyperref[intro:ESN]{ESN}\\
++\hline
++1 & VIRTIO_CRYPTO_IPSEC_UDP_ENCAP & Specifies whether udp encapsulation is supported, as described in
++                                    \hyperref[intro:UDP-Encapsulation]{UDP Encapsulation}, applicable only for ESP IPsec processing \\
++\hline
++2 & VIRTIO_CRYPTO_IPSEC_COPY_DSCP & Specifies whether copy dscp is supported, as described in \hyperref[intro:IPSEC]{IPSEC} \\
++\hline
++3 & VIRTIO_CRYPTO_IPSEC_DEC_TTL & Specifies whether decrementing the time to live is supported, as described in \hyperref[intro:IPSEC]{IPSEC} \\
++\hline
++4 & VIRTIO_CRYPTO_IPSEC_COPY_DF & Specifies whether copy Don't Fragment bit is supported, as described in \hyperref[intro:IPSEC]{IPSEC} \\
++\hline
++5 & VIRTIO_CRYPTO_IPSEC_ECN & Specifies whether copy Explicit Congestion Notification is supported, as described in \hyperref[intro:IPSEC]{IPSEC} \\
++\hline
++6 & VIRTIO_CRYPTO_IPSEC_SA_LIFETIME & Specifies whether SA lifetime feature is supported, as described in \hyperref[intro:IPSEC]{IPSEC} \\
++\hline
++\end{tabularx}
++\end{table}
+diff --git a/introduction.tex b/introduction.tex
+index e60298a..80aa67a 100644
+--- a/introduction.tex
++++ b/introduction.tex
+@@ -162,6 +162,18 @@ \section{Normative References}\label{sec:Normative References}
+ 	\phantomsection\label{intro:TCP-Header-Format}\textbf{[TCP Header Format]} &
+     TCP Header Format
+ 	\newline\url{https://www.rfc-editor.org/rfc/rfc9293#name-header-format}\\
++	\phantomsection\label{intro:IPSEC}\textbf{[IPSEC]} &
++    IPsec Protocol
++	\newline\url{https://www.rfc-editor.org/rfc/rfc4301}\\
++	\phantomsection\label{intro:ESP}\textbf{[ESP]} &
++    IPsec ESP
++	\newline\url{https://www.rfc-editor.org/rfc/rfc4303}\\
++	\phantomsection\label{intro:ESN}\textbf{[ESN]} &
++    IPsec ESN
++	\newline\url{https://www.rfc-editor.org/rfc/rfc4304}\\
++	\phantomsection\label{intro:UDP-Encapsulation}\textbf{[UDP Encapsulation]} &
++    IPsec UDP Encapsulation
++	\newline\url{https://www.rfc-editor.org/rfc/rfc3948}\\
+ 	\phantomsection\label{intro:CAN}\textbf{[CAN]} &
+     ISO 11898-1:2015 Road vehicles -- Controller area network (CAN) -- Part 1: Data link layer and physical signalling\\
+ 	\phantomsection\label{intro:rfc8174}\textbf{[RFC8174]} &
 -- 
 2.25.1
 
