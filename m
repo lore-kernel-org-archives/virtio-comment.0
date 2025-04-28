@@ -1,65 +1,64 @@
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com (mail-bn8nam04on2042.outbound.protection.outlook.com [40.107.100.42])
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (mail-co1nam11on2051.outbound.protection.outlook.com [40.107.220.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4949B1D86C6
-	for <virtio-comment@lists.linux.dev>; Mon, 28 Apr 2025 07:07:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.100.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096491D61B7
+	for <virtio-comment@lists.linux.dev>; Mon, 28 Apr 2025 07:07:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.220.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745824031; cv=fail; b=cpTal/OWYMUhfwe9RWQSichwojoXgG3/8OVvHk9pg4M8PqgmH/iI2IWFT55WS1tF8pOj79JVkRdoKUf/h1dpguyHuhEflXMwkv4bPv9vN3pqV5L+1qy9YhKGUPcgz7rFjEUivF8hu/hXg/dTTM+ysoC1uhIVNIhGbM4r5bhj9kU=
+	t=1745824044; cv=fail; b=JbYfWKzLs3+McjQR876JoajL3gQGzQ90mky/4Vx15WjftUQoJzKy0cF2i8E/w9mwEPx9Xn7P1qWvlQu4Z+ymerg1Z5LDlJz3EsvzfJbXdHhsxLfO4rCFUnZR71XtVXxxuMz2qBFX8/9myQFpYYECF52rlO22ZPWfBnFdmVNsY4Q=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1745824031; c=relaxed/simple;
-	bh=U0dhjywyDmZaLQj81anoKutOQVXCO0H3H4o7fd+k7tw=;
+	s=arc-20240116; t=1745824044; c=relaxed/simple;
+	bh=LxUa+Ryzc2NurG1BhnsSBS0ITXblYYQ1vrbBZhd3KCI=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=WW5DXLOKFbi+i3WzmFUDCQZzvhKXP0k64lfGx4uMrwlfVf2prs4aAlHRzyX6qpLXwNkzpC5WSAaeVXDXRkCLOICKPcCAikh9j8QSxg2TfXm4oitR+yn20/NOfuPoDOe1mZGs8Ku/K5WmhjT7JmnlASw/WZjmgGgfDMeZDzWZ04g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Xab4gdi5; arc=fail smtp.client-ip=40.107.100.42
+	 Content-Type:MIME-Version; b=VEGRh/7yUe/Zg7WRu+xLpTPVC4A+NYi3onrQdz1Qz9/vqub73Gnnltf4hEBdDvqJ+UkHMVoeR7VtVhXxRsTH1jWvEiUn3djBil6QdwSWk8PYQqHhNP59iRcesboQlssiHVAkgI7Ez9bOdmn0gzSHN445VyM5cWbpQmjBW2rCKnw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=IPAfwf1d; arc=fail smtp.client-ip=40.107.220.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Xab4gdi5"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="IPAfwf1d"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RLoG/D19WUWNbIMqK0lUXIWnIy3sVpCFo7uJ035WQEcheUhxkTQQFQj6+CIwHx+mfB8LwUmfOyZqBh+o/vQDbANNkhE/TIG9u3/+5zl9RygRyYtGUVG+XiGOznO0gypzrPitkfsdw9TZyASDYCL9jGV/zHDetR/7faRMe+S4dg7jKnZtmKOoQvwZE7yuSB+SMAYdFUOhZVIvdGrLh1MMX3T+aHowaoybsIVGu+7cQ+Bls2WQ8kAot1jwc1LNmeCi7Y4aD4NLs7vJQ+cWsXh5CZbjBn9T7awKzBegl9QUG1gmDgr31+J+L158h96QO4sbuqrRBoUJ7m9ZMGNDN1GLBg==
+ b=EHmKgenVCKcvI/yLtvjwqEikUBt6v07lMa744Cx0DKbRHJND564xPfQt2U3VZjciH/9OZuKzy3HcjXWIk+nBw1rPXCBFVV3syKIYtXGd2lr4crKqJ6VQsU/mvAeXdaI6ZWRGgMALj3oEeEaGrYW5RXhIQX5XhIyeoOriiTlFEXSxLFqVKsKdRKyLY8r5YhRFQzA/7q43TA9FSxc4JDXx4eqaCMvvj5nZmU66VkNPJpXPbfT3ETMnlPUn30Y7ZKJn8BePnkLvS9iXhlN9LIJ47WC67sLnItUzbT69RR+2t6td/49Z+NnHrb1KbISgc9+SXcFbBoMk38ooL+0HPA0ADQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ei5FB7vCl9Y7uZtvI1/kywxfis2evg/mMI6kAfr9j6c=;
- b=CF1UdG4+Jm46EUeMchrA4w+CQaC8fW2enXbdJ9Me0A3Lp6KOB1aXyXYD5Nb36Zhmoqh/Ibx/cbIeTCT1ShZQCXOAD5q3LTTqgxVuVRkKfkVRItXhwz64VYOnMq2g4W+qEHhERnth/qlj4cRJ8qdzYutGkMiHwVL5zNV43XFN20nKjSwvuNclYMrPb6lTLeSotM0KUNy8JqLwhNr5gINVtonyagpXgLwqXqM7gTCPCRVGylFC3mSEFjYjA7ozCkwsee7fGUNlGoxrWmyt68sKofQ0CC2z9Z65yuR1LMloz9qRaURZQa+0sD66NGGY5GbKZwbus/5B4hp08gjSfHj8kQ==
+ bh=Hwlcpj+VVZZEQi/gXeR+2IX5anFhy8r4nkYIlo2vpgQ=;
+ b=EW+/kDjQiD0zEhug2UqeqQlfEw+2qxW4uWq59yyoSnrorxrQgOOIO0T1gYF2Bga7V9e2DgI/T/fg8uUbYfln7VyAbNaZleqZzDWb3AtIvi23b79FHnnLFdNMyzUfdBb5Ih3+QFFD/COj398hj5b8UAkvEqV75+RfHRoucXstKMwYeevC2MDM7MN2z+2e0AJitf6D5cBul1sZLPRO+KyoiwI4vAb079soiY3G+YNoiHlpjA+2kcfNkI9Q9vN6ozELuCkW7pSoCB+RX2Ag20JlnoMJd1Z6HQ2GSpyLE5c6YKbNEP25Owuvpb8sozG9rjNcCe7VM9OijE6SjTFV+wcIfQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ei5FB7vCl9Y7uZtvI1/kywxfis2evg/mMI6kAfr9j6c=;
- b=Xab4gdi5QnjFo2UfYPRpzYEmg3YiJTLS0xFaac8f29AlaAg8TjDIJWoQN0QwSQwPCnTSSOYMQJkowX+53ItJss9O97t09X/p4Hupequ/fdPt7ex3chpWHFOC6xyL1YMYEeSrP+xOAdY4aHQcXiQReyXL6uFKAoIWXvGr5HsIZrfLKNxgE21bb9fdjlwZI892GY2SgghH+nMfQ3Vfr82ABiqF4w1er4+yD2LH4vQr2ToPpdcdoDtR1uT1vIkkKcPXeDoaqKUjthGiXTPyM4F5Gh+vrl6VfcuoZtJ4aawuOj4mAC7dNnXm6Q+HZdQHSHAUWRf2t1W+iTCGv4y8XrVnGg==
+ bh=Hwlcpj+VVZZEQi/gXeR+2IX5anFhy8r4nkYIlo2vpgQ=;
+ b=IPAfwf1dB12bpzv/Zs/b0niJqGJjt0/x+h81/KHoOCz/zF0a+h20CtUdUtPM+WxKAxbmQFs+S7lPJ05c7bAC0yCWg2el6i0uKqQFFS3vqBsJ8kaO1OZax8t/y49wIRmcHe+DsACb/z0hOvvA+2MKKy+TKdO5iJzzVQvm3f+qNco4VE405dhU8Qho6S3W5daWckCAYa6vh5P+jq7xbF2IcgwhDMvLQAR+H9LomRye8PFExVNl1+AXg9CsgNyVhoS0I1SdvclqRXg4T3sCjlsFzjc3+ZYjbtUh/7jg10+vfoXrMXA9gldCKtnj9B2TXKL4XLAgwNETAYJIa5C7Hhfwlg==
 Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
  by DS7PR12MB8370.namprd12.prod.outlook.com (2603:10b6:8:eb::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.33; Mon, 28 Apr
- 2025 07:07:06 +0000
+ 2025 07:07:19 +0000
 Received: from CY8PR12MB7195.namprd12.prod.outlook.com
  ([fe80::c06c:905a:63f8:9cd]) by CY8PR12MB7195.namprd12.prod.outlook.com
  ([fe80::c06c:905a:63f8:9cd%6]) with mapi id 15.20.8678.028; Mon, 28 Apr 2025
- 07:07:06 +0000
+ 07:07:18 +0000
 From: Parav Pandit <parav@nvidia.com>
 To: Srujana Challa <schalla@marvell.com>, "virtio-comment@lists.linux.dev"
 	<virtio-comment@lists.linux.dev>
-CC: "mst@redhat.com" <mst@redhat.com>, "cohuck@redhat.com"
-	<cohuck@redhat.com>, "mvaralar@redhat.com" <mvaralar@redhat.com>,
-	"sma@napatech.com" <sma@napatech.com>, "sburla@marvell.com"
-	<sburla@marvell.com>, "ndabilpuram@marvell.com" <ndabilpuram@marvell.com>,
-	"jerinj@marvell.com" <jerinj@marvell.com>, "anoobj@marvell.com"
-	<anoobj@marvell.com>
-Subject: RE: [PATCH RFC v6 3/4] virtio-crypto: Add new IPsec opcodes to data
- request
-Thread-Topic: [PATCH RFC v6 3/4] virtio-crypto: Add new IPsec opcodes to data
- request
-Thread-Index: AQHbtPvHsAfY0Ub4vk2d9EuCfKgCIbO4pGZQ
-Date: Mon, 28 Apr 2025 07:07:05 +0000
+CC: "mst@redhat.com" <mst@redhat.com>, "pabeni@redhat.com"
+	<pabeni@redhat.com>, "jasowang@redhat.com" <jasowang@redhat.com>,
+	"sburla@marvell.com" <sburla@marvell.com>, "ndabilpuram@marvell.com"
+	<ndabilpuram@marvell.com>, "jerinj@marvell.com" <jerinj@marvell.com>,
+	"kshankar@marvell.com" <kshankar@marvell.com>
+Subject: RE: [PATCH RFC v5 1/4] virtio-net: Add IPsec operation, capabilities
+ and resource objects
+Thread-Topic: [PATCH RFC v5 1/4] virtio-net: Add IPsec operation, capabilities
+ and resource objects
+Thread-Index: AQHbtP1kZUr8mXO2SUiU+BotCOKIZ7O4qFIQ
+Date: Mon, 28 Apr 2025 07:07:18 +0000
 Message-ID:
- <CY8PR12MB719547B9812CA99D22282FD4DC812@CY8PR12MB7195.namprd12.prod.outlook.com>
-References: <20250424093046.1927395-1-schalla@marvell.com>
- <20250424093046.1927395-4-schalla@marvell.com>
-In-Reply-To: <20250424093046.1927395-4-schalla@marvell.com>
+ <CY8PR12MB71954DA6447F2560B4AA36D7DC812@CY8PR12MB7195.namprd12.prod.outlook.com>
+References: <20250424094332.1927688-1-schalla@marvell.com>
+ <20250424094332.1927688-2-schalla@marvell.com>
+In-Reply-To: <20250424094332.1927688-2-schalla@marvell.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -68,69 +67,68 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|DS7PR12MB8370:EE_
-x-ms-office365-filtering-correlation-id: bda6b573-a1b7-4a00-3ef5-08dd862348cf
+x-ms-office365-filtering-correlation-id: 1b7edbf2-e49f-4dac-a579-08dd86235080
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|366016|7416014|38070700018;
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
 x-microsoft-antispam-message-info:
- =?us-ascii?Q?R3uplfJ5y01ecaVlS2zmGQxalCLUhLyYRp0PwC33URiHByz+CTWl4SHjiU/e?=
- =?us-ascii?Q?IDxd+py67kx40FbmECTAIWM1sdcP5yof2l1UgDWDIqrW56BXFzQQG06Cs704?=
- =?us-ascii?Q?9lJ0TTKsDSRlikM3H6ylgduhh38pKmTho7avqCmTPWQ7nK9GxfwoX50INmSL?=
- =?us-ascii?Q?+4YH+nOvPWr7spwCil9iM/d90lSwAjdB27XGvGoj/1Wsi7nF4TRznmxA2lyh?=
- =?us-ascii?Q?m9EW9hvpIKIbg92rWHT6rK3z039KtI/pzCEAh6lk3o4bpW8eQtfn6FrXTOsd?=
- =?us-ascii?Q?EVUn06FsY1beOEbqVDETrDHNVIFfPiC4XePm0FDEe/Oe0wDuqbPpIG9CUrXT?=
- =?us-ascii?Q?CPsSIwgJpq0ScU2vVq4oh2maWbjxW82BxNHBolEc1sqbq64b8kq8/4XPzYeq?=
- =?us-ascii?Q?rG0ypy6FswJCHzt9mKwETpi7To5tXlqTzYgFu9AgGni1exn7YvDaGH7dnsPf?=
- =?us-ascii?Q?vKsPnhEL6EOaCuruJJdot9Cw1VUfSfL/Yjnqtx3PV3PTDQ2CSxbsBJozr8mx?=
- =?us-ascii?Q?0XBS6NDKPw7S6ergiX4hRESNMGHziUUrsGgX574p/gv6avErANByvRr7sFNt?=
- =?us-ascii?Q?dVQWD9tfZTaFFBEwB5G5A/kf3mzOzgFCGSRHail4bLdsUVMDeGxgYClOrh7e?=
- =?us-ascii?Q?1ljYzbDkgccdIdUV67xk4xit3Y0lVmS0kSXNV24KAZJ+Ui8pVUKJV/YgK3/Z?=
- =?us-ascii?Q?6orGnZge9cqK87jJKr7TFJo5PvKhz+HEmM0ty/hFldx2iwdwSTxhpuMNLwQu?=
- =?us-ascii?Q?XmjvkI/QWOR/Q3M1nedCynZs14IORVGYVtYqYtL3DWbWyzMAls6b99KGdoQw?=
- =?us-ascii?Q?sQxq9/Y9MeQtRGwwa+77FtQ51UlJwkezzv9WFx6jEqt0q3nS0gst/oUMGgtL?=
- =?us-ascii?Q?iaezRnfbhaE4GKLs02pE8aT1LxHMMLxh+YbZqCU2Nve18Uh70oh0832dZa5n?=
- =?us-ascii?Q?5OD8uBUEq5giG2sRew3u/mZBR1P7xmM+1X+46YZ7ARFSpRpbW+GBrNNLI1HC?=
- =?us-ascii?Q?2ioN/2YCvlcMFnArzoVbjthSc8G1vxqn4/j1aHjknKnecZ5x+DUeqVyJ6od+?=
- =?us-ascii?Q?dXSW4KgUIF0bh4Qq3fBGtDPKz0h5Phc0cDvYRjVpIkiF1ehj+LnlPTtW/p4V?=
- =?us-ascii?Q?R6Vslfpx5KmLXlPtGj06IqXagQHQLa5rdrrfdgtm+bhYrNE02ZdogUyPHe3N?=
- =?us-ascii?Q?U2CHMzNOUtzkxyE6uPQFiXPvyClcCHR15aWjpL0G6rdX9rpFs0pfvTGPxOqu?=
- =?us-ascii?Q?KQ/yNmmtLQrB2gGruvDLAx0rmc2tz/r5/zHal0OGC4l+jl499i6Kgu1O3XhC?=
- =?us-ascii?Q?o7kRGK+y2Tyi1SsueoXCc4FmiVLpFDAh/fvYAZlsxKRiv6zTNCSboTepmi/6?=
- =?us-ascii?Q?VX4T2ejkLpGZRWNcrxG6PJGkRNZ2V4H7Yy0CF6yV71j6UaiqzFzW0T26Tel4?=
- =?us-ascii?Q?6ert68SDdLbtVNsII7YdEjtIaa/NC8xDTLwHEQQuQ+qvAwZOyfJSov3He/02?=
- =?us-ascii?Q?he5+lmHrTClGlj4=3D?=
+ =?us-ascii?Q?/C9GYs3d1o07jZDetDxPoLSXolfQnUQCUgTSlR+wdvJIozACSz45wi+Mxib9?=
+ =?us-ascii?Q?lIaIQ2/HUvj2s0YLpCzYkol6VtY0gD70ISYBGfFPGhkdRhUQgiRp7GpW6VCX?=
+ =?us-ascii?Q?F8lH6pWzD+ZMKFYJ6HFqVDG8GOyHlYSzFjJ/DDOUMT17lyRoIjIgcd3DGrD0?=
+ =?us-ascii?Q?+jRxxgdFVaSG+MDjmzrJdcqIudentcW8LWjIkMzxnkMsJ3dFyAPWxSmktiuL?=
+ =?us-ascii?Q?sy6lkHv/bUIy7pMymrdiWXo9YZ2Qx0sicXGddtVH1Hm7xdzc8j7SY3Q8rkJc?=
+ =?us-ascii?Q?Gs59xOMy79Xgd2We4gjMQc3zhtEe/lV17sS4ql0/Pz0424e5eE/SZP75cjOF?=
+ =?us-ascii?Q?+xnDdAXiMpDeipOT/uCnPpCmqsOmFtr9nZ3mTSA8hL0Yq3JoiAFXYujHUirL?=
+ =?us-ascii?Q?DdPoebY9n6J7i+2Izd6sOfT3XbFM9JSUdrdWsHrs1hnm9Q9DcmAt0WlhouSy?=
+ =?us-ascii?Q?1DcYqTjujGf/qvWiismE3vEuJkEa/xPXziAmDCUNxxM9rfLEHb2BCiqIvWuM?=
+ =?us-ascii?Q?Jk+vP2DeAiWx2Cmh/16nsbURalHJlSthD4bdEEHALkEhU+bJS48NKdxqi0UA?=
+ =?us-ascii?Q?37zUDerY2CoJ1G7k7jS1tHdUah90yHGEkWshVV6bvqqJLj7bChmejfr+xvqo?=
+ =?us-ascii?Q?6eNN6sGXzTdWyXA1SWdQYHYuRyK68kRWlaljnbJ/kZPlhkoxtMpL6fxJuB1e?=
+ =?us-ascii?Q?AEAyG+eqBXRLJxSlVsdW/6DegQtS/V5f+bOHw/8mZCFJIQxULlPREFAY0jbd?=
+ =?us-ascii?Q?6JdRXu+faNxAV8GZu7vvSnClvqaLalYzxpiErfMnm3fKtrEoAAgLyaoIKuoO?=
+ =?us-ascii?Q?MWUOZDZloNLdsWlM6EHGnyqFsdbR6gdBvWzHfXbgXfZJ0vNpx6znFf9I+5e6?=
+ =?us-ascii?Q?MTK5SeykVXx1C+1qM2sTg6dKkoRlF3cQjqzOMx2uHYoiXfJb0Fol/Mnh0i/9?=
+ =?us-ascii?Q?FkqjZV0X4HCn5/dEYU16d5+MkwedYsJqcpkxAYTr8Pv+9T/lHZOqmtktK5WS?=
+ =?us-ascii?Q?jX6omTkZLJ2vaG9fIfnZRMmMt5vyd6mx7oTkvh5U7yqPpVZfUrYTl6BHwVEu?=
+ =?us-ascii?Q?haUsFhAVA2YexURVTQe89KGaBU1vqHVsCeXPZMPbG3dqtPIiz/Fxam7Z67Kd?=
+ =?us-ascii?Q?1iyBuEW/oZa4l13D8PzFtEw4mUEppQ3Fbt2n3zIG5ydNByHgeqW7Lfm6acvf?=
+ =?us-ascii?Q?8VSQrk1xkziVrWYcXzWCNyFw2T+04nlc3hFwWH4IEbeQ+4ABcxnX2avT2EAL?=
+ =?us-ascii?Q?5qJ88/8ymqgS/Db0Afw6cpIHZynZlRdB53sILWMG8vD6yN9qAtoBUkFQIuHY?=
+ =?us-ascii?Q?EI4QFZ+kGdunikRyCtdWqhhfG46DwFVRWuaUGd/4B/AH4o8bpu5CuMp32GJR?=
+ =?us-ascii?Q?tAOiu/62p20A0mosecXao4a5jvibAe1xaCSVYnyCy1ki+yFSOQIcXcq2jKL8?=
+ =?us-ascii?Q?D8ghtNUurOUkCK74huQlDYJy8GAy8MYTQj6yVeLcEfIuCvqq/XtYDw7mcfpl?=
+ =?us-ascii?Q?QErrCww9LEJ1JIw=3D?=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014)(38070700018);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?xR09NRuSk9q5jBhkrTLlM4xwbv2coW4YsFXZaC0Wa2TZyvmePTHiK/2Uv5/O?=
- =?us-ascii?Q?JIfE6AdcDCMKQ7cCtUAOEDE+i74Ir1wAjfMImJyu0fosYzoMe+IURzjBZLGc?=
- =?us-ascii?Q?qtYR9T8BunBxKLFfV1x+l4eWlG8cs1xKCDctAquIjNzkefPBZ1zWWnqMDq08?=
- =?us-ascii?Q?jKIpMUtBqhbQ6iSUVTaXFyD7mPPxu9kIycxbdhHmHG4TM0o0+8XSv7Rjp7zq?=
- =?us-ascii?Q?bhad+Pah3+UhajEdLg/SCwLCZUJQIF3EHX5N6lluJ7nj4GWqOyJX1LCqH/jw?=
- =?us-ascii?Q?s8uWAFLZzYxmqltm0EKgeTcL+CXfW5JG0/XprQiZm+rF8S1h436lBhFfclav?=
- =?us-ascii?Q?NN4KhBEVaUj2gnNAt5Y5R6xNib5Mwg6yTGPkOEPKkIMiuPVJahmOwz3ZUBS0?=
- =?us-ascii?Q?5S3jnLMkD/8Lt3cvqgNqeqqDFCTuA2XPYMP411bnpj+wNAn1xbyRP+u7jkk9?=
- =?us-ascii?Q?xqFFH5AdkWqlWuILlWkh0MbiRPMqXoTr8wu09aq1Zn4xsX4iAj/mWmRL4B5G?=
- =?us-ascii?Q?COBGF9ZoNnOIrv1Pua1uOGBTlGgRp5umE/jANXLU9Mkf5ZGvc2UyAosNh0B3?=
- =?us-ascii?Q?CHPpWvzULDxU+74MgLl+zvKSQW3W2Hit/40xH0l8KNleTcftmIZdZWtoK0Do?=
- =?us-ascii?Q?ZuBhwtzO+jJipKTLtg+fvWFoY58xbS3SXs7/uxIL1Lr6BajBE6Ss295uvbaW?=
- =?us-ascii?Q?OaSTAzRtVgPiUfD67tMsyjKpO1w58mgcvVBNc2dfUNcCG4S7e6XOrGg/Phkj?=
- =?us-ascii?Q?P6kIXp2DsSOWx/BiYodichrgiXX7jdDoe4d3RI9iEcRgrpNgaEEZxWWaClbz?=
- =?us-ascii?Q?AmCJx/HDYFBgJ3RofhDjXsfxSkVjGYlqxiJUaLX757Nxu68o9W17mkiGmyZY?=
- =?us-ascii?Q?KumWn+qG0RnFps5MIDi8XrAz/RDe+7BUZ7yTK+BhLrHXyAvttgCjmUSQT0Nd?=
- =?us-ascii?Q?6q2dlWT0k+M8pNOIe/yPgcI/uj2Q8ES9KbegiEhG3k7SmDns0tb06nFslaUL?=
- =?us-ascii?Q?P3C8yiZcrNtnajMJbhIGADaZJ/oZpcVBVRWY20JeEo1RbeijWb43WHy2vAw6?=
- =?us-ascii?Q?yjICvKIwPRkyQYuPhut3SsbU7F/ZHX2MzLTjb++hkk5q4lbRD2ER+pFFSc5z?=
- =?us-ascii?Q?bkUPY/o4tTPkmdw0gfCLmyF/B+prOF8Gyf2dLUTckzCIqGP56BP1oeStxeVn?=
- =?us-ascii?Q?n2qfYlWW2l9Hogr1yKeRx0c01kz2MrMQox86srUnCQl7CDlQQTN1s3tJOF26?=
- =?us-ascii?Q?nXRZUVkeLDHqSlIKvQdhO7V3mBtBbXO3wzlghrP8DjB/5lMHxSpWVxlhSv57?=
- =?us-ascii?Q?T/TdCeW8/4Wbw+UpDr2pcj9+FBJM2yG+i2DzqPkPgenxlC9gSK9nkO+8AJ+o?=
- =?us-ascii?Q?UbaWutEv6/UVeXLxDqTmnAFblIP8cB7I/2T3Axk2uqKn3nYHSc5W1xRNV4nC?=
- =?us-ascii?Q?oXinU5YqCLxQ8Rkq/3XMRBEyL2hT9MffWLBCYPCaQmH/cyohPL5yMsu7WFfa?=
- =?us-ascii?Q?w8GcDkay6Kl5gzzBrJ1rtIeO0OaSU5XnAMn9aPHip4NZQEvkqQMBu8OauL25?=
- =?us-ascii?Q?x/3/5KX7IzbCdFmPRrw=3D?=
+ =?us-ascii?Q?AEcKUP14Za32fZxK3eatjTDul9fn7oX+BnkP8cZzEAJ50yxCMjDtEHLzeIE6?=
+ =?us-ascii?Q?IM3MR781DC8TVqFNhcbEk/f8vs0TzleZ6VLJPU+O6jR32kaKpLbmo9/nI/Jx?=
+ =?us-ascii?Q?y8Wiz954nviForECw3ISaGi6HbzaRQWhIg50HLUTHSKA2hv0+nkok20d2YAF?=
+ =?us-ascii?Q?gRQ5zpEsqVuWcisgVCcO0Gpts0F8D0UPHRRvOC87+vfB0vcEdOsWpsqBINm+?=
+ =?us-ascii?Q?zm04PFhH0gWhCCRITcv4ZoCPhlhYzdaNCxXKzz1TcASMmBH9HPKg81l1wW9o?=
+ =?us-ascii?Q?sD+1b9DIXb2vHjkQSGpNtuUmUVAw3xTX9z8c6HOzS5ZHZocebSyfVzb34f09?=
+ =?us-ascii?Q?EVC0MTLR4OO7Z7ohaZxzCjgCWmsGYkH2XryXh4Yhuf9FYM1LJ54cuiaH0UqO?=
+ =?us-ascii?Q?ePShW9hDBqx1fb7lMfLPFsknFQQVfL5HzQXzani7gYUM4N5BBmbjrjW2CnIH?=
+ =?us-ascii?Q?RjEAsZHx6Xrjc8fqoMlvnE2oE1UQwGIMq4RpnK4IzZK+q3Kb2D3Wy5D+ccO0?=
+ =?us-ascii?Q?vpTnRAiBqHQZsbOHbCYQwNHzJiGHADUHe9ppIo0mOw5A2wRV3vUh8/EOU5g6?=
+ =?us-ascii?Q?3nP3Y+CpBiHacj9F8w+530j5K1BN9pa3DkPRnFPHsKhR/hfF7xauc0y+gHC+?=
+ =?us-ascii?Q?Aj4rdPQFi+5OX/HMDBaGNQEmg71YBlcb3ohKcR5ba3FqqYZWhg32l983gEeE?=
+ =?us-ascii?Q?NxyOE4/qzzUIyMY6KD1RBh9MKN4nJjF9ePfP7aEAytAsXSAtpX53D/O3JVDV?=
+ =?us-ascii?Q?sIkZlVn24IAj3FDQhcmh5AeK147bSsVhTdaPHKe1H35F6XPsSN3J6PAtJz5K?=
+ =?us-ascii?Q?39rOyAoaRx00khnzVTscKbaV+7ROKGbv6jl5jgmkLO0w0M+NhzJ17+QmGV1P?=
+ =?us-ascii?Q?jHXHxpnV+g+k/IDjKFzluDtXY10TFTDB5drwsDUC6NFXVxoz8MbKK2V+vxvh?=
+ =?us-ascii?Q?xLTBXDc/djLEE8g5adbVFHZ7kHm5w9A5ZUnrRvSaqGWq42dPxmXDoB7camf8?=
+ =?us-ascii?Q?Jc3AALBrEvG9dwuEbGABUx5maE0PZHaf/OjMVSd5/xup3+nGpY7bg5SebNPr?=
+ =?us-ascii?Q?BRetbIzZpgpEDDvMlgpbolI+7IoC7V8pp0+f01HX1F2jby2UpetzG3eW0WaS?=
+ =?us-ascii?Q?uMWcGt8pden6XP71ixlHoFequs0c3xeB7MLQda3GeqBsdl+INeB0+mCDOkqy?=
+ =?us-ascii?Q?N3bFHtaar3Pbu0w1WusOqfFtvDkyK17vPDLHT+W1rJ6nqWOmDL0VdpnubIVY?=
+ =?us-ascii?Q?dR43ZNYuao++NGOF+7daw+hJzDT3fG3d/lqfgJHiHXHo5A3XMXiIfm2Vkwsm?=
+ =?us-ascii?Q?kVYnXt7VEDRI6s7I4Jl6YepUHwcYyDlODyh/CMtU7Vr0p8n4Jd7u7n+39p+Y?=
+ =?us-ascii?Q?xLw9VgQxdUg3a3wr/QtY5FgCSZSNwOOYH7jXUrR5KxwZ/MJGWVEC7IXC54Xm?=
+ =?us-ascii?Q?faET6myjREC2kECrvy2EN7IDHoFlBnFHX17Ukfkj0BuTdd9GoieidVXCUVYJ?=
+ =?us-ascii?Q?oUL6RpAEVvGHKdpbMD/7aRupktFV/CktyGM9YHySTZSMf/KnwMuHXcSrL8Vj?=
+ =?us-ascii?Q?WoTKifWtNmJt+d8+Voo=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -142,203 +140,192 @@ MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bda6b573-a1b7-4a00-3ef5-08dd862348cf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2025 07:07:05.9382
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b7edbf2-e49f-4dac-a579-08dd86235080
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2025 07:07:18.8603
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xuFWit4bethe2NGZMd935bftcsRXo0dyC7JlDx3JeSOmyIhfJ3JaWMRnbsol1dowt9YRTbQsr1hBvkYEm1fS1A==
+X-MS-Exchange-CrossTenant-userprincipalname: juBsKv2/mLHUXpiFAfAoo6N/IK1d0MJEc7Z6CzMzFcKyedwBpdPiWMEZieW4+muMfMG77N6NUxyCHSeFW/t0ug==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8370
 
 
 > From: Srujana Challa <schalla@marvell.com>
-> Sent: Thursday, April 24, 2025 3:01 PM
+> Sent: Thursday, April 24, 2025 3:13 PM
+
 >=20
-> Adds new IPsec opcodes, VIRTIO_CRYPTO_IPSEC_OUTBOUND and
-> VIRTIO_CRYPTO_IPSEC_INBOUND and defines opcode specific data structures
-> for IPsec data processing.
+> This commit introduces the IPsec Operation to the Net device along with t=
+he
+> capabilities and resource objects. This enables the offloading of IPsec
+> processing, both before transmission and after reception, thereby providi=
+ng
+> inline offload capabilities.
 >=20
-> Reviewed-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-> Reviewed-by: Parav Pandit <parav@nvidia.com>
+> Capbilities:
+>=20
+> 1. IPsec Resource Capability (VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP):
+>    Indicates the device's IPsec resource limits, such as the number of
+>    encryption and decryption Security Associations (SAs).
+> 2. IPsec SA Capability (VIRTIO_CRYPTO_IPSEC_SA_CAP): Specifies the
+>    supported IPsec modes, along with the supported cryptographic
+>    algorithms, authentication algorithms, IPsec options and
+>    anti-replay window size.
+>=20
+> Resource objects:
+> 1. VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA
+> 2. VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA
+>=20
+> These IPsec SA resource objects encompass parameters necessary for packet
+> encryption and decryption. These include the SPI, tunnel headers, IPsec
+> mode, IPsec options, and metadata specific to cipher and authentication.
+>=20
+> This patch refers the Virtio-crypto IPsec service operation capabilities =
+and
+> resource objects data structures and crypto algorithm definitions to avoi=
+d
+> duplication, however the admin command type vaule differs between Virtio-
+> crypto and Virtio-net.
+>=20
 > Signed-off-by: Srujana Challa <schalla@marvell.com>
 > ---
->  device-types/crypto/description.tex | 84 +++++++++++++++++++++++++++++
->  1 file changed, 84 insertions(+)
+>  device-types/net/description.tex | 52 ++++++++++++++++++++++++++++++++
+>  1 file changed, 52 insertions(+)
 >=20
-> diff --git a/device-types/crypto/description.tex b/device-
-> types/crypto/description.tex
-> index 544ac18..794b9b4 100644
-> --- a/device-types/crypto/description.tex
-> +++ b/device-types/crypto/description.tex
-> @@ -379,6 +379,7 @@ \subsubsection{Operation Status}\label{sec:Device
-> Types / Crypto Device / Device
->      VIRTIO_CRYPTO_INVSESS =3D 4,
->      VIRTIO_CRYPTO_NOSPC =3D 5,
->      VIRTIO_CRYPTO_KEY_REJECTED =3D 6,
-> +    VIRTIO_CRYPTO_IPSEC_SA_SOFT_EXPIRY =3D 7,
->      VIRTIO_CRYPTO_MAX
->  };
->  \end{lstlisting}
-> @@ -391,6 +392,9 @@ \subsubsection{Operation Status}\label{sec:Device
-> Types / Crypto Device / Device  \item VIRTIO_CRYPTO_NOSPC: no free sessio=
-n
-> ID (only when the VIRTIO_CRYPTO_F_REVISION_1
->      feature bit is negotiated).
->  \item VIRTIO_CRYPTO_KEY_REJECTED: signature verification failed (only
-> when AKCIPHER verification).
-> +\item VIRTIO_CRYPTO_IPSEC_SA_SOFT_EXPIRY: IPsec SA lifetime soft limits
-> are reached.
-> +    When VIRTIO_CRYPTO_IPSEC_SA_SOFT_EXPIRY occurs, the request is
-> completed successfully,
-> +    but one or all of the soft limits are reached. This is applicable on=
-ly for
-> IPsec service operations.
->  \item VIRTIO_CRYPTO_ERR: any failure not mentioned above occurs.
->  \end{itemize*}
+> diff --git a/device-types/net/description.tex b/device-
+> types/net/description.tex
+> index 0bb1cef..d918c55 100644
+> --- a/device-types/net/description.tex
+> +++ b/device-types/net/description.tex
+> @@ -140,6 +140,11 @@ \subsection{Feature bits}\label{sec:Device Types /
+> Network Device / Feature bits  \item[VIRTIO_NET_F_OUT_NET_HEADER(69)]
+> Driver can provide the start of
+>   \field{outer_nh_offset} value. Device gains advantage by not reading pa=
+cket
+>    to calculate outer network header offset.
+> +
+> +\item[VIRTIO_NET_F_IPSEC(70)] Device supports inline IPsec processing.
+> + \field{struct virtio_net_hdr} size expands upto field \field{sturct
+> +ipsec_resource_hdr}  when VIRTIO_NET_F_IPSEC is negotiated.
+> +
+>  \end{description}
 >=20
-It would be good to have the error code for SA_HARD_EXPIRY case.
-VIRTIO_CRYPTO_ERR can be used , however since there is concept if SOFT_EXPI=
-RY status code, for completeness we should have HARD_EXPIRY code.
-
-This will be hard to do in vnet case. Yet to check.
-
-> @@ -992,6 +996,10 @@ \subsubsection{Data Virtqueue}\label{sec:Device
-> Types / Crypto Device / Device O
->      VIRTIO_CRYPTO_OPCODE(VIRTIO_CRYPTO_SERVICE_AKCIPHER, 0x02)
-> #define VIRTIO_CRYPTO_AKCIPHER_VERIFY \
->      VIRTIO_CRYPTO_OPCODE(VIRTIO_CRYPTO_SERVICE_AKCIPHER, 0x03)
-> +#define VIRTIO_CRYPTO_IPSEC_OUTBOUND \
-> +    VIRTIO_CRYPTO_OPCODE(VIRTIO_CRYPTO_SERVICE_IPSEC, 0x00) #define
-> +VIRTIO_CRYPTO_IPSEC_INBOUND \
-> +    VIRTIO_CRYPTO_OPCODE(VIRTIO_CRYPTO_SERVICE_IPSEC, 0x01)
->      le32 opcode;
->      /* algo should be service-specific algorithms */
->      le32 algo;
-> @@ -1009,6 +1017,17 @@ \subsubsection{Data Virtqueue}\label{sec:Device
-> Types / Crypto Device / Device O  If VIRTIO_CRYPTO_F_REVISION_1 is
-> negotiated but VIRTIO_CRYPTO_F_<SERVICE>_STATELESS_MODE
->  is not negotiated, then the device SHOULD reject <SERVICE> requests if
-> VIRTIO_CRYPTO_FLAG_SESSION_MODE is not set (in \field{flag}).
-> +
-> +For VIRTIO_CRYPTO_IPSEC_OUTBOUND and
-> VIRTIO_CRYPTO_IPSEC_INBOUND
-> +opcodes, \field{algo} is ignored.
-> +
-> +For VIRTIO_CRYPTO_IPSEC_OUTBOUND opcode, \field{session_id} MUST be
-> set
-> +to one of the resource objects \field{id} created using
-> +VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA resource type.
-> +
-> +For VIRTIO_CRYPTO_IPSEC_INBOUND opcode, \field{session_id} MUST be
-> set
-> +to one of the resource objects \field{id} created using
-> +VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA resource type.
->  \end{note}
+>  \subsubsection{Feature bit requirements}\label{sec:Device Types / Networ=
+k
+> Device / Feature bits / Feature bit requirements} @@ -462,6 +467,10 @@
+> \subsection{Device and driver capabilities}\label{sec:Device Types / Netw=
+ork
+> Dev  \hline
+>  0x0802 & \hyperref[par:Device Types / Network Device / Device Operation =
+/
+> Flow filter / Device and driver capabilities / VIRTIO-NET-FF-ACTION-
+> CAP]{VIRTIO_NET_FF_ACTION_CAP} & Flow filter action capability \\  \hline
+> +0x0803 & \hyperref[par:Device Types / Crypto Device / Device Operation
+> +/ IPsec Service Operation / Device and driver capabilities /
+> +VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP]{VIRTIO_NET_IPSEC_RESOURCE_CAP}
+> &
+> +IPsec resource capability \\ \hline
+> +0x0804 & \hyperref[par:Device Types / Crypto Device / Device Operation
+> +/ IPsec Service Operation / Device and driver capabilities /
+> +VIRTIO-CRYPTO-IPSEC-SA-CAP]{VIRTIO_NET_IPSEC_SA_CAP} & IPsec Security
+> +Association(SA) capability \\ \hline
+>  \end{tabularx}
 >=20
->  The dataq request is composed of four parts:
-> @@ -1096,6 +1115,13 @@ \subsubsection{Data Virtqueue}\label{sec:Device
-> Types / Crypto Device / Device O
->          and struct virtio_crypto_akcipher_data_flf is padded to 48 bytes=
- if NOT
-> negotiated,
->          and \field{op_vlf} is struct virtio_crypto_akcipher_data_vlf.
->      \end{itemize*}
-> +\item If the the opcode (in \field{header}) is
-> VIRTIO_CRYPTO_IPSEC_OUTBOUND
-> +    or VIRTIO_CRYPTO_IPSEC_INBOUND then:
-> +    \begin{itemize*}
-> +    \item \field{op_flf} is struct virtio_crypto_ipsec_data_flf and
-> +        \field{op_vlf} is struct virtio_crypto_ipsec_data_vlf.
-> +	Works only for session mode.
-> +    \end{itemize*}
->  \end{itemize*}
+>  \subsection{Device resource objects}\label{sec:Device Types / Network
+> Device / Device resource objects} @@ -478,6 +487,10 @@ \subsection{Device
+> resource objects}\label{sec:Device Types / Network Device / D  \hline
+>  0x0202 & \hyperref[par:Device Types / Network Device / Device Operation =
+/
+> Flow filter / Resource objects / VIRTIO-NET-RESOURCE-OBJ-FF-
+> RULE]{VIRTIO_NET_RESOURCE_OBJ_FF_RULE} & Flow filter rule object \\
+> \hline
+> +0x0203 & \hyperref[par:Device Types / Crypto Device / Device Operation
+> +/ IPsec Service Operation / Resource objects /
+> +VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-OUTBOUND-
+> SA]{VIRTIO_NET_RESOURCE_OBJ_I
+> +PSEC_OUTB_SA} & IPsec outbound SA resource object \\ \hline
+> +0x0204 & \hyperref[par:Device Types / Crypto Device / Device Operation
+> +/ IPsec Service Operation / Resource objects /
+> +VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-INBOUND-
+> SA]{VIRTIO_NET_RESOURCE_OBJ_IP
+> +SEC_INB_SA} & IPsec inbound SA resource object \\ \hline
+>  \end{tabularx}
 >=20
->  \field{inhdr} is a unified input header that used to return the status o=
-f @@ -
-> 1916,12 +1942,28 @@ \subsubsection{IPSEC Service
-> Operation}\label{sec:Device Types / Crypto Device /  in tunnel mode, as w=
-ell
-> as the ESP/AH header on the given packet(See \hyperref[intro:IPSEC]{IPSEC=
-}
-> RFC).
->  The resulting packet contains only the plain data.
+>  \subsection{Device parts}\label{sec:Device Types / Network Device / Devi=
+ce
+> parts} @@ -3480,6 +3493,45 @@ \subsubsection{Flow filter}\label{sec:Devic=
+e
+> Types / Network Device / Device Ope  capability and the classifier object=
+,
+> unless the VIRTIO_NET_FF_MASK_F_PARTIAL_MASK  is enabled.
 >=20
-> +The driver can request IPsec Inbound processing by \begin{itemize*}
-> +\item Creating inbound SAs using the
-> VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INBOUND_SA command.
-> +\item Setting the \field{opcode} in struct virtio_crypto_op_data_req to
-> +VIRTIO_CRYPTO_IPSEC_INBOUND.
-> +\end{itemize*}
+> +\subsubsection{IPsec Operation}\label{sec:Device Types / Network Device
+> +/ Device Operation / IPsec Operation}
 > +
->  IPsec Outbound processing: The device performs encryption, attach ICV,
-> update/add IP header and add ESP/AH header/trailer. The resulting packet
-> contains encrypted data along with the IPsec header and trailer.
+> +A network device can support the processing of IPsec operations when
+> +VIRTIO_NET_F_IPSEC feature is negotiated. In addition to standard
+> +packet processing, the IPsec protocol processing is also handled by the
+> network device.
+> +This occurs both pre-transmit and post-receive, providing inline IPsec
+> capabilities.
+> +
+> +IPsec Inbound processing: In receive path the device performs
+> +decryption, authentication, integrity checking and remove additional
+> +headers, including tunnel header if in tunnel mode, as well as the
+> +ESP/AH header from the packet (See \hyperref[intro:IPSEC]{[IPSEC]}). The
+> resulting packet contains only the plain data.
+> +
+> +IPsec Outbound processing: In transmit path the device performs
+> +encryption, attach ICV, update/add IP header and add ESP/AH
+> +header/trailer to the packet and transmit.
+> +
+> +\paragraph{Device and driver capabilities} \label{par:Device Types /
+> +Network Device / Device Operation / IPsec Operation / Device and driver
+> +capabilities}
+> +
+> +The device and the driver indicate IPsec SA resource limits using the
+> +capability \hyperref[par:Device Types / Crypto Device / Device
+> +Operation / IPsec Service Operation / Device and driver capabilities /
+> +VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP]{VIRTIO_NET_IPSEC_RESOURCE_CAP}
+> +The \hyperref[par:Device Types / Crypto Device / Device Operation /
+> +IPsec Service Operation / Device and driver capabilities /
+> +VIRTIO-CRYPTO-IPSEC-SA-CAP]{VIRTIO_NET_IPSEC_SA_CAP}
+> +capability specifies which IPsec protocol capabilities the device
+> +supports. The driver indicates the IPsec parameters by setting the IPsec=
+ SA
+> capability prior to adding any resource objects.
+> +
+> +\paragraph{Resource objects}
+> +\label{par:Device Types / Network Device / Device Operation / IPsec
+> +Operation / Resource objects}
+> +
+> +The driver controls the IPsec SA resource object using administration
+> +commands described in \ref{sec:Basic Facilities of a Virtio Device / Dev=
+ice
+> groups / Group administration commands / Device resource objects}.
+> +
+> +The IPsec SA resource object contains necessary parameters for packet
+> +encryption and decryption. These include the SPI, tunnel headers, IPsec
+> +mode, IPsec options, and data specific to cipher and authentication.
+> +
+> +See \hyperref[par:Device Types / Crypto Device / Device Operation / IPse=
+c
+> Service Operation / Resource objects / VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-
+> OUTBOUND-SA]{VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA}.
+> +
+> +See \hyperref[par:Device Types / Crypto Device / Device Operation / IPse=
+c
+> Service Operation / Resource objects / VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-
+> INBOUND-SA]{VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA}.
+> +
+>  \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
+> Types / Network Device / Legacy Interface: Framing Requirements}
 >=20
-> +The driver can request IPsec outbound processing by \begin{itemize*}
-> +\item Creating outbound SAs using the
-> VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTBOUND_SA command.
-> +\item Setting the \field{opcode} in struct virtio_crypto_op_data_req to
-> +VIRTIO_CRYPTO_IPSEC_OUTBOUND.
-> +\end{itemize*}
-> +
->  A crypto device can support number of IPsec SAs, allowing it to manage
-> multiple secure  connections simultaneously.
-> +See \ref{sec:Device Types / Crypto Device / Device Operation / IPsec
-> +Service Operation / Resource objects} for IPsec SA information.
->=20
->  The device and the driver indicate IPsec SA resource limits using the
-> VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP capability specifying the limits on the
-> number of @@ -2191,3 +2233,45 @@ \subsubsection{IPSEC Service
-> Operation}\label{sec:Device Types / Crypto Device /  capability
-> VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP. For the IPsec inbound SA resource
-> object  \field{resource_obj_specific_data} is in the format  \field{struc=
-t
-> virtio_crypto_resource_obj_ipsec_sa}.
-> +
-> +\paragraph{Data processing}
-> +\label{par:Device Types / Crypto Device / Device Operation / IPsec
-> +Service Operation / Data processing}
-> +
-> +Data requests for IPsec processing are as follows:
-> +
-> +\begin{lstlisting}
-> +struct virtio_crypto_ipsec_data_flf {
-> +        /* length of source data, full IP/IPsec packet */
-> +        le32 src_data_len;
-> +        /* length of dst data */
-> +        le32 dst_data_len;
-> +};
-> +
-> +struct virtio_crypto_ipsec_data_vlf {
-> +        /* Device read only portion */
-> +        /* Source data */
-> +        u8 src_data[src_data_len];
-> +
-> +        /* Device write only portion */
-> +        /* Pointer to output data */
-> +        u8 dst_data[dst_data_len];
-> +};
-> +\end{lstlisting}
-> +
-> +Each data request uses the virtio_crypto_ipsec_data_flf structure and
-> +the virtio_crypto_ipsec_data_vlf structure to store information used to
-> +run the IPSEC operations.
-> +
-> +For IPsec encryption:
-> +\field{src_data} is the full IP packet that will be processed.
-> +\field{src_data_len} is the length of source data.
-> +\field{dst_result} is the result ESP encrypted packet and
-> +\field{dst_data_len} is the length of it. Please note, dst_data_len
-> +MUST include additional header and trailer lengths.
-> +
-> +For IPsec decryption:
-> +\field{src_data} is the IPsec packet that will be processed.
-> +\field{src_data_len} is the length of source data.
-> +\field{dst_result} is the result plain IP packet and
-> +\field{dst_data_len} is the length of it.
 > --
 > 2.25.1
 
-Apart from above comment,
+IIRC, the outer header length vnet field is added to speed up the ipsec.
+So we should add the dependency or recommendation here to say, when device =
+offers IPSEC feature, it SHOULD offer OUTER_HDR too.
+
+For the rest,
 Reviewed-by: Parav Pandit <parav@nvidia.com>
