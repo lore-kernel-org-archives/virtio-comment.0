@@ -1,56 +1,56 @@
-Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE252C374B
-	for <virtio-comment@lists.linux.dev>; Tue, 29 Apr 2025 13:25:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D491DE4F3
+	for <virtio-comment@lists.linux.dev>; Tue, 29 Apr 2025 13:25:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745933122; cv=none; b=MTpaCdzo1wSYMGPFJvnn62DvneZGPyKDMgTPNF0mXpdbHdtkp+hgym1xf2fD3U7IOtBCqi02h04cz0fK6YTrv6JWZsWw62DphTug6o8ugugm0lIuNLvXOgZssn2KuvQnMh12trjhLYiuyNDnhinyH3FT3GHif6Qfh1UUyNLn4lA=
+	t=1745933126; cv=none; b=ileewFLb/kBOHrG69dnSbD3xQJcfHv74ekanS4pL/QAa0mYPfEs2HnP78JvWndpVhie+BZeHvz4B8NaqtkQlpLvkna9U/BYg78IUf9sNxuWCXil4BFs66KR1sb0ZoKXJljM3jonuwF5uo5Z/XZ9fwlS/ORbMmBp9r8t3ldn0DZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1745933122; c=relaxed/simple;
-	bh=svrxgAPiY1pPY2bLr3t1f8JAyYROCXFVknlA82VraxM=;
+	s=arc-20240116; t=1745933126; c=relaxed/simple;
+	bh=HYuwOoENFcwA5+9rxpoufcmGMy7WM264X1QBxOjzjKc=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=h3OznOrynNQILCGD+Ccw58abbM58wOpuzvrcpIGQHx4L7Y4ZJvYAvEFK9piaEi+Yykz/LCi+Q6SRT1eKW2LK3L0kBLq05BwqjfaSTqd9orzCz5qoBRCPVlAdulqqrdbXa3PFmZFe6HBWd/92RUizzrwHLDMbiawEWHeMYh7mn9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=i66BbsMp; arc=none smtp.client-ip=67.231.148.174
+	 MIME-Version:Content-Type; b=KE3XnuOYzohI8ebE7eDbYZSFoOQInY/Q+/dDhB7WXDYd84wqlplY27iON6k62w0EWSFstZ3rP6HcRy+lMiyEGAcBKFgnnZ1j93VVqsKDSJLZ+ETBWfz1Ft7cpm8Xi9GFUxQs/bFY4qXwO2dAvdlkDPI3TccOvej0IbvbC3RPcnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=k0+2bRif; arc=none smtp.client-ip=67.231.148.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="i66BbsMp"
-Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53TClnGt024259;
-	Tue, 29 Apr 2025 06:25:19 -0700
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="k0+2bRif"
+Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53T6VIdJ024834;
+	Tue, 29 Apr 2025 06:25:24 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=B
-	NMGTHsvg5gNqKKkqw1oqDly5hGIcoQCpcD91KZzovg=; b=i66BbsMpaVInh1LUa
-	fQwR4zrBaXyDPl9Fxqn4CBkQQJTZsFPzMFajPlz2uFrAescQO23/ffQLg14g6mRR
-	LIcgy78l1m0AcSqBlBbJ9RzSvwZjo2ilL8cArKSXd3EnsX+OVOmOAMHd4CFRTtx1
-	8LVGtn98fXwewQzo/MXXuySjZN+F5MFqBShhK75pCRsZslB9v2aYZ4TU0OHgP5DQ
-	GCUXXG0lf8QOP7NeCnIzDds28vfJBuOH5GNuNro1QSi8D9Y0t9Zy+l8flAMarxj1
-	i4UP7EJycfsicMs0mq4DyEvcW839PMKH+sK66YQjQkbTcaN7ghXduECRbZQxphGZ
-	VcxBQ==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 468vuq65yf-1
+	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=i
+	fsPCsMMQO4QKRjnsuOS3QDnSyMq9BsUcD6HIiaCW3o=; b=k0+2bRifsl5OEIXPw
+	niOGi9XAuk+xr0zcZvb+GNhj73p3AsyvTIOF7igMwxPykDYxQbh4UzbFN1ubkhse
+	x09OU4yawcozxXRKDuYlRawNsL1h9eWtHeFd7HVTB29gUzJS9ImYHMmv+7MmCDrJ
+	9thDhuuD9kZzIWhZChoAR1NA8H13eEW61yUvZ6u2LT9b2ByZe/2C1iBfy6oyq9o8
+	XJkTzAws8WrfO8aMF3IhsNiCIAS/ZuPGMWUpULhD1vamcYvPrKMZgUQkTcdou5Be
+	+8rRjcNn1KJENC/FdX8wW4mlaRpjkqu9ijn/Pk0b1U7bYGVdL70kz7cJvn32y5Ud
+	h8OSA==
+Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 469krccn43-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 29 Apr 2025 06:25:19 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+	Tue, 29 Apr 2025 06:25:23 -0700 (PDT)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Tue, 29 Apr 2025 06:25:18 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.4 via Frontend
- Transport; Tue, 29 Apr 2025 06:25:18 -0700
+ 15.2.1544.4; Tue, 29 Apr 2025 06:25:22 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.4 via Frontend
+ Transport; Tue, 29 Apr 2025 06:25:22 -0700
 Received: from localhost.localdomain (unknown [10.28.36.175])
-	by maili.marvell.com (Postfix) with ESMTP id 8252A3F70C3;
-	Tue, 29 Apr 2025 06:25:15 -0700 (PDT)
+	by maili.marvell.com (Postfix) with ESMTP id 5017D3F70C3;
+	Tue, 29 Apr 2025 06:25:19 -0700 (PDT)
 From: Srujana Challa <schalla@marvell.com>
 To: <virtio-comment@lists.linux.dev>
 CC: <mst@redhat.com>, <pabeni@redhat.com>, <jasowang@redhat.com>,
         <parav@nvidia.com>, <sburla@marvell.com>, <ndabilpuram@marvell.com>,
         <jerinj@marvell.com>, <kshankar@marvell.com>, <schalla@marvell.com>
-Subject: [PATCH v6 1/4] virtio-net: Add IPsec operation, capabilities and resource objects
-Date: Tue, 29 Apr 2025 18:55:07 +0530
-Message-ID: <20250429132510.1949946-2-schalla@marvell.com>
+Subject: [PATCH v6 2/4] virtio-net: Add new flow filter selector and action for IPsec
+Date: Tue, 29 Apr 2025 18:55:08 +0530
+Message-ID: <20250429132510.1949946-3-schalla@marvell.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250429132510.1949946-1-schalla@marvell.com>
 References: <20250429132510.1949946-1-schalla@marvell.com>
@@ -62,136 +62,83 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI5MDA5OSBTYWx0ZWRfX3ckiry9zqC4p 8W8WysHy8aYi+Hffwk7CEJ5TbCFrz4ev5M+WWbPz3gkOb+1u2khpSpYUUmJjRDwQxFrmW5VBrR8 83/ZM3PfLypl1wvWmyNhfB/T3CqJ1wXrbMg/LTuNNr/2cQ6VwYpNxvWS13CYLU+oH1YoU/fPttC
- OKkkhmtHCZaEFezukWBhYT8KCX53jS2ZOZESd8RWv5WRiS4ja65rt3pWD7pxb+bSOsA01Rd8nGw ehlaMhQHejuIvGwkFxz0kQdSsxHFFs2Y6AMAYRMn7Pd1oScnVOf10ShWJXx3HA/xWp90rsjUl91 YZ3LwgLLoCHYXZkXthG9/5GuRO0mZQTDHhyLpS4g4fB32J/daUt09y6Z2sUl2ZMUitwqKksYjrS
- +b6I9RUfQlObfQCRGLeQyEsgAqNdglZrDfk692+M+mJnkNDUzK7A51mL6uninpxWftDjgvyw
-X-Authority-Analysis: v=2.4 cv=L60dQ/T8 c=1 sm=1 tr=0 ts=6810d33f cx=c_pps a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17 a=XR8D0OoHHMoA:10 a=M5GUcnROAAAA:8 a=Ikd4Dj_1AAAA:8 a=tL5DaOeHnXsxyfyq8M4A:9 a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-ORIG-GUID: EPUXXR_8uLmM7Eo8PGhQtcL9zy7uJNt1
-X-Proofpoint-GUID: EPUXXR_8uLmM7Eo8PGhQtcL9zy7uJNt1
+X-Proofpoint-GUID: OIFdt2st2o0_H0DteOvXoxzufxrDtxqC
+X-Authority-Analysis: v=2.4 cv=f61IBPyM c=1 sm=1 tr=0 ts=6810d343 cx=c_pps a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17 a=XR8D0OoHHMoA:10 a=M5GUcnROAAAA:8 a=Ikd4Dj_1AAAA:8 a=0KcJUZKQnbyiNB3AGd4A:9 a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI5MDA5OSBTYWx0ZWRfXxPhGQBu9hNVJ nqxTAoGHfd4JO3IVPsdHrSwsHn9j6cggR7Vc7TrATeHUGH3vBMCQZOAydchv81JIFuI00CgRgDo t0KMNoXuYHE/mkwZvFFb2oq3gAHq0jtFX4X/u2RUwg9S/opKy8QbDDMo4KfuIioUVNleRWKbW1P
+ 1v7iprHh/EKfEfucN4fRIUiQtNtPYwa2Dq3w1CvX2gHn2BhNeVy1hBxZkHY7S1oxsVwJTX/EQan 69/jCNk0GdOMktiBPctxwqHhFCI+4vIE2NBOON70x+tpZxVMyhtpzrvrd5ENbvZpGHBkITNdf7G /TqkOn8zxNSIgvxOGQyUpc+ih8HJGT0+mOxFzjlBfAIYkuFEJlrl8fEx/yIoiDYDerovP5aRM3h
+ uzXoDTLR6zuoOVOw/Fo33QSU7kr7pVSNWiS1wun/W7M1FizDSm/loK89DqfPkStwIkWjRGFQ
+X-Proofpoint-ORIG-GUID: OIFdt2st2o0_H0DteOvXoxzufxrDtxqC
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-04-29_04,2025-04-24_02,2025-02-21_01
 
-This commit introduces the IPsec Operation to the Net device
-along with the capabilities and resource objects. This enables
-the offloading of IPsec processing, both before transmission
-and after reception, thereby providing inline offload
-capabilities.
-
-Capbilities:
-
-1. IPsec Resource Capability (VIRTIO_CRYPTO_IPSEC_RESOURCE_CAP):
-   Indicates the device's IPsec resource limits, such as the number of
-   encryption and decryption Security Associations (SAs).
-2. IPsec SA Capability (VIRTIO_CRYPTO_IPSEC_SA_CAP): Specifies the
-   supported IPsec modes, along with the supported cryptographic
-   algorithms, authentication algorithms, IPsec options and
-   anti-replay window size.
-
-Resource objects:
-1. VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA
-2. VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA
-
-These IPsec SA resource objects encompass parameters necessary
-for packet encryption and decryption. These include the SPI,
-tunnel headers, IPsec mode, IPsec options, and metadata specific
-to cipher and authentication.
-
-This patch refers the Virtio-crypto IPsec service operation
-capabilities and resource objects data structures and crypto algorithm
-definitions to avoid duplication, however the admin command type vaule
-differs between Virtio-crypto and Virtio-net.
+This update introduces a new flow filter selector to match
+the ESP header and adds a new flow filter action for IPsec
+processing.
 
 Signed-off-by: Srujana Challa <schalla@marvell.com>
 Reviewed-by: Parav Pandit <parav@nvidia.com>
 ---
- device-types/net/description.tex | 53 ++++++++++++++++++++++++++++++++
- 1 file changed, 53 insertions(+)
+ device-types/net/description.tex | 26 ++++++++++++++++++++++----
+ 1 file changed, 22 insertions(+), 4 deletions(-)
 
 diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 0bb1cef..9def4d2 100644
+index 9def4d2..105a002 100644
 --- a/device-types/net/description.tex
 +++ b/device-types/net/description.tex
-@@ -140,6 +140,12 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
- \item[VIRTIO_NET_F_OUT_NET_HEADER(69)] Driver can provide the start of
-  \field{outer_nh_offset} value. Device gains advantage by not reading packet
-   to calculate outer network header offset.
-+
-+\item[VIRTIO_NET_F_IPSEC(70)] Device supports inline IPsec processing.
-+ \field{struct virtio_net_hdr} size expands upto field \field{sturct ipsec_resource_hdr}
-+ when VIRTIO_NET_F_IPSEC is negotiated. When a device offers IPsec feature, it SHOULD
-+ also offer the VIRTIO_NET_F_OUT_NET_HEADER feature.
-+
- \end{description}
- 
- \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device / Feature bits / Feature bit requirements}
-@@ -462,6 +468,10 @@ \subsection{Device and driver capabilities}\label{sec:Device Types / Network Dev
+@@ -3098,7 +3098,9 @@ \subsubsection{Flow filter}\label{sec:Device Types / Network Device / Device Ope
  \hline
- 0x0802 & \hyperref[par:Device Types / Network Device / Device Operation / Flow filter / Device and driver capabilities / VIRTIO-NET-FF-ACTION-CAP]{VIRTIO_NET_FF_ACTION_CAP} & Flow filter action capability \\
+ 0x5 & VIRTIO_NET_FF_MASK_TYPE_UDP & 8 bytes of UDP header described in \hyperref[intro:UDP]{UDP} \\
  \hline
-+0x0803 & \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP]{VIRTIO_NET_IPSEC_RESOURCE_CAP} & IPsec resource capability \\
+-0x6 - 0xFF & & Reserved for future \\
++0x6 & VIRTIO_NET_FF_MASK_TYPE_ESP & 8 bytes of ESP header \\
 +\hline
-+0x0804 & \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP]{VIRTIO_NET_IPSEC_SA_CAP} & IPsec Security Association(SA) capability \\
-+\hline
++0x7 - 0xFF & & Reserved for future \\
+ \hline
  \end{tabularx}
- 
- \subsection{Device resource objects}\label{sec:Device Types / Network Device / Device resource objects}
-@@ -478,6 +488,10 @@ \subsection{Device resource objects}\label{sec:Device Types / Network Device / D
+ \end{table}
+@@ -3158,7 +3160,11 @@ \subsubsection{Flow filter}\label{sec:Device Types / Network Device / Device Ope
  \hline
- 0x0202 & \hyperref[par:Device Types / Network Device / Device Operation / Flow filter / Resource objects / VIRTIO-NET-RESOURCE-OBJ-FF-RULE]{VIRTIO_NET_RESOURCE_OBJ_FF_RULE} & Flow filter rule object \\
+ 0x2 & VIRTIO_NET_FF_ACTION_DIRECT_RX_VQ & Matching packet will be directed to a receive queue \\
  \hline
-+0x0203 & \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Resource objects / VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-OUTBOUND-SA]{VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA} & IPsec outbound SA resource object \\
+-0x3 - 0xFF & & Reserved for future \\
++0x3 & VIRTIO_NET_FF_ACTION_IPSEC & Matching packet will undergo IPsec processing \\
 +\hline
-+0x0204 & \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Resource objects / VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-INBOUND-SA]{VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA} & IPsec inbound SA resource object \\
++0x4 & VIRTIO_NET_FF_ACTION_IPSEC_RECIRCULATE & Matching packet will first undergo IPsec processing, followed by the flow filter rules again \\
 +\hline
++0x5 - 0xFF & & Reserved for future \\
+ \hline
  \end{tabularx}
+ \end{table}
+@@ -3211,8 +3217,8 @@ \subsubsection{Flow filter}\label{sec:Device Types / Network Device / Device Ope
  
- \subsection{Device parts}\label{sec:Device Types / Network Device / Device parts}
-@@ -3480,6 +3494,45 @@ \subsubsection{Flow filter}\label{sec:Device Types / Network Device / Device Ope
- capability and the classifier object, unless the VIRTIO_NET_FF_MASK_F_PARTIAL_MASK
- is enabled.
+ The first selector is always VIRTIO_NET_FF_MASK_TYPE_ETH. When there are multiple
+ selectors, a second selector can be either VIRTIO_NET_FF_MASK_TYPE_IPV4
+-or VIRTIO_NET_FF_MASK_TYPE_IPV6. If the third selector exists, the third
+-selector can be either VIRTIO_NET_FF_MASK_TYPE_UDP or VIRTIO_NET_FF_MASK_TYPE_TCP.
++or VIRTIO_NET_FF_MASK_TYPE_IPV6. If the third selector exists, it can be set to
++VIRTIO_NET_FF_MASK_TYPE_UDP, VIRTIO_NET_FF_MASK_TYPE_TCP and VIRTIO_NET_FF_MASK_TYPE_ESP.
+ For example, to match a Ethernet IPv6 UDP packet,
+ \field{selectors[0].type} is set to VIRTIO_NET_FF_MASK_TYPE_ETH, \field{selectors[1].type}
+ is set to VIRTIO_NET_FF_MASK_TYPE_IPV6 and \field{selectors[2].type} is
+@@ -3510,6 +3516,18 @@ \subsubsection{IPsec Operation}\label{sec:Device Types / Network Device / Device
+ attach ICV, update/add IP header and add ESP/AH header/trailer to the packet
+ and transmit.
  
-+\subsubsection{IPsec Operation}\label{sec:Device Types / Network Device / Device Operation / IPsec Operation}
++\paragraph{Packet processing order}
++\label{par:Device Types / Network Device / Device Operation / IPsec Operation / Packet processing order}
 +
-+A network device can support the processing of IPsec operations when
-+VIRTIO_NET_F_IPSEC feature is negotiated. In addition to standard packet
-+processing, the IPsec protocol processing is also handled by the network device.
-+This occurs both pre-transmit and post-receive, providing inline IPsec capabilities.
++If an IPsec action rule, either VIRTIO_NET_FF_ACTION_IPSEC or VIRTIO_NET_FF_ACTION_IPSEC_RECIRCULATE,
++is matched during flow filter processing, IPsec processing is applied on the packet.
++In the case of VIRTIO_NET_FF_ACTION_IPSEC_RECIRCULATE, the packet goes through IPsec processing and
++is then recirculated only once to avoid the infinite loops in the device. When a packet is
++recirculated, it undergoes flow filters processing again with the updated packet content.
 +
-+IPsec Inbound processing: In receive path the device performs decryption,
-+authentication, integrity checking and remove additional headers, including
-+tunnel header if in tunnel mode, as well as the ESP/AH header from the packet
-+(See \hyperref[intro:IPSEC]{[IPSEC]}). The resulting packet contains only the plain data.
++See \ref{sec:Device Types / Network Device / Device Operation / Flow filter}
++for details about flow filter.
 +
-+IPsec Outbound processing: In transmit path the device performs encryption,
-+attach ICV, update/add IP header and add ESP/AH header/trailer to the packet
-+and transmit.
-+
-+\paragraph{Device and driver capabilities}
-+\label{par:Device Types / Network Device / Device Operation / IPsec Operation / Device and driver capabilities}
-+
-+The device and the driver indicate IPsec SA resource limits using the capability
-+\hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-RESOURCE-CAP]{VIRTIO_NET_IPSEC_RESOURCE_CAP}
-+The \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Device and driver capabilities / VIRTIO-CRYPTO-IPSEC-SA-CAP]{VIRTIO_NET_IPSEC_SA_CAP}
-+capability specifies which IPsec protocol capabilities the device supports. The driver indicates
-+the IPsec parameters by setting the IPsec SA capability prior to adding any resource objects.
-+
-+\paragraph{Resource objects}
-+\label{par:Device Types / Network Device / Device Operation / IPsec Operation / Resource objects}
-+
-+The driver controls the IPsec SA resource object using administration commands described in
-+\ref{sec:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}.
-+
-+The IPsec SA resource object contains necessary parameters for packet
-+encryption and decryption. These include the SPI, tunnel headers, IPsec mode,
-+IPsec options, and data specific to cipher and authentication.
-+
-+See \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Resource objects / VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-OUTBOUND-SA]{VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA}.
-+
-+See \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Resource objects / VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-INBOUND-SA]{VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA}.
-+
- \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
- Types / Network Device / Legacy Interface: Framing Requirements}
+ \paragraph{Device and driver capabilities}
+ \label{par:Device Types / Network Device / Device Operation / IPsec Operation / Device and driver capabilities}
  
 -- 
 2.25.1
