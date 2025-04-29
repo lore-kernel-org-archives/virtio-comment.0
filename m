@@ -1,201 +1,155 @@
-Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8253B210F5D
-	for <virtio-comment@lists.linux.dev>; Tue, 29 Apr 2025 12:40:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1745930433; cv=none; b=bD653Vn/4PINIVBsjrwqIzVMMAkqkTMMeldtMR/9QjLF1hzgft7fbPnV3PPfCm2QTwFHRBBJCxLawox6jbNydpIjYygivKc0Pg79dKhISpqQO50bdz3icBnzvnvbzlG3kZWAZ36g8rhHaCdtTkNryiYwE6Nz7W2fj0ICrhSVezc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1745930433; c=relaxed/simple;
-	bh=T22sTD6XPRXWxnNxgg2yG52bQI3mVlSFd56LAYjPoIQ=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=N0o6oE4pgz+vbet6ORw8cLu0oHAxXnKnllw2YGXRvSF+BFxbLSA1n4zyoa/kUHK8iJmk26Le3cAUb8fXLui78vpAq1wnlJ7XV/OIjt3L+cFreBQ2vXsFkR3Cd0iYfTy9RbNh5s0dvmyLo6UK0yV1JiM03MJ8xbUvJShQVLolMa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=c+6t3ygb; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B872327A90A
+	for <virtio-comment@lists.linux.dev>; Tue, 29 Apr 2025 12:43:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.92.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1745930585; cv=fail; b=fNoUHilvTHX7fMO1reWExEZYW5HasPwIFFKvuQx//w53kym/2byv0KLn+ifmj4PMF3RAqq7P6EzlYmgTQ4TLzA8IOH7iR+1tUSVAZKNbcR+WQWQEJEkMJyBxxfO3sohamrzyuhMJ6zma7T52VPZtVtEsM64hwM+UTYTQk/6vFgU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1745930585; c=relaxed/simple;
+	bh=e7frw2Ip01/Yzc+VJFqwjSCT1ZiCmPayvCHjAS/KXAE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=hKRTskT5yVhNAnoai7Ctlqv55xHueARnEHuvBjDNtvn+CgtG+veGw79Kivgf4bGhusLMHyouyNnoL2FklzjsBnk8UFHKit+dp9y1gt84gz3fyuzXzjJst9+IZgWAPxQLoMwJH0V6ut6o06FEGgtdrXVNCaCKjf/qe3iLkcSuWgs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=H/pv0oLY; arc=fail smtp.client-ip=40.107.92.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="c+6t3ygb"
-Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53T6cERu024861;
-	Tue, 29 Apr 2025 05:40:30 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=e
-	bi8mmtKAW0U1/kKZHUIQrc8j9y2i5XRm1YWKqd8g5s=; b=c+6t3ygbU4DZo84+l
-	lqF7qOPtw9o8++qcp2+6cmdu2r5Kj+nAa12oDhdPMkauFI/CWsb3TtO+NwYf4WUu
-	duURMSD+fJySFabOhmylupAN9vZ02Bx9ool6movAWcVwp+F1QyW2hbRojX0707c8
-	pAF6R51LnSwxTcxaybQfadNjVym4pGKv02Q7W9iE0UoQXswxB5n3ZI3oHzO/gQix
-	fvy7JF7VXkMaKOb4RdsIUnM9b5MVEYwCQVl3x37Lmx07N5KJgx/Yyp/CKqQC/6Wv
-	gnqm70TXdZXGNpw9e2PzjSi4HBD1c8tyeYFI3iZrlJvBSR/jrBt0TdLGB2fQpmH8
-	3EA3g==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 469krccfse-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 29 Apr 2025 05:40:30 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Tue, 29 Apr 2025 05:40:29 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.4 via Frontend
- Transport; Tue, 29 Apr 2025 05:40:29 -0700
-Received: from localhost.localdomain (unknown [10.28.36.175])
-	by maili.marvell.com (Postfix) with ESMTP id 579AE5B6949;
-	Tue, 29 Apr 2025 05:40:26 -0700 (PDT)
-From: Srujana Challa <schalla@marvell.com>
-To: <virtio-comment@lists.linux.dev>
-CC: <mst@redhat.com>, <pabeni@redhat.com>, <jasowang@redhat.com>,
-        <parav@nvidia.com>, <sburla@marvell.com>, <ndabilpuram@marvell.com>,
-        <jerinj@marvell.com>, <kshankar@marvell.com>, <schalla@marvell.com>
-Subject: [PATCH RFC v6 4/4] virtio-net: Add IPsec operation device and driver requirements
-Date: Tue, 29 Apr 2025 18:10:10 +0530
-Message-ID: <20250429124010.1949371-5-schalla@marvell.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250429124010.1949371-1-schalla@marvell.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="H/pv0oLY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=c+JHUJkwW8WhzY1WTO5PLKDwSHlxSfh+TN4Dklmq8oKi1MbbR0tcbEX1C/bKDbXbPXhxq/nP4XVWtDn1iRtfZhg2jdy3mhpe53LzQ5r9Kg2I5Jh+nWAXXWpiJ1SH08vziyg+B8UXGyUmBI5rQu9epsfC5bHXL8eur7xHGfNdZTs0NwDUCQwKiDk7nr3DQdqtB+CyeLV31XZP4+D2ndAqDp6IJ7vn29UubEv+Oo3syYDu+km7Q1DvvgHfGbCsE5GUp7gqsb7MB0a+TdBG0pH8lvUGQcduETSy7VJR4DYZ8DGcyeLovFXjS4cf8ZIuVHQPjR8lSFOct3JQmyAe7MKHxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=e7frw2Ip01/Yzc+VJFqwjSCT1ZiCmPayvCHjAS/KXAE=;
+ b=nYuZOdQT8sLw8TtIXjfpFLqCoFED/HS9YBLI+Ac1aqgt+UPxpBsdosdskZD0lMgKjpJ+p8/RKL/TV4/5R/r6hUeR6jEyXQtm9O0wBZcRyhnh+FEyuzRwl4Ohv3yBE843zNS2jQ8JlbJ5PcS5DUJ4E7zPvUKeujur4ILGtzQ3PDfZw/T2dRRI74XrmnT/wFJxjo0aEKiZZ4ZR0ztWbA2WSjSw8dESaQL0gd7rUBPzigidQr/L7TolTF0Nlkk79RtnsK/YtJAH4sFnDauuCKwGnuDJ3Jh+VPl8UzmLyw1r8RKHUQe03gfcPk7LomuQ+n0kSsBJQmmwb/xwoV9gHxCSsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e7frw2Ip01/Yzc+VJFqwjSCT1ZiCmPayvCHjAS/KXAE=;
+ b=H/pv0oLYu6cHFDIVi16KCmLc8zwn7rqUMWy5JFCFOsFZOCKN420tse+QAj6T3WiibzJ1xA/MZ6QvCU+dUTUvO6Gc0CEOBNHXYwzrWIBgbgMlXk22leyNgYSvZoh+kIssSCTKOVlaDkqOcqRRYAwmCFeE9QoLuTEVLJoQj1bjRt47fJ8gWjZRT1LkOJsKl0+5w74yVwMIW0OkxVYyS8P2+aUYG3pDGJKxBrJNNaXw84/VI7UX+67Ihy+Jt2jh5kGvBvQXyEUvvlh7BQFLW2xx+hgXmj/8JgmkR7C86Td7IkuEZ1lOFAW3+lYp4mms+s5JzzIDZ+yr+utkn7Wjy2MxHA==
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
+ by MW4PR12MB7191.namprd12.prod.outlook.com (2603:10b6:303:22d::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.31; Tue, 29 Apr
+ 2025 12:42:56 +0000
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::c06c:905a:63f8:9cd]) by CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::c06c:905a:63f8:9cd%6]) with mapi id 15.20.8678.028; Tue, 29 Apr 2025
+ 12:42:56 +0000
+From: Parav Pandit <parav@nvidia.com>
+To: Srujana Challa <schalla@marvell.com>, "virtio-comment@lists.linux.dev"
+	<virtio-comment@lists.linux.dev>
+CC: "mst@redhat.com" <mst@redhat.com>, "pabeni@redhat.com"
+	<pabeni@redhat.com>, "jasowang@redhat.com" <jasowang@redhat.com>,
+	"sburla@marvell.com" <sburla@marvell.com>, "ndabilpuram@marvell.com"
+	<ndabilpuram@marvell.com>, "jerinj@marvell.com" <jerinj@marvell.com>,
+	"kshankar@marvell.com" <kshankar@marvell.com>
+Subject: RE: [PATCH RFC v6 0/4] introduce IPsec Operation in virtio-net
+Thread-Topic: [PATCH RFC v6 0/4] introduce IPsec Operation in virtio-net
+Thread-Index: AQHbuQPfX8yv6RCdwEurRCMU5IQHe7O6lfhA
+Date: Tue, 29 Apr 2025 12:42:56 +0000
+Message-ID:
+ <CY8PR12MB7195D2EA2E60532EF09C37C2DC802@CY8PR12MB7195.namprd12.prod.outlook.com>
 References: <20250429124010.1949371-1-schalla@marvell.com>
+In-Reply-To: <20250429124010.1949371-1-schalla@marvell.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|MW4PR12MB7191:EE_
+x-ms-office365-filtering-correlation-id: 3676c6fe-eeb5-436a-779c-08dd871b5dd0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?VWzyUg9NuYSiitZZIk5QhGxTXOjmh6Nw3SbM0z16EnBPd5aUrStN9Mxg2QC2?=
+ =?us-ascii?Q?Kl3S9eJJFpJamwSy8+M8yWm8YpXcFgKlfudN0/wWRUzhKmMR7EciyKzosd84?=
+ =?us-ascii?Q?vZixqiMcGfPoNXuB/iE9wpvzt4Ak9Xp0uu6+SN6eFNq9J9M3CdC2yB6+6wtk?=
+ =?us-ascii?Q?a7DC/gaA4WA1GvjocWZfuWkJjMPbHotUpvOgbYpFzg0N9LUFGCyxYyWFlWM6?=
+ =?us-ascii?Q?QftwH1C0BwK7Y+YFegZHQnC6OLz3P6py7ajBuaF1Dph6I+QXnsAmRcT2hH8W?=
+ =?us-ascii?Q?kPr1F5U5W+rVhXyxpjbVJc4Ee4nnfOKHTvpTtD+T7F1tb1wZwj/4rfRRV/xc?=
+ =?us-ascii?Q?QcsHXVWAcdxzoauq4P+pljvx0mdpQtKxXouFszRfvAO2a7DCFnN/eIVRTrQO?=
+ =?us-ascii?Q?K9NJzI6AF6GYAq8FDDyA/QMp6A07TkucGq/srRJ1gmxHHKt1c3UBbQ4dCbYT?=
+ =?us-ascii?Q?1swPHGdeq5tkonOwIXDfyzo9S3Soi+IwGiTIcewL43m4nZr6SNpYhurn+09N?=
+ =?us-ascii?Q?qMbE+D40jSTL/j5vHcTKa2mqhPJBMkz9bgU0jKIjO+APuzMxTNg+XL2O/YlV?=
+ =?us-ascii?Q?eOBFFGjbTOAEGtGDANWVKRcHaqfUTKBa6q560cEYjWLzkEushd4Vhae80Cwt?=
+ =?us-ascii?Q?Cm43hz2N5R7VT2T96P+R+cW8LA86klZHHmbXd5Qh3EZnOWz4c0Lpxh+J1L+v?=
+ =?us-ascii?Q?BOU7+ptgTpUaFnIRLXaonVpBvimWG8FkqGrGAAt+V55Q08F2JexPWFoF/RzM?=
+ =?us-ascii?Q?bQy7rvMSg1msAazuMG7VD2X2OjWK3hBdenI0SM9O7SsRK/UNJzybD0e3vqrj?=
+ =?us-ascii?Q?GDXFpbnFTMvwjB1rUtajTFWgGhBXhuiYXW9DHhEfLgpeLJ3ai+MxfwdZ+C0J?=
+ =?us-ascii?Q?59OunsCnd/MoA4Exl+ZzjT9Saqzbgr15TzX/nbaLh+oJsTlDkiYmyNIJBiCA?=
+ =?us-ascii?Q?IHLhQyZqpy07UJmSZj8+rpNgjQ87inII3tfqtkvMldMI/4tXgysft467aFUA?=
+ =?us-ascii?Q?q/osbdqkwUdmt9iLwlcQzVN2Z3g1PvVJ6kFryZ7m/3m3THymjPdBTb7E0DfH?=
+ =?us-ascii?Q?DzECOHpqhA+5GNfd6hYMjrWj+jhwFOdFc3Qslmvvg0O/i5YZonRfS1+lnBPj?=
+ =?us-ascii?Q?/9yktXawOBpzsXHV0PSuPyzNXSa2q62aHEUwjzS7f8+04DnZ/9dJVnBpJ+0/?=
+ =?us-ascii?Q?+xLzu99BMDg3f76BQNXnFZZZ/0hjRe1HugVCIfNXIDs2r0N4wj6+bBjUQpJf?=
+ =?us-ascii?Q?YUhl5j3B51w5EO5uG8Mp+vBMkuCoOwLkdRnjGuh5hqJ8igmaITHg20SO9b5+?=
+ =?us-ascii?Q?A13vRJIMrcFxYSvqOQodBU6yU2g5AirNXED5HtTsSwsyUzxaeJ2aAbpNj/jH?=
+ =?us-ascii?Q?zUmjg23o89lsIwz/Up/nl3rWLK05kdAFVeTkKOvbO6DwVA4vPVihDf7+zRjc?=
+ =?us-ascii?Q?jadntI0tMUA=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?2F/O1NRjYRdMpELL7WUMdY8RsUvK+Csq7rfp5D6+pDRj1T1M4vKcaUeNoLRh?=
+ =?us-ascii?Q?eINoi5yfypaeeylU7tYks6u8VHQ9eRpCXiSEgjD5eEpSFsTNda5eI/SCSYZ8?=
+ =?us-ascii?Q?anteCzPaOqsUVN1sZXXzFDKQqym/cCrHO1CTBCRfWkOSe2udibWkclRQgBb6?=
+ =?us-ascii?Q?bRabckSWvrre/mJMLRJ3ebuGGPRWpuZeJKMsCAV9dE1bKAB6I9zHD/YX3sAs?=
+ =?us-ascii?Q?xCrrRLrK1tJ3BDqyzV4GbHFg/9lG2Gux4EB5HdIYdUFS1oS75B0skK5giGNc?=
+ =?us-ascii?Q?y0PzmMezf8tq4TXF6nl4600x9UZ90vY1Bd2hrHgMT6Htdl5zXYLHpbVEt8OI?=
+ =?us-ascii?Q?6//DWQv5ejK58MultfBHsn93mhLzB+EEND1nPFDjlPx0GVP0rJReu2wcPze5?=
+ =?us-ascii?Q?zKAxiZ6s84sdtGxX7jn7skUhF3JwKhA+29t3EWvKR/Q1yoUIa90Q/aGz0Pn5?=
+ =?us-ascii?Q?aFFJfIGYar6D4E/2vKXtMNFrMpSuZWfs46ubZDagII+91XG/x5W1Yc5YFVZD?=
+ =?us-ascii?Q?boIon2ov0GRNcj5tPijgOq/pjdAOVzRMVi1zfDVe+r2xjTRuuH1uBJgRsIEG?=
+ =?us-ascii?Q?VHo18tRTH/Id8iiXJYgB6xhrRXeW258fPY/2MBORLUwSOb53K6za2TSY9ykV?=
+ =?us-ascii?Q?ypaWYODy6HJJzHFrr3iRJV1LeY3lIneJr+crbCWLC9AT3Brdfm5vhEqSPj+3?=
+ =?us-ascii?Q?zBRTcMKe7bD4L2p+2SbP9luuJykDC1GN2OQhfkTm0bkWUJaxw9uofOHvbGz7?=
+ =?us-ascii?Q?bohIA/zK3Zuuq8kA5Gvy7U/YqQbZvt8rzWU3OU0cfcNFlJnw/orJGswQSVcX?=
+ =?us-ascii?Q?rOEa78/ai+504keOkeXaTs/acrR0FaTyA3z5LOad9COA0r8GCjRyjBUd4Wzc?=
+ =?us-ascii?Q?Av/HkiqrtJ+hjOZM5Mt//uNOwPHc7Ed/teKcW+lsyyWBUhfQRuhEC0+LNE/y?=
+ =?us-ascii?Q?s4EcK3jhjphjIWGGmK1l79Ah63PlcaIrZAbIbhXrgc8r5wQRY2H+8bC+FgY/?=
+ =?us-ascii?Q?JpYzfdhVP7bA2A9BNtE/ZC8LRj1DNNw/GoyshXnXt5GBO43keeyykAdBOKrM?=
+ =?us-ascii?Q?KeUaT524nh1ly7Iy/iVU2owxICiDh1O2wM1MSGa+NvuAMctftAFaZD+TCcIG?=
+ =?us-ascii?Q?CPkAy/NW8vqlHbqgeGR8fmRqlGX8KU+c2ZyAxzrMWF+6yX/kiP/08LFMW3mc?=
+ =?us-ascii?Q?JAZu1dpfyHLk3ss4yfqW1r4HoRglrYbQPMo5Q7npqP2Lyzdd8iZ3Bgbg1YeJ?=
+ =?us-ascii?Q?9efKB8t2G3iePKmpvp4UzBzSWe2o72vlTLzPCnHqd2KCTwh6XZMm8Ch5ADbD?=
+ =?us-ascii?Q?wtwTuWlgfo8b1JBfbhjqabUnF21i/lYTdkdEVferQx+A+YeWj2Q/BXpFIfAi?=
+ =?us-ascii?Q?eR0EJgVr7YBaa9qX9GR1ma8m1NLHDeYAwzkB0Kz7LiVoSIMG5HbglhooL8YJ?=
+ =?us-ascii?Q?BPSqOZUQ9fSkfvxT49xLYJPmYawwDkfwwErhxfTqmRGCcVYR4R2SKXdB6hfH?=
+ =?us-ascii?Q?ZYG7LKEVHDYluPzSn5xYOJgjw268vuL5cBj+emMdh4FaqIxUeAXdNycRnGrG?=
+ =?us-ascii?Q?9qoK3vRGoILMW/2eXIc=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: TovrO80skgeDNpjU9KTa8PZgbNQUpJVW
-X-Authority-Analysis: v=2.4 cv=f61IBPyM c=1 sm=1 tr=0 ts=6810c8be cx=c_pps a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17 a=XR8D0OoHHMoA:10 a=M5GUcnROAAAA:8 a=Ikd4Dj_1AAAA:8 a=QX9oew5WznxAzni0h4MA:9 a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNDI5MDA5NCBTYWx0ZWRfXx/YGDZO0QA/3 2qAbUzQKqGR0MQN2Y8zFKxJ0Pa/hXghEvI0xNASafzj4tocMx9oi6l0z7j0o2Hjdv/W9yXvPzPQ SINzcKWQ6FzrlK+B9Ps3jcRrp2sz2SLcUdY54YXwayY2RhYEPKsKbd8Dy9Z3/a7BrXrivY43Oi1
- m1vZ3vZxIsTJZKr3bpDizBGk/NFGaPiHWx84W4uOJcUinYVJlnZFJtP4eq/lD/wuayUFBWtJA/i Mw6NI4ZKcGzPOyOYdpO/g0DTTVxJXXPE7KtXpRyKcSDcXskWSNhOyiiUc3YQCb3IoJZ/YjVYFyO 2tL4pEl8P4NYFYcVLQZMBob6Sr4Hh307U8kDByAAUI/Xuittvrj3UezgDrx46+u7bm4N7EUtfjH
- ayCiWGv8VU/rkM0atPkzX/lMUq5NaMnAwY7rPh5yaWH4wHzx+0GA25iADLwyoUOxfzBI8G81
-X-Proofpoint-ORIG-GUID: TovrO80skgeDNpjU9KTa8PZgbNQUpJVW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-04-29_04,2025-04-24_02,2025-02-21_01
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3676c6fe-eeb5-436a-779c-08dd871b5dd0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Apr 2025 12:42:56.4111
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8DaO46vsyrOmYcvEuer4+PCgKjnn/shfbLOjrqPhUidD1EDT36/j1yv2gbqnUR2uehtNIO+nMP16TQKIbH3nhg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7191
 
-Add device and driver requirements for IPsec Operation.
 
-Signed-off-by: Srujana Challa <schalla@marvell.com>
-Reviewed-by: Parav Pandit <parav@nvidia.com>
----
- device-types/net/description.tex        | 83 +++++++++++++++++++++++++
- device-types/net/device-conformance.tex |  1 +
- device-types/net/driver-conformance.tex |  1 +
- 3 files changed, 85 insertions(+)
+> From: Srujana Challa <schalla@marvell.com>
+> Sent: Tuesday, April 29, 2025 6:10 PM
+> Subject: [PATCH RFC v6 0/4] introduce IPsec Operation in virtio-net
+Can you please drop the "RFC" from the series as Michael asked in [1].
 
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index 2540f2b..36b2a80 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -3596,6 +3596,89 @@ \subsubsection{IPsec Operation}\label{sec:Device Types / Network Device / Device
- 
- See \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Resource objects / VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-INBOUND-SA]{VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA}.
- 
-+\devicenormative{\paragraph}{IPsec Operation}{Device Types / Net Device / Device Operation / IPsec Operation}
-+
-+When the device supports IPsec operations,
-+\begin{itemize}
-+\item the device MUST set VIRTIO_NET_IPSEC_RESOURCE_CAP, VIRTIO_NET_IPSEC_SA_CAP
-+capability in the \field{supported_caps} in the command VIRTIO_ADMIN_CMD_CAP_SUPPORT_QUERY.
-+\item the device MUST support the administration commands
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE,
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY, VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY,
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY for the resource types
-+VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA and VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA.
-+\end{itemize}
-+
-+When any of the VIRTIO_NET_IPSEC_RESOURCE_CAP or VIRTIO_NET_IPSEC_SA_CAP
-+capability is disabled, the device MUST set \field{status} to
-+VIRTIO_ADMIN_STATUS_Q_INVALID_OPCODE for the commands
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE,
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY, VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY,
-+and VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY for the resource types
-+VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA and VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA.
-+
-+The device MUST set \field{status} to VIRTIO_ADMIN_STATUS_EEXIT for the
-+command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE when the resource \field{type}
-+is VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA or VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA,
-+if the object already exists with the supplied \field{id}.
-+
-+The device MUST fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE for the
-+VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA object if,
-+\begin{itemize}
-+\item \field{id} is greater than or equal to \field{outb_sa_limit}.
-+\item the supplied SA parameters, such as mode, options, cipher and authentication
-+      algorithms are not supported in the capabitlity VIRTIO_NET_IPSEC_SA_CAP.
-+\end{itemize}
-+
-+The device MUST fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE for the
-+VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA object if,
-+\begin{itemize}
-+\item \field{id} is greater than or equal to \field{inb_sa_limit}.
-+\item the supplied SA parameters, such as mode, options, cipher and authentication
-+      algorithms are not supported in the capabitlity VIRTIO_NET_IPSEC_SA_CAP.
-+\end{itemize}
-+
-+The device SHOULD maintain a table for subsequent lookups to inbound/outbound data
-+with the corresponding SA based on the supplied \field{id}.
-+
-+The device MUST allow recreating the resource objects using the command
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE which was previously destroyed using
-+the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY respectively without
-+undergoing a device reset.
-+
-+The device MAY fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE with
-+the \field{status} set to VIRTIO_ADMIN_STATUS_EINVAL for the
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTB_SA or VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INB_SA
-+commands if the resource object with the same \field{spi} already exists.
-+
-+On device reset, the device MUST destroy all the resource objects which have been created.
-+
-+\drivernormative{\paragraph}{IPsec Operation}{Device Types / Net Device / Device Operation / IPsec Operation}
-+
-+The driver MUST query the capabilities using VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY
-+to discover the capability types the device offers.
-+
-+The driver MUST get VIRTIO_NET_IPSEC_RESOURCE_CAP and VIRTIO_NET_IPSEC_SA_CAP
-+if listed in VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY command result, using
-+VIRTION_ADMIN_CMD_DEVICE_CAP_GET to discover the capabilities the device is
-+able to offer.
-+The driver MUST set VIRTIO_NET_IPSEC_RESOURCE_CAP and VIRTIO_NET_IPSEC_SA_CAP
-+using VIRTIO_ADMIN_CMD_DEVICE_CAP_SET to indicate the device which capability
-+the driver uses.
-+
-+For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE, when creating a resource
-+VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA, the driver MUST set all the parameters
-+in \field{struct virtio_crypto_resource_obj_ipsec_sa} with relevant values.
-+And when create a resource object VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA,
-+the driver MUST set all the parameters except
-+\field{struct virtio_crypto_ipsec_tunnel_param}.
-+
-+The driver SHOULD NOT add multiple inbound SA objects with the same \field{spi}.
-+
-+In the outbound data path, the driver MUST ensure that packets do
-+not exceed the PMTU prior to transmission to the device.
-+(Refer to \hyperref[intro:IPSEC]{[IPSEC]} for a detailed description of PMTU)
-+
- \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
- Types / Network Device / Legacy Interface: Framing Requirements}
- 
-diff --git a/device-types/net/device-conformance.tex b/device-types/net/device-conformance.tex
-index d88484c..7fe8505 100644
---- a/device-types/net/device-conformance.tex
-+++ b/device-types/net/device-conformance.tex
-@@ -18,4 +18,5 @@
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Flow filter}
-+\item \ref{devicenormative:Device Types / Network Device / Device Operation / IPsec Operation}
- \end{itemize}
-diff --git a/device-types/net/driver-conformance.tex b/device-types/net/driver-conformance.tex
-index d346b88..0d20190 100644
---- a/device-types/net/driver-conformance.tex
-+++ b/device-types/net/driver-conformance.tex
-@@ -18,4 +18,5 @@
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Flow filter}
-+\item \ref{drivernormative:Device Types / Network Device / Device Operation / IPsec Operation}
- \end{itemize}
--- 
-2.25.1
-
+[1] https://lore.kernel.org/virtio-comment/20250428032726-mutt-send-email-m=
+st@kernel.org/T/#me325584c9d646c3fdda00a2ed7d98054924c48d7
