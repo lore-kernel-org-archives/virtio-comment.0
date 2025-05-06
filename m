@@ -1,177 +1,201 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFB125DB1E
-	for <virtio-comment@lists.linux.dev>; Tue,  6 May 2025 15:19:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80C7502BE
+	for <virtio-comment@lists.linux.dev>; Tue,  6 May 2025 15:40:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1746544762; cv=none; b=IMRBuLHhMKY7ICAFWIUmfVO8zwiWWENw0oEYtPdvb8kZ4RISFPys13qgeSB12dB+DXiA9FG6M8fZdcsUlPVf2oHRSziVKz3TYE25Dlbj6eDv9AE3puMbjzCf+e1uTEjuzCyi++i2Jw2Q67plA6fOSWEK+4mNcSu33laIan8Hk7s=
+	t=1746546026; cv=none; b=GGWpga3TfrzYQUjkv8tgGfqABDsFHTJ/vAOgVxOUD5pK59DzXfUyHBqY0SMJZbVm6ERRmtDE0O6REtAuTB1Paz4L/c0E6Q6TXSuTW39EXDtNm1pA9QcEWSSSHF+OEW9RGDm8qtaVExTighxVJzMfPFbE9NtTHqFnb5qMNtmw/6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1746544762; c=relaxed/simple;
-	bh=0NpzqyhiFEPc22yZ0ByuuVxJYaO2XweUXKL1xd36nTE=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CU6cV4TiWDdNwFIf4nhJVlhy2WwYNuYbGwtvMY+ra3dYbMiX98Hn+/4q4DVqZnZOGu/uLMTzTTObYckDZ7d0VkZsLS51vvAZNeVV/FzISv87vAcWdvjRuoTCztyKGGWBDOW5jxbiFYfY8fDx+gzGiY20mUYb9T+Ra0ycUcvkVsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com; spf=pass smtp.mailfrom=quicinc.com; dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b=QAMCu2YJ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quicinc.com
+	s=arc-20240116; t=1746546026; c=relaxed/simple;
+	bh=BKUvZb5L188rF0rI16vHI9olaC9tUGtRIxBQ4dbdHEo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fxZLFVC9pScMGTZoO5hjNgSWV80njoI/kPmwWhSYsGIz5eVsYEc62n8RU3vmQ6QAUIR70oyXC/HGyQmibF/2dXBAD3cktD8vxqEy0iZPlsOuCXjeGygVje5dSBWq8faAr0yGVS3Tg9ZRvrKFXb2xqnmYDFFCKwpDbVo+APvv4B8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=d9Aad3bB; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b="QAMCu2YJ"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54684sfL020770;
-	Tue, 6 May 2025 15:19:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Cg8CcuX7P3ehSujxszUTvZAW
-	RkKXv+k1RNDSKPlUnmo=; b=QAMCu2YJFoYWXar68HkPaoODEL+5Ls1RHKRj/JUE
-	geHPO7cS3SVWc8Yfu/xMjxXLJd+BtdcqvcG24DenDnhVBipAgPo8ygdJ7WJ4Ud/e
-	lbcgLdp+/nTVYcs1r9zyDqDOu3VOx2SvLeTgFj/qJWk2CHOi+t787L+YxdvjILSX
-	JMfBxYWTu1f9fV6Em8DLbi+wgIe/XXpK0eVzq7EpBeXv4Xa3Ryyq+wy9o3PvHgLC
-	D0IKAyQbY2vyDdj/OgtdOYlmuOwBiiH8mMWKYzTCoXHKL/agR0A0cO9Gi1hxYvty
-	l2jW8SJCyG2FY+m8p5IDUSyex4Q5Rnqbd2L9S5VHTPkB8g==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46dbwfqyav-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 06 May 2025 15:19:12 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com [10.47.209.196])
-	by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 546FJCTJ031255
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 6 May 2025 15:19:12 GMT
-Received: from PHILBER.na.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 6 May 2025 08:19:10 -0700
-Date: Tue, 6 May 2025 17:19:07 +0200
-From: Peter Hilber <quic_philber@quicinc.com>
-To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-CC: <virtio-comment@lists.linux.dev>, Cornelia Huck <cohuck@redhat.com>,
-        "Parav Pandit" <parav@nvidia.com>, Jason Wang <jasowang@redhat.com>,
-        David
- Woodhouse <dwmw2@infradead.org>,
-        "Ridoux, Julien" <ridouxj@amazon.com>,
-        Trilok Soni <quic_tsoni@quicinc.com>
-Subject: Re: [PATCH v8 3/4] virtio-rtc: Add alarm feature
-Message-ID: <ycphd6ubopui3rhaagg2tw2wt4jyhzg5ewv2ub2wme3rdvr7pj@ndducl65ktcm>
-References: <20250306095112.1293-1-quic_philber@quicinc.com>
- <20250306095112.1293-4-quic_philber@quicinc.com>
- <Z/9nnYxbkOcyR131@fedora>
- <y2drfbo2cplk5dseuvvzfgm7bywu54beynkgsl4z2sawpc2ybd@ct63vqti2tpz>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="d9Aad3bB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1746546022;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=f3J3mkeSH6g287oEcwynEPWv23QAj/b+wJLb9Al6Vxs=;
+	b=d9Aad3bBY+ZgG1OTm/wA4/wb2a1R2tTqGRlfrc5Oq3GWJp4kgNwpg6LYUXh5Mv01S1N0Ab
+	MR8Xei0NyDC9BnPdo+arNONx9uROeVt1SLoDGLwzqZ6WPjfdyz+uv5jcBU00nXLOuBfwVw
+	hii8VYnm3QuFSz2dLjKxbzB50cdPv4g=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-594-zlNMJUtNOpGTsu3Q4mt3Bw-1; Tue, 06 May 2025 11:40:21 -0400
+X-MC-Unique: zlNMJUtNOpGTsu3Q4mt3Bw-1
+X-Mimecast-MFC-AGG-ID: zlNMJUtNOpGTsu3Q4mt3Bw_1746546020
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-3a064c45f03so2483404f8f.0
+        for <virtio-comment@lists.linux.dev>; Tue, 06 May 2025 08:40:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1746546020; x=1747150820;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=f3J3mkeSH6g287oEcwynEPWv23QAj/b+wJLb9Al6Vxs=;
+        b=Azn/NxG/o4AuGy/dlIjODHD4GN//Jw4/leUIhKt27nZjZYkw1f9TNG7OgfKd7d+oUA
+         v4sq1l4f6c3rwegqab68dAXqnKsBSVfeAcxQV116W12XtAJ8Tv8LgdQkfBikfkSj2tpC
+         8LdNQBR4R5+23+imDr/LBP1uBZm6uMM6vZKK0bIjeReQEoA7PvXGF6gjluPS8s201rP2
+         07B+iTzSf5TbwiUZo+DcRBA/esZkQwk0CUP9RQNxTERYrvWSXJLg11bfnvOsDmkLAWZL
+         2xY4z0bL0JJkgaPFXDCtBIk/X9Sqfipz9LOIXpFZ5/cydo2XktPhn0LQ92AdYNb50zj9
+         6WIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUxXZHhtl5OJc1JXJ/TApUCfa5KxkUxVilRuIjlajoOiVrdsWfCl7AEuBcOLJsKfCA3ATUuhpzWaSA0+Ux7eA==@lists.linux.dev
+X-Gm-Message-State: AOJu0YylK5YQNUH+vwFKc+wifZKuZ80ul/a/estDxbVUEnnpnlVlstOe
+	oirXrUiGrmgbsdT5QnM5u0B+soPv7nC3INt3dIxy7MIbMnBX5kheXr6m/59wQGUhsKL/ow0GtSR
+	jm4dLucBdqM5jb26SY5wkIId40TwBQpkp2/Dwl+SRGMxlwBJKI3pUzOXO1YOLZOmQ
+X-Gm-Gg: ASbGnctsaZ9crQeCQJLeCJa8ejbK2f+N7sLgJ/xN0xOcC3TocA98TyYPJGo/LpRd9Xf
+	MYqNd8rQ/yN++PP+fyKDystao7qdWGoYtjAKgbo6Cc88JXkz8RCuL9sRfTeQJOZypo7Q5gzHdnW
+	pM2iwuDHkiNEcCAC8pp3lYRFsLG0F4Czrp1yQF+kWJQWl477schM3OO3hw8FktWBaa+NogLWmnw
+	M3JLrJQgwt5bDTbNXeVJmlsAHALHnlMpJ6iDwOSCmPcKufwFlHP4Gl+s5xhB/HyhffjwE2Kdriv
+	pI5N6+jRf6+iFmET7As=
+X-Received: by 2002:a05:6000:3106:b0:3a0:6c43:6a69 with SMTP id ffacd0b85a97d-3a0b443f2e1mr199654f8f.29.1746546019679;
+        Tue, 06 May 2025 08:40:19 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEmtFxMKGGw13QrD7HBm2MQFePX+AE0NBTJPwPvfhqJiV7x1BPMdf27dG2a/okoQuUm4sujhA==
+X-Received: by 2002:a05:6000:3106:b0:3a0:6c43:6a69 with SMTP id ffacd0b85a97d-3a0b443f2e1mr199634f8f.29.1746546019295;
+        Tue, 06 May 2025 08:40:19 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:2706:e010::f39? ([2a0d:3344:2706:e010::f39])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3a099ae3356sm13820950f8f.29.2025.05.06.08.40.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 May 2025 08:40:18 -0700 (PDT)
+Message-ID: <2c880e08-9d92-45ee-be92-3bfc758e928c@redhat.com>
+Date: Tue, 6 May 2025 17:40:17 +0200
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <y2drfbo2cplk5dseuvvzfgm7bywu54beynkgsl4z2sawpc2ybd@ct63vqti2tpz>
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Proofpoint-ORIG-GUID: 2Dv8EQhTpJk4joGt4qXiaqVdhdVZonvZ
-X-Proofpoint-GUID: 2Dv8EQhTpJk4joGt4qXiaqVdhdVZonvZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA2MDE0OCBTYWx0ZWRfX2M50srcdfBQw
- gclekS8WcdOSS0CaCRRzDr4Wf5Pn4YJ0OjPWDauxtPg55OPOBoiHCEjXDHcL9OXl0wb/I9UvbYn
- N1nQ/68iOH9RlLzlkpUbj1lp0pq+OQX1lzxG+x6/RqsaCnlintZqKmP0/v0jqxSfEcYrHhNc2Cz
- ydMPcCD8XN2fzbgMss3rb68abxNnoWsSL7I7lL19JBfdwXHCB8D+gKfIpSe42+4Sx6phL7wh0x1
- WH9uZ5hHewVnLaMz/HW2S3Wyg5AVaAwTYLGquk347bbeWXiT/wEtAi8S2apgz9Tg3LOOeZLX1JZ
- U4NUNqiLWqfoEApWVVu+vqIbm700CSeVj4cq7mgIhKQSN8Gc0hVRZWiiFXp7PIAEGz7mKG1jMe5
- OHqYIiLtLxl98VN7NTUAmdx+Dmxv5IIIEKa5+mmv+CR+XiOkrNAWH2ZeEZjnd6deiLtwX3sp
-X-Authority-Analysis: v=2.4 cv=AfqxH2XG c=1 sm=1 tr=0 ts=681a2870 cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=GEpy-HfZoHoA:10 a=kj9zAlcOel0A:10 a=dt9VzEwgFbYA:10 a=VwQbUJbxAAAA:8
- a=bs-e4Z8cAAAA:8 a=COk6AnOGAAAA:8 a=cUT89lhJSSQL6q9Az6EA:9 a=CjuIK1q_8ugA:10
- a=YFpLQiK6rFjqGb8m0bXF:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-06_07,2025-05-05_01,2025-02-21_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 priorityscore=1501 phishscore=0 impostorscore=0
- mlxscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 mlxlogscore=981
- spamscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
- definitions=main-2505060148
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] virtio-net: Fix to avoid using reserved feature bits
+To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: "hengqi@linux.alibaba.com" <hengqi@linux.alibaba.com>,
+ "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+ "cohuck@redhat.com" <cohuck@redhat.com>,
+ "mvaralar@redhat.com" <mvaralar@redhat.com>, Jason Wang
+ <jasowang@redhat.com>, Shahaf Shuler <shahafs@nvidia.com>,
+ Willem de Bruijn <willemb@google.com>, Daniel Verkamp <dverkamp@chromium.org>
+References: <20250423014257-mutt-send-email-mst@kernel.org>
+ <CABVzXA=Uof+TdU6H+eoiOOVjCZwfXfnLV8wAMP87Gz4G92fncA@mail.gmail.com>
+ <20250423140404-mutt-send-email-mst@kernel.org>
+ <bb5dd95a-15d5-4785-822c-e2b1e773950c@redhat.com>
+ <20250429164256-mutt-send-email-mst@kernel.org>
+ <CY8PR12MB7195AB46624A4339A305BE1CDC832@CY8PR12MB7195.namprd12.prod.outlook.com>
+ <68c4e73a-fa9e-4e2e-8c38-ed4a322bf47e@redhat.com>
+ <CY8PR12MB7195E87CBF30EB5C7705835DDC832@CY8PR12MB7195.namprd12.prod.outlook.com>
+ <20250501093933-mutt-send-email-mst@kernel.org>
+ <PH8PR12MB7208BA2F9A48EEBF42B15AE0DC892@PH8PR12MB7208.namprd12.prod.outlook.com>
+ <20250506035434-mutt-send-email-mst@kernel.org>
+ <PH8PR12MB720860F36BE0C9E7C1C35A0EDC892@PH8PR12MB7208.namprd12.prod.outlook.com>
+ <862ef83f-9ed8-4d50-85ca-36231e93514a@redhat.com>
+ <CY8PR12MB7195FC058918DCC17E56FF80DC89A@CY8PR12MB7195.namprd12.prod.outlook.com>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <CY8PR12MB7195FC058918DCC17E56FF80DC89A@CY8PR12MB7195.namprd12.prod.outlook.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 7M0PLKK5v0XdoZd8oN4u8rerOQ0ShlTsqfzjxBXP3Dc_1746546020
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Apr 17, 2025 at 05:05:00PM +0200, Peter Hilber wrote:
-> On Wed, Apr 16, 2025 at 10:17:33AM +0200, Matias Ezequiel Vara Larsen wrote:
-> > On Thu, Mar 06, 2025 at 10:51:11AM +0100, Peter Hilber wrote:
-> > > Add the VIRTIO_RTC_F_ALARM feature (without normative statements).
-> > > 
-> > > The intended use case is: A driver needs to react when an alarm time has
-> > > been reached, but at alarm time, the driver may be in a sleep state or
-> > > powered off. The alarm feature can resume and notify the driver in this
-> > > case. Alarms may be retained across device resets (including reset on
-> > > boot).
-> > > 
-> > > Peculiarities
-> > > -------------
-> > > 
-> > > Unlike usual alarm clocks, a virtio-rtc alarm-capable clock may step
-> > > autonomously at any time: An alarm may change back from "expired" to
-> > > "not expired" before the driver has started processing an alarm
-> > > notification.
-> > > 
-> > > To address the above, and the device resets, define "alarm expiration"
-> > > in such a way that the driver always has a chance to react to an alarm,
-> > > and make the device always responsible for notifying the driver about an
-> > > alarm expiration.
-> > > 
-> > > The VIRTIO_RTC_REQ_SET_ALARM_ENABLED request is there so that the Linux
-> > > ioctls RTC_AIE_ON and RTC_AIE_OFF only need to emit one request.
-> > > 
-> > > Signed-off-by: Peter Hilber <quic_philber@quicinc.com>
-> > > ---
-> > > 
-
-[...]
-
-> > > +An alarm \emph{expiration} becomes obsolete
-> > > +
-> > > +\begin{itemize}
-> > > +\item when the driver disables the alarm, or
-> > > +
-> > > +\item when the driver sets an alarm time, or
-> > > +
-> > > +\item when the clock jumps backwards, before the alarm time, or
-> > > +
-> > > +\item when another alarm expiration event happens.
-> > > +\end{itemize}
-> > > +
-> > > +If an alarm expiration becomes obsolete, it is unspecified which alarm
-> > > +actions the device executes for this alarm expiration, and the device
-> > > +stops executing these alarm actions after a grace period.
-> > 
-> > Can't you leave this paragraph implementation-specific and thus
-> > removing it completely?
+On 5/6/25 5:00 PM, Parav Pandit wrote:
+>> From: Paolo Abeni <pabeni@redhat.com>
+>> Sent: Tuesday, May 6, 2025 8:09 PM
+>> On 5/6/25 10:56 AM, Parav Pandit wrote:
+>>>> From: Michael S. Tsirkin <mst@redhat.com>
+>>>> Sent: Tuesday, May 6, 2025 1:26 PM
+>>>>> There are few proposals on table.
+>>>>>
+>>>>> 1. From Paolo,
+>>>>> - 0 to 23, and 50 to 127 Feature bits for the specific device type
+>>>>> + 0 to 23, and 46 to 127 Feature bits for the specific device type
+>>>>>
+>>>>> This does not have good reason of why it should still be 127.
+>>>>>
+>>>>> 2. From me:
+>>>>> - 0 to 23, and 50 to 127 Feature bits for the specific device type
+>>>>> + 0 to 23, and 45 to 64 Feature bits for the specific device type
+>>>>>
+>>>>> This is an extension of Paolo, to justify that implementing feature
+>>>>> bits is
+>>>> extremely hard even for experts as pointed by Paolo.
+>>>>> It is worth to not extend it further.
+>>>>> RSS can be negotiated via new bit 44 in future bit as OR of 44 and
+>>>>> 64 so that
+>>>> more wider users (Linux, freebsd, qnx, Windows, dpdk pmd) can pick 44.
+>>>>>
+>>>>> 3. From me:
+>>>>> Keep the feature bits encoding as is up to 127 bits, because may be
+>>>>> there is
+>>>> (unknown and weird) value in having 127 feature bits.
+>>>>> (unknown because the reasoning of #1 and #3 mismatch).
+>>>>> In that case,
+>>>>> VIRTIO_NET_CTRL_GUEST_OFFLOADS command text to be updated to
+>>>> indicate
+>>>>> feature fits A to D map to
+>> VIRTIO_NET_F_CTRL_GUEST_OFFLOADS.offloads
+>>>> bits A' to D'.
+>>>>>
+>>>>> I am fine with option #2 and #3.
+>>>>> Doing #1 for sure is wrong.
+>>>>> Wrong because it delays the problem of #1 from this to another
+>>>>> feature [A]
+>>>> who's voting already completed.
+>>>>>
+>>>>> [A]
+>>>>> https://lore.kernel.org/virtio-
+>>>> comment/DM4PR18MB4269F73B786E83EF68A70F
+>>>>> 37DFB82@DM4PR18MB4269.namprd18.prod.outlook.com/T/#t
+>>>>
+>>>>
+>>>> #3 seems more conservate.
+>>>
+>>> Are you good with #3?
+>>
+>> I'm sorry for the latency. Let me double check to avoid possible
+>> misunderstanding; #3 means:
+>>
+>> - 0 to 23, and 50 to 127 Feature bits for the specific device type
+>> + 0 to 23, and 45 to 127 Feature bits for the specific device type
+>>
+> No change in above feature bits.
 > 
-> OK.
+>> using bits 46-39 for UDP tunnel offloads and likely bit 45 for
+>> VIRTIO_NET_F_OUT_NET_HEADER.
+>>
+> This also to use bit 69 as proposed.
+>  
+>> The VIRTIO_NET_F_CTRL_GUEST_OFFLOADS mapping should be specified
+>> after eventually a new offload feature will be defined using a bit >= 64.
+>>
+> No. UDP tunnel feature bits 65 to 68 maps to command bits 46,47,48,49.
+> This is the only description change in VIRTIO_NET_F_CTRL_GUEST_OFFLOADS command.
+> Would it work?
 
-It seems complicated to me. If the device does not stop alarm actions
-when the driver disables the alarm, it becomes impossible to reliably
-clear the device state ("start with a clean slate", as per the
-discussion in [2]). For this, v8 has the requirement
+AFAICT, yes, it should work.
 
-	If the driver successfully requests VIRTIO_RTC_REQ_SET_ALARM, or
-	VIRTIO_RTC_REQ_SET_ALARM_ENABLED, for clock C, the device MUST
-	stop serving any previous alarm expiration event for C before
-	the device marks the message as used.
+But it will not avoid the immediate need to expand the virtio features
+negotiation above 64 bits, with the already mentioned complexity.
 
-This is the only hard requirement which restricts a v8 implementation,
-every other alarm action could still be done within an indefinite "grace
-period".
+I would preferably avoid that, if possible: I restarted this thread with
+such a goal.
 
-I think the "grace period" related requirements should be dropped, so
-that the behavior is essentially implementation-specific apart from
-stopping the alarm action when the driver disables the alarm. Maybe I
-can change the last paragraph cited from the patch like the following:
+Note: the implementation complexity spark from u64 hard-coded
+"everywhere" in both the kernel, qemu and the related APIs.
 
-	If an alarm expiration becomes obsolete, it is unspecified which
-	alarm actions the device executes for this alarm expiration.
-	When the driver disables an alarm, the device stops any alarm
-	action for this alarm before using the buffer.
+> In fact, this command extension alone would have been sufficient if the vnet_hdr had a fixed size where new fields could be added.
 
-Best regards,
+I could not parse this last statement. The virtio_net_hdr size depends
+on the negotiated features, and AFAICT  VIRTIO_NET_F_CTRL_GUEST_OFFLOADS
+can't replace features negotiation. Could you please rephrase?
 
-Peter
+Thanks,
 
-[2] https://lore.kernel.org/virtio-comment/a284ed4f-9ca1-4b8a-8c79-beec5040bd6b@opensynergy.com/
+Paolo
+
