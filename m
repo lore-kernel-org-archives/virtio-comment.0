@@ -1,333 +1,273 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B02A28BAA2
-	for <virtio-comment@lists.linux.dev>; Wed,  7 May 2025 15:26:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D09A28C033
+	for <virtio-comment@lists.linux.dev>; Wed,  7 May 2025 15:51:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1746631570; cv=none; b=pqguvpV7pgbCe98YQT/LpX3sDDe2aAkTJg7sEg8xn++IbIpG4uqXDqfNX45BkLAzY9nwfGcCN8SoawaJz6BEvjfL1MsDqVFmTFQ/4p6VNQ9NIhcHIWo76d8NjNQWoY8WpdaFbq2bbrvE7gs3RhOjGjkX2z+k8k9z/LxETZg133o=
+	t=1746633077; cv=none; b=oqTRnxL1fOXt59iQM9E6K9r7T8L9gJzYw7JqSb9XFdw5PypvXKeGlkNq2wExbHKWRn6D3PuS/Rc1DSjE3ner0LV/b/6E568KwYmoXK1O5HBvUV3c0fL6LKctXMpC3u3iBzvSBa3+yqmblwUTXQjC51uw3tzDWMoQ2GtUxnpNi9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1746631570; c=relaxed/simple;
-	bh=9wGVEkL/ujccV3KCoaBTO5QLO8f8b1ui41dSzVoVXj0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:content-type; b=ii1ZyETwhsGZixDR/qYCZVsN3H0fVxMDQFljKbispUcumNSY+Kcu+h0ouZZVinDTolTIlRkom27SI32ua/6HXbUM05xoJ6kJY+w9Xdxu7b9TbP0/3lLh0K3fTanwH6F79FzslfokBDhVN3LzzbUgYxD+FZurFwIDNyDq4/OKxY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=H24DkXiY; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1746633077; c=relaxed/simple;
+	bh=cSzBhSDt4HKGGJ0X1F+A+3IBjcrt1gJw3bIi7wtoMCU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qSjrJQPmgjq6dCSGC2JIPrv1dxDJe7PqvTGW6/K4eKxObA47jVencg1e2gdAb/9BhrliO2GJOgyZOSnsmOJffydH3qOPDZxlOv6o08kG+8GlKQclRvmiJJ9+hNYoEaSMEroGO6YaLLjICyWnbgpIiaIaW0vARtn7EIFfKsikEWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com; spf=pass smtp.mailfrom=quicinc.com; dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b=FCSufJx3; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quicinc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="H24DkXiY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1746631567;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=rPVmENkE9jC003vwWeMDd3JexGpTPdBlumucS0w6UOE=;
-	b=H24DkXiYjEbE3W78J79IXdLybZVNVO7i5SupL5glbugtqwjaTgW9cX8WjlZbSG4hnbqUqJ
-	IbbYuWqVpOl1SU7n+Y5AM+Ve9f9rxOS0UBAWahg5sGy4Q1l8AL4K1Q2S+GvUkYHJ8TUYGl
-	l2T4DYRign5mSB9waCEc1MGrBV5k3JI=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-368-HWDUxSTANaOgnOVWdE_PGg-1; Wed,
- 07 May 2025 11:26:06 -0400
-X-MC-Unique: HWDUxSTANaOgnOVWdE_PGg-1
-X-Mimecast-MFC-AGG-ID: HWDUxSTANaOgnOVWdE_PGg_1746631565
-Received: from mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.40])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 66EF918004AD
-	for <virtio-comment@lists.linux.dev>; Wed,  7 May 2025 15:26:05 +0000 (UTC)
-Received: from desktop.redhat.com (unknown [10.45.224.21])
-	by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2F1E819560B3;
-	Wed,  7 May 2025 15:26:03 +0000 (UTC)
-From: Alberto Faria <afaria@redhat.com>
-To: virtio-comment@lists.linux.dev
-Cc: Alberto Faria <afaria@redhat.com>
-Subject: [PATCH] virtio-blk: Add a VIRTIO_BLK_T_OUT_FUA request type
-Date: Wed,  7 May 2025 16:26:02 +0100
-Message-ID: <20250507152602.3993258-1-afaria@redhat.com>
+	dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b="FCSufJx3"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 547A8WwP009115;
+	Wed, 7 May 2025 15:51:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=n4N5MgT5Ui+BBbvjRnSaem
+	FkV2xeL0YHZcxE/RSA/rM=; b=FCSufJx3EqArRF4LpcpV28b+9mKczG4Fx2rk7k
+	Tdjc59zvnX/X18JfLDsvVYzOnpeqFBHTVRIOzCe8+h2HusE00bbNyiFhOYIyXqC5
+	IbRYGgei5TQP/APbw7mGNmjVD1IEyC3gWTR0ksYZTE9vqNwEXAAbQhjJe5f3ObHK
+	WdYr8U4HOgZ/ZYwCvEiCw5Cb3M6Zobd98ZWBj06pZOQzSS+KUGetx/XWdmKnkc1/
+	uE+rCxVEfYlZTUkwaEbJc42RROKjyRE5LAmsgBvZMcbm40jba8dQ0X5z2YDwOQCq
+	pYGcA5IZVkpXS+TewYcof/h60OUzNO52CZC/vF8h+s7KtlnA==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46g5gh90m6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 07 May 2025 15:51:08 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com [10.47.209.197])
+	by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 547Fp7oN015136
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 7 May 2025 15:51:07 GMT
+Received: from PHILBER.na.qualcomm.com (10.80.80.8) by
+ nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Wed, 7 May 2025 08:51:04 -0700
+From: Peter Hilber <quic_philber@quicinc.com>
+To: <virtio-comment@lists.linux.dev>
+CC: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>,
+        "Jason
+ Wang" <jasowang@redhat.com>,
+        David Woodhouse <dwmw2@infradead.org>,
+        "Ridoux,
+ Julien" <ridouxj@amazon.com>,
+        Trilok Soni <quic_tsoni@quicinc.com>,
+        "Matias
+ Ezequiel Vara Larsen" <mvaralar@redhat.com>,
+        "Michael S. Tsirkin"
+	<mst@redhat.com>,
+        Peter Hilber <quic_philber@quicinc.com>
+Subject: [PATCH v9 0/4] virtio-rtc: Add device specification
+Date: Wed, 7 May 2025 17:50:32 +0200
+Message-ID: <20250507155036.1489-1-quic_philber@quicinc.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.40
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: SP5l2Rqa_q0QgtCTllOg7J715B-r97PS6cg2bk6g7WQ_1746631565
-X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-GUID: Cy9QVN4Z6wPCqgStb-gWugpa4vAp_qu2
+X-Authority-Analysis: v=2.4 cv=TqPmhCXh c=1 sm=1 tr=0 ts=681b816c cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=dt9VzEwgFbYA:10 a=VwQbUJbxAAAA:8 a=JfrnYn6hAAAA:8
+ a=rSkwMs5QdVAkfNlAlOwA:9 a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTA3MDE0OCBTYWx0ZWRfX5JcmZfV7K1d0
+ UhxUgdBxppk85YDhF5MMQjJgkQVRqhd5wfA6CkgossbTDfVa6tgNY0PWgwKvY0QzO4lGzPVZqzx
+ 2LCZnots8aGMbeIwJ5Swl4SqQ0xCFZo3teX6jChl/faN3n1q3NWvgNQNORSlLyJzL/gbkG27kVx
+ zf6O90ax3FrdUSZIty4qtah85ZuMjxvSZGwIidK7UfbtDaf88GxEihrdfEK/TL56DbAauUGJVq1
+ kncJKLACj6JN0C19gCciWdNAaCa5LGTNwGHn+0wrencVkZdknL/Y3F+2uLhIP2qVVGzINBY+ho4
+ I8gAiCWgl5Og7eCQnNBWkSi36t6Qda5s70aUBJZ6FIyeE+s6a44a9+YUjs3/a01bJoti8uVHSnj
+ D3Ojcq128dNj/pVOZk2iWE5do9tWs03H2MTldJDY+bk411i4mJoccEmXApRT0AB3Hb5edNz8
+X-Proofpoint-ORIG-GUID: Cy9QVN4Z6wPCqgStb-gWugpa4vAp_qu2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-07_05,2025-05-06_01,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 mlxscore=0 mlxlogscore=999 spamscore=0
+ priorityscore=1501 phishscore=0 suspectscore=0 impostorscore=0 clxscore=1015
+ lowpriorityscore=0 bulkscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2504070000
+ definitions=main-2505070148
 
-This is a variant of the VIRTIO_BLK_T_OUT request type that further
-ensures the write becomes stable once the request completes, commonly
-known as a Force Unit Access (FUA) request.
+This iteration of the spec should address multiple review findings from
+Cornelia Huck, Matias Ezequiel Vara Larsen, and Michael S. Tsirkin.
 
-Also add a VIRTIO_BLK_F_OUT_FUA feature bit signaling support for this
-request type.
+Summary
+-------
 
-Signed-off-by: Alberto Faria <afaria@redhat.com>
----
+The RTC (Real Time Clock) device provides information about current
+time. The device can provide different clocks, for the UTC or TAI time
+standards, or for physical time elapsed since some past epoch. For UTC
+clocks, the device can also indicate how leap seconds are handled. The
+driver can read the clocks with simple or more accurate methods.
+Optionally, the driver can set an alarm.
 
-I'll be sending out implementation RFCs to linux-block and qemu-devel
-soon and will link them from here.
+The driver-side timekeeping can synchronize precisely to a local clock
+exposed by the RTC device. If supported by the device, the driver can
+obtain a cross-timestamp from the local clock and the system hardware
+counter, in a way similar to the Linux kernel ptp_kvm driver [1].
 
- device-types/blk/description.tex | 114 +++++++++++++++++--------------
- 1 file changed, 64 insertions(+), 50 deletions(-)
+The alarm allows the driver side to be woken up from a sleep state at a
+specific time.
 
-diff --git a/device-types/blk/description.tex b/device-types/blk/description.tex
-index 2712ada..4d2453a 100644
---- a/device-types/blk/description.tex
-+++ b/device-types/blk/description.tex
-@@ -66,6 +66,8 @@ \subsection{Feature bits}\label{sec:Device Types / Block Device / Feature bits}
- 	(ZNS). For brevity, these standard documents are referred as "ZBD standards"
- 	from this point on in the text.
- 
-+\item[VIRTIO_BLK_F_OUT_FUA (18)] Force Unit Access (FUA) command support.
-+
- \end{description}
- 
- \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / Block Device / Feature bits / Legacy Interface: Feature bits}
-@@ -317,6 +319,9 @@ \subsection{Device Initialization}\label{sec:Device Types / Block Device / Devic
-     driver SHOULD ignore all other fields in \field{zoned}.
- \end{itemize}
- 
-+Drivers SHOULD NOT negotiate VIRTIO_BLK_F_OUT_FUA if they are incapable of
-+sending VIRTIO_BLK_T_OUT_FUA commands.
-+
- \devicenormative{\subsubsection}{Device Initialization}{Device Types / Block Device / Device Initialization}
- 
- Devices SHOULD always offer VIRTIO_BLK_F_FLUSH, and MUST offer it
-@@ -395,9 +400,9 @@ \subsection{Device Initialization}\label{sec:Device Types / Block Device / Devic
-     VIRTIO_BLK_T_ZONE_APPEND requests.
- 
- \item the \field{write_granularity} field of \field{zoned} MUST be set by the
--    device to the offset and size alignment constraint for VIRTIO_BLK_T_OUT
--    and VIRTIO_BLK_T_ZONE_APPEND requests issued to a sequential zone of the
--    device.
-+    device to the offset and size alignment constraint for VIRTIO_BLK_T_OUT,
-+    VIRTIO_BLK_T_ZONE_APPEND, and VIRTIO_BLK_T_OUT_FUA requests issued to a
-+    sequential zone of the device.
- 
- \item the device MUST initialize padding bytes \field{unused2} to 0.
- \end{itemize}
-@@ -445,8 +450,9 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
- (VIRTIO_BLK_T_OUT), a discard (VIRTIO_BLK_T_DISCARD), a write zeroes
- (VIRTIO_BLK_T_WRITE_ZEROES), a flush (VIRTIO_BLK_T_FLUSH), a get device ID
- string command (VIRTIO_BLK_T_GET_ID), a secure erase
--(VIRTIO_BLK_T_SECURE_ERASE), or a get device lifetime command
--(VIRTIO_BLK_T_GET_LIFETIME).
-+(VIRTIO_BLK_T_SECURE_ERASE), a get device lifetime command
-+(VIRTIO_BLK_T_GET_LIFETIME), or a Force Unit Access write
-+(VIRTIO_BLK_T_OUT_FUA).
- 
- \begin{lstlisting}
- #define VIRTIO_BLK_T_IN           0
-@@ -457,6 +463,7 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
- #define VIRTIO_BLK_T_DISCARD      11
- #define VIRTIO_BLK_T_WRITE_ZEROES 13
- #define VIRTIO_BLK_T_SECURE_ERASE   14
-+#define VIRTIO_BLK_T_OUT_FUA      15
- \end{lstlisting}
- 
- The \field{sector} number indicates the offset (multiplied by 512) where
-@@ -464,9 +471,9 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
- commands other than read, write and some zone operations.
- 
- VIRTIO_BLK_T_IN requests populate \field{data} with the contents of sectors
--read from the block device (in multiples of 512 bytes).  VIRTIO_BLK_T_OUT
--requests write the contents of \field{data} to the block device (in multiples
--of 512 bytes).
-+read from the block device (in multiples of 512 bytes).  VIRTIO_BLK_T_OUT and
-+VIRTIO_BLK_T_OUT_FUA requests write the contents of \field{data} to the block
-+device (in multiples of 512 bytes).
- 
- The \field{data} used for discard, secure erase or write zeroes commands
- consists of one or more segments. The maximum number of segments is
-@@ -566,11 +573,12 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
- 
- Requests of type VIRTIO_BLK_T_OUT, VIRTIO_BLK_T_ZONE_OPEN,
- VIRTIO_BLK_T_ZONE_CLOSE, VIRTIO_BLK_T_ZONE_FINISH, VIRTIO_BLK_T_ZONE_APPEND,
--VIRTIO_BLK_T_ZONE_RESET or VIRTIO_BLK_T_ZONE_RESET_ALL may be completed by the
--device with VIRTIO_BLK_S_OK, VIRTIO_BLK_S_IOERR or VIRTIO_BLK_S_UNSUPP
--\field{status}, or, additionally, with  VIRTIO_BLK_S_ZONE_INVALID_CMD,
--VIRTIO_BLK_S_ZONE_UNALIGNED_WP, VIRTIO_BLK_S_ZONE_OPEN_RESOURCE or
--VIRTIO_BLK_S_ZONE_ACTIVE_RESOURCE ZBD-specific status codes.
-+VIRTIO_BLK_T_ZONE_RESET, VIRTIO_BLK_T_ZONE_RESET_ALL or VIRTIO_BLK_T_OUT_FUA may
-+be completed by the device with VIRTIO_BLK_S_OK, VIRTIO_BLK_S_IOERR or
-+VIRTIO_BLK_S_UNSUPP \field{status}, or, additionally, with
-+VIRTIO_BLK_S_ZONE_INVALID_CMD, VIRTIO_BLK_S_ZONE_UNALIGNED_WP,
-+VIRTIO_BLK_S_ZONE_OPEN_RESOURCE or VIRTIO_BLK_S_ZONE_ACTIVE_RESOURCE
-+ZBD-specific status codes.
- 
- Besides the request status, VIRTIO_BLK_T_ZONE_APPEND requests return the
- starting sector of the appended data back to the driver. For this reason,
-@@ -672,8 +680,8 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
- 
- Zones with VIRTIO_BLK_ZT_SWP can be read randomly and should be written
- sequentially, similarly to SWR zones. However, SWP zones can accept random write
--operations, that is, VIRTIO_BLK_T_OUT requests with a start sector different
--from the zone write pointer position.
-+operations, that is, VIRTIO_BLK_T_OUT and VIRTIO_BLK_T_OUT_FUA requests with a
-+start sector different from the zone write pointer position.
- 
- The field \field{z_state} of \field{virtio_blk_zone_descriptor} indicates the
- state of the device zone.
-@@ -731,8 +739,9 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
- equal to the sector address of the zone. In this state, the entire capacity of
- the zone is available for writing. A zone can transition from this state to
- \begin{itemize}
--\item VIRTIO_BLK_ZS_IOPEN when a successful VIRTIO_BLK_T_OUT request or
--    VIRTIO_BLK_T_ZONE_APPEND with a non-zero data size is received for the zone.
-+\item VIRTIO_BLK_ZS_IOPEN when a successful VIRTIO_BLK_T_OUT or
-+    VIRTIO_BLK_T_OUT_FUA request or VIRTIO_BLK_T_ZONE_APPEND with a non-zero
-+    data size is received for the zone.
- 
- \item VIRTIO_BLK_ZS_EOPEN when a successful VIRTIO_BLK_T_ZONE_OPEN request is
-     received for the zone
-@@ -763,9 +772,9 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
- \item VIRTIO_BLK_ZS_FULL when a successful VIRTIO_BLK_T_ZONE_FINISH request is
-     received for the zone.
- 
--\item VIRTIO_BLK_ZS_FULL when a successful VIRTIO_BLK_T_OUT or
--    VIRTIO_BLK_T_ZONE_APPEND request that causes the zone to reach its writable
--    capacity is received for the zone.
-+\item VIRTIO_BLK_ZS_FULL when a successful VIRTIO_BLK_T_OUT,
-+    VIRTIO_BLK_T_ZONE_APPEND, or VIRTIO_BLK_T_OUT_FUA request that causes the
-+    zone to reach its writable capacity is received for the zone.
- \end{itemize}
- 
- Zones in the VIRTIO_BLK_ZS_EOPEN (Explicitly Open) state transition from
-@@ -788,9 +797,9 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
- \item VIRTIO_BLK_ZS_FULL when a successful VIRTIO_BLK_T_ZONE_FINISH request is
-     received for the zone,
- 
--\item VIRTIO_BLK_ZS_FULL when a successful VIRTIO_BLK_T_OUT or
--    VIRTIO_BLK_T_ZONE_APPEND request that causes the zone to reach its writable
--    capacity is received for the zone.
-+\item VIRTIO_BLK_ZS_FULL when a successful VIRTIO_BLK_T_OUT,
-+    VIRTIO_BLK_T_ZONE_APPEND, or VIRTIO_BLK_T_OUT_FUA request that causes the
-+    zone to reach its writable capacity is received for the zone.
- \end{itemize}
- 
- When a VIRTIO_BLK_T_ZONE_EOPEN request is issued to an Explicitly Open zone, the
-@@ -806,8 +815,9 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
- \item VIRTIO_BLK_ZS_EMPTY when a successful VIRTIO_BLK_T_ZONE_RESET_ALL request
-     is received by the device,
- 
--\item VIRTIO_BLK_ZS_IOPEN when a successful VIRTIO_BLK_T_OUT request or
--    VIRTIO_BLK_T_ZONE_APPEND with a non-zero data size is received for the zone.
-+\item VIRTIO_BLK_ZS_IOPEN when a successful VIRTIO_BLK_T_OUT or
-+    VIRTIO_BLK_T_OUT_FUA request or VIRTIO_BLK_T_ZONE_APPEND with a non-zero
-+    data size is received for the zone.
- 
- \item VIRTIO_BLK_ZS_EOPEN when a successful VIRTIO_BLK_T_ZONE_OPEN request is
-     received for the zone,
-@@ -876,8 +886,8 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
- A driver MUST set \field{sector} to 0 for a VIRTIO_BLK_T_FLUSH request.
- A driver SHOULD NOT include any data in a VIRTIO_BLK_T_FLUSH request.
- 
--The length of \field{data} MUST be a multiple of 512 bytes for VIRTIO_BLK_T_IN
--and VIRTIO_BLK_T_OUT requests.
-+The length of \field{data} MUST be a multiple of 512 bytes for VIRTIO_BLK_T_IN,
-+VIRTIO_BLK_T_OUT, and VIRTIO_BLK_T_OUT_FUA requests.
- 
- The length of \field{data} MUST be a multiple of the size of struct
- virtio_blk_discard_write_zeroes for VIRTIO_BLK_T_DISCARD,
-@@ -939,8 +949,8 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
- MAY read the starting sector location of the written data from the request
- field \field{append_sector}.
- 
--All VIRTIO_BLK_T_OUT requests issued by the driver to sequential zones and
--VIRTIO_BLK_T_ZONE_APPEND requests MUST have:
-+All VIRTIO_BLK_T_OUT and VIRTIO_BLK_T_OUT_FUA requests issued by the driver to
-+sequential zones and VIRTIO_BLK_T_ZONE_APPEND requests MUST have:
- 
- \begin{enumerate}
- \item the data size that is a multiple of the number of bytes reported
-@@ -1002,11 +1012,14 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
- 
- \item\label{item:flush3} a VIRTIO_BLK_T_FLUSH request is sent \textbf{after the write is
-   completed} and is completed itself.
-+
-+\item\label{item:flush4} the write was performed using a VIRTIO_BLK_T_OUT_FUA
-+  request.
- \end{enumerate}
- 
- If the device is backed by persistent storage, the device MUST ensure that
- stable writes are committed to it, before reporting completion of the write
--(cases~\ref{item:flush1} and~\ref{item:flush2}) or the flush
-+(cases~\ref{item:flush1}, \ref{item:flush2}, and~\ref{item:flush4}) or the flush
- (case~\ref{item:flush3}).  Failure to do so can cause data loss
- in case of a crash.
- 
-@@ -1098,22 +1111,22 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
- sequential device zones in VIRTIO_BLK_ZS_IOPEN, VIRTIO_BLK_ZS_EOPEN,
- VIRTIO_BLK_ZS_CLOSED and VIRTIO_BLK_ZS_FULL state to VIRTIO_BLK_ZS_EMPTY state.
- 
--Upon receiving a VIRTIO_BLK_T_ZONE_APPEND request or a VIRTIO_BLK_T_OUT
--request issued to a SWR zone in VIRTIO_BLK_ZS_EMPTY or VIRTIO_BLK_ZS_CLOSED
--state, the device attempts to perform the transition of the zone to
--VIRTIO_BLK_ZS_IOPEN state before writing data. This transition may fail due to
--insufficient open and/or active zone resources available on the device. In this
--case, the request MUST be completed with VIRTIO_BLK_S_ZONE_OPEN_RESOURCE or
--VIRTIO_BLK_S_ZONE_ACTIVE_RESOURCE value in the \field{status}.
-+Upon receiving a VIRTIO_BLK_T_ZONE_APPEND request or a VIRTIO_BLK_T_OUT or
-+VIRTIO_BLK_T_OUT_FUA request issued to a SWR zone in VIRTIO_BLK_ZS_EMPTY or
-+VIRTIO_BLK_ZS_CLOSED state, the device attempts to perform the transition of the
-+zone to VIRTIO_BLK_ZS_IOPEN state before writing data. This transition may fail
-+due to insufficient open and/or active zone resources available on the device.
-+In this case, the request MUST be completed with VIRTIO_BLK_S_ZONE_OPEN_RESOURCE
-+or VIRTIO_BLK_S_ZONE_ACTIVE_RESOURCE value in the \field{status}.
- 
- If the \field{sector} field in the VIRTIO_BLK_T_ZONE_APPEND request does not
- specify the lowest sector for a zone, then the request SHALL be completed with
- VIRTIO_BLK_S_ZONE_INVALID_CMD value in \field{status}.
- 
--A VIRTIO_BLK_T_ZONE_APPEND request or a VIRTIO_BLK_T_OUT request that has the
--data range that exceeds the remaining writable capacity for the zone, then the
--request SHALL be completed with VIRTIO_BLK_S_ZONE_INVALID_CMD value in
--\field{status}.
-+A VIRTIO_BLK_T_ZONE_APPEND request or a VIRTIO_BLK_T_OUT or VIRTIO_BLK_T_OUT_FUA
-+request that has the data range that exceeds the remaining writable capacity for
-+the zone, then the request SHALL be completed with VIRTIO_BLK_S_ZONE_INVALID_CMD
-+value in \field{status}.
- 
- If a request of the type VIRTIO_BLK_T_ZONE_APPEND is completed with
- VIRTIO_BLK_S_OK status, the field \field{append_sector} in
-@@ -1136,22 +1149,23 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
-     VIRTIO_BLK_S_ZONE_INVALID_CMD \field{status}.
- \end{itemize}
- 
--If a VIRTIO_BLK_T_ZONE_APPEND request, a VIRTIO_BLK_T_IN request or a
--VIRTIO_BLK_T_OUT request issued to a SWR zone has the range that has sectors in
--more than one zone, then the request SHALL be completed with
-+If a VIRTIO_BLK_T_ZONE_APPEND, VIRTIO_BLK_T_IN, VIRTIO_BLK_T_OUT, or
-+VIRTIO_BLK_T_OUT_FUA request issued to a SWR zone has the range that has sectors
-+in more than one zone, then the request SHALL be completed with
- VIRTIO_BLK_S_ZONE_INVALID_CMD value in the field \field{status}.
- 
--A VIRTIO_BLK_T_OUT request that has the \field{sector} value that is not aligned
--with the write pointer for the zone, then the request SHALL be completed with
--VIRTIO_BLK_S_ZONE_UNALIGNED_WP value in the field \field{status}.
-+A VIRTIO_BLK_T_OUT or VIRTIO_BLK_T_OUT_FUA request that has the \field{sector}
-+value that is not aligned with the write pointer for the zone, then the request
-+SHALL be completed with VIRTIO_BLK_S_ZONE_UNALIGNED_WP value in the field
-+\field{status}.
- 
- In order to avoid resource-related errors while opening zones implicitly, the
- device MAY automatically transition zones in VIRTIO_BLK_ZS_IOPEN state to
- VIRTIO_BLK_ZS_CLOSED state.
- 
--All VIRTIO_BLK_T_OUT requests or VIRTIO_BLK_T_ZONE_APPEND requests issued
--to a zone in the VIRTIO_BLK_ZS_RDONLY state SHALL be completed with
--VIRTIO_BLK_S_ZONE_INVALID_CMD \field{status}.
-+All VIRTIO_BLK_T_OUT, VIRTIO_BLK_T_OUT_FUA, and VIRTIO_BLK_T_ZONE_APPEND
-+requests issued to a zone in the VIRTIO_BLK_ZS_RDONLY state SHALL be completed
-+with VIRTIO_BLK_S_ZONE_INVALID_CMD \field{status}.
- 
- All requests issued to a zone in the VIRTIO_BLK_ZS_OFFLINE state SHALL be
- completed with VIRTIO_BLK_S_ZONE_INVALID_CMD value in the field \field{status}.
+Changelog
+---------
+
+v9:
+
+- Add motivation to cover letter (Michael S. Tsirkin).
+
+- Allow more implementation-specific behavior when alarm actions become
+  obsolete (Matias Ezequiel Vara Larsen).
+
+- Define how device should not change across resets (Michael S. Tsirkin).
+
+- Document that device converts hardware counter value, accounting for
+  device/driver differences in offset/multiplier (Michael S. Tsirkin).
+
+- Restrict implementation-specific id ranges to experimental
+  implementations (Michael S. Tsirkin).
+
+- Mandate that only flags allowed by negotiated features may be accessed
+  (Michael S. Tsirkin).
+
+- State that an error-free device sets status OK for all requests from a
+  well-behaved driver (Michael S. Tsirkin).
+
+- Change name to "Real Time Clock" in device type list (Michael S.
+  Tsirkin).
+
+- Remove unneeded requirement about what to put into device-readable
+  buffers (Matias Ezequiel Vara Larsen).
+
+- Reword multiple sentences and requirements (Matias Ezequiel Vara Larsen,
+  Michael S. Tsirkin).
+
+- Move fixes which were mistakenly placed in patch 2 in v8 (Cornelia Huck).
+
+- Remove statement implying that device MUST NOT check that reserved fields
+  are zero.
+
+v8:
+
+- Explicitly describe alarm enabled status, where relevant (Matias Ezequiel
+  Vara Larsen).
+
+- Reword multiple sentences and requirements (Matias Ezequiel Vara Larsen).
+
+- Drop unnecessary or redundant requirements (Matias Ezequiel Vara Larsen).
+
+- Change word order from "field X" to "the X field" (Matias Ezequiel Vara
+  Larsen).
+
+- Change word order from "flag X" to "the X flag" or "X".
+
+- Move requirements to serve alarm expiration events before requirements
+  about stopping to serve (Matias Ezequiel Vara Larsen).
+
+v7:
+
+- Remove leap second and performance indications from struct
+  virtio_rtc_resp_read_cross. Remove backing definitions.
+
+- Move wording change which was mistakenly placed in last patch to first
+  patch.
+
+v6:
+
+- Make leap second status information optional if the clock smears (or
+  might smear) leap seconds.
+
+- Do not use union for leap second indication.
+
+- Improve wording.
+
+- Refer to the new POSIX.1-2024 for UTC epoch definition.
+
+v5:
+
+- Change structure and wording to support adding shared memory like
+  vmclock [2].
+
+- Add dedicated clock types for UTC leap second smearing (David
+  Woodhouse).
+
+- Extend leap second indications.
+
+- Replace VIRTIO_RTC_SUBTYPE_ by VIRTIO_RTC_SMEAR_.
+
+- For Arm Generic Timer, only support Virtual Count Register (David
+  Woodhouse).
+
+- Rename MONO clock to MONOTONIC clock.
+
+- Harmonize bit widths with vmclock [2].
+
+- Change formatting.
+
+v4:
+
+- Distinguish UTC clocks with and without leap smearing (David
+  Woodhouse).
+
+- Add UTC leap second and TAI offset indication (David Woodhouse).
+
+- Add clock performance information (David Woodhouse).
+
+- Drop distinction of Arm Generic Timer virtual and physical counter.
+
+- Change requirements so that driver can reset alarm to clean slate, and
+  document how driver can achieve this (Cornelia Hell, Jason Wang).
+
+- Device should assume that driver reads clock from first vCPU (David
+  Woodhouse).
+
+- Driver should read clock to confirm that alarm has expired.
+
+- Require driver to set unused flags to zero.
+
+- Require device to support all expressible alarm times.
+
+- Formatting and wording improvements.
+
+v3:
+
+- Address comments from Parav Pandit.
+
+- Add an optional alarm feature.
+
+- Various other changes.
+
+v2:
+
+- Address comments from Cornelia Huck.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a0e136d436ded817c0aade72efdefa56a00b4e5e
+[2] https://lore.kernel.org/lkml/20240708092924.1473461-1-dwmw2@infradead.org/
+
+
+Peter Hilber (4):
+  virtio-rtc: Add initial device specification
+  virtio-rtc: Add initial normative statements
+  virtio-rtc: Add alarm feature
+  virtio-rtc: Add normative statements for alarm feature
+
+ conformance.tex                         |    2 +
+ content.tex                             |    3 +-
+ device-types/rtc/description.tex        | 1117 +++++++++++++++++++++++
+ device-types/rtc/device-conformance.tex |   13 +
+ device-types/rtc/driver-conformance.tex |   11 +
+ introduction.tex                        |    6 +
+ 6 files changed, 1151 insertions(+), 1 deletion(-)
+ create mode 100644 device-types/rtc/description.tex
+ create mode 100644 device-types/rtc/device-conformance.tex
+ create mode 100644 device-types/rtc/driver-conformance.tex
+
+
+base-commit: a9b942e043d20d24e0be56ddd4e0515133ed652a
 -- 
-2.49.0
+2.43.0
 
