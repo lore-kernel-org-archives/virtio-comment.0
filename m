@@ -1,204 +1,286 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C272459C7
-	for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 09:24:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE0726B96B
+	for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 09:37:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747646695; cv=none; b=HMD4mGoJFr1aUgTN1+zsD9NoGcYyChf3aurPfEXubzliQtXY8gksi9/hQuIaS2QjTWHHmtb1W1ywNq+Li4bLFGvtM3CIY4xSWRXm/frSuL78RZ+n85Opvu+e2pHa60gp+TmnwtpgFbqfUCrx4lA6kv/c69TQneQB9dOxh4ymdoo=
+	t=1747647470; cv=none; b=prOwoW6H0oFskeQC6oP+oP0ApXv2bZHkAxcRp1R57ui0K21G30qgb6De263Qb9udxs8JapC7vKCTlQwyx8H8ONZwpQZRBN/KeeyRhI7go3ej9Rk6K24vHCeh6r0y4d5RUpH873FZ0fexA4tLMiQOD01iICxBU2rpKfRWoDXQ7F4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747646695; c=relaxed/simple;
-	bh=s16roD/kII4wA6wgnxuOIpzjC971WvF4q8VmeVl00d4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eQO5t8BCcMNoaR6g3Ktd7v8KM6O/g+/4gpgnZEXwvsC23Qm6EAbp4WpvCFrYo11aNiP7YoZzYDyGtw4sAzZ4RY5lsYV0chN9Mtv4CPNzBSCb+pGzFKm5OPgisRwXUKtA6947lK9Twjynw9YRMtkZ79fBmqiZnyhUVJkfUG5M/nc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BHthobmO; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1747647470; c=relaxed/simple;
+	bh=JBxqzcSBZSFLj9HX/GYntFSsCpj8bbhFdZPekl4m3NA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=OuxNtBz3IxPSfIEPBkDIFMbQ8yJ9KTMx6pY7e49AYhMxY1yBxGlBD/QMpPuB59WoLpuwi0phIICoU1B5Fq5zxA5MjVnraFYAbtehkZERt6D38pEwqKonrkKetSt+jlWcnVA8Zz+DQuhCGMUyG2Xm7swgmTFa8q4bulATx9q0UB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hcWlJVqA; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BHthobmO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1747646691;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1i12sFFSqfAyCuComdfcFpnbwVZGJOW5YWkX/GD+xkQ=;
-	b=BHthobmO58pKaVxwq0vj7YC4Um4Z0SrpzpxNYm8QBZBCmj7/0a5V53Y1YXRYK3G6Yjwrbr
-	ApuLhQIO/rqeBIK4ZxxCJAVZPky9fWABasD6uK5U385HY8/ySgGLTJxMGSapngzXDD4BFy
-	OaOwxoA3C3IHwHQzCNSo9liNR3YzDQc=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-138-WlllviPEPA2yNIlnXpquoA-1; Mon, 19 May 2025 05:24:47 -0400
-X-MC-Unique: WlllviPEPA2yNIlnXpquoA-1
-X-Mimecast-MFC-AGG-ID: WlllviPEPA2yNIlnXpquoA_1747646686
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-43d007b2c79so33437025e9.2
-        for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 02:24:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hcWlJVqA"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-30ea7f78337so1438875a91.2
+        for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 02:37:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1747647467; x=1748252267; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=if1FLfCBDe/YBKbsx0v0GkkXmZHToHPMrDZ3opJyFIk=;
+        b=hcWlJVqAXAshrw/OK1PZ7fei0eI6dZE5dFcYKO2Zn+BQbKlcJH2T2egxGyAqobXZvW
+         za9y5IlPis8574Bbfsfb5hzCYOSwBKBFMRyeT8E5MToNHEW1Zms+OEuLFb9qDQVUw6Cl
+         n/3/JGpUFNDaU/my7tEvcJQn6+hPw+7/rCAH+mleKXTxf5djWwRCGmNhH1b2TWA/CX3A
+         SIECZu8KXhfG/2VQ9c7c7jZPtGuMes4D4K+NUxnwmynJ+c2DFPEYAXsslpwbXb28dc01
+         POzgDw5E1kVsQCwiIDysgEmQK1giTG20BxQVJfBdoR2HKuK/vCsW6pWHKmP5OWix7IB4
+         3KRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747646686; x=1748251486;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1i12sFFSqfAyCuComdfcFpnbwVZGJOW5YWkX/GD+xkQ=;
-        b=muHPmeZ/r2nMg1A7kRI3/wddxqRWuOCWn2upIYKqiZ0u80wdVZejYMHnB7AC/Oj1Kf
-         khtw8uYjo4twT2HD/EBxR+uc0S0bfXcWV1rtZ0H/u+YEXB208TCgu3tl6jFlWFJ8t421
-         K8zTmGsQqfEAcUWZmNjsQ6C6K+2+XGuImCuLuEJ/NNr6wbxz4j9rsknbfZI5tSbbDx0l
-         /qTU2Kj3MUOFgmVTOYRRmAZmBOVLHu3NeAZUHyOh/+3iYONEzNo8v2Ujz0Jh5aicsE84
-         K/LiWlmJuDM3eOkYmNlbqtZtWQvYq/juGiR6Qx0ikcY7z34V1018SMdXxIfxTjYPotTd
-         D9Iw==
-X-Forwarded-Encrypted: i=1; AJvYcCUzsk39LBK7pTm/r7B6OBsDhljXBotJ7VoY4sq1BmrkMVCKZQ1l3qd/yJJjGYeuJBdU90be6DLR139HQa3UTg==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxaHkBVic9d769XjLy94/CjnSKCEGkiFVZWnQvTWYNTYgHd3UG/
-	khdy08PaKxV6sAwX5lSqI42MnXpRv4Y3qb6xZ0LdBKw73J3izTCveIbkr7wLDwfTfE1afLZlL/4
-	T8KH7ZFCTH6hb6Qn2qq+2Gt4meQExSqibB4jtkHOGLm1/l00wSKejYYfd3mGklfnW7v6F
-X-Gm-Gg: ASbGncsrqDI6Bmi6wcCK6X9l2LezfbBUpfeujd8nHCwkXlzrqwUo9PeeisRQEwSlsZ7
-	q50xT/lMPcQMqiQEkWXHSnVtU7+7MrqO/kqw0KLu9Yvie0sOYKG0RPRXPWawvzh7UxuW+Bx8GZT
-	6iDo80qgnd6wtx5XkRlTIqgGsX1ZafHuFS9txaLCyh4tim2tMIst3Mmw64L7evNwUbkJ8VRnsAQ
-	jAUcyP5+nITwZYPS+k6N5de6Im0kJbP5tN7UcDOIfVGAM+0g9Gd0qcjJ6oijwyIUoW8x19EmEZi
-	JhcUb6RqOoTr6RTMpM8=
-X-Received: by 2002:a05:600c:8597:b0:43c:f78d:82eb with SMTP id 5b1f17b1804b1-442fd780495mr117785145e9.15.1747646686157;
-        Mon, 19 May 2025 02:24:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IElbwXCLCnk6oaWfnUYuXUNkbCdmQdI3LEk5GC1QRpY4BmMqr7xuOt0qPqp2l+4gHgejwa5VA==
-X-Received: by 2002:a05:600c:8597:b0:43c:f78d:82eb with SMTP id 5b1f17b1804b1-442fd780495mr117784935e9.15.1747646685790;
-        Mon, 19 May 2025 02:24:45 -0700 (PDT)
-Received: from ?IPV6:2a0d:3344:244f:5710::f39? ([2a0d:3344:244f:5710::f39])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3a35ca9417dsm11895839f8f.101.2025.05.19.02.24.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 May 2025 02:24:45 -0700 (PDT)
-Message-ID: <3b6a16b1-0318-4bd0-9afa-5616afd42788@redhat.com>
-Date: Mon, 19 May 2025 11:24:41 +0200
+        d=1e100.net; s=20230601; t=1747647467; x=1748252267;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=if1FLfCBDe/YBKbsx0v0GkkXmZHToHPMrDZ3opJyFIk=;
+        b=oDaW3i3H8ySnqHZa1CQf6rtOSVQutNETq1oH2Is4JmJeFPZhoFdMNnWNJCE/UjOFjf
+         6K/8tegj1MefPsI8ZzOFhfU1YFtipqQEs8zkOULbSG/9dB5jd1qIwpHWmHTqA+aNsOBq
+         ILWG8vI2fImPYlGTEaZT3USbKNmLrQgumKOCona6t51YftKORNq1eMWS0KbFKfiHrCMF
+         ZlxRCHblu0o2UoOzyZIGWZXMX1/gf7OFrcGULFPScwDn+gkEDIc1Ghu2xsHQgU5qV7p0
+         SRKpjzyb9d7eZaJydqWiby6BuChEy5WzZcJ6rZHP6ZDN1HLTMkNaOaYYwN8II13/fNR9
+         b30Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVjUmaPHjRaXYjkNLVKtCHey8gen76C2cRSZU8FmwHqX0ztcrOLyFsn6Z8uty/a8AD81xTE8q+P6i+j3URBPQ==@lists.linux.dev
+X-Gm-Message-State: AOJu0YzaIghWyTpT9VScK7/qU7DXAvgk3naa9PTnrTnRml0E4Mjaedk+
+	8R2OPt1KfPjJtFOlyKWxsX+BSubuyc2z5/b31Nx1KZOFtoieCJCg96x83EEpnugh9Hs=
+X-Gm-Gg: ASbGncv4cYPNtLHxRXRoir7tyn2erc2zpEUdPzE/RUYYkU6Z0ZLEY/qfd68I8BcXTQK
+	dM6LQ6hZ/f1QsAri4RET6dX2F670F3e3yXThY71x4qGkNmUBBM26GfdgqFKtzfUFo+gllLmlaBK
+	O+o6WmAHhFmo7F+BoH/Mlr5K7m6jjKZbvEaW3NVZDFQBFmgwTxjJdMysTyTOmH2zvmvTDYY+IcV
+	NKKYmm2hmqHaHt1Yr6pTCXK+41JWx7nqN1wi8SaA1xMNkSyCdZWuK2ZdRM9c/LEqiz5WZvt320z
+	JcEOpOt+uOg9nsGh8ySFg2hZY4bTW3wyHbIEyNrOflZ3ZI85vX+cwSJY8GEY8v343wdtUxX0mg=
+	=
+X-Google-Smtp-Source: AGHT+IEPilt8LMk2r5HoLgk/zb1rPBZTBm1XCVrYpH+XzYP5PR0H8slfc1BqiAfMFE38068mLpDshw==
+X-Received: by 2002:a17:90b:4f4c:b0:309:ebe3:1ef9 with SMTP id 98e67ed59e1d1-30e830ebf54mr20496885a91.12.1747647467120;
+        Mon, 19 May 2025 02:37:47 -0700 (PDT)
+Received: from devant.antgroup-inc.local ([47.89.83.0])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-30e33401768sm9979353a91.3.2025.05.19.02.37.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 May 2025 02:37:46 -0700 (PDT)
+From: Xuewei Niu <niuxuewei97@gmail.com>
+X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+To: mst@redhat.com
+Cc: fupan.lfp@antgroup.com,
+	niuxuewei.nxw@antgroup.com,
+	niuxuewei97@gmail.com,
+	parav@nvidia.com,
+	sgarzare@redhat.com,
+	virtio-comment@lists.linux.dev
+Subject: Re: [PATCH v7] virtio-vsock: Add support for multi devices
+Date: Mon, 19 May 2025 17:37:36 +0800
+Message-Id: <20250519093736.3076953-1-niuxuewei.nxw@antgroup.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250518174619-mutt-send-email-mst@kernel.org>
+References: <20250518174619-mutt-send-email-mst@kernel.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] virtio-net: Fix to avoid using reserved feature bits
-To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: "hengqi@linux.alibaba.com" <hengqi@linux.alibaba.com>,
- "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
- "cohuck@redhat.com" <cohuck@redhat.com>,
- "mvaralar@redhat.com" <mvaralar@redhat.com>, Jason Wang
- <jasowang@redhat.com>, Shahaf Shuler <shahafs@nvidia.com>,
- Willem de Bruijn <willemb@google.com>, Daniel Verkamp <dverkamp@chromium.org>
-References: <20250423014257-mutt-send-email-mst@kernel.org>
- <CY8PR12MB7195AB46624A4339A305BE1CDC832@CY8PR12MB7195.namprd12.prod.outlook.com>
- <68c4e73a-fa9e-4e2e-8c38-ed4a322bf47e@redhat.com>
- <CY8PR12MB7195E87CBF30EB5C7705835DDC832@CY8PR12MB7195.namprd12.prod.outlook.com>
- <20250501093933-mutt-send-email-mst@kernel.org>
- <PH8PR12MB7208BA2F9A48EEBF42B15AE0DC892@PH8PR12MB7208.namprd12.prod.outlook.com>
- <20250506035434-mutt-send-email-mst@kernel.org>
- <PH8PR12MB720860F36BE0C9E7C1C35A0EDC892@PH8PR12MB7208.namprd12.prod.outlook.com>
- <862ef83f-9ed8-4d50-85ca-36231e93514a@redhat.com>
- <CY8PR12MB7195FC058918DCC17E56FF80DC89A@CY8PR12MB7195.namprd12.prod.outlook.com>
- <2c880e08-9d92-45ee-be92-3bfc758e928c@redhat.com>
- <CY8PR12MB71953CA2DC3CD5608BA54D02DC89A@CY8PR12MB7195.namprd12.prod.outlook.com>
- <758156c0-7cc7-4af4-b5eb-1339b3b9b437@redhat.com>
- <4df60cbe-ace1-41ae-9d24-5f548e780f82@redhat.com>
- <CY8PR12MB7195C1BA2C27B1E332B2FD21DC9CA@CY8PR12MB7195.namprd12.prod.outlook.com>
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <CY8PR12MB7195C1BA2C27B1E332B2FD21DC9CA@CY8PR12MB7195.namprd12.prod.outlook.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: W2Xj910cYP9NIGl-RR5nU5S51UYjY2sVjPCgSLna0Bc_1747646686
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 5/19/25 11:04 AM, Parav Pandit wrote:
->> From: Paolo Abeni <pabeni@redhat.com>
->> Sent: Monday, May 19, 2025 2:28 PM
->> On 5/7/25 11:57 AM, Paolo Abeni wrote:
->>> On 5/6/25 6:20 PM, Parav Pandit wrote:
->>>> From: Paolo Abeni <pabeni@redhat.com Sent: Tuesday, May 6, 2025 9:10
->>>> PM
->>>>> On 5/6/25 5:00 PM, Parav Pandit wrote:
->>>>>> From: Paolo Abeni <pabeni@redhat.com Sent: Tuesday, May 6, 2025
->>>>>> 8:09 PM
->>>>>>> On 5/6/25 10:56 AM, Parav Pandit wrote:
->>>>>>>> Are you good with #3?
->>>>>>>
->>>>>>> I'm sorry for the latency. Let me double check to avoid possible
->>>>>>> misunderstanding; #3 means:
->>>>>>>
->>>>>>> - 0 to 23, and 50 to 127 Feature bits for the specific device type
->>>>>>> + 0 to 23, and 45 to 127 Feature bits for the specific device type
->>>>>>>
->>>>>> No change in above feature bits.
->>>>>>
->>>>>>> using bits 46-39 for UDP tunnel offloads and likely bit 45 for
->>>>>>> VIRTIO_NET_F_OUT_NET_HEADER.
->>>>>>>
->>>>>> This also to use bit 69 as proposed.
->>>>>>
->>>>>>> The VIRTIO_NET_F_CTRL_GUEST_OFFLOADS mapping should be
->> specified
->>>>>>> after eventually a new offload feature will be defined using a bit >= 64.
->>>>>>>
->>>>>> No. UDP tunnel feature bits 65 to 68 maps to command bits
->> 46,47,48,49.
->>>>>> This is the only description change in
->>>>> VIRTIO_NET_F_CTRL_GUEST_OFFLOADS command.
->>>>>> Would it work?
->>>>>
->>>>> AFAICT, yes, it should work.
->>>>>
->>>>> But it will not avoid the immediate need to expand the virtio
->>>>> features negotiation above 64 bits, with the already mentioned
->> complexity.
->>>>>
->>>>> I would preferably avoid that, if possible: I restarted this thread
->>>>> with such a goal.
->>>>>
->>>> In that case we should adopt #2.
->>>
->>> Do we have quorum? Should I send a patch?
->>
->> As per off-list discussion with Michel, there is no agreement on reserved bits
->> re-use.
->>
->> That means the only available option is #3 above.
->>
->> @Parav, would you send a patch to fix the offloads <> features mapping, or do
->> you prefer I'll do it?
->>
-> If its urgent, please do it.
-> If it can wait till 22 May this week, I will prepare one.
+> On Sat, Apr 12, 2025 at 10:28:25PM +0800, Xuewei Niu wrote:
+> > This patch brings a new feature, called "multi devices", to the virtio
+> > vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, and a
+> > "device_order" field to the config for the virtio vsock.
+> > 
+> > == Motivition ==
+> > 
+> > Vsock is a lightweight and widely used data exchange mechanism between host
+> > and guest. Currently, the virtio-vsock only supports one device, resulting
+> > in the inability to enable more than one backend. For instance, two devices
+> > are required: one to transfer data to the VMM via virtio-vsock, and another
+> > to a user process via vhost-user-vsock.
+> > 
+> > Apart from that, a side gain is that theoretically the performance might be
+> > improved since each device has its own queue. But it varies depending on
+> > the implementation.
+> > 
+> > == Typical Usages ==
+> > 
+> > Assuming there are two virtio-vsock devices on the guest, with CIDs 3 and 4
+> > respectively. And the device with CID 3 is default.
+> > 
+> > Connect to the host using the device with CID 3.
+> > 
+> > ```c
+> > // use default one (no bind)
+> > fd = socket(AF_VSOCK);
+> > connect(fd, 2, 1234);
+> > n = write(fd, buffer);
+> > 
+> > // or bind explicitly
+> > fd = socket(AF_VSOCK);
+> > bind(fd, 3, -1);
+> > connect(fd, 2, 1234);
+> > n = write(fd, buffer);
+> > ```
+> > 
+> > Connect to the host using the device with CID 4.
+> > 
+> > ```c
+> > // must bind explicitly as the device with CID 4 is not default.
+> > fd = socket(AF_VSOCK);
+> > bind(fd, 4, -1);
+> > connect(fd, 2, 1234);
+> > n = write(fd, buffer);
+> > ```
+> > 
+> > The first version of multi-devices implementation is available at [1].
+> > 
+> > v6 -> v7:
+> > - Addresses minor review comments from Stefano.
+> > 
+> > [1] https://lore.kernel.org/virtualization/20240517144607.2595798-1-niuxuewei.nxw@antgroup.com
+> > 
+> > Signed-off-by: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+> > ---
+> >  device-types/vsock/description.tex | 30 ++++++++++++++++++++++++++++--
+> >  1 file changed, 28 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/device-types/vsock/description.tex b/device-types/vsock/description.tex
+> > index 7d91d15..392dc76 100644
+> > --- a/device-types/vsock/description.tex
+> > +++ b/device-types/vsock/description.tex
+> > @@ -20,6 +20,7 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+> >  \item[VIRTIO_VSOCK_F_STREAM (0)] stream socket type is supported.
+> >  \item[VIRTIO_VSOCK_F_SEQPACKET (1)] seqpacket socket type is supported.
+> >  \item[VIRTIO_VSOCK_F_NO_IMPLIED_STREAM (2)] stream socket type is not implied.
+> > +\item[VIRTIO_VSOCK_F_MULTI_DEVICES (3)] multiple devices feature is supported.
+> >  \end{description}
+> >  
+> >  \drivernormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
+> > @@ -34,6 +35,12 @@ \subsection{Feature bits}\label{sec:Device Types / Socket Device / Feature bits}
+> >  VIRTIO_VSOCK_F_NO_IMPLIED_STREAM, the driver MAY act as if
+> >  VIRTIO_VSOCK_F_STREAM has also been negotiated.
+> >  
+> > +The driver SHOULD ignore devices that do not have
+> > +VIRTIO_VSOCK_F_MULTI_DEVICES if the feature has been negotiated.
+> > +
+> > +The driver SHOULD ignore all subsequent devices if a device without
+> > +VIRTIO_VSOCK_F_MULTI_DEVICES is present.
+> > +
+> 
+> all this is really vague. any better way to put it?
+> 
+> what are subsequent devices? if the feature has been negotiated where?
+> what does ignore mean? you can not know features without interacting
+> with the device.
 
-I'll do, because I want to move this thing forward. Note that I think
-it's better to change the offload bit name definition for UDP related
-offload, to avoid multiple definitions using specifying the string and
-different value. i.e.:
+The original idea is: Some devices have enabled the multi-devices feature,
+while others have not, and this situation is unacceptable.
 
----
-diff --git a/device-types/net/description.tex
-b/device-types/net/description.tex
-index 1b6b54d..5d869bc 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -2186,8 +2186,8 @@ \subsubsection{Control Virtqueue}\label{sec:Device
-Types / Network Device / Devi
- #define VIRTIO_NET_F_GUEST_TSO6       8
- #define VIRTIO_NET_F_GUEST_ECN        9
- #define VIRTIO_NET_F_GUEST_UFO        10
--#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO  46
--#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM 47
-+#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_MAPPED  46
-+#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM_MAPPED 47
- #define VIRTIO_NET_F_GUEST_USO4       54
- #define VIRTIO_NET_F_GUEST_USO6       55
+The driver determines the states based on the first device present in the
+guest.
 
-@@ -2205,6 +2205,9 @@ \subsubsection{Control Virtqueue}\label{sec:Device
-Types / Network Device / Devi
- negotiation corresponding offload gets enabled to preserve backward
- compatibility.
+There are two possible cases:
 
-+Note that device features bit in the [65 to 68] range correspond to
-+offloads bits in the [46 to 49] range.
-+
- \drivernormative{\subparagraph}{Setting Offloads State}{Device Types /
-Network Device / Device Operation / Control Virtqueue / Offloads State
-Configuration / Setting Offloads State}
+- If the first device has negotiated the multi-devices feature, then the
+driver considers the multi-devices feature as enabled. Then, the driver will
+ignore all devices that do not negotiate the feature.
+- If the first device has not negotiated, it indicates that the multi-devices
+feature is disabled. Consequently, the driver will ignore any subsequent
+devices.
 
- A driver MUST NOT enable an offload for which the appropriate feature
+====
 
+Here is the revised version:
+
+To ensure consistency, all devices MUST have the same multi-devices feature
+status; a mix of enabled and disabled devices is not acceptable. The driver
+determines whether the multi-devices feature is enabled based on the first
+device present in the guest: if the first device has negotiated the
+feature, the driver enables it and ignores any devices that have not; if
+the first device has not negotiated the feature, the driver treats the
+feature as disabled and ignores any subsequent devices.
+
+Does this look better to you?
+
+> >  \devicenormative{\subsubsection}{Feature bits}{Device Types / Socket Device / Feature bits}
+> >  
+> >  The device SHOULD offer the VIRTIO_VSOCK_F_NO_IMPLIED_STREAM feature.
+> > @@ -52,6 +59,7 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> >  \begin{lstlisting}
+> >  struct virtio_vsock_config {
+> >  	le64 guest_cid;
+> > +	le16 device_order;
+> >  };
+> >  \end{lstlisting}
+> >  
+> > @@ -77,11 +85,27 @@ \subsection{Device configuration layout}\label{sec:Device Types / Socket Device
+> >  \hline
+> >  \end{tabular}
+> >  
+> > +The \field{device_order} is used to identify the default device.
+> 
+> no explanation what is the default device.
+> is it just for the cid?
+
+Yes.
+
+It is allowed to not specify the local CID for a socket. In this case, the
+driver will use the default device's CID as the local CID for the socket.
+
+The details are listed in the "Receive and Transmit" section, where you
+left a comment.
+
+> > Up to
+> > +65,535 devices can be supported due to the size.
+> 
+> can be -> are
+> drop "due to the size".
+
+Will do in the next version.
+
+> > +\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+> > +
+> > +The device MUST provide a distinct \field{device_order} if
+> > +VIRTIO_VSOCK_F_MULTI_DEVICES feature has been negotiated.
+> 
+> distinct to what?
+
+In the scope of the guest VM, the device_order should be unique. This means
+that the device_order should be distinct for each device.
+
+> > +\drivernormative{\subsubsection}{Device configuration layout}{Device Types / Socket Device / Device configuration layout}
+> > +
+> > +The driver MUST treat the device with the lowest \field{device_order} as
+> > +the default device.
+> > +
+> >  \subsection{Device Initialization}\label{sec:Device Types / Socket Device / Device Initialization}
+> >  
+> >  \begin{enumerate}
+> >  \item The guest's cid is read from \field{guest_cid}.
+> >  
+> > +\item If VIRTIO_VSOCK_F_MULTI_DEVICES has been negotiated, the device's
+> > +order will be read from \field{device_order}.
+> > +
+> >  \item Buffers are added to the event virtqueue to receive events from the device.
+> >  
+> >  \item Buffers are added to the rx virtqueue to start receiving packets.
+> > @@ -233,8 +257,10 @@ \subsubsection{Receive and Transmit}\label{sec:Device Types / Socket Device / De
+> >  
+> >  \drivernormative{\paragraph}{Device Operation: Receive and Transmit}{Device Types / Socket Device / Device Operation / Receive and Transmit}
+> >  
+> > -The \field{guest_cid} configuration field MUST be used as the source CID when
+> > -sending outgoing packets.
+> > +If the source socket is not bound to any source CID, the driver MUST assign
+> > +one. If more than one device is present, the driver SHOULD use the default
+> > +device's \field{guest_cid} configuration. Otherwise, the driver SHOULD use
+> > +the \field{guest_cid} of the only available device.
+> 
+> why did you drop requirement about outgoing packets?
+
+The driver prefers to use the CID provided by the user. That is, if the
+user binds to a source CID, the driver will use it and does not need to do
+anything. If not, the driver will use one from the configuration.
+
+Thanks,
+Xuewei
+
+> >  A VIRTIO_VSOCK_OP_RST reply MUST be sent if a packet is received with an
+> >  unknown \field{type} value.
+> > -- 
+> > 2.34.1
