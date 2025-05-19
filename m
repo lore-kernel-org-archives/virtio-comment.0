@@ -1,180 +1,161 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEDE269CE5
-	for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 08:19:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7991D26A0F3
+	for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 08:57:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747642747; cv=none; b=lNYkdngYBkVBgK8cJA/xmmOnnt3ZQi0JZIcu1bNW5Pq29aIsRtHk5g11qpvN865IgqlFaIHAsdaQm9+JopzcjYdky3Ckuy6DvUlTW54IZX9DmqRRx1s4fmpVPKWmW3qJBb+ItvqhUP2oGO4AzJS+/M7u6b7a3mSLV8ZSj+vTMqE=
+	t=1747645069; cv=none; b=qBCsDoLaW7+zBNa0gTr1ipFc634AJZ0wckpxUP4orxwmfDb7UAUe2pJOR9XTwMpXWcSx8moeM8yPSxhtfAyI8DinPtXduxMz1u4pFyeG/OKE7qGDOTvPbss5iZ4RXucb7XYIpysZ+LrbK7o+56VnZ2Z+fxAWuDdUKEzjUtwzH68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747642747; c=relaxed/simple;
-	bh=bpNMFiSO65YqREFKfph54Li2ZC08i0gZG+fmPAm0pLA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CFFM1lCHrpII2UDSwNs/SG+lvBI5x48a8kW7i0Bpg7Bm9WRKkvbE+In/m4X4wpwJSuAN2ad4JKeFNsknIN6iTWmWN2F0QZDDzxAJB+qahxuoCzKpKLOoivdliYKc/imhnqiy7RPV+Zghzl9za0f8DynM4lwfbyGGbP1xviEqGJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=l90DR0ug; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1747645069; c=relaxed/simple;
+	bh=JxYqOVfqIh1SBMQmx31hhrk23G1F1qx7QkZW6pQsjS0=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=S62ulrqMadU+CIt20sNb40/RnXF5eQgzxhkLH4ZxqX/sVxPYqKzt3E4eqDNvGtQjdUIiPueQRy36h5Thv1d5CtKYv5rPjJImeqZ7TovljDwSzQR7z4dLv/HQTTr4yQn2OJqEvkDvZn02iLOFsmjTiU6+HBNbgXYT/h038+WIKmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SPDVnD+h; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="l90DR0ug"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-5efe8d9ebdfso7446505a12.3
-        for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 01:19:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1747642743; x=1748247543; darn=lists.linux.dev;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vFkdQmhSeQUF05kWJRA2SbiD0uKNt5o+G9EfIhwY3+k=;
-        b=l90DR0ugRv64RXc912nLnwncutjev9KbtCkzGZRNQ75dzuFCZlrfkwdDSvbL+lc04Z
-         2AeX+TAb2sODLITWf1Yfwu/Fa88WrLglYAvRs/4ksjxGAiEbHhVSwuDyK83L8PREo6rW
-         nkoyG1STJVLfC9Y3YG+wtSBiu2YHSrs+EmkLacJ5W88tSSiBMcRx2HJJWoOwPYZEOs6f
-         e8nrJiMvwxZbDEY/YWyVvVvGh3FYYXNoLxr7FpI3iDQ3s7rruc44qoLIye8W6gajvh66
-         SduVvCq5SoFqgt7c0K5n18cqLvbwFnHQjPyaQYKjXg10S+2cAfrQ2LZu/XZcaZ17AHrJ
-         cLsg==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SPDVnD+h"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1747645066;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6shA8Nw8cerVyanZR2G440fVqrQx+t6s1rXIY4yP0RU=;
+	b=SPDVnD+hrOsfKJ4SrTxqwZmYDETOMvwSKOAW8duI9Ky5MbHcXnjM07y6fSyA8uHNAk/diq
+	eEa8jfy1wFeHChJpQuxIJvDkb9kP8ZAlVKWb2JLxJEEsy3cNYedR2QXUQziXaW7Bk63i5a
+	JSBPI5mOP2Tb1iPT/ST+nTiQoO9HMiA=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-416-vt8GZgScOzWfKNQUB3FvBA-1; Mon, 19 May 2025 04:57:45 -0400
+X-MC-Unique: vt8GZgScOzWfKNQUB3FvBA-1
+X-Mimecast-MFC-AGG-ID: vt8GZgScOzWfKNQUB3FvBA_1747645064
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-442e0e6eb84so26599975e9.0
+        for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 01:57:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747642743; x=1748247543;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=vFkdQmhSeQUF05kWJRA2SbiD0uKNt5o+G9EfIhwY3+k=;
-        b=jDZ2GuGWBGJPVrSw5H3p10Czy3dya9VeuC78/j1/w/YWoaTEOKwez6IG8/PiYvnrrC
-         d+Q+lYKNW7NkkJVaOKAbU/ymdnK6txy1EAbeeLS2IXw79Z5cpC7lp1BDbYqT0PeaEvet
-         FbrtaBaZRRimypUcAWuKCznP4haKS4RR8utlRgnJZ69Nm+NUY2wSY9KivWmOKIZa+qbi
-         Ao9MGFgCzH3V/gJEvnkfFRdqOoiit3HvFklrsDZ9DpRVFX7wpgUmn1wGLb010iSBlLpf
-         ahN6Wmm2yMpFd9MSL/XjqY/NxgUhZSB1eghuPeussLvUUTCeqj5WHRKjnqe/D3mj11pk
-         sRSA==
-X-Gm-Message-State: AOJu0Yxwa2rXERrnPGd4Wz49we2PPj+0hkXodKsRE6AwEDe4liijV3tZ
-	/ovzKA6sto1682t6sBplwQ49HUEDa3dL4uxpHZV+XoHTv4tPJn+8w3oohsb/cdnTgXgA1tGFJHs
-	IpmSi3HHCxOzYa1FqIqh2tkptlKfu+pdUMMyOQMOwMw==
-X-Gm-Gg: ASbGncsdJAPJiQRjJZ92f6La9zRu6TAosLwGUY3Cfc6KJsdDC1KnsKRgx++lgCtYlgp
-	wACuaMXsXtzesLVkmcig+p86NMWJCwQ0FrE9ZM58IlTowYkcbZ7RFNnEYFZ+l5XDROcu4dWaViT
-	EUSe9wNolWfMNy8mtWGDfQNRxoeMT17jhwQRTAAQ==
-X-Google-Smtp-Source: AGHT+IE0/H9inREnSVyj/Suujp07Mlf5Xo6tWTYrEZeV2VJoZHeIMJJtuOAU5r9+KwA6nJ0ORsjdG4wZi1NQrlepmiM=
-X-Received: by 2002:a05:6402:520f:b0:5fb:ad3c:d0c0 with SMTP id
- 4fb4d7f45d1cf-6011407dd5amr9385079a12.1.1747642743479; Mon, 19 May 2025
- 01:19:03 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1747645064; x=1748249864;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=6shA8Nw8cerVyanZR2G440fVqrQx+t6s1rXIY4yP0RU=;
+        b=JHpwkeKzFKIhAWf7yj8tS473sCUfdSQy3HOVvi3TBwz9Mf3VN6N1/pmojUBtPmiAU4
+         u35ZHIc5iqeOznw1fxP8lYIj6B5LzZN0lkSX8WaJ42HnbReOanfcKT6T89LTYaY2Lqr1
+         twcVT6YdOL7ZG+pyOIZx/jUXetGkS2Nc+C6omgpnEMAjnnWDacA43cTjHXKuc0ZmLkG+
+         CvtzTQM/XhisFoaQdjjIJDdh4A9WAqNb0Ag4Qrfq+n5CrdrDiBtjvHBXTS+k26LCgD48
+         vBbLmRaHA5k/Jvsm7m4BV1xC6eR3nJdkxz8mwflcjV1r8Uv9SnSqZr517Y61tz9n0Hqp
+         2Slg==
+X-Forwarded-Encrypted: i=1; AJvYcCVXTs8RnmuCaM7LcWP02L18bkD5D9BdEilk/MvlhqZfC8cuD2zKLvIbdT1QZzDqOf2gPjed3X3NXtk212fBEA==@lists.linux.dev
+X-Gm-Message-State: AOJu0YwUIZBYUerVBk0zHCgDkXS5XVPknaEug1ZKPMIy/FT+zQbHr2qq
+	PXE5LWoAnCzUnpdEVi/W3P3qo9y3icVWXgEyc4UwRPzZTrx7VFMoFKZYb/OP7u1hBN8t3GgWyga
+	EG/h3xNHnY9FZiOXWVR/BYnmWxf8o5Vj9DvVEI4T2WgoLdaE1jh0PraxdUo1D4gplR0/1
+X-Gm-Gg: ASbGncvktOeA/rq9OAyZ6eS5F6LKnc3ygLojyTcgEAPUcf0Mtzlt2oGU4Z9I8EPrGPE
+	5OdKJ2VWpThObDcuh2w+3QvVeLQFtOhv+GXPzk14iWcg2kICimVZdkmVsdnQDjAlEgJcFBY/AdR
+	mycia7F7SzubFlfUqjTDYgs1/4cLbC7zeIv7ZoJfj4Uzah05C4IA9DS30V6xbO/Wq4qmE2oVKck
+	3/MamsChMedNU+m+t0vI5vKmZLl6XECx38GToPNmMSBuFep4tARzuipb0lIoI1AVR1dYqkURtH8
+	9iGROJlDAeDaoKuMGOw=
+X-Received: by 2002:a05:600c:3554:b0:442:cd13:f15d with SMTP id 5b1f17b1804b1-442fd67197dmr110762435e9.29.1747645063711;
+        Mon, 19 May 2025 01:57:43 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGcf4dhPDZlgZEhuhPjXMqTsWMJTO/M3vKQhucUObrGFbd7NxtLZdkzwsUG/0SQo3Mld7h3mw==
+X-Received: by 2002:a05:600c:3554:b0:442:cd13:f15d with SMTP id 5b1f17b1804b1-442fd67197dmr110762215e9.29.1747645063354;
+        Mon, 19 May 2025 01:57:43 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:244f:5710::f39? ([2a0d:3344:244f:5710::f39])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-442fd51477dsm132941355e9.17.2025.05.19.01.57.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 May 2025 01:57:42 -0700 (PDT)
+Message-ID: <4df60cbe-ace1-41ae-9d24-5f548e780f82@redhat.com>
+Date: Mon, 19 May 2025 10:57:41 +0200
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <87semtpjrt.fsf@draig.linaro.org> <CAAjaMXZgeNpExoiDKr3RRms_voE0bU9G033gOmawDqsFbGj2Gw@mail.gmail.com>
- <20250519034810-mutt-send-email-mst@kernel.org> <CAAjaMXafNUEk6jAkh-9iY6JNSKzawM+GRJAHAxZ6X9dkwhMyfg@mail.gmail.com>
- <20250519041030-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20250519041030-mutt-send-email-mst@kernel.org>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Mon, 19 May 2025 11:18:36 +0300
-X-Gm-Features: AX0GCFvF733KtOG_gIuwXmsOvfZpe_0HfQL9YTj8FGW-zt3EiirLxzumKFTA7vY
-Message-ID: <CAAjaMXZZX+i86U4_N1_8+czc2kcWP3=NUgLjT8BMemCYBD6uUw@mail.gmail.com>
-Subject: Re: Central repo for VirtIO conformance tests?
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.linux.dev, 
-	VirtIO Dev List <virtio-dev@lists.linux.dev>, Bill Mills <bill.mills@linaro.org>, 
-	David Hildenbrand <david@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, 
-	Stefano Garzarella <sgarzare@redhat.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
-	Sergio Lopez <slp@redhat.com>, Cornelia Huck <cohuck@redhat.com>, 
-	=?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] virtio-net: Fix to avoid using reserved feature bits
+From: Paolo Abeni <pabeni@redhat.com>
+To: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: "hengqi@linux.alibaba.com" <hengqi@linux.alibaba.com>,
+ "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+ "cohuck@redhat.com" <cohuck@redhat.com>,
+ "mvaralar@redhat.com" <mvaralar@redhat.com>, Jason Wang
+ <jasowang@redhat.com>, Shahaf Shuler <shahafs@nvidia.com>,
+ Willem de Bruijn <willemb@google.com>, Daniel Verkamp <dverkamp@chromium.org>
+References: <20250423014257-mutt-send-email-mst@kernel.org>
+ <20250423140404-mutt-send-email-mst@kernel.org>
+ <bb5dd95a-15d5-4785-822c-e2b1e773950c@redhat.com>
+ <20250429164256-mutt-send-email-mst@kernel.org>
+ <CY8PR12MB7195AB46624A4339A305BE1CDC832@CY8PR12MB7195.namprd12.prod.outlook.com>
+ <68c4e73a-fa9e-4e2e-8c38-ed4a322bf47e@redhat.com>
+ <CY8PR12MB7195E87CBF30EB5C7705835DDC832@CY8PR12MB7195.namprd12.prod.outlook.com>
+ <20250501093933-mutt-send-email-mst@kernel.org>
+ <PH8PR12MB7208BA2F9A48EEBF42B15AE0DC892@PH8PR12MB7208.namprd12.prod.outlook.com>
+ <20250506035434-mutt-send-email-mst@kernel.org>
+ <PH8PR12MB720860F36BE0C9E7C1C35A0EDC892@PH8PR12MB7208.namprd12.prod.outlook.com>
+ <862ef83f-9ed8-4d50-85ca-36231e93514a@redhat.com>
+ <CY8PR12MB7195FC058918DCC17E56FF80DC89A@CY8PR12MB7195.namprd12.prod.outlook.com>
+ <2c880e08-9d92-45ee-be92-3bfc758e928c@redhat.com>
+ <CY8PR12MB71953CA2DC3CD5608BA54D02DC89A@CY8PR12MB7195.namprd12.prod.outlook.com>
+ <758156c0-7cc7-4af4-b5eb-1339b3b9b437@redhat.com>
+In-Reply-To: <758156c0-7cc7-4af4-b5eb-1339b3b9b437@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: DRv0uaamDz8aZd11J-VPYH2sp_M30JcCiZZxMh2E29M_1747645064
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, May 19, 2025 at 11:15=E2=80=AFAM Michael S. Tsirkin <mst@redhat.com=
-> wrote:
->
-> On Mon, May 19, 2025 at 11:03:43AM +0300, Manos Pitsidianakis wrote:
-> > Hello Michael, thanks for the reply,
-> >
-> > On Mon, May 19, 2025 at 10:54=E2=80=AFAM Michael S. Tsirkin <mst@redhat=
-.com> wrote:
-> > >
-> > > On Mon, May 19, 2025 at 10:43:33AM +0300, Manos Pitsidianakis wrote:
-> > > > Pinging this thread to ask the OASIS people: Would it be possible t=
-o
-> > > > host a software project (this testsuite) under OASIS but with a
-> > > > lighter contribution process? We expect everyone to be contributing=
- to
-> > > > them, from open source/proprietary hypervisor developers, to kernel=
-/OS
-> > > > developers, hobbyists and professionals alike. So I think a low
-> > > > barrier of entry would be reasonable here.
-> > >
-> > > Take a look here pls:
-> > > https://www.oasis-open.org/open-repositories/#licensingRules
-> > >
-> > >
-> > >
-> > > > Seeing as a test suite is essentially tied to the published VIRTIO
-> > > > spec itself it also makes it a good fit semantically. Having a suit=
-e
-> > > > with multiple VIRTIO implementations including slim images with Lin=
-ux
-> > > > would also give a wider frame of reference for downstream consumers=
- of
-> > > > the spec. Currently, the Linux kernel is the de facto (because it's
-> > > > also open source) VIRTIO implementation on the frontend side and
-> > > > oftentimes we end up looking at what Linux does to implement backen=
-ds.
-> > > >
-> > > > We'd like to potentially:
-> > > >
-> > > > - Expand the array of rootfs images with more Linux userspace tests
-> > > > for more devices
-> > > > - Expand the array of rootfs images with other open source OSes as
-> > > > they gain VIRTIO functionalities
-> > > > - Implement missing VIRTIO spec features in our unikernel test and
-> > > > also exercise realistic but basic VIRTIO command use scenarios for
-> > > > more devices
-> > > > - (This is on my personal wishlist) write a VIRTIO fuzzer framework=
-,
-> > > > similar in spirit to Google's syzkaller project (unsupervised
-> > > > coverage-guided kernel fuzzer)
-> > > > - As a stretch goal, provide a reference test runner framework to r=
-un
-> > > > the images with QEMU and rust-vmm vhost-user backends for people to
-> > > > adapt to their setups.
-> > > >
-> > > > PS: The git repositories Alex linked are temporarily inaccessible d=
-ue
-> > > > to internal unrelated issues, and will be public again.
-> > >
-> > >
-> > > At the moment, from the above link, and if you want it tied to OASIS
-> > > open repositories, it has to be one of:
-> > >
-> > > BSD-3-Clause License (which shall apply if the TC makes no license se=
-lection in its approval action); Apache License v 2.0; CC-BY 2.0; CC-BY 4.0=
-; Eclipse Public License v 1.0.
-> >
-> > OK that's doable and completely reasonable.
-> >
-> > > I am not a lawyer, but can full OS images we licensed under one of
-> > > these? If not, you are better off creating the repository itself outs=
-ide
-> > > the confines of OASIS.
-> >
-> > We'd be hosting essentially build recipes for the images, for tests
-> > where we use other people's code. The build recipes would have the
-> > same license.
-> >
-> > If I understand the CLA requirement correctly, even if the
-> > contribution is merged by a maintainer who has signed the CLA, the
-> > original contributor who has no write access to the repository, has to
-> > sign the CLA as well?
->
->
-> I think is would be the OASIS equivalent of the Linux DCO:
->         Each person making a repo contribution must be bound to the terms=
- of the
->         CLA, by obtaining their signature (which may be an equivalent ele=
-ctronic
->         assent)
+On 5/7/25 11:57 AM, Paolo Abeni wrote:
+> On 5/6/25 6:20 PM, Parav Pandit wrote:
+>> From: Paolo Abeni <pabeni@redhat.com Sent: Tuesday, May 6, 2025 9:10 PM
+>>> On 5/6/25 5:00 PM, Parav Pandit wrote:
+>>>> From: Paolo Abeni <pabeni@redhat.com Sent: Tuesday, May 6, 2025 8:09 PM
+>>>>> On 5/6/25 10:56 AM, Parav Pandit wrote:
+>>>>>> Are you good with #3?
+>>>>>
+>>>>> I'm sorry for the latency. Let me double check to avoid possible
+>>>>> misunderstanding; #3 means:
+>>>>>
+>>>>> - 0 to 23, and 50 to 127 Feature bits for the specific device type
+>>>>> + 0 to 23, and 45 to 127 Feature bits for the specific device type
+>>>>>
+>>>> No change in above feature bits.
+>>>>
+>>>>> using bits 46-39 for UDP tunnel offloads and likely bit 45 for
+>>>>> VIRTIO_NET_F_OUT_NET_HEADER.
+>>>>>
+>>>> This also to use bit 69 as proposed.
+>>>>
+>>>>> The VIRTIO_NET_F_CTRL_GUEST_OFFLOADS mapping should be specified
+>>>>> after eventually a new offload feature will be defined using a bit >= 64.
+>>>>>
+>>>> No. UDP tunnel feature bits 65 to 68 maps to command bits 46,47,48,49.
+>>>> This is the only description change in
+>>> VIRTIO_NET_F_CTRL_GUEST_OFFLOADS command.
+>>>> Would it work?
+>>>
+>>> AFAICT, yes, it should work.
+>>>
+>>> But it will not avoid the immediate need to expand the virtio features
+>>> negotiation above 64 bits, with the already mentioned complexity.
+>>>
+>>> I would preferably avoid that, if possible: I restarted this thread with such a
+>>> goal.
+>>>
+>> In that case we should adopt #2.
+> 
+> Do we have quorum? Should I send a patch?
 
-So just a Signed-off-by? That massively simplifies things!
+As per off-list discussion with Michel, there is no agreement on
+reserved bits re-use.
 
-> If you like I can reach out to OASIS to confirm.
+That means the only available option is #3 above.
 
-Yes, that'd be very helpful, thank you.
+@Parav, would you send a patch to fix the offloads <> features mapping,
+or do you prefer I'll do it?
 
+Thanks,
 
---=20
-Manos Pitsidianakis
-Emulation and Virtualization Engineer at Linaro Ltd
+Paolo
+
