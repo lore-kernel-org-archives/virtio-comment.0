@@ -1,208 +1,150 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C777267F41
-	for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 07:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72E0268FE3
+	for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 07:54:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747640644; cv=none; b=H8RgvFFaqFfPJOewES6SZEYuXscpy8ruUt38spF6C0q9VB79g4cXNa2/Ru9OPFvtsQE+q0KWc0xc8Mo899Op3sCelZfhVBbMzwRK9ABkoGoe8MsWM6z8WJWX1EVYzpyhizixk1f9te+Lutg1Q3WK7uB6hHl/pBmOmajoqODjYcY=
+	t=1747641255; cv=none; b=GI1KQn5peekjLufMgIjplWb3OUyIljL3/gEX6m3Q4vevN85Eoqa8qVLrRwA2nS2AeVrtY/eokNwrnqOZWU3GAeoIlGbVWOfqeuXkLJJvdzxX717nh70cfIHGk5ei+jD4I0Npg+5A18hdUc5WjnVW1bcoFE4G6DDPcoSIKlSS2N0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747640644; c=relaxed/simple;
-	bh=E+nNJh5Jw2Go1iGRwdcYTZMNTtSbVMrUW4KHfaq7MwE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W09vZ4UlU3VeeuwKFGDV91J5c2Ce7RFPT/uJw/aFctzEyufr3VfHtMdCzizStzjScl0IAWICp5tVq6X4noYY4vmRfLyne9/NZXVapfoyGEEsQ2JrV9akTBocyx58XxV/K03fYm9QvY+d7UFHPjcfgJMeZ53lnVc7OlGnpsH4LNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=jfieTIKH; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1747641255; c=relaxed/simple;
+	bh=gHw9xM47vpgNmmAxCbICgREiCN6VsyLJsErmhJYQp2w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=LVtj4q5aelt8bGLHM0sGrj8OeBC0On0NU8zpipPL0W0q5wa+mkdIz6ElWUBHJURSQvolrjQh07CseOtXI6d07Z+5fDnTSdcjLWcGodolZkutMhJ5zXqljIKTNGc0Lt+knjxrZ9JyO2ITrSYeSt/k3ODrFyNATE/FklzCvaD/g6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OqXTMFNZ; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="jfieTIKH"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-ad551342f08so207322166b.2
-        for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 00:44:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1747640640; x=1748245440; darn=lists.linux.dev;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Mmi2WE/W8I5nkjoKs+rIsXivk4kHQeci5gHFY/+6N0M=;
-        b=jfieTIKHaNtifNMZaRgoCzfqfHv8GfP/6nZpkI7wkxC0sbMjEV8UPC+PQ94iuuzAQQ
-         ra+Bjq6GCIWcuRsobLOgxCadFD93sfbe2MplYKzd6+YgKILh8kS4Ufar4WBaEgkRftcp
-         ZBxpufoAZ9A4G73iR/0Pw4UNr2fUE4iRSORf+GNU9B3mRO4c0c9SFPitolQgCUyWZZQI
-         RzTrMj+IwsFeVjCJd/Gz0E3KK6p/w1TUwu65HzVRDbkch4VIDVw/edkxNJR/9+lEtcWj
-         jdZBj3EOgmUX1VK9SB5Ir5kR/7V8RCN4xJvnekyny8aNaghYSYjjcvASobypdVJwrgk7
-         pxYQ==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OqXTMFNZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1747641248;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YwmBBOp9THTBNT9jNMewePNtCq9SepWACAPy4cTXeSE=;
+	b=OqXTMFNZXrV6DfIAAyNXaEfGyNn6g7CDVccBcBBvZjc5Q5yOwgymcECx7wv+IFpCL3NFLx
+	WBAeiTntsLcDw/QkpBLyEtVl5leveMo9Bpvenl+AfKDUVHEW0zaBONKMigRTLPiPfBQy5g
+	BBOSC6FfMHJo3YjN86PTGszXnebf7NQ=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-561-Ux74iFHZNvC5abcbQg6PGg-1; Mon, 19 May 2025 03:54:07 -0400
+X-MC-Unique: Ux74iFHZNvC5abcbQg6PGg-1
+X-Mimecast-MFC-AGG-ID: Ux74iFHZNvC5abcbQg6PGg_1747641246
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-3a36a4c70b4so357960f8f.1
+        for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 00:54:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747640640; x=1748245440;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Mmi2WE/W8I5nkjoKs+rIsXivk4kHQeci5gHFY/+6N0M=;
-        b=Iw73TLswF2lx8dH5JRq4G3eI4n3VKINDmMgwfOIdxALX5+dmNYbiCj+zaBSDBHIT4Z
-         gBFlbXgOOwrEoXhf5KWMUHnYIFCeAp5q9DXGsKK9Rl2czHmGIb9vdonl+gpp3k/PPgZi
-         rz89+dOgP7MA74KnCUe2uAdZGfY8DK4rnxpxfrJ6Wt/QOd0G25zKgiC3iZiy779grUtZ
-         OCTlljms1PBpbkANJtzGULDWAeeFDHoktdHJIH0zN9m5F7d1GBMmX5MPKVc/Jhz5rU/5
-         Vp69bPHXaH8QVLJn2bCpXJK3T/UT2uLd6owda0cWiq0JitKdmmbS5ppPQ2sgEv6iP6Wr
-         17oQ==
-X-Gm-Message-State: AOJu0YzeW0TsWzRWTFA0GOhG+Dn3mswN+WW3fhqyG987m/8wVf9NRu04
-	4o153xipegFYUG7iffOH8dV/bVu0k/W1QqaT7tY1agFJDSj7P0IUbjPoMr7z7VzYeBKOH+qC1/t
-	N88FKYfwR+zzm8ccz1Ku/qEKMHxflNKlsD7lgbbYIGzqvat9Ef+2IUZfbNA==
-X-Gm-Gg: ASbGncunGPzpvZMU3bg19kB9ftgyQfrxmLkppswAy9A5xG74b21IKA5gV+vYt9KGEOp
-	Auqz1XOj3mMc+h/n/cQvZryqqJg6Ql1w1c0FLcL95XginlQKMnxyVAp/jlLR/pXK7ddww+Z+MDb
-	PTvuOxiS2ZsxCCbJC5Y4TVdo/cspk=
-X-Google-Smtp-Source: AGHT+IHOOltbumYXCHgkLoffx1U6iUJpROfH6gSiv/IG/eaKHwh+vlK3Fmfxvo5MTPnScTa+4rP5T2Qaf90RYHf1/vg=
-X-Received: by 2002:a17:907:c21:b0:ad2:28be:9a16 with SMTP id
- a640c23a62f3a-ad536f280cbmr942873566b.51.1747640640403; Mon, 19 May 2025
- 00:44:00 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1747641245; x=1748246045;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YwmBBOp9THTBNT9jNMewePNtCq9SepWACAPy4cTXeSE=;
+        b=sy7DgOTlxw/rCs7/szr6TFW+toJpCKuRezrJXUeU1Pua5BK4tfIEi7rnQBzVZWIAqZ
+         uYp9caaieTR4APOwAnDtqjyPYuD0348C9dwnB1jL8zNhJQ8hmzpjr0rg0Oi5ISk9ymS6
+         ltrqcjyNPHkvzl2EGtn/cb0KI6lcoVEpgV+Q6DwQ2JVXRZ+t0B3aFGk5PZbaEdD3o04+
+         DABc7JoIuTINDZKE0kD8AtjoJve1fk8/4AXYzzqZfRTUEMYUdtrLdf4ROhfircFVu4BC
+         hDBfseMO18KL2L89Vb3aG4TyDSdp8j979zNmXX5wgVe2vg6S2CbZ9plTDr6gULz4DP+p
+         OAqw==
+X-Gm-Message-State: AOJu0YwgQmpEY4KggU+Jyv01kpYNdO3AzSKsHYNOVhAX5WJ83iLNRXOq
+	0hoyVDgNm9w+urtgQbJBIpdh8wupt6nrt/Yt9HUqig1HGwatlWv/tx+SEL5vjzyzF0SN4o4Vy18
+	CCMGazZkyTl4gKt2CFxbdSrj0SsX0GAdpX0VvsvVuQ9hglS5RoDVtm9q7Wsanlwr0HD+l
+X-Gm-Gg: ASbGncvpfEOhfOuV+pxhEytL4TDElxYBk9BzShlBSlymemZ+XeDCuFcyzOEck/TJrBD
+	jznkfxq8NlbwpaIq/A96qXOeapBrp6e0hr35bZyYQzK8S72618rAvoymUUjnrcpRJ6vjXM41r7a
+	0NfAhfr5uxzO04Qs3jpgD7yK/dvXntq7648sj4PWecGNqPD1GzE7XjsZq4nWV4afh6fdY7D3Yog
+	PyCjgwaOZzIsWWKMIC3hh9jbxDG+pzQwFGU9O3Qjrr/Ng/nZJH/BlWehcaSskepOZnCjX0+3uoh
+	U9bg5g==
+X-Received: by 2002:adf:9d91:0:b0:3a3:648c:e6c0 with SMTP id ffacd0b85a97d-3a3648ce6e2mr6828935f8f.10.1747641245456;
+        Mon, 19 May 2025 00:54:05 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEw5NXWbVFRiP6/EUGyjabOk7wWNDTaYhl+EprjY4n0MkA6Y+Id8YvJMe07oFdvC+yFF4ArjA==
+X-Received: by 2002:adf:9d91:0:b0:3a3:648c:e6c0 with SMTP id ffacd0b85a97d-3a3648ce6e2mr6828911f8f.10.1747641245107;
+        Mon, 19 May 2025 00:54:05 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:1517:1000:ea83:8e5f:3302:3575])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-442f39ef8bbsm204640365e9.37.2025.05.19.00.54.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 May 2025 00:54:04 -0700 (PDT)
+Date: Mon, 19 May 2025 03:54:01 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Cc: virtio-comment@lists.linux.dev,
+	VirtIO Dev List <virtio-dev@lists.linux.dev>,
+	Bill Mills <bill.mills@linaro.org>,
+	David Hildenbrand <david@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Stefano Garzarella <sgarzare@redhat.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Sergio Lopez <slp@redhat.com>, Cornelia Huck <cohuck@redhat.com>,
+	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>
+Subject: Re: Central repo for VirtIO conformance tests?
+Message-ID: <20250519034810-mutt-send-email-mst@kernel.org>
+References: <87semtpjrt.fsf@draig.linaro.org>
+ <CAAjaMXZgeNpExoiDKr3RRms_voE0bU9G033gOmawDqsFbGj2Gw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <87semtpjrt.fsf@draig.linaro.org>
-In-Reply-To: <87semtpjrt.fsf@draig.linaro.org>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Mon, 19 May 2025 10:43:33 +0300
-X-Gm-Features: AX0GCFs_rRK39V3DxC_Ub9WBuBpQYwMG-H1XMRxkuX6XNQUQr2UDkpZvEU0OMpc
-Message-ID: <CAAjaMXZgeNpExoiDKr3RRms_voE0bU9G033gOmawDqsFbGj2Gw@mail.gmail.com>
-Subject: Re: Central repo for VirtIO conformance tests?
-To: virtio-comment@lists.linux.dev, 
-	VirtIO Dev List <virtio-dev@lists.linux.dev>
-Cc: Bill Mills <bill.mills@linaro.org>, "Michael S. Tsirkin" <mst@redhat.com>, 
-	David Hildenbrand <david@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, 
-	Stefano Garzarella <sgarzare@redhat.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
-	Sergio Lopez <slp@redhat.com>, Cornelia Huck <cohuck@redhat.com>, 
-	=?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAAjaMXZgeNpExoiDKr3RRms_voE0bU9G033gOmawDqsFbGj2Gw@mail.gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 4msvZUtgxZwZTFx5GSctialyguG_Psx_7LGPrnFiR8k_1747641246
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Mon, Mar 31, 2025 at 1:38=E2=80=AFPM Alex Benn=C3=A9e <alex.bennee@linar=
-o.org> wrote:
->
->
-> Hi,
->
-> We've been working with Panasonic to expand the testing of VirtIO across
-> a range of hypervisors and VMMs. We've tackled this with two approaches:
->
->   - simple unikernel to verify features and basic functions common
->   - rootfs images to exercise the whole device
->
-> The unikernel utilizes rcore-os's no_std VirtIO drivers to discover and
-> initialize a range of VirtIO devices. The tests mostly focus on checking
-> no unknown feature bits are advertised as well as ensuring features
-> dependencies are properly realizable. This is useful for those
-> interested in moving workloads between hypervisors to ensure you don't
-> end up relying on a proprietary feature that aren't available elsewhere.
->
-> The virgl test also does some very basic blob mapping to check the
-> underlying mechanics are working.
->
-> The unikernel outputs a TAP stream to make integrating into a test
-> harness easier.
->
-> You can find the current state here:
->
->   https://git.codelinaro.org/manos.pitsidianakis/virtio-tests
->
-> While we only build an aarch64 unikernel the upstream drivers have
-> examples for riscv and x86_64 as well.
->
-> As more complex VirtIO devices like GPUs tend to have a significant
-> user-space component, we have also started building Linux rootfs images
-> to exercise those. The images themselves are built against a baseline
-> architecture so they can be used on as wide a range of hardware as
-> possible. They have been built with buildroot to make them lightweight
-> and as close to the upstream projects as possible without relying on
-> particular distro support. You may have seen the recent aarch64 GPU
-> image being added to QEMU's functional tests recently:
->
->   https://gitlab.com/qemu-project/qemu/-/blob/master/tests/functional/tes=
-t_aarch64_virt_gpu.py
->
-> I'm currently working on a similar image utilizing a subset of the
-> blktests project to exercise the VirtIO block devices. The various
-> recipes can be found here:
->
->   https://gitlab.com/stsquad/buildroot/-/tree/adding-blktests?ref_type=3D=
-heads
->
-> although the intention is for all the recipes and basic QEMU based tests
-> to be up-streamed into buildroot in due course. While I will no doubt
-> expand the functional tests in QEMU over time to utilize these images,
-> there is a wider question of where would be a good place to host a more
-> comprehensive VirtIO test suite? While useful for validating proprietary
-> hypervisors there are also a bunch of other VMMs and VirtIO backends
-> other than QEMU:
->
->   - rust-vmm's vhost-device collection of vhost-user backends
->   - CrosVM
->   - Cloud Hypervisor
->   - libkrun
->
-> As well as using VirtIO backends with other hypervisors such as Xen,
-> Gunyah and WHPX.
->
-> So this brings me to the question posed in the subject. Where would a
-> good place be to host these conformance tests?
->
-> My initial thought was to see if this is something OASIS could host as
-> part of the specification however I'm not sure OASIS is set up for such a
-> thing.
->
-> We could host it as part of the QEMU project as a service to the wider
-> community. While it should be pretty easy to expand QEMU's own tests to
-> work with multiple hypervisors, its test machinery isn't really setup
-> for non-QEMU VMMs. Ideally we would want the core repository to be able
-> to run on multiple hypervisors and use different VMMs and backends
-> depending on where they are being run.
->
-> The other option I considered was hosting with the rust-vmm project -
-> although maybe that just makes sense for the unikernel tests as they are
-> rust based. We certainly need more automated testing of the vhost-device
-> repository which can serve as a backend to multiple VMMs and
-> hypervisors.
->
-> So what do people think? Where would be a good place for common test
-> repository to live?
->
-> --
-> Alex Benn=C3=A9e
-> Virtualisation Tech Lead @ Linaro
+On Mon, May 19, 2025 at 10:43:33AM +0300, Manos Pitsidianakis wrote:
+> Pinging this thread to ask the OASIS people: Would it be possible to
+> host a software project (this testsuite) under OASIS but with a
+> lighter contribution process? We expect everyone to be contributing to
+> them, from open source/proprietary hypervisor developers, to kernel/OS
+> developers, hobbyists and professionals alike. So I think a low
+> barrier of entry would be reasonable here.
 
-Pinging this thread to ask the OASIS people: Would it be possible to
-host a software project (this testsuite) under OASIS but with a
-lighter contribution process? We expect everyone to be contributing to
-them, from open source/proprietary hypervisor developers, to kernel/OS
-developers, hobbyists and professionals alike. So I think a low
-barrier of entry would be reasonable here.
+Take a look here pls:
+https://www.oasis-open.org/open-repositories/#licensingRules
 
-Seeing as a test suite is essentially tied to the published VIRTIO
-spec itself it also makes it a good fit semantically. Having a suite
-with multiple VIRTIO implementations including slim images with Linux
-would also give a wider frame of reference for downstream consumers of
-the spec. Currently, the Linux kernel is the de facto (because it's
-also open source) VIRTIO implementation on the frontend side and
-oftentimes we end up looking at what Linux does to implement backends.
 
-We'd like to potentially:
 
-- Expand the array of rootfs images with more Linux userspace tests
-for more devices
-- Expand the array of rootfs images with other open source OSes as
-they gain VIRTIO functionalities
-- Implement missing VIRTIO spec features in our unikernel test and
-also exercise realistic but basic VIRTIO command use scenarios for
-more devices
-- (This is on my personal wishlist) write a VIRTIO fuzzer framework,
-similar in spirit to Google's syzkaller project (unsupervised
-coverage-guided kernel fuzzer)
-- As a stretch goal, provide a reference test runner framework to run
-the images with QEMU and rust-vmm vhost-user backends for people to
-adapt to their setups.
+> Seeing as a test suite is essentially tied to the published VIRTIO
+> spec itself it also makes it a good fit semantically. Having a suite
+> with multiple VIRTIO implementations including slim images with Linux
+> would also give a wider frame of reference for downstream consumers of
+> the spec. Currently, the Linux kernel is the de facto (because it's
+> also open source) VIRTIO implementation on the frontend side and
+> oftentimes we end up looking at what Linux does to implement backends.
+> 
+> We'd like to potentially:
+> 
+> - Expand the array of rootfs images with more Linux userspace tests
+> for more devices
+> - Expand the array of rootfs images with other open source OSes as
+> they gain VIRTIO functionalities
+> - Implement missing VIRTIO spec features in our unikernel test and
+> also exercise realistic but basic VIRTIO command use scenarios for
+> more devices
+> - (This is on my personal wishlist) write a VIRTIO fuzzer framework,
+> similar in spirit to Google's syzkaller project (unsupervised
+> coverage-guided kernel fuzzer)
+> - As a stretch goal, provide a reference test runner framework to run
+> the images with QEMU and rust-vmm vhost-user backends for people to
+> adapt to their setups.
+> 
+> PS: The git repositories Alex linked are temporarily inaccessible due
+> to internal unrelated issues, and will be public again.
 
-PS: The git repositories Alex linked are temporarily inaccessible due
-to internal unrelated issues, and will be public again.
 
---=20
-Manos Pitsidianakis
-Emulation and Virtualization Engineer at Linaro Ltd
+At the moment, from the above link, and if you want it tied to OASIS
+open repositories, it has to be one of:
+
+BSD-3-Clause License (which shall apply if the TC makes no license selection in its approval action); Apache License v 2.0; CC-BY 2.0; CC-BY 4.0; Eclipse Public License v 1.0.
+
+
+I am not a lawyer, but can full OS images we licensed under one of
+these? If not, you are better off creating the repository itself outside
+the confines of OASIS.
+
+You can still use e.g. virtio-dev mailing list for communication.
+
+> -- 
+> Manos Pitsidianakis
+> Emulation and Virtualization Engineer at Linaro Ltd
+
