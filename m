@@ -1,64 +1,61 @@
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (mail-co1nam11on2060.outbound.protection.outlook.com [40.107.220.60])
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com (mail-mw2nam10on2067.outbound.protection.outlook.com [40.107.94.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948751FDA8C
-	for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 14:27:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.220.60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6441F284B3F
+	for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 15:12:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.94.67
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747664849; cv=fail; b=FMdsPEyQ/eMarPLNA6dDaZ4vnih24nEiBCAo6pDTSdAz4KMFc/dOp0L/TsvjM7QpI/5mV3mGIgTdZneTyd/3VcGFPZMQHoi3mr6P1n4uukLZBq8+rZsCqwCLXUb9kwTpwJLYj+R+Z94FvHBq70NCKZFTfd6M64yrO4STJk4VrPo=
+	t=1747667528; cv=fail; b=fawOGA1J+CMriHz/VoiRZovgbl/lE1AY1eEWOprwr1Jtlief/66yZ0NkjRqdVanSxvlL0kPhlGGd5BToaPk3LQnpWoGbCZxhhkFhlpbPyq3itzdi1hg0UZn3+zZTd60FfvpmXUwC85X+jL0ji4OqabVuLJpIa5QU+3wEWJ2x1EU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747664849; c=relaxed/simple;
-	bh=S9xMzBbvqQ2uWgnnF3WAbSDhIrL6ZrUSr4Mo99tOByI=;
+	s=arc-20240116; t=1747667528; c=relaxed/simple;
+	bh=Tu4Ef7nSGzwiVc63yCua78Kbvv+yIiBqi8PKBSMQ4wo=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=LkSHNBC+jo8MqKtI2QNohQrdnOwI5cWvnU+pgq6pT41/lqf1Ret7GIz5RBLge1d/TMOMLoVA3yHXO25QlCvHS343oWHUrkRm4mr/vhcoxiH6Ii9pkNG7H3aYU8gQwrEyE4Y69RGfptqUpwtBguNIijsQSICQ6LCR5uh3gL/m/8o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ThPJrVKU; arc=fail smtp.client-ip=40.107.220.60
+	 Content-Type:MIME-Version; b=Ou6NhbBJWWuoZg1vPjqWFJ0FszLGm7zgDJrwluztPrO0g6n8cHNEToxvuWYqqH3GPnZSyPbE1b84qnvvgng7ChVI+SqV8cIuSkD50U5Rk1msoh60W9jf0qtThFPnZhNDY7JvfPDjhyyLahS9Uxmt60nvkpejgTmAk3BxFPyj3WA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=FJYI/nzn; arc=fail smtp.client-ip=40.107.94.67
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ThPJrVKU"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="FJYI/nzn"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HZPuBoaMEVyB2mqIIuUcd+fKU5u15fJlkdPxDfhLy8Ae0UBO2mrZqVJxF+z/meweTmHTyq3ALhzXlKrxaTsKjHNQqhGfyggfFpBL77VX4dzzvJ/Ud3DmlmN2WgY7DR3hm1bAe144Uah+1EMcZqmwECCqhwAkXAWh5B1AN0PRqs2JsCdU9NiCr6ktKSuj+G7RfUoC04YNRE2pxXowgOXy6X8YpgNqCojK326hTaTOhTcmJcu9lESC3p7DjiAp7fJOppPmUgSc2IcfhPjG9uTd1f4RKQEeHEvKG3y9eErvuJLM7sTlfxU8/1zExlQrwXobxbxuCIPSjcn5mwp3oIsIMA==
+ b=DZ5cUvQfNghNilyD3q/BgB7eMBYRN/OXUgNPMDnAg06b8P+SDpkEBEWh8tVhcjmxv4Pa0KqhVt5qNGKKQrf7/uFJHztNQS+eXNwPVK2piGv2hvNXgui41xz6zJHmAMT4sZsN3dmXpyBSm6i2LeZP9YL7zQ+2pLC4XH+59WaF/BH1n+J/eWr/A86flv5g83fzjnojD9GiJhSc8HVcvxtHOx/ZuSZWRyWyOw/cYKSyVpawWgkJbFZXQ4zCppPf4bM1T1xPBIkPt+F8ou28r1ASZMNgskNraRhlV9VKNTu+XFMlw2H+CshRmWWW7U6OHELYWnVuzrWWo0kbo0i6d/TsUw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KBvXyFY+PCOEWBm7VJb83m0W6Y+4iXQW6yqRw0wiHTQ=;
- b=pnrEEhmC/SzeGKIcg0B2O7XdRByQQ9er6qNE7RaxBlfy4epqX+54HtWVjUeS73rUQAJCfI6OXpGG/DjbjJoo9W6nSskWc9tkPfuh4koTwFhsZJfQbIKB3Hzv3nDh42UqX2dPokRg2vYs0yUs56/bYlL/U3dO3FyA/PnKykYzlivJH5F/v1IN6s7649hXHFUGypVDZyEWzSSE4+lvozXPzxaB6Awim//9rNf1f1TpjaXbc8qJOixfiU8M0wHzUiDndJXUQgBs0uPFOED79AZqU6v+nlS5tmcHF8awGuJGj+XEgWdVro+wuM2peOqs1YoZDrMRMmd6bgUMoya5IAckAA==
+ bh=XJg99M5RIcVMizbkJzK+rQCe0xPgVzsNa74wkklJbMg=;
+ b=qK22DU8xs9x4gAw7aBLBXDLzIZ3zbpoF28553lz2DTfuuUfDU2viRVCGht4e9hevVuggb/nEtPuW9+lWiye7x+AqQe1KfFKC1kd0fngbx6m+GbtjmHTDLfK40lH7a6FC/+pR2rkyJkZ3UudQ/wrgVZAxOLT5B5I/VeavcBQChc7FXDQDUb/85Dkdyp+Azz5FnmN5iPFrxfmUknefGix6AfjTBzQmqK3iYM9dwgKdIfM/ngwFrLhpG196vGnxtodLwUW2t15GzxChRIMjU8M3wBkAcYdwHL+KC0JREhg01F8disUij/CzjEdtX5eYmHyZPP23UU04rVAHyUYP93ac/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KBvXyFY+PCOEWBm7VJb83m0W6Y+4iXQW6yqRw0wiHTQ=;
- b=ThPJrVKUWepZ0zVEANfKu5Mati3WOa6PtAt5IIJOVsc80Ln7qNrsgQzH/xSMiCB8mSOb9muGGJD8IlNf9yafNqxjcfRHnR/oHIVM+RekbxBZFPnyZXa1FYJWKgolzDNscBK7C1wwROAyE7lVdIrxGqTNdYSPuB7mvRk41E5gs5vOeoLkEKk0eGfv+j1Uw1J7xXm/Es2GmfIJn+TvnKD2y3MWzfQEq8AcM/BOQcA7+KpG6GXl5HkBFfF7953EapRB6FIxf6aAbtsfMFEjHiXooxcMVR81Nky2gILmVMDIFluAr6enWSuunoH74DPtrIPuUb9E7NC+e9XNWb93daf4GA==
+ bh=XJg99M5RIcVMizbkJzK+rQCe0xPgVzsNa74wkklJbMg=;
+ b=FJYI/nzn8xtAdYebltG632eNbnUF8/SoR7vc7RCojNlSn/SMeacApe9b/YusQmJVfEVUWeywDvfgOf4Aa4SfiDcwEpyvPKKZxpEUT7qFyh0X4qMVM//4h+y2abMghAmIdzesCSfYPalozDgqM1q3No+vx0ABCmoy5Ep+TNgIghGbyFiW4K7UElKEbvS846C63TqQOAZTe4x+bfJNqQqmVxBlwgt2OIRs9RxumiGulLoFJUjbxeHEHcWDlHHgEst+hnYYbYQ19vKiSct3CAapbO6grjriMqjbE7dWU/I5mzv25MDFJzp8Ykl8amFMq6D18V2ii0WpRsWflNG+y+I2ng==
 Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
- by CY5PR12MB6372.namprd12.prod.outlook.com (2603:10b6:930:e::5) with
+ by MN2PR12MB4045.namprd12.prod.outlook.com (2603:10b6:208:1d6::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.33; Mon, 19 May
- 2025 14:27:23 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.31; Mon, 19 May
+ 2025 15:12:02 +0000
 Received: from CY8PR12MB7195.namprd12.prod.outlook.com
  ([fe80::c06c:905a:63f8:9cd]) by CY8PR12MB7195.namprd12.prod.outlook.com
  ([fe80::c06c:905a:63f8:9cd%4]) with mapi id 15.20.8699.026; Mon, 19 May 2025
- 14:27:22 +0000
+ 15:12:01 +0000
 From: Parav Pandit <parav@nvidia.com>
-To: Srujana Challa <schalla@marvell.com>, "virtio-comment@lists.linux.dev"
+To: Paolo Abeni <pabeni@redhat.com>, "virtio-comment@lists.linux.dev"
 	<virtio-comment@lists.linux.dev>
-CC: "mst@redhat.com" <mst@redhat.com>, "pabeni@redhat.com"
-	<pabeni@redhat.com>, "jasowang@redhat.com" <jasowang@redhat.com>,
-	"sburla@marvell.com" <sburla@marvell.com>, "ndabilpuram@marvell.com"
-	<ndabilpuram@marvell.com>, "jerinj@marvell.com" <jerinj@marvell.com>,
-	"kshankar@marvell.com" <kshankar@marvell.com>
-Subject: RE: [PATCH v6 3/4] virtio-net: extend virtio_net_hdr for IPsec
- support
-Thread-Topic: [PATCH v6 3/4] virtio-net: extend virtio_net_hdr for IPsec
- support
-Thread-Index: AQHbuQPoXjqYK7vXs0iERmfpw7Nn8LPaIMxQ
-Date: Mon, 19 May 2025 14:27:22 +0000
+CC: Jason Wang <jasowang@redhat.com>, Willem de Bruijn <willemb@google.com>,
+	"mst@redhat.com" <mst@redhat.com>, "mvaralar@redhat.com"
+	<mvaralar@redhat.com>, "cohuck@redhat.com" <cohuck@redhat.com>
+Subject: RE: [PATCH] virtio-net: clarify guest offloads <> features mapping
+Thread-Topic: [PATCH] virtio-net: clarify guest offloads <> features mapping
+Thread-Index: AQHbyKaO+bVcJjxnXk6sUs+adTcgY7PaDEwg
+Date: Mon, 19 May 2025 15:12:01 +0000
 Message-ID:
- <CY8PR12MB7195FF5D309EDF54DB53C98FDC9CA@CY8PR12MB7195.namprd12.prod.outlook.com>
-References: <20250429124010.1949371-1-schalla@marvell.com>
- <20250429124010.1949371-4-schalla@marvell.com>
-In-Reply-To: <20250429124010.1949371-4-schalla@marvell.com>
+ <CY8PR12MB719579675CB3864AB3A7218EDC9CA@CY8PR12MB7195.namprd12.prod.outlook.com>
+References:
+ <a30de484ff56065f56e37446e08dcdfa4850f101.1747649330.git.pabeni@redhat.com>
+In-Reply-To:
+ <a30de484ff56065f56e37446e08dcdfa4850f101.1747649330.git.pabeni@redhat.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -66,68 +63,69 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|CY5PR12MB6372:EE_
-x-ms-office365-filtering-correlation-id: 2fb1f826-c18b-4d83-1d8f-08dd96e14532
+x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|MN2PR12MB4045:EE_
+x-ms-office365-filtering-correlation-id: 4702f087-bdff-4626-8452-08dd96e781d1
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|38070700018;
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
 x-microsoft-antispam-message-info:
- =?us-ascii?Q?V/1iUirjl7e3R/4LlqmuGnUohQzxnMnLgGRVpKW9Xy12LM+2uSPrq0PqPyxD?=
- =?us-ascii?Q?fnyvjRK8WLueZvO8IJHbiexzq7IQcwAzXGGtuTQ1N8Q4R6OaCIi2eq/ilydA?=
- =?us-ascii?Q?FPkUDNDEVF5cO6kHA/LXFwRY2ACjtJE158tDzHlGD6k3Z855wP48P/ytdNS4?=
- =?us-ascii?Q?1xO4InVYQa7jVELFCaZ2Lo5Ui5v9Is6qm+gg+xrvgtDiMXAwjAVOzJ1ciQ4R?=
- =?us-ascii?Q?zNdJy2gnfPShLoasdVO3F7YIPPUW8Nf9EXWfHZqmufgGf2dUny/pmF3JkhGJ?=
- =?us-ascii?Q?iLY2byy/aecBTENo5pJmKHJgUaVcKVneBrrmkWTYupGKLKe9jzRUwGo2eP84?=
- =?us-ascii?Q?FsD8cOJE+GvaNGYYTpLIJNVQ/T7iDm1Fc/m7VjWXpG4/bXkXuykfxlF7XYUE?=
- =?us-ascii?Q?W56i23iWo/fBRqxmv3F3ugudufD0qNxj+7l2OrirDO/Zh84y1Dk5SOupEAX0?=
- =?us-ascii?Q?eVU/eDTw9tddCX3oDRivBZ3uRzd/JhZ/eXXtkrF3WcHqazTBQkds2ZYcF6dc?=
- =?us-ascii?Q?euRunwwKP0frGiW6vxiQvcUeB1lml6dEo95gN/xAV7zV1zR3UdKLPIzryK89?=
- =?us-ascii?Q?OnJ1siYtFV7e6Acb4I7igPYlbXEf2sDUj49ziWUFte5DKT7bw+fD4ycOM/JT?=
- =?us-ascii?Q?7wLhT0E4AhPHpSuLXFcUHCCVfz9+zvGHMYcQfhL6oywUlVgPwbQh6oE2k3Vj?=
- =?us-ascii?Q?TAoBRjtmdZt16HjEC9uBTQXMeDkaZWXRb//1skx84Xthg408scvWKQx166Er?=
- =?us-ascii?Q?0D+cqJOG94rACEq7Vrynoh4cApMF68Sj9QoXpmMYRBFYjSK6ZAcwrnJwb8He?=
- =?us-ascii?Q?tqqPZV6Cv9ugutWTrI1HPNH/hKu016CELJh6pwmoN6aAb7qv06+uQtp8g/wz?=
- =?us-ascii?Q?0vwiw2v02tzrtSNCOohtJHCapg6slsyluzuTZ3XbInZjRjkxqyUIRC9XDN83?=
- =?us-ascii?Q?ZhktwyQHOQh3qZijAR67WoW8adX77MgvVwtl+Z2qRMlzw0JQXy8R3+8WaM1/?=
- =?us-ascii?Q?HH5Y/1bbkQGAWYvSqE/FwsOs4+F95PbcS+HffxoSo9ftkKHoN0KHUgvA0TPl?=
- =?us-ascii?Q?0fJifPhxs4hLrarqFbs15SQpwqCz81Hy49jagyyqXM77TT2mWf5VXsIu2sgm?=
- =?us-ascii?Q?LWpnkOKkNc5G8nl20PBvQ2tOnXrieJ80FK3fDi33JaZhlnIH09PsZu8ME9oa?=
- =?us-ascii?Q?kYxtfFAJunChaJ9G56K/tKnlKf1CiGNgu+qdY5811HgrKM6UHVoReFC8EHk3?=
- =?us-ascii?Q?OIOXmVqOnaNrxQVYggeWy/g7MP9mdW7iSNMw3li9CGfRcQHdIrI6z5YFcH0A?=
- =?us-ascii?Q?jrCuVKPzEbGDWEKgdTZ4wlcTVOQMrTUPzWhO+IB6wwFLFFCKY4hUhd+HR8xq?=
- =?us-ascii?Q?aZ/igldBY9+V3ksne03uwktvPjXr9I3jmfhVqhuITfrerutlwJ8XO4WIaGOV?=
- =?us-ascii?Q?2DpNtVBLKLzT0xc7j8rmFK0Hhj6yYuKbJGKndyyOHuuGCOOZCoZ8nw=3D=3D?=
+ =?us-ascii?Q?wSUu44pmiwADFklxBy5I4Y0oEBJVIs7hSclX9EyE5SUrQQcuMhMntH5NzlPg?=
+ =?us-ascii?Q?BgV5r6VhIQVTj1+CmKgBhlaoeFaGQRgGMqVu4RHR7v2vlbswxroaQaL904HW?=
+ =?us-ascii?Q?ue/vISJ+PliT8tMwlaUk0VwU/vsjDy1KAfPZU5RVhuw76GRXoqmiyE6XWl4+?=
+ =?us-ascii?Q?6LXWUxAHJylzrPx+UuiAb/aYlyqOq7UXvQn8cjhgPKP1mX9dE08/dKQozeLW?=
+ =?us-ascii?Q?4NEJ2RjDzPea7wKkZt9MBqcjWs+LJ1hXUaIkXK90Lbsr7bd5s7yR6HOJPxNz?=
+ =?us-ascii?Q?VcOiZ7l6rzDcNEDOYcOXrKyGkYQ+qoNZftxQ7/iZ0bWzmtLcJ96itYZTMWwX?=
+ =?us-ascii?Q?EJz0aNfmQUZ7gJMsanJAzoJicsdIDRvbEBxPoTpIww0EZ+BHsWQ+GFkBtrOT?=
+ =?us-ascii?Q?rK+U1/FWE19DYIdvPRFj1RA4clps8IoTXB6B4aJEV5FoEuIMwbQ+zFRRxjWB?=
+ =?us-ascii?Q?OWLvDdZmulmWgqe2IbxK6bUionvVeBptWx/ghhB/yvl35OpUTSV2XBhs1wqS?=
+ =?us-ascii?Q?MXFOiVeWyp31w3oD23TWzhKOXmcJ5Uq3rUt77PzX8byVIFspRz39yXYk+jbs?=
+ =?us-ascii?Q?YnJoM9n4EUAaRhzIqzRAiIcX/fpKQAGNO9RBv/tCGCSLwCNouww9XANG22yf?=
+ =?us-ascii?Q?QZXVgf7D3UYQ+I5erGcSozP9JywUTc1PiwEB4RbsqJdKZw4/U5ee4FP/vuaM?=
+ =?us-ascii?Q?LGKKXxdSO1fpHm9ot3l0FbaNx8c93XzSyBRwyHlfq8iA00pRFCuGVuECCblY?=
+ =?us-ascii?Q?EPVyYIdVMMHp8H2o86swP+oj1NoQt7QO71UJY1MDJLMqO1xjzAMPsfqOKDbN?=
+ =?us-ascii?Q?sSkvjpVIkEprgdPeuLbpOv/zERuIwTVTJL8Bo0qJqhNajCFf4aEe3NOYzaKP?=
+ =?us-ascii?Q?AoY/tra6fpRFKwm3Yhv8YDTz5zZDpyRTgTJ2OjWrpyY5l14svamIV1LjeDnY?=
+ =?us-ascii?Q?Tsch04IASwqkQDIgQfOmq+KfM6gpWh5ceEfSwmiK2TPIZBCV7SWYRbL9uw1w?=
+ =?us-ascii?Q?4gQpHtGr0Tc1WM2qavLArIE8IQaX6UxESRduxtSPPa5Jpcies1apssvxu+Eo?=
+ =?us-ascii?Q?qrwSTW4FGzkeps2FMdeG5ESZQnIbQMx39fJbwgoMATCqElHlgUNw7hAIqAWp?=
+ =?us-ascii?Q?WGHzQUWBIebx4BFmOhs6OooLYfY0RjtlIGzTlxRmyPnVxXmU6bWMgMTsqQiv?=
+ =?us-ascii?Q?ZnAdCMRmnh9QMgRICD3krFQ0yr0q014gsUBc2pWxx7MpUrCD8GlLEToRHfdS?=
+ =?us-ascii?Q?DLrerMUa1GrwMmcKOKKCrLekIwT4uk94JlprTa3LKcyKsuPSya8zd74RfASQ?=
+ =?us-ascii?Q?F1T7RujshzvZ2E35M7u3btMPjd4wGGoH/Mu7W3sd2FBeumpStr4kykCnDFBV?=
+ =?us-ascii?Q?Uj3hEsf+eKtT9tYZwn4DVYOCk5OBMYWZUxhZ8f5pe0tuyVll8ofpQhc5o3Fl?=
+ =?us-ascii?Q?tlMJ/IcNjpiN8uKQeD2Q6Z2jaL9tXoSk3Qha+anJD9sJUWxX3y7RqDQqsZdj?=
+ =?us-ascii?Q?o2DYcR0es+/T628=3D?=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700018);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?FCKFmv5nQQnV2xJGowrQ0IwU/DifS09wRsGp+E/7wJxZ0y6WDCVo7HSwFJwX?=
- =?us-ascii?Q?evxzt4bCpAwuht1LKn204sx7KnwrISkAQUmjABofYVTwA+ZcvFPOR6Brr8lr?=
- =?us-ascii?Q?y6xKFiDH/eOo2GbDW4zjtCGNvUcNNGks8TT2E/PrC53MFBrdDwqyQZEk4a59?=
- =?us-ascii?Q?EzD8WmPUw4oLeLm7s7eH1KS8oAWUPgwxVgITRsUT4p56oJuahlvN1ueq2bZV?=
- =?us-ascii?Q?9jy+qw8PpY4T/3TQMEsQgQUp2t0VieRHeW1mRWuelSFOrG3pGRUaBflQmolR?=
- =?us-ascii?Q?Z8ceWC2XXi8W3ypA/D0UEqESgRxVQbtGHFsG7W6V0kaEUVlEd2BwTA29m8Hj?=
- =?us-ascii?Q?/6oPxu4nRri4MzczqdnJNKKCO1u3AARSXCdZRjHnCSKmqb1uTQzOHUeF4DY7?=
- =?us-ascii?Q?Q/CL14CVa9V2IyAw4xMRclTBAfow92vY+JDCZ0V2ugyf6Joqw7OQBffxZcZY?=
- =?us-ascii?Q?2BXHAH5f7SOdGGkN9/roVHPKFur8CgiN7X8Bu0FJ36puexkqgAPkAjwzCU4p?=
- =?us-ascii?Q?ITtjdVx+asV2ZFbFcxdvz0zT6HBoupclsGKWPz2Slo2QWYilr3aemam9/Bk7?=
- =?us-ascii?Q?OMViAWYsZ28GGSzzeTuhBKsKLpwi2oZZ6ORXzi68HTcdURRGn2BXMsAL/wpz?=
- =?us-ascii?Q?ZrU3X9i1fpzBc8XSlvyZQQpstQcwo3wkyMncKm6YkXnb86EH00PTx7PYGEcJ?=
- =?us-ascii?Q?UV2ZHLkErH1ULgy62uB4AiQVECJ6G+lGYtTz2+jYW8wlUWHeiqKzK5Fc044o?=
- =?us-ascii?Q?2qhnwPJx5ZUH1y9jonB6Q0ADIGFd9xXV25lx5zIqlTXYkjnVE+0jjmYO3PG4?=
- =?us-ascii?Q?fPI8oHgIJiPR8CJ71usBQ1xYFsrzUjdb2QYvgsZTkBYT1VW/NK05R5untM80?=
- =?us-ascii?Q?wrQpKSQMIGM+/JOoZ4LkJSqY94ObUnOibSo7ZEu+9yP1tbzKNsztQyazevNH?=
- =?us-ascii?Q?TvUdCd0QlV82R2RWoWAVru0/dj1V6fn1RA7Uel8nphp51W2TwfLofC0/N1wb?=
- =?us-ascii?Q?DQOe8r7dYAqTrkbXkVFo6NbaOHkCJUQipvCOnIBfL9OAIgWLu/NdD/bJKeQ2?=
- =?us-ascii?Q?/zPnQ0AQYwgGoFOSc8z7Ry6rzCr+QztuekWb9Fn64JW2ih4wh9XbFhECRW1q?=
- =?us-ascii?Q?zZPbxWgV63FebvEAkcZJWuac/imj7Iw03FNMHL2pcckWsdKAlt4zVh2ZywXV?=
- =?us-ascii?Q?nCxsjvR27xm/LXoDZIz0CcYUAGFgRZVXBQ/WkYhX2l5ZnRAE+cJcu8IvWd+U?=
- =?us-ascii?Q?W+2KifLMGLv1jVv/JKGZpDq2RBxWFCq6QcNJ3k7BATdXQabTGvPxYzF01VDj?=
- =?us-ascii?Q?uoMR4K98bfWjx8wjVSIBo6rNfYCZHET8AaizaHt/7g2gPSZtTof5ym5Eju1S?=
- =?us-ascii?Q?filnCYSULyUpm5aDK4u8sm366MMVvDIyq0bJdlLIA1Tf8RUyCquhCxVEeHVz?=
- =?us-ascii?Q?1uKeioTS1DjDbKP5CQY+4uoPWMoDjwI3pzCqRM27fEf9D1jdWl5L+/qmPijH?=
- =?us-ascii?Q?qOmczRdV1dcF4TwLYaVsBbo1PDaupH36PfG9xNFvDcDE37/mV/J8PxvHzU0p?=
- =?us-ascii?Q?4/K0YOVnH0wAcPrEYvM=3D?=
+ =?us-ascii?Q?47KbJKcv60J+UXCoyyvmEZDGP+5WSiXCbqkX0ZEpcvtZOHOUynM19Ks5J47d?=
+ =?us-ascii?Q?UEQQIXyyP9X3MGyUG7HZEa8fOnSMy89yGziP+GRWFDIyNejEIZWIT6cU1efb?=
+ =?us-ascii?Q?VOmwXBJ3S1eUbgKOsvPns46KRmC2SsyI2H5rXHR5h3niNUQDwgtktQFeCDxy?=
+ =?us-ascii?Q?tOz9diFG7Z5BLbl9ebUJ0yWVF7wROslCGIMH1dXYXYOELQCscD8KOdGj7LS3?=
+ =?us-ascii?Q?Uy4UGlyEoeZ9k/mNOo9HPFU7eCuLnBt0d54axXhUtcwCOEmeEFIkKvWrlbfh?=
+ =?us-ascii?Q?XT8IShkinKZYAYZ/VCd2gKoDqTnIJqoBOXmVmc386C5bhASLihwkFTjZJECe?=
+ =?us-ascii?Q?xI7OQXafFTQZXmwt1xqSN95j2/BT5bExTX3MG8bPM+1/CYrvtxlortYChivY?=
+ =?us-ascii?Q?gRcMDDxKIyL8D7IM/F3MrMG/WH/J8X4/XV2M53BshXil+1TI67Gd4IGAXSB1?=
+ =?us-ascii?Q?Fx1L814oc5xyYcDQZeP9QXCJkZUupHjGJ2myZEMD52B7qQ3WJy5QiqoRc3Eo?=
+ =?us-ascii?Q?VeI8C3KdHPQ8knj8lKbMAzO8J1j5OIlLvI+O6c13qnKnc8rmeLWxZ7IffO8Q?=
+ =?us-ascii?Q?ApMRsZw6Pz8Ya+maJbikUteITmxXlRb2YTE21mbmZfPb/HWvfXfS6Wqrk0+c?=
+ =?us-ascii?Q?W0IYQy7Zdu/P24Nr0h27VEXerghJsDVlrahN7HS51pvaJPuh3/DDBDUYUXcM?=
+ =?us-ascii?Q?jc1kfD3csFKHdUKR2RVobxnA8+7opI5EY82WWNxKDuNSh7NzkCms/CLXbjAO?=
+ =?us-ascii?Q?F+UlsEwa31vgcfZCedDIQWU1k4mp+Rkdmmxz2+NnzJbYOK0jS7okR30jKpsn?=
+ =?us-ascii?Q?9yaqZ+SYBFR46wsokFlpdTnwqExpS+ASGtK/ckf7I1AzDDNxELn5Ae6zJZPQ?=
+ =?us-ascii?Q?1zym+QdVEV5JcoNQYNMgSoF4uRM/x4VSZTVkEQem6fz5bbWbzcTGrfyZxTy3?=
+ =?us-ascii?Q?E+GlKLzLtHGz+8Ho2sU8nnXa4TB5Nb7rP4LXpGoarrTy7hrF2cfUu2eZGl1B?=
+ =?us-ascii?Q?B19vJwkDFVYNcBPtNzTU0wSQxoavjU2aQR/s8dX2wMxFhg/jqq7AgEEA2z96?=
+ =?us-ascii?Q?NjPSHYUILRZQrLJEXTW1IyrZ43nJGB8MlvvKusVeHXxmVqVRpJd4idhKCSDt?=
+ =?us-ascii?Q?fH+3Y0ECOowbae9HMpiqn3PfulZd1opEqCGOI4ffUbnQ5pamEr9leWMsVwKu?=
+ =?us-ascii?Q?q9B3k4mIf0OxJAuPskYc71+6fSf5WhKaVVgRRA9/gjYIk/gT/6UpYu8tAuuj?=
+ =?us-ascii?Q?4PNPCSSK0xMbZacd4T65ymH0dOUb557k/dMEsSYCe9Lw1qhrBoy0RUZVPFaf?=
+ =?us-ascii?Q?ZsRpy3lI1KdyNAG4vYAcg2jFIQWn/kFUGXBCpQDa2YPREX5o2kfjzZITF0wy?=
+ =?us-ascii?Q?NJk/9+dYKX7p9Czt2CN0PUD8ZRvJcTaPXs87IKki+nEtdoGBuulZ0bcfyxNs?=
+ =?us-ascii?Q?gMywI6AK6CsNKIubESfc757T3XI+qBQQhfaR0/uddS4ABxdZd75DqksfvaPO?=
+ =?us-ascii?Q?+b8UruhgC+ZQNURLUMoSg/koCeJKPZWiS3Nf1xzWxuFOmC8UoX20/8cC1mXe?=
+ =?us-ascii?Q?qt5etulXj7hAe44jvc8=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -139,202 +137,68 @@ MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2fb1f826-c18b-4d83-1d8f-08dd96e14532
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2025 14:27:22.8841
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4702f087-bdff-4626-8452-08dd96e781d1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2025 15:12:01.5963
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tQmi1ADjvoKcppGPsuT9aSLoOobGW7HXjJJh6AUYyYeUG8/9vMTOVxblfbLAt8w7ysg5RGop24uSxvfOihuBAQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6372
+X-MS-Exchange-CrossTenant-userprincipalname: oN14xXIwKdE9d0zJYXgWin/4V/ZhENsewB9xqYQuAlMtOsT68vIhyoFR/Qt8BOAYlvCigQvQRFAF4U1yvAsXyQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4045
 
-> From: Srujana Challa <schalla@marvell.com>
-> Sent: Tuesday, April 29, 2025 6:10 PM
+Hi Paolo,
+
+> From: Paolo Abeni <pabeni@redhat.com>
+> Sent: Monday, May 19, 2025 3:42 PM
 >=20
-> Add IPsec resource object identifiers to the virtio_net_hdr for identifyi=
-ng
-> encryption/decryption operations on tx and rx side respectively, along wi=
-th
-> flags.
+> The guest offloads, as specified by 'Setting Offloads State,' use a 64-bi=
+t wide
+> space, while some of the corresponding virtio net features are in the upp=
+er 64
+> bits of a 128-bit wide space.
 >=20
-> Signed-off-by: Srujana Challa <schalla@marvell.com>
+> Clarify the relevant mapping as somewhat implied by the current text.
+> Also rename the offload definitions to avoid referring to different numer=
+ic
+> values with the same name in the features table and in the offload table.
+>=20
+> Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 > ---
->  device-types/net/description.tex | 51
-> ++++++++++++++++++++++++++++++--
->  1 file changed, 48 insertions(+), 3 deletions(-)
+>  device-types/net/description.tex | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 >=20
 > diff --git a/device-types/net/description.tex b/device-
 > types/net/description.tex
-> index 105a002..2540f2b 100644
+> index 1b6b54d..8c501bc 100644
 > --- a/device-types/net/description.tex
 > +++ b/device-types/net/description.tex
-> @@ -597,6 +597,9 @@ \subsection{Device Operation}\label{sec:Device
-> Types / Network Device / Device O
->  #define VIRTIO_NET_HDR_F_DATA_VALID    2
->  #define VIRTIO_NET_HDR_F_RSC_INFO      4
->  #define VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM 8
-> +#define VIRTIO_NET_HDR_F_SECURITY      16
-> +#define VIRTIO_NET_HDR_F_SECURITY_ERR  32 #define
-> +VIRTIO_NET_HDR_F_SECURITY_SA_SOFT_EXPIRY_WARN 64
->          u8 flags;
->  #define VIRTIO_NET_HDR_GSO_NONE        0
->  #define VIRTIO_NET_HDR_GSO_TCPV4       1
-> @@ -618,7 +621,11 @@ \subsection{Device Operation}\label{sec:Device
-> Types / Network Device / Device O
->          le16 outer_th_offset    (Only if VIRTIO_NET_F_HOST_UDP_TUNNEL_GS=
-O
-> or VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO negotiated)
->          le16 inner_nh_offset;   (Only if VIRTIO_NET_F_HOST_UDP_TUNNEL_GS=
-O
-> or VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO negotiated)
->          le16 outer_nh_offset;   /* Only if VIRTIO_NET_F_OUT_NET_HEADER
-> negotiated */
-> -        u8 padding_reserved_2[6]; /* Only if VIRTIO_NET_F_OUT_NET_HEADER
-> negotiated */
-> +        /* Only if VIRTIO_NET_F_IPSEC negotiated */
+> @@ -2186,8 +2186,8 @@ \subsubsection{Control
+> Virtqueue}\label{sec:Device Types / Network Device / Devi
+>  #define VIRTIO_NET_F_GUEST_TSO6       8
+>  #define VIRTIO_NET_F_GUEST_ECN        9
+>  #define VIRTIO_NET_F_GUEST_UFO        10
+> -#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO  46 -#define
+> VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM 47
+> +#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_MAPPED  46 #define
+> +VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM_MAPPED 47
+Since the offload command is defined only for the rx side, in the below 'No=
+te' should it be only 65-66 map to 46-47?
 
-> +        /* Only if VIRTIO_NET_F_OUT_NET_HEADER or VIRTIO_NET_F_IPSEC neg=
-otiated */
-This should be,
-union {
-	u8 padding_reserved_2[6];
-	struct ipsec_resource_hdr {
-                 le32 resource_id;
-                 le16 resource_type;
-              } ipsec_resource_hdr;
-  };
-
->  \end{lstlisting}
+>  #define VIRTIO_NET_F_GUEST_USO4       54
+>  #define VIRTIO_NET_F_GUEST_USO6       55
 >=20
-> @@ -972,6 +979,15 @@ \subsubsection{Packet
-> Transmission}\label{sec:Device Types / Network Device / De  together with=
- the
-> VIRTIO_NET_HDR_F_GSO_UDP_TUNNEL_IPV4 bit or the
->  VIRTIO_NET_HDR_F_GSO_UDP_TUNNEL_IPV6 bit in \field{gso_type}.
+> @@ -2205,6 +2205,9 @@ \subsubsection{Control
+> Virtqueue}\label{sec:Device Types / Network Device / Devi  negotiation
+> corresponding offload gets enabled to preserve backward  compatibility.
 >=20
-> +If the device supports \hyperref[par:Device Types / Network Device /
-> +Device Operation / IPsec Operation]{IPsec Operation}, the driver may set
-> VIRTIO_NET_HDR_F_SECURITY bit in \field{flags}, if so:
-> +\begin{enumerate}
-> +\item the driver MUST create IPsec Outbound resource object
-> +\hyperref[par:Device Types / Crypto Device / Device Operation / IPsec
-> +Service Operation / Resource objects /
-> +VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-ENC-
-> SA]{VIRTIO_NET_RESOURCE_OBJ_IPSEC_
-> +OUTB_SA} \item the driver MUST set \field{resource_id} to a valid IPsec
-> +outbound
-> +      resource object ID.
-> +\end{enumerate}
+> +Note that device features bits in the [65 to 68] range correspond to
+> +offload bits in the [46 to 49] range.
 > +
->  \devicenormative{\paragraph}{Packet Transmission}{Device Types / Network
-> Device / Device Operation / Packet Transmission}  The device MUST ignore
-> \field{flag} bits that it does not recognize.
+>  \drivernormative{\subparagraph}{Setting Offloads State}{Device Types /
+> Network Device / Device Operation / Control Virtqueue / Offloads State
+> Configuration / Setting Offloads State}
 >=20
-> @@ -1032,6 +1048,10 @@ \subsubsection{Packet
-> Transmission}\label{sec:Device Types / Network Device / De
->=20
->  If VIRTIO_NET_HDR_F_NEEDS_CSUM is not set, the device MUST NOT  rely on
-> the packet checksum being correct.
-> +
-> +If VIRTIO_NET_HDR_F_SECURITY bit in \field{flags} is not set, the
-> +device MUST NOT use the \field{resource_id} and \field{resource_type}.
-> +
->  \paragraph{Packet Transmission Interrupt}\label{sec:Device Types / Netwo=
-rk
-> Device / Device Operation / Packet Transmission / Packet Transmission
-> Interrupt}
->=20
->  Often a driver will suppress transmission virtqueue interrupts @@ -1084,=
-8
-> +1104,8 @@ \subsubsection{Setting Up Receive Buffers}\label{sec:Device
-> Types / Network Devi  \end{note}
->=20
->  When calculating the size of \field{struct virtio_net_hdr}, the driver -=
-MUST
-> consider all the fields inclusive up to \field{padding_reserved_2}, -i.e.=
- 32 bytes
-> if VIRTIO_NET_F_OUT_NET_HEADER is negotiated or up to
-> \field{inner_nh_offset}
-> +MUST consider all the fields inclusive up to \field{struct
-> +ipsec_resource_hdr}, i.e. 32 bytes if VIRTIO_NET_F_OUT_NET_HEADER or
-> +VIRTIO_NET_F_IPSEC is negotiated or up to \field{inner_nh_offset}
->  i.e. 24 bytes if VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO is negotiated or up
-> to \field{padding_reserved}  i.e. 20 bytes if VIRTIO_NET_F_HASH_REPORT is
-> negotiated, and 12 bytes if not.
->=20
-Please change the wording to refer to padding or ipsec_resource_hdr accordi=
-ngly.
-
-> @@ -1341,6 +1361,21 @@ \subsubsection{Processing of Incoming
-> Packets}\label{sec:Device Types / Network  \field{flags}, the device MUST
-> either provide a zero outer UDP header  checksum or a fully checksummed
-> outer UDP header.
->=20
-> +The device MUST set the VIRTIO_NET_HDR_F_SECURITY bit in the
-> +\field{flags} if the packet goes through the IPsec processing.
-> +Otherwise, this bit MUST be cleared. The device MUST set or clear this
-> +bit regardless of setting VIRTIO_NET_HDR_F_SECURITY_ERR or
-> VIRTIO_NET_HDR_F_SECURITY_SA_SOFT_EXPIRY_WARN bit.
-> +
-> +The device MUST set the VIRTIO_NET_HDR_F_SECURITY_ERR bit in the
-> +\field{flags} if any error is encountered during IPsec processing. Other=
-wise,
-> this bit MUST be cleared.
-> +The device MUST set or clear this bit regardless of setting
-> +VIRTIO_NET_HDR_F_SECURITY_SA_SOFT_EXPIRY_WARN bit.
-> +
-> +The device MUST set the
-> VIRTIO_NET_HDR_F_SECURITY_SA_SOFT_EXPIRY_WARN
-> +bit in the \field{flags} if the SA associated with \field{resource_id}
-> +reaches the SA lifetime soft limits configured in the \field{struct
-> virtio_crypto_ipsec_lifetime}.
-> +See \hyperref[par:Device Types / Crypto Device / Device Operation / IPse=
-c
-> Service Operation / Resource objects / VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-
-> OUTBOUND-SA]{VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA}.
-> +
->  \drivernormative{\paragraph}{Processing of Incoming  Packets}{Device Typ=
-es
-> / Network Device / Device Operation /  Processing of Incoming Packets} @@=
- -
-> 1392,6 +1427,12 @@ \subsubsection{Processing of Incoming
-> Packets}\label{sec:Device Types / Network
->  VIRTIO_NET_HDR_GSO_UDP_TUNNEL_IPV6 in \field{gso_type} are not set,
-> the driver MOST NOT accept the packet.
->=20
-> +When VIRTIO_NET_HDR_F_SECURITY and
-> VIRTIO_NET_HDR_F_SECURITY_ERR bits
-> +are set in the \field{flags}, it indicates that the device experienced a
-> processing error on the IPsec packet.
-> +It need not be an 'error packet'. For example, a particular SA was not
-> +offloaded or SA has reached the SA lifetime hard limits configured in th=
-e
-> \field{struct virtio_crypto_ipsec_lifetime}.
-> +So vnet_hdr will have both bits set.
-> +
->  \paragraph{Hash calculation for incoming packets}  \label{sec:Device Typ=
-es /
-> Network Device / Device Operation / Processing of Incoming Packets / Hash
-> calculation for incoming packets}
->=20
-> @@ -3528,6 +3569,10 @@ \subsubsection{IPsec
-> Operation}\label{sec:Device Types / Network Device / Device  See
-> \ref{sec:Device Types / Network Device / Device Operation / Flow filter} =
- for
-> details about flow filter.
->=20
-> +Note that there is a small race condition where a SA object might be
-> +destroyed while a recieve packet is still inflight. The driver SHOULD
-> +handle this situation appropriately.
-> +
->  \paragraph{Device and driver capabilities}  \label{par:Device Types / Ne=
-twork
-> Device / Device Operation / IPsec Operation / Device and driver capabilit=
-ies}
->=20
+>  A driver MUST NOT enable an offload for which the appropriate feature
 > --
-> 2.25.1
-
-For the rest of the content of this patch:
-Reviewed-by: Parav Pandit <parav@nvidia.com>
+> 2.49.0
 
