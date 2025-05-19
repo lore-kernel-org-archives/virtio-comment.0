@@ -1,113 +1,172 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com (mail-db8eur05on2065.outbound.protection.outlook.com [40.107.20.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DCB427587C
-	for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 12:49:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747658980; cv=none; b=cgxErl2boikw+SFdkyyFmbtR7QXkSXy503CCDtCzw57a8tnZ4199y7IXEwM2xhk24en0tSqDT+OTu6z2xzNxhEO3wIcJe8o4f4b7tTalBep0hBQjzQi47Z7FufWXq5T5hIZ1OAoV4UirIjA30DzVPLvptfJh7eo7Jp+cM1lEsGo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747658980; c=relaxed/simple;
-	bh=wg1gklveplUYDrAfy664zTM2fhkrfvqPRwfNKhRZ1Vc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=HIcwhceUyvbbc9Vm+DkSarHZxUxyhXs4/yuvbLUmofSOKZORbpIUrJoLSfZ0yzIeG43xWazmYZRSxSR0DBtfUYT2ErLj/pYG36+pt89jbNYaG0MwojjopzQNZUzwNy9d6ct/2a2Ugiu8ubcH9ktrCcEJpSLhUq8nW0OymVr42w4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CxYWKszx; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 933FB27F759
+	for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 13:44:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.20.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1747662284; cv=fail; b=VZ+M6XhMCCt6RhSEH82MKwGkffyPOnHKLld6r1tEHQ1H7RVKDIvvts0vL9Y3aacx/xByZ8iZBf91N42OLP3eNu9GGiPW3Kc8QXa9I+cyqwIfqhnt7n1FeyZZ47Awird4XGvk1DDyrxQkwp9RXGWpO4EFJgoIKbuAvU1VJt5cfE8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1747662284; c=relaxed/simple;
+	bh=5w2JZ1oGRCfPCxLNeEl6D50e5JyFaybiRN521zTRB+I=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=PHo2nJKwvVDEp+iOfB6/CL1uTrZm2aiIe0oRfyhIsgvBQglP9kgiuXPDRU5KdCxBn2OCDFsvOFCBPBU+t3cZvj56CG30LejJm3rcSqXp/FbpEyfVmmv7+LF8Esr8CD7F8wmYq+K+mb9ij5kPYCZmKC7+3WxiuB8va3ayjKiazt0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia-bell-labs.com; spf=fail smtp.mailfrom=nokia-bell-labs.com; dkim=pass (2048-bit key) header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.b=IEGpRJXx; arc=fail smtp.client-ip=40.107.20.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia-bell-labs.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nokia-bell-labs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CxYWKszx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1747658975;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OMMpvv1UajA7PXkAeeJM3Y5YmQSHx36XM18aLEm85Hw=;
-	b=CxYWKszxNOUGEbf+VgUWyCu8rNbZa5UqbjCwdyHKzvbdnVHYKLspny/8k8CnUrDbC435nX
-	dqpxR4jp0D99iLpCs1qWYY+dmSoqVMF9YCK3CS3MkVMWcfcji0j68h+/EQVfyWFuGSQ25j
-	fgBuyZZcvhwuhBal8BfKdCdmhRwJXKU=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-259-jaceOQT3NSybl91HKkHBzw-1; Mon, 19 May 2025 08:49:34 -0400
-X-MC-Unique: jaceOQT3NSybl91HKkHBzw-1
-X-Mimecast-MFC-AGG-ID: jaceOQT3NSybl91HKkHBzw_1747658973
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-442cd12d151so31727175e9.1
-        for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 05:49:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747658973; x=1748263773;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OMMpvv1UajA7PXkAeeJM3Y5YmQSHx36XM18aLEm85Hw=;
-        b=RoqSsbq4Uhswxk1Z2T4G7MJ6mJUlY2CcHE/lszi4/8/oncWFcu7KdH+NT0LmiLeQHP
-         +gNN84humyicxmomG0ij8a1toyqXDhPCPZB+jmPo04or7PUiEI98wWUtNYePOyYW3+MI
-         65ckP4JNs8Kble/1blI3JAtk3nN1xHgGCbzGMq8U3+qV4W2+XgaSxbOii8tQBBrNsSse
-         md4j7Oo2hd+9vyikXRUJRLIL5e34SMZIIbGCp/qyedd0bSkgldtCNYXY+jMzWMd11sof
-         LWyIpe2fzU6e9/qwhvezFsyj4DTtlVIPMfxSeOSHaulUxZJth08G6p8w5D6O5IxCBGEg
-         +F8w==
-X-Gm-Message-State: AOJu0YzAAqE9vDirGTNAPi2CUsjQBxpyDbpWI43IMjVKTTM3OqgX02U+
-	xwmL9LMrXsl31f6zZKKeCYnLx5rwXfiJZPkDJMQ7Dij2t5uSDRzQUXqNHalu+Bfa9tGNiLVKm3+
-	dwDPlfQZF8EAEJDv4hdEaN9K0WgoNFkJEGBHUNDAeYtlnxCbvfclIIr/MSMlT9boCPIUF
-X-Gm-Gg: ASbGnctU8eWxd6+xD3ZWaxtuvDUhQtphi+qpuKmZdhT1LEVkC9FVXCM8xcCcav3srg9
-	nxkinZOh5ACvVKwulkg7XrXLp1kLb0RqiA3a+wIttO8KhUSISsftzCKjH4srD6Q4xkKEDT795Lw
-	Je0O0+vphRlOf8rEif3Bst2lZWL5olJPMk3o4bCov/b/lZ9HKKrkO0U9rPvxD0rCbrEKoDhw1D5
-	2jpvi5o2KrytNDBDgTiTSjrRZYSlI8TZDMptOLxRC/Xkae9A6YCnt2jSOwfib5qWyUDZRb8gpIC
-	ypF1Qw==
-X-Received: by 2002:a05:600c:524d:b0:43d:49eb:9675 with SMTP id 5b1f17b1804b1-442fd6607dfmr94319695e9.22.1747658973237;
-        Mon, 19 May 2025 05:49:33 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGNViwI0MheWSbmfT5M5+hvJ2aCOn5EglloTT3zJSkNNHXxdnux3VXzx4fq91PjAD8WsACSdw==
-X-Received: by 2002:a05:600c:524d:b0:43d:49eb:9675 with SMTP id 5b1f17b1804b1-442fd6607dfmr94319505e9.22.1747658972887;
-        Mon, 19 May 2025 05:49:32 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:1517:1000:ea83:8e5f:3302:3575])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-442fd4fdc19sm138144825e9.5.2025.05.19.05.49.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 May 2025 05:49:32 -0700 (PDT)
-Date: Mon, 19 May 2025 08:49:29 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: virtio-comment@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Parav Pandit <parav@nvidia.com>, mvaralar@redhat.com,
-	cohuck@redhat.com
-Subject: Re: [PATCH] virtio-net: clarify guest offloads <> features mapping
-Message-ID: <20250519084856-mutt-send-email-mst@kernel.org>
-References: <a30de484ff56065f56e37446e08dcdfa4850f101.1747649330.git.pabeni@redhat.com>
- <c6c9f59f-2960-4155-a984-a5f30586e7f6@redhat.com>
+	dkim=pass (2048-bit key) header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.b="IEGpRJXx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NAlP5WFZT/csDQ5qbmdm94bxETBpEj5M4BVM2l/lIgT42/nhWq6DGFqT5Xh4IAtOxrt57dkkKdR6kJQdyG7+lZ2w0o2jKb9GEixGGsrkJRPkJAtP9HV4g8pK4s6K3v153a7Y6ZIdv5scZ1RX+DzasECvEgBP8AP2kO5d/96J8WLQtrkG3milKhxDreP6ydsQygodlXSZfscoWw1T7p7Xyl1k8fumrw1Gnwk21q8+zCobDPJeplkO0WzDlgyw+k0c8n4kUhNhVi6yxpwuj3KZZPYrrD6oARaT5TUJkSpcp2K6fic2EwoCzYiSVckinQVUY5tJsMTvDtS7WwzCN+09rQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7CEEsgdgKL+f1Mzvm2TIIm12ZGDaiz4kfjCYKIM9mWY=;
+ b=ZBvgo4eHm8XGS4sM84E5ag2HVdrYZmg6rlGVRuhMvxdZqacVKA69qfJDA1s2aIXllq1O953U7t20JOIDsEyiALS3CLXCeXW8nyXGWKGtPsE6OwCdFLpIxCS8oZE/jY+03P1z1FpT0Sv0Ug41W/hcJ4r2OILwTBQuP4uDasZuj+df7rinaeSLgjDP6b6u6Gdjm4hfRCnoVVe3m7+n2nW5pqCYFuTbtKAtXB6PrzYcuXENZ5SXAsY83HbBLIdXhtFQOBpTrzFdN45m1nlV5aW4tWYY1PCCf3aL60yyKTm/d8ASGbZbTtFzN1O0d4YRPdJF4lndnoOaUdQNNXjXWJbEDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
+ is 131.228.6.101) smtp.rcpttodomain=nokia-bell-labs.com
+ smtp.mailfrom=nokia-bell-labs.com; dmarc=temperror action=none
+ header.from=nokia-bell-labs.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nokia-bell-labs.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7CEEsgdgKL+f1Mzvm2TIIm12ZGDaiz4kfjCYKIM9mWY=;
+ b=IEGpRJXxb7fsT4huDfpVR8wexnPcyXDZMd9sPNSZnZfN9VQDFL+1qe6LJC6Pq+6cxl/TG+KWXXvCT2EUCX+eg4rasFVi10GL53S/vBkoAthz93mP8A1YUUaSqS45vhi8HuUmpReU65/SbqtMs//TBY2svFIaHjtaS0ELTR4SFuZ4LMGBxXA0XIG0sPduP7HSZcgsjIRrVAnfnWYPZlQZprE1Jm03ymyAox3tnzS/lqA9sqk0Jqi3uSKqYXgbjUcchgJwdeC9++VDJYkC3B3SzNsZJPamoGddbEqM4WPsJ3Ii384zMMbpD7g9jTmxUCySPhPA5Ui57HfqSJ9afEFOnA==
+Received: from AS9PR06CA0440.eurprd06.prod.outlook.com (2603:10a6:20b:49e::35)
+ by DB9PR07MB7740.eurprd07.prod.outlook.com (2603:10a6:10:26d::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.31; Mon, 19 May
+ 2025 13:44:37 +0000
+Received: from AMS0EPF000001B2.eurprd05.prod.outlook.com
+ (2603:10a6:20b:49e:cafe::cc) by AS9PR06CA0440.outlook.office365.com
+ (2603:10a6:20b:49e::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8746.29 via Frontend Transport; Mon,
+ 19 May 2025 13:44:37 +0000
+X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
+ 131.228.6.101) smtp.mailfrom=nokia-bell-labs.com; dkim=none (message not
+ signed) header.d=none;dmarc=temperror action=none
+ header.from=nokia-bell-labs.com;
+Received-SPF: TempError (protection.outlook.com: error in processing during
+ lookup of nokia-bell-labs.com: DNS Timeout)
+Received: from fr712usmtp1.zeu.alcatel-lucent.com (131.228.6.101) by
+ AMS0EPF000001B2.mail.protection.outlook.com (10.167.16.166) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8769.18 via Frontend Transport; Mon, 19 May 2025 13:44:36 +0000
+Received: from sarah.nbl.nsn-rdnet.net (sarah.nbl.nsn-rdnet.net [10.0.73.150])
+	by fr712usmtp1.zeu.alcatel-lucent.com (GMO) with ESMTP id 54JDiXAf011659;
+	Mon, 19 May 2025 13:44:34 GMT
+From: chia-yu.chang@nokia-bell-labs.com
+To: virtio-comment@lists.linux.dev, mst@redhat.com, cohuck@redhat.com,
+        mvaralar@redhat.com, jasowang@redhat.com, xuanzhuo@linux.alibaba.com,
+        eperezma@redhat.com, ij@kernel.org, ncardwell@google.com,
+        koen.de_schepper@nokia-bell-labs.com, g.white@cablelabs.com,
+        vidhi_goel@apple.com, ingemar.s.johansson@ericsson.com,
+        mirja.kuehlewind@ericsson.com
+Cc: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
+Subject: [PATCH v9 0/2] Update ECN and Add AccECN feature
+Date: Mon, 19 May 2025 15:44:30 +0200
+Message-Id: <20250519134432.27406-1-chia-yu.chang@nokia-bell-labs.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <c6c9f59f-2960-4155-a984-a5f30586e7f6@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: dxJW31JmDM1boC8WXE8mWEH4oxDJ025yJH4xTxTxUgM_1747658973
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS0EPF000001B2:EE_|DB9PR07MB7740:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 3290c3c6-6a2a-4db5-4f81-08dd96db4bae
+X-LD-Processed: 5d471751-9675-428d-917b-70f44f9630b0,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700013|7416014|921020;
+X-Microsoft-Antispam-Message-Info:
+ =?us-ascii?Q?uegUUheLOykQbYyOWchu+unRVeswMHvTAvvaQEm+12Yy3S32egVmq+KKVB2+?=
+ =?us-ascii?Q?jVtFn2RWrxr6EpORcJQugW4AdzAOTdtJ0kt+QExIYKaJ2YbeqNippNv5dS7U?=
+ =?us-ascii?Q?IrEJLyfBvhgMczheELfN0nsa8G03R5/vvIgSdOs9bJTvVRo10seViBEPWdOY?=
+ =?us-ascii?Q?FNTq59PwRHTgGctyLqedEiIySxmvQTsWPnCIfM75h4LnLrZbkkEE7znx1xcW?=
+ =?us-ascii?Q?AJglAUM5MIgrwkXCrlaFPwenHMGUokQ2rhrFG8VUf2QR/BGB1O3Sb8ar//5e?=
+ =?us-ascii?Q?YxFVcvXQsZOoDze/S+4wVqWLaIViSy9D06HJlIgy5/QJRA8ISpq6sYQ+NPPk?=
+ =?us-ascii?Q?7TO17F/E6Ni1sVxtvlbQL6J5rudID8rp3ugWfR1Ja5CbKiUEyq3mwxVJLOjy?=
+ =?us-ascii?Q?2xtK4CzO6wuREpgF1FrTWKblvQbh9QnDyQSwMdcveV3hpozySLrNNwIwQTPX?=
+ =?us-ascii?Q?jhbs//4i30mxrKq2HdHqKT10sJiTxiPF427pCuKcAZcD+8OfjEwKLt6mRlRL?=
+ =?us-ascii?Q?EM/TrJH6DCt2DwWlMrULH/PpqVMJKbOpvN2jJVzudb7Sq5QBHOpjwastdT73?=
+ =?us-ascii?Q?zjIFX7uS++a1G8hUT5vXxf3Y7MMpILgth+nYaQ4YQsFYhEWGFZPzB55lKkqz?=
+ =?us-ascii?Q?lSY12KsQm4d8y7KgAZfavpRPqrDWZ+4Su7ozSDdP2EHdOqOpEsXaJOZmr4pr?=
+ =?us-ascii?Q?aP1XhRvniM33JotI7Pln70AusTua8dl95b0PlaJcla3KdgvKKdffkZhoAosW?=
+ =?us-ascii?Q?rEvTta0N8Z7Nfm7OSmAmoNr0edllNol4pt7fjbvbCkVdlfLeiyaqQ/otArcH?=
+ =?us-ascii?Q?YUJYLGZmhZafih4FST1plC11C83LWn3qlrqp+oVLNhAwq+5D7ZDK+u2uxpWC?=
+ =?us-ascii?Q?QQane1pbTcoPx406lu4i8+PsSEehWN8IlHlTqRhUORTHhqs12THwkeICkqsl?=
+ =?us-ascii?Q?z4Fp18mRLzqj9qeH5F16Mn99tMW/WhsnsfMBlU4bI6CXXqyNovOmc42DdbhP?=
+ =?us-ascii?Q?d330M2EnZMeG/nufdmaNVDPxCI7Y2RdGkpckrXisosfR8m5fsEGptU27vxjH?=
+ =?us-ascii?Q?PVWzFAaVpm28brDtzXORmpZF4I7YEI120MFN2+QNzawETsjgk4VG6ujk67Kn?=
+ =?us-ascii?Q?SBpWaa4Q++DIFo1yKXoVMwobtShf/m7HSd6HgDvk1BLPHAXwrxnk9l2MgweC?=
+ =?us-ascii?Q?2lBLzdodPUS1AcfLPXPvyoPUuHhfF8oGRj7PqdiW0iXrRTeaKeOXD3Ofzu2V?=
+ =?us-ascii?Q?+Ww3dV1mM0s8GQj0fhNAz38VnXP4uDGaUJpaP9AsXpqcPRoDbIFlH0VEKUAH?=
+ =?us-ascii?Q?jxzQOLQCbXmX+C1jVq0wClOiSfEwSRi+5tgad2B1eeDg9PZq3vBWptYJ8awP?=
+ =?us-ascii?Q?e7G/hycPDRLYpY/9OpXILNZPVTm6lMdI7rVPEGD7QqZ21gFiuoPmWk6X4DAy?=
+ =?us-ascii?Q?cPU8dPBFoL4UHJ8sTyy86MBwqRc3ypf0YD4CR80IR+iIdR+hWHMNV18W9Yys?=
+ =?us-ascii?Q?9Ujpx9wd72g7Yz3XbC6Ic3Zt3bQGZNEgyWn6ikWo+06q6BTXHkOV7f3cpw?=
+ =?us-ascii?Q?=3D=3D?=
+X-Forefront-Antispam-Report:
+ CIP:131.228.6.101;CTRY:FI;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:fr712usmtp1.zeu.alcatel-lucent.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013)(7416014)(921020);DIR:OUT;SFP:1101;
+X-OriginatorOrg: nokia-bell-labs.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2025 13:44:36.7005
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3290c3c6-6a2a-4db5-4f81-08dd96db4bae
+X-MS-Exchange-CrossTenant-Id: 5d471751-9675-428d-917b-70f44f9630b0
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=5d471751-9675-428d-917b-70f44f9630b0;Ip=[131.228.6.101];Helo=[fr712usmtp1.zeu.alcatel-lucent.com]
+X-MS-Exchange-CrossTenant-AuthSource: AMS0EPF000001B2.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR07MB7740
 
-On Mon, May 19, 2025 at 12:21:57PM +0200, Paolo Abeni wrote:
-> On 5/19/25 12:12 PM, Paolo Abeni wrote:
-> > The guest offloads, as specified by 'Setting Offloads State,' use a
-> > 64-bit wide space, while some of the corresponding virtio net features
-> > are in the upper 64 bits of a 128-bit wide space.
-> > 
-> > Clarify the relevant mapping as somewhat implied by the current text.
-> > Also rename the offload definitions to avoid referring to different
-> > numeric values with the same name in the features table and in the
-> > offload table.
-> > 
-> > Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-> 
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/225
-> 
-> I would like to ask a vote on this issues, thanks!
-> 
-> Paolo
+From: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
 
+  Please find ECN and AccECN patch v9:
 
-Acked-by: Michael S. Tsirkin <mst@redhat.com>
+v9 (19-May-2025)
+- Update descriptions for VIRTIO_NET_F_GUEST_ECN, VIRTIO_NET_F_HOST_ECN, VIRTIO_NET_F_GUEST_ACCECN, VIRTIO_NET_F_HOST_ACCECN (Michael S. Tsirkin <mst@redhat.com>)
+- Add reference sections of RFC3168 ECN and AccECN (Michael S. Tsirkin <mst@redhat.com>)
 
-Let's give people a couple of days to review pls.
+v8 (17-Apr-2025)
+- Further typo fixing
 
+v7 (15-Apr-2025)
+- Fix typos in AccECN patch (Michael S. Tsirkin <mst@redhat.com>)
+
+v6 (14-Apr-2025)
+- Shrink descriptions and make more reference to RFC3168 ECN and AccECN
+
+v5 (06-Mar-2025)
+- Update feature bits of VIRTIO_NET_F_HOST_ACCECN(69) and VIRTIO_NET_F_GUEST_ACCECN(70)
+
+v4 (05-Mar-2025)
+- Update commit message of AccECN patch
+- Add reference to RFC3168 ECN and Accurate ECN
+- Simplify feature bit descriptinos to avoid duplication of text
+
+v3 (21-Feb-2025)
+- Separate the original patch into 2 different patches
+- Fix several reabase issues in v2
+
+v2 (17-Feb-2025)
+- Rebase the patch on top of v1.4 virtio-spec
+
+Best Regards,
+Chia-Yu
+
+Chia-Yu Chang (2):
+  virtio-net: Fix ECN feature descriptions
+  virtio-net: Define Accurate ECN feature in virtio-spec
+
+ device-types/net/description.tex | 84 +++++++++++++++++++++++---------
+ introduction.tex                 |  6 +++
+ 2 files changed, 66 insertions(+), 24 deletions(-)
+
+-- 
+2.34.1
 
