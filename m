@@ -1,70 +1,71 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48415256C7E
-	for <virtio-comment@lists.linux.dev>; Tue, 20 May 2025 06:39:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8B325D21C
+	for <virtio-comment@lists.linux.dev>; Tue, 20 May 2025 06:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747723176; cv=none; b=N4gR25jH5AQyEabFU7IY+imya6QA6dlzdgR5OGKS9Acm9O9fvXcnAWW4SFGuAGLswC4hE6Db306GKNDn+fuBZ08YuXCZyWi+VxBxsvjCcdKZ6sBE1aGNy+ZbwxVXEkehS3EZsHh6yqE2OjjE9bjWpvmZTHlIhatAus9a+AzVXY0=
+	t=1747723465; cv=none; b=kIP/pngyX0kruTOwB3uLzevEhO/5H7hYQWA1F/7Uh45QPUfUGe+HDjgL3bhIcxG/vMTqcm8S4BbUWoVwIiIL+e1VdHqwj7zQApnwgHKUh4XVD+g+il3t9Q3iVBqjJRDFc3tVOSOYPE9qlrRwQZhVHy2YfOMlXIZK+NJik2O6q9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747723176; c=relaxed/simple;
-	bh=XgLizqxyBbvE8sIbiR0HKydtThkzIsRow1AUnoPq+ok=;
+	s=arc-20240116; t=1747723465; c=relaxed/simple;
+	bh=x0IFjU7K6g6II23nnxvoX14W1sGle0gJBihqmKtmbWs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rbwdlAzUw1VkPfxZj6bvf3+Cy+/0/lMFoQWpQQxnVDJaWAUvv5sNtJ+ajZL428lQkhhmtsOVRYQe40oTR0iurf1QvS/rsedGcqFEZe4CMi1bG7DYyrOuceUG1iQpd6qtPa8zXHq//rTi89IL0k3QlH1YOWmpGkgr/1l84ERhNzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ChhIgJP3; arc=none smtp.client-ip=170.10.133.124
+	 In-Reply-To:Content-Type; b=iuSknlbQolqYNnCAYTpYyx6Seoy5nGojtpey+LBsUfoZPGayr2sPQsQYzNA5QrJZqjpfuYvs+IWpmhR138jjhBeQs80r4koBnVWI+H0/IFfrWXh5Hx1FXidfEko6ocrVUzhKKyDRqOlWW3NWtz4MAcLZKf/yP9I/3RNEK6kLQsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GtylDQ75; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ChhIgJP3"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GtylDQ75"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1747723172;
+	s=mimecast20190719; t=1747723462;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iCASrh2WKH9A+qLKIfdkaSlwOcg5hvW9Itn0R/XQ830=;
-	b=ChhIgJP3hsN/iUKeb8PwAbAgcITBl4xaC5TnIdyoGnZJIzz0O/FWWAFRxv2iSYjH4GlOzP
-	euCubtcyfFNtehLd7fbv0xAc5J1B7JQmYuwsjNM3yPzuTxt56RXKZ6/+jWpPY3chC5HYHB
-	OVOPiJ3spqrmypcpS1d7YSv3RrIDTlU=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=FtDTFVL+LwP0q5wonaG5soYqndNPzydg4q9fb3jeoyc=;
+	b=GtylDQ75HEVSmvpX07/jeKgTjASRfwJYMGyTVgR5j77PvkTGFDS47hnmK3W9qCGLlnezIQ
+	AYQd8CH1Y/i2j20/RVZJVWiMj5dFuL1IuiH0maOBkWb166PNC2qE3gm6LB3CbSGObslUtc
+	i3fg6sb220PJBnORXV3r/qN4vtDtXaA=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-634-nR0gee1YP6qZH8uT6GyPJg-1; Tue, 20 May 2025 02:39:31 -0400
-X-MC-Unique: nR0gee1YP6qZH8uT6GyPJg-1
-X-Mimecast-MFC-AGG-ID: nR0gee1YP6qZH8uT6GyPJg_1747723170
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-43d209dc2d3so32822645e9.3
-        for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 23:39:30 -0700 (PDT)
+ us-mta-587-3kNcMwsfMqOC2Zmx-fAGXw-1; Tue, 20 May 2025 02:44:20 -0400
+X-MC-Unique: 3kNcMwsfMqOC2Zmx-fAGXw-1
+X-Mimecast-MFC-AGG-ID: 3kNcMwsfMqOC2Zmx-fAGXw_1747723459
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-3a360d01518so2984758f8f.2
+        for <virtio-comment@lists.linux.dev>; Mon, 19 May 2025 23:44:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747723170; x=1748327970;
+        d=1e100.net; s=20230601; t=1747723459; x=1748328259;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=iCASrh2WKH9A+qLKIfdkaSlwOcg5hvW9Itn0R/XQ830=;
-        b=GDOAbBG9HN9nrEpLMSDSQrSY5y+8y2mC2uXvfAHjQe0iTmU0yKzMHfI9he2yx8bS7R
-         OLpX33kik+g09NN8FQM5QfQlM8n87u4Uz4Cf7pLwdEAXpG1vhC4lTZSVMcLESdAzBb4i
-         WaqygORAL4rVj5kGCRKLDXS7EO4hswE7fheTMkRSdkzxoVqfwLklr58e45ZwfeMMQCxH
-         7Usifu0+OpZENk8mP5W5S3KFoocjABvh057r7w5hknV20nktzmfIG9O2DT8gN6+zDXlG
-         qHkSchRtuInUMgiCFKpGp6QW6KSKDoU8whbs6RE+XY+waElzzY9+pzyvzKiRjcOXY7o2
-         EUQg==
-X-Gm-Message-State: AOJu0YzD2oogJ17/EiWvfUmVFMR986tUjbXMYjAVDxdenNEz+BejMP3K
-	kdV2RxcpD08zEvMMMEiPzAMYijjZOdpnmhrfY99QUKDe5JILGCsOlvMRaJEH9kfh7hXXSxhCc8U
-	EJK1CvhvcTkb2RmnuZj6Rky1VbMTJZxM/ChjXKYtyrJU1qwGbGo3qyZO0pZNyfTo0vN4m
-X-Gm-Gg: ASbGncu+RW90TOtdbH4YPTgSu+91cN1SsOa4jnmjfY35piEt8He49bNuyaD2+YYvL8D
-	4bRV1Hn2IffEHLHOpCkiIsuP7XjeYYT3apBnN6scGl5wsWGkDJHJZqud8eaJyYu3C90iSuZxfOX
-	ZTiGw1WIF0JJteWmK50ibApQQh968CcNOIdQwh8lz9QNi3H0PY7RbxVBlrJkRaL5eWWX+ezxicR
-	bOX/QPVE9Pc03/zSbEQqC1cqJGDVerG/JyYjRrTK724LyHq1SxA34vumjyrwzz2Q+0ykQutkNrs
-	h9iIrKQOLteRiIipwKfoCoNdA5fiGCmus7fsCF7zucQ2SgzTEke4Z7n/wTw=
-X-Received: by 2002:a05:600c:c13:b0:43d:79:ae1b with SMTP id 5b1f17b1804b1-442fd627416mr144235825e9.14.1747723169853;
-        Mon, 19 May 2025 23:39:29 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHlQ/FvlqMD76qlcfn/iWDbdGWEA+Jk3G1PVSigmHeHtkfNgNJX/4Ylt1kZzJU6oLAEuHwXFg==
-X-Received: by 2002:a05:600c:c13:b0:43d:79:ae1b with SMTP id 5b1f17b1804b1-442fd627416mr144235635e9.14.1747723169499;
-        Mon, 19 May 2025 23:39:29 -0700 (PDT)
+        bh=FtDTFVL+LwP0q5wonaG5soYqndNPzydg4q9fb3jeoyc=;
+        b=ck4M72Kh0RupF5TOh6I98KL88hT2rmcL9H8S/q3fmUVGiqy5Jlvp0a9VnyleG/o8dt
+         Ygz7OfkY96DVXUElHVdge74t4dQpcbRCYvfU8InXWITeZL5s9IQC+YmNHhdFxaivSU7Y
+         S4CUa6D1fcuiz//PB60TcyzkdUqocUlyCVkRfg5xfUDKdmCnzIAXXnPtYF8fU5Rzs/Qy
+         jRBrKMktgvfIs7u3Bj+bqqo1a7R06kcbHjEQTaMlS5yvrzJmOs9TCQQmHf5WqzUOTlOJ
+         76vrqn+dXVsRuhzlWExMxPjDJ5DW5qms/p1Rr2UvmyM8CPTlyEsN2j+apOn+zDMPzngv
+         h7uQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUg+GZfHQ958JXbpA/yn8pqMRF+PHDPMUpAT30FdkJYd0e4bQGFcf4FVbFxBQtnAVOd2yZwThBhZxTPZhIYKA==@lists.linux.dev
+X-Gm-Message-State: AOJu0YxpLzujxzJm0EluQsILIrU9V+/kGxFSV8avMbcuuSitzvLTtF8X
+	41P5YxY+tJpyp2tCWID5RdOUXrQI8rfNYcXFEWj1tYZiIkz7+anBrze8LPWpXupxbC8mLRY4IEe
+	HWTMGKzQFLrM58EC/or76L5jyEDw1pTYZgfwD0IGeozmOA8z91dQwTmn8MokFGS0G3UUU
+X-Gm-Gg: ASbGncskX2InBEKWAve/bV5FLAEDHZ4fZrPJvkGt1mnI8QaO7aSbo95ghA+/m3V1MmT
+	yGYrt+ftj0UBchsNxY1+pO4brO5aeqvzsHStUOTcChYH1Uf5269+qgkduyEvSxp8GM9lR8MoW66
+	mI0KhURk+vRF3d1qdyj7mNUe38u/us5bZbKGYdjib+8fl34NO2TYqe4HVejVGMnR3Bt7opH9S0p
+	qUzsg4h+GicM7yvPrbhxVZ38wyRBmeC4WSMCqRzfiO8+6LVvo4+K6s05t7FZ/2K7N4prl5Li4PY
+	Bc3awAZkZXMjLc8SSt6Qxh+EFmFsCQNDbNbMQpn+y6bSSkZ7oSC+mPjE/Po=
+X-Received: by 2002:a05:6000:2012:b0:3a1:4c72:9067 with SMTP id ffacd0b85a97d-3a35fe6751bmr11533813f8f.13.1747723459003;
+        Mon, 19 May 2025 23:44:19 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGmgjc7SaZjCOpG3sP9KXUgUtE1JkTDpdttrM6EieaprkdaQxCvdRmky53yJkhiExd4wAshGQ==
+X-Received: by 2002:a05:6000:2012:b0:3a1:4c72:9067 with SMTP id ffacd0b85a97d-3a35fe6751bmr11533793f8f.13.1747723458610;
+        Mon, 19 May 2025 23:44:18 -0700 (PDT)
 Received: from ?IPV6:2a0d:3344:244f:5710:ef42:9a8d:40c2:f2db? ([2a0d:3344:244f:5710:ef42:9a8d:40c2:f2db])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-447f1ef032esm18400425e9.9.2025.05.19.23.39.28
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3a35ca888afsm15518205f8f.64.2025.05.19.23.44.17
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 May 2025 23:39:29 -0700 (PDT)
-Message-ID: <9c742c68-f673-4145-be97-f7528055ddf2@redhat.com>
-Date: Tue, 20 May 2025 08:39:27 +0200
+        Mon, 19 May 2025 23:44:18 -0700 (PDT)
+Message-ID: <94d39a71-8610-40d9-bb68-531ed154ff88@redhat.com>
+Date: Tue, 20 May 2025 08:44:17 +0200
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -73,74 +74,59 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] virtio-net: clarify guest offloads <> features mapping
-To: Jason Wang <jasowang@redhat.com>
-Cc: virtio-comment@lists.linux.dev, Willem de Bruijn <willemb@google.com>,
- mst@redhat.com, Parav Pandit <parav@nvidia.com>, mvaralar@redhat.com,
- cohuck@redhat.com
+To: Parav Pandit <parav@nvidia.com>,
+ "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
+Cc: Jason Wang <jasowang@redhat.com>, Willem de Bruijn <willemb@google.com>,
+ "mst@redhat.com" <mst@redhat.com>, "mvaralar@redhat.com"
+ <mvaralar@redhat.com>, "cohuck@redhat.com" <cohuck@redhat.com>
 References: <a30de484ff56065f56e37446e08dcdfa4850f101.1747649330.git.pabeni@redhat.com>
- <CACGkMEvyLNKn7_-bfXAEog5vMK9yz7Ms__HUTjH6cy+tdfHA+g@mail.gmail.com>
+ <CY8PR12MB719579675CB3864AB3A7218EDC9CA@CY8PR12MB7195.namprd12.prod.outlook.com>
 From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <CACGkMEvyLNKn7_-bfXAEog5vMK9yz7Ms__HUTjH6cy+tdfHA+g@mail.gmail.com>
+In-Reply-To: <CY8PR12MB719579675CB3864AB3A7218EDC9CA@CY8PR12MB7195.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: lfwmDOhQ-uNQ95alwM006ouVMWKvw_HGmXECzjym5dg_1747723170
+X-Mimecast-MFC-PROC-ID: YPCcsm3EfFuxkM_-LvryM9o4x7_X3kFOr5Hjy2G6cEk_1747723459
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 5/20/25 2:50 AM, Jason Wang wrote:
-> On Mon, May 19, 2025 at 6:12 PM Paolo Abeni <pabeni@redhat.com> wrote:
->> The guest offloads, as specified by 'Setting Offloads State,' use a
->> 64-bit wide space, while some of the corresponding virtio net features
->> are in the upper 64 bits of a 128-bit wide space.
+On 5/19/25 5:12 PM, Parav Pandit wrote:
+>> From: Paolo Abeni <pabeni@redhat.com>
+>> Sent: Monday, May 19, 2025 3:42 PM
+>>
+>> The guest offloads, as specified by 'Setting Offloads State,' use a 64-bit wide
+>> space, while some of the corresponding virtio net features are in the upper 64
+>> bits of a 128-bit wide space.
 >>
 >> Clarify the relevant mapping as somewhat implied by the current text.
->> Also rename the offload definitions to avoid referring to different
->> numeric values with the same name in the features table and in the
->> offload table.
+>> Also rename the offload definitions to avoid referring to different numeric
+>> values with the same name in the features table and in the offload table.
 >>
 >> Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 >> ---
 >>  device-types/net/description.tex | 7 +++++--
 >>  1 file changed, 5 insertions(+), 2 deletions(-)
 >>
->> diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+>> diff --git a/device-types/net/description.tex b/device-
+>> types/net/description.tex
 >> index 1b6b54d..8c501bc 100644
 >> --- a/device-types/net/description.tex
 >> +++ b/device-types/net/description.tex
->> @@ -2186,8 +2186,8 @@ \subsubsection{Control Virtqueue}\label{sec:Device Types / Network Device / Devi
+>> @@ -2186,8 +2186,8 @@ \subsubsection{Control
+>> Virtqueue}\label{sec:Device Types / Network Device / Devi
 >>  #define VIRTIO_NET_F_GUEST_TSO6       8
 >>  #define VIRTIO_NET_F_GUEST_ECN        9
 >>  #define VIRTIO_NET_F_GUEST_UFO        10
->> -#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO  46
->> -#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM 47
->> +#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_MAPPED  46
->> +#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM_MAPPED 47
-> 
-> As the introduction of more offload features in the future, I wonder
-> if it's better to just avoid reusing feature names here.
+>> -#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO  46 -#define
+>> VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM 47
+>> +#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_MAPPED  46 #define
+>> +VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM_MAPPED 47
+> Since the offload command is defined only for the rx side, in the below 'Note' should it be only 65-66 map to 46-47?
 
-No strong objections, but than it would make less clear the 1to1 mapping
- between offloads and features.
+Fine by me. I'll wait a bit before sending a v2 to conclude the ongoing
+discussion with Jason.
 
-> For example, rename all here to something like
-> 
-> VIRTIO_NET_CTRL_GUEST_OFFLOAD_TSO6
-> ...
-> 
-> Or introduce a new command to be as wide as the feature bits.
-
-I would prefer to avoid such additional specification and code churn,
-especially given there is already a lot of stuff pending due to the
-features space extension. Note that the benefit will be limited, as
-there are a lot of bits available in the 'offloads' field and we could
-easily map more features, as needed.
-
-I think the new command should be added as a last resort after
-'offloads' space exhaustion (hopefully far in the future).
-
-Cheers,
+Thanks,
 
 Paolo
-
 
