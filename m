@@ -1,201 +1,154 @@
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776E71172A
-	for <virtio-comment@lists.linux.dev>; Tue, 20 May 2025 12:19:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456F2433D1
+	for <virtio-comment@lists.linux.dev>; Wed, 21 May 2025 01:05:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1747743588; cv=none; b=UQEOQGuXwvCbProeXifkMaP8pNxfTp79jEM7e2miQETFEY72KwhDd9Y+YE75gBv1lkPiNvjrvh9TPi5QfoauT762aVOSZtCoNppzoPWpoceekrJmfl6XfZUc8NNO1L5/Q9hFl8WK7sa8isc2n2oFVF0zCCejeOJkRT0lfeyK290=
+	t=1747789522; cv=none; b=WwlGCIdY4ZF7aGkhGGBX1K0IEFwhOy1S0VnE4uuhXca+1wtF2dRrZTn+rsF/40wb1vXjLi8vb7TgZhJg7BYC1s5QF/fu65AYBUivCOO3TrxgbuunnL99hmjDgXIUVAFnzy7oEIk9I3eqBk3nBfAR2PB64zaOIHogdmr0cXMZ5x4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1747743588; c=relaxed/simple;
-	bh=clp0c2IlCD2Ba9yB7yFfPcfsJ0dkTkeIY+8EtVYyI+c=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lsXU3k1DgDPzm2gN9VPihZ8Fx+wcXdtrIIBfddkcWv547OPbpOAYCe05SBdooybQOWfwnKEryzV6NQCSsxGMAtflnSy/yzjLNTSH6LLGNOZdFlnLZOlDWONXgz9lU/pKoLw7cOzfecwdY3VX2nb/MfHzB+so+AwUuOkFpjL1xfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=MBEJel8r; arc=none smtp.client-ip=67.231.156.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1747789522; c=relaxed/simple;
+	bh=y1bXz/XNbp9uUkEV+NPgDycPQzWHm7qG6JgjLtx2jQo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KVWIYHwhEnnulozkWLWGByN41L7ROranMokmRzaBLrjRtnUY5ReZ0YMD7gJ5LC5gLuQu3YM1epzORggKMafLaEmQswmWZuXL5UlKJ90v/O6+m7UElOFq9wItqcS8Ezrk9Ad2EmkOPyNchucHNkvRpP4x67/n6VxRFkKavRzsLgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aZuFiK35; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="MBEJel8r"
-Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54K6iIkA007933;
-	Tue, 20 May 2025 05:19:45 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=K
-	iSUAomEyredNJluneZmIXuORXNl6fSeLNUgXEjd+pw=; b=MBEJel8rTgan+LOL9
-	3WxflLM4Rr/wwditjmOeS+l5fVVoEhMSxZ/o5L2nrpMmE3D/YKhMwE0+GKF1Gpie
-	9ivLI/S9iUGHM6AgnSs32rAy/KD5RODDi4CXTnmzOC4HVkZNZlIYFcLaVg84HeQ+
-	khBE4u72krSoObAcWAEi3dAU7CsKA5J6DilEFM0QPWB2Id0Rdgl0gzeFeqYzBMme
-	HcsWp2X+9gE4PAWnnJhZVc+1MKorwX3azGHaGUeh9ehUDCRYprAFeTCBmOEPZ75M
-	34y/w9MYzS504eubu0wz263k3pnmTiobC49prG7TlLYYMZMB0/kzBIkHldCln1o0
-	SbKGg==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 46rmqxgh04-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 20 May 2025 05:19:45 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Tue, 20 May 2025 05:19:44 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.4 via Frontend
- Transport; Tue, 20 May 2025 05:19:44 -0700
-Received: from localhost.localdomain (unknown [10.28.36.175])
-	by maili.marvell.com (Postfix) with ESMTP id E06B93F7061;
-	Tue, 20 May 2025 05:19:40 -0700 (PDT)
-From: Srujana Challa <schalla@marvell.com>
-To: <virtio-comment@lists.linux.dev>
-CC: <mst@redhat.com>, <pabeni@redhat.com>, <jasowang@redhat.com>,
-        <parav@nvidia.com>, <sburla@marvell.com>, <ndabilpuram@marvell.com>,
-        <jerinj@marvell.com>, <kshankar@marvell.com>, <schalla@marvell.com>
-Subject: [PATCH v7 4/4] virtio-net: Add IPsec operation device and driver requirements
-Date: Tue, 20 May 2025 17:49:24 +0530
-Message-ID: <20250520121924.2169258-5-schalla@marvell.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250520121924.2169258-1-schalla@marvell.com>
-References: <20250520121924.2169258-1-schalla@marvell.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aZuFiK35"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1747789519;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Re/Gvc15lXTCtiQRzijzFuIPr+jjYRgThgogCqYNQCU=;
+	b=aZuFiK35XueXYo7rJC9sTN0kXw9R5Ue3sTp2HLFV86wYGaoAITU1p/xzy7uFJ0QAWcb5sA
+	7kbKg0Wx9BpeP/i7D3XNgbzVLvor029alhNe9Moz31DAYZ1W5Tel9b1LViSZ1lhZc1Lqn7
+	OHDpqRdybOSdX4UDJkP15F+qORfQ4Hc=
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-451-IY-SmlljPeC2YeYacxk30A-1; Tue, 20 May 2025 21:05:17 -0400
+X-MC-Unique: IY-SmlljPeC2YeYacxk30A-1
+X-Mimecast-MFC-AGG-ID: IY-SmlljPeC2YeYacxk30A_1747789516
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-30e9338430eso3713421a91.3
+        for <virtio-comment@lists.linux.dev>; Tue, 20 May 2025 18:05:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747789516; x=1748394316;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Re/Gvc15lXTCtiQRzijzFuIPr+jjYRgThgogCqYNQCU=;
+        b=lbl1OJPWETfYDcRoyUqhzRE2xPK6mIg8XzOsBzhQqt1j8RhzgzrWj19uLwpsyecSAt
+         D8kiBNkQPS2JEnAmU4qZJZw7Tyhslx5PF23v38LVLgjQv8uqRr+vzkc82i6bB/z9Rayy
+         bi5PLsRmcvClT4gc2HZEVWCaqr3YrGxdLFFE2sag5onZFAmLXPrOyaDs1uSU0uZacCO5
+         jOLylPEbvTWpNdqRg1sJNSLOzPLfAsbQTrSc/5/UW4TE/dnAk+VKcZ9feRX6JuprCDyd
+         hJhSx8R9SxdccI2X/wjsPcYQNHhSHijquDNgeFU9B14K/8RnXQ+qSsFEeQe3+SC0hPw6
+         y3mw==
+X-Gm-Message-State: AOJu0YwvSds9xqTPvU4vbXxEipbOUTiXfPFZHKT5mG8ChVxj2GuYuUuu
+	Q7NK9JMTC8QVXr1RBWoyF5j/uKo9BV4PxUVUOIdxR11pGaPdh9L7rq4H0oWRgc+Y/R1wPCMrKtF
+	vSMOotU5Y/uYs4LHz3B4Sd2L578k55BFcNh2TganARH+GNVX8amSD5hdkOyuxKjZD0EqFJL/C1k
+	g2GUDM1N7LEC1RWij/KsPivSueBDXwS0mBpHqZs3SvY/c=
+X-Gm-Gg: ASbGncvchrnuwe3WihHvhmwUlbMun/Z3wXtQxO4Rnr+i3OhmrdzcE+nSUSuDZrKtok+
+	2JIX+hWJrpBEuhv6ZoPf6bQa8Aq1Net/VoX2osR5Xouh8fWGkYzKPjQ8cF8B5XtTosCCeqg==
+X-Received: by 2002:a17:90b:1648:b0:2ff:698d:ef7c with SMTP id 98e67ed59e1d1-30e7d5bd935mr29046107a91.29.1747789516473;
+        Tue, 20 May 2025 18:05:16 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHLSay5eyst4mYl9Rm4ZRK7wjYpiXRQi22wCd8EwkUi7oX1AVU4FChgasZwUD9yiosXNnNPE208YXXXa10ZW2o=
+X-Received: by 2002:a17:90b:1648:b0:2ff:698d:ef7c with SMTP id
+ 98e67ed59e1d1-30e7d5bd935mr29046064a91.29.1747789515963; Tue, 20 May 2025
+ 18:05:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: VXfJfHQQKPC0X6nHjFO-xC8ffZ2WKIHJ
-X-Authority-Analysis: v=2.4 cv=MMtgmNZl c=1 sm=1 tr=0 ts=682c7361 cx=c_pps a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17 a=dt9VzEwgFbYA:10 a=M5GUcnROAAAA:8 a=Ikd4Dj_1AAAA:8 a=QX9oew5WznxAzni0h4MA:9 a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-ORIG-GUID: VXfJfHQQKPC0X6nHjFO-xC8ffZ2WKIHJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTIwMDA5OSBTYWx0ZWRfXz7unCQliPhYw OY8KYI5/FRvgdfww9Gsyuf2uqEGJXw0cPqQ4N7bpjNWd8rmxlDmuMKHOY/A73FIUaEsjzZbUUD1 cVLGf8Y+L66rthmDeFfnkvVVtwuFw/4+npt17AunlDcU27P+q+pjrDlBrU330HjoSDQViUPL58m
- 9/jq/Jg2MYXuofq0xLVSPbtojB5H1TpZ9w4TFTAYyF/d7b4KTZdJLykQqo2itFZe5yMnpdCMWo0 fpXimiVwDzvcYEaMFoThyubbrc3EretDVw5XsLcuPkLSa3yyE0RSSVH1IdhY+Ay5M52euisypIF De7k+c7j/eVnZIu4X3V96hKVZFV+zY49xESZu7JZTIj7IuVUsHDQLN4+92W9uXWNoX/MbHnVe3g
- 6qFwNKWvErM0yp6tssgyIDdDoilnK9UiENCooTcycdTidO8fTSqQVi0X+pyT1COWL7U+0u2Y
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-20_05,2025-05-16_03,2025-03-28_01
+References: <a30de484ff56065f56e37446e08dcdfa4850f101.1747649330.git.pabeni@redhat.com>
+ <CACGkMEvyLNKn7_-bfXAEog5vMK9yz7Ms__HUTjH6cy+tdfHA+g@mail.gmail.com> <9c742c68-f673-4145-be97-f7528055ddf2@redhat.com>
+In-Reply-To: <9c742c68-f673-4145-be97-f7528055ddf2@redhat.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Wed, 21 May 2025 09:05:04 +0800
+X-Gm-Features: AX0GCFsEWraJ6YZz0jk46ILn6BdIoHsAxCWKmC9oXM_f0mB6E6ODMwROjw4I5Cc
+Message-ID: <CACGkMEuQhbeg_=Cvyd+aLJyF2ikq_yXUvFURkLasYJCgfK2zpQ@mail.gmail.com>
+Subject: Re: [PATCH] virtio-net: clarify guest offloads <> features mapping
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: virtio-comment@lists.linux.dev, Willem de Bruijn <willemb@google.com>, mst@redhat.com, 
+	Parav Pandit <parav@nvidia.com>, mvaralar@redhat.com, cohuck@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 0BwzZSmYlv-xRQiFk_vJRCTMWbXOugN4U-vmM_FlSS4_1747789516
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add device and driver requirements for IPsec Operation.
+On Tue, May 20, 2025 at 2:39=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> wro=
+te:
+>
+> On 5/20/25 2:50 AM, Jason Wang wrote:
+> > On Mon, May 19, 2025 at 6:12=E2=80=AFPM Paolo Abeni <pabeni@redhat.com>=
+ wrote:
+> >> The guest offloads, as specified by 'Setting Offloads State,' use a
+> >> 64-bit wide space, while some of the corresponding virtio net features
+> >> are in the upper 64 bits of a 128-bit wide space.
+> >>
+> >> Clarify the relevant mapping as somewhat implied by the current text.
+> >> Also rename the offload definitions to avoid referring to different
+> >> numeric values with the same name in the features table and in the
+> >> offload table.
+> >>
+> >> Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+> >> ---
+> >>  device-types/net/description.tex | 7 +++++--
+> >>  1 file changed, 5 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/device-types/net/description.tex b/device-types/net/descr=
+iption.tex
+> >> index 1b6b54d..8c501bc 100644
+> >> --- a/device-types/net/description.tex
+> >> +++ b/device-types/net/description.tex
+> >> @@ -2186,8 +2186,8 @@ \subsubsection{Control Virtqueue}\label{sec:Devi=
+ce Types / Network Device / Devi
+> >>  #define VIRTIO_NET_F_GUEST_TSO6       8
+> >>  #define VIRTIO_NET_F_GUEST_ECN        9
+> >>  #define VIRTIO_NET_F_GUEST_UFO        10
+> >> -#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO  46
+> >> -#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM 47
+> >> +#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_MAPPED  46
+> >> +#define VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO_CSUM_MAPPED 47
+> >
+> > As the introduction of more offload features in the future, I wonder
+> > if it's better to just avoid reusing feature names here.
+>
+> No strong objections, but than it would make less clear the 1to1 mapping
+>  between offloads and features.
 
-Signed-off-by: Srujana Challa <schalla@marvell.com>
-Reviewed-by: Parav Pandit <parav@nvidia.com>
----
- device-types/net/description.tex        | 83 +++++++++++++++++++++++++
- device-types/net/device-conformance.tex |  1 +
- device-types/net/driver-conformance.tex |  1 +
- 3 files changed, 85 insertions(+)
+Right, so let's start from the patch.
 
-diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-index a2a1753..415c7fd 100644
---- a/device-types/net/description.tex
-+++ b/device-types/net/description.tex
-@@ -3599,6 +3599,89 @@ \subsubsection{IPsec Operation}\label{sec:Device Types / Network Device / Device
- 
- See \hyperref[par:Device Types / Crypto Device / Device Operation / IPsec Service Operation / Resource objects / VIRTIO-CRYPTO-RESOURCE-OBJ-IPSEC-INBOUND-SA]{VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA}.
- 
-+\devicenormative{\paragraph}{IPsec Operation}{Device Types / Net Device / Device Operation / IPsec Operation}
-+
-+When the device supports IPsec operations,
-+\begin{itemize}
-+\item the device MUST set VIRTIO_NET_IPSEC_RESOURCE_CAP, VIRTIO_NET_IPSEC_SA_CAP
-+capability in the \field{supported_caps} in the command VIRTIO_ADMIN_CMD_CAP_SUPPORT_QUERY.
-+\item the device MUST support the administration commands
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE,
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY, VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY,
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY for the resource types
-+VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA and VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA.
-+\end{itemize}
-+
-+When any of the VIRTIO_NET_IPSEC_RESOURCE_CAP or VIRTIO_NET_IPSEC_SA_CAP
-+capability is disabled, the device MUST set \field{status} to
-+VIRTIO_ADMIN_STATUS_Q_INVALID_OPCODE for the commands
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE,
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_MODIFY, VIRTIO_ADMIN_CMD_RESOURCE_OBJ_QUERY,
-+and VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY for the resource types
-+VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA and VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA.
-+
-+The device MUST set \field{status} to VIRTIO_ADMIN_STATUS_EEXIT for the
-+command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE when the resource \field{type}
-+is VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA or VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA,
-+if the object already exists with the supplied \field{id}.
-+
-+The device MUST fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE for the
-+VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA object if,
-+\begin{itemize}
-+\item \field{id} is greater than or equal to \field{outb_sa_limit}.
-+\item the supplied SA parameters, such as mode, options, cipher and authentication
-+      algorithms are not supported in the capabitlity VIRTIO_NET_IPSEC_SA_CAP.
-+\end{itemize}
-+
-+The device MUST fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE for the
-+VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA object if,
-+\begin{itemize}
-+\item \field{id} is greater than or equal to \field{inb_sa_limit}.
-+\item the supplied SA parameters, such as mode, options, cipher and authentication
-+      algorithms are not supported in the capabitlity VIRTIO_NET_IPSEC_SA_CAP.
-+\end{itemize}
-+
-+The device SHOULD maintain a table for subsequent lookups to inbound/outbound data
-+with the corresponding SA based on the supplied \field{id}.
-+
-+The device MUST allow recreating the resource objects using the command
-+VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE which was previously destroyed using
-+the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_DESTROY respectively without
-+undergoing a device reset.
-+
-+The device MAY fail the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE with
-+the \field{status} set to VIRTIO_ADMIN_STATUS_EINVAL for the
-+VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_OUTB_SA or VIRTIO_CRYPTO_RESOURCE_OBJ_IPSEC_INB_SA
-+commands if the resource object with the same \field{spi} already exists.
-+
-+On device reset, the device MUST destroy all the resource objects which have been created.
-+
-+\drivernormative{\paragraph}{IPsec Operation}{Device Types / Net Device / Device Operation / IPsec Operation}
-+
-+The driver MUST query the capabilities using VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY
-+to discover the capability types the device offers.
-+
-+The driver MUST get VIRTIO_NET_IPSEC_RESOURCE_CAP and VIRTIO_NET_IPSEC_SA_CAP
-+if listed in VIRTIO_ADMIN_CMD_CAP_ID_LIST_QUERY command result, using
-+VIRTION_ADMIN_CMD_DEVICE_CAP_GET to discover the capabilities the device is
-+able to offer.
-+The driver MUST set VIRTIO_NET_IPSEC_RESOURCE_CAP and VIRTIO_NET_IPSEC_SA_CAP
-+using VIRTIO_ADMIN_CMD_DEVICE_CAP_SET to indicate the device which capability
-+the driver uses.
-+
-+For the command VIRTIO_ADMIN_CMD_RESOURCE_OBJ_CREATE, when creating a resource
-+VIRTIO_NET_RESOURCE_OBJ_IPSEC_OUTB_SA, the driver MUST set all the parameters
-+in \field{struct virtio_crypto_resource_obj_ipsec_sa} with relevant values.
-+And when create a resource object VIRTIO_NET_RESOURCE_OBJ_IPSEC_INB_SA,
-+the driver MUST set all the parameters except
-+\field{struct virtio_crypto_ipsec_tunnel_param}.
-+
-+The driver SHOULD NOT add multiple inbound SA objects with the same \field{spi}.
-+
-+In the outbound data path, the driver MUST ensure that packets do
-+not exceed the PMTU prior to transmission to the device.
-+(Refer to \hyperref[intro:IPSEC]{[IPSEC]} for a detailed description of PMTU)
-+
- \subsubsection{Legacy Interface: Framing Requirements}\label{sec:Device
- Types / Network Device / Legacy Interface: Framing Requirements}
- 
-diff --git a/device-types/net/device-conformance.tex b/device-types/net/device-conformance.tex
-index d88484c..7fe8505 100644
---- a/device-types/net/device-conformance.tex
-+++ b/device-types/net/device-conformance.tex
-@@ -18,4 +18,5 @@
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
- \item \ref{devicenormative:Device Types / Network Device / Device Operation / Flow filter}
-+\item \ref{devicenormative:Device Types / Network Device / Device Operation / IPsec Operation}
- \end{itemize}
-diff --git a/device-types/net/driver-conformance.tex b/device-types/net/driver-conformance.tex
-index d346b88..0d20190 100644
---- a/device-types/net/driver-conformance.tex
-+++ b/device-types/net/driver-conformance.tex
-@@ -18,4 +18,5 @@
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / Device Statistics}
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Control Virtqueue / RSS Context}
- \item \ref{drivernormative:Device Types / Network Device / Device Operation / Flow filter}
-+\item \ref{drivernormative:Device Types / Network Device / Device Operation / IPsec Operation}
- \end{itemize}
--- 
-2.25.1
+>
+> > For example, rename all here to something like
+> >
+> > VIRTIO_NET_CTRL_GUEST_OFFLOAD_TSO6
+> > ...
+> >
+> > Or introduce a new command to be as wide as the feature bits.
+>
+> I would prefer to avoid such additional specification and code churn,
+> especially given there is already a lot of stuff pending due to the
+> features space extension. Note that the benefit will be limited, as
+> there are a lot of bits available in the 'offloads' field and we could
+> easily map more features, as needed.
+>
+> I think the new command should be added as a last resort after
+> 'offloads' space exhaustion (hopefully far in the future).
+
+Agree.
+
+>
+> Cheers,
+>
+> Paolo
+>
+>
+
+Thanks
 
