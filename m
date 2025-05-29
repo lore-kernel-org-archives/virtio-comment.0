@@ -1,146 +1,253 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (mail-bn7nam10on2048.outbound.protection.outlook.com [40.107.92.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE8B24EA8D
-	for <virtio-comment@lists.linux.dev>; Thu, 29 May 2025 06:50:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1748501461; cv=none; b=m6oXh11WHNojWf/K3ZaZZg0Y1yLzITQkhHtd3kkAqgGa3I1CDO2Mxl6FsVArq9wTuGvn5wICt9nr1L/nXTdBClZGsuXndig4jFrynZE3z92N3UcyRIG+9SfrLtBsGjjGalpnDcx2q/UyjzI8bzGu6L+vlRRTQU/KS690Ei4WqkM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1748501461; c=relaxed/simple;
-	bh=EzrJd8kPJWdME4JEp/rJfCdiP6tvbtmPhEvidAG8fy0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=MsVIUWAJBAkDv0awaHG1o7le/rZyFkQSwxwULaHxteu7jklYQEU1c36icB6bVfgqaBwOVbDbBocf3LBH+SBR0h0BZVhpV3bW+nuesEQo6nHRkxUTRenjYZMIeNk59jafvmozvzseb8DfIersRqOcdwHo5oh5flX1Pl9MjatpqFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NAmsPA6d; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7FE21B905
+	for <virtio-comment@lists.linux.dev>; Thu, 29 May 2025 08:24:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.92.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1748507058; cv=fail; b=YfxfiYsEoAjN3QL4U4Mr8o0/7CK0JNeFKdVjJeMERyVsor9VltD9L6Td2lkZxhWGi7DPI9QJe5qbsOttAyZSlAwquSZPPu0cLHFxaqeAGAmwC5kM5eaHyunCcsf17j8q5N0m3UKzL2SA44p1RddRx3CjwqWIGPk3nuTcd97nBGY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1748507058; c=relaxed/simple;
+	bh=TnPhWad4Hx2GqtOpbZNL7RqOlcndPcRIlNT0ovvy6DY=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=u2yRm69Wf4FgIdpN7EJ0R2v/EfJKvMmaJaNYUAt5hRIbvpGQNCaYDlgOOuK4O6VyrdA9E0sIEA28DMZ223nR+QM7Q0he/LaMugWY9LdeP0CXifsNox7NVlfAXP6vZ67UxSnQgqqRvzkRKlW0iIbI6FUOSFjHVBx0WhitjddEY78=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=aw7oa6D0; arc=fail smtp.client-ip=40.107.92.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NAmsPA6d"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1748501458;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BZlaTB8yOe+fc0GTP+j6k28yYwVnB4rCE7HTNsUKL9A=;
-	b=NAmsPA6dYRjI8f0ITWdwYSEf89462lbnvhfwC5+NVDaNboon1iKK5syoho4KmaFcBeXO+L
-	agZXU7VnUcKu+Bc866Xuuuq7GHmtZdjijhf2QR13F5ZsB+GLHSfBmliHlJqT/jNLOV9LYV
-	u7hGlyxLQItaWVikrzYFKL8bvX9SijI=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-507-zGrobGwRPcyaPhUCe_pdug-1; Thu, 29 May 2025 02:50:57 -0400
-X-MC-Unique: zGrobGwRPcyaPhUCe_pdug-1
-X-Mimecast-MFC-AGG-ID: zGrobGwRPcyaPhUCe_pdug_1748501456
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-3a4d95f197dso389070f8f.3
-        for <virtio-comment@lists.linux.dev>; Wed, 28 May 2025 23:50:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748501455; x=1749106255;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BZlaTB8yOe+fc0GTP+j6k28yYwVnB4rCE7HTNsUKL9A=;
-        b=kgD7IlgMfgBdylNlZgK4X8u47eleKa+k8mxzG+ptSd5mKLX560X1fHan6ZuLB+ofsn
-         5OxqGr71DxN4Xfe7uAGjIwT6HZQjFEn84bEgQsaoYIa2wEMghVXvEtK+nok54cvxG8XD
-         T333iDjHAM68kDw7sjTq/URZEJ7CSjXMkTmGVkFzAl8kafvnC3ka83mUxtrBmt5gUS75
-         yuQ2r192i2vT4UJ0l7GU59nofkNSaf4w+8HwPMQ/RKGqa604czm/hOu7Sk/deOZPELTs
-         J/DeNMEWMymOs/k2RkL8gRBKn+aOsrrJ3FoZclbAtADmPn4MoAG3hXdbg5s4rlZD5vH6
-         cn8Q==
-X-Gm-Message-State: AOJu0YxSqGkntcRgjPeacivaW4ALzGLHcuzaHlHBm6q2qS1znMM1mknF
-	9V7PRCVOkem2dsiTxoUn1FI5ZvCH0gFoGzAYj0aEVvAgdt78sKNybvl2mZ+fS9eoypqw+laV+9v
-	W2F5YB2FKu0O1ADvISl9nn77eFPVsRknu/9G6dCbd3CXV2mjCP73VuFwlYXtZ+EV0n/4rXDT7dR
-	wm
-X-Gm-Gg: ASbGncuACLWO6opdRMx7w+JGxfj9UWUdYS/c0hLVVcHVGhemZXKhgaI0EyxTcCYf/O7
-	feCKWfBH2RnnzBPoi75EMq55TmkoXaVXVRrCtP9X1i3owUpNvVPlfBaoI6XyVVKA34mCdAFG6rq
-	fK1CYhPDc45FmLaBA0Glct45LL5IKT5HVm6o29bQ7Iq/Alb0U9Vok5lkf0AtbSQ9YWNYYnvtjKE
-	NQWQkUskuGIMVW5T+d395CEB1LZcshLXdj8rmXK6at5930JTtQLyGVU2dlea0kuYidWcLrUncVm
-	VlISvg==
-X-Received: by 2002:a05:6000:2dc1:b0:3a4:dfc1:ecb8 with SMTP id ffacd0b85a97d-3a4dfc1ed20mr9791471f8f.53.1748501455428;
-        Wed, 28 May 2025 23:50:55 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFlkmCO62QCRMQkqv0ksYi7CJ32mEvA4v3Y3PoIZ1v5rbOFyWej1gMcBCcYI3YSal0seGhhWw==
-X-Received: by 2002:a05:6000:2dc1:b0:3a4:dfc1:ecb8 with SMTP id ffacd0b85a97d-3a4dfc1ed20mr9791451f8f.53.1748501455014;
-        Wed, 28 May 2025 23:50:55 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:1517:1000:ea83:8e5f:3302:3575])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-450cfc17a04sm11066665e9.24.2025.05.28.23.50.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 May 2025 23:50:53 -0700 (PDT)
-Date: Thu, 29 May 2025 02:50:49 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Akihiko Odaki <akihiko.odaki@daynix.com>
-Cc: virtio-comment@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
-	Parav Pandit <parav@nvidia.com>, devel@daynix.com
-Subject: Re: [PATCH v4] virtio-net: Ignore num_buffers when unused
-Message-ID: <20250529024047-mutt-send-email-mst@kernel.org>
-References: <20250526-reserved-v4-1-70231a8edc79@daynix.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="aw7oa6D0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tTDW0+wY/LbDQZb9E9ulGmp56tefEG4UPt65vRCrsNbaXpGubQ7riaVaclFKsZZ0a9y6RfwOieGMkDF4GRQjN8h6WP9suN/m3x8QFR2wL4jKi+MnEuCXaUH8z0PnUyXdwaQGhLMurMsbw5nhXbio/fkCkWrjyQRIwVNp1bIzbBctYxGKw7T5cSFvbVXThgja8W998y9Ou9lcOU0ROYP+I1f8aNmzLfuNEzmi1iCP/n1UUTiUrrG4Ma6ufoAqtyDvwEdKkGOpcDQXluQBkPtGJF66/t9fLG9UoQz07lAuvJkRzF+9ZSgDxo0QBrwBYss4V5E0Zuz9XDmnAYH/oy5FvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9LzzWP5s9GfwLWmnxgMWdixesEB0iCuZSnv/wKIne/g=;
+ b=vbdz4rJIPp3ksrGksrvcjdUIsg6ahtGufl+KUs6Y/Lpz/15me3YInOVI8X7Nb3PGHmcpArOfxhkzu66qvyeRcYOW1yRwylEvfB7KQINIHvDGhAgun6JcbZqE9mcMxilLvm3PLuDkKIF08g8sKL53izqsbcrifqTIx7NccNnTfHioBu/wcKZnh9nxZ/MgBLET08c2qMr3hd4s45j/PZfaRboYVy1bLkFFpY9KUpGSDqjHYvX2HaypWyyKCVSSqUVR+NMPh2cU28PThfldqn2fs5f22ZwaEzgAUQf7pxdLGiDF/SwrfiHLzy0ZGsy4EInGmIgt+JyOvdyqSChunrFJeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9LzzWP5s9GfwLWmnxgMWdixesEB0iCuZSnv/wKIne/g=;
+ b=aw7oa6D0/1WOo1RqK+o7bGrok4WjF7A8JRYhcO8XRWNhoLeqQNPzmt1O+CXMueKIyjv1+PvZvXFtXGrfNdh2updUmUVWzWMtnw4AlsBHKkHad92K/U5FKVmRglRMDF8+tpiWl6YkVI6gn420+I8aSV5lc7mVhYEpAvB4SOFazj0=
+Received: from BN8PR04CA0028.namprd04.prod.outlook.com (2603:10b6:408:70::41)
+ by SJ2PR12MB9116.namprd12.prod.outlook.com (2603:10b6:a03:557::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.27; Thu, 29 May
+ 2025 08:24:10 +0000
+Received: from BN2PEPF0000449D.namprd02.prod.outlook.com
+ (2603:10b6:408:70:cafe::e8) by BN8PR04CA0028.outlook.office365.com
+ (2603:10b6:408:70::41) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.19 via Frontend Transport; Thu,
+ 29 May 2025 08:24:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF0000449D.mail.protection.outlook.com (10.167.243.148) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8769.18 via Frontend Transport; Thu, 29 May 2025 08:24:09 +0000
+Received: from fedora.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 29 May
+ 2025 03:24:07 -0500
+From: Zhu Lingshan <lingshan.zhu@amd.com>
+To: <mst@redhat.com>, <cohuck@redhat.com>, <jasowang@redhat.com>
+CC: <virtio-comment@lists.linux.dev>, <Ray.Huang@amd.com>, Zhu Lingshan
+	<lingshan.zhu@amd.com>
+Subject: [PATCH v2] virtio: introduce SUSPEND and RESUME feature
+Date: Thu, 29 May 2025 16:23:55 +0800
+Message-ID: <20250529082355.86884-1-lingshan.zhu@amd.com>
+X-Mailer: git-send-email 2.49.0
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20250526-reserved-v4-1-70231a8edc79@daynix.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: xoOAXD5crU79Yty7AHGcE-brMPbEWqVdQPt4ETcehEE_1748501456
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449D:EE_|SJ2PR12MB9116:EE_
+X-MS-Office365-Filtering-Correlation-Id: a967dce6-1aba-47cf-605b-08dd9e8a2fc1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?Ib95KOjHdV7JiACaY1tZQ/4pP9oxGF/nZIdYx82n/jO/rKhNoFK03MgjuvYu?=
+ =?us-ascii?Q?MX1aIBp8g6YI9d0ujZy/SttvL3tkWhw2dFOVUgk2Vzj3Vk0NwtzIMkf9+4KC?=
+ =?us-ascii?Q?sjowUpnJYRWsrdJxDv8b70OuHJ51N0d95QtxNrKLaNkBi7PERA2sIc02Dxlm?=
+ =?us-ascii?Q?CgbHucdEA6fT/PqEYXvU1hmGS0mZ0UGmCajlNtIq2uTIvGQrBeN0lwyLcjX6?=
+ =?us-ascii?Q?+9vjT7piqNgQeem7U9J1OafO9a34rfuqpZKDh8Z3mWBvqj983D8OpuBuImaE?=
+ =?us-ascii?Q?SJvJzkyxGfi2XSEM8jx+voGcF8HAomWRS8GQpQj+VpHdobxhC995ZjQsyPfW?=
+ =?us-ascii?Q?OplqstJQ5xLriy/YryE4UVuNXm6nknEema6jdFIBxV/lP+yFehgsF1Z9+RTu?=
+ =?us-ascii?Q?ZSPFSE9EZoD2wJA8wi7TFAWVEqskH4P5CkRwgTk5rq9HRCkHFTJplE0bQCLZ?=
+ =?us-ascii?Q?rVstOL8BtaO8bM63sNlUuo9jWFX+JLGBRqSw3eSPcakSpbuBa3ihLIvNGtxi?=
+ =?us-ascii?Q?/VwWXwUah1fpAD0WWcAn98laG8Sw8bfWPzs1+tzTMekJOTcH6/5RrX9WaKyp?=
+ =?us-ascii?Q?0mA3RDslbcuENEG3z5r8BVyG6DzXKo1DKCaCDRUEu7o7c8XfEojiI+m4gdkZ?=
+ =?us-ascii?Q?W3vvz2PJhZA+k8SlZMRRr7/tnqZH5qA2NyRXpoSAvFXTN3UpDryWUHkTkPdk?=
+ =?us-ascii?Q?AxDfEm2F8PO9HYdB4VM7sK989erkQFgCKctO/AX4qZDSGVvyNlRRFbJQRx3R?=
+ =?us-ascii?Q?9Ccir3j0WyuoMSgin8CleWiLBgKGoWNmPOTI51+frJbUViKp+VkfW4M6DyJD?=
+ =?us-ascii?Q?xCurkVv83QLZCApI2X6fEtP/OSqz/DigZOChS4iuOr+btyqAHQhFpWVIyU/h?=
+ =?us-ascii?Q?fFy0EYTGXK0kmbFnv8jwTFhl0Qpd84vi3hcKdFbUEYDHjkmTCwP6tBpwVJuT?=
+ =?us-ascii?Q?/6l81Dc7PQ8fmdr/f0Il95Lwusi6gyMQ1gHs0VWlN1zfJfOEKht9YDL81Jfx?=
+ =?us-ascii?Q?sEMb1IVnqpeS3o/vwZgaZQB30xT+eGNfyGah98NkfKiK3NOaRg69PILkpP9j?=
+ =?us-ascii?Q?UFvGiSCYnHJ2JRNPMsg6XTnN880N43DwDFTsXJ6X4y7yVWP546JpFcj9ntEq?=
+ =?us-ascii?Q?dIN2BOJNNNFcCeq/GMQ6pDzj4Ri35fPPnegemyALjY8kW7Kwo/5dyT7yKyOt?=
+ =?us-ascii?Q?rMFWpThbzphVwPfTIH/SbcGZQIYwV34I65066Nl4b0E2dTAnuIGMLGoW1W8A?=
+ =?us-ascii?Q?8X9tcNUm8l8XcNCjXLAJMYm5ncQzcWfMWnjXqNKjNSk5LmsTDPmCyOG4C/JQ?=
+ =?us-ascii?Q?gKW/VJfZaajMCohNbARhilSHLU7gZOFRahhIvu2uYPX+s4HrhwDBSy4c3IL/?=
+ =?us-ascii?Q?oHFBxV5rnzC5MCtCKEsSYJPMQPBo5VK+QQ1IwyYOFW4W3AJvjbfrEtzV/B58?=
+ =?us-ascii?Q?ZwljresOaClBmrVK8R+9qP/L01gPamanKbJsMpK/d7aKCCPzuo/UsQkZgf6U?=
+ =?us-ascii?Q?lmlE4bdwOsqQCjkN3CcwUkDFYSBfLwUVgQ4a?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2025 08:24:09.9930
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a967dce6-1aba-47cf-605b-08dd9e8a2fc1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000449D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9116
 
-On Mon, May 26, 2025 at 02:15:19PM +0900, Akihiko Odaki wrote:
-> If VIRTIO_NET_F_MRG_RXBUF has not been negotiated, vhost_net of Linux
-> prior to 6.14 and QEMU prior to 10.0.0 leave num_buffers uninitialized
-> while the specification tells to set it to one.
-> 
-> Let drivers ignore this field to make them compatible with old
-> vhost_net/QEMU, similar to the hdr_len field, which is also marked as
-> unreliable due to implementation bugs.
-> 
-> Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
-> Reviewed-by: Parav Pandit <parav@nvidia.com>
-> ---
-> Changes in v4:
-> - Noted that the mentioned bugs are fixed with newer implementation
->   versions in the patch message.
-> - Noted that the bugs are of devices. (Parav Pandit)
-> - Link to v3: https://lore.kernel.org/r/20250110-reserved-v3-1-2ade0a5d2090@daynix.com
-> 
-> Changes in v3:
-> - s/MUST/SHOULD/ (Michael S. Tsirkin)
-> - Link to v2: https://lore.kernel.org/r/20241227-reserved-v2-1-de9f9b0a808d@daynix.com
-> 
-> Changes in v2:
-> - Corrected the change description to tell vhost_net and QEMU leaves
->   num_buffers uninitialized where it used to tell they set it to zero.
-> - Restored statements that require devices to set num_buffers to one.
-> - Link to v1: https://lore.kernel.org/r/20241226-reserved-v1-1-39ca566889c0@daynix.com
-> ---
->  device-types/net/description.tex | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/device-types/net/description.tex b/device-types/net/description.tex
-> index 76585b0..4a2df5a 100644
-> --- a/device-types/net/description.tex
-> +++ b/device-types/net/description.tex
-> @@ -863,6 +863,12 @@ \subsubsection{Processing of Incoming Packets}\label{sec:Device Types / Network
->  This is due to various bugs in implementations.
->  \end{note}
->  
-> +If VIRTIO_NET_F_MRG_RXBUF has not been negotiated, the driver SHOULD ignore
-> +\field{num_buffers}.
-> +\begin{note}
-> +This is due to bugs in device implementations.
-> +\end{note}
-> +
->  If neither VIRTIO_NET_HDR_F_NEEDS_CSUM nor
->  VIRTIO_NET_HDR_F_DATA_VALID is set, the driver MUST NOT
->  rely on the packet checksum being correct.
+This commit allows the driver to suspend the
+device through a new device status bit SUSPEND
+and resume the device running by re-setting
+DRIVER_OK bit in device status.
 
-Acked-by: Michael S. Tsirkin <mst@redhat.com>
+This commit re-orders the device status bits.
 
+Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+Signed-off-by: Jason Wang <jasowang@redhat.com>
+---
+ content.tex | 74 ++++++++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 65 insertions(+), 9 deletions(-)
 
-> ---
-> base-commit: b495841a8e80d12c1130f8868f4128866291142d
-> change-id: 20241226-reserved-d5960f173223
-> 
-> Best regards,
-> -- 
-> Akihiko Odaki <akihiko.odaki@daynix.com>
+diff --git a/content.tex b/content.tex
+index d3fc6a4..caef5d0 100644
+--- a/content.tex
++++ b/content.tex
+@@ -36,19 +36,22 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
+     this bit.  For example, under Linux, drivers can be loadable modules.
+   \end{note}
+ 
+-\item[FAILED (128)] Indicates that something went wrong in the guest,
+-  and it has given up on the device. This could be an internal
+-  error, or the driver didn't like the device for some reason, or
+-  even a fatal error during device operation.
++\item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
++  drive the device.
++
++\item[SUSPEND (16)] When VIRTIO_F_SUSPEND is negotiated, indicates that the
++  device has been suspended by the driver.
+ 
+ \item[FEATURES_OK (8)] Indicates that the driver has acknowledged all the
+   features it understands, and feature negotiation is complete.
+ 
+-\item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
+-  drive the device.
+-
+ \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experienced
+   an error from which it can't recover.
++
++\item[FAILED (128)] Indicates that something went wrong in the guest,
++  and it has given up on the device. This could be an internal
++  error, or the driver didn't like the device for some reason, or
++  even a fatal error during device operation.
+ \end{description}
+ 
+ The \field{device status} field starts out as 0, and is reinitialized to 0 by
+@@ -99,10 +102,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
+ \begin{description}
+ \item[0 to 23, and 50 to 127] Feature bits for the specific device type
+ 
+-\item[24 to 41] Feature bits reserved for extensions to the queue and
++\item[24 to 43] Feature bits reserved for extensions to the queue and
+   feature negotiation mechanisms, see \ref{sec:Reserved Feature Bits}
+ 
+-\item[42 to 49, and 128 and above] Feature bits reserved for future extensions.
++\item[44 to 49, and 128 and above] Feature bits reserved for future extensions.
+ \end{description}
+ 
+ \begin{note}
+@@ -629,6 +632,54 @@ \section{Device Cleanup}\label{sec:General Initialization And Device Operation /
+ 
+ Thus a driver MUST ensure a virtqueue isn't live (by device reset) before removing exposed buffers.
+ 
++\section{Device Suspend}\label{sec:General Initialization And Device Operation / Device Suspend}
++
++If VIRTIO_F_SUSPEND is negotiated, the driver is eligible to suspend the device by setting the SUSPEND bit in \field{device status} to 1, and the device SHOULD set the DRIVER_OK bit to 0 once it has been suspended.
++
++If the device has been suspended, the driver can resume the device running by setting the DRIVER_OK bit in \field{device status} to 1, and the device should set the SUSPEND bit to 0 once it resumes running.
++
++\drivernormative{\subsection}{Device Suspend}{General Initialization And Device Operation / Device Suspend}
++
++The driver SHOULD NOT set SUSPEND bit if DRIVER_OK is not set or VIRTIO_F_SUSPEND is not negotiated.
++
++Once the driver sets SUSPEND bit in \field{device status} to 1:
++\begin{itemize}
++\item The driver MUST verify whether the device has been suspended by re-reading \field{device status}, examining whether the SUSPEND bit is set to 1 and the DRIVER_OK bit is set to 0.
++\item The driver MUST NOT make any more buffers available to the device.
++\item The driver MUST NOT send notifications for any virtqueues.
++\item The driver MUST NOT make any changes to Device Configuration Space except for \field{device status} if it is part of the Configuration Space.
++\end{itemize}
++
++\devicenormative{\subsection}{Device Suspend}{General Initialization And Device Operation / Device Suspend}
++
++The device MUST ignore any operations on the SUSPEND bit from the driver if the device has not been completely initialized by the procedures in \ref{sec:General Initialization And Device Operation / Device Initialization}
++
++The device SHOULD ignore any write access to its Configuration Space while
++suspended, except for \field{device status} if it is part of the Configuration Space.
++
++A device MUST NOT send any notifications for any virtqueues,
++access any virtqueues, or modify any fields in
++its Configuration Space while suspended.
++
++If changes occur in the Configuration Space during suspended period,
++the device MUST NOT send any configuration change notifications.
++Instead, the device MUST send the notification when it resumes running.
++
++If the driver sets the SUSPEND bit in \field{device status} to 1,
++the device MUST either suspend itself or set the DEVICE_NEEDS_RESET bit in \field{device status} to 1 when it fails to suspend.
++
++If the device has been suspended and the driver resumes the device running by setting the DRIVER_OK bit in \field{device status} to 1,
++the device MUST either resume normal operation or set the DEVICE_NEEDS_RESET bit in \field{device status} to 1 when it fails to resume.
++
++When the driver sets the SUSPEND bit to 1,
++the device SHOULD perform the following actions before presenting the SUSPEND bit as 1 and DRIVER_OK bit as 0 in the \field{device status}:
++
++\begin{itemize}
++\item Stop consuming more buffers of any virtqueues.
++\item Wait until all buffers that are being processed have been used.
++\item Send used buffer notifications to the driver.
++\end{itemize}
++
+ \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
+ 
+ Virtio can use various different buses, thus the standard is split
+@@ -872,6 +923,11 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+ 	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits} for
+ 	handling features reserved for future use.
+ 
++  \item[VIRTIO_F_SUSPEND(43)] This feature indicates that the driver can
++   suspend the device by set the SUSPEND bit to 1.
++   See \ref{sec:Basic Facilities of a Virtio Device / Device Status Field}.
++
++
+ \end{description}
+ 
+ \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+-- 
+2.49.0
 
