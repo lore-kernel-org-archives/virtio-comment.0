@@ -1,157 +1,133 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB3E272809
-	for <virtio-comment@lists.linux.dev>; Fri, 13 Jun 2025 08:36:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951E52DA75C
+	for <virtio-comment@lists.linux.dev>; Fri, 13 Jun 2025 08:36:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1749803776; cv=none; b=b8xQji3GO2HFVWnkpFBWA58QfNYbTEeM/Jz3JiV0bMoNoalkg6bBfmFtvcE6Hhpv0ROxF2tJCshfZV7tZFSrYWwDQgLUUgO8nAEpQiPT5mnKa7n46Jf895Uhp4TpCBi1sHU8jcWaaBoDMLi2iLsA1VJ/R8R80ka9Zf3+KVa2v7Y=
+	t=1749803806; cv=none; b=cH6MxKvwWSUZr7YpvzAVIVXFGw2pztyBbnp9sLUS1b9qoGSEOGfDFjnP4agtrMap10BH9ZN/7r7pv8Bb8pJH8iiPa6m9SWr57AxQFInM1+B6jm9eGjpQy1xrp3HjzFAyCunOOdfmZ+10PUnZkYZQN1vPKlJjOANjEUv0ffRfJ5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1749803776; c=relaxed/simple;
-	bh=Ho5O/icJphqpc6gQ3IiG5wkxhNcwVBPcjflbgTq8/A8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NiGTHVIIUJLkL/GZBnnFk1IckxaJE+yaFcGD6Jnq8QaSunxRDP4rub/ypoHXy2mF1MLpJsi5g9nre9Y1Ph4OkIFDFoxTMU2SphwmBNeG0OFlVOz9wHkJeh8yH4runl1TnhOuCsXs+HBhdfsVPb7uLAfHtX/wCnVjaWgDV+WPp5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Oi9PM8Z2; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1749803806; c=relaxed/simple;
+	bh=XDIFdnv998m4g0SdzSTQOrPidzQgkyOrj9iy2Yv98mk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=F2iuUo+1ugHVxbVPHRy3xHboJBy+GXqqwH8B1udOpwBDuWfsRTNFPLMcK7sZEoXItz8ifk+ebkh/KlMgJ3lHfpEGOe5jc68pDZ/8lFZId96EZSHqbNPnBnavfdjLr2TmSNHwCVu9fV8XgMkQ1+dLdmw9UHFr4N4JKNlMqo6EEJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hovDgrVo; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Oi9PM8Z2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1749803773;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ho5O/icJphqpc6gQ3IiG5wkxhNcwVBPcjflbgTq8/A8=;
-	b=Oi9PM8Z2sQ3d7KSXNOioB95yTnJNRj+G8w4EQWNmCQCZT4GSWwUf/unkktVkNQBf5KZUGh
-	RFBHFhHiO1AfaA8fw/LhR1oUs8eSZZBDC2Bxf3uTuqpc4ZxhcqXxPX6JCkwxxK6dXMsl2V
-	pbIafMBY1lpHXifJog9XZNsHgKCyeP8=
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
- [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-688-6GeReDfoNlq_EsMu4CQ54w-1; Fri, 13 Jun 2025 04:36:11 -0400
-X-MC-Unique: 6GeReDfoNlq_EsMu4CQ54w-1
-X-Mimecast-MFC-AGG-ID: 6GeReDfoNlq_EsMu4CQ54w_1749803771
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-710f05af33eso24445967b3.1
-        for <virtio-comment@lists.linux.dev>; Fri, 13 Jun 2025 01:36:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hovDgrVo"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3109f106867so2646902a91.1
+        for <virtio-comment@lists.linux.dev>; Fri, 13 Jun 2025 01:36:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1749803804; x=1750408604; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=knIIjoUJePaqmVR9dLK+IZzg1pTfR7smZzB8zrNpl/I=;
+        b=hovDgrVo3bxCogOfkdkQA9PzKEQBJAFx06ltjcar5zwsBdCnv5myTiCzR00FV0eQX1
+         p9LrVSUMcDCy3efhgfS95tvXru5NzO4hb46ogNZ1D29gFPGPuabj8PznlHmWR+5byTcQ
+         XkGZmP1YdVe1dn+Dz6WHhg8eTqLqnEi3Vsvw7+SMFkQ+kOXTh7M6UwUppG2uAa3phkep
+         ljf8uKjKTxLoXNgkbekQPlwREVePRiD3aVmq5pFCMmtRaDcKxzA9iM9ZpnpArbNS7ktd
+         11BNKvdV5Z/oiQWT1+dkLhtHsE1qofbUMGFfQ8KYCOXLf25GNA0TmnBCpRTzazxeM8Tg
+         O0AQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749803771; x=1750408571;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1749803804; x=1750408604;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Ho5O/icJphqpc6gQ3IiG5wkxhNcwVBPcjflbgTq8/A8=;
-        b=nfemHeQ2p1i7qb3eHZ8rf6v6usS5Dlih3GlmMcH6KHwTaCjnr3u1cL4uGMj+3YX8XT
-         WY5DZfekubpm0qMO0sledDJdI1uc2npyMZ8sMWRoyrpko4WCiudbyuZPTlA/jCCJ08II
-         h71sgH001lWtu1MDbN52kOomJin2gAkneBkTzTGIAEAeGPnxeZG9r1uSzCmM9V2g1Io8
-         pYXTpHnnZf/BHvyidKvyqX+jBW21KZzZVyV9PN8Xep4lQSrrny62g47i1w5I269ZP8rr
-         MIGmMczDT5nFDIorfu0R0wX+klIxdxcufoXX3QFR9dBkKd9rQ01j5BEdfWnVTKqFWM86
-         ZNFw==
-X-Forwarded-Encrypted: i=1; AJvYcCU9S/vW00sLGbeGcJ38PCSWbpPEFhRRXbmqr4BOe/afDkckVpCMZhHwxdWLEiBJC3YC/pTyZ6r/GIM6idApBg==@lists.linux.dev
-X-Gm-Message-State: AOJu0YyvbvQrYft+jiP6cNIB31zX72gf8zA49G/JSdA3hwcnLaOPxthP
-	ENG+GwjDeUH2YsdANrPPFmMBRzufQZHa6Jm0NJ2azZKo5AHE9a8kntBqIWO+bwX5jW0/LEn1xBQ
-	fG324sUgoXlnqSr6htNJuMPca6ARNsS9N/M3oYHjOLESWllzjAcVWLM6zI6AIj7MO6Deu8z0Goa
-	PMt6r/hHu7V/do2EqZyb8hOAQygsMxuc/CN6c94yCYqwo=
-X-Gm-Gg: ASbGncscSY8txguYp+u59UbXLyombFvJVVMOTtZWYezbB9lhbwR89wl6oMgX1OZyxRH
-	cPK1dzjh5Tz+s1XWSaWQpeCkDt9Fh6rBnRCYasiHSdggEhPKTUrUnp2UpTaEqWxzwNTHx/RKCus
-	NzkkazC+V/Ts3QllDHk5ocYL5AxIcsaMGLBVY=
-X-Received: by 2002:a05:690c:c:b0:710:e8a8:7768 with SMTP id 00721157ae682-711637e52e2mr32673997b3.31.1749803771135;
-        Fri, 13 Jun 2025 01:36:11 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGSHU5mZj0y1bYkbcq6nGurbhJUQu3u+V3xGMmbNLoXewgm/oOnBFGtaiXvnMMZB1jEQku46jtkYSb+SkQq3Ps=
-X-Received: by 2002:a05:690c:c:b0:710:e8a8:7768 with SMTP id
- 00721157ae682-711637e52e2mr32673767b3.31.1749803770753; Fri, 13 Jun 2025
- 01:36:10 -0700 (PDT)
+        bh=knIIjoUJePaqmVR9dLK+IZzg1pTfR7smZzB8zrNpl/I=;
+        b=iBUU4dcNweHZnI1N95F8Ed0BKVcLQPoGzd1rj1wV7Oe73Js0zguIeYq/JpvNjcYCPa
+         u5mk+yniOSNByZxM8w64RnfPO3sXSTWhmhgLGJZU1mRs4pVA6aGjK3++D7m1npgPsiEH
+         aNTpwHn2jagB3Z/5O59mb6OeCzqu7sdiyBULJAuOKXtrOlkiZFBi/RBRq34sU5gorWwd
+         5BGRevQdhOe771pVa8tdB07Dd0/j4xRUNXvgU0rmMwyh1u/aknD5YOGhXRMfg7CtS/nd
+         +4oMaZRU43YSX7DJ05lryQ53qxmJ/L5kbGUwxqDAQSc6m8JFFrcJ6R9N7zjIimMiyKqj
+         T3Mw==
+X-Forwarded-Encrypted: i=1; AJvYcCXvneHUjR/qpMiHdByR+O+DG8hG2AXFmM8dNIE00qgDWqoO6C6GfHFENScOjMhIz3/aM5JeB0EJMgWr2mSggw==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yz/xMzC9XAw7+a23jtmyS9ewqodubtCyT90tMJUsIVCiI9jj22u
+	9+oyQV1wPWnPVsQnldrTQ3uey7vFNJx4d25/iOybvotiD9cxLe5vGcXs
+X-Gm-Gg: ASbGncvEVYKW5nh68UeeRgxd9N1jSngF7x6QGxuqrybjgpN2ZUoQ5KwKWLcqrH3ruy6
+	ebgQlfayl20/pcohuDthzEyOpHNCfJ5I65Kg2pGhONJPgdTbSJnhj/2f9+eHKJD85g8N21PdHPb
+	4mNgpLO0hmkaXK7DhPVe+ErxOb1RGODfwOhzm4RtW4lqMeZI4iGCokOAm2bZHb+5F8i+5VnQqwl
+	Exj/4R/Nmp/Iz2I3bPta4cS66PFyF0AQpwdDsCCT/USu+0n5FllEIybLrsvM8FHXdzXi4DJ1ppw
+	HKlP5mxZAcceg09GojOKC9o9cxysKB85QlO9ugatwshbTUW4as+ThfYgzWUklTVBeunzT+daN/d
+	7QC4tXsCS
+X-Google-Smtp-Source: AGHT+IHmlw3wt6FH/2APetDo/wFyRY6v1VUx1eGepR5cCVA+I4zrZqjksbfRt3QlB7WME1K2qGASDw==
+X-Received: by 2002:a17:90b:540f:b0:311:ad7f:329c with SMTP id 98e67ed59e1d1-313d9e90309mr3956154a91.18.1749803803500;
+        Fri, 13 Jun 2025 01:36:43 -0700 (PDT)
+Received: from devant.antgroup-inc.local ([47.89.83.0])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-313c1c4e3f0sm2786920a91.23.2025.06.13.01.36.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Jun 2025 01:36:43 -0700 (PDT)
+From: Xuewei Niu <niuxuewei97@gmail.com>
+X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+To: sgarzare@redhat.com
+Cc: fupan.lfp@antgroup.com,
+	jasowang@redhat.com,
+	mst@redhat.com,
+	niuxuewei.nxw@antgroup.com,
+	niuxuewei97@gmail.com,
+	parav@nvidia.com,
+	virtio-comment@lists.linux.dev
+Subject: Re: [PATCH v7] virtio-vsock: Add support for multi devices
+Date: Fri, 13 Jun 2025 16:36:33 +0800
+Message-Id: <20250613083633.1087589-1-niuxuewei.nxw@antgroup.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <CAGxU2F6-MgJTLir2hcvUdLeAeVeRygEhKzui_N+2vqsWxhBkLw@mail.gmail.com>
+References: <CAGxU2F6-MgJTLir2hcvUdLeAeVeRygEhKzui_N+2vqsWxhBkLw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <CACGkMEsFYMjQgU7mrBwq3q2cFvFH_zro=5YOMfLsxDQYv5po5A@mail.gmail.com>
- <20250613045719.1081020-1-niuxuewei.nxw@antgroup.com>
-In-Reply-To: <20250613045719.1081020-1-niuxuewei.nxw@antgroup.com>
-From: Stefano Garzarella <sgarzare@redhat.com>
-Date: Fri, 13 Jun 2025 10:35:59 +0200
-X-Gm-Features: AX0GCFuMIeeAsJaaewCnfcJWYqIS7RZaq7ubAV9yBxPT6p123icSNE7PmLXr6VA
-Message-ID: <CAGxU2F6LtwfO_AgTxk+wEeqv1vKCmMGJNzyu08ttGYUfad3mGA@mail.gmail.com>
-Subject: Re: [PATCH v7] virtio-vsock: Add support for multi devices
-To: Xuewei Niu <niuxuewei97@gmail.com>
-Cc: jasowang@redhat.com, fupan.lfp@antgroup.com, mst@redhat.com, 
-	niuxuewei.nxw@antgroup.com, parav@nvidia.com, virtio-comment@lists.linux.dev
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: d6HZeYMprcMAOkKiXaDSXpnfcUlkUP7XvRVD2rO7_CU_1749803771
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, 13 Jun 2025 at 06:57, Xuewei Niu <niuxuewei97@gmail.com> wrote:
->
-> > On Sat, Apr 12, 2025 at 10:39=E2=80=AFPM Xuewei Niu <niuxuewei97@gmail.=
-com> wrote:
+> On Fri, 13 Jun 2025 at 06:23, Jason Wang <jasowang@redhat.com> wrote:
+> >
+> > On Sat, Apr 12, 2025 at 10:39 PM Xuewei Niu <niuxuewei97@gmail.com> wrote:
 > > >
-> > > This patch brings a new feature, called "multi devices", to the virti=
-o
-> > > vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, an=
-d a
+> > > This patch brings a new feature, called "multi devices", to the virtio
+> > > vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, and a
 > > > "device_order" field to the config for the virtio vsock.
 > > >
-> > > =3D=3D Motivition =3D=3D
+> > > == Motivition ==
 > > >
-> > > Vsock is a lightweight and widely used data exchange mechanism betwee=
-n host
-> > > and guest. Currently, the virtio-vsock only supports one device, resu=
-lting
+> > > Vsock is a lightweight and widely used data exchange mechanism between host
+> > > and guest. Currently, the virtio-vsock only supports one device, resulting
 > > > in the inability to enable more than one backend.
 > >
 > > I wonder which part of the spec forbids more than one device.
->
-> No. The spec, however, is designed for a single device, and lacks some
-> specifications for multiple devices.
->
-> For example, we should have a mechanism to select a device from all to
-> communicate with a peer.
->
-> This patch introduces a new feature bit "VIRTIO_VSOCK_F_MULTI_DEVICES", a=
-nd
-> involves some modifications to the config space, device & driver norms.
-
-Maybe we should think a better name to avoid confusion, like "F_DEVICE_ORDE=
-R".
-I'm not good at name, so if others are better suggestion, they are welcome.
-
->
+> 
+> I don't think there isn't anything that forbid it, but what we don't
+> have is a kind of default gateway/interface to use when sending
+> messages.
+> So, this proposal is mostly to chose the default device to use, when
+> the user don't bind any CID on the source socket.
+> 
+> >
 > > > For instance, two devices
-> > > are required: one to transfer data to the VMM via virtio-vsock, and a=
-nother
+> > > are required: one to transfer data to the VMM via virtio-vsock, and another
 > > > to a user process via vhost-user-vsock.
 > > >
-> > > Apart from that, a side gain is that theoretically the performance mi=
-ght be
-> > > improved since each device has its own queue. But it varies depending=
- on
+> > > Apart from that, a side gain is that theoretically the performance might be
+> > > improved since each device has its own queue. But it varies depending on
 > > > the implementation.
 > >
 > > It could implement multiqueue anyhow.
+> 
+> Yeah, I pointed out multiple times to skip this as justification,
+> since multi-queue has more much sense for that.
+> IMHO it's confusing to still talk about it in this proposal.
+> 
+> Stefano
+> 
 > >
 > > Thanks
->
-> Yes, indeed. As we discussed before, I marked this as a side gain. And
-> @Stefano said that the community has a plan to implement multiqueue for
-> vsock.
+> >
 
-I'm not sure there is a plan, but yeah, we should do it some day.
-As I mention in the previous email, I'd remove any reference to performance=
-.
-
-I'd just talk about a mechanism to select a default out device, when
-the source socket is not bound to any address, like a default gateway.
+Thanks for the clarification. I'll remove such descriptions in the next
+version.
 
 Thanks,
-Stefano
-
-> The foundational goal of this patch is to enable vsock to support
-> multiple backends.
->
-> Thanks,
-> Xuewei
->
-
+Xuewei
