@@ -1,207 +1,215 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A87D529A5
-	for <virtio-comment@lists.linux.dev>; Wed, 18 Jun 2025 00:49:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBABD15746E
+	for <virtio-comment@lists.linux.dev>; Wed, 18 Jun 2025 02:47:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750207771; cv=none; b=mGr/gvQC+Slwqdq6feBz5QjAKhUGP+FV/iiFW+NGLeaHcqq7OUA23jRsA2LtCVffSOPjoKFC7aY9cZKX6qWN7mKoRpnE13mKbCkKFHXDoj/78D8b4WaV7RFAsVFbgwdO6oviwIpcCYtgZmMjyWnpofN9YUEb79j4JkfVeHRD4Sg=
+	t=1750214838; cv=none; b=PAnRcEmVwIzPvl+DlbYBRpIXn+z1g8O7Yv1MlegovjeTbGLJQij/tdR8k9fQkKSZ9ky37cXN8YYPrFS6stz1TaVCZgXxHbfe+I1V9IM/7EcQQKNFFWC+X/BMahFm/JGNJ0hooTz8rGs6ylO/LR5FeqHX05QXD9bQ2E45p/mbOh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750207771; c=relaxed/simple;
-	bh=AUIQmSPnw2v0ra0hK8peu5uoPwT2G2t/pBphPyfbyXE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EyyYoRguIQM10HPMmB8YaXAme4SyWujPq3zzWdjbFNR96AXkJy7ZT9wLdoHzL/Gab9BqPaZ0T7+cyQLzIZF2ncKRaGXamo6oaoR0uvoZPe3vs27/mBc0NwPDLm1PADePxKnu9q/EGVZhU96/4KM2wsu+Z5HsOLpxMVsIINAV9B4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OuGO4Beh; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1750214838; c=relaxed/simple;
+	bh=kPiPvX8EvaBchcL1aoqiRiMXB1tKIwtpOHc+38I2jhE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qBeBhQVS4met9L2Y2mZN/i2Ie48KQL7lujvqykPgIc41tf31QE1uCphumAGI/3Z3brvyR6HNUPV9+oxEQTOUoAwukS6MvffaOrdAUq4EjC3+fG3ExXjt7CMVa0C9DNdp2frAJaL0RCfcwAW94hLqyNA18VIF/CNpvwRgzG/Gamw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=To5VMtnL; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OuGO4Beh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1750207767;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AUIQmSPnw2v0ra0hK8peu5uoPwT2G2t/pBphPyfbyXE=;
-	b=OuGO4BehJmT+9zR3gFII9MVuYHHzjicR0ssALNpAAFcl7T6vhKVLVqf5j0YQhEeXagFVGc
-	Ui/AsySD5fsny1E/1Of7Nf9IEQSTEV3ysd+CdvxlzB+OJ5Vu5vXe1uZFrkx7w+wBE1Gu9e
-	iW6GlaWvzbjElLiNveaM/kZPUWBpx78=
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-653-QZyfkipePS-_ScL-QOPiGA-1; Tue, 17 Jun 2025 20:49:26 -0400
-X-MC-Unique: QZyfkipePS-_ScL-QOPiGA-1
-X-Mimecast-MFC-AGG-ID: QZyfkipePS-_ScL-QOPiGA_1750207765
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-31315427249so5789595a91.1
-        for <virtio-comment@lists.linux.dev>; Tue, 17 Jun 2025 17:49:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="To5VMtnL"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-b31bca0a32bso947799a12.2
+        for <virtio-comment@lists.linux.dev>; Tue, 17 Jun 2025 19:47:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1750214836; x=1750819636; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jWDN8yXK7mF24/cJjXAktevQyIZVpHrQFW0erq+w8Oo=;
+        b=To5VMtnLeCsR4KzCcx+lhliMlHRoNHMuyN7MMFZJYSTtf0n6mnrjsVP3/G0IWzU38I
+         S6GZWTFvzAdR+wGA6f53DZ1xMtjnRNNB5G672nuY2xL4/GCypsHh7db/unuQI41kldxg
+         /BVLlVnawcCABKO6pjCRthLH2KGXAHemg4RtgGMjldPqXMNfFhD3gT9FGO3ptH9cjXtm
+         +b0vObs4njN8aCoCteQzxT8Z8fOd7JJQ72Jb+7JMkxpMqn+LLqIBJb9TsIolWtC1/oGJ
+         3WiYpg5fzzQ9WGn9YbLHVdJVn2AU8sGOun65zONE9HMH+0YQ4WDa34FKUidjWJpFAZQr
+         8mCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750207765; x=1750812565;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1750214836; x=1750819636;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=AUIQmSPnw2v0ra0hK8peu5uoPwT2G2t/pBphPyfbyXE=;
-        b=n1oHMlkK7BxmPgSDBvGZpMbRIefhJizPD/rtWhWa2F0M1QOFbk8p4HaLGm+OUJ4UQX
-         S65KsTJvhlhHXLJuXqVDxYLbbUAaxhrmKN4wb6gkjtxrCRfrTO1MVySwem1rei1u/jTW
-         fd8/djJ0Bzuf1Q/Mb5adVAL5DAGVmPswsoY2EZqdvLWxkguG0NZgAjGrWUty93terImY
-         Qr6kHFuDnp9s7YTG23VP0jHjZnDHV1DOKSKwMtjRa8EjJWqnMCIAT3HtGcEPxqejils3
-         B+Cu7Pss3XAeLqPBudfRsTLRnp9j+GqpQBm8HMgKIcMEHAZ5+NbhTANE4/MZiywOwUqe
-         owPg==
-X-Forwarded-Encrypted: i=1; AJvYcCWvXlhXJpzYPoN1pTcXvXuf0Mh373Om7QbPCbtvQvSIL+Oi9NbPNre4xFXJ/iz+sU2y3YS9vbJHk+MXsVvGhg==@lists.linux.dev
-X-Gm-Message-State: AOJu0YzsyBo0i4XJzVFB99AwD8Uuks9nwyuNvqEi3SoZSTrP6LiMB5ml
-	yKSEMF3kL1Km/XRloROUXh1rSA9Y6Wz1o6qcpHNyCWUIxCny7tIaZu1gS99+i4WKPwsnqxgJrPS
-	5bs91/zCNJHIvLYuY45PtI+aQDKo3MKanzCXdgNMJVN7wQWAEhKWXsYT3YxJE2dgjA2fRuiJdeJ
-	XQYc6cB6J3BNUJynWV0PzfFK53YZyO1fydDpQS4c7tnNoEH3r7Wc1wrwpIAbM=
-X-Gm-Gg: ASbGncsYzBts7BKBGvfyP1vS7pE5HLANpGbClCotXpFF3wvGjs0tNdCpy0Lvu0BJA2P
-	sxc0I6oga/+aG/CS+PcUqIo7o/Pyyg71vQeWBekd226dUFs5H9/vCNQXt9pEQAJUOZ+ysg5QqFq
-	hseQ==
-X-Received: by 2002:a17:90b:1c04:b0:30a:4874:5397 with SMTP id 98e67ed59e1d1-313f1ca7f9cmr24455612a91.9.1750207764952;
-        Tue, 17 Jun 2025 17:49:24 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH1Qhn+waC7zz0Hg89PztIKNwzUlTiUNc1qwX9y++d6ZQaIgeWMg1Xrg6trw+a/syC5fLhzZkT8pjxLWZpVjtk=
-X-Received: by 2002:a17:90b:1c04:b0:30a:4874:5397 with SMTP id
- 98e67ed59e1d1-313f1ca7f9cmr24455584a91.9.1750207764503; Tue, 17 Jun 2025
- 17:49:24 -0700 (PDT)
+        bh=jWDN8yXK7mF24/cJjXAktevQyIZVpHrQFW0erq+w8Oo=;
+        b=wZYmxHnfY8x7AR7fQckMvgDC0O6qjqd5JuGTLBXYonCD9LMWdvU4pCKWuyBfP6qPDQ
+         SgO6qGfPnofCijA+en2TVlcAM05lZsxCQF/C9zXwo/tdySgDF9cd7Sh9QYSz9ohMqUaY
+         ecHn07310VJG/MjF2sdQCLm6XgRGViLRUUKd6cgDgbQZ8XISadCZxaAFZu31bgVMgJBA
+         zUlq9RrBo+pvnpQzZLMVZPLLuk0Gvxnkua758cn2kUjSId4GYjNRR0phWAf2SOVTfIQu
+         2YMjLh+IWB8Ccl7drPgibrQUA5ltz6dhz5poEZeVJHtZh+GH+fiMkMuHV+wH0vtpm1Lb
+         dHTQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX1iy4dXKLlKXZ3aUH2XdCaTfKDGzJ0gd2MYJdgru8MMIwdEGzexuY1QA0Oj0zK1H5wqntkNri5yodS7rTrJg==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yx7+pKYK1s4m+O4R25/ZODKKPo1TOlUxsbWN6Nr7WPYGglAcNrO
+	UxjfZc25agE++iOWiq424zxF7y0b2tTSsxOby4pswFpwUXyrSJlfH4zJ
+X-Gm-Gg: ASbGncvQwYq1iqSC79SAPRHdrkX/MCGKuZLKuRxroysiE57RYdHRHuiGawQ+tM/u320
+	dU+OmPxwTE/2t4OO8Zeuh8H8s9iFsWBXl6oowz8agy24JV/Wul0l76pD3ATUjtMUbtwGFR/op1b
+	6eIGWnOueVaRc6v+rcMZ0d/Sevc4SlZgggKoSjtJm7TM3/n7AAQ67xr35fhA/Gwh6R6+gY8/PCr
+	f7eATFk8vSx0kDOCiLEQlrEtSkCHSfyutyLiJ+kcIVxQX0ePYuT0OdMx74lnO2SOceskqtA4kTO
+	C5ppIazDUqKccIPEziRMNqfrLdWegdf3rcCFTBe+d7u/dhh7Z71l82Ygwp3BGjeY6nzam1tuI67
+	GqESYn35g
+X-Google-Smtp-Source: AGHT+IFpp12X9WBylWl61ULgt5TIJ+SAoNWj9adX2ZPLwaBZzL+FVvvya4NQgIAJoZb5o1W0SfPa3A==
+X-Received: by 2002:a17:903:120f:b0:234:8eeb:d834 with SMTP id d9443c01a7336-2366b006032mr230658535ad.16.1750214836039;
+        Tue, 17 Jun 2025 19:47:16 -0700 (PDT)
+Received: from devant.antgroup-inc.local ([47.89.83.0])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2365de781f7sm88990645ad.110.2025.06.17.19.47.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Jun 2025 19:47:15 -0700 (PDT)
+From: Xuewei Niu <niuxuewei97@gmail.com>
+X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+To: jasowang@redhat.com
+Cc: fupan.lfp@antgroup.com,
+	mst@redhat.com,
+	niuxuewei.nxw@antgroup.com,
+	niuxuewei97@gmail.com,
+	parav@nvidia.com,
+	sgarzare@redhat.com,
+	virtio-comment@lists.linux.dev
+Subject: Re: [PATCH v7] virtio-vsock: Add support for multi devices
+Date: Wed, 18 Jun 2025 10:47:06 +0800
+Message-Id: <20250618024706.1364869-1-niuxuewei.nxw@antgroup.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <CACGkMEvWwHSQsAiPt9R+VzwgCkhx=mqW8pXOBfHrK6B1Thc2jA@mail.gmail.com>
+References: <CACGkMEvWwHSQsAiPt9R+VzwgCkhx=mqW8pXOBfHrK6B1Thc2jA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <CACGkMEv2-p9XyEmkhe=WTLwAVYdxoqyv=exSxmscE7ZyXOt6tQ@mail.gmail.com>
- <20250617074545.1320089-1-niuxuewei.nxw@antgroup.com>
-In-Reply-To: <20250617074545.1320089-1-niuxuewei.nxw@antgroup.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Wed, 18 Jun 2025 08:49:13 +0800
-X-Gm-Features: AX0GCFuwF0uEa3ujeZwO4VKrxoiIS-kYB0dLI4enFPMGWsXMDNmUpzMU4zt4Ggw
-Message-ID: <CACGkMEvWwHSQsAiPt9R+VzwgCkhx=mqW8pXOBfHrK6B1Thc2jA@mail.gmail.com>
-Subject: Re: [PATCH v7] virtio-vsock: Add support for multi devices
-To: Xuewei Niu <niuxuewei97@gmail.com>
-Cc: fupan.lfp@antgroup.com, mst@redhat.com, niuxuewei.nxw@antgroup.com, 
-	parav@nvidia.com, sgarzare@redhat.com, virtio-comment@lists.linux.dev
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: xWXjw_xS5fCcCEFtXhcqsE-B6lIrUAAKpjjHIzy_qb4_1750207765
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 17, 2025 at 3:46=E2=80=AFPM Xuewei Niu <niuxuewei97@gmail.com> =
-wrote:
->
-> Resend, because it isn=E2=80=99t listed in the mailing list due to my mis=
-take.
->
-> > On Mon, Jun 16, 2025 at 4:38=E2=80=AFPM Stefano Garzarella <sgarzare@re=
-dhat.com> wrote:
-> > >
-> > > On Mon, 16 Jun 2025 at 10:29, Xuewei Niu <niuxuewei97@gmail.com> wrot=
-e:
+> On Tue, Jun 17, 2025 at 3:46 PM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> >
+> > Resend, because it isn’t listed in the mailing list due to my mistake.
+> >
+> > > On Mon, Jun 16, 2025 at 4:38 PM Stefano Garzarella <sgarzare@redhat.com> wrote:
 > > > >
-> > > > > On Fri, Jun 13, 2025 at 4:46=E2=80=AFPM Xuewei Niu <niuxuewei97@g=
-mail.com> wrote:
-> > > > > >
-> > > > > > > On Fri, 13 Jun 2025 at 06:57, Xuewei Niu <niuxuewei97@gmail.c=
-om> wrote:
-> > > > > > > >
-> > > > > > > > > On Sat, Apr 12, 2025 at 10:39=E2=80=AFPM Xuewei Niu <niux=
-uewei97@gmail.com> wrote:
-> > > > > > > > > >
-> > > > > > > > > > This patch brings a new feature, called "multi devices"=
-, to the virtio
-> > > > > > > > > > vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" f=
-eature bit, and a
-> > > > > > > > > > "device_order" field to the config for the virtio vsock=
-.
-> > > > > > > > > >
-> > > > > > > > > > =3D=3D Motivition =3D=3D
-> > > > > > > > > >
-> > > > > > > > > > Vsock is a lightweight and widely used data exchange me=
-chanism between host
-> > > > > > > > > > and guest. Currently, the virtio-vsock only supports on=
-e device, resulting
-> > > > > > > > > > in the inability to enable more than one backend.
+> > > > On Mon, 16 Jun 2025 at 10:29, Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > >
+> > > > > > On Fri, Jun 13, 2025 at 4:46 PM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > > >
+> > > > > > > > On Fri, 13 Jun 2025 at 06:57, Xuewei Niu <niuxuewei97@gmail.com> wrote:
 > > > > > > > > >
-> > > > > > > > > I wonder which part of the spec forbids more than one dev=
-ice.
-> > > > > > > >
-> > > > > > > > No. The spec, however, is designed for a single device, and=
- lacks some
-> > > > > > > > specifications for multiple devices.
-> > > > > > > >
-> > > > > > > > For example, we should have a mechanism to select a device =
-from all to
-> > > > > > > > communicate with a peer.
+> > > > > > > > > > On Sat, Apr 12, 2025 at 10:39 PM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > > > > > > >
+> > > > > > > > > > > This patch brings a new feature, called "multi devices", to the virtio
+> > > > > > > > > > > vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, and a
+> > > > > > > > > > > "device_order" field to the config for the virtio vsock.
+> > > > > > > > > > >
+> > > > > > > > > > > == Motivition ==
+> > > > > > > > > > >
+> > > > > > > > > > > Vsock is a lightweight and widely used data exchange mechanism between host
+> > > > > > > > > > > and guest. Currently, the virtio-vsock only supports one device, resulting
+> > > > > > > > > > > in the inability to enable more than one backend.
+> > > > > > > > > >
+> > > > > > > > > > I wonder which part of the spec forbids more than one device.
+> > > > > > > > >
+> > > > > > > > > No. The spec, however, is designed for a single device, and lacks some
+> > > > > > > > > specifications for multiple devices.
+> > > > > > > > >
+> > > > > > > > > For example, we should have a mechanism to select a device from all to
+> > > > > > > > > communicate with a peer.
+> > > > > >
+> > > > > > I wonder if this is a:
+> > > > > >
+> > > > > > 1) mechanism that needs to be mandated by the device
 > > > > >
-> > > > > I wonder if this is a:
+> > > > > Yes.
 > > > > >
-> > > > > 1) mechanism that needs to be mandated by the device
+> > > > > > 2) a policy that is allowed to be tweaked by the user as TCP/IP did
+> > > > >
+> > > > > Not allowed in the current version.
+> > > > >
+> > > > > > (Note anyhow the driver can override what the device suggests...)
 > > > >
-> > > > Yes.
-> > > >
-> > > > > 2) a policy that is allowed to be tweaked by the user as TCP/IP d=
-id
-> > > >
-> > > > Not allowed in the current version.
-> > > >
-> > > > > (Note anyhow the driver can override what the device suggests...)
+> > > > I think we should follow what we described in the spec:
+> > > > "The virtio socket device is a zero-configuration socket communications device."
 > > >
-> > > I think we should follow what we described in the spec:
-> > > "The virtio socket device is a zero-configuration socket communicatio=
-ns device."
-> >
-> > We probably need to define "configuration" first.
-> >
-> > For example, if it means zero configuration from the user, it does not
-> > conflict with 2), the driver can use its own algorithm to elect a
-> > "default" device.
->
-> IMHO, it can be done, but it is not the current design.
-
-Well, you need at least explain the advantages or why you choose to do this=
-.
-
->
-> I prefer to set the default device for VM-HV communication to do some ini=
-t
-> work. I don't think people have a strong need for this.
->
-> > Another perspective, making decisions in guests may be even more
-> > helpful for the case where the device is not trusted
->
-> How does the guest realize the vsock device is not trusted?
-
-There're various ways to build trust (for example device attestation)
-and more might come in the future.
-
-> The guest only
-> knows the information from its config space, which is provided by the hos=
-t.
-
-The way to build trust is probably beyond the scope of virtio, but it
-is something we need to consider.
-
->
-> > > So, IMO the guest (driver) should not be allowed to change anything.
-> > > E.g. Right now it's not allowed to change the CID assigned by the hos=
-t (device).
-> >
-> > A dumb question when having two cids (cid1 and cid2) in the same
-> > guest, what happens if src=3Dcid1 and dst=3Dcid2?
->
-> The packets will be directed to another application, if any, on the same =
-guest.
-
-Ok, so in your example, vhost-user-vsock should route those packets
-back to kernel vsock?
-
-Thanks
-
->
-> Thanks,
-> Xuewei
->
-> > > Thanks,
-> > > Stefano
+> > > We probably need to define "configuration" first.
 > > >
+> > > For example, if it means zero configuration from the user, it does not
+> > > conflict with 2), the driver can use its own algorithm to elect a
+> > > "default" device.
 > >
-> > Thanks
->
+> > IMHO, it can be done, but it is not the current design.
+> 
+> Well, you need at least explain the advantages or why you choose to do this.
 
+I listed in the previous message. Maybe it is not clear enough. I'll try to
+explain it again.
+
+I think people should pick up the device by a `bind()` call, which takes a
+CID as an argument.
+
+Generally, the device is picked up by the source CID, which is achieved
+through a `bind()` call.
+
+The default device, which is equivalent to the current single device, is
+used to be compatible with the existing applications.
+
+Apart from that, the default device is used to communicate with hypervisor
+for some init works, such as gathering information about other vsock
+devices.
+
+To summarize, users must do `bind()` call explicitly to select the desired
+device for non-HV-VM communications.
+
+> > I prefer to set the default device for VM-HV communication to do some init
+> > work. I don't think people have a strong need for this.
+> >
+> > > Another perspective, making decisions in guests may be even more
+> > > helpful for the case where the device is not trusted
+> >
+> > How does the guest realize the vsock device is not trusted?
+> 
+> There're various ways to build trust (for example device attestation)
+> and more might come in the future.
+> 
+> > The guest only
+> > knows the information from its config space, which is provided by the host.
+> 
+> The way to build trust is probably beyond the scope of virtio, but it
+> is something we need to consider.
+
+Agree with you. If it comes in the future, I think the driver should have
+the ability to make decisions.
+
+> > > > So, IMO the guest (driver) should not be allowed to change anything.
+> > > > E.g. Right now it's not allowed to change the CID assigned by the host (device).
+> > >
+> > > A dumb question when having two cids (cid1 and cid2) in the same
+> > > guest, what happens if src=cid1 and dst=cid2?
+> >
+> > The packets will be directed to another application, if any, on the same guest.
+> 
+> Ok, so in your example, vhost-user-vsock should route those packets
+> back to kernel vsock?
+
+It depends. Two cases are possible:
+
+1. dev0(cid1) and dev1(cid2) are from the same type of backend, e.g.
+vhost-vsock, so the packets will be routed back as you described.
+2. dev0(cid1) from vhost-user-vsock, and dev1(cid2) from vhost-vsock, the
+packets will be dropped if vhost-user-vsock device can't find a device
+whose cid is cid2.
+
+Thanks,
+Xuewei
+
+> Thanks
+> 
+> >
+> > Thanks,
+> > Xuewei
+> >
+> > > > Thanks,
+> > > > Stefano
+> > > >
+> > >
+> > > Thanks
+> >
