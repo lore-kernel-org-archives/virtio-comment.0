@@ -1,232 +1,385 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BB813FD86
-	for <virtio-comment@lists.linux.dev>; Mon, 23 Jun 2025 09:16:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C692A1AA
+	for <virtio-comment@lists.linux.dev>; Mon, 23 Jun 2025 09:47:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750670196; cv=none; b=mA9Kvsd1vfNqYH/KtH3aLLwVh2wxxvIdlvU+Nd38jSa3Cvf6PGSU7KDqp+XvPpWhFJe2upoaWcsL8jYSIl7BE01X8uDYDhxJBD5iLqGOBhBnrP0mX4/u81hYfDTe4n1NsXFM28zqRP9436DppqhCowIyYiiqLIaQDXc0iVc5JEQ=
+	t=1750672073; cv=none; b=mEb3h6Ev3+YcnVEi68Ho4KEdMW8X4Z8l4q026ilOeQJJ3lUeZgBxGNmAszVIRUWA9vPhKAhx1tZ4YcQQvd2r/mHosAjTy9i8YjiM2ASxfAiiiEFMwPuIaYuynb0vA/HpIjuHKTG/BMJfHq0PAesBCGzYQQ4niZnXU0D3s5GVt94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750670196; c=relaxed/simple;
-	bh=Bmv9XMxq0SuN6YQR+BrnmFtA0nrkdwNe6bw9ewDvMaE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=qglurm9W/GVzn/pEH8L7mZ6hG/nLgG9pFqpzDnEl2kp1NZtgsdx/bDqOjaF1mEe2VkOdO3krFdQlLY203vc6REnlT/hyFoFz656UENnI2iDXJBNDUflNV4ccjH5P78b/DwAnXiseo4Aco9eibD13MgbZ1TXdlSLT17F9U8tY5pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hydBv0x7; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1750672073; c=relaxed/simple;
+	bh=v2nf/LV6eJ3Qopuxrwm021QZaZVLcZDcyEVMZLY8Zfk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cqbVHeyVlaU0X6S0+lY4oZk/mHOluM+E8W+UOhet2cGYsYOw11KA09rMwDNbuS4KFthBazq1CwJrdEYRQsZnadnVqrZ190//7PBKqEB6jHHTi+IVUfNYjNmKRQp4NNvGV/yfvuze1aXAR8e4Av3OTa5si7x3cqCnI3/oM+QCIKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N5N1BtCJ; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hydBv0x7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1750670192;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9oFMEqh4v4YoaGYqyGW/25e1GIxAvRVqDlWRY5qWqo4=;
-	b=hydBv0x79BgBbDRwzKjjlmE7SoSjbJWGk6HpR3r/hveCrj10NMAmQhZsWbI34v0TpHJqEc
-	7vWQ6ps/QPGO2wcZxkioTnLponwEV0ZkNe7nhVsWm/urdpMPu0VG2kuowylmVwZwp6ZO3N
-	ZbtxtEeuj7aZK3uhKthnu3Q4faM/ZVc=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-576-Q7rYjvUSPN6ivoNXrbpK9g-1; Mon, 23 Jun 2025 05:16:30 -0400
-X-MC-Unique: Q7rYjvUSPN6ivoNXrbpK9g-1
-X-Mimecast-MFC-AGG-ID: Q7rYjvUSPN6ivoNXrbpK9g_1750670190
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-7d399070cecso751687085a.3
-        for <virtio-comment@lists.linux.dev>; Mon, 23 Jun 2025 02:16:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N5N1BtCJ"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-742c3d06de3so4624552b3a.0
+        for <virtio-comment@lists.linux.dev>; Mon, 23 Jun 2025 02:47:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1750672071; x=1751276871; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+NrSqrIGbeGkRwKLzZekFmwDO3b2jSWeTrOumzre1bA=;
+        b=N5N1BtCJ92APY3dDuKOL5ybo3EFtX+yw/4JX1KUxNrSoruLCzf6zjenb+ycncOgHrR
+         4PXg+eltJMtfwN7DjsupaDOX8Nttgw4KxP1rZxCdGr8poSrmlG8/8mj4vfa3eMjXjfYq
+         QwVFaM2/5bHjqPQn/+DQzbIDhcZyDMyGhBuJVUYVsCHmAdpwdQXitMtx6gs/q1kziQxX
+         yb6LWCqzatbR8oKekaOUyvzw4knLuT6RvrlyxsMcY0NWC9AGIjXg0kAVhgQRkx3uB4qb
+         qAvZ2U/OFD8llf+STI2fc0gBn+jtGkM+D93yUZmJ0QKZNqLmEKUQeLsEatI3a9GYRzDn
+         Fnkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750670190; x=1751274990;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9oFMEqh4v4YoaGYqyGW/25e1GIxAvRVqDlWRY5qWqo4=;
-        b=wwFvaDeosGn3tcJ3Y8DEayHwn2pHEzzN2+PzphdLVm5NRrCqj/oZC/pjmugldOfpJY
-         RaypqBWtkGFX/BWDLmeohZsE+62fUa8rAGd9lVSHSWc0fMCeRB5UO0zsPdDzi/3UwLcK
-         Dv+/lrOW/2BM3WJaK27TITVRd9Q5lHUePo53mNACuPa6w4QsIDjOfm8AQ8J1ZPS3o2kU
-         gzqcNJhQ0RgCzLfGBzUxiA2re/Wy2dQER0s5OGD3mv5JVzjGkOiAwIP+H3A2sFBK6WUi
-         RcC4pTNWWUsCc3kq82i7CUwVnnmHxR8QhPwV2LBYrAP4XLDd93h46rpc8lnBNtNf3OVP
-         XMsg==
-X-Forwarded-Encrypted: i=1; AJvYcCUQXo2LDumpF7VVfqDDnsvpsMiGgdIvnt9Pv38ISvB3Jk7zGnobRAuLV0MVwdB2Lq5yUMi13g5nX64G2/P9WQ==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxdmWjnbCU9C9wMpp1AJPi8836JZybEPV89+t/fF/veEVzvzoVv
-	Qckvx63oQHolTyZwNTzmkhtY2YdJ/d8md5Mx+FeH+II/1waTUcwmCX3pxVi/GfiyCnVJ1qVoiC6
-	hflBu/BadFKm+4UexIPheMbRDf+rgK2TurbBDaIUAOceSNB+UG5V0M+2tZsNxvv9MYzIz
-X-Gm-Gg: ASbGncvr0r8BQOovrjHcbVPZRalavYuFFiA8LXORYGWC7IPcK9Rqj35lH2JN0JiTGLR
-	wW1TeHcI2meeYJIDn+dwRea+wgBYX+OPO36ITV8VEpkmNlsXJ4CUHMiifUzJFXdewBqYzwuQoBL
-	HRKl6uWfW7kpnY1Y11HHvg/8xT0dF7nLw7W2yB8MJ4TT9FuBlMkvZ1gsKcU5SnekTudTN5aby+Z
-	vXezNNjVCNU4jr7DcVR2srI0jU22KePGd/C79nlOadoBgRhND3kHRG+2iny2xyh9C1WEPIKt41c
-	84jwKMXqqpzwzUJpzpyRKI4XQDM=
-X-Received: by 2002:a05:620a:488d:b0:7d3:eb70:6d99 with SMTP id af79cd13be357-7d3f9932c12mr1991030085a.36.1750670190214;
-        Mon, 23 Jun 2025 02:16:30 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE3AaIA9mjA8yGXOd98BBaZUWasoFK+jyOn73pF3/+8OvqKiGyqLYV3qCBdixG9p11pPGb9/Q==
-X-Received: by 2002:a05:620a:488d:b0:7d3:eb70:6d99 with SMTP id af79cd13be357-7d3f9932c12mr1991026885a.36.1750670189679;
-        Mon, 23 Jun 2025 02:16:29 -0700 (PDT)
-Received: from sgarzare-redhat ([193.207.202.87])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-7d3f99fbe06sm365609285a.94.2025.06.23.02.16.26
+        d=1e100.net; s=20230601; t=1750672071; x=1751276871;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=+NrSqrIGbeGkRwKLzZekFmwDO3b2jSWeTrOumzre1bA=;
+        b=WhQ8E/odqirmV862TGgt4h6m67BrwGv6Xa6a79Z8AaLe/A7X4jR55X4BeMYacv1lg4
+         kuEIpr6zsMJ7uG6SSvfbHseAmAGJjg7+K+zbDgoOVWxwTtOqALftTv3zn/IU5K/3ESGT
+         aAhJ1okRMlT2sydElB3mQ2xQ0xJgdIL49Jj+d94OguqLBQigoALFmAi8fiCPwZz3XzEP
+         O6/iIOy6jUw6hSm9oBAZ0nkxuc0Aqa/QFWXJVTwpAVJ6ynnnumvefYHzz1ZsanXl9PJm
+         CZD3UcQaouxZWzH5JOOOTcdnQs/jBvQF9I4WUitTmgz7mHvHI0GEKysjmn43iJFJ977G
+         aESQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWAvI/+Gcj+aEs+9X7EqZV6G4bmsiEw62r/JpzOO5Zq8TwaV0psTA7MZEpcqQBUWYF7mejwcsLAvNEU/V14+w==@lists.linux.dev
+X-Gm-Message-State: AOJu0YyzYDLUTSU0DZPCLr1ss1qVmmMDhVBcNnvCDujKxQ2gLgwXKkUY
+	THhksSCxFMPKcLGLl3ItncgG7jDEke8m4xyp8V6VnuMb/CTpqQiMLDhxc2dTd7sORdM0YmCX
+X-Gm-Gg: ASbGncuVyIULTNOr9rRXlazQIfp3n0+wEBAhGaUmQead4YSVprZsGRrD7kwLLxp89zX
+	jxdBmmhtbRi8bFEkphXOeh5kP9vLIWe3icNby7HjsiJT5zE2RR92Jp205bjsD4RzYYWFgUoXIbU
+	+njyPmYYXHN5+oY+eNKKG9uojbmxPfo4gLfGssKlXgOszTdF2ruasCCjh2KA40hJH6Ng8YOR+X7
+	RBQvmS8wa+ZNh262e5s36tRFJVuFnB5c+8WoCP9smDVItL1k+n/A984v20HLRsibqpLN7/vQGLF
+	hmwz845HksHSZ2+OjlaeMHsWi0kBs3M1KPPqkAMSnw92egb0gUzzvEEWigSFG8uD9Ms6TaYQxtA
+	Olwdv56ow
+X-Google-Smtp-Source: AGHT+IGdSZ3TIMIDbAFQeKo6jcG7TU8AHaraLtoR4mZRmwJpKf5r8t9AFhq6hQA4H+uzDjFZtcVyJw==
+X-Received: by 2002:a05:6a00:3c90:b0:736:2a73:6756 with SMTP id d2e1a72fcca58-7490da07100mr16895292b3a.21.1750672070390;
+        Mon, 23 Jun 2025 02:47:50 -0700 (PDT)
+Received: from devant.antgroup-inc.local ([47.89.83.0])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-74933e6d117sm3577350b3a.53.2025.06.23.02.47.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Jun 2025 02:16:29 -0700 (PDT)
-Date: Mon, 23 Jun 2025 11:16:22 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Xuewei Niu <niuxuewei97@gmail.com>
-Cc: fupan.lfp@antgroup.com, mst@redhat.com, niuxuewei.nxw@antgroup.com, 
-	parav@nvidia.com, virtio-comment@lists.linux.dev
+        Mon, 23 Jun 2025 02:47:49 -0700 (PDT)
+From: Xuewei Niu <niuxuewei97@gmail.com>
+X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+To: jasowang@redhat.com
+Cc: fupan.lfp@antgroup.com,
+	mst@redhat.com,
+	niuxuewei.nxw@antgroup.com,
+	niuxuewei97@gmail.com,
+	parav@nvidia.com,
+	sgarzare@redhat.com,
+	virtio-comment@lists.linux.dev
 Subject: Re: [PATCH v7] virtio-vsock: Add support for multi devices
-Message-ID: <ncciiv3udhy6mylzobtt5jnp3xwthtfvuwonb7i5c5hkpcyfc2@utxcie3jxof2>
-References: <ntpwwmwwaow4lfdjubgdwsvvpzpkuc52iz3vjztbx4iphvpnem@gmd2bsqckonm>
- <20250623084833.1647215-1-niuxuewei.nxw@antgroup.com>
+Date: Mon, 23 Jun 2025 17:47:36 +0800
+Message-Id: <20250623094736.1649323-1-niuxuewei.nxw@antgroup.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <CACGkMEsjNw3ELRxf4aZ3=Zh=EsqbTpqKp61C8mVjd_zEAOuW1w@mail.gmail.com>
+References: <CACGkMEsjNw3ELRxf4aZ3=Zh=EsqbTpqKp61C8mVjd_zEAOuW1w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20250623084833.1647215-1-niuxuewei.nxw@antgroup.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: sjJpsiCk9uJn596xnZD5LsbPw2arY6FiNo53_kTEp-U_1750670190
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Mon, Jun 23, 2025 at 04:48:33PM +0800, Xuewei Niu wrote:
->> On Thu, Jun 19, 2025 at 01:10:33PM +0800, Xuewei Niu wrote:
->> >> > From: Xuewei Niu <niuxuewei97@gmail.com>
->> >> > Sent: 19 June 2025 08:57 AM
->> >> >
->> >> > Hi Parav,
->> >> >
->> >> > Could you please take a look at the diagram in [1]?
->> >> >
->> >> > IIUC, for VM0, there are two groups, and for VM1, there is only one group.
->> >> > Am I right? If yes, I think the group concept is reasonable but we don't need
->> >> > at this time.
->> >> >
->> >> > I think the first thing is to figure out how to pick the right group.
->> >> >
->> >> > Standard socket doesn't provide a way to access the group information.
->> >> >
->> >> > Source and destination are from `bind()` and `connect()`, respectively. If we
->> >> > don't call `bind()`, only the destination is known.
->> >> >
->> >> > However, only destination is not enough to find the group. For example, the
->> >> > well-known CIDs (e.g. 2) are valid for all groups.
->> >> >
->> >> > 1:
->> >> > https://lore.kernel.org/virtio-comment/20250618095139.1412138-1-niuxuewei.nxw@antgroup.com/
->> >>
->> >> Right. Sock addressing scheme is na�ve presently to select the group.
->> >> Not sure when/how you or others plan to do.
->> >> This is transport layer problem to solve (not to confuse with transport = pci/mmio etc).
->>
->>
->> >>
->> >> However, at device level, we should have the construct of grouping.
->> >> Without this construct, all devices will be part of single group and one will not be able to build the group concept later.
->> >> So even if you don't need it explicitly now, grouping the device is what you need when connect() is called.
->> >>
->> >> So I was imagining a relatively simple scheme:
->> >> For example, virtio device level, some kind of group id is present.
->> >> So two devices which has same group id, are part of single group.
->> >> An example group id format can be a UUID.
->> >>
->> >> And this is completely optional for devices to implement.
->> >> Generic enough and usable beyond just vsock device in other use cases
->> >> we discussed in past.
->> >
->> >Fair enough.
->> >
->> >@Stefano, could you please take a look at this? I'd love to have some
->> >input
->> >from you.
->> >
->> >A brief summary of the idea is: The config space will be extended to
->> >include a group id. The devices with the same group id are considered
->> >to be
->> >in the same group.
->>
->> Thanks for the summary, but please avoid top posting, otherwise is very
->> hard to follow the discussion :-(
->> https://subspace.kernel.org/etiquette.html#do-not-top-post-when-replying
->
->Sorry, I'll avoid it in the future.
->
->> I like the idea of groups. What is not clear to me, is how groups will
->> allow the driver to select the default output device when the source
->> socket is not bind to any source CID.
->
->Well, we did discuss, but we need your input.
->
->I said in the thread [1] based on the standard socket API, the driver can't
->pick a group. Parav [2] suggested that the group, as a basic concept,
->should be present even if we are unable to use it.
->
->IMHO, we might use "{group_id}-{cid}" as the vsock addressing scheme to use
->the concept. But it is a very big change, leading to incompatibility with
->the existing apps.
+> On Thu, Jun 19, 2025 at 10:42 AM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> >
+> > > On Wed, Jun 18, 2025 at 5:51 PM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > >
+> > > > > On Wed, Jun 18, 2025 at 1:40 PM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > >
+> > > > > > > On Wed, Jun 18, 2025 at 10:47 AM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > > > >
+> > > > > > > > > On Tue, Jun 17, 2025 at 3:46 PM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > > > > > >
+> > > > > > > > > > Resend, because it isn’t listed in the mailing list due to my mistake.
+> > > > > > > > > >
+> > > > > > > > > > > On Mon, Jun 16, 2025 at 4:38 PM Stefano Garzarella <sgarzare@redhat.com> wrote:
+> > > > > > > > > > > >
+> > > > > > > > > > > > On Mon, 16 Jun 2025 at 10:29, Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > > On Fri, Jun 13, 2025 at 4:46 PM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > On Fri, 13 Jun 2025 at 06:57, Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > On Sat, Apr 12, 2025 at 10:39 PM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > This patch brings a new feature, called "multi devices", to the virtio
+> > > > > > > > > > > > > > > > > > > vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, and a
+> > > > > > > > > > > > > > > > > > > "device_order" field to the config for the virtio vsock.
+> > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > == Motivition ==
+> > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > Vsock is a lightweight and widely used data exchange mechanism between host
+> > > > > > > > > > > > > > > > > > > and guest. Currently, the virtio-vsock only supports one device, resulting
+> > > > > > > > > > > > > > > > > > > in the inability to enable more than one backend.
+> > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > I wonder which part of the spec forbids more than one device.
+> > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > No. The spec, however, is designed for a single device, and lacks some
+> > > > > > > > > > > > > > > > > specifications for multiple devices.
+> > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > For example, we should have a mechanism to select a device from all to
+> > > > > > > > > > > > > > > > > communicate with a peer.
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > I wonder if this is a:
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > 1) mechanism that needs to be mandated by the device
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > Yes.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > > 2) a policy that is allowed to be tweaked by the user as TCP/IP did
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > Not allowed in the current version.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > > (Note anyhow the driver can override what the device suggests...)
+> > > > > > > > > > > >
+> > > > > > > > > > > > I think we should follow what we described in the spec:
+> > > > > > > > > > > > "The virtio socket device is a zero-configuration socket communications device."
+> > > > > > > > > > >
+> > > > > > > > > > > We probably need to define "configuration" first.
+> > > > > > > > > > >
+> > > > > > > > > > > For example, if it means zero configuration from the user, it does not
+> > > > > > > > > > > conflict with 2), the driver can use its own algorithm to elect a
+> > > > > > > > > > > "default" device.
+> > > > > > > > > >
+> > > > > > > > > > IMHO, it can be done, but it is not the current design.
+> > > > > > > > >
+> > > > > > > > > Well, you need at least explain the advantages or why you choose to do this.
+> > > > > > > >
+> > > > > > > > I listed in the previous message. Maybe it is not clear enough. I'll try to
+> > > > > > > > explain it again.
+> > > > > > > >
+> > > > > > > > I think people should pick up the device by a `bind()` call, which takes a
+> > > > > > > > CID as an argument.
+> > > > > > > >
+> > > > > > > > Generally, the device is picked up by the source CID, which is achieved
+> > > > > > > > through a `bind()` call.
+> > > > > > > >
+> > > > > > > > The default device, which is equivalent to the current single device, is
+> > > > > > > > used to be compatible with the existing applications.
+> > > > > > > >
+> > > > > > > > Apart from that, the default device is used to communicate with hypervisor
+> > > > > > > > for some init works, such as gathering information about other vsock
+> > > > > > > > devices.
+> > > > > > > >
+> > > > > > > > To summarize, users must do `bind()` call explicitly to select the desired
+> > > > > > > > device for non-HV-VM communications.
+> > > > > > >
+> > > > > > > So if I understand correctly you need a way to select the default when
+> > > > > > > bind() is not called?
+> > > > > >
+> > > > > > Yes.
+> > > > > >
+> > > > > > > > > > I prefer to set the default device for VM-HV communication to do some init
+> > > > > > > > > > work. I don't think people have a strong need for this.
+> > > > > > > > > >
+> > > > > > > > > > > Another perspective, making decisions in guests may be even more
+> > > > > > > > > > > helpful for the case where the device is not trusted
+> > > > > > > > > >
+> > > > > > > > > > How does the guest realize the vsock device is not trusted?
+> > > > > > > > >
+> > > > > > > > > There're various ways to build trust (for example device attestation)
+> > > > > > > > > and more might come in the future.
+> > > > > > > > >
+> > > > > > > > > > The guest only
+> > > > > > > > > > knows the information from its config space, which is provided by the host.
+> > > > > > > > >
+> > > > > > > > > The way to build trust is probably beyond the scope of virtio, but it
+> > > > > > > > > is something we need to consider.
+> > > > > > > >
+> > > > > > > > Agree with you. If it comes in the future, I think the driver should have
+> > > > > > > > the ability to make decisions.
+> > > > > > >
+> > > > > > >
+> > > > > > > Actually, I meant the way to build trust via virtio is something that
+> > > > > > > needs to be considered. But now we have other ways to build trust.
+> > > > > > > That would result a situlation:
+> > > > > > >
+> > > > > > > 1) "default" vsock device is not trusted but other might
+> > > > > >
+> > > > > > I think this topic might be beyond the scope of this patch.
+> > > > > >
+> > > > > > With the current version, there is only one device supported, which can be
+> > > > > > considered as the "default".  We don't have a mechanism to say "we don't
+> > > > > > trust you", right?
+> > > > >
+> > > > > No. I meant we don't have it in the virtio core but we already have it
+> > > > > in other layers (for example the transport layer).
+> > > >
+> > > > Are you referring to virito-vsock transport layer?
+> > >
+> > > Yes, for example the PCI layer.
+> > >
+> > > >
+> > > > > > That is, it is assumed that we trust the device provided
+> > > > > > by the hypervisor.
+> > > > > >
+> > > > > > This patch is for multiple devices support, based on the same assumption. I
+> > > > > > think trust is a good point to consider, but perhaps we have to address it
+> > > > > > in the follow-up patches.
+> > > > >
+> > > > > My point is not about how to build trust, it's about letting the
+> > > > > driver decide by itself in some cases.
+> > > > >
+> > > > > A better way might be something like:
+> > > > >
+> > > > > "The device_order is a hint for the driver to select a default vsock
+> > > > > device. Device MAY choose ...."
+> > > >
+> > > > Okay, I'll do that.
+> > > >
+> > > > > >
+> > > > > > > or
+> > > > > > >
+> > > > > > > 2) two device claims that they are all "default"
+> > > > > > >
+> > > > > > > This means anyhow we need a decision from the driver side so the
+> > > > > > > device side order seems to be useless here.
+> > > > > >
+> > > > > > There is only one default device. The device with the lowest device_order
+> > > > > > is considered the default. It is not allowed to have the same device_order.
+> > > > >
+> > > > > Who can forbid two same device_order? Note that in various security
+> > > > > models, hypervisors are not trusted at all.
+> > > >
+> > > > The driver does. Indeed, the driver is able to deny devices if they violate
+> > > > the spec.
+> > >
+> > > Yes, that's the point, anyhow driver need to do the decision.
+> > >
+> > > >
+> > > > > > > > > > > > So, IMO the guest (driver) should not be allowed to change anything.
+> > > > > > > > > > > > E.g. Right now it's not allowed to change the CID assigned by the host (device).
+> > > > > > > > > > >
+> > > > > > > > > > > A dumb question when having two cids (cid1 and cid2) in the same
+> > > > > > > > > > > guest, what happens if src=cid1 and dst=cid2?
+> > > > > > > > > >
+> > > > > > > > > > The packets will be directed to another application, if any, on the same guest.
+> > > > > > > > >
+> > > > > > > > > Ok, so in your example, vhost-user-vsock should route those packets
+> > > > > > > > > back to kernel vsock?
+> > > > > > > >
+> > > > > > > > It depends. Two cases are possible:
+> > > > > > > >
+> > > > > > > > 1. dev0(cid1) and dev1(cid2) are from the same type of backend, e.g.
+> > > > > > > > vhost-vsock, so the packets will be routed back as you described.
+> > > > > > > > 2. dev0(cid1) from vhost-user-vsock, and dev1(cid2) from vhost-vsock, the
+> > > > > > > > packets will be dropped if vhost-user-vsock device can't find a device
+> > > > > > > > whose cid is cid2.
+> > > > > > >
+> > > > > > > Well, this means the behavior depends on the implementation which is not good.
+> > > > > >
+> > > > > > No, it is not. It depends on whether the device can find a proper
+> > > > > > target device based on the dst_cid.
+> > > > >
+> > > > > This sounds really weird, two cids belong to the same guest. So guests
+> > > > > should expect that the two vsock devic can talk to each other?
+> > > >
+> > > > Yes, a little bit complicated.
+> > > >
+> > > > Two constraints should be applied:
+> > > >
+> > > > 1. No CID conflicts within the driver;
+> > > > 2. No CID conflicts within the address space.
+> > > >
+> > > > Here is a diagram to illustrate the situation where it does not violate the
+> > > > constraints:
+> > > >
+> > > >  ┌─ kernel─(as0)────────────────────────────────────────────────────┐
+> > > >  │   ┌───────────┐                      ┌───────────┐  ┌───────────┐│
+> > > >  │   │ dev0(cid0)│                      │ dev2(cid1)│  │ dev3(cid2)││
+> > > >  │   └───┬───────┘                      └───┬───────┘  └────────┬──┘│
+> > > >  └───────┼──────────────────────────────────┼───────────────────┼───┘
+> > > >   ┌──────┼───────────────────────┐   ┌──────┼───────────────────┼───┐
+> > > >   │      │  ┌───────────┐        │   │      │  ┌───────────┐    │   │
+> > > >   │      └──► dev0(cid0)│        │   │      └──► dev2(cid1)│    │   │
+> > > >   │         └───────────┘        │   │         └───────────┘    │   │
+> > > >   │         ┌───────────┐        │   │         ┌───────────┐    │   │
+> > > >   │      ┌──► dev1(cid1)│        │   │         │ dev3(cid2)◄────┘   │
+> > > >   │      │  └───────────┘     VM0│   │         └───────────┘     VM1│
+> > > >   └──────┼───────────────────────┘   └──────────────────────────────┘
+> > > >    vhost-user-vsock
+> > > > ┌────────┼──────────────────────────────────────────────────────────┐
+> > > > │   ┌────┼──────┐                                                   │
+> > > > │   │ dev1(cid1)│                                                   │
+> > > > │   └───────────┘                                                   │
+> > > > └─userapp─(as1)─────────────────────────────────────────────────────┘
+> > > >
+> > > > - VM0
+> > > >     - dev0
+> > > >         - dst_cid = 2 (well-known cid): connect to host;
+> > > >         - dst_cid = cid1: connect to dev2 (they are in the same as0);
+> > > >         - dst_cid = cid2: connect to dev3;
+> > > >     - dev1
+> > > >         - dst_cid = 2 (well-known cid): connect to userapp;
+> > > >         - dst_cid = cid0: failure (no cid0 is available in as1, even though
+> > > >         cid1 is available in the VM0);
+> > > >         - dst_cid = cid1: connect to dev0;
+> > > > - VM1
+> > > >     - dev2
+> > > >         - dst_cid = 2 (well-known cid): connect to host;
+> > > >         - dst_cid = cid0: connect to dev0;
+> > > >         - dst_cid = cid2: connect to dev3;
+> > > >     - dev3: skip the same as dev2.
+> > > >
+> > > > So back to your question, my answer is that it depends on the address
+> > > > space. Hope it could be helpful.
+> > >
+> > > This brings an interesting question, for example if vm0 tries to
+> > > connect to vm1, how does it know which device it needs to use (lacking
+> > > the concept like switch/route/address announcing etc...)?
+> >
+> > The HV should maintain a table for that. The guest things firstly
+> > communicate with the HV, through the default device, to know which device
+> > to use.
+> 
+> It's still not clear to me how things work. For example, we had a
+> guest1 with two cid 4 ("default"),5 another guest2 with one cid 6. You
+> meant guest1 needs to ask the host to know about which device is
+> connected to 6? Or actually any device in guest1 can be used to
+> connected to guest2?
 
-I still don't understand how the group_id will work :-( and how will 
-allow the driver to pick the default device.
+I think it is application-level, like micro services? Here are some
+diagrams to illustrate the process:
 
-This is the `sockaddr_vm`, so we should be careful of extending it:
+Step1: app0 asks the host: "I want to connect to app1 inside VM1";
+Step2: host replies: "Please use source cid=5, and destination cid=6"
 
-struct sockaddr_vm {
-	__kernel_sa_family_t svm_family;
-	unsigned short svm_reserved1;
-	unsigned int svm_port;
-	unsigned int svm_cid;
++────────+         +───────────────────────────────+    +──────────────────────────────+
+│  host  │         │+───────────────+          VM0 │    │                         VM1  │
+│service │◀─step1──┤│dev0(cid=4,def)│──┐           │    │                              │
++────────+         │+───────────────+  │           │    │                              │
+                   │+───────────────+  │  +───────+│    │+───────────────+     +──────+│
+                   ││  dev1(cid=5)  │  └──│ app0  ││    ││dev1(cid=6,def)│     │ app1 ││
+                   │+───────────────+     +───────+│    │+───────────────+     +──────+│
+                   +───────────────────────────────+    +──────────────────────────────+
 
-#define VMADDR_FLAG_TO_HOST 0x01
+Step3: app0 binds (5, -1), and connects to (6, {PORT}) to establish a
+connection.
 
-	__u8 svm_flags;
-	unsigned char svm_zero[sizeof(struct sockaddr) -
-			       sizeof(sa_family_t) -
-			       sizeof(unsigned short) -
-			       sizeof(unsigned int) -
-			       sizeof(unsigned int) -
-			       sizeof(__u8)];
-};
++────────+         +───────────────────────────────+    +──────────────────────────────+
+│  host  │         │+───────────────+          VM0 │    │                         VM1  │
+│service │         ││dev0(cid=4,def)│              │    │                              │
++────────+         │+───────────────+              │    │                              │
+                   │+──────────────bind(5, -1)────+│    │+───────────────+     +──────+│
+                 ┌─┤│  dev1(cid=5)  │◀────│ app0  ││    ││dev1(cid=6,def)│─────▶ app1 ││
+                 │ │+───────────────+     +───────+│    │+───────────────+     +──────+│
+                 │ +───────────────────────────────+    +────────▲─────────────────────+
+                 │                                               │                      
+                 └───────────────connect(6,PORT)─────────────────┘                      
 
-
->
->I think it might be beyond the scope of this patch, and would make the
->vsock more complex. The current conclusion is that we will keep the concept
->of grouping as a placeholder, but we will not use it.
-
-IMO we should first clarify better what we want to support.
-As I already suggested some months ago, IMHO supporting any number of 
-vsock devices for a VM it's not really needed for your goal and I can't 
-see other use cases where a virtio-net device can't be use. Just a 
-reminder, vsock is not a network device, is more a P2P device where we 
-want to keep the configuration in the guest as simpler as possible (we 
-don't want to run ARP, DHCP, etc.).
-Till now vsock was more used just for guest-host communication, but 
-recently it was extended to communicate with sibling VMs.
-
-IIUC your use case, we just need to support different type of vsock 
-devices attached to the VM. With "type" I mean type of address handled.
-I think we can define 3 types based on the CID we have:
-- hypervisor: VMADDR_CID_HYPERVISOR(0)
-- host: VMADDR_CID_HOST(2)
-- sibling: CID >=3
-
-The vhost-vsock device handles only VMADDR_CID_HOST, so it doesn't allow 
-to reach from the guest any other CIDs.
-The vhost-user-vsock recently started to support sibling VMs.
-The tcp-over-vsock of libkrun should use VMADDR_CID_HYPERVISOR(0).
-
-So, IMHO we should define new features or config flags that a device can 
-expose depending on which address is able to handle.
-Also, in order to avoid to overcomplicate vsock, we should allow only 
-one device for each type (a single device should support multiple types, 
-but only one device can be registered for a type).
-
-If we don't want this limitation, I think we need to overcomplicate 
-vsock and define some kind of discovery algorithm that the guest driver 
-should run to understand which CIDs are reachable for each device.
-But I'm not sure we really want this; if this is a use case, the guest 
-should use a virtio-net device that already support this pretty well, so 
-before going on this direction, we should define better why we want to 
-complicate vsock, instead of using a net device.
+This is a little bit complicated, but it is dynamic. Another way is to
+assign a fixed CID for app1, so app0 can always connect to it without
+needing to ask for the host service.
 
 Thanks,
-Stefano
+Xuewei
 
+> Thanks
+> 
+> >
+> > Thanks,
+> > Xuewei
+> >
