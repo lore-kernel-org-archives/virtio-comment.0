@@ -1,424 +1,429 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116A43594B
-	for <virtio-comment@lists.linux.dev>; Tue, 24 Jun 2025 00:52:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F75EC5
+	for <virtio-comment@lists.linux.dev>; Tue, 24 Jun 2025 03:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750726330; cv=none; b=OMYaVC/0ExKc/z5tgWy9M5MPsqeQR/PL40qH4BSqbQvwHsZQCoYd1NfmauI5MesFvjdx0DyCpIt8G8rpyXK/qs/pv4PwvO1T114qfRwrf5b2+pxHsJv9lW8SfmsEgZWaMarEngoRjsAmPcCZr3Oyt4PbA33EBxHIZpkKzCx/UQw=
+	t=1750736059; cv=none; b=BRjOUhu6WTCJDfwG2wXetZRi2oAga5ItHasHRbusdvinsSrNjQ0CEB0fDa+2w7SwTKzAYlAoY4BUWw9iS4DpUqzZ35jpyyYDQn1zZvXBb6LlbQUpqoPb8Q1IFu96NEhNk0MjV+KISmgfusV91xrpkmmoW46nK23F9JyxIPTvFgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750726330; c=relaxed/simple;
-	bh=rFJCjymHtwuJl0BudRx9wz3s7f+LpTNoqNRjQfWMf0g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EchU9CW5Elir7J8yHBacedPDIEb6/L2/fJL66Shvvu1zB+0ylswcmO27eAq7ny+T8Y/onqBxlNFznNdm8cqTFQeDDyMn0FUzVG/76G1u/NeDIr99jJkpUuxmQtca6KHo/dQqxwzjyGEgsZgugTsiMZ1JXfVR9sV8XYaRj9rPcEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aHE6Ttla; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1750736059; c=relaxed/simple;
+	bh=QeJWquXn8MLyQrCfJaa74YbV6u/+dV8UEiKHgk9oF+Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=u4f+NRKXKcqRA8liccf9aq7/dJXwtTLVUs/hMWwMrAjMw/xiLtsCsGHzUGhoGBRGHNccIpX4bwKkSpxA7Ck7ybrltjzwsHC3Nps5U8xcMXysWhHJwMLeqA8SBoH9fjHnu9K908QE9XH2wd612gVYHJVbxewSjBUYuYeMgpu640w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VRPigsu7; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aHE6Ttla"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1750726327;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rFJCjymHtwuJl0BudRx9wz3s7f+LpTNoqNRjQfWMf0g=;
-	b=aHE6TtlaMd2ISn0ZzO44WcNkGEozVineCzYpXVgapAdhwALQWiuMuD1GcgZEYCRa2PDIuE
-	P/CDswl26+Y4f7RSJGurCZtzq2/LeZKwV1p578kLDUq1zA6QksCS+AliZTHUYHHpqIpnNx
-	Ofqa+uSWDEmtR3ZcwRmAmbLRLOv+iso=
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-320-MptfiPaTNzCr3FwKJjgaQA-1; Mon, 23 Jun 2025 20:52:05 -0400
-X-MC-Unique: MptfiPaTNzCr3FwKJjgaQA-1
-X-Mimecast-MFC-AGG-ID: MptfiPaTNzCr3FwKJjgaQA_1750726325
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-b31df10dfadso3121634a12.0
-        for <virtio-comment@lists.linux.dev>; Mon, 23 Jun 2025 17:52:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VRPigsu7"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-b31f0ef5f7aso2463331a12.3
+        for <virtio-comment@lists.linux.dev>; Mon, 23 Jun 2025 20:34:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1750736056; x=1751340856; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vhBFaqrZx/WRhwyRO+YC+ehGm9+oRD9lmHTXD/51aas=;
+        b=VRPigsu7NhComM1+rR3EjQa2d/wiwRzZqbaQ5HVqv4pQkojpZ4D0QjzUV1ecEwTlr0
+         6FuCujOhVVUbUeQKOLabzu5S8JBCJP+jDf0VnrV9MOONMqortUR3AU7axliS9AhJSBfX
+         rEbQ2VukDC9IFOXxG1ldhnQDOWkskHhp67iXcFYqaMMIGBazecE390juLz7BjPc6bKuC
+         CYUnhkSoRjZtK0TD6QsPjajU3+TYV4/b7xI8rgAqmP6NUlD/Z1N6ca4nMXUGip/J5vvf
+         iV9rlPudlLJ7hJfOrhGFaxQfOg90vivvfKZ+NZoKRA22QL+BmDPbo339fOPOFDqZKGKA
+         bT6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750726325; x=1751331125;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1750736056; x=1751340856;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=rFJCjymHtwuJl0BudRx9wz3s7f+LpTNoqNRjQfWMf0g=;
-        b=V+NSw8mjDSummnkopgkwwgCdCc4glHBShSJ/scjG4xAvmApD7X/meNX3VR48ku1kPY
-         uwzzVqnwaAcDqmnvkQgb9qmw+QNvTrmrIvIPiuojI3EpJJVzb2HaWHsa1s2aHaasATJ6
-         mTnTjx0uEKTNWp6hDg6NIgdFrsvB/lj8vwbvEGgcG3FWQcOMp1+l4SWLLRPZsNMkFt6z
-         WAAhKiu1ns3Zqht8K1SCOClTUN5D1kRv5ux5l52F0VHl3gStzcqQMh7N8AnAw0wgcZyc
-         C/mxtXmCBkOoSKZvddXvq+dG+Hmyfq4KBCQMFAkm7EZTbXoKntEMV0v9JL6I2jRGIkMl
-         3/5Q==
-X-Forwarded-Encrypted: i=1; AJvYcCX1VUtvqpyg1Forskwe0OIdb8SgUR/kLjTxrmeu9Rdjsv/eWki4LUPtOYQjA2J8F/QgN/bn5uPdY0GPHHK8Ug==@lists.linux.dev
-X-Gm-Message-State: AOJu0YykLEJF3rZ9EbWXzNh55VzRZbwbzAPIiSsh/9+iSycN+Po5vbDw
-	6dCC4d0A42K0ADTBqa5SVCjR7QGsZQiL4au/m9xpSKG/P7vwTXBYTJ12DxdbUcz15Ve7FFg5ezf
-	FcYHfxHw+/oJY7OUfFXrmkroRMf0ZoxBJUYBakA5LvOidKQSilo8wSPdx06ZNrvpmZ98ZwK5Qby
-	dZh16dmoZHA1tiv5uD4ztLpF5Cf6SJHHyJD4LazI9OFFU=
-X-Gm-Gg: ASbGncsF/H58aLMDDnlawKiDJtaq2uo0mXtZ+vTwlHJa4B8pPSvIljGbewWkYpGE58b
-	ZMJRc24zjUx4lBwn8zn+GEDL5yI1GvuRKyW9c0nvyJvPQnDexhI1lcDqncTv6GcFpS6v9f0BOQv
-	I8uts8
-X-Received: by 2002:a17:90b:2703:b0:311:b5ac:6f6b with SMTP id 98e67ed59e1d1-3159d64caabmr22446764a91.9.1750726324385;
-        Mon, 23 Jun 2025 17:52:04 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFe4eCqlrNOKw0/hdCIHpTk2y4yUXyMsBGRDFcJp42fiqPNRFo1EmGckKCHuuk3b5PKZSu7ekqmQtAuZVcG3+M=
-X-Received: by 2002:a17:90b:2703:b0:311:b5ac:6f6b with SMTP id
- 98e67ed59e1d1-3159d64caabmr22446727a91.9.1750726323720; Mon, 23 Jun 2025
- 17:52:03 -0700 (PDT)
+        bh=vhBFaqrZx/WRhwyRO+YC+ehGm9+oRD9lmHTXD/51aas=;
+        b=MQI3l2xtXKnJ3zqolwmWp3dmcokSUbZimqXEjorFiSSjQyxDFwUSLXObOaZ6gDLXgq
+         IHU6HdN6z6Fd3ZijXzEipc6xld4eMSgALuxXB6MtpT5haWBtIVW8ceS8BslMlY9xHdUV
+         wDz88fwzzClQ7qXaOvgwWtnjz4Xd4jU7AcO/Rt4iG81TMMMIuCADwO+A/ajyixxrWJ+T
+         KSrG5DCFbtEayIBjFxo5Xm5ucbQdzyfG0IrQ0a46Nidnr5wO2g/5UY8jG7UdW2L+Xl9y
+         YJeKJlCaTI6XIYvlJNQSwAKnqg3PMUN1tx/lRDmV0oIxUH/WvAPcF0wC8TWIkk8UB3xo
+         rNpA==
+X-Forwarded-Encrypted: i=1; AJvYcCXaVk+PmPOblAfOUkgXojOc3q6YcUgNYoNT/pwX/L+L43a83NeekS7DXGf7CD4G81G2pxNkiU+hDgLa7tzVDw==@lists.linux.dev
+X-Gm-Message-State: AOJu0YzkIVj0vlu8EJdwnKuyl6+Cia1UqieeVfOaq2izjGpVPR1XbK7e
+	9eZROj2ECXvCPyTWERJAa2soU4PnTvSeLufYkU0rUWcqW6Y385ncuLaj
+X-Gm-Gg: ASbGncuOQTBwBtac7FUmbt5uO1zQ4pWqRmHccL1IvZ5d/ku97aOr81T2ozysfX6x32O
+	mBMpHXo84Y8+xBN2f7/YnY0w8lZf6ONFwWxOsUHSR7CIzP+9EqJTFSyoYinCbjPLx7sEd0CIr/M
+	n+rrXEPq7Q4E4qPmPrcwbvkK54vnOqHaoPkT4sVuRp6PB0E1zZNqe0ebXMNjXdYWa/5RXjwdSXT
+	3d7EAz2tIONqosOQQ5sJTr+rBk27Tuq0/AiMp+I2Usb66DTBrPYARmUK+l/tG6JZviInU3bPIoc
+	DjDMwCJ+Cv0cZ2zlFaOv+OnM/iMCae5pZhKn4LQwOzoEWvFYwsrHa4ObvD3VYngYYpRjKGrkltm
+	adIRk+aBM
+X-Google-Smtp-Source: AGHT+IGXwHK7ikMMoPe8keBtuF9Lj2e6CvOPpbW15HJgCsDfy+V4ELY4NUNz+ahjM4Y0UaIPOSFwmw==
+X-Received: by 2002:a17:90b:384e:b0:311:e9ac:f5ce with SMTP id 98e67ed59e1d1-3159d8c1504mr20290716a91.21.1750736056060;
+        Mon, 23 Jun 2025 20:34:16 -0700 (PDT)
+Received: from devant.antgroup-inc.local ([47.89.83.0])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3159e07d195sm9140584a91.44.2025.06.23.20.34.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Jun 2025 20:34:15 -0700 (PDT)
+From: Xuewei Niu <niuxuewei97@gmail.com>
+X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
+To: jasowang@redhat.com
+Cc: fupan.lfp@antgroup.com,
+	mst@redhat.com,
+	niuxuewei.nxw@antgroup.com,
+	niuxuewei97@gmail.com,
+	parav@nvidia.com,
+	sgarzare@redhat.com,
+	virtio-comment@lists.linux.dev
+Subject: Re: [PATCH v7] virtio-vsock: Add support for multi devices
+Date: Tue, 24 Jun 2025 11:33:32 +0800
+Message-Id: <20250624033332.1686240-1-niuxuewei.nxw@antgroup.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <CACGkMEscxnpdcFRkoLgow8qUKoKUSJM+j9Q1LG8HR5-aVVqxeg@mail.gmail.com>
+References: <CACGkMEscxnpdcFRkoLgow8qUKoKUSJM+j9Q1LG8HR5-aVVqxeg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <CACGkMEsjNw3ELRxf4aZ3=Zh=EsqbTpqKp61C8mVjd_zEAOuW1w@mail.gmail.com>
- <20250623094736.1649323-1-niuxuewei.nxw@antgroup.com>
-In-Reply-To: <20250623094736.1649323-1-niuxuewei.nxw@antgroup.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Tue, 24 Jun 2025 08:51:51 +0800
-X-Gm-Features: AX0GCFtODLqzAJ31eYR95x3P15G7L9_g07_PUWPjrHqhT16f18evOyku7h70UUs
-Message-ID: <CACGkMEscxnpdcFRkoLgow8qUKoKUSJM+j9Q1LG8HR5-aVVqxeg@mail.gmail.com>
-Subject: Re: [PATCH v7] virtio-vsock: Add support for multi devices
-To: Xuewei Niu <niuxuewei97@gmail.com>
-Cc: fupan.lfp@antgroup.com, mst@redhat.com, niuxuewei.nxw@antgroup.com, 
-	parav@nvidia.com, sgarzare@redhat.com, virtio-comment@lists.linux.dev
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 7LLxagoUZxn8VzC145Y1v483EzR-hz9PtctxzW0YEDQ_1750726325
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-T24gTW9uLCBKdW4gMjMsIDIwMjUgYXQgNTo0N+KAr1BNIFh1ZXdlaSBOaXUgPG5pdXh1ZXdlaTk3
-QGdtYWlsLmNvbT4gd3JvdGU6DQo+DQo+ID4gT24gVGh1LCBKdW4gMTksIDIwMjUgYXQgMTA6NDLi
-gK9BTSBYdWV3ZWkgTml1IDxuaXV4dWV3ZWk5N0BnbWFpbC5jb20+IHdyb3RlOg0KPiA+ID4NCj4g
-PiA+ID4gT24gV2VkLCBKdW4gMTgsIDIwMjUgYXQgNTo1MeKAr1BNIFh1ZXdlaSBOaXUgPG5pdXh1
-ZXdlaTk3QGdtYWlsLmNvbT4gd3JvdGU6DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IE9uIFdlZCwg
-SnVuIDE4LCAyMDI1IGF0IDE6NDDigK9QTSBYdWV3ZWkgTml1IDxuaXV4dWV3ZWk5N0BnbWFpbC5j
-b20+IHdyb3RlOg0KPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+IE9uIFdlZCwgSnVuIDE4
-LCAyMDI1IGF0IDEwOjQ34oCvQU0gWHVld2VpIE5pdSA8bml1eHVld2VpOTdAZ21haWwuY29tPiB3
-cm90ZToNCj4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+IE9uIFR1ZSwgSnVu
-IDE3LCAyMDI1IGF0IDM6NDbigK9QTSBYdWV3ZWkgTml1IDxuaXV4dWV3ZWk5N0BnbWFpbC5jb20+
-IHdyb3RlOg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gUmVz
-ZW5kLCBiZWNhdXNlIGl0IGlzbuKAmXQgbGlzdGVkIGluIHRoZSBtYWlsaW5nIGxpc3QgZHVlIHRv
-IG15IG1pc3Rha2UuDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4g
-PiA+IE9uIE1vbiwgSnVuIDE2LCAyMDI1IGF0IDQ6MzjigK9QTSBTdGVmYW5vIEdhcnphcmVsbGEg
-PHNnYXJ6YXJlQHJlZGhhdC5jb20+IHdyb3RlOg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPg0K
-PiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBPbiBNb24sIDE2IEp1biAyMDI1IGF0IDEwOjI5LCBY
-dWV3ZWkgTml1IDxuaXV4dWV3ZWk5N0BnbWFpbC5jb20+IHdyb3RlOg0KPiA+ID4gPiA+ID4gPiA+
-ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBPbiBGcmksIEp1biAx
-MywgMjAyNSBhdCA0OjQ24oCvUE0gWHVld2VpIE5pdSA8bml1eHVld2VpOTdAZ21haWwuY29tPiB3
-cm90ZToNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+
-ID4gPiA+ID4gPiA+ID4gPiBPbiBGcmksIDEzIEp1biAyMDI1IGF0IDA2OjU3LCBYdWV3ZWkgTml1
-IDxuaXV4dWV3ZWk5N0BnbWFpbC5jb20+IHdyb3RlOg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4g
-PiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gT24gU2F0
-LCBBcHIgMTIsIDIwMjUgYXQgMTA6MznigK9QTSBYdWV3ZWkgTml1IDxuaXV4dWV3ZWk5N0BnbWFp
-bC5jb20+IHdyb3RlOg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+
-ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gVGhpcyBwYXRjaCBicmluZ3Mg
-YSBuZXcgZmVhdHVyZSwgY2FsbGVkICJtdWx0aSBkZXZpY2VzIiwgdG8gdGhlIHZpcnRpbw0KPiA+
-ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IHZzb2NrLiBJdCBpbnRyb2R1Y2Vz
-IGEgIlZJUlRJT19WU09DS19GX01VTFRJX0RFVklDRVMiIGZlYXR1cmUgYml0LCBhbmQgYQ0KPiA+
-ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICJkZXZpY2Vfb3JkZXIiIGZpZWxk
-IHRvIHRoZSBjb25maWcgZm9yIHRoZSB2aXJ0aW8gdnNvY2suDQo+ID4gPiA+ID4gPiA+ID4gPiA+
-ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+
-ID4gPiA9PSBNb3Rpdml0aW9uID09DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4g
-PiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBWc29jayBpcyBh
-IGxpZ2h0d2VpZ2h0IGFuZCB3aWRlbHkgdXNlZCBkYXRhIGV4Y2hhbmdlIG1lY2hhbmlzbSBiZXR3
-ZWVuIGhvc3QNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBhbmQgZ3Vl
-c3QuIEN1cnJlbnRseSwgdGhlIHZpcnRpby12c29jayBvbmx5IHN1cHBvcnRzIG9uZSBkZXZpY2Us
-IHJlc3VsdGluZw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGluIHRo
-ZSBpbmFiaWxpdHkgdG8gZW5hYmxlIG1vcmUgdGhhbiBvbmUgYmFja2VuZC4NCj4gPiA+ID4gPiA+
-ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+
-ID4gPiA+ID4gSSB3b25kZXIgd2hpY2ggcGFydCBvZiB0aGUgc3BlYyBmb3JiaWRzIG1vcmUgdGhh
-biBvbmUgZGV2aWNlLg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+
-ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IE5vLiBUaGUgc3BlYywgaG93ZXZlciwgaXMg
-ZGVzaWduZWQgZm9yIGEgc2luZ2xlIGRldmljZSwgYW5kIGxhY2tzIHNvbWUNCj4gPiA+ID4gPiA+
-ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IHNwZWNpZmljYXRpb25zIGZvciBtdWx0aXBsZSBkZXZp
-Y2VzLg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4g
-PiA+ID4gPiA+ID4gPiA+ID4gPiA+IEZvciBleGFtcGxlLCB3ZSBzaG91bGQgaGF2ZSBhIG1lY2hh
-bmlzbSB0byBzZWxlY3QgYSBkZXZpY2UgZnJvbSBhbGwgdG8NCj4gPiA+ID4gPiA+ID4gPiA+ID4g
-PiA+ID4gPiA+ID4gPiA+IGNvbW11bmljYXRlIHdpdGggYSBwZWVyLg0KPiA+ID4gPiA+ID4gPiA+
-ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IEkgd29uZGVyIGlm
-IHRoaXMgaXMgYToNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+
-ID4gPiA+ID4gPiA+ID4gPiAxKSBtZWNoYW5pc20gdGhhdCBuZWVkcyB0byBiZSBtYW5kYXRlZCBi
-eSB0aGUgZGV2aWNlDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4g
-PiA+ID4gPiA+ID4gPiBZZXMuDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4g
-PiA+ID4gPiA+ID4gPiA+ID4gPiA+IDIpIGEgcG9saWN5IHRoYXQgaXMgYWxsb3dlZCB0byBiZSB0
-d2Vha2VkIGJ5IHRoZSB1c2VyIGFzIFRDUC9JUCBkaWQNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+
-ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IE5vdCBhbGxvd2VkIGluIHRoZSBjdXJy
-ZW50IHZlcnNpb24uDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4g
-PiA+ID4gPiA+ID4gPiA+IChOb3RlIGFueWhvdyB0aGUgZHJpdmVyIGNhbiBvdmVycmlkZSB3aGF0
-IHRoZSBkZXZpY2Ugc3VnZ2VzdHMuLi4pDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4g
-PiA+ID4gPiA+ID4gPiA+ID4gPiA+IEkgdGhpbmsgd2Ugc2hvdWxkIGZvbGxvdyB3aGF0IHdlIGRl
-c2NyaWJlZCBpbiB0aGUgc3BlYzoNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gIlRoZSB2aXJ0
-aW8gc29ja2V0IGRldmljZSBpcyBhIHplcm8tY29uZmlndXJhdGlvbiBzb2NrZXQgY29tbXVuaWNh
-dGlvbnMgZGV2aWNlLiINCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4g
-PiA+ID4gPiBXZSBwcm9iYWJseSBuZWVkIHRvIGRlZmluZSAiY29uZmlndXJhdGlvbiIgZmlyc3Qu
-DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gRm9yIGV4
-YW1wbGUsIGlmIGl0IG1lYW5zIHplcm8gY29uZmlndXJhdGlvbiBmcm9tIHRoZSB1c2VyLCBpdCBk
-b2VzIG5vdA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gY29uZmxpY3Qgd2l0aCAyKSwgdGhlIGRy
-aXZlciBjYW4gdXNlIGl0cyBvd24gYWxnb3JpdGhtIHRvIGVsZWN0IGENCj4gPiA+ID4gPiA+ID4g
-PiA+ID4gPiA+ICJkZWZhdWx0IiBkZXZpY2UuDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+
-ID4gPiA+ID4gPiA+ID4gPiBJTUhPLCBpdCBjYW4gYmUgZG9uZSwgYnV0IGl0IGlzIG5vdCB0aGUg
-Y3VycmVudCBkZXNpZ24uDQo+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+
-IFdlbGwsIHlvdSBuZWVkIGF0IGxlYXN0IGV4cGxhaW4gdGhlIGFkdmFudGFnZXMgb3Igd2h5IHlv
-dSBjaG9vc2UgdG8gZG8gdGhpcy4NCj4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4g
-PiBJIGxpc3RlZCBpbiB0aGUgcHJldmlvdXMgbWVzc2FnZS4gTWF5YmUgaXQgaXMgbm90IGNsZWFy
-IGVub3VnaC4gSSdsbCB0cnkgdG8NCj4gPiA+ID4gPiA+ID4gPiA+IGV4cGxhaW4gaXQgYWdhaW4u
-DQo+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gSSB0aGluayBwZW9wbGUgc2hv
-dWxkIHBpY2sgdXAgdGhlIGRldmljZSBieSBhIGBiaW5kKClgIGNhbGwsIHdoaWNoIHRha2VzIGEN
-Cj4gPiA+ID4gPiA+ID4gPiA+IENJRCBhcyBhbiBhcmd1bWVudC4NCj4gPiA+ID4gPiA+ID4gPiA+
-DQo+ID4gPiA+ID4gPiA+ID4gPiBHZW5lcmFsbHksIHRoZSBkZXZpY2UgaXMgcGlja2VkIHVwIGJ5
-IHRoZSBzb3VyY2UgQ0lELCB3aGljaCBpcyBhY2hpZXZlZA0KPiA+ID4gPiA+ID4gPiA+ID4gdGhy
-b3VnaCBhIGBiaW5kKClgIGNhbGwuDQo+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+
-ID4gVGhlIGRlZmF1bHQgZGV2aWNlLCB3aGljaCBpcyBlcXVpdmFsZW50IHRvIHRoZSBjdXJyZW50
-IHNpbmdsZSBkZXZpY2UsIGlzDQo+ID4gPiA+ID4gPiA+ID4gPiB1c2VkIHRvIGJlIGNvbXBhdGli
-bGUgd2l0aCB0aGUgZXhpc3RpbmcgYXBwbGljYXRpb25zLg0KPiA+ID4gPiA+ID4gPiA+ID4NCj4g
-PiA+ID4gPiA+ID4gPiA+IEFwYXJ0IGZyb20gdGhhdCwgdGhlIGRlZmF1bHQgZGV2aWNlIGlzIHVz
-ZWQgdG8gY29tbXVuaWNhdGUgd2l0aCBoeXBlcnZpc29yDQo+ID4gPiA+ID4gPiA+ID4gPiBmb3Ig
-c29tZSBpbml0IHdvcmtzLCBzdWNoIGFzIGdhdGhlcmluZyBpbmZvcm1hdGlvbiBhYm91dCBvdGhl
-ciB2c29jaw0KPiA+ID4gPiA+ID4gPiA+ID4gZGV2aWNlcy4NCj4gPiA+ID4gPiA+ID4gPiA+DQo+
-ID4gPiA+ID4gPiA+ID4gPiBUbyBzdW1tYXJpemUsIHVzZXJzIG11c3QgZG8gYGJpbmQoKWAgY2Fs
-bCBleHBsaWNpdGx5IHRvIHNlbGVjdCB0aGUgZGVzaXJlZA0KPiA+ID4gPiA+ID4gPiA+ID4gZGV2
-aWNlIGZvciBub24tSFYtVk0gY29tbXVuaWNhdGlvbnMuDQo+ID4gPiA+ID4gPiA+ID4NCj4gPiA+
-ID4gPiA+ID4gPiBTbyBpZiBJIHVuZGVyc3RhbmQgY29ycmVjdGx5IHlvdSBuZWVkIGEgd2F5IHRv
-IHNlbGVjdCB0aGUgZGVmYXVsdCB3aGVuDQo+ID4gPiA+ID4gPiA+ID4gYmluZCgpIGlzIG5vdCBj
-YWxsZWQ/DQo+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+IFllcy4NCj4gPiA+ID4gPiA+ID4N
-Cj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBJIHByZWZlciB0byBzZXQgdGhlIGRlZmF1bHQgZGV2aWNl
-IGZvciBWTS1IViBjb21tdW5pY2F0aW9uIHRvIGRvIHNvbWUgaW5pdA0KPiA+ID4gPiA+ID4gPiA+
-ID4gPiA+IHdvcmsuIEkgZG9uJ3QgdGhpbmsgcGVvcGxlIGhhdmUgYSBzdHJvbmcgbmVlZCBmb3Ig
-dGhpcy4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gQW5v
-dGhlciBwZXJzcGVjdGl2ZSwgbWFraW5nIGRlY2lzaW9ucyBpbiBndWVzdHMgbWF5IGJlIGV2ZW4g
-bW9yZQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gaGVscGZ1bCBmb3IgdGhlIGNhc2Ugd2hlcmUg
-dGhlIGRldmljZSBpcyBub3QgdHJ1c3RlZA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+
-ID4gPiA+ID4gPiA+ID4gSG93IGRvZXMgdGhlIGd1ZXN0IHJlYWxpemUgdGhlIHZzb2NrIGRldmlj
-ZSBpcyBub3QgdHJ1c3RlZD8NCj4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+
-ID4gVGhlcmUncmUgdmFyaW91cyB3YXlzIHRvIGJ1aWxkIHRydXN0IChmb3IgZXhhbXBsZSBkZXZp
-Y2UgYXR0ZXN0YXRpb24pDQo+ID4gPiA+ID4gPiA+ID4gPiA+IGFuZCBtb3JlIG1pZ2h0IGNvbWUg
-aW4gdGhlIGZ1dHVyZS4NCj4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4g
-PiBUaGUgZ3Vlc3Qgb25seQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGtub3dzIHRoZSBpbmZvcm1h
-dGlvbiBmcm9tIGl0cyBjb25maWcgc3BhY2UsIHdoaWNoIGlzIHByb3ZpZGVkIGJ5IHRoZSBob3N0
-Lg0KPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiBUaGUgd2F5IHRvIGJ1
-aWxkIHRydXN0IGlzIHByb2JhYmx5IGJleW9uZCB0aGUgc2NvcGUgb2YgdmlydGlvLCBidXQgaXQN
-Cj4gPiA+ID4gPiA+ID4gPiA+ID4gaXMgc29tZXRoaW5nIHdlIG5lZWQgdG8gY29uc2lkZXIuDQo+
-ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gQWdyZWUgd2l0aCB5b3UuIElmIGl0
-IGNvbWVzIGluIHRoZSBmdXR1cmUsIEkgdGhpbmsgdGhlIGRyaXZlciBzaG91bGQgaGF2ZQ0KPiA+
-ID4gPiA+ID4gPiA+ID4gdGhlIGFiaWxpdHkgdG8gbWFrZSBkZWNpc2lvbnMuDQo+ID4gPiA+ID4g
-PiA+ID4NCj4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+IEFjdHVhbGx5LCBJIG1lYW50
-IHRoZSB3YXkgdG8gYnVpbGQgdHJ1c3QgdmlhIHZpcnRpbyBpcyBzb21ldGhpbmcgdGhhdA0KPiA+
-ID4gPiA+ID4gPiA+IG5lZWRzIHRvIGJlIGNvbnNpZGVyZWQuIEJ1dCBub3cgd2UgaGF2ZSBvdGhl
-ciB3YXlzIHRvIGJ1aWxkIHRydXN0Lg0KPiA+ID4gPiA+ID4gPiA+IFRoYXQgd291bGQgcmVzdWx0
-IGEgc2l0dWxhdGlvbjoNCj4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+IDEpICJkZWZh
-dWx0IiB2c29jayBkZXZpY2UgaXMgbm90IHRydXN0ZWQgYnV0IG90aGVyIG1pZ2h0DQo+ID4gPiA+
-ID4gPiA+DQo+ID4gPiA+ID4gPiA+IEkgdGhpbmsgdGhpcyB0b3BpYyBtaWdodCBiZSBiZXlvbmQg
-dGhlIHNjb3BlIG9mIHRoaXMgcGF0Y2guDQo+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+IFdp
-dGggdGhlIGN1cnJlbnQgdmVyc2lvbiwgdGhlcmUgaXMgb25seSBvbmUgZGV2aWNlIHN1cHBvcnRl
-ZCwgd2hpY2ggY2FuIGJlDQo+ID4gPiA+ID4gPiA+IGNvbnNpZGVyZWQgYXMgdGhlICJkZWZhdWx0
-Ii4gIFdlIGRvbid0IGhhdmUgYSBtZWNoYW5pc20gdG8gc2F5ICJ3ZSBkb24ndA0KPiA+ID4gPiA+
-ID4gPiB0cnVzdCB5b3UiLCByaWdodD8NCj4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiBOby4gSSBt
-ZWFudCB3ZSBkb24ndCBoYXZlIGl0IGluIHRoZSB2aXJ0aW8gY29yZSBidXQgd2UgYWxyZWFkeSBo
-YXZlIGl0DQo+ID4gPiA+ID4gPiBpbiBvdGhlciBsYXllcnMgKGZvciBleGFtcGxlIHRoZSB0cmFu
-c3BvcnQgbGF5ZXIpLg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gQXJlIHlvdSByZWZlcnJpbmcgdG8g
-dmlyaXRvLXZzb2NrIHRyYW5zcG9ydCBsYXllcj8NCj4gPiA+ID4NCj4gPiA+ID4gWWVzLCBmb3Ig
-ZXhhbXBsZSB0aGUgUENJIGxheWVyLg0KPiA+ID4gPg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+
-IFRoYXQgaXMsIGl0IGlzIGFzc3VtZWQgdGhhdCB3ZSB0cnVzdCB0aGUgZGV2aWNlIHByb3ZpZGVk
-DQo+ID4gPiA+ID4gPiA+IGJ5IHRoZSBoeXBlcnZpc29yLg0KPiA+ID4gPiA+ID4gPg0KPiA+ID4g
-PiA+ID4gPiBUaGlzIHBhdGNoIGlzIGZvciBtdWx0aXBsZSBkZXZpY2VzIHN1cHBvcnQsIGJhc2Vk
-IG9uIHRoZSBzYW1lIGFzc3VtcHRpb24uIEkNCj4gPiA+ID4gPiA+ID4gdGhpbmsgdHJ1c3QgaXMg
-YSBnb29kIHBvaW50IHRvIGNvbnNpZGVyLCBidXQgcGVyaGFwcyB3ZSBoYXZlIHRvIGFkZHJlc3Mg
-aXQNCj4gPiA+ID4gPiA+ID4gaW4gdGhlIGZvbGxvdy11cCBwYXRjaGVzLg0KPiA+ID4gPiA+ID4N
-Cj4gPiA+ID4gPiA+IE15IHBvaW50IGlzIG5vdCBhYm91dCBob3cgdG8gYnVpbGQgdHJ1c3QsIGl0
-J3MgYWJvdXQgbGV0dGluZyB0aGUNCj4gPiA+ID4gPiA+IGRyaXZlciBkZWNpZGUgYnkgaXRzZWxm
-IGluIHNvbWUgY2FzZXMuDQo+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gQSBiZXR0ZXIgd2F5IG1p
-Z2h0IGJlIHNvbWV0aGluZyBsaWtlOg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ICJUaGUgZGV2
-aWNlX29yZGVyIGlzIGEgaGludCBmb3IgdGhlIGRyaXZlciB0byBzZWxlY3QgYSBkZWZhdWx0IHZz
-b2NrDQo+ID4gPiA+ID4gPiBkZXZpY2UuIERldmljZSBNQVkgY2hvb3NlIC4uLi4iDQo+ID4gPiA+
-ID4NCj4gPiA+ID4gPiBPa2F5LCBJJ2xsIGRvIHRoYXQuDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiA+
-ID4NCj4gPiA+ID4gPiA+ID4gPiBvcg0KPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4g
-MikgdHdvIGRldmljZSBjbGFpbXMgdGhhdCB0aGV5IGFyZSBhbGwgImRlZmF1bHQiDQo+ID4gPiA+
-ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiBUaGlzIG1lYW5zIGFueWhvdyB3ZSBuZWVkIGEgZGVj
-aXNpb24gZnJvbSB0aGUgZHJpdmVyIHNpZGUgc28gdGhlDQo+ID4gPiA+ID4gPiA+ID4gZGV2aWNl
-IHNpZGUgb3JkZXIgc2VlbXMgdG8gYmUgdXNlbGVzcyBoZXJlLg0KPiA+ID4gPiA+ID4gPg0KPiA+
-ID4gPiA+ID4gPiBUaGVyZSBpcyBvbmx5IG9uZSBkZWZhdWx0IGRldmljZS4gVGhlIGRldmljZSB3
-aXRoIHRoZSBsb3dlc3QgZGV2aWNlX29yZGVyDQo+ID4gPiA+ID4gPiA+IGlzIGNvbnNpZGVyZWQg
-dGhlIGRlZmF1bHQuIEl0IGlzIG5vdCBhbGxvd2VkIHRvIGhhdmUgdGhlIHNhbWUgZGV2aWNlX29y
-ZGVyLg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IFdobyBjYW4gZm9yYmlkIHR3byBzYW1lIGRl
-dmljZV9vcmRlcj8gTm90ZSB0aGF0IGluIHZhcmlvdXMgc2VjdXJpdHkNCj4gPiA+ID4gPiA+IG1v
-ZGVscywgaHlwZXJ2aXNvcnMgYXJlIG5vdCB0cnVzdGVkIGF0IGFsbC4NCj4gPiA+ID4gPg0KPiA+
-ID4gPiA+IFRoZSBkcml2ZXIgZG9lcy4gSW5kZWVkLCB0aGUgZHJpdmVyIGlzIGFibGUgdG8gZGVu
-eSBkZXZpY2VzIGlmIHRoZXkgdmlvbGF0ZQ0KPiA+ID4gPiA+IHRoZSBzcGVjLg0KPiA+ID4gPg0K
-PiA+ID4gPiBZZXMsIHRoYXQncyB0aGUgcG9pbnQsIGFueWhvdyBkcml2ZXIgbmVlZCB0byBkbyB0
-aGUgZGVjaXNpb24uDQo+ID4gPiA+DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+
-ID4gU28sIElNTyB0aGUgZ3Vlc3QgKGRyaXZlcikgc2hvdWxkIG5vdCBiZSBhbGxvd2VkIHRvIGNo
-YW5nZSBhbnl0aGluZy4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gRS5nLiBSaWdodCBub3cg
-aXQncyBub3QgYWxsb3dlZCB0byBjaGFuZ2UgdGhlIENJRCBhc3NpZ25lZCBieSB0aGUgaG9zdCAo
-ZGV2aWNlKS4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4g
-PiBBIGR1bWIgcXVlc3Rpb24gd2hlbiBoYXZpbmcgdHdvIGNpZHMgKGNpZDEgYW5kIGNpZDIpIGlu
-IHRoZSBzYW1lDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBndWVzdCwgd2hhdCBoYXBwZW5zIGlm
-IHNyYz1jaWQxIGFuZCBkc3Q9Y2lkMj8NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+
-ID4gPiA+ID4gPiA+IFRoZSBwYWNrZXRzIHdpbGwgYmUgZGlyZWN0ZWQgdG8gYW5vdGhlciBhcHBs
-aWNhdGlvbiwgaWYgYW55LCBvbiB0aGUgc2FtZSBndWVzdC4NCj4gPiA+ID4gPiA+ID4gPiA+ID4N
-Cj4gPiA+ID4gPiA+ID4gPiA+ID4gT2ssIHNvIGluIHlvdXIgZXhhbXBsZSwgdmhvc3QtdXNlci12
-c29jayBzaG91bGQgcm91dGUgdGhvc2UgcGFja2V0cw0KPiA+ID4gPiA+ID4gPiA+ID4gPiBiYWNr
-IHRvIGtlcm5lbCB2c29jaz8NCj4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiBJ
-dCBkZXBlbmRzLiBUd28gY2FzZXMgYXJlIHBvc3NpYmxlOg0KPiA+ID4gPiA+ID4gPiA+ID4NCj4g
-PiA+ID4gPiA+ID4gPiA+IDEuIGRldjAoY2lkMSkgYW5kIGRldjEoY2lkMikgYXJlIGZyb20gdGhl
-IHNhbWUgdHlwZSBvZiBiYWNrZW5kLCBlLmcuDQo+ID4gPiA+ID4gPiA+ID4gPiB2aG9zdC12c29j
-aywgc28gdGhlIHBhY2tldHMgd2lsbCBiZSByb3V0ZWQgYmFjayBhcyB5b3UgZGVzY3JpYmVkLg0K
-PiA+ID4gPiA+ID4gPiA+ID4gMi4gZGV2MChjaWQxKSBmcm9tIHZob3N0LXVzZXItdnNvY2ssIGFu
-ZCBkZXYxKGNpZDIpIGZyb20gdmhvc3QtdnNvY2ssIHRoZQ0KPiA+ID4gPiA+ID4gPiA+ID4gcGFj
-a2V0cyB3aWxsIGJlIGRyb3BwZWQgaWYgdmhvc3QtdXNlci12c29jayBkZXZpY2UgY2FuJ3QgZmlu
-ZCBhIGRldmljZQ0KPiA+ID4gPiA+ID4gPiA+ID4gd2hvc2UgY2lkIGlzIGNpZDIuDQo+ID4gPiA+
-ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiBXZWxsLCB0aGlzIG1lYW5zIHRoZSBiZWhhdmlvciBk
-ZXBlbmRzIG9uIHRoZSBpbXBsZW1lbnRhdGlvbiB3aGljaCBpcyBub3QgZ29vZC4NCj4gPiA+ID4g
-PiA+ID4NCj4gPiA+ID4gPiA+ID4gTm8sIGl0IGlzIG5vdC4gSXQgZGVwZW5kcyBvbiB3aGV0aGVy
-IHRoZSBkZXZpY2UgY2FuIGZpbmQgYSBwcm9wZXINCj4gPiA+ID4gPiA+ID4gdGFyZ2V0IGRldmlj
-ZSBiYXNlZCBvbiB0aGUgZHN0X2NpZC4NCj4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiBUaGlzIHNv
-dW5kcyByZWFsbHkgd2VpcmQsIHR3byBjaWRzIGJlbG9uZyB0byB0aGUgc2FtZSBndWVzdC4gU28g
-Z3Vlc3RzDQo+ID4gPiA+ID4gPiBzaG91bGQgZXhwZWN0IHRoYXQgdGhlIHR3byB2c29jayBkZXZp
-YyBjYW4gdGFsayB0byBlYWNoIG90aGVyPw0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gWWVzLCBhIGxp
-dHRsZSBiaXQgY29tcGxpY2F0ZWQuDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBUd28gY29uc3RyYWlu
-dHMgc2hvdWxkIGJlIGFwcGxpZWQ6DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiAxLiBObyBDSUQgY29u
-ZmxpY3RzIHdpdGhpbiB0aGUgZHJpdmVyOw0KPiA+ID4gPiA+IDIuIE5vIENJRCBjb25mbGljdHMg
-d2l0aGluIHRoZSBhZGRyZXNzIHNwYWNlLg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gSGVyZSBpcyBh
-IGRpYWdyYW0gdG8gaWxsdXN0cmF0ZSB0aGUgc2l0dWF0aW9uIHdoZXJlIGl0IGRvZXMgbm90IHZp
-b2xhdGUgdGhlDQo+ID4gPiA+ID4gY29uc3RyYWludHM6DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiAg
-4pSM4pSAIGtlcm5lbOKUgChhczAp4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
-4pSA4pSA4pSQDQo+ID4gPiA+ID4gIOKUgiAgIOKUjOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUkCAgICAgICAgICAgICAgICAgICAgICDilIzilIDilIDilIDilIDilIDilIDilIDi
-lIDilIDilIDilIDilJAgIOKUjOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUkOKU
-gg0KPiA+ID4gPiA+ICDilIIgICDilIIgZGV2MChjaWQwKeKUgiAgICAgICAgICAgICAgICAgICAg
-ICDilIIgZGV2MihjaWQxKeKUgiAg4pSCIGRldjMoY2lkMinilILilIINCj4gPiA+ID4gPiAg4pSC
-ICAg4pSU4pSA4pSA4pSA4pSs4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSYICAgICAgICAgICAgICAg
-ICAgICAgIOKUlOKUgOKUgOKUgOKUrOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUmCAg4pSU4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSs4pSA4pSA4pSY4pSCDQo+ID4gPiA+ID4gIOKUlOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUvOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUvOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUvOKUgOKUgOKUgOKUmA0KPiA+ID4gPiA+ICAg4pSM4pSA4pSA4pSA4pSA4pSA4pSA
-4pS84pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSQICAg4pSM4pSA4pSA4pSA4pSA4pSA4pSA4pS84pSA4pSA4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pS84pSA4pSA4pSA
-4pSQDQo+ID4gPiA+ID4gICDilIIgICAgICDilIIgIOKUjOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUkCAgICAgICAg4pSCICAg4pSCICAgICAg4pSCICDilIzilIDilIDilIDilIDi
-lIDilIDilIDilIDilIDilIDilIDilJAgICAg4pSCICAg4pSCDQo+ID4gPiA+ID4gICDilIIgICAg
-ICDilJTilIDilIDilrogZGV2MChjaWQwKeKUgiAgICAgICAg4pSCICAg4pSCICAgICAg4pSU4pSA
-4pSA4pa6IGRldjIoY2lkMSnilIIgICAg4pSCICAg4pSCDQo+ID4gPiA+ID4gICDilIIgICAgICAg
-ICDilJTilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilJggICAgICAgIOKUgiAgIOKU
-giAgICAgICAgIOKUlOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUmCAgICDilIIg
-ICDilIINCj4gPiA+ID4gPiAgIOKUgiAgICAgICAgIOKUjOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUkCAgICAgICAg4pSCICAg4pSCICAgICAgICAg4pSM4pSA4pSA4pSA4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSQICAgIOKUgiAgIOKUgg0KPiA+ID4gPiA+ICAg4pSCICAgICAg
-4pSM4pSA4pSA4pa6IGRldjEoY2lkMSnilIIgICAgICAgIOKUgiAgIOKUgiAgICAgICAgIOKUgiBk
-ZXYzKGNpZDIp4peE4pSA4pSA4pSA4pSA4pSYICAg4pSCDQo+ID4gPiA+ID4gICDilIIgICAgICDi
-lIIgIOKUlOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUmCAgICAgVk0w4pSCICAg
-4pSCICAgICAgICAg4pSU4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSYICAgICBW
-TTHilIINCj4gPiA+ID4gPiAgIOKUlOKUgOKUgOKUgOKUgOKUgOKUgOKUvOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-mCAgIOKUlOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUmA0KPiA+ID4gPiA+ICAg
-IHZob3N0LXVzZXItdnNvY2sNCj4gPiA+ID4gPiDilIzilIDilIDilIDilIDilIDilIDilIDilIDi
-lLzilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
-lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
-lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
-lIDilIDilJANCj4gPiA+ID4gPiDilIIgICDilIzilIDilIDilIDilIDilLzilIDilIDilIDilIDi
-lIDilIDilJAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICDilIINCj4gPiA+ID4gPiDilIIgICDilIIgZGV2MShjaWQxKeKUgiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIOKUgg0KPiA+ID4gPiA+IOKUgiAgIOKU
-lOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUmCAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIOKUgg0KPiA+ID4gPiA+IOKUlOKUgHVzZXJh
-cHDilIAoYXMxKeKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-mA0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gLSBWTTANCj4gPiA+ID4gPiAgICAgLSBkZXYwDQo+ID4g
-PiA+ID4gICAgICAgICAtIGRzdF9jaWQgPSAyICh3ZWxsLWtub3duIGNpZCk6IGNvbm5lY3QgdG8g
-aG9zdDsNCj4gPiA+ID4gPiAgICAgICAgIC0gZHN0X2NpZCA9IGNpZDE6IGNvbm5lY3QgdG8gZGV2
-MiAodGhleSBhcmUgaW4gdGhlIHNhbWUgYXMwKTsNCj4gPiA+ID4gPiAgICAgICAgIC0gZHN0X2Np
-ZCA9IGNpZDI6IGNvbm5lY3QgdG8gZGV2MzsNCj4gPiA+ID4gPiAgICAgLSBkZXYxDQo+ID4gPiA+
-ID4gICAgICAgICAtIGRzdF9jaWQgPSAyICh3ZWxsLWtub3duIGNpZCk6IGNvbm5lY3QgdG8gdXNl
-cmFwcDsNCj4gPiA+ID4gPiAgICAgICAgIC0gZHN0X2NpZCA9IGNpZDA6IGZhaWx1cmUgKG5vIGNp
-ZDAgaXMgYXZhaWxhYmxlIGluIGFzMSwgZXZlbiB0aG91Z2gNCj4gPiA+ID4gPiAgICAgICAgIGNp
-ZDEgaXMgYXZhaWxhYmxlIGluIHRoZSBWTTApOw0KPiA+ID4gPiA+ICAgICAgICAgLSBkc3RfY2lk
-ID0gY2lkMTogY29ubmVjdCB0byBkZXYwOw0KPiA+ID4gPiA+IC0gVk0xDQo+ID4gPiA+ID4gICAg
-IC0gZGV2Mg0KPiA+ID4gPiA+ICAgICAgICAgLSBkc3RfY2lkID0gMiAod2VsbC1rbm93biBjaWQp
-OiBjb25uZWN0IHRvIGhvc3Q7DQo+ID4gPiA+ID4gICAgICAgICAtIGRzdF9jaWQgPSBjaWQwOiBj
-b25uZWN0IHRvIGRldjA7DQo+ID4gPiA+ID4gICAgICAgICAtIGRzdF9jaWQgPSBjaWQyOiBjb25u
-ZWN0IHRvIGRldjM7DQo+ID4gPiA+ID4gICAgIC0gZGV2Mzogc2tpcCB0aGUgc2FtZSBhcyBkZXYy
-Lg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gU28gYmFjayB0byB5b3VyIHF1ZXN0aW9uLCBteSBhbnN3
-ZXIgaXMgdGhhdCBpdCBkZXBlbmRzIG9uIHRoZSBhZGRyZXNzDQo+ID4gPiA+ID4gc3BhY2UuIEhv
-cGUgaXQgY291bGQgYmUgaGVscGZ1bC4NCj4gPiA+ID4NCj4gPiA+ID4gVGhpcyBicmluZ3MgYW4g
-aW50ZXJlc3RpbmcgcXVlc3Rpb24sIGZvciBleGFtcGxlIGlmIHZtMCB0cmllcyB0bw0KPiA+ID4g
-PiBjb25uZWN0IHRvIHZtMSwgaG93IGRvZXMgaXQga25vdyB3aGljaCBkZXZpY2UgaXQgbmVlZHMg
-dG8gdXNlIChsYWNraW5nDQo+ID4gPiA+IHRoZSBjb25jZXB0IGxpa2Ugc3dpdGNoL3JvdXRlL2Fk
-ZHJlc3MgYW5ub3VuY2luZyBldGMuLi4pPw0KPiA+ID4NCj4gPiA+IFRoZSBIViBzaG91bGQgbWFp
-bnRhaW4gYSB0YWJsZSBmb3IgdGhhdC4gVGhlIGd1ZXN0IHRoaW5ncyBmaXJzdGx5DQo+ID4gPiBj
-b21tdW5pY2F0ZSB3aXRoIHRoZSBIViwgdGhyb3VnaCB0aGUgZGVmYXVsdCBkZXZpY2UsIHRvIGtu
-b3cgd2hpY2ggZGV2aWNlDQo+ID4gPiB0byB1c2UuDQo+ID4NCj4gPiBJdCdzIHN0aWxsIG5vdCBj
-bGVhciB0byBtZSBob3cgdGhpbmdzIHdvcmsuIEZvciBleGFtcGxlLCB3ZSBoYWQgYQ0KPiA+IGd1
-ZXN0MSB3aXRoIHR3byBjaWQgNCAoImRlZmF1bHQiKSw1IGFub3RoZXIgZ3Vlc3QyIHdpdGggb25l
-IGNpZCA2LiBZb3UNCj4gPiBtZWFudCBndWVzdDEgbmVlZHMgdG8gYXNrIHRoZSBob3N0IHRvIGtu
-b3cgYWJvdXQgd2hpY2ggZGV2aWNlIGlzDQo+ID4gY29ubmVjdGVkIHRvIDY/IE9yIGFjdHVhbGx5
-IGFueSBkZXZpY2UgaW4gZ3Vlc3QxIGNhbiBiZSB1c2VkIHRvDQo+ID4gY29ubmVjdGVkIHRvIGd1
-ZXN0Mj8NCj4NCj4gSSB0aGluayBpdCBpcyBhcHBsaWNhdGlvbi1sZXZlbCwgbGlrZSBtaWNybyBz
-ZXJ2aWNlcz8gSGVyZSBhcmUgc29tZQ0KPiBkaWFncmFtcyB0byBpbGx1c3RyYXRlIHRoZSBwcm9j
-ZXNzOg0KPg0KPiBTdGVwMTogYXBwMCBhc2tzIHRoZSBob3N0OiAiSSB3YW50IHRvIGNvbm5lY3Qg
-dG8gYXBwMSBpbnNpZGUgVk0xIjsNCj4gU3RlcDI6IGhvc3QgcmVwbGllczogIlBsZWFzZSB1c2Ug
-c291cmNlIGNpZD01LCBhbmQgZGVzdGluYXRpb24gY2lkPTYiDQoNClRoaXMgc291bmRzIGxpa2Ug
-YXJwIGFueWhvdy4NCg0KPg0KPiAr4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAKyAgICAgICAgICvi
-lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
-lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIArICAgICvilIDilIDilIDilIDilIDi
-lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
-lIDilIDilIDilIDilIDilIArDQo+IOKUgiAgaG9zdCAg4pSCICAgICAgICAg4pSCK+KUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCsgICAgICAgICAgVk0wIOKUgiAg
-ICDilIIgICAgICAgICAgICAgICAgICAgICAgICAgVk0xICDilIINCj4g4pSCc2VydmljZSDilILi
-l4DilIBzdGVwMeKUgOKUgOKUpOKUgmRldjAoY2lkPTQsZGVmKeKUguKUgOKUgOKUkCAgICAgICAg
-ICAg4pSCICAgIOKUgiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIOKUgg0KPiAr4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSAKyAgICAgICAgIOKUgivilIDilIDilIDilIDilIDilIDilIDilIDi
-lIDilIDilIDilIDilIDilIDilIArICDilIIgICAgICAgICAgIOKUgiAgICDilIIgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICDilIINCj4gICAgICAgICAgICAgICAgICAgIOKUgivilIDilIDi
-lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIArICDilIIgICvilIDilIDilIDi
-lIDilIDilIDilIAr4pSCICAgIOKUgivilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
-lIDilIDilIDilIArICAgICAr4pSA4pSA4pSA4pSA4pSA4pSAK+KUgg0KPiAgICAgICAgICAgICAg
-ICAgICAg4pSC4pSCICBkZXYxKGNpZD01KSAg4pSCICDilJTilIDilIDilIIgYXBwMCAg4pSC4pSC
-ICAgIOKUguKUgmRldjEoY2lkPTYsZGVmKeKUgiAgICAg4pSCIGFwcDEg4pSC4pSCDQo+ICAgICAg
-ICAgICAgICAgICAgICDilIIr4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
-4pSA4pSAKyAgICAgK+KUgOKUgOKUgOKUgOKUgOKUgOKUgCvilIIgICAg4pSCK+KUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCsgICAgICvilIDilIDilIDilIDilIDi
-lIAr4pSCDQo+ICAgICAgICAgICAgICAgICAgICAr4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
-4pSA4pSA4pSAKyAgICAr4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAKw0KPg0KPiBT
-dGVwMzogYXBwMCBiaW5kcyAoNSwgLTEpLCBhbmQgY29ubmVjdHMgdG8gKDYsIHtQT1JUfSkgdG8g
-ZXN0YWJsaXNoIGENCj4gY29ubmVjdGlvbi4NCj4NCj4gK+KUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gCsgICAgICAgICAr4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAKyAgICAr4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAKw0KPiDilIIgIGhvc3QgIOKUgiAgICAgICAg
-IOKUgivilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIArICAgICAg
-ICAgIFZNMCDilIIgICAg4pSCICAgICAgICAgICAgICAgICAgICAgICAgIFZNMSAg4pSCDQo+IOKU
-gnNlcnZpY2Ug4pSCICAgICAgICAg4pSC4pSCZGV2MChjaWQ9NCxkZWYp4pSCICAgICAgICAgICAg
-ICDilIIgICAg4pSCICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg4pSCDQo+ICvilIDilIDi
-lIDilIDilIDilIDilIDilIArICAgICAgICAg4pSCK+KUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgCsgICAgICAgICAgICAgIOKUgiAgICDilIIgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICDilIINCj4gICAgICAgICAgICAgICAgICAgIOKUgivilIDilIDilIDi
-lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBiaW5kKDUsIC0xKeKUgOKUgOKUgOKUgCvi
-lIIgICAg4pSCK+KUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCsg
-ICAgICvilIDilIDilIDilIDilIDilIAr4pSCDQo+ICAgICAgICAgICAgICAgICAg4pSM4pSA4pSk
-4pSCICBkZXYxKGNpZD01KSAg4pSC4peA4pSA4pSA4pSA4pSA4pSCIGFwcDAgIOKUguKUgiAgICDi
-lILilIJkZXYxKGNpZD02LGRlZinilILilIDilIDilIDilIDilIDilrYgYXBwMSDilILilIINCj4g
-ICAgICAgICAgICAgICAgICDilIIg4pSCK+KUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgCsgICAgICvilIDilIDilIDilIDilIDilIDilIAr4pSCICAgIOKUgivilIDi
-lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIArICAgICAr4pSA4pSA4pSA
-4pSA4pSA4pSAK+KUgg0KPiAgICAgICAgICAgICAgICAgIOKUgiAr4pSA4pSA4pSA4pSA4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSAKyAgICAr4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pay4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
-Kw0KPiAgICAgICAgICAgICAgICAgIOKUgiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAg4pSCDQo+ICAgICAgICAgICAgICAgICAg4pSU4pSA4pSA4pSA4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAY29ubmVjdCg2LFBPUlQp4pSA4pSA4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSYDQo+DQo+IFRoaXMgaXMg
-YSBsaXR0bGUgYml0IGNvbXBsaWNhdGVkLCBidXQgaXQgaXMgZHluYW1pYy4gQW5vdGhlciB3YXkg
-aXMgdG8NCj4gYXNzaWduIGEgZml4ZWQgQ0lEIGZvciBhcHAxLA0KDQpXaG8gZGlkIHRoZSBhc3Np
-Z25tZW50IGhlcmU/DQoNCj4gc28gYXBwMCBjYW4gYWx3YXlzIGNvbm5lY3QgdG8gaXQgd2l0aG91
-dA0KPiBuZWVkaW5nIHRvIGFzayBmb3IgdGhlIGhvc3Qgc2VydmljZS4NCg0KQmFzaWNhbGx5LCBJ
-IHdvbmRlciBpZiB0aGUgYWJvdmUgbmVlZHMgdG8gYmUgcGFydCBvZiB0aGUgc3BlYyBvciBub3QN
-CmFuZCB3aHkuIElmIG5vdCwgd2Ugc2hvdWxkIG5vdCBib3RoZXIgaGVyZS4NCg0KVGhhbmtzDQoN
-Cj4NCj4gVGhhbmtzLA0KPiBYdWV3ZWkNCj4NCj4gPiBUaGFua3MNCj4gPg0KPiA+ID4NCj4gPiA+
-IFRoYW5rcywNCj4gPiA+IFh1ZXdlaQ0KPiA+ID4NCj4NCg==
+> On Mon, Jun 23, 2025 at 5:47 PM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> >
+> > > On Thu, Jun 19, 2025 at 10:42 AM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > >
+> > > > > On Wed, Jun 18, 2025 at 5:51 PM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > >
+> > > > > > > On Wed, Jun 18, 2025 at 1:40 PM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > > > >
+> > > > > > > > > On Wed, Jun 18, 2025 at 10:47 AM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > > > > > >
+> > > > > > > > > > > On Tue, Jun 17, 2025 at 3:46 PM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > > > > > > > >
+> > > > > > > > > > > > Resend, because it isn’t listed in the mailing list due to my mistake.
+> > > > > > > > > > > >
+> > > > > > > > > > > > > On Mon, Jun 16, 2025 at 4:38 PM Stefano Garzarella <sgarzare@redhat.com> wrote:
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > On Mon, 16 Jun 2025 at 10:29, Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > On Fri, Jun 13, 2025 at 4:46 PM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > On Fri, 13 Jun 2025 at 06:57, Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > > On Sat, Apr 12, 2025 at 10:39 PM Xuewei Niu <niuxuewei97@gmail.com> wrote:
+> > > > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > > > This patch brings a new feature, called "multi devices", to the virtio
+> > > > > > > > > > > > > > > > > > > > > vsock. It introduces a "VIRTIO_VSOCK_F_MULTI_DEVICES" feature bit, and a
+> > > > > > > > > > > > > > > > > > > > > "device_order" field to the config for the virtio vsock.
+> > > > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > > > == Motivition ==
+> > > > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > > > Vsock is a lightweight and widely used data exchange mechanism between host
+> > > > > > > > > > > > > > > > > > > > > and guest. Currently, the virtio-vsock only supports one device, resulting
+> > > > > > > > > > > > > > > > > > > > > in the inability to enable more than one backend.
+> > > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > > I wonder which part of the spec forbids more than one device.
+> > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > No. The spec, however, is designed for a single device, and lacks some
+> > > > > > > > > > > > > > > > > > > specifications for multiple devices.
+> > > > > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > > > > For example, we should have a mechanism to select a device from all to
+> > > > > > > > > > > > > > > > > > > communicate with a peer.
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > I wonder if this is a:
+> > > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > 1) mechanism that needs to be mandated by the device
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > Yes.
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > 2) a policy that is allowed to be tweaked by the user as TCP/IP did
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > Not allowed in the current version.
+> > > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > > (Note anyhow the driver can override what the device suggests...)
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > I think we should follow what we described in the spec:
+> > > > > > > > > > > > > > "The virtio socket device is a zero-configuration socket communications device."
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > We probably need to define "configuration" first.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > For example, if it means zero configuration from the user, it does not
+> > > > > > > > > > > > > conflict with 2), the driver can use its own algorithm to elect a
+> > > > > > > > > > > > > "default" device.
+> > > > > > > > > > > >
+> > > > > > > > > > > > IMHO, it can be done, but it is not the current design.
+> > > > > > > > > > >
+> > > > > > > > > > > Well, you need at least explain the advantages or why you choose to do this.
+> > > > > > > > > >
+> > > > > > > > > > I listed in the previous message. Maybe it is not clear enough. I'll try to
+> > > > > > > > > > explain it again.
+> > > > > > > > > >
+> > > > > > > > > > I think people should pick up the device by a `bind()` call, which takes a
+> > > > > > > > > > CID as an argument.
+> > > > > > > > > >
+> > > > > > > > > > Generally, the device is picked up by the source CID, which is achieved
+> > > > > > > > > > through a `bind()` call.
+> > > > > > > > > >
+> > > > > > > > > > The default device, which is equivalent to the current single device, is
+> > > > > > > > > > used to be compatible with the existing applications.
+> > > > > > > > > >
+> > > > > > > > > > Apart from that, the default device is used to communicate with hypervisor
+> > > > > > > > > > for some init works, such as gathering information about other vsock
+> > > > > > > > > > devices.
+> > > > > > > > > >
+> > > > > > > > > > To summarize, users must do `bind()` call explicitly to select the desired
+> > > > > > > > > > device for non-HV-VM communications.
+> > > > > > > > >
+> > > > > > > > > So if I understand correctly you need a way to select the default when
+> > > > > > > > > bind() is not called?
+> > > > > > > >
+> > > > > > > > Yes.
+> > > > > > > >
+> > > > > > > > > > > > I prefer to set the default device for VM-HV communication to do some init
+> > > > > > > > > > > > work. I don't think people have a strong need for this.
+> > > > > > > > > > > >
+> > > > > > > > > > > > > Another perspective, making decisions in guests may be even more
+> > > > > > > > > > > > > helpful for the case where the device is not trusted
+> > > > > > > > > > > >
+> > > > > > > > > > > > How does the guest realize the vsock device is not trusted?
+> > > > > > > > > > >
+> > > > > > > > > > > There're various ways to build trust (for example device attestation)
+> > > > > > > > > > > and more might come in the future.
+> > > > > > > > > > >
+> > > > > > > > > > > > The guest only
+> > > > > > > > > > > > knows the information from its config space, which is provided by the host.
+> > > > > > > > > > >
+> > > > > > > > > > > The way to build trust is probably beyond the scope of virtio, but it
+> > > > > > > > > > > is something we need to consider.
+> > > > > > > > > >
+> > > > > > > > > > Agree with you. If it comes in the future, I think the driver should have
+> > > > > > > > > > the ability to make decisions.
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > Actually, I meant the way to build trust via virtio is something that
+> > > > > > > > > needs to be considered. But now we have other ways to build trust.
+> > > > > > > > > That would result a situlation:
+> > > > > > > > >
+> > > > > > > > > 1) "default" vsock device is not trusted but other might
+> > > > > > > >
+> > > > > > > > I think this topic might be beyond the scope of this patch.
+> > > > > > > >
+> > > > > > > > With the current version, there is only one device supported, which can be
+> > > > > > > > considered as the "default".  We don't have a mechanism to say "we don't
+> > > > > > > > trust you", right?
+> > > > > > >
+> > > > > > > No. I meant we don't have it in the virtio core but we already have it
+> > > > > > > in other layers (for example the transport layer).
+> > > > > >
+> > > > > > Are you referring to virito-vsock transport layer?
+> > > > >
+> > > > > Yes, for example the PCI layer.
+> > > > >
+> > > > > >
+> > > > > > > > That is, it is assumed that we trust the device provided
+> > > > > > > > by the hypervisor.
+> > > > > > > >
+> > > > > > > > This patch is for multiple devices support, based on the same assumption. I
+> > > > > > > > think trust is a good point to consider, but perhaps we have to address it
+> > > > > > > > in the follow-up patches.
+> > > > > > >
+> > > > > > > My point is not about how to build trust, it's about letting the
+> > > > > > > driver decide by itself in some cases.
+> > > > > > >
+> > > > > > > A better way might be something like:
+> > > > > > >
+> > > > > > > "The device_order is a hint for the driver to select a default vsock
+> > > > > > > device. Device MAY choose ...."
+> > > > > >
+> > > > > > Okay, I'll do that.
+> > > > > >
+> > > > > > > >
+> > > > > > > > > or
+> > > > > > > > >
+> > > > > > > > > 2) two device claims that they are all "default"
+> > > > > > > > >
+> > > > > > > > > This means anyhow we need a decision from the driver side so the
+> > > > > > > > > device side order seems to be useless here.
+> > > > > > > >
+> > > > > > > > There is only one default device. The device with the lowest device_order
+> > > > > > > > is considered the default. It is not allowed to have the same device_order.
+> > > > > > >
+> > > > > > > Who can forbid two same device_order? Note that in various security
+> > > > > > > models, hypervisors are not trusted at all.
+> > > > > >
+> > > > > > The driver does. Indeed, the driver is able to deny devices if they violate
+> > > > > > the spec.
+> > > > >
+> > > > > Yes, that's the point, anyhow driver need to do the decision.
+> > > > >
+> > > > > >
+> > > > > > > > > > > > > > So, IMO the guest (driver) should not be allowed to change anything.
+> > > > > > > > > > > > > > E.g. Right now it's not allowed to change the CID assigned by the host (device).
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > A dumb question when having two cids (cid1 and cid2) in the same
+> > > > > > > > > > > > > guest, what happens if src=cid1 and dst=cid2?
+> > > > > > > > > > > >
+> > > > > > > > > > > > The packets will be directed to another application, if any, on the same guest.
+> > > > > > > > > > >
+> > > > > > > > > > > Ok, so in your example, vhost-user-vsock should route those packets
+> > > > > > > > > > > back to kernel vsock?
+> > > > > > > > > >
+> > > > > > > > > > It depends. Two cases are possible:
+> > > > > > > > > >
+> > > > > > > > > > 1. dev0(cid1) and dev1(cid2) are from the same type of backend, e.g.
+> > > > > > > > > > vhost-vsock, so the packets will be routed back as you described.
+> > > > > > > > > > 2. dev0(cid1) from vhost-user-vsock, and dev1(cid2) from vhost-vsock, the
+> > > > > > > > > > packets will be dropped if vhost-user-vsock device can't find a device
+> > > > > > > > > > whose cid is cid2.
+> > > > > > > > >
+> > > > > > > > > Well, this means the behavior depends on the implementation which is not good.
+> > > > > > > >
+> > > > > > > > No, it is not. It depends on whether the device can find a proper
+> > > > > > > > target device based on the dst_cid.
+> > > > > > >
+> > > > > > > This sounds really weird, two cids belong to the same guest. So guests
+> > > > > > > should expect that the two vsock devic can talk to each other?
+> > > > > >
+> > > > > > Yes, a little bit complicated.
+> > > > > >
+> > > > > > Two constraints should be applied:
+> > > > > >
+> > > > > > 1. No CID conflicts within the driver;
+> > > > > > 2. No CID conflicts within the address space.
+> > > > > >
+> > > > > > Here is a diagram to illustrate the situation where it does not violate the
+> > > > > > constraints:
+> > > > > >
+> > > > > >  ┌─ kernel─(as0)────────────────────────────────────────────────────┐
+> > > > > >  │   ┌───────────┐                      ┌───────────┐  ┌───────────┐│
+> > > > > >  │   │ dev0(cid0)│                      │ dev2(cid1)│  │ dev3(cid2)││
+> > > > > >  │   └───┬───────┘                      └───┬───────┘  └────────┬──┘│
+> > > > > >  └───────┼──────────────────────────────────┼───────────────────┼───┘
+> > > > > >   ┌──────┼───────────────────────┐   ┌──────┼───────────────────┼───┐
+> > > > > >   │      │  ┌───────────┐        │   │      │  ┌───────────┐    │   │
+> > > > > >   │      └──► dev0(cid0)│        │   │      └──► dev2(cid1)│    │   │
+> > > > > >   │         └───────────┘        │   │         └───────────┘    │   │
+> > > > > >   │         ┌───────────┐        │   │         ┌───────────┐    │   │
+> > > > > >   │      ┌──► dev1(cid1)│        │   │         │ dev3(cid2)◄────┘   │
+> > > > > >   │      │  └───────────┘     VM0│   │         └───────────┘     VM1│
+> > > > > >   └──────┼───────────────────────┘   └──────────────────────────────┘
+> > > > > >    vhost-user-vsock
+> > > > > > ┌────────┼──────────────────────────────────────────────────────────┐
+> > > > > > │   ┌────┼──────┐                                                   │
+> > > > > > │   │ dev1(cid1)│                                                   │
+> > > > > > │   └───────────┘                                                   │
+> > > > > > └─userapp─(as1)─────────────────────────────────────────────────────┘
+> > > > > >
+> > > > > > - VM0
+> > > > > >     - dev0
+> > > > > >         - dst_cid = 2 (well-known cid): connect to host;
+> > > > > >         - dst_cid = cid1: connect to dev2 (they are in the same as0);
+> > > > > >         - dst_cid = cid2: connect to dev3;
+> > > > > >     - dev1
+> > > > > >         - dst_cid = 2 (well-known cid): connect to userapp;
+> > > > > >         - dst_cid = cid0: failure (no cid0 is available in as1, even though
+> > > > > >         cid1 is available in the VM0);
+> > > > > >         - dst_cid = cid1: connect to dev0;
+> > > > > > - VM1
+> > > > > >     - dev2
+> > > > > >         - dst_cid = 2 (well-known cid): connect to host;
+> > > > > >         - dst_cid = cid0: connect to dev0;
+> > > > > >         - dst_cid = cid2: connect to dev3;
+> > > > > >     - dev3: skip the same as dev2.
+> > > > > >
+> > > > > > So back to your question, my answer is that it depends on the address
+> > > > > > space. Hope it could be helpful.
+> > > > >
+> > > > > This brings an interesting question, for example if vm0 tries to
+> > > > > connect to vm1, how does it know which device it needs to use (lacking
+> > > > > the concept like switch/route/address announcing etc...)?
+> > > >
+> > > > The HV should maintain a table for that. The guest things firstly
+> > > > communicate with the HV, through the default device, to know which device
+> > > > to use.
+> > >
+> > > It's still not clear to me how things work. For example, we had a
+> > > guest1 with two cid 4 ("default"),5 another guest2 with one cid 6. You
+> > > meant guest1 needs to ask the host to know about which device is
+> > > connected to 6? Or actually any device in guest1 can be used to
+> > > connected to guest2?
+> >
+> > I think it is application-level, like micro services? Here are some
+> > diagrams to illustrate the process:
+> >
+> > Step1: app0 asks the host: "I want to connect to app1 inside VM1";
+> > Step2: host replies: "Please use source cid=5, and destination cid=6"
+> 
+> This sounds like arp anyhow.
 
+Not really.
+
+As Stefano mentioned in [1][2], vsock is designed for p2p communication. I
+am just quoting what he said:
+
+"Just a note, AF_VSOCK is suppose to be very similar to AF_UNIX. It's a 
+point ot point connection, we don't have any transport layer like TCP.
+What we call "transport" in AF_VSOCK world, is usually the driver/device 
+usend to send data (e.g. vmci, virtio, vhost, hyperv)."
+
+"Just a reminder, vsock is not a network device, is more a P2P device where
+we want to keep the configuration in the guest as simpler as possible (we
+don't want to run ARP, DHCP, etc.)."
+
+1: https://lore.kernel.org/virtio-comment/ntpwwmwwaow4lfdjubgdwsvvpzpkuc52iz3vjztbx4iphvpnem@gmd2bsqckonm/
+2: https://lore.kernel.org/virtio-comment/ncciiv3udhy6mylzobtt5jnp3xwthtfvuwonb7i5c5hkpcyfc2@utxcie3jxof2/
+
+> > +────────+         +───────────────────────────────+    +──────────────────────────────+
+> > │  host  │         │+───────────────+          VM0 │    │                         VM1  │
+> > │service │◀─step1──┤│dev0(cid=4,def)│──┐           │    │                              │
+> > +────────+         │+───────────────+  │           │    │                              │
+> >                    │+───────────────+  │  +───────+│    │+───────────────+     +──────+│
+> >                    ││  dev1(cid=5)  │  └──│ app0  ││    ││dev1(cid=6,def)│     │ app1 ││
+> >                    │+───────────────+     +───────+│    │+───────────────+     +──────+│
+> >                    +───────────────────────────────+    +──────────────────────────────+
+> >
+> > Step3: app0 binds (5, -1), and connects to (6, {PORT}) to establish a
+> > connection.
+> >
+> > +────────+         +───────────────────────────────+    +──────────────────────────────+
+> > │  host  │         │+───────────────+          VM0 │    │                         VM1  │
+> > │service │         ││dev0(cid=4,def)│              │    │                              │
+> > +────────+         │+───────────────+              │    │                              │
+> >                    │+──────────────bind(5, -1)────+│    │+───────────────+     +──────+│
+> >                  ┌─┤│  dev1(cid=5)  │◀────│ app0  ││    ││dev1(cid=6,def)│─────▶ app1 ││
+> >                  │ │+───────────────+     +───────+│    │+───────────────+     +──────+│
+> >                  │ +───────────────────────────────+    +────────▲─────────────────────+
+> >                  │                                               │
+> >                  └───────────────connect(6,PORT)─────────────────┘
+> >
+> > This is a little bit complicated, but it is dynamic. Another way is to
+> > assign a fixed CID for app1,
+> 
+> Who did the assignment here?
+
+Discovery must happen through an out-of-band mechanism, which is not
+built-in for vsock, for example, the configuration files.
+
+Even though we have a single device, we have to discovery the CID for
+sibling. This feature is aimed at adding more devices, the mechanism
+remains the same.
+
+> > so app0 can always connect to it without
+> > needing to ask for the host service.
+> 
+> Basically, I wonder if the above needs to be part of the spec or not
+> and why. If not, we should not bother here.
+
+Yes, I think it is not part of the spec as I mentioned above.
+
+Thanks,
+Xuewei
+
+> Thanks
+> 
+> >
+> > Thanks,
+> > Xuewei
+> >
+> > > Thanks
+> > >
+> > > >
+> > > > Thanks,
+> > > > Xuewei
+> > > >
+> >
