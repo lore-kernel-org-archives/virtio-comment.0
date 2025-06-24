@@ -1,397 +1,424 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E0518BC3B
-	for <virtio-comment@lists.linux.dev>; Mon, 23 Jun 2025 15:51:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116A43594B
+	for <virtio-comment@lists.linux.dev>; Tue, 24 Jun 2025 00:52:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750693910; cv=none; b=syoy6M1/SME3vtHm1hEB5accNMLWcb9AB2o0ntSxg1tYAKrzi/SOHU0MdvCiErbkK+gt+lmksM67QnWFVIpXrkpSSBCvWmukLWzgmuCdHYYWnDxV9bc20yGNe90xCWWbJkz+RUtM1R6KXH3MJ/GCE0s9Wp37Iv7hQMBYI8gg1Us=
+	t=1750726330; cv=none; b=OMYaVC/0ExKc/z5tgWy9M5MPsqeQR/PL40qH4BSqbQvwHsZQCoYd1NfmauI5MesFvjdx0DyCpIt8G8rpyXK/qs/pv4PwvO1T114qfRwrf5b2+pxHsJv9lW8SfmsEgZWaMarEngoRjsAmPcCZr3Oyt4PbA33EBxHIZpkKzCx/UQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750693910; c=relaxed/simple;
-	bh=3y6GIL6i7fGfoHSUMt0e219OY6JvkYxn1rEsj7QV2o4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k35qWELeUJK9aytI9aS6efe1VbwxOhNC89Mp76n5xExgfA82qPgJNMQn9CJdqeIIvn4YW5T4N+4WTLjJYdCYXwTfrR6gUwk2bcfCaSr2AX+tf+dDsZHab18kaztZYXjNkBfSvcCvONK3kQu8kY1iKFlwEu6YEREKLk45Vvy2jjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DJQw43Nk; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1750726330; c=relaxed/simple;
+	bh=rFJCjymHtwuJl0BudRx9wz3s7f+LpTNoqNRjQfWMf0g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EchU9CW5Elir7J8yHBacedPDIEb6/L2/fJL66Shvvu1zB+0ylswcmO27eAq7ny+T8Y/onqBxlNFznNdm8cqTFQeDDyMn0FUzVG/76G1u/NeDIr99jJkpUuxmQtca6KHo/dQqxwzjyGEgsZgugTsiMZ1JXfVR9sV8XYaRj9rPcEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aHE6Ttla; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DJQw43Nk"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-23649faf69fso43596015ad.0
-        for <virtio-comment@lists.linux.dev>; Mon, 23 Jun 2025 08:51:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1750693907; x=1751298707; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TzWtz3KTt94w7hW+wvQ1Ox8Y0sILpDsWR5WidNTPt5s=;
-        b=DJQw43NkVagzyW3DpOYetjh5zUj1LibtmMLgSgiEmirShbAdG9tIMPw9xngfQvcvpk
-         yR8jRN95QYRRDl5Q7Rejd8N7GZ+N6BU/XIm87naK6mzMdmPOwTUe6U7+/5yv6Wu7zLeE
-         zfdPN/AQS69j14JYGtyNanjUOwZhPqPTLsw8ig/W887yIoQB2UeAQgDBswhsG/yZ7Ex7
-         BNZWL6Su+kA9qetH8qYRhfQRqs5hk9Xlrlw4+DIyuyKfTgl8LYOLOIp1ae09NkNSb1x3
-         Dq/js+7eWcydnF2igFKdVzWQfTLPbN152yHHU3i4nmyJ8fUUWukSL99yMZzNFhTmcB9D
-         F6ZA==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aHE6Ttla"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1750726327;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rFJCjymHtwuJl0BudRx9wz3s7f+LpTNoqNRjQfWMf0g=;
+	b=aHE6TtlaMd2ISn0ZzO44WcNkGEozVineCzYpXVgapAdhwALQWiuMuD1GcgZEYCRa2PDIuE
+	P/CDswl26+Y4f7RSJGurCZtzq2/LeZKwV1p578kLDUq1zA6QksCS+AliZTHUYHHpqIpnNx
+	Ofqa+uSWDEmtR3ZcwRmAmbLRLOv+iso=
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-320-MptfiPaTNzCr3FwKJjgaQA-1; Mon, 23 Jun 2025 20:52:05 -0400
+X-MC-Unique: MptfiPaTNzCr3FwKJjgaQA-1
+X-Mimecast-MFC-AGG-ID: MptfiPaTNzCr3FwKJjgaQA_1750726325
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-b31df10dfadso3121634a12.0
+        for <virtio-comment@lists.linux.dev>; Mon, 23 Jun 2025 17:52:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750693907; x=1751298707;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1750726325; x=1751331125;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=TzWtz3KTt94w7hW+wvQ1Ox8Y0sILpDsWR5WidNTPt5s=;
-        b=hm8Gkx8ROKnuVjCDT/c98TCuSqV5tfBOy9e46Vd4yO5/Y+HoeoRyg0ofX/DZSkgrOi
-         ryiCuAwm78HSsF1f94fsCNGPb9w/yaBFmGPtqqfETY44hkuVnxSixy0BEdcatjmFHtEL
-         eegKt85PzFoCmTRHEWUmRHbZvpchm0hX23H6ubqMaUZUBY7HixV8omX9RZ1WfXLJ4Tdu
-         RVIkDee0KI145ueo+lg3yxEYUIYKwlacQPQT+MH8WQqH9Wdzb335zTdzRsiOfq6UbFVB
-         vF/QHmIQEnWQu8VJzfXroC4YBlPiFwdabu2JtUgIITtEtJUJEo9AzFz3hZl095j17SMY
-         ewZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUJnjkG5VX7HW7Te9uUtNf1Nj25ir6t6GgMMCr49jf2mJR22dfe9orNZtUJgSecP76yrtu8ZmGKrKC3k9levg==@lists.linux.dev
-X-Gm-Message-State: AOJu0YzcvfAps/skzv9dhqqjVKZHwzKNwMQDy1VrTQgN1ULUhv7CG0YD
-	Crx5rdgUCoA/38v7QSBgUVAaHYCgMre64f8y3CG3MT4Bo9WifkTC2U5z+CnYHaYvKzXr55vX
-X-Gm-Gg: ASbGncsnk0rNfyuCCXcHQQsiWblQKmeWklkeI670J17YMbVkrk289fVFn4Mp3EtqxLf
-	LWbDImX1RfZROAM488x5nZjzGNJMA1E3s+NjbNI90+rypca9FwWswScvh5uOWV11/zPNM20FgnQ
-	ICKU+OwBHaIoPSShJc1BepIOgAXPXc0Ar5jkmAU5bj07x7WXpQj/qFhItim+1oc8V6dkMWmEih0
-	/f/+KxbxtGK1Hb2ObtXIxqSE7bW1kJEJjGSKvAmNmCptZ0cftrtpjbNKj1XgX3kehpKm1F1BBCR
-	0VUxcR/xsohY0jgk3azExtpejIFXxA7WTomgeMmKyHC0D4xVxkDch5mXA+Qr77XVCvcgdUIXgBs
-	3CsA6NGlM
-X-Google-Smtp-Source: AGHT+IEpdnzokTGb9N4I4TuJrBRm7iw6SU7uX9bNrSQHImtMsxxtHojp8qcZeuO3dLAzcp8Qo7UIFQ==
-X-Received: by 2002:a17:903:74b:b0:237:ec18:ead7 with SMTP id d9443c01a7336-237ec18ee6amr97463275ad.24.1750693907179;
-        Mon, 23 Jun 2025 08:51:47 -0700 (PDT)
-Received: from devant.antgroup-inc.local ([47.89.83.0])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-237d839326asm86209015ad.32.2025.06.23.08.51.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Jun 2025 08:51:46 -0700 (PDT)
-From: Xuewei Niu <niuxuewei97@gmail.com>
-X-Google-Original-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
-To: sgarzare@redhat.com
-Cc: fupan.lfp@antgroup.com,
-	mst@redhat.com,
-	niuxuewei.nxw@antgroup.com,
-	niuxuewei97@gmail.com,
-	parav@nvidia.com,
-	virtio-comment@lists.linux.dev
-Subject: Re: [PATCH v7] virtio-vsock: Add support for multi devices
-Date: Mon, 23 Jun 2025 23:51:39 +0800
-Message-Id: <20250623155139.1673574-1-niuxuewei.nxw@antgroup.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <s6rxycmztea6cryhsxbeyljhvptduue2h67wy2vrbffseorops@ht6iocaszizf>
-References: <s6rxycmztea6cryhsxbeyljhvptduue2h67wy2vrbffseorops@ht6iocaszizf>
+        bh=rFJCjymHtwuJl0BudRx9wz3s7f+LpTNoqNRjQfWMf0g=;
+        b=V+NSw8mjDSummnkopgkwwgCdCc4glHBShSJ/scjG4xAvmApD7X/meNX3VR48ku1kPY
+         uwzzVqnwaAcDqmnvkQgb9qmw+QNvTrmrIvIPiuojI3EpJJVzb2HaWHsa1s2aHaasATJ6
+         mTnTjx0uEKTNWp6hDg6NIgdFrsvB/lj8vwbvEGgcG3FWQcOMp1+l4SWLLRPZsNMkFt6z
+         WAAhKiu1ns3Zqht8K1SCOClTUN5D1kRv5ux5l52F0VHl3gStzcqQMh7N8AnAw0wgcZyc
+         C/mxtXmCBkOoSKZvddXvq+dG+Hmyfq4KBCQMFAkm7EZTbXoKntEMV0v9JL6I2jRGIkMl
+         3/5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCX1VUtvqpyg1Forskwe0OIdb8SgUR/kLjTxrmeu9Rdjsv/eWki4LUPtOYQjA2J8F/QgN/bn5uPdY0GPHHK8Ug==@lists.linux.dev
+X-Gm-Message-State: AOJu0YykLEJF3rZ9EbWXzNh55VzRZbwbzAPIiSsh/9+iSycN+Po5vbDw
+	6dCC4d0A42K0ADTBqa5SVCjR7QGsZQiL4au/m9xpSKG/P7vwTXBYTJ12DxdbUcz15Ve7FFg5ezf
+	FcYHfxHw+/oJY7OUfFXrmkroRMf0ZoxBJUYBakA5LvOidKQSilo8wSPdx06ZNrvpmZ98ZwK5Qby
+	dZh16dmoZHA1tiv5uD4ztLpF5Cf6SJHHyJD4LazI9OFFU=
+X-Gm-Gg: ASbGncsF/H58aLMDDnlawKiDJtaq2uo0mXtZ+vTwlHJa4B8pPSvIljGbewWkYpGE58b
+	ZMJRc24zjUx4lBwn8zn+GEDL5yI1GvuRKyW9c0nvyJvPQnDexhI1lcDqncTv6GcFpS6v9f0BOQv
+	I8uts8
+X-Received: by 2002:a17:90b:2703:b0:311:b5ac:6f6b with SMTP id 98e67ed59e1d1-3159d64caabmr22446764a91.9.1750726324385;
+        Mon, 23 Jun 2025 17:52:04 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFe4eCqlrNOKw0/hdCIHpTk2y4yUXyMsBGRDFcJp42fiqPNRFo1EmGckKCHuuk3b5PKZSu7ekqmQtAuZVcG3+M=
+X-Received: by 2002:a17:90b:2703:b0:311:b5ac:6f6b with SMTP id
+ 98e67ed59e1d1-3159d64caabmr22446727a91.9.1750726323720; Mon, 23 Jun 2025
+ 17:52:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CACGkMEsjNw3ELRxf4aZ3=Zh=EsqbTpqKp61C8mVjd_zEAOuW1w@mail.gmail.com>
+ <20250623094736.1649323-1-niuxuewei.nxw@antgroup.com>
+In-Reply-To: <20250623094736.1649323-1-niuxuewei.nxw@antgroup.com>
+From: Jason Wang <jasowang@redhat.com>
+Date: Tue, 24 Jun 2025 08:51:51 +0800
+X-Gm-Features: AX0GCFtODLqzAJ31eYR95x3P15G7L9_g07_PUWPjrHqhT16f18evOyku7h70UUs
+Message-ID: <CACGkMEscxnpdcFRkoLgow8qUKoKUSJM+j9Q1LG8HR5-aVVqxeg@mail.gmail.com>
+Subject: Re: [PATCH v7] virtio-vsock: Add support for multi devices
+To: Xuewei Niu <niuxuewei97@gmail.com>
+Cc: fupan.lfp@antgroup.com, mst@redhat.com, niuxuewei.nxw@antgroup.com, 
+	parav@nvidia.com, sgarzare@redhat.com, virtio-comment@lists.linux.dev
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 7LLxagoUZxn8VzC145Y1v483EzR-hz9PtctxzW0YEDQ_1750726325
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-> On Mon, Jun 23, 2025 at 08:14:07PM +0800, Xuewei Niu wrote:
-> >> On Mon, Jun 23, 2025 at 06:35:59PM +0800, Xuewei Niu wrote:
-> >> >> On Mon, Jun 23, 2025 at 04:48:33PM +0800, Xuewei Niu wrote:
-> >> >> >> On Thu, Jun 19, 2025 at 01:10:33PM +0800, Xuewei Niu wrote:
-> >> >> >> >> > From: Xuewei Niu <niuxuewei97@gmail.com>
-> >> >> >> >> > Sent: 19 June 2025 08:57 AM
-> >> >> >> >> >
-> >> >> >> >> > Hi Parav,
-> >> >> >> >> >
-> >> >> >> >> > Could you please take a look at the diagram in [1]?
-> >> >> >> >> >
-> >> >> >> >> > IIUC, for VM0, there are two groups, and for VM1, there is only one group.
-> >> >> >> >> > Am I right? If yes, I think the group concept is reasonable but we don't need
-> >> >> >> >> > at this time.
-> >> >> >> >> >
-> >> >> >> >> > I think the first thing is to figure out how to pick the right group.
-> >> >> >> >> >
-> >> >> >> >> > Standard socket doesn't provide a way to access the group information.
-> >> >> >> >> >
-> >> >> >> >> > Source and destination are from `bind()` and `connect()`, respectively. If we
-> >> >> >> >> > don't call `bind()`, only the destination is known.
-> >> >> >> >> >
-> >> >> >> >> > However, only destination is not enough to find the group. For example, the
-> >> >> >> >> > well-known CIDs (e.g. 2) are valid for all groups.
-> >> >> >> >> >
-> >> >> >> >> > 1:
-> >> >> >> >> > https://lore.kernel.org/virtio-comment/20250618095139.1412138-1-niuxuewei.nxw@antgroup.com/
-> >> >> >> >>
-> >> >> >> >> Right. Sock addressing scheme is naïve presently to select the group.
-> >> >> >> >> Not sure when/how you or others plan to do.
-> >> >> >> >> This is transport layer problem to solve (not to confuse with transport = pci/mmio etc).
-> >> >> >>
-> >> >> >>
-> >> >> >> >>
-> >> >> >> >> However, at device level, we should have the construct of grouping.
-> >> >> >> >> Without this construct, all devices will be part of single group and one will not be able to build the group concept later.
-> >> >> >> >> So even if you don't need it explicitly now, grouping the device is what you need when connect() is called.
-> >> >> >> >>
-> >> >> >> >> So I was imagining a relatively simple scheme:
-> >> >> >> >> For example, virtio device level, some kind of group id is present.
-> >> >> >> >> So two devices which has same group id, are part of single group.
-> >> >> >> >> An example group id format can be a UUID.
-> >> >> >> >>
-> >> >> >> >> And this is completely optional for devices to implement.
-> >> >> >> >> Generic enough and usable beyond just vsock device in other use cases
-> >> >> >> >> we discussed in past.
-> >> >> >> >
-> >> >> >> >Fair enough.
-> >> >> >> >
-> >> >> >> >@Stefano, could you please take a look at this? I'd love to have some
-> >> >> >> >input
-> >> >> >> >from you.
-> >> >> >> >
-> >> >> >> >A brief summary of the idea is: The config space will be extended to
-> >> >> >> >include a group id. The devices with the same group id are considered
-> >> >> >> >to be
-> >> >> >> >in the same group.
-> >> >> >>
-> >> >> >> Thanks for the summary, but please avoid top posting, otherwise is very
-> >> >> >> hard to follow the discussion :-(
-> >> >> >> https://subspace.kernel.org/etiquette.html#do-not-top-post-when-replying
-> >> >> >
-> >> >> >Sorry, I'll avoid it in the future.
-> >> >> >
-> >> >> >> I like the idea of groups. What is not clear to me, is how groups will
-> >> >> >> allow the driver to select the default output device when the source
-> >> >> >> socket is not bind to any source CID.
-> >> >> >
-> >> >> >Well, we did discuss, but we need your input.
-> >> >> >
-> >> >> >I said in the thread [1] based on the standard socket API, the driver can't
-> >> >> >pick a group. Parav [2] suggested that the group, as a basic concept,
-> >> >> >should be present even if we are unable to use it.
-> >> >> >
-> >> >> >IMHO, we might use "{group_id}-{cid}" as the vsock addressing scheme to use
-> >> >> >the concept. But it is a very big change, leading to incompatibility with
-> >> >> >the existing apps.
-> >> >>
-> >> >> I still don't understand how the group_id will work :-( and how will
-> >> >> allow the driver to pick the default device.
-> >> >
-> >> >FYI, here is trying to explain what is group and why it is needed, but I
-> >> >agree with you about the idea of "types".
-> >> >
-> >> >I posted a diagram in the thread [1]. I think the group is something like a
-> >> >"namespace". I think it is reasonable, but my concerns are compatibility
-> >> >and complexity.
-> >> >
-> >> >1: https://lore.kernel.org/virtio-comment/20250618095139.1412138-1-niuxuewei.nxw@antgroup.com/
-> >> >
-> >> >> This is the `sockaddr_vm`, so we should be careful of extending it:
-> >> >>
-> >> >> struct sockaddr_vm {
-> >> >> 	__kernel_sa_family_t svm_family;
-> >> >> 	unsigned short svm_reserved1;
-> >> >> 	unsigned int svm_port;
-> >> >> 	unsigned int svm_cid;
-> >> >>
-> >> >> #define VMADDR_FLAG_TO_HOST 0x01
-> >> >>
-> >> >> 	__u8 svm_flags;
-> >> >> 	unsigned char svm_zero[sizeof(struct sockaddr) -
-> >> >> 			       sizeof(sa_family_t) -
-> >> >> 			       sizeof(unsigned short) -
-> >> >> 			       sizeof(unsigned int) -
-> >> >> 			       sizeof(unsigned int) -
-> >> >> 			       sizeof(__u8)];
-> >> >> };
-> >> >>
-> >> >> >I think it might be beyond the scope of this patch, and would make the
-> >> >> >vsock more complex. The current conclusion is that we will keep the concept
-> >> >> >of grouping as a placeholder, but we will not use it.
-> >> >>
-> >> >> IMO we should first clarify better what we want to support.
-> >> >> As I already suggested some months ago, IMHO supporting any number of
-> >> >> vsock devices for a VM it's not really needed for your goal and I can't
-> >> >> see other use cases where a virtio-net device can't be use. Just a
-> >> >> reminder, vsock is not a network device, is more a P2P device where we
-> >> >> want to keep the configuration in the guest as simpler as possible (we
-> >> >> don't want to run ARP, DHCP, etc.).
-> >> >
-> >> >Agree that.
-> >> >
-> >> >> Till now vsock was more used just for guest-host communication, but
-> >> >> recently it was extended to communicate with sibling VMs.
-> >> >>
-> >> >> IIUC your use case, we just need to support different type of vsock
-> >> >> devices attached to the VM. With "type" I mean type of address handled.
-> >> >> I think we can define 3 types based on the CID we have:
-> >> >> - hypervisor: VMADDR_CID_HYPERVISOR(0)
-> >> >> - host: VMADDR_CID_HOST(2)
-> >> >> - sibling: CID >=3
-> >> >>
-> >> >> The vhost-vsock device handles only VMADDR_CID_HOST, so it doesn't allow
-> >> >> to reach from the guest any other CIDs.
-> >> >> The vhost-user-vsock recently started to support sibling VMs.
-> >> >> The tcp-over-vsock of libkrun should use VMADDR_CID_HYPERVISOR(0).
-> >> >>
-> >> >> So, IMHO we should define new features or config flags that a device can
-> >> >> expose depending on which address is able to handle.
-> >> >> Also, in order to avoid to overcomplicate vsock, we should allow only
-> >> >> one device for each type (a single device should support multiple types,
-> >> >> but only one device can be registered for a type).
-> >> >
-> >> >I think only one device can be registered for sibling and hypervisor. And
-> >> >it is possible to have multiple devices for host. Otherwise, the goals of
-> >> >this patch will be not achieved.
-> >>
-> >> Why?
-> >>
-> >> IMO, as I already wrote, the libkrun service should use CID=0.
-> >
-> >As we before discussed, if there is only one backend for the libkrun
-> >service, we can use cid=0. I totally agree with you. So let us put this
-> >case aside first.
-> >
-> >> How you will handle multiple devices for host? How can the guest know
-> >> which device to use to reach HOST(2)?
-> >
-> >Do `bind()` explicitly, and a device with matching cid will be picked up.
-> 
-> Okay, but why you need 2 devices to communicate with the same CID, host 
-> in this case (CID=2)?
-> IMO use the source CID to multiplex a socket at destination is not 
-> great. But I can be wrong.
+T24gTW9uLCBKdW4gMjMsIDIwMjUgYXQgNTo0N+KAr1BNIFh1ZXdlaSBOaXUgPG5pdXh1ZXdlaTk3
+QGdtYWlsLmNvbT4gd3JvdGU6DQo+DQo+ID4gT24gVGh1LCBKdW4gMTksIDIwMjUgYXQgMTA6NDLi
+gK9BTSBYdWV3ZWkgTml1IDxuaXV4dWV3ZWk5N0BnbWFpbC5jb20+IHdyb3RlOg0KPiA+ID4NCj4g
+PiA+ID4gT24gV2VkLCBKdW4gMTgsIDIwMjUgYXQgNTo1MeKAr1BNIFh1ZXdlaSBOaXUgPG5pdXh1
+ZXdlaTk3QGdtYWlsLmNvbT4gd3JvdGU6DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IE9uIFdlZCwg
+SnVuIDE4LCAyMDI1IGF0IDE6NDDigK9QTSBYdWV3ZWkgTml1IDxuaXV4dWV3ZWk5N0BnbWFpbC5j
+b20+IHdyb3RlOg0KPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+IE9uIFdlZCwgSnVuIDE4
+LCAyMDI1IGF0IDEwOjQ34oCvQU0gWHVld2VpIE5pdSA8bml1eHVld2VpOTdAZ21haWwuY29tPiB3
+cm90ZToNCj4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+IE9uIFR1ZSwgSnVu
+IDE3LCAyMDI1IGF0IDM6NDbigK9QTSBYdWV3ZWkgTml1IDxuaXV4dWV3ZWk5N0BnbWFpbC5jb20+
+IHdyb3RlOg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gUmVz
+ZW5kLCBiZWNhdXNlIGl0IGlzbuKAmXQgbGlzdGVkIGluIHRoZSBtYWlsaW5nIGxpc3QgZHVlIHRv
+IG15IG1pc3Rha2UuDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4g
+PiA+IE9uIE1vbiwgSnVuIDE2LCAyMDI1IGF0IDQ6MzjigK9QTSBTdGVmYW5vIEdhcnphcmVsbGEg
+PHNnYXJ6YXJlQHJlZGhhdC5jb20+IHdyb3RlOg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPg0K
+PiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBPbiBNb24sIDE2IEp1biAyMDI1IGF0IDEwOjI5LCBY
+dWV3ZWkgTml1IDxuaXV4dWV3ZWk5N0BnbWFpbC5jb20+IHdyb3RlOg0KPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBPbiBGcmksIEp1biAx
+MywgMjAyNSBhdCA0OjQ24oCvUE0gWHVld2VpIE5pdSA8bml1eHVld2VpOTdAZ21haWwuY29tPiB3
+cm90ZToNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiBPbiBGcmksIDEzIEp1biAyMDI1IGF0IDA2OjU3LCBYdWV3ZWkgTml1
+IDxuaXV4dWV3ZWk5N0BnbWFpbC5jb20+IHdyb3RlOg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gT24gU2F0
+LCBBcHIgMTIsIDIwMjUgYXQgMTA6MznigK9QTSBYdWV3ZWkgTml1IDxuaXV4dWV3ZWk5N0BnbWFp
+bC5jb20+IHdyb3RlOg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gVGhpcyBwYXRjaCBicmluZ3Mg
+YSBuZXcgZmVhdHVyZSwgY2FsbGVkICJtdWx0aSBkZXZpY2VzIiwgdG8gdGhlIHZpcnRpbw0KPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IHZzb2NrLiBJdCBpbnRyb2R1Y2Vz
+IGEgIlZJUlRJT19WU09DS19GX01VTFRJX0RFVklDRVMiIGZlYXR1cmUgYml0LCBhbmQgYQ0KPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICJkZXZpY2Vfb3JkZXIiIGZpZWxk
+IHRvIHRoZSBjb25maWcgZm9yIHRoZSB2aXJ0aW8gdnNvY2suDQo+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiA9PSBNb3Rpdml0aW9uID09DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4g
+PiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBWc29jayBpcyBh
+IGxpZ2h0d2VpZ2h0IGFuZCB3aWRlbHkgdXNlZCBkYXRhIGV4Y2hhbmdlIG1lY2hhbmlzbSBiZXR3
+ZWVuIGhvc3QNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBhbmQgZ3Vl
+c3QuIEN1cnJlbnRseSwgdGhlIHZpcnRpby12c29jayBvbmx5IHN1cHBvcnRzIG9uZSBkZXZpY2Us
+IHJlc3VsdGluZw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGluIHRo
+ZSBpbmFiaWxpdHkgdG8gZW5hYmxlIG1vcmUgdGhhbiBvbmUgYmFja2VuZC4NCj4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gSSB3b25kZXIgd2hpY2ggcGFydCBvZiB0aGUgc3BlYyBmb3JiaWRzIG1vcmUgdGhh
+biBvbmUgZGV2aWNlLg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IE5vLiBUaGUgc3BlYywgaG93ZXZlciwgaXMg
+ZGVzaWduZWQgZm9yIGEgc2luZ2xlIGRldmljZSwgYW5kIGxhY2tzIHNvbWUNCj4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IHNwZWNpZmljYXRpb25zIGZvciBtdWx0aXBsZSBkZXZp
+Y2VzLg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiA+ID4gPiA+IEZvciBleGFtcGxlLCB3ZSBzaG91bGQgaGF2ZSBhIG1lY2hh
+bmlzbSB0byBzZWxlY3QgYSBkZXZpY2UgZnJvbSBhbGwgdG8NCj4gPiA+ID4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiA+IGNvbW11bmljYXRlIHdpdGggYSBwZWVyLg0KPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IEkgd29uZGVyIGlm
+IHRoaXMgaXMgYToNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiAxKSBtZWNoYW5pc20gdGhhdCBuZWVkcyB0byBiZSBtYW5kYXRlZCBi
+eSB0aGUgZGV2aWNlDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiBZZXMuDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiA+ID4gPiA+IDIpIGEgcG9saWN5IHRoYXQgaXMgYWxsb3dlZCB0byBiZSB0
+d2Vha2VkIGJ5IHRoZSB1c2VyIGFzIFRDUC9JUCBkaWQNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IE5vdCBhbGxvd2VkIGluIHRoZSBjdXJy
+ZW50IHZlcnNpb24uDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiA+IChOb3RlIGFueWhvdyB0aGUgZHJpdmVyIGNhbiBvdmVycmlkZSB3aGF0
+IHRoZSBkZXZpY2Ugc3VnZ2VzdHMuLi4pDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4g
+PiA+ID4gPiA+ID4gPiA+ID4gPiA+IEkgdGhpbmsgd2Ugc2hvdWxkIGZvbGxvdyB3aGF0IHdlIGRl
+c2NyaWJlZCBpbiB0aGUgc3BlYzoNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gIlRoZSB2aXJ0
+aW8gc29ja2V0IGRldmljZSBpcyBhIHplcm8tY29uZmlndXJhdGlvbiBzb2NrZXQgY29tbXVuaWNh
+dGlvbnMgZGV2aWNlLiINCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiBXZSBwcm9iYWJseSBuZWVkIHRvIGRlZmluZSAiY29uZmlndXJhdGlvbiIgZmlyc3Qu
+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gRm9yIGV4
+YW1wbGUsIGlmIGl0IG1lYW5zIHplcm8gY29uZmlndXJhdGlvbiBmcm9tIHRoZSB1c2VyLCBpdCBk
+b2VzIG5vdA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gY29uZmxpY3Qgd2l0aCAyKSwgdGhlIGRy
+aXZlciBjYW4gdXNlIGl0cyBvd24gYWxnb3JpdGhtIHRvIGVsZWN0IGENCj4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+ICJkZWZhdWx0IiBkZXZpY2UuDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiBJTUhPLCBpdCBjYW4gYmUgZG9uZSwgYnV0IGl0IGlzIG5vdCB0aGUg
+Y3VycmVudCBkZXNpZ24uDQo+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+
+IFdlbGwsIHlvdSBuZWVkIGF0IGxlYXN0IGV4cGxhaW4gdGhlIGFkdmFudGFnZXMgb3Igd2h5IHlv
+dSBjaG9vc2UgdG8gZG8gdGhpcy4NCj4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4g
+PiBJIGxpc3RlZCBpbiB0aGUgcHJldmlvdXMgbWVzc2FnZS4gTWF5YmUgaXQgaXMgbm90IGNsZWFy
+IGVub3VnaC4gSSdsbCB0cnkgdG8NCj4gPiA+ID4gPiA+ID4gPiA+IGV4cGxhaW4gaXQgYWdhaW4u
+DQo+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gSSB0aGluayBwZW9wbGUgc2hv
+dWxkIHBpY2sgdXAgdGhlIGRldmljZSBieSBhIGBiaW5kKClgIGNhbGwsIHdoaWNoIHRha2VzIGEN
+Cj4gPiA+ID4gPiA+ID4gPiA+IENJRCBhcyBhbiBhcmd1bWVudC4NCj4gPiA+ID4gPiA+ID4gPiA+
+DQo+ID4gPiA+ID4gPiA+ID4gPiBHZW5lcmFsbHksIHRoZSBkZXZpY2UgaXMgcGlja2VkIHVwIGJ5
+IHRoZSBzb3VyY2UgQ0lELCB3aGljaCBpcyBhY2hpZXZlZA0KPiA+ID4gPiA+ID4gPiA+ID4gdGhy
+b3VnaCBhIGBiaW5kKClgIGNhbGwuDQo+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+
+ID4gVGhlIGRlZmF1bHQgZGV2aWNlLCB3aGljaCBpcyBlcXVpdmFsZW50IHRvIHRoZSBjdXJyZW50
+IHNpbmdsZSBkZXZpY2UsIGlzDQo+ID4gPiA+ID4gPiA+ID4gPiB1c2VkIHRvIGJlIGNvbXBhdGli
+bGUgd2l0aCB0aGUgZXhpc3RpbmcgYXBwbGljYXRpb25zLg0KPiA+ID4gPiA+ID4gPiA+ID4NCj4g
+PiA+ID4gPiA+ID4gPiA+IEFwYXJ0IGZyb20gdGhhdCwgdGhlIGRlZmF1bHQgZGV2aWNlIGlzIHVz
+ZWQgdG8gY29tbXVuaWNhdGUgd2l0aCBoeXBlcnZpc29yDQo+ID4gPiA+ID4gPiA+ID4gPiBmb3Ig
+c29tZSBpbml0IHdvcmtzLCBzdWNoIGFzIGdhdGhlcmluZyBpbmZvcm1hdGlvbiBhYm91dCBvdGhl
+ciB2c29jaw0KPiA+ID4gPiA+ID4gPiA+ID4gZGV2aWNlcy4NCj4gPiA+ID4gPiA+ID4gPiA+DQo+
+ID4gPiA+ID4gPiA+ID4gPiBUbyBzdW1tYXJpemUsIHVzZXJzIG11c3QgZG8gYGJpbmQoKWAgY2Fs
+bCBleHBsaWNpdGx5IHRvIHNlbGVjdCB0aGUgZGVzaXJlZA0KPiA+ID4gPiA+ID4gPiA+ID4gZGV2
+aWNlIGZvciBub24tSFYtVk0gY29tbXVuaWNhdGlvbnMuDQo+ID4gPiA+ID4gPiA+ID4NCj4gPiA+
+ID4gPiA+ID4gPiBTbyBpZiBJIHVuZGVyc3RhbmQgY29ycmVjdGx5IHlvdSBuZWVkIGEgd2F5IHRv
+IHNlbGVjdCB0aGUgZGVmYXVsdCB3aGVuDQo+ID4gPiA+ID4gPiA+ID4gYmluZCgpIGlzIG5vdCBj
+YWxsZWQ/DQo+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+IFllcy4NCj4gPiA+ID4gPiA+ID4N
+Cj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBJIHByZWZlciB0byBzZXQgdGhlIGRlZmF1bHQgZGV2aWNl
+IGZvciBWTS1IViBjb21tdW5pY2F0aW9uIHRvIGRvIHNvbWUgaW5pdA0KPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+IHdvcmsuIEkgZG9uJ3QgdGhpbmsgcGVvcGxlIGhhdmUgYSBzdHJvbmcgbmVlZCBmb3Ig
+dGhpcy4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gQW5v
+dGhlciBwZXJzcGVjdGl2ZSwgbWFraW5nIGRlY2lzaW9ucyBpbiBndWVzdHMgbWF5IGJlIGV2ZW4g
+bW9yZQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gaGVscGZ1bCBmb3IgdGhlIGNhc2Ugd2hlcmUg
+dGhlIGRldmljZSBpcyBub3QgdHJ1c3RlZA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gSG93IGRvZXMgdGhlIGd1ZXN0IHJlYWxpemUgdGhlIHZzb2NrIGRldmlj
+ZSBpcyBub3QgdHJ1c3RlZD8NCj4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+
+ID4gVGhlcmUncmUgdmFyaW91cyB3YXlzIHRvIGJ1aWxkIHRydXN0IChmb3IgZXhhbXBsZSBkZXZp
+Y2UgYXR0ZXN0YXRpb24pDQo+ID4gPiA+ID4gPiA+ID4gPiA+IGFuZCBtb3JlIG1pZ2h0IGNvbWUg
+aW4gdGhlIGZ1dHVyZS4NCj4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4g
+PiBUaGUgZ3Vlc3Qgb25seQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGtub3dzIHRoZSBpbmZvcm1h
+dGlvbiBmcm9tIGl0cyBjb25maWcgc3BhY2UsIHdoaWNoIGlzIHByb3ZpZGVkIGJ5IHRoZSBob3N0
+Lg0KPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiBUaGUgd2F5IHRvIGJ1
+aWxkIHRydXN0IGlzIHByb2JhYmx5IGJleW9uZCB0aGUgc2NvcGUgb2YgdmlydGlvLCBidXQgaXQN
+Cj4gPiA+ID4gPiA+ID4gPiA+ID4gaXMgc29tZXRoaW5nIHdlIG5lZWQgdG8gY29uc2lkZXIuDQo+
+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gQWdyZWUgd2l0aCB5b3UuIElmIGl0
+IGNvbWVzIGluIHRoZSBmdXR1cmUsIEkgdGhpbmsgdGhlIGRyaXZlciBzaG91bGQgaGF2ZQ0KPiA+
+ID4gPiA+ID4gPiA+ID4gdGhlIGFiaWxpdHkgdG8gbWFrZSBkZWNpc2lvbnMuDQo+ID4gPiA+ID4g
+PiA+ID4NCj4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+IEFjdHVhbGx5LCBJIG1lYW50
+IHRoZSB3YXkgdG8gYnVpbGQgdHJ1c3QgdmlhIHZpcnRpbyBpcyBzb21ldGhpbmcgdGhhdA0KPiA+
+ID4gPiA+ID4gPiA+IG5lZWRzIHRvIGJlIGNvbnNpZGVyZWQuIEJ1dCBub3cgd2UgaGF2ZSBvdGhl
+ciB3YXlzIHRvIGJ1aWxkIHRydXN0Lg0KPiA+ID4gPiA+ID4gPiA+IFRoYXQgd291bGQgcmVzdWx0
+IGEgc2l0dWxhdGlvbjoNCj4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+IDEpICJkZWZh
+dWx0IiB2c29jayBkZXZpY2UgaXMgbm90IHRydXN0ZWQgYnV0IG90aGVyIG1pZ2h0DQo+ID4gPiA+
+ID4gPiA+DQo+ID4gPiA+ID4gPiA+IEkgdGhpbmsgdGhpcyB0b3BpYyBtaWdodCBiZSBiZXlvbmQg
+dGhlIHNjb3BlIG9mIHRoaXMgcGF0Y2guDQo+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+IFdp
+dGggdGhlIGN1cnJlbnQgdmVyc2lvbiwgdGhlcmUgaXMgb25seSBvbmUgZGV2aWNlIHN1cHBvcnRl
+ZCwgd2hpY2ggY2FuIGJlDQo+ID4gPiA+ID4gPiA+IGNvbnNpZGVyZWQgYXMgdGhlICJkZWZhdWx0
+Ii4gIFdlIGRvbid0IGhhdmUgYSBtZWNoYW5pc20gdG8gc2F5ICJ3ZSBkb24ndA0KPiA+ID4gPiA+
+ID4gPiB0cnVzdCB5b3UiLCByaWdodD8NCj4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiBOby4gSSBt
+ZWFudCB3ZSBkb24ndCBoYXZlIGl0IGluIHRoZSB2aXJ0aW8gY29yZSBidXQgd2UgYWxyZWFkeSBo
+YXZlIGl0DQo+ID4gPiA+ID4gPiBpbiBvdGhlciBsYXllcnMgKGZvciBleGFtcGxlIHRoZSB0cmFu
+c3BvcnQgbGF5ZXIpLg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gQXJlIHlvdSByZWZlcnJpbmcgdG8g
+dmlyaXRvLXZzb2NrIHRyYW5zcG9ydCBsYXllcj8NCj4gPiA+ID4NCj4gPiA+ID4gWWVzLCBmb3Ig
+ZXhhbXBsZSB0aGUgUENJIGxheWVyLg0KPiA+ID4gPg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+
+IFRoYXQgaXMsIGl0IGlzIGFzc3VtZWQgdGhhdCB3ZSB0cnVzdCB0aGUgZGV2aWNlIHByb3ZpZGVk
+DQo+ID4gPiA+ID4gPiA+IGJ5IHRoZSBoeXBlcnZpc29yLg0KPiA+ID4gPiA+ID4gPg0KPiA+ID4g
+PiA+ID4gPiBUaGlzIHBhdGNoIGlzIGZvciBtdWx0aXBsZSBkZXZpY2VzIHN1cHBvcnQsIGJhc2Vk
+IG9uIHRoZSBzYW1lIGFzc3VtcHRpb24uIEkNCj4gPiA+ID4gPiA+ID4gdGhpbmsgdHJ1c3QgaXMg
+YSBnb29kIHBvaW50IHRvIGNvbnNpZGVyLCBidXQgcGVyaGFwcyB3ZSBoYXZlIHRvIGFkZHJlc3Mg
+aXQNCj4gPiA+ID4gPiA+ID4gaW4gdGhlIGZvbGxvdy11cCBwYXRjaGVzLg0KPiA+ID4gPiA+ID4N
+Cj4gPiA+ID4gPiA+IE15IHBvaW50IGlzIG5vdCBhYm91dCBob3cgdG8gYnVpbGQgdHJ1c3QsIGl0
+J3MgYWJvdXQgbGV0dGluZyB0aGUNCj4gPiA+ID4gPiA+IGRyaXZlciBkZWNpZGUgYnkgaXRzZWxm
+IGluIHNvbWUgY2FzZXMuDQo+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gQSBiZXR0ZXIgd2F5IG1p
+Z2h0IGJlIHNvbWV0aGluZyBsaWtlOg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ICJUaGUgZGV2
+aWNlX29yZGVyIGlzIGEgaGludCBmb3IgdGhlIGRyaXZlciB0byBzZWxlY3QgYSBkZWZhdWx0IHZz
+b2NrDQo+ID4gPiA+ID4gPiBkZXZpY2UuIERldmljZSBNQVkgY2hvb3NlIC4uLi4iDQo+ID4gPiA+
+ID4NCj4gPiA+ID4gPiBPa2F5LCBJJ2xsIGRvIHRoYXQuDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiA+
+ID4NCj4gPiA+ID4gPiA+ID4gPiBvcg0KPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4g
+MikgdHdvIGRldmljZSBjbGFpbXMgdGhhdCB0aGV5IGFyZSBhbGwgImRlZmF1bHQiDQo+ID4gPiA+
+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiBUaGlzIG1lYW5zIGFueWhvdyB3ZSBuZWVkIGEgZGVj
+aXNpb24gZnJvbSB0aGUgZHJpdmVyIHNpZGUgc28gdGhlDQo+ID4gPiA+ID4gPiA+ID4gZGV2aWNl
+IHNpZGUgb3JkZXIgc2VlbXMgdG8gYmUgdXNlbGVzcyBoZXJlLg0KPiA+ID4gPiA+ID4gPg0KPiA+
+ID4gPiA+ID4gPiBUaGVyZSBpcyBvbmx5IG9uZSBkZWZhdWx0IGRldmljZS4gVGhlIGRldmljZSB3
+aXRoIHRoZSBsb3dlc3QgZGV2aWNlX29yZGVyDQo+ID4gPiA+ID4gPiA+IGlzIGNvbnNpZGVyZWQg
+dGhlIGRlZmF1bHQuIEl0IGlzIG5vdCBhbGxvd2VkIHRvIGhhdmUgdGhlIHNhbWUgZGV2aWNlX29y
+ZGVyLg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IFdobyBjYW4gZm9yYmlkIHR3byBzYW1lIGRl
+dmljZV9vcmRlcj8gTm90ZSB0aGF0IGluIHZhcmlvdXMgc2VjdXJpdHkNCj4gPiA+ID4gPiA+IG1v
+ZGVscywgaHlwZXJ2aXNvcnMgYXJlIG5vdCB0cnVzdGVkIGF0IGFsbC4NCj4gPiA+ID4gPg0KPiA+
+ID4gPiA+IFRoZSBkcml2ZXIgZG9lcy4gSW5kZWVkLCB0aGUgZHJpdmVyIGlzIGFibGUgdG8gZGVu
+eSBkZXZpY2VzIGlmIHRoZXkgdmlvbGF0ZQ0KPiA+ID4gPiA+IHRoZSBzcGVjLg0KPiA+ID4gPg0K
+PiA+ID4gPiBZZXMsIHRoYXQncyB0aGUgcG9pbnQsIGFueWhvdyBkcml2ZXIgbmVlZCB0byBkbyB0
+aGUgZGVjaXNpb24uDQo+ID4gPiA+DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4gU28sIElNTyB0aGUgZ3Vlc3QgKGRyaXZlcikgc2hvdWxkIG5vdCBiZSBhbGxvd2VkIHRvIGNo
+YW5nZSBhbnl0aGluZy4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gRS5nLiBSaWdodCBub3cg
+aXQncyBub3QgYWxsb3dlZCB0byBjaGFuZ2UgdGhlIENJRCBhc3NpZ25lZCBieSB0aGUgaG9zdCAo
+ZGV2aWNlKS4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4g
+PiBBIGR1bWIgcXVlc3Rpb24gd2hlbiBoYXZpbmcgdHdvIGNpZHMgKGNpZDEgYW5kIGNpZDIpIGlu
+IHRoZSBzYW1lDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBndWVzdCwgd2hhdCBoYXBwZW5zIGlm
+IHNyYz1jaWQxIGFuZCBkc3Q9Y2lkMj8NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+IFRoZSBwYWNrZXRzIHdpbGwgYmUgZGlyZWN0ZWQgdG8gYW5vdGhlciBhcHBs
+aWNhdGlvbiwgaWYgYW55LCBvbiB0aGUgc2FtZSBndWVzdC4NCj4gPiA+ID4gPiA+ID4gPiA+ID4N
+Cj4gPiA+ID4gPiA+ID4gPiA+ID4gT2ssIHNvIGluIHlvdXIgZXhhbXBsZSwgdmhvc3QtdXNlci12
+c29jayBzaG91bGQgcm91dGUgdGhvc2UgcGFja2V0cw0KPiA+ID4gPiA+ID4gPiA+ID4gPiBiYWNr
+IHRvIGtlcm5lbCB2c29jaz8NCj4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiBJ
+dCBkZXBlbmRzLiBUd28gY2FzZXMgYXJlIHBvc3NpYmxlOg0KPiA+ID4gPiA+ID4gPiA+ID4NCj4g
+PiA+ID4gPiA+ID4gPiA+IDEuIGRldjAoY2lkMSkgYW5kIGRldjEoY2lkMikgYXJlIGZyb20gdGhl
+IHNhbWUgdHlwZSBvZiBiYWNrZW5kLCBlLmcuDQo+ID4gPiA+ID4gPiA+ID4gPiB2aG9zdC12c29j
+aywgc28gdGhlIHBhY2tldHMgd2lsbCBiZSByb3V0ZWQgYmFjayBhcyB5b3UgZGVzY3JpYmVkLg0K
+PiA+ID4gPiA+ID4gPiA+ID4gMi4gZGV2MChjaWQxKSBmcm9tIHZob3N0LXVzZXItdnNvY2ssIGFu
+ZCBkZXYxKGNpZDIpIGZyb20gdmhvc3QtdnNvY2ssIHRoZQ0KPiA+ID4gPiA+ID4gPiA+ID4gcGFj
+a2V0cyB3aWxsIGJlIGRyb3BwZWQgaWYgdmhvc3QtdXNlci12c29jayBkZXZpY2UgY2FuJ3QgZmlu
+ZCBhIGRldmljZQ0KPiA+ID4gPiA+ID4gPiA+ID4gd2hvc2UgY2lkIGlzIGNpZDIuDQo+ID4gPiA+
+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiBXZWxsLCB0aGlzIG1lYW5zIHRoZSBiZWhhdmlvciBk
+ZXBlbmRzIG9uIHRoZSBpbXBsZW1lbnRhdGlvbiB3aGljaCBpcyBub3QgZ29vZC4NCj4gPiA+ID4g
+PiA+ID4NCj4gPiA+ID4gPiA+ID4gTm8sIGl0IGlzIG5vdC4gSXQgZGVwZW5kcyBvbiB3aGV0aGVy
+IHRoZSBkZXZpY2UgY2FuIGZpbmQgYSBwcm9wZXINCj4gPiA+ID4gPiA+ID4gdGFyZ2V0IGRldmlj
+ZSBiYXNlZCBvbiB0aGUgZHN0X2NpZC4NCj4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiBUaGlzIHNv
+dW5kcyByZWFsbHkgd2VpcmQsIHR3byBjaWRzIGJlbG9uZyB0byB0aGUgc2FtZSBndWVzdC4gU28g
+Z3Vlc3RzDQo+ID4gPiA+ID4gPiBzaG91bGQgZXhwZWN0IHRoYXQgdGhlIHR3byB2c29jayBkZXZp
+YyBjYW4gdGFsayB0byBlYWNoIG90aGVyPw0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gWWVzLCBhIGxp
+dHRsZSBiaXQgY29tcGxpY2F0ZWQuDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBUd28gY29uc3RyYWlu
+dHMgc2hvdWxkIGJlIGFwcGxpZWQ6DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiAxLiBObyBDSUQgY29u
+ZmxpY3RzIHdpdGhpbiB0aGUgZHJpdmVyOw0KPiA+ID4gPiA+IDIuIE5vIENJRCBjb25mbGljdHMg
+d2l0aGluIHRoZSBhZGRyZXNzIHNwYWNlLg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gSGVyZSBpcyBh
+IGRpYWdyYW0gdG8gaWxsdXN0cmF0ZSB0aGUgc2l0dWF0aW9uIHdoZXJlIGl0IGRvZXMgbm90IHZp
+b2xhdGUgdGhlDQo+ID4gPiA+ID4gY29uc3RyYWludHM6DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiAg
+4pSM4pSAIGtlcm5lbOKUgChhczAp4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSQDQo+ID4gPiA+ID4gIOKUgiAgIOKUjOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUkCAgICAgICAgICAgICAgICAgICAgICDilIzilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilJAgIOKUjOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUkOKU
+gg0KPiA+ID4gPiA+ICDilIIgICDilIIgZGV2MChjaWQwKeKUgiAgICAgICAgICAgICAgICAgICAg
+ICDilIIgZGV2MihjaWQxKeKUgiAg4pSCIGRldjMoY2lkMinilILilIINCj4gPiA+ID4gPiAg4pSC
+ICAg4pSU4pSA4pSA4pSA4pSs4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSYICAgICAgICAgICAgICAg
+ICAgICAgIOKUlOKUgOKUgOKUgOKUrOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUmCAg4pSU4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSs4pSA4pSA4pSY4pSCDQo+ID4gPiA+ID4gIOKUlOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUvOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUvOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUvOKUgOKUgOKUgOKUmA0KPiA+ID4gPiA+ICAg4pSM4pSA4pSA4pSA4pSA4pSA4pSA
+4pS84pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSQICAg4pSM4pSA4pSA4pSA4pSA4pSA4pSA4pS84pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pS84pSA4pSA4pSA
+4pSQDQo+ID4gPiA+ID4gICDilIIgICAgICDilIIgIOKUjOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUkCAgICAgICAg4pSCICAg4pSCICAgICAg4pSCICDilIzilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilJAgICAg4pSCICAg4pSCDQo+ID4gPiA+ID4gICDilIIgICAg
+ICDilJTilIDilIDilrogZGV2MChjaWQwKeKUgiAgICAgICAg4pSCICAg4pSCICAgICAg4pSU4pSA
+4pSA4pa6IGRldjIoY2lkMSnilIIgICAg4pSCICAg4pSCDQo+ID4gPiA+ID4gICDilIIgICAgICAg
+ICDilJTilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilJggICAgICAgIOKUgiAgIOKU
+giAgICAgICAgIOKUlOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUmCAgICDilIIg
+ICDilIINCj4gPiA+ID4gPiAgIOKUgiAgICAgICAgIOKUjOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUkCAgICAgICAg4pSCICAg4pSCICAgICAgICAg4pSM4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSQICAgIOKUgiAgIOKUgg0KPiA+ID4gPiA+ICAg4pSCICAgICAg
+4pSM4pSA4pSA4pa6IGRldjEoY2lkMSnilIIgICAgICAgIOKUgiAgIOKUgiAgICAgICAgIOKUgiBk
+ZXYzKGNpZDIp4peE4pSA4pSA4pSA4pSA4pSYICAg4pSCDQo+ID4gPiA+ID4gICDilIIgICAgICDi
+lIIgIOKUlOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUmCAgICAgVk0w4pSCICAg
+4pSCICAgICAgICAg4pSU4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSYICAgICBW
+TTHilIINCj4gPiA+ID4gPiAgIOKUlOKUgOKUgOKUgOKUgOKUgOKUgOKUvOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+mCAgIOKUlOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUmA0KPiA+ID4gPiA+ICAg
+IHZob3N0LXVzZXItdnNvY2sNCj4gPiA+ID4gPiDilIzilIDilIDilIDilIDilIDilIDilIDilIDi
+lLzilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilJANCj4gPiA+ID4gPiDilIIgICDilIzilIDilIDilIDilIDilLzilIDilIDilIDilIDi
+lIDilIDilJAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICDilIINCj4gPiA+ID4gPiDilIIgICDilIIgZGV2MShjaWQxKeKUgiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIOKUgg0KPiA+ID4gPiA+IOKUgiAgIOKU
+lOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUmCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIOKUgg0KPiA+ID4gPiA+IOKUlOKUgHVzZXJh
+cHDilIAoYXMxKeKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+mA0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gLSBWTTANCj4gPiA+ID4gPiAgICAgLSBkZXYwDQo+ID4g
+PiA+ID4gICAgICAgICAtIGRzdF9jaWQgPSAyICh3ZWxsLWtub3duIGNpZCk6IGNvbm5lY3QgdG8g
+aG9zdDsNCj4gPiA+ID4gPiAgICAgICAgIC0gZHN0X2NpZCA9IGNpZDE6IGNvbm5lY3QgdG8gZGV2
+MiAodGhleSBhcmUgaW4gdGhlIHNhbWUgYXMwKTsNCj4gPiA+ID4gPiAgICAgICAgIC0gZHN0X2Np
+ZCA9IGNpZDI6IGNvbm5lY3QgdG8gZGV2MzsNCj4gPiA+ID4gPiAgICAgLSBkZXYxDQo+ID4gPiA+
+ID4gICAgICAgICAtIGRzdF9jaWQgPSAyICh3ZWxsLWtub3duIGNpZCk6IGNvbm5lY3QgdG8gdXNl
+cmFwcDsNCj4gPiA+ID4gPiAgICAgICAgIC0gZHN0X2NpZCA9IGNpZDA6IGZhaWx1cmUgKG5vIGNp
+ZDAgaXMgYXZhaWxhYmxlIGluIGFzMSwgZXZlbiB0aG91Z2gNCj4gPiA+ID4gPiAgICAgICAgIGNp
+ZDEgaXMgYXZhaWxhYmxlIGluIHRoZSBWTTApOw0KPiA+ID4gPiA+ICAgICAgICAgLSBkc3RfY2lk
+ID0gY2lkMTogY29ubmVjdCB0byBkZXYwOw0KPiA+ID4gPiA+IC0gVk0xDQo+ID4gPiA+ID4gICAg
+IC0gZGV2Mg0KPiA+ID4gPiA+ICAgICAgICAgLSBkc3RfY2lkID0gMiAod2VsbC1rbm93biBjaWQp
+OiBjb25uZWN0IHRvIGhvc3Q7DQo+ID4gPiA+ID4gICAgICAgICAtIGRzdF9jaWQgPSBjaWQwOiBj
+b25uZWN0IHRvIGRldjA7DQo+ID4gPiA+ID4gICAgICAgICAtIGRzdF9jaWQgPSBjaWQyOiBjb25u
+ZWN0IHRvIGRldjM7DQo+ID4gPiA+ID4gICAgIC0gZGV2Mzogc2tpcCB0aGUgc2FtZSBhcyBkZXYy
+Lg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gU28gYmFjayB0byB5b3VyIHF1ZXN0aW9uLCBteSBhbnN3
+ZXIgaXMgdGhhdCBpdCBkZXBlbmRzIG9uIHRoZSBhZGRyZXNzDQo+ID4gPiA+ID4gc3BhY2UuIEhv
+cGUgaXQgY291bGQgYmUgaGVscGZ1bC4NCj4gPiA+ID4NCj4gPiA+ID4gVGhpcyBicmluZ3MgYW4g
+aW50ZXJlc3RpbmcgcXVlc3Rpb24sIGZvciBleGFtcGxlIGlmIHZtMCB0cmllcyB0bw0KPiA+ID4g
+PiBjb25uZWN0IHRvIHZtMSwgaG93IGRvZXMgaXQga25vdyB3aGljaCBkZXZpY2UgaXQgbmVlZHMg
+dG8gdXNlIChsYWNraW5nDQo+ID4gPiA+IHRoZSBjb25jZXB0IGxpa2Ugc3dpdGNoL3JvdXRlL2Fk
+ZHJlc3MgYW5ub3VuY2luZyBldGMuLi4pPw0KPiA+ID4NCj4gPiA+IFRoZSBIViBzaG91bGQgbWFp
+bnRhaW4gYSB0YWJsZSBmb3IgdGhhdC4gVGhlIGd1ZXN0IHRoaW5ncyBmaXJzdGx5DQo+ID4gPiBj
+b21tdW5pY2F0ZSB3aXRoIHRoZSBIViwgdGhyb3VnaCB0aGUgZGVmYXVsdCBkZXZpY2UsIHRvIGtu
+b3cgd2hpY2ggZGV2aWNlDQo+ID4gPiB0byB1c2UuDQo+ID4NCj4gPiBJdCdzIHN0aWxsIG5vdCBj
+bGVhciB0byBtZSBob3cgdGhpbmdzIHdvcmsuIEZvciBleGFtcGxlLCB3ZSBoYWQgYQ0KPiA+IGd1
+ZXN0MSB3aXRoIHR3byBjaWQgNCAoImRlZmF1bHQiKSw1IGFub3RoZXIgZ3Vlc3QyIHdpdGggb25l
+IGNpZCA2LiBZb3UNCj4gPiBtZWFudCBndWVzdDEgbmVlZHMgdG8gYXNrIHRoZSBob3N0IHRvIGtu
+b3cgYWJvdXQgd2hpY2ggZGV2aWNlIGlzDQo+ID4gY29ubmVjdGVkIHRvIDY/IE9yIGFjdHVhbGx5
+IGFueSBkZXZpY2UgaW4gZ3Vlc3QxIGNhbiBiZSB1c2VkIHRvDQo+ID4gY29ubmVjdGVkIHRvIGd1
+ZXN0Mj8NCj4NCj4gSSB0aGluayBpdCBpcyBhcHBsaWNhdGlvbi1sZXZlbCwgbGlrZSBtaWNybyBz
+ZXJ2aWNlcz8gSGVyZSBhcmUgc29tZQ0KPiBkaWFncmFtcyB0byBpbGx1c3RyYXRlIHRoZSBwcm9j
+ZXNzOg0KPg0KPiBTdGVwMTogYXBwMCBhc2tzIHRoZSBob3N0OiAiSSB3YW50IHRvIGNvbm5lY3Qg
+dG8gYXBwMSBpbnNpZGUgVk0xIjsNCj4gU3RlcDI6IGhvc3QgcmVwbGllczogIlBsZWFzZSB1c2Ug
+c291cmNlIGNpZD01LCBhbmQgZGVzdGluYXRpb24gY2lkPTYiDQoNClRoaXMgc291bmRzIGxpa2Ug
+YXJwIGFueWhvdy4NCg0KPg0KPiAr4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAKyAgICAgICAgICvi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIArICAgICvilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIArDQo+IOKUgiAgaG9zdCAg4pSCICAgICAgICAg4pSCK+KUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCsgICAgICAgICAgVk0wIOKUgiAg
+ICDilIIgICAgICAgICAgICAgICAgICAgICAgICAgVk0xICDilIINCj4g4pSCc2VydmljZSDilILi
+l4DilIBzdGVwMeKUgOKUgOKUpOKUgmRldjAoY2lkPTQsZGVmKeKUguKUgOKUgOKUkCAgICAgICAg
+ICAg4pSCICAgIOKUgiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIOKUgg0KPiAr4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSAKyAgICAgICAgIOKUgivilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIArICDilIIgICAgICAgICAgIOKUgiAgICDilIIgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICDilIINCj4gICAgICAgICAgICAgICAgICAgIOKUgivilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIArICDilIIgICvilIDilIDilIDi
+lIDilIDilIDilIAr4pSCICAgIOKUgivilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIArICAgICAr4pSA4pSA4pSA4pSA4pSA4pSAK+KUgg0KPiAgICAgICAgICAgICAg
+ICAgICAg4pSC4pSCICBkZXYxKGNpZD01KSAg4pSCICDilJTilIDilIDilIIgYXBwMCAg4pSC4pSC
+ICAgIOKUguKUgmRldjEoY2lkPTYsZGVmKeKUgiAgICAg4pSCIGFwcDEg4pSC4pSCDQo+ICAgICAg
+ICAgICAgICAgICAgICDilIIr4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSAKyAgICAgK+KUgOKUgOKUgOKUgOKUgOKUgOKUgCvilIIgICAg4pSCK+KUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCsgICAgICvilIDilIDilIDilIDilIDi
+lIAr4pSCDQo+ICAgICAgICAgICAgICAgICAgICAr4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSAKyAgICAr4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAKw0KPg0KPiBT
+dGVwMzogYXBwMCBiaW5kcyAoNSwgLTEpLCBhbmQgY29ubmVjdHMgdG8gKDYsIHtQT1JUfSkgdG8g
+ZXN0YWJsaXNoIGENCj4gY29ubmVjdGlvbi4NCj4NCj4gK+KUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gCsgICAgICAgICAr4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAKyAgICAr4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAKw0KPiDilIIgIGhvc3QgIOKUgiAgICAgICAg
+IOKUgivilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIArICAgICAg
+ICAgIFZNMCDilIIgICAg4pSCICAgICAgICAgICAgICAgICAgICAgICAgIFZNMSAg4pSCDQo+IOKU
+gnNlcnZpY2Ug4pSCICAgICAgICAg4pSC4pSCZGV2MChjaWQ9NCxkZWYp4pSCICAgICAgICAgICAg
+ICDilIIgICAg4pSCICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg4pSCDQo+ICvilIDilIDi
+lIDilIDilIDilIDilIDilIArICAgICAgICAg4pSCK+KUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgCsgICAgICAgICAgICAgIOKUgiAgICDilIIgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICDilIINCj4gICAgICAgICAgICAgICAgICAgIOKUgivilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBiaW5kKDUsIC0xKeKUgOKUgOKUgOKUgCvi
+lIIgICAg4pSCK+KUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCsg
+ICAgICvilIDilIDilIDilIDilIDilIAr4pSCDQo+ICAgICAgICAgICAgICAgICAg4pSM4pSA4pSk
+4pSCICBkZXYxKGNpZD01KSAg4pSC4peA4pSA4pSA4pSA4pSA4pSCIGFwcDAgIOKUguKUgiAgICDi
+lILilIJkZXYxKGNpZD02LGRlZinilILilIDilIDilIDilIDilIDilrYgYXBwMSDilILilIINCj4g
+ICAgICAgICAgICAgICAgICDilIIg4pSCK+KUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgCsgICAgICvilIDilIDilIDilIDilIDilIDilIAr4pSCICAgIOKUgivilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIArICAgICAr4pSA4pSA4pSA
+4pSA4pSA4pSAK+KUgg0KPiAgICAgICAgICAgICAgICAgIOKUgiAr4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSAKyAgICAr4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pay4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+Kw0KPiAgICAgICAgICAgICAgICAgIOKUgiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAg4pSCDQo+ICAgICAgICAgICAgICAgICAg4pSU4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAY29ubmVjdCg2LFBPUlQp4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSYDQo+DQo+IFRoaXMgaXMg
+YSBsaXR0bGUgYml0IGNvbXBsaWNhdGVkLCBidXQgaXQgaXMgZHluYW1pYy4gQW5vdGhlciB3YXkg
+aXMgdG8NCj4gYXNzaWduIGEgZml4ZWQgQ0lEIGZvciBhcHAxLA0KDQpXaG8gZGlkIHRoZSBhc3Np
+Z25tZW50IGhlcmU/DQoNCj4gc28gYXBwMCBjYW4gYWx3YXlzIGNvbm5lY3QgdG8gaXQgd2l0aG91
+dA0KPiBuZWVkaW5nIHRvIGFzayBmb3IgdGhlIGhvc3Qgc2VydmljZS4NCg0KQmFzaWNhbGx5LCBJ
+IHdvbmRlciBpZiB0aGUgYWJvdmUgbmVlZHMgdG8gYmUgcGFydCBvZiB0aGUgc3BlYyBvciBub3QN
+CmFuZCB3aHkuIElmIG5vdCwgd2Ugc2hvdWxkIG5vdCBib3RoZXIgaGVyZS4NCg0KVGhhbmtzDQoN
+Cj4NCj4gVGhhbmtzLA0KPiBYdWV3ZWkNCj4NCj4gPiBUaGFua3MNCj4gPg0KPiA+ID4NCj4gPiA+
+IFRoYW5rcywNCj4gPiA+IFh1ZXdlaQ0KPiA+ID4NCj4NCg==
 
-I mean multiple sockets with multiple `bind()` calls, not multiplexing:
-
-- socket1: bind(3, -1), connect(2, 10000);
-- socket2: bind(4, -1), connect(2, 10001);
-- ...
-
-> >> IMO is easier to have the multiple device for sibling (e.g. the device
-> >> can advertise which dest CID its supports), but not for host.
-> >
-> >I think one device for sibling is enough.
-> 
-> I also think one should be enough, but IMO I think it might make more 
-> sense to have multiple devices in this case, where each device can 
-> handle a pool of CIDs, then the hard part will be figuring out how to 
-> allocate the CIDs, etc. so yes, I agree that having one device even in 
-> this case is the easiest thing.
-
-Yeah, so let us skip this for now ;)
-
-> >For example, dev1 is enough for
-> >communication with dev3 and dev4. So we don't need dev2 for sibling in the
-> >first VM, right?
-> 
-> Just a note, vhost-vsock is not allowing any sibling communication.
-> vhost-user-vsock can do it, but we don't want to bring any support in 
-> vhost-vsock to not overcomplicate it (again it will become like a 
-> network switch, requiring firewalls, etc.)
-
-Even if we don't impose some complicated mechanisms, I think the
-vhost-vsock should work with sibling, and I don't see any difference
-between vhost-vsock and vhost-user-vsock. (I am just curious.)
-
-> >+──kernel(vhost-vsock)──────────────────────────────────────────────+
-> >│+──────────────+ +──────────────+ +──────────────+ +──────────────+│
-> >││  dev1(cid1)  │ │  dev2(cid2)  │ │  dev3(cid3)  │ │  dev4(cid4)  ││
-> >│+──────────────+ +──────────────+ +──────────────+ +──────────────+│
-> >+────────▲────────────────▲────────────────▲────────────────▲───────+
-> >         │                │                │                │
-> >         │                │          ┌─────┘                │
-> >         │                │          │                      │
-> >+────────┴───────────+    │ +────────┴───────────+ +────────┴───────────+
-> >│+──────────────+ VM0│    │ │+──────────────+ VM1│ │+──────────────+ VM2│
-> >││dev1(cid1,def)│    │    │ ││dev3(cid3,def)│    │ ││dev4(cid4,def)│    │
-> >│+──────────────+    │    │ │+──────────────+    │ │+──────────────+    │
-> >│+──────────────+    │    │ │                    │ │                    │
-> >││  dev2(cid2)  │────┼────┘ │                    │ │                    │
-> >│+──────────────+    │      │                    │ │                    │
-> >+────────────────────+      +────────────────────+ +────────────────────+
-> >
-> >The things go different for devices for host:
-> >
-> >1. For dev1, it is used for sibling (dev1 <-> dev4), and the host
-> >(src_cid=cid1, dst_cid=2) means the real host (not a userapp), where
-> >doesn't show in the diagram.
-> 
-> This is not going to happen (see above).
-> 
-> >2. For dev2 (src_cid=cid2), the host (dst_cid=2) is userapp1;
-> >3. For dev3 (src_cid=cid3), the host (dst_cid=2) is userapp2.
-> >
-> >+──kernel(vhost-vsock)──────────────────────────────────────────────+
-> >│+──────────────+                                   +──────────────+│
-> >││  dev1(cid1)  │                                   │  dev4(cid4)  ││
-> >│+──────────────+                                   +──────────────+│
-> >+────────▲──────────────────────────────────────────────────▲───────+
-> >         │                                                  │
-> >+────────┴───────────+     +────────────────────+           │
-> >│+──────────────+ VM0│     │+──────────────+    │           │
-> >││dev1(cid1,def)│    │┌────▶│  dev2(cid2)  │    │  +────────┴───────────+
-> >│+──────────────+    ││    │+──────────────+    │  │+──────────────+ VM2│
-> >│+──────────────+    ││    │            userapp1│  ││dev4(cid4,def)│    │
-> >││  dev2(cid2)  │────┼┘    +────────────────────+  │+──────────────+    │
-> >│+──────────────+  vhost-user-vsock─────────────+  │                    │
-> >│+──────────────+    │     │+──────────────+    │  │                    │
-> >││  dev3(cid3)  │────┼─────▶│  dev3(cid3)  │    │  │                    │
-> >│+──────────────+    │     │+──────────────+    │  +────────────────────+
-> >+────────────────────+     │            userapp2│
-> >                           +────────────────────+
-> >
-> 
-> I'm really confused with `cid1`, `cid2`, etc. Are they any number >= 3?
-> I'd suggest to use real value (e.g. cid=42).
-
-Okay. I'll update it with real value ;)
-
-Based on the above question, I still put the devices into the kernel.
-
-+──kernel(vhost-vsock)──────────────────────────────────────────────────+
-│+───────────────+                                  +───────────────+   │
-││  dev1(cid=3)  │                                  │  dev4(cid=6)  │   │
-│+───────────────+                                  +───────────────+   │
-+────────▲──────────────────────────────────────────────────▲───────────+
-         │                                                  │            
-+────────┴───────────+     +────────────────────+           │            
-│+───────────────+VM0│     │+──────────────+    │           │            
-││dev1(cid=3,def)│   │┌────▶│ dev2(cid=4)  │    │  +────────┴───────────+
-│+───────────────+   ││    │+──────────────+    │  │+───────────────+VM2│
-│+───────────────+   ││    │            userapp1│  ││dev4(cid=6,def)│   │
-││  dev2(cid=4)  │───┼┘    +────────────────────+  │+───────────────+   │
-│+───────────────+ vhost-user-vsock─────────────+  │                    │
-│+───────────────+   │     │+──────────────+    │  │                    │
-││  dev3(cid=5)  │───┼─────▶│ dev3(cid=5)  │    │  │                    │
-│+───────────────+   │     │+──────────────+    │  +────────────────────+
-+────────────────────+     │            userapp2│                        
-                           +────────────────────+                        
-
-> So what dest CID the VM0 is supposed to use to talk with userapp1 and 
-> userapp2? In both cases CID=2, right?
-
-Yes. There are at least two sockets with source cid=4 and cid=5 respectively.
-
-> Why you need 2 vhost-user-vsock devices?
-
-The benefit of vhost-user is "shared memory", which reduces the need for
-data copying. It is possible to share virtqueues to multiple user apps, for
-the sake of performance.
-
-I don't forget the "CID=0" thing. Just as an explanation, I'll use the
-example of TSI.
-
-We can treat the TSI backend as a proxy. Thanks to vhost-user-vsock, the
-data will be copied once from the guest user space to the proxy. When we
-have two subnets, which is a common case, we might want to have two proxies
-to forward the data.
-
-                 +────────────────+    +───────────────────────────────+
- .─────────.     │  tsi backend1  │    │+───────────────+    ┏━━━━━━━━┓│
-(    NW1    )◀───│   (userapp1)   │◀───┤│  vsock dev1   ◀────┃subnet1 ┃│
- `─────────'     +────────────────+    │+───────────────+    ┗━━━━━━━━┛│
-                                       │                               │
-                 +────────────────+    │+───────────────+    ┏━━━━━━━━┓│
- .─────────.     │  tsi backend2  │◀───┤│  vsock dev2   ◀────┃subnet2 ┃│
-(    NW2    )◀───│   (userapp2)   │    │+───────────────+    ┗━━━━━━━━┛│
- `─────────'     +────────────────+    +───────────────────────────────+
-
-> Can you just have a single one and have the application 
-> connecting/listing on different port? (which is the sense of the port, 
-> multiplexing application on the destination)
-
-In terms of functionality, I think it is possible. But it loses the benefit
-of vhost-user-vsock.
-
-Thanks,
-Xuewei
-
-> Thanks,
-> Stefano
