@@ -1,60 +1,60 @@
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (mail-bn8nam11on2070.outbound.protection.outlook.com [40.107.236.70])
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (mail-dm6nam10on2082.outbound.protection.outlook.com [40.107.93.82])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5618C10E0
-	for <virtio-comment@lists.linux.dev>; Thu, 26 Jun 2025 11:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.236.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95294277CAD
+	for <virtio-comment@lists.linux.dev>; Thu, 26 Jun 2025 11:59:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.93.82
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750938363; cv=fail; b=nHVsKbxCRLMcU16yeWJtnXJAA2kQ9JyztiEFoe7J597zwwA2MtxOB2PSwiWfzlKbzNZvfoAc7UMQB7dqSbTS45QBmcLU2US3d1sUg/glDb5hj32IaV5/eiSYaaeM+djk6th2i4tEKhe0DpTRbXgyyZPVzUEeZATxXt5Up3Gpmu0=
+	t=1750939189; cv=fail; b=ffaenExl+JTjbv9PtCln6WPWmg8ZagWGFnKAr2oR+po4Xkqn3IzeQRuSMnFR3oG6qRxAl5ChavkV6WO9UmW7SumioCx4DO4tbdleBgzxi7d971vYQVsJQFUiobnzeD3BWpZmFO0dhNjtltIzD7IdbEUZXwCx48aGWGVz1ZT1Jm4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750938363; c=relaxed/simple;
-	bh=0opdhZMXRc5kvYKULssNvS+zjYENML7zbNefx3Az0Xs=;
+	s=arc-20240116; t=1750939189; c=relaxed/simple;
+	bh=zmAX4vfPC/TBS9b6p+z+v17c8fp5uml2czLATi+Moso=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=VrfgJJnDdPd46s8gNpkL7Er9ORa0M4TI4zU1z+CCRz79zENhiVtJCaE9+phDFBDUGjLdLvAkk56pyIU6oLFmneznUVvmMldQe9NCFqccLiekwvxyLKB+EETdZP7ELl3wKZfBqoprkgle85X+NZ2caYRAtOAh3ti8/cy8MOb3JgQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Wl0CN+fj; arc=fail smtp.client-ip=40.107.236.70
+	 Content-Type:MIME-Version; b=sFYbqDjJctwg3me2Z57KMGMbv8vIG+m9JmB6NczlzdCd0OhH7YwwfInlgPu1OI4X3T4lHLTJM8HYQVPhmxgkPx+dico/AqF8nNRBNLxCTDlvr/F0H6HzjYtdg8qGsW+hpt4PQzl3TTN/N8KPqjl1P7Foxg19tacqBuucHFGwbaU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MWZWt9+0; arc=fail smtp.client-ip=40.107.93.82
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Wl0CN+fj"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MWZWt9+0"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OUPS6/LOc1PccaMMkH1OFxCLsFqV7pYJ8bFSW4peKh2cFFpoEaRnH50ia4DyY1qGykgr+RgyVBvfoktehV1io85Vg/RAah+5jKl6eXbqeAONan0HjrU+SsC6nrYo/xdZA7s6cnvv9/hybQPdMGCcj99i/ktABhBs6/hxPkwDYyTs08Wr2jLPgQ2X+qRJkMRRuUHllhmQ47BLxQjGVyHXrWtHWNWoNwCaMBiMsbpjvr+p2cflURARcO3IFQIR0h5KWlIkWXaqYptWXluQ/hjuwURma1/meTpBVqckYCoVa5Tjjsu//HAgKawgx15D4qaCWm10hv7uRRlx/joVX7iwZg==
+ b=mEkufWIoRolwPbyXca9IHry74ntZ3QIIUaMn9ynwxQ1kKyhmKZOdRi3TUo59CYfriYys6i1g2Y6KzHXsFnIPk3/C4I58eQUgNlh1mCQbZLNEFtq1fIXYvZL5Awh8CeckPJsqXDCQRWqbiU9vH45tAfAcDffSlaPiHuG1uoSfW3uTByeNeBAQQWqm0M3A5YDpVuV22VfdlhzeqRKZa1n5fdXeXtnMN58Kkap13CvnTKq49P5tP3ilOPUW02lLVq/MPuknR1tOuRH4csFVNdjFsyhb/NSobQCcaOt+b+qFO9KyVhtj35v5l/DlD5MONInH9lCzGJ4EI/UMM6PPFVDVGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ezdBQb22S+GDJacmowYuT5b0E6dtbkjLLziPE45BmWc=;
- b=DL8Q4h3AH7Gf6QuLeVoXCxAYx/dMKyT9XVCQXpaRFib9Ziu+vn3T8oB6C3pjTrDxtTUnsTnPxT2UAUlIq5AST3p+kUhQJU1Ul9zMJvKG6VY3ZgTE7W7Z6hPxXG0VvqW5ZxDbkn888241OEYzzdVTq+aKhT4hzR5LmeZiSiCMVgAHJ0KO+CJXljlriiCiiVDaFCTE/8FgIAbhT7n4Ysxp3tuUApbH99xFsKjcxjuqh5+k0zT9hMCigGEE8HCGstlmx1jQguXuLqFr+kW5vzE+y0UaefJ6uGf5R3tAkIY/ETANZdTCxsyUgfLjoqVkqEAFNZmMT4pNjEuY6gwIZL1Rgg==
+ bh=FnhskNCZW96QBSEFCPaiMC0lmj4DRB1YIcji/KuORaI=;
+ b=VjjedtESFp3VfA+khXH1WqvEmuqRnTOQwjDspPz90oSruGmptDLwzUyGi4MGgcka7WNWHnhxGr0vdLkfwT9OhI6pDK+vO2PUtbKkSkmuoHA6VUImuy4pF24JtuFP9A211l37oiCdmxmqOLVneKFMwOelykp3m0RKFza//9Iv1DwER4kbOcurx1rFQzbHdBxDquoyRmQQCtxQQFqaGNCha+6bHxCgM8ZSdiQgS6YUe6f5/VkP8iULlKxoCTxT+RyTbkN6FRDdkPEPhINLEiCDLOjE4dusFCeIRVslId80W6M6lqaSKsgCZ/zbo8ZH3G9SLGJWZlOvQQYkhLJaP/k5WQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ezdBQb22S+GDJacmowYuT5b0E6dtbkjLLziPE45BmWc=;
- b=Wl0CN+fj2Pf5FO3Yxhfvpj98pZvM14BEoxwDfoylMDQMdDv+mjnYTPJU3M3Y6JV5igWYRXpHOFpzZ2zP3XX8IzBECNREJjWSJi98W9FMBxQupeK5PpGR7lPbu16B/bGyMxnyHBTVG1pmawFEh13HIkuf9r+HZhXaUViIxtWmPV4lBrcki8SLWUzGcUOzQdDLPw3Wb9ZxWX4T08TRR7IXrLweLbHLARZvFhqSX1yT912GZSqOC3GIF4HHW9CQNFpt7LV2U1MdTMycAo+0FRNRzPesRdixbTdLF0KCOeww+6ckcXQNCK7HyfJ69RVJ/KDzXrT2tIptd/6ThIa7Lz7IMQ==
+ bh=FnhskNCZW96QBSEFCPaiMC0lmj4DRB1YIcji/KuORaI=;
+ b=MWZWt9+071yXj20I5ZW323+wlPBpAUaNKaZ8ZfmK3lLO55h+EtSBJakoLtmdb2hO7K0cEHMS8Yu9sZCppd9cCtmg/dnyOO1uDORNkJb6NM02JRoV2VP0o1l87vpilR772wGCC0kzg9sQHe3PYVVVWLnPAsk6/V8Oe5hBn8/vuG8Q4hNgU5Y32LVjfGUzZkwm1rGh9V0v1g6yCyh5dVBq2UdWKB3UK3MpwPcoHa1pkjEmsLhHx78fATqlnWgwX242mSdllmotsIsI8hVzx3U0ANIlt10uRK/dvVS24j1fT1hC3c7C3hUzm+C3nvPdjmaNmZnlMftpXHrB9jv6R3VpvA==
 Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
- by PH7PR12MB6739.namprd12.prod.outlook.com (2603:10b6:510:1aa::18) with
+ by IA1PR12MB6212.namprd12.prod.outlook.com (2603:10b6:208:3e4::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.21; Thu, 26 Jun
- 2025 11:45:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.20; Thu, 26 Jun
+ 2025 11:59:44 +0000
 Received: from CY8PR12MB7195.namprd12.prod.outlook.com
  ([fe80::e571:5f76:2b46:e0f8]) by CY8PR12MB7195.namprd12.prod.outlook.com
  ([fe80::e571:5f76:2b46:e0f8%4]) with mapi id 15.20.8857.022; Thu, 26 Jun 2025
- 11:45:58 +0000
+ 11:59:44 +0000
 From: Parav Pandit <parav@nvidia.com>
 To: Zhu Lingshan <lingshan.zhu@amd.com>, "mst@redhat.com" <mst@redhat.com>,
 	"cohuck@redhat.com" <cohuck@redhat.com>, "jasowang@redhat.com"
 	<jasowang@redhat.com>
 CC: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
 	"Ray.Huang@amd.com" <Ray.Huang@amd.com>
-Subject: RE: [PATCH v3 2/3] virtio: document feature bit 42
-Thread-Topic: [PATCH v3 2/3] virtio: document feature bit 42
-Thread-Index: AQHb5Bo/6SSKq8rrxE2WcRSx/K3jH7QVVlhQ
-Date: Thu, 26 Jun 2025 11:45:58 +0000
+Subject: RE: [PATCH v3 3/3] virtio: introduce SUSPEND and RESUME feature
+Thread-Topic: [PATCH v3 3/3] virtio: introduce SUSPEND and RESUME feature
+Thread-Index: AQHb5BoUXKPusOin/kiYESw2fMoAA7QVWGyQ
+Date: Thu, 26 Jun 2025 11:59:43 +0000
 Message-ID:
- <CY8PR12MB71955662A5578EE0D5A8FC67DC7AA@CY8PR12MB7195.namprd12.prod.outlook.com>
+ <CY8PR12MB71959BD1BFE6319F6E05A7FDDC7AA@CY8PR12MB7195.namprd12.prod.outlook.com>
 References: <20250623083637.296041-1-lingshan.zhu@amd.com>
- <20250623083637.296041-3-lingshan.zhu@amd.com>
-In-Reply-To: <20250623083637.296041-3-lingshan.zhu@amd.com>
+ <20250623083637.296041-4-lingshan.zhu@amd.com>
+In-Reply-To: <20250623083637.296041-4-lingshan.zhu@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -62,68 +62,68 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|PH7PR12MB6739:EE_
-x-ms-office365-filtering-correlation-id: 4e93c0ae-5d07-410a-09e2-08ddb4a704ce
+x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|IA1PR12MB6212:EE_
+x-ms-office365-filtering-correlation-id: 09819d72-5c09-43e5-1d5d-08ddb4a8f0a0
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700018;
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
 x-microsoft-antispam-message-info:
- =?us-ascii?Q?ZmCxq+Owej1XtxZIJ0jBo2D64gLM+JI78v2lc6R2DjYwiPBclbU3spMXJ8Zh?=
- =?us-ascii?Q?etOt2j9smasKG3fUrgUfiO/c3o+TFggsMIHJ3XbYwMIp2U/R+xmQg8hiWIrE?=
- =?us-ascii?Q?ghf7hAG0zEHg4JsXBE1pn4T3RAVg1sTQQMCu6fBxNK2qV5pJgoUinAnsLtpC?=
- =?us-ascii?Q?+fGFzjz9CsE+fHu2NtosxBnoCBLT/HizTosLbF1Fx3/M/Nxio4wKM+Ub4M2l?=
- =?us-ascii?Q?d1jX/OHbNG8mBALKnfNvDuLXabUSQWTWyuIgkIGehzgo/xC3I32dF+OflZDT?=
- =?us-ascii?Q?m1jgyMuV8Mqgc3mIXICGPN8B0TDVdqshTT4wnx1XG6J6PT5TqB3KJqTHdL0B?=
- =?us-ascii?Q?GGPaBREmTOsCVOO/Rwjokkg5Wii2j3Igo7Sx+n17zUrQSrEak+2Hx4wVBgUH?=
- =?us-ascii?Q?HLJEA8z4kUsFy/u5jx/JSeQmo3GPNMwd6OaU3XGhghMbEO4DpkM+7jtNoQUx?=
- =?us-ascii?Q?bRereLhDaFUPc6rBOYEhJS/XWtwVHvM+mQRP3vHW+PXFAR6DXNOre7xUQZYZ?=
- =?us-ascii?Q?OaIQr41CK+nVNDyrFZTmsxSnSnhilN8ex++SvmfL4C1xDMJCbD0hzHXk7PKs?=
- =?us-ascii?Q?/B21P09V5lMnLXWhwO7xl/gLRsEf0LUbAkAu1XWEs3BGhEyySLtaa8Ulk2+A?=
- =?us-ascii?Q?yCDhaDS26x5ZOTlScUpvbRM/BC02DcKavFvMEJYYe1Z4dX9H6MkCeZ3dImaR?=
- =?us-ascii?Q?5G4KnR478t2JIqkWenOMdlZzd8i9Xrb4ujm0iD8XnqC4Koa3RUOCmEPdmT41?=
- =?us-ascii?Q?8JSR/joNj1TpKp+Ecw0J7puaBWDkThsBYLAHhhghFyu7wAvQgEJkyX3gUFHC?=
- =?us-ascii?Q?rB5bdvQIqLNCDZBykO88T0aiqWT3J4RdhYv3djL5Orsqjndxp6e/5JcqxBCm?=
- =?us-ascii?Q?Vyt80+ZchAb6VNKhDCxcqrAtNZSjh46RDNpDo0Qk1iQJspA6pT6DbNgXVdSL?=
- =?us-ascii?Q?pbYcCl/gGxHLVuaSzgsFNNC0BaNC2PQmfExGransGu2w6jcWkIFBjmxK1elJ?=
- =?us-ascii?Q?mp8ZRTpfURbL8xse/W3J2QkADPGs8Jamomg6zlLc5+EujSKIFPg+YuNLY3Kb?=
- =?us-ascii?Q?Gu81843/iJW6GeY1f/PYzLVEdOXMoqG+r95GA8V3QXhQxjJdheM/lsHXbmv6?=
- =?us-ascii?Q?s4ygsb8Bp8vY4CPsyJ4AGj004bVFGvyMMTRg7rhTroBzhUhAdX6TNQgPwTnH?=
- =?us-ascii?Q?w+q65ka9nB2Q6ehwvM3v2JvCMEY4w/aOGVtIYsgcZXknSkr9gF0TPvucZL7/?=
- =?us-ascii?Q?GM9W19KuUMVLXQPPmS4Xx0xuL/HpN9kr+c46LyUZw61PXVkz84rps40dIPZK?=
- =?us-ascii?Q?R0OyS5YzoScWRV0kyERMHd3MYONg464pHu5p5m4NzKjoUyJLaT8TVgxPqlBA?=
- =?us-ascii?Q?E7DTY6gSxAMJVJS+/noD7+DWnI72iMZh8ObitoaoyWBmRzZb0UjaGrrv4VNn?=
- =?us-ascii?Q?TsP7Hd0CCAWyyoFPKqComrTYZFqahH+rjOElrctiLck1B4q7BKK6Qg=3D=3D?=
+ =?us-ascii?Q?KV466vWQTwl/lQE0eHND9pkmYVd0FB9mN5KwSpwuPXZ44FNE7Yu7eQHscPH8?=
+ =?us-ascii?Q?XAAzkCmyM7Lxg2XVQrXSvM2iTKddjhKVF3n5K0KhiJIS1n6c4AjrmaR8iaCj?=
+ =?us-ascii?Q?MdNl9bhIf2NMguG0k+qMQTVylSDpTW1OgFbOlVjKyEKAol8B/vW+kDmRPsAC?=
+ =?us-ascii?Q?zzwjjFXGytx2KE/WPsgPv8XLRUMJVPn6UsxXyLrLlcnMErB2dt38gXrSsIMP?=
+ =?us-ascii?Q?7Pc96LxxxllyePg5LtELX//aySwdoCIj+6qVTfAktc7aYGJGwZrM1KvLEahT?=
+ =?us-ascii?Q?is7GD9VkcuME9yI5VxWbvBhU6r0NI7IOaH3JzMdB1H/URwh9EMd5ZCJEAIf0?=
+ =?us-ascii?Q?yiAEUEyedlYWS+6ghdyM8B+p44DhbqSPeSsqROxlsZNUK4/otaXyEoLna6iX?=
+ =?us-ascii?Q?dvm96cbSvomYP1mlgSgALGtAYlhIYlshs5wv1nlDrWiQJOT9pkRvgUvOfXrk?=
+ =?us-ascii?Q?6Pl1II3JGd8TY1dS2eN0irqg2Xey5mACycozYDx0zh9MdCRQss9h6WeomA6M?=
+ =?us-ascii?Q?DVD3FNZsSflWTYI/jxp2bEPETdoPs/hp+SUfWROkb1sy8LZrDfGgsDP/5da0?=
+ =?us-ascii?Q?V4K0D84jmgKHLWCpEqxqqwKeLiweYI5ZxehJxkZVBOR/AveAn1WzxtYzIhTN?=
+ =?us-ascii?Q?pzyeke+JKuYeWANcNRljJ8Xwq14zaznlBVhnY4CbzGS+DpmhqyCR6Ynea07O?=
+ =?us-ascii?Q?CWv+gy8D21agvXyOcEdWVCdigiAe6HRqyIAXGoCe8VeHEIcLHeaMIfd9b8s4?=
+ =?us-ascii?Q?3CMytDPFjtZmNghSqrZn0oSX88jxQxvujy1izhDAFvsoKgd8D+TFnasXdZT/?=
+ =?us-ascii?Q?NO/VI5wP+e9NiXPNUFucRCZAd8PNi8hwGzDhhxmDFpL0smU5q5Jn6kd6CH45?=
+ =?us-ascii?Q?H6Wpw7KkSEYINrUo2F8mPao3s6SHE+jBTi1qbQM+WzmabMTZXpo1u9nQmndm?=
+ =?us-ascii?Q?p5/fqxiQh6sdczhwXDoN7uAZ9HhWEHNMfnM8KC9sBHAYAGoz6CvKp/lEJ/Gp?=
+ =?us-ascii?Q?hR5NzjlCCxTPbTu7fn2+SBjC0b+rQWwpRQAoG/vee9DEgRHa8xY7EwDw27/8?=
+ =?us-ascii?Q?ECpDK0+OZy6OgiYTf93AJzrIoxAkNww8VN9xgQlz9l98BWwx3CuROEl+a84x?=
+ =?us-ascii?Q?/XlkWY7X72h1VvxxO5HgRI0Mpdn57QLvS4DPWeDr0KVVPFe5Zx7WnKKHb8Bn?=
+ =?us-ascii?Q?qYc8ZtOKgzQnTpu+Sk5KQCauITOr7N1fn2UFuGVKyFsRHLRlwisFkkV0AIqI?=
+ =?us-ascii?Q?eAxK3YHXZyD7kFiL21HBb5SFepTuVI/LRRogzRORnB3vcpghSNcvKewTs54D?=
+ =?us-ascii?Q?ngPb0SnUfR+k/Rv2+Ko5xGltdhaWd8XDBGFjOK7/PazOlJkFz84dCi248DgP?=
+ =?us-ascii?Q?mtxAA76QNq/sbcOj+SCdJ/AB4HoTzX7BDbP6MbpXdE1onyQHA5ooywwc6rCo?=
+ =?us-ascii?Q?ijqlXHtBJ0pt1nT0wdJI00s194DlGRXydMqr6HLpoxWej0gOnd7iHg=3D=3D?=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?JUq5/7kFY9Uu2zAT/tY9JKGF+FC/jHxE/yOZ/CIWu+ZhLbLx7oVvrBKlg5m/?=
- =?us-ascii?Q?a1d+39fafUrYg3dIIJfzzJfv+eZOWYmLdb3JUDa31B8bluulgB8P8fRN3hEs?=
- =?us-ascii?Q?KrR5NZbSRnzCUkW0HbqYRc31rpJNxgksm0KCCjOEdeHAvWcswWefm59iTlvL?=
- =?us-ascii?Q?1o+OFzwHuszx0AuK7GbxEr8Ks9i0BOoFM2XAu3I/2vWHljUn8/xQ7JmEHeeE?=
- =?us-ascii?Q?qf9RYE7TEK+MPscvNkGpuByN2+kEIhCkR3gcaw5hj25eG6o2P9dOrNSa/lKV?=
- =?us-ascii?Q?QB9tXwiqxmR+nimgQrdO+8pQ0v1/CwGwMTWEW2mGgKeRpASjykyPDVC432p9?=
- =?us-ascii?Q?qoH/stYmf9wKdOGMkTsnsOl9WfuLrAOZMeqtzj9Bu54gSou8coBPRcl5YclU?=
- =?us-ascii?Q?pmRVMmiYMGsyVVbnPd4UTybJekPeIRAcOo/qPlt/Dh2Y+rifPBx8H4qc1FFT?=
- =?us-ascii?Q?ToiuFuDn9JbBWl0Q+YIshSxi7rdHD2NprxUDaOCo58JbDVd5si9abxcIzjg0?=
- =?us-ascii?Q?B2yG1UY3FspogpG+nkByxxYHnV845JAISqaQ4uo7F8CDluQU2FBdaQZg3MmV?=
- =?us-ascii?Q?cESl+j5aZgo0cruLPSr5ctuJXLnU5Zb3tIwyKYv+/sKhsVaKFDSW6SmYn/xC?=
- =?us-ascii?Q?MkFkO24DzCr4MqSgIJyKQlcMBRTWQe5yrJrGul5zdFLljayPic/LcHr7nLht?=
- =?us-ascii?Q?6YmxOWeBDLpHV900eaN883bve7lMpZpCYqjga3T/sm4dFN+Y91h6YBpZrjNP?=
- =?us-ascii?Q?OTsTnYHc4DfAOEEW8wcGccfxocb0JSQS8EMQld6tn9Un00vaL9SkZVenypT9?=
- =?us-ascii?Q?I3Kq8ktbHIy2sTNHryXyKlyD4bCBG1QGlIW9gHShpoCYviplN/Wf+mlCSnCE?=
- =?us-ascii?Q?2E59Zbe8ngILqGGghsUk7RkyMXnL5OYdxfo9IUMAhJnctOYCIv/ntSJm+fiM?=
- =?us-ascii?Q?ji1/iBj6ThV3mRxmHIT3s2IjWt4OR0t8sJV2W+F0CVg8x9aOmRCbMh2AYyM/?=
- =?us-ascii?Q?IIwUCv4mwftKJy+6g17dP000RsEnxYrPNFe7f5BR1PIiCpV1yddJBb7K4Qpi?=
- =?us-ascii?Q?El9dtfet+z9gA1uJA082dR8j1RX8sEty/PHTBUUOX7w+/v+1jlB+nmVNbLIt?=
- =?us-ascii?Q?Z5njeaUfl3nN9Pop4jZi+b2SmCCp0vLV2ScBrkGIlDXAkTdExz/INioeyeHI?=
- =?us-ascii?Q?ebvoMfiAl4mbD9cGbznuBvLfbiPMozKegOtYKqVtF2Q8yPvEUnIhvEPiyj/E?=
- =?us-ascii?Q?M65b0wN6sPaVudEr2TCWaG5y6uht4OnEAbzFlWkbegIY8NIANxAcOkYq7y2Z?=
- =?us-ascii?Q?aYPpamA2qcDz/BQfpY7Z3I+FOec9GD//Wt87rRGcNX/dLZwVcnfDHqqU/msq?=
- =?us-ascii?Q?05AGp8LgQuUEcvfDpaSEh4OyqI1yg9mfBEYMClTMvzpPMq2M+umk2nhUgfwc?=
- =?us-ascii?Q?MW3yV3fYn7dB4v7EzND2hV4CACHm2ItyAIX1Ss/aPLTZpmtAVOk/rhbY2nv9?=
- =?us-ascii?Q?uVA7xtAIasB6hBp2PKwmvAxKZFOHD4y5lCV8zDp0esYl9979t4cqNHb4mF2a?=
- =?us-ascii?Q?+LuFbfxjuGsGxZMNFDs=3D?=
+ =?us-ascii?Q?DfcRSK0JrencFmquPgiGFjEq1NzxaasvF/Ofeo/RdAnBqTSGQBSarHIPCfAb?=
+ =?us-ascii?Q?JYIuKqBeqtOM7GAzh1eiinZhNPBhK4rMP0U3BA3BNJfNsxSaJyxiBMF4ujpy?=
+ =?us-ascii?Q?5lhx4N+z18yDiwNF9tJ0nBMOCMH7yrsWsPVtzdRMmgj+4MoNR8v3EsSOFhIo?=
+ =?us-ascii?Q?G05bk+kypYiZn5TsBb5Ljow7kyN1Et9mVDVUpHm9fSfFRFJxjXRNWTzKEqtv?=
+ =?us-ascii?Q?q4FMdcHxPqF3b452J1SZHnCmQ/t/4Pm8/mrYe2Hhy20+aDRiFZAC3CsJXRod?=
+ =?us-ascii?Q?X3Xouzz0wbTzEw+ai1Kg6TIY1spFF9hrXuVtlOfZIuiqHQfvWQDTGW4yk1nG?=
+ =?us-ascii?Q?/Z9s7nCULhoVQJo8w3cqr7Jwosnn80pGFWEu1cw6TbVKhDWNz/jrP1SLzWBZ?=
+ =?us-ascii?Q?wP5ekMCbvUwNYydiuQH8Y410PaeG9+F8GKB9lm9nUTingV1RXawKftKjAD7l?=
+ =?us-ascii?Q?0XGF+26i7qx3NjeLDaJRiaPR9x1CijuTdMsR1xU8b0ssvqTesZW2lj//laQv?=
+ =?us-ascii?Q?2qd3UJd7c4umOxXIVLoWGmxfdFeFYlxsyuYsp03vbFqbhYavszXRIwWqerWT?=
+ =?us-ascii?Q?LcqC0qWHlyZRFhuik1l8y26TjIijoe6SCPMwk2OpN77l/qnOYPbQ0ctCNd5h?=
+ =?us-ascii?Q?z8sXkud/a8J8EeQNY6p2nU4YNSdF4wLW64iTsHfpNdDA8bB8labae263OJJY?=
+ =?us-ascii?Q?urCWWfxVLqW3iSWA6YLBgsXgAK65fT2566gsyEkx8TRi8vemfvTYZFI2axLB?=
+ =?us-ascii?Q?1yxHtnhsqTCtjdRtP3BRkPGaOLdWq+Qr7+79cMQhb0A7cDoIgalLa6H49d/y?=
+ =?us-ascii?Q?BYI9Ji7WEEupkCPTGaKw6zQOOOvfsH9Gmr10sUL6pq9kSku8OiZVJANjiqmw?=
+ =?us-ascii?Q?Ex7HVIsn1CvD70ZdSaRnBNbtKOI2jrgg92qHDr5+tPqZ//huphDICSjvW74p?=
+ =?us-ascii?Q?exRQT0sqx8UYVSxuJrxuQ5CzbgmNLN7zuiTXVs4NSjyJK53F6lyyAeSI1tfS?=
+ =?us-ascii?Q?l0r/6h2QZNdr5+RN2izgT31n2eCqgiovjf5v7TvYEopGukwhzc/egyRRuMim?=
+ =?us-ascii?Q?tfmPhiuI+x9YN5SAxoH5kl3lg6rmfZB1hVnysDSx/Xc5ZmeCsbTMrGU3HK0O?=
+ =?us-ascii?Q?MYXRBXgDF0mnS0q6jWFruqM2bJ7RxkRZdXlvb6KPYvO/RxtDWVYC3tC3+aXt?=
+ =?us-ascii?Q?g0DrETVbsheDpUL5cdSzgLzDJVoNM40U7ZWrvpqrRvfvT3YEpzGL93U3X1fX?=
+ =?us-ascii?Q?hBfdStv79a6IIQLrVb1im0kh4Q01zoKFMXlQOYPvTy+XYa/fIDOpSLFK3hQq?=
+ =?us-ascii?Q?DoQzr+LtW2BtVNRbG5xxha0je6SnBleSplHiRFrh1JYqTueHg0JmXsxSsfUG?=
+ =?us-ascii?Q?Wv6viqh0crmMUYqznVC8aXjM14sUHnV1licJYlGTNwvlSD8+QsIKIJVC+B2r?=
+ =?us-ascii?Q?rA3g5+QEOZ7reeZ4KRQbvUs+9owTa39F3cxH8w25MYAABP+ZBA17WnsmMkFs?=
+ =?us-ascii?Q?lL4J0QwKvUHwzx6LC9opCcedei2CXTDsNRtXRrKlFUPwxRMnPk+IDCoGiq6N?=
+ =?us-ascii?Q?KZBpjg++1XC6BgXXT20=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -135,63 +135,202 @@ MIME-Version: 1.0
 X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e93c0ae-5d07-410a-09e2-08ddb4a704ce
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jun 2025 11:45:58.9308
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09819d72-5c09-43e5-1d5d-08ddb4a8f0a0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jun 2025 11:59:43.9795
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zqvUp3gW7m5nMiSxrg07On1YJrzl96foxfLy8Sm32Emlo1sk4mHmqVPqLHvW77tMmjARfUoXjQznanNHtpNXAw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6739
+X-MS-Exchange-CrossTenant-userprincipalname: gQQdtDOTo9qWgwHYOA/Wmg8P4x+Lvi/TJWoZhxqMOvRauQzjnH7dGghxZZE0nTnIakrf27zyhstGoqW9nn1ehw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6212
 
 
 > From: Zhu Lingshan <lingshan.zhu@amd.com>
 > Sent: 23 June 2025 02:07 PM
 >=20
-> This commit documents feture bit 42
-> VIRTIO_NET_F_GUEST_RSC6
+> This commit allows the driver to suspend the device through a new device
+> status bit SUSPEND and resume the device running by re-setting DRIVER_OK
+> bit in device status.
 >=20
-> Fixes: 94384142 ("content: Declare virtio-net legacy feature bits 41-42")
 > Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+> Signed-off-by: Jason Wang <jasowang@redhat.com>
+> Fixes:
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgith
+> ub.com%2Foasis-tcs%2Fvirtio-
+> spec%2Fissues%2F229&data=3D05%7C02%7Cparav%40nvidia.com%7C3085ab
+> 378f264b5c845808ddb2313478%7C43083d15727340c1b7db39efd9ccc17
+> a%7C0%7C0%7C638862646595099882%7CUnknown%7CTWFpbGZsb3d8e
+> yJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIj
+> oiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3DPf2ub%2FwVzdmf
+> A1JjScOJ7D%2B%2BNea9XgVFYdvvDQxym40%3D&reserved=3D0
 > ---
->  content.tex | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  content.tex | 59
+> +++++++++++++++++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 57 insertions(+), 2 deletions(-)
 >=20
 > diff --git a/content.tex b/content.tex
-> index 1efc2a5..2e8da46 100644
+> index 2e8da46..c987334c 100644
 > --- a/content.tex
 > +++ b/content.tex
-> @@ -99,10 +99,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of =
-a
+> @@ -42,6 +42,9 @@ \section{\field{Device Status} Field}\label{sec:Basic
+> Facilities of a Virtio Dev  \item[FEATURES_OK (8)] Indicates that the dri=
+ver has
+> acknowledged all the
+>    features it understands, and feature negotiation is complete.
+>=20
+> +\item[SUSPEND (16)] When VIRTIO_F_SUSPEND is negotiated, indicates that
+> +the
+> +  device has been suspended by the driver.
+> +
+>  \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experienced
+>    an error from which it can't recover.
+>=20
+> @@ -99,10 +102,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of=
+ a
 > Virtio Device / Feature B  \begin{description}
 >  \item[0 to 23, and 50 to 127] Feature bits for the specific device type
 >=20
-> -\item[24 to 41] Feature bits reserved for extensions to the queue and
-> +\item[24 to 42] Feature bits reserved for extensions to the queue and
+> -\item[24 to 42] Feature bits reserved for extensions to the queue and
+> +\item[24 to 43] Feature bits reserved for extensions to the queue and
 >    feature negotiation mechanisms, see \ref{sec:Reserved Feature Bits}
 >=20
-This does not look accurate.
-Bits 41 and 42 are used by the device specific type and not generic queue r=
-elated mechanism.
-In this case it is used by the net device.
+Ignoring this delta as the fix of patch-2 will change this.
 
-So right documentation should be,
-
-0 to 23, 41, 42 and 50 to 127 Feature bits for the specific device type
-
-24 to 40 Feature bits reserved for extensions to the queue and feature nego=
-tiation mechanisms
-
-43 to 49, and 128 and above Feature bits reserved for future extensions.
-
-> -\item[42 to 49, and 128 and above] Feature bits reserved for future
+> -\item[43 to 49, and 128 and above] Feature bits reserved for future
 > extensions.
-> +\item[43 to 49, and 128 and above] Feature bits reserved for future
+> +\item[44 to 49, and 128 and above] Feature bits reserved for future
 > extensions.
 >  \end{description}
 >=20
 >  \begin{note}
+> @@ -629,6 +632,54 @@ \section{Device Cleanup}\label{sec:General
+> Initialization And Device Operation /
+>=20
+>  Thus a driver MUST ensure a virtqueue isn't live (by device reset) befor=
+e
+> removing exposed buffers.
+>=20
+> +\section{Device Suspend}\label{sec:General Initialization And Device
+> +Operation / Device Suspend}
+> +
+> +If VIRTIO_F_SUSPEND is negotiated, the driver is eligible to suspend the
+> device by setting the SUSPEND bit in \field{device status} to 1, and the =
+device
+> SHOULD set the DRIVER_OK bit to 0 once it has been suspended.
+> +
+You ignored the inputs.
+I do not agree to add the "SHOULD" normative wording in the general descrip=
+tion area.
+The reasoning is explained already.
+Please adapt to the existing style of this spec to keep the normative in re=
+quirements section.
+
+If VIRTIO_F_SUSPEND is negotiated, the driver is eligible to suspend the
+device by setting the SUSPEND bit in \field{device status} to 1, and the de=
+vice
+sets the DRIVER_OK bit to 0 once it has been suspended.
+
+Is this really that hard to write above way?
+
+> +If the device has been suspended, the driver can resume the device runni=
+ng
+> by setting the DRIVER_OK bit in \field{device status} to 1, and the devic=
+e
+> should set the SUSPEND bit to 0 once it resumes running.
+> +
+
+Similarly,
+
+If the device has been suspended, the driver can resume the device running
+by setting the DRIVER_OK bit in \field{device status} to 1, and the device
+sets the SUSPEND bit to 0 once it resumes running.
+
+
+> +\drivernormative{\subsection}{Device Suspend}{General Initialization
+> +And Device Operation / Device Suspend}
+> +
+> +The driver SHOULD NOT set SUSPEND bit if DRIVER_OK is not set or
+> VIRTIO_F_SUSPEND is not negotiated.
+> +
+> +Once the driver sets SUSPEND bit in \field{device status} to 1:
+> +\begin{itemize}
+> +\item The driver MUST verify whether the device has been suspended by re=
+-
+> reading \field{device status}, examining whether the SUSPEND bit is set t=
+o 1
+> and the DRIVER_OK bit is set to 0.
+> +\item The driver MUST NOT make any more buffers available to the device.
+> +\item The driver MUST NOT send notifications for any virtqueues.
+> +\item The driver MUST NOT make any changes to Device Configuration Space
+> except for \field{device status} if it is part of the Configuration Space=
+.
+> +\end{itemize}
+> +
+> +\devicenormative{\subsection}{Device Suspend}{General Initialization
+> +And Device Operation / Device Suspend}
+> +
+> +The device MUST ignore any operations on the SUSPEND bit from the
+> +driver if the device has not been completely initialized by the
+> +procedures in \ref{sec:General Initialization And Device Operation /
+> +Device Initialization}
+> +
+> +The device SHOULD ignore any write access to its Configuration Space
+> +while suspended, except for \field{device status} if it is part of the
+> Configuration Space.
+> +
+> +A device MUST NOT send any notifications for any virtqueues, access any
+> +virtqueues, or modify any fields in its Configuration Space while
+> +suspended.
+> +
+> +If changes occur in the Configuration Space during suspended period,
+> +the device MUST NOT send any configuration change notifications.
+> +Instead, the device MUST send the notification when it resumes running.
+> +
+> +If the driver sets the SUSPEND bit in \field{device status} to 1, the
+> +device MUST either suspend itself or set the DEVICE_NEEDS_RESET bit in
+> \field{device status} to 1 when it fails to suspend.
+> +
+> +If the device has been suspended and the driver resumes the device
+> +running by setting the DRIVER_OK bit in \field{device status} to 1, the =
+device
+> MUST either resume normal operation or set the DEVICE_NEEDS_RESET bit in
+> \field{device status} to 1 when it fails to resume.
+> +
+> +When the driver sets the SUSPEND bit to 1, the device SHOULD perform
+> +the following actions before presenting the SUSPEND bit as 1 and DRIVER_=
+OK
+> bit as 0 in the \field{device status}:
+> +
+> +\begin{itemize}
+> +\item Stop consuming more buffers of any virtqueues.
+> +\item Wait until all buffers that are being processed have been used.
+> +\item Send used buffer notifications to the driver.
+> +\end{itemize}
+> +
+>  \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
+>=20
+>  Virtio can use various different buses, thus the standard is split @@ -8=
+72,6
+> +923,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bit=
+s}
+>  	\ref{devicenormative:Basic Facilities of a Virtio Device / Feature Bits=
+}
+> for
+>  	handling features reserved for future use.
+>=20
+> +  \item[VIRTIO_F_SUSPEND(43)] This feature indicates that the driver can
+> +   suspend the device by set the SUSPEND bit to 1.
+> +   See \ref{sec:Basic Facilities of a Virtio Device / Device Status Fiel=
+d}.
+> +
+>  \end{description}
+>=20
+>  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
 > --
 > 2.49.0
 >=20
 
+Rest of the requirements and description looks good to me.
+
+Can you please fix these 2 small things in the general description and patc=
+h-2?
