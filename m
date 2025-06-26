@@ -1,184 +1,160 @@
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8F12E7170
-	for <virtio-comment@lists.linux.dev>; Thu, 26 Jun 2025 13:40:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.244.83
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750945224; cv=fail; b=ZcmvU1/V/lqVbU7xT6eF5VkdEQk/MLzBrKt0e4cL1dyZvtwjquUVSaZDeFH3uIG9o8eippdx9+JQgZkaN3ErO7bdCPOotE9XF4kl6u/aYCcG3gZurkYnVhuu8wyWaXQkKPO+zQOUJEikn5etM4De1exaRM1qoGCJ2OakhxR1g8Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750945224; c=relaxed/simple;
-	bh=0D22hMZSQn/eXWV3100uFaMnGfHr008xK/p+//xvTOY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=j1bfQX2q7fvFHv/2wD541N5WbC8jQSai3IAOee9YkrRU+SSAVVb/YTFb1Kl4qIA/yxvCoFDClUAW9fdq9IrmuAReBtaNNc4wFkTNYUHfcWoG20YqJS8dsXaJ/kCH/Dd21Kxp16nlL4bxJYpoRlUDbp6e76B6lT0GcDGSyzTAqhs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=tcuQK+J+; arc=fail smtp.client-ip=40.107.244.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E91E72EB5B4
+	for <virtio-comment@lists.linux.dev>; Thu, 26 Jun 2025 15:42:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1750952581; cv=none; b=rC+fpjj8hz5YfnJT5SbOoHjBWXCb3QHcSjawotaulObrPznpca4eS3PsCDwu5loZlyAlpZQqaGrNTykymDIKemrlR/McKwDdsHhQvKatCg+3jeFAEHPgkNjA9Szfoh0/CfHEw2DuCe2BTsaLCYn9ATfV96AH+PBAb6Yq4RW1HEg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1750952581; c=relaxed/simple;
+	bh=A8gedh7zCZe2rZCk9FQswqWZQhLe7Fc6yB3quQt31oU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=nyVx4q7WcId4OFQG8Jj4iLLtzGTsq9Yq12i43nkkyDKQZhHiIs44vDrY2plJGiyNIcPLuqWaNVNw08tQ+hg2N+35vRhN+lAZD796xn2Ffd7tJluWWEu4sJxGg+G7td+jmCoyxpMI/6jensFvDo568eULWYTmDP0aUemQ0700bEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cNurzM4Q; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="tcuQK+J+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nic2lOoRrZcAEcc3lQVXfmbjQ4m03z+j42SUnehz1MC0jn7NidBn5SFSs/OjvL8UumC0VIbhfZ8BWboFnFlsMdl0ska2OyRCMzi0EqWTwXsoT4RYhRdF3wVIQY0muho4mnTeGZkRFqCZr6SwfiZuqVv+3AsleW1CHktcxK4eHPU3Q48UyZr8HvDaqdNnwbW86beTG+l/QgMy5NXal397YFYxkRxNNF+cadyNCUWXn/Cu8PIbe/nx5YCGyAOHKEjffZAR1zKQD+1rxkvxBK7DVrwbQ8D67g0F7KwuzwzyKto7Dtja6l7AH3Ei3xL5JudJJGb+Y5wQekYpZmDMkXxoTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0D22hMZSQn/eXWV3100uFaMnGfHr008xK/p+//xvTOY=;
- b=KK17Vw0R2RjNKkSlRRmM1WIuGn+748Eo2naQLnNewsj3FIkR8WJ6Se+vXGGTAMCTMnwFGA8ldjsZm59IMx8vcfjpxo3bP+jZK+WB8MuL4Gt6fWEBYLBOl414MI2EXswLB8l3c75e8tEv63zUbITD+2eYZPqkw7NY46HeD5aUk9JAxgZID16U72nWfo01dsQc8wmKfT/tBL8yUeRuBTJzon0TWcijJmB7SLl1SHrHlb0zTr/GfOgBIU4bUtMP3Zx6ru1mV1MDkP/KJ98d21zzpcskvY8/2kzifkOSwFULHz9Jw8rxnXrxXGNXp/IuiT6hVhEavyYmaHTA/lTxd40Qmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0D22hMZSQn/eXWV3100uFaMnGfHr008xK/p+//xvTOY=;
- b=tcuQK+J+6ABSLLVaQWtAutfp4Gu6fsQrjB5Owo/7BEDA5yx5LFUDOI0M3pEp/8mqqv3qmLk6MUevtlj8lU2CNBwfRZzJ0xAk079rF6gE/DAEnvgw9pqWuAhcKshHtz3kNug4ntHm3SjWk5dNS9SjQdXnadriTxBM7u8QymmN4vVAKyvF/aSGbMqlTvt6JsOVxdTIXfv5cGJUlZ1hiG1/SPqWCgwT+6lRuNLZ/qgz8Q7+FJqvb5kPTp2FJYyzHNNtIPNqRX1UyyJB4r1CkGQy8Ncv+w3PfZRweWB/McY4pXKKcIVBDc7ebUBr/cjvV0WfwD8DcyBkEIuKQDAh1lwHpA==
-Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
- by CY8PR12MB7124.namprd12.prod.outlook.com (2603:10b6:930:5f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.29; Thu, 26 Jun
- 2025 13:40:19 +0000
-Received: from CY8PR12MB7195.namprd12.prod.outlook.com
- ([fe80::e571:5f76:2b46:e0f8]) by CY8PR12MB7195.namprd12.prod.outlook.com
- ([fe80::e571:5f76:2b46:e0f8%4]) with mapi id 15.20.8857.022; Thu, 26 Jun 2025
- 13:40:19 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: "Zhu, Lingshan" <lingshan.zhu@amd.com>, "mst@redhat.com" <mst@redhat.com>,
-	"cohuck@redhat.com" <cohuck@redhat.com>, "jasowang@redhat.com"
-	<jasowang@redhat.com>
-CC: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	"Ray.Huang@amd.com" <Ray.Huang@amd.com>
-Subject: RE: [PATCH v3 3/3] virtio: introduce SUSPEND and RESUME feature
-Thread-Topic: [PATCH v3 3/3] virtio: introduce SUSPEND and RESUME feature
-Thread-Index: AQHb5BoUXKPusOin/kiYESw2fMoAA7QVWGyQgAAbAACAAACOUA==
-Date: Thu, 26 Jun 2025 13:40:19 +0000
-Message-ID:
- <CY8PR12MB7195279118F1D536979C12E3DC7AA@CY8PR12MB7195.namprd12.prod.outlook.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cNurzM4Q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1750952578;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DmLEH/YeYuw91FUUujareuSIiyD3+jyLBnv97XDaLT8=;
+	b=cNurzM4Qcp5513pIXyFIJJD/M8UhNPKXw3gYvA7YUR0StbDdJnVKRIsuU9rKUYXzS3nTeW
+	6vGvHZ+hLezoPBh0dUJJLrfd2GULgOIylxgu8x3V0VNwgBq+tDn9yqwRSngffETrzSd4+p
+	dIX/XODptyFIP1IyVr9mpp/b8aDDDO0=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-652-HljZuB2dMlCH_neyy_Wzgg-1; Thu,
+ 26 Jun 2025 11:42:57 -0400
+X-MC-Unique: HljZuB2dMlCH_neyy_Wzgg-1
+X-Mimecast-MFC-AGG-ID: HljZuB2dMlCH_neyy_Wzgg_1750952576
+Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1A956180028D;
+	Thu, 26 Jun 2025 15:42:56 +0000 (UTC)
+Received: from localhost (unknown [10.67.24.50])
+	by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 742FF195609D;
+	Thu, 26 Jun 2025 15:42:53 +0000 (UTC)
+From: Cornelia Huck <cohuck@redhat.com>
+To: "Zhu, Lingshan" <lingshan.zhu@amd.com>, Parav Pandit <parav@nvidia.com>,
+ "mst@redhat.com" <mst@redhat.com>, "jasowang@redhat.com"
+ <jasowang@redhat.com>
+Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+ "Ray.Huang@amd.com" <Ray.Huang@amd.com>
+Subject: Re: [PATCH v3 3/3] virtio: introduce SUSPEND and RESUME feature
+In-Reply-To: <092e01c6-1756-4293-8183-8efea6720548@amd.com>
+Organization: "Red Hat GmbH, Sitz: Werner-von-Siemens-Ring 12, D-85630
+ Grasbrunn, Handelsregister: Amtsgericht =?utf-8?Q?M=C3=BCnchen=2C?= HRB
+ 153243,
+ =?utf-8?Q?Gesch=C3=A4ftsf=C3=BChrer=3A?= Ryan Barnhart, Charles Cachera,
+ Avril Crosse O'Flaherty"
 References: <20250623083637.296041-1-lingshan.zhu@amd.com>
  <20250623083637.296041-4-lingshan.zhu@amd.com>
  <CY8PR12MB71959BD1BFE6319F6E05A7FDDC7AA@CY8PR12MB7195.namprd12.prod.outlook.com>
  <092e01c6-1756-4293-8183-8efea6720548@amd.com>
-In-Reply-To: <092e01c6-1756-4293-8183-8efea6720548@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|CY8PR12MB7124:EE_
-x-ms-office365-filtering-correlation-id: a6cef17f-615a-4e93-8853-08ddb4b6fdf7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?hyI36p5E43RqE6Kmp4B+Lc/3feAgWTBbE6YTjEsrULQQj2/Wc732vOKaIUN1?=
- =?us-ascii?Q?IcmfHMord4atzQ1eRdqR6bjev/N/cWz51u5qPrsMGPRpvzwOpspUDK9LlErc?=
- =?us-ascii?Q?mwCG+vzwrP38qQmAH0FYXe8LmbYPufjfY1rN52zR+u6NzIoGje/3uudDVlo1?=
- =?us-ascii?Q?kaOEK/6502/JjbKzmjchW9oceAwQhCeurhDh2BezXVbFPsiOYfeYH3ejeZ1n?=
- =?us-ascii?Q?P3iVAEM6hwwCwp9XSJZyDkJl1hGYYLxzaevGR6tEx/IXHEAmv66vM/JJ5GmK?=
- =?us-ascii?Q?SF094ek0a4PfuK/ic2xm6j/Ed7aXL+GrXYHtB5gvkMEeaQ1A52ADxc7CIJyi?=
- =?us-ascii?Q?9hIp05+S7MAnta3nMTyqBRnlTD3BcgnsftMJgmWk+QumNcQGI6obybMpU/kj?=
- =?us-ascii?Q?DvTlz5bdq1ZfsSob/aW76NkpG+dLAQRQ46g5lMbUHV138cdwDYH7fgCbQRoF?=
- =?us-ascii?Q?epgHbjKnXQ0ShsxRWy9DaIsGSmVgRQy1m8RJYR0jrFlrjkdiDTf0L1QkjgCv?=
- =?us-ascii?Q?ceI5EwhpAn8d62v1xWkj9HRp1qas83GpNvFWQF38Dcx6/9qoXsxxxgS3/6nD?=
- =?us-ascii?Q?gfJ568T8P058ikYS8MEhgL9w2CflT5bADXQ6yG24qf2H2Y1Xk+1mVerHX1s9?=
- =?us-ascii?Q?YoazhDSrpsr04jx7Hfv2FF2cwh5YTG71ZUzZc7b70L2EfXOeWR/7THd28aQy?=
- =?us-ascii?Q?ZgvqXSGdavfN772O7D11OcqnPXoUmZXHFZ9mNBfX5gP1ZMrSU8tevjpmd/kR?=
- =?us-ascii?Q?/aTIHorpSk9LgHy+ttARhqSQrSPaA12zmCyBpC4JawG15bmPQEX6M7Q1k9rq?=
- =?us-ascii?Q?DsVbKultnM2VGy/1FcegVpXTRi7AbaIwjYoF1VOzXW4LpSCZShI6jxv2gEEQ?=
- =?us-ascii?Q?y4laxoKwZD+iDlPkbcCbCppgGr5/u6sRIbpeOriEt40RmaF54ugFLFCMnDWA?=
- =?us-ascii?Q?OxTwbPs0UbX6AnuMsQUWKPd/7RyF8cKhcos57fb70r+erAVA5YczLsA9c++h?=
- =?us-ascii?Q?7RR20ehraGBJKcPso7ZCgtyDFo/z15SqnGwz0PfJYMvGbtcL3vxhByt+Duii?=
- =?us-ascii?Q?TYi90jQeyjxFlOnGdl++hoEyx767m05vAFtQSHS+P7sfL/6LQ1/4SpbfzAFd?=
- =?us-ascii?Q?PYE3yb6VyZ5O82/Sk7u6BpMbwYClf/uM7S+venlkArebGY7uXVK4AN9Z3jAT?=
- =?us-ascii?Q?Vv6pxKyJD6KATajrUJvB4+7bixHegbldNncyeRpmQIPMf91RNFpT2/orQt3B?=
- =?us-ascii?Q?V/JVCCq+r3y5CZ+FfrzRZ+QX2p/2BN0nUO3L2K1SlkDxhhA1vfFMqelNSh3/?=
- =?us-ascii?Q?i1mhPmC8Crv4Armcext8JeQVX5Zn+UYlPKEVDbmgSZEz8u5PfVs+o83tsj73?=
- =?us-ascii?Q?gwTS124z/tmPqI8dFX83QrZVuz/9xBuE+8IQihTxkuthNqhnULzCmKQDjLaP?=
- =?us-ascii?Q?h8XnlQa4n3Q=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?9PaCnINkJ/NWWy59I1Fjn078T/Cc7c0jeNTQSGX3FJf+C637KkWemDiL+SmQ?=
- =?us-ascii?Q?Lns5q0eMKGEOzTKWPqyTx1jTxZ6EJTMMnUr44Dlm7Y9UZTf93UxBWBkkniX4?=
- =?us-ascii?Q?BJEQ1Pp7NlkFptq3kRZ8b6GS5jIM4RqVXE48u3FYUPbhKJYL7ptZXcxus5gY?=
- =?us-ascii?Q?x9VCQb5Cy7lKMqyN38w1yo5tt1WQWhtqve0QkrTZzLv4mxxYhIwM+MmEioTM?=
- =?us-ascii?Q?qCHMMwxUbfj1UDzZEJSuuTwvnzHvppRK1fyZx0GWJp1ufRzkz9o86lv+8HW8?=
- =?us-ascii?Q?U7Wi9siLR/UlmrUkkVJZIqF8MJCrKM7No1cOoW/qz/0pm/e2cZQ2ejZi2Qtx?=
- =?us-ascii?Q?PRVzDy1UBKqU0GbKHXESFW9NqMUidjFFFsn3fRBeOIFP11FMGawdjwP3CKTC?=
- =?us-ascii?Q?U+nnJ39ueGvF+aq49/AHc6K2CTKnf/+F9UcSsht/ofQV4oPozb7LF6P1lYWy?=
- =?us-ascii?Q?xeEITO1gv2im8X/ffIP/RKmnpRUyey29hoG4Wim+QQcdwgZwJZzPMl3UZsA9?=
- =?us-ascii?Q?QD3X58kcZIYMd3UJKz4z3n8QbZOOFuZQpg7chvULyqhERu1dSAC/NQgtyedL?=
- =?us-ascii?Q?7mqNwC2LOhdWjIkgWQX5zTccs6fxFjiecLFENsuE/RqHo8Sq557j4UmwnGCi?=
- =?us-ascii?Q?P/kS1zCOjKQ6hcrWCHX1U/0GfU8o/BLddLzwfmERLdYDt5Z62994keod7zJ9?=
- =?us-ascii?Q?shaTuwdr96Pg9zOVL64wzpJfYjWYQjTZwwMQz8YXRLyNAUYSI0240NNSGeDy?=
- =?us-ascii?Q?bMLbTvicSO57OWmxEOj/EeyHrVNxeLFdObyd/qXrxKRvHyZBdxpYqb1d6U9x?=
- =?us-ascii?Q?O4nGG5R2AXnQ1mp6mj+EiQ4JB+SBCTMRupeFQNqkNguitcLqgqoIzN3lvgmj?=
- =?us-ascii?Q?ia/HAIlpoUUABYmuWZ5PgT40QZ8NIzExlTCV+GRVolBVyVzqZ8Csy+HV86+/?=
- =?us-ascii?Q?ysEx8/gX2vb75gwzIKNNSWUu6UyDJu8Smdit0vdHoJz7gRSjv9wyfURBwScT?=
- =?us-ascii?Q?v714psLHPdkU1dal/pN3NatfN1co6vSs8UB6+AC4+LlU0c7ydmOvOEJmEU1t?=
- =?us-ascii?Q?6YXmvP12qB/scf7GFtC7V63ijKxZTHt8TLNbV5+ELimgYrn0FatcuuFL2FyH?=
- =?us-ascii?Q?AfsrNZpKnnU/bzGUrfBScVRbLtXqBK/1yf+Fh9Ojjb2tko3cnWPggqabrUWd?=
- =?us-ascii?Q?CpHuETMDTnaJmk7FdUZsU4IUYp/XI2SQRIUNgujCuxxs7FI90SpUZ8+hUCQY?=
- =?us-ascii?Q?Es+scKQKl155B9TDNRlLK3mKnQDJqk4q03RTkJQY5/BXrpSQqh/OYL4UHsRb?=
- =?us-ascii?Q?1aScntLMJ22pdLkaKgvjfY23lHB0o0PpInvgQjyxe6ZJ4Pb2Wk7kt/C6+O5C?=
- =?us-ascii?Q?zZnyZ94hNKfTvmowQijjM2Fid0/0a2NVFI/fqLPLRiXV6QIkOWGfN6uQAL7R?=
- =?us-ascii?Q?6NIf/DV6cMd7/zKabFFk1Utwr+XZja3j2mW9BYx+NuKM5hyfo+p3fSJyifRs?=
- =?us-ascii?Q?H9RamH+FyD7Cnq3A/cjlSdBAnY4aYmdvzqoo+wGW+u7hGWQqrLxLuAhAnNbb?=
- =?us-ascii?Q?nkGHc9aEPCD88A5ikWI=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Notmuch/0.38.3 (https://notmuchmail.org)
+Date: Thu, 26 Jun 2025 17:42:48 +0200
+Message-ID: <87pleqh5l3.fsf@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6cef17f-615a-4e93-8853-08ddb4b6fdf7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jun 2025 13:40:19.4264
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OzqipMLsjdBT1qJAMtnUhEFq66/SB75eZcDY7Ixk8wwZ6/Vhin1juO6LlPZYJitqV1V9k4CmT71an99TQeyzXw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7124
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: c5MpFCSdElxbbQrttUvtNndk4cQ0Cn0QkVv0X4VkCog_1750952576
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-> From: Zhu, Lingshan <lingshan.zhu@amd.com>=20
-> Sent: 26 June 2025 06:56 PM
+On Thu, Jun 26 2025, "Zhu, Lingshan" <lingshan.zhu@amd.com> wrote:
 
-[....]
+> On 6/26/2025 7:59 PM, Parav Pandit wrote:
+>
+>>> From: Zhu Lingshan<lingshan.zhu@amd.com>
+>>> Sent: 23 June 2025 02:07 PM
+>>> @@ -629,6 +632,54 @@ \section{Device Cleanup}\label{sec:General
+>>> Initialization And Device Operation /
+>>>
+>>>   Thus a driver MUST ensure a virtqueue isn't live (by device reset) be=
+fore
+>>> removing exposed buffers.
+>>>
+>>> +\section{Device Suspend}\label{sec:General Initialization And Device
+>>> +Operation / Device Suspend}
+>>> +
+>>> +If VIRTIO_F_SUSPEND is negotiated, the driver is eligible to suspend t=
+he
+>>> device by setting the SUSPEND bit in \field{device status} to 1, and th=
+e device
+>>> SHOULD set the DRIVER_OK bit to 0 once it has been suspended.
+>>> +
+>> You ignored the inputs.
+>> I do not agree to add the "SHOULD" normative wording in the general desc=
+ription area.
+>> The reasoning is explained already.
+>> Please adapt to the existing style of this spec to keep the normative in=
+ requirements section.
+>>
+>> If VIRTIO_F_SUSPEND is negotiated, the driver is eligible to suspend the
+>> device by setting the SUSPEND bit in \field{device status} to 1, and the=
+ device
+>> sets the DRIVER_OK bit to 0 once it has been suspended.
+>>
+>> Is this really that hard to write above way?
+>
+> I believe you totally ignored my replies in the last thread.
+> There are no rules forbid using "SHOULD" in any non-normative sections.
+> Now here I copy the reply here again:
+>
+> In the spec section 1.3 Terminology, it says:
+>
+> The key words =E2=80=9CMUST=E2=80=9D, =E2=80=9CMUST NOT=E2=80=9D, =E2=80=
+=9CREQUIRED=E2=80=9D, =E2=80=9CSHALL=E2=80=9D, =E2=80=9CSHALL NOT=E2=80=9D,=
+ =E2=80=9CSHOULD=E2=80=9D, =E2=80=9CSHOULD NOT=E2=80=9D, =E2=80=9CRECOMMEND=
+ED=E2=80=9D, =E2=80=9CNOT RECOMMENDED=E2=80=9D, =E2=80=9CMAY=E2=80=9D, and =
+=E2=80=9COPTIONAL=E2=80=9D in this document are to be interpreted as descri=
+bed in [RFC2119] and [RFC8174] when, and only when, they appear in all capi=
+tals, as shown here.
+>
+> RFC 2119 says:
+>
+> SHOULD This word, or the adjective "RECOMMENDED", mean that there
+>     may exist valid reasons in particular circumstances to ignore a
+>     particular item, but the full implications must be understood and
+>     carefully weighed before choosing a different course.
+>
+>
+> Here this "SHOULD" exactly conforms to the definition.
+>
+> "SHOULD" has already been used in non-normative sections, for example:
+> 2.5.4 Legacy Interfaces: when using the legacy interface, drivers SHOULD =
+read these fields multiple times until two reads generate a consistent resu=
+lt.
+>
+> The spec does not say: =E2=80=9CSHOULD=E2=80=9D can only be used in drive=
+r or device requirements section.
+>
+> @MST, we need your input
+>
 
-I wont be able to reply to this non text format inline.
-So please find the reply here.
+Not MST, but you can have my input.
 
-I will not be able to take RFC 2119 keywords sprinkled in general descripti=
-on into the spec.
+We refer to the RFC for the definitions of SHOULD and friends, it does
+not say where to use them.
 
-Even worse, they are sprinkled non-consistently sometimes "SHOULD" and some=
-times "should" in your patch.
+The intention is to use them in normative statements only, so that
+implementers have clear guidelines on the requirements. The legacy
+sections are arguably a special case (for implementers who want to
+support legacy implementations.) I don't think we want the all-caps key
+words leaking into other sections (any more than what might have
+happened already.)
 
-Virtio spec restricts usage of those keywords only in the requirements sect=
-ion.
-Existing spec is an example of it in all the sections.
-
-Please refer to the rest of the spec for such nomenclature.
-The reasons are also explained in [1]. Please refer [1].
-
-You didn't answer 'why is it so hard for your patch to follow the current s=
-pec nomenclature.'=20
-i.e. to change 4 words...
-If there is no reason, I do not want to debate on this anymore.
-Both of us have more important things to do in virtio and otherwise. :)
-
-And I didn't ignore your comments, I replied with [2], which the last email=
- in the thread.
-
-[1] https://lore.kernel.org/virtio-comment/CY8PR12MB71957FB8A0337FB62A1CDB4=
-1DC6AA@CY8PR12MB7195.namprd12.prod.outlook.com/T/#m3ea175d50e7ffc9816a32238=
-4e6766492215469f
-[2] https://lore.kernel.org/virtio-comment/CY8PR12MB71957FB8A0337FB62A1CDB4=
-1DC6AA@CY8PR12MB7195.namprd12.prod.outlook.com/T/#m5d09faabdaf91a97b5844b04=
-0a19f5700c377870
