@@ -1,230 +1,344 @@
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com (mail-dm6nam04on2056.outbound.protection.outlook.com [40.107.102.56])
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com (mail-mw2nam12on2053.outbound.protection.outlook.com [40.107.244.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22181A5B8A
-	for <virtio-comment@lists.linux.dev>; Thu, 26 Jun 2025 16:01:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.102.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47042F1FE1
+	for <virtio-comment@lists.linux.dev>; Fri, 27 Jun 2025 01:46:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.244.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750953706; cv=fail; b=MiF4LzBRUT+LPVsrwCIorXywv4QOGvwoZzmpS6pj5fylWP+1JNZvTvJZh7/lcz9zNg/PIEellRGIYFoaWJV1Mdd0IYIIlkW4NDf664zbscyh8rlU1ILEX+/QW84MmYYpE6K4SuStqCFq/VYuopkUJTRFiMMUZzyKpN/jkyHftNQ=
+	t=1750988775; cv=fail; b=foorg8zdqgA9QHJXL7TkNhyfJAN6TUypQXFGSPYSftlUcmQuJteyI6tCkyvV4wojZ32x+eDn4Wwv1MK/RVDJeoezxQ9aCxu9nViny2ZcVRaaizTt1RbqInFB0wA5vjUCXyHQWjsOEr5/f1qESTZ2MXBcnqP2HPILQtoRqDntqcs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750953706; c=relaxed/simple;
-	bh=zB4Af3rQC9myXndJD/zl9cT8Pg0peF2hl5GHre0XOeU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Zk3bbw03xbhl7vt+wSuD0f7lAe7e5KC+pEzWB3n+Sp8+A4YJ5Pp4VoumM39QwW5pinDmS2po5tEU7zZ4kDqcHkQ7irQEAasm1vFkAqHgHvGRnpxM/N3O/f2JdcsZeoi5+2+efjrFdJHC71GbdNEnkHv4/TNVKQbL4OYzqJF1FT0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ThGe5Yn6; arc=fail smtp.client-ip=40.107.102.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1750988775; c=relaxed/simple;
+	bh=DwuHQszpIo72BhtmY7bRo96Qu0uEtcQMjguABBphu9Y=;
+	h=Content-Type:Message-ID:Date:Subject:To:Cc:References:From:
+	 In-Reply-To:MIME-Version; b=R9TnfydTK8DN3Cbc72jQzp17mspe9yWQTdbIOF3d7yFG4gNkS7bpm4cxbGP7cuneiGGX20E/eqwqYHCHFtqGnGUv6iJ/32gq9Igc3Dkq3bGPDVrbrgaL8nXR8O33qQuBPkjUKVBOsOQtr0avlCyfGWBUeRvXTsHJckF1dG8kL70=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=KOnxBMT1; arc=fail smtp.client-ip=40.107.244.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ThGe5Yn6"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="KOnxBMT1"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iLBbOL+Vlf7Q+d2lODrZn6q7XVUM+U/ZWZ/drZUNtHlB1A5AguobK9RxCasg6XqFadHiOI4ZJuFZWAFAZBOJmD1CvIQ4gzzL/Reqss7TK9OfxgeCYjSfO9Z2v5n+SSvYaP8hrgu64waZvwsEMwnrCI3pcKmyyHqCv4aS28g6oB64Y+LBfsMlJdJ0wtieSbtXmhLH9F+8xwMtKUDSPspYpTAk2tZ/9AcnbDyzM+nt4dNqPDprTn3C7eTMRWH/tHwa3YIJ7sELg+WB1Hdf9cP4HY/zxt7n/ZUmm+8UsMW0WZPB3MxrskrgUrdyvSOrx19Wrt9Q1MaLuZjVQnXGaHKzBg==
+ b=ri9dh9srGPH9w7kmPIoXurbusDTZSENKzvueMvilijFKnkGxaqEmajX/kB070SevXiyK+dnkt6U+B6la7Wng4Gnl5v9YsfYq5zXx4p82nNTUiM1/QF8okjlfKGBU//l2hAPx7QekXRi3hlqeldIEqfdDJgfNnGJZbrMrUkPN3Ow29JWykPswt6P7piATKmdHDd4HZXJO72FPPTzPQL8Lod7AsHKarnQK8cNF+pjGxsmnkG4x3ulLXYcpWfl5pUBT7Z1FDF+Q2pjDeJ05UEZjynsWW2hs0ADdD7XtndH6xDjMq3JipHMfxHFcIlDMyilMqmsV7+Ij4HJTZyDni9aabg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zB4Af3rQC9myXndJD/zl9cT8Pg0peF2hl5GHre0XOeU=;
- b=BBnANy98fouXtzOV9YZQUVyZVpwy6qS9zTMWpVWPQxcd/5QgGMZV+ILp0NQ5N/IdqrsEx0jw65K0QxqlU4QE8mKRTA3DXCiHANh4DVAniBZoLgVMfab82dLFijDe/ketciYsASInrX2kuYCUcd4+JHIFyecNzr5x5KIepnY6QdYsxICOQGV1Th6y4byX73C/esV4sc40vYGfxX3uIECujx5od1kE5CbrfPTpp7leaHSvtpJV+5LFtQU7VR5FgiXwLhzzC7NMl2GkuKRYLQfm+KolU+9zUpem9VvoKDCC/qRtqp7tscdIhC3FtNM095v4XXj2aMtSzLV5STy90R9TFw==
+ bh=M/sOBCjhSJtZgOHEROGideOWJh/cVentXEGCfbyic2w=;
+ b=Cs35FBAmsakmGv86qfoU/BkZsXAB0n5Eo3Wk8FbwyKffXJmotocjBFn7STppRpDW3Be5C3MkRJvBgVwq5hX0Zb8c1wNjVlGjM/0y6jqOhu022Wn5mzAva9vdmU5CUpDbx3GKBMenccNJ5GV1SVP63hKOQxZdS56/BEYYc/9sdhWK7p0c/6A1qxWSSklTXcs2dD5Vx4i8cIgmPd1ky9JR1No/+xfZCJ494STtnNyfaeBfKs0R6YVSO/m8g2Y5DDXPovsTxe84NVvHtxypZjlMxWp1qfavbOspWMPKuyaBWYHQ2mnDDsvCDeFDxGf0Eb1xACNC9R9yVhKCI1nHhrL0rQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zB4Af3rQC9myXndJD/zl9cT8Pg0peF2hl5GHre0XOeU=;
- b=ThGe5Yn6Fx/wo/d0hn26E6/q3V1TBBFV3mOBZPdfRI1C44u18Al2yzD5cK4pJpZ9F0FfwNloJ1/FlE5bcEY0Kp/pQkJgQq4d6dVkymIfgOFjZbQJ+sPSnRon4R/V1hnwQZalz2PuQxgIQQ/BDKBS7ZNKll4dja79oJZY717JfnxUN4ArCSHfioP9Md+alLQnthBAojBIYMR9oLlF8NiGatlgdoTguSUbUJ3B1ZuT6PVIRQgSfovhTiYIOGV5mQlD6wBj5VelcuDX9dazB0Pz3xTkTQ/P2GT7Ae1dbmC9QOns4B6I4AGuH5s4I/F7/S3GapgtdxfUGiK2GXD3wmVQ2w==
-Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
- by BN5PR12MB9485.namprd12.prod.outlook.com (2603:10b6:408:2a8::11) with
+ bh=M/sOBCjhSJtZgOHEROGideOWJh/cVentXEGCfbyic2w=;
+ b=KOnxBMT1f+OL3bgmAUdSA6xf9OAjHCzZoDx4TRB+X9WpxySpmHoXRVU8Bvix6zvdm51g5vk9ibp0wxGeheGhDhNyh51YPcn9UBiMhV/kKKWoLjCCHDUY9PTX9/DxZzYNEVTL47nY3ghcOLUeG/mw7PiENDQK8OfHn2FQuNwaQXc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
+ by MW3PR12MB4347.namprd12.prod.outlook.com (2603:10b6:303:2e::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.20; Thu, 26 Jun
- 2025 16:01:41 +0000
-Received: from CY8PR12MB7195.namprd12.prod.outlook.com
- ([fe80::e571:5f76:2b46:e0f8]) by CY8PR12MB7195.namprd12.prod.outlook.com
- ([fe80::e571:5f76:2b46:e0f8%4]) with mapi id 15.20.8857.022; Thu, 26 Jun 2025
- 16:01:41 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: Cornelia Huck <cohuck@redhat.com>, "Zhu, Lingshan" <lingshan.zhu@amd.com>,
-	"mst@redhat.com" <mst@redhat.com>, "jasowang@redhat.com"
-	<jasowang@redhat.com>
-CC: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	"Ray.Huang@amd.com" <Ray.Huang@amd.com>
-Subject: RE: [PATCH v3 3/3] virtio: introduce SUSPEND and RESUME feature
-Thread-Topic: [PATCH v3 3/3] virtio: introduce SUSPEND and RESUME feature
-Thread-Index: AQHb5BoUXKPusOin/kiYESw2fMoAA7QVWGyQgAAbAACAACZPAIAABOlA
-Date: Thu, 26 Jun 2025 16:01:41 +0000
-Message-ID:
- <CY8PR12MB7195A1A347F205D765D35F6BDC7AA@CY8PR12MB7195.namprd12.prod.outlook.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.22; Fri, 27 Jun
+ 2025 01:46:11 +0000
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::ea3a:4720:99cb:32d8%6]) with mapi id 15.20.8880.021; Fri, 27 Jun 2025
+ 01:46:11 +0000
+Content-Type: multipart/alternative;
+ boundary="------------QfK8CjuO495vvoHkD5Xh67Xl"
+Message-ID: <e0115f0c-951f-4a76-8795-d34b6f088467@amd.com>
+Date: Fri, 27 Jun 2025 09:46:05 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] virtio: introduce SUSPEND and RESUME feature
+To: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>,
+ "mst@redhat.com" <mst@redhat.com>, "jasowang@redhat.com"
+ <jasowang@redhat.com>
+Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+ "Ray.Huang@amd.com" <Ray.Huang@amd.com>
 References: <20250623083637.296041-1-lingshan.zhu@amd.com>
  <20250623083637.296041-4-lingshan.zhu@amd.com>
  <CY8PR12MB71959BD1BFE6319F6E05A7FDDC7AA@CY8PR12MB7195.namprd12.prod.outlook.com>
  <092e01c6-1756-4293-8183-8efea6720548@amd.com> <87pleqh5l3.fsf@redhat.com>
-In-Reply-To: <87pleqh5l3.fsf@redhat.com>
-Accept-Language: en-US
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|BN5PR12MB9485:EE_
-x-ms-office365-filtering-correlation-id: e46db00d-7ff2-4617-ebf2-08ddb4cabd87
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|10070799003|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?NmxyVlFjL0xxeEF0ZHZtWTVCQU5ucmZlcHp4YzdoRjl5cVhuMUROa0ZyYmNr?=
- =?utf-8?B?T1MyOG85TnU0c0lORVNoTmYxWEtaRDF6am9pcDNubXFxK081eFV0K1JWZHJR?=
- =?utf-8?B?cHh5TVdCcFdmYWxXWnQ3NnJlRzVOVnJ1RVlOUDg5dCtGR0N5cFhIM1VyazlE?=
- =?utf-8?B?RkNBdVdNbUVvaFl2TkUrN3RIU1NZNG5SUlBDYUYvcUZLeko2T25OWktxZUlO?=
- =?utf-8?B?UmRHcndvZWRmVE01OHQ2aEc4Y1FNN1hWTEJZTE0yNTNvOGVCZEIvWThQaE1E?=
- =?utf-8?B?ZmNwcXhGYU9Rb2R4M1FzN3dheUUzR0NzaTFjR0JwTDRjYWFjK213VmpWNmw5?=
- =?utf-8?B?RW5GQ1IzUXpMb25WWGNwaTZWSitVamE2V1JMdmJOODlZakFjN1pJdStUMFU2?=
- =?utf-8?B?TFBER21adEJZQUFzeGNsQ1VKNXFWdWFpbnJpM1BsT0dPT0wzYTZFZlRxVmtC?=
- =?utf-8?B?bS9MZVB1Z0J2bS9ZcTR4QnpKcVBvdUx1aTFISkhZVVpqSzdHTEEvYlo5VmN6?=
- =?utf-8?B?R2Z6UjlsalVKNUZLck9ReW03U2VrY29TcHZ1dDhqTXlVTmdWa2JlZGhTeFR2?=
- =?utf-8?B?NDdZTUhhK1diQnhjRW1UQ2NTYWU2REUxNFdEeEYycWkyZXpDR1lMK1hxd3Zm?=
- =?utf-8?B?N2ZaL252bmlHOExLY2cvVjJzQW9pMGdnSDJBNksxK0RUbGdlMDVHcXE2dS9r?=
- =?utf-8?B?YVB4Q1k2YnVNaFNlOFpUdFJYR1AvRkVBalBZVTVzdkNUR2g4ZklpZlhCY0tn?=
- =?utf-8?B?NEJ5MTlVRksvMWtTazZueGk0aEdLM3ZDTjlmcVB5MVBSMlNiTW0zNVZ0NWxG?=
- =?utf-8?B?QUREWlZ4ZWI0a3hJdFFRcVlnSlJHa1VBVnhoWWw2bmZFYVhvTHZ3S3laSUla?=
- =?utf-8?B?LzQ5aW9yQkp4K3pLaGhTY2JmNzR1VTAwZ3VYbS8wd2M2MzVkR2NkS3NXbWQy?=
- =?utf-8?B?WUZvRXVxUEJhQUlHZ3RUbXYyU3lwYkRsYzh2U0Y3VWVqN284aHpTblgwWDFq?=
- =?utf-8?B?cDNieW5CeEhFZ2I2UFR2dTZBZC82dG9RM0Y1TmIycjNXYkZ0Y3JRVk5mWkdw?=
- =?utf-8?B?bHFQOVlrMUh6RHFBMmljbVU5bitXZVFnUkc0b1YwNVdJWWJxWFhXbEhmREha?=
- =?utf-8?B?M2orQUlrclAxNzVrY2pHNXRtRHQzR2tYYzltZzE3bVhPY21tWmZ5Nm93dXRv?=
- =?utf-8?B?TEFET0VYaVU5VmNwZ1BGOVo0S0lMUjV0YVduTnBadnBZaXlsVnZ1REw3Tnla?=
- =?utf-8?B?QXdpbmNIbTBYYlRyREJRN0VRUVgrUlEycWNUSGt6a2xEUE1yNkFhVG9wclZz?=
- =?utf-8?B?UjhhQUNyVW1CMVdDVGtYSWVORG5pUFZ2MzJSUHl6UVlaWUZHQ3AwNzNCT1pE?=
- =?utf-8?B?SGJkUTFpRnlqNUI2MkVLaEw1NWZsOU0vRkdPUUxkbTBXSjBvbDlqTytia3Zh?=
- =?utf-8?B?d1g3d2M5NFRWUDFVUU13Q1FsRkJUZFZBZk9ZS1YvUXdlMlVCUkc2NllIb2lI?=
- =?utf-8?B?aHRKZUNCSmwvcWs3bk9ic1U4KzZqUStEZWdadzRQNXZuV1pNeXBuT3JpWklS?=
- =?utf-8?B?a2d6NmtyUU1zRmNId0F2MUtjaUZwa3E5RHlmUWR5dkUveStMd25zTnRQb2pm?=
- =?utf-8?B?UlNOU0FoU1l5cGJ0WGcxZE9YK3FhWnUvZjlxVysvaWtZcFZ0b3ArYUc3aFJx?=
- =?utf-8?B?eHNLaERNbVJKQjBRSWxEYk51YTRRK2dSVW5SeHhlcG5hckN2Q1dQMnV5alM0?=
- =?utf-8?B?N1dHRmxOUHd2S2t1c3VzUWkzNGhsUGI3UmFDYnh5YXg4RzBUcWNBSUFnM0du?=
- =?utf-8?B?R1dhME91YTA1N3pHQU5IMDJDODZraXdJelZZTml1L2lLZ1ZtTUh2SnlVdzBN?=
- =?utf-8?B?SHcrd3J0eTlpS0kyR2lOWnNxSGlSV1JxbEpRZWRMRGJmeU5RaEs2YnZ0R0l0?=
- =?utf-8?B?MmtqbXVKb3BJY29ML1gyRWlkUXZLWitGakMyYzFhOEZPbk1VTnJiS243UG9F?=
- =?utf-8?B?UXkvaVlnNHR3PT0=?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(10070799003)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?RFBDMnZqdzl0bUI4blhsMmZFYWU3WDczL1BSSitDSk5aQW1IY2o3OXJwR1Mw?=
- =?utf-8?B?YkR1NWpCMjR3djZDSkU3UUs4Wk9sRHpwS2huQStYWlZkQmR2Vm4xTDVkSlBR?=
- =?utf-8?B?aUF2YkVDODU3UXh0ckVqbDBtMm1NbkFhYjVzb3BoN3dpa1Q1bHBqa2VFNDRT?=
- =?utf-8?B?THRManp0b1VJQkxEMGF2QjZSUHRiUU5SK1VmR3BaUml5ZS8wejVzbVB4SFF2?=
- =?utf-8?B?dVFUZzBGRHJKZklDR1dGem9Sa2hsWnNseWZ2bDgrbWdkT2VrZ3ltdncxRXZn?=
- =?utf-8?B?Sjl1MzFpMXhITHAvTXdaSGNnTnprY0dyazVwTEZDSm5wZ3RBTzNQaFZ3OHZI?=
- =?utf-8?B?Vmk2b2JUbk45UTdicXFRUVJDQVAvZisrS1M3SUNMUVFXcVREaUhwRlJhb3dX?=
- =?utf-8?B?bTEvM1JLN0FYaWVDNUdueTYwY01kRUU4dTcxSkM4cTQ3Y1ZDZUFjbkxIdUpi?=
- =?utf-8?B?T0ZySDB3clhoSkJpTFFtTXFzK1VHTnhaVFJjZEZUVWU3VitXZlZlczJHbEdk?=
- =?utf-8?B?S1NEL3ZFTTRRSWJKV3lobFZaRjZqNkRjTi9FQ2x0dXI5L204Mm1VRVcwamNu?=
- =?utf-8?B?YkVEZktQdWd6b3FKSUFxa2F2djBwVXhUMzRncFQ1RG1ZSXVIT0lrNlorOGhq?=
- =?utf-8?B?T2VNeXNVZnQ3aFpxUWRvRXlUTnh2ZUlIUFhqanFkUDM5aXV6Z1pqalN3Zmd3?=
- =?utf-8?B?TWw0Y3R0bko1Ym03ZlJWR01OVzdjTUJaNnh2RzBhNTE4YzdwYitQQ1A4TG5K?=
- =?utf-8?B?dDlNekl3WTZmTU1PS1pqQXJyS1VTaUtLanViajV3L09RZDYxWFNseWxVR3JM?=
- =?utf-8?B?ZjEyZEdsZ0hPNWlCNDByY1pUYVVTUlQrUFE5UGRtdzFVS1dnb0llVXhuRTNq?=
- =?utf-8?B?bXpybUhNNERnWWEzVnAzK1NDaitqbkdQWFdFVlhpdFZkemo5SzZhUkhWOGJ4?=
- =?utf-8?B?QWFsQ212VndTa2w3Y2RCOEcyeVorRVFSOVhNNlk0S1dKOFNxRU1HazNRN2tJ?=
- =?utf-8?B?MXQrWElFTnZsdURRSUYxU3FWcWtDZ2g3VEtVOXN1eGlDcDlmWTE3UGJxNTdW?=
- =?utf-8?B?WlVIc0R4Wk9DdkRLSjMxTk1sRUt6L2tMQVlIWjIrK3Y0T2M0dHUzaGpZSTkw?=
- =?utf-8?B?WnhhKzNuQm9wUTNqQzZHUFZkYXE3U3NvUVptalFiU29VME9ublNGeU9TRE1E?=
- =?utf-8?B?Y2VXZzJSUDFLRW1SUDhQb1EvLzNMMmNER25hQ21ITUZLd0s0MTFxbXRDNUo1?=
- =?utf-8?B?eWcyVlRNemk4OUtmSEVQL1g4WFFKUjcyVGFBNkdXc0dHelBqK3FUaGV1dlNj?=
- =?utf-8?B?bG5BM3B1Y2FIQ3ZKZXF6NWt1M3pnd3hVQ1huUUdXSkp3NklGaVppV3dhbm1v?=
- =?utf-8?B?NHR5REFXZTQ3MDlVcjJ5S0ozQzNrclg1TGhpOFVqRzRjKzJPSXUvQlppeE9B?=
- =?utf-8?B?cGViVTVpczhIdHZqYTlQcW5kNzBCNHRDMjZiR3F5MFEySnR4UlZQZ3ZLckht?=
- =?utf-8?B?d3VWaFk5UGVGampWQklUbGhSWlUyYldreGg5UTkwWEhRNUkzSXVUNkJQbzNN?=
- =?utf-8?B?NjY5M0k4MHZKQjJSanZ5R0d1Wnc3T1cxdDY1ejR5K3VJVzNlY0VqRnlFaUN1?=
- =?utf-8?B?TWMwaE50L1V0Z2hCbmsxSEJNUmVlYUhUalR6WXp6Y3VobzduYWQwYnF4bWwz?=
- =?utf-8?B?YzgvS3Jqc0xoeGhYNXI4QzY3WG1RdFJBSktKWTdVc1V6bmRoclN4VUpPN1Nk?=
- =?utf-8?B?NEI5U2plMXlnQmQzUUZrbUg3VURwNnZ3bVREMDFqUE5yWFBGVExZZHZiQTkv?=
- =?utf-8?B?UTM5aldzM2lYTE5Zdk9rRFpkak5nQVY1R2JmMk45QXZtcGg3c0pOeGV5OU41?=
- =?utf-8?B?SEtwZldXVytndnB1bFVHWTRLNm9KWUsxUUpCQityak51YzhvS0VHZ3A0NVox?=
- =?utf-8?B?bHUvNDlHaFVhWU8yRGpaNVBkQWJNUzlPajY1ZHE0TVVIQno3YitDOXB0UWVt?=
- =?utf-8?B?VEtCSGV4TE1VR2RGMUdRM1lCRGErZG5JR3h1QjhOUVVteXNra1hlK1IxSEVt?=
- =?utf-8?B?c1cweENsL0ZBeUcxdDEyUHJ3Vm9vc2lhb2dDWEVJMFRRbHRUMWF0OWZEU3A1?=
- =?utf-8?B?a3VVVW9uK253anVFWWZTdU8wU3JkdHRLd3dabVNRYlk0WU1QWlQ0aEw3V29M?=
- =?utf-8?Q?YIxjHZuT/neL338DTUOmJmAu8uj/xLwuJv+2/pVnq73X?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
+In-Reply-To: <87pleqh5l3.fsf@redhat.com>
+X-ClientProxiedBy: SG2PR04CA0201.apcprd04.prod.outlook.com
+ (2603:1096:4:187::23) To SN7PR12MB7835.namprd12.prod.outlook.com
+ (2603:10b6:806:328::22)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|MW3PR12MB4347:EE_
+X-MS-Office365-Filtering-Correlation-Id: 935ffcfd-62e8-4948-6b4a-08ddb51c64a4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|8096899003;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?dEZPRnZlZEkzME94TnBQR1psS2VRdXM1Vm8yYXk1R3gvNkhaVkRSNWwzUm0v?=
+ =?utf-8?B?RmptUDRVM3cwVXNkMnBSamxWaU0rZWVqUmtNdlJRUUZWV2psNTQ1c01ORW0r?=
+ =?utf-8?B?bEhvdXdWTmVyZmc4ckRPS2RiTEpJY2dyVk9IWkU3ZWZ1dWlMTlAwNk4xUmE1?=
+ =?utf-8?B?RE0ya2ViRnplWm9KM010SzZWRHByUEdIM2dEM3YrVTQ1TC8zdmRzVmorcnhE?=
+ =?utf-8?B?MHhIMWRYcGI1SUdYMGV2RmxmRENwSzFxWWJmaVF4QjRWSTVIS25xUThpTzdx?=
+ =?utf-8?B?ZHhGWmVBVFA0Zk5kbDFoNkFhT20rUHNQRDB3NGRENjlOS0FsNWpWMkFGSGpK?=
+ =?utf-8?B?bkQ4Y1hPei9BTFhWcHJUTHFqNHo4Sy9ubzFKSTFZYk8xbE1WamVyZmo1cS9L?=
+ =?utf-8?B?SG0vSklBL3dXcUtwOVVHNzUvYXhkcUZ6NFFrRHZxOFhMbXl4Q2RtelAvTmc4?=
+ =?utf-8?B?SURFQ1p3cFJmU0ROZ21TVHF1UVI0cGY4SmF6cG5qZkFULzE4c2VKVWgzNUR3?=
+ =?utf-8?B?R1JqZkRtL3FSVUc1UkhvZldTSE9CWDdkLzVqdEhuM2M1aHV2TkxBT0JZdUZn?=
+ =?utf-8?B?a2JmRWlLRFJRSHJVcWgzRUtsZmZJcU44VFM0Ni81U0RPcG54V0NROGlDZmEx?=
+ =?utf-8?B?UEVBQldqeTMvYmpiTUJUeTJvOFBITktsLzdBMnYxbmF5alcwZnltanMydHZY?=
+ =?utf-8?B?TEZ2aFFMNHJkN1JML0xONEZXMHJiMGNBRjYvbFRHb1lTWlNDQ1JvSzFPazk1?=
+ =?utf-8?B?eXgrRXkwc2w4UzYrK0ZTalVOWENWMzNBVkVVTW1VYjkxL3RZcEVLY0xFT3FD?=
+ =?utf-8?B?Z296amRjR0YveGpISk9MMzNVRE9TR0cxcmptQkM4WGJzWS9CaGFnUU5tS0x6?=
+ =?utf-8?B?emlRU3FhNnV0QVMzMWpRV0ZvekJqeWdBMUl0QlR5YmlPV2Y4eml1Y2krc21W?=
+ =?utf-8?B?M2dmV3dwRWlTYk04TkpxR1ZITGZOajJnZmRubFJQakFON3hJNm1MbDAxVU4v?=
+ =?utf-8?B?R0NEeFBTNHZYQmpuVmc4Z0Fqd2hoNXNPRGtHVWZMOWNqNHM3R1Q3amZ3cEU4?=
+ =?utf-8?B?UGpjTkFBcTNwV1d0eVVNQWhNbHA4azRpVkROV1A1WjBUbzh2WXpMQ0ZJK01U?=
+ =?utf-8?B?L0xuS2FSbzZmU2NpaTY0bW1aN0JFME85a3hXTmxPZmtwMVhaYncvbDlIWXVi?=
+ =?utf-8?B?Y1JMRVB3QXhrak9yODhFMDMyRExXZ0J4UlJlVWxxd2JaRzRxcmwwMlFQN29X?=
+ =?utf-8?B?M1lnWmFVUURselhNdGdnbVJMWHJSVE9MTTM4dFJNaUNFdnE2eEJXUUdUSHE1?=
+ =?utf-8?B?OE10K1pFK2Q3RUFnVnpnTUhNdkFPQjhTbTRIQmE0eHVOdm1RK0JiVjhyMHNz?=
+ =?utf-8?B?L1cwNHRRNjRFbG82bWQ4V1dITEtvaUEvYjM4YVJUeUdaL3NNSVVyQTNsYXJh?=
+ =?utf-8?B?RlpGYW9UV2pmSlgwSXhNSDByVDBtc3JyekE2eUtvcy9Qemh6L2t0LzdGb3BI?=
+ =?utf-8?B?OE12SGZVUUJOdkZsQnZEMXBTbitZWmNmWXkxUmoyNTRZSFcvaU9sakNBNEJR?=
+ =?utf-8?B?UURYbDJkQWtKVmtOVXNxeVRGeE43emNORXVOUFVZWHdIeDB1QTFnUENCYTNO?=
+ =?utf-8?B?QUx4MGErRUdzWXk4QUZQaW44STRDUjhBbEwrOEk5eXU2cEJWN2dnQVU4MXNC?=
+ =?utf-8?B?Z0RsblExQ1JQUk5rdGwrQVVIbDBhd2VVWTNObnhzaUoxQjNLdHlYRE5wYVNx?=
+ =?utf-8?B?OXh3aUpJMFlTRTNINEpnVlA2U2ZBeEZVeExMR3NrejdpS3Y0U296TGpBL0dq?=
+ =?utf-8?B?OWF3WmxIQ1NFenhobEhSVjVMZUxWMXFIN0xYek9NMmpQRERXVlJrSnZxYk9o?=
+ =?utf-8?B?TzV2K0F6VksyalRrTVorMTl1aDFpL1JMQTdwL1hTWGtRNXpLRmxGZ3dYcVNW?=
+ =?utf-8?Q?gdpCBF6Y/u4=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB7835.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(8096899003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SWFLbng0cEJsdXF6RXQ4bkk0RlcxMVJSamdpeDJDaGwyV3FrSjhKYzhqbE9X?=
+ =?utf-8?B?cUc1USsxalFqSzdrc01lSklEdWdSdUNCbWVqYi8vM1Bxakwrb3Q5UmN4TWp4?=
+ =?utf-8?B?dVZQVHBNdGIxemxxbGpnTkZxTURhYnRhM05TODJSMkt3UVVlWWVrcm03a01F?=
+ =?utf-8?B?MGpuMXlSSUR2aVFJS3pPbXlmVmFlVDJuMU1CTmdHbE9IV1dXL1FHck9Pc0E1?=
+ =?utf-8?B?Z3lEYWZBSTQ5ZUdlQVVITm0yVGxKeklHcUladG9LNzdVZVdXcXBrQWppZCta?=
+ =?utf-8?B?b0JYY2oxN1crQ25vL3o5YjNmZ2d4aGtxUGMwQXFPUW9LNDY3ekllSHYza041?=
+ =?utf-8?B?MFUzYnhwcVBFWnFtYUg2T29KWURvTENXVlUzMFV4YzliSCtxV3IyZ1M5bXB4?=
+ =?utf-8?B?VENKM0RFQVZ5ZXB6OWxwSnRNcXlVNkxxUGo3OVpta2VKNDR6cUdGay93Mmtw?=
+ =?utf-8?B?RzJ3eTNHdGdWbmlHdjRCa3NCb1NoZ3V1YlFpQzVVWG52U0I4elZ5YitMVjAz?=
+ =?utf-8?B?a3hPclZ2TkJydGtnbmZVR2E1S2pFZndjM1U0bTJCNGF5VW5NbVFYTWl1R1V3?=
+ =?utf-8?B?Y3NmQ0VpamszcWszTHl5QlJ6dFBOdmpMZnJaenh3c3hpS1FsNVZUbXhTSzZn?=
+ =?utf-8?B?YncxU0lLOGg5anFlU2FIUjRRWmxFdVhhdi80U3pMSitrdFhmTFZNL0JrZWxh?=
+ =?utf-8?B?VWNDWTNQUXJuUFRra3JLK3FsazhzVXZBYkdxZi9vOTQyZ3RmL1RBdUlNZmRK?=
+ =?utf-8?B?aklLSVFsMTZxWkZLdGZCcURHU0xmYkxrc2Z5QXR4ekx4dUJaY1FTd2R4LzA3?=
+ =?utf-8?B?TVMvWjVESU9aQXFSYzUrQXhJLzFIdTFJeE1MYUNGdHVrdm5DRWp3MzdiNEtp?=
+ =?utf-8?B?TkpkWFVnY05vMER1OGNpbjdZYTdzUXdOb2dyc1RZeW02S2tLaWxXTVBZZkdx?=
+ =?utf-8?B?anZ1L1dQQU5nRno5Y1ZsU3h5V3ZVVUQ2TndCamtuYlRoSVhya09nM0U0bzR1?=
+ =?utf-8?B?dkVQdnFncVdLOGQ0OFVUOUlYNzVrLzFLT2o0Q2NhQzZJbmNWYnJXV3FCaGt1?=
+ =?utf-8?B?S0xIUkNLVmRvYXA3eUcyd1FWSGN0YVNBY0p1ZFhwaW0yRTRoeitHYmZmMUc1?=
+ =?utf-8?B?QUduVjZuMGNKM29RSlJ0VDc3Tk5RYnNadlh0QjM5QTNReGdob0hEWHN4OE9t?=
+ =?utf-8?B?SFhMRHFNNkQ5c2ZxZWVLZWhkWmNyZUhHc3o0eHJmNE1iQ1BjaHgzMzlDTTlI?=
+ =?utf-8?B?QWVQZmtKZ2NreE85ek5iMlV2QUpnUFg3L0tMdnl1RG45N0JQdm56MXNWRzNy?=
+ =?utf-8?B?WlZrQ1EzUUpjVi96bFVZa2tuZVo0cVJjQXExSC9Nb1d2TDduUjRzV29sREZr?=
+ =?utf-8?B?ZkJjQlFjZVo4SGcvQVdNa0prVWpNOWl3VGl1ZWZER2E3TmNXOTZJd3VkSWZ0?=
+ =?utf-8?B?SlVmcWlhR3g0WGkzcXp2cVd2Mzh1a0pHb3VuYnBtanBMQVE2M1pXUEVqU2NH?=
+ =?utf-8?B?ZVRWNFdRZjJUZlBzdnJEV0l1em1hMFdiUjlYYlByZ2FURHhoemZiZVdOdXVl?=
+ =?utf-8?B?MzdXYnVUMGVlNEVUbVQ3ZlY0UjJ6TnZzZndyR05Kbm9vY0NxZHhrSUZvVWRn?=
+ =?utf-8?B?TXZ1R0FxbmN3a0VaZjdpNGZMU1NBQ0pEMjdwV1lhaElmNHlIcHZReldJZXUv?=
+ =?utf-8?B?bmtPSkhDTDh5NWNJWXIycHc0UXUrZXpoTmt2RklaeG1TNzVrTzIrQUp5TmtD?=
+ =?utf-8?B?OTdYbDVsaEZTWWZ2MlNRTjEwazAwbnNVcFZXSG8vVkFYZ2pJaUd4d2hETG9w?=
+ =?utf-8?B?WUNLdlA5Njdwdm1lbi8zd3FiNURLZjROQ0ppOElOdllnT3lPOWtFZDhJVWw5?=
+ =?utf-8?B?K1c5NS9zM0R6LytETFkwY0MzeXl0QzVCRkUvandmRTdReEF1d1E5RXV5UDZa?=
+ =?utf-8?B?cUR3azdrVmhoYkdyTGtscHFkaGdxYzZiemxEeEE1Ykt3THd4MFV3dDl3VUJ1?=
+ =?utf-8?B?ZzVHU2NncGsxOGRPV01TTk1DNUhCcGdUaDRnVGcvM3JGVGlBNHk1SXFEYzRR?=
+ =?utf-8?B?dXR4NTJZbnJwM3MwelBjWWR1NWZNUC9MbTZkbkYvT0M5WTJOYzRqVFJYWlpq?=
+ =?utf-8?Q?fifE3NIj7ZqRYk18wedb1CJp1?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 935ffcfd-62e8-4948-6b4a-08ddb51c64a4
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e46db00d-7ff2-4617-ebf2-08ddb4cabd87
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jun 2025 16:01:41.1977
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2025 01:46:11.1889
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 3i0UiDI10lnlUfIIVEXt7UPGnu7jVBtjOshO0fUDp7eyM6La2j+i0NuNOacoWZxh4q1/qfl8PvEdRMT6vNVTAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN5PR12MB9485
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZuRZY4zVFFIsew2YpxHRTBQoIASxwCjCYj4ygYBpexSxT7MvYcqQ1jFqx9A8CsCUjsQYGrgE3Ny4AlbNPGqn6g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4347
 
-PiBGcm9tOiBDb3JuZWxpYSBIdWNrIDxjb2h1Y2tAcmVkaGF0LmNvbT4NCj4gU2VudDogMjYgSnVu
-ZSAyMDI1IDA5OjEzIFBNDQoNCg0KPiBPbiBUaHUsIEp1biAyNiAyMDI1LCAiWmh1LCBMaW5nc2hh
-biIgPGxpbmdzaGFuLnpodUBhbWQuY29tPiB3cm90ZToNCj4gDQo+ID4gT24gNi8yNi8yMDI1IDc6
-NTkgUE0sIFBhcmF2IFBhbmRpdCB3cm90ZToNCj4gPg0KPiA+Pj4gRnJvbTogWmh1IExpbmdzaGFu
-PGxpbmdzaGFuLnpodUBhbWQuY29tPg0KPiA+Pj4gU2VudDogMjMgSnVuZSAyMDI1IDAyOjA3IFBN
-DQo+ID4+PiBAQCAtNjI5LDYgKzYzMiw1NCBAQCBcc2VjdGlvbntEZXZpY2UgQ2xlYW51cH1cbGFi
-ZWx7c2VjOkdlbmVyYWwNCj4gPj4+IEluaXRpYWxpemF0aW9uIEFuZCBEZXZpY2UgT3BlcmF0aW9u
-IC8NCj4gPj4+DQo+ID4+PiAgIFRodXMgYSBkcml2ZXIgTVVTVCBlbnN1cmUgYSB2aXJ0cXVldWUg
-aXNuJ3QgbGl2ZSAoYnkgZGV2aWNlIHJlc2V0KQ0KPiA+Pj4gYmVmb3JlIHJlbW92aW5nIGV4cG9z
-ZWQgYnVmZmVycy4NCj4gPj4+DQo+ID4+PiArXHNlY3Rpb257RGV2aWNlIFN1c3BlbmR9XGxhYmVs
-e3NlYzpHZW5lcmFsIEluaXRpYWxpemF0aW9uIEFuZA0KPiA+Pj4gK0RldmljZSBPcGVyYXRpb24g
-LyBEZXZpY2UgU3VzcGVuZH0NCj4gPj4+ICsNCj4gPj4+ICtJZiBWSVJUSU9fRl9TVVNQRU5EIGlz
-IG5lZ290aWF0ZWQsIHRoZSBkcml2ZXIgaXMgZWxpZ2libGUgdG8NCj4gPj4+ICtzdXNwZW5kIHRo
-ZQ0KPiA+Pj4gZGV2aWNlIGJ5IHNldHRpbmcgdGhlIFNVU1BFTkQgYml0IGluIFxmaWVsZHtkZXZp
-Y2Ugc3RhdHVzfSB0byAxLCBhbmQNCj4gPj4+IHRoZSBkZXZpY2UgU0hPVUxEIHNldCB0aGUgRFJJ
-VkVSX09LIGJpdCB0byAwIG9uY2UgaXQgaGFzIGJlZW4NCj4gc3VzcGVuZGVkLg0KPiA+Pj4gKw0K
-PiA+PiBZb3UgaWdub3JlZCB0aGUgaW5wdXRzLg0KPiA+PiBJIGRvIG5vdCBhZ3JlZSB0byBhZGQg
-dGhlICJTSE9VTEQiIG5vcm1hdGl2ZSB3b3JkaW5nIGluIHRoZSBnZW5lcmFsDQo+IGRlc2NyaXB0
-aW9uIGFyZWEuDQo+ID4+IFRoZSByZWFzb25pbmcgaXMgZXhwbGFpbmVkIGFscmVhZHkuDQo+ID4+
-IFBsZWFzZSBhZGFwdCB0byB0aGUgZXhpc3Rpbmcgc3R5bGUgb2YgdGhpcyBzcGVjIHRvIGtlZXAg
-dGhlIG5vcm1hdGl2ZSBpbg0KPiByZXF1aXJlbWVudHMgc2VjdGlvbi4NCj4gPj4NCj4gPj4gSWYg
-VklSVElPX0ZfU1VTUEVORCBpcyBuZWdvdGlhdGVkLCB0aGUgZHJpdmVyIGlzIGVsaWdpYmxlIHRv
-IHN1c3BlbmQNCj4gPj4gdGhlIGRldmljZSBieSBzZXR0aW5nIHRoZSBTVVNQRU5EIGJpdCBpbiBc
-ZmllbGR7ZGV2aWNlIHN0YXR1c30gdG8gMSwNCj4gPj4gYW5kIHRoZSBkZXZpY2Ugc2V0cyB0aGUg
-RFJJVkVSX09LIGJpdCB0byAwIG9uY2UgaXQgaGFzIGJlZW4gc3VzcGVuZGVkLg0KPiA+Pg0KPiA+
-PiBJcyB0aGlzIHJlYWxseSB0aGF0IGhhcmQgdG8gd3JpdGUgYWJvdmUgd2F5Pw0KPiA+DQo+ID4g
-SSBiZWxpZXZlIHlvdSB0b3RhbGx5IGlnbm9yZWQgbXkgcmVwbGllcyBpbiB0aGUgbGFzdCB0aHJl
-YWQuDQo+ID4gVGhlcmUgYXJlIG5vIHJ1bGVzIGZvcmJpZCB1c2luZyAiU0hPVUxEIiBpbiBhbnkg
-bm9uLW5vcm1hdGl2ZSBzZWN0aW9ucy4NCj4gPiBOb3cgaGVyZSBJIGNvcHkgdGhlIHJlcGx5IGhl
-cmUgYWdhaW46DQo+ID4NCj4gPiBJbiB0aGUgc3BlYyBzZWN0aW9uIDEuMyBUZXJtaW5vbG9neSwg
-aXQgc2F5czoNCj4gPg0KPiA+IFRoZSBrZXkgd29yZHMg4oCcTVVTVOKAnSwg4oCcTVVTVCBOT1Ti
-gJ0sIOKAnFJFUVVJUkVE4oCdLCDigJxTSEFMTOKAnSwg4oCcU0hBTEwgTk9U4oCdLA0KPiDigJxT
-SE9VTETigJ0sIOKAnFNIT1VMRCBOT1TigJ0sIOKAnFJFQ09NTUVOREVE4oCdLCDigJxOT1QgUkVD
-T01NRU5ERUTigJ0sDQo+IOKAnE1BWeKAnSwgYW5kIOKAnE9QVElPTkFM4oCdIGluIHRoaXMgZG9j
-dW1lbnQgYXJlIHRvIGJlIGludGVycHJldGVkIGFzIGRlc2NyaWJlZA0KPiBpbiBbUkZDMjExOV0g
-YW5kIFtSRkM4MTc0XSB3aGVuLCBhbmQgb25seSB3aGVuLCB0aGV5IGFwcGVhciBpbiBhbGwgY2Fw
-aXRhbHMsDQo+IGFzIHNob3duIGhlcmUuDQo+ID4NCj4gPiBSRkMgMjExOSBzYXlzOg0KPiA+DQo+
-ID4gU0hPVUxEIFRoaXMgd29yZCwgb3IgdGhlIGFkamVjdGl2ZSAiUkVDT01NRU5ERUQiLCBtZWFu
-IHRoYXQgdGhlcmUNCj4gPiAgICAgbWF5IGV4aXN0IHZhbGlkIHJlYXNvbnMgaW4gcGFydGljdWxh
-ciBjaXJjdW1zdGFuY2VzIHRvIGlnbm9yZSBhDQo+ID4gICAgIHBhcnRpY3VsYXIgaXRlbSwgYnV0
-IHRoZSBmdWxsIGltcGxpY2F0aW9ucyBtdXN0IGJlIHVuZGVyc3Rvb2QgYW5kDQo+ID4gICAgIGNh
-cmVmdWxseSB3ZWlnaGVkIGJlZm9yZSBjaG9vc2luZyBhIGRpZmZlcmVudCBjb3Vyc2UuDQo+ID4N
-Cj4gPg0KPiA+IEhlcmUgdGhpcyAiU0hPVUxEIiBleGFjdGx5IGNvbmZvcm1zIHRvIHRoZSBkZWZp
-bml0aW9uLg0KPiA+DQo+ID4gIlNIT1VMRCIgaGFzIGFscmVhZHkgYmVlbiB1c2VkIGluIG5vbi1u
-b3JtYXRpdmUgc2VjdGlvbnMsIGZvciBleGFtcGxlOg0KPiA+IDIuNS40IExlZ2FjeSBJbnRlcmZh
-Y2VzOiB3aGVuIHVzaW5nIHRoZSBsZWdhY3kgaW50ZXJmYWNlLCBkcml2ZXJzIFNIT1VMRA0KPiBy
-ZWFkIHRoZXNlIGZpZWxkcyBtdWx0aXBsZSB0aW1lcyB1bnRpbCB0d28gcmVhZHMgZ2VuZXJhdGUg
-YSBjb25zaXN0ZW50IHJlc3VsdC4NCj4gPg0KPiA+IFRoZSBzcGVjIGRvZXMgbm90IHNheTog4oCc
-U0hPVUxE4oCdIGNhbiBvbmx5IGJlIHVzZWQgaW4gZHJpdmVyIG9yIGRldmljZQ0KPiByZXF1aXJl
-bWVudHMgc2VjdGlvbi4NCj4gPg0KPiA+IEBNU1QsIHdlIG5lZWQgeW91ciBpbnB1dA0KPiA+DQo+
-IA0KPiBOb3QgTVNULCBidXQgeW91IGNhbiBoYXZlIG15IGlucHV0Lg0KPiANCj4gV2UgcmVmZXIg
-dG8gdGhlIFJGQyBmb3IgdGhlIGRlZmluaXRpb25zIG9mIFNIT1VMRCBhbmQgZnJpZW5kcywgaXQg
-ZG9lcyBub3Qgc2F5DQo+IHdoZXJlIHRvIHVzZSB0aGVtLg0KPiANCj4gVGhlIGludGVudGlvbiBp
-cyB0byB1c2UgdGhlbSBpbiBub3JtYXRpdmUgc3RhdGVtZW50cyBvbmx5LCBzbyB0aGF0DQo+IGlt
-cGxlbWVudGVycyBoYXZlIGNsZWFyIGd1aWRlbGluZXMgb24gdGhlIHJlcXVpcmVtZW50cy4gVGhl
-IGxlZ2FjeSBzZWN0aW9ucw0KPiBhcmUgYXJndWFibHkgYSBzcGVjaWFsIGNhc2UgKGZvciBpbXBs
-ZW1lbnRlcnMgd2hvIHdhbnQgdG8gc3VwcG9ydCBsZWdhY3kNCj4gaW1wbGVtZW50YXRpb25zLikg
-SSBkb24ndCB0aGluayB3ZSB3YW50IHRoZSBhbGwtY2FwcyBrZXkgd29yZHMgbGVha2luZyBpbnRv
-DQo+IG90aGVyIHNlY3Rpb25zIChhbnkgbW9yZSB0aGFuIHdoYXQgbWlnaHQgaGF2ZSBoYXBwZW5l
-ZCBhbHJlYWR5LikNCg0KKzEuDQpMZXQgbWUgc2VuZCBhIHNob3J0IHBhdGNoIHRvIHVwZGF0ZSBv
-dXIgInRlcm1pbm9sb2d5IiBzZWN0aW9uIHRvIHByb3ZpZGUgdGhpcyBndWlkYW5jZS4NCkl0IHdp
-bGwgYmUgdXNlZnVsIGluIGdlbmVyYWwgZm9yIGV2ZXJ5b25lLg0KU2VuZGluZyBzb29uLg0K
+--------------QfK8CjuO495vvoHkD5Xh67Xl
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+On 6/26/2025 11:42 PM, Cornelia Huck wrote:
+
+> On Thu, Jun 26 2025, "Zhu, Lingshan"<lingshan.zhu@amd.com> wrote:
+>
+>> On 6/26/2025 7:59 PM, Parav Pandit wrote:
+>>
+>>>> From: Zhu Lingshan<lingshan.zhu@amd.com>
+>>>> Sent: 23 June 2025 02:07 PM
+>>>> @@ -629,6 +632,54 @@ \section{Device Cleanup}\label{sec:General
+>>>> Initialization And Device Operation /
+>>>>
+>>>>    Thus a driver MUST ensure a virtqueue isn't live (by device reset) before
+>>>> removing exposed buffers.
+>>>>
+>>>> +\section{Device Suspend}\label{sec:General Initialization And Device
+>>>> +Operation / Device Suspend}
+>>>> +
+>>>> +If VIRTIO_F_SUSPEND is negotiated, the driver is eligible to suspend the
+>>>> device by setting the SUSPEND bit in \field{device status} to 1, and the device
+>>>> SHOULD set the DRIVER_OK bit to 0 once it has been suspended.
+>>>> +
+>>> You ignored the inputs.
+>>> I do not agree to add the "SHOULD" normative wording in the general description area.
+>>> The reasoning is explained already.
+>>> Please adapt to the existing style of this spec to keep the normative in requirements section.
+>>>
+>>> If VIRTIO_F_SUSPEND is negotiated, the driver is eligible to suspend the
+>>> device by setting the SUSPEND bit in \field{device status} to 1, and the device
+>>> sets the DRIVER_OK bit to 0 once it has been suspended.
+>>>
+>>> Is this really that hard to write above way?
+>> I believe you totally ignored my replies in the last thread.
+>> There are no rules forbid using "SHOULD" in any non-normative sections.
+>> Now here I copy the reply here again:
+>>
+>> In the spec section 1.3 Terminology, it says:
+>>
+>> The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in [RFC2119] and [RFC8174] when, and only when, they appear in all capitals, as shown here.
+>>
+>> RFC 2119 says:
+>>
+>> SHOULD This word, or the adjective "RECOMMENDED", mean that there
+>>      may exist valid reasons in particular circumstances to ignore a
+>>      particular item, but the full implications must be understood and
+>>      carefully weighed before choosing a different course.
+>>
+>>
+>> Here this "SHOULD" exactly conforms to the definition.
+>>
+>> "SHOULD" has already been used in non-normative sections, for example:
+>> 2.5.4 Legacy Interfaces: when using the legacy interface, drivers SHOULD read these fields multiple times until two reads generate a consistent result.
+>>
+>> The spec does not say: “SHOULD” can only be used in driver or device requirements section.
+>>
+>> @MST, we need your input
+>>
+> Not MST, but you can have my input.
+>
+> We refer to the RFC for the definitions of SHOULD and friends, it does
+> not say where to use them.
+
+exactly
+
+>
+> The intention is to use them in normative statements only, so that
+> implementers have clear guidelines on the requirements. The legacy
+> sections are arguably a special case (for implementers who want to
+> support legacy implementations.) I don't think we want the all-caps key
+> words leaking into other sections (any more than what might have
+> happened already.)
+
+so this is a new requirement, we need to document these guidance
+
+>
+--------------QfK8CjuO495vvoHkD5Xh67Xl
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><font face="monospace">On 6/26/2025 11:42 PM, Cornelia Huck
+        wrote:</font></p>
+    <blockquote type="cite" cite="mid:87pleqh5l3.fsf@redhat.com">
+      <pre wrap="" class="moz-quote-pre">On Thu, Jun 26 2025, &quot;Zhu, Lingshan&quot; <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a> wrote:
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 6/26/2025 7:59 PM, Parav Pandit wrote:
+
+</pre>
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">From: Zhu Lingshan<a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
+Sent: 23 June 2025 02:07 PM
+@@ -629,6 +632,54 @@ \section{Device Cleanup}\label{sec:General
+Initialization And Device Operation /
+
+  Thus a driver MUST ensure a virtqueue isn't live (by device reset) before
+removing exposed buffers.
+
++\section{Device Suspend}\label{sec:General Initialization And Device
++Operation / Device Suspend}
++
++If VIRTIO_F_SUSPEND is negotiated, the driver is eligible to suspend the
+device by setting the SUSPEND bit in \field{device status} to 1, and the device
+SHOULD set the DRIVER_OK bit to 0 once it has been suspended.
++
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">You ignored the inputs.
+I do not agree to add the &quot;SHOULD&quot; normative wording in the general description area.
+The reasoning is explained already.
+Please adapt to the existing style of this spec to keep the normative in requirements section.
+
+If VIRTIO_F_SUSPEND is negotiated, the driver is eligible to suspend the
+device by setting the SUSPEND bit in \field{device status} to 1, and the device
+sets the DRIVER_OK bit to 0 once it has been suspended.
+
+Is this really that hard to write above way?
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+I believe you totally ignored my replies in the last thread.
+There are no rules forbid using &quot;SHOULD&quot; in any non-normative sections.
+Now here I copy the reply here again:
+
+In the spec section 1.3 Terminology, it says:
+
+The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in [RFC2119] and [RFC8174] when, and only when, they appear in all capitals, as shown here.
+
+RFC 2119 says:
+
+SHOULD This word, or the adjective &quot;RECOMMENDED&quot;, mean that there
+    may exist valid reasons in particular circumstances to ignore a
+    particular item, but the full implications must be understood and
+    carefully weighed before choosing a different course.
+
+
+Here this &quot;SHOULD&quot; exactly conforms to the definition.
+
+&quot;SHOULD&quot; has already been used in non-normative sections, for example:
+2.5.4 Legacy Interfaces: when using the legacy interface, drivers SHOULD read these fields multiple times until two reads generate a consistent result.
+
+The spec does not say: “SHOULD” can only be used in driver or device requirements section.
+
+@MST, we need your input
+
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Not MST, but you can have my input.
+
+We refer to the RFC for the definitions of SHOULD and friends, it does
+not say where to use them.</pre>
+    </blockquote>
+    <pre>exactly&nbsp;</pre>
+    <blockquote type="cite" cite="mid:87pleqh5l3.fsf@redhat.com">
+      <pre wrap="" class="moz-quote-pre">
+
+The intention is to use them in normative statements only, so that
+implementers have clear guidelines on the requirements. The legacy
+sections are arguably a special case (for implementers who want to
+support legacy implementations.) I don't think we want the all-caps key
+words leaking into other sections (any more than what might have
+happened already.)</pre>
+    </blockquote>
+    <pre>so this is a new requirement, we need to document these guidance</pre>
+    <blockquote type="cite" cite="mid:87pleqh5l3.fsf@redhat.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------QfK8CjuO495vvoHkD5Xh67Xl--
