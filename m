@@ -1,67 +1,67 @@
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (mail-mw2nam12on2053.outbound.protection.outlook.com [40.107.244.53])
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (mail-dm6nam12on2056.outbound.protection.outlook.com [40.107.243.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47042F1FE1
-	for <virtio-comment@lists.linux.dev>; Fri, 27 Jun 2025 01:46:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.244.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2900E2F1FE1
+	for <virtio-comment@lists.linux.dev>; Fri, 27 Jun 2025 01:57:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.243.56
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1750988775; cv=fail; b=foorg8zdqgA9QHJXL7TkNhyfJAN6TUypQXFGSPYSftlUcmQuJteyI6tCkyvV4wojZ32x+eDn4Wwv1MK/RVDJeoezxQ9aCxu9nViny2ZcVRaaizTt1RbqInFB0wA5vjUCXyHQWjsOEr5/f1qESTZ2MXBcnqP2HPILQtoRqDntqcs=
+	t=1750989437; cv=fail; b=JTfooMHsoneNVqnUWtg0mbQEJhGHz34fiWwXYTF3+gD1WInDTDOBI7HTGwTjh1+pIEP7hoVD2IFV6DlEeZgoSLPIlES44xUL4hMToCo4cP2YHbKCQXANocAXoE1PZspDU3Q9PGY5aKLW75HFOOeQYyET+4U3RF+uh2pYNCUODQ4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1750988775; c=relaxed/simple;
-	bh=DwuHQszpIo72BhtmY7bRo96Qu0uEtcQMjguABBphu9Y=;
+	s=arc-20240116; t=1750989437; c=relaxed/simple;
+	bh=tYI23XXG7TE1etrAj2agjB4SGc4f1L8nJitfY+Sdvg0=;
 	h=Content-Type:Message-ID:Date:Subject:To:Cc:References:From:
-	 In-Reply-To:MIME-Version; b=R9TnfydTK8DN3Cbc72jQzp17mspe9yWQTdbIOF3d7yFG4gNkS7bpm4cxbGP7cuneiGGX20E/eqwqYHCHFtqGnGUv6iJ/32gq9Igc3Dkq3bGPDVrbrgaL8nXR8O33qQuBPkjUKVBOsOQtr0avlCyfGWBUeRvXTsHJckF1dG8kL70=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=KOnxBMT1; arc=fail smtp.client-ip=40.107.244.53
+	 In-Reply-To:MIME-Version; b=QLrZFAccMy2mdPmGQRQiF4Pa8bcFL9BF6Rhj8khgSYzqCFCCPUfPwwM71rMVYZlmNxAw207sbvJccjNuNPo2cVpYIBEB0YyBagmlKAloirzGKuch6y66rZKy3v+1cI16lShS18OkhIw5Aesc2hAgoIDvjd7aX2AmmUChY3JaY8Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=fAPlqm6G; arc=fail smtp.client-ip=40.107.243.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="KOnxBMT1"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="fAPlqm6G"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ri9dh9srGPH9w7kmPIoXurbusDTZSENKzvueMvilijFKnkGxaqEmajX/kB070SevXiyK+dnkt6U+B6la7Wng4Gnl5v9YsfYq5zXx4p82nNTUiM1/QF8okjlfKGBU//l2hAPx7QekXRi3hlqeldIEqfdDJgfNnGJZbrMrUkPN3Ow29JWykPswt6P7piATKmdHDd4HZXJO72FPPTzPQL8Lod7AsHKarnQK8cNF+pjGxsmnkG4x3ulLXYcpWfl5pUBT7Z1FDF+Q2pjDeJ05UEZjynsWW2hs0ADdD7XtndH6xDjMq3JipHMfxHFcIlDMyilMqmsV7+Ij4HJTZyDni9aabg==
+ b=sC2QYWztcGnFJJd1xL3mP9O6xsLd/3wk56i+E/Yv/p4kVppLotuKkjpYbMDtW4IU1NDaThERDcWRICVm/oVEkOrUlGOUzoMqSWAuHq15WS7zYYEiRl8awkR1EFhEof9DpAEsHWV/zWT6DgiDIWOLv3A2YeA6zDO6YqnUM8Eo9FFqFpRf/hzHr9VwhxX4nnsJG0+FQr6vU9Nyl25crO6Q+MT3iEDSGP0LFN1W7ibX5w72qRIF0vnKr7XcX8NNVt+YH9nRN2Au0t2ss9SfN9kfXdt0R0ajV361pQyaOltqTiIuc0g4LWKDt3BQ437kKdOzO+QSyW3vIS9YW0A9gTohwQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M/sOBCjhSJtZgOHEROGideOWJh/cVentXEGCfbyic2w=;
- b=Cs35FBAmsakmGv86qfoU/BkZsXAB0n5Eo3Wk8FbwyKffXJmotocjBFn7STppRpDW3Be5C3MkRJvBgVwq5hX0Zb8c1wNjVlGjM/0y6jqOhu022Wn5mzAva9vdmU5CUpDbx3GKBMenccNJ5GV1SVP63hKOQxZdS56/BEYYc/9sdhWK7p0c/6A1qxWSSklTXcs2dD5Vx4i8cIgmPd1ky9JR1No/+xfZCJ494STtnNyfaeBfKs0R6YVSO/m8g2Y5DDXPovsTxe84NVvHtxypZjlMxWp1qfavbOspWMPKuyaBWYHQ2mnDDsvCDeFDxGf0Eb1xACNC9R9yVhKCI1nHhrL0rQ==
+ bh=zR9s3/nWENtJWrZjsJ0aeHS+nUoWtKrcerjdXyYo30Q=;
+ b=oHnxhL54GbRoLChW3TtPGh1lrrSiStSaech3E9MYC7ChC+DtOeOXSpnc6eQP7P1HxzrjApzFYNLilW//46YCpelThPpGzaZ823YCnNv+1mpVDRm0M26jwy1CjzP0VaIY1mJkJTZJr19FYJX4d0h7rIht3vQKg3LYC4koMbgP2QOgNwcOisP7PKew2KuL+ajq3Otd6dO7I/aj9K3dJvusOYxJhpoJX+uV/KE2o5oTHDjVBd81SphN658AQs6T+ebQUT1eEM7NpCMJIkb2ju3W2TP+okemoyJ6ZGgud5V9S7Se02u6/KiEcVKuDrgaaReeCZGvi6CyCVD0QhLJZZ+keg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M/sOBCjhSJtZgOHEROGideOWJh/cVentXEGCfbyic2w=;
- b=KOnxBMT1f+OL3bgmAUdSA6xf9OAjHCzZoDx4TRB+X9WpxySpmHoXRVU8Bvix6zvdm51g5vk9ibp0wxGeheGhDhNyh51YPcn9UBiMhV/kKKWoLjCCHDUY9PTX9/DxZzYNEVTL47nY3ghcOLUeG/mw7PiENDQK8OfHn2FQuNwaQXc=
+ bh=zR9s3/nWENtJWrZjsJ0aeHS+nUoWtKrcerjdXyYo30Q=;
+ b=fAPlqm6Gd4nb8/AK90bpnqdGImcl7SuEPqd2A0/uPpZ/nmSdA9ZvRYcbWQwUhK/E1lL4cFP1P48/PnXIjlc6dLP0QpMjWv/sohmV4VeFD1w8tPgCeyhQi9kEpQ7awdx0V6+31UT/h+uaw4GFH+w4vNEQHNJlwAQKgl5YyiiT7X8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
- by MW3PR12MB4347.namprd12.prod.outlook.com (2603:10b6:303:2e::10) with
+ by CH3PR12MB9100.namprd12.prod.outlook.com (2603:10b6:610:1a8::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.22; Fri, 27 Jun
- 2025 01:46:11 +0000
+ 2025 01:57:13 +0000
 Received: from SN7PR12MB7835.namprd12.prod.outlook.com
  ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
  ([fe80::ea3a:4720:99cb:32d8%6]) with mapi id 15.20.8880.021; Fri, 27 Jun 2025
- 01:46:11 +0000
+ 01:57:13 +0000
 Content-Type: multipart/alternative;
- boundary="------------QfK8CjuO495vvoHkD5Xh67Xl"
-Message-ID: <e0115f0c-951f-4a76-8795-d34b6f088467@amd.com>
-Date: Fri, 27 Jun 2025 09:46:05 +0800
+ boundary="------------FPkEYsMjo2d2zi8MygwaTOyB"
+Message-ID: <eddf7e8e-5197-4278-9669-572c51682613@amd.com>
+Date: Fri, 27 Jun 2025 09:57:07 +0800
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 3/3] virtio: introduce SUSPEND and RESUME feature
-To: Cornelia Huck <cohuck@redhat.com>, Parav Pandit <parav@nvidia.com>,
- "mst@redhat.com" <mst@redhat.com>, "jasowang@redhat.com"
- <jasowang@redhat.com>
+To: Parav Pandit <parav@nvidia.com>, "mst@redhat.com" <mst@redhat.com>,
+ "cohuck@redhat.com" <cohuck@redhat.com>,
+ "jasowang@redhat.com" <jasowang@redhat.com>
 Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
  "Ray.Huang@amd.com" <Ray.Huang@amd.com>
 References: <20250623083637.296041-1-lingshan.zhu@amd.com>
  <20250623083637.296041-4-lingshan.zhu@amd.com>
  <CY8PR12MB71959BD1BFE6319F6E05A7FDDC7AA@CY8PR12MB7195.namprd12.prod.outlook.com>
- <092e01c6-1756-4293-8183-8efea6720548@amd.com> <87pleqh5l3.fsf@redhat.com>
+ <092e01c6-1756-4293-8183-8efea6720548@amd.com>
+ <CY8PR12MB7195279118F1D536979C12E3DC7AA@CY8PR12MB7195.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
-In-Reply-To: <87pleqh5l3.fsf@redhat.com>
-X-ClientProxiedBy: SG2PR04CA0201.apcprd04.prod.outlook.com
- (2603:1096:4:187::23) To SN7PR12MB7835.namprd12.prod.outlook.com
- (2603:10b6:806:328::22)
+In-Reply-To: <CY8PR12MB7195279118F1D536979C12E3DC7AA@CY8PR12MB7195.namprd12.prod.outlook.com>
+X-ClientProxiedBy: SG2P153CA0031.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c7::18)
+ To SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -69,276 +69,181 @@ List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|MW3PR12MB4347:EE_
-X-MS-Office365-Filtering-Correlation-Id: 935ffcfd-62e8-4948-6b4a-08ddb51c64a4
+X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|CH3PR12MB9100:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf59d6bc-3dc3-4259-53b3-08ddb51def50
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|8096899003;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|13003099007|8096899003;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dEZPRnZlZEkzME94TnBQR1psS2VRdXM1Vm8yYXk1R3gvNkhaVkRSNWwzUm0v?=
- =?utf-8?B?RmptUDRVM3cwVXNkMnBSamxWaU0rZWVqUmtNdlJRUUZWV2psNTQ1c01ORW0r?=
- =?utf-8?B?bEhvdXdWTmVyZmc4ckRPS2RiTEpJY2dyVk9IWkU3ZWZ1dWlMTlAwNk4xUmE1?=
- =?utf-8?B?RE0ya2ViRnplWm9KM010SzZWRHByUEdIM2dEM3YrVTQ1TC8zdmRzVmorcnhE?=
- =?utf-8?B?MHhIMWRYcGI1SUdYMGV2RmxmRENwSzFxWWJmaVF4QjRWSTVIS25xUThpTzdx?=
- =?utf-8?B?ZHhGWmVBVFA0Zk5kbDFoNkFhT20rUHNQRDB3NGRENjlOS0FsNWpWMkFGSGpK?=
- =?utf-8?B?bkQ4Y1hPei9BTFhWcHJUTHFqNHo4Sy9ubzFKSTFZYk8xbE1WamVyZmo1cS9L?=
- =?utf-8?B?SG0vSklBL3dXcUtwOVVHNzUvYXhkcUZ6NFFrRHZxOFhMbXl4Q2RtelAvTmc4?=
- =?utf-8?B?SURFQ1p3cFJmU0ROZ21TVHF1UVI0cGY4SmF6cG5qZkFULzE4c2VKVWgzNUR3?=
- =?utf-8?B?R1JqZkRtL3FSVUc1UkhvZldTSE9CWDdkLzVqdEhuM2M1aHV2TkxBT0JZdUZn?=
- =?utf-8?B?a2JmRWlLRFJRSHJVcWgzRUtsZmZJcU44VFM0Ni81U0RPcG54V0NROGlDZmEx?=
- =?utf-8?B?UEVBQldqeTMvYmpiTUJUeTJvOFBITktsLzdBMnYxbmF5alcwZnltanMydHZY?=
- =?utf-8?B?TEZ2aFFMNHJkN1JML0xONEZXMHJiMGNBRjYvbFRHb1lTWlNDQ1JvSzFPazk1?=
- =?utf-8?B?eXgrRXkwc2w4UzYrK0ZTalVOWENWMzNBVkVVTW1VYjkxL3RZcEVLY0xFT3FD?=
- =?utf-8?B?Z296amRjR0YveGpISk9MMzNVRE9TR0cxcmptQkM4WGJzWS9CaGFnUU5tS0x6?=
- =?utf-8?B?emlRU3FhNnV0QVMzMWpRV0ZvekJqeWdBMUl0QlR5YmlPV2Y4eml1Y2krc21W?=
- =?utf-8?B?M2dmV3dwRWlTYk04TkpxR1ZITGZOajJnZmRubFJQakFON3hJNm1MbDAxVU4v?=
- =?utf-8?B?R0NEeFBTNHZYQmpuVmc4Z0Fqd2hoNXNPRGtHVWZMOWNqNHM3R1Q3amZ3cEU4?=
- =?utf-8?B?UGpjTkFBcTNwV1d0eVVNQWhNbHA4azRpVkROV1A1WjBUbzh2WXpMQ0ZJK01U?=
- =?utf-8?B?L0xuS2FSbzZmU2NpaTY0bW1aN0JFME85a3hXTmxPZmtwMVhaYncvbDlIWXVi?=
- =?utf-8?B?Y1JMRVB3QXhrak9yODhFMDMyRExXZ0J4UlJlVWxxd2JaRzRxcmwwMlFQN29X?=
- =?utf-8?B?M1lnWmFVUURselhNdGdnbVJMWHJSVE9MTTM4dFJNaUNFdnE2eEJXUUdUSHE1?=
- =?utf-8?B?OE10K1pFK2Q3RUFnVnpnTUhNdkFPQjhTbTRIQmE0eHVOdm1RK0JiVjhyMHNz?=
- =?utf-8?B?L1cwNHRRNjRFbG82bWQ4V1dITEtvaUEvYjM4YVJUeUdaL3NNSVVyQTNsYXJh?=
- =?utf-8?B?RlpGYW9UV2pmSlgwSXhNSDByVDBtc3JyekE2eUtvcy9Qemh6L2t0LzdGb3BI?=
- =?utf-8?B?OE12SGZVUUJOdkZsQnZEMXBTbitZWmNmWXkxUmoyNTRZSFcvaU9sakNBNEJR?=
- =?utf-8?B?UURYbDJkQWtKVmtOVXNxeVRGeE43emNORXVOUFVZWHdIeDB1QTFnUENCYTNO?=
- =?utf-8?B?QUx4MGErRUdzWXk4QUZQaW44STRDUjhBbEwrOEk5eXU2cEJWN2dnQVU4MXNC?=
- =?utf-8?B?Z0RsblExQ1JQUk5rdGwrQVVIbDBhd2VVWTNObnhzaUoxQjNLdHlYRE5wYVNx?=
- =?utf-8?B?OXh3aUpJMFlTRTNINEpnVlA2U2ZBeEZVeExMR3NrejdpS3Y0U296TGpBL0dq?=
- =?utf-8?B?OWF3WmxIQ1NFenhobEhSVjVMZUxWMXFIN0xYek9NMmpQRERXVlJrSnZxYk9o?=
- =?utf-8?B?TzV2K0F6VksyalRrTVorMTl1aDFpL1JMQTdwL1hTWGtRNXpLRmxGZ3dYcVNW?=
- =?utf-8?Q?gdpCBF6Y/u4=3D?=
+	=?utf-8?B?THVJTEgrbjczVUpPdjM4NFczZzJnN0pTVEMzK0czYWwxMUJOcmxZWnh6VTBE?=
+ =?utf-8?B?bnRScTNiSkFyMHlabC9pK2tvN2tGb2R1NVlqNkJWN2g3RGoydGxXelZjL0Yz?=
+ =?utf-8?B?cjd5YnphQWs4QVFWdTh2RkxGMjFmSzJKeHlMeGxqc1YzL2lBS0FCZjlUUnZY?=
+ =?utf-8?B?OU1DSUNuSTVNMnpWQWxPamgvV2FtSjN4UHVtYTYyK0FWK2xCYlRVSTFlWFlF?=
+ =?utf-8?B?N3VBM3pOZzhnc0QvUEpiWHZRNzlheEltWDQ3TVZmdGtHV0l1UElzQ2R2NCtx?=
+ =?utf-8?B?OEVCTWVPQXZkZy92T1FjUXo1WVhGZm1FNlp5aW03WkswTUc1UXBNK3RuT1h0?=
+ =?utf-8?B?dUIvZ2txdFdXZ1RJc280Rkl4UURqS21pS3Z5MnBiMXdLTk5zL3FNb0haalZZ?=
+ =?utf-8?B?UlU3L2h0NVZCQ3VObnd1ZkdhSytRdVlFT1BaR3RZZ21DejljWWRvUXIvQm9W?=
+ =?utf-8?B?T09SSEZROFlMZ2lwMVF5L3JSQlJ0WTQrVW5Lc0dhZDVlS3M1NFYxaTdyenpI?=
+ =?utf-8?B?UnhqemVkY1lwTnBsb29reTlHbEhvTnVyZDlSemlGcE11bmpPUUNEaFZNazFO?=
+ =?utf-8?B?b1EyYmMxWm1iRWswUDRsM3pLYnlXb2tOZkltU3Y1SlFxRi82ek5DelRvNTBx?=
+ =?utf-8?B?UkIvTFhZWWVLR1c3aTVSNEp5OXh2VzVTWHQ2bUtnUFkwQWNTOXZ2ejZMcWR2?=
+ =?utf-8?B?SUlUQ2YvdE52MmFDZFBUckZxVy91VnIvNkZkTWdacWp6Q2JGektPQkdKdVcz?=
+ =?utf-8?B?Y0xPajFReWVSWGJqM2lJeWdrc3RRSm1BaVJtSGYxQ1NQZnJ6MGtGdkhkTURG?=
+ =?utf-8?B?N01LOHRvcGNydmxnamRDcHdkblowaFRPTFJNYUpmQm9RcExMclU5Q0NGTVVG?=
+ =?utf-8?B?dVpOcVNiZzZYT3FrMnNCbmRMN09hQjBESXNkaG8ySzJRMWRoelFmSEUyQ3pv?=
+ =?utf-8?B?UUFGYmZpWjhqbzBPZnYrVGxKVmh6a1JTY1kxMys5Z291NThBSENsVkl5d0RW?=
+ =?utf-8?B?UlJqa09MSmVFQ0tXd3dVVTVBSjN1MU4zajhjRDZBQWRJNXJXSk84VnpOOU0v?=
+ =?utf-8?B?Z0tqVE1ZTUViS1ZmeHRCWjRLZVBFMzhYZCtYb1huUnRFaUFiR0ZrQ1NxeEJz?=
+ =?utf-8?B?bkoweVNQQnk5R0tLdkdLZm5TeTRpQXp2MkRoWldodU42dm51bUQyQmtRTGlr?=
+ =?utf-8?B?OFUzbXZIaEp3RTNoMkZTTURtdHdUQ1NGYzJQWnNzUW5heFlIL3A3L052cVps?=
+ =?utf-8?B?bjRLcmZJREwxcnJteGh4Nmk4Unpmbzg4VlI5ZlVFNEE3YlRZNnVvSmFSOVcy?=
+ =?utf-8?B?UmpZaytFeUc4UkM0ZEJLdnZLRGk4WlpWMllXcW5TTUlMeTRRNWdMaHNHL1Fj?=
+ =?utf-8?B?QXFLYkpwVWtjV051MHkrc2lhamZtOHc5M3ZOZ2YwTzNoU250N3E3TGlMS2g2?=
+ =?utf-8?B?bzVpMEJCQWxTcjQybU5xMTFuQXFhaDYwb01lYmxIYVNaaWd2STF5NXdmTlhN?=
+ =?utf-8?B?WmNrdkg2d3pZakJ4dy9pSWRzcWVZV3Exa1l5Z2JXY2ZLVUtqUzh1bS9yTi82?=
+ =?utf-8?B?TkVRTysvRzV5MExZYUZaWVVScUxvRENpdmNlK0JzVmxYT05FRzQvQndLWHZq?=
+ =?utf-8?B?RFA4L2dOcmpjRGtXcEwwNWdHOFVyajVrUFZZL1VIQUJxd01paE4vcmN6VEpJ?=
+ =?utf-8?B?L0lUdWlvSUpscmU4RkhxZE5vRWJheS9WeGlnaW1uRi9SS20zOWhERmV4NWl6?=
+ =?utf-8?B?VisvTEt2Nzk1QnpQenNuZzJkajk1N0N4RkJRTi85ekZTY3ByeVpCSDJnQzRn?=
+ =?utf-8?B?L1ppL05Na1p3Z1lFWUprdGhFaVV4K1EvQ01aYW9SZUZYNTZKd0tVWmhWUlVJ?=
+ =?utf-8?Q?SmvufjSG8anxj?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB7835.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(8096899003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB7835.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(13003099007)(8096899003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SWFLbng0cEJsdXF6RXQ4bkk0RlcxMVJSamdpeDJDaGwyV3FrSjhKYzhqbE9X?=
- =?utf-8?B?cUc1USsxalFqSzdrc01lSklEdWdSdUNCbWVqYi8vM1Bxakwrb3Q5UmN4TWp4?=
- =?utf-8?B?dVZQVHBNdGIxemxxbGpnTkZxTURhYnRhM05TODJSMkt3UVVlWWVrcm03a01F?=
- =?utf-8?B?MGpuMXlSSUR2aVFJS3pPbXlmVmFlVDJuMU1CTmdHbE9IV1dXL1FHck9Pc0E1?=
- =?utf-8?B?Z3lEYWZBSTQ5ZUdlQVVITm0yVGxKeklHcUladG9LNzdVZVdXcXBrQWppZCta?=
- =?utf-8?B?b0JYY2oxN1crQ25vL3o5YjNmZ2d4aGtxUGMwQXFPUW9LNDY3ekllSHYza041?=
- =?utf-8?B?MFUzYnhwcVBFWnFtYUg2T29KWURvTENXVlUzMFV4YzliSCtxV3IyZ1M5bXB4?=
- =?utf-8?B?VENKM0RFQVZ5ZXB6OWxwSnRNcXlVNkxxUGo3OVpta2VKNDR6cUdGay93Mmtw?=
- =?utf-8?B?RzJ3eTNHdGdWbmlHdjRCa3NCb1NoZ3V1YlFpQzVVWG52U0I4elZ5YitMVjAz?=
- =?utf-8?B?a3hPclZ2TkJydGtnbmZVR2E1S2pFZndjM1U0bTJCNGF5VW5NbVFYTWl1R1V3?=
- =?utf-8?B?Y3NmQ0VpamszcWszTHl5QlJ6dFBOdmpMZnJaenh3c3hpS1FsNVZUbXhTSzZn?=
- =?utf-8?B?YncxU0lLOGg5anFlU2FIUjRRWmxFdVhhdi80U3pMSitrdFhmTFZNL0JrZWxh?=
- =?utf-8?B?VWNDWTNQUXJuUFRra3JLK3FsazhzVXZBYkdxZi9vOTQyZ3RmL1RBdUlNZmRK?=
- =?utf-8?B?aklLSVFsMTZxWkZLdGZCcURHU0xmYkxrc2Z5QXR4ekx4dUJaY1FTd2R4LzA3?=
- =?utf-8?B?TVMvWjVESU9aQXFSYzUrQXhJLzFIdTFJeE1MYUNGdHVrdm5DRWp3MzdiNEtp?=
- =?utf-8?B?TkpkWFVnY05vMER1OGNpbjdZYTdzUXdOb2dyc1RZeW02S2tLaWxXTVBZZkdx?=
- =?utf-8?B?anZ1L1dQQU5nRno5Y1ZsU3h5V3ZVVUQ2TndCamtuYlRoSVhya09nM0U0bzR1?=
- =?utf-8?B?dkVQdnFncVdLOGQ0OFVUOUlYNzVrLzFLT2o0Q2NhQzZJbmNWYnJXV3FCaGt1?=
- =?utf-8?B?S0xIUkNLVmRvYXA3eUcyd1FWSGN0YVNBY0p1ZFhwaW0yRTRoeitHYmZmMUc1?=
- =?utf-8?B?QUduVjZuMGNKM29RSlJ0VDc3Tk5RYnNadlh0QjM5QTNReGdob0hEWHN4OE9t?=
- =?utf-8?B?SFhMRHFNNkQ5c2ZxZWVLZWhkWmNyZUhHc3o0eHJmNE1iQ1BjaHgzMzlDTTlI?=
- =?utf-8?B?QWVQZmtKZ2NreE85ek5iMlV2QUpnUFg3L0tMdnl1RG45N0JQdm56MXNWRzNy?=
- =?utf-8?B?WlZrQ1EzUUpjVi96bFVZa2tuZVo0cVJjQXExSC9Nb1d2TDduUjRzV29sREZr?=
- =?utf-8?B?ZkJjQlFjZVo4SGcvQVdNa0prVWpNOWl3VGl1ZWZER2E3TmNXOTZJd3VkSWZ0?=
- =?utf-8?B?SlVmcWlhR3g0WGkzcXp2cVd2Mzh1a0pHb3VuYnBtanBMQVE2M1pXUEVqU2NH?=
- =?utf-8?B?ZVRWNFdRZjJUZlBzdnJEV0l1em1hMFdiUjlYYlByZ2FURHhoemZiZVdOdXVl?=
- =?utf-8?B?MzdXYnVUMGVlNEVUbVQ3ZlY0UjJ6TnZzZndyR05Kbm9vY0NxZHhrSUZvVWRn?=
- =?utf-8?B?TXZ1R0FxbmN3a0VaZjdpNGZMU1NBQ0pEMjdwV1lhaElmNHlIcHZReldJZXUv?=
- =?utf-8?B?bmtPSkhDTDh5NWNJWXIycHc0UXUrZXpoTmt2RklaeG1TNzVrTzIrQUp5TmtD?=
- =?utf-8?B?OTdYbDVsaEZTWWZ2MlNRTjEwazAwbnNVcFZXSG8vVkFYZ2pJaUd4d2hETG9w?=
- =?utf-8?B?WUNLdlA5Njdwdm1lbi8zd3FiNURLZjROQ0ppOElOdllnT3lPOWtFZDhJVWw5?=
- =?utf-8?B?K1c5NS9zM0R6LytETFkwY0MzeXl0QzVCRkUvandmRTdReEF1d1E5RXV5UDZa?=
- =?utf-8?B?cUR3azdrVmhoYkdyTGtscHFkaGdxYzZiemxEeEE1Ykt3THd4MFV3dDl3VUJ1?=
- =?utf-8?B?ZzVHU2NncGsxOGRPV01TTk1DNUhCcGdUaDRnVGcvM3JGVGlBNHk1SXFEYzRR?=
- =?utf-8?B?dXR4NTJZbnJwM3MwelBjWWR1NWZNUC9MbTZkbkYvT0M5WTJOYzRqVFJYWlpq?=
- =?utf-8?Q?fifE3NIj7ZqRYk18wedb1CJp1?=
+	=?utf-8?B?YjRUYXNjc0ZRN3htR0p2ZUh0VXk3cW9jYmZoNTJDRlNlL0gwVFRnZDlOVXVp?=
+ =?utf-8?B?bksyU1pYM2JXL3dSMFRBV2hOUldvc013L1Q5SERReU9GMGpRNzlkRW10Mm54?=
+ =?utf-8?B?b0s4Q2xOQlZDSWxRVVNyalg3MnpsQUt6UG9Ic3ZZNndtOEc5ZTQ3OTNKclI2?=
+ =?utf-8?B?dmFLSU8ySXRnYjFoWjRXYitSOUVnZlVOOFZNWi8rN0xOa0FOS0dMNHlJZW9Y?=
+ =?utf-8?B?L0tsOFgxaHhBU01ETmFxdG92Y0xMUzNEUStuNTlPSjU2ZURNWXI1bG1Qa3FV?=
+ =?utf-8?B?OWRxem1paktJZDJIeGNsSzQwUjZiUCt4TEVaZTB2c3dFZHBLWHFGcjdPZlNo?=
+ =?utf-8?B?eVo2WUNtbHRLazhRbFdpdm1zaVRqbERrd3pHRzVaZHNRNzNlUHViZGtkVnlM?=
+ =?utf-8?B?a0VoK21PMXNGQ3VOQUtyOWl3dXd0QmtzQlpaandEL2N4NGVZSENOL1l2R0JO?=
+ =?utf-8?B?NkMrSnN6NG4rdWozK0phK3JvZG1uSXhEa0dGVmFvWVBhYkJJdER1Y0ljSWdo?=
+ =?utf-8?B?S2pKbUV4MWpwcUt5cHZnWkQrWFBFdmlKaVFwNTJhQVFObnE0angrTWYxdVMx?=
+ =?utf-8?B?cUNLMElreHp1MXZvMTIzdlQ2aXBuaUl1MVdqMnNjbkw5ZHZ5dTFXR0poZ1ZO?=
+ =?utf-8?B?NnV3aENnZmdWQVZTOVJoR085VFF0L2VsNXkzZGRFWmNkQjBJVU0weWVGb044?=
+ =?utf-8?B?QmQ4VmFjVTJsZXNUMHVYK3ZVeXlxR0h6VGp2bUhLVnVydnpjUjhUMWg4UDdP?=
+ =?utf-8?B?NkVWVnBrNzVFeEZ4a0pSekNkVmVCVkJCcERPZVBqbFBiTmRyRXJCc2l1cDJR?=
+ =?utf-8?B?aER0KzNoZkVHVUVMY01tVTRvSVV3TFRoOXYvNGhOVnczSitQd1FNRjYrZU4v?=
+ =?utf-8?B?V0lHVUl2NVRnbXZRNXFVdmhacHpPYjVLekJKWk9UMDNlek9QZGxYb1hOcWlv?=
+ =?utf-8?B?QWRwRWRmelE2Z2szc1RzN2F3alh3bUl0amlOV0xqc2c3dXdRbE0wNERDZC9y?=
+ =?utf-8?B?enpBdzIvU2RsalNxdi8ySFlwWDRSM25qbUpyc3ZNWXJHWFRweGowVDVTdmJt?=
+ =?utf-8?B?NFVqMmN1amZIM3kySGpoeXlNdDRJTDJZMkVwVldHVmQrOExDSVpKNXYybnFB?=
+ =?utf-8?B?bkZmc3dTaWg5SnlWY2pFZlY4NFJ6SDN1QVJFbG1MS3ZidlA1TnlTdUFjaHlq?=
+ =?utf-8?B?eEhaYjdzNi8wdzNGeDFZUlZKYWdJRUpRMmRYbGplUUhwalA0UjhJSFJiVWF1?=
+ =?utf-8?B?YVJSb3U5dHIxc1ZzbWRHWFBJQUZYK09NbFU1Rk9QR1hFeXFDSTVHeEhkUi91?=
+ =?utf-8?B?UEN5VVZFN3JWSVFqK0lLWE01YjJDVWJ2ckc3cVhqMVZqaHhwSEFSdE9EaEFy?=
+ =?utf-8?B?QVowV05kZDRLcGtWTGVXODNZQnU1VTM2dkFlV0ZjOHVsRjJjZHhXNXRsTzND?=
+ =?utf-8?B?SEVyVjFxQlE5UTFiVDZmcjZONlpCT3dWRkR6US8ybWkxSkkwaGNERmVvaElQ?=
+ =?utf-8?B?WitFMjIwTFVCOG5RMHIwUTlpcDJtbUF1WGQxNFJBRlh6MDB1ZnRkdDVhNG9n?=
+ =?utf-8?B?NUp4WFZlOW93dVhNTkczek1sSjlITlp0WEtnVUY5YWNIMTVOM2xncWJlU09X?=
+ =?utf-8?B?aTdoOFI3MnRjRVE2MFJ0RWxtUTMrSzI3cytEZW5wa1ZvK3F3QUs0TGJlSE90?=
+ =?utf-8?B?TkUwaFV0UnJTcmoxMVVIcXM3dzlPSDZMblRlUVoyNzAzRDN5eEhNV0NuenZK?=
+ =?utf-8?B?dlJCRjlwanVhUlpnd2oyeTBvdmxzSk1JcUpBd3pPWG1DdHVZNDk2NlhnbXNx?=
+ =?utf-8?B?dWxiVmd5dVVxekVWL2V5QzVXbS9JZ2JwREJ0MFVBbnpORlpWTERJOCt5NHJR?=
+ =?utf-8?B?ZUF4ekJCbi9KVWJCREFTV2paVVQzUTI2dzFjekRKNDVVR01aK243K1dWaFlz?=
+ =?utf-8?B?V0NZR1YxWm5mdFA3Uy9PbDBHZHNxMjRSOUJVelR6TGdGRHRUNTZGaVRVbEcw?=
+ =?utf-8?B?bWdrMGc2dHFldE9JY3BMc0lXS01oQnE2MzJrNUx4QkRMRGc2NjBxUzJlWkUw?=
+ =?utf-8?B?RkU5NEpHblV1bTNpb29JR0wySUNOcHM3eDJGMHpNeUU5S0cwLy80dG11c3g3?=
+ =?utf-8?Q?wweC14CLLWPTEJmDzw1RsRNxB?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 935ffcfd-62e8-4948-6b4a-08ddb51c64a4
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf59d6bc-3dc3-4259-53b3-08ddb51def50
 X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2025 01:46:11.1889
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2025 01:57:13.3204
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZuRZY4zVFFIsew2YpxHRTBQoIASxwCjCYj4ygYBpexSxT7MvYcqQ1jFqx9A8CsCUjsQYGrgE3Ny4AlbNPGqn6g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4347
+X-MS-Exchange-CrossTenant-UserPrincipalName: pSAFQQbACSpH4Ij3T6CMdTChDtRD7rj5+SEOFa1sxnVH3P+uHlZOAj+WDYa6pc9Wm5uoWk53FJdIXlugh9MbMQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9100
 
---------------QfK8CjuO495vvoHkD5Xh67Xl
+--------------FPkEYsMjo2d2zi8MygwaTOyB
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 6/26/2025 11:42 PM, Cornelia Huck wrote:
+On 6/26/2025 9:40 PM, Parav Pandit wrote:
 
-> On Thu, Jun 26 2025, "Zhu, Lingshan"<lingshan.zhu@amd.com> wrote:
+>> From: Zhu, Lingshan<lingshan.zhu@amd.com> 
+>> Sent: 26 June 2025 06:56 PM
+> [....]
 >
->> On 6/26/2025 7:59 PM, Parav Pandit wrote:
->>
->>>> From: Zhu Lingshan<lingshan.zhu@amd.com>
->>>> Sent: 23 June 2025 02:07 PM
->>>> @@ -629,6 +632,54 @@ \section{Device Cleanup}\label{sec:General
->>>> Initialization And Device Operation /
->>>>
->>>>    Thus a driver MUST ensure a virtqueue isn't live (by device reset) before
->>>> removing exposed buffers.
->>>>
->>>> +\section{Device Suspend}\label{sec:General Initialization And Device
->>>> +Operation / Device Suspend}
->>>> +
->>>> +If VIRTIO_F_SUSPEND is negotiated, the driver is eligible to suspend the
->>>> device by setting the SUSPEND bit in \field{device status} to 1, and the device
->>>> SHOULD set the DRIVER_OK bit to 0 once it has been suspended.
->>>> +
->>> You ignored the inputs.
->>> I do not agree to add the "SHOULD" normative wording in the general description area.
->>> The reasoning is explained already.
->>> Please adapt to the existing style of this spec to keep the normative in requirements section.
->>>
->>> If VIRTIO_F_SUSPEND is negotiated, the driver is eligible to suspend the
->>> device by setting the SUSPEND bit in \field{device status} to 1, and the device
->>> sets the DRIVER_OK bit to 0 once it has been suspended.
->>>
->>> Is this really that hard to write above way?
->> I believe you totally ignored my replies in the last thread.
->> There are no rules forbid using "SHOULD" in any non-normative sections.
->> Now here I copy the reply here again:
->>
->> In the spec section 1.3 Terminology, it says:
->>
->> The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in [RFC2119] and [RFC8174] when, and only when, they appear in all capitals, as shown here.
->>
->> RFC 2119 says:
->>
->> SHOULD This word, or the adjective "RECOMMENDED", mean that there
->>      may exist valid reasons in particular circumstances to ignore a
->>      particular item, but the full implications must be understood and
->>      carefully weighed before choosing a different course.
->>
->>
->> Here this "SHOULD" exactly conforms to the definition.
->>
->> "SHOULD" has already been used in non-normative sections, for example:
->> 2.5.4 Legacy Interfaces: when using the legacy interface, drivers SHOULD read these fields multiple times until two reads generate a consistent result.
->>
->> The spec does not say: “SHOULD” can only be used in driver or device requirements section.
->>
->> @MST, we need your input
->>
-> Not MST, but you can have my input.
+> I wont be able to reply to this non text format inline.
+> So please find the reply here.
 >
-> We refer to the RFC for the definitions of SHOULD and friends, it does
-> not say where to use them.
+> I will not be able to take RFC 2119 keywords sprinkled in general description into the spec.
+>
+> Even worse, they are sprinkled non-consistently sometimes "SHOULD" and sometimes "should" in your patch.
+>
+> Virtio spec restricts usage of those keywords only in the requirements section.
+> Existing spec is an example of it in all the sections.
 
-exactly
+do you find any sections documenting this restriction?
+If we want this rule, we should document it first in the spec.
 
 >
-> The intention is to use them in normative statements only, so that
-> implementers have clear guidelines on the requirements. The legacy
-> sections are arguably a special case (for implementers who want to
-> support legacy implementations.) I don't think we want the all-caps key
-> words leaking into other sections (any more than what might have
-> happened already.)
-
-so this is a new requirement, we need to document these guidance
-
+> Please refer to the rest of the spec for such nomenclature.
+> The reasons are also explained in [1]. Please refer [1].
 >
---------------QfK8CjuO495vvoHkD5Xh67Xl
+> You didn't answer 'why is it so hard for your patch to follow the current spec nomenclature.'
+> i.e. to change 4 words...
+> If there is no reason, I do not want to debate on this anymore.
+> Both of us have more important things to do in virtio and otherwise. :)
+>
+> And I didn't ignore your comments, I replied with [2], which the last email in the thread.
+>
+> [1]https://lore.kernel.org/virtio-comment/CY8PR12MB71957FB8A0337FB62A1CDB41DC6AA@CY8PR12MB7195.namprd12.prod.outlook.com/T/#m3ea175d50e7ffc9816a322384e6766492215469f
+> [2]https://lore.kernel.org/virtio-comment/CY8PR12MB71957FB8A0337FB62A1CDB41DC6AA@CY8PR12MB7195.namprd12.prod.outlook.com/T/#m5d09faabdaf91a97b5844b040a19f5700c377870
+--------------FPkEYsMjo2d2zi8MygwaTOyB
 Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 <!DOCTYPE html><html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body>
-    <p><font face="monospace">On 6/26/2025 11:42 PM, Cornelia Huck
-        wrote:</font></p>
-    <blockquote type="cite" cite="mid:87pleqh5l3.fsf@redhat.com">
-      <pre wrap="" class="moz-quote-pre">On Thu, Jun 26 2025, &quot;Zhu, Lingshan&quot; <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a> wrote:
-
-</pre>
+    <p><font face="monospace">On 6/26/2025 9:40 PM, Parav Pandit wrote:</font></p>
+    <blockquote type="cite" cite="mid:CY8PR12MB7195279118F1D536979C12E3DC7AA@CY8PR12MB7195.namprd12.prod.outlook.com">
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">On 6/26/2025 7:59 PM, Parav Pandit wrote:
-
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">From: Zhu Lingshan<a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
-Sent: 23 June 2025 02:07 PM
-@@ -629,6 +632,54 @@ \section{Device Cleanup}\label{sec:General
-Initialization And Device Operation /
-
-  Thus a driver MUST ensure a virtqueue isn't live (by device reset) before
-removing exposed buffers.
-
-+\section{Device Suspend}\label{sec:General Initialization And Device
-+Operation / Device Suspend}
-+
-+If VIRTIO_F_SUSPEND is negotiated, the driver is eligible to suspend the
-device by setting the SUSPEND bit in \field{device status} to 1, and the device
-SHOULD set the DRIVER_OK bit to 0 once it has been suspended.
-+
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">You ignored the inputs.
-I do not agree to add the &quot;SHOULD&quot; normative wording in the general description area.
-The reasoning is explained already.
-Please adapt to the existing style of this spec to keep the normative in requirements section.
-
-If VIRTIO_F_SUSPEND is negotiated, the driver is eligible to suspend the
-device by setting the SUSPEND bit in \field{device status} to 1, and the device
-sets the DRIVER_OK bit to 0 once it has been suspended.
-
-Is this really that hard to write above way?
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-I believe you totally ignored my replies in the last thread.
-There are no rules forbid using &quot;SHOULD&quot; in any non-normative sections.
-Now here I copy the reply here again:
-
-In the spec section 1.3 Terminology, it says:
-
-The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in [RFC2119] and [RFC8174] when, and only when, they appear in all capitals, as shown here.
-
-RFC 2119 says:
-
-SHOULD This word, or the adjective &quot;RECOMMENDED&quot;, mean that there
-    may exist valid reasons in particular circumstances to ignore a
-    particular item, but the full implications must be understood and
-    carefully weighed before choosing a different course.
-
-
-Here this &quot;SHOULD&quot; exactly conforms to the definition.
-
-&quot;SHOULD&quot; has already been used in non-normative sections, for example:
-2.5.4 Legacy Interfaces: when using the legacy interface, drivers SHOULD read these fields multiple times until two reads generate a consistent result.
-
-The spec does not say: “SHOULD” can only be used in driver or device requirements section.
-
-@MST, we need your input
-
+        <pre wrap="" class="moz-quote-pre">From: Zhu, Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a> 
+Sent: 26 June 2025 06:56 PM
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-Not MST, but you can have my input.
+[....]
 
-We refer to the RFC for the definitions of SHOULD and friends, it does
-not say where to use them.</pre>
+I wont be able to reply to this non text format inline.
+So please find the reply here.
+
+I will not be able to take RFC 2119 keywords sprinkled in general description into the spec.
+
+Even worse, they are sprinkled non-consistently sometimes &quot;SHOULD&quot; and sometimes &quot;should&quot; in your patch.
+
+Virtio spec restricts usage of those keywords only in the requirements section.
+Existing spec is an example of it in all the sections.</pre>
     </blockquote>
-    <pre>exactly&nbsp;</pre>
-    <blockquote type="cite" cite="mid:87pleqh5l3.fsf@redhat.com">
+    <pre>do you find any sections documenting this restriction?
+If we want this rule, we should document it first in the spec.</pre>
+    <blockquote type="cite" cite="mid:CY8PR12MB7195279118F1D536979C12E3DC7AA@CY8PR12MB7195.namprd12.prod.outlook.com">
       <pre wrap="" class="moz-quote-pre">
 
-The intention is to use them in normative statements only, so that
-implementers have clear guidelines on the requirements. The legacy
-sections are arguably a special case (for implementers who want to
-support legacy implementations.) I don't think we want the all-caps key
-words leaking into other sections (any more than what might have
-happened already.)</pre>
-    </blockquote>
-    <pre>so this is a new requirement, we need to document these guidance</pre>
-    <blockquote type="cite" cite="mid:87pleqh5l3.fsf@redhat.com">
-      <pre wrap="" class="moz-quote-pre">
+Please refer to the rest of the spec for such nomenclature.
+The reasons are also explained in [1]. Please refer [1].
 
+You didn't answer 'why is it so hard for your patch to follow the current spec nomenclature.' 
+i.e. to change 4 words...
+If there is no reason, I do not want to debate on this anymore.
+Both of us have more important things to do in virtio and otherwise. :)
+
+And I didn't ignore your comments, I replied with [2], which the last email in the thread.
+
+[1] <a class="moz-txt-link-freetext" href="https://lore.kernel.org/virtio-comment/CY8PR12MB71957FB8A0337FB62A1CDB41DC6AA@CY8PR12MB7195.namprd12.prod.outlook.com/T/#m3ea175d50e7ffc9816a322384e6766492215469f">https://lore.kernel.org/virtio-comment/CY8PR12MB71957FB8A0337FB62A1CDB41DC6AA@CY8PR12MB7195.namprd12.prod.outlook.com/T/#m3ea175d50e7ffc9816a322384e6766492215469f</a>
+[2] <a class="moz-txt-link-freetext" href="https://lore.kernel.org/virtio-comment/CY8PR12MB71957FB8A0337FB62A1CDB41DC6AA@CY8PR12MB7195.namprd12.prod.outlook.com/T/#m5d09faabdaf91a97b5844b040a19f5700c377870">https://lore.kernel.org/virtio-comment/CY8PR12MB71957FB8A0337FB62A1CDB41DC6AA@CY8PR12MB7195.namprd12.prod.outlook.com/T/#m5d09faabdaf91a97b5844b040a19f5700c377870</a>
 </pre>
     </blockquote>
   </body>
 </html>
 
---------------QfK8CjuO495vvoHkD5Xh67Xl--
+--------------FPkEYsMjo2d2zi8MygwaTOyB--
