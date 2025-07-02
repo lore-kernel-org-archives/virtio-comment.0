@@ -1,46 +1,46 @@
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (mail-dm6nam10on2048.outbound.protection.outlook.com [40.107.93.48])
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (mail-dm6nam10on2040.outbound.protection.outlook.com [40.107.93.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCB91EDA12
-	for <virtio-comment@lists.linux.dev>; Wed,  2 Jul 2025 08:54:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.93.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BD1823C511
+	for <virtio-comment@lists.linux.dev>; Wed,  2 Jul 2025 08:54:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.93.40
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1751446489; cv=fail; b=ROEwPIhbPF8qZyUWns5kGAKtM+N9dCNJm9icjtlnUBEb2K7iZKCynag2fhBq2xa3POx5LhZlqzNAIKWVQ7NUwkGarqXxrNeqwelpSkv8Im+4SN/wQgwX2gJ8ZQfOkGBBrNds1W8A9omiRqX4G5Ns0bZRG3PnbW0cqPvi5Oq4f9M=
+	t=1751446490; cv=fail; b=fWf+CLfmxI1+GCnJ2WUdel0jT8k0Vgy05zgGDgpg+JS3j6O1sQXBNXmhc/VgQw/7GS9STEMtyrvllZ4I1LJoZHMxZV4EBWD7CrT50+s7BPPkyPWsdnMRUDg75NY6enbdL0NCMmeRCAn1p+E5lraISWj4QMFpluvRrsk3/uAfh1s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1751446489; c=relaxed/simple;
-	bh=W4uQ4WdYM7vnN1gAg2oMpRPairnUR3gIda0cQvhvBWM=;
+	s=arc-20240116; t=1751446490; c=relaxed/simple;
+	bh=7aAmB2oiuTngEZ3vi3fQhrrmBJ5Qst39yO4LhEa0So8=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=maBz3twLsV/MRIdZcdf/yuczkXu3KfXAUCofrWnbCZCvN9PfW5HI+a3ZuQIOAC8VoWQyKPW6b2Zo1zVY40Li7s27JQVN6erg9j3Y27faKxHw54IybWO73yYe1Ej4AfPsqZ1pY7HqPqOz7Th4YA0LRFYeFJJq3eocmPV0vOoQqGM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=H8vb2Qfi; arc=fail smtp.client-ip=40.107.93.48
+	 MIME-Version:Content-Type; b=uaQLfJR1+ulo0VEW0CHoAi00CoJqh4Ex6PRrYCU/ZAd3txKZ41b+TluPGRGKdwK5MvYk74jznMg2Wj+KgUbJUobzhgkL1T5MWrd2mnfCccM07Z/XqHcnFqk7j4UOwT+yBoNggFSkoARqxpOFNvqNOI9tMg8evy5riGTkDtK6s0I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=O+zBAI8e; arc=fail smtp.client-ip=40.107.93.40
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="H8vb2Qfi"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="O+zBAI8e"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kbHwt0YMcmC2Z5L2eXe+zWhyMSPmtp5FcdLrGXueSptVXFaElwBKQy8hDY2GsqBx5PTfJ3CfFQaCekbowtVKhgQfRHW67ejmPygiWwzylp5QJQk0rfsciOez/W6LQ2pWFLsNPbxFuhJQJyfet4FD204/+0tHk61oAObJei43lL4PENKzXj1yOqF7sfjtnjf3IlQu+yGkLuOSHA5Vio6dDe1LSgFwBfLXQAR3mV4KwoysZZ86EFEm2L0VN1Emjo8O7z8yAENlxaortccn/brUeLg9BSOZ1i0u6A2qtmMOwALrxzRNu5AZE1Q5UjhZOB50wqCERoNrvNzqJotaoInnhQ==
+ b=c5MRodbbodcGOn+g/vQTfYXpNsEhoRpt6hif06Xkb0q5wYA61xTPpNq6WKU9U75fFUs6FGwz378n3PFcOcLsLNFwSUuENSEvnQ3LCQIXzVxD7wW3MM1YK/Wx8g1WfPWNqdviP1mTssmnlH+r5KTFwCxXAWOCBW3Mtd5QfaiNZTfWY3Ec76bKSgtq7WPzm4wapXCnXMl7okRGmCvGEdfu08RMypIfRFIhs2tkhmAhIXAebcz08nFlzeEecHNOAUNq8jaAqe3bb46yv8WsQJkNm1qBWKNzrfJsOPtz8ZIvUWT5aVvbTx0E6fohIouaVw/mVgUePkITc5SC/UyQGllJlA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Vzql+l6ANiCOyXwaXxWLDlaH1g8/NBrBodT4SdERD7E=;
- b=bUlqYl7SWpafQj6TJUy/92Ks9AH2FSb0DSQ9G7uaupeLUCn/OHABAPpYmrMRqiPUIoFwcCk1TfbLNSnTW2QQjCweezxW7AB4i536aijxcqbFpGDe59nYPWeuj/eomUtGgjLMnxhY1strels2a12rkiCdxoh64CJgHa9qoTIv2PQK0TpGr6CMHFovNVkog1fTk3cW1xCR4Sj+/aOS3t8oc7dTBa4OF+rZqstdBdV9A7rbp5p2gtHfPoPHyTrsUhS8KKdhbwrRDwkdEv5RWCJPQxQvS59mk1vKiCn86UisTz0mFqa+pNTTquzeewa7oG2WnLv76m0RY1YW35BqSlrqJA==
+ bh=IDAczGpScni3cKo85Y1AEopbJNUu51OoJhwOxKQUcDI=;
+ b=TH27exkhsLh9DTvFBM4IFFGLeZxDV15usLwo7y68PGyhjRRARQZ47FP1dp5wP1Y1SL32LMApOISiU5+bX1lI2xzjmuJzafsMmjvwn5bsiY1888SYRM6vxgvQtVgvmQkYiDIiL5Fsk4QFoos7yIRNrYxULbU2Dot+G8qS71PNAe+bPF/bU+smXPrdv8M8QO0cQgKstcWZUKLDqhdskQmI7bUnBMVdak8XCjIWgpPGG92DsaAoePJDUToAKyaoBRgPK7k4RZIALnumYjxZldm7K5zA1c/OScF6HrFOZBSdvPfYzSYF9bBYNQj3Rx6TX3VNsaZPmhpxtozrJ1CHBETUgg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vzql+l6ANiCOyXwaXxWLDlaH1g8/NBrBodT4SdERD7E=;
- b=H8vb2Qfi3KyOzWQa+lsZz5f4exioA41GwOeNqs6QBsQQXMQ4iMNcyI3GCviJiM2tezqxAYSZXZefyBUBbbiRbN37KYd2A06AO4LMLG+pKHH6eZE2YDFfdPWOSgLt7YDhar6BoWFX8cMqsyqcW/HSvz8sjQlB2qdNpue+jDEpEck=
-Received: from MW4P222CA0015.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::20)
- by PH0PR12MB8029.namprd12.prod.outlook.com (2603:10b6:510:26c::8) with
+ bh=IDAczGpScni3cKo85Y1AEopbJNUu51OoJhwOxKQUcDI=;
+ b=O+zBAI8eFN76F+FCxCUp9XSBV3kU1mx7Q8SFqz4N6WmOW5vrmglMnWAAyGskrVPuawm5Vc8RiP9ZqNxtpeOAHb1VkcREHGdeHVrwGJy7eiErvydlblNyCqbMDU4ZhfaBANMQgx5jG8S9vdgnumTzSKu5AKf4sh2to/KWwDaASo4=
+Received: from MW4P222CA0010.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::15)
+ by SA5PPFF3CB57EDE.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8eb) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.24; Wed, 2 Jul
- 2025 08:54:43 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.25; Wed, 2 Jul
+ 2025 08:54:45 +0000
 Received: from CO1PEPF000066EB.namprd05.prod.outlook.com
- (2603:10b6:303:114:cafe::15) by MW4P222CA0015.outlook.office365.com
- (2603:10b6:303:114::20) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:303:114:cafe::a5) by MW4P222CA0010.outlook.office365.com
+ (2603:10b6:303:114::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8901.19 via Frontend Transport; Wed,
- 2 Jul 2025 08:54:43 +0000
+ 2 Jul 2025 08:54:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1PEPF000066EB.mail.protection.outlook.com (10.167.249.7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8901.15 via Frontend Transport; Wed, 2 Jul 2025 08:54:43 +0000
+ 15.20.8901.15 via Frontend Transport; Wed, 2 Jul 2025 08:54:45 +0000
 Received: from fedora.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 2 Jul
- 2025 03:54:41 -0500
+ 2025 03:54:43 -0500
 From: Zhu Lingshan <lingshan.zhu@amd.com>
 To: <mst@redhat.com>, <cohuck@redhat.com>, <jasowang@redhat.com>
 CC: <virtio-comment@lists.linux.dev>, <Ray.Huang@amd.com>, Zhu Lingshan
-	<lingshan.zhu@amd.com>, Parav Pandit <parav@nvidia.com>
-Subject: [PATCH v4 1/3] virtio: re-order device status bits
-Date: Wed, 2 Jul 2025 16:54:19 +0800
-Message-ID: <20250702085421.342224-2-lingshan.zhu@amd.com>
+	<lingshan.zhu@amd.com>
+Subject: [PATCH v4 2/3] virtio: document feature bit 42
+Date: Wed, 2 Jul 2025 16:54:20 +0800
+Message-ID: <20250702085421.342224-3-lingshan.zhu@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250702085421.342224-1-lingshan.zhu@amd.com>
 References: <20250702085421.342224-1-lingshan.zhu@amd.com>
@@ -77,95 +77,84 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066EB:EE_|PH0PR12MB8029:EE_
-X-MS-Office365-Filtering-Correlation-Id: b0d51467-32eb-481b-85ed-08ddb94616d9
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066EB:EE_|SA5PPFF3CB57EDE:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab4c888e-e92b-4a32-2e02-08ddb9461806
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014|13003099007;
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700013|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?pP48mTb2HLayF/s69h4JpFqlZ5nM/ySuKgEgEj+2W/V5UxTTv2DtUYtRhGMT?=
- =?us-ascii?Q?c69AmWIHy0mBf0937WBAB25GsIX6jt6ci3GfSKWlE+7SOWd/eRKRk+c3btGY?=
- =?us-ascii?Q?eUCgnC2SD03gmBtcvDFbHtwLe+GUFrMz/3qsTcyztWaMNjC92XsFjtTOPhDU?=
- =?us-ascii?Q?mG2z3s/LGwYicmdc7KpuIH/LmjSV8+wKhOM2FLVBdevRP6iA7mh9oFkU2OdC?=
- =?us-ascii?Q?dUYhRhOdjxKgyI+EjH0vAjKpt7QgOZwqI7w03gNctDhoYkIrxxuH//a6y7J2?=
- =?us-ascii?Q?Y6J5Ratbu/FcEtAyEJ+odATCd8WMdzdgyuzpCALB62gTQX/mmifrgg0ovNGM?=
- =?us-ascii?Q?NlJO1KtdUBl22jP7h9ouqc+Ihm2r0tAtXVH+gtldQaYq07d9kJXTrsqxqqvJ?=
- =?us-ascii?Q?TvjrAopUMGBaKzli9Dp88XM0YPFp/FoDTLNrE8z+qBiVOxJB2jV9NbN0WwpB?=
- =?us-ascii?Q?gjlzQ5CB5mPhrVl5gZ4S54+HrC63pghP8BRG3pCSZUsiqw8wXXkbGfJWzzoh?=
- =?us-ascii?Q?JEQIepDDApdW39sEqI9J/d/lHqfw55ufHK+o1ZyCmXZBsQzyjhFPkm1LeOad?=
- =?us-ascii?Q?k4Enm0RPeG/V3HsaqPGYuJT7T0W/s+IAoWPSQu2UuOSL76+mQ/PRkdqKgQzK?=
- =?us-ascii?Q?u83oI05bmedwL77hqX5inQXC4lrRx+vNEnATMmfykk/SJ7DW2XRLsKdo2epI?=
- =?us-ascii?Q?I7t/mRWyPyGJn/lJaibhEyZFvbh9KXOBjzHXrkNrlOnfCSJFnQqLWr8pq1NZ?=
- =?us-ascii?Q?HRlEarNSC5MPkkNmFr82jAL2I5otHFh5mQtS/l6Y4YjenWemN0/AVhPw3xDr?=
- =?us-ascii?Q?91Ug0AMg/HWCBhVNoVoQPq+sWo/wUlM7VYYgQLiHgADs2Chgz+vrcw34JmE+?=
- =?us-ascii?Q?JgvYhpWEb4vlEYnyFSzON0Fuev0BJea4M/2kQTPodxpWuBIRUhF337hSd1Mr?=
- =?us-ascii?Q?/V7ehZdvcCGJ0g+YC3prZLnLBpmawPso1L1riRWL/kidVsL/PgWJhbfAJ7R9?=
- =?us-ascii?Q?W7OoPrijiY1cujg465IpATOxKmXJTnYOnuup6EC90oYsJczYfRwRus3ab6oG?=
- =?us-ascii?Q?r1+JuAONr9XVRsE5G1l85AGn9fd3BcVPzB9S+a5DKe6gp9Bj4x8vEDVyPkZh?=
- =?us-ascii?Q?5uiNAmlLLtHTtvnsVcDRNFctaQWz0I+Y/Zt32+N2QsBAhnL0gAfb66p4xE7o?=
- =?us-ascii?Q?uYMEVm+mbOrlOsBZDDAiyNGlvswl7HsJb6ogqk4pLtsKY+pCm5yOz6iHFHob?=
- =?us-ascii?Q?XpTZNF7N3+X48W+KGPN8qSsv+aWpmh2RH8R1F0uhghI58SuPHtWjQB2pyO7V?=
- =?us-ascii?Q?xkibUvheePIldNBUn6Ih9qx8uls+Iu68YaXx5guO5NsxGbfIVpGtYGv7R+40?=
- =?us-ascii?Q?MQlRYIi0985x2AUXsvOuE4WNasx2BgRRFaM9aB8Nri+8SkwImF1iXIClqnyH?=
- =?us-ascii?Q?RJc1HBV8yHj0hy/AKnqGANZT9bVBifTsjRYFTTmAF7DbEPL5SRlMtmNTEk7+?=
- =?us-ascii?Q?6raTpK9xwh7ZYiOltz/7BCATgQssCGNyFdXTNJd55f7YeusHrU0Sc/hy9g?=
+	=?us-ascii?Q?qucPJso3gZqoLpEOogP9GxWtbD3RCsHJ/jdREiE0w841zJLYxGxau6vhWc+L?=
+ =?us-ascii?Q?BMzvscIT0v8HUSLsOYEoH0+o6gEygR8UPvivAaT/qbkkngfAyhsP0dbDXzmp?=
+ =?us-ascii?Q?fI0lXd8uF9QGdNOgfMEyNGaVKz5qMyPUuHe/jL3MMQU/BWpDtp3WLLqCoXBq?=
+ =?us-ascii?Q?p9WPx/jigMk/W667JkxA9Mgb4ph++J25tij8q/9nu0jdnbePi1FSWsBky3Gx?=
+ =?us-ascii?Q?uIy9/q7AY0bUsOAI9oaXYqYpz4ysuqgUkmnNQCxOisVOhePvmGGkiVMU3oia?=
+ =?us-ascii?Q?XEWV7+YIDAmriYxaDb+vKz/TEjcrLSxCH5oi2Y4Rb+7WGfq4ctrtBWxpL/hZ?=
+ =?us-ascii?Q?p3Iq91Ah3AM9NI053qOQ/PNdRYOihEfSet1nn4zgeGUnuCF/pZAGC+8eF7jD?=
+ =?us-ascii?Q?+MLFTyxqYBBQ/+G5u/bcUObNxtJV9pUTpvWL7W6f9WltWGNinj9Kz/+bmraS?=
+ =?us-ascii?Q?t4XKMr52B3aAm2ce6LWv/meKCfWNpS6ph8Pv2JWWbYyVetCjIi3SomjZ3jNl?=
+ =?us-ascii?Q?/FwC9vBI/E8nFZa+gxuiKjYJS0/XrlXqycTqr/Ldo6IoZSnU/d0hfzsGBYPO?=
+ =?us-ascii?Q?dE2/X7tHtbmTP0APlAbNtcKzsiKwTOHzZH576b9SdQ984ckKldmFPlBaxfbA?=
+ =?us-ascii?Q?1vSaKFIyNJ/DvP7RcC+i39ZA6b6Pl5bLL3+0V7sBY5dMRi7DVlwd3DhoGMrI?=
+ =?us-ascii?Q?m2iWl1H3re8cLcXD7BJ5ox+xcZYaUI3q7P0+uhH2qsm9HwUfUpfrUZjPc+8X?=
+ =?us-ascii?Q?lc4U8J3kiblL7Biu6JdGESUKvant/nDthe5mrXDIt0/XU3BPS08fgrH8dwin?=
+ =?us-ascii?Q?HuiyHOMUSzJQJGdnJIk9FIaHkDz+1TyEqmIeT9576GKTglKfb7Z16NKxollM?=
+ =?us-ascii?Q?YXYdNjS68vGYNoxJXTrEK5OzPJmeIrM2Bd9ImmtB/3G+UHd/CGzOpcGDPfoP?=
+ =?us-ascii?Q?DnKG+SBgtB7D4LO1pGwxAs1/srAruPjBOwEAP/5eGTdKIihjACEteE0I3dph?=
+ =?us-ascii?Q?vIAytBXVT4fcnRYzFZToIIbPLe5EdLYk44m713mKCK1djCrH/J1wMFEwDroU?=
+ =?us-ascii?Q?kHvhQST3Erduk72ohCXotGXMLEQeRb++ZmaNUCzIPnPuyxLrtvev0an0Veme?=
+ =?us-ascii?Q?J7AskwFBmXTaYnu/hC1aC4eUEDtjCurtgVQTZL+wd1zj7RT1L6dgLNTUnSpR?=
+ =?us-ascii?Q?6nj2Mfm2PNsOTynv4cRvKPjO/Qmk7YyxJCcwZwicuDj/ua+zMDUSiS+P+EkL?=
+ =?us-ascii?Q?u6EX5T0lp6PCLLbgn6NMi4s2j2UbG5kgPFxCtqF/3X0v8VYqhPIXsXexRQq7?=
+ =?us-ascii?Q?SoQMF+8fdYK6Nw1ExXTInUchCX2x2ojs62845kSfRbYv1WXwVOJ2CUDlt1Ds?=
+ =?us-ascii?Q?ulS+/LGs3RKNZ12e08LVlia8etslrRbgIvvVSWqPI32cozxg6Mt9EBYIAhXO?=
+ =?us-ascii?Q?p5dywva2gSEtRB3vtWQO0GbB7LXrMNFqkQJlCbsiueduBF4orMqYz6t37p1C?=
+ =?us-ascii?Q?pqY1OlStufrbgFQrptySHQg28+ftPNHo9ENF/cny6MZuWJK7dr4X+m+InA?=
  =?us-ascii?Q?=3D=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014)(13003099007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013)(13003099007);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2025 08:54:43.7351
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2025 08:54:45.7040
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0d51467-32eb-481b-85ed-08ddb94616d9
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab4c888e-e92b-4a32-2e02-08ddb9461806
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	CO1PEPF000066EB.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8029
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFF3CB57EDE
 
-This commit re-arranges the device status bits,
-to list them in ascending order.
+This commit documents feture bit 42
+VIRTIO_NET_F_GUEST_RSC6
 
 Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
-Reviewed-by: Parav Pandit <parav@nvidia.com>
+Fixes: 94384142 ("content: Declare virtio-net legacy feature bits 41-42")
 Fixes: https://github.com/oasis-tcs/virtio-spec/issues/229
 ---
- content.tex | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ content.tex | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/content.tex b/content.tex
-index d3fc6a4..1efc2a5 100644
+index 1efc2a5..9213dc0 100644
 --- a/content.tex
 +++ b/content.tex
-@@ -36,19 +36,19 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
-     this bit.  For example, under Linux, drivers can be loadable modules.
-   \end{note}
+@@ -97,12 +97,12 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
+ Feature bits are allocated as follows:
  
--\item[FAILED (128)] Indicates that something went wrong in the guest,
--  and it has given up on the device. This could be an internal
--  error, or the driver didn't like the device for some reason, or
--  even a fatal error during device operation.
-+\item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
-+  drive the device.
+ \begin{description}
+-\item[0 to 23, and 50 to 127] Feature bits for the specific device type
++\item[0 to 23, 41, 42 and 50 to 127] Feature bits for the specific device type
  
- \item[FEATURES_OK (8)] Indicates that the driver has acknowledged all the
-   features it understands, and feature negotiation is complete.
+-\item[24 to 41] Feature bits reserved for extensions to the queue and
++\item[24 to 40] Feature bits reserved for extensions to the queue and
+   feature negotiation mechanisms, see \ref{sec:Reserved Feature Bits}
  
--\item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
--  drive the device.
--
- \item[DEVICE_NEEDS_RESET (64)] Indicates that the device has experienced
-   an error from which it can't recover.
-+
-+\item[FAILED (128)] Indicates that something went wrong in the guest,
-+  and it has given up on the device. This could be an internal
-+  error, or the driver didn't like the device for some reason, or
-+  even a fatal error during device operation.
+-\item[42 to 49, and 128 and above] Feature bits reserved for future extensions.
++\item[43 to 49, and 128 and above] Feature bits reserved for future extensions.
  \end{description}
  
- The \field{device status} field starts out as 0, and is reinitialized to 0 by
+ \begin{note}
 -- 
 2.49.0
 
