@@ -1,122 +1,189 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com (mail-dm3nam02on2084.outbound.protection.outlook.com [40.107.95.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D5B1CF96
-	for <virtio-comment@lists.linux.dev>; Sun,  6 Jul 2025 12:39:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1751805575; cv=none; b=WzY5SZNzdmJojW8H5Hol1+CYHUxitm3lOYZObqF+N+QCo2aK48SjAPD+Xmqm1Kn9urtEMzvOsG1hJdJDfV1hudZzdsY9MBWxm3XMFOmNNaCBbDGWJuup3MwLnhJ5Be6JO8iO7lPi4OfukCSDWRcm4WiVbQTRFHb3HqDMg/yWStc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1751805575; c=relaxed/simple;
-	bh=7FEA1E8PmDnHksYNxP2pATaZnueU6DWn81L1GT7NNJI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=Fbyx2tfjha6H1lM4MI+fsXdpGteixnzdGOsJD+PpJVemebQ0ShCYt6AxcagWEn1XAqobr3jn3o7R5Eyg4Tn5n3E88Xc7oxo0D+u7Pm+iNwkRX1hw2Xr1/t1FlHZn9WxmkBF/fYz8DOI1cRhtNSZS/r8RRfR97o1w25lUDruyb5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ME7/6iZ9; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF08270EAA
+	for <virtio-comment@lists.linux.dev>; Mon,  7 Jul 2025 05:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.95.84
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1751866455; cv=fail; b=lVYoowxuO9p2RQXxb7DcgGOUOaE36W+gbTjCtVDXEPP++JKv9anS36UIruQoaZ+ol9t75D/0VE6VkT+EHkCFeRyRypxyqyHMdSStkEclSbOlWAibO++8FZwpnmwlGn7sbRMkxFPNe6//XGlR2VqKYkwcoOrB9RiF87LG51mrCaQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1751866455; c=relaxed/simple;
+	bh=MNuBAnB+zagaa+qmk67JyDtcsVUexGQu5fqCYxmERNk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=UuC86PTKylwEYNKzj7vEAAq1z7icNnXagprvBP7V6p/NOJw8kdFUVYcvT/x2mabZXBRgJgmK/Npabv0LUnrkDhbCLBxlwjW+BokU/I8e0KEFjRw959aB1UrnAw7F+Az+uLPZQ2ieWW2WZXh7S9CSpNxAQFzhkO3/XyTxns6BAKo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=cZcLDY46; arc=fail smtp.client-ip=40.107.95.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ME7/6iZ9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1751805572;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9zOnzKxsTcHHUsn6Md3dLv0aD1wBeAH/bm3q+4YdPSU=;
-	b=ME7/6iZ9PqggQOrfa9IjRIABQgaCrn1W6+obUKM1rzmO9l6lklSfAWi+bZat7zA0PKhNEA
-	gJ8xnPcSa3EZ2VcUWpdGDw+wjMrNzbA2L9PBODsPTqVioATzBJzBHmoWi9+gMObPM/h64i
-	4lShLfh7vAR7b62AqEGtT15Z3w8YReo=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-617-NfcDB9rxP26qtSmPi8eBRA-1; Sun, 06 Jul 2025 08:39:31 -0400
-X-MC-Unique: NfcDB9rxP26qtSmPi8eBRA-1
-X-Mimecast-MFC-AGG-ID: NfcDB9rxP26qtSmPi8eBRA_1751805570
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-ade6fd82263so159192466b.1
-        for <virtio-comment@lists.linux.dev>; Sun, 06 Jul 2025 05:39:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751805569; x=1752410369;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9zOnzKxsTcHHUsn6Md3dLv0aD1wBeAH/bm3q+4YdPSU=;
-        b=pg7aKd3oFyVuCmtYrNKEn/2cf1kdc79WKpMeGO1QcvH0nzMRYv8zQ9InKHIN0fp83y
-         NpCQUtxZNEVBuLVJLwKtlqjDEnn3d+yypstuVT20p2/qznPKtm7Tzh8OExQ6J5wyTsSs
-         sTnVCokWYI10oLSHbU1DmQMf6uGbdAW9xUa0ec6QcpCkXZEf28tNC8m5hsBVL2l5/Wh6
-         xcEGOfIsz4Q48VVq7mAacdY1FF9GC66gkNxpsjk0j6NJf9HFSWXj68rLNt7ZZ9vtbZMx
-         JMMRZoQ86ZZVxoItvWsCAy85HarvVUfcMBT5O2VMkskDkxrGzGSQOm1cCsnWtnTyqMEw
-         H6rA==
-X-Forwarded-Encrypted: i=1; AJvYcCUrAdfntRxU8ejJAhXFdpc+IJXldqH1azuaJsyHAp2lt5e2nbTEt84FXG+zJ11PyZX+8ngTZqQ/AJQONC655g==@lists.linux.dev
-X-Gm-Message-State: AOJu0YzpYTmQy5R5j9BSPC61H204hZdAosimnVSRaBxEOePtDx671ujy
-	Z/iTQ2zI1PRrO8k8p3882KlqTilHFXXrp6D4def32HQRIqgV4PtfWoR+ZLXMDqnwrT4hbtV2pO3
-	lVuFYhElLBIgeIzVarQhp11vPssDp5snd98YlsNYlOHjRyvzQVUUgBpwGErY46r9EzEsEwyLv1V
-	EC
-X-Gm-Gg: ASbGncvzXv5T5HHDU6Gq2xjX3vCJtJR7XIXhxWRJA6QqZJ4caY0C/ir3jhrjVvah8eO
-	IrF12fcQOG04oNPHcXV+mGbh2t0cevdep9gVt/wo4pBHQP9syYu+JT8FoakS/uHBPh7l04KJqcC
-	aygEyKluoR5FRH5rs3F39vPE2e51O6xwnvI+ba4PsfbKnZ33PQamANJhj3jzE3i+8mJuvjLhSxh
-	6SWi9mV2G2zO5ru4aAq1DqNtH1Yu21Xd67W5lyscHWedF2Uu2TqEDYlBSlXbmSawlgNlqECZzw9
-	Ts9tj3Xgad8=
-X-Received: by 2002:a17:907:7fa2:b0:ae3:74be:49ab with SMTP id a640c23a62f3a-ae3fbc32cafmr952543366b.10.1751805569521;
-        Sun, 06 Jul 2025 05:39:29 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHnHHnAVb7OsbtHNP3NfL3LpL0wQQs2UftYlQcavZ2eT7wZWn8NmCdLKke4o052LQ7rZ3szIw==
-X-Received: by 2002:a17:907:7fa2:b0:ae3:74be:49ab with SMTP id a640c23a62f3a-ae3fbc32cafmr952539566b.10.1751805568951;
-        Sun, 06 Jul 2025 05:39:28 -0700 (PDT)
-Received: from redhat.com ([31.187.78.69])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ae3f692fbddsm511880766b.62.2025.07.06.05.39.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Jul 2025 05:39:28 -0700 (PDT)
-Date: Sun, 6 Jul 2025 08:39:25 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Parav Pandit <parav@nvidia.com>
-Cc: "Chia-Yu Chang (Nokia)" <chia-yu.chang@nokia-bell-labs.com>,
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="cZcLDY46"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MYZlGhYbnntB5+/gadKJ8HYtmkdpFg2SJCc6zW9gAWPtiPsYK3WHxGAH85HUEKIJbSLGk7PutBcpLurvNP3/UU+x87Umddwhj3w25Ru4j77O5dj2U/Gu2zOvEbyc1bVHt0DatW5HsSyHkSsCXIeHV0V3g+fgfxwH6cV+h3Immpv09+YaO3Q1orjp7whKZ6YEE/UEjK1RfTUkWm2SUpJ7+Y7U2ACPxEwpiCyHt8zJjHGz0SJBm9vXZFKE+PNd+WierZffjpeFLE/DqGaqE4iAPYQMRM166I5LbPt1FqbtDgvTOWkxlZUro6+ZVJ6T6njJdTfN1Y+jI1zF74WDmXYisg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ifa1M1q2iLVyLoDbkUW9IeWBg23jvSVZaSVPVFrE5oE=;
+ b=iTGLZXSDkT472sxVaSkpZyuzsw8XLFXj7Bk/cy9u8qKjWP4TnhahymGy2R3ukRsaCEEqcII4OMq0R2S89W/FVyj026V0T6434k1Fyfz33zyF0lCUSZvPbdSSThN/SWXGV67O5fojoA7JNgswij68YWZYayOzvylnSVg4B9JB02Np4a1d36SP6Kr2cSYBNB8Pjqb2ngigV6vpo5uoeGVxZoTtIcTwEiXzEdYZL4UVAdtYi1/LOQazRc3GFsEASnmR0sqInTEHOnG7P87DzfH2YGtWiljePW589t3Rkh6zBnKGFnRQHULa8tE4ERybXO8I9/LaCHXdz9qEqUMPGPbY2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ifa1M1q2iLVyLoDbkUW9IeWBg23jvSVZaSVPVFrE5oE=;
+ b=cZcLDY46+HLY+vNz/7pLljS+Z97ituZ3gPldiCQOWsw7Alwhu+BgfP8TVSpbrNfsDOHLczfd7FlV2p+Qp3mKCQVUItA78q2WsoQagisniAhaREWI6crtj2iCEoSdUfCt9RbGkfGeQj9IfbFJOmlrYmKaT2XPaQBMvkO261snq4m1kW1hY3g9px1TPgStPYugLdpyDw04aveBKNoAWoF9YLMEtYwOU3CajLXHRyxPXlyyCjGeQWcIp0+HFBJP4FCiMb3T0JBbZ58ga7jTbwKVgf93DufQfUisxVnWwtKl1szdSUIg1qMTbSYCti65ZS1KnUPLni8Ij99k9mRdgmXQjA==
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
+ by BN3PR12MB9569.namprd12.prod.outlook.com (2603:10b6:408:2ca::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.24; Mon, 7 Jul
+ 2025 05:34:10 +0000
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::e571:5f76:2b46:e0f8]) by CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::e571:5f76:2b46:e0f8%4]) with mapi id 15.20.8880.029; Mon, 7 Jul 2025
+ 05:34:10 +0000
+From: Parav Pandit <parav@nvidia.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+CC: "Chia-Yu Chang (Nokia)" <chia-yu.chang@nokia-bell-labs.com>,
 	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	"cohuck@redhat.com" <cohuck@redhat.com>,
-	"mvaralar@redhat.com" <mvaralar@redhat.com>,
-	"jasowang@redhat.com" <jasowang@redhat.com>,
+	"cohuck@redhat.com" <cohuck@redhat.com>, "mvaralar@redhat.com"
+	<mvaralar@redhat.com>, "jasowang@redhat.com" <jasowang@redhat.com>,
 	"xuanzhuo@linux.alibaba.com" <xuanzhuo@linux.alibaba.com>,
-	"eperezma@redhat.com" <eperezma@redhat.com>,
-	"ij@kernel.org" <ij@kernel.org>,
-	"ncardwell@google.com" <ncardwell@google.com>,
-	"Koen De Schepper (Nokia)" <koen.de_schepper@nokia-bell-labs.com>,
-	"g.white@cablelabs.com" <g.white@cablelabs.com>,
-	"vidhi_goel@apple.com" <vidhi_goel@apple.com>,
+	"eperezma@redhat.com" <eperezma@redhat.com>, "ij@kernel.org" <ij@kernel.org>,
+	"ncardwell@google.com" <ncardwell@google.com>, "Koen De Schepper (Nokia)"
+	<koen.de_schepper@nokia-bell-labs.com>, "g.white@cablelabs.com"
+	<g.white@cablelabs.com>, "vidhi_goel@apple.com" <vidhi_goel@apple.com>,
 	"ingemar.s.johansson@ericsson.com" <ingemar.s.johansson@ericsson.com>,
 	"mirja.kuehlewind@ericsson.com" <mirja.kuehlewind@ericsson.com>
-Subject: Re: [PATCH v9 RESEND 0/2] Update ECN and Add Accurate ECN feature
-Message-ID: <20250706083812-mutt-send-email-mst@kernel.org>
+Subject: RE: [PATCH v9 RESEND 0/2] Update ECN and Add Accurate ECN feature
+Thread-Topic: [PATCH v9 RESEND 0/2] Update ECN and Add Accurate ECN feature
+Thread-Index: AQHb5BeCIh2hpnd5a0y1aDY3s1sZXrQeTpiAgAbI6ICAAAZTgIABGmuA
+Date: Mon, 7 Jul 2025 05:34:10 +0000
+Message-ID:
+ <CY8PR12MB719538CDDAC1EEA6DDF7E250DC4FA@CY8PR12MB7195.namprd12.prod.outlook.com>
 References: <20250623081847.21264-1-chia-yu.chang@nokia-bell-labs.com>
  <PAXPR07MB7984F5C4CFBB42A74690F103A340A@PAXPR07MB7984.eurprd07.prod.outlook.com>
  <CY8PR12MB71958D120A087B79243A79D7DC4CA@CY8PR12MB7195.namprd12.prod.outlook.com>
+ <20250706083812-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20250706083812-mutt-send-email-mst@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|BN3PR12MB9569:EE_
+x-ms-office365-filtering-correlation-id: d20dd53e-3bed-4732-6ea7-08ddbd17e653
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|7416014|1800799024|38070700018;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?z/jIPzaAKdX6qHC13ihIFK7BBUFy31vio8y0dGuezD5N4ZoNCdPEZTceNwKl?=
+ =?us-ascii?Q?EY+trr2YE+UvhJGNq4ZgeJp7AT6KdaUKolJtfMuS+mgbVnL+i9hd3QNuY/eU?=
+ =?us-ascii?Q?YJUWESrdSRMXYMwnpuZMPzTFOSkb/JMX4N16C+8VglcWr9BUght14v+boFEB?=
+ =?us-ascii?Q?1vjKpnsl2pDj1pFlHPdiXiXOlzewtm6PCea0FSfu94r1UxXxzW2l7JK5Xd8r?=
+ =?us-ascii?Q?yu8QFU4lSHPeP0yNJ2kRa8lIWS7MsmQ+LRxb2i3MflGSn/eX4hU6odEtv5NH?=
+ =?us-ascii?Q?odurMgp7esfmQcPkgaEBD9QoWbu14fX2rrtVpxcukeRnX3V5T40o0RDbAx+y?=
+ =?us-ascii?Q?DdcSecaYxK0rZvg7x/NMGdTbdTidfuF7lWcm282xAYepDSEuT8+B+BzeTgJH?=
+ =?us-ascii?Q?QVyOEfIPk3cd/WyJf7Rf5YeroJIgBpZaOCR8mHNb/fFDIm83ANLT/yctKLT8?=
+ =?us-ascii?Q?kHAC5/BmYEPMeQpdPVj7S9oQJaMY0p1EN60TkERzjUvkwC8Fx9zNPOj1pwER?=
+ =?us-ascii?Q?DeDKaB6k5Jd/F+yssQgqtsV6wxM3QvaA+3zFH1OlJf4r121kYLWbjBLGhjyp?=
+ =?us-ascii?Q?Z2OhagrhXg5ruMtB8ERr9atpoQ8RdFf7gFhLIEjfPUfTT5rldBnMs5qyj9M/?=
+ =?us-ascii?Q?XYsc9zvCFUBl6kUcyoUlWE1s4kR2gJG74x1JK6akkFGHs1LP63w7HWQsqX2d?=
+ =?us-ascii?Q?aUMVjsU02hzB+S7Kkayzwt/NGvGdgbOEjkP6abYdZS+GUk+FLn7nJmKRxlx2?=
+ =?us-ascii?Q?8TYJcp5TK1qyZqD0ZHgESjcGbCbThiMLXJvN+3dUX12td9CxBf9+lytdsHTn?=
+ =?us-ascii?Q?2/alKeRNYfZokCjD1RcEktzq8sGkBmZJW0a8Hm1saBvqmh+Z2WLolSmStIRD?=
+ =?us-ascii?Q?UQdI9wF3TNglmjeCeFyScU10PMOP3NZr2bO5dOhMBkzTv4ZPqPmGMa/V9joD?=
+ =?us-ascii?Q?34lph6Fqip+AArCxuiFe8bZbQTDe1MgB/j8Ke6NbTtC3LRJ+pkKAW+QFbijz?=
+ =?us-ascii?Q?dC0y0dDjG7pOp7ph0L+cP/mqyllNqaG2ZhsnPBkChXoV82HNsey7c7kJxaQj?=
+ =?us-ascii?Q?eyacETfyC/uQcunaq6+SV8eQAto0qJOBCNaVyWpRSHptikjIOBIiJ4wuNWHp?=
+ =?us-ascii?Q?HH5iBS4MHLV2tRBjGfy+MsKTZ7CaHCwGEdC3Tl7Mqv+BRTVCnVhM8Z94Kfur?=
+ =?us-ascii?Q?qa0ZpPAHjb3Vrr60EvICiEScLSNm7Y6bnHdYuFkdd3DDRik+13YEyJdp1Twp?=
+ =?us-ascii?Q?envJK17EE18KiLC3yjic9pm9M2AdRYK/vGE4Zmp2b/IgZ5V8xKLWuR4+rV6E?=
+ =?us-ascii?Q?XQtNWhEu2F9GSx7fWb0XCNzvsSnfw+5E6yWXZVRkpe2oxL2smNHPSNBGwK8t?=
+ =?us-ascii?Q?PPGU8z+6Hod4FERrjPFe9V3OOf7IwvSA+SLriwviF/1NAn6VKN6NjKreJA4B?=
+ =?us-ascii?Q?gEJI3eT9SNsoE8rPN8oDckJK7etU0R5PrmFY/BsuihmVUy/srgdUAB1krJ1B?=
+ =?us-ascii?Q?05BrCkINhf7XFdQ=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?ic0oIQZljUVstOyIW4H8AJg05MimxArCuLQJvegjKRrY/zZrk4W58mdAZ+QX?=
+ =?us-ascii?Q?KGGnwBql0nEsOwvAW8f54Ix4+yYOINfarP0Fltc+yNl+PufE1FCpHtrCPawA?=
+ =?us-ascii?Q?Rq2IXwQtPUUEi0CAR/J10EhR/yerqNCOSyhbTvJIVRoBAg442pS1/rK28c4q?=
+ =?us-ascii?Q?SFfUJM/DhflvfzGBwXIlmEvFlv2qwMVpHF2hHlYO1gyy+xkAD6pPfv6qgYjv?=
+ =?us-ascii?Q?GMjhwhD80kuDOnTpLhTDpE/l55jvguN0nmBrGOd7otTQzHEuPIz5Z8EfM/rt?=
+ =?us-ascii?Q?WVzpkDAmCCKDL8himGgrrvXcwnXOm4R/IUWgK9vGx8APlVeikFHS+pd7iM64?=
+ =?us-ascii?Q?qI1qdsYT2liD4ZvuUe+MHtFFXKMaHwGUFKZGVaD94cjDPgiDaj+CtIrsA6p/?=
+ =?us-ascii?Q?9O3X/VfzPPjIATtkOVc8cFjFDx/NEyL4K9YP3XH5F/rUms+nmUDgF8Clq9Y6?=
+ =?us-ascii?Q?FepqkapiVkPDrdBhZXjqYeNHLoxAmeHBpkyi0rYv03j0D4nHSAe65HLjHKYM?=
+ =?us-ascii?Q?7NDkGNayk4lDf4mL2bEeHvM0EVMwBD4ssSHhMhTuslVF9Cpi9aycmNEWLrgw?=
+ =?us-ascii?Q?H0wbBFefvR0TNtunUGdw4f7uGV6zuvQedmVmml635DFjgv5C6p5aIFcYmCHr?=
+ =?us-ascii?Q?ABdwqUhj2ibX/PULTU/stDvfy7x6+gTaAfcWcO/RpS7EViPgF4cTHcP/0nuK?=
+ =?us-ascii?Q?oSTidONaIeWHSe5ierIhkeb6uhwI0k2+003KbWUoRrLTB8tiBaNa/8AGymNg?=
+ =?us-ascii?Q?mV9UFPOZdyn0LuHRJFVccv1z37IbdgWwdUwNgdEiZ4ynfNdmTSjTSpptPYjy?=
+ =?us-ascii?Q?85fF+bVa7C9hQ34g6QoPvEO4Bl2Y/ghTODnltgmGnwBpT75YjH4zEdi8BLK8?=
+ =?us-ascii?Q?WpLbdpmKC+rAhwy2+P9w5m2nNplgKn/brV1mCQUKvrenmkTxGqqjMy/srFs9?=
+ =?us-ascii?Q?itCTpf5/jxcPHEyni4NUUuL8tdpHxAlddphjxTfRIZSPyLxHpJhzVGdVLn+p?=
+ =?us-ascii?Q?2YbEnqM/7EVXLpDce3GXDbK/8c2mSClYWM/sKSsoHQB30O1YTSLss4pzzCJg?=
+ =?us-ascii?Q?e892dxRkxPPY5Zsm3Wb9cEu6+938C+dh63pPx/fPpzm3QioK3J0xUe4MMEB0?=
+ =?us-ascii?Q?wMzTTDZa2NcnepWKv/evsHVC6GDJGGrS5bXkd+Ai5ZqgcyJsRj0rhplvRE6R?=
+ =?us-ascii?Q?enniKF9zjRSwiVy7TSW5BIcsq9zlzYq8l+FfO2FDRICy2Nn8jR5H/djqbKqw?=
+ =?us-ascii?Q?rE4i8c6S3dFqefX8T7RPjLWd3nS4MTyu2aqNVx/GCyo8gEaf9U8Q+nfZ5Aq5?=
+ =?us-ascii?Q?2enHaw+LX70bnFl0Ieel2xBPkW+BnoGojW79kaG51WYQsyqHIr/Nd5uNztbH?=
+ =?us-ascii?Q?yOMHRQMcduP7fZYqkAicgQwXB3Tf9lumPaKoyg//2ODFfeo/4AbP2XFgFnPq?=
+ =?us-ascii?Q?3qUV8KXkMBWGuVF+JMB4K2r5dcfBz+zx2mRaaXa6cbqDA+zT5B9ZqzD6Ita6?=
+ =?us-ascii?Q?W7WdUlA3rTDKUiF4xQ69ezLfyKpGxXOD3n6l2Xc35FvimjYkLsDDA83F08LI?=
+ =?us-ascii?Q?nhDTKUKzgIwQ+K0yqmc=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <CY8PR12MB71958D120A087B79243A79D7DC4CA@CY8PR12MB7195.namprd12.prod.outlook.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: M_h3hsAUEz6nbu6ZrYsxnBj4ebwzxRqm8q6y-f5fDH8_1751805570
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d20dd53e-3bed-4732-6ea7-08ddbd17e653
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jul 2025 05:34:10.2044
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lxIxz8f8d8PyfynijwLzRZtYzpetU4iMW8NcPxq3zngi1VdYrwL3FiEiv25EyUJ1sEASSO70TfPzwuIrRzxfAw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR12MB9569
 
-On Sun, Jul 06, 2025 at 12:23:36PM +0000, Parav Pandit wrote:
-> Hi Chia-Yu,
-> 
-> > From: Chia-Yu Chang (Nokia) <chia-yu.chang@nokia-bell-labs.com>
-> > Sent: 02 July 2025 10:10 AM
-> > 
-> > Hello,
-> > 
-> > 	Just want to reach out and check is there any comment on our
-> > submitted ECN and AccECN patches?
-> > 	Thanks.
+
+> From: Michael S. Tsirkin <mst@redhat.com>
+> Sent: 06 July 2025 06:09 PM
+>=20
+> On Sun, Jul 06, 2025 at 12:23:36PM +0000, Parav Pandit wrote:
+> > Hi Chia-Yu,
 > >
-> The IETF document referred in in draft stage that expires on 10 May 2024 at [1].
-> Is there a newer draft which hasn't expired yet, or link to a proposed standard or Internet standard link?
-> 
-> [1] https://datatracker.ietf.org/doc/html/draft-ietf-tcpm-accurate-ecn-28
+> > > From: Chia-Yu Chang (Nokia) <chia-yu.chang@nokia-bell-labs.com>
+> > > Sent: 02 July 2025 10:10 AM
+> > >
+> > > Hello,
+> > >
+> > > 	Just want to reach out and check is there any comment on our
+> > > submitted ECN and AccECN patches?
+> > > 	Thanks.
+> > >
+> > The IETF document referred in in draft stage that expires on 10 May 202=
+4 at
+> [1].
+> > Is there a newer draft which hasn't expired yet, or link to a proposed
+> standard or Internet standard link?
+> >
+> > [1]
+> > https://datatracker.ietf.org/doc/html/draft-ietf-tcpm-accurate-ecn-28
+>=20
+>=20
+> This seems to point at the latest one:
+> https://datatracker.ietf.org/doc/draft-ietf-tcpm-accurate-ecn/
 
-
-This seems to point at the latest one:
-https://datatracker.ietf.org/doc/draft-ietf-tcpm-accurate-ecn/
-
+Ah ok. Yes. This v9 and respective kernel changes in v12 that I was reviewi=
+ng were still pointing to the expired link.
+However, the URL in introduction.tex is upto date.
