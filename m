@@ -1,135 +1,104 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FB128A701
-	for <virtio-comment@lists.linux.dev>; Wed,  9 Jul 2025 09:38:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AFD42836B5
+	for <virtio-comment@lists.linux.dev>; Wed,  9 Jul 2025 09:44:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1752053914; cv=none; b=jQO8I+BsuXpwpl1Yfjt+njd2YYQh3aW/wvgnq9HfyBgMFmGPWWDlJxjQ6uRLHayxGHD8eygD/+UEE5mW8ilvYTW+cai/01VuvuHPhyXHMEEafYn+TWLs8Dsw+/rsAd5Ebqm/uPGKkWm+jLR3w8Cd6rrXA1B0aJKtGgFTopPkco8=
+	t=1752054249; cv=none; b=s5IOcB2p6x+xPgsHo+jX7VDPgDuNzXBsFJK8Kt3goXJSUC13aLIi0lsuiFppfhZoXMeixANisSf+CtHcfpBPoGnwn14q7RB1RIna3WYYzwE5ETYR2/qitOse5c5AFV5bVCalxa/rx9hZx3UXMLssZ/DRAe3lveTq5UqCD1uH+dY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1752053914; c=relaxed/simple;
-	bh=L/QBIT2tEPqYVtYODqO8TdUCzWBophUHcVQW8vTtzAM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sIcG7xZC632qGUSQJPxL4FW7ua7kHKZXBjwQHgdmuM+Ltu2CgmNhTHEjOf1VccAZWjhmz52AEfXAn3j+Sa2fKh1+L2FGEROKUEPP/ekw+/GwIU7A+K9/gkixL+ycEQoYWLFy1Ku2VgOqBUPRDjOwWGkpYhJ0yvN+CApeiugtI1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PZuypdp8; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1752054249; c=relaxed/simple;
+	bh=Q2AurJw8A7BReyMP1Q/RxUtMkz7yCuUCcERT0/poEG8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=BkI2bwYNLZ3lUR708I1xLTbE2Kom1f6yEmDd8OgRWOO4ZuiTRpa11lg+TcY+KRzM0AJnA/XwEI4SDRebEdRLCQhur35ibuHFJd0ZAfQHJzjD/xZHjW3XpQDJhVrVUre1OaMxfkgcfkig6Ms9Ag8GoR2MUkT1XzdX9Kf1ouceaUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LRPxOx0r; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PZuypdp8"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LRPxOx0r"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1752053911;
+	s=mimecast20190719; t=1752054246;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=L/QBIT2tEPqYVtYODqO8TdUCzWBophUHcVQW8vTtzAM=;
-	b=PZuypdp8qVD0/v2SU+r5FUoFCRBmp92y+KFZslIBoRR+Q0CDgw5p56a4YKRyGvLKMxPwHs
-	DBgrvc00ywWY+Lyim83jnvMC7241j4sO/jaOhHvJuRMrizemRO6PAI/f2zOibhNK08A7lR
-	fkikKK9T/IhdlFgpA0zJzaBpd62LpKw=
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=7P330oudtgFYHLAdqKXFGs8/1vkrY9CxMwvclaX4U8Y=;
+	b=LRPxOx0r6tUKcNOYlHxGmEr4n+ky/LHNd3Z9J69WAn9tvPC3RMsPmXbBQjl2DMq3P0FKKy
+	7ccs3HPkFurWRcnZNxHJMlvcVn9h5sYCmIxGwP1JHKMFKKsuxEBS7RuUyBgwd35JdbhLKk
+	CaOYQQLhqoX7Gfcs+65c7pZkGoBOM7k=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-655-LMyjg6DuNEyGMshkprE53Q-1; Wed, 09 Jul 2025 05:38:30 -0400
-X-MC-Unique: LMyjg6DuNEyGMshkprE53Q-1
-X-Mimecast-MFC-AGG-ID: LMyjg6DuNEyGMshkprE53Q_1752053909
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3141f9ce4e2so7526864a91.1
-        for <virtio-comment@lists.linux.dev>; Wed, 09 Jul 2025 02:38:29 -0700 (PDT)
+ us-mta-148-yLiW-A7YNXCwwaHRFkQwGQ-1; Wed, 09 Jul 2025 05:44:05 -0400
+X-MC-Unique: yLiW-A7YNXCwwaHRFkQwGQ-1
+X-Mimecast-MFC-AGG-ID: yLiW-A7YNXCwwaHRFkQwGQ_1752054244
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-451d7de4ae3so31493445e9.2
+        for <virtio-comment@lists.linux.dev>; Wed, 09 Jul 2025 02:44:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752053909; x=1752658709;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=L/QBIT2tEPqYVtYODqO8TdUCzWBophUHcVQW8vTtzAM=;
-        b=BcH8FPlWdI6VKmYeHWwbRpFEZBMwo/5ZW92Loa0TaeHdWS8elDrrHhXyqlK6dJkDHc
-         Hd0RR/RSPsgpUpPm+dXYo9xx2WjGV0dxnqfUzIvSq5CqdO4Im5k7bJRKO6m0vJLtpfHd
-         iCy6Q7cuWB6kwPQQZZLRw1Sf24gF+nU8Efs8DUVmd81eeniGxQX38G3/ZEtYSc2WXa81
-         wx5oy5UvKuAzoZMHDQFGQsNSNDEpMvBQ+knnGRCysKYLFI3NBDKmgD2qMk+Yaa/zyS+c
-         Miy1e6JQ9JqBvitsoMm4xX6eoGlW2mAkAIzZqwyba5qvWJeXSsqOfPyUFLuOY+7FOp7g
-         ekHg==
-X-Forwarded-Encrypted: i=1; AJvYcCUxNg+NaF+l0WxcQPDXY8LCn9HaeKspxRPabnGk8SdraVlJ0VW5P+UgCws7rfxdKeD/alCEmZvn53XMzlMd4Q==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxJtiYfSeu1qi7l9AMCSy49hyqP924/KiwVnYTJslMqp5nBj3Zo
-	pnS14OMWrPd8uB5u11LUxZ3dnvG3A1bxKm0bmCvtbwTpNn2v3xJ+b6HCExBDu+UxdxNWw0H+J2f
-	XRjKs5OlW5JfyR/uYaMikCekWY6pB+lCXwGFy83pAR8bGLMugk4KcUNMgjjz6ZpgUJoqis0Bt+e
-	pXAQnqcjQvjWbhijdh+Ui9h7dfRTFvXM3IM9kjmgxzZBw=
-X-Gm-Gg: ASbGncuVqntXNuFx9Vy8o91hID8Hr/GoX58gTQ7/fzFexobJouuw0NNKeOYMkXge/lu
-	aLXonrpLyFIM+M00T0Lqq3xhvFun4UzKxFb2yKDJl516kfDZO7IXoCGx6dyYw2URhLOhEd7Hmdh
-	typBU=
-X-Received: by 2002:a17:90b:35c6:b0:31a:b92c:d679 with SMTP id 98e67ed59e1d1-31c2fdffd38mr2709002a91.35.1752053908979;
-        Wed, 09 Jul 2025 02:38:28 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF6nf9ftDPE2d8ac+XwRyiXXjZP+F5BULwXNzrSTpgomHQ8MEK7NQwCVQ/WynHjHV8b/QEE+hJWHFjxV2Iqxsc=
-X-Received: by 2002:a17:90b:35c6:b0:31a:b92c:d679 with SMTP id
- 98e67ed59e1d1-31c2fdffd38mr2708974a91.35.1752053908565; Wed, 09 Jul 2025
- 02:38:28 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1752054244; x=1752659044;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7P330oudtgFYHLAdqKXFGs8/1vkrY9CxMwvclaX4U8Y=;
+        b=TtStFrnwGTlX9IETnm/hgFkPM+stwwIV5Eul/SXD7pduTbJVuFPYv8T51lZfCDJ66k
+         nXMoKfRogaQ9vNfLH/WYKWLkrwhESr/drO657JYP9VYEw8FIhNXRZR1vnbJ/NxKufw4A
+         z4jDgO7OoDzmhfRtcWGp8USAaYjTIn1b0zxVQ9HdV4af8i4ffeOTfObmH1IV7qzVD8lD
+         gejlbwK9fPfXgl+UbU6OcZ2UhMh7Q4TyFjQKypcV+JvPqJ6UG9bVzibxPzrekrddhHGv
+         iD2krImtM4R+zKK07YS4fX+j0rxFtxfAe+gt5j+29c9vwuhr1tR9qO2DjwObYIX4VV9P
+         aOwA==
+X-Gm-Message-State: AOJu0YwxW2NgdD/tuhSLY84nr6t0f1Jv8PcHA8qvlU5nHvcD9GJw2wzM
+	o3KZRIXRo28NwXujTBBdQCRQYVwjFpEbpv5ez0TA5sE5BtOBWlOwUcupwnYk9F7mq//T1uJjWRK
+	E4E25jlKCkBYD1S2yyjr9CYyDkc1bWDME5UTx7x2XOfcTxW9KWQt3F2hGHU+GO1SNN6FA
+X-Gm-Gg: ASbGncsAHnoCxXpYqSztoa6f3Kj+4acFMRz9Vu9VtT2Ik2yk31wE4z+KTupDQBNiK6U
+	3vn2EYwFmr7EgzmN7Pk+W1zO6xWRXFL+L7Wz5v4eiz2n6Hk3HuW1NrHVEpYtWxDojBDLuMxDZI2
+	NnBIQg+uBGvnqCaDEzHo5fAIqfYarnpnM88spWr8piEiXZDihv4PhlcrYZllHMble2zfeq9XTZT
+	QuC39359iQ68XNMI101pEnb3iIprcoIqn1oL21vd/na+SLtZLVTH29BsepYLYMs9JOonru3h1I7
+	getB5t34yK2F3j0l
+X-Received: by 2002:a05:600c:c87:b0:43c:fd27:a216 with SMTP id 5b1f17b1804b1-454d53cfe90mr14537165e9.23.1752054243988;
+        Wed, 09 Jul 2025 02:44:03 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGyBZPqSa836vSSBdzFBsnKVGbQoY9hrnfzWjeH0CW0faObbp8jWo14lvH0eDlVq7Es1eLpxw==
+X-Received: by 2002:a05:600c:c87:b0:43c:fd27:a216 with SMTP id 5b1f17b1804b1-454d53cfe90mr14536805e9.23.1752054243494;
+        Wed, 09 Jul 2025 02:44:03 -0700 (PDT)
+Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3b471b975efsm15031143f8f.46.2025.07.09.02.44.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Jul 2025 02:44:03 -0700 (PDT)
+Date: Wed, 9 Jul 2025 11:44:01 +0200
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+To: Albert Esteve <aesteve@redhat.com>
+Cc: virtio-comment@lists.linux.dev, ribalda@google.com,
+	alex.bennee@linaro.org, adelva@google.com, cohuck@redhat.com,
+	hverkuil@xs4all.nl, gurchetansingh@google.com,
+	daniel.almeida@collabora.com, changyeon@google.com,
+	acourbot@google.com, mst@redhat.com, eballetb@redhat.com,
+	agordeev@qti.qualcomm.com, gnurou@gmail.com, dverkamp@chromium.org,
+	nicolas.dufresne@collabora.com
+Subject: Re: [PATCH v9 0/1] virtio-media: Add device specification
+Message-ID: <aG454cwrUWP3xjAU@fedora>
+References: <20250709093456.350242-1-aesteve@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20250304130134.1856056-1-aesteve@redhat.com> <20250304130134.1856056-2-aesteve@redhat.com>
- <D8G0UC5KFCYY.32BN79B9WOK33@gmail.com> <CADSE00L_ZGgqXYCttwGqD3ceBBaZaSVnPi9n6A1O+CyPBJe8nA@mail.gmail.com>
- <87a55dvhfa.fsf@draig.linaro.org>
-In-Reply-To: <87a55dvhfa.fsf@draig.linaro.org>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Wed, 9 Jul 2025 11:38:16 +0200
-X-Gm-Features: Ac12FXwMM_l_m4ZQ3VpjDAnaPvV1Q_0gyVD0-wLP03BtSvew2xcARgpeneftrtM
-Message-ID: <CADSE00LPw5hVzx0=rqwcc4AfJ3Eo4DXLfcy7x4LsVQMgRZocTg@mail.gmail.com>
-Subject: Re: [PATCH v8 1/1] virtio-media: Add virtio media device specification
-To: =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>
-Cc: Alexandre Courbot <gnurou@gmail.com>, virtio-comment@lists.linux.dev, 
-	nicolas.dufresne@collabora.com, cohuck@redhat.com, adelva@google.com, 
-	mvaralar@redhat.com, hverkuil@xs4all.nl, mst@redhat.com, 
-	dverkamp@chromium.org, gurchetansingh@google.com, changyeon@google.com, 
-	daniel.almeida@collabora.com, agordeev@qti.qualcomm.com, eballetb@redhat.com, 
-	ribalda@google.com
+In-Reply-To: <20250709093456.350242-1-aesteve@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: -K3L-nFQhq7kXzPSQV39_XUGAwXA5LmlPg1cEJvp8cI_1752053909
+X-Mimecast-MFC-PROC-ID: d1-t0_S1QwmRIKy4u6w4pmmcOWl3tKH4hU8ttoWf9UM_1752054244
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Wed, Jul 9, 2025 at 11:32=E2=80=AFAM Alex Benn=C3=A9e <alex.bennee@linar=
-o.org> wrote:
->
-> Albert Esteve <aesteve@redhat.com> writes:
->
-> > On Fri, Mar 14, 2025 at 2:26=E2=80=AFPM Alexandre Courbot <gnurou@gmail=
-.com> wrote:
-> >>
-> >> Hello Albert,
-> >>
-> >> On Tue Mar 4, 2025 at 10:01 PM JST, Albert Esteve wrote:
-> >> > Virtio-media is an encapsulation of the V4L2 UAPI into
-> >> > virtio, able to virtualize any video device supported
-> >> > by V4L2.
-> >> >
-> >> > Note that virtio-media does not require the use of a
-> >> > V4L2 device driver on the host or guest side -
-> >> > V4L2 is only used as a host-guest protocol,
-> >> > and both sides are free to convert it from/to any
-> >> > model that they wish to use.
-> >>
-> >> Thank you for your patience with this. I have done a final pass on thi=
-s
-> >> version and it looks great to me!
-> >>
-> >> Reviewed-by: Alexandre Courbot <gnurou@gmail.com>
-> >>
-> >
-> > Thanks! Could we please open a voting ballot for these changes?
-> >
-> > Fixes: https://github.com/oasis-tcs/virtio-spec/issues/214
->
-> What was the result of the ballot?
+On Wed, Jul 09, 2025 at 11:34:55AM +0200, Albert Esteve wrote:
+> New attempt of including virtio-media
+> device specification.
+> 
+> v8->v9:
+> - Rebased to virtio-1.4
 
-AFAIU the ballot was approved. There were conflicts with the
-virtio-1.4 branch, which may have delayed the integration. I've just
-sent a new version of the patch rebased to virtio-1.4 to try to ease
-the process.
+I wonder if it wouldn't be better to just send a patch that fixes the
+series instead of the whole series again. Such a change would be a non
+editorial change thus not requiring to vote again. The v8 has been
+already voted and accepted.
 
->
-> --
-> Alex Benn=C3=A9e
-> Virtualisation Tech Lead @ Linaro
->
+Matias
 
