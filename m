@@ -1,64 +1,65 @@
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com [209.85.219.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249544A32
-	for <virtio-comment@lists.linux.dev>; Wed,  9 Jul 2025 17:27:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B53111A8
+	for <virtio-comment@lists.linux.dev>; Wed,  9 Jul 2025 19:49:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1752082026; cv=none; b=ci0orTCaTXQ7Gb2dfqpanYV46cg4rNAm7YCZS8KVc5RtO7+9Zx/oPuScRtn9V0T1KuJK9MpyqLTQaCA+YyOZzBjEylVR9jFnP7+tiftOAKYJrfXG4nmGbJOKQhJa2IFbM7V2Q07KQu2UDxefYBuDmmUEgc7y24pcQMR9nnAvT8I=
+	t=1752090554; cv=none; b=BOD2w9y3t/JeGSfbafsX2ABX3M8Tb5QZz5grsK/LXrtg2c3QXb28/qBNWMUlMZXCU81uUHOTOg3WjzpnqCbjbb/u4MxNvnWWdwCX5Kr5oAXvxf4OyugleqZxO6rPLZrwecIyV9hbMapTqDetyPpDbzyLfO6tq8IOoe/b8TGGTu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1752082026; c=relaxed/simple;
-	bh=O4IAGqn0GsG1ZJNjsvOSxDlO9c5NymW60XKxGj5ui+U=;
+	s=arc-20240116; t=1752090554; c=relaxed/simple;
+	bh=eRSKCYQe5go9+d0B4Y3AguKTFi+J7c1wA0NmYsBFT+I=;
 	h=Message-ID:Date:MIME-Version:To:Cc:References:From:Subject:
-	 In-Reply-To:Content-Type; b=jxk63TTH+J7o7diTA2+dTVf8g2zaEAW1UKomifiYtZ6gxRYoMG4FI40h94xBMSey+E872RU0Ep5dG8JpdqffPTgadr59zkgfu7zh6Q9j2BVn08reXn42XF+S5pH904CBa8pnAble08q/rQr3EU6itGugf2EYq6bT9IYZuz+GFbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b5rnbWX0; arc=none smtp.client-ip=209.85.222.181
+	 In-Reply-To:Content-Type; b=eLA5oiE3C1kNb1mN0Au0p0/j6G90uBWHyWUmtf2pkxVc+of8cgz3XM00aKvhxQ1J8zjI3nXpWbFKW3YrcSCx++BkDvLnh1tO27Opq781PTX4tbdlmi3ViuurKxLax+sQ0XdNio26U3Pw9VlBcmv5bxBxR6VnFAaaouC5sZMybCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O/3BQivz; arc=none smtp.client-ip=209.85.219.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b5rnbWX0"
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-7d45f5fde50so11850385a.2
-        for <virtio-comment@lists.linux.dev>; Wed, 09 Jul 2025 10:27:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O/3BQivz"
+Received: by mail-yb1-f173.google.com with SMTP id 3f1490d57ef6-e812fc35985so193528276.0
+        for <virtio-comment@lists.linux.dev>; Wed, 09 Jul 2025 12:49:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1752082024; x=1752686824; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1752090552; x=1752695352; darn=lists.linux.dev;
         h=in-reply-to:subject:autocrypt:from:content-language:references:cc
          :to:user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2AzsnB6bwTHu5FJNanxsecRuyTXu/fsNJIJIiT4DAvo=;
-        b=b5rnbWX0QhNIhH0F43nNoOWa2Yg+JBJmwOPf+cptcrigC48q3MyC+bUmeQzG6UHkws
-         OENFhtp6fvlyNPj9DvwcgSLWr7vEQbU5Brjzl0Qh3hklCaEtnV09vVAVr1bmUIR2S0C1
-         p9/BTYGVszLAgQr8BwRL0XS4bvVyUkRT89wImg7od9g/mBr0EtKbJ+jMCa/ZXah7CdTU
-         5yA0aWBizK6CKTJsCyS8pwdI6YIoJz1rv/WXvTGfvaTI9bhsIZBd47X7vyVJZRCrLH2q
-         wVz8kHdyOOqhrinSHvQEipT0fkLF0lVFCyMcps/Sv3mWh54fVCSy08x2OFMVGxGxxjiT
-         KBIQ==
+        bh=9UJDy0YlrpBQF+06QLfz+618HjibPy/YACa+iyFEzLY=;
+        b=O/3BQivzFWTVQ5FyKLDYSFt+8GRtMWxjzcvubWcft0Xlm2oMKtNJOueT7XBfmqRWiQ
+         9Iqf+TAvbUq0Uuvovfe16VcX8cIG4LCu86u8qCMSHRl+m7yVH9SANM9DsgfQRzrPdWXj
+         Ri8K+t4/GDsiYe3UWgBtLH9mGO/5xhz6Z5LYdZjZ/gOl1EWfBZj1o84kOIKsji+LbCOU
+         M24ArQcfr89WGTh4+0TAZ/TMvn6qVKGxiMWvP+E7NjSZWxDUubxNSJFxup+B7kz62CaY
+         QLqu3E2Olp5iZnttl9VXokatGpWRLw7lmEnPN0EtXWHJvoUfVixABKqaWwm27Uxu+bS3
+         lQ5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752082024; x=1752686824;
+        d=1e100.net; s=20230601; t=1752090552; x=1752695352;
         h=in-reply-to:subject:autocrypt:from:content-language:references:cc
          :to:user-agent:mime-version:date:message-id:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=2AzsnB6bwTHu5FJNanxsecRuyTXu/fsNJIJIiT4DAvo=;
-        b=uKAkClIs1I++hyFf0Knm7nrh2kEV7C/YfAIjXdXPjVBnzQ/i8Rayfhnd/GVOpsFlYL
-         YvO5JPs66X8g7Ykjv0kkEKFNxZDMJihKDnZdLVwjPXcIeSu1B9Hh4gYc6ObUPw5p/3Ky
-         DagjCuD9n0VaxGhYh1ZEil7SCCs3Gl3cgGQHiKDAt0N2qEd/QOEwBK2FRY6CySifMTWv
-         iC60oPIHlD8OZlL11Pnkx/EDUprfIRPQ3oZqn79vaBllMueCXxXfiDv2zoGFhZ6WSCu/
-         yhkXhsUY6KU7Vz9WYlwNH+H8XcxlkHHoRouAx5H6BBY8hp083b/9W3ajPOCSO/jNBwkN
-         XhXg==
-X-Forwarded-Encrypted: i=1; AJvYcCXiTG9DZ1NrMmYZ50bKkoOQdliA6Ho5ZHlTsPHZmirZ4GqeovSCbmLUmwuqXiW4CYFyD6FKoDqhJ2didJFi1Q==@lists.linux.dev
-X-Gm-Message-State: AOJu0YzgHAurXEA0y+mGbDFpHp8R1vXuwnXMchwtIgT9WPTI4M/5jYut
-	Hxmo+uSU41BvWiiiK59FQF1dQ9zGFhtEK/EaKDptlVJ054bXVpRQo4sV
-X-Gm-Gg: ASbGncuG8GuDWezU8FDnHbFkozbpKCnRtYgfCMV37imy/rE9KVVwE+fm37blhwqbLlY
-	YUragRxUHCBXY+1F42zNOg7o/UtZfG8q5+Jn5QgJXI9+BjaMlXCSd22ToRMjdnek5zM4J0CpE/u
-	z3SOY7FkcqfFkZEbuG45NN6w6HylumxEih1dVXUz/6c/ltCu3K8pGDldSLM/C364+s9VRTso9Lb
-	yMNY/AEtUScX4jCPxpc2z7dVt3cLXgaNgPIq03HEaHmXbxi5xtIKdW2rCF4BenrcMM1zgC1aPg6
-	r60ni10BriT3qq1k/18jVsEqiw2uQSqjF9KiyjzV+z1SHdb6oQ9zMGC6SlgYAqR6gL0=
-X-Google-Smtp-Source: AGHT+IGZU3cavOBT0K41LsntsmOcqxRbdQ78aCboPnoF3sg+rvsYyuSOByMCasrnHHjIAP4qgOA8Gg==
-X-Received: by 2002:a05:620a:1912:b0:7d6:f963:8764 with SMTP id af79cd13be357-7db7cead945mr491085785a.34.1752082022802;
-        Wed, 09 Jul 2025 10:27:02 -0700 (PDT)
+        bh=9UJDy0YlrpBQF+06QLfz+618HjibPy/YACa+iyFEzLY=;
+        b=SGJNMwkspAtNlNP36su/NVST3/1metXckahU3+QDdwWJm6kjhch9BreAz76kG84j8D
+         /aDeSi6DjrFPjMDZ6EE4jLdwqjIccT+of5XWjQQrcIf8DUIkhUQthhKEQm5H+AyooX8s
+         SKrGc48il6kDYbzSytLC0WVKjdHEq+WS1r5I58s6kF2thYDA41ZGNJtS0ITUmkvY0EgO
+         /ZNihjQkks0uQTph8/FQn9rp8Hr9nROkeCiEN3pBQ7DfF+DBPjYP8QmtDaUZNjhIMxqN
+         CQw+o/OKh8D8ZluOim08qQP+ZIdV4RpwrenHV3Xs8rJdvR/P2TrtcgpV/3MnUhYGTIrG
+         bylw==
+X-Forwarded-Encrypted: i=1; AJvYcCV+b3OrL2d/+ExzdzSxhvR0SQuv9/IGmVjvAeE5meN+9CkcY3Akvi/l4ilL1g3i5d36TYejQoxla8b7qu0ORQ==@lists.linux.dev
+X-Gm-Message-State: AOJu0YycLeHXYDVbLOlMtnJLEp8Oxek2nPubqZ20uqKobPrown4nP8rf
+	c/CJGZl3fiaCTG4PTNwFv9wv8J25nKHS7Ekj4uAdKCwEWbsW5jPwpoyC
+X-Gm-Gg: ASbGncv8dV74Bn889rwirzxQrigAahaZVrfBqVdsa5TFV2OWCVg0I7riEN0e+j80HDh
+	GJjyJme5OFk53CEBOnXx/Ce5XRarhpsFBhfSx4vX63FceXJuGoD7YnydWhZWc1NKzX21Z5lByYs
+	ypXs6Pcqc9w1fUKk2PcFQ/ZyhqTUfjgxXX3Nwsz8RV0CqXKSmpXWHBy3BjjdrT+EVFpwGn/zr4w
+	IZLPrnhoF2F4nUgRxizZxNJLd6RfEiN6feyNdaaoRoDa/h3wjDY4m1rAk2fHF4+ObDO5p8Dab/D
+	pXXTZlUXYawqEpYEHn+e4xGdAq8ymVtdZLS7wPnQLJb1X3LKDzjeTt6Os7xkqGp6usoFMKAfbBn
+	X5A==
+X-Google-Smtp-Source: AGHT+IFw+VlrG8/CqSpOJF0FCpZ0BBhvZ/sVvipunQGLrM1rQFWtA4bdYJ7ntWviGYhx3vwyBB/pxw==
+X-Received: by 2002:a05:6902:18d3:b0:e89:7ed5:f8a3 with SMTP id 3f1490d57ef6-e8b6e164e4cmr4897701276.39.1752090551342;
+        Wed, 09 Jul 2025 12:49:11 -0700 (PDT)
 Received: from [10.138.10.6] ([89.187.178.201])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-7d5dbd94242sm973102485a.9.2025.07.09.10.27.00
+        by smtp.gmail.com with ESMTPSA id 3f1490d57ef6-e899c440e7bsm4180443276.37.2025.07.09.12.49.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Jul 2025 10:27:01 -0700 (PDT)
-Message-ID: <f6dc2d4d-89d9-4721-9c67-a214025cb3c3@gmail.com>
-Date: Wed, 9 Jul 2025 13:26:46 -0400
+        Wed, 09 Jul 2025 12:49:10 -0700 (PDT)
+Message-ID: <67378956-e1dd-4d7f-9b66-97887b625936@gmail.com>
+Date: Wed, 9 Jul 2025 15:48:56 -0400
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -66,15 +67,18 @@ List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Albert Esteve <aesteve@redhat.com>, virtio-comment@lists.linux.dev
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Albert Esteve <aesteve@redhat.com>, virtio-comment@lists.linux.dev
 Cc: ribalda@google.com, alex.bennee@linaro.org, adelva@google.com,
  cohuck@redhat.com, mvaralar@redhat.com, hverkuil@xs4all.nl,
  gurchetansingh@google.com, daniel.almeida@collabora.com,
  changyeon@google.com, acourbot@google.com, mst@redhat.com,
  eballetb@redhat.com, agordeev@qti.qualcomm.com, gnurou@gmail.com,
- dverkamp@chromium.org, nicolas.dufresne@collabora.com,
- Spectrum OS Development <devel@spectrum-os.org>, Alyssa Ross <hi@alyssa.is>
+ dverkamp@chromium.org, Spectrum OS Development <devel@spectrum-os.org>,
+ Alyssa Ross <hi@alyssa.is>
 References: <20250709093456.350242-1-aesteve@redhat.com>
+ <f6dc2d4d-89d9-4721-9c67-a214025cb3c3@gmail.com>
+ <acc37ff248e70493a8068d8fc8c810effdc44093.camel@collabora.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -121,143 +125,139 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
 Subject: Re: [PATCH v9 0/1] virtio-media: Add device specification
-In-Reply-To: <20250709093456.350242-1-aesteve@redhat.com>
+In-Reply-To: <acc37ff248e70493a8068d8fc8c810effdc44093.camel@collabora.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------j3dFF0pDGSujDU7r7y7nlKh5"
+ boundary="------------2yHig4W7k91MJfxs4L8rDBw0"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------j3dFF0pDGSujDU7r7y7nlKh5
-Content-Type: multipart/mixed; boundary="------------0Eej9hAE802OEAIVDazl0XVU";
+--------------2yHig4W7k91MJfxs4L8rDBw0
+Content-Type: multipart/mixed; boundary="------------7RYCKgzm9POVdATS2BfWtAkR";
  protected-headers="v1"
 From: Demi Marie Obenour <demiobenour@gmail.com>
-To: Albert Esteve <aesteve@redhat.com>, virtio-comment@lists.linux.dev
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Albert Esteve <aesteve@redhat.com>, virtio-comment@lists.linux.dev
 Cc: ribalda@google.com, alex.bennee@linaro.org, adelva@google.com,
  cohuck@redhat.com, mvaralar@redhat.com, hverkuil@xs4all.nl,
  gurchetansingh@google.com, daniel.almeida@collabora.com,
  changyeon@google.com, acourbot@google.com, mst@redhat.com,
  eballetb@redhat.com, agordeev@qti.qualcomm.com, gnurou@gmail.com,
- dverkamp@chromium.org, nicolas.dufresne@collabora.com,
- Spectrum OS Development <devel@spectrum-os.org>, Alyssa Ross <hi@alyssa.is>
-Message-ID: <f6dc2d4d-89d9-4721-9c67-a214025cb3c3@gmail.com>
+ dverkamp@chromium.org, Spectrum OS Development <devel@spectrum-os.org>,
+ Alyssa Ross <hi@alyssa.is>
+Message-ID: <67378956-e1dd-4d7f-9b66-97887b625936@gmail.com>
 Subject: Re: [PATCH v9 0/1] virtio-media: Add device specification
 References: <20250709093456.350242-1-aesteve@redhat.com>
-In-Reply-To: <20250709093456.350242-1-aesteve@redhat.com>
+ <f6dc2d4d-89d9-4721-9c67-a214025cb3c3@gmail.com>
+ <acc37ff248e70493a8068d8fc8c810effdc44093.camel@collabora.com>
+In-Reply-To: <acc37ff248e70493a8068d8fc8c810effdc44093.camel@collabora.com>
 
---------------0Eej9hAE802OEAIVDazl0XVU
-Content-Type: multipart/mixed; boundary="------------6lOFTHgZt06OIO9YIohcqhwz"
+--------------7RYCKgzm9POVdATS2BfWtAkR
+Content-Type: multipart/mixed; boundary="------------ijSFhXnrS6ZiSF0iiDVk3o4B"
 
---------------6lOFTHgZt06OIO9YIohcqhwz
+--------------ijSFhXnrS6ZiSF0iiDVk3o4B
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 7/9/25 05:34, Albert Esteve wrote:
-> New attempt of including virtio-media
-> device specification.
+On 7/9/25 13:58, Nicolas Dufresne wrote:
+> Hi Demi,
 >=20
-> v8->v9:
-> - Rebased to virtio-1.4
+> Le mercredi 09 juillet 2025 =C3=A0 13:26 -0400, Demi Marie Obenour a =C3=
+=A9crit=C2=A0:
+>> On 7/9/25 05:34, Albert Esteve wrote:
+>>>
+> [...]
 >=20
-> v7->v8:
-> - Merged DQBUF and DQEVENT into the same
->   item for unsupported ioctls
-> - Rewrote/clarified a couple paragraphs
->   based on previous version reviews.
+>>
+>> It's probably too late, but I have some serious concerns about this
+>> device.=C2=A0 Specifically:
+>>
+>> 1. I don't see a reasonable way to support untrusted virtio-media
+>> =C2=A0=C2=A0 devices.=C2=A0 v4l2 has too many ioctls and I can't reali=
+stically
+>> =C2=A0=C2=A0 see a way to enforce that the return values from all of t=
+hem
+>> =C2=A0=C2=A0 are consistent with each other.=C2=A0 It is possible to o=
+nly allow
+>> =C2=A0=C2=A0 a fixed format (such as uncompressed ARGB) and only allow=
+ the
+>> =C2=A0=C2=A0 video source and/or sink to provide resolutions and frame=
+ rates,
+>> =C2=A0=C2=A0 but this means losing a lot of performance and abandoning=
+ any
+>> =C2=A0=C2=A0 attempt at zero-copy.
+>>
+>> =C2=A0=C2=A0 The use-case for untrusted virtio-media devices is not
+>> =C2=A0=C2=A0 confidential computing, but rather disaggregated systems =
+where
+>> =C2=A0=C2=A0 video sources (like webcams) may be attached to untrusted=
+ virtual
+>> =C2=A0=C2=A0 machines.
 >=20
-> Virtio-media came from a discussion on virtio-dev
-> mailing list, which lead to Alex Courbot presenting
-> virtio-v4l2[1] specification as an alternative to
-> virtio-video.
->=20
-> Later, virtio-v4l2 was renamed to virtio-media[2]
-> and published at:
->=20
-> https://github.com/chromeos/virtio-media
->=20
-> The repository above includes a virtio-media driver able
-> to pass v4l2-compliance when proxying the vivid/vicodec
-> virtual devices or an actual UVC camera using the
-> V4L2 vhost device (available in the repository).
-> It also includes a FFmpeg-based video encoder
-> device. Steps to reproduce are also detailed[3].
->=20
-> Recently, virtio-media has landed in AOSP[4].
-> Also the driver patch has been sent to the
-> kernel, currently in its v2 [5].
->=20
-> Furthermore, virtio-media got a proposal to reserve
-> device ID 48, which was finally approved for
-> inclusion in v1.4.
->=20
-> There is some overlap with virtio-video in regards
-> to which devices it can handle. However, they take
-> different approaches, potentially making them
-> the preferable choice for different scenarios.
-> Furthermore, virtio-media has matured since it
-> was first presented, and there are public efforts
-> to have upstream driver and devices.
->=20
-> But mainly, given that virtio-media will be the virtualization
-> solution for media devices for ChromeOS, Android, and
-> possibly others, I think is important that it gets
-> standardized and included in the specification,
-> despite the aforementioned overlap.
->=20
-> Full PDF: https://drive.google.com/file/d/1sDZXWVlvPbHKKguhekCXMzkpNZZ0=
-g3hV/view?usp=3Dsharing
-> PDF with the media section only: https://drive.google.com/file/d/1JjOIz=
-ecnkFFlpFBRjPQEUyAOD3BDHAdw/view?usp=3Dsharing
->=20
-> [1] https://mail.google.com/mail/u/0?ui=3D2&ik=3D73ebd65ebd&attid=3D0.1=
-&permmsgid=3Dmsg-f:1767388565327924962&th=3D1887068940754ee2&view=3Datt&d=
-isp=3Dinline&realattid=3Df_libalimc0
-> [2] https://www.mail-archive.com/virtio-dev@lists.oasis-open.org/msg126=
-65.html
-> [3] https://github.com/chromeos/virtio-media/blob/main/TRY_IT_OUT.md
-> [4] https://cs.android.com/android/platform/superproject/main/+/main:ex=
-ternal/virtio-media/
-> [5] https://lore.kernel.org/lkml/20250201-virtio-media-v2-1-ac840681452=
-d@gmail.com/T/
->=20
-> Albert Esteve (1):
->   virtio-media: Add virtio media device specification
->=20
->  conformance.tex                           |   6 +
->  content.tex                               |   1 +
->  device-types/media/description.tex        | 639 ++++++++++++++++++++++=
+> Please consider that you are posting broadly and understanding of what =
+you mean
+> by untrusted virtio-media can be difficult for non-virtio devs like me.=
 
->  device-types/media/device-conformance.tex |  15 +
->  device-types/media/driver-conformance.tex |  11 +
->  5 files changed, 672 insertions(+)
->  create mode 100644 device-types/media/description.tex
->  create mode 100644 device-types/media/device-conformance.tex
->  create mode 100644 device-types/media/driver-conformance.tex
 
-It's probably too late, but I have some serious concerns about this
-device.  Specifically:
+My use-case is this:
 
-1. I don't see a reasonable way to support untrusted virtio-media
-   devices.  v4l2 has too many ioctls and I can't realistically
-   see a way to enforce that the return values from all of them
-   are consistent with each other.  It is possible to only allow
-   a fixed format (such as uncompressed ARGB) and only allow the
-   video source and/or sink to provide resolutions and frame rates,
-   but this means losing a lot of performance and abandoning any
-   attempt at zero-copy.
+1. There is a VM that has all USB devices.
+2. Some of those USB devices, like untrusted webcams, may be
+   passed through to another VM via usbip.
+3. The VM with the usbip device provides a video device to yet another VM=
+=2E
 
-   The use-case for untrusted virtio-media devices is not
-   confidential computing, but rather disaggregated systems where
-   video sources (like webcams) may be attached to untrusted virtual
-   machines.
+The VM with the webcam and the VM receiving the video stream do not trust=
 
-2. v4l2 is a chatty protocol and using it implies a lot of
-   guest <=3D> host round-trips.  This is bad for performance.
-   Is this overhead actually significant, and if so, are there
-   plans to reduce it?
+each other.
+
+> With the enclosed information, I believe implementer are not forced to =
+map to a
+> host V4L2 driver. You can implement a userspace layer in between, and p=
+ossibly
+> even implement reclaiming by simulation some hot-unplug of the devices,=
+ or by
+> not scheduling any work for M2M.
+
+I expect that any implementation that cares about security is going to do=
+ this.
+
+> I don't really see the relation between "trust" and the pixel format se=
+lection.
+> Nor why preventing zero-copy would help handling untrusted virtual mach=
+ines. I
+> do believe you should not attempt this if you don't have the required k=
+nowledge
+> though, as its unlikely the end-result will be safe.
+
+How can I validate the various parameters provided by a backend?
+
+> For me the main issue for untrusted VM is the lack of control measure, =
+such as
+> cgroup for resource usage. This is being worked on though, Maxime Ripar=
+d have
+> given an update at the Linux Media Summit in Nice.
+
+Denial of service is not a concern in my use-cases.
+
+>> 2. v4l2 is a chatty protocol and using it implies a lot of
+>> =C2=A0=C2=A0 guest <=3D> host round-trips.=C2=A0 This is bad for perfo=
+rmance.
+>> =C2=A0=C2=A0 Is this overhead actually significant, and if so, are the=
+re
+>> =C2=A0=C2=A0 plans to reduce it?
+>=20
+> You should try and demonstrate this. Virtio Video tried to make their o=
+wn and
+> endup with something kind of similar with about the same level of back =
+and
+> forth. We already had few concerns with ioctl() overhead, and some meas=
+ure have
+> been implemented, notably s_ctrl_ext.
+I'll leave this for later.
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------6lOFTHgZt06OIO9YIohcqhwz
+--------------ijSFhXnrS6ZiSF0iiDVk3o4B
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -377,30 +377,30 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------6lOFTHgZt06OIO9YIohcqhwz--
+--------------ijSFhXnrS6ZiSF0iiDVk3o4B--
 
---------------0Eej9hAE802OEAIVDazl0XVU--
+--------------7RYCKgzm9POVdATS2BfWtAkR--
 
---------------j3dFF0pDGSujDU7r7y7nlKh5
+--------------2yHig4W7k91MJfxs4L8rDBw0
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmhupl4ACgkQszaHOrMp
-8lP4eg//TpyZ5geAb4Qr3trJ5GgcWUpaPzmLCVnKX6QMkG/wjOjYcYOn7zDVB0pe
-YDm016tNjsbE43KgZOoinuxfbn2sJE5027oUY8CsXmb/1qD6T8Q9LGBm+grvYorZ
-9I4Z0I97RhM7IS/dBs2beH5oMohTvYWlSf9E6RuqNauFuPw6jP3TyiTuj4lgUUM6
-kD+P5DgL4av8P0hSpT5fdvs+VfAIm9uQdYM64F++UUTGCg69qm3WfIbhoEf1SVDu
-U5UwtrlROOyA7970YG2b2kZE3Zc/abqHQupsU7o+EPbFnDScyQrhSuua+4hytS2+
-xx/aEhSTbTrCuT7XC+0NZrNIqm29YxnPeHqC3BX5v47XHNdv7TNCvO7i0GvkMYVn
-Gs9SN/JGU/QxQGozYVMkBqGKljmXJYEwH6BxMD/k/zVibjeQSDNOmICSuXGcaw6w
-B/D7IL4f/jGVZgue8v5+z0eREGQwbI/ywWXhfagNrS2xQFTmUK54l/QHapK3+r9t
-nTSprhfxiKIa7zLGdgGzsranNKtjbhpZz9SaontRS5tCRt70OpufK+L4sANflNlX
-K674Z9AlQTpIFW26WbEyNkHVebhK6SdmhUmGQBSeQ8NKto6LOrl5wlWOLHM1GWWv
-pMHvUIB1TnPjj1fCsK1wmNmYJgozQKA301SoSIhWolwlGUw+OdU=
-=21m9
+iQIzBAEBCAAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmhux6oACgkQszaHOrMp
+8lOuhw/9ER+Nj4Ylvnpb3E/VSGDZnD0yGhSh9MvEtITrJvgipdJ+2EYs/XhjlRu3
+RYkMN2st2ykjYAhX+ZV+Z5eUmtGgh34nHWATOx+VovlD/uVgoW16rVasnos+LDPI
+LeIYFDDxlEWxflPDBxSLyHYEfk32O9O9w9BQbh0JmofO9v/I15rMNLapxU6EyejI
+eXvxrHAg/UMnY2ibI+7sdyMZ5QvUvzClvvPWfXD8Aol1Glct78tZBNGnB+fozfIg
+78Bqpsn0lweeOt7Jks/hyO8au34QJxwB9pJCLtnSkceF0sw+q2eLcNgCFe9te7YE
+TO7Gaj2JxBuzRXTVG8l2idwh6LRBBAhz4oV0qhq2OgqayNiDhpgQ3M2kmT4Ttg5y
+PkZVB0E9NjtA24qhpTadLx7cOHjRMD9sSkLQK2xBnN0im3asQR8J8Pb10oYr72WX
+cl0dNTVcW4o0N8BC6mqB4qWpnC0S/c0oB9AD2Yr5TC4Dmi/2eAFmvxUQnQ/dRQGF
+MKJdshc8zrrOKE1/Qk/0dkPgn8BQIcUdjwnFR0UJke1cif/TqpOXaaC1qoKFL9jj
+kAFFn6DjjgT2H+jD8C5eNNupCacMp5+rbtG94pmD4alAafcb90kdJ1FVtptguipQ
+QCrnN7h8K479IMJXav7I9QaCwVVJ3Ms26775SWyujKoXG0HppTw=
+=4xEI
 -----END PGP SIGNATURE-----
 
---------------j3dFF0pDGSujDU7r7y7nlKh5--
+--------------2yHig4W7k91MJfxs4L8rDBw0--
