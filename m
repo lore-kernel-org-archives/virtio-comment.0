@@ -1,122 +1,153 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848722AEF1
-	for <virtio-comment@lists.linux.dev>; Wed,  9 Jul 2025 09:31:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A74D1D5150
+	for <virtio-comment@lists.linux.dev>; Wed,  9 Jul 2025 09:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1752053519; cv=none; b=D2ryHVT3RL1Ll3wM+D9rVcNBqyF/vPWs5Shak3LmqQAhAaRs+sDM2VVwlruwHo9Y8JwKmukUa/pfWC16TXXzPAQbF8rxNmBu62EQs7AaoKbeYtMOfcmaT3b0q40VEcU5o1wRqeWPM8bQsBXvsmGJOyKD03jeEdltLBO8cAByc+g=
+	t=1752053718; cv=none; b=EDSUG293aNodTqF3x7MDuYtNRzPS9Ow4dX+xqGmhK5LmjD38f7PhsStv94OPehlZCunbg+FZDtdEPalo3u9/+cUMPIoKstus2iXVqFpeTG8x67adzobPPENtCUEyg6GaAALZZIPIyeHCivcAqc3nwKz/4LbZN0C79GlciAOAQOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1752053519; c=relaxed/simple;
-	bh=3j6Nw/3rjmNWsp7wMUc57MfhAZqkykwvsioUl7MnQUI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=M//M+57nL+FbE11g0vhrOAhW0jFaMPHENG1qK5fW+0Zp1OYFQfrfZ3WfyopMTiNspsZL8zSezapJX8kxqsBFa7LjKrFVJze7v1XjEXVAE8v4uo+eSHPcQ97R0KYcppD8ZszmpgCUnxVD8Yl31GsjOqYJlNEAfMtx0ecQoLxXYfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=zr6ixYke; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1752053718; c=relaxed/simple;
+	bh=MXmaDz2hLJASCw8U+Ylxy87cRYIZvF0hcV4zxfqKUjo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=D8p2SUOxdH+mHWLSCE8B1A/0zOcVlkuGdzjDgsTjbZK22mpME/VGVNW/9APi2al4dIu/gyH18O4CEQNnks2JXB6YgdNPHS32LRBtBYMQjq/qXUim+haxm58d6+l8CnUGTkmmpeOQKfGqKdvT4kYD6FQeUeimfnMDuLVaQ3l39Cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bDuUZUeb; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="zr6ixYke"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-60702d77c60so10443497a12.3
-        for <virtio-comment@lists.linux.dev>; Wed, 09 Jul 2025 02:31:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1752053516; x=1752658316; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3j6Nw/3rjmNWsp7wMUc57MfhAZqkykwvsioUl7MnQUI=;
-        b=zr6ixYke2WuJdUa1c1skcVoUfWXBrqnKuMXRZiS+DYs1o0/EAiV6M0kvN6Eb+PLOme
-         DLLbTj92WQ8wJ3hm0C6JHQN1LrnentGA8iIbVQ4eKWu4d6xH6QlH+yfp9HOhhVflGt74
-         oLnZgljuSrLDic1ZdFqkBwq9HV19+Y+qhkcADDcCO8kQIe7UMvLFRfMFXl9KcIulfvza
-         E3DyhGMI0AZUs9RHo0zfigM1uuHrcXHu71449bYvkxvbF6UIuOK2M1tY2Hlrwiqtvfgf
-         ci8Cn/Gves7RnPz6IokpXylHLMMi4r0UF5cmQtrRKkvr9zj3DluAijway/lOjuDdJU1t
-         LIsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752053516; x=1752658316;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=3j6Nw/3rjmNWsp7wMUc57MfhAZqkykwvsioUl7MnQUI=;
-        b=g6wjzR4EI4ntKCUY6RoW8ti5Ou21WS0/lLyMDHr7URhBqU3a7wAd4vxMXjr8GuPiP1
-         2YQlLrxjaOcd2VxLk/s+4S8ve/JSiR9/gPRu1+fCkRHj+5sbbi5QnbvP+6S6F/wYNTJ1
-         CyKF4aXFRqxrPLxDsTqZyH5t1ekHw31HVNSv409lptliOLRKCMzAdK85ViU0N/OIyKdU
-         8FNFlKfoU6J89rQvp+0D3zrsVTBON68a9s5rOgkhY2tRkXhQjjgtMNwQNRQpn+Dcj4Dw
-         P0Gjr9jmSRsx2lXYGqkkVRGbjVlWmxeICDqo0b3z+tg56ErL9Jz9c0oQQ+nwzwgqvcH5
-         w82Q==
-X-Forwarded-Encrypted: i=1; AJvYcCV0dloJbQ7zqIu0VLKcLzLZv+7KieSQlyG28uGlQgSr2y6DH6eR4T0HUtpbprAvzZs1Q4dUZMEAPr2PvsMcxA==@lists.linux.dev
-X-Gm-Message-State: AOJu0YzeJmJQOkCHFvFvDLn1H4FFG19Rdl3mKtLw+ToYGIS8optNX9IE
-	9znAXM04WFmYTxT1NgybeWHbxZKsz7zOhybBDZUxR4DYu6rpP2nels4vbZht/yjZncE=
-X-Gm-Gg: ASbGncvIWqXBvtrjzfm+KYHwiy0q56RY81XSnR9E38S3ZNiw+CSradWZUouspZWFTIn
-	7FCEVTGotgS9VC23lnsahxKQiP9ApeRmiNyjK6t0pJ26QGL2R74O7AsBV7taauS03WWXvZ9aSIl
-	vlVO5qB6rVkUixPNXpLlFtaYSw8AqAo0WCTpEImielK6Q9H7wdL/ziY4nCcyir6PavLCtlEFsjs
-	aHX48bxN2RJJBoipNy99SVP8U+JzorMjYcn6n26YwTbM5CfJuXv+3/e2+GTrukcUOvzvA+1YmeT
-	XXqy1KyBa0hTTzTssWiYAodqAjjzGVfyuLZveCCtmLlU+NRRPsEu9yIrGaYoBek=
-X-Google-Smtp-Source: AGHT+IGfXv6UT6eMTxLabX2ErY3DxGgn1lwBfnlMUyZSq9ZsEvdxBXFBBlOksKpMnZpZA6oSuXIwkQ==
-X-Received: by 2002:a17:907:2d1f:b0:acb:abff:a5b6 with SMTP id a640c23a62f3a-ae6cf5bc2c5mr164183366b.13.1752053515655;
-        Wed, 09 Jul 2025 02:31:55 -0700 (PDT)
-Received: from draig.lan ([185.126.160.19])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ae6d94baf65sm33241566b.89.2025.07.09.02.31.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Jul 2025 02:31:54 -0700 (PDT)
-Received: from draig (localhost [IPv6:::1])
-	by draig.lan (Postfix) with ESMTP id D7E9B5F767;
-	Wed, 09 Jul 2025 10:31:53 +0100 (BST)
-From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Albert Esteve <aesteve@redhat.com>
-Cc: Alexandre Courbot <gnurou@gmail.com>,  virtio-comment@lists.linux.dev,
-  nicolas.dufresne@collabora.com,  cohuck@redhat.com,  adelva@google.com,
-  mvaralar@redhat.com,  hverkuil@xs4all.nl,  mst@redhat.com,
-  dverkamp@chromium.org,  gurchetansingh@google.com,  changyeon@google.com,
-  daniel.almeida@collabora.com,  agordeev@qti.qualcomm.com,
-  eballetb@redhat.com,  ribalda@google.com
-Subject: Re: [PATCH v8 1/1] virtio-media: Add virtio media device specification
-In-Reply-To: <CADSE00L_ZGgqXYCttwGqD3ceBBaZaSVnPi9n6A1O+CyPBJe8nA@mail.gmail.com>
-	(Albert Esteve's message of "Tue, 18 Mar 2025 10:02:41 +0100")
-References: <20250304130134.1856056-1-aesteve@redhat.com>
-	<20250304130134.1856056-2-aesteve@redhat.com>
-	<D8G0UC5KFCYY.32BN79B9WOK33@gmail.com>
-	<CADSE00L_ZGgqXYCttwGqD3ceBBaZaSVnPi9n6A1O+CyPBJe8nA@mail.gmail.com>
-User-Agent: mu4e 1.12.11; emacs 30.1
-Date: Wed, 09 Jul 2025 10:31:53 +0100
-Message-ID: <87a55dvhfa.fsf@draig.linaro.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bDuUZUeb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1752053716;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Gg7+B8rua0QGhoIPgsX/PJ35lwQgmzDxaYoUDBdK+qM=;
+	b=bDuUZUebgWbPeJZad1BDLVM8kMc7g3wCE93C1RLByUovILw6ylD4HDwzfk0qjvOmyeJ/Mf
+	J22XZg0aDCP94S5sDTsqtAtcjLwtbybiS1TMr4nrUF5G/bAh/hnyKurnUDgBj2oLnz13kZ
+	QxMgE8Ks8zn67eU3KQ7wZNaCsvFjTeE=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-658-5L4CVV0cM3GYamSh5ed1GQ-1; Wed,
+ 09 Jul 2025 05:35:13 -0400
+X-MC-Unique: 5L4CVV0cM3GYamSh5ed1GQ-1
+X-Mimecast-MFC-AGG-ID: 5L4CVV0cM3GYamSh5ed1GQ_1752053711
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D5E6D1956048;
+	Wed,  9 Jul 2025 09:35:10 +0000 (UTC)
+Received: from localhost.localdomain (unknown [10.44.33.8])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 730341803AF2;
+	Wed,  9 Jul 2025 09:35:03 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+To: virtio-comment@lists.linux.dev
+Cc: ribalda@google.com,
+	alex.bennee@linaro.org,
+	adelva@google.com,
+	cohuck@redhat.com,
+	mvaralar@redhat.com,
+	hverkuil@xs4all.nl,
+	gurchetansingh@google.com,
+	daniel.almeida@collabora.com,
+	changyeon@google.com,
+	acourbot@google.com,
+	mst@redhat.com,
+	eballetb@redhat.com,
+	agordeev@qti.qualcomm.com,
+	gnurou@gmail.com,
+	dverkamp@chromium.org,
+	nicolas.dufresne@collabora.com,
+	Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH v9 0/1] virtio-media: Add device specification
+Date: Wed,  9 Jul 2025 11:34:55 +0200
+Message-ID: <20250709093456.350242-1-aesteve@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: pw_mWrUX70F3fu0yFgc6sb1ZpwAmVnjdlb_HK2q2eNE_1752053711
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Albert Esteve <aesteve@redhat.com> writes:
+New attempt of including virtio-media
+device specification.
 
-> On Fri, Mar 14, 2025 at 2:26=E2=80=AFPM Alexandre Courbot <gnurou@gmail.c=
-om> wrote:
->>
->> Hello Albert,
->>
->> On Tue Mar 4, 2025 at 10:01 PM JST, Albert Esteve wrote:
->> > Virtio-media is an encapsulation of the V4L2 UAPI into
->> > virtio, able to virtualize any video device supported
->> > by V4L2.
->> >
->> > Note that virtio-media does not require the use of a
->> > V4L2 device driver on the host or guest side -
->> > V4L2 is only used as a host-guest protocol,
->> > and both sides are free to convert it from/to any
->> > model that they wish to use.
->>
->> Thank you for your patience with this. I have done a final pass on this
->> version and it looks great to me!
->>
->> Reviewed-by: Alexandre Courbot <gnurou@gmail.com>
->>
->
-> Thanks! Could we please open a voting ballot for these changes?
->
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/214
+v8->v9:
+- Rebased to virtio-1.4
 
-What was the result of the ballot?
+v7->v8:
+- Merged DQBUF and DQEVENT into the same
+  item for unsupported ioctls
+- Rewrote/clarified a couple paragraphs
+  based on previous version reviews.
 
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
+Virtio-media came from a discussion on virtio-dev
+mailing list, which lead to Alex Courbot presenting
+virtio-v4l2[1] specification as an alternative to
+virtio-video.
+
+Later, virtio-v4l2 was renamed to virtio-media[2]
+and published at:
+
+https://github.com/chromeos/virtio-media
+
+The repository above includes a virtio-media driver able
+to pass v4l2-compliance when proxying the vivid/vicodec
+virtual devices or an actual UVC camera using the
+V4L2 vhost device (available in the repository).
+It also includes a FFmpeg-based video encoder
+device. Steps to reproduce are also detailed[3].
+
+Recently, virtio-media has landed in AOSP[4].
+Also the driver patch has been sent to the
+kernel, currently in its v2 [5].
+
+Furthermore, virtio-media got a proposal to reserve
+device ID 48, which was finally approved for
+inclusion in v1.4.
+
+There is some overlap with virtio-video in regards
+to which devices it can handle. However, they take
+different approaches, potentially making them
+the preferable choice for different scenarios.
+Furthermore, virtio-media has matured since it
+was first presented, and there are public efforts
+to have upstream driver and devices.
+
+But mainly, given that virtio-media will be the virtualization
+solution for media devices for ChromeOS, Android, and
+possibly others, I think is important that it gets
+standardized and included in the specification,
+despite the aforementioned overlap.
+
+Full PDF: https://drive.google.com/file/d/1sDZXWVlvPbHKKguhekCXMzkpNZZ0g3hV/view?usp=sharing
+PDF with the media section only: https://drive.google.com/file/d/1JjOIzecnkFFlpFBRjPQEUyAOD3BDHAdw/view?usp=sharing
+
+[1] https://mail.google.com/mail/u/0?ui=2&ik=73ebd65ebd&attid=0.1&permmsgid=msg-f:1767388565327924962&th=1887068940754ee2&view=att&disp=inline&realattid=f_libalimc0
+[2] https://www.mail-archive.com/virtio-dev@lists.oasis-open.org/msg12665.html
+[3] https://github.com/chromeos/virtio-media/blob/main/TRY_IT_OUT.md
+[4] https://cs.android.com/android/platform/superproject/main/+/main:external/virtio-media/
+[5] https://lore.kernel.org/lkml/20250201-virtio-media-v2-1-ac840681452d@gmail.com/T/
+
+Albert Esteve (1):
+  virtio-media: Add virtio media device specification
+
+ conformance.tex                           |   6 +
+ content.tex                               |   1 +
+ device-types/media/description.tex        | 639 ++++++++++++++++++++++
+ device-types/media/device-conformance.tex |  15 +
+ device-types/media/driver-conformance.tex |  11 +
+ 5 files changed, 672 insertions(+)
+ create mode 100644 device-types/media/description.tex
+ create mode 100644 device-types/media/device-conformance.tex
+ create mode 100644 device-types/media/driver-conformance.tex
+
+-- 
+2.49.0
+
