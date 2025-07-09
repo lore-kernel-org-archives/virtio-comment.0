@@ -1,441 +1,189 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (mail-dm6nam10on2085.outbound.protection.outlook.com [40.107.93.85])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDBAB289813
-	for <virtio-comment@lists.linux.dev>; Wed,  9 Jul 2025 12:18:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1752063518; cv=none; b=AWEvB5WZbmQ5tBmDfd/r+PICevZH/9aewotqM15Ui4EjLDTR6HzDb3ztSMn5ijlQ/HRtRiTBqkqlWZVHFJkZk5H5G4iOGqVLyeirnK5zock5VlalSQp92JN+7igFUupkwGk06fVItipeo5vQhoeElG937Ao648bTI4JOAH+tgho=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1752063518; c=relaxed/simple;
-	bh=mAsWJrMu9TTIDjIwvaWnokkHew03Wg8Hl0zSNlzPGmo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NmsBGC4+kmDaOqK3nPyvMZ31lbYHluURniF5w31iFsqqHKz+l4wFEl2mM4SzeTINEB82wonR7suEytZ9+33XnEXqVdtyNpiGRGzjPT2F6e+B3J/6P20DmB5Ii0LaUXWWiDAT1LJfreA8lUlbD67a8ms11DOQmtaWiUnOxSWD2qY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HW+ElRUw; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4F32DC34A
+	for <virtio-comment@lists.linux.dev>; Wed,  9 Jul 2025 13:29:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.93.85
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1752067745; cv=fail; b=RfccFovfoh/3IiVc1mSYCmZikdKkSHS70RMcBH/WgHnu/Q8zsLeb9MMhAg/Njif/pFBd4LMl/uJTApD+wkOl5ReuCjJFvS0mA50bW42hV0r8cLi1GxM7uYjECezVu6dG6cai9jWF5W9OUiA1mln9S8A6R866J8AnWGK52ZUg14k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1752067745; c=relaxed/simple;
+	bh=MupzqoOJ+oehl5757nH5XtgcHOWcaOt2i7tBx3nJfGs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=awLgBAvj47TY8tmI/nJbjXFrBgs+nxZjZ3DQ9TTlW4g7cyFhJ0v+SsblgBjoELQDwq8K6vL/7r9Sj3bJb9/WeB3qCY1OZ+xWHt7DhrwEcCVM/TwSHlFJXGuua/5BaToAa0ettsCgcVxu3CF/SdNxJ4pt8gx7176ylZ6OkY80clM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KUfDmqPB; arc=fail smtp.client-ip=40.107.93.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HW+ElRUw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1752063513;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9CjamOnsoTTNdX+Re0Fp6J6klOPyG6rBsMVTim6kARY=;
-	b=HW+ElRUwDuBpvgdUTNiVZ3M1EfU4KuXRdbjSfcudX0HMFLo35Tooqj2fxrCz+fuohCHdo1
-	Hn+yP3z4a/HlPNKzOQbRT+WyTJnaU/vZkKI9UhvjfUf8/nn/Nr+KOqRWipvaAlfX5am2ou
-	LaVdA3ikN9GGEY9AcFXKE54Q4/v1PCs=
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-325-eYxFcq6nNmG1NPL7UnSMYA-1; Wed, 09 Jul 2025 08:18:32 -0400
-X-MC-Unique: eYxFcq6nNmG1NPL7UnSMYA-1
-X-Mimecast-MFC-AGG-ID: eYxFcq6nNmG1NPL7UnSMYA_1752063511
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-b38ec062983so3659161a12.3
-        for <virtio-comment@lists.linux.dev>; Wed, 09 Jul 2025 05:18:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752063511; x=1752668311;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=9CjamOnsoTTNdX+Re0Fp6J6klOPyG6rBsMVTim6kARY=;
-        b=w+xnjzjzz8vytBKj/WZLpyZLZGMB0tdStG3fAxbOqI+DlTcYaYoilQ447cqiBK7xsq
-         N2HcxOGiF28v/RpE/Hn8iQp0kBD5UP6Vav+xoNG5TRmqnLy525oPcbzL/3jySQ1d/VqB
-         ObG0yntQdj8p29khAGP/7It74FNApzAfj0TqKlCFZUL7MUCPYBWMlN9kMRyFl67OGUhT
-         JFURjVBSaDuKak1houLN92fCdcd+nJPhdkNnYv1M8wHMJpKDTArpgLZ09ftnG14izBfV
-         VM817xC0RkxqjLgPZEAGsR4dx3j3gTXayZGKplf9cDrhjsCMl5pP71yUSF5xrJKptBMJ
-         U9Dg==
-X-Forwarded-Encrypted: i=1; AJvYcCVUGSS89910MjUWLkt4HvLPdCHpgIHRkKabunri6ygIr7y4zneImquh8IFnzRShG9lBrfIoEKvH0BDdcydeag==@lists.linux.dev
-X-Gm-Message-State: AOJu0YwqCUX/UKcdx8lCjO0vNk8RVDR0qqekz4g6mezuCMgIbDdegdRF
-	wsGrpeRJ+TTaTCHwaijNDN2MIZt0ioxCAyTa55uAzk1ckfmqcZGfWzr/4NzI6tt98IJdOV3B/pQ
-	zGo3lgzt+tcxvTZin0WxvDHoHk6RA3sVUnBcrPTxmQ1DgkzF37tWp9a89/1KZVoVDO5JVnlYn7H
-	Ob70mRsT7hxtmqOJYRrK60CDKM8IGBSetf11Jg1/tKlMY=
-X-Gm-Gg: ASbGncvD2Goy2Se5hf7iLL942flqjliAs/Md/ZOFaWdiDzClrMzATMBtdGhM9FBybCL
-	MgNH9agCyXIl1AZuDN+guy7/tTcJF5VxYIyBQMhq0L/FrOjspnSHLajfsYEQtYqXY+hLeAZWJSR
-	UplHo=
-X-Received: by 2002:a17:90b:2c83:b0:312:1ae9:1529 with SMTP id 98e67ed59e1d1-31c2fdbc51bmr4180477a91.27.1752063511307;
-        Wed, 09 Jul 2025 05:18:31 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHNOBBop/8Jcf1XSfe4/724UY8ndrNP3Y6zUpfX7MzUp/VwQ9OJqRtu64W1AAQtNEvN3yq49Aacg31Hq75omEs=
-X-Received: by 2002:a17:90b:2c83:b0:312:1ae9:1529 with SMTP id
- 98e67ed59e1d1-31c2fdbc51bmr4180417a91.27.1752063510708; Wed, 09 Jul 2025
- 05:18:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KUfDmqPB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nbxDtpeW5rjy9mmFjOBOpp8UDFYtAeqrNy50np3EgBvkA+W4efRZeLx52mI7x6SWuCOqiV94xKWNcebjlmZj0R9N1elghKyZaDoGndqczAtI6hv5O2LyS+ow75PPfmO/mmJzFq4U49ru5uG7dyqOEX7093FfLXgpdNIK3J8OEJY0mzm7XlJisCyQGj2euvO3z6uGKo8jCwb9z8GDA7D63XoArXUHSrztXDxdtEQdFHJ1QnRIZvfUo/BW1Ym+iLTBMsHMJytFEouFkW/GYBiTM8YxeakB1hIb1mU9vWwJMNS+o4mBUzliS8x/CHF+BtOQ3rkwSD1VK1VZptL+r86d2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MupzqoOJ+oehl5757nH5XtgcHOWcaOt2i7tBx3nJfGs=;
+ b=W62ad9dgENcQKumXhaVsvctmu6IRB0mDQvAghLS7vWS3GcTWxqS2FK8mppchMJ5dSRkqDR6a4dnR6RukBOEKUpAVFTGULjUun3TZsGFwT6BgwjnysJ7rm598XFmb7J6oO9QeqMuANYKYQKrT04/WK81HQPm70mVAEFWwNwQ+rOW0dZKIw5CLo/LlCtoGvUF5303GvG0Y5lzUXrENZNHUH022P6bfEya6uGoCxqI0I/Z9OhrGe9tE3mYP52ZSmcLyfDuG1D38ptUjFSKlap6ulrTNTFMjaX+LQJtVw4dLJhTrXD6NXzzgiMhtQdexte6B+okiWV1GN2e1KWlTR2XD3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MupzqoOJ+oehl5757nH5XtgcHOWcaOt2i7tBx3nJfGs=;
+ b=KUfDmqPB3imDK007yXRFIZPq6ezo3bwXePSq3sDMTDFiP9iAibupSUHa919MCHcQGEaIF3wHISduEg6i+YSRcwnV4sMc7I0Yzj+brcZkLTSxINgfD75f38Zb/c0eH793irM/jfegHRZ+Ma3HojRIM+lRzMxxZXjCwmSkSM2xKLxeVil36y7mRKGRNKxe7n25E9tJVkRMYNYc/RDefYyq4v2k6DktrBwzgnm6OtHPDvqEXIJRXe9JKGP1pZEgBS4keDJqwmgYUxm2ZR3tgKtanYRTpAhcP0TXT9QZRcRuy/4GtnftbfpWIs8aV5Q+Ga/XSMOkFeLhdhoUW7BgxcrIOQ==
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
+ by CY1PR12MB9626.namprd12.prod.outlook.com (2603:10b6:930:106::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.21; Wed, 9 Jul
+ 2025 13:29:01 +0000
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::e571:5f76:2b46:e0f8]) by CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::e571:5f76:2b46:e0f8%4]) with mapi id 15.20.8880.029; Wed, 9 Jul 2025
+ 13:29:01 +0000
+From: Parav Pandit <parav@nvidia.com>
+To: Albert Esteve <aesteve@redhat.com>, =?utf-8?B?QWxleCBCZW5uw6ll?=
+	<alex.bennee@linaro.org>
+CC: Alexandre Courbot <gnurou@gmail.com>, "virtio-comment@lists.linux.dev"
+	<virtio-comment@lists.linux.dev>, "nicolas.dufresne@collabora.com"
+	<nicolas.dufresne@collabora.com>, "cohuck@redhat.com" <cohuck@redhat.com>,
+	"adelva@google.com" <adelva@google.com>, "mvaralar@redhat.com"
+	<mvaralar@redhat.com>, "hverkuil@xs4all.nl" <hverkuil@xs4all.nl>,
+	"mst@redhat.com" <mst@redhat.com>, "dverkamp@chromium.org"
+	<dverkamp@chromium.org>, "gurchetansingh@google.com"
+	<gurchetansingh@google.com>, "changyeon@google.com" <changyeon@google.com>,
+	"daniel.almeida@collabora.com" <daniel.almeida@collabora.com>,
+	"agordeev@qti.qualcomm.com" <agordeev@qti.qualcomm.com>,
+	"eballetb@redhat.com" <eballetb@redhat.com>, "ribalda@google.com"
+	<ribalda@google.com>
+Subject: RE: [PATCH v8 1/1] virtio-media: Add virtio media device
+ specification
+Thread-Topic: [PATCH v8 1/1] virtio-media: Add virtio media device
+ specification
+Thread-Index:
+ AQHbjQWp/o1zNM0Cn0K+LqIiJ2+WobNyry4AgAX/yICAsZ/UsIAAAY8AgAAqNoCAAAKBgIAAEyQQ
+Date: Wed, 9 Jul 2025 13:29:01 +0000
+Message-ID:
+ <CY8PR12MB71956781D048BB39A9CA97FFDC49A@CY8PR12MB7195.namprd12.prod.outlook.com>
+References: <20250304130134.1856056-1-aesteve@redhat.com>
+ <20250304130134.1856056-2-aesteve@redhat.com>
+ <D8G0UC5KFCYY.32BN79B9WOK33@gmail.com>
+ <CADSE00L_ZGgqXYCttwGqD3ceBBaZaSVnPi9n6A1O+CyPBJe8nA@mail.gmail.com>
+ <87a55dvhfa.fsf@draig.linaro.org>
+ <CADSE00LPw5hVzx0=rqwcc4AfJ3Eo4DXLfcy7x4LsVQMgRZocTg@mail.gmail.com>
+ <CADSE00+gAfgCz0N8ceS2kdZkvEF6=nBHEghrmm8eXfuyZ10_Mw@mail.gmail.com>
+ <CADSE00JOBEqiFjAioJxf-PAB-FfSSy+1Z8WMuU9ktyf=dk-1TA@mail.gmail.com>
+In-Reply-To:
+ <CADSE00JOBEqiFjAioJxf-PAB-FfSSy+1Z8WMuU9ktyf=dk-1TA@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|CY1PR12MB9626:EE_
+x-ms-office365-filtering-correlation-id: 3d575243-9d54-4a5c-ab22-08ddbeec90fc
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|7416014|376014|10070799003|38070700018;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?bU5CeWpNQWpqZnBuQmJYdENpOG1IeUpzZllORmh3ZFMya3E2RXhkVlBlYUpx?=
+ =?utf-8?B?amVYOUNmY0JMMkgzZkg3RE1MRnROK0svbHM3ay9kMUZhZjU2bnQwWkJqSUZu?=
+ =?utf-8?B?dFkzMlZNV09FWW1CeVYxbU5aWmo4ekQrZml5L1dmZzR4SmlhNjY1a2ExNVJU?=
+ =?utf-8?B?VXIyTHQ4cDRBMlVOVnVtYUtJb0syc1BYWEpwcmRLTUg4VFI0R3k4dmF0NUJz?=
+ =?utf-8?B?NTNyakk5dTJxSHNqZlpKOVFmR1prNVZ1WUNXOWNRUERyWmJvRVhJcjZuZUN0?=
+ =?utf-8?B?MVE4c2NNWWFJUTByZmNBeWV6djQwYVBmNFZUdFhFSEs5YUdKcFBNYmFmbjBO?=
+ =?utf-8?B?VHVLdXBSOUthRFdJall3bk5jR3E0R0w1M3ZiTkhVQlNiOXJFaTZRRHorVC9Q?=
+ =?utf-8?B?OHNEOXI3TTZpMmRFTWIrMzhyWTl2NkNCV2wrQldnZDF0WjV2ci9kdEUvN1I3?=
+ =?utf-8?B?dUlKWXlJa3ZMNDhFNit0d3hjRldDRklZMk1vNnpBYXY1SkxlVXJXY0lDblpZ?=
+ =?utf-8?B?cTlRKys4Yjk1azdrSnhqR0ZYZVNHT3NsTElscFIwY2F0NE9RNDVzZ2VnNXRR?=
+ =?utf-8?B?d2FtZ1Z1NVNKMy9OOTFsVTB0Z0RkSmk3Z0MvQXlEQUVXbmpZS0M0d3dNaFRa?=
+ =?utf-8?B?bndobDFwODlXbkhrZEpySFNVTzBlZlhXYm4vcHNMVlQ4aThydnZZMUx4M2hM?=
+ =?utf-8?B?OCtJcjBjRjBkMUVWOGpjOUFEQXIyU2tZd2ZtaXZUclk2Sll2bUlBd25FQzBi?=
+ =?utf-8?B?RmJMRkVWTTlsZlZRbUQxWTMvaVZTbkoybE1QQmJvc3dldW9ZYkRXeThDWjlt?=
+ =?utf-8?B?MzhUeENTbjluUGU0SHhUTWtzMFh0ZkVTMnU3Mi9SY2hXVk50bHEwQUpJdXNZ?=
+ =?utf-8?B?MmMwRjVzS0VuSWxZN0gxelBkWnJoTVdHU0lEVllqTmhrSjdsdUpkYlBBQTBB?=
+ =?utf-8?B?Ulp6c2drczUwZE1PR3lWeW9OMjhqNGdKYWwwVFBRc0E2NzRMZkFVRXpkL2xH?=
+ =?utf-8?B?d3F5UUdUeEhSU0pKR2Qvb2h3YllGUXhiWTdpU216YTdaUmJvOWFCSUZRS1pQ?=
+ =?utf-8?B?cmxoeXYydjRPWm1sSFBtNHMyYWxWWlhuV1pibm5uOEp5b3l3ZXpCT1EzUEVy?=
+ =?utf-8?B?UFpabFMzak5vTldEUzA0bVdPR1ZnbFl0czlNckVsNXVqckhlaGs0MllIWjQx?=
+ =?utf-8?B?QlRBdEJNbndrS0x5VVBhRGFKSGJpOEpYL2p6VTg0blArYldoKzJoMDJEOUZN?=
+ =?utf-8?B?VWkweFcyNjh1NGFST3E3RHpzQTA5YWJRdkVHbERWdkNSb2Z4UENvSURkK1Yr?=
+ =?utf-8?B?V0RIYWlhSDZFSUF5YVRVRkpzaDd5QUREM25yM3RJNTI3Wnhobm5BOTdhbjZq?=
+ =?utf-8?B?T1BvdzRPTWI0cGZrYlRoNFhIT0tBMmdnVHpqdlJLS21laXJXWjl0SzBHSTYz?=
+ =?utf-8?B?QkV5aFhndU84R3FKVU9sU0wreXFKb1lrT01UNmE1RDlJMmVLYTFIanFDS0tu?=
+ =?utf-8?B?WU41YUhpUUdqMGFoaGZ0b09Jb2h5Nk55TEdPSVlaR0xzaDU5Yk5VcDJRVVdD?=
+ =?utf-8?B?Z0luSFJ3V2o3RURWZTlmMDlHSVhoZGw1TUZlZ0kraUNRS0piWjlJK2RlYjNM?=
+ =?utf-8?B?aUFhV3dnbHRMSUY0MlVIM1o4cGZjUy9TdThGOS9idUNhWWVJQS9DNEw2aSt6?=
+ =?utf-8?B?Q0NlTkExVU1GSnAvRWRWWTRnRDNpbkZNYlVRdWNhNFBOT1llQVB2a2VOQTBZ?=
+ =?utf-8?B?Z3ZtUy9Xa1R0WCtRUklCTzcyWncyQkVhMHZQcDZvWk5LMEdiUWZHRDZtQVNw?=
+ =?utf-8?B?V3RkMVF4bkpUVEhRWnRHbnY1WC96ZGRlMzF1OFVHQU1yNGtIT2RSNytjYXMw?=
+ =?utf-8?B?a3RybXRYNncvRkhmU1QrUCttTVNoSkZvWWdScXFGbkRJRmY4QWx6bDE2dnMz?=
+ =?utf-8?B?SW02S3FQMHJqV3hGSXNJNjJJNkRDTzk3NXROVkwzUXJxc004OFN1QUhYT0Rn?=
+ =?utf-8?B?bVY2ejVOVElBPT0=?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(10070799003)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?SGI4MytZNmpOMXBZVm94VnJwbXZRelJPb1U1RkpHRTNXR0NyWGJMejFyZHJv?=
+ =?utf-8?B?YUpDVjgzWkRGQjZZU1U0M3BuQUU3WVdiYXpxWFVpbnprVmJZZ0wzZjR2b0Vl?=
+ =?utf-8?B?SVNUdWorREhxQnBhd2RkaVg5biswaTRlNm9OL1BxcjNnUGxzRnlGUWVteDhF?=
+ =?utf-8?B?dkV3bUlXTDBKVHRpSHZZQVBHS0pKNDdjM0xGMThYQ1FrNzE1UGVYdi83Skpr?=
+ =?utf-8?B?a08rQkpGektzcHhTeTdxME9JOU1PYkEwNlRhZ3VPU29OSENtNzZJdHpYSXZk?=
+ =?utf-8?B?WDRQa1BBT2lXMTNOU0lTMEZXR200VVZsWHJkRnFGSmI4L0FFczFyZVRSWDRq?=
+ =?utf-8?B?cUhOd1N1cHoremJOTmEzMTNmZks4TEZ2UmZRYUp6dUVsZWtCWDJGRjNYZWdS?=
+ =?utf-8?B?SE8vT09WUkZXQWU0STlCK2NPYzBncGZQSm43QzBLSGkwWjZoYUVJbCtQeXRP?=
+ =?utf-8?B?eUpveHowLyt5ODR5VkthNHpXYTVsWk1KZVE1ODRqaXpTU25FaHVldkpmenp3?=
+ =?utf-8?B?bzFsN2tDMFVHeDdEYU43dVp5SkRhM1RjYVlHUWRtYUd6ZGMrUmd5eEVPU2xE?=
+ =?utf-8?B?dDdGcjNiK0dFWFpGaTF2WnN1ZXdaZFdtalJTck4yQ0ptQ05ubDNPMEg3cU1P?=
+ =?utf-8?B?UXhvUmY5YS9sekpvdXUxZWxWUm9Cbm1Gb3RRMG1MM284VWRJNUlPV2hjZTVS?=
+ =?utf-8?B?eEhoUGkxQnB6eFFLbGZ3bTFWMVI1eG5nWFdVNEpJNnlUMzlaWkxrY1RKU25L?=
+ =?utf-8?B?S0tSc2RPQzVpbXhwM0tXQUU5Z0pEUlpsNG1XaDFHaEhOTTNWSnQwT2w3d1J4?=
+ =?utf-8?B?Rm95eCt2OGw2NnB3cmN2dkxTNGxzc0FPRzE4dzhyc2tIZXhJQkdxcmJtaWVr?=
+ =?utf-8?B?QnNvNXZtU0ljSGJKb1IxS3dDU3c2Z2oyWFFWb1hXV0NaTFFHUnA3ZmpkZjk4?=
+ =?utf-8?B?NDcyMnlCeU9HWDluSmE1VkZIQk4xcmYvVWFkTTVtWEEvc2xiME1FUkVjQlg0?=
+ =?utf-8?B?SXhDNHlSUkxhMStaV09NbEhOQnRRanYwZi9XV1ZFOHU5N1Jhblc5U21BbE9y?=
+ =?utf-8?B?bm1FMnRyRTVYWUdMUnRkdnBjLzVRS2dvR21OaEh1bThuMTBKQkEzaUVhZURI?=
+ =?utf-8?B?aGk3Q1dpelhhcVlFbHVrQ2dBSUVhcDdSL2VCS0ZUVnBYOWVqYWZLeXZwRzkv?=
+ =?utf-8?B?dU9tVmdUcCtDdFpHT1VPaml5MjVtZXlEelRFZ3FORDBmV2VBaG5lUFJrbEta?=
+ =?utf-8?B?eklJREhJMDVxbVFOZ3NROEhkVzhJcGUxWGQxbzJWWDFUUVQ0dlV6Ym9PZmlN?=
+ =?utf-8?B?YkhCMVBVRzZMZ3F0VmF6Nk84TndhUS9XVG9qL1g4alFKUHgxZnNjNGo5WlRr?=
+ =?utf-8?B?UTcwc2FrOXBxY2I3NVhZWWFaZkViQUc3OW5XaDlCY3ZRSnpJK1pRV1RrRzJ0?=
+ =?utf-8?B?QlNBM25ZaW5zeUg3bDRqZVZDYnduV09GZElHWTUyUnc5YnpXS2FBR1pub3FJ?=
+ =?utf-8?B?aFRHbFZBM3hxQTFYazRZb0NmNFpVOUtXVG5DTW9nblhTVGswQ2ZQd1MxUGpr?=
+ =?utf-8?B?VWV2cHRZWm9JWCsvZHhOSGt4dGlueHEzTUFYR0x3UEs3SGlhK0V0MlJVMHph?=
+ =?utf-8?B?WC9aVno4KytSMnFYY0hPYzNwMnFJZUExaDUwQTBXTkdrUTlwWHNPM3Q0Wlk4?=
+ =?utf-8?B?Z0xnaUVBWE56b3BtY1VJM1BhTzMrV01WbjdTNmZLRm9CbTdLdUx4aEVKY1Jx?=
+ =?utf-8?B?SWFpMm1WUWxiVWNTQ1hUUC9hYUNxTERLb29lVGZpaWZJY292WVJXa2x5aWEw?=
+ =?utf-8?B?djZqd1pyOVl3WVlrbVV3dFo3TkY3cngzNmlpZjlraUpKR2hud21Jd29LTTRS?=
+ =?utf-8?B?VXl4SVBmaUp0SG82OStZbmJ1OHM3ekx5cjk0bXkxUnZKMlVuTVg2ZHROY1g4?=
+ =?utf-8?B?SmN1Rjl1RE8wR0J3MHNUSUc4MTYrVlVLWFdUeVhJcTF3d2J3cFppQThFbjVE?=
+ =?utf-8?B?RTVrUm5OeVVDaGY2TFFJdkZ2SW11WTRkaEFmRWRJUit5bkNJRUliRWVHUUl1?=
+ =?utf-8?B?aXE0UnNsckNjbkJVSkVLTFZoQlY2T3FuNTlxdGkzRXpFdzJVYzBwZ21nR24x?=
+ =?utf-8?B?WkIxU1dHZjNPT05lSHQ1ZmNUZmhWby85cFRDWjUrYnoyQ2UvK254UWFzSEZG?=
+ =?utf-8?Q?zlLayIgkQrRlyyYVx7uT+ra6NjNJOEARtKk8z8wI4a3q?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20250304130134.1856056-1-aesteve@redhat.com> <20250304130134.1856056-2-aesteve@redhat.com>
- <D8G0UC5KFCYY.32BN79B9WOK33@gmail.com> <CADSE00L_ZGgqXYCttwGqD3ceBBaZaSVnPi9n6A1O+CyPBJe8nA@mail.gmail.com>
- <87a55dvhfa.fsf@draig.linaro.org> <CADSE00LPw5hVzx0=rqwcc4AfJ3Eo4DXLfcy7x4LsVQMgRZocTg@mail.gmail.com>
- <CADSE00+gAfgCz0N8ceS2kdZkvEF6=nBHEghrmm8eXfuyZ10_Mw@mail.gmail.com>
-In-Reply-To: <CADSE00+gAfgCz0N8ceS2kdZkvEF6=nBHEghrmm8eXfuyZ10_Mw@mail.gmail.com>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Wed, 9 Jul 2025 14:18:19 +0200
-X-Gm-Features: Ac12FXzhHq4OGnDkWbbgZnLCk-ncbMvF-NZJEj3-2-lNw_1g4jKVeIR5gcMf5eQ
-Message-ID: <CADSE00JOBEqiFjAioJxf-PAB-FfSSy+1Z8WMuU9ktyf=dk-1TA@mail.gmail.com>
-Subject: Re: [PATCH v8 1/1] virtio-media: Add virtio media device specification
-To: =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>
-Cc: Alexandre Courbot <gnurou@gmail.com>, virtio-comment@lists.linux.dev, 
-	nicolas.dufresne@collabora.com, cohuck@redhat.com, adelva@google.com, 
-	mvaralar@redhat.com, hverkuil@xs4all.nl, mst@redhat.com, 
-	dverkamp@chromium.org, gurchetansingh@google.com, changyeon@google.com, 
-	daniel.almeida@collabora.com, agordeev@qti.qualcomm.com, eballetb@redhat.com, 
-	ribalda@google.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: OkXgzhhm5HgKuSztfuYs2wdKMv2EpKvAk5F_kUFNewc_1752063511
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d575243-9d54-4a5c-ab22-08ddbeec90fc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jul 2025 13:29:01.0495
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9Kr0bluPQ38aWRpn4wkE4Ddo+xDTTbnPxcsQeJ9YX1FuCRHZVnu/67P2gshmmgchPf12deZs4MMaZ9xI+gWKCg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9626
 
-On Wed, Jul 9, 2025 at 2:09=E2=80=AFPM Albert Esteve <aesteve@redhat.com> w=
-rote:
->
-> On Wed, Jul 9, 2025 at 11:38=E2=80=AFAM Albert Esteve <aesteve@redhat.com=
-> wrote:
-> >
-> > On Wed, Jul 9, 2025 at 11:32=E2=80=AFAM Alex Benn=C3=A9e <alex.bennee@l=
-inaro.org> wrote:
-> > >
-> > > Albert Esteve <aesteve@redhat.com> writes:
-> > >
-> > > > On Fri, Mar 14, 2025 at 2:26=E2=80=AFPM Alexandre Courbot <gnurou@g=
-mail.com> wrote:
-> > > >>
-> > > >> Hello Albert,
-> > > >>
-> > > >> On Tue Mar 4, 2025 at 10:01 PM JST, Albert Esteve wrote:
-> > > >> > Virtio-media is an encapsulation of the V4L2 UAPI into
-> > > >> > virtio, able to virtualize any video device supported
-> > > >> > by V4L2.
-> > > >> >
-> > > >> > Note that virtio-media does not require the use of a
-> > > >> > V4L2 device driver on the host or guest side -
-> > > >> > V4L2 is only used as a host-guest protocol,
-> > > >> > and both sides are free to convert it from/to any
-> > > >> > model that they wish to use.
-> > > >>
-> > > >> Thank you for your patience with this. I have done a final pass on=
- this
-> > > >> version and it looks great to me!
-> > > >>
-> > > >> Reviewed-by: Alexandre Courbot <gnurou@gmail.com>
-> > > >>
-> > > >
-> > > > Thanks! Could we please open a voting ballot for these changes?
-> > > >
-> > > > Fixes: https://github.com/oasis-tcs/virtio-spec/issues/214
-> > >
-> > > What was the result of the ballot?
-> >
-> > AFAIU the ballot was approved. There were conflicts with the
-> > virtio-1.4 branch, which may have delayed the integration. I've just
-> > sent a new version of the patch rebased to virtio-1.4 to try to ease
-> > the process.
->
-> Adding the diff here on the v8 instead, to avoid having to vote again
-> on a new patch version.
-> The diff should allow applying the original v8 patch cleanly to
-> virtio-1.4. Let me know if this is enough.
->
-> ----
-> diff --git a/content.tex b/content.tex
-> index 59925ae..56b2cb1 100644
-> --- a/content.tex
-> +++ b/content.tex
-> @@ -100,7 +100,7 @@ \section{Feature Bits}\label{sec:Basic Facilities
-> of a Virtio Device / Feature B
->  \item[0 to 23, and 50 to 127] Feature bits for the specific device type
->
->  \item[24 to 41] Feature bits reserved for extensions to the queue and
-> -  feature negotiation mechanisms
-> +  feature negotiation mechanisms, see \ref{sec:Reserved Feature Bits}
->
->  \item[42 to 49, and 128 and above] Feature bits reserved for future exte=
-nsions.
->  \end{description}
-> @@ -493,7 +493,7 @@ \section{Driver Notifications} \label{sec:Basic
-> Facilities of a Virtio Device /
->  \section{Exporting Objects}\label{sec:Basic Facilities of a Virtio
-> Device / Exporting Objects}
->
->  When an object created by one virtio device needs to be
-> -shared with a seperate virtio device, the first device can
-> +shared with a separate virtio device, the first device can
->  export the object by generating a UUID which can then
->  be passed to the second device to identify the object.
->
-> @@ -503,11 +503,12 @@ \section{Exporting Objects}\label{sec:Basic
-> Facilities of a Virtio Device / Expo
->  UUIDs as specified by \hyperref[intro:rfc4122]{[RFC4122]}.
->
->  \input{admin.tex}
-> +\input{device-parts.tex}
->
->  \chapter{General Initialization And Device
-> Operation}\label{sec:General Initialization And Device Operation}
->
->  We start with an overview of device initialization, then expand on the
-> -details of the device and how each step is preformed.  This section
-> +details of the device and how each step is performed.  This section
->  is best read along with the bus-specific section which describes
->  how to communicate with the specific device.
->
-> @@ -649,7 +650,7 @@ \chapter{Device Types}\label{sec:Device Types}
->
->  Discovering what devices are available and their type is bus-dependent.
->
-> -\begin{tabular} { |l|c| }
-> +\begin{longtable} { |l|c| }
->  \hline
->  Device ID  &  Virtio Device    \\
->  \hline \hline
-> @@ -737,9 +738,17 @@ \chapter{Device Types}\label{sec:Device Types}
->  \hline
->  44         &   ISM device \\
->  \hline
-> -45         &   SPI master \\
-> +45         &   SPI controller \\
->  \hline
-> -\end{tabular}
-> +46         &   TEE device \\
-> +\hline
-> +47         &   CPU balloon device \\
-> +\hline
-> +48         &   Media device \\
-> +\hline
-> +49         &   USB controller \\
-> +\hline
-> +\end{longtable}
->
->  Some of the devices above are unspecified by this document,
->  because they are seen as immature or especially niche.  Be warned
-> @@ -767,6 +776,8 @@ \chapter{Device Types}\label{sec:Device Types}
->  \input{device-types/scmi/description.tex}
->  \input{device-types/gpio/description.tex}
->  \input{device-types/pmem/description.tex}
-> +\input{device-types/can/description.tex}
-> +\input{device-types/spi/description.tex}
->  \input{device-types/media/description.tex}
->
->  \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
->
-> diff --git a/conformance.tex b/conformance.tex
-> index 2564034..0856353 100644
-> --- a/conformance.tex
-> +++ b/conformance.tex
-> @@ -33,6 +33,9 @@ \section{Conformance Targets}\label{sec:Conformance
-> / Conformance Targets}
->  \ref{sec:Conformance / Driver Conformance / I2C Adapter Driver Conforman=
-ce},
->  \ref{sec:Conformance / Driver Conformance / SCMI Driver Conformance},
->  \ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance},
-> +\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance},
-> +\ref{sec:Conformance / Driver Conformance / CAN Driver Conformance},
-> +\ref{sec:Conformance / Driver Conformance / SPI Controller Driver Confor=
-mance},
->  \ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance} or
->  \ref{sec:Conformance / Driver Conformance / Media Driver Conformance}.
->
-> @@ -61,7 +64,10 @@ \section{Conformance Targets}\label{sec:Conformance
-> / Conformance Targets}
->  \ref{sec:Conformance / Device Conformance / I2C Adapter Device Conforman=
-ce},
->  \ref{sec:Conformance / Device Conformance / SCMI Device Conformance},
->  \ref{sec:Conformance / Device Conformance / GPIO Device Conformance},
-> -\ref{sec:Conformance / Device Conformance / PMEM Device Conformance} or
-> +\ref{sec:Conformance / Device Conformance / PMEM Device Conformance},
-> +\ref{sec:Conformance / Device Conformance / CAN Device Conformance},
-> +\ref{sec:Conformance / Device Conformance / SPI Controller Device Confor=
-mance},
-> +\ref{sec:Conformance / Device Conformance / PMEM Device Conformance},
->  \ref{sec:Conformance / Device Conformance / Media Device Conformance}.
->
->      \item Clause \ref{sec:Conformance / Legacy Interface:
-> Transitional Device and Transitional Driver Conformance}.
-> @@ -78,6 +84,7 @@ \section{Conformance Targets}\label{sec:Conformance
-> / Conformance Targets}
->  \item \ref{drivernormative:Basic Facilities of a Virtio Device / Device =
-Reset}
->  \item \ref{drivernormative:Basic Facilities of a Virtio Device /
-> Device Configuration Space}
->  \item \ref{drivernormative:Basic Facilities of a Virtio Device / Virtque=
-ues}
-> +\item \ref{drivernormative:Basic Facilities of a Virtio Device /
-> Virtqueues / Virtqueue Reset / Virtqueue Reset}
->  \item \ref{drivernormative:Basic Facilities of a Virtio Device /
-> Message Framing}
->  \item \ref{drivernormative:Basic Facilities of a Virtio Device /
-> Virtqueues / The Virtqueue Descriptor Table}
->  \item \ref{drivernormative:Basic Facilities of a Virtio Device /
-> Virtqueues / The Virtqueue Descriptor Table / Indirect Descriptors}
-> @@ -96,6 +103,9 @@ \section{Conformance Targets}\label{sec:Conformance
-> / Conformance Targets}
->  \item \ref{drivernormative:General Initialization And Device
-> Operation / Device Initialization}
->  \item \ref{drivernormative:General Initialization And Device
-> Operation / Device Cleanup}
->  \item \ref{drivernormative:Reserved Feature Bits}
-> +\item \ref{drivernormative:Basic Facilities of a Virtio Device /
-> Device groups / Group administration commands / Device and driver
-> capabilities}
-> +\item \ref{drivernormative:Basic Facilities of a Virtio Device /
-> Device groups / Group administration commands / Device resource
-> objects}
-> +\item \ref{drivernormative:Basic Facilities of a Virtio Device /
-> Device groups / Group administration commands / Device parts}
->  \end{itemize}
->
->  \conformance{\subsection}{PCI Driver
-> Conformance}\label{sec:Conformance / Driver Conformance / PCI Driver
-> Conformance}
-> @@ -154,6 +164,8 @@ \section{Conformance
-> Targets}\label{sec:Conformance / Conformance Targets}
->  \input{device-types/scmi/driver-conformance.tex}
->  \input{device-types/gpio/driver-conformance.tex}
->  \input{device-types/pmem/driver-conformance.tex}
-> +\input{device-types/can/driver-conformance.tex}
-> +\input{device-types/spi/driver-conformance.tex}
->  \input{device-types/media/driver-conformance.tex}
->
->  \conformance{\section}{Device Conformance}\label{sec:Conformance /
-> Device Conformance}
-> @@ -165,6 +177,7 @@ \section{Conformance
-> Targets}\label{sec:Conformance / Conformance Targets}
->  \item \ref{devicenormative:Basic Facilities of a Virtio Device / Feature=
- Bits}
->  \item \ref{devicenormative:Basic Facilities of a Virtio Device / Device =
-Reset}
->  \item \ref{devicenormative:Basic Facilities of a Virtio Device /
-> Device Configuration Space}
-> +\item \ref{devicenormative:Basic Facilities of a Virtio Device /
-> Virtqueues / Virtqueue Reset / Virtqueue Reset}
->  \item \ref{devicenormative:Basic Facilities of a Virtio Device /
-> Message Framing}
->  \item \ref{devicenormative:Basic Facilities of a Virtio Device /
-> Virtqueues / The Virtqueue Descriptor Table}
->  \item \ref{devicenormative:Basic Facilities of a Virtio Device /
-> Virtqueues / The Virtqueue Descriptor Table / Indirect Descriptors}
-> @@ -176,6 +189,9 @@ \section{Conformance
-> Targets}\label{sec:Conformance / Conformance Targets}
->  \item \ref{devicenormative:Basic Facilities of a Virtio Device /
-> Packed Virtqueues / Scatter-Gather Support}
->  \item \ref{devicenormative:Basic Facilities of a Virtio Device /
-> Shared Memory Regions}
->  \item \ref{devicenormative:Reserved Feature Bits}
-> +\item \ref{devicenormative:Basic Facilities of a Virtio Device /
-> Device groups / Group administration commands / Device and driver
-> capabilities}
-> +\item \ref{devicenormative:Basic Facilities of a Virtio Device /
-> Device groups / Group administration commands / Device resource
-> objects}
-> +\item \ref{devicenormative:Basic Facilities of a Virtio Device /
-> Device groups / Group administration commands / Device parts}
->  \end{itemize}
->
->  \conformance{\subsection}{PCI Device
-> Conformance}\label{sec:Conformance / Device Conformance / PCI Device
-> Conformance}
-> @@ -241,6 +257,8 @@ \section{Conformance
-> Targets}\label{sec:Conformance / Conformance Targets}
->  \input{device-types/scmi/device-conformance.tex}
->  \input{device-types/gpio/device-conformance.tex}
->  \input{device-types/pmem/device-conformance.tex}
-> +\input{device-types/can/device-conformance.tex}
-> +\input{device-types/spi/device-conformance.tex}
->  \input{device-types/media/device-conformance.tex}
->
->  \conformance{\section}{Legacy Interface: Transitional Device and
-> Transitional Driver Conformance}\label{sec:Conformance / Legacy
-> Interface: Transitional Device and Transitional Driver Conformance}
->
-
-A cleaner attempt, noticed a duplication of one listed item. Also
-removed the parts of the diff that caused no collision beforehand.
-
----
-diff --git a/content.tex b/content.tex
-index 59925ae..56b2cb1 100644
---- a/content.tex
-+++ b/content.tex
-
-+\end{longtable}
-
- Some of the devices above are unspecified by this document,
- because they are seen as immature or especially niche.  Be warned
-@@ -767,6 +776,8 @@ \chapter{Device Types}\label{sec:Device Types}
- \input{device-types/scmi/description.tex}
- \input{device-types/gpio/description.tex}
- \input{device-types/pmem/description.tex}
-+\input{device-types/can/description.tex}
-+\input{device-types/spi/description.tex}
- \input{device-types/media/description.tex}
-
- \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
-
-diff --git a/conformance.tex b/conformance.tex
-index 2564034..85a227f 100644
---- a/conformance.tex
-+++ b/conformance.tex
-@@ -33,7 +33,9 @@ \section{Conformance Targets}\label{sec:Conformance
-/ Conformance Targets}
- \ref{sec:Conformance / Driver Conformance / I2C Adapter Driver Conformance=
-},
- \ref{sec:Conformance / Driver Conformance / SCMI Driver Conformance},
- \ref{sec:Conformance / Driver Conformance / GPIO Driver Conformance},
--\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance} or
-+\ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance},
-+\ref{sec:Conformance / Driver Conformance / CAN Driver Conformance},
-+\ref{sec:Conformance / Driver Conformance / SPI Controller Driver
-Conformance} or
- \ref{sec:Conformance / Driver Conformance / Media Driver Conformance}.
-
-     \item Clause \ref{sec:Conformance / Legacy Interface:
-Transitional Device and Transitional Driver Conformance}.
-@@ -61,7 +63,9 @@ \section{Conformance Targets}\label{sec:Conformance
-/ Conformance Targets}
- \ref{sec:Conformance / Device Conformance / I2C Adapter Device Conformance=
-},
- \ref{sec:Conformance / Device Conformance / SCMI Device Conformance},
- \ref{sec:Conformance / Device Conformance / GPIO Device Conformance},
--\ref{sec:Conformance / Device Conformance / PMEM Device Conformance} or
-+\ref{sec:Conformance / Device Conformance / PMEM Device Conformance},
-+\ref{sec:Conformance / Device Conformance / CAN Device Conformance},
-+\ref{sec:Conformance / Device Conformance / SPI Controller Device
-Conformance} or
- \ref{sec:Conformance / Device Conformance / Media Device Conformance}.
-
-     \item Clause \ref{sec:Conformance / Legacy Interface:
-Transitional Device and Transitional Driver Conformance}.
-@@ -154,6 +162,8 @@ \section{Conformance
-Targets}\label{sec:Conformance / Conformance Targets}
- \input{device-types/scmi/driver-conformance.tex}
- \input{device-types/gpio/driver-conformance.tex}
- \input{device-types/pmem/driver-conformance.tex}
-+\input{device-types/can/driver-conformance.tex}
-+\input{device-types/spi/driver-conformance.tex}
- \input{device-types/media/driver-conformance.tex}
-
- \conformance{\section}{Device Conformance}\label{sec:Conformance /
-Device Conformance}
-@@ -241,6 +255,8 @@ \section{Conformance
-Targets}\label{sec:Conformance / Conformance Targets}
- \input{device-types/scmi/device-conformance.tex}
- \input{device-types/gpio/device-conformance.tex}
- \input{device-types/pmem/device-conformance.tex}
-+\input{device-types/can/device-conformance.tex}
-+\input{device-types/spi/device-conformance.tex}
- \input{device-types/media/device-conformance.tex}
-
- \conformance{\section}{Legacy Interface: Transitional Device and
-Transitional Driver Conformance}\label{sec:Conformance / Legacy
-Interface: Transitional Device and Transitional Driver Conformance}
-
-> >
-> > >
-> > > --
-> > > Alex Benn=C3=A9e
-> > > Virtualisation Tech Lead @ Linaro
-> > >
-
+DQo+IEZyb206IEFsYmVydCBFc3RldmUgPGFlc3RldmVAcmVkaGF0LmNvbT4NCj4gU2VudDogMDkg
+SnVseSAyMDI1IDA1OjQ4IFBNDQo+IA0KSXQgd2FzIHNpbXBsZSBlZGl0b3JpYWwgY29uZmxpY3Qg
+ZHVlIHRvIHJlYmFzZS4NCkkgbWVyZ2VkIHRoZSBjaGFuZ2UuDQpQbGVhc2UgY2hlY2sgdGhlIDEu
+NCBicmFuY2ggaWYgZXZlcnl0aGluZyBpcyByaWdodC4NCg==
