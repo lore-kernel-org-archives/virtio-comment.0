@@ -1,437 +1,1638 @@
-Received: from out28-3.mail.aliyun.com (out28-3.mail.aliyun.com [115.124.28.3])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79902110E
-	for <virtio-comment@lists.linux.dev>; Fri, 11 Jul 2025 04:40:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F885258
+	for <virtio-comment@lists.linux.dev>; Fri, 11 Jul 2025 13:07:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1752208825; cv=none; b=um9El8/ZgocmsfPQYumNFY94Wbuq8OeWkFgzkfrgsLve0Dt9REFdPeCwfuZx6H/FEYe489s1rawYWzJvLzZXh9qhEocqU2M0VvRV3GVlt/SswtYOuw9NoUZ30EgE8OOQBdezjbbPhlV4w2BRSbAbxT04+PhPVY07Br1ODrqgP3U=
+	t=1752239282; cv=none; b=VWQcycvo+apMj8ls95RdPpppKLgX6qtY3XejUhwQpzhaNfnYAAoWN6hJxibgNg8r9ZDfUXYAwHVC5h+IaQoziCaVkOMkycLDcxVoAMMrii3X+XoeZe95FUK1tZmP9CyvFHIlCH2CJrEI7lDGdJSTFU81OH1UbJimNKFBYHTCIcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1752208825; c=relaxed/simple;
-	bh=5gpEnlg6CIunEPdKYI9d1bJr4RUu+2QJpunksifCpAc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a/vQNf9w9Amxb3VS8WilxO0Zr/4K84F/8KTsQGABXZ3Q86ul/iel2X7s/rLWDE5CycC86ThmZy/a8M/3epp6PQuUsf5duR5SvEyAcd/3E3SWRkuDKHARypsYKqtTpTswyl85g3L61jXvBg5Utvd91EPjikjesHRvELvfzOmFNjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=antgroup.com; spf=pass smtp.mailfrom=antgroup.com; dkim=pass (1024-bit key) header.d=antgroup.com header.i=@antgroup.com header.b=T1RqwE8x; arc=none smtp.client-ip=115.124.28.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=antgroup.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antgroup.com
+	s=arc-20240116; t=1752239282; c=relaxed/simple;
+	bh=9laisGH3iTag9nYJVUQggXKZIPsGtyURVFcyn1yAs/8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l+01QdW34JXa2JFADTHTVoJlCXRbpFVWy3Z7PCERvzsFiVrUlG+clV7ztsBV9jyJhobXIGoBBMj8qUjZnNWZFYmgIdipwarDeQ644mVldbHEOORbgag/xFWeYUZtacz7ktaJ+X/7xINxg4pv5MJznuYAK1B9hHsPNXei7rMQ1EM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y9rPTIT6; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antgroup.com header.i=@antgroup.com header.b="T1RqwE8x"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=antgroup.com; s=default;
-	t=1752208814; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=cRtwGpjWHeETTuO5zv4Prqd3G47rCiN2EeyoB1ti04E=;
-	b=T1RqwE8x0YG6GBj4vd0txu18zSCc83VBgSozb41oDQfDl9/dFkiJ9r2IU7NDzAaiZ3S4OE7YSYn9ISnYHVWi/6BIoYDYEW+X9zCJE7Kznn9/Fo1d0/CtepgLx4n3FKzh0AFQujpKtTA0J2ihJkCtqc8EIm47Sy/Sua6XEMejOFk=
-Received: from 30.172.244.58(mailfrom:niuxuewei.nxw@antgroup.com fp:SMTPD_---.dk.NE1P_1752208813 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 11 Jul 2025 12:40:14 +0800
-Message-ID: <16da26fa-1b18-460c-8abe-771c82e03c33@antgroup.com>
-Date: Fri, 11 Jul 2025 12:40:13 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y9rPTIT6"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56BBLUch007975
+	for <virtio-comment@lists.linux.dev>; Fri, 11 Jul 2025 13:07:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=NPLQcl3tE+t3T02/bde9KVU9
+	jvysV3G7vwWiAtCjfrs=; b=Y9rPTIT6LecX78NZuLA7d1aqkRKtD0G/MYCzcWtV
+	rrvwswGPvP93fLm60ML2xhHnloNkf1bt7UgQ4+At0Mp5o8k7eBzVvdiy5KVF9EEv
+	qZSPHQUwwciRozvjuvoEP9Ezb0NkKT4M1X3V0qpsdcBZY/9Bv4kZEgtpQ1TBkBNP
+	1uJTYylofK0uEm0pIGmzUoNjiI3M8neHwQapXcD7pXoXCojVndNs4pVeIg9rC2jY
+	GTQYSpojrwbONV2GxBn6qCxSHceaovxPlmchaZNO0Laz8YIVIohZV666v0d/ot1y
+	ZRGdpkvvdX42f9nd56EtAo8lcD+gHBdfGBN5kR+f6ghSvg==
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47smcg8mqr-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <virtio-comment@lists.linux.dev>; Fri, 11 Jul 2025 13:07:57 +0000 (GMT)
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-73a17986d6bso1642058a34.0
+        for <virtio-comment@lists.linux.dev>; Fri, 11 Jul 2025 06:07:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752239276; x=1752844076;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NPLQcl3tE+t3T02/bde9KVU9jvysV3G7vwWiAtCjfrs=;
+        b=mEUuaCNb3QS3cV0fcrr91WI81wkxKF60sqgCWhhu1aE0FL0cKIyAXykeyHdD/bdcgs
+         1sWMo86LntXoiWFhRqWOOLD2pKYgTDvYOKeRlaMkP8ZVQQ5ar9kUa8U8zA4nx8qzw9f4
+         uHfUZ1RyZ0hcotd6eER8/EdoHUsR+yEgsp5dLHibAEjn2a4KnE5HJ49X+wZLfH2ATyB3
+         9hao/CKKKUyDaTvJW7CTHFgH+4pgaWme/gQy5JaXc8W+gaVlXsO6YdjClYvtqSk2lr3f
+         52OAjN15Xush2EWF9McRygGCjwuj5OzkwNjcHgIOTPVDzl1dZ6e9llJ/tdYe4JjxytOX
+         UpRg==
+X-Gm-Message-State: AOJu0Yxvp/7fRsiELUXuhNb2Oha2/nvYWb4LWEhZNE8sJN9Se7cxICUf
+	HrkY21j/7wBND1qGpxxpSZXf/93fgKy96rbwrZfB0MuwNsnyTNFSM8iLe4MveyfOgxWULR/wEVA
+	08vgu8ySuFialaXdQKbqUjUwqI5ixuKlazX20uOBCl/8VjoB3Umqb3NIOBWPyG5TQS3BT2g==
+X-Gm-Gg: ASbGncsiS92y/E52BEui67dpyj0i8WM2h3TKrXrr1w+ej2snDDCVoH3HrGQLSoHBdtq
+	pOO8mwf5TuZMJmJxtBVIykMWDfcuBnPYHbwaXWXedb/+eTGwxVVPaugzWpH/GMQIQD/5SRSaO6r
+	2LbgoRm4TcUurPJfEs+Fb9ccJFED6roTJGupHVhdOKrBAOC7YjHLvBWwX+6jtoJioPJJJArhVXK
+	PXjeflzlaS+hX/9dpACBDxlHrTc43ePpuvX4Pj39jQhnsotZCDnETcO7wRnuCpOEbRdRAkVCJD9
+	DAudvHeSIQELszh8SpO1rQ/UmyG5qBXU95x2ayL8JAjCnxwe4Yd21kgVjHzIBU1r
+X-Received: by 2002:a05:6830:4c98:b0:727:876:c849 with SMTP id 46e09a7af769-73cfb256be1mr1189148a34.27.1752239274206;
+        Fri, 11 Jul 2025 06:07:54 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGxOLeclEJ1ObPG93B4pTD7j9Q+/IqaPoJoY/7mcVeTcm4gKcyAGifA23llmWDzjUUATb9fiQ==
+X-Received: by 2002:a05:6830:4c98:b0:727:876:c849 with SMTP id 46e09a7af769-73cfb256be1mr1188978a34.27.1752239270759;
+        Fri, 11 Jul 2025 06:07:50 -0700 (PDT)
+Received: from PHILBER.na.qualcomm.com ([5.28.92.194])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-611f7365c7bsm489961a12.62.2025.07.11.06.07.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Jul 2025 06:07:49 -0700 (PDT)
+Date: Fri, 11 Jul 2025 15:07:46 +0200
+From: Peter Hilber <peter.hilber@oss.qualcomm.com>
+To: Bill Mills <bill.mills@linaro.org>
+Cc: virtio-comment@lists.linux.dev,
+        Bertrand Marquis <bertrand.marquis@arm.com>,
+        "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
+        Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+        Viresh Kumar <viresh.kumar@linaro.org>,
+        Alex Bennee <alex.bennee@linaro.org>
+Subject: Re: [PATCH RFC v2 1/1] virtio-msg: Add virtio-msg, a message based
+ virtio transport layer
+Message-ID: <34xwxtm5m565mx3qvc2t4j3cpshf4spulpuwtzexziftjtls2i@ue2elpdjcyin>
+References: <20250620224426.3923880-1-bill.mills@linaro.org>
+ <20250620224426.3923880-2-bill.mills@linaro.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7] virtio-vsock: Add support for multi devices
-To: Stefano Garzarella <sgarzare@redhat.com>,
- Xuewei Niu <niuxuewei97@gmail.com>
-Cc: fupan.lfp@antgroup.com, mst@redhat.com, parav@nvidia.com,
- virtio-comment@lists.linux.dev
-References: <w7oaipcnfmjikd3ob7mh3bkxgxbtgfqzrmf6upay2vqmpgniei@cpbnm63fj5th>
- <20250702060516.682183-1-niuxuewei.nxw@antgroup.com>
- <meqdvtktodz3jt6mtpppwfsyrxobqtyh777b7qzeoi4cmpo6m4@vno4cxr27asm>
-Content-Language: en-US
-From: Xuewei Niu <niuxuewei.nxw@antgroup.com>
-In-Reply-To: <meqdvtktodz3jt6mtpppwfsyrxobqtyh777b7qzeoi4cmpo6m4@vno4cxr27asm>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250620224426.3923880-2-bill.mills@linaro.org>
+X-Authority-Analysis: v=2.4 cv=P7o6hjAu c=1 sm=1 tr=0 ts=68710cad cx=c_pps
+ a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=V6MPruV6/6857hR3CojbaQ==:17
+ a=kj9zAlcOel0A:10 a=Wb1JkmetP80A:10 a=BqEg4_3jAAAA:8 a=NEAV23lmAAAA:8
+ a=KKAkSRfTAAAA:8 a=7CQSdrXTAAAA:8 a=zd2uoN0lAAAA:8 a=8b9GpE9nAAAA:8
+ a=l46U0Ef0p_IIP2et1x0A:9 a=CjuIK1q_8ugA:10 a=EXS-LbY8YePsIyqnH6vw:22
+ a=0mFWnFbQd5xWBqmg7tTt:22 a=cvBusfyB2V15izCimMoJ:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+ a=T3LWEMljR5ZiDmsYVIUa:22
+X-Proofpoint-ORIG-GUID: EDkFnzh6E9LEGSuzjAPRkk-DSlZo3otD
+X-Proofpoint-GUID: EDkFnzh6E9LEGSuzjAPRkk-DSlZo3otD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzExMDA5MyBTYWx0ZWRfXyIL/Zh+MXgeI
+ qlELzXo4lgbJOf5ab71UXZjFpVXSZzZrmnzMHmJdnmz4jfNF9rCGvSJv9nzmfNae3Uua2JIPSxq
+ HbRg7jPsSDRgk8FKhct/ystuBQsEuTDtD1uiJ7uCNiOR2ixubwfnGL64QFyVnjNDieKeevnrzkv
+ C0CmyS4f3N36mSvaFJTW7TRT1Zibm3retBZ7onLSXIw+HYNZgdW8NbOQCT+P3CjF6+P7/+Nz2zH
+ GvAxo6KgO7fRiPdnAzVfDIFvtccaCJY7ycokjuRtqsWM/XAWKaoButUKVdUbg9zt6MKg7M3HTT9
+ S4piTNQJHNbUHAYJgNQoTL1TeaZmDCBmBQaS3j7OMN+EzeTbF3RPdDP7QK24heZ2vs14sGiH6T6
+ MVzxbySwPNYOLrncc3MHDXj2YOr89ViuhV03dTLf/Tx/oBMUiuth/HVfxhJITx9zkXN+bbi9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
+ definitions=2025-07-11_03,2025-07-09_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 phishscore=0 bulkscore=0 mlxscore=0
+ malwarescore=0 spamscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1011
+ adultscore=0 mlxlogscore=999 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
+ definitions=main-2507110093
 
-Resend, I've changed my address to company email, which was not subscribed
-to the virtio-comment maillist. The previous one was rejected by the
-system. Sorry for the inconvenience.
-
-On 2025/7/10 18:19, Stefano Garzarella wrote:
-> On Wed, Jul 02, 2025 at 02:05:16PM +0800, Xuewei Niu wrote:
+On Fri, Jun 20, 2025 at 06:44:26PM -0400, Bill Mills wrote:
+> Add a new transport layer that is based on messages.
 > 
-> [...]
+> This transport layer still uses virtqueues as the other transport layers do
+> but implements transport layer operations by sending and receiving messages
+> instead of the "MMR" reads and writes used in virtio-mmio and virtio-pci.
 > 
->>> >> >>
->>> >> >> Why?
->>> >> >>
->>> >> >> IMO, as I already wrote, the libkrun service should use CID=0.
->>> >> >
->>> >> >As we before discussed, if there is only one backend for the libkrun
->>> >> >service, we can use cid=0. I totally agree with you. So let us put this
->>> >> >case aside first.
->>> >> >
->>> >> >> How you will handle multiple devices for host? How can the guest know
->>> >> >> which device to use to reach HOST(2)?
->>> >> >
->>> >> >Do `bind()` explicitly, and a device with matching cid will be picked up.
->>> >>
->>> >> Okay, but why you need 2 devices to communicate with the same CID, host
->>> >> in this case (CID=2)?
->>> >> IMO use the source CID to multiplex a socket at destination is not
->>> >> great. But I can be wrong.
->>> >
->>> >I mean multiple sockets with multiple `bind()` calls, not multiplexing:
->>> >
->>> >- socket1: bind(3, -1), connect(2, 10000);
->>> >- socket2: bind(4, -1), connect(2, 10001);
->>> >- ...
->>>
->>> Yep, of course, I meant exactly that.
->>> In this case we are doing multiplexing based on the source address,
->>> which IMHO is odd.
->>
->> Please see below.
->>
->>> >> >> IMO is easier to have the multiple device for sibling (e.g. the device
->>> >> >> can advertise which dest CID its supports), but not for host.
->>> >> >
->>> >> >I think one device for sibling is enough.
->>> >>
->>> >> I also think one should be enough, but IMO I think it might make more
->>> >> sense to have multiple devices in this case, where each device can
->>> >> handle a pool of CIDs, then the hard part will be figuring out how to
->>> >> allocate the CIDs, etc. so yes, I agree that having one device even in
->>> >> this case is the easiest thing.
->>> >
->>> >Yeah, so let us skip this for now ;)
->>>
->>> Agree.
->>>
->>> > >
->>> >> >For example, dev1 is enough for
->>> >> >communication with dev3 and dev4. So we don't need dev2 for sibling in the
->>> >> >first VM, right?
->>> >>
->>> >> Just a note, vhost-vsock is not allowing any sibling communication.
->>> >> vhost-user-vsock can do it, but we don't want to bring any support in
->>> >> vhost-vsock to not overcomplicate it (again it will become like a
->>> >> network switch, requiring firewalls, etc.)
->>> >
->>> >Even if we don't impose some complicated mechanisms, I think the
->>> >vhost-vsock should work with sibling, and I don't see any difference
->>> >between vhost-vsock and vhost-user-vsock. (I am just curious.)
->>>
->>> THe difference is how to prevent a communication between VMs of
->>> different users.
->>>
->>> With vhost-user-vsock, you can decide which VMs to connect to the
->>> vhost-user backend, in vhost-vsock all of them will be attached to the
->>> host net stack, so we need to add some kind of firewall, etc. and it
->>> will complicate a lot our simple stack. So I'm not sure we want that.
->>
->> I see it. The vhost-user-vsock provides kind of "namespace" capability, am
->> I right?
+> This transport is useful when the device and driver are both implemented in
+> software but the trap and emulate operations of virtio-mmio and virtio-pci
+> can not be used.
 > 
-> yep, kind of.
+> This transport is intended to be used in many situations, including:
+> * between a host processor and its co-processors
+> * between two different systems (not SMP) connected via PCIe
+> * between normal and secure worlds
+> * host to vm
+> * vm to vm
 > 
->>
->>> >> >+──kernel(vhost-vsock)──────────────────────────────────────────────+
->>> >> >│+──────────────+ +──────────────+ +──────────────+ +──────────────+│
->>> >> >││  dev1(cid1)  │ │  dev2(cid2)  │ │  dev3(cid3)  │ │  dev4(cid4)  ││
->>> >> >│+──────────────+ +──────────────+ +──────────────+ +──────────────+│
->>> >> >+────────▲────────────────▲────────────────▲────────────────▲───────+
->>> >> >         │                │                │                │
->>> >> >         │                │          ┌─────┘                │
->>> >> >         │                │          │                      │
->>> >> >+────────┴───────────+    │ +────────┴───────────+ +────────┴───────────+
->>> >> >│+──────────────+ VM0│    │ │+──────────────+ VM1│ │+──────────────+ VM2│
->>> >> >││dev1(cid1,def)│    │    │ ││dev3(cid3,def)│    │ ││dev4(cid4,def)│    │
->>> >> >│+──────────────+    │    │ │+──────────────+    │ │+──────────────+    │
->>> >> >│+──────────────+    │    │ │                    │ │                    │
->>> >> >││  dev2(cid2)  │────┼────┘ │                    │ │                    │
->>> >> >│+──────────────+    │      │                    │ │                    │
->>> >> >+────────────────────+      +────────────────────+ +────────────────────+
->>> >> >
->>> >> >The things go different for devices for host:
->>> >> >
->>> >> >1. For dev1, it is used for sibling (dev1 <-> dev4), and the host
->>> >> >(src_cid=cid1, dst_cid=2) means the real host (not a userapp), where
->>> >> >doesn't show in the diagram.
->>> >>
->>> >> This is not going to happen (see above).
->>> >>
->>> >> >2. For dev2 (src_cid=cid2), the host (dst_cid=2) is userapp1;
->>> >> >3. For dev3 (src_cid=cid3), the host (dst_cid=2) is userapp2.
->>> >> >
->>> >> >+──kernel(vhost-vsock)──────────────────────────────────────────────+
->>> >> >│+──────────────+                                   +──────────────+│
->>> >> >││  dev1(cid1)  │                                   │  dev4(cid4)  ││
->>> >> >│+──────────────+                                   +──────────────+│
->>> >> >+────────▲──────────────────────────────────────────────────▲───────+
->>> >> >         │                                                  │
->>> >> >+────────┴───────────+     +────────────────────+           │
->>> >> >│+──────────────+ VM0│     │+──────────────+    │           │
->>> >> >││dev1(cid1,def)│    │┌────▶│  dev2(cid2)  │    │  +────────┴───────────+
->>> >> >│+──────────────+    ││    │+──────────────+    │  │+──────────────+ VM2│
->>> >> >│+──────────────+    ││    │            userapp1│  ││dev4(cid4,def)│    │
->>> >> >││  dev2(cid2)  │────┼┘    +────────────────────+  │+──────────────+    │
->>> >> >│+──────────────+  vhost-user-vsock─────────────+  │                    │
->>> >> >│+──────────────+    │     │+──────────────+    │  │                    │
->>> >> >││  dev3(cid3)  │────┼─────▶│  dev3(cid3)  │    │  │                    │
->>> >> >│+──────────────+    │     │+──────────────+    │  +────────────────────+
->>> >> >+────────────────────+     │            userapp2│
->>> >> >                           +────────────────────+
->>> >> >
->>> >>
->>> >> I'm really confused with `cid1`, `cid2`, etc. Are they any number >= 3?
->>> >> I'd suggest to use real value (e.g. cid=42).
->>> >
->>> >Okay. I'll update it with real value ;)
->>> >
->>> >Based on the above question, I still put the devices into the kernel.
->>> >
->>> >+──kernel(vhost-vsock)──────────────────────────────────────────────────+
->>> >│+───────────────+                                  +───────────────+   │
->>> >││  dev1(cid=3)  │                                  │  dev4(cid=6)  │   │
->>> >│+───────────────+                                  +───────────────+   │
->>> >+────────▲──────────────────────────────────────────────────▲───────────+
->>> >         │                                                  │
->>> >+────────┴───────────+     +────────────────────+           │
->>> >│+───────────────+VM0│     │+──────────────+    │           │
->>> >││dev1(cid=3,def)│   │┌────▶│ dev2(cid=4)  │    │  +────────┴───────────+
->>> >│+───────────────+   ││    │+──────────────+    │  │+───────────────+VM2│
->>> >│+───────────────+   ││    │            userapp1│  ││dev4(cid=6,def)│   │
->>> >││  dev2(cid=4)  │───┼┘    +────────────────────+  │+───────────────+   │
->>> >│+───────────────+ vhost-user-vsock─────────────+  │                    │
->>> >│+───────────────+   │     │+──────────────+    │  │                    │
->>> >││  dev3(cid=5)  │───┼─────▶│ dev3(cid=5)  │    │  │                    │
->>> >│+───────────────+   │     │+──────────────+    │  +────────────────────+
->>> >+────────────────────+     │            userapp2│
->>> >                           +────────────────────+
->>> >
->>> >> So what dest CID the VM0 is supposed to use to talk with userapp1 and
->>> >> userapp2? In both cases CID=2, right?
->>> >
->>> >Yes. There are at least two sockets with source cid=4 and cid=5
->>> >respectively.
->>>
->>> As I said, this is odd IMHO.
->>> We are using the source address to multiplex the destination app.
->>> We should use the destination address for that, no?
->>
->> Well. In my design, we use one device mainly for the host, so that we can
->> do multiplexing as we ususally do. Other devices are dedicated for specific
->> uses, for example, I want to use a dedicated vsock for TSI backend as I
->> mentioned before. In this case, we can't do multiplexing.
-> 
-> I meant multiplexing in the VM. Why we can't do that?
+> This is an RFC and not yet intended to be merged. There are multiple
+> know issues including not conforming to virtio spec standards.
 
-If there is only one device, which means we use the same source device, then
-we can do multiplex.
+Hi Bill,
 
-In case of multiple devices, we can do multiplex for connections as long as
-they are using the same source device.
+I added some comments below. Take everything with a grain of salt.
 
-For example
+I am assuming that a follow-up version will split the text into
+non-normative/normative sections and conformance statements like e.g. [2].
 
-<use device cid=3>
-- connection1: src (3, 10000) -> dst (2, 10000)
-- connection2: src (3, 10001) -> dst (2, 10001)
+The lack of a concrete bus specification makes it hard to reason about the
+impact of some decisions, such as delegating error handling to the bus. I
+think the behavior of the bus layer should be restricted enough so that a
+transport layer implementation can avoid making wrong assumptions about
+buses not yet available.
 
-<use device cid=4>
-- connection3: src (4, 10000) -> dst (2, 10002)
-- connection4: src (4, 10001) -> dst (2, 10003)
+IIUC this transport would, when combined with a concrete bus specification,
+introduce three new entities which would be subject to conformance
+statements (with otherwise only device and driver being subject to
+conformance statements):
 
-We can multiplex connections 1 and 2, and we can also do so for connections
-3 and 4. But for connection 2 and 3 we can't, as the source devices are not
-the same. 
+- bus instance
+
+- a not device-specific device-side bus endpoint
+
+- a not driver-specific driver-side bus endpoint;
+
+and also specify part of the interface between bus layer and transport layer.
 
 > 
->>
->> IMHO, our systems are functional without the support of multiple devices,
->> right? So I introduce the default device to make sure that we don't break
->> the current usage after adding the support.
->>
->> At the same time, we really want to have more devices for specific use
->> cases, where we have to deal with the more complicated usage and config.
->>
->> To recap: I think the case I mentioned here is one of specific use cases.
->> For most cases, we can do multiplexing based on the destination address.
->>
->> Looks good to you?
+> Signed-off-by: Bill Mills <bill.mills@linaro.org>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> ---
+>  content.tex       |    1 +
+>  transport-msg.tex | 1354 +++++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 1355 insertions(+)
+>  create mode 100644 transport-msg.tex
 > 
-> Yep, in order to not over-complicate vsock, I think the "default" device is the simplest way.
-> 
->>
->>> >> Why you need 2 vhost-user-vsock devices?
->>> >
->>> >The benefit of vhost-user is "shared memory", which reduces the need
->>> >for
->>> >data copying. It is possible to share virtqueues to multiple user apps, for
->>> >the sake of performance.
->>> >
->>> >I don't forget the "CID=0" thing. Just as an explanation, I'll use the
->>> >example of TSI.
->>> >
->>> >We can treat the TSI backend as a proxy. Thanks to vhost-user-vsock, the
->>> >data will be copied once from the guest user space to the proxy. When we
->>> >have two subnets, which is a common case, we might want to have two
->>> >proxies
->>> >to forward the data.
->>>
->>> Okay, I see it now, but it's really the use case of vsock?
->>
->> We are using Kata Containers to launch a pod. Thanks to Istio Ambient [1]
->> service mesh, which is available now, we don't need to set network rules in
->> the pod. Networking inside the VM is pretty simple, we don't need to
->> network stack, all we need to do is to forward the data to the Istio
->> Ambient host daemonset. In this case, vsock and TSI are the best choices.
->>
->> If use network, we have to do a lot of copy to achieve that:
->>
->> guest userspace
->>    -> guest network stack
->>        -> pod net namespace network stack
->>            -> host network stack
->>                -> host userspace (Istio Ambient proxy)
->>
->> If use TSI, the things are:
->>
->> guest userspace
->>    -> guest vsock
->>        -> host tsi backend (Istio Ambient proxy)
->>
->> We are trying to enable vsock to function as a data plane, instead of only
->> doing control stuff (control plane).
->>
->> Of course, we also expect that the vsock keeps as simple as possible, and
->> try to not bother users who don't need these advanced features.
->>
->> 1: https://istio.io/latest/blog/2022/introducing-ambient-mesh/
->>
->>> In this way the destination address (CID, port) is completely useless,
->>> since it's never used, so why using vsock for this use case?
->>
->> What if the userapp provides two services on different ports, so port is
->> needed?
-> 
-> I see.
-> 
->>
->>> I have an idea, but I don't know if it is feasible.
->>> CID=0 is pretty much unsupported for now by virtio-vsock, but maybe we
->>> could leverage it for this use case.
->>>
->>> If we have multiple devices, but each practically allows only one
->>> application to be reached,
->>
->> See above.
->>
->>> then these devices can be reached by CID=0
->>
->> Why CID=0 only?
->>
->>> and port=x, where each device exposes in its configuration space the
->>> port to which it responds.
->>>
->>> Thus, in the guest, connect(0, 10001) will go to the device that exposes
->>> port 10001, and so on.
->>
->> Your proposal
->>
->> pro:
->>
->> 1) all cases don't need to call `bind()`.
->>
->> cons:
->>
->> 1) since the config space will not be read after the device is set up, the
->> driver can't update the exposed port dynamically.
->> 2) the driver has to maintain the mapping between the port and the device.
->> 3) the guest apps still have to know the mapping to get the right port.
-> 
-> Yep, I wrote that I don't like it too ;-)
-> 
->>
->> ===
->>
->> My proposal
->>
->> pro:
->>
->> 1) it is transparent to the driver.
-> 
-> The driver needs to be updated to support these changes, no?
+> diff --git a/content.tex b/content.tex
+> index 09628ca..3612f15 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -638,6 +638,7 @@ \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
+>  \input{transport-pci.tex}
+>  \input{transport-mmio.tex}
+>  \input{transport-ccw.tex}
+> +\input{transport-msg.tex}
+>  
+>  \chapter{Device Types}\label{sec:Device Types}
+>  
+> diff --git a/transport-msg.tex b/transport-msg.tex
+> new file mode 100644
+> index 0000000..79a0a5b
+> --- /dev/null
+> +++ b/transport-msg.tex
+> @@ -0,0 +1,1354 @@
+> +\section{Virtio Over Messages}\label{sec:Virtio Transport Options / Virtio Over Messages}
+> +
+> +\newcommand{\conceptref}[1]{\hyperref[sec:Virtio Transport Options / Virtio Over Messages / Basic Concepts / #1]{#1}}
+> +\newcommand{\msgref}[1]{\hyperref[sec:Virtio Transport Options / Virtio Over Messages / Transport Messages / VIRTIO_MSG_#1]{VIRTIO_MSG_#1}}
+> +\newcommand{\busref}[1]{\hyperref[sec:Virtio Transport Options / Virtio Over Messages / Bus Messages / BUS_MSG_#1]{BUS_MSG_#1}}
+> +
+> +\subsection{Introduction}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Introduction}
+> +
+> +This section defines \textbf{virtio-msg}, a transport mechanism that encapsulates
+> +virtio operations as discrete message exchanges rather than relying on PCI or
+> +memory-mapped I/O regions. It separates bus-level functionality (e.g., device
+> +enumeration, hotplug events) from device-specific operations (e.g., feature
+> +negotiation, virtqueue setup), ensuring that a single, generic transport layer
+> +can be reused across multiple bus implementations.
+> +
+> +\subsubsection{Purpose}
+> +
+> +virtio-msg addresses several key objectives:
+> +
+> +\begin{itemize}
+> +  \item \textbf{Support multiple bus implementations:}
+> +  Systems may rely on various communication methods such as hypercalls, local
+> +  IPC, network channels, or device trees for enumerating devices. virtio-msg
+> +  defines a common transport interface suitable for any of these underlying
+> +  mechanisms.
+> +
+> +  \item \textbf{Reduce per-bus complexity:}
+> +  Buses can implement a fully message-based workflow (including optional
+> +  enumeration via \busref{GET_DEVICES} and hotplug via \busref{EVENT_DEVICE}
 
-Yes. I think any proposals can't avoid drivers managing those devices.
-The transparency means the driver doesn't know the mapping, which is
-kind of difficult to maintain.
+Missing a closing ')'.
 
-> 
->> 2) most cases (expected 95%) don't need to make a change (they don't have
->> to know the mapping, and don't need to call `bind()`).
->>
->> cons:
->>
->> 1) specific cases (expected 5%) need to know which device to use, and do
->> `bind()` call.
->>
->> ===
->>
->> I update some limitations, and try to make things clearer:
->>
->> 1) the default device is allowed to communicate with host and sibling (just
->> like with a single device now).
->> 2) other devices are allowed to communicate with host (CID=2) only.
->>
->>> I don't know if I really like that proposal honestly, anyway, if we go
->>> back with yours instead, where the guest has to do the bind to choose
->>> the device to use, that's fine, but the one thing we have to have IMO is
->>> a way to set the default device, as we were doing.
->>
->> Exactly!
-> 
-> BTW, yep let's do the default approach for now if others are fine, also because I'm a bit lost xD
-> 
->>
->>> >
->>> >                 +────────────────+    +───────────────────────────────+
->>> > .─────────.     │  tsi backend1  │    │+───────────────+    ┏━━━━━━━━┓│
->>> >(    NW1    )◀───│   (userapp1)   │◀───┤│  vsock dev1   ◀────┃subnet1 ┃│
->>> > `─────────'     +────────────────+    │+───────────────+    ┗━━━━━━━━┛│
->>> >                                       │                               │
->>> >                 +────────────────+    │+───────────────+
->>> >                 ┏━━━━━━━━┓│
->>> > .─────────.     │  tsi backend2  │◀───┤│  vsock dev2   ◀────┃subnet2 ┃│
->>> >(    NW2    )◀───│   (userapp2)   │    │+───────────────+    ┗━━━━━━━━┛│
->>> > `─────────'     +────────────────+    +───────────────────────────────+
->>> >
->>> >> Can you just have a single one and have the application
->>> >> connecting/listing on different port? (which is the sense of the port,
->>> >> multiplexing application on the destination)
->>> >
->>> >In terms of functionality, I think it is possible. But it loses the benefit
->>> >of vhost-user-vsock.
->>>
->>> Can you elaborate a bit?
->>
->> In this case, we can have one TSI backend with multiple ports. Then, the
->> backend forwards data to different proxies, which means we actually copy
->> the data an additional time between the backend and the proxy.
->>
->> guest userspace
->>    -> guest vsock
->>        -> host tsi backend
->>            -> host proxy (Istio Ambient proxy)
->>
->> If we can combine TSI backend and proxy, we can reduce the data copying.
-> 
-> Okay, my suggestion for next version is to explain very well (in the commit description I guess) why we decided to go in this way (e.g. not overcomplicate vsock, backward compatibility, limitations, etc.), but yeah, it seems the less complicated approach that should work for you and keep vsock simple.
-> 
-> The main thing we should explain well, is that vsock is not a net device, so if the host attach 3 devices, they have all the same destination address from the guest point of view (CID=2), for that reason we can only use the source address to mulitplex them.
-> (e.g. for net, if you attached 3 devices, they will have 3 different dest MAC/IP address to reach the host).
+> +  or they can discover and manage devices through
+> +  alternative means such as platform firmware data. In either case, they
+> +  forward transport messages to and from each device.
+> +
+> +  \item \textbf{Preserve virtio semantics:}
+> +  The transport leverages standard virtio concepts (features, configuration
+> +  space, virtqueues), so existing virtio drivers and device implementations can
+> +  integrate smoothly once a device is discovered and registered.
+> +\end{itemize}
+> +
+> +\subsubsection{High-Level Architecture}
+> +
+> +virtio-msg operates around two layers:
+> +
+> +\begin{enumerate}
+> +  \item \textbf{Bus Layer}: A \emph{bus instance} exposes zero or more virtio
+> +        devices. It can detect available devices through:
+> +    \begin{itemize}
+> +      \item Optional message-based queries (\busref{GET_DEVICES}),
+> +      \item External data sources (e.g., device tree, ACPI tables, hypervisor
+> +        firmware calls),
+> +      \item Dynamic hotplug notifications (optionally via \busref{EVENT_DEVICE}).
+> +    \end{itemize}
+> +    Once a device is identified, regardless of discovery method, the bus typically
+> +    uses \msgref{GET_DEVICE_INFO} to read its device ID and vendor ID, then
+> +    \emph{registers} that device with the host OS so the usual virtio driver
+> +    probe can occur.
+> +
+> +  \item \textbf{Transport Layer}: After the bus knows about a device, the
+> +        virtio-msg transport handles all device-specific operations:
+> +    \begin{itemize}
+> +      \item Retrieving and setting features (\msgref{GET_DEVICE_FEATURES},
+> +        \msgref{SET_DRIVER_FEATURES}),
+> +      \item Accessing the device configuration space (\msgref{GET_CONFIG},
+> +        \msgref{SET_CONFIG}),
+> +      \item Setting up virtqueues (\msgref{SET_VQUEUE}, \msgref{RESET_VQUEUE}),
+> +      \item Managing status and runtime notifications (\msgref{SET_DEVICE_STATUS},
+> +        \msgref{EVENT_USED}, etc.).
+> +    \end{itemize}
+> +    These transport messages remain the same across different bus instances,
+> +    allowing a single virtio-msg driver component to function in multiple
+> +    environments.
+> +\end{enumerate}
+> +
+> +\subsubsection{System Topology}
+> +
+> +\begin{itemize}
+> +  \item \textbf{Bus Instances and Devices}: Each bus instance can advertise
+> +        different capabilities (e.g., transport revision, maximum message size)
+> +        and may discover devices via a message-based or external mechanism.
+> +        Every discovered device has a unique \emph{device number}.
+> +  \item \textbf{Driver}: Communicates with the bus to learn about
+> +        available devices. Once a device is recognized, the driver uses the
+> +        common transport messages to perform feature negotiation, configuration,
+> +        and virtqueue setup.
+> +  \item \textbf{Device}: Implement virtio device functionality and
+> +        respond to the transport messages. The bus forwards these messages to
+> +        the correct device instance based on device number.
+> +\end{itemize}
+> +
+> +\subsubsection{Optional Bus Messages}
+> +
+> +This specification \emph{defines} messages such as \busref{GET_DEVICES},
+> +\busref{EVENT_DEVICE}, and \busref{PING} for a
+> +completely message-based approach to enumeration, hotplug, and bus-wide health.
+> +However, these are \emph{not} mandatory if a bus instance already handles those
+> +functions via firmware, device tree, or other platform features. The only strict
+> +requirement is that the bus be able to forward device-specific \emph{transport
+> +messages} once a device is recognized, so the virtio-msg driver can manage it.
+> +
+> +\subsection{Basic Concepts}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Basic Concepts}
+> +
+> +The virtio-msg transport relies on a set of foundational concepts to ensure
+> +reusability across different bus implementations and flexibility in device
+> +capabilities. This section defines those concepts and clarifies how they apply,
+> +regardless of whether the bus leverages message-based enumeration or platform
+> +data for device discovery.
+> +
+> +\subsubsection{Transport Revisions and Maximum Message Size}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Basic Concepts / Revisions}
+> +
+> +Each \textbf{virtio-msg bus instance} advertises:
+> +\begin{itemize}
+> +  \item A \textbf{transport revision} indicating the protocol version it
+> +        supports. This revision is separate from the overall Virtio
+> +        specification version.
+> +  \item A \textbf{maximum message size} representing the largest payload
+> +        (in bytes) the bus can reliably carry per request or response.
+> +  \item A \textbf{feature bits} indicating a list of revision specific
+> +        optional features that are supported or not by the bus instance.
+> +\end{itemize}
 
-I'll summarize the things we discussed in this thread, and update it in v8.
+I wonder if these advertisements might also be message-based. Would it make
+sense to negotiate bus features? (Looking at virtio-mmio, there has been
+some hesitance to increment the transport revision in the past.)
 
-Thanks,
-Xuewei
+> +
+> +These parameters \emph{MAY} vary between bus instances within the same system.
+> +The driver obtains a bus's revision, maximum message size and list of features
+> +through an \emph{implementation-defined} mechanism, which could be:
+> +\begin{itemize}
+> +  \item A device tree or firmware method providing bus configuration,
+> +  \item A message exchange during bus setup,
+> +  \item A per bus instance list of properties,
+> +  \item A static definition built into the driver for a known environment.
+> +\end{itemize}
+> +
+> +After learning these parameters, the driver \emph{MUST} respect them for all
+> +messages involving that bus instance. For example, it \emph{MUST NOT} send a
+> +message exceeding the \textbf{maximum message size}, and it \emph{MUST} avoid
+> +using advanced features or messages unavailable in the bus's advertised
+> +\textbf{transport revision}.
+> +
+> +\paragraph{virtio-msg revisions}
+> +
+> +The following tables defines the currently defined virtio-msg revisions:
+> +
+> +\begin{tabular}{ |l|l|l|l| }
+> +\hline
+> +\field{revision} & \field{maximum size} & \field{features}      & remarks \\
+> +\hline \hline
+> +1        & 44-65536    & <empty>   & Virtio Message Revision 1 \\
+> +\hline
+> +\end{tabular}
+> +
+> +Note that a change in the virtio standard does not necessarily
+> +correspond to a change in the virtio-msg revision.
+> +
+> +The maximum message size is from the common transport level point of
+> +view and includes the headers and payload described here.  If the bus adds it
+> +own overhead (e.x. its own header) this is not included in the maximum message
+> +size. The maximum useful message size is currently expected to be 274.
+> +This value is large enough to support a GET_CONFIG or SET_CONFIG message with a
+> +configuration data payload of 256 bytes.
+> +
+> +\subsubsection{Device Numbers and Enumeration}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Basic Concepts /
+> +Device Numbers}
+> +
+> +Each virtio-msg bus instance contains one or more \emph{devices}, identified
+> +by a 16-bit \textbf{device number}. Buses \emph{MAY} discover these device
+> +numbers in multiple ways:
+> +\begin{itemize}
+> +  \item \textbf{Message-Based Enumeration}: Using \busref{GET_DEVICES} to query
+> +        which numbers exist (optional).
+> +  \item \textbf{Platform Data}: A device tree, ACPI tables, or hypervisor calls
+> +        might inform the bus of available device numbers and their properties.
+> +\end{itemize}
+> +
+> +Once a bus confirms that a given device number is valid (regardless of the method),
+> +it typically issues \msgref{GET_DEVICE_INFO} to retrieve the device's Device ID
+> +and vendor ID. The bus can then register the device with the host OS to initiate
+> +the usual Virtio driver binding process.
+> +
+> +\subsubsection{Configuration Generation Count}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Basic Concepts / ConfigGen}
+> +
+> +Each device maintains a \textbf{Configuration Generation Count} to prevent
+> +inconsistent updates. This count is incremented at least once by the device for
+> +every driver visible change it makes to its own copy of the configuration data.
+> +A configuration change is made visible to the driver via \msgref{EVENT_CONFIG}
+> +or the response to \msgref{GET_CONFIG} which also both provide the device's
+> +current configuration count. The device may change any amount of data for one
+> +generation count increment. If the change cannot fit in one \msgref{EVENT_CONFIG}
+> +message, it \emph{SHOULD} be signaled to the driver via a \msgref{EVENT_CONFIG}
+> +message with a zero data length and the new generation count.
 
-> 
-> Thanks,
-> Stefano
+I think passive tense should not be used for requirements, and the entity
+responsible for satisfying a requirement should always be named.
 
+> +The device \emph{MUST NOT} provide the same generation count in
+> +multiple \msgref{EVENT_CONFIG} messages that contain non-zero length config
+> +data. The driver includes its view of the current generation count in
+> +\msgref{SET_CONFIG} requests. The configuration generation count does not
+> +necessarily start at 0 and \emph{SHOULD NOT} reset to 0 on device reset.
+> +
+> +\begin{itemize}
+> +  \item If the driver's generation count does not match the device's current
+> +        count, the \msgref{SET_CONFIG} request \emph{MUST} be rejected by the
+> +        device.
+> +  \item The driver may have received \msgref{EVENT_CONFIG} messages
+> +        between the request and the response and will know the current
+> +        configuration data and generation count.  If not it \emph{SHOULD}
+> +        re-read the configuration and generation count via \msgref{GET_CONFIG}),
+> +        and then resend the \msgref{SET_CONFIG} if still desired.
+> +\end{itemize}
+> +
+> +This mechanism ensures updates are not lost or overwritten due to stale
+> +information.
+> +
+> +\subsubsection{Feature Negotiation Blocks}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Basic Concepts / FeatureBlocks}
+> +
+> +The virtio-msg transport handles feature bits in one or more
+> +\textbf{32-bits blocks}, accessed via \msgref{GET_DEVICE_FEATURES} and
+> +\msgref{SET_DRIVER_FEATURES}. Each block corresponds to up to 32 features:
+> +
+> +\begin{itemize}
+> +  \item \textbf{Block Index}: Identifies the starting block (e.g., block 0 for
+> +        features 0--31, block 1 for features 32--63, etc.).
+> +  \item \textbf{Number of Blocks}: How many blocks the driver wishes to retrieve
+> +        or modify in a single message.
+> +  \item \textbf{Feature Data}: The 32 bits values representing a device's
+> +        supported or requested feature bits.
+> +\end{itemize}
+> +
+> +A device \emph{MUST} respond with all zero feature data for features bit
+> +requested beyond those the device implements.
+> +
+> +\subsubsection{Error Signaling}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Basic Concepts / ErrorSignaling}
+> +
+> +All legal transactions are defined at the transport level and responses defined.
+> +If the transport level does something invalid or the bus has error conditions,
+> +this \emph{SHOULD} be handled at the bus implementation level.
+> +
+> +How the bus recovers from an error (e.g., by retrying, resetting
+> +devices, or escalating to a bus-wide reset) is environment-specific, but
+> +\emph{MUST} adhere to any mandatory behaviors (see
+> +\ref{sec:Virtio Transport Options / Virtio Over Messages / Bus Operation}
+> +and
+> +\ref{sec:Virtio Transport Options / Virtio Over Messages / Device Operation}).
+> +
+> +\subsubsection{Bus vs. Transport Messages}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Basic Concepts / BusVsTransport}
+> +
+> +virtio-msg groups messages into two categories:
+> +
+> +\begin{description}
+> +  \item[\textbf{Bus Messages}:]
+> +    Intended for global bus operations such as enumerating device numbers
+> +    (\busref{GET_DEVICES}), managing device hotplug events (\busref{EVENT_DEVICE})
+> +    or assessing bus-wide health (\busref{PING}).
+> +    These messages are \emph{optional} in environments where
+> +    device discovery or state changes occur through other means (e.g., device
+> +    tree). However, if a bus \emph{chooses} to handle those tasks via messages,
+> +    it \emph{should} implement the appropriate bus message definitions.
+> +
+> +  \item[\textbf{Transport Messages}:]
+> +    Used for device-specific operations, such as:
+> +    \begin{itemize}
+> +      \item Retrieving or setting features (\msgref{GET_DEVICE_FEATURES},
+> +        \msgref{SET_DRIVER_FEATURES}),
+> +      \item Accessing device configuration (\msgref{GET_CONFIG},
+> +        \msgref{SET_CONFIG}),
+> +      \item Managing virtqueues (\msgref{SET_VQUEUE}, \msgref{RESET_VQUEUE}),
+> +      \item Handling device status and notifications (\msgref{SET_DEVICE_STATUS},
+> +        \msgref{EVENT_USED}, etc.).
+> +    \end{itemize}
+> +    The bus \emph{MUST} relay these messages to the correct device,
+> +    regardless of how the bus discovered or enumerated that device.
+> +\end{description}
+> +
+> +The resulting design allows a bus to remain minimal if it obtains device
+> +information from a device tree or firmware tables, while still supporting
+> +fully message-based enumeration and hotplug if desired.
+> +
+> +\subsubsection{Endianness}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Basic Concepts / Endianness}
+> +
+> +All encoding of values and fields defines in the virtio-msg messages \emph{MUST}
+> +be encoded in little-endian.
+
+s/All encoding of values and fields defines/All values and fields defined
+
+or similar.
+
+> +
+> +\subsubsection{Common Message Format}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Basic Concepts / Common Message Format}
+> +
+> +All virtio-msg exchanges, whether \emph{bus messages} or \emph{transport messages},
+> +begin with a shared header that indicates how the recipient should parse the
+> +rest of the payload. This header has the following format:
+> +\begin{lstlisting}
+> +struct virtio_msg_message {
+> +    uint8_t type;
+> +    uint8_t msg_id;
+> +    uint16_t dev_num;
+> +    uint16_t msg_size;
+> +    u8 payload[];
+
+Should use u8, le16 types.
+
+Might be better to be 64-bit aligned.
+
+What about concurrency of messages? Esp. when not using notification
+suppression, I think one side might generate messages so fast that it is
+unclear what will happen (blocking when the bus is overloaded?).
+
+In case of concurrency, does the bus identify which request a response
+answers to?
+
+> +};
+> +\end{lstlisting}
+> +
+> +The fields in this header have the following usage:
+> +\begin{itemize}
+> +  \item \field{type}:
+> +    \begin{itemize}
+> +      \item Bit[0]: Identifies if a message is a request (0) or a response
+> +          to a request (1).
+
+Maybe it could also identify if a request expects a response?
+
+> +      \item Bit[1]: Identifies if a message is a Transport Message (0) or a
+> +          Bus Message (1).
+> +      \item Bit[2-7] Are reserved for future use and must be zero.
+> +    \end{itemize}
+> +  \item \field{msg_id}:
+> +    Uniquely identifies which message definition applies (e.g., GET_DEVICES,
+> +    GET_DEVICE_FEATURES, SET_CONFIG). The specific range or enumeration of types is
+> +    defined in sections \ref{sec:Virtio Transport Options / Virtio Over Messages / Transport Messages}
+> +    and \ref{sec:Virtio Transport Options / Virtio Over Messages / Bus Messages}.
+> +  \item \field{dev_num}:
+> +     Identifies the Device Number the message is targeting or is coming from for
+> +     Transport Message and must be zero of Bus messages.
+
+s/of/for
+
+> +  \item \field{msg_size};
+
+s/;/:
+
+> +    Indicates the total length of the message payload including the header.
+
+What should happen if msg_size does not match the message size implied by
+msg_id?
+
+> +\end{itemize}
+> +
+> +\subsection{Bus Operation}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Bus Operation}
+> +
+> +A \textbf{virtio-msg bus} is responsible for identifying available virtio devices
+> +and informing the operating system (or higher-level software environment) so
+> +that those devices can be bound to the appropriate driver. The following
+> +subsections describe optional messaging mechanisms that a bus \emph{MAY} use to
+> +discover or manage devices, as well as general guidelines for completing the
+> +device registration process.
+> +
+> +\subsubsection{Device Discovery}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Bus Operation / Device Discovery}
+> +
+> +Bus implementations \emph{MAY} discover their devices in various ways:
+> +\begin{itemize}
+> +  \item By parsing platform data such as a device tree or ACPI tables,
+> +  \item By receiving enumeration data from a hypervisor or firmware,
+> +  \item By using \busref{GET_DEVICES} messages
+> +    to query which device numbers are present on this bus instance.
+> +\end{itemize}
+> +
+> +This specification \emph{defines} \busref{GET_DEVICES} for implementations that
+> +wish to carry out discovery entirely via messages, but it does \textbf{not}
+> +mandate use of this approach. A bus implementation \emph{MAY} skip
+> +\busref{GET_DEVICES} altogether if it already knows which devices exist (e.g.,
+> +via a device tree). In any case, once a bus has established the presence of a
+> +device, it \emph{SHOULD} call \msgref{GET_DEVICE_INFO} to retrieve the device ID
+> +and vendor ID. The bus can then register the device with the host OS
+> +so the appropriate virtio driver probe routine is invoked.
+> +
+> +\subsubsection{Device Hotplug}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Bus Operation / Device Hotplug}
+> +
+> +If the bus supports dynamic addition or removal of devices at runtime, it
+> +\emph{MAY} announce these events using messages:
+> +\begin{itemize}
+> +  \item \busref{EVENT_DEVICE} with state DEVICE_BUS_STATE_READY for a newly
+> +    available device,
+> +  \item \busref{EVENT_DEVICE} with state DEVICE_BUS_STATE_REMOVED for a device
+> +    that is no longer accessible.
+> +\end{itemize}
+> +
+> +Alternatively, the bus \emph{MAY} rely on external signals (e.g., an event from
+> +the platform or hypervisor) and inform the OS of hotplug changes out-of-band.
+> +This specification \emph{defines} \busref{EVENT_DEVICE}
+> +for implementations that prefer a fully message-based
+> +approach but does not require their use. In any scenario, once notified that a
+> +device has appeared, the bus \emph{SHOULD} query the device (e.g., via
+> +\msgref{GET_DEVICE_INFO}) and register it with the OS. If a device is
+> +removed, the bus \emph{SHOULD} prompt the OS to unbind and release resources.
+> +
+> +\subsubsection{Monitoring the Bus}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Bus Operation / Monitoring}
+> +
+> +An optional \busref{PING} message is provided for bus implementations that want
+> +to periodically verify connectivity with the other end (driver or device).
+> +Implementations \emph{MAY} use other keepalive or health-check
+> +protocols instead. The general usage of \busref{PING} (if implemented) is:
+> +
+> +\begin{itemize}
+> +  \item The initiator sends a 32-bit data field,
+> +  \item The recipient responds by echoing this same 32-bit data,
+> +  \item If a response does not arrive in time, the initiator \emph{MAY} treat
+> +        the bus as unresponsive and trigger a global reset or other fallback
+> +        procedure.
+> +\end{itemize}
+> +
+> +\subsubsection{Bus Specific Messages}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Bus Operation / Bus Specific Messages}
+> +
+> +A range of message IDs are reserved for use by the specific bus
+> +implementation. These messages can be used for any implementation specific
+> +usage. Example usage could include:
+> +
+> +\begin{itemize}
+> +  \item Configuration of out-of-band notification methods
+> +  \item Setup shared memory regions to be used for buffers or virtqueues
+> +  \item Declare bus specific error conditions
+> +  \item Provide extra debug or logging information
+> +\end{itemize}
+> +
+> +\subsubsection{Interaction with Transport Messages}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Bus Operation / Interaction with Transport}
+> +
+> +The bus is also responsible for forwarding device-specific \emph{transport
+> +messages} to the correct device for each device number. Typically the bus does
+> +not interpret or modify these transport messages; its role is simply to ensure
+> +they reach the intended device. If the bus does not rely on messages for device
+> +enumeration or hotplug itself, it \emph{MUST} still be capable of transporting
+> +\msgref{GET_DEVICE_INFO}, \msgref{GET_DEVICE_FEATURES}, \msgref{SET_CONFIG}, etc.
+> +once the OS driver has identified a device and is performing initialization
+> +via the virtio-msg transport.
+> +
+> +\subsection{Device Initialization}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device Initialization}
+> +
+> +After a bus has identified a virtio-msg device (whether by message-based
+> +enumeration or platform-specific discovery), the driver undertakes a series of
+> +steps to configure and ready the device for normal operation. This section
+> +details the recommended order of operations and the associated messages.
+> +
+> +\subsubsection{Initialization Flow Overview}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device Initialization / Overview}
+> +
+> +A typical device initialization flow includes:
+> +\begin{enumerate}
+> +  \item \textbf{Obtain Device Information:}  
+> +    The driver queries the device's Device ID, vendor ID, feature block count,
+> +    configuration size, and other static parameters of the device using
+> +    \msgref{GET_DEVICE_INFO}.
+> +  \item \textbf{Negotiate Features:}  
+> +    The driver retrieves the device's feature bits (\msgref{GET_DEVICE_FEATURES}),
+> +    determines which features it wants to enable, and writes the desired set
+> +    with (\msgref{SET_DRIVER_FEATURES}).  It then attempts to set the
+> +    FEATURES_OK bit in the device status (\msgref{SET_DEVICE_STATUS}) and
+> +    verifies that it is set in the return device status.
+> +  \item \textbf{Initialize Configuration Space:}  
+> +    The driver may read (\msgref{GET_CONFIG}) or modify (\msgref{SET_CONFIG})
+> +    configuration data, using the device's \emph{Configuration Generation Count}
+> +    to prevent race conditions.
+> +  \item \textbf{Set Up Virtqueues:}  
+> +    The driver configures each virtqueue (e.g., number of descriptors, base
+> +    addresses) via \msgref{SET_VQUEUE} and verifies each queue's readiness
+> +    (\msgref{GET_VQUEUE}).
+> +  \item \textbf{Set Device Status:}  
+> +    The driver updates the device's status with \msgref{SET_DEVICE_STATUS} to
+> +    indicate initialization progress (e.g., from "reset" to "acknowledge,"
+> +    "driver," or "driver OK," following Virtio conventions).
+> +\end{enumerate}
+> +
+> +This sequence may vary slightly depending on the device's requirements, but it
+> +serves as a common baseline for virtio-msg transport implementations.
+> +
+> +\subsubsection{Device Information}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device Initialization / Device Information}
+> +
+> +Once the bus or driver knows a device number is present, it \emph{SHOULD} send a
+> +\msgref{GET_DEVICE_INFO} to retrieve:
+> +
+> +\begin{itemize}
+> +  \item \textbf{Device ID}: Identifies the type of Virtio device (e.g., network,
+> +    block, console).
+> +  \item \textbf{Vendor ID}: Identifies the vendor or implementation source.
+> +  \item \textbf{Number of Feature Bits}: Indicates how many bits (organized in
+> +    32-bit blocks) the device uses for feature negotiation.
+> +  \item \textbf{Configuration Size}: The total size (in bytes) of the device's
+> +    configuration space.
+> +  \item \textbf{Number of virtqueues}: The maximum number of virtqueues the
+> +    device supports.
+> +  \item \textbf{Number of SHM segments}: The number of device owned
+> +    shared memory segments this device has.
+> +  \item \textbf{Admin virtqueue starting index}: The virtqueue index for the
+> +    first admin virtqueue supported by the device.
+> +  \item \textbf{Admin virtqueue count}: The number of admin virtqueues
+> +    supported by the device.
+> +\end{itemize}
+> +
+> +Armed with these details, the driver knows how many feature blocks to query,
+> +what portion of the configuration space is valid, and which OS-level virtio
+> +driver might bind to this device based on the Device ID.
+
+I am not sure if such implementation hints are required.
+
+> +
+> +It also knows of any device owned shared memory segments and any admin
+> +virtqueues supported by the device.
+> +
+> +\subsubsection{Feature Negotiation}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device Initialization / Device Features}
+> +
+> +The driver reads the device's available features in \textbf{blocks of 32 bits}
+> +using \msgref{GET_DEVICE_FEATURES}, supplying a \emph{block index} and
+> +\emph{number of blocks} to retrieve. The device responds with the feature bits
+> +in that range, filling any out-of-range blocks with zero.
+> +
+> +The driver then determines which features it can or wants to enable. Enabling a
+> +feature requires the driver to set the corresponding bit(s) and send
+> +them back to the device with \msgref{SET_DRIVER_FEATURES}. Once the driver has
+> +set all desired features it tries to set the FEATURES_OK bit in the device status
+> +via the \msgref{SET_DEVICE_STATUS} message.  The device may accept or reject the
+> +selected features by returning the new device status with the FEATURES_OK bit
+> +set (accepted) or cleared (rejected).
+> +
+> +If the driver requests blocks beyond the number of feature bits the device
+> +exposes, the device \emph{MUST} respond with all zeros for the unsupported
+> +features.
+> +
+> +\subsubsection{Device Configuration}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device Initialization / Device Configuration}
+> +
+> +\paragraph{Reading Configuration}
+> +
+> +The driver can read portions of the device's configuration space using
+> +\msgref{GET_CONFIG}. It supplies:
+> +\begin{itemize}
+> +  \item \textbf{Offset}: The byte offset from the start of the configuration
+> +    space,
+> +  \item \textbf{Number of bytes}: How many bytes to retrieve.
+> +\end{itemize}
+> +The device returns the requested data along with the current \emph{Configuration
+> +Generation Count}, which changes each time the device updates its configuration
+> +internally.
+> +
+> +\paragraph{Writing Configuration}
+> +
+> +To write a portion of the configuration space, the driver uses
+> +\msgref{SET_CONFIG}, providing:
+> +\begin{itemize}
+> +  \item \textbf{Offset} and \textbf{Number of bytes},
+> +  \item \textbf{Configuration generation count} as read earlier,
+> +  \item The \textbf{new configuration data} to be written.
+> +\end{itemize}
+> +
+> +If the generation count does not match the device's current value, the device
+> +\emph{MUST} reject the update as defined in the \msgref{SET_CONFIG} response.
+
+Why? AFAIU current drivers do not expect a configuration write to fail (and
+may also not read the configuration before writing).
+
+> +The driver \emph{SHOULD} then read the updated configuration space and
+> +reattempt if necessary.
+> +
+> +\subsubsection{Virtqueue Configuration}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device Initialization / Virtqueue Configuration}
+> +
+> +Virtqueues are configured via a set of transport messages:
+> +
+> +\begin{itemize}
+> +  \item \msgref{GET_VQUEUE} obtains information about a specific virtqueue,
+> +    including its maximum size (e.g., number of descriptors) and current
+> +    configuration if already set.
+> +  \item \msgref{SET_VQUEUE} sets or updates the virtqueue parameters (e.g.,
+> +    queue size, descriptor area addresses, driver address, device address).
+> +  \item \msgref{RESET_VQUEUE} disables and resets the virtqueue, freeing its
+> +    resources on the device side.  The use of this message is dependent on the
+> +    VIRTIO_F_RING_RESET feature being negotiated.
+> +\end{itemize}
+> +
+> +A typical approach is:
+> +\begin{enumerate}
+> +  \item \textbf{GET\_VQUEUE}: Determine maximum size and confirm that the queue
+> +        is inactive or empty.
+> +  \item \textbf{SET\_VQUEUE}: Specify the number of descriptors (not exceeding
+> +        the maximum) and the addresses for the descriptor table, driver area,
+> +        and device area.  
+> +\end{enumerate}
+> +
+> +The driver repeats these steps for each queue the device supports.
+> +
+> +\subsubsection{Status Information}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device Initialization / Status Information}
+> +
+> +During initialization, the driver \emph{MAY} query the device's status via
+> +\msgref{GET_DEVICE_STATUS} to check for errors or to see if the device is ready
+> +for feature negotiation or configuration changes. To advance or reset the
+> +device's state, the driver sends \msgref{SET_DEVICE_STATUS} with the desired
+> +status bits (e.g., "ACKNOWLEDGE," "DRIVER," "DRIVER OK"). Setting the device's
+> +status to 0 triggers a device reset, invalidating configuration and
+> +virtqueues.
+> +
+> +\subsubsection{Finalizing Initialization}
+> +
+> +Once all virtqueues are configured and any required features have been enabled,
+> +the driver typically sets the final status bits (e.g., "DRIVER OK") via
+> +\msgref{SET_DEVICE_STATUS}. At this point, the device is considered fully
+> +initialized, and normal I/O operations can begin using virtio queues.
+> +
+> +\subsection{Device Operation}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device Operation}
+> +
+> +Once a virtio-msg device is fully initialized (see
+> +\ref{sec:Virtio Transport Options / Virtio Over Messages / Device Initialization}),
+> +the driver and device exchange messages to perform I/O and respond to
+> +configuration changes. This section details the primary messaging paths for
+> +\emph{driver notifications}, \emph{device notifications}, and the handling of
+> +runtime resets or shutdown sequences.
+> +
+> +\subsubsection{Driver Notifications}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device Operation / Driver Notifications}
+> +
+> +After setting up one or more virtqueues, the driver \emph{MUST} send notifications
+> +to signal that new buffers are available for processing. The virtio-msg transport
+> +defines the message, \msgref{EVENT_AVAIL}, that the driver will use to
+> +notify the device of pending buffers.
+> +
+> +The driver side bus \emph{MAY} convert them to some form of
+> +out-of-band (OoB) notification.  If not using OoB notifications, the driver
+> +side bus \emph{SHOULD} send the messages via the normal message channel.
+> +As a final option, the bus \emph{MAY} discard the messages but only if it knows
+> +that the device will poll the virtqueues directly.
+> +
+> +\paragraph{EVENT\_AVAIL Usage}
+> +\begin{itemize}
+> +  \item \textbf{Virtqueue Index}: Identifies which queue has new buffers.
+> +  \item \textbf{Next Offset and Wrap}: If the VIRTIO_F_NOTIFICATION_DATA feature
+> +        has been negotiated, the driver \emph{MUST} sets these fields to
+> +        indicate the next descriptor offset and wrap state
+> +        so the device can jump directly to the updated buffers.
+> +        If this features has not been negotiated these fields \emph{MUST} be 0.
+> +  \item \textbf{Response}: The \msgref{EVENT_AVAIL} message does not have a
+> +        direct response, but the device will subsequently process available
+> +        buffers and eventually notify the driver when they are used.
+> +\end{itemize}
+> +
+> +\subsubsection{Device Notifications}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device Operation / Device Notifications}
+> +
+> +During normal operation, the driver side bus \emph{MUST} send notifications to
+> +the driver about configuration changes, device status changes, or the
+> +completion of buffers in virtqueues using the messages described below.
+> +These notifications may be the result of:
+> +
+> +\begin{itemize}
+> +    \item The same messages received in band on the message channel from the
+> +        device side bus.
+> +    \item Manufactured by the driver side bus based on reception of an
+> +        out-of-band (OoB) notification from the device side.  Example OoB
+> +        notifications include things like specific MSIX or other IRQ signals.
+> +    \item Manufactured by the device side bus periodically (polling).
+> +        This option should be reserved only for situation where nothing else
+> +        will work.
+> +  \end{itemize}
+> +
+> +\paragraph{EVENT\_CONFIG}
+> +\begin{itemize}
+> +  \item Sent by the device when a configuration field or device status changes
+> +    at runtime.
+> +  \item Includes the new \emph{Configuration Generation Count}, current device
+> +    status, and optionally the updated portion of the configuration data.
+> +  \item If the data is not included, the driver \emph{SHOULD} issue
+> +    \msgref{GET_CONFIG} to discover the updated configuration.
+> +\end{itemize}
+> +
+> +\paragraph{EVENT\_USED}
+> +\begin{itemize}
+> +  \item Signifies that one or more buffers in a specific virtqueue have been
+> +    processed or consumed by the device.
+> +  \item The driver uses normal virtio methods (e.g., reading the "used" ring) to
+> +    identify which buffers are complete.
+> +  \item If a device does not support sending \msgref{EVENT_USED}, the driver
+> +     \emph{MAY} rely on standard virtqueue polling mechanisms to detect
+> +     completion.
+> +\end{itemize}
+> +
+> +These messages enable asynchronous updates from the device.
+> +
+> +\subsubsection{Configuration Changes During Operation}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device Operation / ConfigUpdates}
+> +
+> +The driver \emph{MAY} issue new \msgref{SET_CONFIG}
+> +messages after initialization if device configuration needs to be
+> +changed at runtime. The device \emph{MAY} also make configuration changes at
+> +runtime and \emph{MUST} signal those changes with \msgref{EVENT_CONFIG}
+> +messages.
+> +
+> +\subsubsection{Virtqueue Changes During Operation}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device Operation / VQueueUpdates}
+> +
+> +The driver \emph{MAY} issue new \msgref{SET_VQUEUE} for virtqueues that have not
+> +yet be setup.  If the VIRTIO_F_RING_RESET feature has been negotiated,
+> +individual virtqueues can be reset and then optionally re-configured.
+> +
+> +\subsubsection{Device Reset and Shutdown}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device Operation / Reset}
+> +
+> +The driver \emph{MAY} reset or shut down a device at any time by writing a status
+
+AFAIU the spec doesn't have the concept of shutting down a device.
+
+> +of 0 via \msgref{SET_DEVICE_STATUS}. This forces the device to discard its state
+> +and any pending operations on virtqueues. Once a device is reset, the driver
+> +\emph{MAY} reinitialize the device (see
+> +\ref{sec:Virtio Transport Options / Virtio Over Messages / Device Initialization})
+> +if it wishes to use the device again.
+> +
+> +\paragraph{Device Side Initiated Reset}
+> +In some circumstances, the device \emph{MAY} also trigger a reset if it
+> +encounters an unrecoverable error. This can be signaled to the driver by sending
+> +an \msgref{EVENT_CONFIG} with a \emph{device status} with the DEVICE_NEEDS_RESET
+> +bit set.  The driver \emph{SHOULD} reset the device by writing a status of 0
+> +via the \msgref{SET_DEVICE_STATUS} message. The driver \emph{MAY} reinitialize
+> +the device if it wishes to use the device again.
+> +
+> +\subsection{Transport Messages}\label{sec:Virtio Transport Options / Virtio Over Messages / Transport Messages}
+> +
+> +Transport messages are used to configure and operate individual virtio devices.
+> +Unlike bus messages (which handle device enumeration, hotplug, or global resets),
+> +transport messages \textbf{MUST} be implemented by any virtio-msg device and
+> +driver pair to enable standard virtio functionality (feature negotiation,
+> +configuration, virtqueues, etc.). The subsections below describe each message
+> +and clarify its required fields, typical usage patterns, and possible responses.
+> +
+> +\subsubsection{Overview}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Transport Messages / Overview}
+> +
+> +A driver typically sends these messages to a known device number,
+> +and the virtio-msg device responds or notifies as appropriate. The
+> +bus \emph{forwards} these messages but does not interpret or modify them beyond
+> +basic checks (e.g., ensuring the size does not exceed the maximum size
+> +supported, verifying the target device number exists).
+> +
+> +Most transport messages adopt a \emph{request/response} pattern, but some are
+> +unidirectional (e.g., asynchronous notifications).
+> +
+> +\paragraph{Messages IDs and issuers}
+> +
+> +\begin{tabular}{|l|l|l|}
+> +\hline
+> +Name & ID & Sender \\
+> +\hline
+> +\hline
+> +Reserved                   & 0x0 & \\
+> +\hline
+> +Reserved                   & 0x1 & \\
+> +\hline
+> +\msgref{GET_DEVICE_INFO}   & 0x2  & Driver \\
+> +\hline
+> +\msgref{GET_DEVICE_FEATURES} & 0x3  & Driver \\
+> +\hline
+> +\msgref{SET_DRIVER_FEATURES} & 0x4  & Driver \\
+> +\hline
+> +\msgref{GET_CONFIG}        & 0x5  & Driver \\
+> +\hline
+> +\msgref{SET_CONFIG}        & 0x6  & Driver \\
+> +\hline
+> +\msgref{GET_DEVICE_STATUS} & 0x7  & Driver \\
+> +\hline
+> +\msgref{SET_DEVICE_STATUS} & 0x8  & Driver \\
+> +\hline
+> +\msgref{GET_VQUEUE}        & 0x9  & Driver \\
+> +\hline
+> +\msgref{SET_VQUEUE}        & 0xA  & Driver \\
+> +\hline
+> +\msgref{RESET_VQUEUE}      & 0xB  & Driver \\
+> +\hline
+> +\msgref{GET_SHM}           & 0xC  & Driver \\
+> +\hline
+> +\msgref{EVENT_CONFIG}      & 0x40 & Device \\
+> +\hline
+> +\msgref{EVENT_AVAIL}       & 0x41 & Driver \\
+> +\hline
+> +\msgref{EVENT_USED}        & 0x42 & Device \\
+> +\hline
+> +\end{tabular}
+> +
+> +Transport message IDs 0x00 to 0x3F are used for messages that require a response
+> +and IDs 0x40 to 0x7F are used for event messages. Transport message IDs 0x80
+> +and above are reserved by this specification.
+> +
+> +\paragraph{Mandatory Transport Messages}
+> +For a virtio-msg device to be fully operational, the following messages
+> +\textbf{MUST} be supported:
+> +\begin{itemize}
+> +  \item \msgref{GET_DEVICE_INFO}
+> +  \item \msgref{GET_DEVICE_FEATURES} and \msgref{SET_DRIVER_FEATURES}
+> +  \item \msgref{GET_CONFIG} and \msgref{SET_CONFIG}
+> +  \item \msgref{GET_DEVICE_STATUS} and \msgref{SET_DEVICE_STATUS}
+> +  \item \msgref{GET_VQUEUE}, \msgref{SET_VQUEUE}, and \msgref{RESET_VQUEUE}
+> +\end{itemize}
+> +
+> +The functionality of the following messages \textbf{MUST} be provided by
+> +in band messages, out of band event notification, or bus implementation based
+> +polling:
+> +\begin{itemize}
+> +  \item \msgref{EVENT_AVAIL}
+> +  \item \msgref{EVENT_USED}
+> +  \item \msgref{EVENT_CONFIG}
+> +\end{itemize}
+> +
+> +\newcommand{\msgdef}[1]{\subsubsection{VIRTIO_MSG_#1}\label{sec:Virtio Transport Options / Virtio Over Messages / Transport Messages / VIRTIO_MSG_#1}}
+> +
+> +\msgdef{GET_DEVICE_INFO}
+> +
+> +This message is sent by the virtio-msg transport driver and requires a
+> +response from the device.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 0 & None \\
+> +\hline
+> +Answer & 0 & 4 & Device ID \\
+> +& 4 & 4 & Vendor ID \\
+> +& 8 & 4 & Number of feature bits \\
+> +& 12 & 4 & Configuration size in bytes \\
+> +& 16 & 4 & Maximum number of virtqueues \\
+> +& 20 & 2 & Admin virtqueue start index \\
+> +& 22 & 2 & Admin virtqueue count \\
+> +\hline
+> +\end{tabular}
+
+Other parts of the specification define C structures. I think this part
+should, too.
+
+> +
+> +The number of feature bits must be a multiple of 32.
+> +
+> +This is the only message allowed for an inactive device. If this message queries
+> +an inactive device all fields in the response should be 0.
+> +
+> +\msgdef{GET_DEVICE_FEATURES}
+> +
+> +This message is sent by the virtio-msg transport driver and requires a
+> +response from the device.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 4 & Feature block index \\
+> +& 4 & 4 & Number of feature blocks \\
+> +\hline
+> +Answer & 0 & 4 & Feature block index \\
+> +& 4 & 4 & Number of feature blocks \\
+
+Why does the response repeat the request parameters? Would a generic
+mechanism to match the response to the request not be better? Is this to
+align offsets/...? 
+
+> +& 8 & ... & Feature data \\
+> +\hline
+> +\end{tabular}
+> +
+> +A feature block is a group of 32 bits.  The feature data \emph{MUST} be a
+> +multiple of 4 bytes in length.
+> +
+> +\msgdef{SET_DRIVER_FEATURES}
+> +
+> +This message is sent by the virtio-msg transport driver and requires a
+> +response from the device.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 4 & Feature block index \\
+> +& 4 & 4 & Number of feature blocks \\
+> +& 8 & ... & Feature data \\
+> +\hline
+> +Answer & 0 & 0 & no extra data \\
+> +\hline
+> +\end{tabular}
+> +
+> +A feature block is a group of 32 bits.  The feature data \emph{MUST} be a
+> +multiple of 4 bytes in length.
+> +
+> +Note: As defined in \ref{sec:Basic Facilities of a Virtio Device / Feature Bits},
+> +if the device is not OK with the features set, it \emph{MUST} not allow
+> +the FEATURES_OK bit in the device status to be set.
+> +
+> +\msgdef{GET_CONFIG}
+> +
+> +This message is sent by the virtio-msg transport driver and requires a
+> +response from the device.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 4 & Configuration offset in bytes \\
+> +& 4 & 4 & Number of bytes \\
+> +\hline
+> +Answer & 0 & 4 & Configuration generation count \\
+> +& 4 & 4 & Configuration offset in bytes \\  \\
+> +& 8 & 4 & Number of bytes \\
+> +& 12 & ... & Configuration data \\
+> +\hline
+> +\end{tabular}
+> +
+> +\msgdef{SET_CONFIG}
+> +
+> +This message is sent by the virtio-msg transport driver and requires a
+> +response from the device.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 4 & Configuration generation count \\
+> +& 4 & 4 & Configuration offset in bytes \\
+> +& 8 & 4 & Number of bytes \\
+> +& 12 & ... & Configuration data \\
+> +\hline
+> +Answer & 0 & 4 & New Configuration generation count \\
+> +& 4 & 4 & Configuration offset in bytes \\
+> +& 8 & 4 &  Number of bytes, or 0 if rejected \\
+> +& 12 & ... & Configuration data \\
+> +\hline
+> +\end{tabular}
+> +
+> +See \ref{sec:Virtio Transport Options / Virtio Over Messages / Device Initialization / Device Configuration}
+> +for details about rejection and for new data not equal to written data.
+> +
+> +\msgdef{GET_DEVICE_STATUS}
+> +
+> +This message is sent by the virtio-msg transport driver and requires a
+> +response from the device.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 0 & None \\
+> +\hline
+> +Answer & 0 & 4 & Device status \\
+> +\hline
+> +\end{tabular}
+> +
+> +\msgdef{SET_DEVICE_STATUS}
+> +
+> +This message is sent by the virtio-msg transport driver and requires a
+> +response from the device.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 4 & Device status \\
+> +\hline
+> +Answer & 0 & 4 & New device status \\
+> +\hline
+> +\end{tabular}
+> +
+> +The resulting device status is returned and may not match the status set.  The
+> +device may set the DEVICE_NEEDS_RESET bit if it has an issue.  The device may
+> +refuse to set the FEATURES_OK bit if it cannot operate with the features set
+> +by the driver.
+> +
+> +\msgdef{GET_VQUEUE}
+> +
+> +This message is sent by the virtio-msg transport driver and requires a
+> +response from the device.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 4 & Virtqueue index \\
+> +\hline
+> +Answer & 0 & 4 & Virtqueue index \\
+> +& 4 & 4 & Maximum virtqueue size \\
+> +& 8 & 4 & Current virtqueue size \\
+> +& 12 & 8 & Descriptor address \\
+
+Natural 64-bit alignment might be better.
+
+> +& 20 & 8 & Driver address \\
+> +& 28 & 8 & Device address \\
+> +\hline
+> +\end{tabular}
+> +
+> +If the maximum virtqueue size is zero, the virtqueue is not valid and
+> +\emph{MUST} not be used.
+> +
+> +\msgdef{SET_VQUEUE}
+> +
+> +This message is sent by the virtio-msg transport driver and requires a
+> +response from the device.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 4 & Virtqueue index \\
+> +& 4 & 4 & Reserved (Must Be Zero - MBZ) \\
+> +& 8 & 4 & Current virtqueue size \\
+> +& 12 & 8 & Descriptor address \\
+> +& 20 & 8 & Driver address \\
+> +& 28 & 8 & Device address \\
+> +\hline
+> +Answer & 0 & 0 & no extra data \\
+> +\hline
+> +\end{tabular}
+> +
+> +\msgdef{RESET_VQUEUE}
+> +
+> +This message is sent by the virtio-msg transport driver and requires a
+> +response from the device.
+> +
+> +The driver \emph{SHOULD NOT} send this message unless the VIRTIO_F_RING_RESET
+> +feature has been negotiated.
+
+s/SHOULD/SHALL/ ?
+
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 4 & Virtqueue index \\
+> +\hline
+> +Answer & 0 & 0 & no extra data \\
+> +\hline
+> +\end{tabular}
+> +
+> +\msgdef{GET_SHM}
+> +
+> +This message is sent by the virtio-msg transport driver and requires a
+> +response from the device.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 4 & Shared memory region index \\
+> +\hline
+> +Answer & 0 & 4 & Shared memory region index \\
+> +& 4 & 4 & Shared memory region length \\
+> +& 8 & 4 & Shared memory region address \\
+> +\hline
+> +\end{tabular}
+> +
+> +If the returned shared memory region length is zero, the memory region does not
+> +exist.
+> +
+> +Note: these shared memory regions are device owned and supported on other virtio
+> +transports since virtio v1.3. These shared memory regions are separate and
+> +distinct from any shared memory regions defined by the bus implementation.
+> +
+> +\msgdef{EVENT_CONFIG}
+> +
+> +This message is sent by the virtio-msg device and there is no response.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 4 & Device status \\
+> +& 4 & 4 & Configuration generation count \\
+> +& 8 & 4 & Configuration offset \\
+> +& 12 & 4 & Number of bytes (\emph{MAY} be zero) \\
+> +& 16 & ... & Configuration data \\
+> +\hline
+> +\end{tabular}
+> +
+> +The number of bytes field \emph{MAY} be zero. If so the configuration data field
+> +will also be of zero length. This is the normal case when the configuration
+> +generation count has not been changed.
+> +
+> +If the number of bytes field is zero and the configuration generation count is
+> +changed, then the driver is responsible for discovering any changed
+> +configuration data via \msgref{GET_CONFIG} messages.
+> +
+> +\msgdef{EVENT_AVAIL}
+> +
+> +This message is sent by the virtio-msg driver and there is no response.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 4 & Virtqueue index \\
+> +& 4 & 4 & Next offset and Next wrap \\
+> +\hline
+> +\end{tabular}
+> +
+> +The \textbf{Next wrap} field is the MSB of the 32 bit value. The
+> +\textbf{Next offset} field is the other 31 bits. These fields should be 0 if
+> +the VIRTIO_F_NOTIFICATION_DATA feature has not been negotiated. If the bus
+> +implementation is using out-of-band notifications, it should refuse to allow
+> +this feature to be negotiated.
+> +
+> +\msgdef{EVENT_USED}
+> +
+> +This message is sent by the virtio-msg device and there is no response.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 4 & Virtqueue index \\
+> +\hline
+> +\end{tabular}
+> +
+> +\subsection{Bus Messages}\label{sec:Virtio Transport Options / Virtio Over Messages / Bus Messages}
+> +
+> +The bus messages defined in this specification facilitate device discovery,
+> +hotplug management, and liveness checks at the bus level.
+> +They are intended for bus implementations that wish to perform these operations
+> +\emph{via virtio-msg} rather than relying exclusively on external means (e.g.,
+> +firmware tables, device trees). Each bus instance \emph{may} use a subset of or
+> +all these messages according to its design.
+> +
+> +\paragraph{Messages IDs and issuers}
+> +
+> +\begin{tabular}{|l|l|l|}
+> +\hline
+> +Name & ID & Sender \\
+> +\hline
+> +\hline
+> +Reserved                    & 0x0  &        \\
+> +\hline
+> +Reserved                    & 0x1  &        \\
+> +\hline
+> +\busref{GET_DEVICES}        & 0x2  & Driver \\
+> +\hline
+> +\busref{PING}               & 0x3  & Any    \\
+> +\hline
+> +\busref{EVENT_DEVICE}       & 0x40 & Device \\
+> +\hline
+> +\end{tabular}
+> +
+> +Bus message IDs below 0x80 are reserved for standardizes (but optional) bus
+> +messages.  A few are used here and more are expected in the future. Bus message
+> +IDs below 0x40 are used for request/response messages and 0x40 and above for
+> +event messages.
+> +
+> +Bus message IDs 0x80 and above are bus implementation specific. Bus
+> +implementations \emph{MAY} specify the policy that IDs below 0xC0 be used
+> +for request/response messages and IDs 0xC0 and above are used for event messages.
+> +
+> +\paragraph{Note:} A bus implementation \textbf{is not required} to use these
+> +messages if it already provides equivalent functionality through some
+> +platform-specific mechanism. However, if a bus chooses to handle enumeration,
+> +hotplug, etc. via virtio-msg, it \emph{should} implement the corresponding
+> +message definitions below.
+> +
+> +\newcommand{\busdef}[1]{\subsubsection{BUS_MSG_#1}\label{sec:Virtio Transport Options / Virtio Over Messages / Bus Messages / BUS_MSG_#1}}
+> +
+> +\busdef{GET_DEVICES}
+> +
+> +This message is sent by the virtio-msg driver side bus and requires a response
+> +from the device side bus.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 2 & Offset \\
+> +        & 2 & 2 & Number of device numbers requested \\
+> +\hline
+> +Answer & 0 & 2 & Offset \\
+> +       & 2 & 2 & Number of device numbers in the answer \\
+> +       & 4 & 2 & Next offset or 0 if no devices after Offset \\
+
+I think the "Next offset" should be defined explicitly, even when it is
+implicitly clear what it is.
+
+> +       & 6 & .. & Bit[n]: Device[offset + n] not available(0)/available(1) \\
+> +\hline
+> +\end{tabular}
+> +
+> +The offset and number of device numbers requested \emph{MUST} be multiples of 8.
+> +The next offset \emph{MUST} also be a multiple of 8.
+> +The device available data is packed into a sequence of bytes with the first
+> +device in the least significant bit of the first byte, the eighth device in
+> +the most significant bit of the first byte, etc.
+> +
+> +\busdef{EVENT_DEVICE}
+> +
+> +This message is sent by the virtio-msg device side bus and there is no response.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 2 & Device Number \\
+> +        & 2 & 2 & Device Bus State \\
+> +\hline
+> +\end{tabular}
+> +
+> +\begin{tabular}{|l|l|l|}
+> +\hline
+> +Device Bus State & Value & Meaning \\
+> +\hline
+> +\hline
+> +DEVICE_BUS_STATE_READY      & 0x1  & Device is present and ready \\
+> +\hline
+> +DEVICE_BUS_STATE_REMOVED    & 0x2  & Device is no longer present \\
+> +\hline
+> +reserved          & 0x3 to 0x7FFF & Reserved for standard use \\
+> +\hline
+> +any               & 0x8000 to 0xFFFF & may be used by bus implementations \\
+> +\hline
+> +\end{tabular}
+> +
+> +This event is sent when the bus level state of the device has changed.
+> +It can indicate when a device is added or removed. It may also be used by
+> +bus implementations to indicate other states.
+> +
+> +\busdef{PING}
+> +
+> +This message is sent by the virtio-msg driver side bus or device side bus and
+> +requires a response.
+> +
+> +\begin{tabular}{|l|l|l|l|}
+> +\hline
+> +Type & Offset & Size (bytes) & Content \\
+> +\hline \hline
+> +Request & 0 & 4 & Data \\
+> +\hline
+> +Answer & 0 & 4 & Request Data \\
+> +\hline
+> +\end{tabular}
+> +
+> +\subsection{Compliance}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Compliance}
+> +
+> +This section details the requirements that an implementation \emph{MUST} meet to
+> +be considered compliant with the virtio-msg transport. It distinguishes between
+> +\emph{mandatory} behaviors that all implementations \emph{MUST} support and
+> +\emph{optional} behaviors that are permissible but not required.
+> +
+> +\subsubsection{Normative References}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Compliance / NormativeRefs}
+> +The terms \textbf{MUST}, \textbf{MUST NOT}, \textbf{SHOULD}, \textbf{SHOULD NOT},
+> +and \textbf{MAY} in this document are to be interpreted as specified by
+> +\href{https://www.rfc-editor.org/rfc/rfc2119}{RFC 2119}.
+> +
+> +\subsubsection{Mandatory Requirements}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Compliance / Mandatory}
+> +
+> +\paragraph{General Transport Requirements}
+> +\begin{itemize}
+> +  \item An implementation \textbf{MUST} correctly process or generate all
+> +    \emph{transport messages} defined by this specification that are necessary
+> +    for device operation. At minimum, this includes:
+> +    \begin{itemize}
+> +      \item \msgref{GET_DEVICE_INFO}, \msgref{GET_DEVICE_FEATURES}, \msgref{SET_DRIVER_FEATURES}
+> +      \item \msgref{GET_CONFIG}, \msgref{SET_CONFIG}
+> +      \item \msgref{GET_VQUEUE}, \msgref{SET_VQUEUE}, \msgref{RESET_VQUEUE}
+> +      \item \msgref{GET_DEVICE_STATUS}, \msgref{SET_DEVICE_STATUS}
+> +    \end{itemize}
+> +    Failure to support these messages renders a device or driver noncompliant.
+> +  \item An implementation \textbf{MUST} adhere to the
+> +    \textbf{transport revision} and \textbf{maximum message size} constraints
+> +    indicated by each bus instance. For example, it \textbf{MUST NOT} exceed
+> +    the \textbf{maximum message size} in any message.
+> +\end{itemize}
+> +
+> +\paragraph{Device-Side Requirements}
+> +\begin{itemize}
+> +  \item A device \textbf{MUST} provide accurate data in response to
+> +    \msgref{GET_DEVICE_INFO}, including the correct \emph{device ID}, \emph{vendor ID},
+> +    number of feature bits, and configuration size.
+> +  \item A device \textbf{MUST} accept or reject driver-requested features via
+> +    \msgref{SET_DRIVER_FEATURES} consistently with its capabilities and \textbf{MUST}
+> +    return the final agreed-upon feature bits to the driver.
+> +  \item A device \textbf{MUST} maintain a valid \emph{Configuration Generation
+> +    Count} and \textbf{MUST} reject \msgref{SET_CONFIG} or similar operations if
+> +    the generation count supplied by the driver does not match.
+> +  \item A device \textbf{MUST} properly manage virtqueues configured via
+> +    \msgref{SET_VQUEUE}, including storing and using the provided addresses for
+> +    descriptor, driver, and device areas.
+> +  \item A device \textbf{MUST} respect \msgref{SET_DEVICE_STATUS} changes: if the
+> +    status is set to zero, the device \emph{MUST} reset its internal state and
+> +    discard any pending operations.
+> +\end{itemize}
+> +
+> +\paragraph{Driver-Side Requirements}
+> +\begin{itemize}
+> +  \item A driver \textbf{MUST} send valid requests that do not exceed
+> +    the \textbf{maximum message size}, including correct offsets and block
+> +    counts in \msgref{GET_DEVICE_FEATURES}, \msgref{SET_DRIVER_FEATURES}, \msgref{GET_CONFIG},
+> +    and \msgref{SET_CONFIG}.
+> +  \item A driver \emph{MUST} handle a \msgref{SET_CONFIG} being rejected for a
+> +    mismatched configuration generation count.
+> +  \item A driver \textbf{MUST} initialize each device's virtqueues (where needed)
+> +    via \msgref{SET_VQUEUE} before attempting normal I/O and \textbf{SHOULD}
+> +    query the device's status or configuration if an unexpected
+> +    \msgref{EVENT_CONFIG} or error arises.
+> +\end{itemize}
+> +
+> +\subsubsection{Optional Requirements}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Compliance / Optional}
+> +
+> +\paragraph{Bus Messages for Enumeration and Hotplug}
+> +\begin{itemize}
+> +  \item Implementations \emph{MAY} use \busref{GET_DEVICES}
+> +    and \busref{EVENT_DEVICE} for discovering and managing devices in a
+> +    message-driven manner. However, this is not mandatory if other enumeration
+> +    methods (e.g., device tree, ACPI, hypervisor firmware) are used.
+> +  \item If a bus \emph{chooses} to implement these messages, it \textbf{MUST} do
+> +    so in compliance with their defined formats and semantics (see
+> +    \ref{sec:Virtio Transport Options / Virtio Over Messages / Bus Messages}).
+> +\end{itemize}
+> +
+> +\paragraph{Optional Bus-Level Messages}
+> +\begin{itemize}
+> +  \item \busref{PING} for keepalive or health checks is also \emph{MAY}
+> +    implement. If used, both sides \textbf{MUST} echo the 32-bit data field
+> +    precisely.
+> +\end{itemize}
+> +
+> +\paragraph{Runtime Notifications}
+> +\begin{itemize}
+> +  \item A device or the driver side bus \emph{MUST} send \msgref{EVENT_CONFIG}
+> +    to inform the driver of configuration of device status changes.
+> +  \item A device or the driver side bus \emph{MUST} \msgref{EVENT_USED}
+
+Missing a verb after MUST.
+
+> +    to inform the driver of (likely) buffer completions.
+> +  \item A driver \emph{MUST} send \msgref{EVENT_AVAIL} to notify the device that
+> +    new buffers are posted.
+
+s/posted/available
+
+But actually, I think this should refer to available buffer notifications
+(which only occur according to notification suppression).
+
+> +\end{itemize}
+> +
+> +\subsubsection{Compliance for Different Environments}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Compliance / DifferentEnvs}
+> +
+> +\paragraph{Bus Implementation}
+> +A \emph{bus implementation} is compliant if:
+> +\begin{itemize}
+> +  \item It forwards \textbf{transport messages} to the appropriate device
+> +    without altering or discarding valid requests.
+> +  \item It enforces the \textbf{maximum message size} and \textbf{transport
+> +    revision} advertised for its instance.
+> +  \item If it implements bus messages (e.g., \busref{GET_DEVICES}, \busref{PING}),
+> +    those must follow the formats in
+> +    \ref{sec:Virtio Transport Options / Virtio Over Messages / Bus Messages}.
+> +\end{itemize}
+> +
+> +\paragraph{Driver Implementation}
+> +A \emph{driver} is compliant if:
+> +\begin{itemize}
+> +  \item It correctly sends and interprets all required transport messages
+> +    (\msgref{GET_DEVICE_INFO}, \msgref{SET_DRIVER_FEATURES}, \msgref{SET_CONFIG}, etc.).
+> +  \item It respects the bus \textbf{transport revision}  and \textbf{maximum
+> +    message size} limits for each bus instance.
+> +  \item It properly handles device resets, ensuring that any
+> +    subsequent re-initialization follows
+> +    \ref{sec:Virtio Transport Options / Virtio Over Messages / Device Initialization}.
+> +\end{itemize}
+> +
+> +\paragraph{Device Implementation}
+> +A \emph{device} is compliant if:
+> +\begin{itemize}
+> +  \item It supports the core transport messages and enforces the
+> +    \emph{Configuration Generation Count}.
+> +  \item It implements feature negotiation correctly
+> +  \item It respects \msgref{SET_DEVICE_STATUS} changes, resetting or shutting
+> +    down if the status is cleared.
+> +\end{itemize}
+> +
+> +\subsubsection{Conformance Statements}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Compliance / Conformance}
+> +
+> +An implementation \textbf{MUST} meet all "MUST" requirements stated in:
+> +\begin{itemize}
+> +  \item \ref{sec:Virtio Transport Options / Virtio Over Messages / Basic Concepts} (Basic Concepts)
+> +  \item \ref{sec:Virtio Transport Options / Virtio Over Messages / Bus Operation} (Bus Operation)
+> +  \item \ref{sec:Virtio Transport Options / Virtio Over Messages / Device Initialization} (Device Initialization)
+> +  \item \ref{sec:Virtio Transport Options / Virtio Over Messages / Device Operation} (Device Operation)
+> +  \item This \ref{sec:Virtio Transport Options / Virtio Over Messages / Compliance} (Compliance) section
+> +\end{itemize}
+> +to claim compliance with the virtio-msg specification.
+
+I think this should be anchored in the global "Conformance Targets" section
+in the same way as other transports.
+
+> +
+> +Implementations that do not follow these mandatory rules \emph{MUST NOT} declare
+> +themselves conformant. Features or messages labeled as "optional" (\emph{MAY})
+> +do not invalidate compliance if omitted, provided all required behaviors are
+> +still correctly implemented.
+> +
+> +\subsubsection{Versioning and Forward Compatibility}
+> +\label{sec:Virtio Transport Options / Virtio Over Messages / Compliance / Versioning}
+> +
+> +A higher transport \textbf{transport revision} or additional \textbf{feature
+> +bits} \emph{MAY} extend the protocol with new messages or capabilities. However,
+> +to remain compliant with earlier revisions, devices and drivers \emph{SHOULD}
+> +continue to honor the mandatory messages and semantics from prior revisions. If
+
+Is this about interoperability between device/driver/bus supporting
+different revisions? Otherwise, should this not be defined by a newer
+transport revision?
+
+Best regards,
+
+Peter
+
+[2] https://github.com/oasis-tcs/virtio-spec/commit/c5e5810cb6cb48b673bd3247eb48490d29b1e0fb
+
+> +a bus instance or device does not support an advanced feature, it \emph{SHOULD}
+> +reject or ignore those requests rather than undefined behavior.
