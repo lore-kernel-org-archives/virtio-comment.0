@@ -1,236 +1,220 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010000.outbound.protection.outlook.com [52.101.84.0])
+Received: from esa.hc503-62.ca.iphmx.com (esa.hc503-62.ca.iphmx.com [216.71.131.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5652217722
-	for <virtio-comment@lists.linux.dev>; Mon, 18 Aug 2025 14:52:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA720266B6B
+	for <virtio-comment@lists.linux.dev>; Tue, 19 Aug 2025 16:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=216.71.131.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1755528733; cv=fail; b=LSWy9qEF86iUEvmj2rcLuGLcp/7Vfo6iMcbE7hQu5dIuubXwP3cJDRzss2x8Wbe87Oq3+FW78nWqrMS9giwGSaD/h6yDoThdhfyjktGK+bl1+lf7zjE0vca2fFfKgJS+/+FkgqCRPkbl51VO88Okrxz8gjRHzZl4Bv7oAx74c2w=
+	t=1755620095; cv=fail; b=t/VaxOpmM/2Np7MS8RehXF1O0CXRxA8cUC5tlAcDVzOsIixeYsq7o7SNssbDUBi12l0New/Qt0JDEABJjgZIe57+YB9pJvIeptzDZ/XBajMoO/9G1xzOVfc+ieEINyxlPeQiaA4kvjCKGvvwV2Kr1f8a6/DXguZEnXbLkutuZZk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1755528733; c=relaxed/simple;
-	bh=CLsGlhHe/gxMgutXZx+1Q0DY+jahCxLiyN7rytfgMIo=;
-	h=From:To:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=KgPeGw8cmZOq5zhBtdg5LhAVx05zJrARbpC9+A3ZTwuTP76JcBtEu2qmEMWM5UL4Im87SCAIit7OJzcXn0TzK1TPD9TR4W7Lcm7bqsQLeY9n8wSzgpSMX+62iMp5rxeb1HJqFHCj+xxR8wvmva1qQ0ZR1h+9p7g0cUNGIW++5J8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia-bell-labs.com; spf=fail smtp.mailfrom=nokia-bell-labs.com; dkim=pass (2048-bit key) header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.b=rPvlqlOc; arc=fail smtp.client-ip=52.101.84.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia-bell-labs.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nokia-bell-labs.com
+	s=arc-20240116; t=1755620095; c=relaxed/simple;
+	bh=dRUrqY65e9ysZY20Mpcw0UsYhlhMrJY0QD4k6eHi7b0=;
+	h=Message-ID:Date:From:To:Subject:Content-Type:MIME-Version; b=fsJ8XojGLGT06U0qKRZQDugjaszZmtdov79sbqjKv+lJSLWFZKXkAcISwVHQhqMhmA4koGdSDsEMgCB60jH7CMw2LPpPTaoFprQ7XV0oKjM2ztIJzAN9qOVA/vekd5JJAg4Q8F1Lf16TzXpgToG2GLhZC5wN9i2bnp0vcwMDTeM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uwaterloo.ca; spf=pass smtp.mailfrom=uwaterloo.ca; dkim=pass (1024-bit key) header.d=uwaterloo.ca header.i=@uwaterloo.ca header.b=e54o3yxk; arc=fail smtp.client-ip=216.71.131.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uwaterloo.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uwaterloo.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.b="rPvlqlOc"
+	dkim=pass (1024-bit key) header.d=uwaterloo.ca header.i=@uwaterloo.ca header.b="e54o3yxk"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=uwaterloo.ca; i=@uwaterloo.ca; q=dns/txt; s=default;
+  t=1755620093; x=1787156093;
+  h=message-id:date:from:to:subject:
+   content-transfer-encoding:mime-version;
+  bh=dRUrqY65e9ysZY20Mpcw0UsYhlhMrJY0QD4k6eHi7b0=;
+  b=e54o3yxk8GeZmhGkfmAELZTlgao2ieWSivaRWvk9Yip+08E74EdPLshC
+   uI6fn5L3CF/thJMSYQIBx044P+yYb+Em0oNUWKPdM/6QEl1HwPDtZdLYE
+   /7VLEeqcjEzJJ74x/3E5WJrRo9GoBUQSGL+8FS2nlasrO2/ZJ0Zh6uSG9
+   k=;
+X-CSE-ConnectionGUID: pfmV+j1TSQezC9ZYcVy3bA==
+X-CSE-MsgGUID: nIi4pe3bSkWYHN8qOy4lJQ==
+X-Talos-CUID: 9a23:x3FCyWNRWPSEn+5DQCdiyg0WQ/weS3DP5ybiEkSGGD1jYejA
+X-Talos-MUID: 9a23:rBFcwwa4xdDUkuBTsR7t2Clvb81T4JufKGZdiLIX582mDHkl
+Received: from mail-canadacentralazon11020101.outbound.protection.outlook.com (HELO YT3PR01CU008.outbound.protection.outlook.com) ([52.101.189.101])
+  by ob1.hc503-62.ca.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Aug 2025 12:14:46 -0400
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aJekCVDt16zTtodIKX9+sTjxuRi/ZPalGyaPPw0g4SJOQwQcJHRWv7xNQgKbezsDjSFqoMa58z9O8MiDI09kzg12s68iIS0D+lV3vVgvhjTyCNv9KBKQCpC/89Arn+JqNP1STAHpWVQVs+/09vbbvWVuBvI+jhaMRDENvnRWdLfFrMP8k11vBYlNpM5zhRJZj5MuuHt5wTnJ3/eDF2I0SyesugELyc5vn1FAIBeM71cvOip6feo/ELPbx4QxoxeilzAZv/+jc/NtHP/LsjiKwqAkq91+FONgEt5ha/bCRFzWl3oXZ9bWagxQDSEjRNIc1VTT8ostbNTb79Ur7qyJ9A==
+ b=rSGextaAM3IZ4VEVgC5XHNnKWVmQ9eu1KTWuU7yfuRKcbCuPpWHj+9DfzVVprefNbXccnYi1sG3nwcjYUxASAdkvU+YLg3UKYHUe8L7Y5MqLvN1FOfNqOmdiOrSG16di4xQDNaWG1Zg1KlXS8RmsXGkSQeWAwr/oFB6WyG9bWmbHslPv7RXpu2QrOQ7xOBxlatxvyKhdjVYDMsxtTHKSnO1bGLanneXoKiOWUsavT6u/UEcw9FGSLdoifR6PhyErML9b8pxxTxNJtThzoAdTh39qHcDA0HtyqPZ2XTc9TXcg5WUDUP9yEj9RRuQ1g7ciec+BppRpEQRZEPNtb0cOzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b+MJKUIZSftqScKmJlZxrnpbFt0Sk7kkhkuAvdq3hf0=;
- b=WA5BliitHMhtr41NUHxrXurNkM8d+PVZm+DGFmJWBNNPdSK33MbxWnEgZpe6FiLvEUh0BSCayZr9YxByrpPvZ5xvf9kolO8F+vpxzToM83jowGZkkJESLbTRkSKXFItYDpg4jZRSzQeRSw4z7OIs/S8o3X04bk+rf/044v788/B+LLiHSFxP29jZ+rL6ZyIWgp9nAD+0/ipitY3reZoU3v7+vF0HvvP53gR2cKMkYL41bafe5za6qOKdpwWbJOKgBxBZ1UYFEt84XulSziMR6gHGX/dIr9nA2CMtliwns7LbodSiKwFJDiQeUMAOQeBbqyM9FgT19cuu2GnAfY+chQ==
+ bh=xPsgw4vHxzjHSHDpv1BCPCz8xEDfEXEyuR3ED8nwnug=;
+ b=EtljCNwXHG+HBwqVukvhHthAA4WM/sIufplb8O5ro9Z/HWRICGdpDJw5NJqzySfGY3Xg+yjW8be9H2A2TFnWEJ32s262WBTZ4kYhDtpdrVH9e54Ms1iqfM1nIlSIJ+TgqTXeEMkNPHO9MzJ2EzxzUO4OpLm8kMndBd2Kqj/vu4ETM+MviN964546kfuUNEPHayF04l0/vSn8sDAUvLvg9WovuDwXosYgoGQx3lUaYQHGOaCKI2Zk6zAmaT2UAueFxVPIy+11rqmmMYSbI0jRwIueH8+R3kUz//at/vdjrczkv2YducYl3j3UQ4AkykUMbFHaFu1xTnaJCnG+wdOekQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nokia-bell-labs.com; dmarc=pass action=none
- header.from=nokia-bell-labs.com; dkim=pass header.d=nokia-bell-labs.com;
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nokia-bell-labs.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b+MJKUIZSftqScKmJlZxrnpbFt0Sk7kkhkuAvdq3hf0=;
- b=rPvlqlOcjnqlZoQzHJV92wglQbli/AxoCx/PyaT+XVwQqJ7Gi3n6aG/SIeHzhRR/aPGDvG34UZZDeJmvMRmGWLn+L1QjXHcbidNX5u+FviUINBHhHjGgi1xmDIpHV18GsRduyLyih0oJJ3ArnakKmPPyOCDWXW3q6eXvKHMNkLIJCYFzHZ6wUcArW8K8TQ6EEVh2HaKFJXUOxqr+LcV5LFQJIxAUDqXLNKCEia/2gRxwPg8VLFQWb1cm9ERFMhD/LMfxJVRPwO3L/vKyLQHT+7LAxDeFV5O1/PjP7nTcmAUgxgF73QwyxjxhpW4rce3fxQ6/Cv5c1i8SMVmCN39DBQ==
-Received: from PAXPR07MB7984.eurprd07.prod.outlook.com (2603:10a6:102:133::12)
- by PAXPR07MB7888.eurprd07.prod.outlook.com (2603:10a6:102:13c::17) with
+ smtp.mailfrom=uwaterloo.ca; dmarc=pass action=none header.from=uwaterloo.ca;
+ dkim=pass header.d=uwaterloo.ca; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=uwaterloo.ca;
+Received: from YT1PR01MB9051.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:ce::13)
+ by YQBPR01MB10998.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:8f::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.24; Mon, 18 Aug
- 2025 14:52:09 +0000
-Received: from PAXPR07MB7984.eurprd07.prod.outlook.com
- ([fe80::b7f8:dc0a:7e8d:56]) by PAXPR07MB7984.eurprd07.prod.outlook.com
- ([fe80::b7f8:dc0a:7e8d:56%2]) with mapi id 15.20.9031.023; Mon, 18 Aug 2025
- 14:52:09 +0000
-From: "Chia-Yu Chang (Nokia)" <chia-yu.chang@nokia-bell-labs.com>
-To: "Chia-Yu Chang (Nokia)" <chia-yu.chang@nokia-bell-labs.com>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	"mst@redhat.com" <mst@redhat.com>, "cohuck@redhat.com" <cohuck@redhat.com>,
-	"mvaralar@redhat.com" <mvaralar@redhat.com>, "jasowang@redhat.com"
-	<jasowang@redhat.com>, "xuanzhuo@linux.alibaba.com"
-	<xuanzhuo@linux.alibaba.com>, "eperezma@redhat.com" <eperezma@redhat.com>,
-	"ij@kernel.org" <ij@kernel.org>, "ncardwell@google.com"
-	<ncardwell@google.com>, "Koen De Schepper (Nokia)"
-	<koen.de_schepper@nokia-bell-labs.com>, "g.white@cablelabs.com"
-	<g.white@cablelabs.com>, "vidhi_goel@apple.com" <vidhi_goel@apple.com>,
-	"ingemar.s.johansson@ericsson.com" <ingemar.s.johansson@ericsson.com>,
-	"mirja.kuehlewind@ericsson.com" <mirja.kuehlewind@ericsson.com>
-Subject: RE: [PATCH v10 0/2] Update ECN (RFC3168) and Add Accurate ECN
- (RFC9768-to-be) feature
-Thread-Topic: [PATCH v10 0/2] Update ECN (RFC3168) and Add Accurate ECN
- (RFC9768-to-be) feature
-Thread-Index: AQHcDRMpCU5xqsxt8kWMR0VONFef47RohI9A
-Date: Mon, 18 Aug 2025 14:52:09 +0000
-Message-ID:
- <PAXPR07MB7984E74ECF19E28F857E7AA4A331A@PAXPR07MB7984.eurprd07.prod.outlook.com>
-References: <20250814120118.81787-1-chia-yu.chang@nokia-bell-labs.com>
-In-Reply-To: <20250814120118.81787-1-chia-yu.chang@nokia-bell-labs.com>
-Accept-Language: en-GB, en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.25; Tue, 19 Aug
+ 2025 16:14:44 +0000
+Received: from YT1PR01MB9051.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::33d1:efe6:28b1:53cb]) by YT1PR01MB9051.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::33d1:efe6:28b1:53cb%2]) with mapi id 15.20.9031.024; Tue, 19 Aug 2025
+ 16:14:44 +0000
+Message-ID: <b6f972a2-8fe0-4caf-9aa9-2a6b24bf48a8@uwaterloo.ca>
+Date: Tue, 19 Aug 2025 12:14:42 -0400
+User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nokia-bell-labs.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAXPR07MB7984:EE_|PAXPR07MB7888:EE_
-x-ms-office365-filtering-correlation-id: c3e6e3ab-f913-4504-41fa-08ddde66ce9b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|7416014|376014|1800799024|7053199007|38070700018|921020;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?VYawyOHX46cwoMNDa0v1OaAYSE0lqBoApici1yLQ+MOzv/v3hFUGxBP730IM?=
- =?us-ascii?Q?tuGCsQx1H12QEclaJ7bGUmWAn2Pxk4gV0W+qYMhr6sJ52wv0Oh/0ysf1evJN?=
- =?us-ascii?Q?egQGAqa4dBjPL7tJCpyTgTAr1AGLIPO7Cs3HFfZl5mfWTxyj10XrjM90Tj9g?=
- =?us-ascii?Q?EA7HaYopZkkL0tT433MqpygsHkafm2Laky7qsAIlgOWwGhZA6YNq2xW7wDIh?=
- =?us-ascii?Q?BoEcfLTXElumV1SDjPlNbuEacsl6Mw5yS0qOXHLBl7Yd8NlcgozDXTw0kB+q?=
- =?us-ascii?Q?FJJtTto3nrO9mIkS2xKm8yHkTFlbGG81tML0vF2bLsXC5vc2gqzZFQ861H+1?=
- =?us-ascii?Q?pjK0cM20B7CKp5AFpYIRpdCEjjMzmN6LLIVuAgO508x+pQsFFUTa75TRN3aS?=
- =?us-ascii?Q?OopsNuakzzvbno393VszzK2cBHHMquLb67d6DF/djidhmJsGFwMdD9zvmPx/?=
- =?us-ascii?Q?Lsubfdv4EU5iinH2s7UysJO+dm8gy+Bc9gWF4ZuxRPvNxo51xF0P+VU2DaYY?=
- =?us-ascii?Q?04VZ+mW5Em1ErELoz9oD7qlnKb1jGXrEMNTRFBxK85bVK3edhpdq2W3P5I1N?=
- =?us-ascii?Q?NOts4DsIWO7EmJmakXx9iPEB3EZ5cxBWNurKCDwynpvfFfzGrNPP+6/OpP2H?=
- =?us-ascii?Q?vny+VTYGp+kDLVuUtIaNsbd+omMqkWxfmCo6DSarPZF6n/SCst70QdBYdBIz?=
- =?us-ascii?Q?IOwyRZ2pm71xyXeoJIF2J3RR2D8WmUFz/QoRIXl0F4TBdqr8WFTvFsBpIT61?=
- =?us-ascii?Q?TW2JJ47U4uS4LUxuYa5Ai+UUJqjatYIVusHgYrspmDCb8Tei05vHqpcD+QWw?=
- =?us-ascii?Q?BGKqG9eIBbGCPpi1TrNrFxh9WLbhx0bxI+8CTuNc2futGOmKrF2jAx4KpH3J?=
- =?us-ascii?Q?u/I8irlsy0KvPH1tPAQqZ52s6u/FTtDzl6Se7aiVllebLdsKThPNDNvh41F/?=
- =?us-ascii?Q?bO/ThCiFLN2BmlpXb2Cr/XaZVCr9Cr8h61+5O3TexpJyWXl3AuY2WdYl4aCd?=
- =?us-ascii?Q?DeyYm1Qm/PhoD/KTaY+Tg96uaryuiVSdIL2+adCEHRXTExjCuxSUmoKgosXT?=
- =?us-ascii?Q?OM5W2TIZ+N8goX76juK1cdpe0n9eGq/UZngoLpglM7MHo8OQAaPeYk6Rhah8?=
- =?us-ascii?Q?FH4I6sGEmykc54HqazlzTsMwtKorh4vLcWbw4+XT5yOv1SJQTc58cW1bck72?=
- =?us-ascii?Q?AGSOcov1sv8ytdCiKUmeb6DG+3k4Tk70BqUOixgLnNhd6SQrLh7NxVZbqrbO?=
- =?us-ascii?Q?Omj1ENYbRuJyXTb4XLCy0gHxLI5n/0a6YAiLrDftd7jNAP33OJyhDOUb0Ntn?=
- =?us-ascii?Q?9V2MByLkdL7fVb8km4b4ZsgJTaMnAR4I/JE3K0LUVYeIe2JY80y4GtmwkedF?=
- =?us-ascii?Q?4gcqK4iSisV7rYR4ExNcDZmraTl9Ke99+S3gIbeKIoiol3sHZr0UYwA2wPaO?=
- =?us-ascii?Q?/JlW1wbbeOt4i65E24u+ZH7uWbVBLCYf?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR07MB7984.eurprd07.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(7053199007)(38070700018)(921020);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?KYsnX+6c0nYjpdFlqav1htVFKRrcTh8dMZdEvsvnSieEZaT/Uj2BgQtnXEVM?=
- =?us-ascii?Q?kyDNET9/bWeccWK10iJHMj1vLKzRV5HrgxP8Utqm/BZ6L6HLCFAfqWgNrQUc?=
- =?us-ascii?Q?mP5CthOHpVG0o6Gh8J4fA+o1DiQ7qYkgc+K6TtmSK2/VcWW1SvAlNVSkPPUl?=
- =?us-ascii?Q?AypvfI8Zd4o7lOXdeVfu/X9hcetODPnO6VgDhAK/OY9xpJ+764+QofXFA+39?=
- =?us-ascii?Q?TKaeL8sS/DVs9WUMZKQ6+LtwPxq6TerhHIGOLA0QcTB9C0zEtk+tCJ1U3Rfx?=
- =?us-ascii?Q?tCT1Lfmq+plYAwDbWv96wlN+FChekZU8aKCmMVyf2nuscBNGZ+KY125/YrrS?=
- =?us-ascii?Q?ec50CZDs8u/GGdWkBvQNCoT3OtIBKvwpxOiJ4JDoNqKLcH2QZ7ZSqQ5G7ZJv?=
- =?us-ascii?Q?3uXO7hKPy7Waqps/trDODOLR7d8AXIC+0ERQh1Po1OH1OGmEZdrQr4uTSPE8?=
- =?us-ascii?Q?ybluCbZoOzd7B2P/E+if9niolT/LjxUkYOi4NRl1lFsR5luqYM0ZBTgyoyWK?=
- =?us-ascii?Q?1mlAO/d6pfIcw2WK6slLwcG1ha0gw1vw876Mmm2Mb5Ewzo/uwJvIyMaTBVuH?=
- =?us-ascii?Q?a+Xq3bAy2hAn17j2ndLyoWD/JctGyrSY/pwGo3BC/IvRzcUNZItXawvkEUZo?=
- =?us-ascii?Q?P1+gpFw+mYAOUnLeyQQQuFeB9KJDJ/ZAbyrIpOxC+ZHBoq2XFfeMpL+c7nVc?=
- =?us-ascii?Q?YtIoHDjhc5mWx9KdPue2WxL8yieO8faWQnaZOYP/vf/RSxYDa6Ybc+hij9BQ?=
- =?us-ascii?Q?KB9T8qa5G7Sl8EtihP3TYxu0yIJJTCIidrEO1hlNH4A45L/j1AIt4ZCqnG7N?=
- =?us-ascii?Q?B+wW2XwlaKZlUx3NQdBhJ4sO+tApF3kENOEF6MaORidJfts6uTjRXHvZyMNa?=
- =?us-ascii?Q?v2LrWoPvqzMdQzo026llNkEoOEfTJpHx6JcVpgDDSylj8FV+665z3JwHayVE?=
- =?us-ascii?Q?GNpx3GND6UjKbISU+v2yigxXpVfq4f6eok51RwTSa52MqOFkYO5Qo1CxOHia?=
- =?us-ascii?Q?RRnrlrquKT1grFxE7nJItp6hqX79VvMY9Wf81WAukEKeUJDMhRSo+Yo4U7C+?=
- =?us-ascii?Q?FOeYYGMOzLaEQ/g+bWD5sO8iNz26yxiIFC/xMgV2ifPIMQibSuz1SJSofl9b?=
- =?us-ascii?Q?HBt9mawQWHTRn1+UGf6ykSywxVj0JLlBEJnTmkIAoaed43qglFfmbQIDYNDh?=
- =?us-ascii?Q?V43j/JxdM7HfDEIYOpApqBSzpcQhx2vMjJ1n935/z5VoQH0oy2jPfkQSkxsa?=
- =?us-ascii?Q?ZLxW5OEppoUdXPiIo/K9jHMbs7TiZuPGShTlGxAZIMb/ytudBVzfJwTUEbX2?=
- =?us-ascii?Q?YaBZugtM990skrDJICl0ef9Ox4AYFoprnLd5IQjnKKQlwMRWFIpei+SwsxL6?=
- =?us-ascii?Q?7Ef6G/2Nv271tJbXswHGrYczNdemE4ck6SSGMgBQ+odPpxulKIfffTrOHX9G?=
- =?us-ascii?Q?Sgi1exM7RzQ3/diHGtm71/d9ve5aRISFelZbaHy2nfoMDNzM9i6QYSk9D7F0?=
- =?us-ascii?Q?jcPH3oDjn2OLPqc4FjRMgpg4BwtV6BAvbWyd1JL0Ve16Uynasio16cxG8maI?=
- =?us-ascii?Q?URMUaFR4NeEOU9wgCfwHSu7BIgA3rH6AypsduXuu53Pd/meZ/SYLuEfuyLP6?=
- =?us-ascii?Q?MA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: Siddharth Priya <siddharth.priya@uwaterloo.ca>
+To: virtio-comment@lists.linux.dev
+Subject: duplicate ids in used ring
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT2PR01CA0005.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:38::10) To YT1PR01MB9051.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ce::13)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: nokia-bell-labs.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT1PR01MB9051:EE_|YQBPR01MB10998:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7bfd987-3549-4924-3dcb-08dddf3b8245
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?QWl5ZDJ2RURGK0tHYnY0cWZTbFhJdUliSnQ1Qk11TXE1YnZQVVJaMGdFaUp0?=
+ =?utf-8?B?eUd2QnVUak1uUFRYNHpLMUxBVVZZWi9ZWmNiamU5U0J6R3dNY1Z0cFBRaGxn?=
+ =?utf-8?B?d2pEOExLTlFrcUVMeGtQQmFDSEVzTFZNUDQ2UVJYb0w1TjNKV3FWdkZaTGpt?=
+ =?utf-8?B?Zy8yN0ZIK05kRHZIMkV4NmdPTHVQVzBUTDJKSFRzQkxYS1FBNkFPYUlHd1lR?=
+ =?utf-8?B?ZEJqbThpM0h1eld5aW9DcTR5V052VlFTaE44RzZITkdwWVVZeVowNm1qRFFO?=
+ =?utf-8?B?OS84cVdnWVpGV3VRb1FQY2NEeTBWTlBLbEwybnhpN1I2L0ptaUlSKy9pZDZP?=
+ =?utf-8?B?OXFhWFRYLytUanpIM2l0NnRPQUpYYUdtZkhaLzN4WWpQU0U2TlZ1Sk9Rbi9W?=
+ =?utf-8?B?Q0dMOFFIRUxuZTAxWE4xU01STkpIWVNTY2NqbDluc1RRbm5IeWloaHVDV05S?=
+ =?utf-8?B?Y1JmbmZadXdoSVBZQjg3SGlMUHRCcFJpdHRTLzRlWmhiRHFVNi9UYnFRekIv?=
+ =?utf-8?B?L1BrYWRLNUpOclhZZ3VlMHpsa2RsQ0x2UWd4SXA1TGQ5QTdoMHo4bXlYNTBo?=
+ =?utf-8?B?VWNLQTFQVmNFNk1zOWFnZGFQREl5dXFhQWsyZVhNUll1am1oTFoxQkhPY0Fk?=
+ =?utf-8?B?eU9yajlNcnZUR08zbkFNeWV0QVBCeVhqT0dtN3pzb0JUcXhkS1BiaC9WQWNR?=
+ =?utf-8?B?QVBRL082djZMaHlXSENxRnpxb2FDYmdvbU8wdmN5KzNhNWtNRHI0eHF0SGI0?=
+ =?utf-8?B?S3pVeGNjb1d1ci9mTXBNdTBkS0NJNGM1dDRkRGhIQ3VzSVpkUUZYRGRLdUlZ?=
+ =?utf-8?B?RGI5Y3k0dFN6NFRucGN4QWE1cWlFZ0NJRzZVd1p6YUxPS0dqM1ViQWJuYnNp?=
+ =?utf-8?B?czhUNW1zUHJaVDNxZFg2ZlowRGF3M3FtKzdFcm8zY0pHd3FTdWFaTHY3eW05?=
+ =?utf-8?B?STNlTnhxWkRBdmQ2VytaenNCeHY2MWlLTDFTRzZXVlIxQ1BSeTR5alpxb0tV?=
+ =?utf-8?B?UDJsL1NOanQ4SzhFajNuTWJPVFc3T05rbkhhT2dRTmZ6aXVESG9hdXhSTzRT?=
+ =?utf-8?B?UWR0YVo0NWNtTjQwVGFaaXZsT0dURW1EcDhDdjNNYmc4QStheS9ROWpwTGsr?=
+ =?utf-8?B?U0ZxWlJLd1F5aGhKNVVyOHV6QS9XaFlXVlFrbkZyd211TkFsb3E5Zk9sL0lz?=
+ =?utf-8?B?SXB1eUU0MGhXUUlIWUVsMkFTemg0YzRYNGFTdHNIRDJ0VG1EZEJ0TWV3akw5?=
+ =?utf-8?B?K0ZPUUQyS3l0bVdRR1NHYlAydmhSbTZhL01ZbFZHaU45Z0VHaitpRkNoNzJa?=
+ =?utf-8?B?TjBCRWVHdUVYaGxZczZ6TFJKdmlvYW9rWWFlNkJNUFp3QjB3K25LaGliMk04?=
+ =?utf-8?B?anlMV0t4YjJWTWdQU3kzNU9ybkUvWnozU3pzN0I0ckh6c0VkWTNBT01zdTBu?=
+ =?utf-8?B?aklEdUxHbXA2OUhtQU9CR2hOa2FFdkw4TG05dDdPanZ0ekRYMFNKeW9zZDcw?=
+ =?utf-8?B?NTAweVVwdkphTE9vL3lIdWlGenJEcW1lN1h2WGN2WG1CMlY0SnNvN3h5c3Zt?=
+ =?utf-8?B?RG4vcGo0d0hNd0dHL1BFYW9EWWdFTlh3UU9sUDE5TUtsNTZuamxJa2lZMzkx?=
+ =?utf-8?B?ek9xL2VEMGdNUmxDbGRaWW14SjdmV1c0TFlXdGtHaWVBY2FjZFkzYXVqemUw?=
+ =?utf-8?B?aHI0ZDRSU2dMZUVjTUlubmxySGFBYVlDc0VHMTVJSzF0amFDQlZEb1JUNzVX?=
+ =?utf-8?B?QmlNdnVRZTFaTlZHUFkrVlM4V1BWdjdNK3p5ZjlkWjRuU2c2Ylo0UTBnRjRw?=
+ =?utf-8?B?RzY2Mm5nZi91REJPUDlmWDhiNEVHZmJ1L3NGdHc3QU9HYUMzVnJiUVRIN05n?=
+ =?utf-8?Q?NyDJ1oUBL6ECW?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT1PR01MB9051.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SnR0U2VKODJHQkVLZWpXNHRnVEt5RTZBdmI2YWhLbjZmYzdFZDZzVkl3KzdT?=
+ =?utf-8?B?L2JLcFdCd1VqZW1NME9OTlpDdXlwOUNWdWtrYzdwc2c4OEpDRVB3QXpLTis3?=
+ =?utf-8?B?NWgwMXpwL3M5SjBZc01LenkrZFQ4ZEh5TlBWck1YanRwTnI0VGZ0aTFrWmw1?=
+ =?utf-8?B?SjRaWmI5cWxoOWtNN21VQk9tbmR4TjhpTEhrR2FRSUpIVUF3YllrenBwYlZo?=
+ =?utf-8?B?cEtRMk5hK2FwOXdLUVh5TG1aeFIzOWxGZWl2dzVvSlhDVDM0OXVtSVRXOHR0?=
+ =?utf-8?B?d3VrdXpwV0U4TDR4QytZT0dTOFdUczNLS0l4UkVaenJ0MnBXR2R2cHBLd292?=
+ =?utf-8?B?RmE0cVA3WlBGSlA4ME1XcTY4NEtCZldqdVRrVko5SWd0Z2svaW1GTnRUTjh2?=
+ =?utf-8?B?aXd2NzE3Q2pSMWFUdFpVamVRVm90aVhidDRFbklVWlhUbS9weDgwQnJnMmdH?=
+ =?utf-8?B?SDZabm11cnpMSnpmMG1QNHAzK0NIWFZjSGtqMk5ibnoxYVl4MzBxa2Vxcmhq?=
+ =?utf-8?B?QUg2dzF2RVRyUVFDa1k4dmFab1Fid0g2bzcwQ1lrOFM1aHpuODhuTTF2NWR0?=
+ =?utf-8?B?b04ySTJ2WTRBTFd6NWlyZHN1bkhhM0M4S0J2K3NHTnM3dWpuTVo1YWx1TkNo?=
+ =?utf-8?B?SkRXSk90eEVHYjd5bTlMdHpXa1BCTTVBSWh4Sno2Wm1HbHc5Nk5kTGlRNW8x?=
+ =?utf-8?B?U0RmSmxFSVpMQS84bGduZ0k0TGNQd1NpWlpUUnBPR2xvVCtWWW1xaHpDaWFq?=
+ =?utf-8?B?N2Vqc1JJNE5QSWNNU1NyaUk2UWlHdFB1UEJpQktRL0FrY0tOM0RkdUhJT0Vp?=
+ =?utf-8?B?ZS9JeEVqaWZiUWRPdVdZTUU3NEJvRkVzdUs1WTZqZzJlbmFzVUhKWUE4WlJV?=
+ =?utf-8?B?ZTJjd2VqdGNnMmZjZmdXRnFSeW5YekJnVDMvQVBVWi9qNy9CS29NU2lrYzFr?=
+ =?utf-8?B?bW9YbFFQKzhHSm1rNDhwdUt1ZkhxSC9UWlNvNDloNjdwbTJTK2NSZXFhS3Y5?=
+ =?utf-8?B?T0tFbkJCN1ozb0N2UVUzSHV0VDNBSHJNYUV1S1VUT3YwaUJkcHk4WlZyaDZm?=
+ =?utf-8?B?R0o3eElTZXVIL1BpRENHdkdKQXJzdjkwSFNuSGVnY2Z5RTFxbVlzc1ZvREky?=
+ =?utf-8?B?U2xETWtDVlIwZzhBNllicnNYV1o4SDV3U2E0TFdoM2gwZzNPckNOdm1hQUo3?=
+ =?utf-8?B?REFIZXl5cmFaN0s4M1g1ZUM4dW1OT0hjajA4YUZZc1NyUE5ZQjlwSmRPdlY0?=
+ =?utf-8?B?WTRyZmRrV0VIRzBlRzhKRGVLU3ZlTzFpeXNZdzQrT1NkbGgreUJqTWJKRFRv?=
+ =?utf-8?B?VW5tN2tWbEZIQlNvK3RhQmtXeGx1Uit5aElHNnduMG5OaXFPaWNyM0YrRXVX?=
+ =?utf-8?B?Q1UwWUlBVkVWZDF0cWNscldoM0JiNklpVGlZUFc5cXRTbElJWXlST1g1eENl?=
+ =?utf-8?B?WjhwUEJFSE11S2dvVG1BeUo0ZHROTEltRVI1cGlPTUJ0TnZEMUVYdjZUblAx?=
+ =?utf-8?B?ckp4Lzh4YkVXV0MrekJBaXNGeHNFeGdOTGZ1OTlEN0NXc1FTTmRPU2JPMWFX?=
+ =?utf-8?B?YnI1d3NEbklPRGRpbzZKQTNqZEN4Q0Y0M2lPSUtnTGRkSG5tdzc1YkdtZXVO?=
+ =?utf-8?B?d3dZblRuYVoyTlpaVkg5VDlaM2Y3eVVIRkdHaWMwRWJ5MC96MmtXVFdLM0RM?=
+ =?utf-8?B?NFFhSEgwdjk2SUNoMmozNTFvR0kwRWZLcUVLRktBWFp3ekl1OERyLzBudk9o?=
+ =?utf-8?B?SStjcktDL1VZQmhaVzBWTzRNMTNQdC9UZVJQNVYvcCtUaGJ5VmE3MVhEU1hx?=
+ =?utf-8?B?MW5pREsyNXYwQUFyM1VZNndUZzRKNlFiTzNZNmFaNWVwYVBoMUkwYWRkSVlP?=
+ =?utf-8?B?d3hNRnBWNys3OWRPaDUzbysvbExUS1NiR2xpbXpvaGpvOExjb3NKSkVjRkdv?=
+ =?utf-8?B?cXlCc1JJOXQ0Z0JCQnlaY05RdVZIckFYcERwZjlmejQweUZnQnNkMG9tZkx5?=
+ =?utf-8?B?c2RaNFU0YVhSYkNpVEdMR28rTk5objZzeDZNMnRqdk1LUHdtMnlieWE5bGVn?=
+ =?utf-8?B?NGZNRlpYd3gwYnVpVTJDcGNBdkFBdkgzd3VnZzA1VzRDNzVQSjBreXoxWWRH?=
+ =?utf-8?Q?hrkw0cVCwMw5QFRnhI17kTuBO?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	TsvOa6YiqRe16H37g9jsMU+Z9xRRxmygS8P/nyrRM2pZNfOKEbPkSlKqlfEtkRbJCGRFulGuVfMpL8sjetHJfOABi58gkTwQfUMarDTXnJ8IbEn5dW7219gRk/pfPOLt3UZaELC3k18LUzAYSFMQTV7lxAkNxSxmsuh3VJto5tR42AbmXbQwtbngZURb6SpF7uXxDd1gIWwHZxQyL9CFC0kyjwpZt9PYp6Nrl0G3J/NLvVPuxoKjG6R9pgnRms2dbrRmS5C0e/0qu7EMWmt7PZGI+7q0D9kJ7EODg8g3oUIBw6F1HXWD77dGlvUcaZ/ajiNcZy56YSU2VABksFd5eVt4ljpGomaVffnpOIkvJOL5kN8T875eL3um1MLQ0a4FeMb20goSkCiJmNNo2tE0AaOFreZDd0CWG4+yJZnNN2opEWBe+4+jWtYxVXE9dOVTmeELNdKeJ0ki8Q9Q7uKfkOHLqKoAEYAQkVvv/LEr3HbAJ+mivRF3qbAFmBS3UyiBmxcr/uCZFPJQlBt5/Q7m++i75ja/yXFMy1ifoyQ2w8sXRFTNuZJw2hzpPi9wdg4gaha1XDpUXzWJwtbgMULqxuh+sXfPzIaQnewsiuM2LhXxBkcmub2PuJlyea46Bh+B
+X-OriginatorOrg: uwaterloo.ca
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7bfd987-3549-4924-3dcb-08dddf3b8245
+X-MS-Exchange-CrossTenant-AuthSource: YT1PR01MB9051.CANPRD01.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR07MB7984.eurprd07.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3e6e3ab-f913-4504-41fa-08ddde66ce9b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Aug 2025 14:52:09.0451
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2025 16:14:44.0354
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 5d471751-9675-428d-917b-70f44f9630b0
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8L3GhpivLkUGC6f9MsSkVqCEg+Ji85SSsTmawaKirP+4ZqnolmfskzajlhnKUwFrqmrqzBVFOPo1+QK3CZ3pBW1ZopH7FwqrI7VGPocwikSkJ+io6k96zrUPZ8e2Hrmi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR07MB7888
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 723a5a87-f39a-4a22-9247-3fc240c01396
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EsMh/s+QSWLNTmFGIDrVC6+oLLSClLXmAEU1xehroDMfM5e+49CC6WvMUEsAK957xniILFJgBDzBt26Js32fyg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQBPR01MB10998
 
-> -----Original Message-----
-> From: chia-yu.chang@nokia-bell-labs.com <chia-yu.chang@nokia-bell-labs.co=
-m>=20
-> Sent: Thursday, August 14, 2025 2:01 PM
-> To: virtio-comment@lists.linux.dev; mst@redhat.com; cohuck@redhat.com; mv=
-aralar@redhat.com; jasowang@redhat.com; xuanzhuo@linux.alibaba.com; eperezm=
-a@redhat.com; ij@kernel.org; ncardwell@google.com; Koen De Schepper (Nokia)=
- <koen.de_schepper@nokia-bell-labs.com>; g.white@cablelabs.com; vidhi_goel@=
-apple.com; ingemar.s.johansson@ericsson.com; mirja.kuehlewind@ericsson.com
-> Cc: Chia-Yu Chang (Nokia) <chia-yu.chang@nokia-bell-labs.com>
-> Subject: [PATCH v10 0/2] Update ECN (RFC3168) and Add Accurate ECN (RFC97=
-68-to-be) feature
->=20
-> From: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
->=20
-> Hello,
->=20
-> Please find ECN and AccECN patch v10, which aligns ECN functionality with
-> RFC3168 ECN, and adds Accurate ECN feature. The Accurate ECN draft can be=
- found in https://datatracker.ietf.org/doc/html/draft-ietf-tcpm-accurate-ec=
-n-34.
-> And the Accurate ECN draft will become RFC9768.
->=20
-> Best Regards,
-> Chia-Yu
->=20
-> ---
-> v10 (14-Aug-2025)
-> - Update AccECN reference and it will become RFC9768.
->=20
-> v9 (19-May-2025)
-> - Update descriptions for VIRTIO_NET_F_GUEST_ECN, VIRTIO_NET_F_HOST_ECN, =
-VIRTIO_NET_F_GUEST_ACCECN, VIRTIO_NET_F_HOST_ACCECN (Michael S. Tsirkin <ms=
-t@redhat.com>)
-> - Add reference sections of RFC3168 ECN and AccECN (Michael S. Tsirkin <m=
-st@redhat.com>)
->=20
-> v8 (17-Apr-2025)
-> - Further typo fixing
->=20
-> v7 (15-Apr-2025)
-> - Fix typos in AccECN patch (Michael S. Tsirkin <mst@redhat.com>)
->=20
-> v6 (14-Apr-2025)
-> - Shrink descriptions and make more reference to RFC3168 ECN and AccECN
->=20
-> v5 (06-Mar-2025)
-> - Update feature bits of VIRTIO_NET_F_HOST_ACCECN(69) and VIRTIO_NET_F_GU=
-EST_ACCECN(70)
->=20
-> v4 (05-Mar-2025)
-> - Update commit message of AccECN patch
-> - Add reference to RFC3168 ECN and Accurate ECN
-> - Simplify feature bit descriptinos to avoid duplication of text
->=20
-> v3 (21-Feb-2025)
-> - Separate the original patch into 2 different patches
-> - Fix several reabase issues in v2
->=20
-> v2 (17-Feb-2025)
-> - Rebase the patch on top of v1.4 virtio-spec
->=20
-> ---
-> Chia-Yu Chang (2):
->   virtio-net: Fix ECN feature descriptions
->   virtio-net: Define Accurate ECN feature in virtio-spec
->=20
->  device-types/net/description.tex | 83 +++++++++++++++++++++++---------
->  introduction.tex                 |  6 +++
->  2 files changed, 65 insertions(+), 24 deletions(-)
+TL;DR: The virtio spec does not consider duplicate entries (IDs) in the used
+ring. Should this case be promoted to undefined behaviour [1] in the spec?
 
-Hello,
+Background: I am developing proofs that the rust-vmm/virtio-queue [2]
+implementation meets the virtio spec. I noticed that the spec does not state
+anything about queue behaviour when a device adds a 
+descriptor_table_index ID to
+the used ring that is already present. As a result, implementations diverge:
 
-A Github issue is created for this patch series.
+* QEMU (with VIRTIO_F_IN_ORDER): The queue enforces a uniqueness invariant —
+only one copy of an element may exist in the ring. If a duplicate is 
+added, QEMU
+overwrites the matching element with the new length [3].
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/232
+* QEMU (with VIRTIO_F_RING_PACKED or split): The implementation assumes the
+device will not add duplicates, and correctness relies on the device [4].
 
-Best regards,
-Chia-Yu
+Problem: For packed and split queues, the implementation implicitly 
+expects the
+device to uphold the uniqueness invariant. For in-order queues, uniqueness
+emerges implicitly from ordering. From a device developer’s perspective, 
+it is
+not clear that duplicates must never be inserted into the used ring. Since
+implementations differ, the invariant is not consistently enforced, making
+device conformance difficult to check.
+
+Proposed solution: The spec could explicitly state that breaking the 
+uniqueness
+invariant is undefined behaviour. This mirrors the ISO C standard’s 
+practice of
+using "undefined behaviour" to signal obligations developers must 
+uphold. The
+term is widely understood by systems developers and would make expectations
+clear.
+
+```
+Example change (to section 2.7.8 The Virtqueue Used Ring):
+   ...
+   Adding an index into the used ring when a virtq_used_elem entry with 
+the same
+   id already exists and has not yet been read by the driver results in 
+undefined
+   behaviour.
+```
+
+Looking forward to your thoughts.
+
+Siddharth
+
+[1] https://en.cppreference.com/w/c/language/behavior.html [2]
+https://github.com/rust-vmm/vm-virtio [3]
+https://github.com/qemu/qemu/blob/master/hw/virtio/virtio.c#L938 [4]
+https://github.com/qemu/qemu/blob/5836af0783213b9355a6bbf85d9e6bc4c9c9363f/hw/net/virtio-net.c#L1977
+
