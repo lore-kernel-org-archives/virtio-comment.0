@@ -1,86 +1,127 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2B6F9CB
-	for <virtio-comment@lists.linux.dev>; Mon, 25 Aug 2025 21:38:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62DB303C8D
+	for <virtio-comment@lists.linux.dev>; Mon,  1 Sep 2025 09:22:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756157904; cv=none; b=YHKUi6vo/Yxm9INlkjYXXI7IgoUbOfUZT/gjs2ojKYyQvFnW5tlgJHAmw4zv2KDg/D+owHN7+kHfpnlj3XYrLTwQBaSxHIN0q1LpRELqG0cS6UQ06zA9j2Ta+bEkgzlpOTjV2+J2JRnH1vH68gpA17nxt96ICcbV2xWPshpig60=
+	t=1756718557; cv=none; b=EHVPPxeiNWFHUpCDrMBmiDbIN9cfMOwPFqK3TCmxTcnTmLQO9q1Ku+C6Jrljcrrqb8V/kUCZnpuxGB4j90wkL5lZJMejNiMB395IQZnZOHNXXG2YXmVi5cQuO2iPUMNQSqzyEYU9dL+HVzBQvWWyi/Cc2+kivzpqZtkI7vvFxfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756157904; c=relaxed/simple;
-	bh=/29dmaBHrOwcqCdo6GUsmlBka0rq4E8XsbyJ7eHIyjQ=;
-	h=From:Date:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=pazY8ESRrZLcQWaOt3dogQFBbAh1YvbzNLI3B1A+OPzQtykd1wRHhukuq3czxdFbKSEi1soeEwcskGUIx7ACtJ/7W40tRHrXJEZT2ayuZAjPX4VKmvxZuGz1rDUSNdStLfPVxswIhMqzGQsraDUQUUUN3oUPwQbt5kGYhr9Z8v8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DOdJgASv; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1756718557; c=relaxed/simple;
+	bh=lfqHLz7TcssLZK+KGAkWOFbE0JIGO3JxTCzm1ODLA5M=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=oBIRdl2f5Pwt61qlR8Ou7dGYUR3KQRBskX77VxEbPBVpz5iWWnP299Rgq0mXktaCsNE/vHaXZ6yVJ5eqqVLlggoBdAR7Drj4wRYQt/1WH8tTn7e/LfpMBBSc6MAEymWSq2TJ2LhX/dX8jx6f2jfbk0JihOq7qa+knOYZMrrJZ/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=E7yhFCVq; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DOdJgASv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1756157901;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type; bh=/29dmaBHrOwcqCdo6GUsmlBka0rq4E8XsbyJ7eHIyjQ=;
-	b=DOdJgASvEKZUc2Sf4huWqqWHVhA9CpS3b32L265S69gBrkXjac+oV1b7PyGsXl7gxQmwpO
-	P2nKU1N4moDRBMMoM0tdAFv6FxNQb9+n2jOLVHDeYwSaYVxTmF6tuWX2sN9ck2rfppL53W
-	Znom3rNW0rwyiB6MOr9/2Du9V/DB2QA=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-614-o7Li_OxUNrmF32elKVjykw-1; Mon, 25 Aug 2025 17:38:20 -0400
-X-MC-Unique: o7Li_OxUNrmF32elKVjykw-1
-X-Mimecast-MFC-AGG-ID: o7Li_OxUNrmF32elKVjykw_1756157899
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-3c8bc2914a9so840677f8f.2
-        for <virtio-comment@lists.linux.dev>; Mon, 25 Aug 2025 14:38:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="E7yhFCVq"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-45b8e28b3c5so3205155e9.1
+        for <virtio-comment@lists.linux.dev>; Mon, 01 Sep 2025 02:22:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1756718554; x=1757323354; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lfqHLz7TcssLZK+KGAkWOFbE0JIGO3JxTCzm1ODLA5M=;
+        b=E7yhFCVqBQaI2l2uApLC9FliMX6hex7k+L3jJzfE7Ro+ATWXS5XK80I4Sp+AE2dGzE
+         O9YVs+ZmgEGl+JdIHkXXctHr3oaXPSQV9rI70J0vyKCwr+1u55eKZRPeH6Lf5F7CilQT
+         m2tlwdus5a7E/BBEmNji/8jjzjddgOgwr67n+UtHEyKABR8T8R/YeN7H96nmaY/b71hP
+         GrOsjjZvyGemUVIXhA8j6r4F+qdyASzeJIrU5XGPAg00AiD/wlT0C5ns5GCzSJGujZXA
+         WO0oclt5/5DGlENkoAQ7zgG5Fim9BO0DW6Cwa8wXkzuHJwLw/ez877qL9UyATlBGzdLn
+         9IcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756157899; x=1756762699;
-        h=content-disposition:mime-version:message-id:subject:to:date:from
-         :sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=/29dmaBHrOwcqCdo6GUsmlBka0rq4E8XsbyJ7eHIyjQ=;
-        b=HkP1PnRKJCO1ZqWlLdFX7WnkLy8hF5qcwvPb3TzLu2Mr4sOrhLbBroqSokZMpjndQe
-         lwBukLLxV0z3dCwf+wTgPCkS89tIeVqvHz98sg3rZ6jVU+b2nelgIN/reCh4LP0VR6lC
-         /2qu+Bob6NXzdTFIm2LYXWRhH91u80x1xcN6Jk3Z819uCCHR1ppp3QDFtCsLtYuSbzw+
-         p5k6+UL2BdKJk9O6tbKPmqDBlfbYcEXYwbc7gDcSx+qUYwUxg8S6QgIgQqDRdJKwDxCe
-         Yy3VEjotSwOcc6jYRTz88D/RI+TlICdCHfIqEOcUYDrjZxQ9+M8Cu/Dl9GWGyUOSdzpj
-         syUQ==
-X-Gm-Message-State: AOJu0Yz0TSeoFnxJIl2WiGTBVOxSaJcBJz2pECnszA0YBSWjOyVhtrOp
-	DfQJyQfzl0BWkrLYhE+8vmd4Nx4xZYr2fR2TyOhkyNztrdJjsdAsmin0mdq1iG1Vi93RheWhvOV
-	EFj/iIvaA1SAME01Q9OOM+mUTSs88pV16O7pTfBxC5lBc1V7H4STNl3fLfzFwDZzDvJnM+zeTST
-	kczxcZ/SLU2eNEwMG+bq9145thPNF6P2vl9Dlk/424Q9A2hjgonsA=
-X-Gm-Gg: ASbGncuSeBDn+PHMfPknwVdwcFyW7PWOAn84+2vQA/2L4T26+0WUP64/heOmZqyE3t+
-	y6gCQ4P+xeJwF11boFA99Wiqn0xYYc7xbnFarvOW2RxpMpIIhuDAyqbBCwmoyxemSvxZpWpMQqG
-	cPxyRzzp3ydQQ0psAK6CnZN+p91SDIUF/tcTIgaTGDUFJ0xzsFrfaElVXPXXcc4TNWWSL2jXRnR
-	zK7+HVZvy9eYwC4z1AgbRWV/dv8HhHDajDg+ge9aYrdpPF1Q3KEp5c5w/497dQ28fUODgtdSXmB
-	GF+l5tuhnVhRQiD2fdJvJG9J0mwoX8Lf1hz5WSF6GLWEv/iZFccsCg==
-X-Received: by 2002:a05:6000:40ce:b0:3b7:899c:e867 with SMTP id ffacd0b85a97d-3c5dcefd9aemr11491330f8f.59.1756157898828;
-        Mon, 25 Aug 2025 14:38:18 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF8CyOih3C0bEgR/eHNNiMGgNdhPf4lHj2qF+5IpTXnM0WoU3Z8BRcvKdE17H/JTNvR7rb9kg==
-X-Received: by 2002:a05:6000:40ce:b0:3b7:899c:e867 with SMTP id ffacd0b85a97d-3c5dcefd9aemr11491322f8f.59.1756157898362;
-        Mon, 25 Aug 2025 14:38:18 -0700 (PDT)
-Received: from redhat.com ([185.128.27.233])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-45b57498d8bsm124819105e9.25.2025.08.25.14.38.17
-        for <virtio-comment@lists.linux.dev>
+        d=1e100.net; s=20230601; t=1756718554; x=1757323354;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=lfqHLz7TcssLZK+KGAkWOFbE0JIGO3JxTCzm1ODLA5M=;
+        b=rQsHqAlxsWRx08PZ/Yi7gHe/uEeX6Ib8N0gkanqj8gqVmeXhdZa0OSYz4tXm3gsHUh
+         CSGthPVVasSv3ekRL/swRRNLiqyDfJRyzyGQwqOR1+FQgWhJbRUkiY054CKwcKMVqEdt
+         bLDvlwL8SHCRtuQZCooAw7rD7NSsGcHD6VZLYW+jGyC7rp7ewzPsBC4T6RqPFnBaEOvU
+         B2GEmjtDfG48m5hy8XWlTnwatg0Jqky8tGOx/MZyjvScJMxdHkMX+zSZ3+4iTY5SONAr
+         3vvitsqu1fi4QWSsueQTT9z8yE0enWT+iDizeAcN4RCI7woMOpQgFscNry8NFKNTn6jD
+         rzgQ==
+X-Gm-Message-State: AOJu0Yy1RTWgdRS1sDEG86d1/slFmLhZFieiH0c+xgPpy4SBwbV1RPQc
+	rkgYhCOZ5bKwK0B6SRwXpn/DyuPnBLZDxYBaM+CmGUlZb/m5/k1XTYARX3nX8CemwBvfPB/hy/l
+	h4gQUamQ=
+X-Gm-Gg: ASbGncur+2jVdqgJxkQdL3sMjB4k+WJS7I7ktAQvykOTcMnObvP9KjwRjma4CcIpgrZ
+	3ZiH+uuWPKuROAMjDcmQqJA9SF6CvfHQG1dski9agyEdu53Dr+SnWp/C01Zxkdcd1eTYzBk9a2v
+	5/tln6yjWK4Snbd7XhlyTEcuafAqa71c9uWPbySmP+Lta2twnBbBfYrcR0YGUOUWTHuBJx4XKbH
+	BObrDKl5yId5Av5OmO1Puicp0RIhFhuLw8hUuML1vntmJaRs7ZXfRy8yOLr8G2oEMCMWm5/eo09
+	r6XppNE8vzoCzvilLvXp0DJaDlEVRG8U6ol6c0tOGNQZ6azqA45FTBV6UekkGAamlQxZUnpkr50
+	tYHZY74xsXiKUB8P76i4Urqo=
+X-Google-Smtp-Source: AGHT+IFNAxPQhB4daCdAtJdiWvNI/2ertgDf/NskLDxK2LVdrW9MZKoUH8tbW1KclPvaB7GjAaHURw==
+X-Received: by 2002:a05:600c:3225:b0:45b:7d1f:98bd with SMTP id 5b1f17b1804b1-45b84c58680mr40204115e9.9.1756718554018;
+        Mon, 01 Sep 2025 02:22:34 -0700 (PDT)
+Received: from draig.lan ([185.126.160.19])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-45b7a9404c4sm96341935e9.10.2025.09.01.02.22.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 25 Aug 2025 14:38:17 -0700 (PDT)
-Sender: Michael Tsirkin <mtsirkin@redhat.com>
-From: "Michael S. Tsirkin" <mst@redhat.com>
-X-Google-Original-From: "Michael S. Tsirkin" <mtsirkin+test2082025@redhat.com>
-Date: Mon, 25 Aug 2025 17:38:14 -0400
-To: virtio-comment@lists.linux.dev
-Subject: test2092025
-Message-ID: <20250825173721-mutt-send-email-mst@kernel.org>
+        Mon, 01 Sep 2025 02:22:33 -0700 (PDT)
+Received: from draig (localhost [IPv6:::1])
+	by draig.lan (Postfix) with ESMTP id 42D7E5F7F5;
+	Mon, 01 Sep 2025 10:20:37 +0100 (BST)
+From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Bill Mills <bill.mills@linaro.org>
+Cc: virtio-comment@lists.linux.dev,  Bertrand Marquis
+ <bertrand.marquis@arm.com>,  "Edgar E . Iglesias"
+ <edgar.iglesias@amd.com>,  Arnaud Pouliquen
+ <arnaud.pouliquen@foss.st.com>,  Viresh Kumar <viresh.kumar@linaro.org>
+Subject: Re: [PATCH RFC v2 1/1] virtio-msg: Add virtio-msg, a message based
+ virtio transport layer
+In-Reply-To: <20250620224426.3923880-2-bill.mills@linaro.org> (Bill Mills's
+	message of "Fri, 20 Jun 2025 18:44:26 -0400")
+References: <20250620224426.3923880-1-bill.mills@linaro.org>
+	<20250620224426.3923880-2-bill.mills@linaro.org>
+User-Agent: mu4e 1.12.12; emacs 30.1
+Date: Mon, 01 Sep 2025 10:20:37 +0100
+Message-ID: <87iki234wq.fsf@draig.linaro.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: crSKXhIJceXvuHxXVOe3EucA97KE1Gmg208LsIlU4PE_1756157899
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-pls ignore, sorry about the noise
+Bill Mills <bill.mills@linaro.org> writes:
 
+> Add a new transport layer that is based on messages.
+>
+> This transport layer still uses virtqueues as the other transport layers =
+do
+> but implements transport layer operations by sending and receiving messag=
+es
+> instead of the "MMR" reads and writes used in virtio-mmio and virtio-pci.
+>
+> This transport is useful when the device and driver are both implemented =
+in
+> software but the trap and emulate operations of virtio-mmio and virtio-pci
+> can not be used.
+>
+> This transport is intended to be used in many situations, including:
+> * between a host processor and its co-processors
+> * between two different systems (not SMP) connected via PCIe
+> * between normal and secure worlds
+> * host to vm
+> * vm to vm
+>
+> This is an RFC and not yet intended to be merged. There are multiple
+> know issues including not conforming to virtio spec standards.
+>
+> Signed-off-by: Bill Mills <bill.mills@linaro.org>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+
+Ping?
+
+I'll be around at KVM Forum if anyone has any questions about our
+use-cases. We've reviewed stuff pretty thoroughly internally but
+obviously we need to input from the wider VirtIO community before
+proposing a vote.
+
+--=20
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
