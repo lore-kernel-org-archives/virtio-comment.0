@@ -1,148 +1,217 @@
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B2F255F53
-	for <virtio-comment@lists.linux.dev>; Wed, 10 Sep 2025 16:01:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39FB2199920
+	for <virtio-comment@lists.linux.dev>; Wed, 17 Sep 2025 07:12:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1757520088; cv=none; b=dY0BdZegttHBvhEFWT8qnQ8ZNvBpVTVQ+PhisQZlkHsOS+xE67QoLR3bj8HlGUatK/cTtniAYcst3iZGjqle9WAmK3Po6Eod0b4N1KN9LTgPUMcfZ6WACmFLpq95iEl/FOzLNoVmuNTjJh6ExtS6anXKFBgyL1z0m8RIoXovpag=
+	t=1758093181; cv=none; b=aK1ic1jvb8I6UA0zlcor82c8GorJDF9QV6oFm6wYDnj9WfC2W7LZbCfUNPVKkrVpJSNlp7SDTexbtQxxW1noFEWX9CiEZUtT6tHDNBKGXQesc8grzo54/+Zo1FEiqVn0R+k/W04lf0FABNVGTVV1nvU5UycrQQ0uAEjjvG0yNcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1757520088; c=relaxed/simple;
-	bh=h0mQKvZax5QhjApM53TQqE7Wo9q6gFOKzKTfgDilres=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MJV/8mytgrBmiwPWZacqaQnPZRdsrEp0gee7DnEF37VQFkqUreYDNG4l0ylEBwVt4U9xe52VAoHxZ/AyqHR/i6TTOfhhZnU7hY/FG9MCa3T08NgSWTQCZmAOBcMk8umyPmuZ627FNI8Y299KIXgrjxnkdayMAX0xWQXnyKeY038=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xqQ56Y4y; arc=none smtp.client-ip=209.85.219.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1758093181; c=relaxed/simple;
+	bh=gS/eYG8BHLfNMtG3ElroOptlGp7nPMSr/QyBY+sRXGs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:content-type; b=YCqXCeanFQrdZ+W6a4B6Kz3P728LnU0jSjnfNhdbM6fXVMIi6gYG7y7ZodC3u5aK8+1oAbnyslPbYY9jdZ+5qIZEWV7AN9GIyPyfEFz4+Ce64u4o3N1knau2uibWlcN6+4SCTVDuU20TdwkjF59q3KlDxaTU3NIbNBrnGr/xYUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OkbNkuxL; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xqQ56Y4y"
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-723c971b63bso52769656d6.1
-        for <virtio-comment@lists.linux.dev>; Wed, 10 Sep 2025 09:01:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1757520085; x=1758124885; darn=lists.linux.dev;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fZoNTMxWp2L7BfzfcFzdsc7cKJ8KsFGISMhknxR0jpI=;
-        b=xqQ56Y4yvfhB9RT65nudLWIMk+/3bqxrCv2LwWd6Gw8nmGjHVBO1ztFkHXxNOhZi1j
-         nNWZtal0MWECw96yUpUxt1xEe9sDGxON3qZ7lsFfuyIpVMil+Vx9mu2NV1KukQSHYl81
-         27KI/3lRLUuGuCBtAWB185QutIDoZTAGeZRzZRWU7wz2t5mdvpSCpXgNpDNF5tJApsFs
-         AKADBcKtJIyqPw+YTY42KnFzlWOmXc53Fn6zpiPmHwpzc1rtZgwj6r5QSJuxRPm7Htp7
-         b4YYcYrlZSsFYl/J56TvnTeO3lHuhHpap7+M0z/EE0JxeGA1m1Wwiv4tYabfsYMpHc12
-         NXVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757520085; x=1758124885;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fZoNTMxWp2L7BfzfcFzdsc7cKJ8KsFGISMhknxR0jpI=;
-        b=kQd8sIND4lg3GOlyPdtXiW7PF4K+hMraqTludCMwnr4P+xJEVeM28sZLs8xwkd4VyB
-         yX0M/xvUspDitt5rt08UTizo4PE02VxvzY2vXpu+PYiEXqmNqOnfjblbl5rrMEVxTtZ5
-         iG6G8T5FVTsPkyuoapitAM0GmkB0yAqWYwt+dz6D8ZZIuYRn9LQ8Oq5mM8EWbS0T7lrp
-         RhHElQ/C1vswoxQY6J/dp4ZybCqGGmQ7DXx9pL754MDZ1OomhRvWdI62J/svsbOBF3n6
-         oubNylbc0ncdMjFds9l9IGgDoNbWPMEgWQSDtQgyTe6iAfRMQlQkjXOVU4YXHHuS29VT
-         O2Cg==
-X-Gm-Message-State: AOJu0Yx21SswZb3hyVPLhcaO+yU8k+jReHA+zmKT/7xhIsFqSf4Zvd5n
-	tdPkC0DyeXGrpMn26VTBZjgqppXWLHBKXjbfVcUTuOnL6Bzt9nW6p6uqdXws2ckXtCw=
-X-Gm-Gg: ASbGncs/qdOen3oe69MQXrvVLrD2sMYYG5b+qkZ/Qv35S6IltFvue8bfS7I/bZDsjKV
-	JybX8ZNsi3s/YHhO3rVLXaT+honBPL20WBbhM9l8sUV2eXMj4QKriEDllWzwmchE0SqM+BO5WFx
-	IEbXJgM2PeCJS/6Q5m6MdQoHkMIyGtOlGIM8BEcGY1Con/2c9hVl3aZtiUtdOJGzVmBCxCf/5D3
-	syweLeAk7ZFhRsOnsNvt/4dm4tuOJ2e5u3XJ1aE5D+l9P+Aky2HRa29N1DC5qxzgjtNRbdItWoX
-	+h430DPrwXLYll8x57W9Q7+C8biq9WzM+uM/uz/7L2vPiceM65n665iWQt0K9kGLEMszoxs6HmD
-	qbHYW/uZVECw4jUMZzyimg0R+LesUQqRl44o/vOxfqx8NB89F3hcxbgboqY8OkupYtgx6wVw=
-X-Google-Smtp-Source: AGHT+IFkt5Ky7+wUdw8kAThykdzUtpiWS93L3I8vKrttayxKrPgsussMsj0v6kj/st/ZSJXVDujA/g==
-X-Received: by 2002:ad4:5b8d:0:b0:70f:a42b:1b65 with SMTP id 6a1803df08f44-73943d7d1dfmr180859796d6.66.1757520084452;
-        Wed, 10 Sep 2025 09:01:24 -0700 (PDT)
-Received: from [192.168.2.7] (pool-108-48-78-67.washdc.fios.verizon.net. [108.48.78.67])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-727b2c047dcsm129223516d6.59.2025.09.10.09.01.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 10 Sep 2025 09:01:24 -0700 (PDT)
-Message-ID: <21888de4-aedb-4b29-a5de-04e2204f1e2f@linaro.org>
-Date: Wed, 10 Sep 2025 12:01:23 -0400
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OkbNkuxL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1758093178;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=jKh68E0b06U/nNWRddeEncL89gY952Z8jRyESmr0qw4=;
+	b=OkbNkuxLv1W7D6oxP6Kcn7al6n8WoC99p6oSDtl95rg5KxpcsBvEzWaiXZX25MPGzLkC/u
+	lUdjK727/8kaTHgq2DE2g8iEss0Xc+nNwkTWBlgLPxC1bCjxvKdqLoHn0ltc62xDSX+zhr
+	hlW8nnIJu7ZDAXcejhHo9rEs2rXiqT0=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-138-h2-XuoWrM_CAzMpZNZTBIg-1; Wed,
+ 17 Sep 2025 03:12:54 -0400
+X-MC-Unique: h2-XuoWrM_CAzMpZNZTBIg-1
+X-Mimecast-MFC-AGG-ID: h2-XuoWrM_CAzMpZNZTBIg_1758093173
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BB46E18002CF;
+	Wed, 17 Sep 2025 07:12:53 +0000 (UTC)
+Received: from desktop.redhat.com (unknown [10.45.225.112])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5235A18004D8;
+	Wed, 17 Sep 2025 07:12:50 +0000 (UTC)
+From: Alberto Faria <afaria@redhat.com>
+To: dverkamp@chromium.org,
+	mst@redhat.com,
+	stefanha@redhat.com,
+	virtio-comment@lists.linux.dev
+Cc: Alberto Faria <afaria@redhat.com>
+Subject: [PATCH v3] virtio-blk: Add support for "Force Unit Access" writes
+Date: Wed, 17 Sep 2025 08:12:49 +0100
+Message-ID: <20250917071249.1689417-1-afaria@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2 1/1] virtio-msg: Add virtio-msg, a message based
- virtio transport layer
-To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-Cc: virtio-comment@lists.linux.dev,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Viresh Kumar <viresh.kumar@linaro.org>, Alex Bennee <alex.bennee@linaro.org>
-References: <20250620224426.3923880-1-bill.mills@linaro.org>
- <20250620224426.3923880-2-bill.mills@linaro.org> <aMF/jhoqcNAYNQo5@fedora>
-Content-Language: en-US
-From: Bill Mills <bill.mills@linaro.org>
-In-Reply-To: <aMF/jhoqcNAYNQo5@fedora>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: AI0IcgUz3QiPlzdFMCo-DHTv1Bke9Ipo_ml3rwAXxFI_1758093173
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 
-Hello Matias,
+Add a VIRTIO_BLK_F_REQ_FLAGS feature bit converting the current
+`virtio_blk_req::reserved` field into a `flags` bit field, which can be
+used to modify the behavior of an entire request.
 
-On 9/10/25 9:39 AM, Matias Ezequiel Vara Larsen wrote:
-> Hello, 
-> 
-> Thanks for submission. I am still reading this RFC. I left some minor
-> comments below though.
-> 
+Define one of the bits as signaling that a VIRTIO_BLK_T_OUT request
+should be a "Force Unit Access" (FUA) write, i.e., should become stable
+once the request completes. FUA writes enable better performance
+compared to the alternative of waiting for a write to complete and
+subsequently submitting a flush.
 
-I will incorpertate all your editorial comments you made.  Thanks for looking.
+Leave the remaining 31 bits reserved for now.
 
-I will respond to your questions below ...
+Also add a VIRTIO_BLK_F_REQ_FLAGS_FUA feature bit indicating device
+support for the aforementioned FUA bit.
 
-> On Fri, Jun 20, 2025 at 06:44:26PM -0400, Bill Mills wrote:
->> Add a new transport layer that is based on messages.
->>
->> This transport layer still uses virtqueues as the other transport layers do
->> but implements transport layer operations by sending and receiving messages
->> instead of the "MMR" reads and writes used in virtio-mmio and virtio-pci.
-> 
-> I guess virtqueues are still on a region of memory shared between the
-> device and the driver and a msgs mechanism is not required to access it. 
-> 
+This approach allows for future expansion to other request-level flags
+that may each be applicable to all or just a subset of request types.
+The VIRTIO_BLK_F_REQ_FLAGS feature bit ensures compatibility with legacy
+devices/drivers that interpret the previously-`reserved` field as a
+priority indicator.
 
-Yes, the memory used for virtqueues and for buffers in those virtqueues is
-shared between driver and device somehow.
+Signed-off-by: Alberto Faria <afaria@redhat.com>
+---
 
-In my OSS NA presentation I disucss various memory models as I think about
-them anyway.
+QEMU + kernel patchsets and some performance numbers to follow.
 
-See slide 11 here:
-https://static.sched.com/hosted_files/ossna2025/a6/Virtio-msg-OSS-NA-2025-v1.1.pdf
+v3:
+- Changed to a more future-proof approach somewhat similar to what was
+  suggested by Stefan.
+- Included a brief rationale for the introduction of FUA write requests,
+  as suggested by Michael.
 
-[snip]
+v2:
+- Redefine VIRTIO_BLK_T_OUT_FUA to 27 since 15 is already in use.
+- Clarify that the cache mode has no impact on VIRTIO_BLK_T_OUT_FUA
+  semantics.
+- Allow drivers to negotiate VIRTIO_BLK_F_OUT_FUA even if they are
+  incapable of sending VIRTIO_BLK_T_OUT_FUA commands.
 
->> +The fields in this header have the following usage:
->> +\begin{itemize}
->> +  \item \field{type}:
->> +    \begin{itemize}
->> +      \item Bit[0]: Identifies if a message is a request (0) or a response
->> +          to a request (1).
->> +      \item Bit[1]: Identifies if a message is a Transport Message (0) or a
->> +          Bus Message (1).
->> +      \item Bit[2-7] Are reserved for future use and must be zero.
->> +    \end{itemize}
->> +  \item \field{msg_id}:
->> +    Uniquely identifies which message definition applies (e.g., GET_DEVICES,
->> +    GET_DEVICE_FEATURES, SET_CONFIG). The specific range or enumeration of types is
->> +    defined in sections \ref{sec:Virtio Transport Options / Virtio Over Messages / Transport Messages}
->> +    and \ref{sec:Virtio Transport Options / Virtio Over Messages / Bus Messages}.
->> +  \item \field{dev_num}:
->> +     Identifies the Device Number the message is targeting or is coming from for
->> +     Transport Message and must be zero of Bus messages.
-> 
-> I imagine that the `dev_num` is the mechanism that the bus uses to find
-> the correct destination for a msg both when the driver or the device
-> sends it, right?.
-> 
+ device-types/blk/description.tex | 50 +++++++++++++++++++++++++++-----
+ 1 file changed, 43 insertions(+), 7 deletions(-)
 
-That is correct.  A bus can have multiple devices and dev_num (a simple
-ordinal index) defines which one.  The ordinal space may be sparse.
+diff --git a/device-types/blk/description.tex b/device-types/blk/description.tex
+index 2712ada..6f80451 100644
+--- a/device-types/blk/description.tex
++++ b/device-types/blk/description.tex
+@@ -66,6 +66,13 @@ \subsection{Feature bits}\label{sec:Device Types / Block Device / Feature bits}
+ 	(ZNS). For brevity, these standard documents are referred as "ZBD standards"
+ 	from this point on in the text.
+ 
++\item[VIRTIO_BLK_F_REQ_FLAGS (18)] Device can interpret the \field{flags} field
++    in the \field{virtio_blk_req} structure.
++
++\item[VIRTIO_BLK_F_REQ_FLAGS_FUA (19)] Device supports the Force Unit Access
++    (FUA) flag in the \field{flags} field of the \field{virtio_blk_req}
++    structure for VIRTIO_BLK_T_OUT requests.
++
+ \end{description}
+ 
+ \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / Block Device / Feature bits / Legacy Interface: Feature bits}
+@@ -402,6 +409,9 @@ \subsection{Device Initialization}\label{sec:Device Types / Block Device / Devic
+ \item the device MUST initialize padding bytes \field{unused2} to 0.
+ \end{itemize}
+ 
++If VIRTIO_BLK_F_REQ_FLAGS is not negotiated, then VIRTIO_BLK_F_REQ_FLAGS_FUA
++also MUST NOT be negotiated.
++
+ \subsubsection{Legacy Interface: Device Initialization}\label{sec:Device Types / Block Device / Device Initialization / Legacy Interface: Device Initialization}
+ 
+ Because legacy devices do not have FEATURES_OK, transitional devices
+@@ -434,7 +444,10 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
+ \begin{lstlisting}
+ struct virtio_blk_req {
+         le32 type;
+-        le32 reserved;
++        struct {
++                le32 fua:1;
++                le32 reserved:31;
++        } flags;
+         le64 sector;
+         u8 data[];
+         u8 status;
+@@ -459,6 +472,9 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
+ #define VIRTIO_BLK_T_SECURE_ERASE   14
+ \end{lstlisting}
+ 
++The \field{flags} field is entirely reserved unless VIRTIO_BLK_F_REQ_FLAGS is
++negotiated.
++
+ The \field{sector} number indicates the offset (multiplied by 512) where
+ the read or write is to occur. This field is unused and set to 0 for
+ commands other than read, write and some zone operations.
+@@ -873,6 +889,14 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
+ 
+ A driver SHOULD accept the VIRTIO_BLK_F_RO feature if offered.
+ 
++If VIRTIO_BLK_F_REQ_FLAGS is negotiated:
++
++\begin{itemize}
++\item A driver MUST NOT set the \field{fua} bit in \field{flags} unless the
++    VIRTIO_BLK_F_REQ_FLAGS_FUA feature is negotiated and the request type is
++    VIRTIO_BLK_T_OUT.
++\end{itemize}
++
+ A driver MUST set \field{sector} to 0 for a VIRTIO_BLK_T_FLUSH request.
+ A driver SHOULD NOT include any data in a VIRTIO_BLK_T_FLUSH request.
+ 
+@@ -962,9 +986,15 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
+ operation of the device. When this happens, the device SHOULD trigger a
+ configuration change notification.
+ 
+-A device MUST set the \field{status} byte to VIRTIO_BLK_S_IOERR
+-for a write request if the VIRTIO_BLK_F_RO feature if offered, and MUST NOT
+-write any data.
++A device MUST set the \field{status} byte to VIRTIO_BLK_S_IOERR for a write
++request and MUST NOT write any data if any of the following conditions is true:
++
++\begin{itemize}
++\item the VIRTIO_BLK_F_RO feature if offered.
++
++\item the VIRTIO_BLK_F_REQ_FLAGS feature was negotiated and the \field{fua} bit
++    in \field{flags} is set but VIRTIO_BLK_F_REQ_FLAGS_FUA was not negotiated.
++\end{itemize}
+ 
+ The device MUST set the \field{status} byte to VIRTIO_BLK_S_UNSUPP for
+ discard, secure erase and write zeroes commands if any unknown flag is set.
+@@ -1000,14 +1030,20 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
+   \field{writeback} field in configuration space was 0 \textbf{all the time between
+   the submission of the write and its completion};
+ 
+-\item\label{item:flush3} a VIRTIO_BLK_T_FLUSH request is sent \textbf{after the write is
++\item\label{item:flush3} the VIRTIO_BLK_F_REQ_FLAGS_FUA feature was negotiated
++  and the \field{fua} bit in \field{flags} was set in the write request
++  (regardless of whether the VIRTIO_BLK_F_FLUSH or VIRTIO_BLK_F_CONFIG_WCE
++  features were negotiated, and regardless of the current cache mode as
++  expressed by the value of the \field{writeback} field in configuration space).
++
++\item\label{item:flush4} a VIRTIO_BLK_T_FLUSH request is sent \textbf{after the write is
+   completed} and is completed itself.
+ \end{enumerate}
+ 
+ If the device is backed by persistent storage, the device MUST ensure that
+ stable writes are committed to it, before reporting completion of the write
+-(cases~\ref{item:flush1} and~\ref{item:flush2}) or the flush
+-(case~\ref{item:flush3}).  Failure to do so can cause data loss
++(cases~\ref{item:flush1}, \ref{item:flush2} and~\ref{item:flush3}) or the flush
++(case~\ref{item:flush4}).  Failure to do so can cause data loss
+ in case of a crash.
+ 
+ If the driver changes \field{writeback} between the submission of the write
+-- 
+2.51.0
 
-Thanks again,
-Bill
