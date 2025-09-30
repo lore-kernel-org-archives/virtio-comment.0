@@ -1,139 +1,146 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D0824167A
-	for <virtio-comment@lists.linux.dev>; Tue, 30 Sep 2025 08:03:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E5C2206BB
+	for <virtio-comment@lists.linux.dev>; Tue, 30 Sep 2025 10:14:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759219409; cv=none; b=GyKTSBm0nHYmpIklm9L6wxRvXRDYuwh2Uq5eljrOBc54Z3vlIw5CXFQ2tp7evP0fu9AQKIJ1qAGSpPtnkfzWqxO7JPbE3/HW9bkSGUuWtoMy9xOmNsAHAb86UHwrZx2EtmM/B7VY5/uwuG7Eon7MScQnPVmyciOtLLJBRj6f+L8=
+	t=1759227298; cv=none; b=i+CHIg8xOb58j51yHH0FXboE6OLjJnvN69fI/YMAh2xjkL2Y76WRPsi2rZOnr80N46IDYd1gLHWUPRo2JXnxVLsKqLDNFaatmuBMAZMJ41kfrGF7dOJhM75f2TjgyiRnHAMcrnKRcHBzCLqIpIuGImxwOdWDFlfDQJl9x7hHQQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759219409; c=relaxed/simple;
-	bh=kw4FZ9fmTzxAzx+7yNm3slnDglnm7VyD9kYJG6KXVRw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=GpalpNTmwz9WYmsP0b5mP+hkWRAtXe0eX6KIolZVOyjDbg7by308NSLe0PI94ySwUSIMSPIbk/RV6JNeoE81mXD5U3zUZr5dY2mEP+epltHLoqI1pG+Q+liVy/r2iWVl9Wea+jafIgHDQvfKd6cqR6MVkOOoj3dvqodeMFVP9XA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=b3L+WbdL; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1759227298; c=relaxed/simple;
+	bh=yu4/dfB8pTT035H5r+7MWBZHsyKpnHDkKWci4xnK29c=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=gI2qtNX6/ETO5QPShX8RpZc9j99etGPtsd3osHwTWQPYE0SjGeaZyGJloPMGb9z6bQJ8oimUSCwz4pPqT1pOvkUh9F+F2PmqGQ/S/unnWGhXTqq9KVc0qm/iqymdTbgPTRpwTtaeB76fHny1/e6XD2pMoMvrILx9LaE28tkft8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=EB2JyGSs; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="b3L+WbdL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1759219407;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mja8ybE2Db0VjhxGqBMIn4Tw9/6lO0Ttc5wziFAeqvs=;
-	b=b3L+WbdLJYbv6yKff6J/8mJMorDcbJCimJSOFRtNoMbAFEehuSabyp1w0W55rNUiX/lnC3
-	JJbnYCX6QHgd2kevm51fXlLmMaa1lUU+vnNqxBRf1tP9ES0uT6NEYDolKAQq//GJVEXHzJ
-	TUn8e4TBAcfwjD7NmwBnzrph21pRogQ=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-452-XDTidfryNuO038f3p4yOIw-1; Tue, 30 Sep 2025 04:03:25 -0400
-X-MC-Unique: XDTidfryNuO038f3p4yOIw-1
-X-Mimecast-MFC-AGG-ID: XDTidfryNuO038f3p4yOIw_1759219404
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-46e39567579so27405785e9.0
-        for <virtio-comment@lists.linux.dev>; Tue, 30 Sep 2025 01:03:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="EB2JyGSs"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-46e2e6a708fso37198675e9.0
+        for <virtio-comment@lists.linux.dev>; Tue, 30 Sep 2025 03:14:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1759227295; x=1759832095; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IZSnt4JXo0+F/2iZiBer5mk+h0mDbsjajLo4SUSIcIo=;
+        b=EB2JyGSsO+yknanQLybLI7iiA/duss4w+KVFqi/oGV5Zye6brNF0HYq0YLq1eeQ3hR
+         GHnCcn8SYzD09Prw4+fEinuJtuha79V4GbyFUkVBTcxMQawN8HxBcVQLpkjAjWtF3b5Z
+         shT1vT35vSFKYuu46ymfejv0HWxW5moNDE8b1s0tA3KCdBr68dOe6hyQegIQRfsL+xzG
+         WPVteIUcKHb8ZK6bXHvb8iMfM2XAw1dBCbzxy2pQfWJLTQPPRxVZ2QpwE1mwTTvhp9kW
+         ySPUPzBLwWqhoTnaCBayto5fSGhJjBsAyTmDYEEQN1kN9b0Jc25guYFrHgC/WC4JnoLd
+         owRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759219404; x=1759824204;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=mja8ybE2Db0VjhxGqBMIn4Tw9/6lO0Ttc5wziFAeqvs=;
-        b=Jmpph+cM3QifBHjA+oiyQvfxabmZXp2XGvxBdRUd+4wpkkDBsyKCjASohQIBgiJeAs
-         aK24cOHiKCY6meptuoTjRevh8eoQ2AbTcc6JS4C2aWnKbIoKN91K1zgC3kDuM+dYESwO
-         CEbm4W/Uvl112hjBEhAoTMGILBgVCwteqaLNW1QXnCTI0UqbNaLad5FKpyWooKXxB3Eh
-         aQDgeTf/ESvgCCnwOwgIPSL5Ej9mtUHRMri1R9usuWTxLlQpp0QEYfoaO8xqqHtCUOBk
-         uhzqTn5vSiQO7cAz07BJjdZentbFatphb5OTRfD12PsSKuTbfS6rAbXlBfk2P9QeaNA0
-         WEKw==
-X-Gm-Message-State: AOJu0YzEP5aLZaZDAmhD7B+2AUDSsBc+KapTSFR3XPzHbH6DlRRYKq2m
-	4KW8maCGUNEFMaR+f3oykb8cSeJqFyhHGdkJjR1otG2TSor1fL+SWTpOfaS6LE1GsVUZemEvyjL
-	JjFfTpWp9ah/QQIpp1jpx51HHkdvKbqBqx4AKmDcdzg6Petjht1g6omLHY1spl66Sm3RT
-X-Gm-Gg: ASbGncvl/sN4TM7m1dp3XsenUZ6xI0/JnDffa19vnDsIuCOHuxYOj5lgTEFIhNH2K0e
-	cjdNqkuGhk4tLRHFLwTtNJsEzzFxTLPyPrWhAipPV4vXCqClP9EPlW4+OqM8IprOmah2rl4GUjn
-	ryE5lafVD7vEM1r5NmY3h4UNoXdPqbDwM1oxxViqKyN7QD/8FHcTaZP3gzILGiQnAgIQdPM68+3
-	co3IMNSKfRF4jXrYS8z0nkrpOLyoKaEGrpZhEp0VwqQiHZrdcVEQN2RBE26/QHTyjcW0rH5hqjB
-	lZ16l55z8b+bW7V0L02lxlg6X8us9y0KLUI4cB8=
-X-Received: by 2002:a05:600c:3543:b0:46e:442c:f5e1 with SMTP id 5b1f17b1804b1-46e442d0118mr96911255e9.35.1759219404485;
-        Tue, 30 Sep 2025 01:03:24 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGfvXy6HAcvTq1desPXwRub1rGji41YrD+Kn8FuJbTL1R4jV0v0vqCLA31ybN4QOA2R1us8ug==
-X-Received: by 2002:a05:600c:3543:b0:46e:442c:f5e1 with SMTP id 5b1f17b1804b1-46e442d0118mr96910995e9.35.1759219404042;
-        Tue, 30 Sep 2025 01:03:24 -0700 (PDT)
-Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-46e5873f2efsm41536675e9.4.2025.09.30.01.03.23
+        d=1e100.net; s=20230601; t=1759227295; x=1759832095;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=IZSnt4JXo0+F/2iZiBer5mk+h0mDbsjajLo4SUSIcIo=;
+        b=thm/FmJLN8rpzvYMev+2EGMOrfXifT3gAr53iIwBmKXAo53x5mRgmhBqwuP/6GFWcy
+         qy3I23zwTleFeYgPxqQcjW+UWGTYF1rQfXVoRQVGsXaGzBUxk/rGYu8rUWaIc0MPDfOr
+         YCVPBQ67l3OWysP/JLGSkqWjzSvGRan6e99BsToVlc8v0ZxQQdKsD5QdMKi1UWWgielb
+         7dGBhIieaa7oJMrPRPoj740zB+3hmN7YzBW78nv2ZMfR+o0UfvNvXw69XPYnS6gaNlsP
+         SUFeo4COiXL2dniZN1cpZIQQSegzGD1yNPoGDZjjWpaYJ8GNHOHBOhb/ZuD3iiaLJabr
+         Qnqw==
+X-Gm-Message-State: AOJu0Yx/+c4IA21CxJPNDaa0G+npuy2p+V5yMTRuCiJTebT7CX7MUuNj
+	y4/fYru4Mc+j6EEcW9Lum2M1j9Wwp/3XYLTIMrPu+PBt93AljuZOTVtd3R2OLosm3ys=
+X-Gm-Gg: ASbGncsmMnoXE9l7QaQm93GSURk8VCFIeTIgfotzyUYfG8bF2/EXAAED7kFzQa5eYNZ
+	MjFtutL0FGYKNCWSOWMi7FeXmh9pHnFAqhgmti5Zaje1Vtih5xU6vSYGCoegswaZVPq4cj3SEGi
+	k6ru7/1uslsfEn3z319ipaB/PMtBzHtVGB60DFndaHTi9XU2xkeGohYk6jLUZdtHfxz+fSPtigr
+	oaToV0QbUufCFshMqLYHKFc7Z9uguW53uoil3/kNh7uYOjpGDBC7VYM13df+32Mqlsvhd8nvosU
+	znXB8NUe61WJ3V4+nNr9CTMoqPCdhteHkmtBVLWG8sKQxjDxV/QMFS/7qbWCfjOYTAV844jXXFB
+	W4dQVccHQ9T66hKifR1ufN33NlePhCn7I1XdK8KY6DFFqkbw=
+X-Google-Smtp-Source: AGHT+IHbgwKo28T25ZSpzcyKKs2fuoBoUVSfix1zpIiO0/uqbiHHWJImIHFZxMptkx0yBsT7YqU4Yg==
+X-Received: by 2002:a05:600c:8b05:b0:46e:3e82:6551 with SMTP id 5b1f17b1804b1-46e3e826872mr126390675e9.2.1759227295180;
+        Tue, 30 Sep 2025 03:14:55 -0700 (PDT)
+Received: from draig.lan ([185.126.160.19])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-46e2a7c8531sm263693105e9.0.2025.09.30.03.14.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Sep 2025 01:03:23 -0700 (PDT)
-Date: Tue, 30 Sep 2025 10:03:22 +0200
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>
-Cc: virtio-comment@lists.linux.dev, "Michael S. Tsirkin" <mst@redhat.com>,
-	Cornelia Huck <cornelia.huck@redhat.com>,
-	Bill Mills <bill.mills@linaro.org>
+        Tue, 30 Sep 2025 03:14:54 -0700 (PDT)
+Received: from draig (localhost [IPv6:::1])
+	by draig.lan (Postfix) with ESMTP id 4FF6A5F7EE;
+	Tue, 30 Sep 2025 11:14:53 +0100 (BST)
+From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+Cc: virtio-comment@lists.linux.dev,  "Michael S. Tsirkin" <mst@redhat.com>,
+  Cornelia Huck <cornelia.huck@redhat.com>,  Bill Mills
+ <bill.mills@linaro.org>
 Subject: Re: Use of LaTeX for the specification
-Message-ID: <aNuOyv78T6TaXg6B@fedora>
-References: <87ms6dl3sh.fsf@draig.linaro.org>
+In-Reply-To: <aNuOyv78T6TaXg6B@fedora> (Matias Ezequiel Vara Larsen's message
+	of "Tue, 30 Sep 2025 10:03:22 +0200")
+References: <87ms6dl3sh.fsf@draig.linaro.org> <aNuOyv78T6TaXg6B@fedora>
+User-Agent: mu4e 1.12.14-dev1; emacs 30.1
+Date: Tue, 30 Sep 2025 11:14:53 +0100
+Message-ID: <87cy78jlgi.fsf@draig.linaro.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <87ms6dl3sh.fsf@draig.linaro.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: C9RHNsau0EpRbP0Ly8rrfLEWkBFe1dX48g1ZqvfgreY_1759219404
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 29, 2025 at 03:41:18PM +0100, Alex Bennée wrote:
-> 
-> Hi,
-> 
-> I recently updated my distro to Trixie and found that HTML generation is
-> broken. As far as I can tell this comes down to the use of \cline as
-> shown in this minimal example:
-> 
->   \documentclass{article}
->   \usepackage{hhline}
->   \begin{document}
->   \begin{tabular}{ |l||l|l| }
->   \hline
->   Bits & Device Specific & Purpose \\
->   \cline{1-2}
->   Read / Write & Device Specific & \\
->   \cline{1-2}
->   Purpose & Device Specific & \\
->   \hline
->   \end{tabular}
->   \end{document}
-> 
-> which results in TeX ending early:
-> 
->   ! Undefined control sequence.
->   \f:HBorder ...border-top:1px solid \#\hline:color 
->                                                     ;"></td>
->   l.8 R
->        ead / Write & Device Specific & \\
->   ? 
->   ! Emergency stop.
-> 
-> I'm liaising with Debian and the TexLive authors to try and figure out
-> whats going on. However it does raise a bigger question for the
-> specification - why do we use LaTeX?
-> 
-> I don't doubt that is a powerful typesetting system but its arcane
-> syntax is a bit of a barrier to entry especially for casual
-> contributors. With the recent breakage I wonder if I'm the canary in the
-> coal mine and this will potentially be a problem for everyone else once
-> their TeX setups upgrade.
-> 
-> I'd like to augment the repo with some GitHub actions so we can keep an
-> upto date rendered draft available as well as some lint checks so we can
+Matias Ezequiel Vara Larsen <mvaralar@redhat.com> writes:
 
-I think that is a great idea. I wonder if we can do it in the current
-Github repo. Do you mean to automatically generate `.pdf` from HEAD for
-example?
+> On Mon, Sep 29, 2025 at 03:41:18PM +0100, Alex Benn=C3=A9e wrote:
+>>=20
+>> Hi,
+>>=20
+>> I recently updated my distro to Trixie and found that HTML generation is
+>> broken. As far as I can tell this comes down to the use of \cline as
+>> shown in this minimal example:
+>>=20
+>>   \documentclass{article}
+>>   \usepackage{hhline}
+>>   \begin{document}
+>>   \begin{tabular}{ |l||l|l| }
+>>   \hline
+>>   Bits & Device Specific & Purpose \\
+>>   \cline{1-2}
+>>   Read / Write & Device Specific & \\
+>>   \cline{1-2}
+>>   Purpose & Device Specific & \\
+>>   \hline
+>>   \end{tabular}
+>>   \end{document}
+>>=20
+>> which results in TeX ending early:
+>>=20
+>>   ! Undefined control sequence.
+>>   \f:HBorder ...border-top:1px solid \#\hline:color=20
+>>                                                     ;"></td>
+>>   l.8 R
+>>        ead / Write & Device Specific & \\
+>>   ?=20
+>>   ! Emergency stop.
+>>=20
+>> I'm liaising with Debian and the TexLive authors to try and figure out
+>> whats going on. However it does raise a bigger question for the
+>> specification - why do we use LaTeX?
+>>=20
+>> I don't doubt that is a powerful typesetting system but its arcane
+>> syntax is a bit of a barrier to entry especially for casual
+>> contributors. With the recent breakage I wonder if I'm the canary in the
+>> coal mine and this will potentially be a problem for everyone else once
+>> their TeX setups upgrade.
+>>=20
+>> I'd like to augment the repo with some GitHub actions so we can keep an
+>> upto date rendered draft available as well as some lint checks so we can
+>
+> I think that is a great idea. I wonder if we can do it in the current
+> Github repo. Do you mean to automatically generate `.pdf` from HEAD for
+> example?
 
-Matias
+Yes
 
+I did something similar when we were drafting the virtio-msg spec:
+
+  https://github.com/Linaro/virtio-msg-spec/releases
+
+>
+> Matias
+
+--=20
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
