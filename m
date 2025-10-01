@@ -1,227 +1,299 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011015.outbound.protection.outlook.com [52.101.52.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620AA1DD9AD
-	for <virtio-comment@lists.linux.dev>; Tue, 30 Sep 2025 12:23:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759235004; cv=none; b=UqKEiAWhCOmQPDLlqTIsU2IXqcaut7iC52vR8oubA4LqSivZQx1L5Ut8p2RpF8gNRGzuzQ0sD09lZ1QVr3E5R/i1UbUNW/NwR7LGjM5u9hLLTw0hy4hkBN30VS6a6UulLu9inZgO7zTB7Sp5la6JgUr//qdCQ5WI8xuII0ZJhMg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759235004; c=relaxed/simple;
-	bh=Wy1WHmK6Jwr2AfodIz1z9OLLrNjTHR8DPHIqHqFdy48=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=sKyYXyz0fxjLifG70YnqTkgePFYWMkbIRzkGTAcHppJtOmp7o2APbKk8Ip9KeuPITTEUhm+83KpLk2rCrVqlaGY+X6Aq8fiTu7tPOCvi/AGGZvhv39S7VYaiHxt3f4zmgrnhelHOZzohegQWZzsVxV5Iv0Xl2ypIirxmYgxaUYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fjTMkHfs; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E801519AC
+	for <virtio-comment@lists.linux.dev>; Wed,  1 Oct 2025 04:23:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1759292632; cv=fail; b=lRObMmns64Wgq20lY7dA5hwzxWF2XrrUjVNX0kSfticHR+ND0MgGF5AdciG4Yb3x4nbVdPkIWjXCxQyhzUevP7JBCzYCg7UkbHGi2lhWM3pZBlJofDJ+xZetbNtAzeHFtVGrdw99BhcwOP8MKoVqfxi99CBTgnxb5YxPGwwP36g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1759292632; c=relaxed/simple;
+	bh=GvfzOzLc83KVzBXDtrkwVNT2KHE2xONuzSpHBeoFMmg=;
+	h=From:To:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=OypgvaatmuxyNfro26n6MmIMhljL/J+OIgItn5QLiUJGS25Ev7WL2Nxkjq6/NTAq+NoXGO6XdtAkKyLobyQwonstSbhrD3L7CFhmMONTDcVBvyB2J6b0+bL01IBQbTy60XqMr+Iek5AhPl/azf8gMpNokfgWO0iWQ9uGG09X8bw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VpAP42w+; arc=fail smtp.client-ip=52.101.52.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fjTMkHfs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1759235000;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zhBNUKcHULG6hOH1wrVa9zj1PAsDc5Bk5UKZQbw+6fc=;
-	b=fjTMkHfsTnwOlkt/AJfaeXGkWQz/bec8gNRRpX67Y24Ab30R3yYYh3Btlq105JAnPcTlkY
-	GRjT8I5C1YqcA43xEgN69T1nOc6cui71sLdXbQFazFN+OyEwotDj8iplmDRFBW7LKYmRkV
-	BI+dkK8NQElo60m1os04hOHmFJUnENU=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-587-8tryO9jLOFuRkaDKkrTKgw-1; Tue, 30 Sep 2025 08:23:18 -0400
-X-MC-Unique: 8tryO9jLOFuRkaDKkrTKgw-1
-X-Mimecast-MFC-AGG-ID: 8tryO9jLOFuRkaDKkrTKgw_1759234998
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-3ece14b9231so4050626f8f.0
-        for <virtio-comment@lists.linux.dev>; Tue, 30 Sep 2025 05:23:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759234997; x=1759839797;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zhBNUKcHULG6hOH1wrVa9zj1PAsDc5Bk5UKZQbw+6fc=;
-        b=pRU6dw4Nuwv+92wYsWC9Lxn6nP7xEBzEk++NLu5r1SsaCQX19vBnDhPzL4iN+JM7uo
-         kGArcd2Pj4yvZVh3aAbDTsnhfwv1F/2UYHTjePJ137RfszDcP3K4lq+hmjDhalaG23yR
-         Re/Pb9F6W3F0VNzVfjLBog5RHFEfJ139I4llZq3GtD2VZSnLBfsiu5qwNG988qc2By9A
-         18bYIqUOxdvY/+v+9QLTBG/66xy1lkt5cTFZtLo4oJ0hVw7+EpOs+WUjrfhIyYCN48M1
-         Z99ROE3ds+B/GRqLjY4nlkA2i+Y8CzlMfI2DuFOxlob2yNBR7PC1WdJo/MpZqIiDIogh
-         P+ZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW6lWGQ1fVqZNqC48IAQ1HJRRasSKTzUfLrVyV6qvK0D4lA0ey6IY3ueX3duTA54NXUMPm/YfT2UT8rx9BNhA==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yyg+ppeRpapXLmygy4Zo00XvzWyKbk6BkueO9Zg0lUYOsZ0Vlvh
-	nFrn8rXQljxDXorNgLbhJnr30hPGHMOO6TeLSu3Kr7BWteHaZxrcyUr3oVILop32rW4SxrRqVg+
-	JtfsIId70oxtJ752ffvRliG119E63d63+g5mMPIK6w2rrRnuBfpVIRuWjo3hwzraxJ+A9
-X-Gm-Gg: ASbGncs25Si/3HqVdHoLB4rV4S5IF92gKfcNpGAzDkpH13pOxThONVi8HYsul1ZfKoE
-	M0jYqeUNhouA8IJTVKMPo4+/oxKU7LF468Sg4sOV+71MvsgktMZJGAzOHv1T4uTLn/WyH0yafTJ
-	qdD0QxNes0MRv8XQDDOnGhpR1ZS6lhOjbMIjlF9/pXxBCl+rDQvbfHICZ+srE5IlzizmPDtqVmz
-	B2uPoHrWHaJdmSv1ukd+LyDrjPbW1/0Y8zJddcnOGezOC7ujiD2NDO/COi0oZTj8AaEnzo1oEXY
-	KfPH5kVcc1CVoj1296gW+JuIC/VeoGmb/t+z4OQ=
-X-Received: by 2002:a05:6000:2601:b0:3ee:14db:700d with SMTP id ffacd0b85a97d-40e498b7710mr19581754f8f.11.1759234997484;
-        Tue, 30 Sep 2025 05:23:17 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH26Vofqyo8+te3rGBxvz3nDTPQQ5jQKPh5r6Wm1DRjjm6s3R79YIH/+qJZfCiWKFcGNo++MQ==
-X-Received: by 2002:a05:6000:2601:b0:3ee:14db:700d with SMTP id ffacd0b85a97d-40e498b7710mr19581733f8f.11.1759234997035;
-        Tue, 30 Sep 2025 05:23:17 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:1518:6900:b69a:73e1:9698:9cd3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-40fb7203b8asm22774397f8f.9.2025.09.30.05.23.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Sep 2025 05:23:16 -0700 (PDT)
-Date: Tue, 30 Sep 2025 08:23:13 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>
-Cc: Parav Pandit <parav@nvidia.com>,
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VpAP42w+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SDIhRtgTP5UVYE72lHOc128bxc/uzaQc6amJv/RGR2UiiwArKb7bG/GI+TQOn3leaqmG3SPvpM+dBWrQrK7ootEzVYBtJ2FpDFJel5QTcNA+GX875K7q4AQzbfxVq7VwJn3ZrfUziSAKo8EaPEsChp3jtUSb+b23Nu+DoIxXcn+IYYnVRUTPWxCsOMRROI9ynaqA1yjKMMElX1wO/wsA5Zi7hSEn2PGc/PPiy3btuvGFYh+S59MoHCWbXUXWyp8XIC8/N33p0wT3+hWWs26Czqi40IHbMGO4HLiqGBRXx3LKlWUmx8pNa1Rg/DlryFZ0YlxXB9c5WEGl8ZcTd5ZZGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GvfzOzLc83KVzBXDtrkwVNT2KHE2xONuzSpHBeoFMmg=;
+ b=Ro2Md9kurI6HpvpZx1SqsQtQk2t/bXDBHzFNDQN5WSEcv8OR/MfcUJd+uWRpn48vjG1o+BiilnWV3X72rHbVh3fGPTKb0GQr6l7s/a6eFmKkbZLcft74V2XdSXzR3O1dYvsf5zox0JsXFm3i6HjZMSRBTjAu1egHrUfN0CgO5XZKZJqflaFfBczveMrEkm+hVYRRanE1Ldo/q41KaSP0/aIMHe9H1JBl9gPPXLqUm7+Rph1dYK51p0fBiptXj8mdiKzyVako3rj1TvfCzeKSAeQCqMRcxYKF/v1b4ZAoNbp/SVAiQByGWtZ6uusyeV40wA9Na41sfQ1acjJ2h4qynQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GvfzOzLc83KVzBXDtrkwVNT2KHE2xONuzSpHBeoFMmg=;
+ b=VpAP42w+YptslHca6PGeVMod2UPvp7Be/TlqLdnzQp7tpbTv3uwlYDlKV4qxRx+Hp8to+NNuhJ5wdfzDwe+rrP9oi+eQ0jcrU8E2uuDl85vMOfEvv7sQIYg7JbxGgmYR9NZDo0jv8VicVP+o7cj8XqhWi9DwjmZFYpvJDix1obF9lWGzagTzCMfjf0q0NpBO8fwgrAIGtnjQimkYtUBblcYV/z5ryzUbbvNsNBkG7Ux3XoV4gchfodaFUVr4SJlS4jbY/N50w44aYmA8tDaR2x1g4OpUykpBsZNXhX8aLyGhjTrSsW0niYBLqv+Xn0wem/TkSNgQfu/pdsl+5+f3xw==
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
+ by IA1PR12MB8264.namprd12.prod.outlook.com (2603:10b6:208:3f5::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.17; Wed, 1 Oct
+ 2025 04:23:47 +0000
+Received: from CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::e571:5f76:2b46:e0f8]) by CY8PR12MB7195.namprd12.prod.outlook.com
+ ([fe80::e571:5f76:2b46:e0f8%5]) with mapi id 15.20.9160.014; Wed, 1 Oct 2025
+ 04:23:47 +0000
+From: Parav Pandit <parav@nvidia.com>
+To: "Chia-Yu Chang (Nokia)" <chia-yu.chang@nokia-bell-labs.com>,
 	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	Cornelia Huck <cornelia.huck@redhat.com>,
-	Bill Mills <bill.mills@linaro.org>
-Subject: Re: Use of LaTeX for the specification
-Message-ID: <20250930082057-mutt-send-email-mst@kernel.org>
-References: <87ms6dl3sh.fsf@draig.linaro.org>
- <CY8PR12MB719523C466209B552DE30000DC1BA@CY8PR12MB7195.namprd12.prod.outlook.com>
- <87o6qtjeyr.fsf@draig.linaro.org>
+	"mst@redhat.com" <mst@redhat.com>, "cohuck@redhat.com" <cohuck@redhat.com>,
+	"mvaralar@redhat.com" <mvaralar@redhat.com>, "jasowang@redhat.com"
+	<jasowang@redhat.com>, "xuanzhuo@linux.alibaba.com"
+	<xuanzhuo@linux.alibaba.com>, "eperezma@redhat.com" <eperezma@redhat.com>,
+	"ij@kernel.org" <ij@kernel.org>, "ncardwell@google.com"
+	<ncardwell@google.com>, "Koen De Schepper (Nokia)"
+	<koen.de_schepper@nokia-bell-labs.com>, "g.white@cablelabs.com"
+	<g.white@cablelabs.com>, "vidhi_goel@apple.com" <vidhi_goel@apple.com>,
+	"ingemar.s.johansson@ericsson.com" <ingemar.s.johansson@ericsson.com>,
+	"mirja.kuehlewind@ericsson.com" <mirja.kuehlewind@ericsson.com>
+Subject: RE: [PATCH v10 1/2] virtio-net: Fix ECN feature descriptions
+Thread-Topic: [PATCH v10 1/2] virtio-net: Fix ECN feature descriptions
+Thread-Index: AQHcDRMxc7D2+BxJGUa3jiZ0uZVtV7SqECZQgACnIACAALBIAIAAa1mAgAEnxVA=
+Date: Wed, 1 Oct 2025 04:23:47 +0000
+Message-ID:
+ <CY8PR12MB719523226B3E785B8433C823DCE6A@CY8PR12MB7195.namprd12.prod.outlook.com>
+References: <20250814120118.81787-1-chia-yu.chang@nokia-bell-labs.com>
+ <20250814120118.81787-2-chia-yu.chang@nokia-bell-labs.com>
+ <CY8PR12MB7195670B68CC8F454DA821C6DC1BA@CY8PR12MB7195.namprd12.prod.outlook.com>
+ <PAXPR07MB79843798615E61FA134A5428A31BA@PAXPR07MB7984.eurprd07.prod.outlook.com>
+ <5f1f310d-8a17-414b-ac70-80028832a78b@nvidia.com>
+ <PAXPR07MB7984310A505E7EDDCA0CBFA6A31AA@PAXPR07MB7984.eurprd07.prod.outlook.com>
+In-Reply-To:
+ <PAXPR07MB7984310A505E7EDDCA0CBFA6A31AA@PAXPR07MB7984.eurprd07.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7195:EE_|IA1PR12MB8264:EE_
+x-ms-office365-filtering-correlation-id: 36059c78-68c8-4b31-4578-08de00a250b1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|366016|1800799024|7416014|10070799003|7053199007|38070700021|13003099007|921020;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?TsbVWmoSbLZKfHu935UzXMLz9JGqKmnzCV63FbTulq+6Txltat7GyjtdHx1m?=
+ =?us-ascii?Q?5raE2dUZXwqGz1gQ37keghQlYmbnz2fK3pYmspCpy1OCyYxn6DUioM1vg8zw?=
+ =?us-ascii?Q?tlvie0Bzw5vLEaPK4IaH60rWzcTodUTuH+ygdRlvvwe5jWi/NRHMSJRFZgFi?=
+ =?us-ascii?Q?0UsO3BNpWo5dctmqqezGrBPgkHGVS3TqX6xIMcNm29kSdth9Yk6FzkebzNLm?=
+ =?us-ascii?Q?3DH2s3Jmb1ELX1PJdboy2/TOd8rzZq4cd82ok3XvllcqHfbr9HKeRjyACsdX?=
+ =?us-ascii?Q?jUDpwNtzegBEc9iiGDYdWzhVEkgZGgRvnnMifwIeG5VTpdOlzSeLhPYADwx9?=
+ =?us-ascii?Q?eN9hhOs9V8IBCxzppL2AimdyyfcvbYFrTL19AEU693+iNtCiBCiPClRM7zGI?=
+ =?us-ascii?Q?3G9gTeZtfpdJhfrMZCNNERs1q7ca5BNs7NTOaZojkA6xs83EwZmBqzM1pAcU?=
+ =?us-ascii?Q?KRbBjhTO/xtGRsRTPTfRUws+HeyNPqvCTzhoVZRlaNdPMBlcFTt7TxV2TiBl?=
+ =?us-ascii?Q?qn/WGv8qTdipZwUK6rdm+IzVeXeGqfRjm66jjERjXy4F7TCh4OlX9QNqqebj?=
+ =?us-ascii?Q?vuGTFOGt8axwuPt9zRBJgmIlcMpfoTRYOsZUbZiaKVRuka1KQJj8XYBHGUCY?=
+ =?us-ascii?Q?vFVLk0kUJShV1vG92d4GNjKQikT+3Uy69cNDCc/Cz1RvTB0PGPsCmB1COlvy?=
+ =?us-ascii?Q?/lAHXXWf2Wzx3Lqf+X/XhM/JEpNA2/DmUSc44Ixp9UK4arO8WoMBpMVoGKiA?=
+ =?us-ascii?Q?Dh33xMiAGKQYTyj1Dfnn1EM9iO0r3qYPDBsBMBs7Zv75v4i0E2IwDNSOq0Km?=
+ =?us-ascii?Q?WN6w9EqSbZO6mkmGVwCwlhXI8Wdjq69vyMkvxSVYeh0sdeilC1GjpyNP1FZi?=
+ =?us-ascii?Q?MKrOHQfS1+rHLwnz3yItQRdNRxRmYTBlJNbeN5VY94hmd30UsNDHVdr20loC?=
+ =?us-ascii?Q?5VxrlGjCaUmFt/VS2SsUKE2z50PuPDVvPI9BaMMr53eSx6fCcHfsszxsbckU?=
+ =?us-ascii?Q?jxSHxwanDYcni55enHY0P9cpeppmgyQkfx9uWLp8ME7mbKWl6JM94cxqJ7fo?=
+ =?us-ascii?Q?l+2oTolEkuOTl/PmHQYkPM2YZz2D+KzcuqDC+vm15VcQWWt5eFreGTjXBZYC?=
+ =?us-ascii?Q?jMMOPf1tBmrQ19QuY8mg/mfJ7/O4qcHrzbVoiQztJ0k+sghaRvMuBHGIMAa6?=
+ =?us-ascii?Q?34BnTXU669L3z93tIXD7+FdbTwfCIPMbR02Rwuhq9bWrViRLIRpUskefG4B4?=
+ =?us-ascii?Q?8dtzQ15QF+NTSSGDAtdOy9AJZR8jb+8DzEGe0QMPjopxAAZEpmNosvhrgUbt?=
+ =?us-ascii?Q?QT8nCZPULsr1dJtGDhfjBR0WMgE0QpWtrtrfcxbtf+hGYPUil7y7LFXhyK9+?=
+ =?us-ascii?Q?94Aalqy8DvfX+LukGfDDC6UCrlxJ17PLxbR4VnhoJFyU26LsOQ2V4B8dJM/U?=
+ =?us-ascii?Q?oPXm6VEnBw5Ts+xDyFe0Bo4t8ZT5gZdwxeRB+cXLaUISiofLjgzQbUFVlQUI?=
+ =?us-ascii?Q?/Acc/eMVfo2ZHWY=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7195.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7416014)(10070799003)(7053199007)(38070700021)(13003099007)(921020);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?UXgY8RHIL+gg0PhxbrCwU3rAXzpTOG37PetrWF1MrgizIrxn+5tCUbbXvLVF?=
+ =?us-ascii?Q?daRjazgdXVyeF1Rrxb+zFQB/H8KgMWWnBFtMsjSi5xu2Fx7cwoty5XlWLUWF?=
+ =?us-ascii?Q?Op/3w/dvtD1n4ZFGFgS80j/WRYWY1D5B78PHNMxCEX0Ga3UQo0zhz61gBsrN?=
+ =?us-ascii?Q?QFYa27pEYMaPl4IDL3Tb1myMD8O0XqZPEJsxEnF0nT5tG0SbK3em1fGGTtJD?=
+ =?us-ascii?Q?fnLF1yPSn2+c0FEKa0CqvP+eix85aywKYBWaSPINGWKUYXlN69ZcAJ+m1l2r?=
+ =?us-ascii?Q?TWD7ltpnyGaM22Ss/evIgBxaB/D21O11oKS8d3uB/Pi3w4skyCRWak3mfKV+?=
+ =?us-ascii?Q?lm1xAN1fJqR6/2673F8PIoGLoWsZw2RTzWCrX24A/TYZigJrgVfgvvSxHUpb?=
+ =?us-ascii?Q?+6z4gb2mdMkQdmlAW8/6/trdjg0z9C2+hhDdNBR8yBLEXytuNiWBWtU2bKdR?=
+ =?us-ascii?Q?9BkN5bN8uNqyiPUQ6k0hg8jRCjwbF/tlKd9VYpI/1bPV/uqiPUCcSb+5DSJ6?=
+ =?us-ascii?Q?IR0+eNmf2cAVlzD3PmKnGau2VVOe87C1Zp8Ot/C4fsjo2hYOY8yz1UiIvxOt?=
+ =?us-ascii?Q?R50k+ldumNlVfkowIfryPfUWDXNXD5I8A90Ja0ZOsaA3FDHiDEp5HB6E0NYG?=
+ =?us-ascii?Q?p/Og/53fzWBpmJq+eZgnGu2XXufTZ3Ke5KuHt3hnH2DoigmDfZmkKfM/GBXW?=
+ =?us-ascii?Q?crI96NqIFw3n4B2+MShztQ8UYXX4fG6kNuF4/UAvD0ea2xDIJ091N4JicC1o?=
+ =?us-ascii?Q?aZy3NAa/dk/kY8ukqfPL0EQZhdPlMKjH067l6MmTdhnSuqGTA0WXlcLqmLqd?=
+ =?us-ascii?Q?mA4d+BSMSaSMkD0c7airrIWxz3ts6jkXqq4PjCvBRC84UijesJC71aLq3o8F?=
+ =?us-ascii?Q?4IuBtkbyl9isCWiCXRMZ2713PYyXI3TcIAzV/ryJK6qaQLjhdj3cxee3i6fh?=
+ =?us-ascii?Q?T2K9HLuYDek/Y5KzdOG3GeQroyExjUzclEbxrfh011fvoABa8SSo6WwsQ9ZX?=
+ =?us-ascii?Q?OpML5PQ6Q7E9En761qPnZgGx4uh/dzlQ7hShfwZAwwkvhvqjUxvkQOFWT6bH?=
+ =?us-ascii?Q?qcqt4J/2Ovmul6MaBsHxYOK95yQugi/mRbs3JPs+YFwOmu//LFKzezxzQaHb?=
+ =?us-ascii?Q?8l8i75X2lD6al6ZmnvEiQ2JqcLekfVSuLz6EhHZlewr/ef8uGhwxcGlHwZhZ?=
+ =?us-ascii?Q?KgmSYt3/AKmGQMnFBg2yi17QT03j4ecIGpgjgBwhZivJ+IwEZQvnsKU2nbxa?=
+ =?us-ascii?Q?Zye6eZoHuZLZX7SIh+TXZPAWQKwCnP0W1N4gDIzKWYhPIt2AMjF6G/SG1Jxs?=
+ =?us-ascii?Q?Esi/+UJOV7dGQkvOgutpPYVl7hUiX5jtABN9WUtLMdH8hc7No4pjFPNFubde?=
+ =?us-ascii?Q?+uGwjuB6W7qJyRo2bbJJjl4ejsXqLUlUXSbPnw7J4QYX5Gdzklwm4xatp4Ez?=
+ =?us-ascii?Q?n6MKV1j90d5yjEsZJLINFZ4mrWkmeZDdK2iYZw2cA7AIuX6OZ2DBlJfTrWys?=
+ =?us-ascii?Q?TMxjTbvz0LNOQQVJX/hIdsl2fB7qnDa9v+7NWTwlxiDcyJn1fkr0E6cvd9qu?=
+ =?us-ascii?Q?Qn88koKFfEmS7Wkx+h+qtaLK4LrYDM/lPa/HO2SvUBQi0HBksJf4Pq4o80FL?=
+ =?us-ascii?Q?pgpZSIK5VqSsgumDQDjkZos=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <87o6qtjeyr.fsf@draig.linaro.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: XBbaexATHLSudoy8vLFEoT8cSD2QlNK5lO67ZamQfKI_1759234998
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-
-On Mon, Sep 29, 2025 at 07:22:52PM +0100, Alex Bennée wrote:
-> Parav Pandit <parav@nvidia.com> writes:
-> 
-> >> From: Alex Bennée <alex.bennee@linaro.org>
-> >> Sent: 29 September 2025 08:11 PM
-> >> 
-> >> 
-> >> Hi,
-> >> 
-> >> I recently updated my distro to Trixie and found that HTML generation is
-> >> broken. 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36059c78-68c8-4b31-4578-08de00a250b1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2025 04:23:47.1558
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: IVytLQyMzAv5L1Azi5GjjnH5eQbHBbqYFJk1VRJQZmOxV5LywZgAOZIA0yBwk5yUHs+DAyM1f23zIoCdZJfTLg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8264
 
 
-Alex pls note HTML generation is using htlatex not xetex
 
-
-> > I test html and pdf generation regularly on merging patches.
-> > And it seems to work for me with below version.
-> > Which one are you using that fails?
-> >
-> > XeTeX 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian)
-> > kpathsea version 6.3.4/dev
-> > Copyright 2021 SIL International, Jonathan Kew and Khaled Hosny.
-> > There is NO warranty.  Redistribution of this software is
-> > covered by the terms of both the XeTeX copyright and
-> > the Lesser GNU General Public License.
-> > For more information about these matters, see the file
-> > named COPYING and the XeTeX source.
-> > Primary author of XeTeX: Jonathan Kew.
-> > Compiled with ICU version 70.1; using 70.1
-> > Compiled with zlib version 1.2.11; using 1.2.11
-> > Compiled with FreeType2 version 2.11.1; using 2.11.1
-> > Compiled with Graphite2 version 1.3.14; using 1.3.14
-> > Compiled with HarfBuzz version 2.7.4; using 2.7.4
-> > Compiled with libpng version 1.6.37; using 1.6.37
-> > Compiled with pplib version v2.05 less toxic i hope
-> > Compiled with fontconfig version 2.13.1; using 2.13.1
-> 
-> ➜  xetex --version
-> XeTeX 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian)
-> kpathsea version 6.4.0/dev
-> Copyright 2024 SIL International, Jonathan Kew and Khaled Hosny.
-> There is NO warranty.  Redistribution of this software is
-> covered by the terms of both the XeTeX copyright and
-> the Lesser GNU General Public License.
-> For more information about these matters, see the file
-> named COPYING and the XeTeX source.
-> Primary author of XeTeX: Jonathan Kew.
-> Compiled with ICU version 76.1; using 76.1
-> Compiled with zlib version 1.3.1; using 1.3.1
-> Compiled with FreeType2 version 2.13.3; using 2.13.3
-> Compiled with Graphite2 version 1.3.14; using 1.3.14
-> Compiled with HarfBuzz version 10.2.0; using 10.2.0
-> Compiled with libpng version 1.6.47; using 1.6.48
-> Compiled with pplib version v2.2
-> Compiled with fontconfig version 2.15.0; using 2.15.0
-> 
-> It also fails run with the texlive distro:
-> 
-> 📦[alex@texlive virtio-spec.git]> xetex --version
-> XeTeX 3.141592653-2.6-0.999997 (TeX Live 2025)
-> kpathsea version 6.4.1
-> Copyright 2025 SIL International, Jonathan Kew and Khaled Hosny.
-> There is NO warranty.  Redistribution of this software is
-> covered by the terms of both the XeTeX copyright and
-> the Lesser GNU General Public License.
-> For more information about these matters, see the file
-> named COPYING and the XeTeX source.
-> Primary author of XeTeX: Jonathan Kew.
-> Compiled with ICU version 76.1; using 76.1
-> Compiled with zlib version 1.3.1; using 1.3.1
-> Compiled with FreeType2 version 2.13.3; using 2.13.3
-> Compiled with Graphite2 version 1.3.14; using 1.3.14
-> Compiled with HarfBuzz version 10.2.0; using 10.2.0
-> Compiled with libpng version 1.6.46; using 1.6.46
-> Compiled with pplib version v2.2
-> Compiled with fontconfig version 2.13.1; using 2.15.0
-> 
+> From: Chia-Yu Chang (Nokia) <chia-yu.chang@nokia-bell-labs.com>
+>=20
+> > -----Original Message-----
+> > From: Parav Pandit <parav@nvidia.com>
+> > Sent: Tuesday, September 30, 2025 6:15 AM
+> > To: Chia-Yu Chang (Nokia) <chia-yu.chang@nokia-bell-labs.com>;
+> > virtio-comment@lists.linux.dev; mst@redhat.com; cohuck@redhat.com;
+> > mvaralar@redhat.com; jasowang@redhat.com;
+> xuanzhuo@linux.alibaba.com;
+> > eperezma@redhat.com; ij@kernel.org; ncardwell@google.com; Koen De
+> > Schepper (Nokia) <koen.de_schepper@nokia-bell-labs.com>;
+> > g.white@cablelabs.com; vidhi_goel@apple.com;
+> > ingemar.s.johansson@ericsson.com; mirja.kuehlewind@ericsson.com
+> > Subject: Re: [PATCH v10 1/2] virtio-net: Fix ECN feature descriptions
 > >
 > >
-> >> As far as I can tell this comes down to the use of \cline as shown in this
-> >> minimal example:
-> >> 
-> >>   \documentclass{article}
-> >>   \usepackage{hhline}
-> >>   \begin{document}
-> >>   \begin{tabular}{ |l||l|l| }
-> >>   \hline
-> >>   Bits & Device Specific & Purpose \\
-> >>   \cline{1-2}
-> >>   Read / Write & Device Specific & \\
-> >>   \cline{1-2}
-> >>   Purpose & Device Specific & \\
-> >>   \hline
-> >>   \end{tabular}
-> >>   \end{document}
-> >> 
-> >> which results in TeX ending early:
-> >> 
-> >>   ! Undefined control sequence.
-> >>   \f:HBorder ...border-top:1px solid \#\hline:color
-> >>                                                     ;"></td>
-> >>   l.8 R
-> >>        ead / Write & Device Specific & \\
-> >>   ?
-> >>   ! Emergency stop.
+> > CAUTION: This is an external email. Please be very careful when clickin=
+g
+> links or opening attachments. See the URL nok.it/ext for additional
+> information.
+> >
+> >
+> >
+> > On 29-09-2025 11:14 pm, Chia-Yu Chang (Nokia) wrote:
+> > >> -----Original Message-----
+> > >> From: Parav Pandit <parav@nvidia.com>
+> > >> Sent: Monday, September 29, 2025 9:48 AM
+> > >> To: Chia-Yu Chang (Nokia) <chia-yu.chang@nokia-bell-labs.com>;
+> > >> virtio-comment@lists.linux.dev; mst@redhat.com; cohuck@redhat.com;
+> > >> mvaralar@redhat.com; jasowang@redhat.com;
+> > >> xuanzhuo@linux.alibaba.com; eperezma@redhat.com; ij@kernel.org;
+> > >> ncardwell@google.com; Koen De Schepper (Nokia)
+> > >> <koen.de_schepper@nokia-bell-labs.com>;
+> > >> g.white@cablelabs.com; vidhi_goel@apple.com;
+> > >> ingemar.s.johansson@ericsson.com; mirja.kuehlewind@ericsson.com
+> > >> Subject: RE: [PATCH v10 1/2] virtio-net: Fix ECN feature
+> > >> descriptions
+> > >>
+> > >>
+> > >> CAUTION: This is an external email. Please be very careful when clic=
+king
+> links or opening attachments. See the URL nok.it/ext for additional
+> information.
+> > >>
+> > >>
+> > >>
+> > >> Hi,
+> > >>
+> > >>> From: chia-yu.chang@nokia-bell-labs.com <chia-yu.chang@nokia-bell-
+> > >>> labs.com>
+> > >>>
+> > >>> From: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
+> > >>>
+> > >>> Clarify that the VIRTIO_NET_HDR_GSO_ECN gso_type flag does not
+> > >>> mean that TCP has IP-ECN set; instead, it identifies that the TCP
+> > >>> CWR flag is set and will be cleared from the second segment of an
+> aggregated segment.
+> > >>>
+> > >> Above text is seems to be clarified only in commit message, not in t=
+he
+> spec changes below.
+> > >> Can you please add it in the actual spec wording, including
+> requirements?
+> > > Hi Parav,
+> > >
+> > > This is to fix current error in virtio spec:
+> > > "VIRTIO_NET_HDR_GSO_ECN is a flag within the VIRTIO_NET_HDR
+> structure that indicates the TCP header of a packet has its Explicit Cong=
+estion
+> Notification (ECN) bit set, signifying congestion in the network"
+> >
+> > I am unable to find the above cited text in virtio spec.
+> >
+> > Do I miss to find above text in the spec?
+> >
+> >
+> > What I read in spec is:
+> >
+> > The driver SHOULD NOT send to the device TCP packets requiring
+> > segmentation offload which have the
+> >
+> > Explicit Congestion Notification bit set, unless the
+> > VIRTIO_NET_F_HOST_ECN feature is negotiated, in
+> >
+> > which case the driver MUST set the VIRTIO_NET_HDR_GSO_ECN bit in
+> gso_type.
+>=20
+> Yes, you are right.
+>=20
+> > > TCP header does not have ECN bit, and this flag shall indicate the CW=
+R bit
+> of TCP header is set when doing the GSO for the first packet.
+> > > The corresponding texts in RFC3168 are "When the TCP data sender is
+> ready to set the CWR bit after reducing the congestion window, it SHOULD =
+set
+> the CWR bit only on the first new data packet that it transmits."
+> > >
+> > > So, do you think adding above texts in the commit message is ok?
+> >
+> > Yes, but only commit message is not enough. We need equivalent text in
+> the description and in driver + device requirement section.
+> >
+> > Something like,
+> >
+> > When the device is transmitting packets of gso_type of segmentation typ=
+e
+> A, B, or C, and if driver requested gso_type of HOST_ECN, the device must=
+ set
+> the ECN bits in the IP header and CWR bit in the TCP header in the first =
+data
+> packet of the TCP or UDP segments.
+> >
+>=20
+> I think the text changes are already proposed below.
+>=20
+> Or you can refer to my original email for better comparison:
+> https://yhbt.net/lore/virtio-comment/5f1f310d-8a17-414b-ac70-80028832a78b=
+@nvidia.com/T/#mc1750dcc26d74c9b19939c4e86dae8bbade6ec78
+>=20
+Above link indicates to follow the requirements from section 6.1.2 of RFC 3=
+168.
+Section 6.1.2 largely describes how TCP state machine to set the CWR bits.
+It does not describe when doing GSO on tx, how first and non_first packets =
+to be prepared by the device.
+GSO of virtio net is stateless operation and segmentation does not interact=
+ with RTT.
 
+If I understand it right,
+The requirement from the device is that if 64KB segmentation offload is don=
+e with mtu of 4K, out of 16 packets, only the first TCP pkt to have ECN and=
+ CWR bits set.
 
-What is the command line you are using for this example?
+If yes, then we need to spell that out in the virtio spec requirements sect=
+ion and description.
 
-> >> I'm liaising with Debian and the TexLive authors to try and figure out whats
-> >> going on. However it does raise a bigger question for the specification - why do
-> >> we use LaTeX?
-> >> 
-> >> I don't doubt that is a powerful typesetting system but its arcane syntax is a
-> >> bit of a barrier to entry especially for casual contributors. With the recent
-> >> breakage I wonder if I'm the canary in the coal mine and this will potentially be
-> >> a problem for everyone else once their TeX setups upgrade.
-> >> 
-> >> I'd like to augment the repo with some GitHub actions so we can keep an upto
-> >> date rendered draft available as well as some lint checks so we can avoid
-> >> introducing dodgy markup. But firstly I want to ask is LaTeX the right source
-> >> format for the spec going forward? Is this something mandated by OASIS or
-> >> just an accident of history?
-> >> 
-> >> Thanks,
-> >> 
-> >> --
-> >> Alex Bennée
-> >> Virtualisation Tech Lead @ Linaro
-> 
-> -- 
-> Alex Bennée
-> Virtualisation Tech Lead @ Linaro
-
+Similar wording to apply in patch_2 for accecn too.
