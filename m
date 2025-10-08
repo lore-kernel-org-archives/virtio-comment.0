@@ -1,118 +1,100 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578702EC571
-	for <virtio-comment@lists.linux.dev>; Wed,  8 Oct 2025 14:59:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F9BA2ECD20
+	for <virtio-comment@lists.linux.dev>; Wed,  8 Oct 2025 14:59:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759935563; cv=none; b=uLw9/9Ry+tmw0bO16FLBAtRRpyjxesSWc8H61C34yUq4xgP1beqN8a6vc+uIXID5fVAZ9Pn5ps9WoXrOfVGaelLQQpzXqJVtq8EtFCDLdXwmCYc+58ZjQhMXVFEMgzcHZB17iOsXEWpAGd0+Maph6hbNhFAfUWUByRhHK9WWoHQ=
+	t=1759935564; cv=none; b=SYu/0feu3UfeGpAdhQVKPQKrJ/pJEA2B9edAhqzbYa+JPbqup6wTehV0dSxWLd0iAowrB5yYaMhhEGKhnub4LDqUaN0JBoVSWqlAE44v9vvus0bJONl9X8a1KRMqvRRXQ4kMy9VMRtfS22VmpJ9jlL6iyzCbMx8woF38PAbj+88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759935563; c=relaxed/simple;
-	bh=Hx17qSWRp1fFcUJSBFjYG1jxd6Sq0ql4kbs6bEAEg5s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=uhJoyusAFCkyXVeLsrMNNjyfTEFv6N4q6p5x0RETIgiPPqfGtuWZM1ccmix3nUlumSA5v9zBKCz5ddHCJtC3941WB7pyIRtTmkVCxa8tu4jGtsxCPRYR6FyRUsob98I/DTuNgVlgQ0KWRGuRCk+B7IULym8e0+dsoztHwN5EuEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=RRb6AZ1L; arc=none smtp.client-ip=209.85.128.42
+	s=arc-20240116; t=1759935564; c=relaxed/simple;
+	bh=6ZYLPKLHc7VpLEumGPaAhXkJsYOrsFaOrvVWDmSnTXU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dF9HuvhMi1TcaQcpG+ejPXGwJS0e/JIbQpB6gQXBBFjEKcQhAkeKNogiUUZIbpnkLRqlLXqLJHLP2ag9aPDYvW0KxkprJi25zLC4zdOGgMC6OgbALEL6SRCjbHHhZTvvNVxRAHL9CgzxDfiqDx1AZCUeGi0mGUUoxU2T0puEPUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SYKp9OQK; arc=none smtp.client-ip=209.85.221.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="RRb6AZ1L"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-46e47cca387so79135345e9.3
-        for <virtio-comment@lists.linux.dev>; Wed, 08 Oct 2025 07:59:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SYKp9OQK"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-3c68ac7e18aso7419f8f.2
+        for <virtio-comment@lists.linux.dev>; Wed, 08 Oct 2025 07:59:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google; t=1759935560; x=1760540360; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=0LinBB0Ez/wbDOWrOvWylBwNtaMi2FygR8BagNkfl/A=;
-        b=RRb6AZ1Li3zKHz9bmhVUu23CALaHIPnpTpB0IMt0CmPUhwWp2d83b+r8Aavw0BLmTN
-         C78iDbgtDuwqPgNXaRQfbYncvgjIHSEVYwSpqlwDjy43GV1gmVTsz0rhEA/ZpFIwRT4r
-         mcmlW1AYobIlrIKsuQuFoD+gmS8W15dFyFnQc/xPg1WDRFbuvtGo8Da9M0csSWnX19qp
-         TCe7mA0zQXXOtZH6UxwTi3HgGo2oqM4PMTdb5Wz3k1AJ1/DP5Jw1KqEZcHv90tX/em1g
-         a5cmhlFcmiXCGRz4ZG/6TOo1aGz82c/So0PvOcQ1hcup/DMPT9KSN2tk4HpPxADfJieO
-         YKxQ==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1i2cVjzri8K68RVmUq+Ppc0dhb+EYQNM7bS2UjZ21+o=;
+        b=SYKp9OQKOX1pBjtF7VndZ1Nzf5X7eTfVzrh3zSNQoKGTPtFPRdEdgghWBnDTWYAvph
+         gsVcW7/2T4jML95jiQfj2UWfVb0lT0yciWX/uyVMzuniBj1ngVuV8LjIcm1oIEUBzC5K
+         TSeHFYmXjxoJi58s4Qn1oBfGxTsLwiZP8Bb80PEa3/LumV6GxbU+s6GTeee33jdUEVI5
+         GPUKeuFwKk/C28V8LIedfqULbcFlC8hVazVUWQG7UH43Fq0h/ZjrF6pLXbzPimMRHS5j
+         qFHcwdDF4Ks3OxH7XerP+pOHQoOQVYjj8Ag13drofgzgIE1EFWdU1MATeKDDGK5+K+E9
+         NXPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1759935560; x=1760540360;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0LinBB0Ez/wbDOWrOvWylBwNtaMi2FygR8BagNkfl/A=;
-        b=bSma/1T6H2+PgJRDwdqtJfPsD8D2Wj/Jy3Z2tj7maulJKtwlhjCe85g6dAb6yoOnpe
-         JiV6Pm0LBUMTxMDbBRWTjY4b9B9t4bPH6XwEMzSLBD4BF//sKYcf8pQPG4Ppwh38IuPC
-         hTBK7kSI6qhDRvrMllWIiIMGlfdci/lCGOETxOHHss4okaDMlgcdFKzqRpSO7jBFKQUA
-         Bi3xJ93DwoyFcmAoVdt9+UGg4N8iEsdgCMIFF3XVxo/Y+YhiIL+JKgniV+9P9goA436a
-         O6A7oVQ6Vj1JVUIItuwRwaBf42iMptTUIaCc0O2zGn+N6cqT9v94G3+vw+AduENWYd+d
-         l3sw==
-X-Gm-Message-State: AOJu0YyMZhbYpqPLWU97fbE/0x4sVYqoxbhXq2Xvy1OmH7cNrjHVq0B5
-	daAIwJ/4wfpZYXdQmhZwtXe7aTgpbPizp95FrrsM54AeIG8ZYH3kwfSnwlDDOAiunOXNqJpQ5Cz
-	pCmPu
-X-Gm-Gg: ASbGnct7NrotsdR/MAAPSeSeQMJSwDC9A7U1Vwaz/IEjmQU7laCmFrkBZb0O2MA+Knz
-	HXCkJ7E7R0FYH5PLbV+RrbwnXxgho6GgUVbzEAPFKRAXs+rLZh4T0u87OIDfhNZDx/Lv61a1E1X
-	k8vE4q+os1yZl/UJYZ3l1u0iQ2wm/qWEOQXHexB6vV9vAmw8uRqlfeAoJP5dSN3dcxNlcmcIBpi
-	zJqOOG/bX2JnrO1mmgaYpj79mfKEdtTqoN/LQ5gYQ0znbRgP6qPf5uHoQ1QnKxomC5Psxwy5spA
-	vnH2GGBeAmbDj10hrAC9+iUiLDBoDcmqxhKg6A+ta6e4fMkouXreLB6O5c09N4YJC+N0qeNOcJ6
-	waP+fZzrIChdl0mznGlAqUWW+CafFHmPup0vavdKA3Gr7cF5gT8o=
-X-Google-Smtp-Source: AGHT+IEe3ysMFOgKI9zA0zNS/HaBQgxA0pFToAnVjW1NP7qTDbZFDgL1kbP0GTLnuTTic+4f1Kk7Cg==
-X-Received: by 2002:a05:600c:3e08:b0:45f:2bc1:22d0 with SMTP id 5b1f17b1804b1-46fa9b144b2mr25348035e9.33.1759935559633;
-        Wed, 08 Oct 2025 07:59:19 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=1i2cVjzri8K68RVmUq+Ppc0dhb+EYQNM7bS2UjZ21+o=;
+        b=G7LqURDgurqci6v5+vJPK++Wy6tOVztPDljEqPw5HRZyRT/ZZTm8QPwmnd4M34nsft
+         qUoQBw+t/RE9uNM4874XrNjKgI08OTrrR+Fx8cffhPaqXmIFxLPWNPTHciouCdWvdw6Z
+         JYftKDI5WpKZAZzjc+F8uYHBh/Cy8zD3oXkWyia2Ym8HcbdMhIrCxMlb2itbREERPGNJ
+         e+qKCghTSn21fRUbzZuEoKhACjG3A5ALUHhEVx75iCbd9a4xLJhgmxAvTB3a1J0CRuh/
+         6vmpHY6YYuYkZZbyC5v2L0Z5HKE6vTyz09qUv6Ha4Q+8SXFNT0pYNcvNqk3W3KCfIFFP
+         22pg==
+X-Gm-Message-State: AOJu0Yxd3iZOgjR8fvTm5VfSGVdWGXGzOSHppd9MU7kaBIVvp1sBai8U
+	qI26KO2qnYoQcNEZ5sCGRPPNE8r9Neq4/+w2eh209H0gi/RCKMQiHA4ZIeiZnx8acII=
+X-Gm-Gg: ASbGncv/4avhUMA4qakCAKp+qtAsbRDqXVxs5fchZokOFS1YwL+u0gHPB6obBpOwu68
+	L80yggOnJ3KGzGDo4DxclMZuPTX2LVQpcG5aJq8ibpTYe2AjxP/mSL7XKP3sP9TVxv2vSo4Tffn
+	2O4R4rnz5Mk+1k9HtwjU7EHnWTHstxBJzr3jgwlKsCrKhpQ0LpCkUJfr8npSBGPfpqMKijHg8P0
+	/W5X3GMcij4NMnk+pXrNWnwE7Ods+bKjnMub4zmr8+kuqkiGpb2x2cpTSS71cQIoJ5Rn/BIoaoV
+	v3hpSNrkRDkiPrXwjncpPICyVfSHzLbAll+MNvD4+zoLCOt1qiFeQZTnzVI6y2JGLQDZqbFsYCM
+	iosrDAeM/If+QGoKCPNKVAb/CRM5+If8WZHeafUkUKjATMptPkhxBHWnJkfR/Bw==
+X-Google-Smtp-Source: AGHT+IEdHxNreuw2515l05JI8vcIeQBTGzOn7mqnotgOY7BDdWaGCKHvFQBFet5UYT9Xd/BUQrdyhg==
+X-Received: by 2002:a05:6000:2910:b0:3d1:c2cf:da07 with SMTP id ffacd0b85a97d-42666ac48bamr2435894f8f.4.1759935560477;
+        Wed, 08 Oct 2025 07:59:20 -0700 (PDT)
 Received: from draig.lan ([185.126.160.19])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-46faf185c7esm2907565e9.19.2025.10.08.07.59.17
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4255d8a6bb2sm29522875f8f.10.2025.10.08.07.59.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Oct 2025 07:59:18 -0700 (PDT)
+        Wed, 08 Oct 2025 07:59:17 -0700 (PDT)
 Received: from draig.lan (localhost [IPv6:::1])
-	by draig.lan (Postfix) with ESMTP id 09E825F83B;
+	by draig.lan (Postfix) with ESMTP id 3134F5FA1B;
 	Wed, 08 Oct 2025 15:59:17 +0100 (BST)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: virtio-comment@lists.linux.dev
 Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-Subject: [PATCH 0/9] QoL tweaks and github action
-Date: Wed,  8 Oct 2025 15:59:07 +0100
-Message-ID: <20251008145916.2626143-1-alex.bennee@linaro.org>
+Subject: [PATCH 3/9] .gitpublish: update base to current working branch
+Date: Wed,  8 Oct 2025 15:59:10 +0100
+Message-ID: <20251008145916.2626143-4-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251008145916.2626143-1-alex.bennee@linaro.org>
+References: <20251008145916.2626143-1-alex.bennee@linaro.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Some of these patches I've posted before. Along with general
-quality of life tweaks to the build scripts we also introduce a github
-workflow to build and publish the current working draft of the spec.
+The current working branch is virtio-1.4 so lets use that as our
+reference for gitpublish.
 
-I also fixed a build regression with htlatex which became apparent
-when I upgraded to Debian Trixie with a newer htlatex build.
+Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
+---
+ .gitpublish | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Alex.
-
-Alex Bennée (9):
-  LICENSE.md: convert html to proper MarkDown
-  REVISION: update to 1.4-wd01
-  .gitpublish: update base to current working branch
-  virtio-html.tex: sort package list
-  specvars.tex: properly wrap arguments to \urldef
-  virtio-html.cfg: implement workaround for htlatex regression
-  make-setup-generated: optionally add GIT metadata
-  Makefile: add some simple make automations
-  .github: add a runner to build the latest draft
-
- .github/workflows/deploy.yaml | 37 +++++++++++++++++++++++++++++++++++
- .github/workflows/test.yml    | 15 ++++++++++++++
- .gitpublish                   |  2 +-
- LICENSE.md                    |  9 ++++-----
- Makefile                      | 33 +++++++++++++++++++++++++++++++
- REVISION                      |  2 +-
- make-setup-generated.sh       | 32 ++++++++++++++++++++++++++----
- makeall.sh                    |  4 ++--
- makehtml.sh                   |  2 +-
- makepdf.sh                    |  2 +-
- specvars.tex                  | 14 ++++++-------
- virtio-html.cfg               |  3 ++-
- virtio-html.tex               | 30 ++++++++++++++--------------
- 13 files changed, 147 insertions(+), 38 deletions(-)
- create mode 100644 .github/workflows/deploy.yaml
- create mode 100644 .github/workflows/test.yml
- create mode 100644 Makefile
-
+diff --git a/.gitpublish b/.gitpublish
+index d412896..84414a7 100644
+--- a/.gitpublish
++++ b/.gitpublish
+@@ -1,3 +1,3 @@
+ [gitpublishprofile "default"]
+-base = master
++base = origin/virtio-1.4
+ to = virtio-comment@lists.linux.dev
 -- 
 2.47.3
 
