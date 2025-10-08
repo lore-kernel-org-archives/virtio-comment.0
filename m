@@ -1,72 +1,72 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 067362ED141
-	for <virtio-comment@lists.linux.dev>; Wed,  8 Oct 2025 14:59:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5ED2ECD20
+	for <virtio-comment@lists.linux.dev>; Wed,  8 Oct 2025 14:59:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759935565; cv=none; b=I6kbm4eP6N+iD103DEF694M3GHi0YSEQWN1ENnfig2F5JSXLVCiOLtWVrOHc71A5DnmqoIOJhOXwsukRslH/xN4Sz9WWpjcjm96D/FeM6rHCuf06kn2r4avHiLjl2dUVlQOlhzG1ctO/SYDi+laKcNZtBzF9y/SJUM1hF6wkyGw=
+	t=1759935566; cv=none; b=RdGeeLK3J4hXhESibkxB4v2Z4JAje5n0iuxvayxtrkSY6pksosDBEE7W1cjHKo9xGzBV5x6xAx293bxBSx7MSufC1TYlXHOb/j7eYAke1oCEeHx4aZ6rXTF18tXPmGQVZ8Yq3N6lgQte4AyDBFfNqGjLYJEyl5SvnX/GUkCh1Uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759935565; c=relaxed/simple;
-	bh=bqPf3jb67rvWZIQC6EPEHw09xi4ZBFXCcOQpR/nqXrk=;
+	s=arc-20240116; t=1759935566; c=relaxed/simple;
+	bh=Q317QFbw/7v881OiQZhclCCSwkysEUZGP0RLNC9Tj84=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FbeKrHxigbB3ZdioB/dUKqm8XB67E/yl6JoqZj68/IjR8e8/cTCCDi/2e9wwzmK0Exw72Agq+yjd9F0e3M2oKtAMLzroiKX1mm7RxG75PFRa12DikR5sC5aL5rIPgqj3Y2kwbCHuA4mW6Q1sSb7ZbYSkR4uCHbDCrwmMZo1at6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=f2XMsiSo; arc=none smtp.client-ip=209.85.221.53
+	 MIME-Version:Content-Type; b=MUwsFcaa6HGHP4JDzubWRGui9MTKDf3BxdFCEtiZeXdITDxUdjDpKGGW0tnn1dx5Kpz6viHCLygUJ0VqZzTJHpKgz+qtvxnzI3rUitRwAZr4Qjk/UsZyQoleW897XPYjOZzhXZ5e9P80S7djllNX7SHnLXPWb4Fl4tstkfsT/i4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IVovMWAC; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="f2XMsiSo"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-42420c7de22so10224f8f.1
-        for <virtio-comment@lists.linux.dev>; Wed, 08 Oct 2025 07:59:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IVovMWAC"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-46e42fa08e4so72289905e9.3
+        for <virtio-comment@lists.linux.dev>; Wed, 08 Oct 2025 07:59:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1759935562; x=1760540362; darn=lists.linux.dev;
+        d=linaro.org; s=google; t=1759935563; x=1760540363; darn=lists.linux.dev;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=A2k7e9gv/b6hFvP05blOwQ3zgGcrMeKiE4cNSWQrSZQ=;
-        b=f2XMsiSoG1K1esPPzsDtczeugMOw3vhoejkU7172D+oSLpS+odRkbHwKebR3txDS98
-         RwY9QsVikJpZ/IEvF27E8YBDmGuNkEqHp6s/9HxdNRYAZ1Q9qZfk482P2DPBgWfgvXUT
-         ke8Oie9Kefb4T08kTpJ00GoYtDI5DIlyabpQlY0ttg0lLL9gddW/wMGpx6fHRxA0XfjK
-         5n5LJZRrSYyL9nlweTz3vwvg29CZWd0NBbrmXufa8sJHppSZlQ9OIhSP1V54IPO174rb
-         ThQwjLz/1Hr/mnMYl2SEoJpFFDlvz9c2OBBV3NnnB35iryGBrGuyQwT9I9GChT3ZVhGE
-         0wxg==
+        bh=7mdimeyVK+niEb2MnCDciM9iG8JsqXibgXmc2U/JQDU=;
+        b=IVovMWACxk4ootjPNaxKU/ri392CwXHsRkQW/dd261BPo2mNg1fhu3Lr5aWFOR8QZK
+         SOcXbqKBaZd92ZeZNDDoXaAWtt6owtcUj7ydcff9kK2+f2e13WEUvIiuc2wMmwnDPUIq
+         cI3oxTucj0Psjk2Mn23h6B282tS5TQW88pqXSe/a6tHpMUc2eboYEfUEj2cwKrrfp0RB
+         5SnlazBCTk+ePaLWbdCLVAKmHYsyXKEJVUTX9e0papvfd7OQv3TOZUzE/EcnHYKRD2l1
+         h9V9dlr0g6IBrxhLyk3JxOHHRnLerCntqjDqsf6ixl9jPU9KkCADm6DXgSoWyz16c/p9
+         mB1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759935562; x=1760540362;
+        d=1e100.net; s=20230601; t=1759935563; x=1760540363;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=A2k7e9gv/b6hFvP05blOwQ3zgGcrMeKiE4cNSWQrSZQ=;
-        b=WoEau602fi10s/hNjDCC24KqXNV97cpAaL0yhsFP/FhMdF84jPRggKWq63zpCRasQ1
-         01Vy+UlDw48tk3GLarNcZVwcrAxYdJNvDIkHJ5PNVuM6TQB3VjN8rsaiNHrrrIbaJFkM
-         bnyXtdFBpOsEFtaAbD+t0GlvAX4nzb1GW87VOhInflnOeDSummBwVDQsXqniQusDSRpn
-         lqKHjWjMcIq9VlH59gJ4I6/wQaJWJJn1wDVnEN1oBz05/ABVcPhfTN11fRW3zxFNjT85
-         NfwHsQ7foo+NtjqbUYouRshHQQS5NbZeyzhaNx1HD9aHJQuecHGLNHzamrOtt61ek0FC
-         GIAw==
-X-Gm-Message-State: AOJu0Yzw71TqKxSz/bR1IGO5xqlEmJ650Krdli+rPsnfH//CFzabaZ19
-	+CMbOaS0amwwS2Q6cEnWQ/iIj5GhvfeGULN5U53PwjIWfle6PRbVcZEZvGPuiijAFdpMxvsEw5+
-	tXh3/
-X-Gm-Gg: ASbGncvcV3sYgcydJs6gEvOyhqvEntW0/N68uos4gl9U1MFAUVvUNC5O74Bdvv6U/et
-	cr/IpDLb8IlpeuzWvU1z8oD8x8wmfzZgCWcs6hYYV7uxevwBIZ02FkZV9XYyOF94h4ZzXSierkL
-	UlKt0XIDZOOlouuEdqXMJv+dZj1kF7tpPZKnKFHeBFpsRCZcMZHI22ZdZv/E3n0MqsnlMl3huEw
-	BU0h9GD1mCfJrVYq24YbrIWEdrbasqukMhlo2wcEPfBAhXRsXD5+9wlcfF8DiMlrFdlu7X2Da7Y
-	bKuU+m32bsjnwSFHW7xFTI1p+zJ+cek4QZ4IWzyrjF1n2MJGBh4e20eGcCCitma21o7VEWGe9VY
-	k5Tm+3sxhVVw1fe1QFmfWrJ3Yd2Z2CIZnTE5ZgJUdR7318VQ4sps=
-X-Google-Smtp-Source: AGHT+IFWnPPkmU37gcw58K2Bh7jdqZCi0/wIyajIJZqUd85IyGFZgoNazpIaNI6C55T+2hjghsg+0Q==
-X-Received: by 2002:a05:6000:2c0d:b0:3e9:9282:cfdf with SMTP id ffacd0b85a97d-4266e8d777bmr2443641f8f.41.1759935562204;
+        bh=7mdimeyVK+niEb2MnCDciM9iG8JsqXibgXmc2U/JQDU=;
+        b=HfcuArz7bN9Dl6tSsdB6GENfyE2aRofIUqsxIqF+JP5FGDYiatBLXUC2FSliLPbNbR
+         bFlFHuACJtl1Zz8QKl57wvBEptKoMQZeFNZez2uwcKQnT/kn5Kie3bCDhMN6JKCbnWBE
+         LD0FUhCRNSgvuPaRQR7F/t0L82g2DnY84oeLkVR8H/JCmB6UnfX7BZAOaOX3fFfLI1X5
+         X2CfjWrwAjg07/h4CVA7sskrsXi/Tzv6P4PACxhjEPbumyvry6MsO9przedRI4TIZRKp
+         pNyQKwOatvkmXHtRafqt3i7anlFsRBAv9tclmGu7tYt8q5cvzuOEQeCdx0/VXXJAIMNh
+         8gLA==
+X-Gm-Message-State: AOJu0YyNEqXs75ArGpduZSI+wX6Q0gue8XrvIhg6O4VnH+4XsgWBgcr2
+	TXE+qROfh67IpxKrnCHrlxZdROTKhvQAB2uD7EQdnHSONeErxGQ9LNZ0J1R5uzPMqPm7+3SfXfh
+	n3PT0
+X-Gm-Gg: ASbGncsrmLjHriFKwkdp/zH1mRFeWMl+cIxMXK/e2NzslfJejxWUWMaLQniY3NtRRgn
+	ZnwL70x1zYfPArWWN2Isx1Wi3adEjyKi97nvWP+10/tSu0urpMwqPjDqcsKT7ksmygkINsZ5FDr
+	TuUi1CCPuccFSJ3OGWmSwSLst1UTlWL/tGlAjwnTQ+cyuBS+EbMcLXr5t9TNDe1HmNdjtyfeIsp
+	waNthykpFXX20b/aTS0PGQAe08mF1UuvxyFFlhJR3dN0EkepU4ESz22h4sx88gxTgmDgT1FNnYA
+	aErH0slcbgtWlDtm/x8W/wCEhDfBLjq6ATC0X+n2B+ihhzwsQUZjPfkJCMFLVl1thjeA9VTuoVq
+	tsT3WeAVvl/EjusO08Bne2/Ucbrf6AwZR9rghV+IFF3vdq2mDX1I=
+X-Google-Smtp-Source: AGHT+IE2SNMvwtFdfAJE2HtgCke4OKeEe4otYnqzCH9KhCsHWzU7DnoaVnVAQOSLjyuyxD6OKFTuKQ==
+X-Received: by 2002:a5d:5c8a:0:b0:3e0:2a95:dc90 with SMTP id ffacd0b85a97d-4266e7e1438mr2496098f8f.35.1759935562768;
         Wed, 08 Oct 2025 07:59:22 -0700 (PDT)
 Received: from draig.lan ([185.126.160.19])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-46faf10563dsm3374855e9.3.2025.10.08.07.59.17
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4255d8a6bbesm30150525f8f.12.2025.10.08.07.59.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Oct 2025 07:59:18 -0700 (PDT)
+        Wed, 08 Oct 2025 07:59:22 -0700 (PDT)
 Received: from draig.lan (localhost [IPv6:::1])
-	by draig.lan (Postfix) with ESMTP id 3FC305FA2E;
+	by draig.lan (Postfix) with ESMTP id 5A2895FA53;
 	Wed, 08 Oct 2025 15:59:17 +0100 (BST)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: virtio-comment@lists.linux.dev
 Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-Subject: [PATCH 4/9] virtio-html.tex: sort package list
-Date: Wed,  8 Oct 2025 15:59:11 +0100
-Message-ID: <20251008145916.2626143-5-alex.bennee@linaro.org>
+Subject: [PATCH 6/9] virtio-html.cfg: implement workaround for htlatex regression
+Date: Wed,  8 Oct 2025 15:59:13 +0100
+Message-ID: <20251008145916.2626143-7-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251008145916.2626143-1-alex.bennee@linaro.org>
 References: <20251008145916.2626143-1-alex.bennee@linaro.org>
@@ -79,67 +79,32 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This will make auditing and adding new packages easier.
+A regression in htlatex broke the building of html in new Debian
+Trixie systems. The bug has been reported upstream:
+
+  https://tug.org/pipermail/tex4ht/2025q4/003774.html
+
+and the following change is a suggested workaround until the eventual
+fix is reaches the texlive (and by implication distro) repos:
+
+  https://svn.gnu.org.ua/viewvc/tex4ht/trunk/lit/tex4ht-html4.tex?r1=1750&r2=1749&pathrev=1750
 
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
 ---
- virtio-html.tex | 30 +++++++++++++++---------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+ virtio-html.cfg | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/virtio-html.tex b/virtio-html.tex
-index 48c633d..a43017a 100644
---- a/virtio-html.tex
-+++ b/virtio-html.tex
-@@ -5,34 +5,34 @@
- 
- \documentclass[10pt,titlepage]{report}
- 
--\usepackage{parskip}
--\usepackage{setspace}
-+\usepackage[T1]{fontenc}
- \usepackage[english]{babel}
- \usepackage{ae,aecompl} 
--\usepackage[T1]{fontenc}
--\usepackage{graphicx}
-+\usepackage{array}
-+\usepackage{chngcntr}
-+\usepackage{courier}
-+\usepackage{enumitem}
-+\usepackage{fancyhdr}
-+\usepackage{fancyvrb}
- \usepackage{framed}
-+\usepackage{graphicx}
- \usepackage{hyperref}
-+\usepackage{lastpage}
- \usepackage{lineno} 
- \usepackage{listings}
--\usepackage{courier}
--\usepackage{fancyvrb}
--\usepackage{array}
- \usepackage{longtable}
-+\usepackage{mdwlist}
- \usepackage{multirow}
-+\usepackage{parskip}
- \usepackage{rotating}
--\usepackage{fancyhdr}
--\usepackage{lastpage}
--\usepackage{xcolor}
-+\usepackage{setspace}
-+\usepackage{tabularx}
- \usepackage{titlesec}
--\usepackage{mdwlist}
-+\usepackage{underscore}
- \usepackage{url}
-+\usepackage{xcolor}
- \usepackage{xifthen}
--\usepackage{tabularx}
--\usepackage{underscore}
- \usepackage{xstring}
--\usepackage{enumitem}
--\usepackage{chngcntr}
- \counterwithout{footnote}{chapter}
- 
- \usepackage[utf8x]{inputenc}
+diff --git a/virtio-html.cfg b/virtio-html.cfg
+index c5b9a94..63bf9af 100644
+--- a/virtio-html.cfg
++++ b/virtio-html.cfg
+@@ -1,4 +1,5 @@
+-\Preamble{html} 
++\Preamble{html}
++\expandafter\providecommand\csname hline:color\endcsname{000}
+ \begin{document}
+ 	\ConfigureMark{chapter}{\HCode{<hr><span class="titlemark">}\thechapter\HCode{</span>}}
+ 	\ConfigureMark{paragraph}{\HCode{<span class="titlemark">}\theparagraph\HCode{</span>}}
 -- 
 2.47.3
 
