@@ -1,102 +1,133 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A334B54654
-	for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 11:20:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0531213A265
+	for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 11:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760095216; cv=none; b=TEPBvaQM2hHc2JMBxCSkSHaD0/GLZUtk8qMbMHzq+OSLdmTDMTUOmEQ//dn84QX/U8HBjylIX1iiV8luIf2Lw9718Eu98tYA8A16NqoBvFVKmJmrW0I1rksxbmf/yF4pIIOtcULxppPL+KzgmQn/46tPNywJ//yKG0T4DSPOPo8=
+	t=1760095217; cv=none; b=bk6/5j/73tjGsdvSt8R85XtsdHU+MkvU5EbVIraBOK2kcNLRhwAMhj+rhsCZYwbcC8per0sPM4y6+Tg2mVdj/MolJ1GlmMcWsLvcT4D54kp1Htnpa4NP78y4aLABJ6xwc/nqSDNadk4OoiuPHjYf0rb82w5mOu2Il8UMK5lTv0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760095216; c=relaxed/simple;
-	bh=M6zQlWF/Yuxz0gvY4Yeg6XV8O+yzA86I2PuzOgwPkdE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=by2dVWA9tLTMpR6hajV3XDojyxB5quwCVSqrMKcurBqu1XKHQUYlKXMcgrOWxr5j7cNNjbjpp62Jml0r7ozdDRDTDpLeBU7Srb/wrj7tmXa+jKO0QMoaYroG2mbH7fq0dYlrWYMmh2HHZhbihnwiDvurppBXpmkfuRMEzLCUK1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QKUAV8Xi; arc=none smtp.client-ip=209.85.218.49
+	s=arc-20240116; t=1760095217; c=relaxed/simple;
+	bh=/xeLRDd83IJMFV15qf/OpQVHjvtT7MCaFa0BduYEBWI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=KOmukYKhHqWYoxuBNXcOib+0eiISg9Xzj++hYYrrvCbMyGzINDWZzBNiJ+r12k1IBnqxWkVI8NfXsdWsLZe4rSYumL+SzCiHeZTKIMAud3imUeIqRsos8aVC18Np182H+Qf7QhQelUKEc7zVxfvAk4EqXg1h3btwX37YpGlX8j0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=scNN/2fq; arc=none smtp.client-ip=209.85.208.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QKUAV8Xi"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-b3ee18913c0so305557066b.3
-        for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 04:20:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="scNN/2fq"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-62fc89cd68bso3904364a12.0
+        for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 04:20:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1760095213; x=1760700013; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WvxEIhMaSOM6dkGLfp1OP6jMfdEbmdhdtDs+2MwElaI=;
-        b=QKUAV8XiwsRaSDPWexkr2TbHAHCnkjlY0gc5eFYB1kLiC7qz8lOr25gSqz8pI7zeiR
-         1d8CXU1h+0Lu1XJ3FMvoAxzIwYQ9pxAFDDsAXBCebqSmVP/1VnLdIFqUMLSh3N5dTCpZ
-         bolEa95bJRK22/7IO7TXScuDPtGswZLYQzQn+BULkrmI/jUkNorNQB6awTkpf70U87Yu
-         e3Wtm5N4mYb/pstfOjfgSeWSNhW9CH8KSWrdAnIDfUdbSkiZTSxs4/s4dMBFQ/0kT+mj
-         PF6HxCgtzTHdEJEJ0q/nymmkK7t3L/T2a8EtlFA0vli30ZEhYvz49hLjqP0RAUg740o7
-         Moxw==
+        d=linaro.org; s=google; t=1760095212; x=1760700012; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=vrL6uJ5s31mkdEkKN2rVhe02uDchwCdsaj39RLJnfOA=;
+        b=scNN/2fqkiWT8wB8V2G5m5WE09V7+1NxTHYGCb3Os1wdbm3Aa7VAAd1VeQ1LOkB7GE
+         yD+dpHCCW+fxlf/0Z5pzy8kktVYhxTLeNO1uRqE92QfF9k4cWPM6q2Vdxlg/SsimPOKf
+         s5ll/wvzsDYm9EK6Ns3lZPEh3pKUANPbhgAklwhqZPCh0gt30V+pX4eEHDqmFWaxx7Kf
+         JcTt1ytBS4PuflLoQ5h6xXVPzAxUFwPYF0poQpzrl+IKVHKZJSFCjNXiWaJKxAX/Uw4s
+         3+IegT1ntQ6dDnyggoQ92oGsaQa6OwmfV4s69hTg43cBR3OuXxYI6I1gY1DEHHyoX1kb
+         DyOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760095213; x=1760700013;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=WvxEIhMaSOM6dkGLfp1OP6jMfdEbmdhdtDs+2MwElaI=;
-        b=jDNjzjNWVGPdodXFJ75HkpVAG+IOmMWPun73iOUnSIcK31gIT9X1Ey1bA09sAhp6Oz
-         A7rz1tqfUfDUX5uDrAgmEeT3k01v8zIoSt7KuTn7F+TXyt50kT33LPksfWbZC/eNtkM1
-         c062uLY8SZRfEwCes38+BDzckYSk70hMckQgXGzbuc42nVNc33pfLqHEUmRe/M7VQRXQ
-         of61bWP0YwDCGuAH9hU0xF3Yl9uUKsypkZeJbfgMKijSEnYzspH9iy3dS9HxpJ2Ixya/
-         iwfQjLxAlgd0OMCWR+43aICcZbhvsVjL7g+E6m7FaGcT+GCCtHOmFWDZlWUfIoSQakfQ
-         cTjg==
-X-Gm-Message-State: AOJu0YxqImpfh+9ahKEDf+lfB6Ri4Pi+W/694q3LSo0ybPeoiv+EvBSy
-	um2FDy2+Cs2iD5S16RO841kwVtwuIIsfG040cjEA4ObwwyulvcQl8OFNmLqqylnOYQU=
-X-Gm-Gg: ASbGnctmJXMiNLr92SUWuK05xT1Df7nCogd+07jaEHNI+IK5IPG8DnBQ+7es+0iOX26
-	4+wrZFgwTwyazdBCeL80O34nwnkSdN9i4I1TIQk0Knugxa31WnPhdD+nzeLiNEoH0QD6trqW3E5
-	5jbnInaE90igWQ6tHNx+pyjM9NIQL8fnWibxDiCb0py/HD8jNSGePwQbEP6bL+M6q/wynZPH3kf
-	ia8zCzHFL5npUaI9AwcM6kGXpnsjy/0srPi92fvblvgoqmPHwQIaCE/HVrsgr3lB3/N3YiLmpmi
-	JFlVOA6grsZctr3zBFmP/Ej+ueK3XuWXGp1A1HGO1RLvJchx9GrErnkwxorKg1W00w89XZZP5N2
-	/wVJsT/o6K2vqGUUu4GyjL9XRo0z8Uq78tlKKRRbpT9JIbEgCebmYp7CI
-X-Google-Smtp-Source: AGHT+IGO5fSXVxeK6M1qB1OqrHa+22WAi86Pwzg94L1DDCyBybo73ak8PXFTG4MCLBNbrOBCivLqYQ==
-X-Received: by 2002:a17:907:948f:b0:b07:c90a:8ade with SMTP id a640c23a62f3a-b50aa08f896mr1218591566b.20.1760095212896;
+        d=1e100.net; s=20230601; t=1760095212; x=1760700012;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vrL6uJ5s31mkdEkKN2rVhe02uDchwCdsaj39RLJnfOA=;
+        b=hAqJnqOsgpkSBaj1hiNFBYalWoZCNbsncB15oIa6gwFvPhbLie6v3Vur7DWkzyuSsz
+         oyIhBie+blSBj5vxOw3liygXFVBZCnL3smaML8aJwuVmkrvkeP//slCt2aJ7ZY0vGOjN
+         njE8v0tBPSsFn7dKYKymMcO6n1fFltKA0eePOt1Dmolglq5YAcufufkGbmP1R6Ink0bH
+         VGjUbfNalAW+Hb3+C58+2B5q1vWh8uUaaRBvhqfwHRNquptyGTHo+vqKy6hRE1bmTElz
+         fZD0zM2fFxYh10n70Zfy3pup43AoxFHOzGWP9Qo5oDjEg2q7IHltBxXcl6qaRZzQ4CEw
+         3rjA==
+X-Gm-Message-State: AOJu0YxQ7SYiss7xl7TN6zK1wOWbldH8/DMbtfqQ5lCAVT8SGbsaeCkG
+	XrCeiRbzdtJocBRhol5VYBXNh5qcpeYRAlGCYfbennEyBh/v8WEexE6vcLHloZcwDkI=
+X-Gm-Gg: ASbGncul0ySaEwMQwf9uefST7mACm3S6M3YWrdnYr0H/dcehYS5j+STs5hiRHC/3bvf
+	iHVdZs8SDCjRU4G0NZME4g98jdDgycBbNXoR4QxgubCU4OZ+d/GPO0u0+xwc20ZUfrKfE9+Huz/
+	zZornPi1+p4FBnPBw8TsO601xbULq2Z19UYHBrJQtK8dkphZrVpUfQpWFTIEcA/71K+3bPlZV84
+	inYzGrBowg6g12NnHuuP7Tr+8LKk9vNCX+Q61OIxFmNridCNmjidIdStxWp/ckTdO0O48Gc55aE
+	1yMV0SQ0+STI1UhGf38ggIyuCh8CDzaIoKkmD00WJEBiH5mjh14xlINJN92cItJYGxJT4BjDvig
+	P0S4JmiasIYAWa/pqAv8b6oe4frGFhPnge6bQ8n+NCM19NATg/whs3mlc
+X-Google-Smtp-Source: AGHT+IFMrfjpsUOzrL32NdZKOU3D88JMb+OG7nvIbC2kuprNwD/FP0ktmf8dES2ESx93JSjppdvdaA==
+X-Received: by 2002:a05:6402:2747:b0:634:a8fb:b91d with SMTP id 4fb4d7f45d1cf-639d5978f36mr10569803a12.0.1760095212185;
         Fri, 10 Oct 2025 04:20:12 -0700 (PDT)
 Received: from draig.lan ([185.126.160.19])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b55d65d6d74sm208820966b.29.2025.10.10.04.20.11
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-63a52b71503sm2043021a12.27.2025.10.10.04.20.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Fri, 10 Oct 2025 04:20:11 -0700 (PDT)
 Received: from draig.lan (localhost [IPv6:::1])
-	by draig.lan (Postfix) with ESMTP id B43ED5FA42;
+	by draig.lan (Postfix) with ESMTP id 8BE835F7F6;
 	Fri, 10 Oct 2025 12:20:10 +0100 (BST)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: virtio-comment@lists.linux.dev
-Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Parav Pandit <parav@nvidia.com>
-Subject: [PATCH v2 03/10] REVISION: update to 1.4-wd01
-Date: Fri, 10 Oct 2025 12:20:03 +0100
-Message-ID: <20251010112010.3880438-4-alex.bennee@linaro.org>
+Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+Subject: [PATCH v2 00/10] QoL tweaks and github action
+Date: Fri, 10 Oct 2025 12:20:00 +0100
+Message-ID: <20251010112010.3880438-1-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20251010112010.3880438-1-alex.bennee@linaro.org>
-References: <20251010112010.3880438-1-alex.bennee@linaro.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-The state of the repo is currently working on the 1.4 specification so
-anything we generate should reflect that. It will be updated again on
-the official release.
+Some of these patches I've posted before. Along with general
+quality of life tweaks to the build scripts we also introduce a github
+workflow to build and publish the current working draft of the spec.
 
-Reviewed-by: Parav Pandit <parav@nvidia.com>
-Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-Message-ID: <20251008145916.2626143-3-alex.bennee@linaro.org>
----
- REVISION | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I also fixed a build regression with htlatex which became apparent
+when I upgraded to Debian Trixie with a newer htlatex build.
 
-diff --git a/REVISION b/REVISION
-index ba56baf..e3c043e 100644
---- a/REVISION
-+++ b/REVISION
-@@ -1 +1 @@
--virtio-v1.3-csd01
-+virtio-v1.4-wd01
+v2
+
+  - added README.md cleanup
+  - applied r-b tags
+
+The following still need review:
+
+  .github: add a runner to build the latest draft
+  make-setup-generated: optionally add GIT metadata
+  virtio-html.cfg: implement workaround for htlatex regression
+  specvars.tex: properly wrap arguments to \urldef
+  README.md: convert embedded html to proper MarkDown
+  LICENSE.md: convert html to proper MarkDown
+
+Alex.
+
+Alex Bennée (10):
+  LICENSE.md: convert html to proper MarkDown
+  README.md: convert embedded html to proper MarkDown
+  REVISION: update to 1.4-wd01
+  .gitpublish: update base to current working branch
+  virtio-html.tex: sort package list
+  specvars.tex: properly wrap arguments to \urldef
+  virtio-html.cfg: implement workaround for htlatex regression
+  make-setup-generated: optionally add GIT metadata
+  Makefile: add some simple make automations
+  .github: add a runner to build the latest draft
+
+ .github/workflows/deploy.yaml |  37 ++++
+ .github/workflows/test.yml    |  15 ++
+ .gitpublish                   |   2 +-
+ LICENSE.md                    |   8 +-
+ Makefile                      |  33 +++
+ README.md                     | 387 +++++++++++++---------------------
+ REVISION                      |   2 +-
+ make-setup-generated.sh       |  32 ++-
+ makeall.sh                    |   4 +-
+ makehtml.sh                   |   2 +-
+ makepdf.sh                    |   2 +-
+ specvars.tex                  |  14 +-
+ virtio-html.cfg               |   3 +-
+ virtio-html.tex               |  30 +--
+ 14 files changed, 298 insertions(+), 273 deletions(-)
+ create mode 100644 .github/workflows/deploy.yaml
+ create mode 100644 .github/workflows/test.yml
+ create mode 100644 Makefile
+
 -- 
 2.47.3
 
