@@ -1,73 +1,72 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F44284B4C
-	for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 11:20:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612F6280A5A
+	for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 11:20:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760095219; cv=none; b=SCD5DkoGfBOhIKHCp6pJxE1BiABOH37EYDAABxUxDR7KbVvH/fNG0TfASJ1TizJ0pnd/ebo9EAx54YzQsQCwMXr3buA6svWeF3zuTi8Vxe+nwCXKTIdFNYq7gGPO6GREpI4oACqNVzMWbwU0Yw473N1SZqucY/tpOBs7DPTbQek=
+	t=1760095220; cv=none; b=n6qkhnyQf/EPTVXFlNBn7NRGX6eLNUMJJTDVRCKt1UALgSCJyQPCTMTwzfZuGIU2UnmP79021/vFuENtAsuGAFBl+09spD1mdXfEFR+w+1osSW8YVTHkWze4Mj8mYT/ibrFN0Eq0XIcSXiJWsbK1k6fkJajM6xlVf5/YQx87Qmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760095219; c=relaxed/simple;
-	bh=ppxL2CkoS4cJ9pIEQTG3v0jZpyKiaNn+zV0hMjCsnkg=;
+	s=arc-20240116; t=1760095220; c=relaxed/simple;
+	bh=dg+F6eGmv2/xJgCdVZdB+Wnyr3tN05PfG+W2eSJsIow=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DdQBMLukokaZXsp0dSchAXqgXpU+iMa3DAFjpyBsr6xBpDa2XzRaoIa+Q4viDGPrCtp9ksY/j6/KQU8UcqR6bQsKw6qH9Kk8GJvs1LEfBsbExnPlNFGQIJBBcIR3wKdtOvgiXtfwVhgTIwNWRkxjKVgJn90WDl1JdSi7HfW1XSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=c7/uPErZ; arc=none smtp.client-ip=209.85.208.49
+	 MIME-Version:Content-Type; b=TJTM7upCJ3/bAYxHijUTculjemiM+uht7NCcn1nPdfIORzcajpXh1nY7dbg+mJwZIBSLiJrqT5vYeJ4yzzSN9IhREcgM0BAUvQvXLzRP7An2TR7CNArNNhyRB6xzfaGZwIKoV3TUtM686xa2TDJzp+NhbR0MG6LTZdlk/n63CaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ORUIfZV+; arc=none smtp.client-ip=209.85.218.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="c7/uPErZ"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-63994113841so3341705a12.3
-        for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 04:20:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ORUIfZV+"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-b3e234fcd4bso335815166b.3
+        for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 04:20:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1760095216; x=1760700016; darn=lists.linux.dev;
+        d=linaro.org; s=google; t=1760095215; x=1760700015; darn=lists.linux.dev;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=V+uVu0uTaDUz5PEpqS6iVo6Ox+wZvrg7dQgJZQEZ2Dk=;
-        b=c7/uPErZZE/Ng+6p4X00C4ZqAdtgQ68ulRWlqxUNmizHjSRYIsft3kHd1+Blp13MID
-         tO8GJldQCKFE75tF9ypm97vx0QvfwBW0aLupq5vpwdUaGAeCfjVDRsb1q6gBIAf1XzEL
-         zarP6Bm3EHkRgCVV21Hyj6HapKqzTxcv4B/ezpuP3D6fW6lrwJtzT0IsCVjPEnsSmBCD
-         RtRC3yieMZY3oRoFLsaJH3lwsWh80+d+clALUln9uppxi7hCVNwy4nxdF9MaiEVJEWfI
-         gPQ7IlPJRi12tXTfFsjOaVxcEAce4MHNkqNPbdUQg7scDq9Jv/gnrG38XYRxTUTbU2yd
-         sq2g==
+        bh=mVE8IOtVkKAYsK0IOYATKoS+TTBzNKPkyHhALqFS4Bg=;
+        b=ORUIfZV+TQYIGXeiqnS94s5NnJhpWw3iRJNWH4TcKpBBmlajW+ByuebumMP6tO65ZI
+         0BqDTr88U+7enhX4xQVZ7GRsB368iSYOerbRT8pbVlM5TmS5lWR3zbwnXnCQjI+di2es
+         MsFEHqac7hEJw/E1LSWWzVLhmxyz+3RJryT0oS3XSjXfJFhy2Ffo6W7/4TL7hXh0tAn3
+         9G645bTwSGIRm2v0bu1RmSPybFHtJtUcFHciHZY7+x7bji2yk1DcZfltMwDCpfKGXsRB
+         U2xtFif9xrGYu7ude1lP5cZe2avNqTCJdLjoQuog6cR8qd8l8dp/Jc0XcJZzMeqzuaay
+         aipA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760095216; x=1760700016;
+        d=1e100.net; s=20230601; t=1760095215; x=1760700015;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=V+uVu0uTaDUz5PEpqS6iVo6Ox+wZvrg7dQgJZQEZ2Dk=;
-        b=MD64D2hhjApuv7jDvoiSN0ruM6JKPs2lwk4tfr0woLXI0QvZga+rjp5ujMT5s0ZudK
-         8HfsjVHdaarQX7AmvW1KuN32+PQsf49znV32Z7/QvngoMx58zGL6GIPOG7QnJ4mdqjy/
-         CQKF+xjDyXcpG/vPXIgIhieetbT8CIxg0GIWQ/f9PjgImBwB5FNqx0YccX7sPYYD3L5u
-         vSxRfbAS3GeQE96K3CsI7/zxeMrqu6TQyOK17shXgYU3CDI7z8w8SI2/9fRhO/rB46oD
-         lqF9tpEaUf2KooUWZClnDQDW9in3qjT8WEuqlkpG9G5uykdKPASEPK1OC5zGB6P8guq/
-         7/xg==
-X-Gm-Message-State: AOJu0YxvlQWJ1j1n6dSBN4ElEpU52rNXZ6bcSt3W6y5pCT/rnlNJDeeb
-	N9l0VzsYmhcf6BmNNKGGAyAP/59QijMiUNybcC8ou+bmXthKX0ZaB5o9vmK/x0teTO10VSiuJDr
-	OU2+W
-X-Gm-Gg: ASbGnctJc/BOm+XAQY4VddjDnPoVl2zNUQvb5so59mMpUXI08D1dKMn6Q1inyGyHZ9n
-	pXvi2PSCs2EyhKyC35V4FWvwvMhS3r3xqFSbwAg459ijs4X7MTzJZPPSFHwWA1LCZWnfOT0XZFS
-	6Lj5pwBkZjT4Ur7uf7dUFKqVCO6M3bb14uzubQilkZeT9kwpQRYg/I3ZcJ3ESpnoWaxDCsrXv6l
-	kIbMZSEDBwBWSd8x//hwcSYTFkGNZqwD+XDR1TFvrEMZBKwhUg7bg9xkXaF719IritleKFBiJdy
-	lYPXbeDjU/v4wrzB8gNFthVDlODPhCh7tAt7C9jtm7FhOHnzb1qnwNm9G8Dytj2YpeMZzHf4l0U
-	hjwMeAccso5ehkyYBXJBENT3Z4ym5gGnHI6Fc9z7jHaUwwbgFb1cWPXLg
-X-Google-Smtp-Source: AGHT+IEFYzxOtfqyHfUXq/FhtCaes4s+b19W+XUDUhmjgrqDqsLvwceN/GaSlzEWEukAKhm34X9sWQ==
-X-Received: by 2002:a17:907:9445:b0:b3e:5f20:889f with SMTP id a640c23a62f3a-b50aa79f502mr1228024066b.26.1760095215607;
-        Fri, 10 Oct 2025 04:20:15 -0700 (PDT)
+        bh=mVE8IOtVkKAYsK0IOYATKoS+TTBzNKPkyHhALqFS4Bg=;
+        b=els+lJSN8dNc0SPkS4U7YuVIl/IoNiZ2eAHzou0WeuoeKd6aLMWpdzij7nxeY8yMVZ
+         kzs7AkmcApLgQk1FDK+AQmHfknNAkbKlScEfwt5xpD+QAk1RXimcH//ZFwUOhvGB2Uri
+         Uet7bk9kM7+mbGC8BAJ2bQQqepwvcGPRKj5SDC5N6P+X/wj+jLcM2Mb4O1pVOhDJbETU
+         lFLpGBXl8xhWEZt29OSHteED1APSFPaTqtAmfCXCPu/mhyzZs7hfviu7h0fTcezyJmkV
+         OmcAKgkixOkSkGTxsy7qVCQCFNoNAHfdDLdUXZ6wo4GRJvBKOZfYMTifqvxNJ574Vmgt
+         9xJQ==
+X-Gm-Message-State: AOJu0Yz8gep5bj6Yay4CPsy1FesOQHgALet+3IFlaTqxTY2ltnUhdPUg
+	C2+uEKr6AOYbG1sv8n4RbKT6+VCR7y/zQqiY0FyqLwGYJk8BwpwhEdzgzbDQO5iKjh71KhaLpOw
+	Q19zl
+X-Gm-Gg: ASbGncvDHC1bHy3hIrOvQFjD7McS2pl30LN2eZjwyx+a0iTRDAXj9dgSbHT1/zvaLX1
+	uS3r6B8sV2GrJ87Sf6WbsCfyUzxUL22XpGeiUCR2Wxqpl9uTEF9iQ5N1QLtEAsx2Oiv7lhtveg0
+	QrZ1n899NeqZ130R4aNfm3Aa3xHwomRRiWmCHnN5RprwXm9ZnSg9PKFTZnAwThAXQ6xhDw5+YgF
+	d60dLk51Kr4yTyndZRfjJ4sdZeBjCd1GAesSb8qGEoYxuqEImFWAY0q6VCaekblJoJqQnIRny8v
+	59la34nwWHwajArQrLrvdoZmTZn3wpkjf+LgFIXj5J+jNFeRLCgrF809awjCaF+yuz7UrRoqYBf
+	e+zmsM1OmCMx270wGXxCsBH+DQCNx0PxV4sfu3LLa+IaHI4VBPRDVVQAB
+X-Google-Smtp-Source: AGHT+IE1vrmJbGuUbs9XD+/AeQ+XPNf2bI3eO6gl1qGMLnYQjZNQvUVxgZCyDmJqlV8v4dNd2ERlkA==
+X-Received: by 2002:a17:906:c104:b0:b2e:e87e:ef2e with SMTP id a640c23a62f3a-b50ac2d593bmr1179770666b.39.1760095214721;
+        Fri, 10 Oct 2025 04:20:14 -0700 (PDT)
 Received: from draig.lan ([185.126.160.19])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b55d952a273sm221064066b.83.2025.10.10.04.20.11
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b55d9113a67sm219096766b.70.2025.10.10.04.20.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Fri, 10 Oct 2025 04:20:11 -0700 (PDT)
 Received: from draig.lan (localhost [IPv6:::1])
-	by draig.lan (Postfix) with ESMTP id C1C9F5FA53;
+	by draig.lan (Postfix) with ESMTP id A679B5FA2E;
 	Fri, 10 Oct 2025 12:20:10 +0100 (BST)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: virtio-comment@lists.linux.dev
-Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Parav Pandit <parav@nvidia.com>
-Subject: [PATCH v2 04/10] .gitpublish: update base to current working branch
-Date: Fri, 10 Oct 2025 12:20:04 +0100
-Message-ID: <20251010112010.3880438-5-alex.bennee@linaro.org>
+Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+Subject: [PATCH v2 02/10] README.md: convert embedded html to proper MarkDown
+Date: Fri, 10 Oct 2025 12:20:02 +0100
+Message-ID: <20251010112010.3880438-3-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251010112010.3880438-1-alex.bennee@linaro.org>
 References: <20251010112010.3880438-1-alex.bennee@linaro.org>
@@ -80,25 +79,452 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The current working branch is virtio-1.4 so lets use that as our
-reference for gitpublish.
+There is no point embedding HTML inside the markdown document. It just
+makes it messy to edit. The text is unchanged.
 
-Reviewed-by: Parav Pandit <parav@nvidia.com>
+While I tried to exactly match the old layout I ended up making some
+pragmatic fixes:
+
+  - used # instead of ... in the code blocks
+  - added missing - to "To do" sections
+  - didn't attempt to block indent the lines notably "OSX users.." and
+    the text under "Troubleshooting notes:"
+
+The mailing list emails are also now properly linked for emphasis and
+mailto: click-ability.
+
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-Message-ID: <20251008145916.2626143-4-alex.bennee@linaro.org>
----
- .gitpublish | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/.gitpublish b/.gitpublish
-index d412896..84414a7 100644
---- a/.gitpublish
-+++ b/.gitpublish
-@@ -1,3 +1,3 @@
- [gitpublishprofile "default"]
--base = master
-+base = origin/virtio-1.4
- to = virtio-comment@lists.linux.dev
+---
+
+GenAI usage: this is a fiddly file to edit by hand even with the full
+power of Emacs. However the prompt:
+
+  please rewrite this in github markdown, using ## and ### for
+  headings, droping the extraneous <div> and <p> blocks and using
+  proper markdown links. Leave the words themselves unchanged.
+
+worked though it like a champ. As the change is mechanical I don't
+think there are any copyright concerns so I'm happy to put my s-o-b on
+the patch. I'm declaring the usage here because how LLMs can be used
+in Open Source project is a live topic of debate.
+
+After the mechanical changes I eyeballed the README on github and
+manually tweaked the formatting to match the original layout as
+closely as possible.
+---
+ README.md | 387 +++++++++++++++++++++---------------------------------
+ 1 file changed, 152 insertions(+), 235 deletions(-)
+
+diff --git a/README.md b/README.md
+index 13ab05b..c81a1c1 100644
+--- a/README.md
++++ b/README.md
+@@ -1,252 +1,169 @@
+-<div>
+-<h2>README</h2>
++## README
+ 
+-<p>Members of the <a href="https://www.oasis-open.org/committees/virtio/">OASIS Virtual I/O Device (VIRTIO) TC</a> create and manage technical content in this TC GitHub repository ( <a href="https://github.com/oasis-tcs/virtio-spec">https://github.com/oasis-tcs/virtio-spec</a> ) as part of the TC's chartered work (<i>i.e.</i>, the program of work and deliverables described in its <a href="https://www.oasis-open.org/committees/virtio/charter.php">charter</a>).</p>
++Members of the [OASIS Virtual I/O Device (VIRTIO) TC](https://www.oasis-open.org/committees/virtio/) create and manage technical content in this TC GitHub repository ( [https://github.com/oasis-tcs/virtio-spec](https://github.com/oasis-tcs/virtio-spec) ) as part of the TC's chartered work (*i.e.*, the program of work and deliverables described in its [charter](https://www.oasis-open.org/committees/virtio/charter.php)).
+ 
+-<p>OASIS TC GitHub repositories, as described in <a href="https://www.oasis-open.org/resources/tcadmin/github-repositories-for-oasis-tc-members-chartered-work">GitHub Repositories for OASIS TC Members' Chartered Work</a>, are governed by the OASIS <a href="https://www.oasis-open.org/policies-guidelines/tc-process">TC Process</a>, <a href="https://www.oasis-open.org/policies-guidelines/ipr">IPR Policy</a>, and other policies, similar to TC Wikis, TC JIRA issues tracking instances, TC SVN/Subversion repositories, etc.  While they make use of public GitHub repositories, these TC GitHub repositories are distinct from <a href="https://www.oasis-open.org/resources/open-repositories">OASIS Open Repositories</a>, which are used for development of open source <a href="https://www.oasis-open.org/resources/open-repositories/licenses">licensed</a> content.</p>
+-</div>
++OASIS TC GitHub repositories, as described in [GitHub Repositories for OASIS TC Members' Chartered Work](https://www.oasis-open.org/resources/tcadmin/github-repositories-for-oasis-tc-members-chartered-work), are governed by the OASIS [TC Process](https://www.oasis-open.org/policies-guidelines/tc-process), [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr), and other policies, similar to TC Wikis, TC JIRA issues tracking instances, TC SVN/Subversion repositories, etc. While they make use of public GitHub repositories, these TC GitHub repositories are distinct from [OASIS Open Repositories](https://www.oasis-open.org/resources/open-repositories), which are used for development of open source [licensed](https://www.oasis-open.org/resources/open-repositories/licenses) content.
+ 
+-<div>
+-<h3>Description</h3>
++### Description
+ 
+-<p>This repository includes the <a href="https://github.com/oasis-tcs/virtio-spec/releases">authoritative source</a> of the VIRTIO (Virtual I/O) Specification document. VIRTIO document describes the specifications of the "virtio" family of devices. These devices are found in virtual environments, yet by design they look like physical devices to the guest within the virtual machine &mdash; and this document treats them as such. This similarity allows the guest to use standard drivers and discovery mechanisms. </p>
++This repository includes the [authoritative source](https://github.com/oasis-tcs/virtio-spec/releases) of the VIRTIO (Virtual I/O) Specification document. VIRTIO document describes the specifications of the "virtio" family of devices. These devices are found in virtual environments, yet by design they look like physical devices to the guest within the virtual machine — and this document treats them as such. This similarity allows the guest to use standard drivers and discovery mechanisms.
+ 
+-<p>The purpose of virtio and this specification is that virtual environments and guests should have a straightforward, efficient, standard and extensible mechanism for virtual devices, rather than boutique per-environment or per-OS mechanisms.</p>
+-</div>
++The purpose of virtio and this specification is that virtual environments and guests should have a straightforward, efficient, standard and extensible mechanism for virtual devices, rather than boutique per-environment or per-OS mechanisms.
+ 
+-<div>
+-<h3>Contributions</h3>
+-<p>As stated in this repository's <a href="https://github.com/oasis-tcs/virtio-spec/blob/master/CONTRIBUTING.md">CONTRIBUTING file</a>, contributors to this repository are expected to be Members of the OASIS virtio TC, for any substantive change requests.  Anyone wishing to contribute to this GitHub project and <a href="https://www.oasis-open.org/join/participation-instructions">participate</a> in the TC's technical activity is invited to join as an OASIS TC Member.  Public feedback is also accepted, subject to the terms of the <a href="https://www.oasis-open.org/policies-guidelines/ipr#appendixa">OASIS Feedback License</a>.</p>
+-</div>
++### Contributions
+ 
++As stated in this repository's [CONTRIBUTING file](https://github.com/oasis-tcs/virtio-spec/blob/master/CONTRIBUTING.md), contributors to this repository are expected to be Members of the OASIS virtio TC, for any substantive change requests. Anyone wishing to contribute to this GitHub project and [participate](https://www.oasis-open.org/join/participation-instructions) in the TC's technical activity is invited to join as an OASIS TC Member. Public feedback is also accepted, subject to the terms of the [OASIS Feedback License](https://www.oasis-open.org/policies-guidelines/ipr#appendixa).
+ 
++### Licensing
+ 
+-<div>
+-<h3>Licensing</h3>
+-<p>Please see the <a href="https://github.com/oasis-tcs/virtio-spec/blob/master/LICENSE.md">LICENSE</a> file for description of the license terms and OASIS policies applicable to the TC's work in this GitHub project. Content in this repository is intended to be part of the virtio TC's permanent record of activity, visible and freely available for all to use, subject to applicable OASIS policies, as presented in the repository <a href="https://github.com/oasis-tcs/virtio-spec/blob/master/LICENSE.md">LICENSE</a> file.</p>
+-</div>
++Please see the [LICENSE](https://github.com/oasis-tcs/virtio-spec/blob/master/LICENSE.md) file for description of the license terms and OASIS policies applicable to the TC's work in this GitHub project. Content in this repository is intended to be part of the virtio TC's permanent record of activity, visible and freely available for all to use, subject to applicable OASIS policies, as presented in the repository [LICENSE](https://github.os-tcs/virtio-spec/blob/master/LICENSE.md) file.
+ 
+-<div>
++### Further Description of this Repository
+ 
+-<h3>Further Description of this Repository</h3>
+-<h4>Building Instructions</h4>
+-Authoritative version of the specification is maintained in the
+-TeX document format. PDF and HTML versions are made available for
+-ease of use and review.
+-In order to build the HTML and PDF versions of the spec you will need the
+-TeX document production system.
+-The easiest way to get it up and running is probably by installing
+-<a href="https://www.tug.org/texlive/">Tex-Live</a>.
++#### Building Instructions
+ 
+-<dl>Installation cheat sheet:
+-<dt>Fedora:</dt>
+-<dd>
+-<code>
++Authoritative version of the specification is maintained in the TeX document format. PDF and HTML versions are made available for ease of use and review. In order to build the HTML and PDF versions of the spec you will need the TeX document production system. The easiest way to get it up and running is probably by installing [Tex-Live](https://www.tug.org/texlive/).\
++Installation cheat sheet:
++
++***Fedora:***
++```bash
+ sudo dnf install texlive-scheme-full
+-</code></dd>
+-<dt>
+-Ubuntu and other Debian derivatives:
+-</dt>
+-<dd>
+-<code>
++```
++***Ubuntu and other Debian derivatives:***
++```bash
+ sudo apt-get install texlive-full
+-</code></dd>
+-<dt>OSX:<dt>
+-<dd>OSX users don't need to install Tex-Live because they already have
+-<a href="http://www.tug.org/mactex/">MacTeX</a> installed.
+-</dd>
+-</dl>
+-<dl>The build process generates a ZIP package file including the
+-original TeX sources, as well as HTML and PDF formatted
+-versions of the specification.
+-<dt>To generate the ZIP package, run:<dt>
+-<dd>
+-<code>
++```
++***OSX:***
++
++OSX users don't need to install Tex-Live because they already have [MacTeX](http://www.tug.org/mactex/) installed.
++
++The build process generates a ZIP package file including the original TeX sources, as well as HTML and PDF formatted versions of the specification.
++
++***To generate the ZIP package, run:***
++```bash
+ ./makeall.sh
+-</code>
+-</dd>
+-<dt>Troubleshooting notes:</dt>
+-<dd> PDFs of the specification can be generated with
+-either MicroSoft's Core fonts for the Web: Arial and Courier New,
+-or Liberation fonts: Liberation Sans and Liberation Mono.
+-Most systems come with one of these two variants included:
+-should you get an error message about missing fonts,
+-you will need to downloads and install one of the above
+-font packages.
+-<dd>
+-</dl>
+-<h4>Providing Feedback</h4>
+-Informal feedback is accepted through the <strong>virtio-comment</strong> mailing list,
+-and is archived in <A HREF="https://lore.kernel.org/virtio-comment/">the mailing list archives</A>.
+-To provide feedback, subscribe by sending mail to
+-<HREF="mailto:virtio-comment+subscribe@lists.linux.dev">virtio-comment+subscribe@lists.linux.dev</A>,
+-then after confirming you agree to the IPR sending your feedback to
+-<HREF="mailto:virtio-comment@lists.linux.dev">virtio-comment@lists.linux.dev</A>.
+-<p>Note that only plain text part of the message is archived, and all
+-attachments are stripped. Accordingly, messages sent to the
+-mailing list should use text/plain encoding and not
+-have any attachments.
+-<p>The preferred form of providing feedback is in form of a patch.
+-A patch can be generated and sent by cloning the spec repository,
+-creating a commit, formatting it as a patch and then sending it.
+-For example:
+-<code>
+-<p>
+-git clone https://github.com/oasis-tcs/virtio-spec.git<br>
+-... edit spec text, and save ...<br>
+-<p>
+-git commit -a<br>
+-... describe the proposed change, in the following format:<br>
+-single line summary<br>
+-<br>
+-detailed description, including motivation for the change<br>
+-<br>
+-Signed-off-by: Name &lt;email&gt;<br>
+-... then save and close the editor ... <br>
+-<p>
+-git format-patch -o proposal1/ HEAD~1..<br>
+-... generates a new directory proposal1/ and a file starting with 0001- ...<br>
+-<p>
++```
++***Troubleshooting notes:***
++  
++PDFs of the specification can be generated with either MicroSoft's Core fonts for the Web: Arial and Courier New, or
++Liberation fonts: Liberation Sans and Liberation Mono. Most systems come with one of these two variants included: should
++you get an error message about missing fonts, you will need to downloads and install one of the above font packages.
++
++#### Providing Feedback
++
++Informal feedback is accepted through the **virtio-comment** mailing list, and is archived in [the mailing list archives](https://lore.kernel.org/virtio-comment/). To provide feedback, subscribe by sending mail to [virtio-comment+subscribe@lists.linux.dev](mailto:virtio-comment+subscribe@lists.linux.dev), then after confirming you agree to the IPR sending your feedback to [virtio-comment@lists.linux.dev](mailto:virtio-comment@lists.linux.dev). Note that only plain text part of the message is archived, and all attachments are stripped. Accordingly, messages sent to the mailing list should use `text/plain` encoding and not have any attachments.
++
++The preferred form of providing feedback is in form of a **patch**. A patch can be generated and sent by cloning the spec repository, creating a commit, formatting it as a patch and then sending it. For example:
++
++```bash
++git clone [https://github.com/oasis-tcs/virtio-spec.git](https://github.com/oasis-tcs/virtio-spec.git)
++# edit spec text, and save ...
++git commit -a
++```
++
++Describe the proposed change, in the following format:
++
++  > single line summary
++  > 
++  > detailed description, including motivation for the change
++  >
++  > Signed-off-by: Name <email>
++
++then save and close the editor
++
++```bash
++git format-patch -o proposal1/ HEAD~1..
++# generates a new directory proposal1/ and a file starting with 0001- ...
+ git send-email --to=virtio-comment@lists.linux.dev proposal1/0001-*
+-</code>
+-
+-<dl>Optionally, you can use <a
+-href="https://github.com/stefanha/git-publish">git-publish</a> to submit a
+-patch. This project already contains a <em>git-publish</em> profile that will
+-configure some fields, e.g., <em>To</em> field with the right address. After you have
+-installed <em>git-publish</em>, the procedure is the following:
+-
+-<code>
+-<p>
+-git checkout master -b my-feature<br>
+-# work on new commits, add your 'Signed-off-by' lines to each<br>
+-git publish<br>
+-# more work, rebase on master, ...<br>
+-git publish # will send a v2<br>
+-</code>
+-</dl>
+-<dl>
+-<dt>When to use the virtio-comment mailing list:</dt>
+-<dd>
+-  questions and change proposals for the Virtio specification,
+-  including the specification of basic functionality, transports and
+-  devices.
+-</dd>
+-
+-<dt>When <em>not</em> to use the virtio-comment mailing list:</dt>
+-<dd>
+-  questions and change proposals for Virtio drivers and devices
+-  implementing the specification.
+-  (please use the <A HREF="mailto:virtio-dev@lists.linux.dev"> virtio-dev mailing list</A> for this).
+-</dd>
+-
+-<dt>To do:</dt>
+-<dd>
+- send email preferably in text format (best for archiving).
+-</dd>
+-
+-<dt>Not to do:</dt>
+-<dd>
+-<ul>
+-<li> copy both virtio-dev and virtio-comment mailing lists (instead, pick one);
+-<li> send full copies of the virtio spec (in any format).
+-</ul>
+-</dd>
+-
+-</dl>
+-<h4>Note for TC Members</h4>
+-<p>TC Members should review TC specific
+-process rules under "Further Description of this Repository"
+-in <A
+-HREF="https://github.com/oasis-tcs/virtio-admin">https://github.com/oasis-tcs/virtio-admin</A>.
+-
+-</div>
+-<h4>Implementation discussion</h4>
+-Implementation discussion takes place on the <strong>virtio-dev</strong> mailing list,
+-and is archived in <A HREF="https://lore.kernel.org/virtio-dev/">the mailing list archives</A>.
+-To participate in the discussion, subscribe by sending mail to
+-<HREF="mailto:virtio-dev+subscribe@lists.linux.dev">
+-virtio-dev+subscribe@lists.linux.dev</A>.
+-After agreeing to the IPR, to participate in the discussion, send
+-mail to <HREF="mailto:virtio-dev@lists.linux.dev">virtio-dev@lists.linux.dev</A>.
+-<p>This is the correct list to copy on Linux virtio UAPI change proposals.
+-<p>Note that only the plain text part of the message is archived, and all
+-attachments are stripped. Accordingly, messages sent to the
+-mailing list should use text/plain encoding and not
+-have any attachments.
+-
+-<dl>
+-<dt>When to use the virtio-dev mailing list:</dt>
+-<dd>
+-  questions and change proposals for Virtio drivers and devices
+-  implementing the specification.
+-</dd>
+-
+-<dt>When <em>not</em> to use the virtio-dev mailing list:</dt>
+-<dd>
+-  questions and change proposals for the Virtio specification,
+-  including the specification of basic functionality, transports and
+-  devices (please use the <A HREF="mailto:virtio-comment@lists.linux.dev"> virtio-comment mailing list</A> for this).
+-</dd>
+-<dt>To do:</dt>
+-<dd>
+- send email preferably in text format (best for archiving).
+-</dd>
+-
+-<dt>Not to do:</dt>
+-<dd>
+-copy both virtio-dev and virtio-comment mailing lists (instead, pick one).
+-</dd>
+-</dl>
+-
+-<h4>Use of github issues</h4>
+-Note: according to the virtio TC rules, all official TC communication
+-is taking place on one of the TC mailing lists.
+-In particular, all comments must be provided on
+-one of the TC mailing lists. Accordingly, the TC will not respond
+-to comments provided in github issues: github issues are
+-used solely to track integration of comments into the
+-specification.<p>
++```
++
++Optionally, you can use [git-publish](https://github.com/stefanha/git-publish) to submit a patch. This project already contains a *git-publish* profile that will configure some fields, e.g., *To* field with the right address. After you have installed *git-publish*, the procedure is the following:
++
++```bash
++git checkout master -b my-feature
++# work on new commits, add your 'Signed-off-by' lines to each
++git publish
++# more work, rebase on master, ...
++git publish # will send a v2
++```
++
++***When to use the virtio-comment mailing list:***
++
++questions and change proposals for the Virtio specification, including the specification of basic functionality, transports and devices.
++
++***When not to use the virtio-comment mailing list:***
++
++questions and change proposals for Virtio drivers and devices implementing the specification. (please use the [virtio-dev mailing list](mailto:virtio-dev@lists.linux.dev) for this).
++
++***To do:***
++- send email preferably in text format (best for archiving).
++
++***Not to do:***
++- copy both virtio-dev and virtio-comment mailing lists (instead, pick one);
++- send full copies of the virtio spec (in any format).
++
++#### Note for TC Members
++
++TC Members should review TC specific process rules under "Further Description of this Repository" in [https://github.com/oasis-tcs/virtio-admin](https://github.com/oasis-tcs/virtio-admin)
++
++#### Implementation discussion
++
++Implementation discussion takes place on the **virtio-dev** mailing list, and is archived in [the mailing list archives](https://lore.kernel.org/virtio-dev/). To participate in the discussion, subscribe by sending mail to
++[virtio-dev+subscribe@lists.linux.dev](mailto:virtio-dev+subscribe@lists.linux.dev). After agreeing to the IPR, to participate in the discussion, send mail to [virtio-dev@lists.linux.dev](mailto:virtio-dev@lists.linux.dev). This is the correct list to copy on Linux virtio UAPI change proposals.
++
++Note that only the plain text part of the message is archived, and all attachments are stripped. Accordingly, messages sent to the mailing list should use text/plain encoding and not have any attachments.
++
++***When to use the virtio-dev mailing list:***
++
++questions and change proposals for Virtio drivers and devices implementing the specification.
++
++***When not to use the virtio-dev mailing list:***
++
++questions and change proposals for the Virtio specification, including the specification of basic functionality, transports and devices (please use the [virtio-comment mailing list](mailto:virtio-comment@lists.linux.dev) for this).
++
++***To do:***
++- send email preferably in text format (best for archiving).
++
++***Not to do:***
++- copy both virtio-dev and virtio-comment mailing lists (instead, pick one).
++
++#### Use of github issues
++
++Note: according to the virtio TC rules, all official TC communication is taking place on one of the TC mailing lists. In particular, all comments must be provided on one of the TC mailing lists. Accordingly, the TC will not respond to comments provided in github issues: github issues are used solely to track integration of comments into the specification.\
+ To request a TC vote on resolving a specific comment:
+-<ol>
+-<li>Create a github issue, or edit an existing issue, with
+-a short summary of the comment.
+-The issue MUST specify
+-the link to the latest proposal in the TC mailing list
+-archives. <em>Note:</em> the link MUST be in the issue description itself -
+-<em>not</em> in the comments.</li>
+-<li>Reply by email to the comment email, requesting that the TC vote
+-on resolving the issue.
+-The mail requesting the vote should include the following, on a line by itself:<br>
+-<code>
+-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/NNN
+-</code>
+-(NNN is the issue number)<br>
+-For example, you can use the following template when requesting the TC vote:<br>
+-<code>
+-Could please open a voting ballot for these changes?<br>
+-<br>
+-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/NNN<br>
+-</code></li>
+-<li>Please make sure to allow time for review between posting a comment
+-and asking for a vote. </li>
+-</ol>
+-<h4>TC standing rules</h4>
+-The TC adopted the following standing rule:
+-<p>
+-<em>
+-Minor cleanups, including editorial formatting changes, spelling
+-and typo fixes can be committed directly into git for approval as
+-part of the next specification approval ballot.
+-</em>
+-<ol>
+-<li>To request such a commit, reply by email to the comment email, requesting that the
+-issue is resolved under the minor cleanups standing rule.
+-</li>
+-<li>Please make sure to allow time for review between posting a comment
+-and asking for a commit. </li>
+-</ol>
+-
+-<h3>Contact</h3>
+-<p>Please send questions or comments about <a href="https://www.oasis-open.org/resources/tcadmin/github-repositories-for-oasis-tc-members-chartered-work">OASIS TC GitHub repositories</a> to <a href="mailto:robin@oasis-open.org">Robin Cover</a> and <a href="mailto:chet.ensign@oasis-open.org">Chet Ensign</a>.  For questions about content in this repository, please contact the TC Chair or Co-Chairs as listed on the the virtio TC's <a href="https://www.oasis-open.org/committees/virtio/">home page</a>.</p>
+-</div>
++
++1. Create a github issue, or edit an existing issue, with a short summary of the comment.
++   The issue MUST specify the link to the latest proposal in the TC mailing list
++   archives. *Note:* the link MUST be in the issue description itself - *not* in the comments.
++
++2. Reply by email to the comment email, requesting that the TC vote on resolving the issue.
++   The mail requesting the vote should include the following, on a line by itself:
++
++   ```
++   Fixes: https://github.com/oasis-tcs/virtio-spec/issues/NNN
++   ```
++   (NNN is the issue number)
++
++   For example, you can use the following template when requesting the TC vote:
++
++   ```
++   Could please open a voting ballot for these changes?
++
++   Fixes: https://github.com/oasis-tcs/virtio-spec/issues/NNN
++   ```
++
++3. Please make sure to allow time for review between posting a comment and asking for a vote.
++
++#### TC standing rules
++
++The TC adopted the following standing rule:\
++*Minor cleanups, including editorial formatting changes, spelling and typo fixes can be committed directly into git for approval as part of the next specification approval ballot.*
++
++1. To request such a commit, reply by email to the comment email, requesting that the issue is resolved under the minor cleanups standing rule.
++2. Please make sure to allow time for review between posting a comment and asking for a commit.
++
++### Contact
++
++Please send questions or comments about [OASIS TC GitHub repositories](https://www.oasis-open.org/resources/tcadmin/github-repositories-for-oasis-tc-members-chartered-work)
++to [Robin Cover](mailto:robin@oasis-open.org) and [Chet Ensign](mailto:chet.ensign@oasis-open.org). For questions about content in this repository, please contact the TC Chair or Co-Chairs
++as listed on the the virtio TC's [home page](https://www.oasis-open.org/committees/virtio/).
 -- 
 2.47.3
 
