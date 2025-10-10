@@ -1,72 +1,72 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06372FC019
-	for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 16:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5502FC01C
+	for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 16:29:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760113748; cv=none; b=a3p3AuQNIrJNbEHmPG3PXUqtxRZoxG2cOTDZCBZCtyibnHyX1ryD5FyRXdky4LBKnflyl2KrOyWwOREdOAXak/xwh9O4n+4MhZlsnnRf+wdH3rcxyof7ZGE3H+z1OXtjsXPYai90UAjJlquT0xHvuHe6ctIA+nd/EFf5F+vc8rM=
+	t=1760113749; cv=none; b=fv+UUm0r4F/h/bhdqcTRaO37+ZNXuWpDafKln0pDee4S3YDJBZI7rMvUGXcHf/xIgveOSFjiX68eKDUGkZb47lAkaFORqvncdX1I5hHg4sMoerhDdS9PPH4Oxiszpfw3OBvGDvLC5tq9uDB4hRXbSpEnfy8Kg94/aXP9ToM4nBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760113748; c=relaxed/simple;
-	bh=TpFlgAdRvgEX+LyMhk1250uk9kCGTLmNrDTqp7tDtdE=;
+	s=arc-20240116; t=1760113749; c=relaxed/simple;
+	bh=K9WM/4dAAO/m/GQXcnI5XW0Dtcdby6wQoZH34Wapp44=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gDvX+kv0Q9DN+o52ZsZqJfzgZNgbOSoRFpUP5t9Gc7SeROY4fjD6othR9cDbI044CAh0wpiDa9Fyw3Y1sTk6BMOENxWGuIkAnH2iib3/+EGFDoVq2GI0Dvhh8Ej4dGavY0R39Tsb9rR0iTw2cR0oxlFb23Z66G1eAbF9fKAhMk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=cG4XhpUd; arc=none smtp.client-ip=209.85.208.51
+	 MIME-Version:Content-Type; b=cpX+gmSw3kGdxjsRKsETokJfh2tSO0qyBTIT5O+OWmmNv/BomVnjiIJuWFJ3/euPt39hHF9zvHxHcgHvucnQhrMry+oO0JLC3A8Yvuq43KWGWffwAwF9mmvhOQTYb3D5fdjVGQmcz8ScJVFdz26w7GdvMdumOBTD+yB2AA3spDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nxJ3ZFEG; arc=none smtp.client-ip=209.85.218.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="cG4XhpUd"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-62fc28843ecso3308938a12.1
-        for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 09:29:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nxJ3ZFEG"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-b48d8deafaeso517235666b.1
+        for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 09:29:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1760113745; x=1760718545; darn=lists.linux.dev;
+        d=linaro.org; s=google; t=1760113746; x=1760718546; darn=lists.linux.dev;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=czxI3niA3ZgVUKsT/+qXK9QPwwIaEdlCouIwWwcWtog=;
-        b=cG4XhpUda/8h2uaOEVs9biCdeppLFlX0uuQ6ltU8LNncB0TOlRN1qJ+YBY1j3mwGqu
-         figEof4Hb0eKcTjb3qFL2MeSUdnUXNHBe3G/gHzR9SYYq4yhgb/31uA/rGnP/l+75CwD
-         AsUJg2BNMLXJXeeKIUOsmLKV9UeoPopovT3hkZ2wzhExoB4VRqlyUpOCVVHTFrERTBXn
-         gyVgCh6n5sj7kwlVvkm682iwWoaJldokqyLxRgQyZGyfavDIbWtYxirzHTmwDWjyYeHL
-         7FsqN4dqGRvMHCR7nAfWm5UiFKzzyIbPOfCm5+eYxZTjzzmFGrcFcyE9LZc2Oa10G5Oh
-         U8kg==
+        bh=M2z0owahIl6gp469LuA+wpDcZiMsLKnOB7e4XPT/s9w=;
+        b=nxJ3ZFEGOZ6krzVCMAC41Ub/3sePBvjcynl2So0CTU2bmz4z7ZmpfTtCjtXv2KU/Yq
+         ZxNeuk+VCPkRMzW/Wiuq6oVFvPRmz9e4vFvqktYj+nxih2bQ8bKFAj4k1UaKroAXzgSk
+         OjSp/4LMbMyXNV7OktddY6NnrvUnH+H58envOeQqmXuxRuVeG8WJle/P5EdN58vQCWD/
+         RUAx5hyhT4F+qXM64gra+gu42o/50Wpnfji2tgh1tWm56gJ+3i2dv1dxQm3g5wpaIn4N
+         /5qrVOgdVhdIRmAiqpndeOKfxfijOCs9ZU9oPx4Wk31auvzyUJjbUDLIyrJ9OuJ44YXX
+         ga+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760113745; x=1760718545;
+        d=1e100.net; s=20230601; t=1760113746; x=1760718546;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=czxI3niA3ZgVUKsT/+qXK9QPwwIaEdlCouIwWwcWtog=;
-        b=V3OGrhJeJDqlwLBTTh4QpHOOWFfiPKi/uGbsSlxEkaSfUdN6XyzpPxMpQgudpP37w5
-         7brtvg7ElfidzohUxKhsk6fxsn/7nDttqQcB8akV4vQ0+OiuCupI2BwmksfFup5u2cSk
-         7qRm8lZiSIR3Mvcxu7ihytnYEbxr8E47aNf0G1SK/Gv5DEsn5+LubTELwUAcDF2v0XuC
-         VE9j42NuBstnGs5y9HaJ0PHvbDowso3a2ZlmYBhIab4decMzHFnD0Vory+++AubQi/zN
-         HLRPszF0+IzQRqsTGde5k4u2cMNCkA3hCHWxrS3AGT6wI3CGVnKKn5+Pm87EKPpCRoGj
-         Npbw==
-X-Gm-Message-State: AOJu0YxgsdYPwKcfjUZkqbHou9Sd8nLnp7BscskbgeVTpeAYbMQbzyNl
-	Y9YvIRy796z6nnaKq39T9/UUdik2toTreyuh+iIZ5KujDNzQ8b32z1SbF9rCaH9zzpo=
-X-Gm-Gg: ASbGnctxu8sM9js7tskXQdPpUams6NRkKlJ0vZS+3YlVfG86El6TndDGsue9MXRq+fv
-	qDkenkixmPHt0IySXk/rB/K2FMLrKS+96X1QpNI+VzFJVGL9s6v/pcAYdmLwAKwFS0ukPZ/ueYk
-	BILTypIZyHPTbJsCrVinsDTXTsgk4yCDU9fqnmF1LkWBgOUfwGLTuZi4jBevjZctxnSe+b/tumQ
-	IcIji45go3JkvkcEoXiK/fuulruf38aT3+7qCY9WFLZH1/wvxtr38PPIHIy4zPPRy44FG5KXmHM
-	Rj4VdlLQOtAUe7tcBdhSjYiHftHi3AvZlU2W0El41iFHtvcNzttuMxntoDunJpOLfTYJeRHP3c4
-	Q5uglZVyoEJuuijyRyGy+wMCHaXPrXQH9BPlAhKjlY4YPuoDgAIsbD1DK
-X-Google-Smtp-Source: AGHT+IFEAUlwPq2kv68Cc6Vqgjz++SXaSUVgAYOMvbiW8QlhbJNK0N+jIHBckZwX1HHYzCxdmwBu/A==
-X-Received: by 2002:a05:6402:26c9:b0:639:dab5:d605 with SMTP id 4fb4d7f45d1cf-639dab5db04mr11930415a12.27.1760113745087;
+        bh=M2z0owahIl6gp469LuA+wpDcZiMsLKnOB7e4XPT/s9w=;
+        b=CzoNp6LDiHJ/96kw6hF1CrQtlseUe+7CXkNgwk5hLZwG0QtonFl3vaGlrdK507oe4j
+         R1bHBN6/HQC26E0wOp0WfDkew41RV/9sLEtT7DANtE7kU2x7RHEwTrbh68tcE6mDq87g
+         p8s+Dt8CnwNmyTwu/HNt5QuAKkGcAyYKYM2lw3JZ9qUWGDwSNY9LmPNChqyStI7D64ic
+         cV8qMvg59DszcsawtS7s0rw45GyD2M/mcAuD2ujnaGlujabgiAjlp3EJv5C0Ns3zJf4r
+         HnyCc7SJfkY7OzniU1K8gffdqTD+CY5aFL3nRGQcg0Fs9WY546kHsxwvzySusIVHN9wx
+         wghw==
+X-Gm-Message-State: AOJu0YzszBJTEqzncP+o2Qvn2JnHqvzin3qpJ+vRX7IKoZb5hzywYVCW
+	nsHheI78vXvmDVdps6OzjaIGxVYiGEI2TE8p3wZyOWwNIyFGKNrpwQvee3Jw6RSdwV8KFoFlESW
+	84KYe
+X-Gm-Gg: ASbGncv4LrNAe2wekPa/7NC9ViqRrBmnaBu9cG70PNtCXDgym6XTuPC9YMVegs29pHe
+	z0sB4Fu0PocY0C73NeL0o8aX0J66rhdgsFPVqp+FNAlTDxwnAd/IaS15vYNZS9sbx64VFAclgRA
+	9xMirNLR8XT+iZaBK/gCBQNpvZHmHVnJ5MShdtqGw7MPVGGcFzqiNDnAh40k5WDFXc+XJYRTX/+
+	97bpPccQVYkMvX832DxdHh2Z2lmdQpmffnvPbSTiwL7mukB4R3d8TuZGcY/TNzoMGlFzs3NY4dK
+	/zl81XhIVni4wVqr8rrTYpzAwW8d7icJQS/xCP7ylqOnE8fO/YbJSqXMYC/JARdWLkSfiiYqrxQ
+	IeL8eLhnVOCdXnb7QhoydQ7KhYoGXOqvPYwEXu6pIKSzZHQ==
+X-Google-Smtp-Source: AGHT+IHEUVKJVxRFl7r2ic9+WChqhd9fH0dPxUFRNFd3EEfcXqA7lN/VWvxjip10QoFjv6aneEa1Gg==
+X-Received: by 2002:a17:907:96a9:b0:b40:b54d:e666 with SMTP id a640c23a62f3a-b50aaa96b25mr1463573866b.16.1760113745491;
         Fri, 10 Oct 2025 09:29:05 -0700 (PDT)
 Received: from draig.lan ([185.126.160.19])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-63a52b71361sm2994172a12.28.2025.10.10.09.29.00
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b55d9920ec0sm275787066b.86.2025.10.10.09.29.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Fri, 10 Oct 2025 09:29:03 -0700 (PDT)
 Received: from draig.lan (localhost [IPv6:::1])
-	by draig.lan (Postfix) with ESMTP id B8BE95FA60;
+	by draig.lan (Postfix) with ESMTP id C5D995FA6C;
 	Fri, 10 Oct 2025 17:28:58 +0100 (BST)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: virtio-comment@lists.linux.dev
-Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Parav Pandit <parav@nvidia.com>
-Subject: [PATCH v3 06/11] virtio-html.tex: sort package list
-Date: Fri, 10 Oct 2025 17:28:53 +0100
-Message-ID: <20251010162858.4107388-7-alex.bennee@linaro.org>
+Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+Subject: [PATCH v3 07/11] specvars.tex: properly wrap arguments to \urldef
+Date: Fri, 10 Oct 2025 17:28:54 +0100
+Message-ID: <20251010162858.4107388-8-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251010162858.4107388-1-alex.bennee@linaro.org>
 References: <20251010162858.4107388-1-alex.bennee@linaro.org>
@@ -79,68 +79,51 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This will make auditing and adding new packages easier.
+chktex reports:
 
-Reviewed-by: Parav Pandit <parav@nvidia.com>
+  Warning 1 in specvars.tex line 6: Command terminated with space.
+  \urldef \virtiourllistings\url{\virtiourlbase/listings/}
+         ^
+  ...
+
+While the space in this case is probably harmless we should be using
+non-ambiguous argument wrappers if don't want to drown linter output
+with noise.
+
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
----
- virtio-html.tex | 30 +++++++++++++++---------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
 
-diff --git a/virtio-html.tex b/virtio-html.tex
-index 48c633d..a43017a 100644
---- a/virtio-html.tex
-+++ b/virtio-html.tex
-@@ -5,34 +5,34 @@
+---
+v2
+  - mention the linter
+---
+ specvars.tex | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/specvars.tex b/specvars.tex
+index a80557a..cf67070 100644
+--- a/specvars.tex
++++ b/specvars.tex
+@@ -3,13 +3,13 @@
+ \newcommand{\virtiospecfile}{virtio-v\virtiorev-\virtiodraftstage\virtioworkingdraft}
+ \newcommand{\virtiourlbase}{https://docs.oasis-open.org/virtio/virtio/v\virtiorev/\virtiodraftstage\virtioworkingdraft}
+ %Below must be used to make links work correctly in HTML
+-\urldef \virtiourllistings\url{\virtiourlbase/listings/}
+-\urldef \virtiourltex\url{\virtiourlbase/tex/}
+-\urldef \virtiourlpdf\url{\virtiourlbase/\virtiospecfile.pdf}
+-\urldef \virtiourlhtml\url{\virtiourlbase/\virtiospecfile.html}
+-\urldef \virtiourlh\url{\virtiourlbase/listings/virtio_queue.h}
+-\urldef \virtiourllatestpdf\url{https://docs.oasis-open.org/virtio/virtio/v\virtiorev/virtio-v\virtiorev.pdf}
+-\urldef \virtiourllatesthtml\url{https://docs.oasis-open.org/virtio/virtio/v\virtiorev/virtio-v\virtiorev.html}
++\urldef{\virtiourllistings}\url{\virtiourlbase/listings/}
++\urldef{\virtiourltex}\url{\virtiourlbase/tex/}
++\urldef{\virtiourlpdf}\url{\virtiourlbase/\virtiospecfile.pdf}
++\urldef{\virtiourlhtml}\url{\virtiourlbase/\virtiospecfile.html}
++\urldef{\virtiourlh}\url{\virtiourlbase/listings/virtio_queue.h}
++\urldef{\virtiourllatestpdf}\url{https://docs.oasis-open.org/virtio/virtio/v\virtiorev/virtio-v\virtiorev.pdf}
++\urldef{\virtiourllatesthtml}\url{https://docs.oasis-open.org/virtio/virtio/v\virtiorev/virtio-v\virtiorev.html}
+ \newcommand{\virtioworkproduct}{Standards Track Work Product}
+ \newcommand{\virtiooasiscopyright}{Copyright © OASIS Open 2023. All Rights Reserved.}
  
- \documentclass[10pt,titlepage]{report}
- 
--\usepackage{parskip}
--\usepackage{setspace}
-+\usepackage[T1]{fontenc}
- \usepackage[english]{babel}
- \usepackage{ae,aecompl} 
--\usepackage[T1]{fontenc}
--\usepackage{graphicx}
-+\usepackage{array}
-+\usepackage{chngcntr}
-+\usepackage{courier}
-+\usepackage{enumitem}
-+\usepackage{fancyhdr}
-+\usepackage{fancyvrb}
- \usepackage{framed}
-+\usepackage{graphicx}
- \usepackage{hyperref}
-+\usepackage{lastpage}
- \usepackage{lineno} 
- \usepackage{listings}
--\usepackage{courier}
--\usepackage{fancyvrb}
--\usepackage{array}
- \usepackage{longtable}
-+\usepackage{mdwlist}
- \usepackage{multirow}
-+\usepackage{parskip}
- \usepackage{rotating}
--\usepackage{fancyhdr}
--\usepackage{lastpage}
--\usepackage{xcolor}
-+\usepackage{setspace}
-+\usepackage{tabularx}
- \usepackage{titlesec}
--\usepackage{mdwlist}
-+\usepackage{underscore}
- \usepackage{url}
-+\usepackage{xcolor}
- \usepackage{xifthen}
--\usepackage{tabularx}
--\usepackage{underscore}
- \usepackage{xstring}
--\usepackage{enumitem}
--\usepackage{chngcntr}
- \counterwithout{footnote}{chapter}
- 
- \usepackage[utf8x]{inputenc}
 -- 
 2.47.3
 
