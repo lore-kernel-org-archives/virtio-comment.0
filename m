@@ -1,80 +1,78 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BAB5288535
-	for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 13:48:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206E7748F
+	for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 13:50:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760104097; cv=none; b=fChKL77w22mpvtQKbhKty9KO1mzcX/MhbUYzuAqa1YWadX6SfpSKbrG1KTSd2SvmR0FiPEDBxzC4jwxdJQDS53YSrSn17kP/SHyObXg5HkMbT813BJzhDUiODTBF/bi/+HnXLMl1bI6B5kHZU67L+NfwhOXYvg3XDgcWbMuK6pQ=
+	t=1760104203; cv=none; b=UtZpgZKDnUiPkIdIo940L6tJ1Q0OWVGtvkz4x+X/ujyZTrD0AZpZ0fxYj5G14qDpgRfa7TfM0QgoBWqi+VdCHuLH+XaTu9IjbVo2Ek4OsuVJrXTOrijXIpAdq7I3VzLJUijGRd1FVFJggmoPypN+Ide7xcf6fWdNJIls7Ubla1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760104097; c=relaxed/simple;
-	bh=gmIoNAGIiOIqs9MIkQ0xn/20BueyzRWzsabewEPaBSc=;
+	s=arc-20240116; t=1760104203; c=relaxed/simple;
+	bh=E4U4h4UED/wiZ8pblEMBftejy/1a6Kf8ZusvpH7189g=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=YUzGxoCMZ6PjXL8ib867tfHBzN7p3l2GK6cHWGOJ3aHRLwr/asfUjeyJVOURUVcudmX5TRxmpsJIEj5KZAdwpORdSv2snPQQisfTXdm4S3E1dOh8y5uECs8D++P6kRt2Lnh9q04oVkrtOCnZ8TCK1oLq9BsBmsqL0xY0Nr8lVeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IwFMfXfK; arc=none smtp.client-ip=209.85.218.50
+	 MIME-Version:Content-Type; b=keyVqa5jrcVwmUV/bfqtepXBHXMD0Y473m15aYDlhSRtQb3FXcBDrUxCl8T3tdKjjt8lm+7lrzvB/+ebqY94PW/He6NCs4kHMxZzgm8bu0O3wCBwS6POqa7kpAIUVRElRx2bvAvFjxkJVrKhTH4x2p8AxKQjp7p4Vic18pFDzps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xiJjOJfM; arc=none smtp.client-ip=209.85.208.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IwFMfXfK"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-b4539dddd99so428885066b.1
-        for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 06:48:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xiJjOJfM"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-62f24b7be4fso3889110a12.0
+        for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 06:50:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1760104093; x=1760708893; darn=lists.linux.dev;
+        d=linaro.org; s=google; t=1760104199; x=1760708999; darn=lists.linux.dev;
         h=content-transfer-encoding:mime-version:message-id:date:user-agent
          :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NC8yhwHQb8lXZtBiOOkeqMNOFnR9ImhOoBmyuWTsx1w=;
-        b=IwFMfXfK2NNiLfb0c7MQKvSPrVJeyCkgTGuk/1CAONajVuBvdF+hzeJTBjB78CKeUO
-         JPMebbs/AgFhteXeGP3xC7K59nR9GfBlgIrGa9dzqC5ZjQrmgPf4iltlscrwQu0+ROIp
-         XGvty5rriOpHg57NEgoLlu21JOBFcqCIgR9AQtAdy7m4nxKVEmBkC1MEXwxSU2PaMYPG
-         YtxTVM9HM2B4xKTOPdYKxWzXS1L/dw5Xyn+UU03zaSikxipVPn8g1CI9AEW6om9aI0Sa
-         QOZGEbcbPPss8jhvlDbyHV1Llgd8MNwE1aLPnu/oHcTTCQclwrrdHZnFBRQSVaeX+csU
-         6myA==
+        bh=E4U4h4UED/wiZ8pblEMBftejy/1a6Kf8ZusvpH7189g=;
+        b=xiJjOJfMfayAyztjxem4V+4dR/6PEYWAqEKqMFxOiYh2RZ54GoTj1NygR8lQ/+VFEq
+         g6qYH9YS5vLxrajgxgVsVeF1dFCJadzInkukjELzGHxzosScvlGelMJAmCpUoTe3tjaU
+         7oRxnJC+qjZ+Sybm+8muC7M8wSbBQcYTQpBXvF2TDSEh01PIy7kx0sV5veDZDh5A2DPh
+         t5vZuSAk0vUAUVz/OBdtyqZ7aaHnsgrgQ8vZq01lPtw7HPwhaaWaaW615EETM3pemr+n
+         pXy6QJDTqlyStcmfJEiOm5I70TvsDc1cyzet4nKZ+n/VUHr/yTm9gZjtsjmMK2RJlwHA
+         oXlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760104093; x=1760708893;
+        d=1e100.net; s=20230601; t=1760104199; x=1760708999;
         h=content-transfer-encoding:mime-version:message-id:date:user-agent
          :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=NC8yhwHQb8lXZtBiOOkeqMNOFnR9ImhOoBmyuWTsx1w=;
-        b=N9n7MURuBH66h5koOEWYEVPFmqKBbmFLKWkkCEZeHjWqMSmGJ6buTuIZMqGlclGeWD
-         grecei90lUW3oH0iW5cbZ9XsHMJxwiSXrnldfZmDmf4nfujAgh1QGcxiq9+FjoF6iRkN
-         FVQAD9ArQQhauDwCZz1m3L6cEUE0BCai2CCM/RUhtpHv1MMQzZ4ulAdZ2crgeC4s4z05
-         xwHCOfFulRRG6syDG+jlOUGkF5V2aLqaQVbVOvAzu1k8168/pIh6nfe3bqMYa/cT50Cs
-         ao0/Bg2vyJFwf/9sZD7XM3Wse9g2+S88YQM87GgLpOmIIAN5FTASy6zIEO+dTqXaroZB
-         v2Ug==
-X-Gm-Message-State: AOJu0Yyevje+lwXs41R36p/CUy8Ft2Q4OMWqKxBN9ZRu1n9MS+QldYy9
-	mc9JdPjVhpgT6S7+dQobuPEwKw/f8lXNzYRD7mHetXsmOfG4+K6RLSo6wflS7pMiQmhiMFNKQZi
-	B0aCL
-X-Gm-Gg: ASbGncuWH/ztKr5l39UfbObcm/vQhJgy7XbfArxVizwtCSvAkPIvcAiV/Q1AV04NnAs
-	mea2roEYTMx7oNiGhUNrSG3tqWo+xk4JqPDAU9pj5RRqyZHDANahhMqhZQdFkmrok7Q6qpe2V7A
-	W4CTPhLT4MoG3SJjO3Clx87+gib81TMAYLftv3ZuKW0xHeQzwDB7o3ukfa7jh6bnT+gvBBBcle3
-	EOy+IuaLnk1sOyCNHYTyV9RjPQXADaVXnLg/J3nmTea+sd89So9dM8Hmf9cFDLunfuR7NHEMAED
-	HYPvB/0BphDCrM6RdRLnQYNN5+oUP4INlF6Nfb1JzxGWzZW0ZIhsbnKYcAHOUt9u2jjVTa64uS6
-	Y7Te3QIbv8hNDRAhPS+qQ6hJlBrKyOLIPrn7ajgSu752F1JtWWhtbaD4H
-X-Google-Smtp-Source: AGHT+IEq/8xTI6D5JZL1AKMLnV1VQwMmQXGubwdCewFK0oXBU3A5RldJWlHeaKmcvpg5EY/hwKoNZQ==
-X-Received: by 2002:a17:906:c146:b0:b49:a5e4:754a with SMTP id a640c23a62f3a-b50abfd027emr1245262566b.43.1760104092440;
-        Fri, 10 Oct 2025 06:48:12 -0700 (PDT)
+        bh=E4U4h4UED/wiZ8pblEMBftejy/1a6Kf8ZusvpH7189g=;
+        b=KTlX4gEJU2KnUsvoffe6a6uUfpoCahlupYW1sE5h5He6nPtWH3PQlHbzGh0wH3moxt
+         xzn01Q5sxWE8lbVfc1fcdpSCnL6mRf7m7Y1vReKRFkx21MQdIFZchbEJf4EENUA7kwr9
+         GlR8sq4vFsQE3/Y2/Wt8i9OK7khqpFCc0k81lb0MS+fFDdWmxkXbP38oF4kNH7aZ5kUY
+         +n2WfwOtUaDpqWvk/5s8m9kYimNn21Rd+CGVzmHi+JwvvLR4pmFasebtJBxXYjYlq6Ho
+         ngsrz4tANGRHV/SXVn/cEaiHbpzWqs9JFWlq2Z2zdEVpawswo8ziT9Mx39g3MKf9sy0X
+         wbIA==
+X-Gm-Message-State: AOJu0YzRYbGxI3mNENvS0k/sWTpKPbL8GangrKasDgHFNN8a1myQ7HoL
+	6yUORZJeo8fsA5Q4U28oei4opPYzDnzpbMBiZaymlunkv6uzu8FMiTXGM3bAmzydpQaOg7Is1Hc
+	7AWQ/
+X-Gm-Gg: ASbGnctffhiL1MOKWGNGF33zNnFjKhLm9EZmD49cnzmk3bFxIxLLppLatoSW3hb7txx
+	JB/Z/JPSACQKbSOAP7Q5c2/UlLtA3mEsAi2mduvpUFi6nNKPTbPpzA1znc3V6MMvOFduexnV84P
+	oxPUmHC7imBrk6rXm0a8+7Levh4mKE3Lh1dNHQnpCR89gFwEFu/IMOVRdR7vsCOYg85fUxwJiYL
+	9qlRrdYxAaUcKSFT6zVtKa84XqBUCks509fp3kbi2VqonRrt91duM4GSKm6MQF9dVTREaVePkij
+	3BRtHRNETlRRrm8+mVI1kFsMsdSh1BglMoGYGEk3fKBSB5cPPYaXhHoW2YvzKlbEsSvBCc/gOW3
+	CuldEP9g/vg1RsbDDMuEP46YIgVZD6N04L5kn8hrP56msZA==
+X-Google-Smtp-Source: AGHT+IEmem1N7sG0+TD+eCKQtzfdh0rVRBCuHdTZC7qbD/Ba+8NkznrOiB1zg3Q6LHmgNofF/NcAPA==
+X-Received: by 2002:a05:6402:42d6:b0:639:dd3f:f25d with SMTP id 4fb4d7f45d1cf-639dd3ff742mr8487387a12.7.1760104198986;
+        Fri, 10 Oct 2025 06:49:58 -0700 (PDT)
 Received: from draig.lan ([185.126.160.19])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b55d900e151sm236982466b.68.2025.10.10.06.48.11
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-63b616d12fesm1627806a12.24.2025.10.10.06.49.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Oct 2025 06:48:11 -0700 (PDT)
+        Fri, 10 Oct 2025 06:49:57 -0700 (PDT)
 Received: from draig (localhost [IPv6:::1])
-	by draig.lan (Postfix) with ESMTP id CEFC95F7F6;
-	Fri, 10 Oct 2025 14:48:10 +0100 (BST)
+	by draig.lan (Postfix) with ESMTP id 13E4E5F7F6;
+	Fri, 10 Oct 2025 14:49:57 +0100 (BST)
 From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: "Michael S. Tsirkin" <mst@redhat.com>
 Cc: virtio-comment@lists.linux.dev
-Subject: Re: [PATCH v2 08/10] make-setup-generated: optionally add GIT metadata
-In-Reply-To: <20251010091214-mutt-send-email-mst@kernel.org> (Michael S.
-	Tsirkin's message of "Fri, 10 Oct 2025 09:16:08 -0400")
+Subject: Re: [PATCH v2 06/10] specvars.tex: properly wrap arguments to \urldef
+In-Reply-To: <20251010075318-mutt-send-email-mst@kernel.org> (Michael S.
+	Tsirkin's message of "Fri, 10 Oct 2025 07:53:43 -0400")
 References: <20251010112010.3880438-1-alex.bennee@linaro.org>
-	<20251010112010.3880438-9-alex.bennee@linaro.org>
-	<20251010074157-mutt-send-email-mst@kernel.org>
-	<87ms5yx5q6.fsf@draig.linaro.org>
-	<20251010091214-mutt-send-email-mst@kernel.org>
+	<20251010112010.3880438-7-alex.bennee@linaro.org>
+	<20251010075318-mutt-send-email-mst@kernel.org>
 User-Agent: mu4e 1.12.14-dev1; emacs 30.1
-Date: Fri, 10 Oct 2025 14:48:10 +0100
-Message-ID: <87bjmex3z9.fsf@draig.linaro.org>
+Date: Fri, 10 Oct 2025 14:49:57 +0100
+Message-ID: <875xcmx3wa.fsf@draig.linaro.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -86,167 +84,20 @@ Content-Transfer-Encoding: quoted-printable
 
 "Michael S. Tsirkin" <mst@redhat.com> writes:
 
-> On Fri, Oct 10, 2025 at 02:10:25PM +0100, Alex Benn=C3=A9e wrote:
->> "Michael S. Tsirkin" <mst@redhat.com> writes:
+> On Fri, Oct 10, 2025 at 12:20:06PM +0100, Alex Benn=C3=A9e wrote:
+>> While the space in this case is probably harmless we should be using
+>> non-ambiguous argument wrappers if don't want to drown linter output
+>> with noise.
 >>=20
->> > On Fri, Oct 10, 2025 at 12:20:08PM +0100, Alex Benn=C3=A9e wrote:
->> <snip>
->> >> Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
->> >> Message-ID: <20251008145916.2626143-8-alex.bennee@linaro.org>
->> >
->> > Pls avoid Message-ID trailers in patches you post. It's really
->> > confusing.
->>=20
->> That was added by b4 - I can add a .b4-config to stop that happening
->> accidentally. I see the git history has Links instead, e.g.:
->>=20
->>  Link: https://lore.kernel.org/r/20250305164546.1484029-1-mvaralar@redha=
-t.com
->>=20
->> is that OK?
+>> Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+>> Message-ID: <20251008145916.2626143-6-alex.bennee@linaro.org>
 >
-> No, please don't add links for no point. Add a link if you are
-> linking to some relevant discussion.
 >
-> When maintainers apply patches they can have b4 add
-> message id in b4 am/shazam command. It's not the default though
-> and that is maintainer flow not contributor flow.
+> could you be more specfic which linter complains and how?
 
-It turned out I had:
-
-[am]
-        messageid =3D true
-
-in my global config. I've dropped that and made it local for repos now.
-
->
->
-> Parav started adding these links automatically with -l, I personally
-> prefer -i so that links have meaning. Not worth my time
-> fighting about though.
->
->
->> >
->> >> ---
->> >>  make-setup-generated.sh | 32 ++++++++++++++++++++++++++++----
->> >>  makeall.sh              |  4 ++--
->> >>  makehtml.sh             |  2 +-
->> >>  makepdf.sh              |  2 +-
->> >>  4 files changed, 32 insertions(+), 8 deletions(-)
->> >>=20
->> >> diff --git a/make-setup-generated.sh b/make-setup-generated.sh
->> >> index 2c5c7f8..8d33ac5 100755
->> >> --- a/make-setup-generated.sh
->> >> +++ b/make-setup-generated.sh
->> >> @@ -1,16 +1,31 @@
->> >>  #! /bin/sh
->> >> +#
->> >> +# Generate version and metadata preamble for the document
->> >> +#
->> >>=20=20
->> >>  DATESTR=3D${DATESTR:-`cat REVISION-DATE 2>/dev/null`}
->> >> -if [ x"$DATESTR" =3D x ]; then
->> >> -    ISODATE=3D`git show --format=3Dformat:'%cd' --date=3Diso | head =
--n 1`
->> >> -    DATESTR=3D`date -d "$DATE" +'%d %B %Y'`
->> >> +
->> >> +# If a second argument is passed we extract what we can from git
->> >> +# metadata (closest lightweight tag) and local tree status. This
->> >> +# allows locally generated copies to be tagged appropriately.
->> >> +#
->> >> +# The formal build process skips this.
->> >> +if ! test -z "$2"; then
->> >> +    TAG=3D$(git describe --dirty --tags)
->> >> +    # base date on now
->> >> +    DATESTR=3D$(date +'%d %B %Y')
->> >> +    COMMIT=3D$(git rev-parse --short HEAD)
->> >> +
->> >> +    # Finally check if we have un-committed changes in the tree
->> >> +    if ! git diff-index --quiet HEAD -- ; then
->> >> +        COMMIT=3D"$COMMIT with local changes"
->> >> +    fi
->> >>  fi
->> >>=20=20
->> >>  case "$1" in
->> >>      *-wd*)
->> >>  	STAGE=3Dwd
->> >>  	STAGENAME=3D"Working Draft"
->> >> -	WORKINGDRAFT=3D`basename "$1" | sed 's/.*-wd//'`
->> >>  	;;
->> >>      *-os*)
->> >>  	STAGE=3Dos
->> >
->> > This is used in the generated latex:
->> > make-setup-generated.sh:\newcommand{\virtioworkingdraft}{$WORKINGDRAFT}
->> >
->> > Are you sure output for a wd is unaffected?
->> > We still need to be able to generate these for the TC process.
->> >
->> >
->> >> @@ -41,6 +56,15 @@ esac
->> >>=20=20
->> >>  VERSION=3D`echo "$1"| sed -e 's/virtio-v//' -e 's/-.*//'`
->> >>=20=20
->> >> +#
->> >> +# Finally if we are building a local draft copy append the commit
->> >> +# details to the end of the working draft
->> >> +#
->> >> +if ! test -z "$COMMIT" ; then
->> >> +    STAGEEXTRATITLE=3D"$STAGEEXTRATITLE (@ git $COMMIT)"
->> >> +fi
->> >> +
->> >> +
->> >>  #Prepend OASIS unless already there
->> >>  case "$STAGENAME" in
->> >>  	OASIS*)
->> >> diff --git a/makeall.sh b/makeall.sh
->> >> index 37e6c34..5f5d5dc 100755
->> >> --- a/makeall.sh
->> >> +++ b/makeall.sh
->> >> @@ -3,8 +3,8 @@
->> >>  export SPECDOC=3D${SPECDOC:-`cat REVISION`}
->> >>  export DATESTR=3D${DATESTR:-`cat REVISION-DATE`}
->> >>  ./makezip.sh
->> >> -./makehtml.sh
->> >> -./makepdf.sh
->> >> +./makehtml.sh $1
->> >> +./makepdf.sh $1
->> >>  zip $SPECDOC.zip $SPECDOC.pdf
->> >>  echo Generated file $SPECDOC.zip
->> >>  echo To change output file name, set SPECDOC environment variable
->> >> diff --git a/makehtml.sh b/makehtml.sh
->> >> index 45b7080..cf1a8d7 100755
->> >> --- a/makehtml.sh
->> >> +++ b/makehtml.sh
->> >> @@ -1,7 +1,7 @@
->> >>  #!/bin/sh
->> >>=20=20
->> >>  SPECDOC=3D${SPECDOC:-`cat REVISION`}
->> >> -./make-setup-generated.sh "$SPECDOC"
->> >> +./make-setup-generated.sh "$SPECDOC" $1
->> >>=20=20
->> >>  cp virtio-html.tex $SPECDOC.tex
->> >>=20=20
->> >> diff --git a/makepdf.sh b/makepdf.sh
->> >> index 9cae903..bdfb8e5 100755
->> >> --- a/makepdf.sh
->> >> +++ b/makepdf.sh
->> >> @@ -1,7 +1,7 @@
->> >>  #!/bin/sh
->> >>=20=20
->> >>  SPECDOC=3D${SPECDOC:-`cat REVISION`}
->> >> -./make-setup-generated.sh "$SPECDOC"
->> >> +./make-setup-generated.sh "$SPECDOC" $1
->> >>=20=20
->> >>  rm $SPECDOC.aux $SPECDOC.pdf $SPECDOC.out
->> >>  xelatex --jobname $SPECDOC virtio.tex
->> >> --=20
->> >> 2.47.3
->> >>=20
->>=20
->> --=20
->> Alex Benn=C3=A9e
->> Virtualisation Tech Lead @ Linaro
+will do - its not the only fix though. Latex is very noisy building so
+I'm sure more consequential failures are being missed. It would be a big
+job to tidy it up though.
 
 --=20
 Alex Benn=C3=A9e
