@@ -1,78 +1,78 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206E7748F
-	for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 13:50:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FBB25A2DA
+	for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 13:58:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760104203; cv=none; b=UtZpgZKDnUiPkIdIo940L6tJ1Q0OWVGtvkz4x+X/ujyZTrD0AZpZ0fxYj5G14qDpgRfa7TfM0QgoBWqi+VdCHuLH+XaTu9IjbVo2Ek4OsuVJrXTOrijXIpAdq7I3VzLJUijGRd1FVFJggmoPypN+Ide7xcf6fWdNJIls7Ubla1o=
+	t=1760104739; cv=none; b=jkqYD4YUHesbVkX161n9wUivrehLdV+Vm0J0yzcGECeBLbwhFGFe4/WW7luoNTWm7lhLeTCQINTHuoFSAdwCh4/l8QLJ1uo5uowKHOqfsw4EmPXpcXzEBN+FBCk8okbjv9ASSWjX202pWSqcMSFevcTfs2zx2+Lr861pJJVFdz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760104203; c=relaxed/simple;
-	bh=E4U4h4UED/wiZ8pblEMBftejy/1a6Kf8ZusvpH7189g=;
+	s=arc-20240116; t=1760104739; c=relaxed/simple;
+	bh=LoXV/rJnJ/85icUl8piCaun018MFCKus7FJwB7ozEsc=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=keyVqa5jrcVwmUV/bfqtepXBHXMD0Y473m15aYDlhSRtQb3FXcBDrUxCl8T3tdKjjt8lm+7lrzvB/+ebqY94PW/He6NCs4kHMxZzgm8bu0O3wCBwS6POqa7kpAIUVRElRx2bvAvFjxkJVrKhTH4x2p8AxKQjp7p4Vic18pFDzps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xiJjOJfM; arc=none smtp.client-ip=209.85.208.47
+	 MIME-Version:Content-Type; b=jS6ICPD5Pha3p4A01GKPfDMmSK3v9UnxAfVZH47LYwYHfL4Ie1IgThVnjzaKgZaWniPM1mEab8kiBuRsuypABGryiSNdr36KHyeMDAS+QHQv3U6o8d+qaRCxpEzzKfS/Cj1arqYBdsIwShmwlors63OT/Z+g8gRPGXvC51YSiSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=klpC6bSo; arc=none smtp.client-ip=209.85.218.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xiJjOJfM"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-62f24b7be4fso3889110a12.0
-        for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 06:50:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="klpC6bSo"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-b3b3a6f4dd4so392971466b.0
+        for <virtio-comment@lists.linux.dev>; Fri, 10 Oct 2025 06:58:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1760104199; x=1760708999; darn=lists.linux.dev;
+        d=linaro.org; s=google; t=1760104735; x=1760709535; darn=lists.linux.dev;
         h=content-transfer-encoding:mime-version:message-id:date:user-agent
          :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=E4U4h4UED/wiZ8pblEMBftejy/1a6Kf8ZusvpH7189g=;
-        b=xiJjOJfMfayAyztjxem4V+4dR/6PEYWAqEKqMFxOiYh2RZ54GoTj1NygR8lQ/+VFEq
-         g6qYH9YS5vLxrajgxgVsVeF1dFCJadzInkukjELzGHxzosScvlGelMJAmCpUoTe3tjaU
-         7oRxnJC+qjZ+Sybm+8muC7M8wSbBQcYTQpBXvF2TDSEh01PIy7kx0sV5veDZDh5A2DPh
-         t5vZuSAk0vUAUVz/OBdtyqZ7aaHnsgrgQ8vZq01lPtw7HPwhaaWaaW615EETM3pemr+n
-         pXy6QJDTqlyStcmfJEiOm5I70TvsDc1cyzet4nKZ+n/VUHr/yTm9gZjtsjmMK2RJlwHA
-         oXlg==
+        bh=ord+X5Wsg5YN25xHT+dYKwQJnQ96hVGWSxjWIlRim9k=;
+        b=klpC6bSoHcFpkYQvWjz1W6g0jG8H3Hy3IdzIeYpJZDhx3r17TIiiyNs+UfNml1cMoW
+         l3iyHeCwvP739i4Air0RFoCAUESQJAYfOZJgZ1CqVHZygQELLcmefLAcuV5/VBKiQwGV
+         xsQcq/tiPUstGcF65+qlisGh7ViPX+qU31aoo65ObsRFdaAyxnLh63uIIVYOw1iO6Eou
+         rtuyWSME28+XtyA7TLfAe2x8onh6Y+e0dNKnrIBFHxQR6kmKf/OV+mq579EJO3MSfelL
+         l7Jw0pIHiUvkJh1RDuU/zN9Cs7FW0xliOuPfQlmjRfwsQlb9U2foYH4AAlO1u1Yunxiy
+         /Wew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1760104199; x=1760708999;
+        d=1e100.net; s=20230601; t=1760104735; x=1760709535;
         h=content-transfer-encoding:mime-version:message-id:date:user-agent
          :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=E4U4h4UED/wiZ8pblEMBftejy/1a6Kf8ZusvpH7189g=;
-        b=KTlX4gEJU2KnUsvoffe6a6uUfpoCahlupYW1sE5h5He6nPtWH3PQlHbzGh0wH3moxt
-         xzn01Q5sxWE8lbVfc1fcdpSCnL6mRf7m7Y1vReKRFkx21MQdIFZchbEJf4EENUA7kwr9
-         GlR8sq4vFsQE3/Y2/Wt8i9OK7khqpFCc0k81lb0MS+fFDdWmxkXbP38oF4kNH7aZ5kUY
-         +n2WfwOtUaDpqWvk/5s8m9kYimNn21Rd+CGVzmHi+JwvvLR4pmFasebtJBxXYjYlq6Ho
-         ngsrz4tANGRHV/SXVn/cEaiHbpzWqs9JFWlq2Z2zdEVpawswo8ziT9Mx39g3MKf9sy0X
-         wbIA==
-X-Gm-Message-State: AOJu0YzRYbGxI3mNENvS0k/sWTpKPbL8GangrKasDgHFNN8a1myQ7HoL
-	6yUORZJeo8fsA5Q4U28oei4opPYzDnzpbMBiZaymlunkv6uzu8FMiTXGM3bAmzydpQaOg7Is1Hc
-	7AWQ/
-X-Gm-Gg: ASbGnctffhiL1MOKWGNGF33zNnFjKhLm9EZmD49cnzmk3bFxIxLLppLatoSW3hb7txx
-	JB/Z/JPSACQKbSOAP7Q5c2/UlLtA3mEsAi2mduvpUFi6nNKPTbPpzA1znc3V6MMvOFduexnV84P
-	oxPUmHC7imBrk6rXm0a8+7Levh4mKE3Lh1dNHQnpCR89gFwEFu/IMOVRdR7vsCOYg85fUxwJiYL
-	9qlRrdYxAaUcKSFT6zVtKa84XqBUCks509fp3kbi2VqonRrt91duM4GSKm6MQF9dVTREaVePkij
-	3BRtHRNETlRRrm8+mVI1kFsMsdSh1BglMoGYGEk3fKBSB5cPPYaXhHoW2YvzKlbEsSvBCc/gOW3
-	CuldEP9g/vg1RsbDDMuEP46YIgVZD6N04L5kn8hrP56msZA==
-X-Google-Smtp-Source: AGHT+IEmem1N7sG0+TD+eCKQtzfdh0rVRBCuHdTZC7qbD/Ba+8NkznrOiB1zg3Q6LHmgNofF/NcAPA==
-X-Received: by 2002:a05:6402:42d6:b0:639:dd3f:f25d with SMTP id 4fb4d7f45d1cf-639dd3ff742mr8487387a12.7.1760104198986;
-        Fri, 10 Oct 2025 06:49:58 -0700 (PDT)
+        bh=ord+X5Wsg5YN25xHT+dYKwQJnQ96hVGWSxjWIlRim9k=;
+        b=NdYd9zeEu5z+kfgDW4YJ6Oqm0JA0xIKewIBYbfX+0R5EWoAMhws4D9Shb6LqdDk9j7
+         sVWJwuG15OrqFzeRAeLlRi5tAgkDZPM1CzW+WYe7XPndf3qJdlNvhO5VYgcF2u33WXql
+         J8+oUQDdhRMYinTfcWwwpZZ7I69hz0LUVO+FlHyDzPLA0iN2jKEvM7WXWf1ce6pwmpIS
+         +LIrH8519e7pBKKLaFeb/dd56xgHO+Hv/HuHkvLVgz0+Q7QWvoeBZseHDfXbHbBtOWBg
+         hU3IdV8LcwcA/FuZ8J0Uc966zGJEMmpqLTf30o9ugucU72U6kqIRM1vurpetDF+6Q9Cq
+         kjwQ==
+X-Gm-Message-State: AOJu0Yzot2yPYtfn/NhY6huZA9gR/Z5gAzlShwqKsC1YUMrSrMN286VT
+	0DyJal0VLcz8pDpHP7tY1XdNNwKhhpubfTQoSibevS88ZPuK4e99v6rK1uXBU2UNkmaP2pjpIpX
+	XSfnx
+X-Gm-Gg: ASbGnctVjfSglyN+tpsEUQKowh6I60vp9ERs6HPeomB/me1j3pLcqiLMPvSk4pUnb58
+	so3qFEZAcVDRC7trodNXe2+DX1c2JEk20EqZ6pcefbpiv2yxmiikNRfpxP5AtBtP19A52gYEn/7
+	pZaTPANppeT2iLAPSv/VXjGbN0SxFwJyTPo1ibwd3W4Xkm6GWH7wesQnqnMcl05ESHIbXgAweZO
+	rtDL8hcl31lBiqg6GbaBsWLhDj9UTBRnWJf7rHYtBAxjy66t8Ae+uuPb+SAxROx9C3QJiOl0fYv
+	euRQuYbu/IVknC7oYrJtv/Ql2Hd7KPAT5BUocwma+/9ILgy4mzW8Zo2IgjssOOTpNVhkPIum71Z
+	tB/gM2/FGbFac66M8NyQR6ghUZkjQCgSSk3glluGqBza0fw==
+X-Google-Smtp-Source: AGHT+IGGpD3VLEfFY0sqKYWtxuuaW02PN1r3C4L06//o5O+SCvQyUX54j+0O5fRvKUxKOpQ6kmAo1A==
+X-Received: by 2002:a17:907:6d25:b0:b3c:82d5:2119 with SMTP id a640c23a62f3a-b50aa49157amr1094460266b.6.1760104735321;
+        Fri, 10 Oct 2025 06:58:55 -0700 (PDT)
 Received: from draig.lan ([185.126.160.19])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-63b616d12fesm1627806a12.24.2025.10.10.06.49.57
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b55d951ceb4sm235412566b.72.2025.10.10.06.58.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Oct 2025 06:49:57 -0700 (PDT)
+        Fri, 10 Oct 2025 06:58:54 -0700 (PDT)
 Received: from draig (localhost [IPv6:::1])
-	by draig.lan (Postfix) with ESMTP id 13E4E5F7F6;
-	Fri, 10 Oct 2025 14:49:57 +0100 (BST)
+	by draig.lan (Postfix) with ESMTP id A76175F7F6;
+	Fri, 10 Oct 2025 14:58:53 +0100 (BST)
 From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: "Michael S. Tsirkin" <mst@redhat.com>
 Cc: virtio-comment@lists.linux.dev
-Subject: Re: [PATCH v2 06/10] specvars.tex: properly wrap arguments to \urldef
-In-Reply-To: <20251010075318-mutt-send-email-mst@kernel.org> (Michael S.
-	Tsirkin's message of "Fri, 10 Oct 2025 07:53:43 -0400")
+Subject: Re: [PATCH v2 10/10] .github: add a runner to build the latest draft
+In-Reply-To: <20251010075725-mutt-send-email-mst@kernel.org> (Michael S.
+	Tsirkin's message of "Fri, 10 Oct 2025 08:00:53 -0400")
 References: <20251010112010.3880438-1-alex.bennee@linaro.org>
-	<20251010112010.3880438-7-alex.bennee@linaro.org>
-	<20251010075318-mutt-send-email-mst@kernel.org>
+	<20251010112010.3880438-11-alex.bennee@linaro.org>
+	<20251010075725-mutt-send-email-mst@kernel.org>
 User-Agent: mu4e 1.12.14-dev1; emacs 30.1
-Date: Fri, 10 Oct 2025 14:49:57 +0100
-Message-ID: <875xcmx3wa.fsf@draig.linaro.org>
+Date: Fri, 10 Oct 2025 14:58:53 +0100
+Message-ID: <87zf9yvowy.fsf@draig.linaro.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -84,20 +84,128 @@ Content-Transfer-Encoding: quoted-printable
 
 "Michael S. Tsirkin" <mst@redhat.com> writes:
 
-> On Fri, Oct 10, 2025 at 12:20:06PM +0100, Alex Benn=C3=A9e wrote:
->> While the space in this case is probably harmless we should be using
->> non-ambiguous argument wrappers if don't want to drown linter output
->> with noise.
+> On Fri, Oct 10, 2025 at 12:20:10PM +0100, Alex Benn=C3=A9e wrote:
+>> This will run each time anything is pushed to the repository and store
+>> the result in the release assets area of github. To see an example of
+>> it in practice see the virtio-msg repo:
 >>=20
->> Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
->> Message-ID: <20251008145916.2626143-6-alex.bennee@linaro.org>
+>>   https://github.com/Linaro/virtio-msg-spec/releases
+>
+> Is this the PDF?
+>
+> https://github.com/Linaro/virtio-msg-spec/releases/download/virtio-msg-rf=
+c1-Linaro-draft-v14/virtio-msg-rfc1-Linaro-draft-v14.pdf
 >
 >
-> could you be more specfic which linter complains and how?
+> Some comments:
+> I suggest removing the version (e.g. replace with X.X)
 
-will do - its not the only fix though. Latex is very noisy building so
-I'm sure more consequential failures are being missed. It would be a big
-job to tidy it up though.
+Isn't the closest version still useful (to know its not based on a
+really old version of the spec)?
+
+> Replacing "Working Draft" with just "Draft"
+> Maye stick the hash there too?
+
+I've gone with:
+
+  Unofficial Draft (@ git 8c7a1c3 with local changes)
+
+to make it clear its outside of the normal OASIS stats.
+
+> I also see front page corruption:
+> driver listing overlaps with related work.
+
+I think that predates my changes - I built from current HEAD and it has
+the some overlap.
+
+For the unofficial draft should we just elide the stage information
+entirely as the links it generates don't point anywhere?
+
+>
+>
+>
+>
+>
+>
+>> Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+>> Message-ID: <20251008145916.2626143-10-alex.bennee@linaro.org>
+>> ---
+>>  .github/workflows/deploy.yaml | 37 +++++++++++++++++++++++++++++++++++
+>>  .github/workflows/test.yml    | 15 ++++++++++++++
+>>  2 files changed, 52 insertions(+)
+>>  create mode 100644 .github/workflows/deploy.yaml
+>>  create mode 100644 .github/workflows/test.yml
+>>=20
+>> diff --git a/.github/workflows/deploy.yaml b/.github/workflows/deploy.ya=
+ml
+>> new file mode 100644
+>> index 0000000..fec4910
+>> --- /dev/null
+>> +++ b/.github/workflows/deploy.yaml
+>> @@ -0,0 +1,37 @@
+>> +name: Deploy current state
+>> +
+>> +on: [push]
+>> +
+>> +jobs:
+>> +  build:
+>> +    runs-on: ubuntu-latest
+>> +    steps:
+>> +      - uses: actions/checkout@v4
+>> +      - uses: xu-cheng/texlive-action@v2
+>> +        with:
+>> +          scheme: full
+>> +          run: |
+>> +            apk add file font-liberation make zip
+>> +            make local-all
+>> +            echo ${{ github.sha }} > Release.txt
+>> +
+>> +      - name: Create Draft Release
+>> +        id: create_release
+>> +        uses: actions/create-release@v1
+>> +        env:
+>> +          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+>> +        with:
+>> +          tag_name: ${{github.ref_name}}-${{ github.repository_owner }}=
+-draft-v${{ github.run_number }}
+>> +          release_name: Draft ${{ github.run_number }}
+>> +          draft: false
+>> +          prerelease: false
+>> +
+>> +      - name: Upload Release Asset
+>> +        uses: actions/upload-release-asset@v1
+>> +        env:
+>> +          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+>> +        with:
+>> +          upload_url: ${{ steps.create_release.outputs.upload_url }}
+>> +          asset_path: virtio-v1.4-wd01.pdf
+>> +          asset_name: ${{github.ref_name}}-${{ github.repository_owner =
+}}-draft-v${{ github.run_number }}.pdf
+>> +          asset_content_type: application/pdf
+>> diff --git a/.github/workflows/test.yml b/.github/workflows/test.yml
+>> new file mode 100644
+>> index 0000000..34f4f44
+>> --- /dev/null
+>> +++ b/.github/workflows/test.yml
+>> @@ -0,0 +1,15 @@
+>> +name: CI
+>> +
+>> +on: [pull_request]
+>> +
+>> +jobs:
+>> +  build:
+>> +    runs-on: ubuntu-latest
+>> +    steps:
+>> +      - uses: actions/checkout@v4
+>> +      - uses: xu-cheng/texlive-action@v2
+>> +        with:
+>> +          scheme: full
+>> +          run: |
+>> +            apk add file make zip
+>> +            make local-html
+>> --=20
+>> 2.47.3
+>>=20
 
 --=20
 Alex Benn=C3=A9e
