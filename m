@@ -1,443 +1,332 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012003.outbound.protection.outlook.com [52.101.53.3])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85263299AAF
-	for <virtio-comment@lists.linux.dev>; Wed, 15 Oct 2025 03:29:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.3
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1760498992; cv=fail; b=ksUL0PYDBOKIRFnxWvT0VEmJwzxZy1dRlTR1TjmfcaJWBeg2NHLKuy/aHCIeQReCfTYE7IBdG1+IK+4Qs8etjcsOntWxyK7FY1pH+ryAL4xcuzQtHV5NiRdEVXDOFAB7BUOAkAISRgS3hAeY2mBxqUvYoxM8gJtwVWIimBWTDng=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1760498992; c=relaxed/simple;
-	bh=WOEJKVDdLqgGWmYlL4MP2QiQ1t8eyW6vecJAprukrQY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=k6LlHPcjdjt4dcJFPSyGpWwE0Q041Z17T6Xtq6ASymeUL/BgaJs3DZofAupXXNqIi9vI+KUlCb+34cjkFrVyly+GocNtEtHDi5DZkLkFU8mhCTaT+/3azNHrK/DfFZTJ2VZTC1bIy8A6tYVgS5oWzydCSSvxxZmaaWiTvNPPbEI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=dCJzYJbR; arc=fail smtp.client-ip=52.101.53.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A732F4A00
+	for <virtio-comment@lists.linux.dev>; Wed, 15 Oct 2025 04:29:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1760502571; cv=none; b=eh0YZwHeAjL7kT6dofFPEh8FFtyLxXf6P8lQM3jMixXDhEgEzIYvUAqQlyZbJwAemAA/IZrxdQKy7bpExCrAgepsaGF7WRarWbr/IZF9D1Pinv0xyHY2KuIY8XhStn/9zwzaY6K2G1wl4UD1O6hQDjyiILOS8cCnrDA423oQImQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1760502571; c=relaxed/simple;
+	bh=MKnNu/38g/IoXSGhylkr3GDBXdqkp3+ZZk6rdse/AzI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gNxPQkqtwGD/HGKu6cICVG9EtbXTx/mJOJ0qEp2zuC7u7dAMr1xA0ohAJYWECtVeplfOvzfrb5/OhqhJDqhaTm0dSkBUiaXopitfR3WeKnUxhlP3jzu7DqS6lIWwQTxnNG4I5iR6Etw8Vi66jLhDRMfr+asb9ieH4/TrG1MRhsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=X492G5N8; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="dCJzYJbR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nsiNYxC3DY1W1xexbMU+guyAGx8439Cr6xEPs5DNeiVcVQm490kIrgnALjx77p20+y9HrlNp2HZJvpFFGSioRKkiHOu8Rhqm7roicw2eA9Fs1+epQJ5Wdiw2kBuMKR8gN+kE4f+W6uBwjUkJ/BtU3UG9CIv3CFIeIbJ/p6+65h3PwudOjvM+EjeXzToIKX0LLiHAIlaYS8csoCqySJYW7Tg+xTRfNb4lJ0uP3xL5Am/bncTM7B4uT9Vq9xeOWFxzdORVaq4yy+Ksof67IteDQfmW3VwhoiYwsDVkcnI+xBrjouSEbnrK/gJFs1+hxmk+psvvrPa60WpkXUTvVWd3Ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nK/KGXjvj7B8L90Z/TUqZV+tvlfJCKLo7s5luBia4jM=;
- b=eG6uTFQwx0jqzq4L/zgtHS1EeoahO0LV5RDTq/lvQgqz/ZEyGxQb21AG6eK0CSM0UjNYgrrkLfWEjRCKgoEyJZFdVbV/Lr0rUvKRnsoLj4IfV+ejJ6pwDjHB6BmTdDyGsUWeZdLbzrUYXJvnH+/7iXl84qAUtLarj5+kK0yeNGHS0sEVIvrzdGiKNALchqrZFPBwTa1D2vbqvBoMXdls2DtHH+qnRrtSvQZex9uhcCRwYda5KgGLqSyLktvCLz3epOJ+2qgzVowqlp92CKJd4ij8cOCcrFqNPMU4lFD28448CMCpAtTFAO0lbD2Vl4jUz/w0XY1gSUxe4cOEk1agSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nK/KGXjvj7B8L90Z/TUqZV+tvlfJCKLo7s5luBia4jM=;
- b=dCJzYJbRIqVqRiHWIrAbX3SE9PBQZafUbuJEGOr2HjnbUGqzT/KJZhXNruliRPK8b0sGzJw7XjjZ0t2bfsoWBDwks+A/6FUB55Wu1FglwVGt+4mOLMKWIWBFVkovDKbOKkTpl7Xa0obHRA48s4RFFQkK8+8zQqbbUKGmic6Su3whbtBxd+rIvpZ2qPRtHcS8elPd+KCmD2tutCMHy2dlfoalTRqASS8VfHoVOT/79FPMlWvNZmzMbcdjkji4T/NZuUnhfWZByCNWJ/yEvpX/h8mM7fklnttmAUXaxtZaCY1IZfUiYn4TCddHvD5+ayWE/DamPmq45ZBvU/gCXpRf2w==
-Received: from PH8PR12MB7208.namprd12.prod.outlook.com (2603:10b6:510:224::7)
- by CH0PR12MB8530.namprd12.prod.outlook.com (2603:10b6:610:188::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.13; Wed, 15 Oct
- 2025 03:29:45 +0000
-Received: from PH8PR12MB7208.namprd12.prod.outlook.com
- ([fe80::1664:178c:a93e:8c42]) by PH8PR12MB7208.namprd12.prod.outlook.com
- ([fe80::1664:178c:a93e:8c42%5]) with mapi id 15.20.9228.009; Wed, 15 Oct 2025
- 03:29:39 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: =?iso-8859-1?Q?Ilpo_J=E4rvinen?= <ij@kernel.org>
-CC: "Chia-Yu Chang (Nokia)" <chia-yu.chang@nokia-bell-labs.com>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	"mst@redhat.com" <mst@redhat.com>, "cohuck@redhat.com" <cohuck@redhat.com>,
-	"mvaralar@redhat.com" <mvaralar@redhat.com>, "jasowang@redhat.com"
-	<jasowang@redhat.com>, "xuanzhuo@linux.alibaba.com"
-	<xuanzhuo@linux.alibaba.com>, "eperezma@redhat.com" <eperezma@redhat.com>,
-	"ncardwell@google.com" <ncardwell@google.com>, "Koen De Schepper (Nokia)"
-	<koen.de_schepper@nokia-bell-labs.com>, "g.white@cablelabs.com"
-	<g.white@cablelabs.com>, "vidhi_goel@apple.com" <vidhi_goel@apple.com>,
-	"ingemar.s.johansson@ericsson.com" <ingemar.s.johansson@ericsson.com>,
-	"mirja.kuehlewind@ericsson.com" <mirja.kuehlewind@ericsson.com>
-Subject: RE: [PATCH v10 1/2] virtio-net: Fix ECN feature descriptions
-Thread-Topic: [PATCH v10 1/2] virtio-net: Fix ECN feature descriptions
-Thread-Index:
- AQHcDRMxc7D2+BxJGUa3jiZ0uZVtV7SqECZQgACnIACAALBIAIAAa1mAgAEnxVCAADbEAIAANhWAgAAbXICAAwZbwIAAFfmAgAAMFGCAABRiAIAAMbdwgABX7wCABWkngIAJRiFggAKBUgCAAHMSkA==
-Date: Wed, 15 Oct 2025 03:29:39 +0000
-Message-ID:
- <PH8PR12MB720866C253E9C7361F88FC1EDCE8A@PH8PR12MB7208.namprd12.prod.outlook.com>
-References: <20250814120118.81787-1-chia-yu.chang@nokia-bell-labs.com>
- <PAXPR07MB79847467B33487A8F0CA5ED5A3E6A@PAXPR07MB7984.eurprd07.prod.outlook.com>
- <CY8PR12MB719518C4A8F3EE03690E44B1DCE6A@CY8PR12MB7195.namprd12.prod.outlook.com>
- <PAXPR07MB79845B9580C4D17590E8C2DEA3E6A@PAXPR07MB7984.eurprd07.prod.outlook.com>
- <CY8PR12MB71959308B23EFE2A920D8B20DCE4A@CY8PR12MB7195.namprd12.prod.outlook.com>
- <PAXPR07MB79841A2F8A719FDAD35AB0D0A3E4A@PAXPR07MB7984.eurprd07.prod.outlook.com>
- <CY8PR12MB719590ED886A60EE7867E7E6DCE4A@CY8PR12MB7195.namprd12.prod.outlook.com>
- <PAXPR07MB79846714E156C1797667F6ABA3E4A@PAXPR07MB7984.eurprd07.prod.outlook.com>
-  <CY8PR12MB7195DF4B90E52B22D33964E0DCE4A@CY8PR12MB7195.namprd12.prod.outlook.com>
- <d92b8614-6cf8-d704-01ab-b89094486f52@kernel.org>
- <PAXPR07MB798491A0140F43FFE17384D8A3E0A@PAXPR07MB7984.eurprd07.prod.outlook.com>
-  <CY8PR12MB719595914FDED764977E6105DCEAA@CY8PR12MB7195.namprd12.prod.outlook.com>
- <f0c03e3e-c1d0-73d7-c4dc-c95fc0248207@kernel.org>
-In-Reply-To: <f0c03e3e-c1d0-73d7-c4dc-c95fc0248207@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH8PR12MB7208:EE_|CH0PR12MB8530:EE_
-x-ms-office365-filtering-correlation-id: 997b1729-6b03-4ee5-6847-08de0b9b12b9
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|1800799024|10070799003|366016|38070700021;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?oZm/x38Mu4DCDFpC9cZtzhEG3uD5JvUiOzyJSw56eG9umhj5NuFWoQX02m?=
- =?iso-8859-1?Q?QUQ7vvg69EJvvKR/Y9ABIi9R0bs9YavOTqXq6H+bW2YKWKyfVAelF5/iaX?=
- =?iso-8859-1?Q?xBOxPVR7Kn3nkvAdN7v6N9YDjufBzunD84tO0ecvF8wy2RfWuQ6fWGMq5m?=
- =?iso-8859-1?Q?Kp3T0tDdgsiuJjI9r3Vu+rmoKTygEE8EHb8JPXD2f0atC1yyjpv/ORmg73?=
- =?iso-8859-1?Q?x0Tlu5UiO7m/ztGTfuCFmeA++hLMx/38PUl2iMLpssHQel+EjLsQK1cd6w?=
- =?iso-8859-1?Q?wUiTcQEeST50wPpXOj8M6x3h4ov+yIHZDpdSwryx/ODPRi5hzAgqUESPCH?=
- =?iso-8859-1?Q?oM2l+2T0uFzSDq8P5iAwgR/RQR5sZ9S2lQIUQHJVvH+oRf4aLQsHuBhQ9u?=
- =?iso-8859-1?Q?4PyQQkm6U3YvO3+lnKMFCbahmv/KlT8oKzIuvYXG8DyeHyjA4b7eS1FW0H?=
- =?iso-8859-1?Q?mv7IITojHfX83w1xJYcHCsM5RvdSoQitobMKoVH+HADcCcSjqbyjHSgsRt?=
- =?iso-8859-1?Q?doLqPYrurn/EjCkPPYyJ1k0I3q3kdBQ/NnsAtSZaoRWPcwG6FepPX3RWmd?=
- =?iso-8859-1?Q?VSKtrGUdn12NiYDhRwA3iRoQSCUm+DFVxpf99hNu/8IeJMuudAfSR/vEsC?=
- =?iso-8859-1?Q?mbTMzDIwJ1+KiF6VpJ2khNK9VdOp5zNjPiFbVWmgqC0cD+tpDZgBquKwOs?=
- =?iso-8859-1?Q?giy6JHFM3ndInYNu+on30r1WrxJrTpY+NG4Lf43sIb2jZDi9X5XTes7tDn?=
- =?iso-8859-1?Q?IbGQML14PIfFwYT7j3pr+buiNp7WkrPiB9LD7g0B2reNXvdtSJy2TQ8F3u?=
- =?iso-8859-1?Q?oR1nyp8ozUcjxNww9k2mpkvHbqXnSaflupREjKn7WKIn21axkJ5tads1mb?=
- =?iso-8859-1?Q?NI3TMcdd3C71AvCvwRfH25ZkqsyWUBE4Ap6wielY4qYsdfe1ODjQWO0XHW?=
- =?iso-8859-1?Q?oYEQk4PIrvqdY7IL3tvgeL+ar/afy3B9q62UDbPd2BrFjsHAf4nP2oO8rz?=
- =?iso-8859-1?Q?EcumNQY6hYxSrm+bzOv/7df/qbW4oG+Q9og6lglbHTEahx2QciuwHl1zLw?=
- =?iso-8859-1?Q?E2pb8BMXlRPPfve+L2tE3AWWjkp5san7QarVwmO4AHJrfuQ9JlMk4n8U5C?=
- =?iso-8859-1?Q?v+4sd/S4FUE/3quA/IkDYc8r9+rIQ2aC45jeqlfSpVNzYXF2xQR7n2GyQ3?=
- =?iso-8859-1?Q?J3nmaPg+I6jmr/Ij3DeWjGCUcICVtOzlmKhgnn9zXm7D980X/AgQFRmtBH?=
- =?iso-8859-1?Q?Rjmn76nDfgRDazxYlkDtM/W/AJA9Ciu12T9aZmd3lpZJk1rPqlkVQlr9iG?=
- =?iso-8859-1?Q?YFjvoW8pMimdI0FHf21gN2Gz/6FlLwJuCmEJJsDgQl6Ud+CxZT6iqzYYda?=
- =?iso-8859-1?Q?yJQL7D3WDa2kY+NKGKMaRGnDWBrx9mHG7pB7zhnf//004njvMDZb+oGs6Z?=
- =?iso-8859-1?Q?VgtP8G6GVhr1vdLKlKYlEVOgMUGEuRs0SqrlOBoriYRL1VjNjJiiS6XxKT?=
- =?iso-8859-1?Q?wa6EylKKxE8yxONVfQZHumRef+5OoE6s97XyeOJPeIZyqfq86jzQmLMRqj?=
- =?iso-8859-1?Q?8kYV1uC6qDXsAvanWjuaI9Ntvm9M?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7208.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(10070799003)(366016)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?93Ph+7BUhhLgCTtLnVEtywevzpVHkpJSjIWcL64YG/9yYPLP3KLbQRPdo9?=
- =?iso-8859-1?Q?54ZJmdYIaZvR6VE86k4adFjmnJk/+TalJa18jJdKpXWM2/TFaDFfrPJxAA?=
- =?iso-8859-1?Q?DJqwU+GlNALU6IcituZ4+G2OJ0cPFsx5PQiAknCgyfIuk3MA2LMad6rm1b?=
- =?iso-8859-1?Q?a9TLj8Hh/EtsJ6y87cLa0sPGfjayyd+neau1DvuffNRmFd0u5hqbJFS0An?=
- =?iso-8859-1?Q?uTPJKU2Ve3ln/BKdhcuHIC452HjoVxDkL3GQPUhI8ghVfz8P7ReyqZXw4N?=
- =?iso-8859-1?Q?K9Ues/4YmtnnIO6wEudbBtMYr9odIj3E/QCmacNL2O/RQktK7ZZXfo3zLo?=
- =?iso-8859-1?Q?TN3Q8wmzz2/I8LeLk4QXI6mm7X501mcUuzTfQvKNatfBJX79Ri7qISe9vk?=
- =?iso-8859-1?Q?tNyTic/yEda4OE1XcwN3EBNKT2j6px09QGa29jeAgQ3cAY3GRvBnyGa8ca?=
- =?iso-8859-1?Q?hV52QZp6OqoK6v7O2/Ad0EG4yVJzA4uI+WUM87LIKySkwlRU2Db9H/O2XI?=
- =?iso-8859-1?Q?rCK1EDDvhGwhHHbMqWgONzJKDIRExn0HqceKIySrWzKEfNQ/tMmcynlIh8?=
- =?iso-8859-1?Q?WQaixomOwSb+cPo9qlpKBYyBCsgLEnrjoOr5zzvtrJtt9nBvkKtLq20CZg?=
- =?iso-8859-1?Q?Vuxa+T2KRQkhvleP4aEQwtYcu0x1UoFN7MbvAfcTUbRobdndBirk1ol482?=
- =?iso-8859-1?Q?AVACX091jzemPxbmQRX+ccpIigqYpz28wB8e7twiBVqTn6Yg0gCnNd7KOJ?=
- =?iso-8859-1?Q?SjCHZn7/+oxrqG7yVGTWN5x7zlsJfEU8WSCHwfEoNQFdyI1oRSqe2YTq9i?=
- =?iso-8859-1?Q?eujYgln9dPuqIVAls9sf2Bi7779f16yK+G8CNwaO0t9ArfZqDiN+1E+xlv?=
- =?iso-8859-1?Q?oUmh8xsSH+k84fgioOYcaqa/jAwiqOJO4ELH0QdW9ZyxoyEJ33BEviz8CX?=
- =?iso-8859-1?Q?3iZbvNNHad3tfl0sgLFqkhNYjhvzMheLk+tLCO4GoE1Xy1cYoxO8jY2lOw?=
- =?iso-8859-1?Q?n6l9n8lxniNKZqWKy7pqfYO2dX1fLaSX874veDM+95e9nJF0LhtEjQlSDY?=
- =?iso-8859-1?Q?8Q4lJ+kkX756UDmtPNuM9XeTK9i4tRNeSNsVV0i/WQcJUqtnd8kTO/lA/r?=
- =?iso-8859-1?Q?sKf0MMNO/ChuW5+CVXxKpeCRe4GJ+uWvxh7WxExHY8LpzSsyzVHgnXAL/d?=
- =?iso-8859-1?Q?mRLnODHdsUPTrc3trdbKSPpNJRgh+MrNguC9P5mPbFmpUH6gVO+9xjc9i9?=
- =?iso-8859-1?Q?ScIMKC/lOswr6tf+Vxnp6uJyRvrKpXCBNDl7V0mTMapiKZjXVHMGkH3dWW?=
- =?iso-8859-1?Q?nHqdtq60qXY/Jo/mTBCmMSt4+ZyJMgE/B5t6RwKaFW9HWb8e+xi1TZ8dbB?=
- =?iso-8859-1?Q?HDe6y/zkA+skckfeXJusoIxG8hp5Zykfhi5ERPS97xGTxZ3RN4ZrQE1rO4?=
- =?iso-8859-1?Q?O44TIpePDnoI7BDchp03RPU8jAb95LVJCteQLxbBvXTIXpFipMAhnlzIMA?=
- =?iso-8859-1?Q?B81gvdD8EIjtkiUnTIax8VFyyY/OjG95hwTO9PJNzwL2Rhldy67RSZGmWJ?=
- =?iso-8859-1?Q?xcyYoIoiI0CT2O4h4xtrsbtcr5dgtm1gbdqBKgURBY/B4PyLGNYYZfWYkr?=
- =?iso-8859-1?Q?9/YTcO16YpojB3JwiroCoqSeIB4Qcp2nztMax4TXrfLTWdiePY1EkP7RKQ?=
- =?iso-8859-1?Q?orct9Y5QR7PmEgNbRok=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="X492G5N8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1760502568;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8ovrdqD4RP2OHpYXxXOWKTnrrNPvxmWVVx31OzTbJVA=;
+	b=X492G5N81q31BSiPx05wCl2gRkl0SqkJcLGVEl+QvOJ/8xDPFgbh8h6O4hXdWk2gktT0ia
+	A1A5ffnnwOT899eZDVvDEz8vFTjwz9Lohz96DlbZdhLp4Oif+lHuQ7HESvGwLaE6HIykLs
+	diOsRpd7X5Q91t7Bfnbr7gkuhMvXXrc=
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-171-aEbqyMSyM2yqepcKo0bn_w-1; Wed, 15 Oct 2025 00:29:27 -0400
+X-MC-Unique: aEbqyMSyM2yqepcKo0bn_w-1
+X-Mimecast-MFC-AGG-ID: aEbqyMSyM2yqepcKo0bn_w_1760502566
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-33428befd39so23240435a91.0
+        for <virtio-comment@lists.linux.dev>; Tue, 14 Oct 2025 21:29:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1760502566; x=1761107366;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=8ovrdqD4RP2OHpYXxXOWKTnrrNPvxmWVVx31OzTbJVA=;
+        b=O4UZCvqyjMFSUOfT9ztDv8lF/WVHiz/KnslYb4RONSGW0xq/KUmcU5OXyo7aRiAePU
+         udu8MER+sIHc+GZWQSJ6ikKD9rEU3cu6ookScDdKvX0eLkc7DAoyoUHx8zWlEXiC6hqb
+         aNUhOMHnCbcPHXyzScoIZ4m1tXTgANz4vG5XFaW+nDNBMY4CRBsMJnrjDauPbHmKu36c
+         fqn90A4prlHI9lvx9iqzg1aaRZndn8/YRlXFYKqKSg+gKASiCT4SjxotS9HC0Srxy2HG
+         t+vJX3M3kz+6zTMUv+C7jl8IaTewOUkPvc8Lv+TTflnqyG+eFixOpWfvKEHLKqoj0JU/
+         wXEA==
+X-Gm-Message-State: AOJu0Yx9Fb/uNiiYbn7HxB1CrcIg/Z8aFheEGx/WhkkYyX1imm/cjYmk
+	NujoImQ641JB3vQ7iKZz86z0XTqpeWxPUhp8S/nnlAyPd5467h2+2hhzIGwq3XDO9Ow6m3tb0Hk
+	qvCc/bZTFZlL2XrmeqbtW6vo15dAEu1pU6470E5/hM2/SyMChrxxEGoStUobnNUO7JmCfZWwrxD
+	OVepM7yjE/X4qn9f+4nB2FGMINVbaDdK0+v6i2NSY4bWU=
+X-Gm-Gg: ASbGncuk4WcXRyF3PWElWnRKD2CuZPhTIviCuB5gms4cFRY1peAWkYwJRU9TKHDCXmO
+	+bzHbdKMveHHt5VuHhXPJKVjo2/gWnba9fQ8w7rRg7yW4yWnPQWK3hD9jD2t6aeZVorSpNXAWrz
+	l71VC9kQmMXE4ZIjw42FpRCw==
+X-Received: by 2002:a17:90b:1b07:b0:338:3cea:608e with SMTP id 98e67ed59e1d1-33b5138f734mr34750735a91.31.1760502565802;
+        Tue, 14 Oct 2025 21:29:25 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEGxo0cZztL0Xz7KBecOxXFxgxvzckZF4Y7Cw3dBBMID4sCoaXtw2ZaCdUHGoae4InCAtaAml+pOKhylSO7y7U=
+X-Received: by 2002:a17:90b:1b07:b0:338:3cea:608e with SMTP id
+ 98e67ed59e1d1-33b5138f734mr34750698a91.31.1760502565332; Tue, 14 Oct 2025
+ 21:29:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7208.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 997b1729-6b03-4ee5-6847-08de0b9b12b9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Oct 2025 03:29:39.4546
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 34C3GyIp6Be1or8+GZi57PHA35bPz+JyCDkFYdA7X4nLCeRE89S7K+ie23S1EOi+sCZ7lKmKPCRQvRrXMLrE6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8530
+References: <20251014042243.22087-1-jasowang@redhat.com> <20251014044005-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20251014044005-mutt-send-email-mst@kernel.org>
+From: Jason Wang <jasowang@redhat.com>
+Date: Wed, 15 Oct 2025 12:29:13 +0800
+X-Gm-Features: AS18NWB1u0-HEQGoTJuzepZrinqWkiybgr06pWDCpqsYN_8mY7XtCmr816v0trs
+Message-ID: <CACGkMEs7Y9DLuRp_3ex8ac3Hv5y7X5Q-PnS61DMjOVjAkvazjA@mail.gmail.com>
+Subject: Re: [PATCH] virtio-net: introduce TSO limit feature
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-comment@lists.linux.dev, lulu@redhat.com, nguyenlienviet@google.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 3Qlyu4eoHNlELPUhAP02E2qh4Plz0pBKBwzn_w9mlw8_1760502566
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Oct 14, 2025 at 4:59=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com>=
+ wrote:
+>
+> thanks for the patch! yet something to improve.
+> I note issues only when encountered 1st time but please
+> do go and check all patch for each issue.
+>
+>
+> On Tue, Oct 14, 2025 at 12:22:43PM +0800, Jason Wang wrote:
+> > This patch introduces TSO limit feature which allows the device to
+> > advertise:
+> >
+> > - Maximum TCP length of a TSO packet or inner TSO packet when UDP
+> >   tunnel is support
+> > - Maximum number of segment that can be produced by the device after
+> >   segmentation of TSO or inner TSO packet of a UDP tunnel
+> >
+> > This is a must to implement TCP jumbogram, as networking stack needs
+> > to know the limitation of the device in order to produce TSO packet as
+> > large as possible.
+>
+> I am not sure I understand the use-case. So how is it used,
+> exactly?
 
+It works like a device advertising the TSO limit so the kernel stack
+can try to send a TSO packet up to that limit to the device to perform
+TCP segmentation offload. E.g without this device information
+networking stack can only send a size at most 64K packet to the
+device.
 
-> From: Ilpo J=E4rvinen <ij@kernel.org>
-> Sent: 15 October 2025 02:05 AM
->=20
-> On Mon, 13 Oct 2025, Parav Pandit wrote:
-> > > From: Chia-Yu Chang (Nokia) <chia-yu.chang@nokia-bell-labs.com>
-> > > Sent: 07 October 2025 02:12 PM
-> > >
-> > > > -----Original Message-----
-> > > > From: Ilpo J=E4rvinen <ij@kernel.org>
-> > > > Sent: Saturday, October 4, 2025 12:05 AM
-> > > > To: Parav Pandit <parav@nvidia.com>
-> > > > Cc: Chia-Yu Chang (Nokia) <chia-yu.chang@nokia-bell-labs.com>;
-> > > > virtio-comment@lists.linux.dev; mst@redhat.com; cohuck@redhat.com;
-> > > > mvaralar@redhat.com; jasowang@redhat.com;
-> > > xuanzhuo@linux.alibaba.com;
-> > > > eperezma@redhat.com; ncardwell@google.com; Koen De Schepper
-> > > > (Nokia) <koen.de_schepper@nokia-bell-labs.com>;
-> > > > g.white@cablelabs.com; vidhi_goel@apple.com;
-> > > > ingemar.s.johansson@ericsson.com; mirja.kuehlewind@ericsson.com
-> > > > Subject: RE: [PATCH v10 1/2] virtio-net: Fix ECN feature
-> > > > descriptions
-> > > >
-> > > >
-> > > > CAUTION: This is an external email. Please be very careful when
-> > > > clicking
-> > > links or opening attachments. See the URL nok.it/ext for additional
-> > > information.
-> > > >
-> > > >
-> > > >
-> > > > On Fri, 3 Oct 2025, Parav Pandit wrote:
-> > > >
-> > > > > > > > > You described,
-> > > > > > > > >
-> > > > > > > > >     If NIC is completely unaware of RFC3168 ECN (doesn't
-> support
-> > > > > > > > >     NETIF_F_TSO_ECN) or its TSO engine can be set to not
-> > > > > > > > > touch
-> > > CWR flag
-> > > > > > > > >     despite supporting also NETIF_F_TSO_ECN, TSO could
-> > > > > > > > > be safely
-> > > used
-> > > > > > > > >     with AccECN on such NIC. This should be evaluated per=
- NIC
-> basis
-> > > > > > > > >     (not done in this patch series for any NICs).
-> > > > > > > > >
-> > > > > > > > > Based on above commit log, can we say that when existing
-> > > > > > > > > GSO_ECN is not
-> > > > > > > > negotiated, ACCECN can work as_is without the patch_2?
-> > > > > > > > >
-> > > > > > > > > [1] commit 023af5a72ab16 ("gso: AccECN support")
-> > > > > > > >
-> > > > > > > > Indeed, this patch description implies that NIC that
-> > > > > > > > currently don't support TCP_ECN will naturally support ACCE=
-CN.
-> > > > > > > > But an extra TSO_ACCECN flag will make this into an
-> > > > > > > > explicit requirement, like our patch in the Linux.
-> > > > > > > >
-> > > > > > > If so, the 2nd patch should word saying, the device must not
-> > > > > > > modify IP
-> > > > > > congestion code point bits and TCP ACE bits.
-> > > > > > > All packets in the segment offload must have same bits.
-> > > > > > >
-> > > > > > > Similarly on RX side for GRO, the device requirement to
-> > > > > > > spell out that GRO
-> > > > > > stream to break when two subsequent packets have different bits
-> etc.
-> > > > > > >
-> > > > > > > If you can help to understand why RX side should set this
-> > > > > > > and how one may
-> > > > > > plan to use it, it makes sense to define the GUEST bit.
-> > > > > > > Presently it does not look useful for rx side (guest bit).
-> > > > > > >
-> > > > > > > > Related to another email about existing driver, one
-> > > > > > > > solution would be replace SKB_GSO_TCP_ECN with
-> > > > > > > > SKB_GSO_TCP_ACCECN,
-> > > like
-> > > > > > > > in 4e4f7cefb130af6aba6a393b2d13930b49390df9.
-> > > > > > > > This can avoid CWR corruption somewhere after GRO, and we
-> > > > > > > > plan to submit related patches (old driver,
-> > > > > > > > virtio-related) into net-next after this is approved in vir=
-tio-spec.
-> > > > > > >
-> > > > > > > Commit 4e4f7cefb130a looks incorrect to me, or I must be
-> > > > > > > missing
-> > > > > > something.
-> > > > > > > It looks incorrect to me is because:
-> > > > > > > 1. SKB_GSO_TCP_ACCECN is set when cwr is set, regardless of
-> > > > > > > tcp socket
-> > > > > > following rfc3168 or accecn.
-> > > > > > > I was hoping to set this flag only when its accecn.
-> > > > > > >
-> > > > > > > 2. Even though it is set, it is not read by anyone, so not
-> > > > > > > sure why one would
-> > > > > > set it.
-> > > > > > >
-> > > > > > > 3. It appears to me that it is TX side flag and rx GRO
-> > > > > > > should not be setting it,
-> > > > > > because there isn't rx side code to handle it yet.
-> > > > > > > May be this is part of some multi series work?
-> > > > > > >
-> > > > > > > 4. The commit 4e4f7cefb130a claims to prevent field corruptio=
-n.
-> > > > > > > A corruption sounds like a bug. And if it is a bug, it the
-> > > > > > > patch needs fixes tag,
-> > > > > > but it does not have it.
-> > > > > > > Probably no fixes tag, because no users, that is strange
-> > > > > > > kernel code to
-> > > me.
-> > > > > >
-> > > > > > Please let me elaborate more.
-> > > > > >
-> > > > > > Patch 023af5a72ab16 is in tcp_gso_segment(), so it
-> > > > > > disaggregates packet on the TX side after TCP stack.
-> > > > > > Before patch 023af5a72ab16, CWR flag from the 2nd packet will
-> > > > > > be cleaned if TSO_ECN is set by RFC3168 ECN in tcp_output.c
-> > > > > > New TSO_ACCECN will be set by AccECN protocol in tcp_output.c,
-> > > > > > indicating that this packet does not want CWR flag cleaning
-> > > > > > from the 2nd
-> > > packet.
-> > > > > >
-> > > > > I understood the commit 023af5a72ab16 and commit looks good to
-> me.
-> > > > >
-> > > > > > Patch 4e4f7cefb130a is in tcp_gro_receive(), so it aggregates
-> > > > > > packets on the RX side before going to TCP stack.
-> > > > > > And you can see before 4e4f7cefb130a patch, TSO_ECN flag will
-> > > > > > be set if cwr is 1.
-> > > > > SKB_GSO_TCP_ACCECN and SKB_GSO_TCP_ECN are mutually exclusive.
-> > > > > So not sure how gro receive commit 4e4f7cefb130a replaces
-> > > > > TCP_ECN with
-> > > ACCECN.
-> > > > >
-> > > > > But regardless of that, you explain that rx side can set skb
-> > > > > field based on how device has coalesced the packet, And tx side
-> > > > > can use the
-> > > same skb when using tcp/ip stack as router/forwarding unit.
-> > > > > (instead of terminating/originating tcp connection from the socke=
-t).
-> > > > >
-> > > > > > This TSO_ECN flag implies that it's ok to segment this
-> > > > > > aggregated packet and clean CWR from the 2nd packets by latter
-> operations.
-> > > > > > But this is NOT ok for AccECN protocl, new TSO_ACCECN flag
-> > > > > > explicitly tells latter operations that it's NOT ok to clean
-> > > > > > CWR from the
-> > > 2nd packets.
-> > > > > >
-> > > > > Right.
-> > > > >
-> > > > > > And the corruption in the commit message means the CWR flag
-> > > > > > cannot keep the origianl value (i.e., been reset by latter oper=
-ations).
-> > > > >
-> > > > > If the code reset the value when it should not, it means it was
-> > > > > bug and needs fixes tag.
-> > > >
-> > > > It was intentional for RFC 3168 ECN offloading to the reset the val=
-ue.
-> > > > In the traditional sense it isn't "bug" because it was done intenti=
-onally.
-> > > > "When it should not" too, should considered with the background
-> > > > this
-> > > offloading feature has (from era when AccECN didn't exists at all).
-> > > But it's fine to end up disagreeing on this detail about Fixes tag,
-> > > in any case that commit is immutable now so this discussion is pretty
-> moot :-).
-> > > >
-> > > > > Anyway, I don't want to diverge on the discussion.
-> > > > >
-> > > > > Seems like setting SKB_GSO_TCP_ECN seems fine even on rx skb too.
-> > > >
-> > > > SKB_GSO_TCP_ECN will not replicate the same TCP header flags in a
-> > > forwarding scenario:
-> > > >
-> > > > Segment 1 CWR set
-> > > > Segment 2 CWR set
-> > > >
-> > > > GRO rx and GSO tx with SKB_GSO_TCP_ECN, after forwarding outputs
-> > > > these
-> > > > segments:
-> > > >
-> > > > Segment 1 CWR set
-> > > > Segment 2 CWR cleared
-> > > >
-> > > > Thus, the ACE field in Segment 2 no longer contains the same value
-> > > > as it was
-> > > sent with.
-> > > >
-> > > > As rx side, generally, does not know if the sender is using AccECN
-> > > > or RFC
-> > > > 3168 (or some entirely different semantics for these flags as
-> > > > these TCP
-> > > features are negotiated). I said "generally" because it would
-> > > required connection tracking to know it which is expensive and has it=
-s
-> own challenges.
-> > > >
-> > > >
-> > > > If you, on the other hand, imply that SKB_GSO_TCP_ECN could just
-> > > > become
-> > > SKB_GSO_TCP_ACCECN just by declaring this corruption a "bug", that
-> > > too is not possible.
-> > > >
-> > > > Or to be more precise, that would mean removing RFC 3168 ECN
-> > > > offloading
-> > > support from the tx side (where it may have some, albeit IMO quite
-> > > limited [*], performance benefits). When we're TX'ing segment the
-> > > kernel knows originate from RFC 3168 sender as indicated by
-> > > SKB_GSO_TCP_ECN flag, it can safely perform the RFC 3168 offloading
-> without fear of corruption.
-> > > >
-> > > >
-> > > > [*] RFC 3168 CWR is only sent once per RTT so those segments
-> > > > should not
-> > > appear very frequently. What RFC 3168 offloading does is effectively
-> > > allow CWR to be send within the same super-skb with non-CWR segments
-> > > as the RFC 3168 offloading with SKB_GSO_TCP_ECN ensures CWR is only
-> > > sent out in one segment. Without SKB_GSO_TCP_ECN, the sender would
-> > > have to send CWR segment separately (this potentially comes with a
-> > > minor performance cost).
-> > > >
-> > > > > So you should just refine the wordings for patch 1 and 2 to
-> > > > > match exactly what it means for virtio spec requiirements and
-> > > > > description section.
-> > >
-> > > Thanks Ilpo for example above, and I just realized that the mail
-> > > server miss- resend an old email on Sunday, sorry for spamming.
-> > > And I hope above explanations related to the CWR flag are clear.
-> > >
-> > > One more thing I would like to raise is about the ECN flag mentioned
-> > > in current virtio-spec.
-> > > As SKB_GSO_TCP_ECN is not related to IP.ECN in RX path even before
-> > > 4e4f7cefb130a patch, and neither in TX path before 023af5a72ab16.
-> >
-> > Can you please discuss with the netdev maintainer and clarify the usage=
- of
-> SKB_GSO_TCP_ECN.
-> > i.e.
-> > a. does SKB_GSO_TCP_ECN apply to RX side? From the name of "GSO" it
-> does not seem so, but three drivers hns3, mlx5, virtio-net are using thes=
-e on
-> the RX.
-> > If this applies to the RX also, can we please send comment update
-> > patch to net-next to update, include/linux/skbuff.h
-> >
-> > Something like:
-> >
-> > --- a/include/linux/skbuff.h
-> > +++ b/include/linux/skbuff.h
-> > @@ -671,7 +671,9 @@ enum {
-> >         /* This indicates the skb is from an untrusted source. */
-> >         SKB_GSO_DODGY =3D 1 << 1,
-> >
-> > -       /* This indicates the tcp segment has CWR set. */
-> > +       /* This indicates the first tcp segment has CWR set in GSO or G=
-RO
-> stream.
->=20
-> Hi,
->=20
-> It feels little odd to me to make such a change to a comment now if the w=
-hole
-> point with AccECN is that SKB_GSO_TCP_ECN can no longer be safely used on
-> the rx side.
-So SKB_GSO_TCP_ECN will be overloaded where if AccECN is negotiated, GRO st=
-ream contains IP+TCP bits as per AccECN
-And without accECN negotiated, only the first segment will have ECN bits?
+>
+> Why is TSO singled out as compared to USO?
 
-If so, can the header comment be updated in such a way?
+AFAIK no support for big USO in Linux.
+
+>
+> >
+> > And it would also help for the case where host has a different TSO
+> > limitation than the assumption (for example, Linux assumes 64K to be
+> > the maximum number of segs and payload length).
+>
+> how does it assume it? 64K segments?
+
+Yes.
+
+>
+> > Signed-off-by: Jason Wang <jasowang@redhat.com>
+>
+>
+>
+>
+> > ---
+> >  device-types/net/description.tex | 46 ++++++++++++++++++++++++++++++++
+> >  1 file changed, 46 insertions(+)
+> >
+> > diff --git a/device-types/net/description.tex b/device-types/net/descri=
+ption.tex
+> > index 415c7fd..e56df75 100644
+> > --- a/device-types/net/description.tex
+> > +++ b/device-types/net/description.tex
+> > @@ -146,6 +146,9 @@ \subsection{Feature bits}\label{sec:Device Types / =
+Network Device / Feature bits
+> >   when VIRTIO_NET_F_IPSEC is negotiated. When a device offers IPsec fea=
+ture, it SHOULD
+> >   also offer the VIRTIO_NET_F_OUT_NET_HEADER feature.
+> >
+> > +\item[VIRTIO_NET_F_HOST_TSO_LIMIT(71)] Device limits the maximum TCP
+> > +  length and the number of segments when performing TCP segmentation.
+> > +
+> >  \end{description}
+> >
+> >  \subsubsection{Feature bit requirements}\label{sec:Device Types / Netw=
+ork Device / Feature bits / Feature bit requirements}
+> > @@ -184,6 +187,7 @@ \subsubsection{Feature bit requirements}\label{sec:=
+Device Types / Network Device
+> >  \item[VIRTIO_NET_F_VQ_NOTF_COAL] Requires VIRTIO_NET_F_CTRL_VQ.
+> >  \item[VIRTIO_NET_F_HASH_TUNNEL] Requires VIRTIO_NET_F_CTRL_VQ along wi=
+th VIRTIO_NET_F_RSS or VIRTIO_NET_F_HASH_REPORT.
+> >  \item[VIRTIO_NET_F_RSS_CONTEXT] Requires VIRTIO_NET_F_CTRL_VQ and VIRT=
+IO_NET_F_RSS.
+> > +\item[VIRTIO_NET_F_HOST_TSO_LIMIT] Requires VIRTIO_NET_F_HOST_TSO4 or =
+VIRTIO_NET_F_HOST_TSO6
+> >  \end{description}
+> >
+> >  \begin{note}
+> > @@ -220,6 +224,8 @@ \subsection{Device configuration layout}\label{sec:=
+Device Types / Network Device
+> >          le16 rss_max_indirection_table_length;
+> >          le32 supported_hash_types;
+> >          le32 supported_tunnel_types;
+> > +        le32 tso_max_size;
+> > +        le32 tso_max_segs;
+> >  };
+> >  \end{lstlisting}
+> >
+> > @@ -276,6 +282,19 @@ \subsection{Device configuration layout}\label{sec=
+:Device Types / Network Device
+> >  Encapsulation types are defined in \ref{sec:Device Types / Network Dev=
+ice / Device Operation / Processing of Incoming Packets /
+> >  Hash calculation for incoming packets / Encapsulation types supported/=
+enabled for inner header hash}.
+> >
+> > +The following field, \field{tso_max_size} only exists if
+> > +VIRTIO_NET_F_HOST_TSO_LIMIT is set.
+> > +It specifies the maximum TCP length
+>
+> what is TCP length?
+
+It's defined in the rfc793:
+
+"""
+      The TCP Length is the TCP header length plus the data length in
+      octets (this is not an explicitly transmitted quantity, but is
+      computed), and it does not count the 12 octets of the pseudo
+      header.
+"""
+
+>
+> > of a TSO packet
+>
+> what is a TSO packet?
+
+Packet for device to perform TCP segmentation offload.
+
+> is length likely to be same for TCP6 and TCP4?
+
+Technically we can have different limitations for ipv4 and ipv6. But
+considering we are designing a fresh new feature, it would be better
+to use the same limitation for simplicity.
+
+>
+> > that the
+> > +device can process.
+>
+> process in which direction? you mean device can receive?
+
+It works only for TX (as TSO works only for TX).
+
+>
+> > When VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO is set,
+> > +it specifies the maximum inner TCP length of a UDP tunnel TSO packet
+> > +that the device can process.
+>
+> Rest of spec talks of " GSO over UDP tunnels packets" is this the same?
+
+Not exactly the same, this is only for TSO not genreal GSO.
+
+>
+> even if it's actually unused?
+>
+> this, on the assumption that the length for tunnel is smaller?
+
+It means the device should have the same limitation for plain TSO and
+tunnel TSO.
+
+>
+> I think this kind of things should be explicit.
+>
+>
+> > +
+> > +The following field, \field{tso_max_segs} only exists if
+> > +VIRTIO_NET_F_HOST_TSO_LIMIT is set.
+> > +It specifies the maximum number of segments that can be produced by
+> > +the device after performing segmentation on TSO packet or a UDP tunnel
+> > +TSO packet (when VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO is set).
+>
+> I don't get this field at all. the assumption is that all segments
+> are the same size, right? Then it is just based on length?
+
+It's the device side limitation, for example a device can produce 100
+segments at most, even if the tso_max_size is 256K, when MTU is 1500,
+the driver can't send a TSO packet whose TCP length is greater than
+(1500 - 20 - 20) * 100 =3D 146K.
+
+>
+>
+>
+> > +
+> >  \devicenormative{\subsubsection}{Device configuration layout}{Device T=
+ypes / Network Device / Device configuration layout}
+> >
+> >  The device MUST set \field{max_virtqueue_pairs} to between 1 and 0x800=
+0 inclusive,
+> > @@ -326,6 +345,17 @@ \subsection{Device configuration layout}\label{sec=
+:Device Types / Network Device
+> >  The device SHOULD NOT offer VIRTIO_NET_F_CTRL_RX_EXTRA if it
+> >  does not offer VIRTIO_NET_F_CTRL_VQ.
+> >
+> > +If VIRTIO_NET_F_HOST_TSO_LIMIT and VIRTIO_NET_F_MTU have been
+> > +negotiated, the device SHOULD set \field{tso_max_size} so that a TCP
+> > +segment that fully utilizes the configured MTU can be processed by TSO
+> > +(e.g., for IPv4 without options: at least \field{mtu} - 20; for IPv6
+> > +without extension headers: at least \field{mtu} - 40). This
+> > +recommendation does not account for IPv4 options or IPv6 extension
+> > +headers, which reduce the effective segment size.
+> > +
+> > +If VIRTIO_NET_F_HOST_TSO_LIMIT has been negotiated, the device MUST
+> > +set \field{tso_max_segs} to at least 64.
+>
+> where does this 64 come from? pls document.
+
+A simple backward compatibility which makes sure the value can make
+sure 64K TSO can be segmented with 1500 MTU.
+
+>
+> > +
+> >  \drivernormative{\subsubsection}{Device configuration layout}{Device T=
+ypes / Network Device / Device configuration layout}
+> >
+> >  The driver MUST NOT write to any of the device configuration fields.
+> > @@ -379,6 +409,22 @@ \subsubsection{Legacy Interface: Device configurat=
+ion layout}\label{sec:Device T
+> >  which provided a way for drivers to update the MAC without
+> >  negotiating VIRTIO_NET_F_CTRL_MAC_ADDR.
+> >
+> > +If the driver negotiates VIRTIO_NET_F_HOST_TSO_LIMIT, it MUST NOT
+> > +transmit TSO packets with TCP length exceeding \field{tso_max_size}.
+> > +
+> > +If the driver negotiates both VIRTIO_NET_F_HOST_TSO_LIMIT and
+> > +VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO, it MUST NOT transmit UDP tunnel TSO
+> > +packets with inner TCP length exceeding \field{tso_max_size}.
+> > +
+> > +If the driver negotiates VIRTIO_NET_F_HOST_TSO_LIMIT, it MUST NOT
+> > +transmit TSO packets with \field{gso_size} that would cause the device
+> > +to generate more than \field{tso_max_segs} segments.
+>
+> and how does it know?
+
+Driver knows the tso_max_segs, so when it finds the TSO packet will
+exceed the limitation it would allocate a new skb for example.
+
+>
+>
+> > +
+> > +If the driver negotiates both VIRTIO_NET_F_HOST_TSO_LIMIT and
+> > +VIRTIO_NET_F_HOST_UDP_TUNNEL_GSO, it MUST NOT transmit UDP tunnel TSO
+> > +packets with \field{gso_size} that would cause the device to generate
+> > +more than \field{tso_max_segs} segments.
+> > +
+> >  \subsection{Device Initialization}\label{sec:Device Types / Network De=
+vice / Device Initialization}
+> >
+> >  A driver would perform a typical initialization routine like so:
+> > --
+> > 2.42.0
+
+Thanks
+
+>
+
