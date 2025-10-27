@@ -1,68 +1,68 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469A92E0926
-	for <virtio-comment@lists.linux.dev>; Mon, 27 Oct 2025 18:06:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED143081AE
+	for <virtio-comment@lists.linux.dev>; Mon, 27 Oct 2025 18:08:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761588414; cv=none; b=TChunx6PFoATOvdSH45FX9HuLY0a45hnFhCrgWU6I8InNNkXqLkdEjC6MTO3/Vxx8drbR+0dkmJkaI5pJwYRcpZ3L+P1J+SLGRpanwHu8JUxlVOFJ15OHS04SlUmr7Bwk9zDsXX1wfcH4cYC5+WltCRSEVRQs7QcDPlPUVM4Ka8=
+	t=1761588494; cv=none; b=SdIBLETaEE+fUnJeOrMPim+koJancwkTpqYzX5Y3ddKSMcxqBmOudI7mUDG24stiuMrn5a2eu3jBEaj91qzMuLbmS8g4Vo6WVaQoXmuofqMqopIqXucuoI4qrWumK7RMRD3FEEbtyM+w4MDTdTlqHLfsSDM4+CLdRn6VK00664g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761588414; c=relaxed/simple;
-	bh=ksFQyn4m3VoDmcScqG0023nG0LlSEQ6frm4VTfxrong=;
+	s=arc-20240116; t=1761588494; c=relaxed/simple;
+	bh=iTgacUyf7Ub3mQV2k2pP2QM/PsOyNIsCh/gTC4XhJg8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=bEwOV2m1QWAH3gBgTwe3nFPADEuVtgskGfJfa7msAVx1sRAd9oowYlp2nm8oyrlpxX/kfYdv5nm8q4o2rlQZmGbPl1JaAjatp2FvE5YuaT68REn+ozSqpCHZxsrXNWRjYSI/l5OtmrHXZNcRsEzQ3VmfCLFa28HFjbejGAVQQqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ed9q3P9T; arc=none smtp.client-ip=170.10.133.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=Hb6T0XkNIw6Jb+DU/HYuxCLcJZr2hCozAW4S68w5W3JlXms0J0zVjjYRVWhXqZkwHMWwWLlfI8sLD7JSTLEFCuAOur0TbNfW2bXJWOW8JB/GFhtKKpT6oVVlwyCwu4Q6meZu28FASov2+H60ABAA1ltjNEarg0vvUYeM1oJ2QPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=M/KEKf55; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ed9q3P9T"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="M/KEKf55"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1761588412;
+	s=mimecast20190719; t=1761588491;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lpbeN3X9Rqoh5OEICCR+Bwzw0hYCAPoFD8iOWKgck1E=;
-	b=ed9q3P9TZ8x3w2M7uSYZRgzSovNv0ucQTRJdL10qx3qpDF0/C44oesYmmpUFx+BD2LEsFy
-	n2Ay5uhOMBHPU2O2pLvTLLgLoazUQT8ETDTq1GaKTQgzP6n6zP0AKLfGUIykRCFM7zV485
-	k2nYOTsAudMApLZUYQ8R+QuRi5bA2n8=
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=bXs1owQVEmu9C1L0xdPJ4bc5+sDIp1cNxw8y9B0oDcs=;
+	b=M/KEKf55Am8oHjHydIZpd0VpZLV5tU5VANn/wjRjMoHKHeSU3Nuw7uJz37R3UOMCi0V+7z
+	B0HwvZrOuDbrtIW6tXuCp6QcG9O0R6fkh94cSUkA2yBCygY+58PDG0OZ88f0HADx07Ung4
+	lMXC6HeOcIlgOmz/drDNkp2Tpyi7nBI=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-314--uZQ_4G1PA6ol_bDDk-oZw-1; Mon, 27 Oct 2025 14:06:50 -0400
-X-MC-Unique: -uZQ_4G1PA6ol_bDDk-oZw-1
-X-Mimecast-MFC-AGG-ID: -uZQ_4G1PA6ol_bDDk-oZw_1761588410
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-63c074c62b6so7454743a12.3
-        for <virtio-comment@lists.linux.dev>; Mon, 27 Oct 2025 11:06:50 -0700 (PDT)
+ us-mta-479-6aDfL8cxMWi_yKBLSXiN5Q-1; Mon, 27 Oct 2025 14:08:09 -0400
+X-MC-Unique: 6aDfL8cxMWi_yKBLSXiN5Q-1
+X-Mimecast-MFC-AGG-ID: 6aDfL8cxMWi_yKBLSXiN5Q_1761588488
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-b6d51061554so619470466b.2
+        for <virtio-comment@lists.linux.dev>; Mon, 27 Oct 2025 11:08:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761588410; x=1762193210;
+        d=1e100.net; s=20230601; t=1761588488; x=1762193288;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lpbeN3X9Rqoh5OEICCR+Bwzw0hYCAPoFD8iOWKgck1E=;
-        b=SXAx2XHB916mvaamec9G25RK9uae4duvpwEcLmlughbCb/aI8pF0eWFDB8uhlFX2Zz
-         20qdwtPr5krDdAWAjcK/OtLDLJUF4/FUpkTyq4COIeRr2g3tFbnmU1EtGjiL5J8h0m0+
-         HRYs24lU93Ve9B1U+L39x8bTLgeJJIceUmsxpR48Cn9rFaNa/T48K66ruSW0eet59kDF
-         QhrsP+/++duXAfZou3oyW6wRkGVZQOgibXJxcnxkQu1FwQk0SFfl9apBPPW8rd8WFwzK
-         U+TqHCaJ2gZorDmMYgsfNdWozvuK9lC3HibHnu1KklhOIgboUKlOiRXPccr4YW6Y0tow
-         s4Cw==
-X-Gm-Message-State: AOJu0YxNwBp6u/PFbYYAKM8nRLLZySWhhEBFFxMSPZowBm+PozDCBajs
-	7oNgQfgfLxD3ByHMAwY8/R28IMjwQT3n5j1BBEBDdPoKRWRZwTB9hrVfEvChovPHsXYsNmcoLn3
-	OJswxsutptIsF9pbApBFOQMbxgA3oUrdYSV982f8hJO1kUgTCGdQukmsCKaZgY9ukwYs5
-X-Gm-Gg: ASbGncvSOWpfaEnHWnuzEdPYVTtGJdTJFTrOJzPI+bnYgLUu2T9F1llxE8QK1R5rbYQ
-	/cH7srLdhHeST6aPxw3YwfAZQ4QZdpv9kw0Jeo81p/b9GfPhkNCIBcFT2JYlLqOD8HUyAGWocOX
-	8HVLunGD9gLKeT6bJfYq/Xoh8bIEvAMf6W4fiysf6xW7+SmUKF26xprCmnmHJrWuVbfgfpS0MkJ
-	0NJ2n0qNWRYM16YY+X4KhYlMR7p4yYncn86YfmUZYVF6Gj+YoN6sgp9FW4qjJ5gu8of7SIbWFWJ
-	Qf8LUebX4gTQw+ZCbyMGKTm6YBhVXVB7R2y9O5zlDNPpxjIS05NTcw5nn98FDT+D
-X-Received: by 2002:a05:6402:847:b0:63e:1e6a:5a88 with SMTP id 4fb4d7f45d1cf-63ed849e9f1mr791674a12.24.1761588409549;
-        Mon, 27 Oct 2025 11:06:49 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEPsvrYzLcHwBxob3VSM2otlNNlzO+wtewektk5Y3Pxjgxcd4iH7tpc1L8sbyzrC1VSe7Fmpg==
-X-Received: by 2002:a05:6402:847:b0:63e:1e6a:5a88 with SMTP id 4fb4d7f45d1cf-63ed849e9f1mr791647a12.24.1761588409095;
-        Mon, 27 Oct 2025 11:06:49 -0700 (PDT)
+        bh=bXs1owQVEmu9C1L0xdPJ4bc5+sDIp1cNxw8y9B0oDcs=;
+        b=vXx6b1o9EZaCR2cHOaHBh8Pj/kwvWSHbGuRHhuAuT2km1cVeLDntTolkHIUla32cCW
+         jgiRh8+DnuGU/BizzHVaHFyfBF0lJ7NpuLBoGNEddWfoW3mgQzjG1nEe9rsh9OSoKlLb
+         6hBXUHHDfffVQ7lWs0R4/SjOJCwARKHn8Y3b/nhxMF2KHOzi14R5bLQoMOPvJH+DQ8fq
+         fM8vxtXxRse5SGMHqDJXcNQG9GCRsT/pYduO9ar02BKSFhXHVExazB7crSIdDNgMnIiQ
+         RF/mj8ICj0D57tP09Tszw2Dc14YSPxFHK2PILjFBjV7wvxyQ5TClg93NzD29Kab+X4YS
+         uWJQ==
+X-Gm-Message-State: AOJu0YwLjQKk8oGJONe/8RwguOg9VoOlZGRfd/legznJ1EFZsUqt9rpj
+	FQuF2qabDDysGLdTuf1sP9ISgMgS0imAvc06NK2/jCdJTipXRM2ODN+Qrj1Qtg4a9Mlbjg7MZk1
+	0xV+RS34oRxW4x5MvLExisN1OngvO+Lcb9CU8B7mzx5DMvmRXiUYlEEnY8NVGHN+n+WmS
+X-Gm-Gg: ASbGncv7IC3TR38njgvbpeOPr8H1kMOqzE2C8Dd8ihKAXlX5siR/fBq8wCQRzvmmkNP
+	5V7MOYsb5gIZCr/cWEGwjCc3cHt7NgoIn0Zi5lyreQswCPPrLB8EgfkOmP8ED2tljtoT9E+cUZt
+	Mo35BiN7KId+IgcJIVGtX2uqDKDKuSW6YlmDQXiWKnfOdcVDnSju9DUx+njY8CQd2h3F0EUv8ck
+	ulWqgATy2obvh/zjklMbK9OIA5dg5c8lLIfxZcHSyWEqz646UU6kYhsnKK4s1cmnj15kEsxSDnR
+	Krz+vuxzpHDpYayZT1PTjM2OTpTV4IpuICS9Z1KEKd0X3UY7UeTe+nChYfT9VOPn
+X-Received: by 2002:a17:906:4fca:b0:b6d:5c4e:b09f with SMTP id a640c23a62f3a-b6dba460ef8mr87618066b.5.1761588488336;
+        Mon, 27 Oct 2025 11:08:08 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEec3Ac7AUibljZ4JOLtbCtvU6qfiJrbBwQZz3cgA9ED1X+yZbEBr69gk9W1uYw1B2lZZcVIQ==
+X-Received: by 2002:a17:906:4fca:b0:b6d:5c4e:b09f with SMTP id a640c23a62f3a-b6dba460ef8mr87614766b.5.1761588487902;
+        Mon, 27 Oct 2025 11:08:07 -0700 (PDT)
 Received: from redhat.com ([31.187.78.209])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-63e7ef6c164sm6943107a12.5.2025.10.27.11.06.47
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b6d853077bcsm840208066b.13.2025.10.27.11.08.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Oct 2025 11:06:48 -0700 (PDT)
-Date: Mon, 27 Oct 2025 14:06:46 -0400
+        Mon, 27 Oct 2025 11:08:07 -0700 (PDT)
+Date: Mon, 27 Oct 2025 14:08:05 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Parav Pandit <parav@nvidia.com>
 Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
@@ -70,7 +70,7 @@ Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
 	"mvaralar@redhat.com" <mvaralar@redhat.com>,
 	Shahaf Shuler <shahafs@nvidia.com>
 Subject: Re: [PATCH 0/4] editorial: Prepare master branch for 1.4 spec release
-Message-ID: <20251027140542-mutt-send-email-mst@kernel.org>
+Message-ID: <20251027140726-mutt-send-email-mst@kernel.org>
 References: <20251027174756.56284-1-parav@nvidia.com>
  <20251027135611-mutt-send-email-mst@kernel.org>
  <CY8PR12MB7195D654CC8553C5B686105ADCFCA@CY8PR12MB7195.namprd12.prod.outlook.com>
@@ -82,7 +82,7 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 In-Reply-To: <CY8PR12MB7195D654CC8553C5B686105ADCFCA@CY8PR12MB7195.namprd12.prod.outlook.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 31xUKTguuWyZ5XaKJCtX3tdUqoPNcV-PpaVP2ddnS0I_1761588410
+X-Mimecast-MFC-PROC-ID: ake-zQONKWfNzA5uVnQ0XHF7R1Kn59YRcMgSAb1UOdg_1761588488
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -104,19 +104,32 @@ On Mon, Oct 27, 2025 at 06:04:22PM +0000, Parav Pandit wrote:
 > >
 > I didn't. :( 
 > Latexdiff is able to generate the necessary diff without my changelog patches.
+
+we have this so it should not be in the diff
+
+\begin{DIFnomarkup}
+\begin{longtable}{ | p{0.15\textwidth} | p{0.05\textwidth} | p{0.1\textwidth} | p{0.70\textwidth} | }
+\hline
+\textbf{Revision} & \textbf{Date} & \textbf{Editor} & \textbf{Changes Made} \\
+\hline
+\endhead
+%\lbrack Rev number \rbrack & \lbrack Rev Date \rbrack & \lbrack Modified By \rbrack & \lbrack Summary of Changes \rbrack \\
+%\hline
+\input{cl-os.tex}
+& & \\
+\hline
+\end{longtable}
+\end{DIFnomarkup}
+
+
+
 > Below is the version I am using for last sometime.
 > 
 > latexdiff --version
 > This is LATEXDIFF 1.3.1a  (Algorithm::Diff 1.15 fast, Perl v5.34.0)
 >   (c) 2004-2018 F J Tilmann
 > 
-
-changelog is not supposed to affect diff at all.
-
-Also I think we need to have changelog 1.2 to 1.3 preserved
-for now (separately).
-I do not see it there.
-
+>  
 > > > note:
 > > > makediffpdf.sh still have fails and needs resolution. WIP.
 > > >
