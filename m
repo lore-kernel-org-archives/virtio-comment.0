@@ -1,289 +1,153 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010011.outbound.protection.outlook.com [52.101.85.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25857483
-	for <virtio-comment@lists.linux.dev>; Tue, 21 Oct 2025 03:02:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761015722; cv=none; b=q8f04/Ll+XG7UMm8wbRKNt9WdRC6KLNYGwb49XL0pQzaWb5T2AKbZkBciTiAuw/xxkptlTvFjbOZKNq4wqRNuaqmHGe3WA/cGF/0mdHPB+SdHXwLkQeMCaNqRMlMvwr4l7OeetVR8eiuRwsQsLmR3EIbsX2/pQyXconwmXlUhEs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761015722; c=relaxed/simple;
-	bh=AXCND7593heei6G7g9j6erF8gevGviQv53xIM7pXDuY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lZdHUw8yFPq/zodh3SvjDMRKn/klzguiEMqIa//ytgwk7O0d1aXeOAyj/8goI5BAhnr9Vk+I/zm9NsRpWYTPPGuQbzaHHlq0gdu+FVclVroKCoN0O+/xgDaVKv7750EIxDkF0gJllpkWO2XAT73GSZx1UwqATPaWMS5QCeU+QZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dz9qb3dI; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C78313520
+	for <virtio-comment@lists.linux.dev>; Mon, 27 Oct 2025 17:49:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1761587384; cv=fail; b=aKvzFF5ntq69uku1CxgtY9GD+M5MvM2Z4v2jDy78hphKUtVAzaYnU9UFzwCYpHnWxDw9Sr1L1l59kGTNd3pnDDQbdWcuC71aUCRqmRuTDgGtM/qdXHrFpRUlIZdP6DvYiO1YokcIjQT930USgu5i4OA6JC4mmcKQ/rg3C1tOz+A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1761587384; c=relaxed/simple;
+	bh=il4gRhd27ut00qInOjSO6yj3yyOssW4RFdQ++mQEqV0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZGpzxOtHA1anaunSyPAWOgkPfGpliV3IRJ4dfxgdmlhiKMX2+/hqqORg1IlL0TP/+F0/DU5hr89ATJSrXKoRqmkE3G1NL+TRxKmlzQFbN+WfJW8g0KqF+eHvJWt+ifxNqCWuT2NNAJdoFb8Y3Y3wb59jE/idBxXXQteomMLHkuw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=oMglDFk9; arc=fail smtp.client-ip=52.101.85.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dz9qb3dI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1761015719;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PHEOrrpoemi5KcH2Hm0U0v/k6GaZYw7h98LySVdKQPA=;
-	b=dz9qb3dIL7V4LuV8wMwI/4sauDbGQSe04GfSbvMJvX26+OEqkgrmQQVv68qegJ6cbTo1by
-	GX8v0eX6kXOUyokNSBXvszy5UWSqk8bhF3cw/8jiHYCcWbKfHHZRov55ghc1TYZZd+K6ar
-	1AnybvjdLToSmZpQoM0FqIRjrzy6dGs=
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-368-ra4Dtc3WN9GA9O9ZhdIipw-1; Mon, 20 Oct 2025 23:01:58 -0400
-X-MC-Unique: ra4Dtc3WN9GA9O9ZhdIipw-1
-X-Mimecast-MFC-AGG-ID: ra4Dtc3WN9GA9O9ZhdIipw_1761015717
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-29085106b99so49908835ad.1
-        for <virtio-comment@lists.linux.dev>; Mon, 20 Oct 2025 20:01:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761015717; x=1761620517;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=PHEOrrpoemi5KcH2Hm0U0v/k6GaZYw7h98LySVdKQPA=;
-        b=Mv1dX8pnOEmQOLIuvDy5eSmNdFCc5NlAmSWgOIYo7d/XrEpUt/c9ONydXnun+iMkgY
-         OTPIY/yd6twZg4SEJ8mETBeSzAjGfTlSC4kz0EjQPRrR7AWnir2PiSe4dLOFQ47dPRSq
-         cfVcj/z2vt/Mwt94i9/n3Mc3LJln3biPY5V0wX6hxr4j3H8qYin1Zt7RQ33TneVeT++f
-         GfMWVvYjc/ONEHN1PkHjK4bSJRUmw0zO1EisNmK6uLUC92JzxKmRJMVakp8mI/W7nDVG
-         YiGRerDds0SGiMg/TQ0C4e7AcBl8CuMLLcU9eamSOydLlm5/UAKD7TUEJ3pox5RO2Eb4
-         p6aA==
-X-Gm-Message-State: AOJu0YxtqIFwmZyE783fuAXtupiwdjOuG3URV8SwPhX4kx/u6YjpHcT5
-	jdUoM+SYcDTXvg30l3xolvf9b5cR5iG718AEU8uyJB+ELWLS8G41xRx8w2XFOPeisWLbth48+6P
-	Rm7v15GlAszpZtMbPkbrVpRFOR+UKNRKkcqCaiZNUtakIhLCv0/aqg6PyxjJQDAnXamL+GSB8S9
-	idPwZBz4+a4LUem9o+H/zLNiNHBicDW/qlpbKX5yEIWAQ=
-X-Gm-Gg: ASbGncsmjjoDgh6IgAPohGzrpaSWOgJragCj518nCx8UKgaGo4WHb5iyFXNpERoD6mM
-	nt6CzyrHZYKz9Y/PS2MTrrvOPUpD/J1t6PmZ0jquqS8dQIWBGhcXYTy6NyJIui5G1CPFdkD8uXi
-	Y78dWSWVPTwGXOoFjeaAoswqweFfhjeVss6kpxWSpwFPHpH0d/k4rQ
-X-Received: by 2002:a17:902:e5c9:b0:273:daa6:cdf9 with SMTP id d9443c01a7336-290c9cdd599mr174720445ad.22.1761015717288;
-        Mon, 20 Oct 2025 20:01:57 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEa5fJ824UiJ6eG5kJE/AF02qoJyP8OT0tTvr2CvNQjfRjEDXEqJVG/BfNyizcokw+KdC2ffLiz3IgxE7AqSZ0=
-X-Received: by 2002:a17:902:e5c9:b0:273:daa6:cdf9 with SMTP id
- d9443c01a7336-290c9cdd599mr174720155ad.22.1761015716837; Mon, 20 Oct 2025
- 20:01:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="oMglDFk9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=V7h9Wc9to7Glu5iV421QVj6NQYICx5SCCAM6akEH2HYgjawyvNVqoJikdPXmRlQm3sd/mQLbBIii/y6QDU1q5bwUC/MOxMNMsjH43zKx+rgp+mf6PELGEtzw0eLnvXFEoGXe6wX0n+gFehT9SHLdNTID+FOt8tdHLM41GCpGr83dorG3gJJPu2rdpkVMSZp2Hu7c0TB39ZQ5VsPAzhpcrPU8vZVp2raiLdDsyowbzKW5EokF0QbbfUPUAAAnN4cu+ahfdGbRVbWvC0SdYOyb+xJf9UhqiQoduoAB0DzxgLmr53UAlLlV+rhnLbXdUSorLWU/tDpwAibkV+e+jhnaxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8/8nprds+bPioKCOmIcz8QPoo1JvZclIVr7L8DQDTss=;
+ b=x3RWkGwrTAcjKueXyD6FI814tLezM1E17mjRSBJ3xIkHEl/Je93/cMJvhdSaofx+xZTNLXbwm1NTMuSegZ+dzDLCQr+k+0Dp0xO2zttEZku7fUWzJ+OaAVJd3ASwTAQi+ZanPkpOdhGY09EHJ6rVhgezndJuQ4WPb9e2qjqpzIo65jpDESy/zo0lN+oRWHE33QGukW+l+VsTVQ1Of5vtDB0x15G4fTx9B4IMjFDAPCqosp2OjheHxV9C1C3ILrjcdqBirPyQxyGhc+dHvWHsqUPAViO+O0Wy6J26B6cDIx6hCmPU2d/ZMun0Md7oLdD9g5sNfrOvDhSaVqkfsuCfSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8/8nprds+bPioKCOmIcz8QPoo1JvZclIVr7L8DQDTss=;
+ b=oMglDFk96NgUlHc/Ojky+8cK9bO8Cgl/2ujNICeLc8dnJfYKBHehcm29+GLoX91c7fN7xHki0x2TVArefWBzylcn3P5pYOxGX2OpBEFT9bPdQinnc4TWXquWC2N/N64QXcwu0hR3gx9ZUyg4YfS+7c5NtVjAFUXFvqncTSKDUB1oGLkQTYistmZTYEWZIMu8ZCshSQZmPr0u2jUfwjSyxVn3Xzjp+1XNEiKUJX87KR1KM5YEHoN8TPp2RX8rYzwW23lY35CBEh0N5y8rm9659gSxBpkaFmYYHBE8SFWhNhviikBTH8wZbDcvz/PvXDIwlIzveiICXS13t1/mHUV2xQ==
+Received: from CH2PR15CA0030.namprd15.prod.outlook.com (2603:10b6:610:51::40)
+ by DM6PR12MB4338.namprd12.prod.outlook.com (2603:10b6:5:2a2::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.12; Mon, 27 Oct
+ 2025 17:49:38 +0000
+Received: from CH1PEPF0000AD7D.namprd04.prod.outlook.com
+ (2603:10b6:610:51:cafe::8f) by CH2PR15CA0030.outlook.office365.com
+ (2603:10b6:610:51::40) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9253.18 via Frontend Transport; Mon,
+ 27 Oct 2025 17:49:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CH1PEPF0000AD7D.mail.protection.outlook.com (10.167.244.86) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9275.10 via Frontend Transport; Mon, 27 Oct 2025 17:49:38 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.14; Mon, 27 Oct
+ 2025 10:49:20 -0700
+Received: from vr-arch-host06.mtvr.labs.mlnx (10.126.231.35) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.20; Mon, 27 Oct 2025 10:49:18 -0700
+From: Parav Pandit <parav@nvidia.com>
+To: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <cohuck@redhat.com>,
+	<mvaralar@redhat.com>
+CC: <shahafs@nvidia.com>, Parav Pandit <parav@nvidia.com>
+Subject: [PATCH 0/4] editorial: Prepare master branch for 1.4 spec release
+Date: Mon, 27 Oct 2025 19:47:52 +0200
+Message-ID: <20251027174756.56284-1-parav@nvidia.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20251014042243.22087-1-jasowang@redhat.com> <20251014044005-mutt-send-email-mst@kernel.org>
- <CACGkMEs7Y9DLuRp_3ex8ac3Hv5y7X5Q-PnS61DMjOVjAkvazjA@mail.gmail.com>
- <20251015030738-mutt-send-email-mst@kernel.org> <CACGkMEvBmNZCTrn9cWD+wByjNa+q-iEUOA6PK_GmWcqTdB5YMQ@mail.gmail.com>
- <20251016020113-mutt-send-email-mst@kernel.org> <CACGkMEtO5Z1-gwWLLm5TN4L6Sc5F6Vf+O_5W_joMq8p+TGV6Xg@mail.gmail.com>
- <20251016031546-mutt-send-email-mst@kernel.org> <CACGkMEtDwxWXqdN7ESk5QvmLwTg7GnspZJFu0r-o=XpKTzBGyA@mail.gmail.com>
- <20251020040059-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20251020040059-mutt-send-email-mst@kernel.org>
-From: Jason Wang <jasowang@redhat.com>
-Date: Tue, 21 Oct 2025 11:01:45 +0800
-X-Gm-Features: AS18NWDNiyxteITsUkuvutTG9IVnn90oRArkFMBIVWPMUxdlaxPaYTQPCWKdDks
-Message-ID: <CACGkMEsaKi7uG_1sQwH5aW0510sDaHkzW9gYbz4ozpzV7UgTrw@mail.gmail.com>
-Subject: Re: [PATCH] virtio-net: introduce TSO limit feature
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.linux.dev, lulu@redhat.com, nguyenlienviet@google.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: yFLEe3_0xyPJvSfEH-wHML8oSmKEr__JdmHasJ6XHHY_1761015717
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7D:EE_|DM6PR12MB4338:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79288bb2-aaf2-4302-7656-08de15813332
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?dQC+eioDSM2NL33gdvOtlsscSGbKROUnT6Ou9eZYAFxtTkMtxVd2elSUv20a?=
+ =?us-ascii?Q?eB+8Vx45whx5wLZTuMuX07koOdfvK1xivexRvWGUjbLoRp2Ezg6irJ+k8KP5?=
+ =?us-ascii?Q?ccMH6AwNToj9qfyBd0+yWifOLY06yfOLjdxBCl5sSpJzw+xMW/paa5lSCjF2?=
+ =?us-ascii?Q?9CEW1Q3iBwn0DBovOiLerlxT5FHERW4m/W4SUCHOahzJ7KH+xVvwC5S93pkq?=
+ =?us-ascii?Q?6htN+mJjEJXMweS8Vd/IkJ7tHEfzykQJwkmuxuHViBDnm9QmQ9lLWYtvHzFr?=
+ =?us-ascii?Q?ubLifUy9YU+7Lrb527lzR0yj4Y+Rwca2szkVSWeOluhnb97Hxg0fZyu9jyPp?=
+ =?us-ascii?Q?5g5XhAGRZyYslM0GthG1/9mymWAfXjxotCFjN6/jilTIDCr+9DmjwpCvpQcu?=
+ =?us-ascii?Q?bECik2fpzXOpQHDvgJoC3zthWrPeqiAk0/stpYl+ibrwiyHwlqefz+iVHHnK?=
+ =?us-ascii?Q?nBbzsBZZK64LR/Qb75UZA9N9Pt+CpWqtxj28as6Tjp4Yd9WUE77hyAX3HlEU?=
+ =?us-ascii?Q?e8av6Kh5xl9xb1ygQ7RiW0Bz+iXKkG7k8NX2K3QmWXe0SnXOag7/fad7xp3i?=
+ =?us-ascii?Q?2DGEUHabt7kDEAX6KCXh2VrkAdR/MTyMynePrDgo2LvsRiztH+pdBsOi8/Xq?=
+ =?us-ascii?Q?/nMRtTeT8FdctWkqqtdP0GY46RUhkGzAQMUBAsUrwiSXqb+0i5Pa0pfLMQ5k?=
+ =?us-ascii?Q?RjVZ/vTebOWsHBNXIOAonGNo9SG5sSaVAFQApybzRZJ5stBERykjBFiUHved?=
+ =?us-ascii?Q?DQFi8bb/SsCuXhCCWSwGpNCLBf8rE2O69racpCn3xsXfxX9oIqWKS10kWoZG?=
+ =?us-ascii?Q?Cn3KFMUQXu0F4pJo/wDoRv3+SIC7NdBrkEzo90tDrhM9D456AIbLtO8NlBHZ?=
+ =?us-ascii?Q?xx5RocZIKDrhOJ8O0I6yVve9bUkFoUQCAskHcVDkqBfa2+DD75YXExypHGby?=
+ =?us-ascii?Q?bJvd0kmdGQL7L1anBrPVDfR4rp88OyCj8Q4pNF5jDQBOk3V1rV6hm1P4W+9d?=
+ =?us-ascii?Q?DUfO0aBoVipYZMXJpKcoKV0YQqi3kEqsS1WsGcKWK88qLQvHBr+3QPMXdD+v?=
+ =?us-ascii?Q?4Ff0adPh9m2TzgjrFndqqEAJw7CyINg9pE7DzUZHQUTsnMfqbGHbHs+jKhC9?=
+ =?us-ascii?Q?DoTnShwgeZIgAKuhxaXEOMuR5Yy2PMhrhF81BRP/U/6LKt7pJor9r3ojaEy/?=
+ =?us-ascii?Q?nD89Uq6QtpYtclAkc/O/5tWOvyLTJcsmWBMV4u5Udw2RvosJ5zprCUzch1r/?=
+ =?us-ascii?Q?wpMyuWxMy5UwjndiOg8djlllL8TI4ew8eQcOLxQ4QdCT2DT4XdGW14TOV3pC?=
+ =?us-ascii?Q?duP9Kptr3JZeah0yDsF53oZgS6FCYhADVWQUp+O2TAb/s4OGxTf1UL2pHl03?=
+ =?us-ascii?Q?FmATBHVa74clHQkB/aqBgjGwMLdZx4JSFDEfmF7AaQgAFz9iqU4dCF0OmSmw?=
+ =?us-ascii?Q?b84Dh2j7s/6mD+TCqYFpKKEmHAe3rXavcs24/rgngVXgJO+ZErrQk4Iq89Tj?=
+ =?us-ascii?Q?KNqN3AeENbN8Bs9iqpYJDYueYMBJqmUWdCCwjBRdVMtPj+2Dbwy6nRzMq9iu?=
+ =?us-ascii?Q?m9pDW9a3SqNRMDChZTw=3D?=
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2025 17:49:38.5403
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79288bb2-aaf2-4302-7656-08de15813332
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD7D.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4338
 
-On Mon, Oct 20, 2025 at 4:19=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com>=
- wrote:
->
-> On Mon, Oct 20, 2025 at 02:25:56PM +0800, Jason Wang wrote:
-> > On Thu, Oct 16, 2025 at 6:03=E2=80=AFPM Michael S. Tsirkin <mst@redhat.=
-com> wrote:
-> > >
-> > > On Thu, Oct 16, 2025 at 02:31:46PM +0800, Jason Wang wrote:
-> > > > On Thu, Oct 16, 2025 at 2:17=E2=80=AFPM Michael S. Tsirkin <mst@red=
-hat.com> wrote:
-> > > > >
-> > > > > On Thu, Oct 16, 2025 at 01:57:41PM +0800, Jason Wang wrote:
-> > > > > > On Wed, Oct 15, 2025 at 3:27=E2=80=AFPM Michael S. Tsirkin <mst=
-@redhat.com> wrote:
-> > > > > > >
-> > > > > > > Thanks for the answers. Some more comments:
-> > > > > > >
-> > > > > > > On Wed, Oct 15, 2025 at 12:29:13PM +0800, Jason Wang wrote:
-> > > > > > > > > >  device-types/net/description.tex | 46 ++++++++++++++++=
-++++++++++++++++
-> > > > > > > > > >  1 file changed, 46 insertions(+)
-> > > > > > > > > >
-> > > > > > > > > > diff --git a/device-types/net/description.tex b/device-=
-types/net/description.tex
-> > > > > > > > > > index 415c7fd..e56df75 100644
-> > > > > > > > > > --- a/device-types/net/description.tex
-> > > > > > > > > > +++ b/device-types/net/description.tex
-> > > > > > > > > > @@ -146,6 +146,9 @@ \subsection{Feature bits}\label{sec=
-:Device Types / Network Device / Feature bits
-> > > > > > > > > >   when VIRTIO_NET_F_IPSEC is negotiated. When a device =
-offers IPsec feature, it SHOULD
-> > > > > > > > > >   also offer the VIRTIO_NET_F_OUT_NET_HEADER feature.
-> > > > > > > > > >
-> > > > > > > > > > +\item[VIRTIO_NET_F_HOST_TSO_LIMIT(71)] Device limits t=
-he maximum TCP
-> > > > > > > > > > +  length and the number of segments when performing TC=
-P segmentation.
-> > > > > > > > > > +
-> > > > > > > > > >  \end{description}
-> > > > > > > > > >
-> > > > > > > > > >  \subsubsection{Feature bit requirements}\label{sec:Dev=
-ice Types / Network Device / Feature bits / Feature bit requirements}
-> > > > > > > > > > @@ -184,6 +187,7 @@ \subsubsection{Feature bit requirem=
-ents}\label{sec:Device Types / Network Device
-> > > > > > > > > >  \item[VIRTIO_NET_F_VQ_NOTF_COAL] Requires VIRTIO_NET_F=
-_CTRL_VQ.
-> > > > > > > > > >  \item[VIRTIO_NET_F_HASH_TUNNEL] Requires VIRTIO_NET_F_=
-CTRL_VQ along with VIRTIO_NET_F_RSS or VIRTIO_NET_F_HASH_REPORT.
-> > > > > > > > > >  \item[VIRTIO_NET_F_RSS_CONTEXT] Requires VIRTIO_NET_F_=
-CTRL_VQ and VIRTIO_NET_F_RSS.
-> > > > > > > > > > +\item[VIRTIO_NET_F_HOST_TSO_LIMIT] Requires VIRTIO_NET=
-_F_HOST_TSO4 or VIRTIO_NET_F_HOST_TSO6
-> > > > > > > > > >  \end{description}
-> > > > > > > > > >
-> > > > > > > > > >  \begin{note}
-> > > > > > > > > > @@ -220,6 +224,8 @@ \subsection{Device configuration la=
-yout}\label{sec:Device Types / Network Device
-> > > > > > > > > >          le16 rss_max_indirection_table_length;
-> > > > > > > > > >          le32 supported_hash_types;
-> > > > > > > > > >          le32 supported_tunnel_types;
-> > > > > > > > > > +        le32 tso_max_size;
-> > > > > > > > > > +        le32 tso_max_segs;
-> > > > > > > > > >  };
-> > > > > > > > > >  \end{lstlisting}
-> > > > > > > > > >
-> > > > > > > > > > @@ -276,6 +282,19 @@ \subsection{Device configuration l=
-ayout}\label{sec:Device Types / Network Device
-> > > > > > > > > >  Encapsulation types are defined in \ref{sec:Device Typ=
-es / Network Device / Device Operation / Processing of Incoming Packets /
-> > > > > > > > > >  Hash calculation for incoming packets / Encapsulation =
-types supported/enabled for inner header hash}.
-> > > > > > > > > >
-> > > > > > > > > > +The following field, \field{tso_max_size} only exists =
-if
-> > > > > > > > > > +VIRTIO_NET_F_HOST_TSO_LIMIT is set.
-> > > > > > > > > > +It specifies the maximum TCP length
-> > > > > > > > >
-> > > > > > > > > what is TCP length?
-> > > > > > > >
-> > > > > > > > It's defined in the rfc793:
-> > > > > > > >
-> > > > > > > > """
-> > > > > > > >       The TCP Length is the TCP header length plus the data=
- length in
-> > > > > > > >       octets (this is not an explicitly transmitted quantit=
-y, but is
-> > > > > > > >       computed), and it does not count the 12 octets of the=
- pseudo
-> > > > > > > >       header.
-> > > > > > > > """
-> > > > > > >
-> > > > > > >
-> > > > > > > But that one is 16 bit so can not exceed 65535.
-> > > > > >
-> > > > > > I just reuse the terminology instead of defining something new.
-> > > > >
-> > > > > Let's use a generic term that will work with big tcp.
-> > > >
-> > > > After glancing at RFC TCP length seems to be the best as TCP header
-> > > > doesn't have a length.
-> > > >
-> > > > Maybe you have something better in mind?
-> > >
-> > >
-> > > Depends on what do you mean by it, exactly.
-> >
-> > TCP header length plus the data length. Maybe TCP packet length?
->
-> Hmm. It's not even a packet length is it?
-> Linux has this:
->         Device (as in HW) limit on the max TSO request size
->
-> but switching to "request" is more work.
->
-> for now, we have:
->
->
->
->
-> \item If the driver negotiated
->   VIRTIO_NET_F_HOST_TSO4, TSO6, USO or UFO, and the packet requires
->   TCP segmentation, UDP segmentation or fragmentation, then \field{gso_ty=
-pe}
->   is set to VIRTIO_NET_HDR_GSO_TCPV4, TCPV6, UDP_L4 or UDP.
->   (Otherwise, it is set to VIRTIO_NET_HDR_GSO_NONE). In this
->   case, packets larger than 1514 bytes can be transmitted: the
->   metadata indicates how to replicate the packet header to cut it
->   into smaller packets. The other gso fields are set:
->
->
-> So if we just go with "length of a packet that requires TCP
-> segmentation" then I think it's at least not making things
-> any worse.
+Hi All,
 
-Ok, I will do it.
+This short series prepares the specification for release 1.4 version
+from the master branch.
 
->
->
-> > >
-> > > > >
-> > > > > > Note
-> > > > > > that it is only used in pseudo header for csum after device has
-> > > > > > performed TSO. The value in the pseudo header is capped by MTU/=
-MSS.
-> > > > > >
-> > > > > > As replied in another thread, BIG TCP requires more work or fea=
-tures.
-> > > > > > Driver needs to set ip->tot_len 0 with a new gso type to let th=
-e
-> > > > > > device know about BIG TCP packet.
-> > > > > >
-> > > > > > >
-> > > > > > > > >
-> > > > > > > > > > of a TSO packet
-> > > > > > > > >
-> > > > > > > > > what is a TSO packet?
-> > > > > > > >
-> > > > > > > > Packet for device to perform TCP segmentation offload.
-> > > > > > >
-> > > > > > > pls define terms before use.
-> > > > > >
-> > > > > > I may miss something but TSO has been widely used in the spec b=
-efore
-> > > > > > this feature:
-> > > > > >
-> > > > > > """
-> > > > > > \item[VIRTIO_NET_F_GUEST_ECN (9)] Driver can receive TSO with E=
-CN.
-> > > > > > ...
-> > > > > > \item[VIRTIO_NET_F_HOST_TSO4 (11)] Device can receive TSOv4.
-> > > > > > ...
-> > > > > > """
-> > > > >
-> > > > >
-> > > > > Yes but that does not define a "TSO packet".
-> > > >
-> > > > How about a patch beforehand to explain thing like:
-> > > >
-> > > > \item[VIRTIO_NET_F_GUEST_ECN (9)] Driver can receive TSO (TCP
-> > > > Segmentation Offload) with ECN.
-> > >
-> > > That does not define is either?
-> > >
-> > > virtio$ git grep 'TSO packet'
-> > > virtio$
-> >
-> > Something like this?
-> >
-> > Maybe "TSO packet is the packet that device may segment it into
-> > multiple frames"?
->
->
-> The current text is a bit of a mess where "packet" interchangeably means
-> the result of segmentation or the request to segment.
-> We should fix that but for your patch I think it is reasonable
-> to just spell it out at each instance: "packet that requires TCP
-> segmentation".
+note:
+makediffpdf.sh still have fails and needs resolution. WIP.
 
-Fine.
+Parav Pandit (4):
+  edit: remove old changelog
+  edit: add changelog for 1.4
+  edit: Remove annotation of special character
+  REVISION: update to 1.4
 
-Thanks
+ REVISION      |    2 +-
+ REVISION-DATE |    2 +-
+ cl-cs05.tex   | 2120 ++++++++++++++++++++++++++++++++++++++++
+ cl-os.tex     | 2605 ++++++++++++++++++++++++-------------------------
+ 4 files changed, 3407 insertions(+), 1322 deletions(-)
+ create mode 100644 cl-cs05.tex
+
+-- 
+2.34.1
 
