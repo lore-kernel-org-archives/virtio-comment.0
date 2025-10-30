@@ -1,101 +1,107 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237062F617A
-	for <virtio-comment@lists.linux.dev>; Wed, 29 Oct 2025 17:49:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C96023F27B
+	for <virtio-comment@lists.linux.dev>; Thu, 30 Oct 2025 07:09:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1761760162; cv=none; b=EqE3ee+NT050OmmwFN52tF0rc4xvsefbZIMMuiGwtFXTWXQG6jd/l5L02e8e5O+dgKHJlO4UjfKZLDYvZjQ5EwNBuUfMWjFuZTnFsu5rAv3neb/g22mKr/fxSk8M7GMZYOmy3cboFJ9udLxlId3sNt87ToaiZMqXHYkWjJZz0Ig=
+	t=1761808174; cv=none; b=Tl1/jfVN0xDvDYxGqtPoGeTq5z1iy6qsaeb2699BD0lzJn3Bnzwqmd/q5fCdjR4THyN68WFdLdpBaYMAHUHQTMRRD0vLU97HdDVgLNXECRd1Um/ojAq+7jl7bSlIaRJ7aFH27PtY2W5bk7+RcjcZngi57w9bwmR5C05lArIy6rc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1761760162; c=relaxed/simple;
-	bh=i5Z18q04BrqQhtkYSscS2dTWHdiP5pn2+4VNUriiwFU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=FXchGe8WpR8eTyNwaDp3I7LtQN67FpFqZ648VtSqlgTL+Mb52ZBGtQa385ASzFF5ERlyPbNuany90+XDV/j84vHEeDI9VFa/BdWgXH1FXK+JXZFDGkximYPewHKhRbh3SYjqpSNxnPAteIPGYu7DLYAUsXTBpX9lUVfC7FKber0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KEd5Ezck; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1761808174; c=relaxed/simple;
+	bh=RdUdresCChR6DhCKDksW4jHlHzYuqEsyd2mjAGzflDo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KlI6nBrM2v5CwjjMpqFVOq5fQ6oEm9gUDfPxJfoAGcjDWV6XnQzgPjOrBRpW+YmlWvPlaFXd8eqKBxLJnOvXzFs/08LaePJtIRbmvaH8Qe1zBcsg5nhIAQcgGdFaCrkpFRLGksvvY0obb8Ky1kYsDkwBAGABC6t+7xz1Pi67uzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=UQoQlyaZ; arc=none smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KEd5Ezck"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1761760159;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gHbc3sJdx9FRv4qQjbbtsNpJUqGoZeyEeiUjtjHe9Go=;
-	b=KEd5EzckiXAI2XPu82nrt9JKxShYnUZDrdY1EFg33woBfpR4RQLQjpfPEI4m/NSDYMXjKj
-	d2NZFTjB7HaTRgfCP/cH96M7LX+HzTVUzW8Y/TI+d4zcGFhCnyQxFmACcITSmtHWSIT3Ep
-	3XAgq8gsUZA8teMwJSaaVHs2S4i6wRU=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-455--JIsnSqaMxGixC-Q7E2JQQ-1; Wed, 29 Oct 2025 13:49:07 -0400
-X-MC-Unique: -JIsnSqaMxGixC-Q7E2JQQ-1
-X-Mimecast-MFC-AGG-ID: -JIsnSqaMxGixC-Q7E2JQQ_1761760146
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-429a7f1ed1bso53442f8f.1
-        for <virtio-comment@lists.linux.dev>; Wed, 29 Oct 2025 10:49:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761760146; x=1762364946;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="UQoQlyaZ"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-63c09141cabso1005523a12.0
+        for <virtio-comment@lists.linux.dev>; Thu, 30 Oct 2025 00:09:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1761808171; x=1762412971; darn=lists.linux.dev;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gHbc3sJdx9FRv4qQjbbtsNpJUqGoZeyEeiUjtjHe9Go=;
-        b=G+7BdH1NZvoVhCxVMipDUizB5idfIkwoPujBy5yrzgDIdppIA15B9aGbxb5+aRo3sj
-         kIwIb47fqcvCymKxJ5kzRe3SMans9Y6Qv4lG2X9axtwoxEc6Y3gtS0gPvs71tQdcFuyS
-         JCjssd6R3doPObutLQvhPxENPG+z8cMhpZb19cMrsV5Ghss6z5ePYh0fUSycCHqhg8LD
-         LSnx7YYyh+cbuFaoYl/LbV9tkSwWR4i3y7D7x0cSdDlo0AqDMoKy3yX/qCpM1Z2/2ELv
-         6yQt9u6fx3K+xKeDoaFCCWVAQyy9xOtqaRXxU12yCTtgs18B32XZ25ybgWjFBH0ahb2N
-         x4LA==
-X-Gm-Message-State: AOJu0YwNeRUhkGXWB/9dj+0ucQH2fBGReUSgH6t1LK2D8kx8Ck32UaWM
-	mUi2OhRJONRJw3WtTH83J03ZGcJ4yLVoQaiJKO4zcD8gv0lkExw3SzJlbGe+Jdf2oZSMzzwa11L
-	rAIiHV6Nz4StBhHiEM7DIDeW5MOLD5/G9YgmktGUyAh231SEdFOgttgq89aOHUZyAlcf4
-X-Gm-Gg: ASbGncslIyJKPZmbBcsWw1HDYbHclDPl3ptC4KwNYuhyzH+e4Fce+4mbbLG0b/gnOgb
-	4dADZ5YQkctF938zOVUAAiJa9ZG76zE6znxSAFUs/P+qSXX0PB2Wjf43jvtegS7OyMWSlBZbF2E
-	mrW0iEjDtULnN703uL5ACb40gyvnKWrmI9qWMt+D9Juvb7uVT+NmoBQCviDCP0s/nuXNCSj+PcK
-	uBfK/aVyftEbAw1co34ucbhRQF40AYDt0qSNeXBCzuRmkxfME8MpZPcQs7VnTa5YcRSzSKmP2yj
-	mPrka6vgR9vStaRYXsxQD3uyX8f7up9j6tUkvPs1jY02UO1IbnVtV+Jct6J+FRw2ICr6
-X-Received: by 2002:a05:6000:4382:b0:425:8559:5d17 with SMTP id ffacd0b85a97d-429aefb9a30mr2508255f8f.30.1761760146450;
-        Wed, 29 Oct 2025 10:49:06 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEi0Qu2+JOspUDYI3Qt9QWM5Cs7M3DRIqkRWLIUple6oVmPLgSRQQ4h0lrFBA4JaFY04jc2pg==
-X-Received: by 2002:a05:6000:4382:b0:425:8559:5d17 with SMTP id ffacd0b85a97d-429aefb9a30mr2508241f8f.30.1761760146063;
-        Wed, 29 Oct 2025 10:49:06 -0700 (PDT)
-Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-429952b79cbsm27571791f8f.4.2025.10.29.10.49.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Oct 2025 10:49:05 -0700 (PDT)
-Date: Wed, 29 Oct 2025 18:49:04 +0100
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: Alexander Gordeev <alexander.gordeev@oss.qualcomm.com>
-Cc: virtio-comment@lists.linux.dev, quic_tsoni@quicinc.com,
-	quic_svaddagi@quicinc.com,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Subject: Re: [PATCH] content: Reserve ID 50 for video encoder/decoder device
-Message-ID: <aQJTkIVdGEaLJTWu@fedora>
-References: <20251027203356.3301-1-alexander.gordeev@oss.qualcomm.com>
+        bh=qQDz9S/AN13ks8bpwfIlKDYTAkBBJhcyBqbXcpGVk0g=;
+        b=UQoQlyaZFs9iQSzSNnv7Gn/S5pknIFxozn22N3M9yacKoh0BZ3dn1FnAF06VqDWQLD
+         p3YSWCiPgPCyFPszWPSYK2zbVXuvfbFvQJCrOtDOXhUuA/OXOwJe7O7aECWwPTJRPsE5
+         NjO1PPkwcQ6Ei0RzUT9/QkTwqIcJ2sEuQxV3+F51YpI7KIw12OXJz3uhM7TvoSBOjBp7
+         5EIB3vtaDhVvj2m72PqO/4PvpFWZNyTybn4+wH6QgDhEiTC0/N8aFerEW1qBUdl8u2be
+         q7Wl1Lw2KjRdSqnTB/7IYGy+VPM7DHsx2tMP5AqhrJrn2/TIDHGzk0fZ5oJ6T+Kyj+EY
+         KCCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1761808171; x=1762412971;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=qQDz9S/AN13ks8bpwfIlKDYTAkBBJhcyBqbXcpGVk0g=;
+        b=w2g13mBFVIytfU8ch/WfCAvct1psrKfPStCCIeiv5TvKTQvgygOTJox1AbVt2Ub1fi
+         MAiv6iBkOlTAkeqBFF4vWfQpZUmIgpkWyBSOZObBwwBrBJVgvPkmTpLVnN1KRQupG9L2
+         zT2GRoCVOAG9qcKHqOKzi7iojs7Z9FYuV77052OSZNRhFv9XfTPqXq/mUuezFADN5Err
+         1ZXTbadN3ZqQlf56OolO+L+sT7mTWTunql+Qeja2+BX29A7nmutrdUPzHkgIKg0GI/GE
+         hrRdGJmrXDbO2UfVBQYIDke3qnRdJb+m09tsvoIlgNcOUE5+iZw9OP1EKAcdBYXU1cxK
+         gpzg==
+X-Gm-Message-State: AOJu0Yw5MwqLJaJ0Yp7BtJRNM/9ff5Fe7BRK1msQ7Us4u8UihGNvJsIn
+	Be5BaD80DThmE7gUICusQvpQ0a/O6uOad7S5gHR6hCHrD6bhZzXXw1Z2Kl565U/mboOpgIyObDq
+	CwQbHKHfDfG5X6287PAE7nU62KubNbYD/vRcztFlSTw==
+X-Gm-Gg: ASbGncsA/JLusFJQNwzd3GhwVaoe7Yw3G2ZyZI5ujf98/2e07GlMKGxGosFIy4D/Rst
+	xPzlA0erdUFR2NEDL+uA59r5qRtFoBxWy0ON04MNxMzzIh7FBwoViRP5i/1ePQ6kTYNNd14KqZd
+	ZxsryYeoJ8fB+pyvk5egohipB3Kb5jRopNG8aaetddf6rCPt6ALvNFNb0B+MQosOLT3bjGlvnwx
+	YCEj9l3bLazl8+s/yFW/X8j+hOP4X5tS9GdHz8oMxCUj1CvUj4Xz6exRb3A
+X-Google-Smtp-Source: AGHT+IFsOZ+0zb4nkfK5zYqfokNR+B3D3Xdb6y2GXi9l+iaT6RaG1471WSJEzwO4phYT+NrtGfwHXuqNrbI+ORU6XEA=
+X-Received: by 2002:a05:6402:23cd:b0:634:6d87:1d28 with SMTP id
+ 4fb4d7f45d1cf-64044375a30mr4186212a12.35.1761808171274; Thu, 30 Oct 2025
+ 00:09:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20251027203356.3301-1-alexander.gordeev@oss.qualcomm.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: b_QTWTxFoVgTqq-h_WmNhbskeoLsIK7filgD2kjMcZQ_1761760146
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20251010162858.4107388-1-alex.bennee@linaro.org> <20251010162858.4107388-6-alex.bennee@linaro.org>
+In-Reply-To: <20251010162858.4107388-6-alex.bennee@linaro.org>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Thu, 30 Oct 2025 09:09:05 +0200
+X-Gm-Features: AWmQ_bk6TayAKp6h8UyYcKJwIxc3keqoHzX7Ktk_B_U4jtelFWhyz-KqrLInOUI
+Message-ID: <CAAjaMXYCO+6170-HxJ7d=J+DL0CGvg2nfCi93Mi0+BEffj43cg@mail.gmail.com>
+Subject: Re: [PATCH v3 05/11] .b4-config: add project defaults
+To: =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>
+Cc: virtio-comment@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 27, 2025 at 09:33:56PM +0100, Alexander Gordeev wrote:
-> Virtio video encoder/decoder device provides a stateful API for video
-> encoding and decoding.
-> 
-> IDs 30 and 31 are already reserved for devices providing only one of
-> the two functions. There are use-cases for a device providing both
-> functions, so a new ID is reserved after a discussion on the ML ([1]).
-> 
-> [1] https://lore.kernel.org/virtio-comment/20241223055543-mutt-send-email-mst@kernel.org/
-> 
-> Signed-off-by: Alexander Gordeev <alexander.gordeev@oss.qualcomm.com>
+On Fri, Oct 10, 2025 at 7:29=E2=80=AFPM Alex Benn=C3=A9e <alex.bennee@linar=
+o.org> wrote:
+>
+> b4 is another tool used to apply and send patches. We might as well
+> set our project specific settings here.
+>
+> Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
 > ---
+>  .b4-config | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>  create mode 100644 .b4-config
+>
+> diff --git a/.b4-config b/.b4-config
+> new file mode 100644
+> index 0000000..0ac4110
+> --- /dev/null
+> +++ b/.b4-config
+> @@ -0,0 +1,9 @@
+> +#
+> +# Common b4 settings that can be used to send patches to virtio-comment.
+> +# https://b4.docs.kernel.org/
+> +#
+> +
+> +[b4]
+> +    send-series-to =3D virtio-comment@lists.linux.dev
+> +    searchmask =3D https://lore.kernel.org/virtio-comment/?x=3Dm&t=3D1&q=
+=3D%s
+> +    linkmask =3D https://lore.kernel.org/virto-comment/%s
+> --
+> 2.47.3
+>
+>
 
-Reviewed-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com
-
+Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
