@@ -1,139 +1,157 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C04A223D7F8
-	for <virtio-comment@lists.linux.dev>; Thu, 13 Nov 2025 15:56:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 745433559C9
+	for <virtio-comment@lists.linux.dev>; Tue, 18 Nov 2025 12:37:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1763049366; cv=none; b=siE/q4j2QZrmu3q3w7XFQjDOIR+emNd1nTbrfGnXK4ISK5h+10VNhm9nSHZCW/tGIVZnWmmByOqv6aGnydYVzOAdLYUNFNRFuOxp+A9mbUDDnjJuu5gwaSTFKLBL0Bu908guuawHdR5fJhaQSYtH/T8F2K3j8x2wKeca6Zzcpqs=
+	t=1763469436; cv=none; b=r87r7Ry2ThU/ABZBc2Ky/zKU8wsxFMskZEyuExuH4am6+tsGv99dhLg8cM6y3ipxdm3oZr8UG9w/tfvTEmo11B3uLcKBWbJmZXgL8gzaSIUHj7G3V4mEFDaEwGGAoIuBH3NecG0S1b6HlTUYPtukDRewJ945bKRW1mZIfgtHkNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1763049366; c=relaxed/simple;
-	bh=/YBERbDnlNvEEju8P6J9fLCKmEXJAW07il2rpCb+LQY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fdy9kIT/WFyDd7V3Ch+c9Xa2rGx5Kvgt4bmGh56TkPpzqYOyg6Mzq6qaUo8BWPWek0oryAk8feYrVFh7/3YHtV8PfrY65jXf3qXabj4IP/BznGMSJbBBbxjkxIv4taaqdS5NE5Fxs4y79+2nqT2u80KWksklhRSNSzxDvejPSLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hIkJ+u6G; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1763469436; c=relaxed/simple;
+	bh=qaWWQN6CI6aafph7LivVoBPJrcnm9RDyjg227LqBMic=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=f/iPvAfpR0emRb9rKJVdtjC38Abfo+OtSXS9Y9gkS3GozYakx93Q5D76MxUqT5gaNJURdxlGaO2IPD1jiJttowj6xgKhBhNCcixNvZHpQ2IJpAWvPsGJ7OaZzDlR70xPEW8qfwMWVKwDzDB+CnyE93Yudyga6Sgw15gxtKrMABw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=O5c4Z6gG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RcbysNCA; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hIkJ+u6G"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1763049362;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=miUKLDvjdcr115mhmReQ07Cxokwhp3zFzSa5up0L5NQ=;
-	b=hIkJ+u6GharSjMFIq3dLiHAY720tZyRe0QvIYuB7IeSLSFEVsdeU0i8ka/zjhfYZLdJz3t
-	gH6nai2SXL/FO1oJAeNYu/uXZ7sjggUnFBSPjEV518kFNTHyBU8OLSmxj0NGmKgVzwS2/U
-	QoQ2EsCR8iOO6OhAFOXSX4/gbnvlR6g=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-142-jnJ5IVUsMlOgbu9GMGxhJw-1; Thu,
- 13 Nov 2025 10:56:00 -0500
-X-MC-Unique: jnJ5IVUsMlOgbu9GMGxhJw-1
-X-Mimecast-MFC-AGG-ID: jnJ5IVUsMlOgbu9GMGxhJw_1763049359
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8DBA11956080;
-	Thu, 13 Nov 2025 15:55:59 +0000 (UTC)
-Received: from localhost (unknown [10.2.16.177])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A6CE2300018D;
-	Thu, 13 Nov 2025 15:55:58 +0000 (UTC)
-Date: Thu, 13 Nov 2025 10:55:57 -0500
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Alberto Faria <afaria@redhat.com>
-Cc: virtio-comment@lists.linux.dev, mst@redhat.com, dverkamp@chromium.org
-Subject: Re: [PATCH v4] virtio-blk: Add support for "Force Unit Access" writes
-Message-ID: <20251113155557.GD189474@fedora>
-References: <20251112055113.62207-1-afaria@redhat.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="O5c4Z6gG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RcbysNCA"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 5AIASm0L375942
+	for <virtio-comment@lists.linux.dev>; Tue, 18 Nov 2025 12:37:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	EVM9IBG/fBElbt2GwxU0Qe3v10MMSITkilTfX/CByEM=; b=O5c4Z6gGOmSAoHyI
+	Ik9AGduoGZvjfpG7n7HrzxDabpf4T3cyeRkO4QYHy9jwpOT3uaXWJYaXsnwIkLIo
+	1Q+NUNNiPmDeBJSoZMFu2soyeE75aIygQLGv4QoaeqEW1KRPlJk7Z5t0qyS8BPFd
+	4afz0KS3StuUKadaMA8HiQZo/CqpPcEkQmiFVDK82fExVagphaMV+JhuFu2os/RW
+	Mjw7Yt5lIjFjTmWyjDL6pRQmb634UPWu1rCr93uDusiUMAlrZmXUPEFfsWuCOYkv
+	mMc6ngHBgx9867cUyNp12eZzdeCHqdmloMizt0pYbFuZMhG9NCxx7aAp4RuO5H33
+	lTbQtg==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ag76nk47d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <virtio-comment@lists.linux.dev>; Tue, 18 Nov 2025 12:37:12 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-4ed7591799eso160418671cf.0
+        for <virtio-comment@lists.linux.dev>; Tue, 18 Nov 2025 04:37:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1763469432; x=1764074232; darn=lists.linux.dev;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=EVM9IBG/fBElbt2GwxU0Qe3v10MMSITkilTfX/CByEM=;
+        b=RcbysNCAhQ6GqFDMQ72JvCVIGCpxkTzwMW2Wtlr94bbaQvmR93DuXlyoOji9ni8m8l
+         tafNLA12wKkEwedSJZMyvhjAwobaHk1mEdD+53uZb/Gq3XRqdNllDxkz1Vd6e1qdXIWt
+         bKCMNAX8yySyjmFl0/aoBgZJ9DLFbNaL7u173I0Z0fstpMr2j8glSrnOrgrR3d8YKeKh
+         owggIa9Xg56dBkyRFDI8wuJENo4s4P+PMk6vW4CSL1enCYGiaqexrdUVRAApDFPqsfQf
+         mqZEdIbQ6Qt+DqCK6ClUJQOPUe43es2zIxpBH/amDV/zi1xeGxL+zKuAD1l76tn0G4Nt
+         fBnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763469432; x=1764074232;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=EVM9IBG/fBElbt2GwxU0Qe3v10MMSITkilTfX/CByEM=;
+        b=LA3oiDBl2/13/r80rZkgUrpHAfRRPdKHwdAXAqJtCxBUqtoKl9AdfiaP1pX0+EAdnm
+         JPjD9NtFoUIl4MhOM989qP9N63mvJDOnw1KSzxvMkF1BVYOYZhEWMuF4uS9vNC3FcORr
+         slwIl/ZSDG3Jp6Ueio4KGPwTemPVTx8g9OZgkJiq5v+jEQYV/xQl/vqWbs3UOsfV32p0
+         w4Vx9JFu6KwWGtsMLNJ64rWhT2YNt0PRCUsDE6TzrqcIM44tS+8llp+8eT+Wh+40ON53
+         1SOsIKPb7EsQy+DGKIX9/T/w2S/CgDw/Ewi0BWbmielwAQYiU0V/qbxaRTERR5yePzq8
+         wA2A==
+X-Gm-Message-State: AOJu0Yx+E2WgIkQFDW82Co1i5bUlyByRAR7rViswIs3y+A/v86YCRWSM
+	gVIvrbEOMQFC8EYEVcX9mkbdUkABMFB0bQ0oW49MZhwRRVyC3+BBiU1/FTiEuhxPb4nR+T3fIi8
+	mJEc2qB9MVdTujSpptEok17z44yDfHEpuNGXT32k+2FpR7U5zhDDVX9VMCRcllESE/1Un38wbfw
+	to
+X-Gm-Gg: ASbGncusmKL2Qx6SJlO3fwxdphtBo9v8dxkOymLn/U+uH+QD/jtWWil59sG98Tvu9/1
+	oH24EduzUW9Gu1ghu1EtmZvbeWDFgZ5qJ5fBj39W5soYicdCu+ckh74NqGqv58BwiKvNN/h+hM1
+	WBaBpKSWbkHX14H/x3kCS2yBPdWpJOPVqAsMnTKF3MR0Vlnp8+uWo1+cu8MJFoiP6+uK0LJlk9u
+	ZpI9Fj48w51dCdyC5du9Khl27lCz0SejKxTySc4qVMdhegauPBEx/zJZvE40+3rAW0x+gxoFtrf
+	tmOAAGXLBVUWEz4fUw/1n/SE/QF2mqyTwVYi/l5bSfvxs0PYk+f7iyq94TZBbELyQzGPgcrsdgD
+	tWy9uVdi4metro7uayuESQZZYHAKUC/Hc
+X-Received: by 2002:a05:622a:513:b0:4ed:dab1:8109 with SMTP id d75a77b69052e-4edf203d183mr193920291cf.17.1763469432307;
+        Tue, 18 Nov 2025 04:37:12 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IF0nMoSGm4xyQxZ0Yt6g8r88nuNPc8PmYV5nmD6ztvUKtH+NMtGCdZblvAepDYrxJI4x5NZyQ==
+X-Received: by 2002:a05:622a:513:b0:4ed:dab1:8109 with SMTP id d75a77b69052e-4edf203d183mr193920011cf.17.1763469431772;
+        Tue, 18 Nov 2025 04:37:11 -0800 (PST)
+Received: from [10.224.242.57] ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6433a3d7ddcsm12603012a12.1.2025.11.18.04.37.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Nov 2025 04:37:11 -0800 (PST)
+Message-ID: <c976d5a6-4091-4653-8a1e-55d6b7b7a2ff@oss.qualcomm.com>
+Date: Tue, 18 Nov 2025 13:37:10 +0100
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="//My83XEFAD5o8g2"
-Content-Disposition: inline
-In-Reply-To: <20251112055113.62207-1-afaria@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] content: Reserve ID 50 for video encoder/decoder device
+From: Alexander Gordeev <alexander.gordeev@oss.qualcomm.com>
+To: virtio-comment@lists.linux.dev
+Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, tsoni@quicinc.com,
+        Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+References: <20251027203356.3301-1-alexander.gordeev@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20251027203356.3301-1-alexander.gordeev@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTE4MDEwMSBTYWx0ZWRfXzJRbToKfopOV
+ K5cNuinRBlIw972SoOyhNeeNQa7sVw2jbuDWCNchfPEWoRNd5cQcm1ZlhiTexCG4OE5GmP0Uw/9
+ RyZSzZ5a1i+K9FLGKscndSzfs5IXkvdofqWBL60zv74Kp316heJdwQnRZRkQ46z64vNpCt/uKpc
+ 4ekgz0qayfcCgUHZILeQ05UGG8IwVeho9qiNEnp0sjC3Yjqho8FpF8a0xOB2lhsrpHKHzNvUbtw
+ nm6k44k+zqqoG2+mGmCS9pGJvWjynIlnw6egbC3vxjw3IWXUgDIW13DXMiS103bDRZzoCVcAcHZ
+ GTz5VCcgVwkkKADWJpe5dbekCYwa+pX14Z3h3oCwUBXeBKi+OtaHmlm9Rbw3TS2IV5/WFxNhLyn
+ Bl2SlVwTOJ5j0D6W8ECLJhgD9iMgZw==
+X-Proofpoint-GUID: m-AAP2-mpmlGCBMKPYLQmLhpNH85jzQ-
+X-Proofpoint-ORIG-GUID: m-AAP2-mpmlGCBMKPYLQmLhpNH85jzQ-
+X-Authority-Analysis: v=2.4 cv=a4I9NESF c=1 sm=1 tr=0 ts=691c6878 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=NEAV23lmAAAA:8 a=EUspDBNiAAAA:8
+ a=t2cYH5rhmJ0nFtvfD0EA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-17_04,2025-11-13_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 spamscore=0 clxscore=1015 bulkscore=0
+ adultscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511180101
 
-
---//My83XEFAD5o8g2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Nov 12, 2025 at 05:51:13AM +0000, Alberto Faria wrote:
-> Add a VIRTIO_BLK_F_REQ_FLAGS feature bit converting the current
-> `virtio_blk_req::reserved` field into a `flags` bit field, which can be
-> used to modify the behavior of an entire request. The meaning of each
-> bit depends on the request type.
->=20
-> Define a single VIRTIO_BLK_REQ_FLAG_OUT_FUA bit as signaling that a
-> VIRTIO_BLK_T_OUT request should be a "Force Unit Access" (FUA) write,
-> i.e., should become stable once the request completes. FUA writes enable
-> better performance compared to the alternative of waiting for a write to
-> complete and subsequently submitting a flush.
->=20
-> Also add a VIRTIO_BLK_F_REQ_FLAGS_OUT_FUA feature bit indicating device
-> support for the aforementioned FUA bit.
->=20
-> This approach allows for future expansion to other request-level flags
-> and allows the same flag bit to be used for different purposes on
-> different request types. The VIRTIO_BLK_F_REQ_FLAGS feature bit ensures
-> compatibility with legacy devices/drivers that interpret the
-> previously-`reserved` field as a priority indicator.
->=20
-> Signed-off-by: Alberto Faria <afaria@redhat.com>
+On 27/10/2025 21:33, Alexander Gordeev wrote:
+> Virtio video encoder/decoder device provides a stateful API for video
+> encoding and decoding.
+> 
+> IDs 30 and 31 are already reserved for devices providing only one of
+> the two functions. There are use-cases for a device providing both
+> functions, so a new ID is reserved after a discussion on the ML ([1]).
+> 
+> [1] https://lore.kernel.org/virtio-comment/20241223055543-mutt-send-email-mst@kernel.org/
+> 
+> Signed-off-by: Alexander Gordeev <alexander.gordeev@oss.qualcomm.com>
 > ---
->=20
-> v4:
-> - Have the semantics of each request flag depend on the request type, as
->   suggested by Stefan.
-> - Some other smaller rewordings suggested by Stefan.
->=20
-> v3:
-> - Changed to a more future-proof approach somewhat similar to what was
->   suggested by Stefan.
-> - Included a brief rationale for the introduction of FUA write requests,
->   as suggested by Michael.
->=20
-> v2:
-> - Redefine VIRTIO_BLK_T_OUT_FUA to 27 since 15 is already in use.
-> - Clarify that the cache mode has no impact on VIRTIO_BLK_T_OUT_FUA
->   semantics.
-> - Allow drivers to negotiate VIRTIO_BLK_F_OUT_FUA even if they are
->   incapable of sending VIRTIO_BLK_T_OUT_FUA commands.
->=20
->  device-types/blk/description.tex | 43 +++++++++++++++++++++++++++++---
->  1 file changed, 39 insertions(+), 4 deletions(-)
+>  content.tex | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/content.tex b/content.tex
+> index 5de811f..243ce2d 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -803,6 +803,8 @@ \chapter{Device Types}\label{sec:Device Types}
+>  \hline
+>  49         &   USB controller \\
+>  \hline
+> +50         &   Video encoder/decoder device \\
+> +\hline
+>  \end{longtable}
+>  
+>  Some of the devices above are unspecified by this document,
 
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+Thanks for the reviews!
+Could we please open a voting ballot for these changes?
 
-Please see here on how to bring this issue to a vote:
-https://github.com/oasis-tcs/virtio-spec/tree/master?tab=3Dreadme-ov-file#u=
-se-of-github-issues
-
-Thanks,
-Stefan
-
---//My83XEFAD5o8g2
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmkV/40ACgkQnKSrs4Gr
-c8gayggAnUjM5GEcHbUWb6GYAylqRbBXB3RhwBnafsqv7/mvMrBP1sN87rIHZqCB
-t/GwE+yT+7t44A3huGLXNJNjueKxdIeF4zw6FA9xmyxWzZomLbdswZtImy+MeTBC
-V8DYbagb9wSG5VKXWC1IOoxvcD290hvdtKlH9n1C21XsGKAmY59yCiFLenjuBmJE
-cmPvS0MjTKfbMvwVcYO83yZ3yS8snKC/uu7eKl1emVlnJ7gozO3cDjlRg3Q7R/I8
-LGF5Vb3mRqU9ZZIqJYD0QrI/sqvbSRb+zM/hn/KAyycKVLrhuYbXTsi5AM85FDNZ
-XX2rOc3JPmGmxRPrOzPJldkVGjuF3Q==
-=Qykw
------END PGP SIGNATURE-----
-
---//My83XEFAD5o8g2--
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/235
 
