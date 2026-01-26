@@ -1,63 +1,63 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24C42D738E
-	for <virtio-comment@lists.linux.dev>; Mon, 26 Jan 2026 16:32:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1AE62D738E
+	for <virtio-comment@lists.linux.dev>; Mon, 26 Jan 2026 16:32:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1769445157; cv=none; b=egHDpEr1V/8t7rRtuua8l2qL5JcoWOgN+hsbbvk6O2vRzIBNZ2OH+OwcZ1DjTaZoyRw3HHLeWyvLNtwPHJ0DRtWGc63MCqp6jU5GfF9PFmHvOPz3VSpSuG7rMtWYsmvSzF1fc9D//J+sAAXnhK2LrdVIfsQ4uWBs2dMoTXit/q4=
+	t=1769445159; cv=none; b=mFgqtI2ICetIxf0INckmAqAmAZis8+M7HaJEoEIIwExoUgJjr/cma3Raih+Wa+10FUTDBp5S2N5lFpPZKQgARtustFkoh02Vk2pXbPsIDCbyZMnWMNJBLHuPjlrKYPv1E/bO1bruCP5pEG6W8oeMODUg85DDgyaf5SqoqmxIn7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1769445157; c=relaxed/simple;
-	bh=HtDTKdJjDruSGzhucK3Z3Xz+TPcnSxlDzsPWYMRqgTU=;
+	s=arc-20240116; t=1769445159; c=relaxed/simple;
+	bh=nv8A7p7wTcKtsKE4Jgv3S5WqaEImWSbeinitU3u4Iyw=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=PfkUd4H52FwI8WUsvVSvbn7+EWscsZfbAD7HZxQnxE2lHzDbBlWLJ0n44FiNYZ9XSK0bmZR9dCM7jHHyRO8E5H5HzCkYSL9zR2qgd/annIHXUwIAgYzTqzUYGFRXxzcn6GJTuoCU2KS0bzw/5sLY+pea8BCM5nyQFzVIx77a6R4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ouVoNE/4; arc=none smtp.client-ip=209.85.222.182
+	 MIME-Version; b=lBDtzBAKnMpYycK4uQHDu/EK9hCWWeVRxuIZkm4GvJS6kgMiCQaMqYiYQC7/h0p+44H3iDTI4KlFXWGJScU9ku5GgjGpag2MbjiR8sS5QVTWx4Qg2uZwPWT79lkfsGjwGmQDOTurlIDD4IQkYonCP6ahV8HQCYIgb7L2ldZWkxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bToxlPxz; arc=none smtp.client-ip=209.85.222.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ouVoNE/4"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-8c655e0ee70so595868385a.3
-        for <virtio-comment@lists.linux.dev>; Mon, 26 Jan 2026 08:32:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bToxlPxz"
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-8c59bce68a1so321047685a.0
+        for <virtio-comment@lists.linux.dev>; Mon, 26 Jan 2026 08:32:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1769445155; x=1770049955; darn=lists.linux.dev;
+        d=linaro.org; s=google; t=1769445156; x=1770049956; darn=lists.linux.dev;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+ey+2/gwDds+yqbukQ7bEwLFGvb26xRb1MO02etGDGQ=;
-        b=ouVoNE/4UVIn6bpMCivUUABMvv9ExxinOjt5/kosm512anmxDCkHwngwswF0XGUdpT
-         sMWtBLfbyRBM6VOuLyLVPSwsHMohxOQUNhmlcT+/texrMl2JQxOdO2Jbz5khqMCXYDI3
-         4UQkzWT0eQBkMcExrbj9YlzIHLjWzjeF8mGnfRj+/YEYJYD+1JyC6l5S91t3KBBCQl2m
-         dk0OpC/G3MxjGA1JYJ+dCt1Q4KaOnF5cUKFxrMZY26R7Z2/jazeE42NbvieewBrwUbNw
-         zEOJCWRS1FvsptaNK4q1PEImtPxqarWTTmtdBQUt6XZ7iPHiwZxh9OVU1iz1PHABufm6
-         r4jQ==
+        bh=KjBw6F/faesGwK+X5MaAAKo62uAYT1veWQcXNS5SRu4=;
+        b=bToxlPxzD1XBq3epa88h4sHyRUKsoEDo6iJHfnDOB+AJg9vPYWaIS0Cyzr5LkDXBTH
+         MTy/YVzsRksCpvW5tLR1vL3FpFK0Ii5W6V8Zvxwic2/VZ0cS+NoXG2w4MT/FtS8QAtCL
+         9rPprjWQ6SObnULjrwDFaDR02+43PyitbX0I5KaKkWYH/6mo8WALCnjW49fhyslNH5Hl
+         aD3AcN0wR4XTfKW4CAbDZ2blshBbL8y9r4RRTTK8Ybil8gvfxwvscHmyyCa98mA/s+1w
+         QD08nEUEvXV8ykvChDiTL/R1Gj+PBlQBvFDF4atQe9VPxRnHfwPU2pCRPQVQUMqNkxIC
+         hlOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769445155; x=1770049955;
+        d=1e100.net; s=20230601; t=1769445156; x=1770049956;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=+ey+2/gwDds+yqbukQ7bEwLFGvb26xRb1MO02etGDGQ=;
-        b=UTQY8JtNKPIlTAHCIKsW7Q3IUbd4cqYepEUdaSWzG1gMOsvBmQFkA3wnqpvfoFwaE0
-         0ZIjZ9Exq7+ZhzSfPTTHsXj+iE004pvnk/h+W3ZNVqHr0Fpii6kFbs0lWq1MEgw2gP/U
-         z1Yk0SZ9pzIgQLYz+2ezqOxuXiOQWW+VC2zFe6qA/IJcb4+0OdHkZsCceML2ba7SEj4U
-         aIIzDz9gfUdglI8aaWH440JMX/J+ugKNQFiNjmeZgS72J50QwPB80RG0/I5INxUMYe7Y
-         1Vf4F2wtpp3MK5+IKuYmKjQpWSEI9rajcRfhzvJz4+1O3WAAkRHcMhx85uvMQrPxoKf3
-         agdw==
-X-Gm-Message-State: AOJu0YzmBykMqAYxei5QLKKySGDT5rgis+4t2dCHVhd5zL6J9UjOQffp
-	RFUihT0TfYBWsjgMw7epP9sq2Ugo77zeosoE7tfr0Ujkj5dv88qIgmw0nwVxwi7UKw05/1GDO/9
-	kvCfg
-X-Gm-Gg: AZuq6aIz/xc1Fz5g6urydL8QC+m/zVzJWXvy1Nb9x6FJ8ejnrVZPAANUaU0Obt2ILEu
-	Plnpw23VIyBItSUTJ4x9YRFMDRoOPuSH482rZcrMlQbBt4e0lALhHHZO4c55UsKyJ0oR4PMTu3V
-	Z8oEi4IF0LhXD90hMla+LzUOwWztP5ji83w1ZZd7VKDBkQK37C/AXjhHBwLJHk38ntGWfbr12Zr
-	NJAfNDuVaFLDWjXOMocDGc5qceu2Bt/0dO9I9QVoGs8yxalQZZzR5QUcHZ0+DdaoAZeNO1B6+K7
-	ho13UN40wEzcz2093Ggabxt8JqbL7HuYvduOYuslsAEOt2nMc5V/xiu22tkpNnYWg3uX/7h1/nw
-	SfGRPd1y9Nbijyw4IpZNPklhGRo8rkxik8WEdHkZhuycITacqHJUc2Mv1MQaPdgG62cg5mK/6FF
-	+lQd2MAIhOz++3fqlQpJPZjZD1GSsNXERHbA8XJjALQI5B3HtXg0WpaWA=
-X-Received: by 2002:a05:620a:4409:b0:8c6:e8f6:2c7 with SMTP id af79cd13be357-8c6f9619dcdmr530248785a.38.1769445154702;
-        Mon, 26 Jan 2026 08:32:34 -0800 (PST)
+        bh=KjBw6F/faesGwK+X5MaAAKo62uAYT1veWQcXNS5SRu4=;
+        b=s8EAIW2k1EgAhID3QZG4s5GMEZi1vipB0nZlEXO1wEBBakpbpMnl+ZvKVw7GkpaVZe
+         6b2cZXo0Tv4bpmekXuVigSh0Exls1u93gxt8fNMsQv5MXkOkMXDZ9RldiOmVLXFIFRgW
+         CjWaKtDY6m6vO1zkVUmsHq8TkD9UeRrUnh2atFsrj8XMqDvfew08qNQWvOiXhYjwYjVs
+         aPpoKHDhhizP0yX/i49Exo2ixrgl6m1m77ERNmBr9M7O+pUdfaw243MuEEiCMHwOQglv
+         uxL9hgx3KRl0Qi8+EEMfkpWzvv2Vq8B1MCamUorZcruj20oJIUKKY1kC7Hnv66PQOTtZ
+         BCfg==
+X-Gm-Message-State: AOJu0YwEjQA8H7hvuu6lO9Jp0h54y93fdDyYO6X1BzYlRj/5I9phIJvF
+	vR141UzQpfoHyuz6v1cKX5nzMqtWxIuiY0WvD8IOHCX6KLLYO3J4BRkHvwvd6ieocIwlk2O3ajG
+	oWV3S
+X-Gm-Gg: AZuq6aLbIga+ojpsXgzWALOyYFr4Tm4x9QgWT65rF4up80N17XaeUEkCSkbcm0jMw7J
+	tWu3F2GxEyW9JRX0OPVF4pceIGCQ4pkslXEK5XmgqsTjgT6WLXG0YDVhe8tsvPPC5RHCHZFpKJt
+	gVbSmMIq7IsDv0+dgkj+PDIVA4UtBbUBrLG6YMUYC7RNoiyel7PKtjwa4KHvBaa/haBPjc3d21k
+	H7eoRX72+FiujeEQlPRd20gnCgk6RKAzVGC8oM5s0/n3TBiCS2gn740uPveqGM+Ejbk4fGJ2J/X
+	oaPYFE7MfUqhEJhSzpPRRL+n7IDtSGkN1A+EQFrAjHj5b0hK2hJnuVe0X4xJYChGkIfqj0xEt+C
+	3T5s94Naf2+Z2n7QjCoiQbyfqhhKZDmKYcfVJLnXepwQkB2lkm6IgHcgR1JHGEMhoj41QRWBZZG
+	VKc5LzmtEPlslOK0+92RhETIn6jnswpb9TP62Tunm1cja5MHwYk9Up2Jg=
+X-Received: by 2002:a05:620a:2981:b0:8c6:e37f:ec2c with SMTP id af79cd13be357-8c6f9565d4dmr624712785a.1.1769445156405;
+        Mon, 26 Jan 2026 08:32:36 -0800 (PST)
 Received: from rocky.home (pool-108-48-78-67.washdc.fios.verizon.net. [108.48.78.67])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8c6e37d1d6dsm1042321285a.17.2026.01.26.08.32.34
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8c6e37d1d6dsm1042321285a.17.2026.01.26.08.32.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Jan 2026 08:32:34 -0800 (PST)
+        Mon, 26 Jan 2026 08:32:35 -0800 (PST)
 From: Bill Mills <bill.mills@linaro.org>
 To: virtio-comment@lists.linux.dev
 Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
@@ -67,9 +67,9 @@ Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
 	Alex Bennee <alex.bennee@linaro.org>,
 	Armelle Laine <armellel@google.com>,
 	Bill Mills <bill.mills@linaro.org>
-Subject: [PATCH v1 1/4] virtio-msg: add new command for bus normative
-Date: Mon, 26 Jan 2026 11:32:27 -0500
-Message-Id: <20260126163230.1122685-2-bill.mills@linaro.org>
+Subject: [PATCH v1 3/4] virtio-msg: link virtio-msg content
+Date: Mon, 26 Jan 2026 11:32:29 -0500
+Message-Id: <20260126163230.1122685-4-bill.mills@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260126163230.1122685-1-bill.mills@linaro.org>
 References: <20260126163230.1122685-1-bill.mills@linaro.org>
@@ -81,33 +81,26 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bertrand Marquis <bertrand.marquis@arm.com>
-
-Add a new command to have a standard way to define virtio-msg bus
-normative statements.
+Add the new transport layer into the content table
 
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 Signed-off-by: Bill Mills <bill.mills@linaro.org>
 ---
- commands.tex | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ content.tex | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/commands.tex b/commands.tex
-index 25ea8ee..122a97f 100644
---- a/commands.tex
-+++ b/commands.tex
-@@ -7,9 +7,10 @@
- % How we format a field name
- \newcommand{\field}[1]{\emph{#1}}
+diff --git a/content.tex b/content.tex
+index 5de811f..c785c5c 100644
+--- a/content.tex
++++ b/content.tex
+@@ -693,6 +693,7 @@ \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
+ \input{transport-pci.tex}
+ \input{transport-mmio.tex}
+ \input{transport-ccw.tex}
++\input{transport-msg.tex}
  
--% Mark a normative section (driver or device)
-+% Mark a normative section (driver, device, or bus)
- \newcommand{\drivernormative}[3]{#1{Driver Requirements: #2}\label{drivernormative:#3}}
- \newcommand{\devicenormative}[3]{#1{Device Requirements: #2}\label{devicenormative:#3}}
-+\newcommand{\busnormative}[3]{#1{Bus Requirements: #2}\label{busnormative:#3}}
- \newcounter{clausecounter}
- \newcommand{\conformance}[2]{
- 	\stepcounter{clausecounter}
+ \chapter{Device Types}\label{sec:Device Types}
+ 
 -- 
 2.34.1
 
