@@ -1,412 +1,237 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F6824A07C
-	for <virtio-comment@lists.linux.dev>; Mon, 26 Jan 2026 21:48:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA51E38E5E3
+	for <virtio-comment@lists.linux.dev>; Tue,  3 Feb 2026 13:21:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1769464097; cv=none; b=JZyw2YLZhcRoz6roLECMSTXaLSSif7r/vENmBL69s+usuBW/U2EfI3MksadyZSnrn2bFrLX2G2wYXTagVg2d4Gc4hQ2VajD+hL1mHdiSpkezWhOKVS87q0vCVeioRfEDicRhxWNxbPo4LcgC+lpN8DQuiaVQSB9lWfhjwXxgH+Q=
+	t=1770124875; cv=none; b=E1oVkKhcSEDPLXP874fFx478RMe2O4UIPRM21+vFIZv8cFJ+7m1rpkM0cbxUcxOKRjnqaKx01WoKgn7ISdhwP9CJzi1Noi+JDkBphWVEBLNH8gjQO+aMb88kokHYEmSqFgmHSxSiMZ/FvL5OnuJQzaY7gKILr6E2shQm7a5PypE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1769464097; c=relaxed/simple;
-	bh=KUBVyhKe30yuwZOqKERU1uQl56RwIYRVrCIlTHPom1U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W7sP0pWW6GaDT9G54IY1UwdO/2dnIsK8rUA+0WRIfFEfzVJvVafu5FFqKzjFfPR/tC22gxNr41vMdlz1TNt7BqrFU0CQJkVubrJ9nh9zU9Sw+CDKohTuyvW1aRw6EEf38HdkBqOeXQiUySTA2qMpNNqCiTMLBak1CuK0EA0mD1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cYyA/g2i; arc=none smtp.client-ip=74.125.224.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1770124875; c=relaxed/simple;
+	bh=QQYD8t6l6qCa5SsPe6Gmg9leieQKZWeRqSPOjca1trs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=UXFfJ6HKnuI6Oua51CKCzZsFa3bScAhslMiXhPj6HiwqPtpcL62lPNN5MSf5WQFBUoaYvCZIxWfekB+gOQRAu0JtcT2DbTcuZHxn9pX9jHyd0C9arrcCbAtFCgAWRoJEWOrrgGVzOPTtF0jhYfDiguTB+WX3pXG8W92B7z7Mve4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WISvC7Rg; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cYyA/g2i"
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6493937c342so4890686d50.1
-        for <virtio-comment@lists.linux.dev>; Mon, 26 Jan 2026 13:48:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1769464095; x=1770068895; darn=lists.linux.dev;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=FazqyAkMQK/Hmsk3H3gT8/RWHxpfZvjGLAZQV94zk2A=;
-        b=cYyA/g2ikCI56eRBOywcnCB9z1kWUrjV+2kPlRmArw/aqbu9qZvlSbvJXKjsl1qsJL
-         cbNbvDabWJ8cKbdrP+3tRaSnO5Ww0gBkIJHqUQN59yQGBigW5zyIvpycHmhKyKTb7Nzx
-         wSf5yxONYFJGHlOryrst1c5leEkL5tLXnTfiitrTtEUmER9+ErYktr616oPPxH/A4m9g
-         4AaO28LimiRkCvlvtH/uvQgTisF+tf+quXDVrqfGOmj2EISR+V/7csmDGxn6P3ikQFsw
-         GxsUs5GDaoeFkvP3P2r60Hufl7XKkl0Z0ElpRaVJAPRri7N/qzgDKH/5IvvgpDkyYvO6
-         1rfA==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WISvC7Rg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1770124870;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b5reMwIbCgHGzxEbOX3skw3pCZd2EaAEKOGriUmdL7Y=;
+	b=WISvC7RgUzCxZAE1gkJlHrDn5sL40XIBn1eJ+0AJ2j3diP+u4ZkzdXyC9+2I7+VrHc96IR
+	V1KpIn4iWm9MEIeKfMvEPvFcTGthipJs3EwisO7OrfC5P05GumvErmscp0RA5KkbvLeQOW
+	0OWPQLUkMmbp5Bw09JBAl8U7QIxOEZo=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-389-2M1tgmlPMHe3TIGojnGfwA-1; Tue, 03 Feb 2026 08:21:07 -0500
+X-MC-Unique: 2M1tgmlPMHe3TIGojnGfwA-1
+X-Mimecast-MFC-AGG-ID: 2M1tgmlPMHe3TIGojnGfwA_1770124866
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4806fa4a180so47927635e9.2
+        for <virtio-comment@lists.linux.dev>; Tue, 03 Feb 2026 05:21:07 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769464095; x=1770068895;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FazqyAkMQK/Hmsk3H3gT8/RWHxpfZvjGLAZQV94zk2A=;
-        b=fbTiQdBRZ3FzTtb1w/DtUaLxkWoUOysBbclzUMv6kkRfqi44bqKlRsuKdtA0nay/5N
-         OhV5iToUDcRP5rk9cpOxYwMW5bUHt8GV0UaIE+NPx/ins2RhpIGJ6N0tvt10Lj2Q9vcx
-         u+EIupXR+ouUnCscnwlEh2QalY04wGRH94gbsRB9su57445U6a/STSV67HL7fr/B45Ba
-         +MeYQZrabw5B7OkX4LdeM2Pofsf0Zjh5rK8jd7NzR0B+lXhB+iT6RUAw8ZbJ9x2MAijl
-         q2VylefMh7V2z7s51ieTO1oMRmQPVziC7vfXrXUaHXlFvfbkKChKPe5fuWPC2AThl+SJ
-         vJRQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUMoHPSlUg1TfLdSVRbPa7uEVa0XSY9snaQzPtTRSRTRsOuMsH9h6aWztkwIXooIh9xFvfOKM5x3+j6Zqla4A==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yy+so3dJCH3v48xZ+DkfgEFJBhH4x7buU0DBKcnMlgcH+0thHNt
-	1IKo324GW/Rz6wcY7akXt/tnf8oFitrO/vZb4KZjiRN509RQgy68ldBF
-X-Gm-Gg: AZuq6aJfXglqVtbOhtJW8W7pAWztXp3T3XNwQS4742XuQgtfZh8j2pJy32Er1XWEJKN
-	5XPZ8RNKyxJuHJdSYQ5tt1QrY1ftcNt9dsNhoS5m1IBIvwYnBc2CbUKCLfItnY/DxsYdpPi1Z0r
-	25ENibr0s0dCDp8sIjP7BWL4OuwN7z8ySIF03gV4mSS1OqkLopcNgcK68yib0DU9tjUHuuphwJ7
-	5NmRyTxWS3SIIAWFggvzxrLHnIv3tyXdVn0tmUk+7SRfAZnBFWBNAewhiZtoV+DbOs2Kz/BsYVH
-	TLx4We0NDMay5xyCad371fwUrdDJK1rd5Lcm6pPDlcTKHcVEWFIK4gY7MyTjTccO6yB1bQ4uiZ7
-	r4RmIyYeZlcS7rVvFNQ0TZbaLugWCqIhsx8nQLrqbe0QGima2J+4f+izz1KBAdc7snYxyuk8ao3
-	SZNHkz3Pv4rI0rHw+1ML4X9QiRG8tQQ3f/c1prA+DqZd+RN8F9uvtMz3BpY7QxNS1Bs2gLSLgyC
-	AWKjywwabcrcugGLyykMviHECCCB4u95wU=
-X-Received: by 2002:a53:ac94:0:b0:649:5f0f:b6ff with SMTP id 956f58d0204a3-64970cad107mr5152225d50.44.1769464094471;
-        Mon, 26 Jan 2026 13:48:14 -0800 (PST)
-Received: from [10.138.34.110] (h96-60-55-239.cncrtn.broadband.dynamic.tds.net. [96.60.55.239])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-649619e09d2sm5066313d50.2.2026.01.26.13.48.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Jan 2026 13:48:13 -0800 (PST)
-Message-ID: <ee788f27-d0b1-4827-b8f2-94d1b34ed589@gmail.com>
-Date: Mon, 26 Jan 2026 16:47:58 -0500
+        d=1e100.net; s=20230601; t=1770124866; x=1770729666;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=b5reMwIbCgHGzxEbOX3skw3pCZd2EaAEKOGriUmdL7Y=;
+        b=FpUkoN4tvI7A/fqalIiA6h+L6qcHgkEu4BQ4wifI6+re+h9s25dW+wTzjDIgNmJAnC
+         Tr5z3qUbrRu+nMzUA7AJN/OKAJWRIsxD6jFVBQTjunUczrPAcPazqqj9uD77MyZD3my8
+         dMtJ3vtSLnKfz49zEEeKPmKGAJRmbgDhTsom5uZnMEw1HolfMCFoQe5cikGf+B7xyzjc
+         SWNRktMZlRSG5PIWIy3yf6hE9NWPBEE6lFGm+tpal94gVDOzASvfcwAX7OWuVdKY8cvT
+         TPyyzj6QE1PocBXcf9ajKMjlo+5hmnuJiwxxt/p9TtoBi7inRbTWUQjS+xXToZ/Zg/Gf
+         RuoA==
+X-Gm-Message-State: AOJu0YxhGN1bKc2k8o8BdwSiN4lSi/JQXKOc126ABHQ31E+5/za/UK+Y
+	I4DIKxiXY5Ro3wZJriXSmMwxV2+3Pdl16BzfHgl0kVdWnzW9lY6DzmIQRR/l/sPqwXZJDD2zViN
+	zripeZvB4/SDlzDlCB22utQ6IaDV88JJrbxWyNTQNm7vmJLW44gLYvMUlUuEeN7Vrw/wC
+X-Gm-Gg: AZuq6aIgLUs+B1FCw54AkgnxMxCxDzEGfIbYr815v4tQ/kuANVWPwld1akc/4LImQng
+	dEYp3NwI+9FAkb9o1Sw7KajeTQwTCjJ13XGeaGYCY+PiX71A+mORtLULwHcBhGjKNr1wmt9T1u6
+	6QJCqpAWUDVyo/seq95e+pB2K5nuHldJVYbDJ4TfHbGzRFeCphve2+DZrMAIhA75KUHAB2OyBvC
+	vVa9cd5b4LeBcAGOey+31YN0sforDhQBFhvuovfzdh2/wEFeOO3GB2y4PvetxU0MwQYn/kgrtR0
+	41pBNGk36N/BkfvcoFwK40vgnp8AE+owSDlyuari6QjJbhw0ihf/z6D9pFppOFQPna6akAtiCJ0
+	1pBBoeNz+m5rdPnODe5i4YPbVJ2BTdqhpYw==
+X-Received: by 2002:a05:600c:5294:b0:480:1a9a:e571 with SMTP id 5b1f17b1804b1-482db4d77b9mr196614355e9.22.1770124865940;
+        Tue, 03 Feb 2026 05:21:05 -0800 (PST)
+X-Received: by 2002:a05:600c:5294:b0:480:1a9a:e571 with SMTP id 5b1f17b1804b1-482db4d77b9mr196613745e9.22.1770124865168;
+        Tue, 03 Feb 2026 05:21:05 -0800 (PST)
+Received: from redhat.com (IGLD-80-230-34-155.inter.net.il. [80.230.34.155])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-436142de842sm3644936f8f.30.2026.02.03.05.21.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Feb 2026 05:21:04 -0800 (PST)
+Date: Tue, 3 Feb 2026 08:21:01 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Bill Mills <bill.mills@linaro.org>
+Cc: virtio-comment@lists.linux.dev,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	"Edgar E . Iglesias" <edgar.iglesias@amd.com>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Alex Bennee <alex.bennee@linaro.org>,
+	Armelle Laine <armellel@google.com>
+Subject: Re: [PATCH v1 0/4] virtio-msg transport layer
+Message-ID: <20260203081952-mutt-send-email-mst@kernel.org>
+References: <20260126163230.1122685-1-bill.mills@linaro.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 0/4] virtio-msg transport layer
-To: Bill Mills <bill.mills@linaro.org>, virtio-comment@lists.linux.dev
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
- "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Viresh Kumar <viresh.kumar@linaro.org>, Alex Bennee
- <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>
-References: <20260126163230.1122685-1-bill.mills@linaro.org>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
 In-Reply-To: <20260126163230.1122685-1-bill.mills@linaro.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------lxEeSLdd4wDX76kzi92pP0OV"
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: S7qg3zuuVvk9OPedFE746XoQC_YIhLkhhKNOWzKUBpc_1770124866
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------lxEeSLdd4wDX76kzi92pP0OV
-Content-Type: multipart/mixed; boundary="------------GLKrwgkdIDVKjVDoJx736ASc";
- protected-headers="v1"
-Message-ID: <ee788f27-d0b1-4827-b8f2-94d1b34ed589@gmail.com>
-Date: Mon, 26 Jan 2026 16:47:58 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 0/4] virtio-msg transport layer
-To: Bill Mills <bill.mills@linaro.org>, virtio-comment@lists.linux.dev
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
- "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Viresh Kumar <viresh.kumar@linaro.org>, Alex Bennee
- <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>
-References: <20260126163230.1122685-1-bill.mills@linaro.org>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260126163230.1122685-1-bill.mills@linaro.org>
-
---------------GLKrwgkdIDVKjVDoJx736ASc
-Content-Type: multipart/mixed; boundary="------------vsaeKRfVHwE6gblT0ZnnbReA"
-
---------------vsaeKRfVHwE6gblT0ZnnbReA
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On 1/26/26 11:32, Bill Mills wrote:
+On Mon, Jan 26, 2026 at 11:32:26AM -0500, Bill Mills wrote:
 > This series adds the virtio-msg transport layer.
->=20
-> The individuals and organizations involved in this effort have had diff=
-iculty in
-> using the existing virtio-transports in various situations and desire t=
-o add one
-> more transport that performs its transport layer operations by sending =
-and
+> 
+> The individuals and organizations involved in this effort have had difficulty in
+> using the existing virtio-transports in various situations and desire to add one
+> more transport that performs its transport layer operations by sending and
 > receiving messages.
->=20
-> Implementations of virtio-msg will normally be done in multiple layers:=
 
+Is it arm and linaro, or more?
+If more, could we get some acks on list from the people involved?
+
+
+> Implementations of virtio-msg will normally be done in multiple layers:
 > * common / device level
 > * bus level
->=20
-> The common / device level defines the messages exchanged between the dr=
-iver
-> and a device. This common part should lead to a common driver holding m=
-ost
-> of the virtio specifics and can be shared by all virtio-msg bus impleme=
-ntations.
-> The kernel implementation in [3] shows this separation. As with other t=
-ransport
-> layers, virtio-msg should not require modifications to existing virtio =
-device
-> implementations (virtio-net, virtio-blk etc). The common / device level=
- is the
+> 
+> The common / device level defines the messages exchanged between the driver
+> and a device. This common part should lead to a common driver holding most
+> of the virtio specifics and can be shared by all virtio-msg bus implementations.
+> The kernel implementation in [3] shows this separation. As with other transport
+> layers, virtio-msg should not require modifications to existing virtio device
+> implementations (virtio-net, virtio-blk etc). The common / device level is the
 > main focus of this version of the patch series.
->=20
+> 
 > The virtio-msg bus level implements the normal things a bus defines
-> (enumeration, dma operations, etc) but also implements the message send=
- and
+> (enumeration, dma operations, etc) but also implements the message send and
 > receive operations. A number of bus implementations are envisioned,
-> some of which will be reusable and general purpose. Other bus implement=
-ations
-> might be unique to a given situation, for example only used by a PCIe c=
-ard
+> some of which will be reusable and general purpose. Other bus implementations
+> might be unique to a given situation, for example only used by a PCIe card
 > and its driver.
->=20
-> The standard bus messages are an effort to avoid different bus implemen=
-tations
+> 
+> The standard bus messages are an effort to avoid different bus implementations
 > doing the same thing in different ways for no good reason. However the
-> different environments will require different things. Instead of trying=
- to
+> different environments will require different things. Instead of trying to
 > anticipate all needs and provide something very abstract, we think
-> implementation specific messages will be needed at the bus level. Over =
-time,
-> if we see similar messages across multiple bus implementations, we will=
- move to
+> implementation specific messages will be needed at the bus level. Over time,
+> if we see similar messages across multiple bus implementations, we will move to
 > standardize a bus level message for that.
->=20
+> 
 > We are working on a few reusable bus implementations:
->=20
+> 
 > * virtio-msg-ffa based on Arm FF-A interface for use between:
 >   * normal world and secure world
 >   * host and VM or VM to VM
 >   * Can be used w/ or with out a hypervisor
 >   * Any Hypervisor that implements FF-A can be used
 >   * We have this working with pKVM and Xen
+>   * We have this working with Trusty and OP-TEE
+> 
+> * virtio-msg-amp for use between heterogenous systems
+>   * The main processors and its co-processors on an AMP SOC
+>   * Two or more systems connected via PCIe
+>   * Minimal requirements: bi-directional interrupts and
+>     at least one shared memory area
+>   * hvac-demo has 2 demos of this
+>   * This is working on two hardware platforms
+> 
+> * virtio-msg-loopback for userspace implemented devices
+>   * Allows user space to provide devices to its own kernel
+>   * This is similar to fuse, cuse or loopback block devices but for virtio
+>   * hvac-demo has a demo
+> 
+> We also anticipate a few more:
+> 
+> * virtio-msg-xen specific to Xen
+>   * Usable on any Xen system (including x86 where FF-A does not exist)
+>   * Using Xen events and page grants
+> 
+> * virtio-msg over admin virtqueues
+>   * This allows any virtio-pci device that supports admin virtqueues to also
+>     support a virtio-msg bus that supports sub devices
+>   * [We are looking for collaborators for this work]
+> 
+> Changes since RFC2:
+> 
+> Spec Functional:
+> * Made the common message header 8 bytes and added a token for optional use
+>   when parallel outstanding requests are possible
+> * Made the 8 byte fields align to 8 byte offsets.
+>   This effects the {SET,GET}_VQUEUE messages
+> * Many conformance cases have been tightened.
+> 
+> Spec Editorial:
+> * Major restructure to better align with virtio spec
+>   * Conformance model now matches other transports
+>   * Use C structures to define messages instead of tables
+> * Added a section to describe how responses are matched to requests
+>   This includes the use of the new token field
+> * Redefined / better described error handling between transport and bus
+>   layers to eliminate the need for the bus to generate fake response messages
+> * Included editorial feedback from RFC2
+> 
+> Eco-system:
+> * Added virtio-msg-loopback demo
+> * Arm has published the first draft of the virtio-msg over FFA spec [6]
+> * virtio-msg over FFA has been demonstrated with both Trusty and OP-TEE
+>   secure world
+> * LKML RFC has been sent [7]
+> * QEMU RFC has been sent [8]
+> 
+> This is the first non-RFC patch series. The known short comings have been
+> addressed. We ask for review in earnest on this series and thank you for
+> any feedback you can provide.
+> 
+> Background info and work in progress implementations:
+> * HVAC project page with intro slides [1]
+> * HVAC demo repo w/ instructions in README.md [2]
+> * Kernel w/ virtio-msg common level and ffa support [3]
+> * QEMU w/ support for one form of virtio-msg-amp [4]
+> * Portable RTOS library w/ one form of virtio-msg-amp [5]
+> 
+> In addition to the QEMU system based demos in the hvac-demo repo, we also have
+> two hardware systems running:
+> * AMD x86 + AMD Arm Versal connected via PCIe
+> * ST STM32MP157 A7 Linux using virtio-i2c provided by M4 Zephyr
+> 
+> Please note that although the demos work, a few have not been aligned
+> with this version of the spec.
+> 
+> [1] https://linaro.atlassian.net/wiki/spaces/HVAC/overview
+> [2] https://github.com/wmamills/hvac-demo
+> [3] https://git.kernel.org/pub/scm/linux/kernel/git/vireshk/linux.git/log/?h=virtio/msg
+> [4] https://github.com/edgarigl/qemu/commits/edgar/virtio-msg-rfc/
+> [5] https://github.com/arnopo/open-amp/commits/virtio-msg/
+> [6] https://documentation-service.arm.com/static/68f647791134f773ab3f0a7c
+> [7] https://lore.kernel.org/all/cover.1753865268.git.viresh.kumar@linaro.org/
+> [8] https://mail.gnu.org/archive/html/qemu-devel/2025-10/msg07438.html
+> 
+> Bertrand Marquis (2):
+>   virtio-msg: add new command for bus normative
+>   virtio-msg: add conformance entries in conformance chapter
+> 
+> Bill Mills (2):
+>   virtio-msg: Add virtio-msg, a message based virtio transport layer
+>   virtio-msg: link virtio-msg content
+> 
+>  commands.tex      |    3 +-
+>  conformance.tex   |  105 ++-
+>  content.tex       |    1 +
+>  transport-msg.tex | 1640 +++++++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 1746 insertions(+), 3 deletions(-)
+>  create mode 100644 transport-msg.tex
+> 
+> -- 
+> 2.34.1
+> 
 
-FYI, FF-A is explicitly not security supported by Xen.
-The virtio-msg-xen option might be a better alternative,
-even on Arm.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
---------------vsaeKRfVHwE6gblT0ZnnbReA
-Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
-B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
-bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
-UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
-MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
-zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
-T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
-BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
-6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
-9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
-m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
-zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
-dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
-X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
-R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
-oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
-zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
-rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
-Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
-/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
-ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
-Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
-xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
-fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
-AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
-b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
-BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
-/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
-/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
-sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
-xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
-VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
-hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
-I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
-xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
-ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
-7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
-UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
-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
-EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
-=3Dx94R
------END PGP PUBLIC KEY BLOCK-----
-
---------------vsaeKRfVHwE6gblT0ZnnbReA--
-
---------------GLKrwgkdIDVKjVDoJx736ASc--
-
---------------lxEeSLdd4wDX76kzi92pP0OV
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAml34RAACgkQszaHOrMp
-8lMYnw/8D5eiep3cYKRkbexBMqzFoQm6d5ZV44IDNpzv3I5NyK30RhrqRUiiELUF
-sMpOj3S5UJE5x0qxLLwXm8xDPn/ZCtCAAaBkN8mj6PrRN4VbGP8NaAZjui3PblA8
-L6rskuL9l/CSscb2j3GP30Tq0974eHIuP8tbqv3ngHovkUDVeDdVhIcLJsUqgebC
-/MPnbwTfFhm/y5K4TY+8c+W8FN1ixWykPSK7MMmnKCqwqtZl2j6OxufTXwUe2urd
-ZoKCcCMQ04TKiG1lFKOlM/bww7POwozx33YLp21gs0nCOgcpDvhl2p466hKJPppA
-Gy7faMy/otGabbJWTD6EVO5oKTyLUh6pYMY8x4muhNLrnrhIxGWaMsxWxHpEDo18
-WKJKm1wvGNXGJOB95NdLyQvS2zrIKRtl8rn3a4AURPpjbUDknGz4J6mi24BX3046
-dWVqsLHbFKZ4GOleOEehOwNaWlrp++0uMhHYv0C6ZoC3DAvfarNu+Xv8Gtefuu1U
-QGdaAqTwtfHlroHGvDgPhtEO0UxGwJtTU4E1g6EhtZv9LIPPkhtnGre4NBtNv012
-N8ItcJmAtRjRRJIMrkx7J+iP9oKGrlBTdQ+E4axH/Ziqozo17tSL5mfSWMlX3hbT
-PAzIxewhO3oBKWmVsZiNyUvzc7zjbRbJJcoIlZoQ2W2DbFQHyDE=
-=7SHL
------END PGP SIGNATURE-----
-
---------------lxEeSLdd4wDX76kzi92pP0OV--
