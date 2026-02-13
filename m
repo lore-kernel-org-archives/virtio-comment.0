@@ -1,66 +1,66 @@
 Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D426027466A
-	for <virtio-comment@lists.linux.dev>; Fri, 13 Feb 2026 19:09:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E5323EA88
+	for <virtio-comment@lists.linux.dev>; Fri, 13 Feb 2026 19:45:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771009777; cv=none; b=ZCYB4HtfBvIZdo4Zsg45YCAg2Dfn3y+chiOrHz8BXa5bm8qaQS6y+lp930y+JeBJhG36XUl9q0UXwgqZ6qhi2r+EcWpyFH+HmUjq3295Uj8zOJtqGCwplUkcuNBfOjboKxSx7tWCWK97vhpbUq+Ed40svV9GzJAzHuX3q+DxbnM=
+	t=1771011933; cv=none; b=M5LsAgmcv3bhajVIpJlIZfQQ9oKhEi5DhrEFhzoaEmfXbh9550vSSd2ShomcGaTY4tksazoMucl+Sr8uw2H2GGjaFDV9x93t6cVo4QfEkz1v/ESAW7hYHLOTgXbZwXocPLTqOIOj6kyF3Huq1++6VzQrT0QmovST7YD6VFr4cro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771009777; c=relaxed/simple;
-	bh=HNoSeefzu6uDPVSH56aj3/wLFDqL065EYhSR0xf4D5w=;
+	s=arc-20240116; t=1771011933; c=relaxed/simple;
+	bh=YWkiFmysRWllZZvn6etbL1Y1moZQyIkfqY3RB6CEKmE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SqSfLV503s9nGDuV9NeZk5asYguPvg73P+n0i1Zt6ROtgNnVDaewUFDK0mvmKjXch/lqOzNtfdABd9T6BCoMiXSGv7ET4/PXNeOu8OEMFaBtX20Uo4ltusUR6vF7ceUpXzW3980dxbnv91R5m3Pxa+cfHHsEZ7GpAqcYnIAs408=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EE40AqB2; arc=none smtp.client-ip=74.125.224.54
+	 In-Reply-To:Content-Type; b=SzeMUY0iHmACNFxI36G9rKCbPUhEsWumjW53eZ3KUBWa9hW1dLjoAnFit+ztddQs82D5jTc7WS2euau0T2euWqikVTTTXg1US0EsC3xQnUyWgS4ZVXrfXdlIFsI/LOLJ+SZ2K8Yldqe5Zy51jXUe941Gez6BM0xT7eIPwW2tR7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mXpub+4N; arc=none smtp.client-ip=74.125.224.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EE40AqB2"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-64ae5f0777dso1318645d50.3
-        for <virtio-comment@lists.linux.dev>; Fri, 13 Feb 2026 11:09:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mXpub+4N"
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-649c070ef3bso1342993d50.3
+        for <virtio-comment@lists.linux.dev>; Fri, 13 Feb 2026 11:45:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1771009775; x=1771614575; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1771011931; x=1771616731; darn=lists.linux.dev;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=Qa8hTAfbKJKjVIGh4gB6AMQ29JSS1/+jUGdYkpMJk/M=;
-        b=EE40AqB2ZFS/o+C28iter7M6rvoiFgsnJHatnV1f1ysB7VncudAumwTNIUooVwWGxw
-         44jOQSjkCD8U81a6QIFd3XB/XHT5IDu+u6KkA2b9vKROH3+tgRGfcH9RIzn1iEe+zppr
-         PE81QHze23cq6MJ/fUCCvxe302KZ8w02yBAAzyUUpoT4dMDD8dGkeLggyK0O/pYZQsGd
-         J1F+XJSl8S9rwI58v2dcNIxdRBke3pl7il3QZLzFstcNks9nA/IrdM2iWCQiQPoI88wM
-         zuI4oO2dxUbDAviTB/tSV+XxO9Xm+4EdNBAHxjJVa3K/m0Q61UzKMztSwuBowriQDGer
-         cSdQ==
+        bh=JlNJ9gbHJynINFYSd4oMgggXv0MITML0RTsa3sTRvhw=;
+        b=mXpub+4NSbKG2ruVispamOkiESqF0k29uRX4RxZl7PNdOEct/u6vI17SkB2Nayp9ph
+         CD2/E+eHt7mpDK8SErqlpzfXpwqEQkwgLw5gPWD2mP3KerqPQ+g/oSX1Vs3DTjj3U9oX
+         K95pTVVrCA3xoAcrqHvkACMEV+E1TXtM44aM3tJTb6u8CPPmaQ+6rfrtm15s+hdsBPvl
+         B9dZ25jdpPilHbCRzuH5nMsMGiiIWxjX5RubL3xCraO/KDh8k5jx+/EiXTORdZ6hAADa
+         gUHt7nOmbE21ugk8f9hfuDzubUbiOeRcPfUZMqaTeJmLTA7fMHq48BpzhToo1YxDpw7z
+         jkJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771009775; x=1771614575;
+        d=1e100.net; s=20230601; t=1771011931; x=1771616731;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Qa8hTAfbKJKjVIGh4gB6AMQ29JSS1/+jUGdYkpMJk/M=;
-        b=JL38y/uvosMXBh4Y50q8N3KSIw341fdxLK8SVnvu+NYN44pG5aVmWD12474uKaRrPd
-         hwuLYQJDlSJIaUKQWkk54mbwDeRztdMljXcMZqEN8Vv3bNfKp6E449kF71MB9FJxYX2j
-         T1g1Gu9VU0EcfLC39lWxWPab7q2Q/wmzgjqVNyDczpqw4s+vhu9dXWpJSrFxFMIa+Thf
-         u4X6Oqb3safT6iKmS6Kx1EU8LCniQZ1w4zhejElrR6fm9XzY3Xn3qemfr/ZgqmN3eT4a
-         W4bRl5fvsblRe+cuiV9dRfylshB0l706YrcXLDD2R7qYwLbeiqgOBowG2Jzd+q7LQ9Dm
-         dR1w==
-X-Forwarded-Encrypted: i=1; AJvYcCWMwxonibmc7bOg82QTI9eTAVr/4Ud01OBmyE7BA3maFkuohx2LgpJjwu8ayxCSaI00fi4QQECTHgde+H10nw==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yy6JTLwY19FbRmIhZCDLLQfVzZAhxutt07lQqRWRVWCZJM/52eg
-	aUVCU+9TBOKg0WVDUwuNnS6kr7ljkUWVZa71xseVFUj8oVBq9JFYtTeM
-X-Gm-Gg: AZuq6aIoZ/Tjq5pUwrWsqggmNUuwSQ87k/Ew1idghlOH/dDXhkM2UP/NPrYZeocD3wG
-	V0pfGcCkW3i+zEQb+CAkmd0nUJuhUu0uD/XofqD+xykj7DaxBZTDZBGF1m4Zm2Y4wkmYm02f9i4
-	pQ5TfuSE6flD+CBcQ1vBIpW6zsn1RT1Mri2HztfUQnQBdv0LMIHfs/4iONGfTcxwKSibs/FRc4z
-	rg7pk4BKlpvVflYQOSbSBgoKeqfOYl6tCY9QHvWYwCEHvxTm++32fPD3Be9dSXG6B0kzH5JKwhz
-	BkGzRPglkH9HRHgMEw6/aGLCc/J3a3v9FbsdcbH7RPEmysXTAwQoC2g5zS/qKrDHP/6wHwnYAwP
-	byyVYs1q9qp1i/+6iE8Rgy/s7iCTPmJ+vaph6NxhGO79QdaFIQv8Z93b4JNPL7TImnPoLDN4KKx
-	fqt7VKYA1x6TAtd4mVH1hBc/HxcJXsCG4DxsjbW0kFNgNcz8qcUGI8oQbpoESKQGMgHwY2Z2KEx
-	54Pr2BG7G2AQsrVA/19+FfV0F8SMtqnr4+ddcMRBA==
-X-Received: by 2002:a05:690c:4b09:b0:797:abd5:a2ee with SMTP id 00721157ae682-797abd5c228mr12492777b3.11.1771009774416;
-        Fri, 13 Feb 2026 11:09:34 -0800 (PST)
+        bh=JlNJ9gbHJynINFYSd4oMgggXv0MITML0RTsa3sTRvhw=;
+        b=JdlKwTZQ4PpAOi+y7/LNzOS0oB9ZYMHTMCfgXNrlmtmkAPKppyd0HULCDBRJ8TkdX4
+         SOsAmjCpVnr4Btrbu8vquVAvTCVXKsaUDF9BWojZy/YS1F8Pi9aBCRCy16xtJWcPDBsG
+         ZF4Xf9NyvQ6kbmdnAAfhBA6eua4c04PTcfJQPwoABiFmmoBcGWxTd3dYhVr5R99Tu1iM
+         2Ortf7MGOY88UzMCxu+oTTVKX2oPP/g5+xs41pxxo47e568Ic59Ohi8gFTx3dY/NBB1n
+         9BxB0OBa00g9EmQlWxOe/rE9q61rLRzsXDTYcSMzEIhEGI77w6vB+cY+j6RqDVFSxtE7
+         he/g==
+X-Forwarded-Encrypted: i=1; AJvYcCW/f7jYIkFJrxko4MkJH8+XX5qIDPgfEc/1FErML6pEfWHPmgPpFpM8Qg1NKkqxgOy/iRkEYwUdk8PKb17YcA==@lists.linux.dev
+X-Gm-Message-State: AOJu0YyQH3L2kNj8++SvSxtsyc/DpRyo66vGY31kyu3gdPVNTDmiM3w8
+	0l0inz7YNIcFKkj25v+E6xIr+00bkEiIEAX0qD+iujS+h1HPRrvOogYM
+X-Gm-Gg: AZuq6aLTRoQaq32mkbGifQbdpAs+QCo91TopSfcS2bMivpPfGjOZxu5SkFS7d3DZrbZ
+	iLQ2iEMnwkTacCcvN71OzwGcY5VG3OP5H95lsJdS5uAtqh+ZBHv/MZiInK9lRSparKrTZmI76l8
+	jTTETEdVG6flm9lnU3X4o0wIMN3xAYIOfFqbXuRsZ2KfUXAMubEsJeto1X5dRK4Leu04VyYyZM1
+	vtQxLSADjZJfokIDE3nwx78j5SaP7Q86OIBcZzOhKH608t/0C07BiIiGGhRB9l8F2cqaI/LcOtv
+	jFvk1/WxbXAMxGT+W8PDaKRc/EOe6Lh4LTwsUKypnwNHiP5FXXpZ35lBsQQMI8HiwWuBf7xX/pR
+	kn4nzV6V7SNaNtJ/T8K0KdvWjCZFw1se330Lc3IMoiQdJLFbpQFArvix9f/CITF4Oo9cTOnILa5
+	RIC2M/rN3GEiV5aJUlKnvkWxGoChF0snBh9IE6y2PRzzrMHi2PJPm182Uo2qOA0OGPFEXSPrziG
+	4RCrj4TCvSZj/AJrWZ6OjLrA95BFXipl4yN+04ynw==
+X-Received: by 2002:a05:690e:511:b0:641:f5bc:6961 with SMTP id 956f58d0204a3-64c19b556ffmr1693804d50.77.1771011931083;
+        Fri, 13 Feb 2026 11:45:31 -0800 (PST)
 Received: from [10.138.34.110] (h69-131-216-128.cncrtn.broadband.dynamic.tds.net. [69.131.216.128])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7966c1a398asm72450537b3.22.2026.02.13.11.09.33
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-64afc87ff20sm7798195d50.10.2026.02.13.11.45.29
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Feb 2026 11:09:33 -0800 (PST)
-Message-ID: <6b4a7cfe-15bc-45cf-9fdf-ae99aafbfc15@gmail.com>
-Date: Fri, 13 Feb 2026 14:09:16 -0500
+        Fri, 13 Feb 2026 11:45:30 -0800 (PST)
+Message-ID: <2d76963e-9aee-490e-99f7-fbd285c3092a@gmail.com>
+Date: Fri, 13 Feb 2026 14:45:24 -0500
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -68,16 +68,16 @@ List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/4] virtio-msg: Add virtio-msg, a message based virtio
- transport layer
-To: Bill Mills <bill.mills@linaro.org>, virtio-comment@lists.linux.dev
+Subject: Re: [PATCH v1 0/4] virtio-msg transport layer
+To: Parav Pandit <parav@nvidia.com>, Bill Mills <bill.mills@linaro.org>,
+ "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
 Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
  "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
  Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
  Viresh Kumar <viresh.kumar@linaro.org>, Alex Bennee
  <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>
 References: <20260126163230.1122685-1-bill.mills@linaro.org>
- <20260126163230.1122685-3-bill.mills@linaro.org>
+ <SJ0PR12MB680610C1B53CA4E8B4470411DC61A@SJ0PR12MB6806.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -123,29 +123,29 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260126163230.1122685-3-bill.mills@linaro.org>
+In-Reply-To: <SJ0PR12MB680610C1B53CA4E8B4470411DC61A@SJ0PR12MB6806.namprd12.prod.outlook.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------aLWdFyyhvSZi1WQoIIx8x8pT"
+ boundary="------------lPmQm1H02HKiymp0EsMwiAcR"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------aLWdFyyhvSZi1WQoIIx8x8pT
-Content-Type: multipart/mixed; boundary="------------dCJ0rZ8UoF4DmijJ001MsSc5";
+--------------lPmQm1H02HKiymp0EsMwiAcR
+Content-Type: multipart/mixed; boundary="------------72UxMgW37B49zoF4C5t725x9";
  protected-headers="v1"
-Message-ID: <6b4a7cfe-15bc-45cf-9fdf-ae99aafbfc15@gmail.com>
-Date: Fri, 13 Feb 2026 14:09:16 -0500
+Message-ID: <2d76963e-9aee-490e-99f7-fbd285c3092a@gmail.com>
+Date: Fri, 13 Feb 2026 14:45:24 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/4] virtio-msg: Add virtio-msg, a message based virtio
- transport layer
-To: Bill Mills <bill.mills@linaro.org>, virtio-comment@lists.linux.dev
+Subject: Re: [PATCH v1 0/4] virtio-msg transport layer
+To: Parav Pandit <parav@nvidia.com>, Bill Mills <bill.mills@linaro.org>,
+ "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
 Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
  "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
  Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
  Viresh Kumar <viresh.kumar@linaro.org>, Alex Bennee
  <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>
 References: <20260126163230.1122685-1-bill.mills@linaro.org>
- <20260126163230.1122685-3-bill.mills@linaro.org>
+ <SJ0PR12MB680610C1B53CA4E8B4470411DC61A@SJ0PR12MB6806.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -191,354 +191,90 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260126163230.1122685-3-bill.mills@linaro.org>
+In-Reply-To: <SJ0PR12MB680610C1B53CA4E8B4470411DC61A@SJ0PR12MB6806.namprd12.prod.outlook.com>
 
---------------dCJ0rZ8UoF4DmijJ001MsSc5
-Content-Type: multipart/mixed; boundary="------------AAsZ3ntKi0V0VYX0VOSnDRKs"
+--------------72UxMgW37B49zoF4C5t725x9
+Content-Type: multipart/mixed; boundary="------------ZHWxAmDm2YTCLH8oD8a6w6l6"
 
---------------AAsZ3ntKi0V0VYX0VOSnDRKs
+--------------ZHWxAmDm2YTCLH8oD8a6w6l6
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 1/26/26 11:32, Bill Mills wrote:
-> Add a new transport layer that is based on messages.
+On 2/13/26 08:52, Parav Pandit wrote:
+> Hi Bill,
 >=20
-> This transport layer still uses virtqueues as the other transport layer=
-s do
-> but implements transport layer operations by sending and receiving mess=
-ages
-> instead of the "MMR" reads and writes used in virtio-mmio and virtio-pc=
-i.
->=20
-> This transport is useful when the device and driver are both implemente=
-d in
-> software but the trap and emulate operations of virtio-mmio and virtio-=
-pci
-> can not be used.
-
-(snip)
-
-> +\subsubsection{Message Ordering}
-> +\label{sec:Virtio Transport Options / Virtio Over Messages / Basic Con=
-cepts / Ordering}
-> +
-> +Transport messages fall into two classes: requests (which expect respo=
-nses) and
-> +events (which are one-way). Drivers and devices rely on the bus to pre=
-serve the
-> +relative ordering of request/response pairs for each device number; th=
-ey do not
-> +interpret the \field{token} field directly.
-
-I expect that this requires all messages for a given device to be
-processed sequentially, which is not going to be fast.  At the very
-least, messages on different virtqueues should be able to be processed
-out of order.
-
-I would have some sort of stream identifier that is made visible to
-the bus layer.  This would map to a QUIC stream, a single ring buffer,
-or something else that ensures in-order delivery.  Messages with
-different stream identifiers may be processed out of order.
-
-> +\busnormative{\paragraph}{Message Ordering}{Virtio Transport Options /=
- Virtio Over Messages / Basic Concepts / Ordering / Bus}
-> +\begin{itemize}
-> +  \item For each device number, a bus implementation MUST deliver resp=
-onses to
-> +        the driver in the same order that it forwarded the correspondi=
-ng
-> +        requests to the device.
-> +  \item A bus implementation MUST ensure that every request forwarded =
-to a
-> +        device results in exactly one response delivered to the driver=
- (unless
-> +        the request is defined as an event).
-> +\end{itemize}
-What is the reason for the device/driver distinction here?
-Intuitively, I expect both requests and responses to just be messages
-at the bus layer.
-
-(snip)
-
-> +\devicenormative{\paragraph}{Feature Negotiation}{Virtio Transport Opt=
-ions / Virtio Over Messages / Device Initialization / Device Features / D=
-evice}
-> +\begin{itemize}
-> +  \item When handling \msgref{GET_DEVICE_FEATURES}, a device MUST retu=
-rn zero
-> +        for any requested bits that fall outside the number of feature=
- bits it
-> +        implements.
-> +  \item After receiving \msgref{SET_DRIVER_FEATURES}, a device MUST up=
-date its
-> +        internal feature mask to match the acknowledged set and MUST r=
-eflect
-> +        acceptance or rejection by leaving the FEATURES\_OK bit set or=
- clearing
-> +        it in the status returned by \msgref{SET_DEVICE_STATUS}.
-> +\end{itemize}
-
-What should the device do if it doesn't support the feature?
-
-> +\subsubsection{Device Configuration}
-> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device In=
-itialization / Device Configuration}
-> +
-> +Drivers use \msgref{GET_CONFIG} to read portions of the configuration =
-space by
-> +supplying an offset and length; the device returns the requested data =
-plus the
-> +current configuration generation count. Writing is performed via
-> +\msgref{SET_CONFIG}, which carries the same offset/length along with t=
-he
-> +driver's notion of the generation count and the new data.
-
-I think this should come with a (non-normative) note that the use of
-configuration space is discouraged if the data can instead be sent
-over a virtqueue.  For MMIO and PCI transports, the configuration
-space is slightly more convenient as it is accessed synchronously,
-but for the message transport, reads are also asynchronous unless
-the driver spins or sleeps until getting a reply.
-
-> +\drivernormative{\paragraph}{Device Configuration}{Virtio Transport Op=
-tions / Virtio Over Messages / Device Initialization / Device Configurati=
-on / Driver}
-> +\begin{itemize}
-> +  \item A driver MUST ensure that the offset and length in each
-> +        \msgref{GET_CONFIG} or \msgref{SET_CONFIG} request stay within=
- the
-> +        configuration size reported by \msgref{GET_DEVICE_INFO}.
-> +  \item A driver MUST include its most recently observed configuration=
-
-> +        generation count in a \msgref{SET_CONFIG} request and SHOULD r=
-e-read the
-> +        configuration (via \msgref{GET_CONFIG}) if the request is reje=
-cted for a
-> +        generation mismatch.
-> +\end{itemize}
-> +
-> +\devicenormative{\paragraph}{Device Configuration}{Virtio Transport Op=
-tions / Virtio Over Messages / Device Initialization / Device Configurati=
-on / Device}
-> +\begin{itemize}
-> +  \item A device MUST reject a \msgref{SET_CONFIG} request whose gener=
-ation
-> +        count does not match its current value and MUST indicate the r=
-ejection
-> +        in the response.
-> +  \item A device MUST return the current configuration generation coun=
-t
-> +        alongside any data returned via \msgref{GET_CONFIG}.
-> +\end{itemize}
-> +
-> +\subsubsection{Virtqueue Configuration}
-> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device In=
-itialization / Virtqueue Configuration}
-> +
-> +Drivers query virtqueue parameters with \msgref{GET_VQUEUE}, configure=
- them via
-> +\msgref{SET_VQUEUE}, and optionally reset them using \msgref{RESET_VQU=
-EUE} (if
-> +VIRTIO\_F\_RING\_RESET is negotiated). Each queue is typically configu=
-red by
-> +reading its maximum size, provisioning descriptor/available/used buffe=
-rs, and
-> +then calling \msgref{SET_VQUEUE} with the chosen size and guest-physic=
-al
-> +addresses.
-> +
-> +\drivernormative{\paragraph}{Virtqueue Configuration}{Virtio Transport=
- Options / Virtio Over Messages / Device Initialization / Virtqueue Confi=
-guration / Driver}
-> +\begin{itemize}
-> +  \item A driver MUST use \msgref{GET_VQUEUE} to determine the maximum=
- queue
-> +        size and confirm that a queue is inactive before programming i=
-t.
-> +  \item A driver MUST ensure the queue size provided in \msgref{SET_VQ=
-UEUE} does
-> +        not exceed the maximum reported by the device and MUST supply =
-valid
-> +        descriptor/driver/device addresses before enabling the queue.
-> +  \item If VIRTIO\_F\_RING\_RESET has been negotiated and a queue requ=
-ires
-> +        reinitialization, the driver SHOULD use \msgref{RESET_VQUEUE} =
-before
-> +        reprogramming it.
-> +\end{itemize}
-
-Why SHOULD and not MUST?
-
-> +\devicenormative{\paragraph}{Virtqueue Configuration}{Virtio Transport=
- Options / Virtio Over Messages / Device Initialization / Virtqueue Confi=
-guration / Device}
-> +\begin{itemize}
-> +  \item A device MUST report accurate maximum queue sizes in \msgref{G=
-ET_VQUEUE}
-> +        and MUST persist the parameters supplied via \msgref{SET_VQUEU=
-E} (size,
-> +        descriptor, driver, and device addresses).
-> +  \item When \msgref{RESET_VQUEUE} is issued (and VIRTIO\_F\_RING\_RES=
-ET is
-> +        negotiated), the device MUST quiesce the queue, release any re=
-sources
-> +        associated with it, and allow the driver to reconfigure it.
-> +\end{itemize}
-
-What should a device do if it gets a request that a driver is
-forbidden from making?  Untested corner-cases tend to be a good
-source of security vulnerabilities, so defining behavior in all cases
-seems better.
-
-> +\subsubsection{Status Information}
-> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device In=
-itialization / Status Information}
-> +
-> +Drivers query the device status via \msgref{GET_DEVICE_STATUS} to obse=
-rve
-> +progress or detect errors, and they drive the Virtio status transition=
-s via
-> +\msgref{SET_DEVICE_STATUS}. Writing zero to the status field resets th=
-e device,
-> +invalidating any configuration or virtqueue state.
-> +
-> +\drivernormative{\paragraph}{Status Handling}{Virtio Transport Options=
- / Virtio Over Messages / Device Initialization / Status Information / Dr=
-iver}
-> +\begin{itemize}
-> +  \item A driver SHOULD read the device status via \msgref{GET_DEVICE_=
-STATUS}
-> +        when diagnosing errors or determining whether the device is re=
-ady to
-> +        move to the next initialization phase.
-> +  \item A driver MUST use \msgref{SET_DEVICE_STATUS} to drive the devi=
-ce through
-> +        the virtio-defined status states and MUST write 0 to request a=
+>> From: Bill Mills <bill.mills@linaro.org>
+>> Sent: 26 January 2026 10:02 PM
+>>
+>> This series adds the virtio-msg transport layer.
+>>
+>> The individuals and organizations involved in this effort have had dif=
+ficulty in
+>> using the existing virtio-transports in various situations and desire =
+to add one
+>> more transport that performs its transport layer operations by sending=
+ and
+>> receiving messages.
+>>
+>> Implementations of virtio-msg will normally be done in multiple layers=
+:
+>> * common / device level
+>> * bus level
+>>
+>> The common / device level defines the messages exchanged between the d=
+river
+>> and a device. This common part should lead to a common driver holding =
+most
+>> of the virtio specifics and can be shared by all virtio-msg bus implem=
+entations.
+>> The kernel implementation in [3] shows this separation. As with other =
+transport
+>> layers, virtio-msg should not require modifications to existing virtio=
  device
-> +        reset when needed.
-> +\end{itemize}
-> +
-> +\devicenormative{\paragraph}{Status Handling}{Virtio Transport Options=
- / Virtio Over Messages / Device Initialization / Status Information / De=
-vice}
-> +\begin{itemize}
-> +  \item Upon receiving a \msgref{SET_DEVICE_STATUS} write of 0, a devi=
-ce MUST
-> +        reset its internal state, invalidate existing configuration an=
-d
-> +        virtqueue settings, and present the status field as 0.
-> +  \item A device MUST report its current status accurately via
-> +        \msgref{GET_DEVICE_STATUS}, including whether the FEATURES\_OK=
- bit has
-> +        been accepted or cleared.
-> +\end{itemize}
+>> implementations (virtio-net, virtio-blk etc). The common / device leve=
+l is the
+>> main focus of this version of the patch series.
+>>
+>> The virtio-msg bus level implements the normal things a bus defines
+>> (enumeration, dma operations, etc) but also implements the message sen=
+d and
+>> receive operations. A number of bus implementations are envisioned,
+>> some of which will be reusable and general purpose. Other bus implemen=
+tations
+>> might be unique to a given situation, for example only used by a PCIe =
+card
+>> and its driver.
+>>
+>> The standard bus messages are an effort to avoid different bus impleme=
+ntations
+>> doing the same thing in different ways for no good reason. However the=
 
-This is fine if all messages are processed in-order, but that is very
-bad for performance (see above).  As soon as out-of-order message
-handling becomes possible, a race condition will arise: replies and
-notifications from before the reset can arrive after the reset.
+>> different environments will require different things. Instead of tryin=
+g to
+>> anticipate all needs and provide something very abstract, we think
+>> implementation specific messages will be needed at the bus level. Over=
+ time,
+>> if we see similar messages across multiple bus implementations, we wil=
+l move to
+>> standardize a bus level message for that.
+>>
+>=20
+> I would review more, had first round of sparse review.
+> Please find few comments/questions below.
+>=20
+> 1. device number should be 32-bit in struct virtio_msg_header.
+> From SIOV_R2 experiences, we learnt that some uses have use case for mo=
+re than 64k devices.
+> Also mapping PCI BDF wont be enough in 16-bits considering domain field=
+=2E
 
-I thknk solving this requires either having a generation or stream
-number in each message, or delegating reset to the bus layer.
-
-(snip)
-
-> +\subsubsection{Device Notifications}
-> +\label{sec:Virtio Transport Options / Virtio Over Messages / Device Op=
-eration / Device Notifications}
-> +
-> +\msgref{EVENT_CONFIG} and \msgref{EVENT_USED} provide asynchronous not=
-ifications
-> +from the device (or device-side bus) to the driver. The bus may forwar=
-d these
-> +messages in-band or synthesize them based on other signals such as int=
-errupts
-> +or polling.
-> +
-> +\devicenormative{\paragraph}{Device Notifications}{Virtio Transport Op=
-tions / Virtio Over Messages / Device Operation / Device Notifications / =
-Device}
-> +\begin{itemize}
-> +  \item A device (or device-side bus) MUST send \msgref{EVENT_CONFIG} =
-whenever
-> +        it makes a configuration change or status update that becomes =
-visible to
-> +        the driver. The message MUST include the new configuration gen=
-eration
-> +        count and MAY include the updated configuration data.
-
-I would change the second line to a MUST, to avoid a round trip.
-
-> +  \item If the configuration data is omitted from \msgref{EVENT_CONFIG=
-}, the
-> +        device SHOULD include the relevant offsets/lengths so the driv=
-er can
-> +        re-fetch the data via \msgref{GET_CONFIG}.
-
-This makes this clause unnecessary.
-
-> +  \item A device SHOULD send \msgref{EVENT_USED} to inform the driver =
-when
-> +        buffers on a virtqueue have been consumed, unless the device r=
-elies on
-> +        an alternative, agreed-upon completion mechanism.
-
-Why SHOULD and not MUST?
-
-> +\end{itemize}
-
-(snip)
-
-> +\msgdef{GET_VQUEUE}
-> +
-> +\msgref{GET_VQUEUE} returns information about a specific virtqueue, in=
-cluding
-> +its maximum size, current size, and, if already configured, the descri=
-ptor,
-> +driver, and device area addresses.
-> +
-> +\begin{lstlisting}
-> +struct virtio_msg_get_vqueue_req {
-> +        le32 index; /* virtqueue index */
-> +};
-> +
-> +struct virtio_msg_get_vqueue_resp {
-> +        le32 index;        /* echoed virtqueue index */
-> +        le32 max_size;     /* maximum queue size */
-> +        le32 cur_size;     /* current size (0 if unconfigured) */
-> +        le32 reserved;     /* must be zero */
-> +        le64 desc_addr;    /* descriptor area address */
-> +        le64 driver_addr;  /* driver area address */
-> +        le64 device_addr;  /* device area address */
-> +};
-> +\end{lstlisting}
-> +
-> +\devicenormative{\paragraph}{GET\_VQUEUE}{Virtio Transport Options / V=
-irtio Over Messages / Transport Messages / VIRTIO_MSG_GET_VQUEUE / Device=
-}
-> +\begin{itemize}
-> +  \item A device MUST report accurate maxima and current queue sizes f=
-or each
-> +        virtqueue and MUST return zero as the current size if the queu=
-e has not
-> +        yet been configured.
-> +\end{itemize}
-> +
-> +\msgdef{SET_VQUEUE}
-> +
-> +\msgref{SET_VQUEUE} programs a virtqueue's size and buffer addresses. =
-The driver
-> +selects a queue index, supplies the desired size (not exceeding the ma=
-ximum
-> +reported via \msgref{GET_VQUEUE}), and provides guest-physical address=
-es for the
-> +descriptor, driver, and device areas.
-
-Is the intention to still require shared memory?
+I recommend using a 64-bit or even 128-bit number.  This allows
+ensuring that device IDs are unique for the life of a VM or even
+globally, making reasoning about device identity simpler.
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------AAsZ3ntKi0V0VYX0VOSnDRKs
+--------------ZHWxAmDm2YTCLH8oD8a6w6l6
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -658,30 +394,30 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------AAsZ3ntKi0V0VYX0VOSnDRKs--
+--------------ZHWxAmDm2YTCLH8oD8a6w6l6--
 
---------------dCJ0rZ8UoF4DmijJ001MsSc5--
+--------------72UxMgW37B49zoF4C5t725x9--
 
---------------aLWdFyyhvSZi1WQoIIx8x8pT
+--------------lPmQm1H02HKiymp0EsMwiAcR
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmmPdugACgkQszaHOrMp
-8lN7sw/+O1Lmwlk/D3IPUWBLrWK4xbExHQHCOXv70oQ0maPsUFyu38Y5wYk9f3S9
-9QmsCI2qQ+MwTQzicLLHTkaci/GF6aU5OYdMblLa/QilzGUkR3MBfi7Pg2RqDUAV
-myJluyZBtZ97sgAC4NXfxn/ZFVcAaEsvh9T07vvGEEFhQMqNoUeXhS9T4HUuuoCv
-fldynmk9yTeZLQKYQwMxv76+9dZYpUsdFm6CZzm0gXWasfNN3itMCGLS3TDr5NqG
-pVfd8bab1G+VBIjDgeo8PgpSnRu5V84BqyRB9nQr6rF3Yfwn7Mwaxp3CUt+wXfqE
-wUTlkkfSbYK2KKXEUuFZ9+tCDo17VFfm/thslL9ws4BL7yis4bQ/XIn40kH+keJC
-1+Y1nP1nL6nzFQUnCWqIqWGAReqaqhrOKGFi7yWv5ZOc+dXsHpMEdfOqd9AAf9G2
-G8ll0NnypLnpjIx582v33x6j+qiucyNrQWaSj9vv1Ap4rLqJzYX5ilAoydWl/3uC
-YMBR+c3qx+E8drtezriSqjt/+W6DELW4M+n1gaGrIRX0BSRjiRLTpYHI1O9dRp0j
-z4KmzSHEGxg/hOyZWLNBfLdB2Dpb5xbuBog+vrI4XJjvGtD1tTvMT7nhB91p9DrK
-e7x5N+RvGIPaaSg6aCSUcTd9ZJi48Vx1vN6GU2tJ6L+ymsaRa7k=
-=C52G
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmmPf1UACgkQszaHOrMp
+8lOfQQ/9E/dbUVqi/Pzg5VCKw6tNwZnMoL/DGKA5Ee4S693Bjzs2XdSH6cM1QfSd
+S6tL4WIuX9ZmUj2yCllQ6upiGMFCQFgjsEEXt12hK8G7X/12C7hA2oQrh0BglrIY
+Pwt73Q8XXwG6cDhLQJOaQGPJ+OSteIBF4Vnk3sBsYUtGptca73292HpmNkWymtlh
+ut4Shn2bz5mGc0d/S+axKiPtHTa7blCxJCF4WtLmBuiScpX4U1srs2uAL0eCrj1O
+qUkZmLHLD+ze8ZqA8Xc6QbxX4fc/A0UKuJvbq9O/6phs7VqPSazrUY0MJ37l5EMZ
+N/m7MbnVnpDlv4mcsXyuYqyyC/XPUDxOMHoKx7WLQFnNnMJd+g9vZ4KYOwqp6ZTx
+ovJfAchfxlwwWSkkEttXm4X+qiFByhCfKKgnYu1ZTr0nd3JOojRCEBpSiLAne1kq
+xACqlFlrlrF+j5PqmR2cXiAYA/OpWatBmTPyTO89SxP8wHswVhEdNXqn2PHGAsB3
+tC1aQXHF6el/uQv9U8m+GTgzx7PBS/73X7G+rxr1xMQC8Kfui3vOvzwmTL2k6Ank
+jEaHS5F1wRS+b5hxHJHcWmBkLQcp1qDUxip0kIYR/ugzG/WdIu6ZBlbPyTTNH///
+PT2G0UhAhr+zNClWYJMFisO7IKODVPD1J8me8d5iPZ87CX91fDk=
+=oism
 -----END PGP SIGNATURE-----
 
---------------aLWdFyyhvSZi1WQoIIx8x8pT--
+--------------lPmQm1H02HKiymp0EsMwiAcR--
