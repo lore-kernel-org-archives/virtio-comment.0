@@ -1,403 +1,397 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013012.outbound.protection.outlook.com [40.107.162.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548E53A7F67
-	for <virtio-comment@lists.linux.dev>; Tue, 24 Feb 2026 16:15:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.12
-ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771949752; cv=fail; b=EWEy8GmP2Kzw9sxYDJE816sJhgLmFZczHqBJZsFP2C/i/2rABfg3dM/x4D84+JLzd3RCkImVwej4LblvCSoIr2AMLKMUyWE9p+dRgRa5V7iJSfOuInSdFNS9dwSTBRwyrYVV5wVXOfJ3uYHJ2X14oDNRcz7LRLmhXzuH7lwIBfc=
-ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771949752; c=relaxed/simple;
-	bh=bTuQaRszg2OlpgIzXaLDuI7RzOMIe75jFSLbe08e7Vs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Zasiivfj9Ebp5IGkyUNEQVp9KZmTnZgQm6LrrqVFh75W7hegkNaQ3PDNJAU3hlTebjWToyMuM8Md8ZEo/EgyDynx7bUf6BhiRp/I7uppP5EX+RX1uEJGuPlUCzRO4tQyzfmEs6hfUD03SI1Sphidng1D9S81ScTeQEnJ3w77uF8=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qnG6+Bg0; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qnG6+Bg0; arc=fail smtp.client-ip=40.107.162.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E55B3A9639
+	for <virtio-comment@lists.linux.dev>; Tue, 24 Feb 2026 17:14:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1771953262; cv=none; b=nvAQoR7FNuu7Yh6jxMYu8PTFaoRpAcziRWuUbg3mIEG4y/OL2kcki6RGMB4eeUVglrjoCW5VT2EMzfSvfs5l7K94jW5rT/R+1bzxrsoIOQymr0732tmf4FMcJiEW/KntvhYDg3aCxTs1k3XNwVo1OQkDUDFi4G8AArVkBdyN7WI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1771953262; c=relaxed/simple;
+	bh=BWNhc0dii7Lxlkq6kvn9OpplmOpnHZZ1k5PJiiGzKME=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=D8hoQbsz26SWI73oWcC/HmWA4aPq376qW/jkuta7viOheh+q7CtpTdjB4V/1BtBq4bniDwhg5/Eso/EPlriwnE+RUMJ8EVP5tmbpDKXiUa0RlTotUOWxAahWEvysHWc3XsBoej7fOnrl2TV5WmP4ITCSUzblkB0Ku7Qgt+rvoTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bOxsI7bX; arc=none smtp.client-ip=74.125.224.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qnG6+Bg0";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qnG6+Bg0"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=WZf/sKiXh31pIhh291735tyHD6hQKXlGbezwynQS4s783GaO7W5pyLxmV8uq23AbYC/EIaDWskn+8zNKK0AWK+vGkt0KhoMl3dydCc7ck2x26BXKpvhO8O8WWdSBeJ8KXUOI+7Iw+AXH88CD9dh3lLHkO6qC129GA2KWp9l4mzB9H3x1qqQO6XGuszOZBigRatmeQVXhXs+G1kz9Ql/9Lfj87UqGz/8zNAYQzPRzDy5wPr68Owmqb0L390jL67zwUeb5ZukPa2M8uHQsRJ50JYI4WqqkvbGkbTshNs8/3oI/WZWz4p8kbmQuBH8CID6gHgovdJaOodrYn+Z1nkEs0Q==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Sm3qNBf4eZS2CXMPFJ7aM5GdME2/ES0HX7sPInj/jO4=;
- b=c3ZXX2bVkr1B3kJVLoDfh7HADSYc5IUIX2AHcDjBaKma6Huv1K2cbfH4MSlc8FDLsJ1lsI3uDNeoIxhfpMe7pliiAiJANFtocI/TXdoD+mJ7bQD1Gf3OYebzEGrOX/qq1UQR+zBXqUI2qxuKIzEcEh7NQFRLpqRd9Yw869WAYU9GyP9omTLY0FzN5M479cWWusR2qJW1mckuCMG3sINIk8JChvV71N0ICM8wR0+Wma9f8iQt/uX69yAuG6d96T5JPg0SC65AprWcDhiPWmf4ZrrjlH0EuzitA0Kw4pE1sTxTyv6qhuRgGNj2rAxy8s4BhPTnwbVEEFepZmMfz4b8ng==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=gmail.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Sm3qNBf4eZS2CXMPFJ7aM5GdME2/ES0HX7sPInj/jO4=;
- b=qnG6+Bg0+Zp1UIFW7rWq1B9WsOlqVUk10g1f8H764h4l3bnuK7NxSy1ShXqkmr7XrWMb81K273vqNS40nzD0DtS/xTF6rbBf4s0d49Jdf1irEPh00Y2rBeaJ0f06U2FNdmOCkFx9bT3iHDZyz45YZsjaTkWtdK+jqP3yy08o+e4=
-Received: from DU2P250CA0011.EURP250.PROD.OUTLOOK.COM (2603:10a6:10:231::16)
- by AS2PR08MB8384.eurprd08.prod.outlook.com (2603:10a6:20b:55b::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.22; Tue, 24 Feb
- 2026 16:15:43 +0000
-Received: from DB1PEPF000509FA.eurprd03.prod.outlook.com
- (2603:10a6:10:231:cafe::33) by DU2P250CA0011.outlook.office365.com
- (2603:10a6:10:231::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9632.22 via Frontend Transport; Tue,
- 24 Feb 2026 16:15:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- DB1PEPF000509FA.mail.protection.outlook.com (10.167.242.36) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9632.12
- via Frontend Transport; Tue, 24 Feb 2026 16:15:43 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=st3Qj6++2gNlqL+rRY6R45+TS8gqyLzgLn3Bh/T/tn/P0wOui1DjvWTjfp7gJI2j6THmuBzm/8ZegdWjAfCSoO0bmev4T0C3G11gUSzpxAVpOWJIhsb3acr03rmwY15Bj91xMFkGtcTBt7wKacZSOCUiGK20totmNyZcTGyxR8DTUYhQuHFeHDvmpcO+MmKZjcUrwvoBjckVOfjKqQwPSAtJyu7bFFCHN1kuScRi/9iFVWxhpFgsg+1fYeSl4VYe3/8gR5Q1R4+nR/f0ssAcMko0Z3n+W9ovK+mjKrAda+T68uc3mz+sdFzuqrlg46MbCasomMNblv3SVrvuI2xUBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Sm3qNBf4eZS2CXMPFJ7aM5GdME2/ES0HX7sPInj/jO4=;
- b=W+bBRXy8kTZYjZJmVyCWuspJN0Q1YNTv3Qochnu/KoxhD1LGd8OqGMNkTYt6xed0DVBiZlTKLK+x1qH+TICro65Vy4gK6p7lV3Vw+gVLof//WtmaQUTQ8jzR7kR0AjFQlFVz+p9CkjUH2lSFxI0WtJxGwdacJDT4JTyERc+yjBH+xfbDt7fDR/w5ES/gXQc9O6xGyEFVJRs/DnT5qaMg1PSEX1FabHJ5tOSofl6qZjTzTpa5NclzKqLWYb0yfAZOTddCbu/Xmfs557uzjoUyVIDVGcv0dvqJnROxI42Dll6+Rj8aQ1uXoHEzodNj+20v+hB6Noj+3C1/YsfAYXp2cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Sm3qNBf4eZS2CXMPFJ7aM5GdME2/ES0HX7sPInj/jO4=;
- b=qnG6+Bg0+Zp1UIFW7rWq1B9WsOlqVUk10g1f8H764h4l3bnuK7NxSy1ShXqkmr7XrWMb81K273vqNS40nzD0DtS/xTF6rbBf4s0d49Jdf1irEPh00Y2rBeaJ0f06U2FNdmOCkFx9bT3iHDZyz45YZsjaTkWtdK+jqP3yy08o+e4=
-Received: from PR3PR08MB5593.eurprd08.prod.outlook.com (2603:10a6:102:84::13)
- by AS4PR08MB7603.eurprd08.prod.outlook.com (2603:10a6:20b:4cd::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.22; Tue, 24 Feb
- 2026 16:14:40 +0000
-Received: from PR3PR08MB5593.eurprd08.prod.outlook.com
- ([fe80::aae1:6871:afc4:620e]) by PR3PR08MB5593.eurprd08.prod.outlook.com
- ([fe80::aae1:6871:afc4:620e%4]) with mapi id 15.20.9632.017; Tue, 24 Feb 2026
- 16:14:40 +0000
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Demi Marie Obenour <demiobenour@gmail.com>
-CC: "Bill Mills (bill.mills@linaro.org)" <bill.mills@linaro.org>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, "Edgar E .
- Iglesias" <edgar.iglesias@amd.com>, Arnaud Pouliquen
-	<arnaud.pouliquen@foss.st.com>, Viresh Kumar <viresh.kumar@linaro.org>, Alex
- Bennee <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>, Alyssa
- Ross <hi@alyssa.is>
-Subject: Re: [PATCH v1 2/4] virtio-msg: Add virtio-msg, a message based virtio
- transport layer
-Thread-Topic: [PATCH v1 2/4] virtio-msg: Add virtio-msg, a message based
- virtio transport layer
-Thread-Index: AQHcjuFmIzYveS1Rqkq8YyoL1D1kt7WSKnaAgAAJFYA=
-Date: Tue, 24 Feb 2026 16:14:40 +0000
-Message-ID: <5D592E56-7154-4324-BDAF-27F0ECDAB0BC@arm.com>
-References: <20260126163230.1122685-1-bill.mills@linaro.org>
- <20260126163230.1122685-3-bill.mills@linaro.org>
- <20260126163230.1122685-1-bill.mills@linaro.org>
- <20260126163230.1122685-3-bill.mills@linaro.org>
- <c0e37ee7-9631-4611-ace2-43609dc11ab2@gmail.com>
-In-Reply-To: <c0e37ee7-9631-4611-ace2-43609dc11ab2@gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3864.300.41.1.7)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	PR3PR08MB5593:EE_|AS4PR08MB7603:EE_|DB1PEPF000509FA:EE_|AS2PR08MB8384:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ff2efb0-c990-441b-7a86-08de73bff5d1
-X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|376014|366016|38070700021;
-X-Microsoft-Antispam-Message-Info-Original:
- =?us-ascii?Q?BpKy1H0oRxUHc3wqD7RL8uVvN3AB4eDHzaGIotCyPkdTvkZo1cIspjKtPV0Q?=
- =?us-ascii?Q?aP8gFPOIwtCODm5v7uNuhdR5p7Hp4b7h2BLlq4rmeZGeyvilkOO+RWQAR1fu?=
- =?us-ascii?Q?ai93u0Q5BDDeWRXa4FRZXMRGyzt9KJqi369fB1qhU4MJuvN4EBhTFRtKAx0S?=
- =?us-ascii?Q?Pq03SpUwAV2HxEmXoKtJlg3HiGFqMVhpAT2lA1wl74h903L2v0JOJ/vNgjb5?=
- =?us-ascii?Q?OcRmCLDHHXtw5FwxNHtZbdmkjdPxoGcIq9zAqY/v8PKWb4NC8u7ReciGlD9j?=
- =?us-ascii?Q?72E1D0HvQdNnsdk/8/+nnvWP0s+Yp0oqPTCNHgENcmCEvR/8FWgKysAnHZzn?=
- =?us-ascii?Q?GAWrpkXVDFFwfKrs7b+jTBYTvuKbXn3sTf8nk8ZLHINflGHQCaOuuGslwjfA?=
- =?us-ascii?Q?ZEbPImF1OlBp99qiOxkn9N8p0Mdx9Y82sJEtUXwfR4xsnRhPE0jCXGKhg7I9?=
- =?us-ascii?Q?xbYVX9yQeSE9kGQLQwA5icrTzHa9h1/llPUQInDQnDJmbWdmBlLhGGEtAZdi?=
- =?us-ascii?Q?jtyaFWR6PR2vLZQUOTGD6v+XEtzlmf1vu1KmPYYIbDySmjvAScRtq23h4p6H?=
- =?us-ascii?Q?mGY/cpOIpGipbbH2SSGaxYPGw8HMnszkVfy+mL4a2g4nq59VWNA2+kxV035F?=
- =?us-ascii?Q?L5xS1AWxc7bkidqH4IXFypPG/ol90eT1VBb4xbfGWa4keq0UlST1CIVyTAiP?=
- =?us-ascii?Q?TSL7WFH/b/8z5kbjDqHNRj9pSnBRve8p1YAi64yvOhW+ftAW26LcQ4enxTOF?=
- =?us-ascii?Q?To6h/GoG57437ISVuhYb8vrl6L86owAhvGLvqVZyHF++9jNOGpvxL8Ts2JEE?=
- =?us-ascii?Q?uyhsQxjvTfW8docfFPxV3/uknmPG0EQXGeNjJ1eqZbt1T7YiRFNaPMYPiK2f?=
- =?us-ascii?Q?g1FMYtP9ZOrIUF7pE97ZjJpFvsCPSTbzPXWb847qWNiDXbDtvZCoZootX96i?=
- =?us-ascii?Q?z6rMcLMAzkJAdF9bYu6wqOR+DEKxxr+InU17EW9PCE+K+BWm33gd6v+yXohL?=
- =?us-ascii?Q?ctC17UrDAFGz9ZljXT2FGawb47lgWZkwULIcml4ubVtS++NQtqy1BKB0//MG?=
- =?us-ascii?Q?9jmZL119dIr6m49/Vkax2d/b2FuEbnVWRr3DPpLOtb+vpq91ed9gh+ZpVE2B?=
- =?us-ascii?Q?VkvBXPSB1MoDLlkj0LYI/v6TJxpXyrGPIJZSkUeeJVDlqk3lcmvKQQFEVQ+u?=
- =?us-ascii?Q?JQ7fZ6yfSI52IoKF/RFbL7kDIzIM12hGfF4Bin5rLPsda7W76Uj0u1tqhZAP?=
- =?us-ascii?Q?wFV7xyQgfaz2rvtsVsRZyn56kkxtKH/+lpoLro1X+1krJ3EQw4o/OwUM3zdf?=
- =?us-ascii?Q?d0aKH7f4KclRMb2utX+jzO3reughMe3tMyAsgwgDq0V9ZbWhGcbxPm+WiwUz?=
- =?us-ascii?Q?CD+By135xD8QghrAdwZ+RsczDw9WpxK84CsGaS6idChx+dWT8tFZiXDNoUVX?=
- =?us-ascii?Q?HEVjs4m5PzyNRymurMimZgnbieQP/zk/faA+N5qyCbiYIOHrf7vxvfbQERgq?=
- =?us-ascii?Q?nn5u6OOun03lfyIb/vUHsz6LCxJYQwnxHyvW2StcUVgnT9Vifkuyxpq6gJ7r?=
- =?us-ascii?Q?cQS3rjeeCwjIlIwfwIJDNsmcqcdVqVXKTkCVUrWi6p82WZx+A1ZcURwVMzi0?=
- =?us-ascii?Q?6DRQQrdvDtqpBM9FdWNWcotsB558+SDxyToSlkgF5gFX?=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR08MB5593.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700021);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <ADED77CA38277C429A4703940DD36CAA@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bOxsI7bX"
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-64ad46a44easo5583687d50.0
+        for <virtio-comment@lists.linux.dev>; Tue, 24 Feb 2026 09:14:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1771953260; x=1772558060; darn=lists.linux.dev;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=O9njMPVy8qlxfRuFx62Dc5X/uT8uY3Knut/x2b9Id3s=;
+        b=bOxsI7bXAWBT9Jd/RVT2C0ndWWopk8PBtYjlcLlI5bXetLSCcGwH5N1YlMxtSaCO9p
+         7MM6ahX7H3fYoIdWwUUiwkD+BOSWvvQ3yXC71hLSxYqc/nBpUmNRea4K503bfMHdUPKB
+         f1pfBnJbJuLfB8tyEPRM6EXcY1iJ4+pujRgVjga7d/gHbx95w3rQ94BVRmw3L5aZD+2o
+         WNESJtqXfeil98wzZiKxP17bTZY6O18PzXd37mlIcTx+f79rUd5txrPCJaSWxMIlEkXr
+         afOZlcwfBiZl3ZgDvR/ptGa/NFx1rwPMaUV3LPP0XuX+MlGRURq9nVAC57y1+Xkx8jN2
+         nzuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771953260; x=1772558060;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=O9njMPVy8qlxfRuFx62Dc5X/uT8uY3Knut/x2b9Id3s=;
+        b=Jd+uwLlICQPdg/Pf7mp7kSsE/sQY6Bey9fnWCevDp4s4KxGHnCZ55vwIsk1KoReXoH
+         kF3L26DghVYVDY9SMVdk47nJPPDnXQM5XqCpSGdMjFrrFtLZj+ByK1svUIochUfas14f
+         MGY5cHu+BPXCoB299+7WLX1ke2H6DN0EysLVN+UAM3QE+7FmLDACCZbxySeE8k6jqiEj
+         ip6oGghptB/cvn+eIO0NuyHaVpHaYgGmMooEQDbGKpBZex9IMjWOLvtIuGNLmg0yS+w6
+         +aOC0Tap1rBRWVTfC0QhqZyrPNsaYOiY6kZFNleAsJa1ZVwQZ8auMYIif54JU/vgPtaq
+         cGIw==
+X-Forwarded-Encrypted: i=1; AJvYcCWt58LSGAQbMFiXD/yDzwB61FfwhzkeFgzkmuwLHyOoxSNwgn4WbnZxjiYGpoP77jkL8WH2MOdi6t/wVG3F3w==@lists.linux.dev
+X-Gm-Message-State: AOJu0YzEQSCCnT1sfTpVxEP+8Swb2fxu/p4q7Sc9+Wa0vsxgXLuWntM5
+	qDuPd0h7uMWNkNZ29RF3iAkKG5f+2kV2utEXa02QCqKxZysNV6WOcZDg
+X-Gm-Gg: ATEYQzwrQNp2MW/4tSFcMhLjS8AjFeP76A06Up/nVVhNk1CXcglhyks4NCW7/0F74oG
+	YO0UaqEgRPezXmNNfVdN87SlDDeYb2dCGzakMdspWZzvJ0qcFzqhS2jiRIrpK9yA/xzvpnBiKp0
+	m11DwDOqTb6zvDr4j+iTOAC6TsdBB3zcmgTUvWqZmzY7ErYUhwryrOaoj5wd+tVRRsELAsG9V/K
+	nHjgrO1jPlRxndfGTMGawDadOsC+LRDGSOxYZypFdCiRucLck/FIvnSQHYqVd/ZSyOuucSD54Xy
+	DVtNcAe0ac3izEAf0/zdii4PGQZAGph+xTFJ3mnnoK9yJpc2TUyam8+U8XP1VPz2JlKt6xX0c5a
+	gpD1CmXXwLvANj5jYx3SyKfI72yl9jCMeKzydtQ9u3bRnar4Z4w1skunCLjbOLknnmVgr3+np23
+	VeLJlu6raiAtOmCSk/qPzliyH7LjuowkGfGY9xdZWOuENJgJIv+seCKv8KGiumXhw131qN8uabs
+	jPP22vk2sZ5TiIxjPlrTzu8vZLdAt7JqPhiVqNoPWrYjelGmgy/
+X-Received: by 2002:a53:b4cd:0:b0:64a:dc80:c256 with SMTP id 956f58d0204a3-64c789c95a1mr8955939d50.26.1771953259988;
+        Tue, 24 Feb 2026 09:14:19 -0800 (PST)
+Received: from [10.138.34.110] (h69-131-216-128.cncrtn.broadband.dynamic.tds.net. [69.131.216.128])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-64c7a39bdecsm4586334d50.22.2026.02.24.09.14.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Feb 2026 09:14:19 -0800 (PST)
+Message-ID: <2a935201-a198-4ca2-ac93-22bd295214c7@gmail.com>
+Date: Tue, 24 Feb 2026 12:14:14 -0500
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR08MB7603
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB1PEPF000509FA.eurprd03.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	3caa3772-6099-43af-55ae-08de73bfd025
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|14060799003|35042699022|1800799024|36860700013|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?DiAXV77FP2+PmbJzrhw1TalDZx3KNYWoAD77qYTbpSpr5vXtRPLCHcpFZSTT?=
- =?us-ascii?Q?ZoaCMTntDSYjhvWF0rQWe1KZkSEAym5c0LApnzRAWxAludmNHMDmtHnh0R4v?=
- =?us-ascii?Q?b082XADkuYkIIuo0jmk0U8119EEtOPVVqh4x8hjm2jLndnzAlm2Yv6pPInbr?=
- =?us-ascii?Q?pl5eRxLbIZdVV51SWfqUUSEwUGXQR4C6YkFGDmZxBnt7fB44aqVMySWf211u?=
- =?us-ascii?Q?p6nBjIgidsrO2BaMGlSFCGV4VhHZ/PtTiA9qZeUhnxB+dq3QNhOye8ianYx9?=
- =?us-ascii?Q?mF+eNREEo1R94EbWucd6f1fD7MgmzXAfISn+lTU+Z3Q8c6RcEi9ojuaAuduQ?=
- =?us-ascii?Q?0YkuOxoGGmVUBAs0T0RAjyFz3WyN6Nim0uaw69jCJgkl9aqdkrXa6UTbGrL/?=
- =?us-ascii?Q?NDFAGgekpvAHcflydvppq+WwpnUhJBNV5ppJZLUtvg9+1ifYxFqtqFPDUSOE?=
- =?us-ascii?Q?pkbw+w7/O+pKYliZfdSkJsWKZju8AokDKXQD87CkbwdB6pEgmu3c81IHLia1?=
- =?us-ascii?Q?eCToAf9w8Wo1kO80mJi9aj+7PGfA8JVAqcX8MdahGdQJy9/yoom7n/WvBNKe?=
- =?us-ascii?Q?YSdCuOUmnokWdSgBjkZPcFau8q0/NDM1Rz6BwU5gaFNfj+46oDcCRFiUAw3S?=
- =?us-ascii?Q?IVexKl8g8/3gmo65e3D9mwIcbkc61XnDapfUB1lqhtpFZJgJMTEU8nyZ2Qw5?=
- =?us-ascii?Q?jtS8HF69oPDnrl9CamK3q/TCFRJJYybRM3CbH2oiZkqySR1qdCQwm4TXabBS?=
- =?us-ascii?Q?ldniNAhjrxPekoAK0UztnmIDK40ohLyV6+k6CNrxW27GP1iLvOxq7KLys2UX?=
- =?us-ascii?Q?777FVCndqHhV0H3cdWmk/AxQs9mkDRRGuWatYU32n1GuOQYWsHgqjxO6dRwL?=
- =?us-ascii?Q?rFdeirI5LnDzgPXVD15cXUCkhUNN9o8eekO1kYtX8GCddqp6WCeHiA1T2L0w?=
- =?us-ascii?Q?E/eF9/YKW4B1QaEPhVhKyfz/jLEFkCEAZNIH0vPD1e0W3dmlil+mM9QFcqmY?=
- =?us-ascii?Q?7cCer1//WAnibgeDYDgLLd/11Wwnz4dzIiCM8ENqysCK7ZpSl/ledRdX2mot?=
- =?us-ascii?Q?IssBRbPKB92JUUoNwY4YahiZwwvvJ9oiyZtwoIvEOwWt7ZF0kORz0wCqBkVu?=
- =?us-ascii?Q?dkA6wMlMyRvIRd3o+lItkcAyzM26t03uX28GhVROtCHrhL7flVgDxQqn6dcu?=
- =?us-ascii?Q?Qfoib10k4Px+bxQfxx2FnEwGiVsvL0T2lOizmd6Wv79b9JXMj/t11Bb5y06t?=
- =?us-ascii?Q?AnGyH3TYXIRgW5grsCIJkqhhsqAbax9YLr2kEeKAVGxhCqzoawGn9/h3RNAg?=
- =?us-ascii?Q?cEB1h23oYVQ5T6zVkfj/JVB3xy5QKwT+OUrfeYm1WoLqkf/uYRlAdkBRDe/Z?=
- =?us-ascii?Q?7pCdiFfJvhsyK1RBm7f3GlbUQsEDwvhUMd/u1p2/JGpbbCYSaBrWBBqoYlNe?=
- =?us-ascii?Q?tGHteUnQ9/RO/+jduGqmmWjGFMgBHh6e+NnDGYv+Hdx5Ia00e8BfjVsWgOWi?=
- =?us-ascii?Q?eWL6AFdhmS5TxQPdmiPAU/5OfFtWAo38nvn1e/RbPamZdRBT4talJqdxVnta?=
- =?us-ascii?Q?EP4b5jvpD082kvoWzMaoTiyn0ej+jNm2/zO8inRJ39Unj7ZfHGVW04xxxyQq?=
- =?us-ascii?Q?N0eabZMifM9vXruMo89rmTk+qX88BLpOct+0UyZBpf6ZAFA4siqQHvoiQOP8?=
- =?us-ascii?Q?NEAmwO8EroV/HaxO3WqPHb+/KJ4=3D?=
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(14060799003)(35042699022)(1800799024)(36860700013)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	TzmCJR/ooCI8DiksUJ4J9+hbC7EOH8p7i1J0ffsEQVl5Hj6GUl34PomD1Wga/FHMYyPCVJXIbz6P/fujx0TykhUwlr+747X8+Wb0669A3QSBf8QJzg8Doe3NnxBsgMthcab4osiKKfEEAajJVx0CwfsHwg9ul3zR5TKpMYWkzmM9T4Wngf4eMlmn9u9wJANEtIUdiEpgzhGFIM+0jmd+QoB7pcm3Kr+CTQ7o90Rf/pbAkJ+FTIqfB1/dKyd/vGvDelqcy0awENHRpL0NNvs05s9qSIMXhjuJ6RR2c5wagy3AMCUp0kC+48lNspaxhHyCAKmXIweAkjDcEHh1GmUxVe3RORwBdy9nGXPNUTrdwY7t8GEl3i4hDCNYCYtpftRaQoN5wTJYEV3E5WXqZ0RQ59uKXatMDV7Rvbx6iUM6FVns3VRuQJSJPQ3PbcY2HqKz
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2026 16:15:43.2210
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ff2efb0-c990-441b-7a86-08de73bff5d1
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509FA.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB8384
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/4] virtio-msg: Add virtio-msg, a message based virtio
+ transport layer
+To: Bill Mills <bill.mills@linaro.org>, virtio-comment@lists.linux.dev
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
+ "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Alex Bennee
+ <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>
+References: <20260126163230.1122685-1-bill.mills@linaro.org>
+ <20260126163230.1122685-3-bill.mills@linaro.org>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <20260126163230.1122685-3-bill.mills@linaro.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------1tWT8pu8yTl8fYr6j51Q3TZn"
 
-Hi Demi,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------1tWT8pu8yTl8fYr6j51Q3TZn
+Content-Type: multipart/mixed; boundary="------------q9Olus3nSIi1lD1Ksc8PmXdQ";
+ protected-headers="v1"
+Message-ID: <2a935201-a198-4ca2-ac93-22bd295214c7@gmail.com>
+Date: Tue, 24 Feb 2026 12:14:14 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/4] virtio-msg: Add virtio-msg, a message based virtio
+ transport layer
+To: Bill Mills <bill.mills@linaro.org>, virtio-comment@lists.linux.dev
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
+ "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Alex Bennee
+ <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>
+References: <20260126163230.1122685-1-bill.mills@linaro.org>
+ <20260126163230.1122685-3-bill.mills@linaro.org>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <20260126163230.1122685-3-bill.mills@linaro.org>
 
-> On 24 Feb 2026, at 16:41, Demi Marie Obenour <demiobenour@gmail.com> wrot=
-e:
->
-> On 1/26/26 11:32, Bill Mills wrote:
->> Add a new transport layer that is based on messages.
->>
->> This transport layer still uses virtqueues as the other transport layers=
- do
->> but implements transport layer operations by sending and receiving messa=
-ges
->> instead of the "MMR" reads and writes used in virtio-mmio and virtio-pci=
-.
->>
->> This transport is useful when the device and driver are both implemented=
- in
->> software but the trap and emulate operations of virtio-mmio and virtio-p=
-ci
->> can not be used.
->
-> Is it possible to map a virtio-mmio or virtio-pci device to virtio-msg?
-> For instance, can a VMM present a virtio-mmio or virtio-pci device
-> to its VM, while using virtio-msg to communicate with its backend?
+--------------q9Olus3nSIi1lD1Ksc8PmXdQ
+Content-Type: multipart/mixed; boundary="------------Q804O9tGxTeZcksNdjxtHwPd"
 
-I am not sure to understand what you mean here.
+--------------Q804O9tGxTeZcksNdjxtHwPd
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Right now a VMM would present a virtio device which will behave
-the same on mmio, pci or virtio-msg.
-In our transport implementation in Linux, we did not change anything
-in the virtio drivers.
+On 1/26/26 11:32, Bill Mills wrote:
+> Add a new transport layer that is based on messages.
+>=20
+> This transport layer still uses virtqueues as the other transport layer=
+s do
+> but implements transport layer operations by sending and receiving mess=
+ages
+> instead of the "MMR" reads and writes used in virtio-mmio and virtio-pc=
+i.
+>=20
+> This transport is useful when the device and driver are both implemente=
+d in
+> software but the trap and emulate operations of virtio-mmio and virtio-=
+pci
+> can not be used.
+>=20
+> This transport is intended to be used in many situations, including:
+> * between a host processor and its co-processors
+> * between two different systems (not SMP) connected via PCIe
+> * between normal and secure worlds
+> * host to vm
+> * vm to vm
 
-So the transport used is transparent even to the virtio driver on top.
+(snip)
 
->
->> This transport is intended to be used in many situations, including:
->> * between a host processor and its co-processors
->> * between two different systems (not SMP) connected via PCIe
->> * between normal and secure worlds
->> * host to vm
->
-> How does this map to the vhost-user protocol [1]?  Vhost-user is a very
-> common way to implement devices and it would be nice for virtio-msg
-> to cleanly map to it.  Requiring a separate AF_UNIX transport could
-> be quite disruptive.
->
-> [1]: https://www.qemu.org/docs/master/interop/vhost-user.html
+> +As described in Sections
+> +\ref{sec:Virtio Transport Options / Virtio Over Messages / Device Oper=
+ation / Driver Notifications}
+> +and
+> +\ref{sec:Virtio Transport Options / Virtio Over Messages / Device Oper=
+ation / Device Notifications},
+> +runtime notifications (\msgref{EVENT_AVAIL}, \msgref{EVENT_USED}, and
+> +\msgref{EVENT_CONFIG}) may be delivered in-band or via equivalent out-=
+of-band
+> +mechanisms.
 
-This is something i will need to look at to provide an answer but
-vsock works for sure so this should to but I will have to confirm.
+Sending these notifications out of band should almost always be more
+efficient.  Under Xen, one should use per-virtqueue, per-direction
+event channels.  KVM has irqfd and ioeventfd, and the loopback
+transport can use per-virtqueue eventfds or io_uring queues.  I would
+be quite surprised if FF-A and PCI did not have similar mechanisms
+that could be used.
 
->
->> * vm to vm
->
-> This requires a method for VMs to implement devices, not just drivers.
-> For Xen and FF-A this is easy, provided that there is an out-of-band
-> means to enumerate which devices should be implemented.  However,
-> these mechanisms are not hypervisor-agnostic.
+I recommend removing these from the spec and expecting buses to
+provide their own notification mechanism.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+--------------Q804O9tGxTeZcksNdjxtHwPd
+Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-For FF-A the way to enumerate devices is hypervisor agnostic as we have
-extra messages in the bus to do so.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-I started to research how to do a xen implementation (using only grant tabl=
-es
-and xen events) which will use a FIFO in one or two pages shared using
-grant tables to transfer the messages and enumeration should work the
-same way as with FF-A.
+xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
+B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
+bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
+UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
+MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
+zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
+T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
+BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
+6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
+9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
+m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
+zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
+dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
+X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
+R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
+oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
+zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
+rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
+Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
+/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
+ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
+Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
+xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
+fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
+AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
+b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
+BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
+/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
+/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
+sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
+xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
+VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
+hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
+I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
+xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
+ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
+7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
+UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
+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
+EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
+=3Dx94R
+-----END PGP PUBLIC KEY BLOCK-----
 
->
-> It would be much better to have a standard virtio device that backends
-> could use to implement virtio-msg devices.  There have been multiple
-> attempts at a virtio vhost-user device backend [2], but it was never
-> widely deployed.
+--------------Q804O9tGxTeZcksNdjxtHwPd--
 
-What I am looking at right now is the following in linux:
-- virtio-msg bus backend implemented in the kernel with a standard
-virtio-msg bus interface to user
-- virtio-msg transport backend implemented in Qemu (or any other VMM)
-communicating with bus using a kernel interface
+--------------q9Olus3nSIi1lD1Ksc8PmXdQ--
 
-This makes Qemu bus agnostic and allows to have more implementations
-of different busses using kernel drivers without changing Qemu.
+--------------1tWT8pu8yTl8fYr6j51Q3TZn
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-Having something of a vhost-user backend seems feasible but would need
-some work definitely.
+-----BEGIN PGP SIGNATURE-----
 
->
-> [2]: https://uk01.z.antigena.com/l/RPtFHkpliiy7NRgNtyaO30yBQpiAnIuLVyzAK2=
-QZ0fGEIjSJVGx5Mu3MwXXt-LgQn2ZVpDwK1wfUHdgKxzrauRK4sFfiVoW3xPL5PablM52jV-ngF=
-4DwusMzPUNSF6WQ1Ec3WMxworPUgzNgc1gDTMsD1H17lnI6v1cOcD1m5vAuK4eS7Ma8l5f5Hhci=
-CHG0H4ibv8wtWquW2fvs6m
->
->> Signed-off-by: Bill Mills <bill.mills@linaro.org>
->> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
->> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
->> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->> ---
->> transport-msg.tex | 1640 +++++++++++++++++++++++++++++++++++++++++++++
->> 1 file changed, 1640 insertions(+)
->> create mode 100644 transport-msg.tex
->>
->> diff --git a/transport-msg.tex b/transport-msg.tex
->> new file mode 100644
->> index 0000000..d4e31d7
->> --- /dev/null
->> +++ b/transport-msg.tex
->> @@ -0,0 +1,1640 @@
->> +\section{Virtio Over Messages}\label{sec:Virtio Transport Options / Vir=
-tio Over Messages}
->> +
->> +\newcommand{\conceptref}[1]{\hyperref[sec:Virtio Transport Options / Vi=
-rtio Over Messages / Basic Concepts / #1]{#1}}
->> +\newcommand{\msgref}[1]{\hyperref[sec:Virtio Transport Options / Virtio=
- Over Messages / Transport Messages / VIRTIO_MSG_#1]{VIRTIO_MSG_#1}}
->> +\newcommand{\busref}[1]{\hyperref[sec:Virtio Transport Options / Virtio=
- Over Messages / Bus Messages / BUS_MSG_#1]{BUS_MSG_#1}}
->> +\newcommand{\msgdef}[1]{\subsubsection{VIRTIO_MSG_#1}\label{sec:Virtio =
-Transport Options / Virtio Over Messages / Transport Messages / VIRTIO_MSG_=
-#1}}
->> +\newcommand{\busdef}[1]{\subsubsection{BUS_MSG_#1}\label{sec:Virtio Tra=
-nsport Options / Virtio Over Messages / Bus Messages / BUS_MSG_#1}}
->> +
->> +This section defines \textbf{virtio-msg}, a transport mechanism that en=
-capsulates
->> +virtio operations as discrete message exchanges rather than relying on =
-PCI or
->> +memory-mapped I/O regions. It separates bus-level functionality (e.g., =
-device
->> +enumeration, hotplug events) from device-specific operations (e.g., fea=
-ture
->> +negotiation, virtqueue setup), ensuring that a single, generic transpor=
-t layer
->> +can be reused across multiple bus implementations.
->> +
->> +virtio-msg addresses several key objectives:
->> +
->> +\begin{itemize}
->> +  \item \textbf{Support multiple bus implementations:}
->> +  Systems can rely on various communication methods such as hypercalls,=
- local
->> +  IPC, network channels, or device trees for enumerating devices. virti=
-o-msg
->> +  defines a common transport interface suitable for any of these mechan=
-isms.
->> +
->> +  \item \textbf{Reduce per-bus complexity:}
->> +  Buses can implement a fully message-based workflow (including optiona=
-l
->> +  enumeration via \busref{GET_DEVICES} and hotplug via \busref{EVENT_DE=
-VICE})
->> +  or they can discover and manage devices through
->> +  alternative means such as platform firmware data. In either case, the=
-y
->> +  forward transport messages to and from each device.
->> +
->> +  \item \textbf{Preserve virtio semantics:}
->> +  The transport leverages standard virtio concepts (features, configura=
-tion
->> +  space, virtqueues), so existing virtio drivers and device implementat=
-ions can
->> +  integrate smoothly once a device is discovered and registered.
->> +\end{itemize}
->
-> I see that there is support for device enumeration by drivers.
-> What about driver enumeration by devices?  An FF-A endpoint or Xen VM
-> needs to know which devices it should implement.  In embedded systems,
-> this can be obtained from the device tree or ACPI.  However, dynamic
-> systems need to create and destroy devices at runtime.
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmmd3GcACgkQszaHOrMp
+8lPsRQ//STfjqiV+SLvMIL4WOpz2qma/1AJSKCAgMZC4mxDP36NCtDDLWdhmLn5B
+n7RHGI9UlZ9E4QZCsIm0peNtfBcmPMHbMFFjZ9Joui3learLYvYf4HfCAfsMp3Gr
+G/mA3ljwv2llO5+0BIevTdMznUd5U9ADVpi0yV4KpoeKmL9E9QSUto9fDVtppnpJ
+E93k0WFY5NTAyy7buzImfPuM5L0UPDG05Szdxb5hzjnelOJyh1yYcGflpjUp+AFK
+AK1UdkDao7ZNLiy2xvdF7mdoFgoM0/CAWkeIQRiAJsVGWDLX/HP2vtbbYwsq1GpD
+xP0zoQvA8NGL+i1KTPRyviRTFTbG4Rvy+03+NeEc9sUdwuoHNo03aw0VWRawzzXZ
+z6okV8aa0AoWmZlmWn8iM30q7mxqJIGSrCgy2gqU1rL1tQGMnRpJgH+NKY5s0Lyz
+I0ts6QTfVTbtW22yjf0my6eMtgo3xH8YOYuw67pO3f7OOWFIe3w9dmc6Xojwgx1y
+PKrUa5R0OWaBJTtcQphavTZBOHFaUoJMZMW1N8SXrj4+Js8H9Irjqa0yqx+xpGNM
+QtBQ5GtO32rKO9tGcfOdujqebMGvv5by+1JAEpy3tP7CP9T6VF/DIf5LAWq8RBc0
+JiyQbE5cZf6LjDr8SQj1LyMtSndgVO9gwu/KBuz5o3yocFyFwzA=
+=i0Tr
+-----END PGP SIGNATURE-----
 
-For now on this would work as it works right now for xen pv devices or virt=
-io devices,
-you will start a qemu telling it which devices to create and those will be =
-detected using
-the normal device enumeration message (or hotplugged if created after boot)=
-. This is
-why we add the message to signal that a device was added or removed.
-
-Cheers
-Bertrand
-
-> --
-> Sincerely,
-> Demi Marie Obenour (she/her/hers)
-> <OpenPGP_0xB288B55FFF9C22C1.asc>
-
-IMPORTANT NOTICE: The contents of this email and any attachments are confid=
-ential and may also be privileged. If you are not the intended recipient, p=
-lease notify the sender immediately and do not disclose the contents to any=
- other person, use it for any purpose, or store or copy the information in =
-any medium. Thank you.
+--------------1tWT8pu8yTl8fYr6j51Q3TZn--
