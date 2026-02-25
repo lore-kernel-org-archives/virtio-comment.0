@@ -1,627 +1,474 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011057.outbound.protection.outlook.com [40.93.194.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0613D333729
-	for <virtio-comment@lists.linux.dev>; Tue, 24 Feb 2026 20:02:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771963367; cv=none; b=kxHGY6ZWemp7llpAfZfDkVK72pX1cxJKH2VQ3H1hIWLoqh6tIxGV19+ExY930anzZqg7GYseEi6uho+IRHmBmsJQ1jGULDFP9YOrczCL5IuVS3MyZd3e0se6Dwz3+m0H1DIE4sxKwU6K5AHZjfjXhflvx2XMam2k2qtg8a1dQnI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771963367; c=relaxed/simple;
-	bh=LVF/VJJ671oho7Ac1w4naGvEe8dIhrChO+GviotImaQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iY0H+koSJkJNUTuIz88Hx6S+ves/sdebqgn0d+ABMNEhOsrxHcJSi71X2PCVH5WHfPed3Nflt4wPf6JacqgUf8NY1Up33twzvqhrMHxhYL0fVtuZ16lptcc9aADor+DG/+43sgJYvwsu3Md5U1KTf7t+uzvCunuYdVy+Qt8glCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T62reOh3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=btiHbBli; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1462D12EE
+	for <virtio-comment@lists.linux.dev>; Wed, 25 Feb 2026 04:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1771995533; cv=fail; b=U3NBoeejjxTblx1fHkRAQ8MGRoRWl7AFQ73nUp5WNbqTu7jBh2GCUS+j8uZf72QXj0uciXzJ+Zae2x0TufzLIMKTFbkYDGBiW6f7vVepeudK4uzS/ukQ2Sq6zJRanyTAbwdXs4i+2ROeJs7St1v/bJX4+lxZaT80fcsYMU+7tY4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1771995533; c=relaxed/simple;
+	bh=n3Gu2PhS1cZ0MsxA7D9wASOdUKJhwfWVs7mf1v9p9FI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=W1X+CBP2bNJmx2zcdlCap9V2ZIWOKZGgPcZrr7hHaVXozQM22JP+tMZ1zAga2QzxNVmCcnB6RD7McKTTCcUCD3318ceKq73431U1KaqWnCzgEq0Ga0GP5rW65QDF5CPGndNZePz1/hjJw8c8bdVmMMoCjttt1d/6s9hyuShFqUc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=hvLGju3h; arc=fail smtp.client-ip=40.93.194.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T62reOh3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="btiHbBli"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 61OFYZtJ061751
-	for <virtio-comment@lists.linux.dev>; Tue, 24 Feb 2026 20:02:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	h8ypFviecW63cpAMAxl5bQgu3NIwtmHQtlqFI2KPQOg=; b=T62reOh3pJs54tff
-	5azTeiXezUrooBzNMnnxrRsMSxi0bWEk+r7ntPC1aljx3v3NIQuoh0gyXfAh6ZUx
-	ysnmIfEqt0s6tp+IVWL8b1jWblpTSEoqJ8V/8K9EtJBASL8F3hq/iu0OBqdKgbId
-	hd/Qv0INXdKzfaiC6PIxbknbmOqAWoBEc2w01VS3KaG0KcZTN+tuQ619GT3ui+ow
-	FwZ0fLISzNs7jrQbgQtVTVacu1ftBYweWR5HaLzmGviVF9EhfTmSdoD0jjZBzaM+
-	N0Mp+30wazW++07priOG0POSXUvifJGoqi01qx8ysmDH/XyDSwaLRWSJ47ECfsRt
-	BkgTEw==
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cherj903s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <virtio-comment@lists.linux.dev>; Tue, 24 Feb 2026 20:02:44 +0000 (GMT)
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-679c448d15cso58176836eaf.3
-        for <virtio-comment@lists.linux.dev>; Tue, 24 Feb 2026 12:02:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1771963363; x=1772568163; darn=lists.linux.dev;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=h8ypFviecW63cpAMAxl5bQgu3NIwtmHQtlqFI2KPQOg=;
-        b=btiHbBlizyW/Iy40xDjxfSK1sGnhGWLAKzxJSqWF1o0P5+v/hm4Fb0OvIFngN0f41W
-         tHqqnKQCf/rG4spAu8vWW6POSDMY+RE8O7R9EjJxK1TRE22W9CviSHCV+QtMKOo5shwj
-         OL+Fo1gn79X0tZaUV0QKG83KqrevQVaOXMnsWypRRy+FUNNzZRBY/mqgaE9JXii/iODa
-         lW/jmdQTgSrNADmSxCCJD5U+aNBNCOSBd1qDTXj49O12C311koQr92NfznSBcgrhL4dI
-         stR0bZsJkm9q5z5ZvQWU7S9sWoYw5rQ3ZZxftj7MOcotF48pjqKN7HZp9PbsSPAN2C6N
-         /fsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771963363; x=1772568163;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=h8ypFviecW63cpAMAxl5bQgu3NIwtmHQtlqFI2KPQOg=;
-        b=HamjOJEUxZIjz70iWfyQctVkOCEZDnax2M0miaU+NuNUm8SR9R4nqSABaAbvkh9yeJ
-         t9Hb5GmkCOFg9P1BXD9lxKkVTC5B6ZuZNs+5lrROYvy7kCaAqnXZcUYWUfavUjxgOPyS
-         90TLIEnXG5GJESjgT96nnV4VA1rRYm2aTVzhsTdtG3Prh/bUInbuxXvUB961cAeKu1wT
-         3W6ieyKFxPo7OHfSODt6LvYcmtYJfNNt+4ZBElNkA/Mjkd/03nS5TTC8zFpj7At1QV4K
-         zSTdVcJN22lW5/toeqqsK6/SPgVbDHTzKLUiYD7YeFVEjtdCY4mcxbz62AhqzCsV6U75
-         USQA==
-X-Forwarded-Encrypted: i=1; AJvYcCWS9UzeYYu2i9oBaFC4YyS4lZStWnjPGV+C18IpR6kRr1IKFyObpfj7hLNlO1PL8d4VbP4CRkpFkj0J2Lq9pA==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yxa0p7ZR/qUZx0cBHvQHAuaX2HsC29PzDepPzmussbqYiWuaeS2
-	xtHvxKpgoJ0TOl7ae8LUoVXSUgCWpV3O+TFVeadFDSTKzaoBxiirreILMc4ntOwV2nzG2bzOzk5
-	3nrgMp9bQqSj8yOp73AXaxI6MMkZRiy3pjigWTHqgT4NMnSNID5TiHjggfRSGOOsGML3I
-X-Gm-Gg: AZuq6aKSUTD7VdkK79wWK7u/oYZhdHXBrybmK2D2mOBv6MT3tFQAuYmqWKODvDRf4KJ
-	DKYI+jxxMnIQjk037j/hhRY3wjh05/enHYqlFRUIkbQP3Ht/6ID1sCOFbJNvn+q0SObnTBDNoCi
-	grOO8IWzfwH3saIBnp7V6OMzPTpV7l47unwzXe/Zjll4QBhcNYNkBQdOsOVReZn6KlgaK84JWOc
-	sHviOezftncRLZMNM/DrmxSWG0t20hu1doXoAZiufVZTauNxZ13w/kz4Q2rTEwDRjrcTFCq0aXk
-	9J6LWYr+eOjsriT/X0x/Qt69Vr/0vLgDE4S0cIS0mDR5oJ9DagUjj+R3jL+fIlpC9e6lAHKhoSV
-	1X4MGOQtSoXorAWLHpRTmL4QicKfAsEtGQeLuIikXn17OAAvWiUw/J3w=
-X-Received: by 2002:a05:6820:820:b0:672:7c0d:5602 with SMTP id 006d021491bc7-679c4276fd1mr7440897eaf.27.1771963362952;
-        Tue, 24 Feb 2026 12:02:42 -0800 (PST)
-X-Received: by 2002:a05:6820:820:b0:672:7c0d:5602 with SMTP id 006d021491bc7-679c4276fd1mr7440847eaf.27.1771963362110;
-        Tue, 24 Feb 2026 12:02:42 -0800 (PST)
-Received: from [10.224.242.57] ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-65eab9a077asm3874609a12.4.2026.02.24.12.02.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Feb 2026 12:02:40 -0800 (PST)
-Message-ID: <8f4ccb49-57f1-454a-a404-85035a2bb1a8@oss.qualcomm.com>
-Date: Tue, 24 Feb 2026 21:02:39 +0100
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="hvLGju3h"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KpqoXfg87UeyiWj2VPGAIA1kM3+mQJK4gJPMFIR73TT7TQNsdFf35+0l3XM2NP5pZeh5LBuYQ1HaJepANuiLcTa/bRe5AVCdC9qvEo/WpDYBcgv71sXMrRYlwYbYzNoejyQ7IS6eZ3Vl6uAEOZJNVy6fpZfcN2kY9viuQBxZgNrQ5G6GVGSlB3tHFnM5xmH669EfEuk8peGHzi6gJN18/vPaumCxsYlB1+Zk7tGRrTf1fAi6sHwTwMYOSkU9Du/pXD7zsTuCJ9xjvT2MRPnb32nQ0Hpw208vr2gV/+Sh8zXV7VBuouhVZwMAb/lcGtQ7eelQhFPQxRPp7oT8UBIp/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=n3Gu2PhS1cZ0MsxA7D9wASOdUKJhwfWVs7mf1v9p9FI=;
+ b=pPeBRJQJGBmyyE+v6WKpp5hraUrKuUjerDlT4Lm6QVU9nw6fnw0Nk78YyzkZXecAhyvjkoXzWkvjNdtHNqRwFZRad19+lkMCx2Xvibdp2UhTZdMOwQAJKZ9LokOF1ZSqApxWqDajr2Z3ykFrIr4rMg8ewM03m3dBVPiOBitWSWXetgE63sY1vxaPROeF8ooqMqhubXlBdCZtihdkuHQo5zWS0FposLZTZJyH7YIsuiPxpi7f1twQvrQAU3JWtfgjSEXij+XJ/ysWv5GYal863usRCT0MJBe1LyRLg/9iZ4ebPKP+Mz8OubRoGkWrfRfoEcg2RMfdtZ2NdkEhq0iWvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=n3Gu2PhS1cZ0MsxA7D9wASOdUKJhwfWVs7mf1v9p9FI=;
+ b=hvLGju3hJw5LwigCYuJxrbLyi2JFXib9uQbr41r5boxd5WMXXyl9i3zRlwHLYyYT8WsvEt+/YepSb29Wm2Tad7piYLRIVYhN+u0SsTKoryJEa8cwiOTAeQrTtyLBe9RPIjnHvfd+Vpcls8bh/xhWGDHZgdeKE6dlpUWaM/yvdPgeBF0DUCaas5wtebwyVDfcEUlyUMMoG+5rLn6yjocY1oG5ECZCbJ6eAwNA20qq0CCHDTyY3mWTVkBehRMSxukcpfIQZ4uFkHZVMvB0fAadZDCfx+HeNuKGr4qkQokxWPoSgR2PX8NJf5SohtkWEV8zUMNCS2aVwIVplf/EXsHM4w==
+Received: from SJ2PR12MB8717.namprd12.prod.outlook.com (2603:10b6:a03:53d::12)
+ by PH7PR12MB9073.namprd12.prod.outlook.com (2603:10b6:510:2eb::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.22; Wed, 25 Feb
+ 2026 04:58:46 +0000
+Received: from SJ0PR12MB6806.namprd12.prod.outlook.com (2603:10b6:a03:478::7)
+ by SJ2PR12MB8717.namprd12.prod.outlook.com (2603:10b6:a03:53d::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.22; Wed, 25 Feb
+ 2026 04:58:44 +0000
+Received: from SJ0PR12MB6806.namprd12.prod.outlook.com
+ ([fe80::3981:4d43:82f5:adf6]) by SJ0PR12MB6806.namprd12.prod.outlook.com
+ ([fe80::3981:4d43:82f5:adf6%6]) with mapi id 15.20.9632.010; Wed, 25 Feb 2026
+ 04:58:44 +0000
+From: Parav Pandit <parav@nvidia.com>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+CC: "Bill Mills (bill.mills@linaro.org)" <bill.mills@linaro.org>,
+	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, "Edgar E .
+ Iglesias" <edgar.iglesias@amd.com>, Arnaud Pouliquen
+	<arnaud.pouliquen@foss.st.com>, Viresh Kumar <viresh.kumar@linaro.org>, Alex
+ Bennee <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>
+Subject: RE: [PATCH v1 0/4] virtio-msg transport layer
+Thread-Topic: [PATCH v1 0/4] virtio-msg transport layer
+Thread-Index: AQHcjuFu3dyU46FhXkWSoPS8nyUxT7WAvzgggAqsJgCAB5P7YA==
+Date: Wed, 25 Feb 2026 04:58:44 +0000
+Message-ID:
+ <SJ0PR12MB68067A563A18F69033F32448DC75A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+References: <20260126163230.1122685-1-bill.mills@linaro.org>
+ <SJ0PR12MB680610C1B53CA4E8B4470411DC61A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <478DE38A-8581-4113-9467-227DA3E0D134@arm.com>
+In-Reply-To: <478DE38A-8581-4113-9467-227DA3E0D134@arm.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic:
+ SJ0PR12MB6806:EE_|SJ2PR12MB8717:EE_|PH7PR12MB9073:EE_
+x-ms-office365-filtering-correlation-id: ac57d87b-e325-45d4-333e-08de742a8d63
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|366016|1800799024|38070700021|7142099003;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?222IBJu1b5+TpgKnaav2rE6w3iVJhmYn2E7j/d8LXQxYOm2W1Sdh+gzOJPyW?=
+ =?us-ascii?Q?SjMrxaJLmpLSDJRQYyE+gdOf7rwsJekgSUeUbe5R6mwUJ/oEJ8Ypn+LolAwY?=
+ =?us-ascii?Q?MAUwLLelVhNXAxXpM3DI74amyGcwclN+kmj350UuB40mrLgfHlxF3tHXwXfo?=
+ =?us-ascii?Q?xXJbyL6S8eUGur4jZfeMbtshaF7ioFB+PFjDKWWaVdIDIjap4ZeqTwf9E5EX?=
+ =?us-ascii?Q?928AocYzhptx60jhgqJG7jJpPhyKKka+w2ObjvUP0AzVZIrkcduOhFquwkFa?=
+ =?us-ascii?Q?LkR5179UyXeKlVfDAdwPtQHZvoIG6aHx8CaZ8h1gmRD8ICiQlkfs8FA0BnAk?=
+ =?us-ascii?Q?Fb5O2Mfm0tpdRm0AqhR10VyUQXj6BxhG1KTakKGCVL72GaE1q3KVYpGuWgFX?=
+ =?us-ascii?Q?CTi7Nf/O+iDb3EJcySeQNR9se6FkZRtkop5hLZw7hQi1I9rjGjHA+scs83F2?=
+ =?us-ascii?Q?U70Oj5p8YGSuUtA5fHxBgcjyyZYLTpFbam/JcG3ZxSiJjKo9xVSnmEg5R/ph?=
+ =?us-ascii?Q?GsuxUlTgxPhH0YRoEDaS/tw8k58sSJ5iYSNydD7Wi/fYUSsn8tIKN6N/JoNF?=
+ =?us-ascii?Q?tg3/6prp6nMJ+Rw/+FY4MSAiNcnQ6RdlS0sDj5p83FfIchL/6i/tYVRLQW7I?=
+ =?us-ascii?Q?edmH30MBuYTDwNYHRLvLlkWK+8CLc22poJuYoQu0PFDXMZjohlCbakUgjd8c?=
+ =?us-ascii?Q?Q7XfhelIhWUAX+kYv7g8qr4FL3qPI6Kc83HiAkTTcxXWyPPBLBOb0fcKsxu9?=
+ =?us-ascii?Q?MucdhcFIzkQbb6ldgKFQy1CW5gOiHxF+WOm+6mrne+vwsTQHSujdefjlx4Je?=
+ =?us-ascii?Q?wdXDmu7s/w7QOb12BEKMVOW7mzRCIBbsAlJi1Ck7hTn5Yr/zmfOSKwD7EclM?=
+ =?us-ascii?Q?8p3+OIf3F9T5CM78Dapz35h0nseG/P98BCxuTXcQLS86AGOhyRbNaxbKE48w?=
+ =?us-ascii?Q?kIUXl1uDe3qsorWNiZ0OS/sd+M4dk4Eld+yaZ7pMa47Fe8r5fkur/ppkR0rm?=
+ =?us-ascii?Q?lftLuB8wihxeZBDGDB4GuTEoOVhvB8djQCJJKnNjz9yrAbRHcZeCJ0VZQm5N?=
+ =?us-ascii?Q?rnQWEHoW604JOEPzbuqIR7kcgnUAdfkY7loj4rJKDGXMWyd7ArV7SPl4xjrD?=
+ =?us-ascii?Q?D9ng6YrGqqr8dRFu8y5NL3ZZVyICuVmrc+UmwPLaLqAZXUG2Oxowz2PN3v4L?=
+ =?us-ascii?Q?T1nhyzbXaNiYRpBKDHHFgOZ2RvZXbdKFFoTSE34P6RHsRv61XesAnSZRFoLM?=
+ =?us-ascii?Q?T1O+Mi/DZYGCXC6iMHJK2d2lt3pqIOfmR4S5z+PRm3MkVRYZaLbVFyXy+jyF?=
+ =?us-ascii?Q?3T8eqDTNX68z3SHj7HMIE/+gf0luPAeytQRfuDGGO/0Ou+kOie/ytZjCw+XL?=
+ =?us-ascii?Q?NVSyzhhqECwbeBmUYgW+8eKNMETNTNZEgRv/YTiRpf0huWrEM40Z7Ez++xHX?=
+ =?us-ascii?Q?sGsjadtArDVhOdl5ElrHmy1yLI1cweNmLjtJNmL50ZXjWt3oo9AomqdFDp7L?=
+ =?us-ascii?Q?IKsgofLENFMN1wZIHmWmX1gmwKA8nRxzKnMdQzuHuh+OXkB/2UbCTWMG3mGS?=
+ =?us-ascii?Q?mIrAI44WXwDodwTEcV4mVjDjQUSAH+qLNRz20F0B3Yh2lt6uW1lVZc0mHVp0?=
+ =?us-ascii?Q?F3kQupzkyVSjSQX88mBluNA=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8717.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(7142099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?zCieXCELIFFNrB9UHY+FCPqsdz/r6O2JYHFF+U40R1A17MnDAxOf9jgf7l7N?=
+ =?us-ascii?Q?to5YIijSxeMAt3zubsV/qOfrlvBPZPfABmpT7NqmZCWR12Hjh0/gLBG+FEtj?=
+ =?us-ascii?Q?h+T1CANUaQl8YNs0WPTcni/TXmbO8ve83Qp5zdFmbCcHY76NDK2BRsVF/a0a?=
+ =?us-ascii?Q?5dbdjJOsnWv3w0DldPefJALMO+LP6Z+ndYs2BRMX9e3BE+Ph7FkfP3rEu/Bn?=
+ =?us-ascii?Q?0lJUdK4CEaJ02c4zTytOyXnkv12T17iwdY1iOSQqsjlvi/ETqsPR31pD8XtF?=
+ =?us-ascii?Q?m6c6SB2gmqYGH5xQhK0nh+VRMTDoox+aBo14Ynt+YfaEWALj+zb1O6m3BBj3?=
+ =?us-ascii?Q?hS3+1MgFpoERk59zhY+nygY3omQJRoAL67Bw64yxsV5coYqdyJKOR1m5sOuh?=
+ =?us-ascii?Q?7sw9j+rB9hVc5IW5Ssgirk7uZkbbLH8DNO326PGWcSIAXBmJTIH+Efdp+Ohl?=
+ =?us-ascii?Q?atLcZJgW+yg/q+ugjnXseENuOWTUHY/uhXj2tpQZ7XlBSZAOo3qpIE5cuQIp?=
+ =?us-ascii?Q?+wWMM6LjDHx3ZUpXxfnNXIEf7FGxFVcF4rxBmR5N96X8LCPZ4INjK5uKGq6r?=
+ =?us-ascii?Q?q3KfLffqCT1kZ/QD8FVJQjtrEhEY+nX1ICs7ilHzqvU7RydpzAWBkKYa8jnT?=
+ =?us-ascii?Q?Oa5f+XN6uP5Pt18gBO4USPlgVF0LaLFwhAdDEHmhjYI5nhRQeUwiux3ViA10?=
+ =?us-ascii?Q?r1o4AeB879zoDT880gKNNopH+go5eyLAoNFplg5TF8YBQa2t3GR2PIGI51gD?=
+ =?us-ascii?Q?vu9WPfHbFYow66mL9kWAhr6QZtChSxTGHGuLFzNrg4ydF6zPTtHpdesUYRo5?=
+ =?us-ascii?Q?BfTFSwP5J8SKpaYr0HUJ0zzicRidG8BKt26Qi1+SJYfgf7BpjglXzAXW3wt/?=
+ =?us-ascii?Q?KZ40EIHj7tmmSR/Z2u9473lB2oUV4PZaNLJ4AuJqCLtFBzZjwx+u6HCpK8iM?=
+ =?us-ascii?Q?qsHdct6NhrBc5uK01aAU5nWYFp6L5QcSc73YsXJxvNmLwVFTkb6nx9CO+fGG?=
+ =?us-ascii?Q?mTdCbZxWzqk3LY1DVCx+ypKACImJcVTlvQA4NdfgkoSl7yXlfhbs5+42XkWS?=
+ =?us-ascii?Q?qMaygp9l3GE/VdC9yzHevvk9N+bEujmTZ0q2QYdvid+VEu+kcC5MTsdI7h5s?=
+ =?us-ascii?Q?GuixxREaN0tnBrOHOR8r6VFy4EkMO2JAelyBJGkjj87xWFNwN1cmCqpQceI4?=
+ =?us-ascii?Q?0DVZFfPxH19GOeZ0WAfVf3MsmNVH1gTFoswCCvaU5YVd3OlrEqczFj1n1Ihe?=
+ =?us-ascii?Q?eCFNtxRb8oUnOl/1Y6FeQiHqFtwsShRRrF1/fpdK5LLGuxw00PsziD01sPUr?=
+ =?us-ascii?Q?DVTieN8JYk/w/kAbep3sgl7KHf4Ek7IO5mmWvjJAWSZUQDF91usj8N6Jtp7B?=
+ =?us-ascii?Q?nONcJGV52KM6v6sUA44cqH0fNXtT2GfPHNO8LqZShep4RuNfuekjNHmb37lZ?=
+ =?us-ascii?Q?99kmv7Hq0rXlR4AazSAE0FfbdYvfw4JycsyJYBstzDPxhjm9geg1jPTWoU5j?=
+ =?us-ascii?Q?7dG7YHEGgsc5HnLQjoRzPzzRLAw815B12NSoXVItDm3w9P+4M51oqprwBlLY?=
+ =?us-ascii?Q?smxCEPjTogILSVKVE7n2ezrJDmd7VnZoJdLhga0KhJNHVZiP677/T+0g+cCN?=
+ =?us-ascii?Q?+CLDoqTBP23yBgfzh7JlKVWjk02NrLTI6iYmNAhKG8YxYtXEX/sHhl4TVY8j?=
+ =?us-ascii?Q?Tjr7JlRozuPSCr+1T6irrRfC9Rbf1LeA40xx7M7GejaP3GiN?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 1/1] virtio-video: Add virtio video device
- specification
-To: Parav Pandit <parav@nvidia.com>,
-        "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
-Cc: Albert Esteve <aesteve@redhat.com>,
-        =?UTF-8?Q?Alex_Benn=C3=A9e?=
- <alex.bennee@linaro.org>,
-        Cornelia Huck <cohuck@redhat.com>,
-        Daniel Almeida <daniel.almeida@collabora.com>,
-        Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-        Enric Balletbo i Serra <eballetb@redhat.com>,
-        Kieran Bingham <kieran.bingham@ideasonboard.com>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        "Michael S . Tsirkin" <mst@redhat.com>,
-        Peter Griffin <peter.griffin@linaro.org>,
-        Demi Marie Obenour <demiobenour@gmail.com>,
-        Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
-        Matias Ezequiel Vara Larsen <mvaralar@redhat.com>,
-        Trilok Soni <tsoni@quicinc.com>, Matti Moell <matti@qti.qualcomm.com>,
-        "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-References: <20260213085306.313348-1-alexander.gordeev@oss.qualcomm.com>
- <20260213085306.313348-2-alexander.gordeev@oss.qualcomm.com>
- <SJ0PR12MB680603C30AB26E93ECB27E2FDC6FA@SJ0PR12MB6806.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Alexander Gordeev <alexander.gordeev@oss.qualcomm.com>
-In-Reply-To: <SJ0PR12MB680603C30AB26E93ECB27E2FDC6FA@SJ0PR12MB6806.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjI0MDE3MiBTYWx0ZWRfXw6/vwMMqvt4x
- eSD2dlC4OODDfKXMdbm65nEevFZOYIWXQaHANttZYBu6k10UL24n1hJLFHQcAypsjgnDS3M8WFm
- Ob4NBA0MsWsMsDxVAsv7WO0AswLnOOUhPX9XOIhBf/dD+1ZsmsDjRTm0ufU8309pFQi4U7l0c1A
- ZmiVh/4eEgbhZgJ0K+s72htF6j/29Qpqx1neBxPqP/0QrYba+XVnpENhrmHFyjCQwZLMyCO9DHk
- chZrBL2wglsi5mRja6R0RXefzD3DT8qgv2Kt9M4wDTNGasYYvxaDuNSUopn6Sw1MHaTFRk0izbP
- zVblluxGxsuycf2vmGZg+7u+erx82JRJAhY7H063lbbIPYZ3IwAUFhFRxMp2ihoF0BHdwER84sD
- EICbm6jojb2pXoMw/HtxHtUVacqftr5D+kgVozdzSV/boS3CiIsIhyutvVLHpr3cdEMf99La71+
- 73civ7KOyrsEqaO4kwg==
-X-Proofpoint-GUID: HaRJPhvGNkaJmxTRfjL30qtvQ5iUEZ5k
-X-Proofpoint-ORIG-GUID: HaRJPhvGNkaJmxTRfjL30qtvQ5iUEZ5k
-X-Authority-Analysis: v=2.4 cv=NeDrFmD4 c=1 sm=1 tr=0 ts=699e03e4 cx=c_pps
- a=wURt19dY5n+H4uQbQt9s7g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=IkcTkHD0fZMA:10 a=HzLeVaNsDn8A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=bs-e4Z8cAAAA:8 a=8-l3GZ-Fe_HqYeuz0IwA:9 a=QEXdDO2ut3YA:10
- a=-UhsvdU3ccFDOXFxFb4l:22 a=YFpLQiK6rFjqGb8m0bXF:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-02-24_02,2026-02-23_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 adultscore=0 spamscore=0 priorityscore=1501
- suspectscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2602240172
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6806.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac57d87b-e325-45d4-333e-08de742a8d63
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Feb 2026 04:58:44.2672
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: cVT7dD7uTiH6GLEop3KyRo0oLYZpWSLnvB7BZL8lGLHNz0tk1kMzk08dI1+6b3xKEvNld9psUAXmsxbqINt82w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9073
 
-On 15/02/2026 11:49, Parav Pandit wrote:
-> 
->> From: Alexander Gordeev <alexander.gordeev@oss.qualcomm.com>
->> Sent: 13 February 2026 02:23 PM
->>
->> From: Alexander Gordeev <Alexander.Gordeev@opensynergy.com>
->>
->> Add the specification of the video decoder and encoder device, which
->> can be used to provide host-accelerated video operations to the guest.
->>
->> Signed-off-by: Alexander Gordeev <alexander.gordeev@opensynergy.com>
->> ---
->>  conformance.tex                           |   12 +-
->>  content.tex                               |    1 +
->>  device-types/video/description.tex        | 1592 +++++++++++++++++++++
->>  device-types/video/device-conformance.tex |   22 +
->>  device-types/video/driver-conformance.tex |   20 +
->>  introduction.tex                          |   21 +
->>  6 files changed, 1664 insertions(+), 4 deletions(-)
->>  create mode 100644 device-types/video/description.tex
->>  create mode 100644 device-types/video/device-conformance.tex
->>  create mode 100644 device-types/video/driver-conformance.tex
->>
->> diff --git a/conformance.tex b/conformance.tex
->> index 9af31e2..f34e600 100644
->> --- a/conformance.tex
->> +++ b/conformance.tex
->> @@ -37,8 +37,9 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->>  \ref{sec:Conformance / Driver Conformance / PMEM Driver Conformance},
->>  \ref{sec:Conformance / Driver Conformance / CAN Driver Conformance},
->>  \ref{sec:Conformance / Driver Conformance / SPI Controller Driver Conformance},
->> -\ref{sec:Conformance / Driver Conformance / Media Driver Conformance} or
->> -\ref{sec:Conformance / Driver Conformance / RTC Driver Conformance}.
->> +\ref{sec:Conformance / Driver Conformance / Media Driver Conformance},
->> +\ref{sec:Conformance / Driver Conformance / RTC Driver Conformance} or
->> +\ref{sec:Conformance / Driver Conformance / Video Driver Conformance}.
->>
->>      \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
->>    \end{itemize}
->> @@ -68,8 +69,9 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->>  \ref{sec:Conformance / Device Conformance / PMEM Device Conformance},
->>  \ref{sec:Conformance / Device Conformance / CAN Device Conformance},
->>  \ref{sec:Conformance / Device Conformance / SPI Controller Device Conformance},
->> -\ref{sec:Conformance / Device Conformance / Media Device Conformance} or
->> -\ref{sec:Conformance / Device Conformance / RTC Device Conformance}.
->> +\ref{sec:Conformance / Device Conformance / Media Device Conformance},
->> +\ref{sec:Conformance / Device Conformance / RTC Device Conformance} or
->> +\ref{sec:Conformance / Device Conformance / Video Device Conformance}.
->>
->>      \item Clause \ref{sec:Conformance / Legacy Interface: Transitional Device and Transitional Driver Conformance}.
->>    \end{itemize}
->> @@ -170,6 +172,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->>  \input{device-types/spi/driver-conformance.tex}
->>  \input{device-types/media/driver-conformance.tex}
->>  \input{device-types/rtc/driver-conformance.tex}
->> +\input{device-types/video/driver-conformance.tex}
->>
->>  \conformance{\section}{Device Conformance}\label{sec:Conformance / Device Conformance}
->>
->> @@ -264,6 +267,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
->>  \input{device-types/spi/device-conformance.tex}
->>  \input{device-types/media/device-conformance.tex}
->>  \input{device-types/rtc/device-conformance.tex}
->> +\input{device-types/video/device-conformance.tex}
->>
->>  \conformance{\section}{Legacy Interface: Transitional Device and Transitional Driver Conformance}\label{sec:Conformance / Legacy
->> Interface: Transitional Device and Transitional Driver Conformance}
->>  A conformant implementation MUST be either transitional or
->> diff --git a/content.tex b/content.tex
->> index 5de811f..0c13f68 100644
->> --- a/content.tex
->> +++ b/content.tex
->> @@ -835,6 +835,7 @@ \chapter{Device Types}\label{sec:Device Types}
->>  \input{device-types/spi/description.tex}
->>  \input{device-types/media/description.tex}
->>  \input{device-types/rtc/description.tex}
->> +\input{device-types/video/description.tex}
->>
->>  \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
->>
->> diff --git a/device-types/video/description.tex b/device-types/video/description.tex
->> new file mode 100644
->> index 0000000..8945e26
->> --- /dev/null
->> +++ b/device-types/video/description.tex
->> @@ -0,0 +1,1592 @@
->> +\section{Video Device}
->> +\label{sec:Device Types / Video Device}
->> +
->> +The virtio video device provides support for host-accelerated video encoding
->> +and decoding.
->> +
->> +\subsection{Device ID}
->> +\label{sec:Device Types / Video Device / Device ID}
->> +
->> +50
->> +
->> +\subsection{Virtqueues}
->> +\label{sec:Device Types / Video Device / Virtqueues}
->> +
->> +\begin{description}
->> +      \item[0]
->> +            commandq - driver commands
->> +      \item[1]
->> +            eventq - device async responses to commands and standalone device events
->> +\end{description}
->> +
->> +\subsection{Feature bits}
->> +\label{sec:Device Types / Video Device / Feature bits}
->> +
->> +\begin{description}
->> +      \item[VIRTIO_VIDEO_F_ENCODER (0)]
->> +            The device can encode video.
->> +      \item[VIRTIO_VIDEO_F_DECODER (1)]
->> +            The device can decode video.
->> +            % Use-case: the device can support both encoding and decoding, so having both
->> +            % here can save resources.
->> +      \item[VIRTIO_VIDEO_F_RESOURCE_GUEST_PAGES (2)]
->> +            Guest pages can be used as the backing memory of resources.
->> +      \item[VIRTIO_VIDEO_F_RESOURCE_NON_CONTIG (3)]
->> +            The device can use non-contiguous guest memory as the backing memory of
->> +            resources. Only meaningful if VIRTIO_VIDEO_F_RESOURCE_GUEST_PAGES is also
->> +            set.
->> +      \item[VIRTIO_VIDEO_F_RESOURCE_VIRTIO_OBJECT (4)]
->> +            Objects exported by another virtio device can be used as the backing memory
->> +            of resources.
->> +      \item[VIRTIO_VIDEO_F_V4L2_COMPATIBLE_LAST_BUFFER (5)]
->> +            The device releases an extra empty output buffer after a drain or DPC so that
->> +            the driver can send a buffer with V4L2_BUF_FLAG_LAST set in the V4L2 way.
-> This does not seem relavant to the video device.
-> It should not be attached to any V4L2 implementation.
-> Can you please craft it differently?
 
-Hmm, do you mean renaming the feature?
-The thing is that V4L2 driver is sitting on top in many cases and V4L2 needs an extra output buffer to pass the DPC/EOS events. But this may be not necessary in other implementations (e.g. Windows). So this feature helps here. V4L2 is mentioned in many places here and also some definitions are borrowed/referenced from it. It was agreed during the draft v6 review that this is ok in general. So I'm not sure what do you want me to do here.
+> From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+> Sent: 20 February 2026 02:10 PM
+>=20
+> Hi Parav,
+>=20
+> > On 13 Feb 2026, at 14:52, Parav Pandit <parav@nvidia.com> wrote:
+> >
+> > Hi Bill,
+> >
+> >> From: Bill Mills <bill.mills@linaro.org>
+> >> Sent: 26 January 2026 10:02 PM
+> >>
+> >> This series adds the virtio-msg transport layer.
+> >>
+> >> The individuals and organizations involved in this effort have had dif=
+ficulty in
+> >> using the existing virtio-transports in various situations and desire =
+to add one
+> >> more transport that performs its transport layer operations by sending=
+ and
+> >> receiving messages.
+> >>
+> >> Implementations of virtio-msg will normally be done in multiple layers=
+:
+> >> * common / device level
+> >> * bus level
+> >>
+> >> The common / device level defines the messages exchanged between the d=
+river
+> >> and a device. This common part should lead to a common driver holding =
+most
+> >> of the virtio specifics and can be shared by all virtio-msg bus implem=
+entations.
+> >> The kernel implementation in [3] shows this separation. As with other =
+transport
+> >> layers, virtio-msg should not require modifications to existing virtio=
+ device
+> >> implementations (virtio-net, virtio-blk etc). The common / device leve=
+l is the
+> >> main focus of this version of the patch series.
+> >>
+> >> The virtio-msg bus level implements the normal things a bus defines
+> >> (enumeration, dma operations, etc) but also implements the message sen=
+d and
+> >> receive operations. A number of bus implementations are envisioned,
+> >> some of which will be reusable and general purpose. Other bus implemen=
+tations
+> >> might be unique to a given situation, for example only used by a PCIe =
+card
+> >> and its driver.
+> >>
+> >> The standard bus messages are an effort to avoid different bus impleme=
+ntations
+> >> doing the same thing in different ways for no good reason. However the
+> >> different environments will require different things. Instead of tryin=
+g to
+> >> anticipate all needs and provide something very abstract, we think
+> >> implementation specific messages will be needed at the bus level. Over=
+ time,
+> >> if we see similar messages across multiple bus implementations, we wil=
+l move to
+> >> standardize a bus level message for that.
+> >>
+> >
+> > I would review more, had first round of sparse review.
+> > Please find few comments/questions below.
+> >
+> > 1. device number should be 32-bit in struct virtio_msg_header.
+> > From SIOV_R2 experiences, we learnt that some uses have use case for mo=
+re than 64k devices.
+> > Also mapping PCI BDF wont be enough in 16-bits considering domain field=
+.
+>=20
+> That is a very interesting feedback, we will definitely take this into ac=
+count.
+> We will have to decide how big and I will answer that in Demi's mail as t=
+here might be some drawbacks with
+> having very big sizes for the device ID.
+>
+I am slowly catching up on the thread.
+There are two types of device id needed.
+One is UUID style to uniquely identify the device that may show up using tw=
+o transports to the driver.
+With that a driver can create single virtio_device object, which is reachab=
+le via two different transports.
+This offers performance, resiliency.
+This is likely a bigger string which is not efficient to use during every m=
+essage transaction.
 
->> +\end{description}
->> +
->> +\devicenormative{\subsubsection}{Feature bits}{Device Types / Video Device / Feature bits}
->> +
->> +The device MUST set at least one of VIRTIO_VIDEO_F_ENCODER or VIRTIO_VIDEO_F_DECODER.
->> +
->> +The device MUST set at least one of VIRTIO_VIDEO_F_RESOURCE_GUEST_PAGES or
->> +VIRTIO_VIDEO_F_RESOURCE_VIRTIO_OBJECT, since the absence of both bits would
->> +mean that no memory can be used at all for resources.
->> +
->> +The device MUST NOT set VIRTIO_VIDEO_F_RESOURCE_NON_CONTIG unless it also sets
->> +VIRTIO_VIDEO_F_RESOURCE_GUEST_PAGES.
->> +
->> +\drivernormative{\subsubsection}{Feature bits}{Device Types / Video Device / Feature bits}
->> +
->> +The driver MUST negotiate at least one of the VIRTIO_VIDEO_F_ENCODER and
->> +VIRTIO_VIDEO_F_DECODER features.
->> +
->> +The driver MUST negotiate at least one of the
->> +VIRTIO_VIDEO_F_RESOURCE_GUEST_PAGES and VIRTIO_VIDEO_F_RESOURCE_VIRTIO_OBJECT
->> +features.
->> +
-> You wouldn't need virtio_object feature bit. It should be covered using the capability.
+Second one is: within a transport, a device id to identify the communicatio=
+n.
+I was referring to this device id to be u32, so that transport can support =
+more than 64K devices.
 
-Well, Michael says it is ok 
 
->> +If VIRTIO_VIDEO_F_RESOURCE_GUEST_PAGES has been negotiated, but not
->> +VIRTIO_VIDEO_F_RESOURCE_NON_CONTIG, the driver MUST use physically
->> +contiguous memory for all the buffers it allocates.
->> +
->> +\subsection{Device configuration layout}
->> +\label{sec:Device Types / Video Device / Device configuration layout}
->> +
->> +The video device configuration space uses the following layout:
->> +
->> +\begin{lstlisting}
->> +struct virtio_video_config {
->> +        le32 max_streams;
->> +        le32 caps_length;
->> +};
->> +\end{lstlisting}
->> +
->> +\begin{description}
->> +      \item[\field{max_streams}]
->> +            is the maximum number of concurrent streams the device supports.
->> +      \item[\field{caps_length}]
->> +            is the minimum length in bytes that a device-writable buffer must have
->> +            in order to receive the response to VIRTIO_VIDEO_CMD_DEVICE_QUERY_CAPS, see
->> +            \ref{sec:Device Types / Video Device / Device Operation / Device Operation: Device Commands / QUERY CAPS}.
->> +\end{description}
->> +
->> +\devicenormative{\subsubsection}{Device configuration layout}{Device Types / Video Device / Device configuration layout}
->> +
->> +\field{max_streams} MUST be positive.
->> +
->> +\field{caps_length} MUST be set to the response size of
->> +VIRTIO_VIDEO_CMD_DEVICE_QUERY_CAPS.
->> +
-> This plumbing can be easily done using 'Device and driver capabilities' located in the 'Group administration commands'.
-> Please rework the patch to use the existing basic facility.
-> This can also possibly eliminate plumbing device specific command q.
-> More below.
+=20
+> In any case this point was raised by you, Peter and Demi and we will defi=
+nitely handle it in v2.
+>=20
+Ok.
 
-I'm still learning about capabilities and admin commands, so please correct me if I'm wrong.
-Here are some considerations:
-1. AFAIU capabilities and admin commands need an admin virtqueue. The latter depends on the VIRTIO_F_ADMIN_VQ feature. What if the device doesn't support it? Also it looks like the admin virtqueues are only defined and implemented in Virtio Over PCI at the moment, "reserved for future use" in Virtio Over MMIO and in Virtio Over Channel I/O and also not available in vhost-user. For us this makes admin queues unusable for now.
-2. The virtio capabilities that you mention seem to be about enabling and disabling certain functionality based on a bitmap, right? (Still looking into the flow filter example, which seems to be more complex.) The virtio-video caps are more like an attempt to represent a graph of dependencies between different coded and raw formats, resolutions, etc. For example there will normally be multiple TLVs with the same types (coded and raw sets) "linked" to each other. I'm not sure this maps well into the existing virtio capabilities.
-3. If this is really targeted towards SR-IOV maybe it is better to keep it this way. I mean we may need admin commands to create a virtio-video device per guest VM, so maybe using the same admin commands + some device-specific commands inside each device could be confusing. The nesting actually continues here, because virtio-video streams have shared buffers called "resources" (probably these should be renamed).
-4. Also I'm not sure how does it actually improve the spec/implementation.
+> >
+> > 2. msg_size of 16-bits for 64KB-8 bytes is too less for data transfer.
+> > For example, a TCP stream wants to send 64KB of data + payload, needs m=
+ore than 64KB data.
+> > Needs 32-bits.
+>=20
+> The point of the transport is not to transfer data, this should be done u=
+sing virtqueues.
+How comes virtqueues live outside of the transport?
+I don't understand this at all.
+Transport is supposed to transport the descriptors and data also _of_ the v=
+irtqueue.
 
->> +\subsection{Device Initialization}
->> +\label{sec:Device Types / Video Device / Device Initialization}
->> +\begin{enumerate}
->> +      \item
->> +            The driver reads the feature bits and negotiates the features it needs.
->> +      \item
->> +            The driver sets up the commandq and the eventq.
->> +      \item
->> +            The driver reads the \field{caps_length} field of the configuration
->> +            space, prepares a buffer of at least that size and sends the buffer on the
->> +            commandq with the VIRTIO_VIDEO_CMD_DEVICE_QUERY_CAPS command.
->> +      \item
->> +            The device sends a response over commandq to
->> +            VIRTIO_VIDEO_CMD_DEVICE_QUERY_CAPS via used descriptors provided with the
->> +            command.
->> +      \item
->> +            The driver receives the response from the device, and parses its capabilities.
->> +\end{enumerate}
->> +
->> +\subsection{Device Operation}
->> +\label{sec:Device Types / Video Device / Device Operation}
->> +
->> +The device supports opening and operating a number of parallel streams up to
->> +\field{max_streams}. Each stream has three internal device queues: mainqX,
->> +inputqX and outputqX, where X is the stream id. Each stream command has a
->> +field that dispatches the command to the specific internal queue.
->> +
-> If these queues are internal to the device it does not need exposure in the spec here. If they have a meaning to the driver,
-> Than keyword 'internal' should be dropped and rephased.
+For example you can see that proposal [1] is nearly complete that enables v=
+irtio msg layer over various transports.
+This includes control operations and data operations both.
+Patch-4 defines the control operations (similar to this proposal)
+Patch-5 defines the binding of data operation with the specific underlying =
+transports such as tcp, rdma etc.
 
-As Michael already assumed the implication is that within each queue commands are consumed in order. On top of this there are queue priorities: mainq has higher priority than inputq and outputq. This enables resetting inputq and outputq or setting parameters out of band.
+In your case, patch-5 would be for system specific bus such as FF-A or othe=
+rs that others have acked for.
+But it must be documented somewhere.
+=20
 
->> +% Use-case: there might be different real-time requirements for different
->> +% streams, so more virtqueues can be added in the future if necessary.
->> +% The internal queues don't change, the data formats don't change, only the
->> +% mapping of streams/internal queues to particular virtqueues changes.
->> +
->> +The mainqX is used to open a stream with VIRTIO_VIDEO_CMD_STREAM_OPEN,
->> +close a stream with VIRTIO_VIDEO_CMD_STREAM_CLOSE, reset inputqX or outputqX
->> +using VIRTIO_VIDEO_CMD_STREAM_QUEUE_RESET, set some of the stream parameters out
->> +of band with high priority with VIRTIO_VIDEO_CMD_STREAM_SET_PARAMS, unblock
->> +the outputqX with VIRTIO_VIDEO_CMD_STREAM_UNBLOCK if it gets blocked for
->> +format negotiation.
->> +
->> +The inputqX and outputqX are used to queue input or output resources using
->> +VIRTIO_VIDEO_CMD_STREAM_RESOURCE_QUEUE. Additionally inputqX is used to set input and
->> +output parameters using VIRTIO_VIDEO_CMD_STREAM_SET_PARAMS, to complete
->> +processing of all queued input resources and make the resulting output
->> +resources available to the driver using VIRTIO_VIDEO_CMD_STREAM_DRAIN.
->> +
->> +All the stream commands start async operations, return the results
->> +using async responses over eventq.
->> +The eventq is used by the device to send the device's async responses to
->> +stream commands and the device's standalone events.
->> +
->> +% This way eventq becomes the single source of truth about the device's state,
->> +% the driver doesn't have to tediously synchronize commandq's and eventq's
->> +% used queues the way it was necessary in the past (similarly to V4L2's DQBUF
->> +% and DQEVENT). One more benefit is that commandq is processed fast and
->> +% strictly in order, so commandq descriptors exhaustion should never happen in
->> +% practice.
->> +
-> Video device should be implementable without any V4L2 binding/description etc.
+[1] https://yhbt.net/lore/virtio-comment/20231023104647.290759-2-pizhenwei@=
+bytedance.com/
 
-Well, as I wrote above some V4L2 definitions are used anyway. It was agreed that this is fine and that we can have V4L2 headers as normative references during the v6 review.
-In this draft I decided to add some comments describing the reasons behind some design decisions because I keep forgetting them myself. I can edit this particular comment though of course.
+> Transport is only there to allow access to registers, features and config=
+uration, the main transfers are to
+> be done using virtqueues and i would not expect a network driver to use M=
+MIO registers to write network
+> packet payloads but to use virtqueues for that (as vsock or net is doing)=
+.
+>=20
+Very strange.
+If that is your intention, this transport thing must be renamed to control-=
+transport to succinctly indicate its objective is for 'control operation'.
 
->> +Parameters allow the driver to configure the stream including setting up the
->> +resources. Available parameters depend on the device type, see
->> +\ref{sec:Device Types / Video Device / Device capabilities and parameters}.
->> +
->> +A resource is a set of memory buffers that contain a unit of data that
->> +the device can process or produce. Most resources have only one buffer,
->> +raw frames using a multi-planar format can have several.
->> +Input resources are filled by the driver with compressed (coded) video data
->> +for a decoder and raw frames for an encoder, output resources are filled by
->> +the device as the result of processing the input resources with decoded raw
->> +frames for a decoder and compressed (encoded) data for an encoder.
->> +Resources from inputqX and outputqX are consumed independently, not in pairs.
->> +One input resource can result in zero to many produced output resources.
->> +A decoder device dequeues the output decoded frames in presentation order.
->> +An encoder device dequeues the output decoded frames in decoding order.
->> +The driver can reuse a queued resource after receiving a corresponding async
->> +response. Dequeued output resources can still be used by the device as
->> +reference frames, so the driver can't write to them.
->> +
->> +% TODO: maybe send the second RESOURCE_QUEUE async response, when the dequeued
->> +% output resource is not used by the device anymore and therefore becomes
->> +% writeable?
->> +
->> +The device can detect standalone stream-related events: errors and dynamic
->> +parameters changes that require intervention from the driver (e.g.
->> +reallocating backing memory of output resources to fit the new parameters).
->> +The events are signalled on the eventq, see
->> +\ref{sec:Device Types / Video Device / Device Operation / Device Operation: Standalone Events}.
->> +
->> +\devicenormative{\subsubsection}{Device Operation}{Device Types / Video Device / Device Operation}
->> +
->> +The device MUST set to zero all unused, disabled or padding bits in its
->> +responses.
->> +
->> +\subsubsection{Device Operation: Command Virtqueue}
->> +\label{sec:Device Types / Video Device / Device Operation / Device Operation: Command Virtqueue}
->> +
->> +This section lists the commands that can be sent by the driver to commandq.
->> +
->> +Different structures are used for each command and response. A command
->> +structure starts with the requested command code, defined as follows:
->> +
->> +\begin{lstlisting}
->> +/* Device */
->> +#define VIRTIO_VIDEO_CMD_DEVICE_QUERY_CAPS      0x100
->> +
->> +/* Stream */
->> +#define VIRTIO_VIDEO_CMD_STREAM_OPEN            0x200
->> +#define VIRTIO_VIDEO_CMD_STREAM_CLOSE           0x201
-> You can craft the stream using a existing basic facility of resource object.
-> Where each stream is just a resource object, that be queried or modified.
+> So the msg_size here is just to fit transport specific requests.
+>=20
+> >
+> > 3. BUS_MSG_EVENT_DEVICE to have symmetric name as ADDED and REMOVED (in=
+stead of READY)
+> > But more below.
+>=20
+> Good point, we will check that to make this coherent with other transport=
+s.
+>=20
+Ok.
+> >
+> > 4. I dont find the transport messages to read and write to the driver m=
+emory supplied in VIRTIO_MSG_SET_VQUEUE addresses to operate
+> the virtqueues.
+> > Dont we need VIRTIO_MEM_READ, VIRTIO_MEM_WRITE request and response?
+>=20
+> Equivalent of virtio_mem_read/write is provided by GET/SET CONFIG which a=
+llows you to access the configuration area.
+> So those are the equivalent of mem_read/write.
+> Does that answer your question ?
+>=20
+No. but I understood that what is proposed here is a partial proposal to ha=
+ve transport only for control operation.
+And data transfer implementation is undefined.
 
-Replied about the admin commands above.
+> > Also, the queue notification message is missing at bus level.
+>=20
+> Queue notifications are provided by event_avail and event_used messages.
+>
+This does not make sense either.
+The operations that related towards the virtqueues should be part of the vi=
+rtqueue operations.
 
->> +#define VIRTIO_VIDEO_CMD_STREAM_SET_PARAMS      0x202
->> +#define VIRTIO_VIDEO_CMD_STREAM_GET_PARAMS      0x203
->> +#define VIRTIO_VIDEO_CMD_STREAM_UNBLOCK         0x204
->> +#define VIRTIO_VIDEO_CMD_STREAM_DRAIN           0x205
->> +#define VIRTIO_VIDEO_CMD_STREAM_QUEUE_RESET     0x206
->> +#define VIRTIO_VIDEO_CMD_STREAM_RESOURCE_QUEUE  0x207
->> +\end{lstlisting}
->> +
->> +Stream commands start with a header:
->> +
->> +\begin{lstlisting}
->> +#define VIRTIO_VIDEO_QUEUE_TYPE_MAIN    0
->> +#define VIRTIO_VIDEO_QUEUE_TYPE_INPUT   1
->> +#define VIRTIO_VIDEO_QUEUE_TYPE_OUTPUT  2
->> +
->> +struct virtio_video_stream_cmd_header {
->> +        le32 type; /* One of VIRTIO_VIDEO_CMD_STREAM_* */
->> +        le32 stream_id;
->> +        le32 queue_type; /* One of VIRTIO_VIDEO_QUEUE_TYPE_* */
->> +        le32 async_response_cookie;
->> +};
->> +\end{lstlisting}
->> +
->> +\begin{description}
->> +      \item[\field{async_response_cookie}]
->> +            is an async response cookie provided by the driver, that allows
->> +            to relate an async response to the previously submitted command.
->> +\end{description}
->> +
->> +\subsubsection{Device Operation: Event Virtqueue}
->> +\label{sec:Device Types / Video Device / Device Operation / Device Operation: Event Virtqueue}
->> +
->> +The eventq is used by the device to send async responses to commands queued
->> +by the driver on commandq and standalone events. Stream errors and dynamic
->> +parameters changes are caused by changes in the device's state, not by
->> +commands, still they are delivered as responses to implicit
->> +VIRTIO_VIDEO_CMD_STREAM_CLOSE and VIRTIO_VIDEO_CMD_STREAM_SET_PARAMS,
->> +respectively.
->> +
->> +Events start with a header:
->> +
->> +\begin{lstlisting}
->> +#define VIRTIO_VIDEO_EVENT_FLAG_ERROR              (1 << 0)
->> +#define VIRTIO_VIDEO_EVENT_FLAG_STANDALONE         (1 << 1)
->> +#define VIRTIO_VIDEO_EVENT_FLAG_CANCELED           (1 << 2)
->> +#define VIRTIO_VIDEO_EVENT_FLAG_BLOCKED            (1 << 3)
->> +
->> +struct virtio_video_event_header {
->> +        le32 event_type; /* VIRTIO_VIDEO_CMD_STREAM_* */
->> +        le32 stream_id;
->> +        le32 async_response_cookie;
->> +        le32 event_flags; /* Bitmask of VIRTIO_VIDEO_EVENT_FLAG_* */
->> +};
->> +\end{lstlisting}
->> +
->> +\begin{description}
->> +      \item[\field{event_type}]
->> +            is the type of the event.
->> +      \item[\field{stream_id}]
->> +            is the ID of a valid stream.
->> +      \item[\field{async_response_cookie}]
->> +            is an async response cookie provided by the driver, that allows
->> +            to relate the event to a previously submitted command.
->> +      \item[\field{event_flags}]
->> +            is a bitmask of VIRTIO_VIDEO_EVENT_FLAG_* flags
->> +
->> +            \begin{description}
->> +                  \item[VIRTIO_VIDEO_EVENT_FLAG_ERROR]
->> +                        is set if the command finished with an error due to an
->> +                        invalid argument or for other reasons.
->> +                  \item[VIRTIO_VIDEO_EVENT_FLAG_STANDALONE]
->> +                        is set for standalone events, see
->> +                        \ref{sec:Device Types / Video Device / Device Operation / Device Operation: Standalone Events}.
->> +                  \item[VIRTIO_VIDEO_EVENT_FLAG_CANCELED]
->> +                        is set if the command has been canceled by another
->> +                        command, that has higher priority. Doesn't make sense
->> +                        for standalone events.
->> +                  \item[VIRTIO_VIDEO_EVENT_FLAG_BLOCKED]
->> +                        is set if the command triggered a block on the
->> +                        outputqX to allow output format negotiation.
->> +                        When the negotiation is finished the block has to be
->> +                        removed using VIRTIO_VIDEO_CMD_STREAM_UNBLOCK
->> +                        command, see
->> +                        \ref{sec:Device Types / Video Device / Device Operation / Device Operation: Stream commands / UNBLOCK}.
->> +            \end{description}
->> +\end{description}
->> +
->> +The particular data structure representing the event is selected according to
->> +the \field{event_type}.
->> +
->> +\drivernormative{\paragraph}{Device Operation: Event Virtqueue}{Device Types / Video Device / Device Operation / Device Operation:
->> Event Virtqueue}
->> +
->> +The driver MUST at any time have at least one descriptor with a used
->> +buffer large enough to contain a \field{struct virtio_video_event}
->> +queued on the eventq.
->> +
->> +The driver MUST NOT put device-readable descriptors into the eventq.
->> +
->> +The driver MUST account for the fact that the async responses to commands
->> +might come out-of-order (i.e. after other commands sent to the device),
->> +and that some of them can be cancelled.
->> +
->> +The driver SHOULD wait for an async response of command A, that caused
->> +cancellation of command B, before queueing the command B again.
->> +
->> +\subsubsection{Device Operation: TLV format}
->> +\label{sec:Device Types / Video Device / Device Operation / Device Operation: TLV format}
->> +
->> +VIRTIO_VIDEO_CMD_DEVICE_QUERY_CAPS and VIRTIO_VIDEO_CMD_STREAM_SET_PARAMS/
->> +VIRTIO_VIDEO_CMD_STREAM_GET_PARAMS
->> +commands represent device capabilities and corresponding device parameters
->> +in the form of TLV (Type-Length-Value):
->> +
->> +\begin{lstlisting}
->> +struct virtio_video_tlv {
->> +        le32 type;
->> +        le32 length;
->> +        u8 value[length];
->> +};
->> +\end{lstlisting}
->> +
-> All the caps can be crafted using existing capabilities infra. Please restructure the patch to use it.
+By not defining specific bus specific details, we don't seem to gain anythi=
+ng significant.
+So while transport message are good, it needs to cover virtqueue data excha=
+nges too as previously proposed in [1].
+=20
+> > But I dont think queue notification via message good idea anyway.
+>=20
+> As said in the spec, a bus can handle this using MSI or interrupts and ge=
+nerate the messages in the interface
+> between the bus and the transport. It is not an hard requirement to have =
+those done using messages transfered and
+> the bus can do what it wants, but it must inform the transport using a me=
+ssage.
+>=20
+> > We rather need a more higher-level message for virtqueues.
+> > Such as posting the descriptors to device. And this should translate in=
+to a VIRTIO_MSG_DESC_SEND or bus specific binding.
+> > Without this msg transport is incomplete.
+>=20
+> I am not completely understanding what you mean here, are your concerns c=
+overed by the event messages ?
+>=20
+We need transport messages agnostic of the transport like patch-4 in [1].
+And transport binding defined for each bus of fabric like [2].
+So that message interface can support [1] as well by only extending the vir=
+tqueue bindings.
 
-Replied above.
 
->> +\begin{description}
->> +      \item[\field{type}]
->> +            specifies the type of data in \field{value}.
->> +      \item[\field{length}]
->> +            specifies the \field{value} size in bytes aligned to 4 bytes.
->> +      \item[\field{value}]
->> +            contains the data according to the type.
->> +\end{description}
->> +
->> +The following TLV types are defined:
->> +
->> +\begin{lstlisting}
->> +#define VIRTIO_VIDEO_TLV_CODED_SET                1
->> +#define VIRTIO_VIDEO_TLV_RAW_SET                  2
->> +#define VIRTIO_VIDEO_TLV_LINK                     3
->> +#define VIRTIO_VIDEO_TLV_CODED_FORMAT             4
->> +#define VIRTIO_VIDEO_TLV_RAW_FORMAT               5
->> +#define VIRTIO_VIDEO_TLV_CODED_RESOURCES          6
->> +#define VIRTIO_VIDEO_TLV_RAW_RESOURCES            7
->> +#define VIRTIO_VIDEO_TLV_RESOURCE_GUEST_PAGES     8
->> +#define VIRTIO_VIDEO_TLV_RESOURCE_VIRTIO_OBJECT   9
->> +#define VIRTIO_VIDEO_TLV_CROP                     10
->> +#define VIRTIO_VIDEO_TLV_V4L2_CONTROLS            11
->> +\end{lstlisting}
->> +
-> You can use the 'flow filter' example of network device to see how to frame the individual or group of capabilities.
+> >
+> > 5. msg_id to be renamed to msg_opcode, and token to be renamed to msg_i=
+d as it identifies the msg (as written in the description) in
+>=20
+> We went back and forth on the naming, msg_id could be misunderstood as me=
+ssage opcode.
+> I guess we will have to find the best consensus here.
+>
+Ok.
+=20
+> >
+> > 6. Bus requirements ordering is too strict for implementing any perform=
+ant data path as data response may not be in same order as request
+> for reads.
+>=20
+> This was pointed out in an other mail and i agree here.
+> I will investigate how we could make this a feature bit which i think cou=
+ld be a good solution.
+>=20
+Ok.
+> >
+> > 7. VIRTIO_MSG_SET_VQUEUE does not have bit field for individual address=
+es.
+>=20
+> Set vqueue has an index to specify the virtqueue index but you have to sp=
+ecific all fields in one go that is true.
+> Do you need a solution where you could set some fields to a specific valu=
+e to say "keep current" and only update part of the vqueue
+> configuration ?
+>=20
+I believe so, otherwise it cannot work with existing drivers without driver=
+ side caching them.
 
-Checking it, thanks.
+> > This requires caching all the values on the driver side before sending =
+the transport request.
+> > I think it is time for virtio spec to shift to virt queue create and de=
+stroy model using the admin queue interface.
+> > and no need to bring this VIRTIO_MSG_SET_VQUEUE legacy to new transport=
+ bindings.
+> > It may require more plumbing, but it is cleaner interface when a new tr=
+ansport binding is created.
+>=20
+> Admin queue useable with the message transport but I would be interested =
+to understand exactly
+> the model you are referring to with create/destroy model.
+> Could you elaborate a bit so that i could understand what messages you wo=
+uld expect and how this would work ?
+>
+The suggestion is to not use SET_VQUEUE legacy.
+The suggestion is to use admin virtqueue to create queues and destroy queue=
+s, as they are merely an object.
+And new transport like your proposal can adapt to the modern style.
+So only admin queue configuration would be the only message.
+Rest of the other queues can be created directly using the admin queue.
 
-Kind regards,
-Alexander
+One can say it is orthogonal feature and I agree with that reasoning.
+The part that bothers me is that the new transport ends up adding some lega=
+cy bits like set vqueue.
+=20
+> >
+> > 8. We should have the message response header for req-resp method with =
+status code.
+> > (even though they are plain MMIO writes for pci).
+> > As opposed to that, proposed messages are doing composite tasks, hence =
+we need the status response.
+>=20
+> You want an error code in the header, is that what you mean ?
+Yes, in the response header.
+
+> We went into this discussion while designing this, the main issue is that=
+ most drivers could not handle an
+> error as this is something not possible in MMIO or PCI so we decided inst=
+ead to say that in case of error
+> a valid answer must be generated (all 0 when doing get_config for example=
+).
+>
+Well, what is proposed here is a generic transport for future to come.
+So even if driver does not handle error for MMIO/PCI register writes, trans=
+port would have commands for future to come.
+So creating V1 structure in future just for the status wouldn't be useful.
+
+For LOAD/STORE type of messages, driver can always ignore the error.
+The messages are used for bus discovery too which is outside of existing dr=
+ivers scope.
+So status is useful there too.
+
+
+> >
+> > 9. virtio stack cannot handle hotplug devices today, at least Linux.
+> > So if the intention is to fit into such a system, DEVICE_BUS_STATE_REMO=
+VED will not be enough.
+> > A graceful method is needed.
+>=20
+> Hotplug could be handled, remove is more problematic in Linux (you could =
+declare a new device instance
+> at any time and this should work).
+>=20
+> Could you give more details on what a graceful method would need ?
+>
+Graceful would need a flow something like below.
+1. Remove device request (sent by device side bus)
+Device continue to operate while the request is serviced
+
+2. Driver acts on the request and unloads the driver/reset the device etc.
+
+3. Driver (and device) eventually stops using the device by stopping all th=
+e bus activities.
+
+4. Bus driver notifies to the device, it is safe to remove and remove reque=
+st is completed.
+
