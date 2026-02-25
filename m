@@ -1,66 +1,66 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBB33D330A
-	for <virtio-comment@lists.linux.dev>; Wed, 25 Feb 2026 15:46:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98EBF3E95AC
+	for <virtio-comment@lists.linux.dev>; Wed, 25 Feb 2026 15:48:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772034372; cv=none; b=sQ670cMVENc7oT4XjNF12xFMXJYE/H2ecXRZBk6gGOAWhGgZnYHa7j8fUiCPNJgnBhXKJXBiu9kInyg7WotIzCQ8IHAb9XrI3pHOXmXrA/9oKFCUA+uenkxio2dd7uF4iiETv6ubeUlMbdS43f1I1sZPWCCKDGbfPCPkH40rO2w=
+	t=1772034523; cv=none; b=NbQazO/zpbJ8M5/dI3bGUUi7HjOZ6KSzrzKynrcf0MpH/nvxGiqxvK/54hIrwCHPmKQYJfPTEwSP3vyxD34kOdF0NYHBRYzOw7H9JRGIhq87aAgIOCGPfcDp/YF+L7KG/3Fc31VUQLYtlMNWd62slou6OJ1rS61smSdQqR0Ev2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772034372; c=relaxed/simple;
-	bh=hPC8LPMlXaMAdigg49iGmLHFk7Ea49j1rVh76cc9pGE=;
+	s=arc-20240116; t=1772034523; c=relaxed/simple;
+	bh=o8WH5tPl61bkhqonHTf5iZLUkdfRTTl6iY4lkEJ+HlM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tDYjabdGa+jRS/B4iTmnL1YpzO7MAbV3Tdbsdj3jDTgj/0GXiCsoK2hoFXrpyjpB9Pb7UcZp3/xCOik4j46UrTw5SBD8KTJQOu0pDdAwOlP36x6mzIuLhQN1eojCgY1tyNHYljpHKjNaHKrQnzZdYDU+z9u6oUelV/bMGZBaux8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AXoiUtmd; arc=none smtp.client-ip=209.85.128.170
+	 In-Reply-To:Content-Type; b=iYviXGMjGx9vtBayR0JEvP+CkWm1q2ZQ66PVQqeHKVNvo8mPxVjUr1zMb5CaX1TgWdxh+7+RKq/DhmzFE0msE/+nW6hFhcsMjkX3O+SIApzS/Xp6K6lCSFOYc2zvfWmubG6A+4CQO3rReWqtO1iJVqqSmImd3IS+1Gat/NaV1C8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BwPvTkaT; arc=none smtp.client-ip=209.85.128.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AXoiUtmd"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-78fc4425b6bso62235257b3.1
-        for <virtio-comment@lists.linux.dev>; Wed, 25 Feb 2026 07:46:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BwPvTkaT"
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-7986c7b8076so6796867b3.2
+        for <virtio-comment@lists.linux.dev>; Wed, 25 Feb 2026 07:48:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1772034370; x=1772639170; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1772034521; x=1772639321; darn=lists.linux.dev;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=wKjYndviiSFhpOCZTChFnqyPltrx3svNc3k6h5a6shA=;
-        b=AXoiUtmdRcQ1vHSdbmPX/dRPi4XZBDTqSTaIJ59hppGm5GjHq3a6mMpUC6ICyKorJ7
-         EqrdnI5hvNn6fUNdHoMSCyJ/CFv1fCExro08NhEKmK47rkncN/lS72XX2WKRSphyS7d9
-         zr5UTKDI534J6odUAFYbTLWR7CL6UBrORW4N01f3OSQMGMk39Kekn00j2WYTnqqE9A6Q
-         mO3/4ZE52VbXSAxMQ9qDbkbDYIW3sAEcdIb+M7yaTou197IArMZ2dDINScK02X2GcuBm
-         tRhCCNnzIyj30xzFwtye0Kr42WfpL0y2S+BNpgE7qHrf/7kZu49vFzLCwcmONMgZehCd
-         4ngQ==
+        bh=oUwPrFdt0+fpkJ5aEW9o4ZSltmFvZPvbCWfOdeWjCjE=;
+        b=BwPvTkaTT8Z0l9DxTvAw2j0RXoGpwVHBFB8NYYzk6eHQtWkw68dAdGqEz7PWnAvUzQ
+         RVEmvL1xiwRwJ20epu+VaeVJblFkO3ZcLOMT7dhbmcI4n0xITO2x5T4e1j89PEtUFsrl
+         9sEQ/ryD/FP4CvpZGMe8934nvn43sNWnk7emq7SYOh2GGtBuyxW5rZ5hYKl+tn5YWvYh
+         Aeq4GVvIqRSAvt3mvyR30FQ9vTlPgZT5sJdoKbTW4ygSVDWH0vQXoBd7iTRq1fz6IEr6
+         FRUMdIa6a2DsiwHuzxD+pUJUiylpvnC8/MgJuXJjWaa27HhsYHFM0EWx6qibbY0EmOpc
+         fPKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772034370; x=1772639170;
+        d=1e100.net; s=20230601; t=1772034521; x=1772639321;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wKjYndviiSFhpOCZTChFnqyPltrx3svNc3k6h5a6shA=;
-        b=UK7YNYNuAWQjo3i0Io6MRWY8QbKVVd/2c+wPjQ2vqkAIZ89Wlq7+OZZbm3PFyOOo5Z
-         c52YVMqwUs+hjK0/5T5k+5gKl8peBHifJgT8YqeNpt2HAtliC1gpGReH+1EFhNK9hzjN
-         zHG3O9Y6McoqotcjVUFah1SW0wcDVr9vXYXPooFh9LN5YhcKE+1HOlGoX1LYIZ2B6u12
-         +G5gL0VHigzLpLuFvq+8/y/j9i16VarluMI5AqYExcJ8xPg+X0RjKveBcVhl0AWifzlK
-         Xhhg9mJngI1es+fciYS5z+AvZdyg2uWZO4kkpte5Y1wffjXKt+jlD18hDdSotBMtOmEQ
-         GrHQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXclkcShaivk2aC2y75H8xgK8Fff7mlP76WkddrfN9eHBHrBeXciIblwvXB0FIrnQI9P6RwY55V2D4xQjr/1g==@lists.linux.dev
-X-Gm-Message-State: AOJu0YyqS7m4P1gQCI0Cw572hR5a5GrWtgDiPw8UKIR0xBjvsSM8KDC+
-	vWChJDY555EIT1CO6f/QyK7HbrpBTFNGk8TJ6LMIxQEQAtl4969O9Rft
-X-Gm-Gg: ATEYQzybWjCDaoP4wlREzCzlcPiKwAFcJcTGwxf6ueHPm0h+syHrdhQdkDLvaLC7Tmt
-	OZY95Fs5iWOnfF43MdfiLhutk9ErwjxcykDhx+cvCvoJtICwug7PWE2Ksp81c+XlG8cBGMAq9jg
-	Matzl2ABFg9UO7hslzxyQoXp7LX29K/QxHQPwobz3lGq8+5nzG6vBC+ZtFRsU7QF+cHrHcmVKfZ
-	0QZb9retRf1cVg16brKg/qZoh9+cJWr+r+GP0WVL8fDQe255jn5uOz+2JGLcUy+mHiMHi8VMI0F
-	uQlsb+jo1D3QvzufwXj8RSgTh5JWRsY6VEOF5l7EsHOhyPZzgBW+R4Laaur9V9FSKsFmdV2MwjQ
-	PN41wutthKlCjyLa1uBQVwUDMxpeHtBboToW9fVOSNp+akGQ4sYmclgirXBysnP+VGwM4jtaYHq
-	YKJ2GK9Pj/BDh3W1jHKKf+ltfruXU+gocYJ3T8G729ZjNe2StCLP38nLvb39FFH1n/ZSP4cdMOR
-	MNEH9eu6v22yRHthin+NcDVdqNIfdHHoBzYuBavRg==
-X-Received: by 2002:a05:690c:289:b0:798:4f55:2c5e with SMTP id 00721157ae682-7984f6472eemr82411657b3.30.1772034369570;
-        Wed, 25 Feb 2026 07:46:09 -0800 (PST)
+        bh=oUwPrFdt0+fpkJ5aEW9o4ZSltmFvZPvbCWfOdeWjCjE=;
+        b=Y4J+rF1I3i+1v2LmGmS68VDXj1dmDF8VBAtnU0G7rl1dlUDM7gmHLcSHnzAbCqqxn1
+         HtgTgXJmtNBkL6ghHjZR680eka5fhigcq/iebdjhwhMK++L0VS81rywpSuP3o5mQqQVY
+         m7XKgvvlF8BS/CikhQut9tXSu6j4vGS4knnJPfvTvpfSARAV7PR0BgDJeqRA9WftZw8l
+         8Wn/QGB7Fuoc2D6XQW5DtOvcWpT9oPH1/eSPre1zyJgX5q1AJ+fG+TJsZ3yhCigpNODG
+         414OEpmKMAk8TvPnsNipk1oWtSi7F/UCEg5Ow3R1Kya+KyE1YWtOPRbhmy57lby4voot
+         QVgA==
+X-Forwarded-Encrypted: i=1; AJvYcCVEZoKx2B6j8pj7bf6UGJZmr2KcLh1qyvg8FKNW2JtVO3zpxlugvtSkjptzdyCA6qO53vRZrZSyMHDkrPP1Lg==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yw7CarYJ2wLtdrddce1dVFm/pNi9VJGh/+2qstzmPtKkLB7Mn3d
+	p/0jTUB9MymRrrFeyATIPWGYFcB+u5W8adjchi9YwjxK2lsHF/je0bD8
+X-Gm-Gg: ATEYQzwVD82rZjBLtJzBbNE03ouPa4L38e15igOTUyUGZ9yKiZWBCEtHnJ54QGsiVpM
+	/KNL7SZXJ6nM6pSciOAiwSn6kqIeBLEqaCMs/X9iPC552TcwBn3Wb4mPzqIbT6SgScfE4qadMrV
+	6s0SQoQmXEwdjy5qjFHLybCXqVWws7RH5qMVfx4nkmZ0GB+cEcfZj/MwsS4gqd+Upc3Bq7/3HWt
+	qi5m53kebqt+ESSn4zSi7i8JiJ1jeN6XjzwuNB1CqJXl6MkB+tG4jNCTJByklnHaCW9MfSCeizC
+	ZOnbEKDQzkVD+vKH9N8jazi6OsjVvhRcP6xgMseinqf/QT0qVjztguRd5cxJc5NGEbP+o6nN1eL
+	74yKkSl05ZjQCINiF5WiqnAOO0XNS2TD9yMGVD9ciEnUUp8idDynOSBlZVP5JrCUxj7BGl+rud2
+	a6MzFEpIofx0YpgDEd/ODzAlbfsHSg52Wi6xzKPWAlmb5KeSbO/0526rvFSR5BesOPibR5RYuh2
+	5E891aYvEFX/+N/TIj9iZAkZHX0ZHjwIziWctrq7Q==
+X-Received: by 2002:a05:690c:101:b0:797:db54:b876 with SMTP id 00721157ae682-7982902d571mr152660327b3.43.1772034521285;
+        Wed, 25 Feb 2026 07:48:41 -0800 (PST)
 Received: from [10.138.34.110] (h69-131-216-128.cncrtn.broadband.dynamic.tds.net. [69.131.216.128])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-79872ba1ad6sm158527b3.7.2026.02.25.07.46.08
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-7986a6b5efesm6670267b3.52.2026.02.25.07.48.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Feb 2026 07:46:08 -0800 (PST)
-Message-ID: <5a794b1d-f4d6-4168-a9f7-997e6bdddd6b@gmail.com>
-Date: Wed, 25 Feb 2026 10:46:04 -0500
+        Wed, 25 Feb 2026 07:48:40 -0800 (PST)
+Message-ID: <4fa96890-62a6-42f3-965b-6e229f6f668e@gmail.com>
+Date: Wed, 25 Feb 2026 10:48:36 -0500
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -69,15 +69,30 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v1 0/4] virtio-msg transport layer
-To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-Cc: Bill Mills <bill.mills@linaro.org>, virtio-comment@lists.linux.dev,
- Bertrand Marquis <bertrand.marquis@arm.com>,
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ "Bill Mills (bill.mills@linaro.org)" <bill.mills@linaro.org>,
+ "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
  "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
  Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Viresh Kumar <viresh.kumar@linaro.org>, Armelle Laine <armellel@google.com>
-References: <20260126163230.1122685-1-bill.mills@linaro.org>
- <3c414235-ab96-4c25-87a0-bffcaa41b09d@gmail.com>
- <87342o26id.fsf@draig.linaro.org>
+ Viresh Kumar <viresh.kumar@linaro.org>, Alex Bennee
+ <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>
+References: <SJ0PR12MB680610C1B53CA4E8B4470411DC61A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <C6374491-FCB1-421F-9273-16B9CB954F5B@arm.com>
+ <vigplm62id3vzr3fzekbn5io6qcpeqksgxph6jm4f2qzoripkw@sdh7k6ohw63t>
+ <359B0C17-9D57-423A-A229-6CEDA19C975A@arm.com>
+ <dyiwq5xhqeoaqmzquzzx4wxsptm6uvrnfgspi6vmcaucq6jn4l@6dvya4te4vsj>
+ <SJ0PR12MB68068259D212C6AC8B6A5DEADC75A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <02226901-7670-4AAB-8F55-0B2FB7C0CA49@arm.com>
+ <SJ0PR12MB68068FA1D1893B774C5A8A15DC75A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <20260225094902-mutt-send-email-mst@kernel.org>
+ <8B4F5FE2-1F80-43BE-A60B-5C24B69C8B4E@arm.com>
+ <SJ0PR12MB680642C4277CBAC888052FDEDC75A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <SJ0PR12MB6806151DD9BF3AEF3839FB62DC75A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <E24A071C-02D3-4465-99A9-732FB4EF49B7@arm.com>
+ <89d13644-04ac-4057-b197-a6efe5e82ef6@gmail.com>
+ <238DE205-5A87-484A-A68A-F3312B22AD6D@arm.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -123,29 +138,44 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <87342o26id.fsf@draig.linaro.org>
+In-Reply-To: <238DE205-5A87-484A-A68A-F3312B22AD6D@arm.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------hqFviEJsLabIfbmUOBZMjHm3"
+ boundary="------------fhfxE00TDVR3SyYupoZ9XuKx"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------hqFviEJsLabIfbmUOBZMjHm3
-Content-Type: multipart/mixed; boundary="------------xmEsU02lMuqP0LRbQQX3PDzT";
+--------------fhfxE00TDVR3SyYupoZ9XuKx
+Content-Type: multipart/mixed; boundary="------------SwcoYMmBfYy0i6ZhC0OZQkRq";
  protected-headers="v1"
-Message-ID: <5a794b1d-f4d6-4168-a9f7-997e6bdddd6b@gmail.com>
-Date: Wed, 25 Feb 2026 10:46:04 -0500
+Message-ID: <4fa96890-62a6-42f3-965b-6e229f6f668e@gmail.com>
+Date: Wed, 25 Feb 2026 10:48:36 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v1 0/4] virtio-msg transport layer
-To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-Cc: Bill Mills <bill.mills@linaro.org>, virtio-comment@lists.linux.dev,
- Bertrand Marquis <bertrand.marquis@arm.com>,
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Parav Pandit <parav@nvidia.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ "Bill Mills (bill.mills@linaro.org)" <bill.mills@linaro.org>,
+ "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
  "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
  Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Viresh Kumar <viresh.kumar@linaro.org>, Armelle Laine <armellel@google.com>
-References: <20260126163230.1122685-1-bill.mills@linaro.org>
- <3c414235-ab96-4c25-87a0-bffcaa41b09d@gmail.com>
- <87342o26id.fsf@draig.linaro.org>
+ Viresh Kumar <viresh.kumar@linaro.org>, Alex Bennee
+ <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>
+References: <SJ0PR12MB680610C1B53CA4E8B4470411DC61A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <C6374491-FCB1-421F-9273-16B9CB954F5B@arm.com>
+ <vigplm62id3vzr3fzekbn5io6qcpeqksgxph6jm4f2qzoripkw@sdh7k6ohw63t>
+ <359B0C17-9D57-423A-A229-6CEDA19C975A@arm.com>
+ <dyiwq5xhqeoaqmzquzzx4wxsptm6uvrnfgspi6vmcaucq6jn4l@6dvya4te4vsj>
+ <SJ0PR12MB68068259D212C6AC8B6A5DEADC75A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <02226901-7670-4AAB-8F55-0B2FB7C0CA49@arm.com>
+ <SJ0PR12MB68068FA1D1893B774C5A8A15DC75A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <20260225094902-mutt-send-email-mst@kernel.org>
+ <8B4F5FE2-1F80-43BE-A60B-5C24B69C8B4E@arm.com>
+ <SJ0PR12MB680642C4277CBAC888052FDEDC75A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <SJ0PR12MB6806151DD9BF3AEF3839FB62DC75A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <E24A071C-02D3-4465-99A9-732FB4EF49B7@arm.com>
+ <89d13644-04ac-4057-b197-a6efe5e82ef6@gmail.com>
+ <238DE205-5A87-484A-A68A-F3312B22AD6D@arm.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -191,145 +221,94 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <87342o26id.fsf@draig.linaro.org>
+In-Reply-To: <238DE205-5A87-484A-A68A-F3312B22AD6D@arm.com>
 
---------------xmEsU02lMuqP0LRbQQX3PDzT
-Content-Type: multipart/mixed; boundary="------------zBnl170OCez6n25VggmOEZOc"
+--------------SwcoYMmBfYy0i6ZhC0OZQkRq
+Content-Type: multipart/mixed; boundary="------------HvU1u9ievvi21sT5QO58w6WZ"
 
---------------zBnl170OCez6n25VggmOEZOc
+--------------HvU1u9ievvi21sT5QO58w6WZ
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 2/25/26 10:21, Alex Benn=C3=A9e wrote:
-> Demi Marie Obenour <demiobenour@gmail.com> writes:
+On 2/25/26 10:40, Bertrand Marquis wrote:
 >=20
->> On 1/26/26 11:32, Bill Mills wrote:
->>> This series adds the virtio-msg transport layer.
->>>
->>> The individuals and organizations involved in this effort have had di=
-fficulty in
->>> using the existing virtio-transports in various situations and desire=
- to add one
->>> more transport that performs its transport layer operations by sendin=
-g and
->>> receiving messages.
->>>
->>> Implementations of virtio-msg will normally be done in multiple layer=
-s:
->>> * common / device level
->>> * bus level
->>>
->>> The common / device level defines the messages exchanged between the =
-driver
->>> and a device. This common part should lead to a common driver holding=
- most
->>> of the virtio specifics and can be shared by all virtio-msg bus imple=
-mentations.
->>> The kernel implementation in [3] shows this separation. As with other=
- transport
->>> layers, virtio-msg should not require modifications to existing virti=
-o device
->>> implementations (virtio-net, virtio-blk etc). The common / device lev=
-el is the
->>> main focus of this version of the patch series.
->>>
->>> The virtio-msg bus level implements the normal things a bus defines
->>> (enumeration, dma operations, etc) but also implements the message se=
-nd and
->>> receive operations. A number of bus implementations are envisioned,
->>> some of which will be reusable and general purpose. Other bus impleme=
-ntations
->>> might be unique to a given situation, for example only used by a PCIe=
- card
->>> and its driver.
->>>
->>> The standard bus messages are an effort to avoid different bus implem=
-entations
->>> doing the same thing in different ways for no good reason. However th=
-e
->>> different environments will require different things. Instead of tryi=
-ng to
->>> anticipate all needs and provide something very abstract, we think
->>> implementation specific messages will be needed at the bus level. Ove=
-r time,
->>> if we see similar messages across multiple bus implementations, we wi=
-ll move to
->>> standardize a bus level message for that.
->>>
->>> We are working on a few reusable bus implementations:
->>>
->>> * virtio-msg-ffa based on Arm FF-A interface for use between:
->>>   * normal world and secure world
->>>   * host and VM or VM to VM
->>>   * Can be used w/ or with out a hypervisor
->>>   * Any Hypervisor that implements FF-A can be used
->>>   * We have this working with pKVM and Xen
->>>   * We have this working with Trusty and OP-TEE
->>>
->>> * virtio-msg-amp for use between heterogenous systems
->>>   * The main processors and its co-processors on an AMP SOC
->>>   * Two or more systems connected via PCIe
->>>   * Minimal requirements: bi-directional interrupts and
->>>     at least one shared memory area
->>>   * hvac-demo has 2 demos of this
->>>   * This is working on two hardware platforms
->>>
->>> * virtio-msg-loopback for userspace implemented devices
->>>   * Allows user space to provide devices to its own kernel
->>>   * This is similar to fuse, cuse or loopback block devices but for v=
-irtio
->>>   * hvac-demo has a demo
->>>
->>> We also anticipate a few more:
->>>
->>> * virtio-msg-xen specific to Xen
->>>   * Usable on any Xen system (including x86 where FF-A does not exist=
-)
->>>   * Using Xen events and page grants
->>>
->>> * virtio-msg over admin virtqueues
->>>   * This allows any virtio-pci device that supports admin virtqueues =
-to also
->>>     support a virtio-msg bus that supports sub devices
->>>   * [We are looking for collaborators for this work]
+>=20
+>> On 25 Feb 2026, at 16:36, Demi Marie Obenour <demiobenour@gmail.com> w=
+rote:
 >>
->> Which transport, if any, would be suitable for communication
->> between a KVM VM and a userspace process
+>> On 2/25/26 10:12, Bertrand Marquis wrote:
+>>> Hi Parav,
+>>>
+>>>> On 25 Feb 2026, at 16:07, Parav Pandit <parav@nvidia.com> wrote:
+>>>>
+>>>> Hi Bertrand,
+>>>>
+>>>>> From: Parav Pandit <parav@nvidia.com>
+>>>>> Sent: 25 February 2026 08:30 PM
+>>>>
+>>>> [..]
+>>>>>>>>> So the PCI device is not one virtio device but one bus behind w=
+hich there can be many devices.
+>>>>>>>>>
+>>>>>>>>> Is this making the concept a bit clearer ?
+>>>>>>>>>
+>>>>>>>> Yes. This makes a lot of sense now.
+>>>>>>>>
+>>>>>>>> This is a virtio-msg-transport device that needs its own device =
+id in the table.
+>>>>>>>> And its binding to the PCI transport.
+>>>>>>>
+>>>>>>> ok. how about an rfc of that idea on the list?
+>>>>>>
+>>>>>>
+>>>>>> I will let Edgar answer on this.
+>>>>>>
+>>>>> Sure.
+>>>>> Also please explain how is this different than SR-IOV devices?
+>>>>> On a PCI device there are some child devices exposed using some vir=
+tio-msg bus transport.
+>>>>> And all of them are going to share same PCI BDF.
+>>>>> These individual devices cannot be mapped to different VMs (secure =
+or regular) in a performant way either.
+>>>>> So what would this virtio-msg-transport device achieve?
+>>>>>
+>>>>> If there was no PCI bus when implementing the virtio-msg transport,=
+ it would make sense to avoid trap-emulate story.
+>>>>> But underlying transport being PCI, its back to square one for the =
+originally described motivation.
+>>>>
+>>>> If the objective of the virtio-msg layer is to really support FF-A o=
+r similar other non-PCI transports, lets please focus the discussion on s=
+uch use case and binding of that specific non-PCI bus. (like the link you=
+ pointed on arm site).
+>>>>
+>>>> This would help this series to progress faster without getting distr=
+acted on PCI side.
+>>>
+>>> Agree the example of virtio-msg over PCI made the discussion divert a=
+ bit.
+>>>
+>>> Maybe focusing on use cases like:
+>>> - FF-A
+>>> - messaging unit + shared memory
+>>> - hypervisor based events + shared memory
+>>
+>> Is "hypervisor based events + shared memory" only really intended for
+>> Xen and other true type-1 hypervisors?  Should KVM and other type-2
+>> hypervisors use a different approach, like virtio-vhost-user?
 >=20
-> I think vhost-user already covers this case well enough. However there
-> is no reason the VMM could terminate a virtio-msg bus and pass the
-> messages across vhost-user to a device backend.=20
+> Well there is definitely a use case in xen but any other type 1 or type=
+ 2
+> hypervisor could benefit from using virtio-msg and have asynchronous
+> handling instead of a trap and emulate based implementation.
 
-Does this provide any advantages over the existing virtio-PCI
-transport?
-
->> or between two KVM VMs?
->> Would this require a new bus?  If so, should it be implemented in
->> terms of vhost-user?
->=20
-> If you want the backend for a VirtIO device in another KVM VM that I
-> suspect you want to avoid a round-trip through the user-space of the
-> VMM. If FF-A isn't an option the hypervisor could support some sort of
-> minimal hypercall transport to pass messages between the two.
-
-My plan was to use irqfd + ioeventfd + shared memory to avoid
-round-trips through userspace in the data path.  That's not a good
-fit for any of the proposed transports, though.
-
-Do you have suggestions for how to implement a virtio device in another
-KVM VM?  I'd prefer to not need to patch KVM itself unless it provides
-a big advantage of some sort.
-
-I know that virtio-vhost-user already exists, but am not sure if
-something based on virtio-msg would be a better option.  Specifically,
-there could be a virtio device that passed driver-to-device messages
-to the backend VM, and passed device-to-driver messages to the
-frontend VMM.  If you think that there is an even better option,
-I would greatly appreciate the suggestion.
+Do irqfds and ioeventfds already provide this?  What interface should
+the device-implementing VM use to provide the device?  Should it be
+a new type of virtio device?  Should this be standardized?
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------zBnl170OCez6n25VggmOEZOc
+--------------HvU1u9ievvi21sT5QO58w6WZ
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -449,30 +428,30 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------zBnl170OCez6n25VggmOEZOc--
+--------------HvU1u9ievvi21sT5QO58w6WZ--
 
---------------xmEsU02lMuqP0LRbQQX3PDzT--
+--------------SwcoYMmBfYy0i6ZhC0OZQkRq--
 
---------------hqFviEJsLabIfbmUOBZMjHm3
+--------------fhfxE00TDVR3SyYupoZ9XuKx
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmmfGT0ACgkQszaHOrMp
-8lNCtg/+KHCaCUQURCuiCIzYCc9lN248jq619jfPJix03n9OvXh2I8Ue0WljNOWH
-ZNTMIwy/nhSnt89viS+8H5Yf9HOw1ECzBbiqBQFunCw6pW2bZs3S85XnC6kqBpMf
-RK09SowyY2swK0wQm7PAkTq1O+ALV3BKU4/nBYAzrYHc9Qy2r7hUfKkUikghkJU1
-gBq22Dza0RmbAXHhqmkAVrOtvBLgn+lXF23fXuGZMpBMQNQt9l6HWQ2qP4iIJ6Ye
-he4yVqDx1Zca3hRc1FeONnQNXPl4FIMgCGpLm8ZJDqgIuuIWogjo7QhS7TNca0ph
-8O74EL0UcZ9Tqbuf3dX4iPzoISRkWz5sKZmfJFkh+M1P4WvWcBwXMZ/OEa1b9+uO
-kbMiO/0uJbOUuHcpEfaKI6jHqyx+VhtGR69OrEiEYK99leflMEyZlAEVXq4gEJlM
-nwOEvZfutUlJ5yoY3Tw8dxhpFCQd09a6a5ZDPTGr9YHW8BwK+e5abetAAqhNVL7a
-2LhuLXrZT1h986M5Uqeh7t3VpsaScKB6gK9AN0hBcv40/puCX8JXx1F/pt+kQm69
-/8E4iq7/5Te/BhyKxuV6fZetaWgbwSvx/eP/2xCsJM7ZPiZMLlxDKELA4Onnc8VY
-kV9RozzB8LtmcVTY/+TZCumvrcbJD/D/7/1dzKNpsrS3o4yveu4=
-=WvHu
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmmfGdUACgkQszaHOrMp
+8lO7UQ//a1PD8Y/8KYSN2HtPj/ipcxT1Lh9fO3U9LII8+Rk9cOLfW7XGsRODX3zR
+u4W4sDKLqRRMFOR4+9tB1I6jDGFM68qCO0q8N2ODXREHN+xh1eeg245Xsib3r6Kz
++rTrCYZUfHPE4+cekfIM1F3Zg5nHk6e+dOrxZ4mMP40edc87ODYQ5PuId10qVwly
+y2Qyazw9dccu8ESJBUeFSir49IjPa8lg7pOhvDYheOCnfsix/20souTg/soHplUa
+fLCoDZ85iM0QVu+Fw+mczWY8efj2QccTRZi4KrQ9oV/4J3ID97X7nZBBrPoGh9Sg
+yCNpDaiQ3OBjHnrk2WWULhAmBS0gUKCCC2Yv5889QwGf80XhaQGmthjgB/T7Uwaf
+8I/vtwitWTdHYAx9hUXbt3sj+V9Kf7Mc0Y4c/6zo7FTIjjeycjNoMf0tJ1BACEvo
+YxhWWqINw8/0FieXQlmuN3sTS7dTc+N8A/ltetGDlkjWZUOIR+FxktGJnKKqUziU
+hrSc25w/uKi4vE+CESzHZu4sJAp9kfQnNeVWDV5cVS+JIhjHgJmrxsgaoohMnaYs
+gwhPFEv2bnxOdcO5Uh9oacqYnuDXEKERbq1TPg/kSBn0A8n5wgwo4gwqI4kAs4Wo
+Uagq3wiR/6phjK3sxoZZU3hEoiUo9e4vL3QlRMYpK8ClGSio8GI=
+=35BR
 -----END PGP SIGNATURE-----
 
---------------hqFviEJsLabIfbmUOBZMjHm3--
+--------------fhfxE00TDVR3SyYupoZ9XuKx--
