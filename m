@@ -1,66 +1,66 @@
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BAD83AEF31
-	for <virtio-comment@lists.linux.dev>; Wed, 25 Feb 2026 12:37:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5D425E469
+	for <virtio-comment@lists.linux.dev>; Wed, 25 Feb 2026 12:46:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772023038; cv=none; b=f3lcCfRvaZ19paQz7mBK4suJ+mUqcW8zUvaP08hOQu6lMlEB1KfQOamH+Mb3jeFf6eeshFHvSOh19ujTXWAKMmpapncowtqtjhK9Tn9b0yBDt02kkoqIKup4/y+lzS0ubQwZG9dvZYczMNco7UZ/82CtM4Px6Ij7Oguwu6g2sQM=
+	t=1772023574; cv=none; b=oE84bWRgYzCY0jWGsV9sydNSVciAUV5uC6Acq4KDURFq37vq8MXMh0aJ8Q15YkWV8Z3yzeaE3k6gD5cyT8CQN/jq8Pi9mVnL5cH/beNjc9dpc/REcvD5PwaEdjLheWKgyZ0EKcIcqMGzwNvHrn05CsLInEdi7tTogNDUccBZ/0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772023038; c=relaxed/simple;
-	bh=yN9Y0HvpczloOs4kWzOFvNz4L1TziMtg60AW6mExC7A=;
+	s=arc-20240116; t=1772023574; c=relaxed/simple;
+	bh=GKSRNxwAHmrxahpoUP6Ked1F28Hl/fUfPT6kV7MjZos=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lkjR6t8wi4/Y5G7nsFwr976Vx4OhmPKY0LiDRwWaORAXZgXO16L4VEBIG9ykeT3bEWdH/aaMZeN8+M6OT4MLH0sJjYWtUS3Os8Suuhikw7EGAwkswdswNwyvJibfXvEf0xcu9winEGY9Q6wVRRO0hHimB7N1MPZG5vcUqO5jeOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PPJBlIWy; arc=none smtp.client-ip=74.125.224.53
+	 In-Reply-To:Content-Type; b=lboYlGZ1k5pcHS7CacmIEZal+qnEThNdS33eJqJzPmLPgv9g+mLwK89hEJ/3BwtERAEAYzV8tfvOZiS/kZWBczrHJO/L4sGn638XWCeWNm/w70USOayW+mDlPiPpbvD5BxjpVgmKNXSdray23mPYPEWBbKcC70nT4S8zYbLGgzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bgp7IXf7; arc=none smtp.client-ip=209.85.128.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PPJBlIWy"
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-64ca2b32f46so1295388d50.3
-        for <virtio-comment@lists.linux.dev>; Wed, 25 Feb 2026 04:37:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bgp7IXf7"
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-79801df3e42so11228237b3.0
+        for <virtio-comment@lists.linux.dev>; Wed, 25 Feb 2026 04:46:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1772023035; x=1772627835; darn=lists.linux.dev;
+        d=gmail.com; s=20230601; t=1772023572; x=1772628372; darn=lists.linux.dev;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=GSrqVFA+E15mObKNFfjxjwSpCJJ1z7AM2b2EsF4ZKSo=;
-        b=PPJBlIWyCys505I8fCgEVaoPU1UQPAWr0DSrSA12uYQf241bIH//KSFiEFS+hueQkr
-         NJ5JQcCU6W/oKlUEpUBO+9BSWQZdXRBc+41GuK3SKA5VvvGii8oqpClf7bfJFsrfrsrb
-         DJqDm82uqrkRAiLH80zV6iPTx5Yn7r6YDEoN1EAQcP0Hve2Yzq0NV65tXnezvRXRVvpe
-         pmJ4v3+M2N8cikbBPwwJzw732ZU+5E/jO7iUdQKrDQKtZ+bG2khc+wdN2khzfPPnhp6q
-         de6RtK+3PiyjjVdK7zJhSiCCDhxf+rMQgnxUXsZQBfP3NsEg2ZCwLsGw0TPDdEdRQgbf
-         TpnA==
+        bh=QXbZV0YmKF0t4m66vrWa1PGZI2cqD+CoJlBzvjwI4Nw=;
+        b=Bgp7IXf7BzoxuKl2ExK4il7JwbwdCon91+UprU1f7oYkXesBJ58crZg1CQe/gpYAmT
+         RZuISfXFzuUj3fjy0azXGpGGtbG9ZMcd5ShQ7Rpo9UA89aPq4KuUIiQpoPGz/Ms7Q4UZ
+         zxvoo0uBDJQYisaUSBAEdtKmjxcEmxvYI/zLh4I+s6iByCs7iuz7GTiKgq0oGVxjBsl+
+         qJ3sjmEWJfhhYD2VHvJvzA7AMRa8fsbQV8nhtZ7u+8QYxHBrvLCYYhBdqmxX0sca9yQN
+         iNgzUgXlC+KSrhARymiyCsEPJbHImB7SpI7XOlvbNcGfm95t65uW5VPkpo0ZkXinO+x6
+         oKRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772023035; x=1772627835;
+        d=1e100.net; s=20230601; t=1772023572; x=1772628372;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GSrqVFA+E15mObKNFfjxjwSpCJJ1z7AM2b2EsF4ZKSo=;
-        b=VFuqGhuAjSW+esE4tXdzJjyGHgD4VwVBp7lKWen6DAeKXDxdvwI4MnLFwnX/xSV2zo
-         aBXFsflT0at47QL5V9vIA0UarN7fHT9r1N/je+f8G6OWI9I6tzUr5LlB365QCwqGEcOK
-         tghk+LS3Zu0OSsGs14SL26SPM7ZWHi5FdrP8KaI5uc2IGO9SOrvC7JrqqMatSBnLe8jr
-         6mEr6/c+xfprdPkf8JPhnlRjEitrPv/3uVeIIoAPbdw/g3IN50UyEDfxMSJtftG/sMHc
-         r4joZnzS407JUikiRF4FImX11PsHIfcaXQUBD17RIrQM9LY1YCY5v59wHqVNpCtqd0C2
-         8MIA==
-X-Forwarded-Encrypted: i=1; AJvYcCUSs8J/TP/sRsAa9eRFszDPehZOOfLkuqn7Q1n1lOlmPsK+IuR+hGkNlJeKICFlP5XBlGyXGzgVOLMuBXKmeQ==@lists.linux.dev
-X-Gm-Message-State: AOJu0YzBBHWiqEe4F3NA7GwCIW9WuZor+6XiJMIDScJQQAUIWECPEcXv
-	3irEpYk6JYkh6U18fggJfdQO2o4T8CFOMsp4EmwCWW85ZEiLmhxunulc
-X-Gm-Gg: ATEYQzyZCMz8X6KGF4KpNOzTPfm6eTY7zMtEC3bjUsCPx/e/48lMqeD2I1WgxhBcQtq
-	iLdSDF943MX6rPHbs+FrYfrfeiPg2/8WZBq3RX6+AvSkisUG2N4LV8xhB+lI6enhNagqqJQOaVF
-	j/TuV1sKwplz6dpZCuAzJd8LZrwc87PYqhVxRslxRfG84Zgzob6uA0Tld68EMXDqf4JmcZSHD13
-	rWWOLaJM2cJldz+S282bDJXCl3Xs6kqJjsyEwDiePuA3QC8pKg86HHYBkqIra6gjSP+wKzkixR1
-	6RVoBU0u2XJ3ufntQbePmHLjZuhzxgXCRiBD3IdXqqZagL7Mi7KMxfo5shYcnnaVG0INruaI/pT
-	+05DwjldtNYpzhUnjecGsKE12GrV47siVMaLuswPSuKooBIfAENcZKd3QbhSFdCtHUH8R47vhdC
-	GcVlbGO/IpcFXsgXCxLPKUyBF7EQQW2M47Hl5hm1Z6r8sXzCDV8W9Fu3VjvU1Sh2WGoBhT/mBy9
-	cJcvDDJV8qcHv5HaI1X7LwUVOhOCmgwsXjqhFC/oA==
-X-Received: by 2002:a53:d8cc:0:b0:64a:cf34:d9ac with SMTP id 956f58d0204a3-64c787d60dfmr9261139d50.29.1772023034513;
-        Wed, 25 Feb 2026 04:37:14 -0800 (PST)
+        bh=QXbZV0YmKF0t4m66vrWa1PGZI2cqD+CoJlBzvjwI4Nw=;
+        b=mIaS/cJUZA8/Kt5zr6vO4jpIVf+CN0JOhHiZO2IYeDSDkj/7UfBWtFCWgRSJkYRYAO
+         cY1uVBBmMjGjrN/i5PL+xUQop4hF89qSSOMEvV8DsfZ06qjR9aeY0tqfiqA/NN85Le9G
+         yeymCh5/KRQ/jpGMsSmeJOMwwbGvLFxQIm0X8goW5PxNiYVeBsoNBcLE5iXgCVHFdNz2
+         fztV/eVWBm8qcbOq7QZaL4NKDTMMQ/Be1Eq0QgLWYtzkkI5FqJLytU17XT7jifrZ3+L+
+         lNdyrcQKokfxG/NHgL3fPUa9DpM93IjSEm8YQiirUlfGwPWx2nm3xETLWGZPuW7kQu5k
+         XFTw==
+X-Forwarded-Encrypted: i=1; AJvYcCVtFVNe1EBsmwTBmUMmOz1yBjjTJWgxgB6mLd6dz/P1UJNqHNqyvu6SBsAh1Nw4nZ8UUiGSndQCXcn2AsUGfA==@lists.linux.dev
+X-Gm-Message-State: AOJu0YyUsCKY7OEVa+JSRHVwnNjVjgRgtbAGxK184/7tPIad2n97D29c
+	8veyjexmFkSwUyt/HO3ES820ompFdzOkNjUuepqTvBDCpFjX9jH8VcLhoWns7g==
+X-Gm-Gg: ATEYQzwKxtC2/QmFVifUkScuLJecMfapJmdtXTicMT58MDxiRgDpugomVLG8nbcaScG
+	69X40iZnc2b/pyIRX0SJ8u2n+4zwujEU02Uk12akm7uHdCG8tcAEX1qJ+C7qJ7dSpEkezaPz+1j
+	3hlUPWE3QI2VHDMn9LqrshIt7349yO4vcTLH026TkZGM+1w8fiiWWTbaFcHirLvXag1PJzvzONE
+	liZ8kaZdWRdXf/kbA1U5iQfT8GhxO+IhyNWsDffWkS+HX1Ge5JZQUTJZmT9Z3NGv/Egp3NVOA4p
+	BxCqBhp/JiiumilGnFzOzNCEzkVwCY5d3rBG23f2V7QQe1LJ9JJ8mzjM+6l4r+A5Ha8auxcZmAz
+	x/Es9i/rX0X6aw+FeWsumcLyEWg6WjC5SqZv+K7XjURJEWZ+Sp/F9TymlpW3Evtbszs2ZR67Upm
+	t+vraHgyhQBHxmKB/smNhfHW8AG4YqlALDoT4ayD6i/hF3wuqnG9+IcCz3c8nUu0vYDIKSc1maF
+	xM5pQEsAzZM6ybtnaf7UtPcba20fA+ndVT7ZRyNsymBvfgQIW9t
+X-Received: by 2002:a05:690c:38b:b0:798:1498:21b4 with SMTP id 00721157ae682-79864feb2c6mr30292207b3.16.1772023571699;
+        Wed, 25 Feb 2026 04:46:11 -0800 (PST)
 Received: from [10.138.34.110] (h69-131-216-128.cncrtn.broadband.dynamic.tds.net. [69.131.216.128])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-64cb3a0211asm12172d50.15.2026.02.25.04.37.13
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-7982db8f989sm55662307b3.9.2026.02.25.04.46.10
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Feb 2026 04:37:13 -0800 (PST)
-Message-ID: <1ae53f34-b40a-45f5-bebe-102908a81d13@gmail.com>
-Date: Wed, 25 Feb 2026 07:36:56 -0500
+        Wed, 25 Feb 2026 04:46:10 -0800 (PST)
+Message-ID: <340e37ad-6eb6-45c2-87a5-422f247229c1@gmail.com>
+Date: Wed, 25 Feb 2026 07:46:07 -0500
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -68,16 +68,20 @@ List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/4] virtio-msg: Add virtio-msg, a message based virtio
- transport layer
-To: Bill Mills <bill.mills@linaro.org>, virtio-comment@lists.linux.dev
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
+Subject: Re: [PATCH v1 0/4] virtio-msg transport layer
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Parav Pandit <parav@nvidia.com>
+Cc: "Bill Mills (bill.mills@linaro.org)" <bill.mills@linaro.org>,
+ "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
  "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
  Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
  Viresh Kumar <viresh.kumar@linaro.org>, Alex Bennee
  <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>
 References: <20260126163230.1122685-1-bill.mills@linaro.org>
- <20260126163230.1122685-3-bill.mills@linaro.org>
+ <SJ0PR12MB680610C1B53CA4E8B4470411DC61A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <478DE38A-8581-4113-9467-227DA3E0D134@arm.com>
+ <SJ0PR12MB68067A563A18F69033F32448DC75A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <62E0DF94-3401-42E4-9574-02C557849D44@arm.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -123,29 +127,33 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260126163230.1122685-3-bill.mills@linaro.org>
+In-Reply-To: <62E0DF94-3401-42E4-9574-02C557849D44@arm.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------CKeBF9idLZgnWsb4bFFDHIM3"
+ boundary="------------YsShS4mCNRkUOAYBSs14vr0l"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------CKeBF9idLZgnWsb4bFFDHIM3
-Content-Type: multipart/mixed; boundary="------------VrZseizrdA6HPDmDTKkLp0B7";
+--------------YsShS4mCNRkUOAYBSs14vr0l
+Content-Type: multipart/mixed; boundary="------------J1puhtb0OMKy09vLbJ44027f";
  protected-headers="v1"
-Message-ID: <1ae53f34-b40a-45f5-bebe-102908a81d13@gmail.com>
-Date: Wed, 25 Feb 2026 07:36:56 -0500
+Message-ID: <340e37ad-6eb6-45c2-87a5-422f247229c1@gmail.com>
+Date: Wed, 25 Feb 2026 07:46:07 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/4] virtio-msg: Add virtio-msg, a message based virtio
- transport layer
-To: Bill Mills <bill.mills@linaro.org>, virtio-comment@lists.linux.dev
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
+Subject: Re: [PATCH v1 0/4] virtio-msg transport layer
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Parav Pandit <parav@nvidia.com>
+Cc: "Bill Mills (bill.mills@linaro.org)" <bill.mills@linaro.org>,
+ "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
  "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
  Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
  Viresh Kumar <viresh.kumar@linaro.org>, Alex Bennee
  <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>
 References: <20260126163230.1122685-1-bill.mills@linaro.org>
- <20260126163230.1122685-3-bill.mills@linaro.org>
+ <SJ0PR12MB680610C1B53CA4E8B4470411DC61A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <478DE38A-8581-4113-9467-227DA3E0D134@arm.com>
+ <SJ0PR12MB68067A563A18F69033F32448DC75A@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <62E0DF94-3401-42E4-9574-02C557849D44@arm.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -191,47 +199,205 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260126163230.1122685-3-bill.mills@linaro.org>
+In-Reply-To: <62E0DF94-3401-42E4-9574-02C557849D44@arm.com>
 
---------------VrZseizrdA6HPDmDTKkLp0B7
-Content-Type: multipart/mixed; boundary="------------wgPUulQcshZTbbXqO1T6ITfg"
+--------------J1puhtb0OMKy09vLbJ44027f
+Content-Type: multipart/mixed; boundary="------------D4v1R0pEetDPuMKtDZktRnB7"
 
---------------wgPUulQcshZTbbXqO1T6ITfg
+--------------D4v1R0pEetDPuMKtDZktRnB7
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 1/26/26 11:32, Bill Mills wrote:
+On 2/25/26 02:52, Bertrand Marquis wrote:
+> Hi Parav,
+>=20
+>> On 25 Feb 2026, at 05:58, Parav Pandit <parav@nvidia.com> wrote:
+>>
+>>
+>>> From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+>>> Sent: 20 February 2026 02:10 PM
+>>>
+>>> Hi Parav,
+>>>
+>>>> On 13 Feb 2026, at 14:52, Parav Pandit <parav@nvidia.com> wrote:
+>>>>
+>>>> Hi Bill,
+>>>>
+>>>>> From: Bill Mills <bill.mills@linaro.org>
+>>>>> Sent: 26 January 2026 10:02 PM
+>>>>>
+>>>>> This series adds the virtio-msg transport layer.
+>>>>>
+>>>>> The individuals and organizations involved in this effort have had =
+difficulty in
+>>>>> using the existing virtio-transports in various situations and desi=
+re to add one
+>>>>> more transport that performs its transport layer operations by send=
+ing and
+>>>>> receiving messages.
+>>>>>
+>>>>> Implementations of virtio-msg will normally be done in multiple lay=
+ers:
+>>>>> * common / device level
+>>>>> * bus level
+>>>>>
+>>>>> The common / device level defines the messages exchanged between th=
+e driver
+>>>>> and a device. This common part should lead to a common driver holdi=
+ng most
+>>>>> of the virtio specifics and can be shared by all virtio-msg bus imp=
+lementations.
+>>>>> The kernel implementation in [3] shows this separation. As with oth=
+er transport
+>>>>> layers, virtio-msg should not require modifications to existing vir=
+tio device
+>>>>> implementations (virtio-net, virtio-blk etc). The common / device l=
+evel is the
+>>>>> main focus of this version of the patch series.
+>>>>>
+>>>>> The virtio-msg bus level implements the normal things a bus defines=
 
-(snip)
+>>>>> (enumeration, dma operations, etc) but also implements the message =
+send and
+>>>>> receive operations. A number of bus implementations are envisioned,=
 
-> +\msgdef{GET_SHM}
-> +
-> +\msgref{GET_SHM} returns the location and size of a device-owned share=
-d memory
-> +region. The request carries the region index; the response echoes the =
-index and
-> +provides the base address and length. A length of zero indicates that =
+>>>>> some of which will be reusable and general purpose. Other bus imple=
+mentations
+>>>>> might be unique to a given situation, for example only used by a PC=
+Ie card
+>>>>> and its driver.
+>>>>>
+>>>>> The standard bus messages are an effort to avoid different bus impl=
+ementations
+>>>>> doing the same thing in different ways for no good reason. However =
 the
-> +specified region does not exist.
-> +
-> +\begin{lstlisting}
-> +struct virtio_msg_get_shm_req {
-> +        le32 index; /* shared memory region index */
-> +};
-> +
-> +struct virtio_msg_get_shm_resp {
-> +        le32 index;  /* echoed index */
-> +        le32 length; /* region length (0 if nonexistent) */
-> +        le32 address;/* region address */
-> +};
-> +\end{lstlisting}
+>>>>> different environments will require different things. Instead of tr=
+ying to
+>>>>> anticipate all needs and provide something very abstract, we think
+>>>>> implementation specific messages will be needed at the bus level. O=
+ver time,
+>>>>> if we see similar messages across multiple bus implementations, we =
+will move to
+>>>>> standardize a bus level message for that.
+>>>>>
+>>>>
+>>>> I would review more, had first round of sparse review.
+>>>> Please find few comments/questions below.
+>>>>
+>>>> 1. device number should be 32-bit in struct virtio_msg_header.
+>>>> From SIOV_R2 experiences, we learnt that some uses have use case for=
+ more than 64k devices.
+>>>> Also mapping PCI BDF wont be enough in 16-bits considering domain fi=
+eld.
+>>>
+>>> That is a very interesting feedback, we will definitely take this int=
+o account.
+>>> We will have to decide how big and I will answer that in Demi's mail =
+as there might be some drawbacks with
+>>> having very big sizes for the device ID.
+>>>
+>> I am slowly catching up on the thread.
+>> There are two types of device id needed.
+>> One is UUID style to uniquely identify the device that may show up usi=
+ng two transports to the driver.
+>> With that a driver can create single virtio_device object, which is re=
+achable via two different transports.
+>> This offers performance, resiliency.
+>> This is likely a bigger string which is not efficient to use during ev=
+ery message transaction.
+>>
+>> Second one is: within a transport, a device id to identify the communi=
+cation.
+>> I was referring to this device id to be u32, so that transport can sup=
+port more than 64K devices.
+>=20
+> We will increase the device number size to support more than 64k device=
+s.
+> For the UUID part, I feel it should be something provided as device inf=
+ormation per device, so
+> we could add a non-mandatory field (nil-UUID when no ID available) and =
+transfer that information
+> as part of GET_DEVICE_INFO.
 
-Why only le32?  Some shared memory regions, such as mapped GPU buffers,
-can be much larger than 2^32 bytes.
+When would it not be available?
+
+>>>> 7. VIRTIO_MSG_SET_VQUEUE does not have bit field for individual addr=
+esses.
+>>>
+>>> Set vqueue has an index to specify the virtqueue index but you have t=
+o specific all fields in one go that is true.
+>>> Do you need a solution where you could set some fields to a specific =
+value to say "keep current" and only update part of the vqueue
+>>> configuration ?
+>>>
+>> I believe so, otherwise it cannot work with existing drivers without d=
+river side caching them.
+>=20
+> I will investigate that possibility.
+
+With the current spec, adding virtqueues one at a time requires time
+quadratic in the number of virtqueues.  That's not good.
+
+>>>> This requires caching all the values on the driver side before sendi=
+ng the transport request.
+>>>> I think it is time for virtio spec to shift to virt queue create and=
+ destroy model using the admin queue interface.
+>>>> and no need to bring this VIRTIO_MSG_SET_VQUEUE legacy to new transp=
+ort bindings.
+>>>> It may require more plumbing, but it is cleaner interface when a new=
+ transport binding is created.
+>>>
+>>> Admin queue useable with the message transport but I would be interes=
+ted to understand exactly
+>>> the model you are referring to with create/destroy model.
+>>> Could you elaborate a bit so that i could understand what messages yo=
+u would expect and how this would work ?
+>>>
+>> The suggestion is to not use SET_VQUEUE legacy.
+>> The suggestion is to use admin virtqueue to create queues and destroy =
+queues, as they are merely an object.
+>> And new transport like your proposal can adapt to the modern style.
+>> So only admin queue configuration would be the only message.
+>> Rest of the other queues can be created directly using the admin queue=
+=2E
+>=20
+> In a way, set vqueue message could be seen like that as it is a one tim=
+e operation.
+> In most cases, drivers are configuring a virtqueue in one go which is o=
+ptimized here
+> as we need only one message transfer.
+> If we include the proposal to also have an enable/disable directly in t=
+he message this
+> could allow for even less messages.
+>=20
+> Using the admin solution on top of virtio message is something possible=
+ and not prevented
+> by this solution.
+>=20
+> In my mind we have an object here as you create/destroy queues in one g=
+o and the fact
+> that a bus can transfer those requests asynchronously gives a solution =
+equivalent to what
+> would be provided by admin vqueues.
+
+Why disadvantages does using admin vqueues have?
+
+>> One can say it is orthogonal feature and I agree with that reasoning.
+>> The part that bothers me is that the new transport ends up adding some=
+ legacy bits like set vqueue.
+>=20
+> We still need to support legacy to have existing implementation working=
+ and here we can optimize
+> them a bit by not transferring one message per field.
+
+Which existing implementations are you referring to?  It appears
+that these are mostly in embedded systems.  If they are shipped as
+a single unit, the drivers and devices could be updated at the same
+time and there is no need for backwards compatibility.
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------wgPUulQcshZTbbXqO1T6ITfg
+--------------D4v1R0pEetDPuMKtDZktRnB7
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -351,30 +517,30 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------wgPUulQcshZTbbXqO1T6ITfg--
+--------------D4v1R0pEetDPuMKtDZktRnB7--
 
---------------VrZseizrdA6HPDmDTKkLp0B7--
+--------------J1puhtb0OMKy09vLbJ44027f--
 
---------------CKeBF9idLZgnWsb4bFFDHIM3
+--------------YsShS4mCNRkUOAYBSs14vr0l
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmme7PQACgkQszaHOrMp
-8lO5HQ//U/O5Dka37m5Y2fJ6Yi9Db4Q/1ahdSZ8IlnixaOA983T9v5mH3MgC5ko+
-OynOclxBQuPIuUjnM4Z2XqXTy8WHfAFxQtNgINRqRx2ch54xvF0WDgHGWpLeu8lE
-wDgIfOPY6EhNU/r3JettTDOIW0Z5b04nly+Xu2l3fnyzZrky2lqF/ESCsBFt3dFG
-cDnSDmvFCCr5kP+Ze2GAaaY0oJ+Gqh8txvetYGc6geyigAZDJgU0ap60HcrN1WkU
-VGOEfzSR5WJuXS7CXFaFj5lFoY7RGlSIACpyV1X0k9mUv2hJpdgUPeRWCZASjxLG
-3dkxpyXAosrCTnHGrQiwZivLeJnFoq/V2P1oACwK9VXSDKdIOhNCdaFSyOjCCLIW
-zKWLWrWPcvHPjVFK13TMQjyitDUVv2e9x57N2M3JKIHtRJC5bU+RZ1K7U0ZT14bY
-gqIFDyW5iAGjrvlphh2WF2xNWlyCtIi6+PnEvK/zsxqYC4b5vP2np5C/AkvCtfVh
-tsi+viH8lHPdbS7tyPFzgDBuvoLX8LivfOdUesDrtnlM+fAZ7FBKkRo+7AObLgXF
-JMDcnKWX3f3VO6yLoP7/g0w4ylOEyoT/nZPMaBZHnpVrEatyyakBkzT0MSDGqjW0
-v6Jqqql1TdtHoflySbDQIEIAkDefgSELVa/TKGCkCeZgYVSImf8=
-=EqLz
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmme7w8ACgkQszaHOrMp
+8lMfgg/5AWgrzjnrUoSLhxyCStalr5r4iquGfEfIJcEcqm/lETIwmDR7OGRyxHCn
+5wiMxeactmykuHd+QlRYHxl0V/rcpgknNqleAaFyiWcuaQFLXqyFWFCIZdbquFef
+Me3wP0Lv8m37HS8dVs3UwTQiob+hQMJGazxe6FmN1HCKfpzTW8kc3wJsjRShzrEZ
+cTQmt+oTIg6r/0y8pHQBmfTOlCjjR1Kr4/h4VTUoyvmBrFTkX5DonsBH5ndNcGhw
+N9gnhfLpxgV3UXz4tv6rm25oYX3xc4PLiIA2CFFfpfsuldMRV367dT+4ucWw15Q+
+H6H6Q7GByayspXkR0QpYDIPgB9aZq+aRyEe769HX/e7FCGiI3Cc5JT/8y6Ll/S/l
+5d3CEft6D2pM+jTkHp+6T7OJONfuIZldyKJzXcWIlBywWubaVtbLPT2QuaatvS/q
+AHw8NIc7vHjcQDHWSO2rbnFmcBrw4GQ9iQgoD4b8JqyUqRt9t/oExsEPRUEBImfz
+9YFc7+VBw3+gPXoKd4B7JIldh585+29Hu30adF9aUmI2V/IeRZjfc55tbx2R6rKI
++4bAW9XIXJE6QsweTPuc/MwH3FmqpHcyiI1rUpyxCdTLLEZYJudsbs5QaAahckgP
+tp1+1//SQAPr5bkTIsqKNz0I110RLkkYU1IjdoIZtIiHV0S9Zt0=
+=5TcK
 -----END PGP SIGNATURE-----
 
---------------CKeBF9idLZgnWsb4bFFDHIM3--
+--------------YsShS4mCNRkUOAYBSs14vr0l--
