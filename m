@@ -1,29 +1,29 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011070.outbound.protection.outlook.com [52.101.65.70])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010029.outbound.protection.outlook.com [52.101.84.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F0B1AF4EF
-	for <virtio-comment@lists.linux.dev>; Fri,  6 Mar 2026 08:08:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B85035B64E
+	for <virtio-comment@lists.linux.dev>; Fri,  6 Mar 2026 10:17:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.29
 ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772784518; cv=fail; b=XBWfYVfH5RVp2aObPVQgW+TmtM/EhyjqOQcXURtbkV9O0BRc3ieBNWi1gfPvXkUrFGnkY+z30fTz5XYogjJvrhAG9NNZA8GZ5KjMvZM5M8wJPoboET88sJ3KBiR7P8QQ65nx5sirT6xO26XbzwC/DMoj2V1T2le8XBO5HnnJSvc=
+	t=1772792231; cv=fail; b=OOr6nO8mH533H6A7Gy02loacC67MDUNS1vstVgewuEAgzTj0iCwbsFHt3hQtp3QV9Oa4LnflceaoXDgwBdhVVf4ie7PLO2BrzLS/Kc/wxPBozOLxD8wiVOTpYpL+JFOdLX5U0/J+y2CLXxlxcHgQxHK6w6mRz76Qddkp/2V8org=
 ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772784518; c=relaxed/simple;
-	bh=gonbTl7e8I/ukA38Lunl3lXxISfoy2VcL4vK6BTAEWI=;
+	s=arc-20240116; t=1772792231; c=relaxed/simple;
+	bh=janwEJ0S4BcEhPYyjpKOyRZyydKUU4nkgAxK0cUy0A4=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=DG3dCW2JmozrqYTSrWa+6wItYRM8LyMmr0Mj27kToseqH7ymqR7WzmYwRAyxnInWD+isXt5UO7fivtKjdUB1CdjVL/Fc4KCZphorIKiaNB9Cjcb09988c0WMi+PS1MNnVFEhaDYEmiBf6tuEcIia3R5VHWVj+Tdq8qATaC75FGI=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nRxIaHkg; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nRxIaHkg; arc=fail smtp.client-ip=52.101.65.70
+	 Content-Type:MIME-Version; b=i//Tp74E+qRI2gLHww4pZDYPc5IQO08CRK5tokbhww8uqxSdxRgkuPlSgiy7Rl9Pu+lCYdVyYv8YUMeCfhGmGCDI0UHejCb64SeIP/WbH+qNKy6482y8PPLfFAlWFTOapXoJauwh5m9u/YWusd4PGiI/fmv924buXXvLN6gqCdc=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=m8eULfe1; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=m8eULfe1; arc=fail smtp.client-ip=52.101.84.29
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nRxIaHkg";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nRxIaHkg"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="m8eULfe1";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="m8eULfe1"
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=SjQ0yos4SEWKuuUuFGNjj73IE8yOyiEzXHiPrfIkvFR4+ITpNxoALtpx68DJQpEwITZ48HQ3QhbNFFxMAaq6aLAib5ZlI8QK5NBhEBGdKskESuhGDhdrqkffLUH5m9YwV0iRI3i8p316HozuzCammJ76hsaD2iW3syAtqJPocWzMbI07ntgNijj6OseGp0UX62ckINA5I/dhb+9VfWhANW5E4lq1ukHtw60Pr54R8t18qruKF6ZiHVdJwwxOMBnwC/06F45fUxf5M2OsXw81hzE1nN9ACWX4eRk2GZ43770MBKww7+abshYdVUNDVeEiLyWkFH6g94dI3oK/gqtpMQ==
+ b=Z+6ftu8zeKQbXQikLD/sSfkyjKTahIrMIv9PYB/rml7h8Qe4ooyydZ3ov1iiiJRE0Bcu7bW9t6birsd0leScpl80ylevIsYGwyzOWdOsm0s+SHZyj5tgBEUHXYTPLZvbH2DYolJPle0ns6clowvRm/tt8DM4Q6qjIhnhoelifJ5iEaprgk04Br2iOo6UD4rm3jL7Ucv5S5dgWUQ5vqsB7njMkD0q1j1AIJoIHQz0yy4AwGZljnD9+MX0o9yCZOf6Rnj9hdjvSqwcxcnaGw5SAae/rxLuZALVCguMh/im+MMGSKmLY9+Ec7D+PNj6FeIJpRZxw6VLknF2CqtT0BxyQA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9kSAc7ru4XhWkFW2oziILRd9RB3JS6C5BXTrWdsjnSw=;
- b=SL2M60E4JHbZYc9f3B+ud5LL5dQdpFZcQH+kpx/3sppWOosUU5DWWaIL6RMZXjpG/9QSow5K6vpHALNNjuiVmLx0BcrMNsnJ0xl1nHb/dYc7yFpHhu7CUMCrikOwY0YF8C2+TmU2UMos6AZ2KTBd99WtjKO6ScpSKTX9RMpavRHa7+H4nm4z2STu4Ddy1+v4JikYThDrShnuyMK+KXIC4iX+KfrDLYWVyYszfPvq0a5LS53vkKj38UyUtTocc8r8DSFI15i3+fICe4Z3xtgyaLkeqhU0JfmFM8UwrlRGjxxEzoMZBOHojUGMoZp14IojdJRK6xDsDAYD9jqLEWm/0w==
+ bh=gQKCOdhTu6wJWVnth83v1ZqTbnz4LBUhfhwnTMZkp+M=;
+ b=UpIKxeuZ4+MgdDB0yUgvHoSctvnDw0rW+2pONWgDUMZkx1fSRB/J2EC0rLb+x3MfHsVDpxr7WQST/MS3w4t4zRvZyyQQe5n1ZOEsOnGJqjn93iZLlHCtWB5TMv+5PXMau1jyLMWgjbRpZk4EHykdcX/4CN8tMAh5ZV1O8VMKyc7J1u7R5ZnGWbSbsIHo0TaEb7+KTEHZsPZQsuztBw2mSrBJMxVGkg/x+GlxC/HBWizY8sxMppw0Eq4PRcNJam3O8WZauIbRkuIyo3zOGbFSpbUkRnwV3BiMzx4+kvyTXniTu4HefWwl85YI9n1IKr+qG+ECEqTJvEwFPv4UQBk0gQ==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  4.158.2.129) smtp.rcpttodomain=immunant.com smtp.mailfrom=arm.com; dmarc=pass
  (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
@@ -32,18 +32,18 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  dmarc=[1,1,header.from=arm.com])
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9kSAc7ru4XhWkFW2oziILRd9RB3JS6C5BXTrWdsjnSw=;
- b=nRxIaHkgB6kvfNKS+Ecipo8TxmlvZ2c576yF5qfn54M+2UcFWXMQQmSJAegSG/R01qHf9lASlTDX9KGJvlCpxAtjYRVVFaj/t3P2g2N3oAYL+tpVmPTFsp5jE9+9bURbMc3TXmbaVrv0Y7ok8w3FvY8jhVeJBmllr7hswE/PENg=
-Received: from CWLP123CA0266.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:1d5::15)
- by AM0PR08MB5411.eurprd08.prod.outlook.com (2603:10a6:208:181::21) with
+ bh=gQKCOdhTu6wJWVnth83v1ZqTbnz4LBUhfhwnTMZkp+M=;
+ b=m8eULfe19czy1iaG7x5ivjPEE6j9e5t8CEa3GeLukfNEaOdtpWL7wo4W45V6jKBAyquNvvsjXtbWDQne6aDTky7nt00c/AicFT71s7eHRcVHoTTO1FWUjWHB23F6EhWJX3IZzZL11RBp4YJTzix6bgGfAq1sCDL97vittBPuPi8=
+Received: from CWLP265CA0526.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:18c::14)
+ by DU0PR08MB9797.eurprd08.prod.outlook.com (2603:10a6:10:446::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.18; Fri, 6 Mar
- 2026 08:08:27 +0000
-Received: from AMS0EPF000001B2.eurprd05.prod.outlook.com
- (2603:10a6:400:1d5:cafe::11) by CWLP123CA0266.outlook.office365.com
- (2603:10a6:400:1d5::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.18 via Frontend Transport; Fri,
- 6 Mar 2026 08:08:27 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.17; Fri, 6 Mar
+ 2026 10:17:00 +0000
+Received: from AMS0EPF00000194.eurprd05.prod.outlook.com
+ (2603:10a6:400:18c:cafe::13) by CWLP265CA0526.outlook.office365.com
+ (2603:10a6:400:18c::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.19 via Frontend Transport; Fri,
+ 6 Mar 2026 10:16:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=arm.com;dmarc=pass action=none header.from=arm.com;
@@ -51,32 +51,32 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  4.158.2.129 as permitted sender) receiver=protection.outlook.com;
  client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
 Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AMS0EPF000001B2.mail.protection.outlook.com (10.167.16.166) with Microsoft
+ AMS0EPF00000194.mail.protection.outlook.com (10.167.16.214) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.18
- via Frontend Transport; Fri, 6 Mar 2026 08:08:26 +0000
+ via Frontend Transport; Fri, 6 Mar 2026 10:16:57 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uvCe1CyvxzDSdtSLl5RqZ8Hc7YNoS+IZ8hAVgQ9IZCp7dQ7WZwTDVw0Y3xm6SCYiP9ngqW9k0TSOtH2VhyeJQwspjpXL4P3r4FxI7fnv4vvDto6zGi5fGpQLrtf6KXtoC1c61+JlC6p4InTenTIK6YxEiDPmvrrSqaF5JyidXFhrdJcYnFDuZRfu/h0wL6CELCbPxSt6djtdoDFvdTCW/nc3blocwvt9GY3godqPhvZbwmtWgyoshrh1np7EUMgXIhreIwpRJpboyBvegu5+erz9Op3vb2geghLuzJZc9qiSMFKwhXZFCUxFl+jHE6GEFdbh5GHGBcdyuiIJF8ly9w==
+ b=MW6A/zimwz8id5637rFTreTTSjXHDF7qwzMRRZHGO8PCoZGttc9Cl8+j+6nc/cnKZqr2+wRCb+GbSQjybZJFeMqNp+iP3IuZ/9Jho1MPmOyUCWOmJloW5eBOaka5B1ldvBm5BxDdwurSwTXYo/kPLdFr83wDdavsKAn/PAAm3wh7bWnJMVdPRGY8P6VqBqNqqxFYYR9e7qc0oDKeE+KsITcYptWUJeJjGPslCJzUR5QYJF3tfOzuWRno4JKFwYA92UiIObh8xGLTWMlH6gvTErR/4QtL/FczauaZbdjcHXLXlYWNjAHQFHA0OO40VWmsncrGt8iQoHkSF080ZCqcGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9kSAc7ru4XhWkFW2oziILRd9RB3JS6C5BXTrWdsjnSw=;
- b=JS7pHNaQ6VBHjjEilbQXPh+0KB+iIdhvY/+wb3vXTtgdyEevdgdgXrk5xTO2v+664xud9zignDysEA+W1K9HXFsiJNk1dhvH88AgtVAxSysDeEEm0nU7vykeUY3uxpduRtARp3g7VVH7vP1jydxnyx1/mUrutE552ajPohrfPMta2GZFIcK/2RJa6P4WGiEbPSTctqIK3ueNhyS/WBhJKYnfGXsXYIZAWNREV03yaD1qNG/baEjk5j1fEIV4xqzu+CoyiDjNvCe2609Ub0+4g6v9iQAlVMAsEZy1O84+EIqPKpeUUAcUBrvr77IOUETszsAZj1/0G5VBSihuvJsgBw==
+ bh=gQKCOdhTu6wJWVnth83v1ZqTbnz4LBUhfhwnTMZkp+M=;
+ b=LZchg311jMGaKnkQzTR9aFtYok+e6YdRZlf2gVBdWDYAVkUihEcSrzJoIukv4MThC9a6hpbBhhHbLFXMnUmXSDkJsoKwmD4oA56asSTdOUq10HG1sU4NeRp4hlFbmM9rvF0y6/VEqH2NSoQXtTxtsDUatQnjlzVRl+j5f0CP8wVcY7oi4W5pEsgOZnoNeY+N5FWzzCm3MwuwOR06h7LEO/tgv2j2nKmi8BgehWlgxFfQwteyT1Rw63GwVnYNQtpe5bCnpUNSlmH0C9u6STrH4ej+nmNfhMk+yCbD+K6YODKTAT+08C/MvWJ/sWsOZdMpr5jKHBpK+iuvWId8GO4qQA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9kSAc7ru4XhWkFW2oziILRd9RB3JS6C5BXTrWdsjnSw=;
- b=nRxIaHkgB6kvfNKS+Ecipo8TxmlvZ2c576yF5qfn54M+2UcFWXMQQmSJAegSG/R01qHf9lASlTDX9KGJvlCpxAtjYRVVFaj/t3P2g2N3oAYL+tpVmPTFsp5jE9+9bURbMc3TXmbaVrv0Y7ok8w3FvY8jhVeJBmllr7hswE/PENg=
+ bh=gQKCOdhTu6wJWVnth83v1ZqTbnz4LBUhfhwnTMZkp+M=;
+ b=m8eULfe19czy1iaG7x5ivjPEE6j9e5t8CEa3GeLukfNEaOdtpWL7wo4W45V6jKBAyquNvvsjXtbWDQne6aDTky7nt00c/AicFT71s7eHRcVHoTTO1FWUjWHB23F6EhWJX3IZzZL11RBp4YJTzix6bgGfAq1sCDL97vittBPuPi8=
 Received: from PR3PR08MB5593.eurprd08.prod.outlook.com (2603:10a6:102:84::13)
- by AS8PR08MB10364.eurprd08.prod.outlook.com (2603:10a6:20b:56a::16) with
+ by GV4PR08MB11275.eurprd08.prod.outlook.com (2603:10a6:150:2eb::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.19; Fri, 6 Mar
- 2026 08:07:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.18; Fri, 6 Mar
+ 2026 10:15:55 +0000
 Received: from PR3PR08MB5593.eurprd08.prod.outlook.com
  ([fe80::aae1:6871:afc4:620e]) by PR3PR08MB5593.eurprd08.prod.outlook.com
  ([fe80::aae1:6871:afc4:620e%4]) with mapi id 15.20.9678.017; Fri, 6 Mar 2026
- 08:07:23 +0000
+ 10:15:55 +0000
 From: Bertrand Marquis <Bertrand.Marquis@arm.com>
 To: Andrei Homescu <ah@immunant.com>
 CC: "Bill Mills (bill.mills@linaro.org)" <bill.mills@linaro.org>,
@@ -92,13 +92,13 @@ Subject: Re: [PATCH RFC v2 1/1] virtio-msg: Add virtio-msg, a message based
  virtio transport layer
 Thread-Topic: [PATCH RFC v2 1/1] virtio-msg: Add virtio-msg, a message based
  virtio transport layer
-Thread-Index: AQHcrQlLysg74l+ZHk2KzSlnonD7CbWhJmeA
-Date: Fri, 6 Mar 2026 08:07:23 +0000
-Message-ID: <1D3EEEFF-BA9D-4A33-A824-A903480FF940@arm.com>
+Thread-Index: AQHcrQlLysg74l+ZHk2KzSlnonD7CbWhJmeAgAAj6AA=
+Date: Fri, 6 Mar 2026 10:15:54 +0000
+Message-ID: <E989448A-A3F5-4F5D-841D-1A42DA169056@arm.com>
 References:
  <CAGynJTUcVGL9mRVirKo1R8RK1Ftz7fy3HhF2STdXg-FwjPJLSA@mail.gmail.com>
-In-Reply-To:
- <CAGynJTUcVGL9mRVirKo1R8RK1Ftz7fy3HhF2STdXg-FwjPJLSA@mail.gmail.com>
+ <1D3EEEFF-BA9D-4A33-A824-A903480FF940@arm.com>
+In-Reply-To: <1D3EEEFF-BA9D-4A33-A824-A903480FF940@arm.com>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -107,21 +107,21 @@ x-mailer: Apple Mail (2.3864.400.21)
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 x-ms-traffictypediagnostic:
-	PR3PR08MB5593:EE_|AS8PR08MB10364:EE_|AMS0EPF000001B2:EE_|AM0PR08MB5411:EE_
-X-MS-Office365-Filtering-Correlation-Id: e74f720c-a293-440b-cbb8-08de7b578baf
+	PR3PR08MB5593:EE_|GV4PR08MB11275:EE_|AMS0EPF00000194:EE_|DU0PR08MB9797:EE_
+X-MS-Office365-Filtering-Correlation-Id: 269a9573-27a5-4295-1ebe-08de7b697fc8
 X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
 x-checkrecipientrouted: true
 nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|366016|1800799024|376014|7416014|38070700021;
+ BCL:0;ARA:13230040|1800799024|366016|7416014|376014|38070700021;
 X-Microsoft-Antispam-Message-Info-Original:
- C3ncklHYwRxValRADkjgYLA0fX9Mbdhff6F49GxFenWRvMiOwFIoTXZOX4ykM2K6fphQc604va1wHOBoRq3OXB+tHIgzspMjJ1jvCRFWf2IXLyo6zuifXbMT0pqhyI5PZNyBzOYcfdSZmjtJr3M4bEomfXdfrHdzJqfkH4QrDEQvRBl5J2OXLCkLlw9GFdMGksYWcTp/79VaZCSrJxv0sCZBP2axYDWWPDGfutyFspVmdPoMLt2cXMD788dqhOb9Y+w6d5Bt1QiGbhFgOkaL4qtyPwVFNjtX5AvNgYnP9KJ+SQtUNd2Q62NXle5czwS4Cnl/kvFaWzCt1VQs+I8RmKqokMf2nm6aC6nFVGntsQ3dMzBFEpBiBL8Z4UnPyJHDH4doQBKjPXExpboLzkbog0/4A7tvqiy84kfcfyUOMcRIjwU+EamfisqewPno/pgO/ZIXcWIJKIqi83RETWU5dNGHPrY9erVUWJnd07KUmcZVdN2U3K9haR64PELEu2TvKuj5SENLw51RLecZs7GGICun5hMfyS2yDCu7cY6oQukfor2dgofz/Lz97QFbJ/brAvk+7NodU9EWZdvx1RKpLRClL/JpyZfoMlHl/hQIyssmqXxpNkcTcdY0obsZI/8gBGQlbe+AKEj/MfsIxLWFLJTRzT6hamtdpz2DMmDe1H8vlwkQtdernKS+a+COwwA4Qj5UJB3C9nkIv2vBCue2QffXVoBNM6CmK+6sVTDfz2aVlvrXYmHcyX95YRX++D12cJD0v7rUFRONJauQUrQW/EkkDMyG42NDVyP8WptRls4=
+ 0Ev8YvP7jKFh4ue8GxRAK0omehyxeh2CVCZOqhP+35//K6oMJaoL3E5eHyaMZDJM9bAyspFCF+aFvYMLxoIM37PWjlp2bQ9yYyh4kmJT+DyrlBOnCNZRMq5O8FJlUhLLCMq1qtlY/5HiAGmPym71MTslr1Bnzn9Ka+yeOeBLeBHa/43B7wQp68WnCVeWdfgqWI1GcWb9T7N7vFPK7vkmFkRpgft4II4MgigF5/fYwGHf1QJsh8GeXfj2aGoFpsuS0wS/7q9h2EFjiel1nIcP3Nsg3vOfFZjgIWJj5maq8iVVzgn1L9vcibxICw0SwTrpfZ6NS4fR/Dba2W5ISjkjdSZvAw9JfcU07oDSqtYpwwgKxkHNpYZhqMJtsiuWYUwRsykRuY7HcZ4HcmSRzHhOzYvH0GLWoxpc0o380AyDO8+RK/hJ6a4eQ5Dr5eodwS4/g6LhHSzghGKJ4+Q5UkNyBvqtRab4nwNsQbWH8deQnmONmF59Q5quIeRkGwDHLr59GRY5qPbyhRgUEifQruTLJ96Kx2Zzgnz6fedr5zA+KEkQZN/FqBIqD/IPve5Pyq9NpJBWAfhqw3pv/sRRcooPIGtSiTPT+xq7WDIT9Aw+a95EPmke/ocyYaEAYAwhmGN6A+9wl8DAIuzHQw17yMDdSzthUBTAL1hlKZwoet0pHTd74u1qIrF4WXh5oJIE3vVSd/GDG9OFUQzn5R5vWvjGLny2/ZpsPx/dclwW90KYxoUiWLWhm0G3lh9RBgIFSCDOjgQw+7t6P2Td1dRNhfEiQ1usXM8LFZTjmoKJTL8x3QQ=
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR08MB5593.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(38070700021);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR08MB5593.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(38070700021);DIR:OUT;SFP:1101;
 Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <7EFB6AB9C5D63D4DAABB5FE65E25579E@eurprd08.prod.outlook.com>
+Content-ID: <BC6BAA34DB65074E9891FA2717F76700@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
@@ -129,196 +129,175 @@ List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
- qjxkvXinlVwM0qfDZUlYMVuEEMiSq1EJhsgmU28gisBVHpt8bXRWdH3aS1yor7jNmK8t8I1TWJSbhQ4OCtZtuI+laAni01PnE7Y7CT/ID9WB8FzQv/sCO3VeQmewEYJ5s/27qS/A8G49K/9vKJ8/SpqslZxKV+8QKH2pA6uCXiICp3Z8/NdHPy5Lb0sBiPTHGgR/deSLd6vf800jVG16fjGa/CTVU3KOhbaz5+TGyxlRZ5Z+H7UtHcwK7fjQfVLCv4XP11xrXiZCvIJXSywI9HzIbxDu3YODbDN2h9VSVAyKfKauT8Jw7CuR3f2Xr6HE91NTHdpBoa06/RcdulMzOw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB10364
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR08MB11275
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS0EPF000001B2.eurprd05.prod.outlook.com
+ AMS0EPF00000194.eurprd05.prod.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	14ac605a-4bda-487f-cf46-08de7b576616
+	2ae6fc37-d92f-4946-e4dc-08de7b695a53
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|82310400026|14060799003|1800799024|36860700016|35042699022|7053199007;
+	BCL:0;ARA:13230040|36860700016|35042699022|14060799003|376014|7416014|1800799024|82310400026|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	Y+cvUfeEsDiRnWgC5oiap19vEhvMJNFxg4S/I+rBe4S/gBDtu8eegvcqnmql3NbQ0XVuzF2ZgJV4Qyf1j/XK+rSGZuhTh1r8y5YupmzCYGV/Q2w5Ms1t1ISu61l3of1AYejuOv2V1KHCQ7fz2chnIbVcIkr+XFyRK1s1lh8j5I5VzEHzOo5cVt/laMSegeFo9IASY0cEgQk+KbgFHI35m2DewffJYGJOoA8BVS9p7OMuV/MHANvyqSLu7zmYhKJNipM9nFO5n/s+KeFUMxkaiLhXelaX9Iu00srh46SgGjbaw4Og+FVtiRNLrlk8lTa2bWHDKbuEFsvfm8C5zjV+1Aqv12lxbJ2ZG/eZGOqg0i83ooDpqYYw+7XZpsvP0Viqh/WUcN+hIb3HOZAUzV72WcdL9NPL+Vbj9Go1oECDSxnIO7cDucsLff1CWgaOhciBYL2fcqSf5IiH1jKet8SRCskzHIp0Zjw6apoOyQ9QuLhfNLToBYZcx0ys9BvnKFhI0cpjslZoGTXGZZ9YBzoOo4oJzM89tctd5UTZ3YTDnOKN6vDvfwrCTS/Uw694nk3rlRaI6x4POds4GhYXNeHiWnT+0RY3GuZXfybXzpmCmUWHfnHxPAnp/mrDtLoFr8d8PqtZwQdvXSPHLXPpSIqIcOoVEohn/UxzPxGJbKI8U06A8uOGF6KGqK/opI5e1PfkpVGhsEih3A+3ISvh4tnbv+wGzMkCfB0l9j//sbu4qy8trx7XOBHbeGDIzwNYj7znwYh3cT2+pfXGT297R5mHFg==
+	kI4dHf6rfmCpYF+XXSjYlgf9xtCEAsH+1w2gX3cfeeLqDzEaj6k8KHCHyJWCen1suZ5YZmNOi1iwGYwLgOd4Y1CGqm1iPzubWuTXpwpMgBnnwa2IWi7/KTILiQGW6Ga8UDOoqhqAA26HGlq2LZUWtAbYD4Mmtg2KGl8N06oRwsxrz/U2w3qzZEwgVcwkzGq7VlCZUv56VK8VrO6FXMuIUPkLuBmGM5uzGvXcLJ1U5CF0mbcxoVOwLjm0wzOMctuimdiQfr0EE6lQuHbKX/gRdfYvqP8jndPt57CxzgCMc0vhUBtP+hYDwCfSdVAew7ywXXYhLd6ayWilBdI/fOz4WHYuwVF0Ryf7RfstRUTb03oPYg39EWfMo9m+3f8YiThwiWZSfG2WsVe7DNdMM+wYYppVBtYclA+r/DlViTf1gjTfmrhfIvrcNkvmNTjk2dv+ID/Iutv0BO16vGPP1dnc2YuBKYpbadjOrFHAVdraS0IKovukzWKvCPvNHgvYXKjpH9eW1bbwnjUBu7t5V8PPr9pBy5viPA9O7k8+pLt+ViTHc5dN46HXYPZ7nVsLjZClYNuN5r5kEGLqKs1ixXiT5Fgr9buN5PPXxNMWc5XOtY41w2YFp2SXHg3wDY/fcJrpJGfEXKZHghgAnzsGz2BzavHvEL4Xb89R6+BDgO1vCxyneE/c/KoebqLtVNhnXGOINu0gTYYWpVWwyR+2ZWtK2Mz6TikE5klfkEFH+/ByYg3+5KBrd7ah7pGg8dhBq0zr0oX5OeJvfmHTcR9oUnJsKg==
 X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(14060799003)(1800799024)(36860700016)(35042699022)(7053199007);DIR:OUT;SFP:1101;
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(35042699022)(14060799003)(376014)(7416014)(1800799024)(82310400026)(7053199007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	/EcKAH+wP+UsvjCAr2hMs4Xd2W1f8/PMsQMur28H2hr7R8rM5TKwMAG5gMVsRulvz2DOzKGDNM7hahNM66p9vpjujB2lcWy7fb4pQdfMriNowmGcSz9hbmuRQ1wcSvHK53TaaoAnf9ST+EDqk9WOqLOsFlANUPjB/PyGYA5ZHCACsM3fdV+7zhQnBr/+8nsPVzAvhtbB6dK7OyIw5ubo2HtOHZJUvBkNGOXnk/niCIccB5UROAO2zgrn+ZdwkYvUsOyvSRiCvgL9cMjXUA0NYhCARE7i4GAjMiga3QR/C8Gseis0DsBPyIbXxz1anNy1GNtKvf77jhiicYDFwwHkh8cINersscjcLWSF9aLjFJ8yJfj2XABro97T+C19wABLAKsguSQRQw5IchWx58j0p0caZR1iCLXhiBS875o17GT/YPMaGaiboN0CLdfbEiVN
+	kEo2lILF4wyd5RL/8xSo8YM5wZyqYZ5uPafLi1gPGgdIaQ16eCj5/Ht8OOPiFTluk2JWwAvLH/SM0hXBiIY0RAPUIoGXxHW0UDAQc0WzNq3vuc8+DTWv782nqlx4XWXyndFGF+ZHDwWalwmvrKFgbFTUOIgJSzThHDSOUEQweeqWo5NnMy5P9EDOfclNqpI+gin/Z9EF4jizBay3RMGmQJT8y+WOpgqNdZrej3Q6RVzclApjvC2mniU1wFBxofibCPwOegQklE5VfydPhDUCOHr2h3I48WLq/4mDahh9vpWSHPm3SwpjdnAFlK9+xEdRTf4f7V70mjdlzSlmfnMq+hpiEEkAg2meQ606425xRkzzMmNRuv4giGN6r3cycM6O884gormr9QKE/DxygoGP3Xhf3q+o2J7Tyd7rxoq79hcRQsG83+TB1aXPvnuWRWs/
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 08:08:26.8071
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 10:16:57.7709
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e74f720c-a293-440b-cbb8-08de7b578baf
+X-MS-Exchange-CrossTenant-Network-Message-Id: 269a9573-27a5-4295-1ebe-08de7b697fc8
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF000001B2.eurprd05.prod.outlook.com
+	AMS0EPF00000194.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5411
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB9797
 
 Hi Andrei,
 
-> On 6 Mar 2026, at 02:33, Andrei Homescu <ah@immunant.com> wrote:
+> On 6 Mar 2026, at 09:07, Bertrand Marquis <Bertrand.Marquis@arm.com> wrot=
+e:
 >
-> Some minor comments below based on the Trusty implementation of
-> virtio-msg, and potential future issues for implementers:
+> Hi Andrei,
 >
->> +  \item \textbf{Number of Feature Bits}: Indicates how many bits (organ=
-ized in
->> +    32-bit blocks) the device uses for feature negotiation.
-> I think v1 required this to be a multiple of 32, and would reject
-> invalid values (might be misremembering).
-> IMHO it would be simpler for implementers if this was "number of
-> feature blocks" instead, like in other places.
-> Is there a specific reason it is "bits" here?
-
-Yes definitely and i think this was already pointed out by someone.
-
-It does make sense to clear this up and have this work on 32bit blocks and
-have a number of blocks in the header.
-
-I think at some point we had discussion on the implementation impact as giv=
-ing
-a number of blocks here but a size in the header will require to do a conve=
-rsion
-where having this saying number of bits could make implementation a bit sim=
-pler.
-
-But looking at this more deeply i think the multiply by 4 and round up sayi=
-ng that
-unused/invalid feature bits have to be 0 is making the wording and logic si=
-mpler.
-
-Unless someone has arguments for having here number of bits, i will make th=
-is
-coherent and use 32bit blocks here.
-
+>> On 6 Mar 2026, at 02:33, Andrei Homescu <ah@immunant.com> wrote:
+>>
+>> Some minor comments below based on the Trusty implementation of
+>> virtio-msg, and potential future issues for implementers:
+>>
+>>> +  \item \textbf{Number of Feature Bits}: Indicates how many bits (orga=
+nized in
+>>> +    32-bit blocks) the device uses for feature negotiation.
+>> I think v1 required this to be a multiple of 32, and would reject
+>> invalid values (might be misremembering).
+>> IMHO it would be simpler for implementers if this was "number of
+>> feature blocks" instead, like in other places.
+>> Is there a specific reason it is "bits" here?
 >
->> +The driver \emph{MAY} issue new \msgref{SET_VQUEUE} for virtqueues that=
- have not
->> +yet be setup.  If the VIRTIO_F_RING_RESET feature has been negotiated,
->> +individual virtqueues can be reset and then optionally re-configured.
-> This implies that the device should reject SET_VQUEUE for queues that
-> have already been setup?
-> Or could a vqueue be configured multiple times?
-
-We had several discussions on the subject and there will be an enable added=
- in set_vqueue.
-So the idea will be that as along as a queue is not enabled you can reconfi=
-gure it.
-Once the queue is enabled, you have to reset it to re-configure it.
-
+> Yes definitely and i think this was already pointed out by someone.
 >
->> +\msgdef{SET_CONFIG}
->> +
->> +This message is sent by the virtio-msg transport driver and requires a
->> +response from the device.
->> +
->> +\begin{tabular}{|l|l|l|l|}
->> +\hline
->> +Type & Offset & Size (bytes) & Content \\
->> +\hline \hline
->> +Request & 0 & 4 & Configuration generation count \\
->> +& 4 & 4 & Configuration offset in bytes \\
->> +& 8 & 4 & Number of bytes \\
->> +& 12 & ... & Configuration data \\
->> +\hline
->> +Answer & 0 & 4 & New Configuration generation count \\
-> Is this a copy of the generation count from the request, or the actual
-> value from the device?
-
-This is the actual value from the device after the config changes have
-been done.
-
+> It does make sense to clear this up and have this work on 32bit blocks an=
+d
+> have a number of blocks in the header.
 >
->> +& 4 & 4 & Configuration offset in bytes \\
->> +& 8 & 4 &  Number of bytes, or 0 if rejected \\
->> +& 12 & ... & Configuration data \\
-> Is this empty in the "if rejected" case, or a copy of the request data?
-> My interpretation is "empty", but perhaps this should be specified.
-
-I would say this is empty right now.
-It could optimize things and prevent a GET_CONFIG if we return the data
-but as the data modified might be outside of the area touched by SET_CONFIG
-I think it would make things complex to say that you can get an error and a=
- different
-area of data that was modified (and device does not know what is the cache =
-status
-on the other side).
-
-So I would say empty unless someone has an other idea.
-
+> I think at some point we had discussion on the implementation impact as g=
+iving
+> a number of blocks here but a size in the header will require to do a con=
+version
+> where having this saying number of bits could make implementation a bit s=
+impler.
 >
->> +\busdef{GET_DEVICES}
->> +
->> +This message is sent by the virtio-msg driver side bus and requires a r=
-esponse
->> +from the device side bus.
->> +
->> +\begin{tabular}{|l|l|l|l|}
->> +\hline
->> +Type & Offset & Size (bytes) & Content \\
->> +\hline \hline
->> +Request & 0 & 2 & Offset \\
->> +        & 2 & 2 & Number of device numbers requested \\
->> +\hline
->> +Answer & 0 & 2 & Offset \\
->> +       & 2 & 2 & Number of device numbers in the answer \\
-> How should a driver handle the case where a misbehaving device sends
-> back more devices than requested? (in other words, if this value is
-> greater than the device count in the request)
-
-In theory there is nothing wrong in the device deciding to use the full pay=
-load
-it can transfer. This is not really expected but I do not see a valid argum=
-ent
-to reject that.
-
-> Or is that not misbehaving?
-
-I would say it is a bit weird but still compliant to the spec.
-
-> A driver implementation could ask for e.g. 32 devices at a time and
-> store the resulting bitmap in a uint32_t.
-> How should it handle getting back more devices than it has space for?
-
-I would say it can either ignore the rest of the device number and do an ot=
-her GET
-or the code could be able to iterate.
-At the end the driver side has no idea of how many devices are available at=
- an offset
-so to reduce the number of messages i would expect it to ask for as much as=
- it can
-in one go and for the device to answer with a smaller set if there are no d=
-evices in
-a part of the set requested.
-
+> But looking at this more deeply i think the multiply by 4 and round up sa=
+ying that
+> unused/invalid feature bits have to be 0 is making the wording and logic =
+simpler.
 >
->> +The offset and number of device numbers requested \emph{MUST} be multip=
-les of 8.
->> +The next offset \emph{MUST} also be a multiple of 8.
-> Same question here as for feature bits: why not use bytes (defined as
-> 8 bits, or alternatively octets) instead of bits as the unit for
-> GET_DEVICES?
-> Then the device implementation wouldn't need to check for and reject
-> invalid requests.
+> Unless someone has arguments for having here number of bits, i will make =
+this
+> coherent and use 32bit blocks here.
+>
+>>
+>>> +The driver \emph{MAY} issue new \msgref{SET_VQUEUE} for virtqueues tha=
+t have not
+>>> +yet be setup.  If the VIRTIO_F_RING_RESET feature has been negotiated,
+>>> +individual virtqueues can be reset and then optionally re-configured.
+>> This implies that the device should reject SET_VQUEUE for queues that
+>> have already been setup?
+>> Or could a vqueue be configured multiple times?
+>
+> We had several discussions on the subject and there will be an enable add=
+ed in set_vqueue.
+> So the idea will be that as along as a queue is not enabled you can recon=
+figure it.
+> Once the queue is enabled, you have to reset it to re-configure it.
+>
+>>
+>>> +\msgdef{SET_CONFIG}
+>>> +
+>>> +This message is sent by the virtio-msg transport driver and requires a
+>>> +response from the device.
+>>> +
+>>> +\begin{tabular}{|l|l|l|l|}
+>>> +\hline
+>>> +Type & Offset & Size (bytes) & Content \\
+>>> +\hline \hline
+>>> +Request & 0 & 4 & Configuration generation count \\
+>>> +& 4 & 4 & Configuration offset in bytes \\
+>>> +& 8 & 4 & Number of bytes \\
+>>> +& 12 & ... & Configuration data \\
+>>> +\hline
+>>> +Answer & 0 & 4 & New Configuration generation count \\
+>> Is this a copy of the generation count from the request, or the actual
+>> value from the device?
+>
+> This is the actual value from the device after the config changes have
+> been done.
+>
+>>
+>>> +& 4 & 4 & Configuration offset in bytes \\
+>>> +& 8 & 4 &  Number of bytes, or 0 if rejected \\
+>>> +& 12 & ... & Configuration data \\
+>> Is this empty in the "if rejected" case, or a copy of the request data?
+>> My interpretation is "empty", but perhaps this should be specified.
+>
+> I would say this is empty right now.
+> It could optimize things and prevent a GET_CONFIG if we return the data
+> but as the data modified might be outside of the area touched by SET_CONF=
+IG
+> I think it would make things complex to say that you can get an error and=
+ a different
+> area of data that was modified (and device does not know what is the cach=
+e status
+> on the other side).
+>
+> So I would say empty unless someone has an other idea.
+>
+>>
+>>> +\busdef{GET_DEVICES}
+>>> +
+>>> +This message is sent by the virtio-msg driver side bus and requires a =
+response
+>>> +from the device side bus.
+>>> +
+>>> +\begin{tabular}{|l|l|l|l|}
+>>> +\hline
+>>> +Type & Offset & Size (bytes) & Content \\
+>>> +\hline \hline
+>>> +Request & 0 & 2 & Offset \\
+>>> +        & 2 & 2 & Number of device numbers requested \\
+>>> +\hline
+>>> +Answer & 0 & 2 & Offset \\
+>>> +       & 2 & 2 & Number of device numbers in the answer \\
+>> How should a driver handle the case where a misbehaving device sends
+>> back more devices than requested? (in other words, if this value is
+>> greater than the device count in the request)
+>
+> In theory there is nothing wrong in the device deciding to use the full p=
+ayload
+> it can transfer. This is not really expected but I do not see a valid arg=
+ument
+> to reject that.
+>
+>> Or is that not misbehaving?
+>
+> I would say it is a bit weird but still compliant to the spec.
 
-Good point, we should make things coherent and use the unit directly instea=
-d of asking
-for multiple when not necessary.
+In fact i am having second thoughts on this one.
+The request explicitly came with an offset and number of devices so the
+answer must honor the request.
 
-I will do that in v2 and also handle the rest of your comments.
-
-Thanks a lot for the review.
+So I think we must:
+- consider a device answering with something bigger than the request as
+misbehaving (non spec compliant)
+- allow small answer if there are no devices in part of the area requested
+to prevent sending big zero data when possible.
 
 Cheers
 Bertrand
-
->
-> Andrei Homescu
 
 IMPORTANT NOTICE: The contents of this email and any attachments are confid=
 ential and may also be privileged. If you are not the intended recipient, p=
