@@ -1,65 +1,64 @@
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A1F2D836D
-	for <virtio-comment@lists.linux.dev>; Sun,  5 Apr 2026 17:50:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F3532ED58
+	for <virtio-comment@lists.linux.dev>; Sun,  5 Apr 2026 19:35:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775411450; cv=none; b=MmgUXfU37ILJjvID2NSZB1FeGIPkfkM8j8k0kKxQ6xv4KuS1gXK/9TDAoiC+GoKQg+WXqJITQ8PhBi9SvGVEJxczScMzFHHDJy7GiVFuqliWb1DOZuReX3pkDaBMAncHXSYpyBsVkUqmb+NFXxEUr3G4X1PKtLyNu0UdEepRGOA=
+	t=1775417737; cv=none; b=T7ZsIK9O94lR1E0nUZJNSeg0ZLA+r/2IFPjlYmy92qQ6wnnI337oPUYPYfl8pqsFPMYtGWQQmU1hePs02ku+as5xMhFXhR841BPoCHKldoXhgwOlctrpEzDXhphoULa0I4m36hTNbQ/k3pQorYFULpd+rCBMWY9GqDRHd1zsehA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775411450; c=relaxed/simple;
-	bh=F4Fz6gnva/YqCs2oVLJv1jjTsO3jjvbTEywXpghycXQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=REQKk3iFHTg0+TirKhz1tePs55qNOBV8a9eBxp/JbW2utw72hkjjl069xOjXYPNkXbHuaG6vZeBUWWUu/OnHaFkZd30Z7H3chX9qBGTIDhNyPt/QhHLiusXkRZPzD2ZyoD/gRva68jn07Vqc1Eqe1HAVm0JUqEBo8degYdpGsqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b71IQq7/; arc=none smtp.client-ip=209.85.128.173
+	s=arc-20240116; t=1775417737; c=relaxed/simple;
+	bh=2pZdwoSHuI8ac4s+hnTFlSLsLfi+Tuq8dxUP/If6nUc=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=GKrt6bq9Wsgmv3CZTLSXBNdIANk5v6tUoCnwVLPqUnY+XrnCsegof4fIrne4xG+DC5hwa9tLJwAD3AbjzB7kUolzdJqOobIJM2HzfFUt2Q3eLsUBhlqPP44+ZYgt0C0tkR44GHD8IHHQ3LBrxexaO65meryrtfplY6IVzcH8K28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T7lZIFoL; arc=none smtp.client-ip=74.125.224.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b71IQq7/"
-Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-79a60975dc5so29634967b3.0
-        for <virtio-comment@lists.linux.dev>; Sun, 05 Apr 2026 10:50:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T7lZIFoL"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-65009bfdcfdso3410992d50.2
+        for <virtio-comment@lists.linux.dev>; Sun, 05 Apr 2026 12:35:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775411448; x=1776016248; darn=lists.linux.dev;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=EjsFZabp46Ngt04IHdeQAYgW/nqer1/jUeITYfoHqVY=;
-        b=b71IQq7/aRGZ5vGw/uGgKXFRGQC0J1iPq1xEMR2te8PMBXovvILBvlcfkLVBdnCVsY
-         DEFdm5MV9Dz/Rb+oX7niKsjlocw9z3+RN3yLW3zlUQKzrsAyvm/PR6A+N6XOvUvSxHuX
-         t7c1LMOfc58DmeNuEDqUAGuyimJi3qj2n2qwZNtZ04ECryh82ja5ZRCidMde0GaAqclY
-         zYnwiDz2ysDCQHPiTQvlnDo46sGRPUL0FJDewsjvOCQEDPGXcq9m/obyHJ5JNsBGmhy6
-         aTZJpaaRrB55LW0ZAa52JLyRjpprfHaO/qlKXo7eS+R1TgZ6kz2KqMjeSc9wyX+14Lrx
-         z1FQ==
+        d=gmail.com; s=20251104; t=1775417736; x=1776022536; darn=lists.linux.dev;
+        h=autocrypt:subject:from:to:content-language:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=fzUzlymAHbzi7QP7qEf6tC0sUEpqIwq6mXRnBDohcaE=;
+        b=T7lZIFoLpIOqLqc3Bvb7xz7NQovIwcTT6/qxlLZPDIQiz/tzUXJsK/n0ALgL6bqeeU
+         kCDRRRjYFw+mdXKR6pH3U5pr6xyOhBjfgUvkjM9pstZ2WHAgmfM/p22fbBZocihBl38g
+         9p+IvCEMYToclEZNJHYcwPvam3nZ7voHJHaduCQtjpEZEGktT6Y7R+rb8SEYgXFRxE3f
+         jKm30pRwPLPXrxS8jQw4IviWpm+9smyG6MQc6k/D1TE8XYny5RBene6vDRIKC2OLRF26
+         6rOS/WsdPd5qXzTc1dwp04cVA26GkAJA6kBXw3cy3Ni3V+pC1eey8jE2Xbf7jZZ/YuyQ
+         1/Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775411448; x=1776016248;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=EjsFZabp46Ngt04IHdeQAYgW/nqer1/jUeITYfoHqVY=;
-        b=dna37TrvxrJkIvUFKaFELbi2JdCXAdjq1lbbuC/ex/EcIuY3wEBtRtzO7N2Ea7N+l/
-         DPAYJ4zlLYpJQReio8hQ7uLcvoFYX0y+5tt62cp5ZPbsh5XjZXebAsh97IIR77QLjb78
-         uRrTVDOIgxM3PLXmdVM5aL8DNinwP5eeE+poFGGyzqO4K+s8F3zkPFUduU66V/xAk3jU
-         wwjIBeUyBflPGYwsAdAR/tKkq9cSSh3veFFlREQ7MYBgFRAMRAIk7WapfB5/08GoU3W9
-         QgQIPvaRtGu4zBDSD7MGffyNmNyzIZP81i8HS69v8RQCgozYGmj6NW9SQv7rxiXCbhpg
-         a9CA==
-X-Gm-Message-State: AOJu0YzrPwCHPlbWOn70ZXvTVPNJ8T1enQNSW16ty7ku9VILp9PlUG5a
-	CSlSGVCo84IuY8tn01S6R2vRpBonUUFX3bdCjIwmbJ+K/L0lSv9IdrDe4N3Pcg==
-X-Gm-Gg: AeBDieuZaJgdARWmTVBk4HVZ86onbsP/4MEQnHW9P+9hukJlUgBTslRhtyg89GhUqHd
-	r4hjB4M1poiYScab4HQWb1RIhijRQMA1xI7PlqeHiuYoXMPZP9kxKkj0kJpbsosN8ha7XjgOCPp
-	IWmXmYapNi8k8tyVlsVqafnmhy+rPuUloDVsvRZ23DxV4KT4D2SVxarePiy8BwA2k9uiJn4KwS7
-	L7TjUX3uMn2Csg+P/xavzZSBGsBDdOnIf2O810K8Quh99kMWzOx0wiUsWBKgkTdV5osEdLQH1TA
-	FmzQ5P/fJyyhuT3x+GtaJu1YaGB3DXs8spWCLebroZSOWcqlK8HrvjNpNIS+6heAw1Fdx7rTmtx
-	A71j1lQYxpbHztWfioif8RrpHBHiAlTQ7vDoi6uYvpqdWIW4BBvMuWhqr03eQtq7tXqFytwAY7A
-	GkIXwhncEXOM6R9BAi25NdK//rOnBeU24J07XzOJma4k+7h4qtiuAX56w1ta0OPQ+TFr6cpE7xL
-	EBaS5uqJT2JuSVmV0dKoKI2s72no7yuXe/n
-X-Received: by 2002:a05:690c:4481:b0:79b:d341:570f with SMTP id 00721157ae682-7a4d31e8760mr106335627b3.12.1775411447838;
-        Sun, 05 Apr 2026 10:50:47 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1775417736; x=1776022536;
+        h=autocrypt:subject:from:to:content-language:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fzUzlymAHbzi7QP7qEf6tC0sUEpqIwq6mXRnBDohcaE=;
+        b=VvmjKBexKeeBisWpo5z8VUGM0nn3OG7y2qfH9SS5AInHBk0rSNKnE1avINbgDG75NT
+         BeeB/GIpoGEXuCZ4dWA/kMet2q5rVNAN71rXOVvgp5PaTwkVw061bZSiCOqM86Zq4Dlm
+         OtAAu4JcFqmbEZ4DUILV9VEmYU+ZMyFufhCARxYnZ+4DzUtz8PJ35qVpoUsjhSIG0UhS
+         w0eGsj0XECh3QG0zzHeqBtEzBJ3SjwF9xyPUN030QExJCyMz5wEpJ63G+z0hjqOMcdin
+         1AI3jaA28Odk9OUanytzlTo15JUPlSgQuGVaoe8fx9ZLo0tGYeBOfUsKTR8+POjGIqpC
+         DmEQ==
+X-Gm-Message-State: AOJu0YxBFIQ4fFy/yJxvH3pQfJM87sOljtnDC0ThR88erEzx8cASJnIb
+	EJTR9c8qnsCxzHOmy1gumCGYDY0K5BpD3JYEND+rGlU3zVoP1wwyH0O+2PFSJg==
+X-Gm-Gg: AeBDiesfYOPjEnWxETEFMhNHykk4vbOm1M3VIBSlCHJhycxWJHqY1v2QSW9ohWxoKRm
+	5dRWUC2+jkIq8gAHR2oBcr50im2nZyHYH8pOLBzKYgv89KuUtS+yoVn3kFKmWbP0pDfMUuYR8g1
+	te5X/mksukKZKUNe9EO4z63nx++mjD59S/DgqQMiBvBtB4fuU+/VKDR+vdXQsXIT1VtDWS3oYUm
+	Nqz/jJlvMJp9UJLcYZDYmTRucG9Nt/GRXAS6SGB4qrvAD0EMOvvQucNFTfEdC/1EH6x5MbEd6F1
+	gE/lirHfZp4qwg3WOnekZG/K+/xY4JMKOo6cakhNgkDLSCqG8WL9EkMn4ebAf8Kkcp6BmieV9Yb
+	Om6yW78nheexYSOyWXkGAcFsu/grmg+jGL31hh1xbxg5B2Ane5XOl9Atam5U6i6miuuEVZPjaug
+	5HJVkmsVdQw9AczdcUY3aBbMfrA0xgYhp6bP5/HazAcVqAjm1tTG2ROajo8ji6Js0te8Dlhmfnt
+	QNXNt8A2p2Vzx8fQ1ntPqP4nGy4HBOM9MTD
+X-Received: by 2002:a05:690e:dc4:b0:650:1d6a:2f27 with SMTP id 956f58d0204a3-65048685940mr10214002d50.4.1775417735409;
+        Sun, 05 Apr 2026 12:35:35 -0700 (PDT)
 Received: from [10.138.34.110] (h96-60-57-129.cncrtn.broadband.dynamic.tds.net. [96.60.57.129])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7a370905079sm43164977b3.23.2026.04.05.10.50.45
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6503a824d46sm5039230d50.4.2026.04.05.12.35.32
+        for <virtio-comment@lists.linux.dev>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 05 Apr 2026 10:50:46 -0700 (PDT)
-Message-ID: <b01e0d9b-086b-4a60-8ada-1ec895d46139@gmail.com>
-Date: Sun, 5 Apr 2026 13:50:25 -0400
+        Sun, 05 Apr 2026 12:35:33 -0700 (PDT)
+Message-ID: <983b94a2-a97a-449e-ba4d-ef5360704a59@gmail.com>
+Date: Sun, 5 Apr 2026 15:35:27 -0400
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -67,14 +66,10 @@ List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Should there be a mode in which the virtqueue -> MSI mapping is
- fixed?
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
-References: <e8a35333-589a-4a00-8e1a-32d497171e56@gmail.com>
- <20260404205140-mutt-send-email-mst@kernel.org>
 Content-Language: en-US
+To: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
 From: Demi Marie Obenour <demiobenour@gmail.com>
+Subject: virtio-PCI interrupt corner cases
 Autocrypt: addr=demiobenour@gmail.com; keydata=
  xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49yB+l2nipd
  aq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYfbWpr/si88QKgyGSV
@@ -118,27 +113,22 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260404205140-mutt-send-email-mst@kernel.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------RRdfDC1Mg07ODLRKvBDc410m"
+ boundary="------------dIupf0o03gWTw0sp8i31WYpF"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------RRdfDC1Mg07ODLRKvBDc410m
-Content-Type: multipart/mixed; boundary="------------UYvi60NBDwd0z3Nw7Igzi0vc";
+--------------dIupf0o03gWTw0sp8i31WYpF
+Content-Type: multipart/mixed; boundary="------------LqHIkmsnbumfn4uE4kKipWHD";
  protected-headers="v1"
-Message-ID: <b01e0d9b-086b-4a60-8ada-1ec895d46139@gmail.com>
-Date: Sun, 5 Apr 2026 13:50:25 -0400
+Message-ID: <983b94a2-a97a-449e-ba4d-ef5360704a59@gmail.com>
+Date: Sun, 5 Apr 2026 15:35:27 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Should there be a mode in which the virtqueue -> MSI mapping is
- fixed?
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
-References: <e8a35333-589a-4a00-8e1a-32d497171e56@gmail.com>
- <20260404205140-mutt-send-email-mst@kernel.org>
 Content-Language: en-US
+To: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
 From: Demi Marie Obenour <demiobenour@gmail.com>
+Subject: virtio-PCI interrupt corner cases
 Autocrypt: addr=demiobenour@gmail.com; keydata=
  xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49yB+l2nipd
  aq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYfbWpr/si88QKgyGSV
@@ -182,77 +172,45 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260404205140-mutt-send-email-mst@kernel.org>
 
---------------UYvi60NBDwd0z3Nw7Igzi0vc
-Content-Type: multipart/mixed; boundary="------------QIm15kjVjCQ1gHTCnCbLvCJ7"
+--------------LqHIkmsnbumfn4uE4kKipWHD
+Content-Type: multipart/mixed; boundary="------------0DH0Ey0IoC4G21L1RRtkIPsO"
 
---------------QIm15kjVjCQ1gHTCnCbLvCJ7
+--------------0DH0Ey0IoC4G21L1RRtkIPsO
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 4/4/26 20:56, Michael S. Tsirkin wrote:
-> On Sat, Apr 04, 2026 at 05:19:41PM -0400, Demi Marie Obenour wrote:
->> Cloud Hypervisor's vhost-user frontend does not implement MSI-X
->> properly [1].  Specifically:
->>
->> 1. Reads from the Pending Bit Array (PBA) always return 0.
->> 2. Changes to the MSI associated with a virtqueue after the device
->>    is activated are ignored.
->>   =20
->> Amazingly, there have not been any reports of this causing breakage.
->> I have a fix for the first [2], which actually decreases the amount
->> of code.  However, the second is trickier and I'm tempted to not
->> bother unless it causes real-world problems.
->>
->> Are there real-world drivers that will run into either of the above
->> bugs?  Linux seems to only choose anything else as a fallback, which
->> presumably is not triggered.
->=20
-> It will sometimes trigger.
+There are several corner cases in virtio-PCI interrupt handling.
+I'm trying to figure out what the expected behavior is in these cases,
+as the spec isn't clear.
 
-Would it be possible to provide an example?  A reproducible test
-case would be ideal, but conditions under which this will trigger
-are also sufficient.
+1. Suppose virtqueue 0 is mapped to MSI-X vector 5.  The device
+   triggers an interrupt on virtqueue 0.  Vector 5 is currently masked,
+   so the interrupt becomes pending.  The driver then map virtqueue
+   0 to vector 6 and this succeeds.
 
->> One reason I am asking is that I am working on an updated
->> virtio-vhost-user spec, which I've renamed vhost-guest.  A vhost-guest=
+   a. Is there still have an interrupt pending on vector 5?
+   b. If vector 6 is unmasked, is an interrupt delivered immediately?
+   c. If vector 6 is masked, does it become pending?
 
->> device implements a vhost-user server, and requires one MSI for each
->> virtqueue of _the device being implemented_.  The existing spec
->> allows the guest to select which MSIs are used, but that seems to
->> be pointless additional complexity.  A simpler option would be to
->> hard-code the MSI assignments:
->>
->> - 0: Configuration change interrupt.
->>
->> - 1..N (inclusive): Queue interrupts for the N virtqueues provided
->>   by the vhost-guest device.
->>
->> - N+1..N+M (inclusive): Buffer availability interrupts for each of
->>   the M virtqueues that the driver is implementing.
->=20
->=20
-> you can do this, and imply ask drivers to share msi vector values.
+2. Suppose virtqueue 1 is mapped to MSI-X vector 7.  The device
+   triggers an interrupt on virtqueue 1.  Vector 7 is currently masked,
+   so the interrupt becomes pending.  The driver then maps virtqueue 1
+   to NO_VECTOR.
 
-Are there drivers that cannot do this?  Is this the reason that the
-virtio spec allows using the same MSI for multiple virtqueues?
+   Is there still an interrupt pending on vector 7, or is the interrupt
+   lost?
 
-> but sharing has to work because # of vectors in the system is limited.
+3. Suppose both virtqueues 3 and 4 are mapped to MSI-X vector 3.
+   The device triggers interrupts on both virtqueues.  Does the driver
+   receive one interrupt or two?
 
-Sharing vectors will indeed work.  It's just sharing MSIs that won't.
-
->> I expect that all real-world drivers for vhost-guest will select
->> MSIs in this manner.  Hard-coding it makes the device implementation
->> (and specification!) simpler.  I'd also rather not ship the first
->> implementation with a known bug!
->>
->> [1]: https://github.com/cloud-hypervisor/cloud-hypervisor/issues/7813
->> [2]: https://github.com/cloud-hypervisor/cloud-hypervisor/pull/7963
+I don't have access to the PCI specification (paywall).
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------QIm15kjVjCQ1gHTCnCbLvCJ7
+
+--------------0DH0Ey0IoC4G21L1RRtkIPsO
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -372,30 +330,30 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------QIm15kjVjCQ1gHTCnCbLvCJ7--
+--------------0DH0Ey0IoC4G21L1RRtkIPsO--
 
---------------UYvi60NBDwd0z3Nw7Igzi0vc--
+--------------LqHIkmsnbumfn4uE4kKipWHD--
 
---------------RRdfDC1Mg07ODLRKvBDc410m
+--------------dIupf0o03gWTw0sp8i31WYpF
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmnSoPAACgkQszaHOrMp
-8lM3UxAApwBudB31qzzkrtK6L9cuen6lWlv6s4gPj88E61J+kcAule9dsb1gi0Ed
-yTug4EEICiNPO63ayqj4YUOJ1jeTZfX22jEY82LMDFVZQ6u51Gnuc5HRwC57DIdV
-6vjhLY96tcIDPggoAxmU2j8WtZSBzAjryGNLZszNrOKh1jCV8aEte/E+AAJ1VW4/
-KUQE3ZnGlT6HJp4KFGfREfWJoKRieUq6nrVCBr/rsutnGhGwRDYHES5FCgRUQQtM
-El0NwPLeTXdYcMlbmG8T1I5vnLlY+u95OwsESezWoVHRX4P+mvcCH2P+1x9+3zCM
-+F3iAKxPEjAwQH7AyTEsGitmwetYSfTIObBqECd1WDJKFg5wH6u2qWFMgUDZ8oJ5
-VioPzlEU4ha8/WPum4/5bRjAFg8QY5nQ1h+CCfHSb9y4Yw1fZokajabbRbbDzmUy
-TruzWuP0un+IbhVA/IesCeT4i4tdpcjnm4dypM1hc6mMccGTKoFmH2a0kkCEa8cM
-3anM0bvThOpE3+m1uPA3gDHw1lOOJfXKfTbL199cGWhTtXGN2lAgocW5qX12BYhm
-80K8JJvNX5aqfYQRDlWzprBOdT51ePLGGhaTeRbfMDiiiRFHXjDg81T4dg6zcJd1
-BSR1xitdTW4PjKL7aktBIHcKeLq6HHFN18EQmEIDBynw6tEUldw=
-=JsSa
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmnSuYAACgkQszaHOrMp
+8lN4oxAAjJK+FLlkaglfyIj4Z03NbOruBOdpUbk5t8NPyGi5PDZstRF2FoVUSNdu
+lSlmKrovjv6vBLBv47YstjK23LoBYhLqsH090T6WLbkM32xkooBNB3uvJwg2t2v8
+nVuXG2kKU1hr4YcdTnhbmzfwCeIV5X2IZgTJKUNyWZhPKwrb2YUFM2GgAU2Wwk9C
+E37sxLDc50fBY1IqpZHWuz6JIPAcgFt/VJej+CNAvUDN7dsHw8YGaL1snzQlle1c
+KJkGbUGpFXjFMbYvZxW2ZdbHCJjMSReYvC8cy50sWVxa5l0mwJJUDRgKYjUrTz6x
+WrUzmY+N2VfQZMvO9hGLpYViRBpVEPMX7kX8BTkwBMkEEZIPG9KiTRscqscEZMTm
+7xj72OBw87aRYoMugyPB000bsSXm5ASf9CaQIO5cZwog5rprrD5s9GWIvkHFTVWm
+sbSXaUMuW/p2FuAhYVzKaa01t9TWv/sZp2PldGHc34+0lvowKgK6VRijBxtqWlsH
+DIR52uscW1FSH2otjpKiVY4DCAh+WuCSrW/scrYMpM3itOBfZkqUJpgEO32lbQW4
+llf3Kkt3ycipfQg/x1fnzAy2Bdm0wTpxaJaupH0TX/8HjeQs5BlSKo79P5AuzBZb
+PQwsP1dHOfjUjepOcJQJ3qioJon+8e8qChKsDmR2AUqY0EJLjNA=
+=huGc
 -----END PGP SIGNATURE-----
 
---------------RRdfDC1Mg07ODLRKvBDc410m--
+--------------dIupf0o03gWTw0sp8i31WYpF--
