@@ -1,90 +1,94 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E0F2E06E4
-	for <virtio-comment@lists.linux.dev>; Thu, 16 Apr 2026 16:53:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EBCB311C1B
+	for <virtio-comment@lists.linux.dev>; Thu, 16 Apr 2026 16:53:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776358384; cv=none; b=iXO4aAEor/FPHz5cPUwy3OWQh2krUz82ozOMEaFnt3n1/7oMwY8iyDqEHR7BnPfP0H2yYZ51qpMWT0Bv6ZaxySnfGK1izIm2h/KjrUxJychxenUK1CKZnmg0bxSz458QYiKjwt6/MMRwKp+gx+gQ0wEyDNgN5XgdRD3q4b00gfg=
+	t=1776358386; cv=none; b=N3EG2YMB7MCfKfc7B0vS/6uvBHlSylkO11nnqXo8qxUjxarxFLnU3lh/OX6KUVWZiO6OZgR71fe0JbwuXMn3kkw9G0eGWz2GertvnuKHbcvX/IROJMmArsaJpDdhGTXITk9l0exm0l3CuvtpfxrjyGljYuuGGTRDIE9YyNQY/MA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776358384; c=relaxed/simple;
-	bh=KAUT8BjZ7oXrvp+YXVYTXy4LUaV79RI460I32V3HMog=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QsjKl1D4/su2BGMSx9Gk9y8F1lBPyEoVoZTC2MnWUi/EQtu23eCoffkXMAqUNikt31BsaO2i4lMgbj54HlCbheyUETDJN3f1mA2gtR7JWTuqyEBXHafkO7mTIiZ9VASyjD+fHQLzNzq55J3PPNc87IiEF6/rOARi3VuFVX+SZnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=amj7ibvJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hkXg5jhX; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1776358386; c=relaxed/simple;
+	bh=OYt/Ogtf/Fd0g/+wR9ROGP2vOAnCIglgBXFitxNt8hk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OIfovnKggxt+tWoLP+ePRtq3LjCkOPZmkgUyu8xhIksEEgPRDK397EamS7u+Qs4jaT5IKg82Mkzq42mDeci+X2C2vCsyPYJvoDhCcspBsdefj2QKwIxyHyz/xRKtBHEsJGsYvt5znryhI7fRILUHCA6ouPdWPPW2cVRaHY7p8Rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jmTN3tbB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Yf3ZthSM; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="amj7ibvJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hkXg5jhX"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jmTN3tbB";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Yf3ZthSM"
 Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63GFr0tg4124964
-	for <virtio-comment@lists.linux.dev>; Thu, 16 Apr 2026 16:53:02 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63GFlWX94125508
+	for <virtio-comment@lists.linux.dev>; Thu, 16 Apr 2026 16:53:04 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=yYIo6/Uj1vOXhibd+unAXf5a5QqNRT6zvhn
-	bmBqW/7Q=; b=amj7ibvJcAwQNzVu52pQUJ6FoaFuDbQtsfdD7CiRIXOV2EPVwrl
-	NhGl61LqHPovjxN3RVmlFEQIQg5kUkl2ru+CeMMPj76QGUWjrSKTf/gWaGWdtZnR
-	8o7d495T9iFEJKAtOCfoO0+NYD6ZzZmy0GxipDJ7rLfWRahxxNVr1lE5SvtmvX95
-	AMI+sgpJqEj4rkLO27V0dJfczDVjhAYXjA9VWw0gsXQ3L7EBgae+OEgML11N+/9x
-	qRSIBrtkt/2y+ZVa2ZxyKdEbSb3dMfCVnAjeAHT/uju0dUJckxh1NndbAuXl90PB
-	M8eJnlWTFebyxRYJS00/NngyOn9V2qqwp9w==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4djvrf9nwx-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=OTGgX+/6j3q
+	ASkhbqWWRjs0E15ohaAvmJgtC+GT6Q6U=; b=jmTN3tbB3iqlkeBESSetAfmG7Bm
+	2O+qCmFYWfP4JJvRzAnCcuF9W2gGb2kcFGO6jWAbGqOEA4FqGACMdrZdrbgZOsbc
+	9XyF/QIAdnfb2Z47rUh4rF0BesizJCf0t9VowI4uxeqdkAMlm6VHQlgYEJETwlMB
+	JqtgErX1DtqWGcfoRg6ahz7ZYcOz03S+pHPtmI/T5bjiCeVuPuvKWh8C5fM8HYKJ
+	6lZpmnoSkhJWHCicYMqQtHnLy2ul+LwRjSRaUPV2A+XRzzBDJwTzQC2cGzd0sk57
+	IQXXYAYb8UDdsx8fpMxEFmhWIc2AFLCKDQZKNPeDD0gtJdgbDTjO5zZLRmg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4djvrf9nx2-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <virtio-comment@lists.linux.dev>; Thu, 16 Apr 2026 16:53:01 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50df4c130dbso22898131cf.1
-        for <virtio-comment@lists.linux.dev>; Thu, 16 Apr 2026 09:53:01 -0700 (PDT)
+	for <virtio-comment@lists.linux.dev>; Thu, 16 Apr 2026 16:53:03 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50e2eeebd33so13486371cf.2
+        for <virtio-comment@lists.linux.dev>; Thu, 16 Apr 2026 09:53:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776358381; x=1776963181; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=yYIo6/Uj1vOXhibd+unAXf5a5QqNRT6zvhnbmBqW/7Q=;
-        b=hkXg5jhX9YWOtfSwaajQLzMisK4dCyzU0NFp9aRx7VuaeU0kDjTLB23918NSAgvWx9
-         73CVXTtMR1vLwvmuZBoNdai83f/4uZ1K06tQuwdkFz0muj4cEqmQmKC0MdsKJKpnrThq
-         ATkLjqb4o1o2wJlOk52Q4avc5LsPAd8KEeWcYpKYMhX2eqzzaLXbqsDGecoMbz4gMuMs
-         gsto+41BbQhh0VqG8v9BUzdaQ4G2g04Z/drW5KiWhXnRN+Vhkc4G5GwT01Zk/kXPmxeW
-         DFDspV3kKfaBwktjB5UsPciY7UpR4tyzQVUt3v3r26jVsRAI3Mz6Pn7GV12KHFEAN4mg
-         LKhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776358381; x=1776963181;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1776358383; x=1776963183; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yYIo6/Uj1vOXhibd+unAXf5a5QqNRT6zvhnbmBqW/7Q=;
-        b=R5zhwV5JDRwysmAbW5gvf1Q8QWLoFSVFj+GG7wGoSmCcJ75D0R2uZQDD0mYZcXDbBn
-         whacrP8qszGcs00ZC6hGtamYBhG6AWZLdCzgQNhGhoo8U5Ap4u5FZMMWG7pc5oPwSTCT
-         MS8ya9iBD76lFagM8h/dJObVYNw9D0/kyyUyEfYR7FbKNrpBmXHWTiuMMbnTGYBeRijp
-         REAb045cFlB4qR2BpgADKxPGmq5JbYUtmdqyMNCam9EDLcP3N0XIHZL7FbYOiuMDiO3w
-         6W1smtsPIdQR9Dh9Fu0x+CAnM2VnDmB7az/NdWuuDo0JND5geLYMrRTu6q0i3/sZwn90
-         jVhQ==
-X-Gm-Message-State: AOJu0YxRsA+XkC9cFa4PVodJeWchxVtnWU0WLTpg04Z3Xc8Gvar29aXX
-	0k0ggLiwKlSRMB9Q2V7L215pI7QlN7D9OlhvlnlKgWFHHzw1OIo6KTvadPz7iM2yAfmdCOetfOe
-	Bt2uGKicn6iZeT2Hd6dwJDoZv/waS1w+87+w/6C+BhEXMFMIklmYfnWhaeQU2nW3RGGk0nzOtVb
-	jSu9oW
-X-Gm-Gg: AeBDievZ2OqSNZ1+acZhF2k7ACqlgJl9Mv1o2TSLHgauNUemuQl0C4r9gB8zeAvq3NL
-	nNQHixtYAhZmWjk0RZyW8yXM9P5Hya3Uxj7w0r9mt98w8o8Y/RHDSgIrWGGORNVQEZt3pzSXrdr
-	Ldf0ZF+RPZK3kbaIhfeyJZKSv0Vof3FCEO62DEKItGB6GJIVTWpZtcyHmUF7CeLjVYfSfD9N3Qb
-	n/C5OsiwgW3iw1m/KCMD+8lxD53U/udg4qVP6gigd77nyjEuXwEpi5+APpThhy+XruE9pkcJTiC
-	3K92i6VqJAD2UVHjufgpjYYNBeQ3DS+5d1BqBMgOlXJhnuCtPKq3KQ+TUrC+WJSWf12Irh2xkpV
-	qUxD7ds0TU5hz4OX1AcQzBbvS6oSeaG3ZhZAGMPNoaVS/PZqht/Pv
-X-Received: by 2002:ac8:5a4a:0:b0:50b:2d6e:5253 with SMTP id d75a77b69052e-50e24c1046dmr59280221cf.41.1776358381256;
-        Thu, 16 Apr 2026 09:53:01 -0700 (PDT)
-X-Received: by 2002:ac8:5a4a:0:b0:50b:2d6e:5253 with SMTP id d75a77b69052e-50e24c1046dmr59279891cf.41.1776358380698;
-        Thu, 16 Apr 2026 09:53:00 -0700 (PDT)
+        bh=OTGgX+/6j3qASkhbqWWRjs0E15ohaAvmJgtC+GT6Q6U=;
+        b=Yf3ZthSMy29fkrMYf3CucShc1aSaxPQ9et1y0V2hO3mYZBnz9Vxie1ZaWdBB7SbRsa
+         CJomaui/5L2ApSQXyc13cGY8rxWo6eIBUsPM8c0xpHgUdu+lARHFP5clo4CcX81OnTYN
+         G2fjk1aQ0Bu1E2+haWQ02CYvW0e/t636LOK+UgbHZa4yVKffNLWtummkp/x3iRuiqhWk
+         0kUF5m48LHL73VO8jF1OY2v/mPsC6qqVLbTpBbK72qmTri+QP6zB3auZN8wyo/aUNtaj
+         Uiv1dmofZ7g/vCuMhn9PzFNIOP/k50YlE2xzMSblN9pQ3NbKVxiTfOVVj3dEdk4mNITL
+         In5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776358383; x=1776963183;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=OTGgX+/6j3qASkhbqWWRjs0E15ohaAvmJgtC+GT6Q6U=;
+        b=UsbThd4r7eDMs3xm+CJaqSD4HwLCTjA5XVNyRTCwyHub8Yxf5DQ+h4U2L/qqFPZxIq
+         +SGxjK6CA/XIEyMgI4fG5QfugoahpnJeMcSidHgdPDeiM7wFK4410HRG2VOxOhi6SaCW
+         t/CAdTmdNG7xB2Mc1MdZAMVCt7kgAT+5aNkIn4sVypmQ6FiB+aAoza/yWUAJ7f7lRBUc
+         R9TKO++MoIJt0lVlM29bcC/xvuZuX3/rb6bjBI56q4OP4RhsinMKx0+SUzrBzG1kouCM
+         EysCs9ONAdK+kMkrWoiqJ8D4vpzEM+aQt1e12ICFNZn8fww456IWo+VkQwKMoRL73lDS
+         2Y+g==
+X-Gm-Message-State: AOJu0Yx0DXQFLKjL9mbtSYzroXIPdx9pSoxr4vCuU+JdBlEVnzkLK1tm
+	I3g6Sq31vPpXWDWQMkPJITrtzI20bEiOEKTlT5ttmF9Zp5wzhVHDTFnBG8rZoUWn61H/t1zXMPd
+	G2RdJlK9+h1vVLxjfAffhiC/oniZLg0CJDc7oe5MrjRdwtw+h8DeIWxHljGJAKpVOqb12sqltcI
+	fntBBV
+X-Gm-Gg: AeBDiesN7nvFsAA68ntCHe1P4RDNgaSkYvIQwxYSVbELO/hUoYZ2W3naWyO0HsEf4N6
+	ViruWVoOqxkjcichV1eBvuGu+9GTumrZ+whFakZYB1Zqp6l5yTCpH9bnR1r/Y4y9dc6BoIH7YKx
+	ENfF52W0F30ggZ4oxjQ+6jbac79bJItxZySHWhu9gXFbamYuw+ONmY5e8+e4HvDIkUVdXU87WHW
+	LQJb2r/se21rIfoqlyIqLY7GkNerha/1QnthJQB8XdsvpUmAhiJfpjxle0jQ8/RDmWiJYvcxJLu
+	pQpQ40qRoXQLajt++VD/mPS5WY5ccYClh1ZqRYM60A2taVEGSCzqPSMyaKy/P1bBf4SFvxR5pfn
+	TyWDF5g7uNgOVLxW0QBu6UNmGmvLlLywvIOONOK94YGXT5S0J+CZD
+X-Received: by 2002:a05:622a:598a:b0:50b:506d:736b with SMTP id d75a77b69052e-50dd5c12825mr383174631cf.47.1776358383042;
+        Thu, 16 Apr 2026 09:53:03 -0700 (PDT)
+X-Received: by 2002:a05:622a:598a:b0:50b:506d:736b with SMTP id d75a77b69052e-50dd5c12825mr383174111cf.47.1776358382483;
+        Thu, 16 Apr 2026 09:53:02 -0700 (PDT)
 Received: from QCOM-LDTZRie9bq.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba1780b9c2dsm185639966b.59.2026.04.16.09.52.59
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba1780b9c2dsm185639966b.59.2026.04.16.09.53.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Apr 2026 09:52:59 -0700 (PDT)
+        Thu, 16 Apr 2026 09:53:01 -0700 (PDT)
 From: Peter Hilber <peter.hilber@oss.qualcomm.com>
 To: virtio-comment@lists.linux.dev
 Cc: "Trilok Soni" <trilok.soni@oss.qualcomm.com>,
         "Matias Ezequiel Vara Larsen" <mvaralar@redhat.com>,
         "Michael S. Tsirkin" <mst@redhat.com>,
         Peter Hilber <peter.hilber@oss.qualcomm.com>
-Subject: [PATCH v2 0/1] transport-mmio: Add optional reset completion polling
-Date: Thu, 16 Apr 2026 18:52:55 +0200
-Message-ID: <20260416165256.4351-1-peter.hilber@oss.qualcomm.com>
+Subject: [PATCH v2 1/1] transport-mmio: Add v3, which polls for reset completion
+Date: Thu, 16 Apr 2026 18:52:56 +0200
+Message-ID: <20260416165256.4351-2-peter.hilber@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260416165256.4351-1-peter.hilber@oss.qualcomm.com>
+References: <20260416165256.4351-1-peter.hilber@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -92,22 +96,21 @@ List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: tVBVPRYNszr4Lvqw7LAcmB8GDEwz2YWM
-X-Proofpoint-ORIG-GUID: tVBVPRYNszr4Lvqw7LAcmB8GDEwz2YWM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE2MDE2MCBTYWx0ZWRfX7+I7YDevw/kN
- TeroJk0K4J6/JV38TRhdSymmi0dXqh0aVBGCra/RxsxxJFc6/MRv01r5ayHtBylG2hyivIIZlIM
- pD+M+41OPKpJNBwIGw1mUr84cBklP3uOPVrBaE4ssQhAQ/oNMxLBYxu+GumahT58to3Bb+0b7Mb
- MF0A2JcqNNI05vLbl6QmBaZfcxScwQt3HlURoBr8l2EJFl2/Mv0K8qXQ9F20OuHdrt9BScwHEBa
- 5373EQKh8vFVajmOoR6L0xKikzMw9eri5d8U6hKtAn04naE5qLp3cmy5cuGjf04Et9UyAH0b3SB
- ENkUfPUM5f5N2YasC0pUNMoRZtcLiBegaSxYJ5eLXUJ9tG7QZo8nko1bXJ+F6haAycqb21tMDKf
- HLd/guKJFG8t+HvW2LBsjdBQI/otRFymlrlPNQw7f3P63bHPcajx+pWbmbAZ6wkqV5TP9VgTGSk
- gJcH1z1XBnVPdp003bg==
-X-Authority-Analysis: v=2.4 cv=YtE/gYYX c=1 sm=1 tr=0 ts=69e113ed cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+X-Proofpoint-GUID: IwhkDigao6sol8T5xJcp5DTN_XMYHBs_
+X-Proofpoint-ORIG-GUID: IwhkDigao6sol8T5xJcp5DTN_XMYHBs_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE2MDE2MCBTYWx0ZWRfX8Z3oyfyAoaAF
+ vJPs5qEyfWmQOuqeZZS+BeFVvw7h1KBb4hx4XPO5TegW8teUN+BJMFQVPUdsaLpP3SA2Koj18QG
+ qduJujl1FcrPOtXpOVCnTX5/g9ZC2wsvOzsuNupUW9lsC3rElH1+4t+WqVudbJ0/aKGCAK7WSae
+ M/sacjrGMubftWqgdCfKrk5vFvkZVE6Qr2zOApVAfKgSyROMQ4zABJaryfceikuvLWYiTiBsnM3
+ wiKlO3nLBpp0xf+2q2M+2imvrN451Tjf5GIZlxMBp+Lz9RIx9+vb+TItesWAlLUK+1A1iVL/ieY
+ 4xqsbW+4Lc0br0u2pAmvPca+QqZ7feCg53Dd563AEXldMJCZKqJlRu3Rs8vCiJ6LrKiNZx8ftsm
+ 9ZEfPEt3v5+vEbUh4atfIF4bL+OQc3sZBh7qF88gUK2k7WkpQG9/7h1vKQXX0zMH3q6DyjoLSke
+ TccUVuVJj6Qh3GjBIXA==
+X-Authority-Analysis: v=2.4 cv=YtE/gYYX c=1 sm=1 tr=0 ts=69e113ef cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=Vt2AcnKqAAAA:8
- a=mkMtH7XpAAAA:8 a=EUspDBNiAAAA:8 a=-nE-q4Jgy-PAZNx2EiYA:9
- a=a_PwQJl-kcHnX1M80qC6:22 a=v10HlyRyNeVhbzM4Lqgd:22 a=I9Slk6e--tAXHahELIuT:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=XtCE9F2bTraIh14jv_oA:9 a=kacYvNCVWA4VmyqE58fU:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-16_03,2026-04-16_03,2025-10-01_01
@@ -119,63 +122,139 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
 
 Let devices using the MMIO transport avoid stalling the driver (virtual)
 CPU during device reset, which requires introducing a new MMIO transport
-version. This proposal is similar to [1], but simpler.
+version.
 
-v2, after discussion on the mailing list, describes some edge cases
-differently and rewords some requirements.
-
-If the device reset includes terminating device activity which may
-interfere with the driver, the reset should always have completed by the
-time the driver considers the reset complete. After device reset, the
-driver may free previously exposed buffers. Per the current MMIO transport
-specification, the device must hence complete the reset during the write of
-zero to the Status register. If terminating the device activity takes long,
-the (virtual) CPU doing this write to the Status register must be stalled
-for extended time, which may violate real-time requirements (including
+Unlike the PCI transport, the MMIO transport does not require the driver
+to poll for reset completion. This requires a device using the MMIO
+transport to complete reset during the write of zero to the Status
+register. Device reset may take more than 100 ms if it involves
+terminating ongoing device activity which accesses driver memory. When
+the (virtual) CPU writing zero to the Status register needs to be
+stalled during this, this may violate real-time requirements (including
 those for hypervisor trap-and-emulate).
 
 Address this by introducing a new MMIO transport version, v3, where the
 driver must poll for reset completion, and, hence, the device reset does
-not have to finish during the write of zero to the Status register. Polling
-for an operation to finish is a pattern also used for the PCI transport
-device reset, device suspend, and MMIO transport QueueReset writes.
+not have to complete during the write to the Status register. Add a
+requirement that resetting a device which already has Status zero is
+synchronous to avoid ambiguity when such a reset would finish.
 
-Unlike [1], this proposal does not require a reset-in-progress status bit.
-Unlike [1], devices cannot indicate that the reset failed, which appears
-unneeded.
+For clarity, also add some related requirements for v2. These
+requirements are implied by the rest of the specification and therefore
+do not alter the v2 semantics.
 
-This proposal has been verified with proof-of-concept implementations for
-the Linux kernel and EDK2 OVMF Virtio drivers (supporting v2 and v3), and
-for the QEMU Virtio devices.
+With MMIO transport v3, reset essentially works as with the PCI
+transport, and the change is therefore not expected to cause problems.
 
-[1] https://www.mail-archive.com/virtio-dev@lists.oasis-open.org/msg07677.html
+Existing devices with MMIO transport v2 are not required to implement
+v3, which will not work with current drivers. Only devices which require
+asynchronous reset need to report MMIO transport v3, and therefore
+require an updated driver.
 
-v2:
-
-- Add summary of MMIO v3 to Version register description (Matias)
-
-- Align requirements on Status register transition to zero with transport-
-  independent requirements (Matias)
-
-- Change requirements relating to reset when status is already zero
-  (Matias)
-
-- In the commit message, document when v3 devices may be incompatible with
-  v2 drivers (as per reply to Michael)
-
-- Improve wording; refer to "zero" rather than "0"
+Drivers have to support the MMIO transport versions of the used devices.
+Portable MMIO transport drivers should therefore support both v2 and v3,
+which is simple.
 
 Signed-off-by: Peter Hilber <peter.hilber@oss.qualcomm.com>
+---
 
-
-Peter Hilber (1):
-  transport-mmio: Add v3, which polls for reset completion
+Notes:
+    v2:
+    
+    - Add summary of MMIO v3 to Version register description (Matias)
+    
+    - Align requirements on Status register transition to zero with transport-
+      independent requirements (Matias)
+    
+    - Change requirements relating to reset when status is already zero
+      (Matias)
+    
+    - In the commit message, document when v3 devices may be incompatible with
+      v2 drivers (as per reply to Michael)
+    
+    - Improve wording; refer to "zero" rather than "0"
 
  transport-mmio.tex | 33 ++++++++++++++++++++++++++++++---
  1 file changed, 30 insertions(+), 3 deletions(-)
 
-
-base-commit: 5187698cc6f40fd2f2a714ca3faa6e998c5fc231
+diff --git a/transport-mmio.tex b/transport-mmio.tex
+index 94a93a1..cddbcc9 100644
+--- a/transport-mmio.tex
++++ b/transport-mmio.tex
+@@ -64,7 +64,8 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
+   }
+   \hline
+   \mmioreg{Version}{Device version number}{0x004}{R}{%
+-    0x2.
++    0x2 or 0x3. With version 0x3, the driver waits until it reads zero from the
++    \field{Status} register before considering a reset complete.
+     \begin{note}
+       Legacy devices (see \ref{sec:Virtio Transport Options / Virtio Over MMIO / Legacy interface}~\nameref{sec:Virtio Transport Options / Virtio Over MMIO / Legacy interface}) used 0x1.
+     \end{note}
+@@ -185,6 +186,11 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
+     Writing non-zero values to this register sets the status flags,
+     indicating the driver progress. Writing zero (0x0) to this
+     register triggers a device reset.
++
++    Starting with \field{Version} 0x3, the device reset need not
++    complete before the write returns, and the driver waits until it
++    reads back zero before considering a reset complete.
++
+     See also p. \ref{sec:Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation / Device Initialization}~\nameref{sec:Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation / Device Initialization}.
+   }
+   \hline
+@@ -262,13 +268,31 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
+ 
+ The device MUST return 0x74726976 in \field{MagicValue}.
+ 
+-The device MUST return value 0x2 in \field{Version}.
++The device MUST return value 0x2 or 0x3 in \field{Version}.
+ 
+ The device MUST present each event by setting the corresponding bit in \field{InterruptStatus} from the
+ moment it takes place, until the driver acknowledges the interrupt
+ by writing a corresponding bit mask to the \field{InterruptACK} register.  Bits which
+ do not represent events which took place MUST be zero.
+ 
++The device MUST reset when zero is written to \field{Status}.
++
++The device MUST present zero in \field{Status} once it has finished the reset.
++
++For \field{Version} 0x2, the device MUST finish a reset before the driver's
++write of zero to \field{Status} has completed.
++
++For \field{Version} 0x3, if \field{Status} is non-zero before a reset, the
++device MAY continue with the reset after the driver's write of zero to
++\field{Status} has completed.
++
++For \field{Version} 0x3, if \field{Status} is zero before a reset, the device
++MUST finish the reset before the driver's write of zero to \field{Status} has
++completed.
++
++For \field{Version} 0x3, the device MUST change \field{Status} to zero as the
++last step of the reset.
++
+ Upon reset, the device MUST clear all bits in \field{InterruptStatus} and ready bits in the
+ \field{QueueReady} register for all queues in the device.
+ 
+@@ -305,7 +329,7 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
+ The driver MUST ignore a device with \field{MagicValue} which is not 0x74726976,
+ although it MAY report an error.
+ 
+-The driver MUST ignore a device with \field{Version} which is not 0x2,
++The driver MUST ignore a device whose \field{Version} is neither 0x2 nor 0x3,
+ although it MAY report an error.
+ 
+ The driver MUST ignore a device with \field{DeviceID} 0x0,
+@@ -331,6 +355,9 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
+ The driver MUST write a value with a bit mask describing events it handled into \field{InterruptACK} when
+ it finishes handling an interrupt and MUST NOT set any of the undefined bits in the value.
+ 
++For \field{Version} 0x3, the driver MUST NOT consider a reset complete before
++reading back zero in \field{Status}.
++
+ If VIRTIO_F_RING_RESET has been negotiated, after the driver writes 1 to
+ \field{QueueReset} to reset the queue, the driver MUST NOT consider queue
+ reset to be complete until it reads back 0 in \field{QueueReset}. The driver
 -- 
 2.43.0
 
