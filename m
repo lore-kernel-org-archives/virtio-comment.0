@@ -1,157 +1,181 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BAD427A916
-	for <virtio-comment@lists.linux.dev>; Wed, 15 Apr 2026 14:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E0F2E06E4
+	for <virtio-comment@lists.linux.dev>; Thu, 16 Apr 2026 16:53:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776264888; cv=none; b=suIlzNrN0eirroUjlmtCpL6NLyx6MfS5pnlDwEmtTUGIG1/ZvQ67RzfJUk/WUxc7VCmkoHIyEH+Gcmx9H1TrwVxbB7NStKZnV3PV+uNJxMHrv1vFe/HJywaXNLF7CtKmPXNPwkZ/RGtWziuJHiUWAVISRrBmOO/ataV06rBYjlQ=
+	t=1776358384; cv=none; b=iXO4aAEor/FPHz5cPUwy3OWQh2krUz82ozOMEaFnt3n1/7oMwY8iyDqEHR7BnPfP0H2yYZ51qpMWT0Bv6ZaxySnfGK1izIm2h/KjrUxJychxenUK1CKZnmg0bxSz458QYiKjwt6/MMRwKp+gx+gQ0wEyDNgN5XgdRD3q4b00gfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776264888; c=relaxed/simple;
-	bh=WxwkCgIwdsjI/Y0SllYHKqfFZQNkpp6ZhMp1RXYBbkQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LznOF7alyK7dS7oeyRhCwIF0/KMEA0tEmbXY1q4kGUkt8FKAtvZIHGrNHQmly9Ce9URUiwXLVT0S+ORAEHLW44lAEVtSZKShwhFV+su6uaJrMa8wBIdsSPG2vx39fYe1n3YGeWZG2GWpFF1g7PxdjxrJGAR8064WktvjoSmf6p8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=G1oAmjcQ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1776358384; c=relaxed/simple;
+	bh=KAUT8BjZ7oXrvp+YXVYTXy4LUaV79RI460I32V3HMog=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QsjKl1D4/su2BGMSx9Gk9y8F1lBPyEoVoZTC2MnWUi/EQtu23eCoffkXMAqUNikt31BsaO2i4lMgbj54HlCbheyUETDJN3f1mA2gtR7JWTuqyEBXHafkO7mTIiZ9VASyjD+fHQLzNzq55J3PPNc87IiEF6/rOARi3VuFVX+SZnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=amj7ibvJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hkXg5jhX; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="G1oAmjcQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1776264886;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Et30/1icn342DaU6NJqWu9MQuETlvrxZPHmCGgsstK4=;
-	b=G1oAmjcQQ5iHnLoFxCcQCH1uVnwTMbQ+ACSB0mG28dWxb6iwh160EC/Ne3QyKwoYIpcUOY
-	pTBSeBJs9RIweYs3fWPSuEWIhG1j3sYeb0u2BeQfcWL9rpht6bwf9I/It68q3mk6o29sVa
-	s1ZpXeAnp491E3reiLwb3sbAei+4LeA=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-659-tFhpHQMZPyCXC0KsBAc3AA-1; Wed,
- 15 Apr 2026 10:54:42 -0400
-X-MC-Unique: tFhpHQMZPyCXC0KsBAc3AA-1
-X-Mimecast-MFC-AGG-ID: tFhpHQMZPyCXC0KsBAc3AA_1776264882
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E8F3E1955F02;
-	Wed, 15 Apr 2026 14:54:41 +0000 (UTC)
-Received: from localhost (unknown [10.44.24.6])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id EAF41180047F;
-	Wed, 15 Apr 2026 14:54:38 +0000 (UTC)
-From: marcandre.lureau@redhat.com
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="amj7ibvJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hkXg5jhX"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63GFr0tg4124964
+	for <virtio-comment@lists.linux.dev>; Thu, 16 Apr 2026 16:53:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=yYIo6/Uj1vOXhibd+unAXf5a5QqNRT6zvhn
+	bmBqW/7Q=; b=amj7ibvJcAwQNzVu52pQUJ6FoaFuDbQtsfdD7CiRIXOV2EPVwrl
+	NhGl61LqHPovjxN3RVmlFEQIQg5kUkl2ru+CeMMPj76QGUWjrSKTf/gWaGWdtZnR
+	8o7d495T9iFEJKAtOCfoO0+NYD6ZzZmy0GxipDJ7rLfWRahxxNVr1lE5SvtmvX95
+	AMI+sgpJqEj4rkLO27V0dJfczDVjhAYXjA9VWw0gsXQ3L7EBgae+OEgML11N+/9x
+	qRSIBrtkt/2y+ZVa2ZxyKdEbSb3dMfCVnAjeAHT/uju0dUJckxh1NndbAuXl90PB
+	M8eJnlWTFebyxRYJS00/NngyOn9V2qqwp9w==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4djvrf9nwx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <virtio-comment@lists.linux.dev>; Thu, 16 Apr 2026 16:53:01 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50df4c130dbso22898131cf.1
+        for <virtio-comment@lists.linux.dev>; Thu, 16 Apr 2026 09:53:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776358381; x=1776963181; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=yYIo6/Uj1vOXhibd+unAXf5a5QqNRT6zvhnbmBqW/7Q=;
+        b=hkXg5jhX9YWOtfSwaajQLzMisK4dCyzU0NFp9aRx7VuaeU0kDjTLB23918NSAgvWx9
+         73CVXTtMR1vLwvmuZBoNdai83f/4uZ1K06tQuwdkFz0muj4cEqmQmKC0MdsKJKpnrThq
+         ATkLjqb4o1o2wJlOk52Q4avc5LsPAd8KEeWcYpKYMhX2eqzzaLXbqsDGecoMbz4gMuMs
+         gsto+41BbQhh0VqG8v9BUzdaQ4G2g04Z/drW5KiWhXnRN+Vhkc4G5GwT01Zk/kXPmxeW
+         DFDspV3kKfaBwktjB5UsPciY7UpR4tyzQVUt3v3r26jVsRAI3Mz6Pn7GV12KHFEAN4mg
+         LKhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776358381; x=1776963181;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yYIo6/Uj1vOXhibd+unAXf5a5QqNRT6zvhnbmBqW/7Q=;
+        b=R5zhwV5JDRwysmAbW5gvf1Q8QWLoFSVFj+GG7wGoSmCcJ75D0R2uZQDD0mYZcXDbBn
+         whacrP8qszGcs00ZC6hGtamYBhG6AWZLdCzgQNhGhoo8U5Ap4u5FZMMWG7pc5oPwSTCT
+         MS8ya9iBD76lFagM8h/dJObVYNw9D0/kyyUyEfYR7FbKNrpBmXHWTiuMMbnTGYBeRijp
+         REAb045cFlB4qR2BpgADKxPGmq5JbYUtmdqyMNCam9EDLcP3N0XIHZL7FbYOiuMDiO3w
+         6W1smtsPIdQR9Dh9Fu0x+CAnM2VnDmB7az/NdWuuDo0JND5geLYMrRTu6q0i3/sZwn90
+         jVhQ==
+X-Gm-Message-State: AOJu0YxRsA+XkC9cFa4PVodJeWchxVtnWU0WLTpg04Z3Xc8Gvar29aXX
+	0k0ggLiwKlSRMB9Q2V7L215pI7QlN7D9OlhvlnlKgWFHHzw1OIo6KTvadPz7iM2yAfmdCOetfOe
+	Bt2uGKicn6iZeT2Hd6dwJDoZv/waS1w+87+w/6C+BhEXMFMIklmYfnWhaeQU2nW3RGGk0nzOtVb
+	jSu9oW
+X-Gm-Gg: AeBDievZ2OqSNZ1+acZhF2k7ACqlgJl9Mv1o2TSLHgauNUemuQl0C4r9gB8zeAvq3NL
+	nNQHixtYAhZmWjk0RZyW8yXM9P5Hya3Uxj7w0r9mt98w8o8Y/RHDSgIrWGGORNVQEZt3pzSXrdr
+	Ldf0ZF+RPZK3kbaIhfeyJZKSv0Vof3FCEO62DEKItGB6GJIVTWpZtcyHmUF7CeLjVYfSfD9N3Qb
+	n/C5OsiwgW3iw1m/KCMD+8lxD53U/udg4qVP6gigd77nyjEuXwEpi5+APpThhy+XruE9pkcJTiC
+	3K92i6VqJAD2UVHjufgpjYYNBeQ3DS+5d1BqBMgOlXJhnuCtPKq3KQ+TUrC+WJSWf12Irh2xkpV
+	qUxD7ds0TU5hz4OX1AcQzBbvS6oSeaG3ZhZAGMPNoaVS/PZqht/Pv
+X-Received: by 2002:ac8:5a4a:0:b0:50b:2d6e:5253 with SMTP id d75a77b69052e-50e24c1046dmr59280221cf.41.1776358381256;
+        Thu, 16 Apr 2026 09:53:01 -0700 (PDT)
+X-Received: by 2002:ac8:5a4a:0:b0:50b:2d6e:5253 with SMTP id d75a77b69052e-50e24c1046dmr59279891cf.41.1776358380698;
+        Thu, 16 Apr 2026 09:53:00 -0700 (PDT)
+Received: from QCOM-LDTZRie9bq.qualcomm.com ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba1780b9c2dsm185639966b.59.2026.04.16.09.52.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Apr 2026 09:52:59 -0700 (PDT)
+From: Peter Hilber <peter.hilber@oss.qualcomm.com>
 To: virtio-comment@lists.linux.dev
-Cc: david@kernel.org,
-	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>
-Subject: [PATCH RFC] virtio-mem: add shared/private memory property details
-Date: Wed, 15 Apr 2026 18:54:35 +0400
-Message-ID: <20260415145435.2023866-1-marcandre.lureau@redhat.com>
+Cc: "Trilok Soni" <trilok.soni@oss.qualcomm.com>,
+        "Matias Ezequiel Vara Larsen" <mvaralar@redhat.com>,
+        "Michael S. Tsirkin" <mst@redhat.com>,
+        Peter Hilber <peter.hilber@oss.qualcomm.com>
+Subject: [PATCH v2 0/1] transport-mmio: Add optional reset completion polling
+Date: Thu, 16 Apr 2026 18:52:55 +0200
+Message-ID: <20260416165256.4351-1-peter.hilber@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ylugvdsQiJBg7qGCTgnSAj6cKpa9Tppz_zFntw9HhYM_1776264882
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: tVBVPRYNszr4Lvqw7LAcmB8GDEwz2YWM
+X-Proofpoint-ORIG-GUID: tVBVPRYNszr4Lvqw7LAcmB8GDEwz2YWM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE2MDE2MCBTYWx0ZWRfX7+I7YDevw/kN
+ TeroJk0K4J6/JV38TRhdSymmi0dXqh0aVBGCra/RxsxxJFc6/MRv01r5ayHtBylG2hyivIIZlIM
+ pD+M+41OPKpJNBwIGw1mUr84cBklP3uOPVrBaE4ssQhAQ/oNMxLBYxu+GumahT58to3Bb+0b7Mb
+ MF0A2JcqNNI05vLbl6QmBaZfcxScwQt3HlURoBr8l2EJFl2/Mv0K8qXQ9F20OuHdrt9BScwHEBa
+ 5373EQKh8vFVajmOoR6L0xKikzMw9eri5d8U6hKtAn04naE5qLp3cmy5cuGjf04Et9UyAH0b3SB
+ ENkUfPUM5f5N2YasC0pUNMoRZtcLiBegaSxYJ5eLXUJ9tG7QZo8nko1bXJ+F6haAycqb21tMDKf
+ HLd/guKJFG8t+HvW2LBsjdBQI/otRFymlrlPNQw7f3P63bHPcajx+pWbmbAZ6wkqV5TP9VgTGSk
+ gJcH1z1XBnVPdp003bg==
+X-Authority-Analysis: v=2.4 cv=YtE/gYYX c=1 sm=1 tr=0 ts=69e113ed cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=Vt2AcnKqAAAA:8
+ a=mkMtH7XpAAAA:8 a=EUspDBNiAAAA:8 a=-nE-q4Jgy-PAZNx2EiYA:9
+ a=a_PwQJl-kcHnX1M80qC6:22 a=v10HlyRyNeVhbzM4Lqgd:22 a=I9Slk6e--tAXHahELIuT:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-16_03,2026-04-16_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
+ adultscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604160160
 
-From: Marc-André Lureau <marcandre.lureau@redhat.com>
+Let devices using the MMIO transport avoid stalling the driver (virtual)
+CPU during device reset, which requires introducing a new MMIO transport
+version. This proposal is similar to [1], but simpler.
 
-Add specification text for platforms where system RAM has a
-shared/private property (e.g., confidential computing environments such
-as AMD SEV-SNP or Intel TDX). Define the device and driver requirements
-for memory state transitions during plug/unplug operations, and
-guidance for VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE case.
+v2, after discussion on the mailing list, describes some edge cases
+differently and rewords some requirements.
 
-Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
----
- device-types/mem/description.tex | 37 ++++++++++++++++++++++++++++++--
- 1 file changed, 35 insertions(+), 2 deletions(-)
+If the device reset includes terminating device activity which may
+interfere with the driver, the reset should always have completed by the
+time the driver considers the reset complete. After device reset, the
+driver may free previously exposed buffers. Per the current MMIO transport
+specification, the device must hence complete the reset during the write of
+zero to the Status register. If terminating the device activity takes long,
+the (virtual) CPU doing this write to the Status register must be stalled
+for extended time, which may violate real-time requirements (including
+those for hypervisor trap-and-emulate).
 
-diff --git a/device-types/mem/description.tex b/device-types/mem/description.tex
-index 9acf63f..1eefea0 100644
---- a/device-types/mem/description.tex
-+++ b/device-types/mem/description.tex
-@@ -42,6 +42,18 @@ \section{Memory Device}\label{sec:Device Types / Memory Device}
- provides the exact same properties with the exact same semantics for
- plugged device memory as available for comparable RAM in the same configuration.
- 
-+In some configurations, system RAM might additionally have a shared/private
-+property, indicating whether memory is accessible to both the guest and the
-+host (shared) or only to the guest (private). \footnote{For example, in
-+confidential computing environments such as AMD SEV-SNP or Intel TDX.
-+The mechanism for converting between shared and private states is
-+platform-specific; for example, it might involve dedicated CPU instructions
-+or hypercalls.} The device provides unplugged memory in the shared state.
-+When memory blocks are plugged, the driver is expected to convert them to
-+the private state before use. Unless VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE
-+has been negotiated, the driver is expected to convert them back to the
-+shared state before unplugging.
-+
- \subsection{Device ID}\label{sec:Device Types / Memory Device / Device ID}
- 24
- 
-@@ -58,8 +70,9 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Device / Feature bits}
- configuration is valid and corresponds to an ACPI PXM.
- \item[VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE (1)] The driver is not allowed to
- access unplugged memory. \footnote{On platforms with memory properties that
--might get modified implicitly on memory access, this feature is expected to
--be offered by the device.}
-+might get modified implicitly on memory access, or on platforms with a
-+shared/private memory property, this feature is expected to be offered by
-+the device.}
- \item[VIRTIO_MEM_F_PERSISTENT_SUSPEND (2)] The driver can allow the guest
- to enter suspended state (deep sleep, suspend-to-RAM).
- \end{description}
-@@ -176,9 +189,15 @@ \subsection{Device Initialization}\label{Device Types / Memory Device / Device I
- The device MUST NOT modify memory or memory properties of plugged memory
- blocks during device reset.
- 
-+On platforms with a shared/private memory property, the device MUST NOT
-+change the shared/private state of memory blocks during device reset.
-+
- The device SHOULD offer VIRTIO_MEM_F_PERSISTENT_SUSPEND if the platform
- supports suspending (deep sleep, suspend-to-RAM) with plugged memory blocks.
- 
-+The device SHOULD offer VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE if the platform
-+has a shared/private memory property.
-+
- \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Operation}
- 
- The device notifies the driver about the amount of memory the device wants
-@@ -256,6 +275,15 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
- If VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has been negotiated, the driver
- MUST NOT read memory or query memory properties of unplugged memory blocks.
- 
-+On platforms with a shared/private memory property, the driver MUST convert
-+plugged memory blocks to the private state before initializing or otherwise
-+using them.
-+
-+On platforms with a shared/private memory property, the driver MUST convert
-+memory blocks to the shared state before requesting to unplug them (for
-+VIRTIO_MEM_REQ_UNPLUG_ALL, this applies to all plugged memory blocks), unless
-+VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has been negotiated.
-+
- The driver MUST NOT request unplug of memory blocks while corresponding memory
- or memory properties are still in use.
- 
-@@ -285,6 +313,11 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
- The device MAY modify memory of unplugged memory blocks or reset memory
- properties of such memory blocks to platform defaults at any time.
- 
-+On platforms with a shared/private memory property, the device MUST provide
-+unplugged memory blocks in the shared state.  If
-+VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has been negotiated, the device MUST
-+convert memory blocks to the shared state after unplugging them.
-+
- The device MUST NOT modify memory or memory properties of plugged memory
- blocks.
- 
+Address this by introducing a new MMIO transport version, v3, where the
+driver must poll for reset completion, and, hence, the device reset does
+not have to finish during the write of zero to the Status register. Polling
+for an operation to finish is a pattern also used for the PCI transport
+device reset, device suspend, and MMIO transport QueueReset writes.
+
+Unlike [1], this proposal does not require a reset-in-progress status bit.
+Unlike [1], devices cannot indicate that the reset failed, which appears
+unneeded.
+
+This proposal has been verified with proof-of-concept implementations for
+the Linux kernel and EDK2 OVMF Virtio drivers (supporting v2 and v3), and
+for the QEMU Virtio devices.
+
+[1] https://www.mail-archive.com/virtio-dev@lists.oasis-open.org/msg07677.html
+
+v2:
+
+- Add summary of MMIO v3 to Version register description (Matias)
+
+- Align requirements on Status register transition to zero with transport-
+  independent requirements (Matias)
+
+- Change requirements relating to reset when status is already zero
+  (Matias)
+
+- In the commit message, document when v3 devices may be incompatible with
+  v2 drivers (as per reply to Michael)
+
+- Improve wording; refer to "zero" rather than "0"
+
+Signed-off-by: Peter Hilber <peter.hilber@oss.qualcomm.com>
+
+
+Peter Hilber (1):
+  transport-mmio: Add v3, which polls for reset completion
+
+ transport-mmio.tex | 33 ++++++++++++++++++++++++++++++---
+ 1 file changed, 30 insertions(+), 3 deletions(-)
+
+
+base-commit: 5187698cc6f40fd2f2a714ca3faa6e998c5fc231
 -- 
-2.53.0
+2.43.0
 
