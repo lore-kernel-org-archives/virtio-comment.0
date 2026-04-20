@@ -1,234 +1,202 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9112B377EDA
-	for <virtio-comment@lists.linux.dev>; Mon, 20 Apr 2026 09:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B47EE2D876B
+	for <virtio-comment@lists.linux.dev>; Mon, 20 Apr 2026 13:52:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776678028; cv=none; b=YMT/mXYHpMrb7WGoM5JKWoU1V19XUVoFfQuEejrAw3FWryBXBIrEPrY539+ULBC+IAQmmSdzaB5OkpqpvryB/QP5Q5FCU027P7YlUClUSITSLwtKUo3MG2xKgvIgPO2zVeJY4KtI8Eq/GDhoYQXUUy4pUWHEy0yfmuC0kzLBJCE=
+	t=1776693175; cv=none; b=oVua1pH92Qiu89O44bZGfS/JM9rpp/2Rt61KPlabgijQYWhJFVASoguYyo26qSqYfru2FjInGptIBdgejiT2PFMifsMmKD/2nfuZXFVOM5m035spqIrrvvAmx/fmGWu43ItcENzTwC87/HOLg69NiULWBXUXcjTWn/CMHTHaJdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776678028; c=relaxed/simple;
-	bh=Rd9PpT+0MjGf3wYlqqS5FGa51EjzKmNrJ9PaPWSuIm0=;
+	s=arc-20240116; t=1776693175; c=relaxed/simple;
+	bh=clgHs/y9MH28vZYebWTqfzXLjipN4bs5hqzo69Io1+Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=AW8avkpljj+2GzDF6aDtPaHLztY2+DFG6kSsvxQm3bAa61LrAp7o1k6xWYOly2RUE6C1SAT/yGsY8WD3wYh8KrglW6Rs5vRbDwTvTsUbG2d6gtfpsU6D0rsQeWxhSvP87f/eaEs5+c1BNZzvkNTPjzndIt2jzd/tX1SI5SxqLN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CeNsaiGa; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=nh4MQOANqtbllraCSVXKKLiD7ngb9+mYv3SjxiKyl3oAQtv5LGuu/tzbGCXHbivgE7y+BdoiXDcBVK0MqgeSC2glguJPVjofmKW4UPG2MzvowBW58QVLopn9IR17mcegxRurNDKaBrnRQNcUyteymTt91U52Y1W9g482MirZQGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Pilz0ssT; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CeNsaiGa"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Pilz0ssT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1776678025;
+	s=mimecast20190719; t=1776693172;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=qx3j2PbvZ/2IpQgFNHG2/75KQg05XNu1rVQFAcvDG0E=;
-	b=CeNsaiGawIklYpSTxuMP0gY7bLh6LEuTBtRqbQTd88r5//FccxKJXwWlk0/5fDSp7tqkhW
-	V/RDEu9/832RXmbC+nhJytYnNUuTHiCw5cVkFrjFwnalmq21Y4bE7b2aOSIDH1Qb0XbJ0P
-	6PN6UQTIW8FXu/2Zv+sLgIe5jdCzqOA=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=B/NZRZFCgKDylxfh60EKXiBATt2Hg/2SDppv8xzoyU8=;
+	b=Pilz0ssTtEShDOnPvPEdsamHzh6/+bdvK3jWr+6mgAlCjr2jaKO1yf58Fb5PbG6PLgLQuC
+	ZEakIXIOnxR48QIL/k6TEyq25O2RAc6RKj+7ncHyPafvcRSrodmAXKE1+EXlhF5O1Di3Bt
+	qMlf7VrTgoBvGnToQPCnAtQXVoWsEeM=
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-311-TD8SAJUqMLOsT4LqVo8j-w-1; Mon, 20 Apr 2026 05:40:24 -0400
-X-MC-Unique: TD8SAJUqMLOsT4LqVo8j-w-1
-X-Mimecast-MFC-AGG-ID: TD8SAJUqMLOsT4LqVo8j-w_1776678023
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-43d7730e9e3so2043814f8f.2
-        for <virtio-comment@lists.linux.dev>; Mon, 20 Apr 2026 02:40:24 -0700 (PDT)
+ us-mta-424-pyqOOA0fOFSuCKIGXPz8bQ-1; Mon, 20 Apr 2026 09:52:51 -0400
+X-MC-Unique: pyqOOA0fOFSuCKIGXPz8bQ-1
+X-Mimecast-MFC-AGG-ID: pyqOOA0fOFSuCKIGXPz8bQ_1776693170
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-35dacc40f92so3002915a91.2
+        for <virtio-comment@lists.linux.dev>; Mon, 20 Apr 2026 06:52:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776678023; x=1777282823;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=qx3j2PbvZ/2IpQgFNHG2/75KQg05XNu1rVQFAcvDG0E=;
-        b=ImVirVftcg7+5EjG8efLPwKpiSVhkDS7Ih26Q9BfS5ePguJcFYQKoF+QEGHyVNdx3L
-         jOqvgo6uYVyA/UUnpYRlxJxKcqEpZbHDfZIk1JkGbCsRsFtLYUxHBjYd4MUCx0DKYLaX
-         kh/DPVFE6iHPoom4yoHByIEWFUu+hlPJ+p/3EWwrEMGnJdEA52nzSuQQsjj61jp+wjC5
-         nk+bfCDKjsYueq+/l09SFP74jya7gVdBSh4AgbHA/aqkF4OdvzB7qQPSjjOfSBwj787f
-         GW/92fCxdklydtMRx9joEuqzOYHikeViwSLqrkDow9dUza1lZH6ot0dJmvbk6kqA2xAs
-         DJeg==
-X-Gm-Message-State: AOJu0YzKM7NH+A7CLe7Tl9XOmeMtp+TdrsuyFH1spNAyKxDFOdh2Oo5z
-	SOewlPG+vbsSu/bPle7ZIALbiAFMCj5Oa+XhXQMtC8xnYYeQWWYqKE9pLbyENRvRjDSixNMh23v
-	KZgKRzj9ZhodfdkfhzWsoGATFZDeH42YtM0skJnIFz6ZLG9QJRpQOvfQfWrQ6JGsQ1Tme
-X-Gm-Gg: AeBDieurFOqwYUY1Ylot3QI+ZSLEaLUK7EFO7TgFtgXib4bPzw0DSOaEIzJIo9STfZO
-	zwL2ogvYMtu/9rUA38SdplrK+OdO2PgNeQdXGpdUXiTmQPddgmegmB/6nqWR7AGNyBGtiS1Idek
-	Dxm97R2Q8szccfgxFMxQyjggYKLlQK9HHaU8nPFcObOV8eoRFf2nnYsy90RRhrWI+U8u+ZAJ8zC
-	Ba3tX7E0ev/XTpyWhcoKY+NUtpfAwBPl2x4ic4Dk+NXy80VHdOvn1xd0Nu83ngoAJvAVfrW1aGO
-	3JCnt9IkU8ccRXvZiQ9YKIvMCepANqfT4zFc3BKi15YAbd/XGJqZtaLnx+8AAwJMPEqWOChxzUb
-	3w6GZ2JO7G+eZUTU4TPf+1W4ZNQ==
-X-Received: by 2002:a05:6000:1886:b0:43d:7e11:1b72 with SMTP id ffacd0b85a97d-43fe3dbece0mr17867913f8f.9.1776678022969;
-        Mon, 20 Apr 2026 02:40:22 -0700 (PDT)
-X-Received: by 2002:a05:6000:1886:b0:43d:7e11:1b72 with SMTP id ffacd0b85a97d-43fe3dbece0mr17867842f8f.9.1776678022285;
-        Mon, 20 Apr 2026 02:40:22 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1776693170; x=1777297970;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=B/NZRZFCgKDylxfh60EKXiBATt2Hg/2SDppv8xzoyU8=;
+        b=fqyeIp6d5104WB0L1KuRHyaidkW84V2E7BnbeLSZbUEqKKgGZYq6S4202W6F0P6dZ+
+         EW81CIsCPYOqUb5vl9c+DKgCCq2nADu7BpjvqOMYmCUhbYmSpLExfmoiqMR9a+SrHzId
+         05gwSu1fb4/jTFw0n8YItY+0xjMh06hASfe1PF/NCXRoQWuIe/YH7A6gkzLUMOpAFqbK
+         wJUPIHy0yes6cMfGIaSCh0qGQ5HpsdPWrfPCux+ARFnOVze0VvkR9tceEj/xC8EzIkIl
+         gA7hUOMqP/CqQ/Ig9lq2HxdREWwuSTfwuwlKi3fpjjOtf70OjbLCRnALpoq8/8ccDzhX
+         pnRQ==
+X-Gm-Message-State: AOJu0Yz3yB6MDJ59FmFGMx5yJJh2/Lav43ciYbqKWyBzcsImb0VLzj4b
+	IytUh9dRViddw8e5D35UaVx6qfK5H8l7Yp1X9JTBer7NCjeZI+g9ixN1dlBfp+pP3A5id6/jgIf
+	Gy5DO5i4YC7MvwqBP/D1ee4C9QgixO/6UlDS8rDMY1M+eJ0fElXdoQf1gNJvadiVmqPj4
+X-Gm-Gg: AeBDiesUuHfjytGjxCmcINtCyaO0LDVmNn8R/UV2Yf/I2icLW4J4YncgOqPxwVYAS2V
+	CLgDZnL31leem7XoBNA0xgrRFzJpnUIn2LyOt0LvykRvfI63R0SRj2dL43uBrCHmCv4Die8Py8a
+	sqhJcUEFoRTGIuahXR3wTL9OlabCiaMeX8UFu26LwGGyBMeVSfBdrogi/XnV9M9f1sOjnpJvzBL
+	hIwqQoIPJie8VfZ7EEidfgkFBmkvKcObLWkzn33rYvv03iQaezfbjC0qEWjBpulGDBfgngNiPMp
+	U3IB9Qn8FIUTz3dCAp2j97d2yEfBzutgtd9Ref7vXywi+nOOC4g2wqNM5fcN7K3FRFWJSwpeeRT
+	s6JsK1VGPK3dwtke9dLuv3o0/lA==
+X-Received: by 2002:a17:90b:4ccf:b0:35f:b647:d973 with SMTP id 98e67ed59e1d1-36140229b13mr13547185a91.0.1776693170093;
+        Mon, 20 Apr 2026 06:52:50 -0700 (PDT)
+X-Received: by 2002:a17:90b:4ccf:b0:35f:b647:d973 with SMTP id 98e67ed59e1d1-36140229b13mr13547164a91.0.1776693169562;
+        Mon, 20 Apr 2026 06:52:49 -0700 (PDT)
 Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4cb1249sm24721925f8f.5.2026.04.20.02.40.21
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3613fbd970fsm4141716a91.14.2026.04.20.06.52.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Apr 2026 02:40:21 -0700 (PDT)
-Date: Mon, 20 Apr 2026 11:40:20 +0200
+        Mon, 20 Apr 2026 06:52:48 -0700 (PDT)
+Date: Mon, 20 Apr 2026 15:52:40 +0200
 From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-To: Peter Hilber <peter.hilber@oss.qualcomm.com>
-Cc: virtio-comment@lists.linux.dev,
-	Trilok Soni <trilok.soni@oss.qualcomm.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>
-Subject: Re: [PATCH v2 1/1] transport-mmio: Add v3, which polls for reset
- completion
-Message-ID: <aeX0hPTBQh/tgLOp@fedora>
-References: <20260416165256.4351-1-peter.hilber@oss.qualcomm.com>
- <20260416165256.4351-2-peter.hilber@oss.qualcomm.com>
+To: marcandre.lureau@redhat.com
+Cc: virtio-comment@lists.linux.dev, david@kernel.org
+Subject: Re: [PATCH RFC] virtio-mem: add shared/private memory property
+ details
+Message-ID: <aeYvqOTMziofz2yF@fedora>
+References: <20260415145435.2023866-1-marcandre.lureau@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20260416165256.4351-2-peter.hilber@oss.qualcomm.com>
+In-Reply-To: <20260415145435.2023866-1-marcandre.lureau@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 6okJozFx0TI6kBxu-EnhsV5B5ljons016VIhQYucpU8_1776678023
+X-Mimecast-MFC-PROC-ID: d6x0uv2_nvnChu_5hvwjAvtkFbNA_zsNpdiXAbzxAIs_1776693170
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Thu, Apr 16, 2026 at 06:52:56PM +0200, Peter Hilber wrote:
-> Let devices using the MMIO transport avoid stalling the driver (virtual)
-> CPU during device reset, which requires introducing a new MMIO transport
-> version.
+Hello Marc, 
+
+I did a first review of the patch:
+
+On Wed, Apr 15, 2026 at 06:54:35PM +0400, marcandre.lureau@redhat.com wrote:
+> From: Marc-André Lureau <marcandre.lureau@redhat.com>
 > 
-> Unlike the PCI transport, the MMIO transport does not require the driver
-> to poll for reset completion. This requires a device using the MMIO
-> transport to complete reset during the write of zero to the Status
-> register. Device reset may take more than 100 ms if it involves
-> terminating ongoing device activity which accesses driver memory. When
-> the (virtual) CPU writing zero to the Status register needs to be
-> stalled during this, this may violate real-time requirements (including
-> those for hypervisor trap-and-emulate).
+> Add specification text for platforms where system RAM has a
+> shared/private property (e.g., confidential computing environments such
+> as AMD SEV-SNP or Intel TDX). Define the device and driver requirements
+> for memory state transitions during plug/unplug operations, and
+> guidance for VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE case.
 > 
-> Address this by introducing a new MMIO transport version, v3, where the
-> driver must poll for reset completion, and, hence, the device reset does
-> not have to complete during the write to the Status register. Add a
-> requirement that resetting a device which already has Status zero is
-> synchronous to avoid ambiguity when such a reset would finish.
-> 
-> For clarity, also add some related requirements for v2. These
-> requirements are implied by the rest of the specification and therefore
-> do not alter the v2 semantics.
-> 
-> With MMIO transport v3, reset essentially works as with the PCI
-> transport, and the change is therefore not expected to cause problems.
-> 
-> Existing devices with MMIO transport v2 are not required to implement
-> v3, which will not work with current drivers. Only devices which require
-> asynchronous reset need to report MMIO transport v3, and therefore
-> require an updated driver.
-> 
-> Drivers have to support the MMIO transport versions of the used devices.
-> Portable MMIO transport drivers should therefore support both v2 and v3,
-> which is simple.
-> 
-> Signed-off-by: Peter Hilber <peter.hilber@oss.qualcomm.com>
+> Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 > ---
-
-
-Reviewed-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-
-Matias
-
+>  device-types/mem/description.tex | 37 ++++++++++++++++++++++++++++++--
+>  1 file changed, 35 insertions(+), 2 deletions(-)
 > 
-> Notes:
->     v2:
->     
->     - Add summary of MMIO v3 to Version register description (Matias)
->     
->     - Align requirements on Status register transition to zero with transport-
->       independent requirements (Matias)
->     
->     - Change requirements relating to reset when status is already zero
->       (Matias)
->     
->     - In the commit message, document when v3 devices may be incompatible with
->       v2 drivers (as per reply to Michael)
->     
->     - Improve wording; refer to "zero" rather than "0"
-> 
->  transport-mmio.tex | 33 ++++++++++++++++++++++++++++++---
->  1 file changed, 30 insertions(+), 3 deletions(-)
-> 
-> diff --git a/transport-mmio.tex b/transport-mmio.tex
-> index 94a93a1..cddbcc9 100644
-> --- a/transport-mmio.tex
-> +++ b/transport-mmio.tex
-> @@ -64,7 +64,8 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
->    }
->    \hline
->    \mmioreg{Version}{Device version number}{0x004}{R}{%
-> -    0x2.
-> +    0x2 or 0x3. With version 0x3, the driver waits until it reads zero from the
-> +    \field{Status} register before considering a reset complete.
->      \begin{note}
->        Legacy devices (see \ref{sec:Virtio Transport Options / Virtio Over MMIO / Legacy interface}~\nameref{sec:Virtio Transport Options / Virtio Over MMIO / Legacy interface}) used 0x1.
->      \end{note}
-> @@ -185,6 +186,11 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
->      Writing non-zero values to this register sets the status flags,
->      indicating the driver progress. Writing zero (0x0) to this
->      register triggers a device reset.
-> +
-> +    Starting with \field{Version} 0x3, the device reset need not
-> +    complete before the write returns, and the driver waits until it
-> +    reads back zero before considering a reset complete.
-> +
->      See also p. \ref{sec:Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation / Device Initialization}~\nameref{sec:Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation / Device Initialization}.
->    }
->    \hline
-> @@ -262,13 +268,31 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
+> diff --git a/device-types/mem/description.tex b/device-types/mem/description.tex
+> index 9acf63f..1eefea0 100644
+> --- a/device-types/mem/description.tex
+> +++ b/device-types/mem/description.tex
+> @@ -42,6 +42,18 @@ \section{Memory Device}\label{sec:Device Types / Memory Device}
+>  provides the exact same properties with the exact same semantics for
+>  plugged device memory as available for comparable RAM in the same configuration.
 >  
->  The device MUST return 0x74726976 in \field{MagicValue}.
->  
-> -The device MUST return value 0x2 in \field{Version}.
-> +The device MUST return value 0x2 or 0x3 in \field{Version}.
->  
->  The device MUST present each event by setting the corresponding bit in \field{InterruptStatus} from the
->  moment it takes place, until the driver acknowledges the interrupt
->  by writing a corresponding bit mask to the \field{InterruptACK} register.  Bits which
->  do not represent events which took place MUST be zero.
->  
-> +The device MUST reset when zero is written to \field{Status}.
+> +In some configurations, system RAM might additionally have a shared/private
+> +property, indicating whether memory is accessible to both the guest and the
+> +host (shared) or only to the guest (private). \footnote{For example, in
+
+How does the driver know if the platform has this memory property?,
+i.e., shared/private property. 
+
+> +confidential computing environments such as AMD SEV-SNP or Intel TDX.
+> +The mechanism for converting between shared and private states is
+> +platform-specific; for example, it might involve dedicated CPU instructions
+> +or hypercalls.} The device provides unplugged memory in the shared state.
+> +When memory blocks are plugged, the driver is expected to convert them to
+> +the private state before use. Unless VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE
+> +has been negotiated, the driver is expected to convert them back to the
+> +shared state before unplugging.
 > +
-> +The device MUST present zero in \field{Status} once it has finished the reset.
-> +
-> +For \field{Version} 0x2, the device MUST finish a reset before the driver's
-> +write of zero to \field{Status} has completed.
-> +
-> +For \field{Version} 0x3, if \field{Status} is non-zero before a reset, the
-> +device MAY continue with the reset after the driver's write of zero to
-> +\field{Status} has completed.
-> +
-> +For \field{Version} 0x3, if \field{Status} is zero before a reset, the device
-> +MUST finish the reset before the driver's write of zero to \field{Status} has
-> +completed.
-> +
-> +For \field{Version} 0x3, the device MUST change \field{Status} to zero as the
-> +last step of the reset.
-> +
->  Upon reset, the device MUST clear all bits in \field{InterruptStatus} and ready bits in the
->  \field{QueueReady} register for all queues in the device.
+>  \subsection{Device ID}\label{sec:Device Types / Memory Device / Device ID}
+>  24
 >  
-> @@ -305,7 +329,7 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
->  The driver MUST ignore a device with \field{MagicValue} which is not 0x74726976,
->  although it MAY report an error.
+> @@ -58,8 +70,9 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Device / Feature bits}
+>  configuration is valid and corresponds to an ACPI PXM.
+>  \item[VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE (1)] The driver is not allowed to
+>  access unplugged memory. \footnote{On platforms with memory properties that
+> -might get modified implicitly on memory access, this feature is expected to
+> -be offered by the device.}
+> +might get modified implicitly on memory access, or on platforms with a
+> +shared/private memory property, this feature is expected to be offered by
+> +the device.}
+>  \item[VIRTIO_MEM_F_PERSISTENT_SUSPEND (2)] The driver can allow the guest
+>  to enter suspended state (deep sleep, suspend-to-RAM).
+>  \end{description}
+> @@ -176,9 +189,15 @@ \subsection{Device Initialization}\label{Device Types / Memory Device / Device I
+>  The device MUST NOT modify memory or memory properties of plugged memory
+>  blocks during device reset.
 >  
-> -The driver MUST ignore a device with \field{Version} which is not 0x2,
-> +The driver MUST ignore a device whose \field{Version} is neither 0x2 nor 0x3,
->  although it MAY report an error.
->  
->  The driver MUST ignore a device with \field{DeviceID} 0x0,
-> @@ -331,6 +355,9 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
->  The driver MUST write a value with a bit mask describing events it handled into \field{InterruptACK} when
->  it finishes handling an interrupt and MUST NOT set any of the undefined bits in the value.
->  
-> +For \field{Version} 0x3, the driver MUST NOT consider a reset complete before
-> +reading back zero in \field{Status}.
+> +On platforms with a shared/private memory property, the device MUST NOT
+> +change the shared/private state of memory blocks during device reset.
 > +
->  If VIRTIO_F_RING_RESET has been negotiated, after the driver writes 1 to
->  \field{QueueReset} to reset the queue, the driver MUST NOT consider queue
->  reset to be complete until it reads back 0 in \field{QueueReset}. The driver
+
+Is this additional requirement needed? Is not already covered by the
+previous one about `plugged memory blocks`? Is shared/private a memory
+property?
+
+>  The device SHOULD offer VIRTIO_MEM_F_PERSISTENT_SUSPEND if the platform
+>  supports suspending (deep sleep, suspend-to-RAM) with plugged memory blocks.
+>  
+> +The device SHOULD offer VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE if the platform
+> +has a shared/private memory property.
+> +
+>  \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Operation}
+>  
+>  The device notifies the driver about the amount of memory the device wants
+> @@ -256,6 +275,15 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
+>  If VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has been negotiated, the driver
+>  MUST NOT read memory or query memory properties of unplugged memory blocks.
+>  
+> +On platforms with a shared/private memory property, the driver MUST convert
+> +plugged memory blocks to the private state before initializing or otherwise
+> +using them.
+> +
+> +On platforms with a shared/private memory property, the driver MUST convert
+> +memory blocks to the shared state before requesting to unplug them (for
+> +VIRTIO_MEM_REQ_UNPLUG_ALL, this applies to all plugged memory blocks), unless
+> +VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has been negotiated.
+> +
+>  The driver MUST NOT request unplug of memory blocks while corresponding memory
+>  or memory properties are still in use.
+>  
+> @@ -285,6 +313,11 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Device / Device Op
+>  The device MAY modify memory of unplugged memory blocks or reset memory
+>  properties of such memory blocks to platform defaults at any time.
+>  
+> +On platforms with a shared/private memory property, the device MUST provide
+> +unplugged memory blocks in the shared state.  If
+> +VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has been negotiated, the device MUST
+> +convert memory blocks to the shared state after unplugging them.
+
+I wonder if the device can always do such a conversion, i.e., from
+private to shared, or it should go through the guest.
+
+> +
+>  The device MUST NOT modify memory or memory properties of plugged memory
+>  blocks.
+>  
 > -- 
-> 2.43.0
+> 2.53.0
+> 
 > 
 
