@@ -1,199 +1,107 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0FE4340293
-	for <virtio-comment@lists.linux.dev>; Wed, 22 Apr 2026 15:39:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB22D14AD0D
+	for <virtio-comment@lists.linux.dev>; Wed, 22 Apr 2026 15:39:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776872345; cv=none; b=pTTzqpK9jLn5jIBqPvQTxeBjZ53Z+AOAtjgCpjyJH08Z7efU9A+8r+xznqm7+cb/FeeYgG/QrYxGDr8gQaxGRvGlor5sKUGwoJmOKOGzvmgDdKutBqa6JqZT5dzeYkn0IGfvJN8Un02RQBxYmzCRenGSiXBMD/zyo1pJ/we7w9s=
+	t=1776872352; cv=none; b=QiYyyRvnEj0hwlOzoFOq3DvRg8d954TVaRhFxfZYlY4MiGd2djiCAvIb277bPgioW5+fu1M0JupNLheMcUF29kf0bcao9LcGsgUwFdm24FJbGsKMABrfTcC35+ZkKNgrr2qTjDxIg63bW/otq23jKhkpZj5urHzTAKPsPSUjmvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776872345; c=relaxed/simple;
-	bh=dmjBDM3VcYzOEwr2kQkR8dzsOoEn7LR3jTq3IrhOfdQ=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=oNoMw8AXgFSMQIrhv585QDNdj8+NriiS+yROO0xt7vBCz+NVo5pUOnvmgKvJ3YMXwyMRRvOZErNUOr0WZG9TvQmIGYardQij9CRODombQa2WYpA5bkNgXy5KWO/DSKItGEMhZgxawfwEJJC+lJbHNBH2Y4CExxeS3fhW/KBRYHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=V+4mZehW; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1776872352; c=relaxed/simple;
+	bh=ghwTvicbwcpeZVRFyz+jRM2h6z4E5QqZSWWawANuqng=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=g1OSTIl45dnY54FH0T9Zy2NXQeqeU+9QW0cnziZOOUDi4Bo0BZ3b8tu4tybKdfnfgk4PWptvL0dDN8b/P5kWAZ3WfsOInHbJ3STLORMnekXkOUpA26nmrd1UMj3omN4uS4OfofiNE67EqUrm0DJ8T2bf0sWXyJktja+NC1OMrGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=W1vdr2Pu; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="V+4mZehW"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="W1vdr2Pu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1776872342;
+	s=mimecast20190719; t=1776872350;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type;
-	bh=whTUcJi2sbCuAlbRWsfDFPYhODbH4ZQTuqqIAkEzviA=;
-	b=V+4mZehWTFYIQDEAyLVsjdC1OiaDdVprE8FkZYFokSHIYI2hqtiywK6vJ5q0HDnAOb9/pi
-	qW7S/roJooWv3tKdm9J70IVp1UFL7DG7UYtZ3ilkH0fAdOd19OkbGQT2R5VR0NQ8HAQx6Q
-	ZeQshbAJBbF2qJjD6WFEv8TG+PgcH7E=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9wx/SoDj4p4XMgUxvx4ee52uuyL674aJ+ZhIbx1HV0U=;
+	b=W1vdr2Pu4vu6MoZJajDmafBxFU1m/X3d1aKev9Ema2WGK123P0zRQswSVYPjoPbImGFxaP
+	3v02qEBhid8Q17IckNG11kBE8DQppyePNI15cstTYuseY2p9Ll78Wn9RGHfBoVdD3bC8S9
+	L7U82Y1FanMRD4ShY0LK71p9pTpUWO0=
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-381-dwTkrXIWPU-sBKJXNXQV2w-1; Wed, 22 Apr 2026 11:39:01 -0400
-X-MC-Unique: dwTkrXIWPU-sBKJXNXQV2w-1
-X-Mimecast-MFC-AGG-ID: dwTkrXIWPU-sBKJXNXQV2w_1776872340
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-43d7757463eso3695191f8f.0
-        for <virtio-comment@lists.linux.dev>; Wed, 22 Apr 2026 08:39:01 -0700 (PDT)
+ us-mta-371-3p0C43Z3NO6SH8m_VoKvmQ-1; Wed, 22 Apr 2026 11:39:09 -0400
+X-MC-Unique: 3p0C43Z3NO6SH8m_VoKvmQ-1
+X-Mimecast-MFC-AGG-ID: 3p0C43Z3NO6SH8m_VoKvmQ_1776872348
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-35da8eb0553so6444516a91.1
+        for <virtio-comment@lists.linux.dev>; Wed, 22 Apr 2026 08:39:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776872340; x=1777477140;
-        h=content-disposition:mime-version:message-id:subject:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=whTUcJi2sbCuAlbRWsfDFPYhODbH4ZQTuqqIAkEzviA=;
-        b=mvYM8vHtJsEGHHFtU/K2VYHk4xA1fqRVvLZzR8xA4Wn3MnEEu3iEgWo4CdlL6Sa/TY
-         oTd8tfutSzph9UdDB8a24y2/xFk7e96Kd0Bg8JCweDEfqfxXT1GYpEI6ipRa7uazBaz7
-         ApPk9Ax0bPIRBf6ICQNWRueaGouJ9CS6M0KLjV6wf1v4FMLLnb98HloKcE6IHow9WGJ/
-         SeCp7onEpeuBTFl440bOgYqwdHOmWuFSChn9nEDn5itLavAXvYCc4kwV2gEW8EMfrvlO
-         0wGjupHEkas8pnrw++PJgkbQz9gmdpzA63Kc08ZREt9jRRPLDau5WaAlYZxujRBlKYv6
-         4Lnw==
-X-Gm-Message-State: AOJu0YyLOTK5yeotKsnmItJFIpCCXgncvt3cUK8S7azoQJnldVSzn1qP
-	2UWHe29W0mJMhKkkNLbWiF2W1smAwj1+Xd1Og1yhyL03hv4abUPKE9BxsUDpGtxrds8Fa2Qahzg
-	AuKAzAiPkNQfhsUMcqycmTBYBqqP9y3sd5dULlqrULmmJ25W0GztYKHLnzVjTuLQQzdRzSKwJjQ
-	p4C07xIFAO1fqr9bOyLHC+2xzJr3FHn0TU/Zv4w1eAdnflVg==
-X-Gm-Gg: AeBDievvUWpc+Z9W7GAbngQXrdfVd2BrHo6/aFqkRUopVcwat4ipJn7vXEzwJVtwEPI
-	tckQavGsbas50BWUCxjK6hmgd/jgPFQAh92eiPrli79lV1vrD76UlrkqaMt3u2EYAOROASk2/4z
-	EpnRiH9VudqWMJ7/Alh2x9bFpuUnIDWxk0xMeoWEU0lXPcaIKGtHW4Dq8uhwCelDXpZxXdoVqdB
-	y1ev2/pAiFagrCnJ2O8HDtK95qQknN0PrWGsSD/3jwpGt7Dja+HT+xW+oHG1+hSZHEOkICQTPSF
-	1f6aziohjITNLsrkn3VbqCR/TBDzTQzs/xt4cZmJsLF8tk0KzJhJazpOyygMll1WlrH9QBu8IXP
-	gMbJnXuXK0VMfGS0AOfKUOMQ0kz9DrjQjk3c/PwJUhE6zONzxnfTpBg==
-X-Received: by 2002:a05:600c:3b2a:b0:48a:534a:eed8 with SMTP id 5b1f17b1804b1-48a534af0ffmr133239785e9.1.1776872339566;
-        Wed, 22 Apr 2026 08:38:59 -0700 (PDT)
-X-Received: by 2002:a05:600c:3b2a:b0:48a:534a:eed8 with SMTP id 5b1f17b1804b1-48a534af0ffmr133238805e9.1.1776872338640;
-        Wed, 22 Apr 2026 08:38:58 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-25-21.inter.net.il. [80.230.25.21])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fc18bccfsm414576255e9.8.2026.04.22.08.38.56
-        for <virtio-comment@lists.linux.dev>
+        d=1e100.net; s=20251104; t=1776872347; x=1777477147;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=9wx/SoDj4p4XMgUxvx4ee52uuyL674aJ+ZhIbx1HV0U=;
+        b=fl9DZHuoW/z3NR5ZD4ubosgdP62mEo49TKZ09rugEwlTbWNTOd0vzrTJNpJr7ZG7AS
+         Yd2+UrpEeLbUrDHvNLOukTCn+2yHcxtZTkZ6+Dojfa88CXnA+lGUsAKpX0DcUOD5332A
+         XfWont5hM8KeMpElnn14bbJ7QCtHhoPDhH9jUjiVPDed1UlBcACbNo/OwoAXfcOcGJWd
+         YJdFYAs2KSVdA0KjxOhk2/da/kYUUikNtbwFqOpu/L1d706AlSRd5J2pznERhFEkx6Jf
+         Ix/JfDgMIzepa7TG72XbfzxvzYE6Sv7nn7jWwrRhG+e2L5Y5ph1DQrmGmlBHvqyYrDMS
+         AUiA==
+X-Gm-Message-State: AOJu0Yzw2j8AJ1rGj93jrDNgv8CwR7u+dBAa/o/Rtdl+ZPrNiOpETnzT
+	M5H7dNoMJ0n4jacCooIqcyIa41bwKFaJFF2XH/h7onLHInyxFid7brhagljsSJwGtQuSbbkqd4E
+	rsxTu7YcIKo/sU6iyz5giNdjxlTIuyTa2w70pYKUhIgNHhG/y9QGcMNi++gyOXH5J9zVctgpvOM
+	/W
+X-Gm-Gg: AeBDiesqtgz6pJOG/p6tksCNI+rU3ES+8xtkG+W7NhLRdxVNwzLbfGNDMAZaCi1bx1w
+	dcPj34id0d4EXuViFMF3kcU9dHqkwSnrTPBC+6jP3bAv609/5N3TgFnDD0oH4t61rdYz8Syxpjg
+	sCH4/ljqSPqeXZ1/m/iOw1pF8Gvxm0vHTLC+Smrv1cROi6TN9eP8TBPS3XIT0ZbdY9+acNUT5Ow
+	U1mdF4fklNSEBX9+h0wQgWxP09oLIle9//9KLzOQD4Jfki3Qxrw4yLwv67rOLsKSH+L/iAzHFkw
+	8kzHZ+t4pFGCDd7Bdk+jice8x2zyvb/4QYXiXiv+Ao7RwIxo13W3WytBAiek8cbANXBasb34vM9
+	9+K8mudJW7XWWcKksIdQ49SAgHw==
+X-Received: by 2002:a17:90b:3ec5:b0:35f:b4c1:91ea with SMTP id 98e67ed59e1d1-361402ee818mr17985150a91.13.1776872346979;
+        Wed, 22 Apr 2026 08:39:06 -0700 (PDT)
+X-Received: by 2002:a17:90b:3ec5:b0:35f:b4c1:91ea with SMTP id 98e67ed59e1d1-361402ee818mr17985131a91.13.1776872346501;
+        Wed, 22 Apr 2026 08:39:06 -0700 (PDT)
+Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3614189343esm17261762a91.6.2026.04.22.08.39.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Apr 2026 08:38:57 -0700 (PDT)
-Date: Wed, 22 Apr 2026 11:38:55 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: virtio-comment@lists.linux.dev
-Subject: [PATCH] content: clarify feature negotiation terminology and init
- sequence
-Message-ID: <bf1eadcd07bb7a72c52612f4eb175cd3c3c246d5.1776872324.git.mst@redhat.com>
+        Wed, 22 Apr 2026 08:39:05 -0700 (PDT)
+Date: Wed, 22 Apr 2026 17:38:56 +0200
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+To: Demi Marie Obenour <demiobenour@gmail.com>
+Cc: virtio-comment <virtio-comment@lists.linux.dev>
+Subject: Re: Max number of descriptors in a virtio-blk chain
+Message-ID: <aejrkBlN3VtoNFwx@fedora>
+References: <8a7f186f-f240-4f58-a857-5900a2c0c217@gmail.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Mailer: git-send-email 2.27.0.106.g8ac3dc51b1
-X-Mutt-Fcc: =sent
+In-Reply-To: <8a7f186f-f240-4f58-a857-5900a2c0c217@gmail.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: hpE2OOq3U_iwG89HGNOyRJ3rvyz5Wv4AOynVSQHxQ30_1776872340
+X-Mimecast-MFC-PROC-ID: dMYIGXibyINMgBn61TXC5cgoXgpav1CPRrb6R3o5ZCM_1776872348
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-Make several clarifications to the init sequence documentation:
+Hello,
 
-The Linux virtio core (drivers/virtio/virtio.c) initializes devices
-as follows:
-  1. Intersect driver and device feature bits
-  2. finalize_features() - write accepted features to the device
-  3. drv->validate() - read config space, may clear feature bits
-     (e.g. virtio-net clears VIRTIO_NET_F_MTU if mtu < MIN_MTU,
-     balloon clears PAGE_POISON if guest does not init pages)
-  4. If validate changed any features, finalize_features() again
-  5. virtio_features_ok() - set FEATURES_OK, confirm with device
+On Wed, Apr 22, 2026 at 04:02:06AM -0400, Demi Marie Obenour wrote:
+> Is there a limit to the number of descriptors that a virtio-blk driver
+> can use in a request?  In at least Cloud Hypervisor's implementation,
 
-this allows the device to know which fields will be read:
-recommend this in the spec.
+I think this is limited to the number of descriptors that you expose to
+the device in the descriptor ring. In addition, I think the index is 16
+bits long.
 
-Legacy driver detection is specified using a mechanism that
-does not work on all transports. Make it clear that it's an
-example: what matters is that devices do detection in some way
-and are compatible with legacy drivers.
+Matias
 
-Clarify the distinction between features written to the
-device ("accepted") and features confirmed via FEATURES_OK
-("negotiated").
+> and I suspect others, the device must allocate an array of iovecs as
+> long as the number of descriptors.
+> -- 
+> Sincerely,
+> Demi Marie Obenour (she/her/hers)
 
-"acknowledged" is used as a synonym for "accepted", but only in two
-places. Just use "accepted" consistently.
 
-Spec describes multiple moving pieces then ends with "before accepting
-it" - vague, and is overloading "accept". Replace with a reference to
-FEATURES_OK.
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/241
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
----
- content.tex | 31 ++++++++++++++++++++++++-------
- 1 file changed, 24 insertions(+), 7 deletions(-)
 
-diff --git a/content.tex b/content.tex
-index 5de811f..3dcba31 100644
---- a/content.tex
-+++ b/content.tex
-@@ -39,7 +39,7 @@ \section{\field{Device Status} Field}\label{sec:Basic Facilities of a Virtio Dev
- \item[DRIVER_OK (4)] Indicates that the driver is set up and ready to
-   drive the device.
- 
--\item[FEATURES_OK (8)] Indicates that the driver has acknowledged all the
-+\item[FEATURES_OK (8)] Indicates that the driver has accepted all the
-   features it understands, and feature negotiation is complete.
- 
- \item[SUSPEND (16)] When VIRTIO_F_SUSPEND is negotiated, indicates that the
-@@ -89,13 +89,21 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
- 
- Each virtio device offers all the features it understands.  During
- device initialization, the driver reads this and tells the device the
--subset that it accepts.  The only way to renegotiate is to reset
--the device.
-+subset that it accepts.  The device validates this subset and
-+accepts it to complete the negotiation, or rejects it, leaving
-+the negotiation incomplete. Once the negotiation is complete,
-+the only way to renegotiate is to reset the device.
-+
-+A feature bit is \emph{accepted} once the driver has written it to the
-+device.  A feature bit is \emph{negotiated} once FEATURES_OK has been
-+set and confirmed.  Before FEATURES_OK is confirmed, features are
-+accepted but not yet negotiated, and the device has not confirmed that it
-+supports the combination selected by the driver.
- 
- This allows for forwards and backwards compatibility: if the device is
- enhanced with a new feature bit, older drivers will not write that
- feature bit back to the device.  Similarly, if a driver is enhanced with a feature
--that the device doesn't support, it see the new feature is not offered.
-+that the device doesn't support, it will see that the new feature is not offered.
- 
- Feature bits are allocated as follows:
- 
-@@ -189,8 +197,8 @@ \subsection{Legacy Interface: A Note on Feature
- 
- Transitional Drivers MUST detect Legacy Devices by detecting that
- the feature bit VIRTIO_F_VERSION_1 is not offered.
--Transitional devices MUST detect Legacy drivers by detecting that
--VIRTIO_F_VERSION_1 has not been acknowledged by the driver.
-+Transitional devices MUST detect Legacy drivers, e.g. by detecting that
-+VIRTIO_F_VERSION_1 has not been accepted by the driver.
- 
- In this case device is used through the legacy interface.
- 
-@@ -314,6 +322,11 @@ \section{Device Configuration Space}\label{sec:Basic Facilities of a Virtio Devi
- greater than the specified 8-bit size.
- \end{note}
- 
-+\drivernormative{\subsection}{Device Configuration Space}{Basic Facilities of a Virtio Device / Device Configuration Space}
-+Before reading a device-specific configuration field that is
-+conditional on a feature bit, the driver SHOULD first accept
-+that feature bit.
-+
- \devicenormative{\subsection}{Device Configuration Space}{Basic Facilities of a Virtio Device / Device Configuration Space}
- The device MUST allow reading of any device-specific configuration
- field before FEATURES_OK is set by the driver.  This includes fields which are
-@@ -530,7 +543,11 @@ \section{Device Initialization}\label{sec:General Initialization And Device Oper
- \item\label{itm:General Initialization And Device Operation /
- Device Initialization / Read feature bits} Read device feature bits, and write the subset of feature bits
-    understood by the OS and driver to the device.  During this step the
--   driver MAY read (but MUST NOT write) the device-specific configuration fields to check that it can support the device before accepting it.
-+   driver MAY read (but MUST NOT write) the device-specific configuration
-+   fields to check that it can support the device before setting FEATURES_OK.
-+   The driver SHOULD accept feature bits before reading configuration
-+   fields conditional on them.  The driver MAY then clear feature bits,
-+   write the updated subset to the device, and repeat this process.
- 
- \item\label{itm:General Initialization And Device Operation / Device Initialization / Set FEATURES-OK} Set the FEATURES_OK status bit.  The driver MUST NOT accept
-    new feature bits after this step.
--- 
-MST
 
