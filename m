@@ -1,337 +1,101 @@
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4367C37755D
-	for <virtio-comment@lists.linux.dev>; Wed, 22 Apr 2026 08:02:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776844937; cv=none; b=KYPZJfiWWebMwBLN45IS5pPX7fMv5HJH7r1euyfvebAxgDcDaJ25D50cGWr/RHCvfOWJ/ci3dq6/Me249NhFUhYr41BolCO1nzX7DJOzDNYlieLMBMi4PQ4vrHXtm2ZoVM1GR/iaeevWCjyznBSiX8kdHDLN/sTbfPHo1jtYmC0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776844937; c=relaxed/simple;
-	bh=8aN3+9DVQn4p7RfNCF5ehONSC4THlv/TLUP2SzTtCMs=;
-	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=GQC/MR6big+JBL4ulBSFyK8Ud/BqH2Tgv3EwcjJ5MzlKoKdwdZr4pjztE5yEnEae2kuP6m84pWqogVxPgq2E0sDo0BQAui2GPc/HZsWY0jOBKlniGKygpovC7QdwJJR94nSllZV4Pz8lCtow7UfVUf5wZ4IjywL4yX87RJ6X51E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z4Mokn34; arc=none smtp.client-ip=209.85.128.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42BB12BF3F3
+	for <virtio-comment@lists.linux.dev>; Wed, 22 Apr 2026 13:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776865824; cv=pass; b=BQKTv8wnOO8vm+udjOJF6aOUVDx67vjT1kLHlWWY1HYd4KmB/PHTSPga+lC7eQmGM2KXQ01yUTDneq/xXKkYtdWsCsZF9J1PpOAQXZh+lDnjUs1QTI0uIoe8gU3uZeWHTb8ZW2UfF517Yi02Yco+HCznOL8qxx0w6y3yeRRppdA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776865824; c=relaxed/simple;
+	bh=QalWPXnz4udRgbdWv4nnhwzqZCXT0A1cjALojrRqzwU=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=RI+eNagrBobTtjtC4zny002ikjsKVbyVvg0tzOLZ3d2fa6Be6vkgWlpIG184p4DSv5g6hz+yJJYz7GONLqo54/S3CWS7oHGRUSYEEOl83GpFRf1S8ILlkyYpyQO1JdLCCtAM5ESWxFSzqV6+NMUEdHq/ibLmWV1MOofqI/6UqvU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=okaUOT+r; arc=pass smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z4Mokn34"
-Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-79ab5fd969aso56526767b3.0
-        for <virtio-comment@lists.linux.dev>; Wed, 22 Apr 2026 01:02:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="okaUOT+r"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-43fde5b81a1so4090240f8f.0
+        for <virtio-comment@lists.linux.dev>; Wed, 22 Apr 2026 06:50:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776865821; cv=none;
+        d=google.com; s=arc-20240605;
+        b=halptepUjTNcXa9t4IZxO8ArMiUDWnOldnUgeWjCTIfyL5IUFV/HG56Nfmy1i9DThE
+         am3ix4O2l4kzuRW7FIGQO0FAx+JYnPdQOjzp98K6Em5X1BNdOa0AFSlkI+oARtsrfgJh
+         ifFQqqgoIi8cTlkZwoFvEEcOqtymlg8kZJKTlM3wdY5Fj6Yv9ZD5AeRBDxDQCoP/Oa1b
+         UukR05qeEsGloQnbpJ7FPYJBsrS1KNPp/8XjLFRno82pCT9Zo5Fhx1yA28MR0Oa9AK8i
+         EraCikcTSqO70zrK3VQ+hQ/tBw9zYhU1uK9cIdpWOaK6AJGxsXjkG38VwNGD2OHiAESn
+         pCbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=U0PoJcJeTttwfKNslSrdMqZdc+b9h2Q//uz6ydAZfZc=;
+        fh=goTZg/KYQbwuFcyPn4ftUTF8McfhmLtaDvtEM81HaUM=;
+        b=SwoPmwwaxrmifiBDUy5fta6qhjDWwhj+BQc6wPrPuq+ccScbqIKe5axSKRYxfvBp8W
+         ssWk6YDj1RgiZrp1IrkUyreEdL/ccdxlUGmLjFmsNC1QBbSSMpLZ/2f2S4T6IdG56ubW
+         6GO5D8wEc8bZmlHmPTMvRW5HYf6kq2qFzpY1stUKnH8ETqmvEfsxTI66LzVznl5p8Hfj
+         F6gT0os9OkSI//7kOygVvbdmTlSZ2eEJvo7XIB6Vd5E/vlWPT2PTWoHbTk9eXTqvDCea
+         PQ3qrvRR+2i/eLLUGevvPct2siZjzD/eyg9RF7XTl5yxcpuaKpRPqsq0Geozt/CN1zoi
+         EhAA==;
+        darn=lists.linux.dev
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776844932; x=1777449732; darn=lists.linux.dev;
-        h=autocrypt:subject:from:to:content-language:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IVY+iKvkwYFYwpb8NWdXmXVxSFBxcvmCoZemhHQEgPc=;
-        b=Z4Mokn34bexp/KzPcKvFUVLuVaJ2pNORFgO3PhItIZAFNUWlMPLnP1LVFcSj742Dr3
-         2xAjpv2FvFPKigxnE/grhJ52Ri8WgAlP/NlIVdvI92uhn9NuVPwxs/q+Wtj8vgJSmmWw
-         T6kY53+TJVL+v/scm6frTNXBYooqOGfytcYSBGjCitrGlvihM4H3Ws35FSzeVgYXsb3i
-         YgmrXRX9qZ83EHlpEKtLBUVKomjrgXVo6LJgDIDOXtZbqf5G/fpsOSs6nCLQ1/9TYxPM
-         PmKOTJ+GS+IrpNrgGMG2mVOgK0dSTM6hlK10Wj+1vzwJ7rxBOnBpT2sl94S3W+0IxWag
-         g2wA==
+        d=linaro.org; s=google; t=1776865821; x=1777470621; darn=lists.linux.dev;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=U0PoJcJeTttwfKNslSrdMqZdc+b9h2Q//uz6ydAZfZc=;
+        b=okaUOT+rI/tstlSrFuAppQjtuBh1VgjnDZnIVpfUptAZkQOLGZC4T4QiVlOOlix9uD
+         1eDF68Tex4aSh1EuwYR0zuOkiDESLqM5Uiw9nAyM85BZq/XFsj5ZyKTXBp2Yf2tXWNsA
+         00f9CVRieXt9dSffC8dmBrpYm64ddfinq2SY/5UUd+2XyIFM31NA2I9YCwERAkTgi6GH
+         h6CVhQ2aWKaseVTZCrZsDi2cStmsJ0e+74/qIKK4YqAFDPmri0XsatXk77lYEwzFDVMI
+         eo/cIVfmGO2Dy60lVBvbIF3gamzBtdCLgTGemmDB3bSKqL02/CK0OsSYX59iX9Aw/Emz
+         AOnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776844932; x=1777449732;
-        h=autocrypt:subject:from:to:content-language:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IVY+iKvkwYFYwpb8NWdXmXVxSFBxcvmCoZemhHQEgPc=;
-        b=f/ImLUtcrSzfgWcoOckDFI5hDkTM7Tsm30TtleOMgdPaRc8marklO0d8OSwOy8cWfa
-         ndje8ydZ1DqS0gEBssGI/edCWkBto7HnHaBGl9ozmKYx9NDakwNHiGPRVDvFk/vvTUXZ
-         Dr2XZpY0qheUc4upEn02HfFsMCAtHDD9Cq7pPvawLKlW47uFUsdRyOBWbVmHrAeZcAz2
-         cijxkGhQEDRHZNkUWRoQyKeeQXqr2P3fDZnT07HAyjCAgD8RZLnqOkNjM/RNFsUYYPLd
-         IDqZ8hXjPqupl8la1yc3lxv+QK/HxwhKO/4jc0OMVFPh+mTtytdQURXiyZRcncMmRyfg
-         BG/g==
-X-Gm-Message-State: AOJu0YxoYjlUg9nctrN8a4T7hasGtDtyLnLL9Q4y92NK41agZ2eLLdU4
-	ri+Vj5z/pfXPYToB5TtXljvpwvfwh4s2HnZz+tgD1f+e65RRNjXO3kVfNjAB3Q==
-X-Gm-Gg: AeBDiet+Nck+tZxQZxX7zUdc20pmlXnsBZvqI7pxIEEDhSvQUVCbnufW0tE4VqLIGml
-	LIoI4EV8Kz8MzRfomP8qMkulCW/vZo8vsKRAgxLoOSSrOYVKb1bmikmhHmZAiJpqqo4iR2rjpzV
-	pVUZsnv1lVc6+LWwNBIjziyxRsrzA+lzs1cgW5Y+6tqqwfuN2IzhhnzMMYks6A/tOEsH+fns7wU
-	W/8mkmRqLcy8z693SYkN9fcWzIqEUC6+xQBUQZ9tKdYEVLQpKaq8liSHt5C/sbHXQSPFB7kV+gW
-	0qArqKBblEkJGGArcYl8oxRuI8DXqUTSCH8ftScWL36jhf9foaFV8F5PW9kqekBaUyPIhjAHbAt
-	k3WoJirDJ3XhRYS4rlm6RbGHreizvNeEdRvzbv8hSslTrL1u3n55xbzZDHPhvVVntaNLL0nB+pQ
-	Qd0szWs79Bvt+DxTsJORr9TtmCEnvTOXEf35UqU4gia51R43Ju2xKUfuJHLbjvEd9xI08NL9k7v
-	k1CpBcav9uImvGTim3VGQgcVde9wG/puMhXzbc06wBf1CqsO7q8
-X-Received: by 2002:a05:690e:d59:b0:652:5567:b408 with SMTP id 956f58d0204a3-65310869318mr18936366d50.26.1776844932238;
-        Wed, 22 Apr 2026 01:02:12 -0700 (PDT)
-Received: from [10.138.34.110] (h69-131-150-190.cncrtn.broadband.dynamic.tds.net. [69.131.150.190])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-65314e328d6sm7585126d50.11.2026.04.22.01.02.10
-        for <virtio-comment@lists.linux.dev>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Apr 2026 01:02:11 -0700 (PDT)
-Message-ID: <8a7f186f-f240-4f58-a857-5900a2c0c217@gmail.com>
-Date: Wed, 22 Apr 2026 04:02:06 -0400
+        d=1e100.net; s=20251104; t=1776865821; x=1777470621;
+        h=to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=U0PoJcJeTttwfKNslSrdMqZdc+b9h2Q//uz6ydAZfZc=;
+        b=fP/UaaUA9bHks9pZf0DNmN+tgWZu4Bh0TmDeDG0SAxrL7fuclJNbEDt7LTxfhPSBfj
+         Vms8Wos/JvBD2eC23JqcEzii87sM+IRU0r9asfcMyfThsQuxpKPPMgXQ84MI31M83SFQ
+         J642Lr9d/UALGAJiBDeUxOa9a02gyxHIiCeWDbw/TeW/DqsoweTfr54Dp4JiMPasWX1E
+         ibPHG23alIuic2MWY061h75Lprm+rijBH475aF47zE6sWcJ8NO94gyMGhtsO7mpN7euy
+         KvctC8gBIEbyUQiIf+8LJ0CjbunF8epz95yIfJ1RlftBxbai0uBjCFmdfYVEUFCSMN1s
+         XYJQ==
+X-Gm-Message-State: AOJu0Yx4LQahuTOo38IqheJfowKBIWF9IRp9HXdOHA2l3xm65dGalxf+
+	rzIXl3a4KoYYZb1WJ79bVPPm+n3HcApkWND+MIkTX2QKLsGO7HGBYCk7PtNp+PFWLIoDF2adc9j
+	7O27V2WMibgioicgDPV870t+hINhBZTBo4/8IK7FVcqdll1bDkAXqivo=
+X-Gm-Gg: AeBDietqy/rMTP7LFwEjE82KY30O7L1yII6nZeoDX7UwOzw4OI0ddjbKtdTVZwqvsuX
+	hDXOxLI90e7894lzaajLH3rwQSMp53VuQrCHcXi0y+w/4P3Hhkyo/ZrckP0oVrFzqdcBIxDTO8f
+	27gcO6wSAwLMU7sfMP8QukQHnzZ+Pe2wDojm0aP0m0gHE00/+mIJWL8klhbs7D0Mk3Kh6t0IGDy
+	Tir7iehkD1DEQr5PDCDArUQfLYm7LwEezYlGJSk68gtIQbo5q6aE8jVyxLig6OFtRFaoVoCKciH
+	z87skb72C/iaWJGJPR59zjJfJ5kDMEQ/KxxiC3vw66d/JyZObKwwsox9I/fR
+X-Received: by 2002:a05:6000:22ca:b0:43d:1dfe:350a with SMTP id
+ ffacd0b85a97d-43fe3dfc019mr35068255f8f.22.1776865821228; Wed, 22 Apr 2026
+ 06:50:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Wed, 22 Apr 2026 16:49:55 +0300
+X-Gm-Features: AQROBzAC2YUz4vuTlKhUOc9fTn5lI-JaPtKoyysbI_HJ2cDtPnck6MAUmP60IrQ
+Message-ID: <CAAjaMXZHoHwA7sWkZYE0ANah0vwRWtEUYLvc8ULxm5-jggGeYg@mail.gmail.com>
+Subject: #virtio IRC channel on OFTC
 To: virtio-comment <virtio-comment@lists.linux.dev>
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Subject: Max number of descriptors in a virtio-blk chain
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------7wu0sIflMkgQdxakgI8XI0jq"
+Content-Type: text/plain; charset="UTF-8"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------7wu0sIflMkgQdxakgI8XI0jq
-Content-Type: multipart/mixed; boundary="------------lNdMmDtn6EisxcFPMBjX80P6";
- protected-headers="v1"
-Message-ID: <8a7f186f-f240-4f58-a857-5900a2c0c217@gmail.com>
-Date: Wed, 22 Apr 2026 04:02:06 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: virtio-comment <virtio-comment@lists.linux.dev>
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Subject: Max number of descriptors in a virtio-blk chain
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49yB+l2nipd
- aq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYfbWpr/si88QKgyGSV
- Z7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/UorR+FaSuVwT7rqzGrTlscnT
- DlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7MMPCJwI8JpPlBedRpe9tfVyfu3euTPLPx
- wcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9Hzx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR
- 6h3nBc3eyuZ+q62HS1pJ5EvUT1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl
- 5FMWo8TCniHynNXsBtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2
- Bkg1b//r6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
- 9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nSm9BBff0N
- m0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQABzTxEZW1pIE1hcmll
- IE9iZW5vdXIgKGxvdmVyIG9mIGNvZGluZykgPGRlbWlvYmVub3VyQGdtYWlsLmNvbT7CwXgE
- EwECACIFAlp+A0oCGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJELKItV//nCLBhr8Q
- AK/xrb4wyi71xII2hkFBpT59ObLN+32FQT7R3lbZRjVFjc6yMUjOb1H/hJVxx+yo5gsSj5LS
- 9AwggioUSrcUKldfA/PKKai2mzTlUDxTcF3vKx6iMXKA6AqwAw4B57ZEJoMM6egm57TV19kz
- PMc879NV2nc6+elaKl+/kbVeD3qvBuEwsTe2Do3HAAdrfUG/j9erwIk6gha/Hp9yZlCnPTX+
- VK+xifQqt8RtMqS5R/S8z0msJMI/ajNU03kFjOpqrYziv6OZLJ5cuKb3bZU5aoaRQRDzkFIR
- 6aqtFLTohTo20QywXwRa39uFaOT/0YMpNyel0kdOszFOykTEGI2u+kja35g9TkH90kkBTG+a
- EWttIht0Hy6YFmwjcAxisSakBuHnHuMSOiyRQLu43ej2+mDWgItLZ48Mu0C3IG1seeQDjEYP
- tqvyZ6bGkf2Vj+L6wLoLLIhRZxQOedqArIk/Sb2SzQYuxN44IDRt+3ZcDqsPppoKcxSyd1Ny
- 2tpvjYJXlfKmOYLhTWs8nwlAlSHX/c/jz/ywwf7eSvGknToo1Y0VpRtoxMaKW1nvH0OeCSVJ
- itfRP7YbiRVc2aNqWPCSgtqHAuVraBRbAFLKh9d2rKFB3BmynTUpc1BQLJP8+D5oNyb8Ts4x
- Xd3iV/uD8JLGJfYZIR7oGWFLP4uZ3tkneDfYzsFNBFp+A0oBEAC9ynZI9LU+uJkMeEJeJyQ/
- 8VFkCJQPQZEsIGzOTlPnwvVna0AS86n2Z+rK7R/usYs5iJCZ55/JISWd8xD57ue0eB47bcJv
- VqGlObI2DEG8TwaW0O0duRhDgzMEL4t1KdRAepIESBEA/iPpI4gfUbVEIEQuqdqQyO4GAe+M
- kD0Hy5JH/0qgFmbaSegNTdQg5iqYjRZ3ttiswalql1/iSyv1WYeC1OAs+2BLOAT2NEggSiVO
- txEfgewsQtCWi8H1SoirakIfo45Hz0tk/Ad9ZWh2PvOGt97Ka85o4TLJxgJJqGEnqcFUZnJJ
- riwoaRIS8N2C8/nEM53jb1sH0gYddMU3QxY7dYNLIUrRKQeNkF30dK7V6JRH7pleRlf+wQcN
- fRAIUrNlatj9TxwivQrKnC9aIFFHEy/0mAgtrQShcMRmMgVlRoOA5B8RTulRLCmkafvwuhs6
- dCxN0GNAORIVVFxjx9Vn7OqYPgwiofZ6SbEl0hgPyWBQvE85klFLZLoj7p+joDY1XNQztmfA
- rnJ9x+YV4igjWImINAZSlmEcYtd+xy3Li/8oeYDAqrsnrOjb+WvGhCykJk4urBog2LNtcyCj
- kTs7F+WeXGUo0NDhbd3Z6AyFfqeF7uJ3D5hlpX2nI9no/ugPrrTVoVZAgrrnNz0iZG2DVx46
- x913pVKHl5mlYQARAQABwsFfBBgBAgAJBQJafgNKAhsMAAoJELKItV//nCLBwNIP/AiIHE8b
- oIqReFQyaMzxq6lE4YZCZNj65B/nkDOvodSiwfwjjVVE2V3iEzxMHbgyTCGA67+Bo/d5aQGj
- gn0TPtsGzelyQHipaUzEyrsceUGWYoKXYyVWKEfyh0cDfnd9diAm3VeNqchtcMpoehETH8fr
- RHnJdBcjf112PzQSdKC6kqU0Q196c4Vp5HDOQfNiDnTf7gZSj0BraHOByy9LEDCLhQiCmr+2
- E0rW4tBtDAn2HkT9uf32ZGqJCn1O+2uVfFhGu6vPE5qkqrbSE8TG+03H8ecU2q50zgHWPdHM
- OBvy3EhzfAh2VmOSTcRK+tSUe/u3wdLRDPwv/DTzGI36Kgky9MsDC5gpIwNbOJP2G/q1wT1o
- Gkw4IXfWv2ufWiXqJ+k7HEi2N1sree7Dy9KBCqb+ca1vFhYPDJfhP75I/VnzHVssZ/rYZ9+5
- 1yDoUABoNdJNSGUYl+Yh9Pw9pE3Kt4EFzUlFZWbE4xKL/NPno+z4J9aWemLLszcYz/u3XnbO
- vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
- HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+Hi VIRTIO TC members, stakeholders, interested parties,
 
---------------lNdMmDtn6EisxcFPMBjX80P6
-Content-Type: multipart/mixed; boundary="------------O4MWqTBDcpuXkJrSZ1J9Yf53"
+I took the initiative to register #virtio channel on the OFTC IRC
+network for general, unofficial/informal discussion, since most of us
+idle on linux related IRC channels anyway. I invite you to join (you
+can also join via Matrix if you don't use IRC)
 
---------------O4MWqTBDcpuXkJrSZ1J9Yf53
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+If a VIRTIO TC member joins I can transfer registration of the channel
+to their nickname and give them operator rights.
 
-Is there a limit to the number of descriptors that a virtio-blk driver
-can use in a request?  In at least Cloud Hypervisor's implementation,
-and I suspect others, the device must allocate an array of iovecs as
-long as the number of descriptors.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
+Thanks and see you there!
 
---------------O4MWqTBDcpuXkJrSZ1J9Yf53
-Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
-B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
-bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
-UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
-MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
-zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
-T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
-BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
-6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
-9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
-m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
-zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
-dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
-X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
-R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
-oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
-zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
-rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
-Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
-/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
-ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
-Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
-xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
-fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
-AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
-b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
-BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
-/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
-/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
-sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
-xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
-VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
-hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
-I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
-xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
-ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
-7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
-UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
-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
-EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
-=3Dx94R
------END PGP PUBLIC KEY BLOCK-----
-
---------------O4MWqTBDcpuXkJrSZ1J9Yf53--
-
---------------lNdMmDtn6EisxcFPMBjX80P6--
-
---------------7wu0sIflMkgQdxakgI8XI0jq
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIyBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmnogH8ACgkQszaHOrMp
-8lNyQQ/3VCAOA+OjUPe3ZQA/Wb9okwAu/sdyQ0tn/LbDWDtj4afPFuZCK71lajnP
-E6qAXaxc5/yTF7qR1J/LfLH93V5ua2/fZ/rwokGDFLlSu3syV1uMbJgtustgl2pd
-/vyMCRbhoUPdkxsaRL6xbVXRTjrPDQooaTTXWFoZEhYsRioPafUK2s4Rgcluhx8x
-3GJQihmScq4iz7MH9voFVBgSrw78j7kdPVC1D9UK36cBdOeb/2NlS3CX6nAhKdgT
-9wOmXV/6191k/TXHuZCW1WM0ZbiKYPMraUcFQHHLyFFOsrD7g5uhQoU6CfakKZny
-lYCWVi3gJREdgmsHtXoNDhUhZFB4b+CzjgAyAYHW6JjzD8ShOgFXnaFT8Aq2u6g1
-i1SbyOTVPGsq/ZJOHCOy05+wTsCL16d/u/2j+1wSs+In85rws4bthyyZwyaEJyIl
-HJnl1N3vKhIlDhZcNdTiTOiERX52qu7tAe/p7qpLNudo5qcvfb7OUgAfW/1S3qkC
-mKnL5FgU/eO5VsRpeq2Vdek6QI8K2vYBmxKhYiKgg8fNX/aJRwj09s5qY3lY5Uh8
-NtZ1LKF9xPpDOUqsZ6mfjVyf3GGZ5XeNtceskYjD0qvuM1I0OoHJ1NxnhBdyNwNV
-hxT+i4SSrcUkReznCg05FyT5BGDEyGh5Cv7fBzgcgPyIzGz91g==
-=ISgk
------END PGP SIGNATURE-----
-
---------------7wu0sIflMkgQdxakgI8XI0jq--
+-- 
+Manos Pitsidianakis
+Emulation and Virtualization Engineer at Linaro Ltd
