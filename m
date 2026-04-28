@@ -1,200 +1,179 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A753B48AE1C
-	for <virtio-comment@lists.linux.dev>; Tue,  5 May 2026 16:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB722E7F25
+	for <virtio-comment@lists.linux.dev>; Thu,  7 May 2026 03:41:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777997294; cv=none; b=nH3Zftcv41wVkFdMwYtgTNey2SaWBlnj948LAqDCx6HUUAVO231magfKfIhZd+0kv2cGnc/sznHZs8Q4j1WRbcY3Pj9lNcEWCd4+f6mm5s3q3BUFOQybxzqN22vxbxDm5p6yqAXeBujHcAqHjp+YlDFNEZ2TGbKSsy1S5CNydOs=
+	t=1778125267; cv=none; b=RrWi7JwIfdwEQWaS2EB/66C6Iwa73eGmMKb7EyIwHU6VPSmYAcjUk1Fc8IZyNC2L7q66EudRUvgK/q4uSUNvKWft0nw3K6B3WXkLP76y4w4pRNMMwKepFPuSDbv14QqJwS46vFG1/grYLND4vgKugewoZ5KGo86x5GwVIXR/lzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777997294; c=relaxed/simple;
-	bh=TYdiRJfvlD7W0/ZUxqQCUAlPug71TWQyXOUZSyXhIGY=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=PuOZL/drsQMaEf1Z3dPdRasq7eXVVgDHIVdj3Cc7qFBcbeIZ+Za6+M1ZXlgfGVzzK2QW+z1o2+yeFSMduwPHJitUtCAbS/2SX1cMkdZSHDAn9HuuKeKQhGSmI+LTOSKSmJVf6sdiLCbBglGeBbi/+lfW4qZJ+uhfQM3MwBaMbkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=atzzxnms; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1778125267; c=relaxed/simple;
+	bh=smrS2iZt7dyrUri8PRkivRkt/HByqBchaF6tITHjrPw=;
+	h=Message-ID:From:To:Date:Subject; b=FAqqhYZOCtlAz4TgrjPQLJpu/3FgOJOgtuAcjejUMv2UtabIM7XOq4MSqVgO1G8DUnRxfioZd4CTNWtlKawg1AFl9boEA7YwemwqEIaXPtqZAMhzq+lHuzvYflvC1fYRc6MdXkbdmadCPpEg76QkBc4lL19fxLQJWBPP47U7RtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sq/VKuxM; arc=none smtp.client-ip=74.125.224.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="atzzxnms"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1777997291;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0niY2GDpeYWv1k+onn4dhzZNCF1iLkPsIa2o0vNrCFI=;
-	b=atzzxnmsFElJYUMpxdlmyUwsE17fptoDThD/uMBAzn5R7DVqYmAPTaGzIf/qVX0wWtMUfT
-	lrtmYNX8BW6cekMahP+qHp2IJbUpB/uaCnGEfiQzic0/glK2FViRf0XrZ1RZ7dpQPIgl3V
-	kjMbPLUHrhwJflyBraXaeTexXXcr0lU=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-563-bhRXBveWM9iCgizrpXeYdQ-1; Tue, 05 May 2026 12:08:09 -0400
-X-MC-Unique: bhRXBveWM9iCgizrpXeYdQ-1
-X-Mimecast-MFC-AGG-ID: bhRXBveWM9iCgizrpXeYdQ_1777997288
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-488bd1ee9e7so55690085e9.1
-        for <virtio-comment@lists.linux.dev>; Tue, 05 May 2026 09:08:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sq/VKuxM"
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-65c2cd216c9so292322d50.3
+        for <virtio-comment@lists.linux.dev>; Wed, 06 May 2026 20:41:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778125265; x=1778730065; darn=lists.linux.dev;
+        h=subject:date:to:from:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=UxIp+OCvVFzXkOtNKBXFUycBE5QuMfHmyJlDS/RE8Ac=;
+        b=sq/VKuxMHxN7GF/oD1hvyEaJVjusD5Mbp30ep80Fr0tjAs4g18fYvp0/8yJC72TCu/
+         7fSw5ljfaNwbd+QJMkrGNAqmJKY1xeTORP8phewI0Q/fq5TI+s0oNzkU34thReMmD0BM
+         HsgSFHcNK8z4MwLoxz6aJtLLEP/MYVdhcst2EViicmz3HX3h+g5z4RVGvTM/2t9Uh+P9
+         pJc04dQonGhKOyY95HAN1W5DqBIvEOiXwoLHQvKleE6Z31JovtZ03AoP/DJEW/C2rI8l
+         /gmX8USqBI1hwKgvV4Ziqqs3kEsbGoaOSTVB5/S/NOoIqc1jTiTEb8ia8Da90D1zJs05
+         K1Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777997288; x=1778602088;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=0niY2GDpeYWv1k+onn4dhzZNCF1iLkPsIa2o0vNrCFI=;
-        b=QAGCSAd6nfYdHxnZT/fdsLvO2X9Jat1Q03MbJTpPmjfiS1E02uzzOnHFB3tF+mMKTe
-         TJG7Bqw0jXA8XMr5wdrCq4KYbsbdvfqdAL7Y3JG6+9Z6Iu+0FMDaUjrJsaetZOAKBcmr
-         Jw6TlGPzaqgZ5TOhvrj0XFof3eg38pYPuQQVKWtoVAcQe4Dbq8eUbSU713Uc+9Q6GSLX
-         XsepRJl3/7C9Z4fkMnxW5rSthEg4kaMnwImyL8CEtSEH5c3VKsw7hmammbTMd6izrhn+
-         icbc6NsfXoAOtqdYC8bgaHo0FICSxQ6BBL6qKfG7Dl3nZdMsVzApPed1tSLyD1hoEmE/
-         VHiw==
-X-Gm-Message-State: AOJu0Yx02Zofh8FHvKLuLk3mnKcHlYmhRze56BicdQaOzIT7eYC8Kj2/
-	TJCWfnMI39iaeRVlv+1zILGdhGugdZ/2/rXDPs8SCz1zHVWk3DOFsrbGdSIfWes88SAgAd55rEl
-	9QthiwlgteS4/uJuNdFfw8lv59DJ7Bf+89VmV96RY70RNh3EfsX230qW/ledzQdcnFi7F+WNMS5
-	FlF1I2LSw7/T+T2WpD1dgQDKjKk0lsW/gE9BPxOlOgDTsq3A==
-X-Gm-Gg: AeBDiet0SvO8/4htECR+HgNjzNCiHv7xrO3MoflN2eBhKKMziK6ORG0hiXFMT3Bc1BC
-	u8NvdpIhRMpJ/WWPjqPRsHSaBJFCdw/dkkt3G4r0m95B+h1PC1P0JqFescn4KHWfdUCqD1GHZrP
-	75MdvkBi4P63EUuRp3pjM33nJ36O7tIRkUFUmbI1HajHfPVeDd+ipkG0ht4Dr4j0CUScwK2DjLh
-	TrN4WfjIy+MH5vsPPx5ictV9bc9MQdBXu4zMi3XlnlSbFcKKbvjoTJ05LcFGrrIfCCw6V0ROCNT
-	snxv7/iYoLt9xB/WVZ7TQ7NInthlOiJNT3F7roBI4/5YCdabIvklEf+C4IZLgpFQD1DPkMeGcV9
-	UrYXO2MNI6B0VawSsDD3hEe2c504F3jB0qiS6+I9ERIS8ULjqZzels3HQ
-X-Received: by 2002:a05:600c:a30a:b0:48a:9428:5522 with SMTP id 5b1f17b1804b1-48a9865ea82mr171897545e9.16.1777997287836;
-        Tue, 05 May 2026 09:08:07 -0700 (PDT)
-X-Received: by 2002:a05:600c:a30a:b0:48a:9428:5522 with SMTP id 5b1f17b1804b1-48a9865ea82mr171896715e9.16.1777997287136;
-        Tue, 05 May 2026 09:08:07 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-47-179.inter.net.il. [80.230.47.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48d149e8a82sm22144095e9.3.2026.05.05.09.08.06
-        for <virtio-comment@lists.linux.dev>
+        d=1e100.net; s=20251104; t=1778125265; x=1778730065;
+        h=subject:date:to:from:message-id:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=UxIp+OCvVFzXkOtNKBXFUycBE5QuMfHmyJlDS/RE8Ac=;
+        b=ip0l4O+DsBpuXMCi/zIfi9lOxg+APrORUO13D6rAfeRnXK4pb8MF/+AtUI8M1FfqiA
+         n62ru55xM89sztvoC4+Z5yUAQ6Q2lvqIfsPCY993MXRcDKMEYFMai2k0Qki36jPqipvo
+         frARzxxNICsEmI9bvJn6U7E+rLlNG/JDfvC2OK+ou6o6hFIN61hKcJQNgaoT7vnZ+Xqf
+         lUxJDnsoV4QD1DFrGUwitedeqgBbC+8K4tSAo60P3IW5cmGTDyJ4fLCevAR15yaN60Mx
+         OwOBatvDs0JJZOpMl8pWxdtsM4RdTNKfnbQhT/47bQZIjrJQvUTVMQhT4lI9mQF6HGMP
+         S2WA==
+X-Gm-Message-State: AOJu0Yzyd76z5dPbqWsPY4lj+LRfsPmspOTINXqfpUmwdQ9hfFHMqG6x
+	skYJrcKyrR5e1d+JZhB3BxmgisySBRxoQqgyz7otsZJfyyHiEdMaMSR7G0Tdkg==
+X-Gm-Gg: AeBDieuscQNjpcQjjoeEM5JfQfsc//1/shYAyXxeAxJ29FaupIBxdazvOgEChBpfh7a
+	V+eaFo0ENBMbLk427czw8k2r9BJ/TZP+tGEPezJSHoPSEPkmTGAEYfxlusfWjWeloST3fD+Ob6B
+	jAki2FHeWdoEN6mSPTpbNETJuZkUqTYUxcDjhp4KPeH2BCsmWhf7UasJeZx5yngyNxRLsAXqFie
+	XDd/xf76PJYkt91HwgrvccAAcDzYy5r5+bZMf3Jpi+QtNO67096woE+awNs2vxaBiUOqgoHJOqX
+	FhkCUX5fbICh2Lt0SSrg4S8tyk+eK/NIhG4etiBOz/cl1iaQigbFZOYczglFDA5ow+VrRA8jgY1
+	eLvyiA3eNqFVAW7gIFjM22IdPExLv7o8IWHgQgZ4gWH6Nkw3HScQN1CcOZ0FjMGRL9e1j5qU7La
+	mfr1x77Q9FhSjUSHA3nI+uc8CYYCK2hTfYQnO/opmor5em07YQ4yzoJgTRXqK4t1OjSI6LPoAve
+	shhTqPRvjE2F2WD2khWm9c9mXfrfD/AZvE829MAQovbvxjMVvmcDikTEOGMAFA97iNw4uw=
+X-Received: by 2002:a53:e44c:0:b0:654:27b0:8881 with SMTP id 956f58d0204a3-65c7989fc6fmr4156255d50.3.1778125264851;
+        Wed, 06 May 2026 20:41:04 -0700 (PDT)
+Received: from localhost.localdomain (h69-131-150-190.cncrtn.broadband.dynamic.tds.net. [69.131.150.190])
+        by smtp.gmail.com with UTF8SMTPSA id 956f58d0204a3-65c7aff473asm1966717d50.17.2026.05.06.20.41.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 09:08:06 -0700 (PDT)
-Date: Tue, 5 May 2026 12:08:05 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
+        Wed, 06 May 2026 20:41:04 -0700 (PDT)
+Message-ID: <69fc09d0.050a0220.18d9e0.cc26@mx.google.com>
+From: Demi Marie Obenour <demiobenour@gmail.com>
 To: virtio-comment@lists.linux.dev
-Subject: [PATCH v3 2/2] balloon: add VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE
-Message-ID: <1c3f0dc8a667b1051f08cf6f7245848b6a82841f.1777995753.git.mst@redhat.com>
-References: <cover.1777995753.git.mst@redhat.com>
+Date: Tue, 28 Apr 2026 01:56:02 -0400
+Subject: [PATCH] Avoid repeatedly checking for font availability
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-In-Reply-To: <cover.1777995753.git.mst@redhat.com>
-X-Mailer: git-send-email 2.27.0.106.g8ac3dc51b1
-X-Mutt-Fcc: =sent
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: f_dk_BGirRb9JSgcIs8QIRnpZi-17wzNpL9nEQargBs_1777997288
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-Add VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE (bit 7): the device
-initializes inflated pages and returns a per-page bitmap indicating
-which pages were successfully initialized.
+Checking if a font is available is very expensive.  Do it once and store
+the results in a macro.
 
-Update Security Considerations Data Integrity subsection to cover
-both DEVICE_INIT_REPORTED and DEVICE_INIT_ON_INFLATE.
+This also provides an easy way to skip the check entirely.
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/242
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+No normative, informative, or even typesetting change.
+
+Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
 ---
- device-types/balloon/description.tex | 66 +++++++++++++++++++++++++++-
- 1 file changed, 64 insertions(+), 2 deletions(-)
+ commands-pdf.tex | 12 ++++++------
+ virtio.tex       | 26 +++++++++++++++++++++++---
+ 2 files changed, 29 insertions(+), 9 deletions(-)
 
-diff --git a/device-types/balloon/description.tex b/device-types/balloon/description.tex
-index ce08a4a..bce3b9e 100644
---- a/device-types/balloon/description.tex
-+++ b/device-types/balloon/description.tex
-@@ -52,6 +52,9 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
- \item[ VIRTIO_BALLOON_F_DEVICE_INIT_REPORTED(6) ] The device initializes
-     reported pages.
+diff --git a/commands-pdf.tex b/commands-pdf.tex
+index 23289d895429f4ef4b50fdefa3f7b6a8a5e9ebbc..b9e57347bba2a69ff51262dbb39cb147d1e70a2c 100644
+--- a/commands-pdf.tex
++++ b/commands-pdf.tex
+@@ -20,7 +20,7 @@
+ \newcommand{\oasistitle}[1]
+ {
+ \begin{spacing}{1.5}
+-\IfFontExistsTF{Arial}{\fontspec[Color=446CAA]{Arial}}{\fontspec[Color=446CAA]{Liberation Sans}}
++\oasiscolor{}
+ \fontsize{24}{24}
+ \textbf{\noindent#1}
+ \end{spacing}
+@@ -29,7 +29,7 @@
+ \newcommand{\oasisstagelabel}[1]
+ {
+ \begin{spacing}{1.1}
+-\IfFontExistsTF{Arial}{\fontspec[Color=446CAA]{Arial}}{\fontspec[Color=446CAA]{Liberation Sans}}
++\oasiscolor{}
+ \fontsize{18}{18}
+ \textbf{\noindent#1}
+ \end{spacing}
+@@ -38,7 +38,7 @@
+ \newcommand{\oasisdate}[1]
+ {
+ \begin{spacing}{1.1}
+-\IfFontExistsTF{Arial}{\fontspec[Color=446CAA]{Arial}}{\fontspec[Color=446CAA]{Liberation Sans}}
++\oasiscolor{}
+ \fontsize{18}{18}
+ \textbf{\noindent#1}
+ \end{spacing}
+@@ -47,7 +47,7 @@
+ \newcommand{\oasisnoticelabel}[1]
+ {
+ \begin{spacing}{1.5}
+-\IfFontExistsTF{Arial}{\fontspec[Color=446CAA]{Arial}}{\fontspec[Color=446CAA]{Liberation Sans}}
++\oasiscolor{}
+ \fontsize{18}{18}
+ \textbf{\noindent#1}
+ \end{spacing}
+@@ -56,7 +56,7 @@
+ \newcommand{\oasisspecificationuris}[1]
+ {
+ {
+-\IfFontExistsTF{Arial}{\fontspec[Color=446CAA]{Arial}}{\fontspec[Color=446CAA]{Liberation Sans}}
++\oasiscolor{}
+ \fontsize{12}{12}
+ \textbf{\noindent#1}
+ }
+@@ -65,7 +65,7 @@
+ \newenvironment{oasistitlesection}[1]
+ {
+ \setlength{\tabcolsep}{0in}\begin{tabular}{p{0in}p{5.8in}}
+-\multicolumn{2}{l}{\IfFontExistsTF{Arial}{\fontspec[Color=446CAA]{Arial}}{\fontspec[Color=446CAA]{Liberation Sans}}\fontsize{10}{10}\textbf{#1:}}\\[-0.05in]
++\multicolumn{2}{l}{\oasiscolor{}\fontsize{10}{10}\textbf{#1:}}\\[-0.05in]
+ &\setlength{\topsep}{0in}\setlength{\parsep}{0in}\setlength{\partopsep}{0in}   }
+ {
+ \end{tabular}
+diff --git a/virtio.tex b/virtio.tex
+index e02b34101d1e3996cdf4d66cf1df398160a82c8a..9a725774f2d077ec74acc828d1db58192592eb8f 100644
+--- a/virtio.tex
++++ b/virtio.tex
+@@ -55,9 +55,29 @@
+ %\def_{\_}
+ % Don't hyphenate acronyms
+ %\uchyph=0
+-\IfFontExistsTF{Arial}{\setmainfont[Mapping=tex-text]{Arial}}{\setmainfont[Mapping=tex-text]{Liberation Sans}}
+-%\setromanfont{Arial}
+-\IfFontExistsTF{Courier New}{\setmonofont{Courier New}}{\setmonofont{Liberation Mono}}
++
++\newif\iffontcheck
++\fontchecktrue
++% Disable checking for Arial and Courier New
++%\fontcheckfalse
++\newcommand{\oasiscolor}[0]{\fontspec[Color=446CAA]{Liberation Sans}}
++
++\iffontcheck
++   \IfFontExistsTF{Arial}{
++     \setmainfont[Mapping=tex-text]{Arial}
++     \renewcommand{\oasiscolor}[0]{\fontspec[Color=446CAA]{Arial}}
++   }{
++     \setmainfont[Mapping=tex-text]{Liberation Sans}
++   }
++   \IfFontExistsTF{Courier New}{
++     \setmonofont{Courier New}
++   }{
++     \setmonofont{Liberation Mono}
++   }
++\else
++   \setmainfont[Mapping=tex-text]{Liberation Sans}
++   \setmonofont{Liberation Mono}
++\fi
  
-+\item[ VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE(7) ] The device initializes
-+    inflated pages.
-+
- \end{description}
+ \urlstyle{rm}
  
- \subsubsection{Feature bit requirements}\label{sec:Device Types / Memory Balloon Device / Feature bits / Feature bit requirements}
-@@ -671,6 +674,64 @@ \subsubsection{Device Initialized Reported Pages}\label{sec:Device Types / Memor
- If VIRTIO_BALLOON_F_PAGE_POISON is not negotiated, the device
- MUST fill each initialized page with zeros.
- 
-+\subsubsection{Device Initialized Pages on Inflate}\label{sec:Device Types / Memory Balloon Device / Device Operation / Device Initialized Pages on Inflate}
-+
-+When VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE is negotiated, the
-+device initializes inflated pages and reports which pages were
-+successfully initialized via a per-page bitmap.
-+
-+The driver appends a device-writable bitmap buffer to each inflate
-+descriptor chain, after the PFN outbuf. The bitmap contains one
-+bit per balloon page (4KB), where bit N corresponds to the Nth PFN
-+in the inflate request (0-indexed). Bit N is stored as bit (N mod 8)
-+of byte (N / 8), with bit 0 being the least significant bit.
-+The device sets a bit to 1 if it successfully initialized the
-+corresponding page, or 0 if it did not.
-+
-+If VIRTIO_BALLOON_F_PAGE_POISON is also negotiated, the device fills
-+pages with \field{poison_val}; otherwise, the device fills pages
-+with zeros.
-+
-+When the driver later deflates these pages, it may skip
-+initialization for pages that were marked as initialized in the
-+inflate bitmap.
-+
-+\drivernormative{\paragraph}{Device Initialized Pages on Inflate}{Device Types / Memory Balloon Device / Device Operation / Device Initialized Pages on Inflate}
-+
-+Normative statements in this section apply if the
-+VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE feature has been negotiated.
-+
-+The driver MUST append a device-writable bitmap buffer to each
-+inflate descriptor chain. The bitmap buffer MUST be at least
-+$\lceil N/8 \rceil$ bytes, where N is the number of PFNs in the
-+inflate request.
-+
-+The driver MUST NOT treat an inflated page as initialized unless
-+the corresponding bit in the bitmap is set to 1.
-+
-+The driver MAY skip initializing a deflated page if the
-+corresponding inflate bitmap bit was set to 1. This overrides
-+the VIRTIO_BALLOON_F_PAGE_POISON requirement to initialize
-+deflated pages with \field{poison_val} for such pages.
-+
-+\devicenormative{\paragraph}{Device Initialized Pages on Inflate}{Device Types / Memory Balloon Device / Device Operation / Device Initialized Pages on Inflate}
-+
-+Normative statements in this section apply if the
-+VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE feature has been negotiated.
-+
-+The device MUST set bit N in the bitmap to 1 if it successfully
-+initialized PFN N, or to 0 otherwise.
-+
-+The device MUST set all padding bits in the last byte of the bitmap
-+to 0. The device MAY write more bytes than $\lceil N/8 \rceil$ but
-+MUST set all extra bits to 0.
-+
-+If VIRTIO_BALLOON_F_PAGE_POISON is also negotiated, the device
-+MUST fill each successfully initialized page with \field{poison_val}.
-+
-+If VIRTIO_BALLOON_F_PAGE_POISON is not negotiated, the device
-+MUST fill each successfully initialized page with zeros.
-+
- \subsection{Security Considerations}\label{sec:Device Types / Memory Balloon Device / Security Considerations}
- 
- In environments where the device is not trusted, such as
-@@ -696,14 +757,15 @@ \subsubsection{Data Integrity}\label{sec:Device Types / Memory Balloon Device /
- When the device is untrusted, the driver cannot rely on the device
- to correctly initialize pages. An untrusted device can report a
- non-zero used length for VIRTIO_BALLOON_F_DEVICE_INIT_REPORTED
-+or set bits in the VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE bitmap
- without actually initializing the corresponding pages. If the
- driver treats such pages as initialized (e.g., marking them as
- zeroed), this could lead to information leakage between guest
- processes or other security violations.
- 
- Drivers operating in environments with untrusted devices are
--expected to avoid negotiating
--VIRTIO_BALLOON_F_DEVICE_INIT_REPORTED, and to initialize
-+expected to avoid negotiating VIRTIO_BALLOON_F_DEVICE_INIT_REPORTED
-+or VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE, and to initialize
- all pages themselves.
- 
- \subsubsection{Denial of Service}\label{sec:Device Types / Memory Balloon Device / Security Considerations / Denial of Service}
 -- 
-MST
+2.54.0
 
