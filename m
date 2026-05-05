@@ -1,128 +1,129 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0D648AE0E
-	for <virtio-comment@lists.linux.dev>; Tue,  5 May 2026 15:41:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E343D481FC8
+	for <virtio-comment@lists.linux.dev>; Tue,  5 May 2026 16:08:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777995689; cv=none; b=uXYee0dNIK6RT+EtHrW/ExBPir9dk4je8L+fWNEuu0RqAafp3Vf3MtYH4u8IEcfvowuxeJGDvN+1Z0ecZ06QQyO6nbbEoGfnAILZ+Spf4G+Lcdep5TLK7PeVMj6iEu8T5r2cZFI8yxl+Enc687Y/vDHZquGBxR8bXV0pgLudaoI=
+	t=1777997289; cv=none; b=hPH8fQAcaM06GVmp/KQQoaShCZ4BjphUKknzbLfXDBb0Fwy8EADZCGUozKRxvA2yHpn5d7LTGe/TZHWDFj7VNsfCMLMDglQXyegKo2IU65tvERIwPdK3xjpfraLYbZQwO2W4JOxvgOsyHYj+gpzXSr4VWsv6pE9Fh6ATyvtizh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777995689; c=relaxed/simple;
-	bh=OcDJZIw3rqzg6ku/5P6Zvm1I926u55LB1MDYr8JLOuA=;
+	s=arc-20240116; t=1777997289; c=relaxed/simple;
+	bh=SxWIiuyCcsJFZdcsadSL5NXowynVMvhlmeoBZBtLTP4=;
 	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=cf8JHcZRD0fr0afDACBhSMYFaHQ0KTc4LELDOGCitEqm0dicVYJakVkIOJIghiQiwa4L148x0XsRoEZVEIMkwa7p+AOoAVyPbFv4CqPikf7iUQ2ULv4KOyZyzbdNAfxRWj890GbSzJrXtxM3kjydgHvXvH6pZEYhw13nWeTmTrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XC0btjzS; arc=none smtp.client-ip=170.10.129.124
+	 Content-Disposition; b=txp5Ao81hzfVHYHrDhRgaVpzrQ3jfYZbtQCy2Iyyb1SFcnRWmnZGn3gJY0DlFjpsZpPxGVdU/KpOLVpsUT9esVjmPB+J2p/TtYBe0s5lLHg/HK4DA7MPfLlrYUpelQL1eMM7tBxJT2/2bgtbMCFh0PawfRQfLHbwxQPyyM/g6NA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UpnFZ1cV; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XC0btjzS"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UpnFZ1cV"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1777995686;
+	s=mimecast20190719; t=1777997286;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:mime-version:mime-version:content-type:content-type;
-	bh=G8wlTUrWud5hZ82YmcaOn+mobIRJgAAImMd0L6QK4lU=;
-	b=XC0btjzSAqy0R2wN+t4xBW0P2yEXgnx1vJWjUt68lP0FqLi1tzOyxSllnh5nLiRPqTRjTS
-	6KOoxuGNkQwIJBk6JCt6LHFfHkONTnGc92dXGr8/XtJ3Mg9OqpMOH+Iwcz5qAKqQVLx0aY
-	ThQbq/mFam6kT6xMZyJEYN4K73dxhgs=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=rhIWRR+CQik4kDy63j1CD+jdK84X6Tu47uRJIPsjKx0=;
+	b=UpnFZ1cVJCoYM75Im+NM1RVhRXXUNn7NzmkadOJ6zSsS67VS5kwYr8cejxr8iI7B+wJPMy
+	ceEpynLJ72m98x24+UhJB91oDMP2vt/IsbVJue3zVSYN5pF7tQbznLaEJmDofJCMyWhoHE
+	Oc3WncQfJDDr82oidnOaIFuB5r9xIA4=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-403-LSc0lRk8PXWifn5urFsSCQ-1; Tue, 05 May 2026 11:41:25 -0400
-X-MC-Unique: LSc0lRk8PXWifn5urFsSCQ-1
-X-Mimecast-MFC-AGG-ID: LSc0lRk8PXWifn5urFsSCQ_1777995684
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4836abfc742so48157785e9.0
-        for <virtio-comment@lists.linux.dev>; Tue, 05 May 2026 08:41:25 -0700 (PDT)
+ us-mta-607-okFAirakPiWRoviL4Y7emQ-1; Tue, 05 May 2026 12:08:05 -0400
+X-MC-Unique: okFAirakPiWRoviL4Y7emQ-1
+X-Mimecast-MFC-AGG-ID: okFAirakPiWRoviL4Y7emQ_1777997284
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-48a589c7879so94375e9.1
+        for <virtio-comment@lists.linux.dev>; Tue, 05 May 2026 09:08:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777995684; x=1778600484;
+        d=1e100.net; s=20251104; t=1777997284; x=1778602084;
         h=content-disposition:mime-version:message-id:subject:to:from:date
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=G8wlTUrWud5hZ82YmcaOn+mobIRJgAAImMd0L6QK4lU=;
-        b=j+qX3j8eENwL3qULYmggUXXO7CFYR0bKnKRhIP6c0p5zaCwpTOak/kJGT6aX8ggb1D
-         xk6gPmkTiGdXOUBZwCyBU7IW5TnyqKJoDmo7Ll24L8ZV/lSk7QkfQwG2+iUV7Y1xahP7
-         o1cdwgG5srpE1KNUZ07gWN923WuP9iwbiTsEGsX851FWBkabI4b3FV4V9+OATuPMrXKw
-         9Xrcy67mVk+duAVZRxa7oXj1uoXgVII4msYSQOsSEfKe5jcdAy65BOOpwSEeGafJB6X3
-         jy4Of4jKHObiwnCsqgV+fhK/WSukuqGTEw6TjJHEr4VbzFNfjQLjEA8onpbBr4wORGbJ
-         Hwhw==
-X-Forwarded-Encrypted: i=1; AFNElJ8RUVO00QdGdqA3HCJmKvppz7Zujvn94xg2DrYDVgl26191Im/nl6zbyKNHtMFPLQsS8E1GfAX1mXxvgNoOzw==@lists.linux.dev
-X-Gm-Message-State: AOJu0Ywp8lhrd/mBiVtNuYmB+CUpcKbV2f/yeeV/mwvMO3W4Ggo3K0kS
-	MQ6kRAMdyFqvxHkBpZXOMxXclFrSmDLAU6sd0/iKg3QZ43zFS/XrgnPGX2roQ0IEgO4Gd90ys96
-	QTdMfLvzOpoGEHuJ+/y+Z5SrNcTp5pqY/enowjCcpkw9mJiwoYpNRm8dz467Ez9CCkRX9iF4m0D
-	gc
-X-Gm-Gg: AeBDies5yRwh437EmP0IloFJm1J0ncemd7fNYJdZbKlWSJ8co6vnLyWcRCEoyOc/Gjs
-	UVaE1HEKizpCWUb1Q/ig/bHmpIZdxHoTT/WwihiWUTcW2WFG+T00ZFAU2F9J798/iKt1GMchLzo
-	0DaYmuqHRIszyu3Was8kk84k9hRwdW5xwhDw8YBtY/8rY6AdP8SOMWgGwJEjkjvUbCZdVKASejM
-	/BzaznX0Jw8KTPjnPfOr5gWm0j5zFgKMt6nZcFycLyMFYD6aa+iWI0qOSLG3kNoR7YsKnJ5dxNw
-	GCrZa0vbwCwvhlviH/pcRspNnYQ90UI7oNlkGMwzMSTYk5YkPCkAx3HllB9mFnyMTXA97gkroyt
-	KH+SAQVPhbHJPfVJ0AGfw03KFvydprI0eEG4ouBH0eQ/A3GLtfKHqiYQ6
-X-Received: by 2002:a05:600c:a309:b0:48a:563c:c8c0 with SMTP id 5b1f17b1804b1-48d187d869emr48317535e9.7.1777995683899;
-        Tue, 05 May 2026 08:41:23 -0700 (PDT)
-X-Received: by 2002:a05:600c:a309:b0:48a:563c:c8c0 with SMTP id 5b1f17b1804b1-48d187d869emr48316985e9.7.1777995683271;
-        Tue, 05 May 2026 08:41:23 -0700 (PDT)
+        bh=rhIWRR+CQik4kDy63j1CD+jdK84X6Tu47uRJIPsjKx0=;
+        b=Q81Q7K03UVCOj3rUh05//mKGnX+BXyph3DfJMZOz4iochmH3Ph4GJCovmAd5eaD8TO
+         dkNNF10ar0PIP+Wk4FdaUoAf3bi1estajEn71sxff5sQFod+NOvtru6q+2oYnnnfMYep
+         maDTxcJlnEQQwSocQ1WrfK5N4jA6Oa23iio6+XpfxtHYS8rX0NGO9P3QzwvLN0MQ20ju
+         yzWahs5rUCU8XJKHaqo0FC1XVrf6bt7GKD9A4dnArqZPF5dg6zYA1Ff7lPViBOdDVLcX
+         3PN3hjOfN4cFLidmwSmJsh77FVEp9u9SusUkwXoOc9t+eWV48kptTNGuYmxEqOlvEqFU
+         W4sw==
+X-Gm-Message-State: AOJu0YxF0dqlrTq8WPP116phtHUBK5oeAwQJtb/CBS3Kac+Wj301mDjQ
+	v1utXb0b71yeYVfUTyCumoD23VJqfb1GD4DVJK17VLmjw1iWWAX3a+aiLO7z8JVYEfthNY0t9cB
+	Xm1vsr1BJmGk9pymMqMOOibkL3iannmE5EQaocIYkBDltLpie3eKRdZ9U86CWERz4VDJYjFyZpB
+	vVqNA3LapmwpUwG0w10lRYIUd/Yd79XuXUQRTiIvgml6GS0g==
+X-Gm-Gg: AeBDievZKeSy72uZYvyADp6dl8IQcaTmEToJbCd9oGmwFvidl7z7VRdaE9nu4aTSKd3
+	XmRut7cDRA+4mhcAA1XIf5qR5TheJ+zjAa1imw+/X4CF4bJkFR4QHCLl5c7A2JqAWCYMWNfV0tD
+	/BNraoukUOlT7pVpOppAmStw7UM6KxOBiSPpaPCIkIbYTcs4aKsTihInFv8cHDb2JhBh9u+s+PL
+	EHD/1/hB2X964nqgk7kl2EraWwtFOXD42nrm2bs5buQqXXG8kYYIU7EfBkSaP4ENFzAQHjGJOLp
+	nu8CiD7qoCZsH31MMTmgiEDSnTPS3dJIiNzavkEgvuAeqBOuElPEnQRdNWqGapaAVer2EDf1DKX
+	yQPKpF0KVsFeYUZFywZIfDPsm6an5KILAHDPGP3IQmAwpp+PWi4sZsnmw
+X-Received: by 2002:a05:600c:3152:b0:489:1d7a:4537 with SMTP id 5b1f17b1804b1-48d1422bafamr70422325e9.3.1777997283699;
+        Tue, 05 May 2026 09:08:03 -0700 (PDT)
+X-Received: by 2002:a05:600c:3152:b0:489:1d7a:4537 with SMTP id 5b1f17b1804b1-48d1422bafamr70421345e9.3.1777997283025;
+        Tue, 05 May 2026 09:08:03 -0700 (PDT)
 Received: from redhat.com (IGLD-80-230-47-179.inter.net.il. [80.230.47.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a82301ad1sm642932375e9.9.2026.05.05.08.41.22
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a8ebc4201sm577928725e9.15.2026.05.05.09.08.02
+        for <virtio-comment@lists.linux.dev>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 08:41:22 -0700 (PDT)
-Date: Tue, 5 May 2026 11:41:20 -0400
+        Tue, 05 May 2026 09:08:02 -0700 (PDT)
+Date: Tue, 5 May 2026 12:08:01 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: alexanderduyck@fb.com, virtio-comment@lists.linux.dev
-Subject: virtio balloon poison feature
-Message-ID: <20260505102918-mutt-send-email-mst@kernel.org>
+To: virtio-comment@lists.linux.dev
+Subject: [PATCH v3 0/2] balloon: DEVICE_INIT_REPORTED and
+ DEVICE_INIT_ON_INFLATE
+Message-ID: <cover.1777995753.git.mst@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+X-Mailer: git-send-email 2.27.0.106.g8ac3dc51b1
+X-Mutt-Fcc: =sent
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: kJ3WvRglc1susNhky4EI0qiLTYi85e13zFpC04EeEf4_1777995684
+X-Mimecast-MFC-PROC-ID: OHeA3tM5zU_F_dNAjzeTbCaiOb9r_fWhXjS4CV5u8_M_1777997284
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-Hi Alexander, all.
-I am looking at this old commit and I am confused:
+Once a page gets out of balloon (on deflate, or on access for
+reporting) the Linux guest inits it before giving it to app.
+It's a waste - the page is already inited by the host.
+
+Add balloon support for skipping that, that provides significant
+performance gains.
+
+This adds two new feature bits for the balloon device that allow the
+device to signal that it has initialized (zeroed or poison-filled) pages
+on behalf of the driver.
+
+The variant with poison does not really seem useful, so I am still
+trying to figure out whether we should simply outlaw it.
 
 
-commit 4749f03e72f8ff6e66f54e38e41a560014e1a0e3
-Author: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-Date:   Tue Aug 25 07:45:10 2020 -0700
+Old implementations (new ones will be posted ASAP):
+QEMU: https://lore.kernel.org/all/cover.1777824548.git.mst@redhat.com
+Linux: https://lore.kernel.org/all/cover.1777803445.git.mst@redhat.com
 
-    content: Document balloon feature page poison
-    
-    Page poison provides a way for the guest to notify the host that it is
-    initializing or poisoning freed pages with some specific poison value. As a
-    result of this we can infer a couple traits about the guest:
-    
-    1. Free pages will contain a specific pattern within the guest.
-    2. Modifying free pages from this value may cause an error in the guest.
-    3. Pages will be immediately written to by the driver when deflated.
-    
-    There are currently no existing features that make use of this data. In the
-    upcoming feature free page reporting we will need to make use of this to
-    identify if we can evict pages from the guest without causing data
-    corruption.
-    
-    Add documentation for the page poison feature describing the basic
-    functionality and requirements.
-    
-    Fixes: https://github.com/oasis-tcs/virtio-spec/issues/84
-    Reviewed-by: Cornelia Huck <cohuck@redhat.com>
-    Reviewed-by: David Hildenbrand <david@redhat.com>
-    Signed-off-by: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-    Signed-off-by: Cornelia Huck <cohuck@redhat.com>
+Tested with QEMU + Linux guest: 232ms -> 51ms (-78%) for 256MB
+page allocation in a 2GB VM.
 
+Changes since v2:
+- I realized we can't really avoid a new feature bit:
+  poison is a promise from driver to initialize pages.
+- lots of other changes
 
+Changes v1->v2:
+- reporting can actually just utilize used length to see what
+  was initialized! so we do not need a bitmap for that.
+- qemu really needs a way to skip init for some pages.
+  Add that to inflate path.
+  Add security considerations (for coco).
 
-here is what I do not understand: why does driver tell device that
-it will poison the pages after deflate? device does not access them
-anymore so why does it care? should this have been *before inflate*,
-actually?
+Michael S. Tsirkin (2):
+  balloon: add VIRTIO_BALLOON_F_DEVICE_INIT_REPORTED
+  balloon: add VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE
 
-how was this envisioned to be used?
+ device-types/balloon/description.tex | 147 ++++++++++++++++++++++++++-
+ 1 file changed, 145 insertions(+), 2 deletions(-)
 
-
-Thanks,
--- 
+--
 MST
 
