@@ -1,172 +1,150 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BFB40DFCC
-	for <virtio-comment@lists.linux.dev>; Thu,  7 May 2026 05:50:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382383128D7
+	for <virtio-comment@lists.linux.dev>; Thu,  7 May 2026 07:51:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778133028; cv=none; b=tQYwZtP16Ou85K9nQvtGrr+7bSeWp54xdTflXzTfpWxcpEHD17+Vvl2M+mkmFgXnU2tShv+ucsrYe1xND58a0JJble1s6eAerm6M4TJ02Ij1aDiSw6oDwNXpURTba99eMU2VN+7ouQsWdamRUlyYdJLDe2MBjWlrhLDpRw3Brlw=
+	t=1778140318; cv=none; b=DxIBMNbPuerePUdg9JkppcNG9tAVICDWdaiKtTBK0/UGzfzoJlwA91BR610wADxOWqrUlGutiyt7hoFWMPrno+81kinyDkbwG/WVNB4lhRCAGxWGiiNT1WedgLHmGe5VjegT1UgARbfycPAnboNdBj8LNlgGnROJbdL37fX9rxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778133028; c=relaxed/simple;
-	bh=oDLFri1h7C9O092VKuD8mc0gZ3AHwvCJ/a5iGWSmHpA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=cb1b5vOAgY5DFBHq1bJeKmZO8MPHSyHSb2L4LeBRn9BraWZKJtSr1kTwsttJIXzHDuNSWdb6zyvc8lMQs1EpYqxdBtqpJqZBTHYZPY//iIsB8CwRZVXMVnw+/2f7d24xZHo+EgvQ0h8ZCsKSjMIZltDDGwpOfoVZDjlr1uC0RmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cficlXfC; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1778140318; c=relaxed/simple;
+	bh=YPoJxOuvM2A9TaVrvSVQrUmc0lfmMtzT6Khmp43fj04=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=iLF0ylgob6sAZwD41y9lkLvrhg7R2f5WFzvFvNIHvPJUYzsOvZStxtsN2HSjJg0xKZ477fdv+0UbDMBRzRVHVl/V2E8zyiMlGz6qfYnb8cYa/eUvm+Mv14w3iTKRWj2uLXus4b9HMVb4kTPuEEhtgoJABccP/xvkxq3+wgAieeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hIwZ8GGq; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cficlXfC"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hIwZ8GGq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1778133026;
+	s=mimecast20190719; t=1778140316;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FpGjyeyJhw3ShiJaj2Wgfbb/iFBaCpWwKYt+na7iMAw=;
-	b=cficlXfCdxCmMVF13gJ9+yAd/kCdEIp6Po9Z2Jtz4dh53vsDaKS6I/mBSQHoO4GOx2t2Tm
-	V/wEA+/TaY0n9MK6zqJeX3bWw94XC4OPsguvN5jH/BwrgDSOM1vSibM+LguW3e833KuR0G
-	GcoXsYgz9wHAoEJeU+mCPsUqWQvxnFU=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	 to:to:cc:mime-version:mime-version:content-type:content-type;
+	bh=m+DIzfqfk2GCm4SZ2OMcUMt4skwsxYxN35yjRqVnSW8=;
+	b=hIwZ8GGqudtwnRhc9aRB/qP6uDU6hUa0uX4Xh6jlgPa65P1c7OihuEAQR8lIU5WoQ0jkAx
+	B0Ga82fjWBzLDd2WXAxr4eFocOYm8IU7ABMbC+Dp52/uiPiZavSUzCZ4tSjllf5px8TGkP
+	/9ordDb8IfC+rAoz4aSrar3rC/d+mOw=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-67-KFP3a3MpMmq5sg4NVD0-mg-1; Thu, 07 May 2026 01:50:24 -0400
-X-MC-Unique: KFP3a3MpMmq5sg4NVD0-mg-1
-X-Mimecast-MFC-AGG-ID: KFP3a3MpMmq5sg4NVD0-mg_1778133023
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-44cc3c9b2feso399726f8f.1
-        for <virtio-comment@lists.linux.dev>; Wed, 06 May 2026 22:50:24 -0700 (PDT)
+ us-mta-62-mFZNvuJoO4C9e0E6tsoNUA-1; Thu, 07 May 2026 03:51:54 -0400
+X-MC-Unique: mFZNvuJoO4C9e0E6tsoNUA-1
+X-Mimecast-MFC-AGG-ID: mFZNvuJoO4C9e0E6tsoNUA_1778140314
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-4411a69f565so501941f8f.2
+        for <virtio-comment@lists.linux.dev>; Thu, 07 May 2026 00:51:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778133023; x=1778737823;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=FpGjyeyJhw3ShiJaj2Wgfbb/iFBaCpWwKYt+na7iMAw=;
-        b=KQ9nxe1oi+xTNBXdEEJzWP7PAnIDY010raQUTyusq7bgTId7sCQjDJ4u0av4/Ja57v
-         iBe++Ccv4wOT5OENy+UINQaiYptYqHSfGa1iL30iAtQaZxQ350oydw0pTtu7kGBJ/4/n
-         SGECK8eENNoPgOC3hYI2yhnNNEOZgkJZIg6xQadSM3MScZK4DLZm2nOMaQ/umFYHtDLj
-         eDPNGjEqpv5mOh0oClMN4hSpXZGWa6R1J7jqCJ+HRcc2Ad7YsY+XfbX3z60hLHuyxdgs
-         bHVvBtucOjSCk8zM3dAwa6bG027RxqLbFy2BHcNb+FzZV7TPommnb5obVmjWQa43rw1D
-         nIBQ==
-X-Gm-Message-State: AOJu0YyD7Z4t0kOEmo+Z2DIep4a+n+Y5GurL5vhT/eFGaKNQFmf5ABNF
-	bIQqfqznQb+GTru1/g01KO4oKLupiR+YYFXN9J0x0bGnNf2FREpRSWWe4OpxhVV0rHGDIGmkgn1
-	FwWYO+C92nPxLf609k8RLx0qXbgz/NPWywsqWL5d3IGEoFVCC1QJpRB0xYEgdF0qgkAWz
-X-Gm-Gg: AeBDietyjkWqClRS93w0aykD2G/bLQdCRifBsHKqyGr0XIaTOr1amPmIIxs+QdNLnUP
-	Lohy/V2rMxam+AVoIYPz2Xp0F+26wp2PxpTiyB0AaBWSQhCROd1oSFwqaky6qBdD2wxywKbSIrw
-	+u7GfwAbP+6wFfq4190igQ5uBPK9mQtgEevhk6JZca58blsf2TXrtOOes4f1B1hbZ1ecvMm898r
-	Ei9oSVC5yucEK9r2iBzeSoc3BqYT2XAJ2H/aekJue5Ajs7Qpa24TKsKJ7Y6mPGbPVcPmBLxdzLr
-	N/bzuPEP1dyS5TXgbw+/Li7GTWnnWYTfdPxdF+5mMCNHTg6HKFYoLeA1WNHMaCGEPPeAho/M7Dn
-	CzVDB2mhSQDDygRdAxG2pSXRecTRnUd1RdisI0Q7C3+oo4Iz3UjQ=
-X-Received: by 2002:a05:6000:3107:b0:43f:df1b:9e07 with SMTP id ffacd0b85a97d-4515df64297mr10136331f8f.42.1778133023093;
-        Wed, 06 May 2026 22:50:23 -0700 (PDT)
-X-Received: by 2002:a05:6000:3107:b0:43f:df1b:9e07 with SMTP id ffacd0b85a97d-4515df64297mr10136270f8f.42.1778133022482;
-        Wed, 06 May 2026 22:50:22 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1778140313; x=1778745113;
+        h=content-disposition:mime-version:message-id:subject:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=m+DIzfqfk2GCm4SZ2OMcUMt4skwsxYxN35yjRqVnSW8=;
+        b=mRAGlH3I/SecIFz430bGquRnT98B3864rPW3dBvEpDMNo6EAdJJg47WAxMHjvcNjyL
+         /9oFtRy8KjH2ii+yE35rhTQPhrqYWsGz0+1y6mrjWcQtUI+HqDerzzXv4gMil7gCxO3x
+         W8P19adiny2NNBUuUTj9c+bw1MsfZPdbIFvESo6ER93Nd8RPVmeMJYH/vtcJExNxpVlD
+         dgU88WG9yHX3rOmsDTYIyeFN/fUwHQJfz0+j7kvtZimckrnzrf/VOWOLm2goiXvb1fkC
+         C+xOVMWvsy+DS2phEs25cGqgx4aS2jvS17LUM9Ly7bjENFhj1d/hABPr2ZGYdsHOUWzy
+         /n7A==
+X-Gm-Message-State: AOJu0YyjkPbamh6Gpky9/hMCtnsaL9JwJ8F4y9cxFJeB4DpxqJgG39dF
+	ZAmLZO+HqOH9IAWKoEdYEXwko8/SFZeJXcGqweWM42C4LgQcsB7h4XIbdMDarAiVR1DYBHxFKYe
+	+W9dXxF7hj30zvKt/D30Z23lm4gcpgvRyYyVWV9/MQeEBu1wbFV2Bp8ljVC95i8f+RQTgYWGUQ0
+	hgHrnQiZkE6oi4LjRBVwDZUD9Wg38v3exSQIR/Dx1nu7Yh1g==
+X-Gm-Gg: AeBDietIfEF/nicb4tfw9ZOmCLaSZEt8ag0SvtIbR1b7iSfdV/O3Zy/NFbl54Hy5ZuY
+	Hbot+4FdYiWw+2pxeanHrxZQrn2bs+MvcvRjf81N4Fg6HKf8yiyIS1cIQJB27GMF8L08IsObItW
+	qozBsJNG/xtuDzDdSvG5XsWFUCUMZl7smU3aiftIx1mDXk+vojT27N6gCkcvplgJXKNL+6R/OgX
+	kzX8eXC9x2XvNK6O8LacMTU6sBsUhyx3coLod+FYQWiEXZX949ObFkKFMzMuOlUhMkSg97M3E6+
+	9iHPHp701t7ncDSzSLD7R5OGkwIdU2zvCDn1GRW+NSkj90rtv3kTps9ZM96TL8xSrge83lRtgbV
+	wsIbEpGXsK2+K+AASdePRvlqQnuO38ekPxGuTQScE70pKpWJjAY0=
+X-Received: by 2002:a05:6000:1acb:b0:446:96b1:f53 with SMTP id ffacd0b85a97d-4515cf11d6amr11558576f8f.26.1778140313248;
+        Thu, 07 May 2026 00:51:53 -0700 (PDT)
+X-Received: by 2002:a05:6000:1acb:b0:446:96b1:f53 with SMTP id ffacd0b85a97d-4515cf11d6amr11558518f8f.26.1778140312627;
+        Thu, 07 May 2026 00:51:52 -0700 (PDT)
 Received: from redhat.com (IGLD-80-230-48-7.inter.net.il. [80.230.48.7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45052a48911sm17657449f8f.11.2026.05.06.22.50.21
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4505285e765sm17530174f8f.10.2026.05.07.00.51.51
+        for <virtio-comment@lists.linux.dev>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 May 2026 22:50:22 -0700 (PDT)
-Date: Thu, 7 May 2026 01:50:19 -0400
+        Thu, 07 May 2026 00:51:52 -0700 (PDT)
+Date: Thu, 7 May 2026 03:51:50 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Demi Marie Obenour <demiobenour@gmail.com>
-Cc: virtio-comment@lists.linux.dev
-Subject: Re: [RFC PATCH] ring: Forbid using descriptors in two chains at once
-Message-ID: <20260507013527-mutt-send-email-mst@kernel.org>
-References: <69fc1ea7.050a0220.306431.9eeb@mx.google.com>
+To: virtio-comment@lists.linux.dev
+Subject: [PATCH v4 0/3] balloon: DEVICE_INIT_REPORTED and
+ DEVICE_INIT_ON_INFLATE
+Message-ID: <cover.1778140241.git.mst@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <69fc1ea7.050a0220.306431.9eeb@mx.google.com>
+X-Mailer: git-send-email 2.27.0.106.g8ac3dc51b1
+X-Mutt-Fcc: =sent
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: NU9bUIXSx4T_HIo8fcWVIMnLIrU9GI68XUcOMnCX_94_1778133023
+X-Mimecast-MFC-PROC-ID: Xb4Uas-Xg0TXlk9gxRv56kKLwZS1C4H7UEm31eF7MnE_1778140314
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Thu, May 07, 2026 at 12:34:19AM -0400, Demi Marie Obenour wrote:
-> Using the same descriptor in multiple chains at once creates
-> difficulties.  If the descriptor is device-writeable, this is begging
-> for data corruption due to conflicting writes from the device.  Even if
-> the descriptor is device-readable, the mere possibility requires devices
-> to use more sophisticated internal data structures.
+Once a page gets out of balloon (on deflate, or on access for
+reporting) the Linux guest inits it before giving it to app.
+It's a waste - the page is already inited by the host.
 
-The natural way to index requests is by using the avail ring head,
-not descriptors, though? I suspect it's about device memory being
-limited, etc. But pls make it more explicit.
+Add balloon support for skipping that, that provides significant
+performance gains.
 
-> Require descriptors to be used in at most one chain at any given time.
-> Indirect descriptors can be used if support for huge batches is needed.
+This adds two new feature bits for the balloon device that allow the
+device to signal that it has initialized (zeroed or poison-filled) pages
+on behalf of the driver.
 
-does this imply indirect are exempt from this rule? the text
-you propose makes no such exemptions.
+The variant with poison does not really seem useful, so I am still
+trying to figure out whether we should simply outlaw it.
 
-> 
-> Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
-> ---
-> I have not checked whether this will break existing drivers, so I'm
-> marking this as RFC for now.
-> ---
->  packed-ring.tex | 6 ++++++
->  split-ring.tex  | 6 ++++++
->  2 files changed, 12 insertions(+)
-> 
-> diff --git a/packed-ring.tex b/packed-ring.tex
-> index 3ee55a18d024d4da1a48d522e98ea563b9809b1c..8fd5a770c7ca4e6f60911b2861e00a273a69ea73 100644
-> --- a/packed-ring.tex
-> +++ b/packed-ring.tex
-> @@ -473,6 +473,12 @@ \subsection{Event Suppression Structure Format}\label{sec:Basic
->  
->  This implies that loops in the descriptor list are forbidden!
->  
-> +Drivers MUST NOT include a descriptor in a chain if the
-> +descriptor is already part of a previous chain whose processing
-> +has not completed.  This implies that the total number of
-> +descriptors submitted to the device, but not yet processed, is
-> +limited by the queue size.
+Implementation:
+QEMU: https://git.kernel.org/pub/scm/virt/kvm/mst/qemu.git balloon
+Linux: https://git.kernel.org/pub/scm/linux/kernel/git/mst/vhost.git balloon
 
-I do not understand what is this trying to say for the packed ring.
-How do you include a descriptor in a chain twice - the ring has to
-wrap around, no?
+Tested with QEMU + Linux guest: 232ms -> 51ms (-78%) for 256MB
+page allocation in a 2GB VM.
 
-For that matter, I do not think "This implies that loops in the
-descriptor list are forbidden!" makes sense for packed either -
-I think we copied it from split by mistake.
+Changes since v3 (insights after implementing):
+- Added Security Considerations
+- ON_INFLATE bitmap: allow device to write fewer or more bytes.
+- Restore "or 0 otherwise" from v2 for failed PFNs within written bytes.
+- Device MUST NOT modify a page after reporting it as initialized.
+- Device MUST provide inflateq supporting at least 2 buffers.
+- Qualify driver "MUST treat as uninitialized" rule with
+  DEVICE_INIT_REPORTED (matching the device-side condition).
 
+Changes since v2:
+- I realized we can't really avoid a new feature bit:
+  poison is a promise from driver to initialize pages.
+- added clarifications for poison
+- lots of other changes
 
-> +
->  The driver MUST place any device-writable descriptor elements after
->  any device-readable descriptor elements.
->  
-> diff --git a/split-ring.tex b/split-ring.tex
-> index de9403882df1e6d20e16ec983ecf0a46d39efa6b..014e279ef1da7653c7051e3a24c6169fe8d51983 100644
-> --- a/split-ring.tex
-> +++ b/split-ring.tex
-> @@ -223,6 +223,12 @@ \subsection{The Virtqueue Descriptor Table}\label{sec:Basic Facilities of a Virt
->  Drivers MUST NOT add a descriptor chain longer than $2^{32}$ bytes in total;
->  this implies that loops in the descriptor chain are forbidden!
->  
-> +Drivers MUST NOT include a descriptor in a chain if the
-> +descriptor is already part of a previous chain whose processing
-> +has not completed.
+Changes v1->v2:
+- reporting can actually just utilize used length to see what
+  was initialized! so we do not need a bitmap for that.
+- qemu really needs a way to skip init for some pages.
+  Add that to inflate path.
+  Add security considerations (for coco).
 
-what specifically is "include a descriptor in a chain"? something to do
-with making a head available? and what is "whose processing has not
-completed"? something to do with a head not used?
+Michael S. Tsirkin (3):
+  balloon: add Security Considerations section
+  balloon: add VIRTIO_BALLOON_F_DEVICE_INIT_REPORTED
+  balloon: add VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE
 
->  This implies that the total number of
-> +descriptors submitted to the device, but not yet processed, is
-> +limited by the queue size.
-> +
->  If VIRTIO_F_IN_ORDER has been negotiated, and when making a
->  descriptor with VRING_DESC_F_NEXT set in \field{flags} at offset
->  $x$ in the table available to the device, driver MUST set
+ device-types/balloon/description.tex | 157 ++++++++++++++++++++++++++-
+ 1 file changed, 154 insertions(+), 3 deletions(-)
 
+--
+MST
 
+Michael S. Tsirkin (3):
+  balloon: add Security Considerations section
+  balloon: add VIRTIO_BALLOON_F_DEVICE_INIT_REPORTED
+  balloon: add VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE
 
-We can't really introduce new mandatory requirements without
-a feature bit.
+ device-types/balloon/description.tex | 157 ++++++++++++++++++++++++++-
+ 1 file changed, 154 insertions(+), 3 deletions(-)
 
-
-> -- 
-> 2.54.0
-> 
+-- 
+MST
 
