@@ -1,179 +1,123 @@
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB722E7F25
-	for <virtio-comment@lists.linux.dev>; Thu,  7 May 2026 03:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0156DCE1
+	for <virtio-comment@lists.linux.dev>; Thu,  7 May 2026 05:10:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778125267; cv=none; b=RrWi7JwIfdwEQWaS2EB/66C6Iwa73eGmMKb7EyIwHU6VPSmYAcjUk1Fc8IZyNC2L7q66EudRUvgK/q4uSUNvKWft0nw3K6B3WXkLP76y4w4pRNMMwKepFPuSDbv14QqJwS46vFG1/grYLND4vgKugewoZ5KGo86x5GwVIXR/lzQ=
+	t=1778130602; cv=none; b=L14tv4KI4AXn5pQPWQQsCffblin0DD9PtXnyDejMQScIrFxkf2MwTiVuC1l51JyykPcVc8ifQCEz0hWBUvtnqXGd734t3h1aclopzRW8wC/Blw0s2GaheIJHmw2TLLGCC2UJvurTfi7aHKV23V9L5z3Ix3NYFwrqMejm+lQcME0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778125267; c=relaxed/simple;
-	bh=smrS2iZt7dyrUri8PRkivRkt/HByqBchaF6tITHjrPw=;
-	h=Message-ID:From:To:Date:Subject; b=FAqqhYZOCtlAz4TgrjPQLJpu/3FgOJOgtuAcjejUMv2UtabIM7XOq4MSqVgO1G8DUnRxfioZd4CTNWtlKawg1AFl9boEA7YwemwqEIaXPtqZAMhzq+lHuzvYflvC1fYRc6MdXkbdmadCPpEg76QkBc4lL19fxLQJWBPP47U7RtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sq/VKuxM; arc=none smtp.client-ip=74.125.224.51
+	s=arc-20240116; t=1778130602; c=relaxed/simple;
+	bh=4pkf8GB01S50+dbnxAPhuAFqcleF5zsnpsK2/6L3y3I=;
+	h=Message-ID:From:To:Date:Subject; b=OhbwPSeTW2BoLGJcDtSUxtTateOH5AchsKoPE5szDgy8VyyrIyGbdpwFKGaGIJfErChWDPIQc/ScjMjl0g28Kb2sAHRfCIKFYry7gDS+PKfTT7fkF4xcLT5Ddi1QRLE4hq25dPsEwdBBE2xrr82GtASjpXTb+S0VYJ80njNTzuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ggvPmRpU; arc=none smtp.client-ip=209.85.128.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sq/VKuxM"
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-65c2cd216c9so292322d50.3
-        for <virtio-comment@lists.linux.dev>; Wed, 06 May 2026 20:41:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ggvPmRpU"
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-7bf0b1a47b1so900567b3.0
+        for <virtio-comment@lists.linux.dev>; Wed, 06 May 2026 22:10:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778125265; x=1778730065; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1778130600; x=1778735400; darn=lists.linux.dev;
         h=subject:date:to:from:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=UxIp+OCvVFzXkOtNKBXFUycBE5QuMfHmyJlDS/RE8Ac=;
-        b=sq/VKuxMHxN7GF/oD1hvyEaJVjusD5Mbp30ep80Fr0tjAs4g18fYvp0/8yJC72TCu/
-         7fSw5ljfaNwbd+QJMkrGNAqmJKY1xeTORP8phewI0Q/fq5TI+s0oNzkU34thReMmD0BM
-         HsgSFHcNK8z4MwLoxz6aJtLLEP/MYVdhcst2EViicmz3HX3h+g5z4RVGvTM/2t9Uh+P9
-         pJc04dQonGhKOyY95HAN1W5DqBIvEOiXwoLHQvKleE6Z31JovtZ03AoP/DJEW/C2rI8l
-         /gmX8USqBI1hwKgvV4Ziqqs3kEsbGoaOSTVB5/S/NOoIqc1jTiTEb8ia8Da90D1zJs05
-         K1Iw==
+        bh=cWIymFnHpFxk/H1tNN73zyaOU3jyB7CZiy8MnArxywU=;
+        b=ggvPmRpUr79T8Eo9oO/8jLnsn8UBufZAl07yM1uSrFtF3R9hJWCgkRvargVgTYqNOh
+         tkj8Vd5oMre93Giw5A4lrvs1kWf5KTHypEh5mW7YUSkrE+g31KJv4pwy0vZ4ao1eGzl4
+         nDgAhZimt8Poe8V2TfqxnTbPM/tIjIPyFoXIoVeOvta5yOfMAin5DRUOpv/sItmqv4Rv
+         rMCefFb3zSGsAY376knduNB2tFT7pnZHqV+AfC8HoN+H5ogU7hEb9sHtqLHhDs1x8Ipu
+         DP0zJMYneLGtVoNiYmer5Wc8382BNgw+Fch0eHzld7n8dQ1oBvqhSEQXyRmLBCVcbvpE
+         sGJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778125265; x=1778730065;
+        d=1e100.net; s=20251104; t=1778130600; x=1778735400;
         h=subject:date:to:from:message-id:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=UxIp+OCvVFzXkOtNKBXFUycBE5QuMfHmyJlDS/RE8Ac=;
-        b=ip0l4O+DsBpuXMCi/zIfi9lOxg+APrORUO13D6rAfeRnXK4pb8MF/+AtUI8M1FfqiA
-         n62ru55xM89sztvoC4+Z5yUAQ6Q2lvqIfsPCY993MXRcDKMEYFMai2k0Qki36jPqipvo
-         frARzxxNICsEmI9bvJn6U7E+rLlNG/JDfvC2OK+ou6o6hFIN61hKcJQNgaoT7vnZ+Xqf
-         lUxJDnsoV4QD1DFrGUwitedeqgBbC+8K4tSAo60P3IW5cmGTDyJ4fLCevAR15yaN60Mx
-         OwOBatvDs0JJZOpMl8pWxdtsM4RdTNKfnbQhT/47bQZIjrJQvUTVMQhT4lI9mQF6HGMP
-         S2WA==
-X-Gm-Message-State: AOJu0Yzyd76z5dPbqWsPY4lj+LRfsPmspOTINXqfpUmwdQ9hfFHMqG6x
-	skYJrcKyrR5e1d+JZhB3BxmgisySBRxoQqgyz7otsZJfyyHiEdMaMSR7G0Tdkg==
-X-Gm-Gg: AeBDieuscQNjpcQjjoeEM5JfQfsc//1/shYAyXxeAxJ29FaupIBxdazvOgEChBpfh7a
-	V+eaFo0ENBMbLk427czw8k2r9BJ/TZP+tGEPezJSHoPSEPkmTGAEYfxlusfWjWeloST3fD+Ob6B
-	jAki2FHeWdoEN6mSPTpbNETJuZkUqTYUxcDjhp4KPeH2BCsmWhf7UasJeZx5yngyNxRLsAXqFie
-	XDd/xf76PJYkt91HwgrvccAAcDzYy5r5+bZMf3Jpi+QtNO67096woE+awNs2vxaBiUOqgoHJOqX
-	FhkCUX5fbICh2Lt0SSrg4S8tyk+eK/NIhG4etiBOz/cl1iaQigbFZOYczglFDA5ow+VrRA8jgY1
-	eLvyiA3eNqFVAW7gIFjM22IdPExLv7o8IWHgQgZ4gWH6Nkw3HScQN1CcOZ0FjMGRL9e1j5qU7La
-	mfr1x77Q9FhSjUSHA3nI+uc8CYYCK2hTfYQnO/opmor5em07YQ4yzoJgTRXqK4t1OjSI6LPoAve
-	shhTqPRvjE2F2WD2khWm9c9mXfrfD/AZvE829MAQovbvxjMVvmcDikTEOGMAFA97iNw4uw=
-X-Received: by 2002:a53:e44c:0:b0:654:27b0:8881 with SMTP id 956f58d0204a3-65c7989fc6fmr4156255d50.3.1778125264851;
-        Wed, 06 May 2026 20:41:04 -0700 (PDT)
+        bh=cWIymFnHpFxk/H1tNN73zyaOU3jyB7CZiy8MnArxywU=;
+        b=ItCDPea2AJFa19utr+2I2p2tS2H7+DXpWLgzrzZ0FBkkISqSl/ULfduboLGKCASRjt
+         yD/FxKQfpF3iZ1KeRtZT+Kx0y2eA4CfEew6IorS/iyMY/8PWlDm7SyghxDTvckH/GMzV
+         yw271B3h+MWbifwWx8LhXlnNCIgY94z1JGE2lKIIcL5/qayVXRxFk3wN6f8m1vbV7eOV
+         w8qlndCpJMixbDZiS7em2/2P4ESHtrHSlOyt1mMnEYkKo4YaHvgORAbb/HvgAOTLYLrr
+         hni2x+e1VfQtd5fit/e2J0f9+oNsrKLn0NAgmt8lxixdzqleOKcWgUZKzXyWJj/CX3kY
+         zzVw==
+X-Gm-Message-State: AOJu0YxuWwf8o2Ktu6nbsXyhLlmxvZp8jRkerc9nlTLMN64BbEW4f6LW
+	8Qi9xZR6qsaNi+IlogZ2MXUdTmhhO//nHA8kzDtYRbIM8UexSoWsltjOOhcGUg==
+X-Gm-Gg: AeBDievGDDJlZ4dFRUKS/Od0IMD9VlmhX7fNqlB5o6ckFuZNbw84Bpd0zu9c81KpbFO
+	PJWzPVj71C+3Agazk5S57k0+7bon9GV3sealekLUFxq0V4mZqLkF94kiNFjC1wcRTlh+rfOj1S0
+	kWHZNgVw8MUqri1tVJxruAyL5/swR533eviTa6pCl0Um4rakBHmTz7NmR3KD8zWz+oSNc688rJZ
+	w0Cn+8BIiDcZZdDZEXTP+CprpkB7YAynNd+21Xe5B7TES0z4bUr5YL7eSxBSgb5PR4HHYhqdiv0
+	xP6jyHcO0XTTab2TB4isOBKOTQ+3mbzbvZ5gQ2IrNhOzlzbvhCUaqHD0b2Vv8dVhJmdqWZ21V5N
+	xKa6zPtf3FHjCqCVzGEGCx4+gtpWy+6Fj3MeY54KpaGBxPkbw7r4J3kefpmQmdvr1HwK8/bP+FN
+	8SI9q1LAIPlR4VwuDUz+XreaVZXZ8RDG9ffMrrXLz5fDzR7GOM8orPgHVDPuUWmpMyxM6GgldsZ
+	IuY5juOXH2T++OP/isrsd3tf3I0z1ypf49TjcDW0gVr7iFWGIaARX28zcnR
+X-Received: by 2002:a05:690c:c4f1:b0:7a4:8718:8c73 with SMTP id 00721157ae682-7bdf5db7bc3mr64184257b3.9.1778130600333;
+        Wed, 06 May 2026 22:10:00 -0700 (PDT)
 Received: from localhost.localdomain (h69-131-150-190.cncrtn.broadband.dynamic.tds.net. [69.131.150.190])
-        by smtp.gmail.com with UTF8SMTPSA id 956f58d0204a3-65c7aff473asm1966717d50.17.2026.05.06.20.41.03
+        by smtp.gmail.com with UTF8SMTPSA id 00721157ae682-7bd7d849afesm69888487b3.49.2026.05.06.22.09.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 May 2026 20:41:04 -0700 (PDT)
-Message-ID: <69fc09d0.050a0220.18d9e0.cc26@mx.google.com>
+        Wed, 06 May 2026 22:09:59 -0700 (PDT)
+Message-ID: <69fc1ea7.050a0220.306431.9eeb@mx.google.com>
 From: Demi Marie Obenour <demiobenour@gmail.com>
 To: virtio-comment@lists.linux.dev
-Date: Tue, 28 Apr 2026 01:56:02 -0400
-Subject: [PATCH] Avoid repeatedly checking for font availability
+Date: Thu, 7 May 2026 00:34:19 -0400
+Subject: [RFC PATCH] ring: Forbid using descriptors in two chains at once
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 
-Checking if a font is available is very expensive.  Do it once and store
-the results in a macro.
+Using the same descriptor in multiple chains at once creates
+difficulties.  If the descriptor is device-writeable, this is begging
+for data corruption due to conflicting writes from the device.  Even if
+the descriptor is device-readable, the mere possibility requires devices
+to use more sophisticated internal data structures.
 
-This also provides an easy way to skip the check entirely.
-
-No normative, informative, or even typesetting change.
+Require descriptors to be used in at most one chain at any given time.
+Indirect descriptors can be used if support for huge batches is needed.
 
 Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
 ---
- commands-pdf.tex | 12 ++++++------
- virtio.tex       | 26 +++++++++++++++++++++++---
- 2 files changed, 29 insertions(+), 9 deletions(-)
+I have not checked whether this will break existing drivers, so I'm
+marking this as RFC for now.
+---
+ packed-ring.tex | 6 ++++++
+ split-ring.tex  | 6 ++++++
+ 2 files changed, 12 insertions(+)
 
-diff --git a/commands-pdf.tex b/commands-pdf.tex
-index 23289d895429f4ef4b50fdefa3f7b6a8a5e9ebbc..b9e57347bba2a69ff51262dbb39cb147d1e70a2c 100644
---- a/commands-pdf.tex
-+++ b/commands-pdf.tex
-@@ -20,7 +20,7 @@
- \newcommand{\oasistitle}[1]
- {
- \begin{spacing}{1.5}
--\IfFontExistsTF{Arial}{\fontspec[Color=446CAA]{Arial}}{\fontspec[Color=446CAA]{Liberation Sans}}
-+\oasiscolor{}
- \fontsize{24}{24}
- \textbf{\noindent#1}
- \end{spacing}
-@@ -29,7 +29,7 @@
- \newcommand{\oasisstagelabel}[1]
- {
- \begin{spacing}{1.1}
--\IfFontExistsTF{Arial}{\fontspec[Color=446CAA]{Arial}}{\fontspec[Color=446CAA]{Liberation Sans}}
-+\oasiscolor{}
- \fontsize{18}{18}
- \textbf{\noindent#1}
- \end{spacing}
-@@ -38,7 +38,7 @@
- \newcommand{\oasisdate}[1]
- {
- \begin{spacing}{1.1}
--\IfFontExistsTF{Arial}{\fontspec[Color=446CAA]{Arial}}{\fontspec[Color=446CAA]{Liberation Sans}}
-+\oasiscolor{}
- \fontsize{18}{18}
- \textbf{\noindent#1}
- \end{spacing}
-@@ -47,7 +47,7 @@
- \newcommand{\oasisnoticelabel}[1]
- {
- \begin{spacing}{1.5}
--\IfFontExistsTF{Arial}{\fontspec[Color=446CAA]{Arial}}{\fontspec[Color=446CAA]{Liberation Sans}}
-+\oasiscolor{}
- \fontsize{18}{18}
- \textbf{\noindent#1}
- \end{spacing}
-@@ -56,7 +56,7 @@
- \newcommand{\oasisspecificationuris}[1]
- {
- {
--\IfFontExistsTF{Arial}{\fontspec[Color=446CAA]{Arial}}{\fontspec[Color=446CAA]{Liberation Sans}}
-+\oasiscolor{}
- \fontsize{12}{12}
- \textbf{\noindent#1}
- }
-@@ -65,7 +65,7 @@
- \newenvironment{oasistitlesection}[1]
- {
- \setlength{\tabcolsep}{0in}\begin{tabular}{p{0in}p{5.8in}}
--\multicolumn{2}{l}{\IfFontExistsTF{Arial}{\fontspec[Color=446CAA]{Arial}}{\fontspec[Color=446CAA]{Liberation Sans}}\fontsize{10}{10}\textbf{#1:}}\\[-0.05in]
-+\multicolumn{2}{l}{\oasiscolor{}\fontsize{10}{10}\textbf{#1:}}\\[-0.05in]
- &\setlength{\topsep}{0in}\setlength{\parsep}{0in}\setlength{\partopsep}{0in}   }
- {
- \end{tabular}
-diff --git a/virtio.tex b/virtio.tex
-index e02b34101d1e3996cdf4d66cf1df398160a82c8a..9a725774f2d077ec74acc828d1db58192592eb8f 100644
---- a/virtio.tex
-+++ b/virtio.tex
-@@ -55,9 +55,29 @@
- %\def_{\_}
- % Don't hyphenate acronyms
- %\uchyph=0
--\IfFontExistsTF{Arial}{\setmainfont[Mapping=tex-text]{Arial}}{\setmainfont[Mapping=tex-text]{Liberation Sans}}
--%\setromanfont{Arial}
--\IfFontExistsTF{Courier New}{\setmonofont{Courier New}}{\setmonofont{Liberation Mono}}
-+
-+\newif\iffontcheck
-+\fontchecktrue
-+% Disable checking for Arial and Courier New
-+%\fontcheckfalse
-+\newcommand{\oasiscolor}[0]{\fontspec[Color=446CAA]{Liberation Sans}}
-+
-+\iffontcheck
-+   \IfFontExistsTF{Arial}{
-+     \setmainfont[Mapping=tex-text]{Arial}
-+     \renewcommand{\oasiscolor}[0]{\fontspec[Color=446CAA]{Arial}}
-+   }{
-+     \setmainfont[Mapping=tex-text]{Liberation Sans}
-+   }
-+   \IfFontExistsTF{Courier New}{
-+     \setmonofont{Courier New}
-+   }{
-+     \setmonofont{Liberation Mono}
-+   }
-+\else
-+   \setmainfont[Mapping=tex-text]{Liberation Sans}
-+   \setmonofont{Liberation Mono}
-+\fi
+diff --git a/packed-ring.tex b/packed-ring.tex
+index 3ee55a18d024d4da1a48d522e98ea563b9809b1c..8fd5a770c7ca4e6f60911b2861e00a273a69ea73 100644
+--- a/packed-ring.tex
++++ b/packed-ring.tex
+@@ -473,6 +473,12 @@ \subsection{Event Suppression Structure Format}\label{sec:Basic
  
- \urlstyle{rm}
+ This implies that loops in the descriptor list are forbidden!
  
++Drivers MUST NOT include a descriptor in a chain if the
++descriptor is already part of a previous chain whose processing
++has not completed.  This implies that the total number of
++descriptors submitted to the device, but not yet processed, is
++limited by the queue size.
++
+ The driver MUST place any device-writable descriptor elements after
+ any device-readable descriptor elements.
+ 
+diff --git a/split-ring.tex b/split-ring.tex
+index de9403882df1e6d20e16ec983ecf0a46d39efa6b..014e279ef1da7653c7051e3a24c6169fe8d51983 100644
+--- a/split-ring.tex
++++ b/split-ring.tex
+@@ -223,6 +223,12 @@ \subsection{The Virtqueue Descriptor Table}\label{sec:Basic Facilities of a Virt
+ Drivers MUST NOT add a descriptor chain longer than $2^{32}$ bytes in total;
+ this implies that loops in the descriptor chain are forbidden!
+ 
++Drivers MUST NOT include a descriptor in a chain if the
++descriptor is already part of a previous chain whose processing
++has not completed.  This implies that the total number of
++descriptors submitted to the device, but not yet processed, is
++limited by the queue size.
++
+ If VIRTIO_F_IN_ORDER has been negotiated, and when making a
+ descriptor with VRING_DESC_F_NEXT set in \field{flags} at offset
+ $x$ in the table available to the device, driver MUST set
 -- 
 2.54.0
 
