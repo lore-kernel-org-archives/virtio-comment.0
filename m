@@ -1,214 +1,156 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5FC029C33F
-	for <virtio-comment@lists.linux.dev>; Thu,  7 May 2026 07:52:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4DF03F54C5
+	for <virtio-comment@lists.linux.dev>; Fri,  8 May 2026 14:53:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778140325; cv=none; b=XfCbUovG/ERCH7y+CAXPCbd5u0rt8pJJGWDR7nG6lmQac9SAp4sgKxFLWtmjrLmPKp1mC3NJ5niRW7nYSqimrbv/oHvA6zMCPRG4I9VQakZC5m7IYem5Z4eJ7cd8VtwMtG49ULunOocCAMGW1gVJzqftwzHUhu2hhwRxern0Nwc=
+	t=1778252031; cv=none; b=CdRa23wrbOxZC9rzk2e6P9cjpcSHdaY0h8ykn5xkcEQk54n6rn5oaCsUPH38AHd8mwLxGzEqyn57vKR95iA54QJxuKE8NkzsCwPb8oqbb2bo45Hsn8uY3ecupVZFvAcyIFDPHHrHGweBb/+gSvVObEq6LC+OLINrSHmloMVtV6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778140325; c=relaxed/simple;
-	bh=g2MVWpKBPbYXAdOqyG87NMIMIsTRWznGDM11hEQyyn0=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=Hc8t9yLN/+1qfXMNUOCXocKutaIhHfk8KHXiNaz56LZKq+9F0ylHFVapnkumSiTk87wgPK3Hnq4r7NqhPqhQ9REnxfkCcz1piYXXMXVdV82BA3lHaZGm/Z+B9FCSSv66YnP6QmsUoGQj1Gqgb19GOXhDFBVsfXzivpKFOMREPwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=S3Sxz8va; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1778252031; c=relaxed/simple;
+	bh=5Dbt8/dWuR6wBsRPyf13uh+PH6ObPKkk6xQukMnG0Iw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=irtItcXiQHOTQ1G+/tO1+bATYNqY2Bi/kPAv4yxRW/VmvmoSVcieUG5SwCiIwZNTO+/Msf9BF54CqdwspnwaD7VV2SH0aPzwoFSJyG6r8C75u1ZqZuskkW5qTjrR0FTuYi1GlpRdurC92puK2Ahdv6ELO7/Ge7nYiApQIbZZnk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kQNz1dbs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zw7jknAG; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="S3Sxz8va"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1778140322;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uaYDCo7dDoZdqYKCM07jdIDzrBoDFAOC15Wma8/qflQ=;
-	b=S3Sxz8vaex8171jT+/zXBhemc8Yh/SUn0Z4n+2+mjuPBsS3WSYAX1F/V/BIPWlwhV9MOCp
-	d6M7lffhEzwJjVCHWBAx6o0RtV3G92mTZtl55pvtSMS6Vx6HyZgUC3OZLXWcTWj5291/7S
-	6Dc1fJ8myJpRKXthZoBR1paYHeSE+w4=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-518-cBOl8vt8MQydU_e2fux9AA-1; Thu, 07 May 2026 03:52:00 -0400
-X-MC-Unique: cBOl8vt8MQydU_e2fux9AA-1
-X-Mimecast-MFC-AGG-ID: cBOl8vt8MQydU_e2fux9AA_1778140320
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-44f56d5523eso422756f8f.1
-        for <virtio-comment@lists.linux.dev>; Thu, 07 May 2026 00:52:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778140319; x=1778745119;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kQNz1dbs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zw7jknAG"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 648CF1WH4070250
+	for <virtio-comment@lists.linux.dev>; Fri, 8 May 2026 14:53:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=FWzCfE3mOXfSu7BT5vvqEgKs
+	e/etf/JBCZjbPGp+WNY=; b=kQNz1dbsuF2f7GHPWHcXbE7Hc7hEnHcgD7+vSsD2
+	7gwQ7jNxa1sxRFXOEGUr5UKGtkK87OeuO17SSKuub10sQt+3IvgXjWwx3mtdn2RQ
+	ZX8JDm1flLz57Rnh0+Der3NAEWC0Oh98YYpV8l4/WNCgYCb1FESFkGNL1WFcZsYn
+	kuMFFMDkHXNDDuGLYpcWWCncwEivg5qJ8lN0UUS5Osvsb0tj1j5EqpD54zeIpvF5
+	e/rxjodAiJKxxau21RxuJg6nh3WvQmWMZuE61UmXFp/SlzUgCR2mNgtNpcP+Ugfq
+	Xeki9hdfg5vIM2CWJzgvJubS/1BMG5Pj0rFaUmX/9r6dZA==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e12sp3ksk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <virtio-comment@lists.linux.dev>; Fri, 08 May 2026 14:53:49 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-62f30279e90so1922639137.0
+        for <virtio-comment@lists.linux.dev>; Fri, 08 May 2026 07:53:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778252028; x=1778856828; darn=lists.linux.dev;
         h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=uaYDCo7dDoZdqYKCM07jdIDzrBoDFAOC15Wma8/qflQ=;
-        b=Ak7MC6Bmes2QSb0XoP150HNViaF5RqAr5IE0lHsnXHC2M08VvAE0wB2nrgk5fni6b+
-         0hL2RSrE9ctgIegN8omcAqWvvVqauwqfvR37Y18509gXqNmaC668Gd8vLY8JKGvEwX/g
-         IoxP72m+eueoXD9zlz/rwgsyDM918WUpkxRTLVR2Gl9iKmapJFweF7rHUZ+3ZexAfUSG
-         ytgfL/XBFF3ZrUnWv9272mPJ69j6lVluZauNUdlRHMQ/1nKR066eIHlmVyVT4kntb0nK
-         xPFu00ltmbiM4ol7ksw3eO4wCFhZKRPHrpHFAwE46m4PykdC3h3G/nymnwEhb0/HjssP
-         GCiw==
-X-Gm-Message-State: AOJu0Ywq0DoXlFFgLfWoVe//z/L746WY2bbIu+yEBBAAUX0n+d+LccQU
-	tvITF/umLi7y1230Lhhif9flN5PMEQCREUpU3qR3DFyWQ+vGfW7SC3m07JyfRbssMdutkjGpk6m
-	C1BEIB+yTF+n2FvVGkBKeN5ojIaPFRGY0RBfL3xddKCbepwu/6wgsm9SXQkU55aoy+Ri1WZoB9f
-	eeR8RZgRR+xNWCF4YKIsuo0c2T85KIePUpg0QP0m4piSx1Bw==
-X-Gm-Gg: AeBDievNYtPUMOEOp5TfDy4LPQn+HAg39/R7tdmWXj11eRHYYxW/EkPqq22aqO1w2Jm
-	hD6FOBxvmc19FhqbAC+ofHVXWunOEpudANlpM6XycJetLCiTLvP14EsvlN/aXPWxWjo7LNJvIky
-	UTSJnGd4sVF9qOFGhh332INdPhhVociTOUTgIrr/DmN5VjmEzLQA6ToMnIaKp9lv+Tw0Slf1dOZ
-	WiP7VS2Uf6x1AcL5+oWcYt4D85U12EMgx4/9U7+gm2w1w7sK6J7s4Z1USiPNkg98YTsSmZqZL5p
-	HyiHb57OJxkjCtpxFFkoYmimn8VJHQsMIpNNbQScQrtA/rQzslEvxUiLzUB1C3cYmnyx8DB8a8z
-	iRO58fCwxkzCpNLpkesS7qWihLBzz8+CK5eCiGXncjpMcwcPrgmc=
-X-Received: by 2002:a05:6000:2507:b0:44e:639b:7d0f with SMTP id ffacd0b85a97d-4515b61bcddmr11219602f8f.12.1778140319032;
-        Thu, 07 May 2026 00:51:59 -0700 (PDT)
-X-Received: by 2002:a05:6000:2507:b0:44e:639b:7d0f with SMTP id ffacd0b85a97d-4515b61bcddmr11219521f8f.12.1778140318116;
-        Thu, 07 May 2026 00:51:58 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-48-7.inter.net.il. [80.230.48.7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45054b02802sm18499891f8f.17.2026.05.07.00.51.57
-        for <virtio-comment@lists.linux.dev>
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=FWzCfE3mOXfSu7BT5vvqEgKse/etf/JBCZjbPGp+WNY=;
+        b=Zw7jknAGb8Ozd5CehfuC1GvIemtl/es0smSvMtQv4EjhoclgVONM3plrl4uT7Sr54/
+         8QyajBUAedPvq0lAi5sTdNKZvTpVez0fquGDzqbAY1TsUyVVUv1B7uvPDD0GmC/9/MUn
+         0yFBykdx5uDfSqMT3SZizG4p7JPLpntamjcCyxW+TSefxHXAMEXPH5xb38AbcOQe6sIq
+         hB8EgNrh1soSLM26DcKfSD7F4lUG2wHJX1m1fpBgVcVNMiX4UhBiSooWyaVY3KqO2mw2
+         q4Tyo5DNEywVlGSu502f0bVi/JQdpanaKEqESlWNpGR8d7JB2tqHb94d0OMVE+Z1V68i
+         pCyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778252028; x=1778856828;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=FWzCfE3mOXfSu7BT5vvqEgKse/etf/JBCZjbPGp+WNY=;
+        b=R/zuiEn7Aj+kQbiC0tkd1WRsPPHZotjxt8XhC4MmQCJ3z2RFJd0ZtQDcy8kU6QGqpm
+         /D8AZ6hWihrJwOhYU3qYIi6KhdgbDa7jbbRa1coAkJbLMeMY3zQovtg36lq7D4OcPg3w
+         yo+apBbC2U1TKIn0oOxzG67AuivGxP+vLEJhMxYBQLSkRwCz0NpLRRqB1iqwwnz8yPEA
+         UusFa58OtsNVStoV/9XwmptjadvG8+UBokVs7ykxwyDRtUglzjo43DVkoeHgDAWn5i6T
+         iUD0VNOnyj4H0HPgPmWmSQc4Wwvi/vVCu7IHFQ+V0pL/QMaM21TE0jA6jN3G8VwFdwqL
+         pZOA==
+X-Gm-Message-State: AOJu0YxkKOdI7h/zxRKuAmdKVwPlt3/cmIygTzOOz+mkf5eBd/1jlX5E
+	/nQO4wfPcJjvYS96VV6NbRw7bW85kZzEOW/ID0Cvc9dooesK9FBI1ccCrAsOZv606TgzaHjaN8t
+	e/lcTEI7jA1tqlIPj4OIKNanCVltmgEAYHLl5a2jLbM0NM5GkBmjGITMHAjRBqx7/NIN2GGQ7d/
+	l7zQ==
+X-Gm-Gg: Acq92OHyBHbQjCQ4hDc3lI/tWm6/cHynrLduRAHIJ3WXXx5q5Wdom1eikWPotg4gaXL
+	XuJJjfULz9wLG4gD1VCstWfQQXTRdbTKhplrzTy862BOi09cql7wW3EVAjhkwBYUnIOv42yobyI
+	COSJFU3303VYFlVmFFm2ktLTTpJpyGnqBpduDjnIifQa7JIwrXFYBhMZptldYrWXTwVZkm8AOUu
+	lWOWU/zC6+9+SeIy9xy4U3WlOOujZnpdU1hkaMeOu/NU4ICpuuX52+kJJqwhBg5w3FM5va/ZyDT
+	fYqNhg0326LRos9GDY4uCeQAgwqHaoo/z8lLZVrYLIF61vjhbdg/MtNHPrFUOEhhfzwVRP2gkyn
+	OwGIWM5R2z1zzXIWD2olWiTgGnSkTzuidgecI7mpOEVqPLcMlXO4QTyE2
+X-Received: by 2002:a05:6102:580e:b0:62f:357a:3297 with SMTP id ada2fe7eead31-6313e959d44mr1427999137.5.1778252027993;
+        Fri, 08 May 2026 07:53:47 -0700 (PDT)
+X-Received: by 2002:a05:6102:580e:b0:62f:357a:3297 with SMTP id ada2fe7eead31-6313e959d44mr1427989137.5.1778252027455;
+        Fri, 08 May 2026 07:53:47 -0700 (PDT)
+Received: from QCOM-LDTZRie9bq.na.qualcomm.com ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bcac09c856asm90078466b.14.2026.05.08.07.53.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 00:51:57 -0700 (PDT)
-Date: Thu, 7 May 2026 03:51:56 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
+        Fri, 08 May 2026 07:53:46 -0700 (PDT)
+Date: Fri, 8 May 2026 16:53:45 +0200
+From: Peter Hilber <peter.hilber@oss.qualcomm.com>
 To: virtio-comment@lists.linux.dev
-Subject: [PATCH v4 3/3] balloon: add VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE
-Message-ID: <b29dee815f250b3332651a1a5aeabc4e49ec6914.1778140241.git.mst@redhat.com>
-References: <cover.1778140241.git.mst@redhat.com>
+Cc: Trilok Soni <trilok.soni@oss.qualcomm.com>,
+        Matias Ezequiel Vara Larsen <mvaralar@redhat.com>,
+        "Michael S. Tsirkin" <mst@redhat.com>
+Subject: Re: [PATCH v2 1/1] transport-mmio: Add v3, which polls for reset
+ completion
+Message-ID: <5jkvhc7joy5toliab4qqmv7qno6j7irc2if5p72qbjboepo5xu@wu64nvccxa7s>
+References: <20260416165256.4351-1-peter.hilber@oss.qualcomm.com>
+ <20260416165256.4351-2-peter.hilber@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <cover.1778140241.git.mst@redhat.com>
-X-Mailer: git-send-email 2.27.0.106.g8ac3dc51b1
-X-Mutt-Fcc: =sent
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: S2zP27cPoFGhw_usnQMTHND5devaKpRD7biwhzPuzpg_1778140320
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260416165256.4351-2-peter.hilber@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA4MDE1MSBTYWx0ZWRfX5qKsDK4r1kaz
+ 4BdeN84368MwuJBwXMqZKq3TY1sTs5RA8xBo6+IY3jt5dHaNI0TzQXzC+ghnSUA6B6DDnYSClcn
+ yJN6XBwpq1+8bpGH1wcIi0fHWgPuvRcr8DRKISKiNxP8EiRKwb+yT3PVr6Jmx4mbAZg8ITiTVpU
+ ri6uk3IVBlUqs7hl61FuX/1h7U/lxFVIIDsKKaE8/Dv4Eij68Dj0YjJxmdDsZ4qWllHaPysqsng
+ WOD0rjUFV7ROzFT8jiU+2bSxhWMXtorutfiNzcMDPiHurDTQzyx9BiF0qwEUS7tkBWNHojV31pJ
+ qqkG95hRCTf80Rz+Dq+uxrpCbRHiaXIEQM6MQqvOzoRd7IEbaTPIIoYxuswTnunxTGLpN47Eoy8
+ LzARjoQRtBuGfPphWOvX7kHLZJv88PU94d1QB5j6DSmb6LQlIF+CTOGPFHVrL2G5UU5qJ0UUasI
+ JKKL7a4vsJEKnDAYfyg==
+X-Proofpoint-ORIG-GUID: 3XXyW_Jq1HXNb76uuHtz0BXqV5nghQld
+X-Authority-Analysis: v=2.4 cv=Wu4b99fv c=1 sm=1 tr=0 ts=69fdf8fd cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=GD-asfRFfinyQSMSJGYA:9 a=CjuIK1q_8ugA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-GUID: 3XXyW_Jq1HXNb76uuHtz0BXqV5nghQld
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-07_02,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 priorityscore=1501 suspectscore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 phishscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605080151
 
-Add VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE (bit 7): the device
-initializes inflated pages and returns a per-page bitmap indicating
-which pages were successfully initialized.
+On Thu, Apr 16, 2026 at 06:52:56PM +0200, Peter Hilber wrote:
+> Let devices using the MMIO transport avoid stalling the driver (virtual)
+> CPU during device reset, which requires introducing a new MMIO transport
+> version.
+> 
+> Unlike the PCI transport, the MMIO transport does not require the driver
+> to poll for reset completion. This requires a device using the MMIO
+> transport to complete reset during the write of zero to the Status
+> register. Device reset may take more than 100 ms if it involves
+> terminating ongoing device activity which accesses driver memory. When
+> the (virtual) CPU writing zero to the Status register needs to be
+> stalled during this, this may violate real-time requirements (including
+> those for hypervisor trap-and-emulate).
+> 
+> Address this by introducing a new MMIO transport version, v3, where the
+> driver must poll for reset completion, and, hence, the device reset does
+> not have to complete during the write to the Status register. Add a
+> requirement that resetting a device which already has Status zero is
+> synchronous to avoid ambiguity when such a reset would finish.
+> 
 
-Update Security Considerations Data Integrity subsection to cover
-both DEVICE_INIT_REPORTED and DEVICE_INIT_ON_INFLATE.
+Could you please open a voting ballot for this change?
 
-Fixes: https://github.com/oasis-tcs/virtio-spec/issues/242
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
----
- device-types/balloon/description.tex | 73 +++++++++++++++++++++++++++-
- 1 file changed, 71 insertions(+), 2 deletions(-)
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/246
 
-diff --git a/device-types/balloon/description.tex b/device-types/balloon/description.tex
-index fa33105..7afdb24 100644
---- a/device-types/balloon/description.tex
-+++ b/device-types/balloon/description.tex
-@@ -52,6 +52,9 @@ \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Featu
- \item[ VIRTIO_BALLOON_F_DEVICE_INIT_REPORTED(6) ] The device initializes
-     reported pages.
- 
-+\item[ VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE(7) ] The device initializes
-+    inflated pages.
-+
- \end{description}
- 
- \subsubsection{Feature bit requirements}\label{sec:Device Types / Memory Balloon Device / Feature bits / Feature bit requirements}
-@@ -249,6 +252,10 @@ \subsection{Device Operation}\label{sec:Device Types / Memory Balloon Device / D
- and before detecting its physical number in a deflate request
- and acknowledging the deflate request.
- 
-+If VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE is negotiated, the
-+device MUST NOT modify a page after reporting it as initialized
-+in the bitmap.
-+
- \paragraph{Legacy Interface: Device Operation}\label{sec:Device
- Types / Memory Balloon Device / Device Operation / Legacy
- Interface: Device Operation}
-@@ -672,6 +679,67 @@ \subsubsection{Device Initialized Reported Pages}\label{sec:Device Types / Memor
- If VIRTIO_BALLOON_F_PAGE_POISON is not negotiated, the device
- MUST fill each initialized page with zeros.
- 
-+\subsubsection{Device Initialized Pages on Inflate}\label{sec:Device Types / Memory Balloon Device / Device Operation / Device Initialized Pages on Inflate}
-+
-+When VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE is negotiated, the
-+device initializes inflated pages and reports which pages were
-+successfully initialized via a per-page bitmap.
-+
-+The driver appends a device-writable bitmap buffer to each inflate
-+descriptor chain, after the PFN outbuf. The bitmap contains one
-+bit per balloon page (4KB), where bit N corresponds to the Nth PFN
-+in the inflate request (0-indexed). Bit N is stored as bit (N mod 8)
-+of byte (N / 8), with bit 0 being the least significant bit.
-+The device sets a bit to 1 if it successfully initialized the
-+corresponding page, or 0 if it did not.
-+
-+If VIRTIO_BALLOON_F_PAGE_POISON is also negotiated, the device fills
-+pages with \field{poison_val}; otherwise, the device fills pages
-+with zeros.
-+
-+When the driver later deflates these pages, it may skip
-+initialization for pages that were marked as initialized in the
-+inflate bitmap.
-+
-+\drivernormative{\paragraph}{Device Initialized Pages on Inflate}{Device Types / Memory Balloon Device / Device Operation / Device Initialized Pages on Inflate}
-+
-+Normative statements in this section apply if the
-+VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE feature has been negotiated.
-+
-+The driver MUST append a device-writable bitmap buffer to each
-+inflate descriptor chain. The bitmap buffer MUST be at least
-+$\lceil N/8 \rceil$ bytes, where N is the number of PFNs in the
-+inflate request.
-+
-+The driver MUST NOT treat an inflated page as initialized unless
-+the corresponding bit in the bitmap is set to 1.
-+
-+The driver MAY skip initializing a deflated page if the
-+corresponding inflate bitmap bit was set to 1. This overrides
-+the VIRTIO_BALLOON_F_PAGE_POISON requirement to initialize
-+deflated pages with \field{poison_val} for such pages.
-+
-+\devicenormative{\paragraph}{Device Initialized Pages on Inflate}{Device Types / Memory Balloon Device / Device Operation / Device Initialized Pages on Inflate}
-+
-+Normative statements in this section apply if the
-+VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE feature has been negotiated.
-+
-+The device MUST provide an inflateq supporting at least 2 buffers.
-+
-+The device MUST set bit N in the bitmap to 1 if it successfully
-+initialized PFN N, or to 0 otherwise. Bits not covered by the
-+used length are treated as 0 by the driver.
-+
-+The device MAY write fewer or more bytes than $\lceil N/8 \rceil$.
-+Any bits written beyond those corresponding to PFNs in the request
-+MUST be set to 0.
-+
-+If VIRTIO_BALLOON_F_PAGE_POISON is also negotiated, the device
-+MUST fill each successfully initialized page with \field{poison_val}.
-+
-+If VIRTIO_BALLOON_F_PAGE_POISON is not negotiated, the device
-+MUST fill each successfully initialized page with zeros.
-+
- \subsection{Security Considerations}\label{sec:Device Types / Memory Balloon Device / Security Considerations}
- 
- In environments where the device is not trusted, such as
-@@ -697,14 +765,15 @@ \subsubsection{Data Integrity}\label{sec:Device Types / Memory Balloon Device /
- When the device is untrusted, the driver cannot rely on the device
- to correctly initialize pages. An untrusted device can report a
- non-zero used length for VIRTIO_BALLOON_F_DEVICE_INIT_REPORTED
-+or set bits in the VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE bitmap
- without actually initializing the corresponding pages. If the
- driver treats such pages as initialized (e.g., marking them as
- zeroed), this could lead to information leakage between guest
- processes or other security violations.
- 
- Drivers operating in environments with untrusted devices are
--expected to avoid negotiating
--VIRTIO_BALLOON_F_DEVICE_INIT_REPORTED, and to initialize
-+expected to avoid negotiating VIRTIO_BALLOON_F_DEVICE_INIT_REPORTED
-+or VIRTIO_BALLOON_F_DEVICE_INIT_ON_INFLATE, and to initialize
- all pages themselves.
- 
- \subsubsection{Denial of Service}\label{sec:Device Types / Memory Balloon Device / Security Considerations / Denial of Service}
--- 
-MST
+This version got a Reviewed-by from Matias Ezequiel Vara Larsen [1].
 
+Best regards,
+
+Peter
+
+[1] https://lore.kernel.org/virtio-comment/aeX0hPTBQh%2FtgLOp@fedora/#t
