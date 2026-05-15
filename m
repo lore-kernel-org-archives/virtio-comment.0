@@ -1,104 +1,155 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A0336D9F8
-	for <virtio-comment@lists.linux.dev>; Mon, 11 May 2026 18:06:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778522815; cv=none; b=ltxPjZWuOsMq5sj8KtbHu5pEa1SKyQh9YUBgtWcw8dFvkPa1lmkw3xh8LUfmEMAueu48hFBtoDxVTQY2xhhmymnKDVMUfdmeBip3HQnIAMvl08H3jjtsIBra00+g472Co1cmbRE6j0eZurNZdgwftEb2ugCCaPcN+g+ImF6yQXo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778522815; c=relaxed/simple;
-	bh=61oYivo+b06KCRKdraQ1ettfVRuc5Tvz91MafVFdZ7M=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C6441B35F
+	for <virtio-comment@lists.linux.dev>; Fri, 15 May 2026 08:54:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778835254; cv=pass; b=p0pGodsicN0EPet9urpd116IDsEvvW+DN1ECD54rMiY1tvijXQfpjSDyycg0Itm1/rmXAYZ4ZS3LWB43c871f1/BlX9U/nepfdi+GigrQ+oWA5EbR1t9LEMSfJiKaUSK7qe+0HLLMcNIAtsb680APpY8332QVyHLGy0E1OQLO44=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778835254; c=relaxed/simple;
+	bh=DTK14Nh8xr5bpvo9nWOw7fASxPuCaf38fs5qIqc2VJo=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DvOihY01znhSIwtWfb6If+yN4hK/zTwuue/Ku4UbJg1Ayf6LYgNEKujzE1OpaPPpxKjsq3cgP6B2qhuIbZqk27etb6IpoqoLaRvelNKYwt0xbGYy3H9Y2VO5JFEd+1HRvjLx9SXSy/Mf6+5dDGgIEDC7O63OKfpLTm8Y0/PDjsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bPVHXuuj; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 To:Cc:Content-Type; b=c/OoaTtJLX/FAlFpR0gLMt7cy+VOjiB/v4F4/W9mrVZ6bakme5b20C75N6uoFoANWvCqkePuk4KyZNqybiQ+ya+MBvUfSbXnbrGc1m6ex9cONg0cIA2Auzxnr4jQCW6KUpWBA483wqlQv4J6/F8MyxMR5cFJIXJM3OkCC2RfDJY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xZWU3bAa; arc=pass smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bPVHXuuj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1778522813;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=61oYivo+b06KCRKdraQ1ettfVRuc5Tvz91MafVFdZ7M=;
-	b=bPVHXuujKdWWvAPGy4RH69wYdshJMd+rQub6IHEKRpO3ePfyQiTW210mfJa564+XK7Z2bb
-	DzLqJXy6zC4YkCvuufntJSosV5QeUiN0ePQYEMYUaek02Ym2vDgGSTkNuTq4S05fGEpfDK
-	uFyspkKVOlx3UbcSqI9J7OeD6pxeR5U=
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
- [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-410-TBIuw5uRNKes_JX5hW82Qw-1; Mon, 11 May 2026 14:06:51 -0400
-X-MC-Unique: TBIuw5uRNKes_JX5hW82Qw-1
-X-Mimecast-MFC-AGG-ID: TBIuw5uRNKes_JX5hW82Qw_1778522810
-Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-67b88d32946so3129317a12.3
-        for <virtio-comment@lists.linux.dev>; Mon, 11 May 2026 11:06:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xZWU3bAa"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-44ccbd3290aso7276772f8f.2
+        for <virtio-comment@lists.linux.dev>; Fri, 15 May 2026 01:54:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778835252; cv=none;
+        d=google.com; s=arc-20240605;
+        b=TByrvZCseAX5PJzUYSv6CmBdGsrw09QBOYSLB2e/2PVQshF6kqsaf7yeFg5UTH/8c+
+         m0t4Q1cpBYcLnX2I55Tk6dMYSIlaGe9eRANEd+SRXLswsvV60TvCFnFTto0ke5tcyKMH
+         r0PjDmsQXtON+WRpDm6Hti5WnaX5ChS0jebphwEpWhot9Tlz4HyLLWzhKYd2xmS86U1l
+         73bMSO2xqn9+WyI5OTx9Nx5up8xxMSy9VQQPzOhTMAWpmZbrLWwX1tJ5WwPEpUG9tua9
+         HD8qj5rBKCSlMPqFtbezp/FUaeeSq/+lo3TvuYwWUUgb0JD5ZO8giVy1tHo5Z3p8F31N
+         AyvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=aJ7kwZDSg8jEbmk1PBh9gH9ftKtZOzvrUtV1u6S+Sr0=;
+        fh=rjBb7IxhhnsGnt8HksEH6pMEU66l46qhxJFEEALZbJk=;
+        b=LhoVXfhnCZHoTkHwbmb+tX0SqT2xPcu8d64NWtDBBQOdheHOunUU0AUSIBC8YUzJWq
+         ODJUzDhtcMH+CDlKZsz4WQRlw6lZYQnsacvn85PVnh89O18+YXedLFdVmrXxP/sJE4xU
+         5nD9MFhr/rcGX8/PWOJKoFzJOc/2ptAASMJZScVbQQn0a4Em96g2/omDrJq+IERsVRDI
+         pHav6LaGKN9lJZ3zDkcEyyFlV3cq7t23FNQ5YxXdYBQ/Aw14Kx1YSZTdlB5JODRIImel
+         rV4OHFsT4ExM5RMNUII4OCT1gHA8x08qRxqp4LoakOi3egG7y3j86Aj9BAg+2ABF839h
+         Vgzg==;
+        darn=lists.linux.dev
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1778835252; x=1779440052; darn=lists.linux.dev;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aJ7kwZDSg8jEbmk1PBh9gH9ftKtZOzvrUtV1u6S+Sr0=;
+        b=xZWU3bAay/O4XW3gR2D7FLZJf8uLZlS/ctVJ9zh0yrchOfWZ54HKZSCcEEGmXyAE+K
+         FhOLl8hCMgy3jjSrRCf5ggaZbSvFU7qkXd1XK+9v5MAu4FCxBasMDetdJd+ELDDs2+GY
+         2wCFLB9ZYq1faQ5qB9ASP5dp9Fs68PR44gVNONAfRbTKTHWDA6TMam/vW7CSEhg6NSXL
+         2YX1/g6DOOMkEKQ/GoCh83cYzwXSO9PxaE8L3nKU4c8QUyEjdg+4aaAn6M4PI0LJ+AGc
+         2UsXbm1pKg4I4vBRJQP/GK0WxbMWDyTb8RzIKijlWKvE7RP1TNmOe1UhHRM8bceuTfIi
+         iCsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778522810; x=1779127610;
+        d=1e100.net; s=20251104; t=1778835252; x=1779440052;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=61oYivo+b06KCRKdraQ1ettfVRuc5Tvz91MafVFdZ7M=;
-        b=WO+k5qECiETJCrlRhqWsg/CdLeLL6RRzVvL+lCOdJpL83I8nf12krceu/qIrSNb7Ak
-         w7LxoAsNMYFiWg/H+aKR8SZuoHTXOlko2t0MoBD7GEn3FHB9FDd94eiBlO+gFeEvmRMS
-         jGmMRs5aHU7pa5UhS1KaMAmAR8F9495a5Dt6ioMzXMF+ztnsH6NXE+/7/WcY4OYWGbS0
-         iko6ABq4cKl3LAUTuXZ7EbyGs/YIflaSkzuA3fOSKE9m9Pr750ka3PmYzl6Ao0sBW+i5
-         2hfFU7iaqGkLPrOXQ8RUgFNraUyRm3KwnjCmNrcf4+iafxrFniuS4uNgF1wCJ7WkxiOd
-         5k8Q==
-X-Forwarded-Encrypted: i=1; AFNElJ8ga0U+SVyZKpSYhTDtTqtwPewe/++LvBhfO1In8oBXE3cvR2sa5AoARZnCw6sxQfVp5o1LkZVJGtc98A3jfw==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yw6iRgdGu1/8ZTINKZPk+y9BrEtD7hIiw3cACRLpcEvWP/UzKPZ
-	wF6c51Ipwzr6OXffM4bNVGUXhAcMM8058KdTOk3OaKZWhSotfso0euO2/h7djvq25q+PLiEpJqP
-	zowQYPFN6YFyjU7zGGzafmK+qMyfOW6UgKH+d1nbooiWrE4MWWcCyWyRENQfEByd8lYGyrIPLU7
-	6gHt+kqycIZTP41TgKB6jeKeQRnl4Bl9I6NqSgDKo+p2w=
-X-Gm-Gg: Acq92OFkPlUvznEI88H2p9Z9eIMKoBXLDkBEWC/bjiPH1Ke4LRwLScxEtCqyVYe9/ac
-	haLmPnXNEEtG48k+i9FGR3vd9JuIfG5rBKTszHH7CM3r51hYMoI2BjrZTwe7kzM6CmVS7QXGv3I
-	PjfUQdpePJyNA51rkUBwloRN5R/Q79FRA/xMQZ5YsXSjsx4cw8N98S1r9QAfJMWWLnKOQri5oPR
-	FFguaS5x8+GjYo4y2GvtGpvqF46ZfY/cOPC7g==
-X-Received: by 2002:a17:907:3cc7:b0:bc4:aafa:65cf with SMTP id a640c23a62f3a-bc56c92bfc1mr1514457866b.16.1778522810124;
-        Mon, 11 May 2026 11:06:50 -0700 (PDT)
-X-Received: by 2002:a17:907:3cc7:b0:bc4:aafa:65cf with SMTP id
- a640c23a62f3a-bc56c92bfc1mr1514455866b.16.1778522809635; Mon, 11 May 2026
- 11:06:49 -0700 (PDT)
+        bh=aJ7kwZDSg8jEbmk1PBh9gH9ftKtZOzvrUtV1u6S+Sr0=;
+        b=QRNki5blJ5aLtyozwtt2gB9re4HA0ktXMqvR3IZXS7mOsKl54trb8FxsxiYLpxthil
+         Bva/HszIWvk1a156vuPoag9ZgMoaZ1U8zo8LAyCsuAZsZDBd+b/OaThjM1emwAEpoRUW
+         gr5I/H2l1OIXe5ljkIH8L40EcpTdFO11sM2I9whnsvX6mkwH/JVHKSN9jIhYyXBzA9yd
+         a5nTdJyjoRLnqG9B9sm8FRcxeKZn7F2jNd3jl9ss4AKWedVcR22cIwLIldH+AIZVNxvR
+         ZosugjfcF08H7cZI/Swqco30w317S3EtltFZtLTs237rZ0hYqssutKB2w+k+jyLEkYos
+         YfHg==
+X-Gm-Message-State: AOJu0YwVUZreiKli9n7DRO3qEpqPlDC8lHRwK+gV7osE43AfCJBFGizk
+	jcMd1eNEcmMHOO5WG5dcVVDNNKkGGrJCGRjJ7ac7urqk+njcfwUzrYfxAOD1nTzVgUvebN+Izog
+	b4+QxMMZKtpZ+AZCFRNrJeXUUVYPUfFKI1q/eqVvo9SGPmD+3G8TCciFuIQ==
+X-Gm-Gg: Acq92OEf8u7Fkh/bPctNZ3qavdtWqU/accflpb6dGidsJNKPC3bZgOOdkx9z+/RNFBC
+	8i6pOGiuH9KcRgyJd0YMBN8P/nmvQw42y0G/KMmKPoVpwfeS6bbUzCrcpxeU5S4J19zwr74A1Tu
+	sgIeQyGrqRpG58X3Zsgjzcun5COpHy0PbWAS5svli/abvthvz/YAk0aDOigTD5EiG3Sh5Yz17kk
+	SY6S99GmhKxgfbjaseat6HmRWHXN5fzfT2DmxbMvIi82C1s8nczHbqlxt3DD95fYXnv1OdVJkyq
+	9R1rYOfQm5hoislez+WUJrCAtvNLMZsb2qDAkrUCID8Xp4cCjw==
+X-Received: by 2002:a05:6000:2087:b0:43d:69ff:6898 with SMTP id
+ ffacd0b85a97d-45e5c362cccmr3878076f8f.9.1778835251903; Fri, 15 May 2026
+ 01:54:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <CAELaAXxJy7vyjq+zegKzGL_W24GC_k0cRmVnqLCuiFmVtXpL1Q@mail.gmail.com>
- <20260511134832.503803-1-stefanha@gmail.com> <20260511174859.GB536999@fedora>
-In-Reply-To: <20260511174859.GB536999@fedora>
-From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-Date: Mon, 11 May 2026 20:06:38 +0200
-X-Gm-Features: AVHnY4K5i_3GbdcRcqJ2Bxuhjij6kzBMftRuBFitJs3OTpvImbR2JqtSOtRGTHE
-Message-ID: <CAHYGQ0ybxykTyQrLYBB-TNYkEu2Zd8xP+4F1Ggt0g+RB1xipgA@mail.gmail.com>
-Subject: Re: [PATCH v4] virtio-blk: Add support for "Force Unit Access" writes
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: mst@redhat.com, afaria@redhat.com, dverkamp@chromium.org, 
-	virtio-comment@lists.linux.dev, sansshar@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ofWWsb-Bvl_prtfhLRKtu-Tz92yAhkERDKWbPT8jJMc_1778522810
-X-Mimecast-Originator: redhat.com
+References: <cover.1778140241.git.mst@redhat.com> <f349753e62471783378c950a2552e02aa30e50c8.1778140241.git.mst@redhat.com>
+In-Reply-To: <f349753e62471783378c950a2552e02aa30e50c8.1778140241.git.mst@redhat.com>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Fri, 15 May 2026 11:53:45 +0300
+X-Gm-Features: AVHnY4I4gZU1RK_xGLL90gbCa0wH8CZQB6OYMC2Hg8rYnlgD-IV8J2P0IeP0k24
+Message-ID: <CAAjaMXZHGZzP4JKKFWooLwOwPHCEXDa6b+6qfYVkL63D2y3udQ@mail.gmail.com>
+Subject: Re: [PATCH v4 1/3] balloon: add Security Considerations section
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-comment@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 11, 2026 at 7:55=E2=80=AFPM Stefan Hajnoczi <stefanha@redhat.co=
-m> wrote:
+On Thu, May 7, 2026 at 10:52=E2=80=AFAM Michael S. Tsirkin <mst@redhat.com>=
+ wrote:
 >
-> On Mon, May 11, 2026 at 09:48:32AM -0400, Stefan Hajnoczi wrote:
-> [Resent from my virtio-comment list subscriber email address]
+> Add Security Considerations covering information leakage (balloon
+> pages may contain sensitive data), free page reporting exposure,
+> and denial of service (malicious num_pages).
 >
-> Hi Michael,
-> I don't think this issue was ever voted on?
->
-> I have verified that the spec patch still applies cleanly to the master b=
-ranch.
->
-> Please begin the vote.
->
+> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> ---
 
-Apologies for the delay, I just created the ballot.
+Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 
-Matias
-
+>  device-types/balloon/description.tex | 28 ++++++++++++++++++++++++++++
+>  1 file changed, 28 insertions(+)
+>
+> diff --git a/device-types/balloon/description.tex b/device-types/balloon/=
+description.tex
+> index a1d9603..a2e4a37 100644
+> --- a/device-types/balloon/description.tex
+> +++ b/device-types/balloon/description.tex
+> @@ -632,3 +632,31 @@ \subsubsection{Free Page Reporting}\label{sec:Device=
+ Types / Memory Balloon Devi
+>  If the VIRTIO_BALLOON_F_PAGE_POISON feature has been negotiated, the dev=
+ice
+>  MUST NOT modify the the content of a reported page to a value other than
+>  \field{poison_val}.
+> +
+> +\subsection{Security Considerations}\label{sec:Device Types / Memory Bal=
+loon Device / Security Considerations}
+> +
+> +In environments where the device is not trusted, such as
+> +confidential computing, the balloon device presents several
+> +security concerns.
+> +
+> +\subsubsection{Information Leakage}\label{sec:Device Types / Memory Ball=
+oon Device / Security Considerations / Information Leakage}
+> +
+> +When the driver inflates the balloon, the addresses of the pages
+> +are communicated to the device. On some systems, the page contents
+> +themselves are also accessible to the device. These pages may
+> +contain sensitive data from previous use by the guest. In systems
+> +where the device is untrusted, the driver should sanitize pages
+> +before inflating them.
+> +
+> +Free page hinting and free page reporting similarly expose
+> +information about which pages are free, and in the case of
+> +reporting, may make page contents accessible to the device. Memory
+> +statistics reporting exposes guest memory usage patterns.
+> +
+> +\subsubsection{Denial of Service}\label{sec:Device Types / Memory Balloo=
+n Device / Security Considerations / Denial of Service}
+> +
+> +A malicious device could set \field{num_pages} to an
+> +unreasonably large value, causing the driver to surrender most
+> +of the guest's memory. Drivers should apply reasonable limits
+> +and not inflate the balloon to the point where the guest
+> +becomes unable to function.
+> --
+> MST
+>
+>
