@@ -1,495 +1,247 @@
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84BB7229B38
-	for <virtio-comment@lists.linux.dev>; Mon, 18 May 2026 02:38:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34369372EC4
+	for <virtio-comment@lists.linux.dev>; Mon, 18 May 2026 11:39:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779071884; cv=none; b=XmfhhwFGrqqUbPaM2sockZmoIOH2GCdIsIEucesb+ieiqtZLjc6EGVtTq1neAzQrrFG7GSl38E66voWdL2rponV9EprCPYNz7gVI47+XUCwSKdcJ62dDbBZO7CdgRL/KO+7SGO4qRt4NekU2iyqxm/5SJEtyc+VC+I0Z3TG8wGk=
+	t=1779104364; cv=none; b=k52fIU9glahxrF1mBS6FnoB0o0VZB27DuleOvCjo5Wz/UHevEPFrJHow2ZC475e+U8iB8xqWDbIKTAlrCNmAeV/t1H73JDKYKeCpWCj0r+iJ+AVJ+tsfYJdsSQYBHzEagtwj/fTKW7zFS+NZ67bRDsaqeInvPQCWARCytfP0J+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779071884; c=relaxed/simple;
-	bh=5l2NJ5aJzRMjhYDySq6MquO/lGadRTwKrJco1uLUssw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EIa6TG6iWqNpNayTn7H3i8JF+PV4YGdreTnc7zQ2uR6yIhlXJVl+NTS+yXr3rdxBqiOPDViMSL5Vu40q0sXr7/QREEr7xiRz/eav8kHL0i9/supM4UcW7MINVxDegNaMpknZo8fXJXP3RhPfpt7KP5EjoRB84+d8JO8MlalpluE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=it7yZJIt; arc=none smtp.client-ip=74.125.224.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779104364; c=relaxed/simple;
+	bh=jkgAUovd4e9X3Cr5ssXXJgnadAeFn6lOKIt5IdEiTXk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S6bjEp7q2P4A2lwx4DNiE5XYZCEaAttKpQni5bXFf4/JgPDD+PHQRlo0/ALMxn+V92vKOO9TlXzVc801dudhbHELEC//8BhNN8/UVBAEb4GaMP5sCmc9pN93xDQ1SK2D8VtD+U4xTuivQWNaWlkeGknGGWxjpHCO0w9qo7razNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KDI9HRSS; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="it7yZJIt"
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-65c7a459105so1812050d50.0
-        for <virtio-comment@lists.linux.dev>; Sun, 17 May 2026 19:38:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779071881; x=1779676681; darn=lists.linux.dev;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=0DvBt/iUjm0wxZdOTtTtTkhnZ+EciGo7+9yAVxMEV8o=;
-        b=it7yZJItm3kZzPlhWU5NkRL+eZoEbRoPV6crWr3xh44elk4pRmbnvGxDYd9ZdcMwqR
-         7279Z5XlUkYlVv8em5iqdHTWrzU2o8hyaAPGCUJUfFoRkLEgrnWTlzFIp9NFzf+8p78f
-         7zUUFJnFPY4t1zUI11iZ0DyUXcpEys2vYV6tn0zHWkz58Ax+XDc5ZZigNeA6CMoGPY40
-         HZ+FcdHticJBNHKRIqARoDpT4GGSdaWxjF02KR+sbDzNpscSRomC/xS8Y6a8o8dryfF7
-         CN700nFr5PmkKizt0fYhMuXvFthcEDOb15cGEGvJGpt+AzLRhc+ZE9UcIsLkeKXtZ2Ny
-         fGDA==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KDI9HRSS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1779104358;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Jhb7XesaNpxdzbfoOWNO2TvcfYBlLxkc5ygx+5zzFvc=;
+	b=KDI9HRSSVgNz1mLyLXUYuWLpbG1s74xTpt3Te6s4hiQit9pKQ3F/gictmkvS+YH8D36bbk
+	kFEAyyTUokBs86pJyYjqzpPE7GRvzdtsXlwOHIYsXs3nWIj0trC2YL0Zepi5x5t4DKCOkm
+	AiZZWPeThJRl5mO6hVcHjhTVca8Qm1M=
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-1-QF-h5UrvNxq00C86f-EBLw-1; Mon, 18 May 2026 07:39:15 -0400
+X-MC-Unique: QF-h5UrvNxq00C86f-EBLw-1
+X-Mimecast-MFC-AGG-ID: QF-h5UrvNxq00C86f-EBLw_1779104354
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ba15e384c7so15392415ad.3
+        for <virtio-comment@lists.linux.dev>; Mon, 18 May 2026 04:39:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779071881; x=1779676681;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0DvBt/iUjm0wxZdOTtTtTkhnZ+EciGo7+9yAVxMEV8o=;
-        b=M7ztCmnqtQhOW1bEsR6fpB1dMzh5HYHnvCfhaCbWxAJcxHWOiq8VS66+TEmOYSPbZG
-         fOVBhLYTWKDkZzzX2ZJVOsygY5nAeqZLjtICGfENcCnlyDyuulZIWBI7PTT/uQhPWHxm
-         kZ7Y9LSQVqBeLm/wiEHpfjYnDZeqbWqCiuqnfJRCzcYEcZu9NR+iQDKrreQGZrnjcSSr
-         4twzGWhJZBFVgRhfyzxa6T1YbY5zUEksV86U7+xzmia90VvkUPICuf8BWMCngCBZnT5m
-         yVV9tzxNCnU3YGBMI+IZUKX6v6QX9ZEd8zlJvg6+aP4DXn1JbxwUMQvkZ+eMzKSHSS4u
-         zvCg==
-X-Gm-Message-State: AOJu0YwVvwKIsyNfb93AZxyiFyaVdC2RA6SfxGiozzvlgzKNLOvFh0v6
-	2prwwPChV8yFC2ZFTJDnO9fP7t82UdHPhNmvxmbbZ4Th3jnlpjaclmobF+ogH4I4
-X-Gm-Gg: Acq92OEP46bFxXI9QkVC/6d2BOl/bqaFEenlpMeRSKqiYKIc0ZTmf0QYfmMJZFx+rmT
-	gRjbJ2DobfcFan/R1SmzAwTm+msviBT2NiLmtK70pyInnu7KBD9tnNFci43wFFkklh7DiYMdZaV
-	v79eL0wQMO7fyYVyEAHPbuZ21BSobAo3PkaHLn/r3jSPVw0G1ReaDuoHZsufiqgwrsQKCGDgz/c
-	b6om1K444ZeI4/0uCEnh3wm3MbuussKiG7ESAlyAYBY6TJITPpfljp6fNqPGVsNr1CmT8X0Lzl1
-	CucIvI5fxrxV21PmWmWUkgYVtf6CFg4PTtkYeiTKCkUKoFZr+smEvHtcpdHvEAH3POa63Wys7Ti
-	n0RAEbaMtyWSw9hesajCR+4K2n+S8K6HWGoIPLKI82wlSkqczjjIvvNiDLMvtyaju5xtRQ5wuQr
-	52Mb/Hh7GKjnVlXiDdA4pdA2FT7z0+7j8gDVM01LGIGffeGJ0dJ+X8PfdA1Tl0n5lDbMKzpGTSg
-	OIqiNnhC7JbIIsunbVVeVriYpt9lwjeMxFH2PBfRLTDzKdVnW2v
-X-Received: by 2002:a05:690e:c4c:b0:651:bd7e:c04c with SMTP id 956f58d0204a3-65e0b10186bmr14787662d50.21.1779071881228;
-        Sun, 17 May 2026 19:38:01 -0700 (PDT)
-Received: from [10.138.34.110] (h69-131-150-190.cncrtn.broadband.dynamic.tds.net. [69.131.150.190])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-65e0d89b124sm5861929d50.6.2026.05.17.19.38.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 17 May 2026 19:38:00 -0700 (PDT)
-Message-ID: <e547a48f-7298-4487-832f-a785af53893d@gmail.com>
-Date: Sun, 17 May 2026 22:37:56 -0400
+        d=1e100.net; s=20251104; t=1779104354; x=1779709154;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Jhb7XesaNpxdzbfoOWNO2TvcfYBlLxkc5ygx+5zzFvc=;
+        b=QO5nH8Mp1iBYQJF4zU+fiJyL21O6BqmKNFwhKxy7jQ2gOFUFATpyojYz4UIzQCQN3f
+         UON/6L4oFd6lYArqKapnwQkTOHxO05Hg/+gJUxrX5WJi3By4x9FOMJyqnxvYwMqwHUgL
+         aAe4deEJ68HAM8usS3RMqsrqHQpi0yvaq3mcF1iV4OFAfloRFYb5wo32q1bDNj5+Ernn
+         CTlaf8MHuFbtwrC0El+hmfH+hy9XLOh4hv7t7zGaDxe2C1vKf5DiKcWg2SXTwFOTGxqc
+         4b+FOimpJ+19G1Y3zYlZ32ddt785QGZ4r95NCKQlIOMB+hGVKOwVUr0W1xzZYPAkBkle
+         VLiA==
+X-Gm-Message-State: AOJu0YwgrGXOEEjHf/jI0zFB8Rs29nFK9IukqExoj0nYVk1xwjh9pixe
+	k8V88qbLO659qHJiMrIzbV4a5KUoJ/PFozHVG73YesK21d7eBFDu+r9KNDl5IvdB4VRMjT4WC91
+	mgHcttVaAlvYKG6bm+WiAqnNWyDD8uhvtGNtDTngzjxYYkBMv6kODRlJWAdEDEv9RwWh9f0IPrw
+	NHrM9FplgSz9YUWlyZWCzfHAAXF4yrqMVwOAPPWKVe+48=
+X-Gm-Gg: Acq92OGCNJoz7gmDp+bLnmi2o12JHKOVUDGKWlJCjIh0jVI8J/oSEebAvqKnu1/KW5L
+	zBailUlblZr4T4jyYvenjw/I0+ZarZadpkgz2bLm2CRN8bIpPBmf4OixxE1ThDgjnP4c+8JBtgw
+	BExQ/0tYY/IT0HFKSWEoPYeRxSH/bzMkxHER4e5Ok9ILYJ9nmvFY7RWfG4KkdWkPltRPTXBNKm4
+	4y+xxYupUNmGkgDWOBq5Qvm/LbhZsu7sEhiPnUy0lWDXCLqckEVZGZfpKijYawAwg9lsdPN1bLt
+	f54JV+lqGSF6PNKeriw+VDw=
+X-Received: by 2002:a17:903:46c4:b0:2b9:e82f:bfef with SMTP id d9443c01a7336-2bd7e88f2d7mr152862655ad.21.1779104353871;
+        Mon, 18 May 2026 04:39:13 -0700 (PDT)
+X-Received: by 2002:a17:903:46c4:b0:2b9:e82f:bfef with SMTP id
+ d9443c01a7336-2bd7e88f2d7mr152862315ad.21.1779104353303; Mon, 18 May 2026
+ 04:39:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] ring: Forbid using descriptors in two chains at once
-To: "Michael S. Tsirkin" <mst@redhat.com>
+References: <20260415145435.2023866-1-marcandre.lureau@redhat.com> <9452396c-e1be-43da-83f7-f4ea4fb997ec@kernel.org>
+In-Reply-To: <9452396c-e1be-43da-83f7-f4ea4fb997ec@kernel.org>
+From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>
+Date: Mon, 18 May 2026 15:39:01 +0400
+X-Gm-Features: AVHnY4IYDnvI46pBWZj2IwCGWSPbQOrP62Iqy4WneSIxkkuZIwYS2l7njNXoNsM
+Message-ID: <CAMxuvazkD6csS1yUd2=oVQhm7-CCU3P4wkCzV7aJPq_fUKUqRg@mail.gmail.com>
+Subject: Re: [PATCH RFC] virtio-mem: add shared/private memory property details
+To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: virtio-comment@lists.linux.dev
-References: <69fc1ea7.050a0220.306431.9eeb@mx.google.com>
- <20260507013527-mutt-send-email-mst@kernel.org>
- <adc807b9-2c95-4ddc-8243-0ed2bf5ac651@gmail.com>
- <20260517204742-mutt-send-email-mst@kernel.org>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260517204742-mutt-send-email-mst@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------j5Fa1qGddTgTG7w4KG2BVTuE"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------j5Fa1qGddTgTG7w4KG2BVTuE
-Content-Type: multipart/mixed; boundary="------------o3SfoDcBYA1zOCDPs3NVJD6Y";
- protected-headers="v1"
-Message-ID: <e547a48f-7298-4487-832f-a785af53893d@gmail.com>
-Date: Sun, 17 May 2026 22:37:56 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] ring: Forbid using descriptors in two chains at once
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: virtio-comment@lists.linux.dev
-References: <69fc1ea7.050a0220.306431.9eeb@mx.google.com>
- <20260507013527-mutt-send-email-mst@kernel.org>
- <adc807b9-2c95-4ddc-8243-0ed2bf5ac651@gmail.com>
- <20260517204742-mutt-send-email-mst@kernel.org>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260517204742-mutt-send-email-mst@kernel.org>
-
---------------o3SfoDcBYA1zOCDPs3NVJD6Y
-Content-Type: multipart/mixed; boundary="------------1Z4lwshR00EIWyM3TddsAbJP"
-
---------------1Z4lwshR00EIWyM3TddsAbJP
-Content-Type: text/plain; charset=UTF-8
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: NXmGfNEwBTAhDpUHI0wgX4IVnSPy-pdbiJONb5dLOMg_1779104354
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On 5/17/26 20:59, Michael S. Tsirkin wrote:
-> On Sun, May 17, 2026 at 04:05:28PM -0400, Demi Marie Obenour wrote:
->> On 5/7/26 01:50, Michael S. Tsirkin wrote:
->>> On Thu, May 07, 2026 at 12:34:19AM -0400, Demi Marie Obenour wrote:
->>>> Using the same descriptor in multiple chains at once creates
->>>> difficulties.  If the descriptor is device-writeable, this is beggin=
-g
->>>> for data corruption due to conflicting writes from the device.  Even=
- if
->>>> the descriptor is device-readable, the mere possibility requires dev=
-ices
->>>> to use more sophisticated internal data structures.
->>>
->>> The natural way to index requests is by using the avail ring head,
->>> not descriptors, though? I suspect it's about device memory being
->>> limited, etc. But pls make it more explicit.
->>
->> It's about being able to *not* use scatter-gather I/O, and instead use=
+Hi
 
->> a single I/O request for each descriptor.  io_uring makes this very
->> cheap.  However, it requires that the lookup key be (avail ring head,
->> descriptor index) rather than just (avail ring head).
->>
->> The latter has sufficiently few possibilities one can just use
->> a bitmap.  The former isn't.  This means using a memory pool, heap
->> allocation, or associative container.
->>
->>>> Require descriptors to be used in at most one chain at any given tim=
-e.
->>>> Indirect descriptors can be used if support for huge batches is need=
-ed.
->>>
->>> does this imply indirect are exempt from this rule? the text
->>> you propose makes no such exemptions.
->>
->> It means that indirect descriptors can point to huge numbers of
->> descriptors, rather than just what fits in the descriptor ring.
->=20
-> Nope, the spec limits the chain size to ring size.
+On Wed, May 13, 2026 at 8:07=E2=80=AFPM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
+>
+> On 4/15/26 16:54, marcandre.lureau@redhat.com wrote:
+> > From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+> >
+> > Add specification text for platforms where system RAM has a
+> > shared/private property (e.g., confidential computing environments such
+> > as AMD SEV-SNP or Intel TDX). Define the device and driver requirements
+> > for memory state transitions during plug/unplug operations, and
+> > guidance for VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE case.
+> >
+> > Signed-off-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+> > ---
+> >  device-types/mem/description.tex | 37 ++++++++++++++++++++++++++++++--
+> >  1 file changed, 35 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/device-types/mem/description.tex b/device-types/mem/descri=
+ption.tex
+> > index 9acf63f..1eefea0 100644
+> > --- a/device-types/mem/description.tex
+> > +++ b/device-types/mem/description.tex
+> > @@ -42,6 +42,18 @@ \section{Memory Device}\label{sec:Device Types / Mem=
+ory Device}
+> >  provides the exact same properties with the exact same semantics for
+> >  plugged device memory as available for comparable RAM in the same conf=
+iguration.
+> >
+> > +In some configurations, system RAM might additionally have a shared/pr=
+ivate
+> > +property, indicating whether memory is accessible to both the guest an=
+d the
+> > +host (shared) or only to the guest (private). \footnote{For example, i=
+n
+> > +confidential computing environments such as AMD SEV-SNP or Intel TDX.
+> > +The mechanism for converting between shared and private states is
+> > +platform-specific; for example, it might involve dedicated CPU instruc=
+tions
+> > +or hypercalls.} The device provides unplugged memory in the shared sta=
+te.
+> > +When memory blocks are plugged, the driver is expected to convert them=
+ to
+> > +the private state before use. Unless VIRTIO_MEM_F_UNPLUGGED_INACCESSIB=
+LE
+> > +has been negotiated, the driver is expected to convert them back to th=
+e
+> > +shared state before unplugging.
+>
+> VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE is a legacy leftover.
+>
+> Should we rather enforce that such devices in CoCo environments MUST adve=
+rtise
+> VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE? So they would always have to be conv=
+erted back.
 
-Oh, I see.
+If VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE is negotiated, the guest
+doesn't have to convert it back.
 
->>>> Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
->>>> ---
->>>> I have not checked whether this will break existing drivers, so I'm
->>>> marking this as RFC for now.
->>>> ---
->>>>  packed-ring.tex | 6 ++++++
->>>>  split-ring.tex  | 6 ++++++
->>>>  2 files changed, 12 insertions(+)
->>>>
->>>> diff --git a/packed-ring.tex b/packed-ring.tex
->>>> index 3ee55a18d024d4da1a48d522e98ea563b9809b1c..8fd5a770c7ca4e6f6091=
-1b2861e00a273a69ea73 100644
->>>> --- a/packed-ring.tex
->>>> +++ b/packed-ring.tex
->>>> @@ -473,6 +473,12 @@ \subsection{Event Suppression Structure Format}=
-\label{sec:Basic
->>>> =20
->>>>  This implies that loops in the descriptor list are forbidden!
->>>> =20
->>>> +Drivers MUST NOT include a descriptor in a chain if the
->>>> +descriptor is already part of a previous chain whose processing
->>>> +has not completed.  This implies that the total number of
->>>> +descriptors submitted to the device, but not yet processed, is
->>>> +limited by the queue size.
->>>
->>> I do not understand what is this trying to say for the packed ring.
->>> How do you include a descriptor in a chain twice - the ring has to
->>> wrap around, no?
->>
->> I don't think you can.
->>
->>> For that matter, I do not think "This implies that loops in the
->>> descriptor list are forbidden!" makes sense for packed either -
->>> I think we copied it from split by mistake.
->>
->> Fair.
->>
->>>> +
->>>>  The driver MUST place any device-writable descriptor elements after=
+I am not sure enforcing VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE for CoCo
+is the right call.
 
->>>>  any device-readable descriptor elements.
->>>> =20
->>>> diff --git a/split-ring.tex b/split-ring.tex
->>>> index de9403882df1e6d20e16ec983ecf0a46d39efa6b..014e279ef1da7653c705=
-1e3a24c6169fe8d51983 100644
->>>> --- a/split-ring.tex
->>>> +++ b/split-ring.tex
->>>> @@ -223,6 +223,12 @@ \subsection{The Virtqueue Descriptor Table}\lab=
-el{sec:Basic Facilities of a Virt
->>>>  Drivers MUST NOT add a descriptor chain longer than $2^{32}$ bytes =
-in total;
->>>>  this implies that loops in the descriptor chain are forbidden!
->>>> =20
->>>> +Drivers MUST NOT include a descriptor in a chain if the
->>>> +descriptor is already part of a previous chain whose processing
->>>> +has not completed.
->>>
->>> what specifically is "include a descriptor in a chain"? something to =
-do
->>> with making a head available? and what is "whose processing has not
->>> completed"? something to do with a head not used?
->>>
->>>>  This implies that the total number of
->>>> +descriptors submitted to the device, but not yet processed, is
->>>> +limited by the queue size.
->>>> +
->>>>  If VIRTIO_F_IN_ORDER has been negotiated, and when making a
->>>>  descriptor with VRING_DESC_F_NEXT set in \field{flags} at offset
->>>>  $x$ in the table available to the device, driver MUST set
->>>
->>> We can't really introduce new mandatory requirements without
->>> a feature bit.
->>
->> I'm making the assumption that no existing driver actually violates
->> this rule.  That said, another option would be to force any driver
->> that does violate it onto a slow path, perhaps by serializing the
->> I/O operations.
->>
->> As an aside, this is why the spec I am working on for the vhost-user
->> device backend has seemingly arbitrary restrictions around MSI-X
->> interrupts.  It makes life easier for device authors.
->>
->> Finally, I understand if this isn't viable.  It can be worked
->> around in devices without *too* much complexity.
->> --=20
->> Sincerely,
->> Demi Marie Obenour (she/her/hers)
->=20
-> We have two options:
-> - a new feature bit + if negotiated, driver MUST.
->   device can decide if it wants to support drivers without a feature bi=
-t
-> - a recommendation (driver SHOULD)
+> Note that negotiation with VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE does not r=
+eally
+> apply: if the device has VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE, but the gue=
+st
+> driver does not support it, the expectation is that feature validation fa=
+ils
+> (see QEMU).
+>
+>
+> > +
+> >  \subsection{Device ID}\label{sec:Device Types / Memory Device / Device=
+ ID}
+> >  24
+> >
+> > @@ -58,8 +70,9 @@ \subsection{Feature bits}\label{sec:Device Types / Me=
+mory Device / Feature bits}
+> >  configuration is valid and corresponds to an ACPI PXM.
+> >  \item[VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE (1)] The driver is not allow=
+ed to
+> >  access unplugged memory. \footnote{On platforms with memory properties=
+ that
+> > -might get modified implicitly on memory access, this feature is expect=
+ed to
+> > -be offered by the device.}
+> > +might get modified implicitly on memory access, or on platforms with a
+> > +shared/private memory property, this feature is expected to be offered=
+ by
+> > +the device.}
+> >  \item[VIRTIO_MEM_F_PERSISTENT_SUSPEND (2)] The driver can allow the gu=
+est
+> >  to enter suspended state (deep sleep, suspend-to-RAM).
+> >  \end{description}
+> > @@ -176,9 +189,15 @@ \subsection{Device Initialization}\label{Device Ty=
+pes / Memory Device / Device I
+> >  The device MUST NOT modify memory or memory properties of plugged memo=
+ry
+> >  blocks during device reset.
+> >
+> > +On platforms with a shared/private memory property, the device MUST NO=
+T
+> > +change the shared/private state of memory blocks during device reset.
+>
+> That makes sense. But doesn't that fall under "memory properties" above?
 
-I'm going to drop this.  Neither removes any complexity from device
-implementations that need to work with existing drivers.
+Yes, it's a bit redundant, we can drop it.
 
-My hope was that no existing driver actually relied on being able to
-use a descriptor in two chains at once.  If that is true, disallowing
-it would not break any code in the wild.
+>
+> > +
+> >  The device SHOULD offer VIRTIO_MEM_F_PERSISTENT_SUSPEND if the platfor=
+m
+> >  supports suspending (deep sleep, suspend-to-RAM) with plugged memory b=
+locks.
+> >
+> > +The device SHOULD offer VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE if the pla=
+tform
+> > +has a shared/private memory property.
+>
+> Again, I think we should turn that into a MUST.
+>
+> > +
+> >  \subsection{Device Operation}\label{sec:Device Types / Memory Device /=
+ Device Operation}
+> >
+> >  The device notifies the driver about the amount of memory the device w=
+ants
+> > @@ -256,6 +275,15 @@ \subsection{Device Operation}\label{sec:Device Typ=
+es / Memory Device / Device Op
+> >  If VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has been negotiated, the driver
+> >  MUST NOT read memory or query memory properties of unplugged memory bl=
+ocks.
+> >
+> > +On platforms with a shared/private memory property, the driver MUST co=
+nvert
+> > +plugged memory blocks to the private state before initializing or othe=
+rwise
+> > +using them.
+> > +
+> > +On platforms with a shared/private memory property, the driver MUST co=
+nvert
+> > +memory blocks to the shared state before requesting to unplug them (fo=
+r
+> > +VIRTIO_MEM_REQ_UNPLUG_ALL, this applies to all plugged memory blocks),=
+ unless
+> > +VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has been negotiated.
+> > +
+>
+> Is it guaranteed on all platforms (TDX/SEV-SNP/CCA/...) that hotplugged m=
+emory
+> will appear in the shared state? I have some faint recollection that some
+> platforms would start out with new memory in the private state (that they=
+ would
+> still have to accept before use. But cocneptually, the memory is in the p=
+rivate
+> state).
 
-However, that only works if one can enumerate the existing drivers
-that are out there.  There might be proprietary drivers deployed
-in closed environments that never see the light of day.  So this
-reasoning doesn't work.
+My knowledge is limited. I think the platform doesn't enforce this; it
+depends on the implementation. To fix plug/replug I propose to enforce
+the state from either fully shared or private:
+https://patchew.org/QEMU/20260504-rdm5-v4-0-bdf61e57c1e1@redhat.com/2026050=
+4-rdm5-v4-13-bdf61e57c1e1@redhat.com/
 
-This leaves otherwise-unfixable security holes as the only
-justification I can think of for this kind of change.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
---------------1Z4lwshR00EIWyM3TddsAbJP
-Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
-B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
-bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
-UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
-MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
-zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
-T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
-BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
-6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
-9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
-m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
-zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
-dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
-X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
-R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
-oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
-zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
-rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
-Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
-/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
-ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
-Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
-xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
-fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
-AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
-b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
-BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
-/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
-/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
-sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
-xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
-VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
-hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
-I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
-xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
-ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
-7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
-UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
-YXJpZSBPYmVub3VyIChJVEwgRW1haWwgS2V5KSA8ZGVtaUBpbnZpc2libGV0aGlu
-Z3NsYWIuY29tPsLBjgQTAQgAOBYhBHaHTZ8TNroiWQcccbKItV//nCLBBQJgOEV+
-AhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJELKItV//nCLBKwoP/1WSnFdv
-SAD0g7fD0WlF+oi7ISFT7oqJnchFLOwVHK4Jg0e4hGn1ekWsF3Ha5tFLh4V/7UUu
-obYJpTfBAA2CckspYBqLtKGjFxcaqjjpO1I2W/jeNELVtSYuCOZICjdNGw2Hl9yH
-KRZiBkqc9u8lQcHDZKq4LIpVJj6ZQV/nxttDX90ax2No1nLLQXFbr5wb465LAPpU
-lXwunYDij7xJGye+VUASQh9datye6orZYuJvNo8Tr3mAQxxkfR46LzWgxFCPEAZJ
-5P56Nc0IMHdJZj0Uc9+1jxERhOGppp5jlLgYGK7faGB/jTV6LaRQ4Ad+xiqokDWp
-mUOZsmA+bMbtPfYjDZBz5mlyHcIRKIFpE1l3Y8F7PhJuzzMUKkJi90CYakCV4x/a
-Zs4pzk5E96c2VQx01RIEJ7fzHF7lwFdtfTS4YsLtAbQFsKayqwkGcVv2B1AHeqdo
-TMX+cgDvjd1ZganGlWA8Sv9RkNSMchn1hMuTwERTyFTr2dKPnQdA1F480+jUap41
-ClXgn227WkCIMrNhQGNyJsnwyzi5wS8rBVRQ3BOTMyvGM07j3axUOYaejEpg7wKi
-wTPZGLGH1sz5GljD/916v5+v2xLbOo5606j9dWf5/tAhbPuqrQgWv41wuKDi+dDD
-EKkODF7DHes8No+QcHTDyETMn1RYm7t0RKR4zsFNBFp+A0oBEAC9ynZI9LU+uJkM
-eEJeJyQ/8VFkCJQPQZEsIGzOTlPnwvVna0AS86n2Z+rK7R/usYs5iJCZ55/JISWd
-8xD57ue0eB47bcJvVqGlObI2DEG8TwaW0O0duRhDgzMEL4t1KdRAepIESBEA/iPp
-I4gfUbVEIEQuqdqQyO4GAe+MkD0Hy5JH/0qgFmbaSegNTdQg5iqYjRZ3ttiswalq
-l1/iSyv1WYeC1OAs+2BLOAT2NEggSiVOtxEfgewsQtCWi8H1SoirakIfo45Hz0tk
-/Ad9ZWh2PvOGt97Ka85o4TLJxgJJqGEnqcFUZnJJriwoaRIS8N2C8/nEM53jb1sH
-0gYddMU3QxY7dYNLIUrRKQeNkF30dK7V6JRH7pleRlf+wQcNfRAIUrNlatj9Txwi
-vQrKnC9aIFFHEy/0mAgtrQShcMRmMgVlRoOA5B8RTulRLCmkafvwuhs6dCxN0GNA
-ORIVVFxjx9Vn7OqYPgwiofZ6SbEl0hgPyWBQvE85klFLZLoj7p+joDY1XNQztmfA
-rnJ9x+YV4igjWImINAZSlmEcYtd+xy3Li/8oeYDAqrsnrOjb+WvGhCykJk4urBog
-2LNtcyCjkTs7F+WeXGUo0NDhbd3Z6AyFfqeF7uJ3D5hlpX2nI9no/ugPrrTVoVZA
-grrnNz0iZG2DVx46x913pVKHl5mlYQARAQABwsFfBBgBAgAJBQJafgNKAhsMAAoJ
-ELKItV//nCLBwNIP/AiIHE8boIqReFQyaMzxq6lE4YZCZNj65B/nkDOvodSiwfwj
-jVVE2V3iEzxMHbgyTCGA67+Bo/d5aQGjgn0TPtsGzelyQHipaUzEyrsceUGWYoKX
-YyVWKEfyh0cDfnd9diAm3VeNqchtcMpoehETH8frRHnJdBcjf112PzQSdKC6kqU0
-Q196c4Vp5HDOQfNiDnTf7gZSj0BraHOByy9LEDCLhQiCmr+2E0rW4tBtDAn2HkT9
-uf32ZGqJCn1O+2uVfFhGu6vPE5qkqrbSE8TG+03H8ecU2q50zgHWPdHMOBvy3Ehz
-fAh2VmOSTcRK+tSUe/u3wdLRDPwv/DTzGI36Kgky9MsDC5gpIwNbOJP2G/q1wT1o
-Gkw4IXfWv2ufWiXqJ+k7HEi2N1sree7Dy9KBCqb+ca1vFhYPDJfhP75I/VnzHVss
-Z/rYZ9+51yDoUABoNdJNSGUYl+Yh9Pw9pE3Kt4EFzUlFZWbE4xKL/NPno+z4J9aW
-emLLszcYz/u3XnbOvUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPt
-hZlDnTnOT+C+OTsh8+m5tos8HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj
-6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E+MYSfkEjBz0E8CLOcAw7JIwAaeBTzsFN
-BGbyLVgBEACqClxh50hmBepTSVlan6EBq3OAoxhrAhWZYEwN78k+ENhK68KhqC5R
-IsHzlL7QHW1gmfVBQZ63GnWiraM6wOJqFTL4ZWvRslga9u28FJ5XyK860mZLgYhK
-9BzoUk4s+dat9jVUbq6LpQ1Ot5I9vrdzo2p1jtQ8h9WCIiFxSYy8s8pZ3hHh5T64
-GIj1m/kY7lG3VIdUgoNiREGf/iOMjUFjwwE9ZoJ26j9p7p1U+TkKeF6wgswEB1T3
-J8KCAtvmRtqJDq558IU5jhg5fgN+xHB8cgvUWulgK9FIF9oFxcuxtaf/juhHWKMO
-RtL0bHfNdXoBdpUDZE+mLBUAxF6KSsRrvx6AQyJs7VjgXJDtQVWvH0PUmTrEswgb
-49nNU+dLLZQAZagxqnZ9Dp5l6GqaGZCHERJcLmdY/EmMzSf5YazJ6c0vO8rdW27M
-kn73qcWAplQn5mOXaqbfzWkAUPyUXppuRHfrjxTDz3GyJJVOeMmMrTxH4uCaGpOX
-Z8tN6829J1roGw4oKDRUQsaBAeEDqizXMPRc+6U9vI5FXzbAsb+8lKW65G7JWHym
-YPOGUt2hK4DdTA1PmVo0DxH00eWWeKxqvmGyX+Dhcg+5e191rPsMRGsDlH6KihI6
-+3JIuc0y6ngdjcp6aalbuvPIGFrCRx3tnRtNc7He6cBWQoH9RPwluwARAQABwsOs
-BBgBCgAgFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmbyLVgCGwICQAkQsoi1X/+c
-IsHBdCAEGQEKAB0WIQSilC2pUlbVp66j3+yzNoc6synyUwUCZvItWAAKCRCzNoc6
-synyU85gD/0T1QDtPhovkGwoqv4jUbEMMvpeYQf+oWgm/TjWPeLwdjl7AtY0G9Ml
-ZoyGniYkoHi37Gnn/ShLT3B5vtyI58ap2+SSa8SnGftdAKRLiWFWCiAEklm9FRk8
-N3hwxhmSFF1KR/AIDS4g+HIsZn7YEMubBSgLlZZ9zHl4O4vwuXlREBEW97iL/FSt
-VownU2V39t7PtFvGZNk+DJH7eLO3jmNRYB0PL4JOyyda3NH/J92iwrFmjFWWmmWb
-/Xz8l9DIs+Z59pRCVTTwbBEZhcUc7rVMCcIYL+q1WxBG2e6lMn15OQJ5WfiE6E0I
-sGirAEDnXWx92JNGx5l+mMpdpsWhBZ5iGTtttZesibNkQfd48/eCgFi4cxJUC4PT
-UQwfD9AMgzwSTGJrkI5XGy+XqxwOjL8UA0iIrtTpMh49zw46uV6kwFQCgkf32jZM
-OLwLTNSzclbnA7GRd8tKwezQ/XqeK3dal2n+cOr+o+Eka7yGmGWNUqFbIe8cjj9T
-JeF3mgOCmZOwMI+wIcQYRSf+e5VTMO6TNWH5BI3vqeHSt7HkYuPlHT0pGum88d4a
-pWqhulH4rUhEMtirX1hYx8Q4HlUOQqLtxzmwOYWkhl1C+yPObAvUDNiHCLf9w28n
-uihgEkzHt9J4VKYulyJM9fe3ENcyU6rpXD7iANQqcr87ogKXFxknZ97uEACvSucc
-RbnnAgRqZ7GDzgoBerJ2zrmhLkeREZ08iz1zze1JgyW3HEwdr2UbyAuqvSADCSUU
-GN0vtQHsPzWl8onRc7lOPqPDF8OO+UfN9NAfA4wl3QyChD1GXl9rwKQOkbvdlYFV
-UFx9u86LNi4ssTmU8p9NtHIGpz1SYMVYNoYy9NU7EVqypGMguDCL7gJt6GUmA0sw
-p+YCroXiwL2BJ7RwRqTpgQuFL1gShkA17D5jK4mDPEetq1d8kz9rQYvAR/sTKBsR
-ImC3xSfn8zpWoNTTB6lnwyP5Ng1bu6esS7+SpYprFTe7ZqGZF6xhvBPf1Ldi9UAm
-U2xPN1/eeWxEa2kusidmFKPmN8lcT4miiAvwGxEnY7Oww9CgZlUB+LP4dl5VPjEt
-sFeAhrgxLdpVTjPRRwTd9VQF3/XYl83j5wySIQKIPXgT3sG3ngAhDhC8I8GpM36r
-8WJJ3x2yVzyJUbBPO0GBhWE2xPNIfhxVoU4cGGhpFqz7dPKSTRDGq++MrFgKKGpI
-ZwT3CPTSSKc7ySndEXWkOYArDIdtyxdE1p5/c3aoz4utzUU7NDHQ+vVIwlnZSMiZ
-jek2IJP3SZ+COOIHCVxpUaZ4lnzWT4eDqABhMLpIzw6NmGfg+kLBJhouqz81WITr
-EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
-=3Dx94R
------END PGP PUBLIC KEY BLOCK-----
-
---------------1Z4lwshR00EIWyM3TddsAbJP--
-
---------------o3SfoDcBYA1zOCDPs3NVJD6Y--
-
---------------j5Fa1qGddTgTG7w4KG2BVTuE
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmoKe4UACgkQszaHOrMp
-8lNsKA//c446l0X8d9Pz4Nh1n33b2vHtPbjD77FNz1p5R6OfFPibr5ql8GBmTv2I
-gBylJ9rrtJ3suFVsveBv9gwRARXTCwnEArn7E8g2JweCf/Twe7J/8iy+SEdT5T5+
-tKaqx7BCuP01WH9soINNVzJdkdEFtJPfrvTBph37rSPj1bsenUSiG7rY1cd421kd
-ENY3OH4dhXHMU8WXrZHkA2QrjoeaAYzx+tpzHdydFjQYpkNVDIqwWvqyyC/4r8uT
-R7ospkahvRNqXvDii6r4s5B+slJf9D/hjMailhMKHFipk1G7XwZLAmoHDv8oTXIv
-nu6viiST48Mph0DTUsDdetDk+MS+l3dqKiEQ3592zX4HUOyJd5jA1/NI3RBbqxtN
-gtryvJkGeljSJjDuNnmOwAqr7qf4zbcnIyIqvjjTAdzk7VcTwU4M+VtxAI8LcX26
-h6WwzPSpBT/Eh908r+ME5/V7q/17zIviuVQS3XIVnb8ElqDzufe1dbYP2d/9o5bA
-qA7ZR3Vh8EAqxChQj/pRAKJDcKfMYA91KpZ2mIFR+rfMctbo6519/mYu0NXWL45X
-gUCxiv9GqLqG9+MX7rW3F+kpJzJdmNTAvzKDcgKDjFQnoM0aiFNyHukprkIjM1gZ
-6TVUEhMjC3Ys45A7LggsrQSO7zS4j9XJbsn7YNP5inBILuYy/Tc=
-=UlhQ
------END PGP SIGNATURE-----
-
---------------j5Fa1qGddTgTG7w4KG2BVTuE--
