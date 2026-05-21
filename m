@@ -1,247 +1,218 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34369372EC4
-	for <virtio-comment@lists.linux.dev>; Mon, 18 May 2026 11:39:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07AEF35F5FB
+	for <virtio-comment@lists.linux.dev>; Thu, 21 May 2026 09:02:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779104364; cv=none; b=k52fIU9glahxrF1mBS6FnoB0o0VZB27DuleOvCjo5Wz/UHevEPFrJHow2ZC475e+U8iB8xqWDbIKTAlrCNmAeV/t1H73JDKYKeCpWCj0r+iJ+AVJ+tsfYJdsSQYBHzEagtwj/fTKW7zFS+NZ67bRDsaqeInvPQCWARCytfP0J+0=
+	t=1779354135; cv=none; b=qMNNjZypnXXXrHBsE0FTPqDlAdi20HiNPvIaWu7NqNHemDCZBBsyWu8pq20G7nWA+8PnlZbbPJHLlVhgLrCfnHR43YU0zHKjMJBJNonhfqcsccBTAJZIrAF+69I3xGASJYsWaR8NJT2J0NO+YpkAavYGdGZSJx18fKxrZfreeyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779104364; c=relaxed/simple;
-	bh=jkgAUovd4e9X3Cr5ssXXJgnadAeFn6lOKIt5IdEiTXk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S6bjEp7q2P4A2lwx4DNiE5XYZCEaAttKpQni5bXFf4/JgPDD+PHQRlo0/ALMxn+V92vKOO9TlXzVc801dudhbHELEC//8BhNN8/UVBAEb4GaMP5sCmc9pN93xDQ1SK2D8VtD+U4xTuivQWNaWlkeGknGGWxjpHCO0w9qo7razNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KDI9HRSS; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1779354135; c=relaxed/simple;
+	bh=zdTkUAb9QpLhWsH5blF7fHj3HN3LPhr/xH0Qg4qGtN8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=SHRUnsqM5m6v9Z403+vZGViaBC/HVT2WYcYeMXaIx4XeD1Z50F+GdTFxK+rGAK/iI9mgU6L3LuXsOReeds2E2H7pk5Tm07APbuhW4ZZ4DhnjPT8kTB6lppRMx08tGX49C2HZfhQZeX1bgSQhcvwFUT5eoRr2rc4EP9QvXLKNjZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fLN11I9k; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KDI9HRSS"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fLN11I9k"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1779104358;
+	s=mimecast20190719; t=1779354133;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Jhb7XesaNpxdzbfoOWNO2TvcfYBlLxkc5ygx+5zzFvc=;
-	b=KDI9HRSSVgNz1mLyLXUYuWLpbG1s74xTpt3Te6s4hiQit9pKQ3F/gictmkvS+YH8D36bbk
-	kFEAyyTUokBs86pJyYjqzpPE7GRvzdtsXlwOHIYsXs3nWIj0trC2YL0Zepi5x5t4DKCOkm
-	AiZZWPeThJRl5mO6hVcHjhTVca8Qm1M=
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=23Cl9ZH+TWWlw+zCc84xyl3hdGt1jLkvSBw3KbUdrQE=;
+	b=fLN11I9kd14quEPYdydozog5g/4yLYEmrDXj94SIdgoGEHHc1cQDWCrsfJQMLgYldzUTc2
+	SNIkhgSrVOUCmQCG/6Jftv+wKiK4Pf+1Oq11/zjKTGj/ATApKROxVNZpz9fdn84KLaMxFw
+	i+Ci5zpb+RULnt4TB5ZSRXvt6695pYQ=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-1-QF-h5UrvNxq00C86f-EBLw-1; Mon, 18 May 2026 07:39:15 -0400
-X-MC-Unique: QF-h5UrvNxq00C86f-EBLw-1
-X-Mimecast-MFC-AGG-ID: QF-h5UrvNxq00C86f-EBLw_1779104354
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ba15e384c7so15392415ad.3
-        for <virtio-comment@lists.linux.dev>; Mon, 18 May 2026 04:39:14 -0700 (PDT)
+ us-mta-327-Xwh9uHT9NX2mXNSX0PFU6g-1; Thu, 21 May 2026 05:02:11 -0400
+X-MC-Unique: Xwh9uHT9NX2mXNSX0PFU6g-1
+X-Mimecast-MFC-AGG-ID: Xwh9uHT9NX2mXNSX0PFU6g_1779354130
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-48fd396daedso36242125e9.0
+        for <virtio-comment@lists.linux.dev>; Thu, 21 May 2026 02:02:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779104354; x=1779709154;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Jhb7XesaNpxdzbfoOWNO2TvcfYBlLxkc5ygx+5zzFvc=;
-        b=QO5nH8Mp1iBYQJF4zU+fiJyL21O6BqmKNFwhKxy7jQ2gOFUFATpyojYz4UIzQCQN3f
-         UON/6L4oFd6lYArqKapnwQkTOHxO05Hg/+gJUxrX5WJi3By4x9FOMJyqnxvYwMqwHUgL
-         aAe4deEJ68HAM8usS3RMqsrqHQpi0yvaq3mcF1iV4OFAfloRFYb5wo32q1bDNj5+Ernn
-         CTlaf8MHuFbtwrC0El+hmfH+hy9XLOh4hv7t7zGaDxe2C1vKf5DiKcWg2SXTwFOTGxqc
-         4b+FOimpJ+19G1Y3zYlZ32ddt785QGZ4r95NCKQlIOMB+hGVKOwVUr0W1xzZYPAkBkle
-         VLiA==
-X-Gm-Message-State: AOJu0YwgrGXOEEjHf/jI0zFB8Rs29nFK9IukqExoj0nYVk1xwjh9pixe
-	k8V88qbLO659qHJiMrIzbV4a5KUoJ/PFozHVG73YesK21d7eBFDu+r9KNDl5IvdB4VRMjT4WC91
-	mgHcttVaAlvYKG6bm+WiAqnNWyDD8uhvtGNtDTngzjxYYkBMv6kODRlJWAdEDEv9RwWh9f0IPrw
-	NHrM9FplgSz9YUWlyZWCzfHAAXF4yrqMVwOAPPWKVe+48=
-X-Gm-Gg: Acq92OGCNJoz7gmDp+bLnmi2o12JHKOVUDGKWlJCjIh0jVI8J/oSEebAvqKnu1/KW5L
-	zBailUlblZr4T4jyYvenjw/I0+ZarZadpkgz2bLm2CRN8bIpPBmf4OixxE1ThDgjnP4c+8JBtgw
-	BExQ/0tYY/IT0HFKSWEoPYeRxSH/bzMkxHER4e5Ok9ILYJ9nmvFY7RWfG4KkdWkPltRPTXBNKm4
-	4y+xxYupUNmGkgDWOBq5Qvm/LbhZsu7sEhiPnUy0lWDXCLqckEVZGZfpKijYawAwg9lsdPN1bLt
-	f54JV+lqGSF6PNKeriw+VDw=
-X-Received: by 2002:a17:903:46c4:b0:2b9:e82f:bfef with SMTP id d9443c01a7336-2bd7e88f2d7mr152862655ad.21.1779104353871;
-        Mon, 18 May 2026 04:39:13 -0700 (PDT)
-X-Received: by 2002:a17:903:46c4:b0:2b9:e82f:bfef with SMTP id
- d9443c01a7336-2bd7e88f2d7mr152862315ad.21.1779104353303; Mon, 18 May 2026
- 04:39:13 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1779354130; x=1779958930;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=23Cl9ZH+TWWlw+zCc84xyl3hdGt1jLkvSBw3KbUdrQE=;
+        b=Lz0NKG2oBxcY/02+4TzF1z702ahBl1LDvNJi2HlC4r6QE8C7L3HVYf1mkRzGHchPMS
+         uPMAuLbh8bmaPYmLUIs3e40QMaqe+5QAsqUHOGrmqB+RSuZyik6Pr6688onWRX+VG+md
+         f0MmJLkSZ4E5Fw3lMjGpDGGmo1fS4Kahc2haKBiwf8D0BmcI5BKKzcy554DdASF0A8ua
+         CBAp3tmg8Pa2JqwaNmBeUHH3VofnVTDA7VjqR5+bcUsXeauLm/b031Ytju29zyabPmui
+         nFdXm0L3RHk1OXQaYnGcQIDovZWEj0rIRMvvycqs6MZ8VQrvoRlI9Jjg+WPMHWeViLVl
+         KCDw==
+X-Gm-Message-State: AOJu0YzriQnqavWEualMdx0YoQ7i7gYaCD8XfvYId8PPdWxOPDkpb9xU
+	W5BhmZnDxH8JuKIt+27dOjJacA24Eh035QEe/VxqQciPSjg7MCpo8sYZ6Ufr8JXpaZH/Ms5Faen
+	Sg9YlgwbvRQCNaKqlAC58GiJI0eMT2MtlRjUQDiRMPaRZLS4N7wAvR2+FKf6/vKhpWlWt
+X-Gm-Gg: Acq92OHtjjMWqZF6Zj3TnJbBEnPqS+pk55pw7ShKreCfGxMSFQxfy4/Jhi5tmOWxqMY
+	r9CzZSU3eBJ9uI7+iviD9JOtIvRFhTU5DEeIeRExyNfR9bhMmZQxKVmPHOBJlbEiSCZwP6YWhoY
+	SNYpoL4qvX9jV25w1/KnKgFBZ01IQK9lIe+nUsFsz5/1VvRCYJeAKz/+FE0FaHTk2TrSISt/v5j
+	MPp7et2WeFzDFbtYbqLhWL8Dn0yGtkgImPTduWkQukiEkjGgnUg4/9szbCP7+JCa/dAO5j3NRLj
+	8cLDDzOU4rVHNEfB8g/6HmC0MOPEsZgQ9K/FtkRWwZFSqSkTOWPYak0sVVVatae+t5qGBRzFYCT
+	koBnwNpvql1O4MKw=
+X-Received: by 2002:a05:600c:3147:b0:48a:52d4:888c with SMTP id 5b1f17b1804b1-49036033411mr26719135e9.3.1779354129717;
+        Thu, 21 May 2026 02:02:09 -0700 (PDT)
+X-Received: by 2002:a05:600c:3147:b0:48a:52d4:888c with SMTP id 5b1f17b1804b1-49036033411mr26718515e9.3.1779354129224;
+        Thu, 21 May 2026 02:02:09 -0700 (PDT)
+Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4903caede9fsm12284575e9.14.2026.05.21.02.02.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 21 May 2026 02:02:07 -0700 (PDT)
+Date: Thu, 21 May 2026 11:02:05 +0200
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Cc: virtio-comment@lists.linux.dev,
+	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>
+Subject: Re: [PATCH v2] gpu: add missing controlq (3d) struct listings
+Message-ID: <ag7KDU8nrhGja6+x@fedora>
+References: <20260515-virtio-gpu-missing-structs-v2-1-c45dec740af7@linaro.org>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20260415145435.2023866-1-marcandre.lureau@redhat.com> <9452396c-e1be-43da-83f7-f4ea4fb997ec@kernel.org>
-In-Reply-To: <9452396c-e1be-43da-83f7-f4ea4fb997ec@kernel.org>
-From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>
-Date: Mon, 18 May 2026 15:39:01 +0400
-X-Gm-Features: AVHnY4IYDnvI46pBWZj2IwCGWSPbQOrP62Iqy4WneSIxkkuZIwYS2l7njNXoNsM
-Message-ID: <CAMxuvazkD6csS1yUd2=oVQhm7-CCU3P4wkCzV7aJPq_fUKUqRg@mail.gmail.com>
-Subject: Re: [PATCH RFC] virtio-mem: add shared/private memory property details
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: virtio-comment@lists.linux.dev
+In-Reply-To: <20260515-virtio-gpu-missing-structs-v2-1-c45dec740af7@linaro.org>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: NXmGfNEwBTAhDpUHI0wgX4IVnSPy-pdbiJONb5dLOMg_1779104354
+X-Mimecast-MFC-PROC-ID: ft51xRu9V1bjh_61bNOgVVoCBJHHvHFELBr8UMQKd7w_1779354130
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Hi
+On Fri, May 15, 2026 at 12:14:31PM +0300, Manos Pitsidianakis wrote:
+> Lifted from include/uapi/linux/virtio_gpu.h with adjustments.
+> 
+> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/239
+> Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
+> Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+> ---
+> Changes in v2:
+> - s/destroyes/destroys (thanks Matias)
+> - Link to v1: https://lore.kernel.org/virtio-comment/20260304-virtio-gpu-missing-structs-v1-1-654218322e6a@linaro.org
+> ---
 
-On Wed, May 13, 2026 at 8:07=E2=80=AFPM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
-> On 4/15/26 16:54, marcandre.lureau@redhat.com wrote:
-> > From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
-> >
-> > Add specification text for platforms where system RAM has a
-> > shared/private property (e.g., confidential computing environments such
-> > as AMD SEV-SNP or Intel TDX). Define the device and driver requirements
-> > for memory state transitions during plug/unplug operations, and
-> > guidance for VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE case.
-> >
-> > Signed-off-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
-> > ---
-> >  device-types/mem/description.tex | 37 ++++++++++++++++++++++++++++++--
-> >  1 file changed, 35 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/device-types/mem/description.tex b/device-types/mem/descri=
-ption.tex
-> > index 9acf63f..1eefea0 100644
-> > --- a/device-types/mem/description.tex
-> > +++ b/device-types/mem/description.tex
-> > @@ -42,6 +42,18 @@ \section{Memory Device}\label{sec:Device Types / Mem=
-ory Device}
-> >  provides the exact same properties with the exact same semantics for
-> >  plugged device memory as available for comparable RAM in the same conf=
-iguration.
-> >
-> > +In some configurations, system RAM might additionally have a shared/pr=
-ivate
-> > +property, indicating whether memory is accessible to both the guest an=
-d the
-> > +host (shared) or only to the guest (private). \footnote{For example, i=
-n
-> > +confidential computing environments such as AMD SEV-SNP or Intel TDX.
-> > +The mechanism for converting between shared and private states is
-> > +platform-specific; for example, it might involve dedicated CPU instruc=
-tions
-> > +or hypercalls.} The device provides unplugged memory in the shared sta=
-te.
-> > +When memory blocks are plugged, the driver is expected to convert them=
- to
-> > +the private state before use. Unless VIRTIO_MEM_F_UNPLUGGED_INACCESSIB=
-LE
-> > +has been negotiated, the driver is expected to convert them back to th=
-e
-> > +shared state before unplugging.
->
-> VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE is a legacy leftover.
->
-> Should we rather enforce that such devices in CoCo environments MUST adve=
-rtise
-> VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE? So they would always have to be conv=
-erted back.
 
-If VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE is negotiated, the guest
-doesn't have to convert it back.
+Reviewed-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
 
-I am not sure enforcing VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE for CoCo
-is the right call.
+Thanks.
 
-> Note that negotiation with VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE does not r=
-eally
-> apply: if the device has VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE, but the gue=
-st
-> driver does not support it, the expectation is that feature validation fa=
-ils
-> (see QEMU).
->
->
-> > +
-> >  \subsection{Device ID}\label{sec:Device Types / Memory Device / Device=
- ID}
-> >  24
-> >
-> > @@ -58,8 +70,9 @@ \subsection{Feature bits}\label{sec:Device Types / Me=
-mory Device / Feature bits}
-> >  configuration is valid and corresponds to an ACPI PXM.
-> >  \item[VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE (1)] The driver is not allow=
-ed to
-> >  access unplugged memory. \footnote{On platforms with memory properties=
- that
-> > -might get modified implicitly on memory access, this feature is expect=
-ed to
-> > -be offered by the device.}
-> > +might get modified implicitly on memory access, or on platforms with a
-> > +shared/private memory property, this feature is expected to be offered=
- by
-> > +the device.}
-> >  \item[VIRTIO_MEM_F_PERSISTENT_SUSPEND (2)] The driver can allow the gu=
-est
-> >  to enter suspended state (deep sleep, suspend-to-RAM).
-> >  \end{description}
-> > @@ -176,9 +189,15 @@ \subsection{Device Initialization}\label{Device Ty=
-pes / Memory Device / Device I
-> >  The device MUST NOT modify memory or memory properties of plugged memo=
-ry
-> >  blocks during device reset.
-> >
-> > +On platforms with a shared/private memory property, the device MUST NO=
-T
-> > +change the shared/private state of memory blocks during device reset.
->
-> That makes sense. But doesn't that fall under "memory properties" above?
-
-Yes, it's a bit redundant, we can drop it.
-
->
-> > +
-> >  The device SHOULD offer VIRTIO_MEM_F_PERSISTENT_SUSPEND if the platfor=
-m
-> >  supports suspending (deep sleep, suspend-to-RAM) with plugged memory b=
-locks.
-> >
-> > +The device SHOULD offer VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE if the pla=
-tform
-> > +has a shared/private memory property.
->
-> Again, I think we should turn that into a MUST.
->
-> > +
-> >  \subsection{Device Operation}\label{sec:Device Types / Memory Device /=
- Device Operation}
-> >
-> >  The device notifies the driver about the amount of memory the device w=
-ants
-> > @@ -256,6 +275,15 @@ \subsection{Device Operation}\label{sec:Device Typ=
-es / Memory Device / Device Op
-> >  If VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has been negotiated, the driver
-> >  MUST NOT read memory or query memory properties of unplugged memory bl=
-ocks.
-> >
-> > +On platforms with a shared/private memory property, the driver MUST co=
-nvert
-> > +plugged memory blocks to the private state before initializing or othe=
-rwise
-> > +using them.
-> > +
-> > +On platforms with a shared/private memory property, the driver MUST co=
-nvert
-> > +memory blocks to the shared state before requesting to unplug them (fo=
-r
-> > +VIRTIO_MEM_REQ_UNPLUG_ALL, this applies to all plugged memory blocks),=
- unless
-> > +VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE has been negotiated.
-> > +
->
-> Is it guaranteed on all platforms (TDX/SEV-SNP/CCA/...) that hotplugged m=
-emory
-> will appear in the shared state? I have some faint recollection that some
-> platforms would start out with new memory in the private state (that they=
- would
-> still have to accept before use. But cocneptually, the memory is in the p=
-rivate
-> state).
-
-My knowledge is limited. I think the platform doesn't enforce this; it
-depends on the implementation. To fix plug/replug I propose to enforce
-the state from either fully shared or private:
-https://patchew.org/QEMU/20260504-rdm5-v4-0-bdf61e57c1e1@redhat.com/2026050=
-4-rdm5-v4-13-bdf61e57c1e1@redhat.com/
+>  device-types/gpu/description.tex | 75 +++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 74 insertions(+), 1 deletion(-)
+> 
+> diff --git a/device-types/gpu/description.tex b/device-types/gpu/description.tex
+> index ac3b427725f6036ca069b398fdde712cab833225..b61f298cfb82d2577f7e0452662c5b92a92bcb1e 100644
+> --- a/device-types/gpu/description.tex
+> +++ b/device-types/gpu/description.tex
+> @@ -749,21 +749,94 @@ \subsubsection{Device Operation: controlq (3d)}\label{sec:Device Types / GPU Dev
+>  If the lower 8-bits of the \field{context_init} are zero, then the type of
+>  the context is determined by the device.
+>  
+> -\item[VIRTIO_GPU_CMD_CTX_DESTROY]
+> +\item[VIRTIO_GPU_CMD_CTX_DESTROY] destroys a context.
+> +  Request data is \field{struct virtio_gpu_ctx_destroy}.
+> +  Response type is VIRTIO_GPU_RESP_OK_NODATA.
+> +
+> +\begin{lstlisting}
+> +struct virtio_gpu_ctx_destroy {
+> +        struct virtio_gpu_ctrl_hdr hdr;
+> +};
+> +\end{lstlisting}
+> +
+>  \item[VIRTIO_GPU_CMD_CTX_ATTACH_RESOURCE]
+>  \item[VIRTIO_GPU_CMD_CTX_DETACH_RESOURCE]
+>    Manage virtio-gpu 3d contexts.
+> +  Request data is \field{struct virtio_gpu_ctx_resource}.
+> +  Response type is VIRTIO_GPU_RESP_OK_NODATA.
+> +
+> +\begin{lstlisting}
+> +struct virtio_gpu_ctx_resource {
+> +        struct virtio_gpu_ctrl_hdr hdr;
+> +        le32 resource_id;
+> +        le32 padding;
+> +};
+> +\end{lstlisting}
+>  
+>  \item[VIRTIO_GPU_CMD_RESOURCE_CREATE_3D]
+>    Create virtio-gpu 3d resources.
+> +  Request data is \field{struct virtio_gpu_resource_create_3d}.
+> +  Response type is VIRTIO_GPU_RESP_OK_NODATA.
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_GPU_RESOURCE_FLAG_Y_0_TOP (1 << 0)
+> +struct virtio_gpu_resource_create_3d {
+> +        struct virtio_gpu_ctrl_hdr hdr;
+> +        le32 resource_id;
+> +        le32 target;
+> +        le32 format;
+> +        le32 bind;
+> +        le32 width;
+> +        le32 height;
+> +        le32 depth;
+> +        le32 array_size;
+> +        le32 last_level;
+> +        le32 nr_samples;
+> +        le32 flags;
+> +        le32 padding;
+> +};
+> +\end{lstlisting}
+>  
+>  \item[VIRTIO_GPU_CMD_TRANSFER_TO_HOST_3D]
+>  \item[VIRTIO_GPU_CMD_TRANSFER_FROM_HOST_3D]
+>    Transfer data from and to virtio-gpu 3d resources.
+> +  Request data is \field{struct virtio_gpu_transfer_host_3d}.
+> +  Response type is VIRTIO_GPU_RESP_OK_NODATA.
+> +
+> +\begin{lstlisting}
+> +struct virtio_gpu_box {
+> +        le32 x, y, z;
+> +        le32 w, h, d;
+> +};
+> +
+> +struct virtio_gpu_transfer_host_3d {
+> +        struct virtio_gpu_ctrl_hdr hdr;
+> +        struct virtio_gpu_box box;
+> +        le64 offset;
+> +        le32 resource_id;
+> +        le32 level;
+> +        le32 stride;
+> +        le32 layer_stride;
+> +};
+> +\end{lstlisting}
+>  
+>  \item[VIRTIO_GPU_CMD_SUBMIT_3D]
+>    Submit an opaque command stream.  The type of the command stream is
+>    determined when creating a context.
+> +  Request data is \field{struct virtio_gpu_cmd_submit}, followed by the stream bytes.
+> +  Response type is VIRTIO_GPU_RESP_OK_NODATA.
+> +
+> +\begin{lstlisting}
+> +struct virtio_gpu_cmd_submit {
+> +        struct virtio_gpu_ctrl_hdr hdr;
+> +        le32 size;
+> +        le32 padding;
+> +};
+> +\end{lstlisting}
+> +
+> +\begin{description}
+> +  \item[\field{size}] the size of the opaque command stream in bytes.
+> +\end{description}
+>  
+>  \item[VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB] maps a host-only
+>    blob resource into an offset in the host visible memory region. Request
+> 
+> ---
+> base-commit: 15f488c162107f7b52fb2e4d0f36a2349fe9d3a9
+> change-id: 20260304-virtio-gpu-missing-structs-dc8f75a7d370
+> 
+> Best regards,
+> -- 
+> Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+> 
+> 
 
