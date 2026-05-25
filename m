@@ -1,66 +1,66 @@
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D02E233941
-	for <virtio-comment@lists.linux.dev>; Sat, 23 May 2026 21:00:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D0326FA6F
+	for <virtio-comment@lists.linux.dev>; Mon, 25 May 2026 02:37:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779570035; cv=none; b=XTdDbP2U8YntaJv16kbC16DxaPdXTbW1EApPaFjD0mP7ywyir+RSjESycwpZSgs1Mn2PeNr0H2xQbNfTmfI4yHUZQwUPEGo9TLgnyXYIAuxEcy5+8nTZzm5cHxXqRDX+bOHDC3/203H8A+65hIR6r1xwAwM98UQhHvCUr2DD3/0=
+	t=1779676673; cv=none; b=Z1XnkPFQ5vsQ7YjG8yqyhrKwqyPHvQDkKyARYg2yobIrMOYhkqhjkJYt5BFEoXxSz28yHr6Z+qNj/vR3b8zXjGzBRiSv8LVQZ0HkPchipX5XA11FNxTM021xqpsug7JbeUoH7v/JUhp+hzyJrxbxlCU8jIyEv+Mdj+SnCc3MdcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779570035; c=relaxed/simple;
-	bh=jfxbcf+FqpM5A4AkTcArXazVQ76DEoJbdDQ6mB30fuE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mjjCzSksjF08LkY9Plgq0oLzdRSCLvIY7+yKxjQPkRC+WYIEbno6P4w/XUXpWG135qWHcbzJGDdZYhoajDqO7lTvg6YdPBT4mPr1QtWlk+sT4DEXQAMMjaaUK/7BvjUKHd645jbeWyrexnXaXiTBKn0JD2NLLQ6uQa4glsCp8Gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NltG4Rmv; arc=none smtp.client-ip=209.85.128.180
+	s=arc-20240116; t=1779676673; c=relaxed/simple;
+	bh=+WevngMj1aqJ93RENztWvqdo/MN7V41eoNl7CnTpkY0=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=kMGhLfYvuSnITSHZ9yhmCLqmkkzpsE9nHwaGkOX596vz3TnyJzMYME2EB3PJ2kInF/MMqR0qCXFfNw3IoxAOtF7dR4hjjwYb73lMjFvz+vyVtcguAGokP8Xn9yPKsz/nkMyoPUmLbW0ot4u7RXDHyQs+qmPRyqfqiIR266iz9F4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nMZBxLlI; arc=none smtp.client-ip=74.125.224.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NltG4Rmv"
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-7bd5e373d07so91339517b3.2
-        for <virtio-comment@lists.linux.dev>; Sat, 23 May 2026 14:00:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nMZBxLlI"
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-65eb1b25c77so3593520d50.0
+        for <virtio-comment@lists.linux.dev>; Sun, 24 May 2026 19:37:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779570032; x=1780174832; darn=lists.linux.dev;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+        d=gmail.com; s=20251104; t=1779676671; x=1780281471; darn=lists.linux.dev;
+        h=in-reply-to:autocrypt:content-language:references:cc:to:from
          :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=y1y4GAd9p9GhPE4PTa/6ET/JYihYfQNwe+bNAtlVWsM=;
-        b=NltG4RmvIapEgZW4iuwpjLojnpjxJ1vnpVM0agoKNj8mNx+K7OY6coBTSUvV8+CVKY
-         o57cf/BZSa3nebA0wav84sBpJjZl2nrchgOnIszDL89wHF4cjJ1mk4/QCDbdkdMhF5/c
-         jDYEcD0NFOmkIDxgD2A8+mxmWvuJePsSJxygZLffyqFcG4z9yIopH0umZYcHHQPTTc+1
-         +AR2WpKYgyZlpmhP3jAKchL0NybfbsqQpiNP1hPNgWjtc/w80Resmh5PkHlBlk9jcVab
-         qPo0cwkGSwKDM13AdYgyHs9fb9g9klf++/Qv/Ly7BsBj/Y9NtDlnCl+uXXC/kBf8MqS/
-         iyBA==
+        bh=KExNC2PLZ8bKfLPky9CrJLtIDifmdLx7byfFXg3iC8c=;
+        b=nMZBxLlI6noEprwkdukcnE1wSYk6zJZ3mszSyACpstpj7VLU0dWQX8bFGvQuKHaXIl
+         G3jgzoaMdWFtnO063TgwMA7OXTFYVyAFPfAEZPJBdxriVqcbmerynWSXKPXFIGR4Dz/w
+         WBS3wsqTeugOxjpT7EN/Ropy6BnAx2wKk2a+Y9Tr+GQYd3mXtLzHEr0QcnurKDcnzW4t
+         8FCRFDQJHSM9hk83EidRQeIcQBYMLgO0+vQc62T1l+Vdt8SbB7d0oZwq5qvG+gdqCk/e
+         qYD8Wj9ja1nvfBewGSWYee/ATv60G38pEdpjqCZaEnykk7xDg65scrCpNz6AcgotuTN/
+         Ejmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779570032; x=1780174832;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+        d=1e100.net; s=20251104; t=1779676671; x=1780281471;
+        h=in-reply-to:autocrypt:content-language:references:cc:to:from
          :subject:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=y1y4GAd9p9GhPE4PTa/6ET/JYihYfQNwe+bNAtlVWsM=;
-        b=seqpvGQAVj/glP96nG2XDYnI845xA7hWGJH3eb32AHtHcoqwF2OhUlWrGBKP1IyvTY
-         xVBy/kMOyEDqj9cMdVrEoPAdUqj7nRxhRPl4Ocsaz1DUiB99lEkO8UbVKaZx3M4JO/m4
-         hC+6J3jeOE+eVQMJ6RUFMCBPCcfC4fEdCjXQcVGDmCtuwbs1OfspI+Mb8mDTLAUuag27
-         q6YCuGQ5bsQOmRUtEuC913UeCVO9FW10ISohaMhJG9Suxrptl4OdRdIoN0DmUkbjUqrg
-         cFqk66FO6ADHNr+GGylG2tc+aAqxcE8Ujsh0BoDurU2Tg/fxlaPp2zknV6GlpN8UPt6X
-         5LMw==
-X-Forwarded-Encrypted: i=1; AFNElJ/8Kp+MQ9CRoch4xJujFUBb/WGkyuGVcUp4tAgbElZieSvqMuQ3Ldm952oOlOkFAGkr/qr/GFrHtE37yB7mPA==@lists.linux.dev
-X-Gm-Message-State: AOJu0YwYFA34BeIgYJRyFubksUTEnEiLK42zM5xOmALlAMz2hesFwuJ4
-	qhCl/F/EJ5KxHyeOr6FbVtvHeFC8Q6gvhHqSSktlwwQpQin5A3mIJ0JK
-X-Gm-Gg: Acq92OFfC1B8gbdvqj7ZJgTuv0lGkMe77VY+9WCjKryg8UxUSr0VVs/SP4r/Kfl3Esp
-	t/mqsOvcZYXb+nb/VLFTdn16ivwF/VATuAZnrx7w7wektpYtu0R1YnY27Uq43KZTlCmBv4KtkDp
-	WfVxzFq/0/HyBakawbla9PLSU41swGg+lRSQ50Rn1oWz4RmuWGco3+PTYTc1NxzSimMKV9nN9yv
-	ROw63zuxMN+SF1NjbQJaEBARmdIvvAThaRc1OVP46nKRmKt5hFQzQg7ftQAdMjFi4f8ks7Y+DYg
-	q804v3krz23YNs3JnSR9tF8PnJwbBraSlKKNqVht5Jbg0NfQRIRpcXBLZTq/cnPk5PuNm145I1w
-	XB+hl1DbSuu+rbjOTGqnl8ysyNiyT8eDjOA8Gs2qOCX88puyliH2MtJIAcEk7dkI0z9E1d7TN+E
-	FpCl9xzKhKhOgLshxhqZb7yPq4L4K4pXr+7T0Dj2MLFsWXkGYqV0m9IzlU5QCNmVOg+cEFJeWU3
-	i0babX8OsM4G9ZZtgvglsvKW4TFqgrqJa/2P/g=
-X-Received: by 2002:a05:690c:62c1:b0:7bf:55b:8f97 with SMTP id 00721157ae682-7d3352d7236mr101807737b3.14.1779570032382;
-        Sat, 23 May 2026 14:00:32 -0700 (PDT)
+        bh=KExNC2PLZ8bKfLPky9CrJLtIDifmdLx7byfFXg3iC8c=;
+        b=J/9b0bpUNVbd5M+szs+KQV9o/Mhe5FP43mMX6BiXfRSJDUAEqiI/DnI9KALSOuvqlc
+         NnTRHh+ACeJkrM4kinUjJeCBduy3MCKvWWXrq9KEZgk4Y6XWzXUaaHOse0uSfnWAOrhf
+         Oc0s93s8C+1T0UbOmUk2eKflpKQPvoUSbN1fVbWKdpyEuw+uFRcW1UkaSwzL9iUH83fU
+         C/CUSMMhL9Uy5R8ns4pzqea/sisKTLfXCYDwFzX+C85R7Nrwdlh89qXtcnSI8DcaD/UY
+         lX+3/WvXgr4IO7aiTije+1jQM0useDMIAOxfM5OdByaXDjeVj9u7rvIcNV8PXDoJXGiY
+         kscA==
+X-Forwarded-Encrypted: i=1; AFNElJ9TGH3gwPKirIbcIlZtHfcIgjK2Mi9GaeBLlNCp99H5TWJ4Z1tFeP48Vd7/8An0mY9VbmpBVtlOLKxWa5TioA==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yw1I6bB50HDow5OEw/z63FUiaEmGhTQWZiNakgmjFO6yj5hk8oi
+	yJdiL7zXPRNoIF/0qcmrxzUKPRFIPzY4iUrspOkNL2LDZU51mYfoVeYW
+X-Gm-Gg: Acq92OF5VM4HtfGJ0xUCAz2O2D3W45rubfuRH2EAiRzxkLmOAMG3wBrnnaukKAgDu+M
+	nTFHFEN2JxE9Q87wO2/g4INmr1x8z7q1QvM1jVj3BYiHZCVct0yhM+19Uzmn8i1kNGWITtgsObb
+	aJAUcXfSOX8wo41Yxq/P6cB6Z4Kf2gd4bZL1vHKim/8q1+q7FeSps2XyNNyIqepF2eVzPsqmKVr
+	H6RkH0QjX2kjl0dXOpHpKHTPD6j0EDc0DsRT7xZEByCGb/TQtoYaRSfybynyanWzSshFA2cSB8O
+	EWeoDVHUNjraMEisWUBCJg62uwmfFUwo3YmhZWZMguuPuLLpMsHQdW4HuVNEXbadtKKv3s7KmxD
+	k+8q9gRStMRwcNOVwfeZ09JDZBLG9LJsj9AKI0QgQvOOjyZk03YJca9IM6LBJBy/gCze7eyBHB/
+	Hs7fL0waEmw+V742BkmZJP+qSEYQEJDO2UAGWuBuoS3onVn9Xxa/ooALzFbzFUVLPUoa0ztLGCa
+	r65hfZ5obC+ORjVnBQRF+MLYkSmcsL/oeYnztY=
+X-Received: by 2002:a05:690e:d4f:b0:65e:b223:c01 with SMTP id 956f58d0204a3-65ec99a0e13mr11497886d50.59.1779676671118;
+        Sun, 24 May 2026 19:37:51 -0700 (PDT)
 Received: from [10.138.34.110] (h69-131-147-66.cncrtn.broadband.dynamic.tds.net. [69.131.147.66])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7d389815c94sm25221707b3.10.2026.05.23.14.00.29
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-65ecfd9c481sm3944355d50.14.2026.05.24.19.37.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 23 May 2026 14:00:31 -0700 (PDT)
-Message-ID: <baf184f6-fefd-45ca-a437-1505533e3c81@gmail.com>
-Date: Sat, 23 May 2026 17:00:25 -0400
+        Sun, 24 May 2026 19:37:49 -0700 (PDT)
+Message-ID: <96977898-81a0-4c79-a95f-0b288e0572a6@gmail.com>
+Date: Sun, 24 May 2026 22:37:43 -0400
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -69,6 +69,7 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH net] vsock/virtio: fix potential unbounded skb queue
+From: Demi Marie Obenour <demiobenour@gmail.com>
 To: Stefano Garzarella <sgarzare@redhat.com>,
  "Michael S. Tsirkin" <mst@redhat.com>
 Cc: Eric Dumazet <edumazet@google.com>,
@@ -98,8 +99,8 @@ References: <afn0ZdvZWswBuDMm@sgarzare-redhat>
  <af2sXvVCBT05XF0D@sgarzare-redhat>
  <20260508055343-mutt-send-email-mst@kernel.org>
  <af21ZGlANY6UUCKx@sgarzare-redhat>
+ <baf184f6-fefd-45ca-a437-1505533e3c81@gmail.com>
 Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
  xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49yB+l2nipd
  aq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYfbWpr/si88QKgyGSV
@@ -143,20 +144,21 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <af21ZGlANY6UUCKx@sgarzare-redhat>
+In-Reply-To: <baf184f6-fefd-45ca-a437-1505533e3c81@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------Gujcl66gv37bCYoyeDkdkz2X"
+ boundary="------------tVq47CKzwy31DyqeF3DRxoBq"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Gujcl66gv37bCYoyeDkdkz2X
-Content-Type: multipart/mixed; boundary="------------MG0m72mpqD1vVNkrkvWY9xza";
+--------------tVq47CKzwy31DyqeF3DRxoBq
+Content-Type: multipart/mixed; boundary="------------qVrB0ikNW8TOWp4sV2XiiOks";
  protected-headers="v1"
-Message-ID: <baf184f6-fefd-45ca-a437-1505533e3c81@gmail.com>
-Date: Sat, 23 May 2026 17:00:25 -0400
+Message-ID: <96977898-81a0-4c79-a95f-0b288e0572a6@gmail.com>
+Date: Sun, 24 May 2026 22:37:43 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH net] vsock/virtio: fix potential unbounded skb queue
+From: Demi Marie Obenour <demiobenour@gmail.com>
 To: Stefano Garzarella <sgarzare@redhat.com>,
  "Michael S. Tsirkin" <mst@redhat.com>
 Cc: Eric Dumazet <edumazet@google.com>,
@@ -186,8 +188,8 @@ References: <afn0ZdvZWswBuDMm@sgarzare-redhat>
  <af2sXvVCBT05XF0D@sgarzare-redhat>
  <20260508055343-mutt-send-email-mst@kernel.org>
  <af21ZGlANY6UUCKx@sgarzare-redhat>
+ <baf184f6-fefd-45ca-a437-1505533e3c81@gmail.com>
 Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
  xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49yB+l2nipd
  aq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYfbWpr/si88QKgyGSV
@@ -231,7 +233,7 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <af21ZGlANY6UUCKx@sgarzare-redhat>
+In-Reply-To: <baf184f6-fefd-45ca-a437-1505533e3c81@gmail.com>
 Autocrypt-Gossip: addr=hi@alyssa.is; keydata=
  xsFNBFpSgoYBEAC4xkCYidG2JlRWulUkTWcx0pHFDf3oSbb6Q872Kb3iDChWgluNVz43hva1
  3xfDo9foV0GoyfGl/ycSCkXX5hlQr7ir/5FN38E7H/yY6tH8+l68iDgIOcb1qY0OYaxyg+Lz
@@ -268,129 +270,136 @@ Autocrypt-Gossip: addr=hi@alyssa.is; keydata=
  G36q4gc2EX58JAXXqU+RXStAd9L86KyynIsnMD0jf9k4VN466Ew5WXbDjeucltEG0ZMg0WxO
  PMu8tBGvtGVA
 
---------------MG0m72mpqD1vVNkrkvWY9xza
-Content-Type: multipart/mixed; boundary="------------mP30nH0JPZgumXRy2xZFB3Nq"
+--------------qVrB0ikNW8TOWp4sV2XiiOks
+Content-Type: multipart/mixed; boundary="------------zozaXoiubNNQg2Pi3q63btx4"
 
---------------mP30nH0JPZgumXRy2xZFB3Nq
+--------------zozaXoiubNNQg2Pi3q63btx4
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 5/8/26 06:11, Stefano Garzarella wrote:
-> On Fri, May 08, 2026 at 05:58:06AM -0400, Michael S. Tsirkin wrote:
->> On Fri, May 08, 2026 at 11:41:21AM +0200, Stefano Garzarella wrote:
->>> On Thu, May 07, 2026 at 06:48:47PM -0400, Michael S. Tsirkin wrote:
->>>> On Thu, May 07, 2026 at 02:59:13PM +0200, Stefano Garzarella wrote:
->>>>> On Thu, May 07, 2026 at 07:45:10AM -0400, Michael S. Tsirkin wrote:=
+On 5/23/26 17:00, Demi Marie Obenour wrote:
+> On 5/8/26 06:11, Stefano Garzarella wrote:
+>> On Fri, May 08, 2026 at 05:58:06AM -0400, Michael S. Tsirkin wrote:
+>>> On Fri, May 08, 2026 at 11:41:21AM +0200, Stefano Garzarella wrote:
+>>>> On Thu, May 07, 2026 at 06:48:47PM -0400, Michael S. Tsirkin wrote:
+>>>>> On Thu, May 07, 2026 at 02:59:13PM +0200, Stefano Garzarella wrote:=
 
->>>>>> On Thu, May 07, 2026 at 11:09:47AM +0200, Stefano Garzarella wrote=
+>>>>>> On Thu, May 07, 2026 at 07:45:10AM -0400, Michael S. Tsirkin wrote=
 :
->>>
->>> [...]
->>>
->>>>>>> For now, we're already doing something:
->>>>>>> merging the skuffs if they don't have EOM set.
->>>>>>
->>>>>>
->>>>>> Right that's good. You could go further and merge with EOM too
->>>>>> if you stick the info about message boundaries somewhere else.
->>>>>
->>>>> This adds a lot of complexity IMO, but we can try.
->>>>>
->>>>> Do you have something in mind?
+>>>>>>> On Thu, May 07, 2026 at 11:09:47AM +0200, Stefano Garzarella wrot=
+e:
 >>>>
->>>> BER is clearly overkill but here's a POC that claude made for me,
->>>> just to give u an idea. It's clearly has a ton of issues,
->>>> for example I dislike how GFP_ATOMIC is handled.
+>>>> [...]
+>>>>
+>>>>>>>> For now, we're already doing something:
+>>>>>>>> merging the skuffs if they don't have EOM set.
+>>>>>>>
+>>>>>>>
+>>>>>>> Right that's good. You could go further and merge with EOM too
+>>>>>>> if you stick the info about message boundaries somewhere else.
+>>>>>>
+>>>>>> This adds a lot of complexity IMO, but we can try.
+>>>>>>
+>>>>>> Do you have something in mind?
+>>>>>
+>>>>> BER is clearly overkill but here's a POC that claude made for me,
+>>>>> just to give u an idea. It's clearly has a ton of issues,
+>>>>> for example I dislike how GFP_ATOMIC is handled.
+>>>>
+>>>> Okay, I somewhat understand, but clearly this isn't net material
 >>>
->>> Okay, I somewhat understand, but clearly this isn't net material
->>
->> I doubt we have many other options given reverting the regression was
->> ruled out.
->=20
-> As Eric pointed out, we can't revert it.
+>>> I doubt we have many other options given reverting the regression was=
 
-Could there be an option to disable the mitigation in guests, for the
-situation where the host is trusted?  There are VMMs that implement
-AF_VSOCK in userspace with a backing AF_UNIX socket.
-
->>> so for now
->>> I think the best thing to do is to merge the fixup I sent (or somethi=
-ng
->>> similar):
->>> https://lore.kernel.org/netdev/20260508092330.69690-1-sgarzare@redhat=
-=2Ecom/
+>>> ruled out.
 >>
->> I reviewed that one, problem is it's a spec violation/change that we'l=
-l
->> have to support forever.
+>> As Eric pointed out, we can't revert it.
 >=20
-> I have a few points to make on this, but let's discuss them there.
+> Could there be an option to disable the mitigation in guests, for the
+> situation where the host is trusted?  There are VMMs that implement
+> AF_VSOCK in userspace with a backing AF_UNIX socket.
 >=20
->>
->>> This is a major change that should be merged with more caution.
->>> Could this have too much of an impact on performance?
+>>>> so for now
+>>>> I think the best thing to do is to merge the fixup I sent (or someth=
+ing
+>>>> similar):
+>>>> https://lore.kernel.org/netdev/20260508092330.69690-1-sgarzare@redha=
+t.com/
 >>>
->>> Thanks,
->>> Stefano
+>>> I reviewed that one, problem is it's a spec violation/change that we'=
+ll
+>>> have to support forever.
 >>
->> It's really a POC, real patch is left as an excersise for the reader=20
->> :).
->=20
-> eheh, I see, but honestly, this overcomplication scares me. I'll try to=
-=20
-> think it over.
->=20
->> The correct approach IMHO is to only start using this
->> when we wasted a lot of memory on small packets.
+>> I have a few points to make on this, but let's discuss them there.
 >>
->> For example, if sum(truesize) >=3D buf size.
+>>>
+>>>> This is a major change that should be merged with more caution.
+>>>> Could this have too much of an impact on performance?
+>>>>
+>>>> Thanks,
+>>>> Stefano
+>>>
+>>> It's really a POC, real patch is left as an excersise for the reader =
+
+>>> :).
 >>
->> then we'll not see a perf impact unless it's already pathological.
+>> eheh, I see, but honestly, this overcomplication scares me. I'll try t=
+o=20
+>> think it over.
+>>
+>>> The correct approach IMHO is to only start using this
+>>> when we wasted a lot of memory on small packets.
+>>>
+>>> For example, if sum(truesize) >=3D buf size.
+>>>
+>>> then we'll not see a perf impact unless it's already pathological.
+>>
+>> Agree on this, which is similar to what I'm doing in that patch. =20
+>> Reducing the advertised buf_alloc only in pathological cases (e.g. =20
+>> overhead > buf_alloc).
 >=20
-> Agree on this, which is similar to what I'm doing in that patch. =20
-> Reducing the advertised buf_alloc only in pathological cases (e.g. =20
-> overhead > buf_alloc).
+> This isn't enough to prevent data loss due to race conditions.
+>=20
+> I'm CCing the virtio-comment list and a few others.
+>=20
+> Right now, any application that needs to send massive amount of
+> data over a vsock is simply broken.  This isn't just theoretical.
+> It's causing real-world problems for users of Waypipe.
+> Waypipe forwards Wayland protocol messages over AF_VSOCK,
+> so it can send a large amount of traffic over the socket.
+> See https://gitlab.freedesktop.org/mstoceckl/waypipe/work_items/165.
+>=20
+> If one is willing to mutate the ring buffer in-place, or to maintain
+> an auxiliary counter, it's possible to store all messages with bounded
+> (in practice) overhead.  Specifically:
+>=20
+> - If the first byte of a block of data is nonzero, it's a
+>   variable-length length.  1 byte for messages less than 128 bytes.
+>=20
+> - If the first byte of a block of data is zero, the subsequent bytes
+>   are a variable-length counter that stores the number of consecutive
+>   zero-byte messages.
+>=20
+> That adds a lot of complexity, which is very unfortunate for something
+> that needs to be backported to stable kernels.  I also suspect it
+> requires all access to the ring buffer to take a lock rather than
+> being lock-free.  But it's the only approach that I can think of that
+> can work with the current spec.
+>=20
+> Could there at least be a normative note stating that drivers and
+> devices should treat each message as consuming 1024 bytes + the size
+> of the message itself, and warning that anything that doesn't is
+> going to be broken in practice?
+>=20
+> I'm CCing Val Packet (of Invisible Things Lab) and Alyssa Ross
+> (of Spectrum) because both of them are working on systems that rely
+> critically on vsock.
 
-This isn't enough to prevent data loss due to race conditions.
-
-I'm CCing the virtio-comment list and a few others.
-
-Right now, any application that needs to send massive amount of
-data over a vsock is simply broken.  This isn't just theoretical.
-It's causing real-world problems for users of Waypipe.
-Waypipe forwards Wayland protocol messages over AF_VSOCK,
-so it can send a large amount of traffic over the socket.
-See https://gitlab.freedesktop.org/mstoceckl/waypipe/work_items/165.
-
-If one is willing to mutate the ring buffer in-place, or to maintain
-an auxiliary counter, it's possible to store all messages with bounded
-(in practice) overhead.  Specifically:
-
-- If the first byte of a block of data is nonzero, it's a
-  variable-length length.  1 byte for messages less than 128 bytes.
-
-- If the first byte of a block of data is zero, the subsequent bytes
-  are a variable-length counter that stores the number of consecutive
-  zero-byte messages.
-
-That adds a lot of complexity, which is very unfortunate for something
-that needs to be backported to stable kernels.  I also suspect it
-requires all access to the ring buffer to take a lock rather than
-being lock-free.  But it's the only approach that I can think of that
-can work with the current spec.
-
-Could there at least be a normative note stating that drivers and
-devices should treat each message as consuming 1024 bytes + the size
-of the message itself, and warning that anything that doesn't is
-going to be broken in practice?
-
-I'm CCing Val Packet (of Invisible Things Lab) and Alyssa Ross
-(of Spectrum) because both of them are working on systems that rely
-critically on vsock.
+Update: I see that patches have been upstreamed (with CC: stable) that
+reset the connection instead of data loss.
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------mP30nH0JPZgumXRy2xZFB3Nq
+--------------zozaXoiubNNQg2Pi3q63btx4
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -510,30 +519,30 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------mP30nH0JPZgumXRy2xZFB3Nq--
+--------------zozaXoiubNNQg2Pi3q63btx4--
 
---------------MG0m72mpqD1vVNkrkvWY9xza--
+--------------qVrB0ikNW8TOWp4sV2XiiOks--
 
---------------Gujcl66gv37bCYoyeDkdkz2X
+--------------tVq47CKzwy31DyqeF3DRxoBq
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmoSFWkACgkQszaHOrMp
-8lOpcQ/+PolGgcpEH8oCYyPHZ3wqE9QFzQ0Tnw1H64yTeR3n9JHh8aT3AypxW6ca
-QQANXggvXleIuNT4OBvJwKUEYd2lWEKucLqqU03rd4/maggtWcnGymYsbRRCCy2i
-PIKK/fNWLftOU3aVluPG3bVAV7vEeDoaNQ3rQkp0ltbHTTzp9JYdPIF1ekMhtaEy
-XHXj1rDv+mb+4JRZJ7eaOsB+npV+BfvAQXzkYDhcO295ijoO7YfNiMSM2+EsaQGJ
-oh4Pb7LrHGXNQTmM16N+m0mN4ASSNKEGSEdyrw4cv3b2P3I9+N3Q/7zwEPHA+oNZ
-nCso5U15wpZtbNyShkgNzP1ZY7GDf9ScSgeIZVeRM/gv09Dfwy/0ALGhw+8zVRKX
-ANZiUNuJmK4DAYti+4yuePAApSvJLrVhztwf73OiC+obQ4ABls518ArMSxgREIGU
-C3jj6/On2Y69x5a/bdV1p71Jy4KjVqyE/CBk9oo/UcHlKm1XTSfZ8McFJ4OLncz4
-PiEh6xvRLBsm+vnbeuu5EiiMPGF0iJqPzZEoglHGUDzDiBamqLPOpUNEUNd1eCn4
-7sfkx+FdZMHqIW4zEo3/uKBipcnIYbmZYkDFsZWzArFt/nI759tefJJELbu4h011
-7V3chgFIaU08Mfv2rkTgSjWuQJRW3Lja3+ECFD1HcmbzEcBvoR0=
-=7wdu
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmoTtfgACgkQszaHOrMp
+8lP1ig/9HDw/fWpY9WCusUdMNdpaTPNtsO0FTOlBrGe/zUcAQ63OIYuWuHAqH7vQ
+zvg6Xz4fZ9dDmJg3KMntdvTnM2Kw3ewWV9oIIxPWTK5hcS4saA8XRPf3DnAqaPYZ
+C5JRvbjfQNPrv3zThBk9m4EHhTFNd3ht5GL5Cwd2M7ofxSCsltXTyILe8btD2tWB
+kBAVMLRGqtA42xGqa5aSvqcnILAMCQWXQxLkM6RWc6dGjTeXwt6k8R8mxGLwbXE7
+Hcfq12lEqUL1Q+uQnnqXJJMxOVwOBeAJW8gCtl0l4Gg1TVhqdxROVZZ9VODALh5d
+AZzEgSx5s9XnIduV/f4OKZIw9EoD+nmawlSZrR2737M/bWWv/JjZtAPmLgjrKeVV
+UQct5FKG7t5MurIFjZAuQwtMoHKs4ZjVContjNQBzgmM+dgwXHHWeHI3ua0NbZTq
+w/Co8/Ui/saz3rlERsKrf4QXkgwkq3tXAPXQ6KHaiP1wz5qKS1vteaNSNHRr9xpL
+FYJeu1Ey5BWXkA2D4qOSHPCRsbY2uQEs+zsJGwDanXi0x2nP8EvpFi3++Uoi6Yxg
+AmlLwICrMS4hfQfXpCQ6K78RrRvBC7vaRQBx9/Omrb+E0EEeY9mM8wEkDuknoFsm
+negzwYS+ZZBBZPzB1fDKQTd3prW4Sx5L/ApskrorzvUf/fZv7wM=
+=ZQ8x
 -----END PGP SIGNATURE-----
 
---------------Gujcl66gv37bCYoyeDkdkz2X--
+--------------tVq47CKzwy31DyqeF3DRxoBq--
