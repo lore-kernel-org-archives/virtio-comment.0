@@ -1,233 +1,195 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6413E5A3D
-	for <virtio-comment@lists.linux.dev>; Mon, 25 May 2026 09:14:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549972309AA
+	for <virtio-comment@lists.linux.dev>; Tue, 26 May 2026 12:51:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779700480; cv=none; b=sBT7JdT+uycBKQZTi+fg7TdtrCgaxh0Y+5EOPATAdI9EyuX3SLKKgKg7Xx83stdwkYgeZRwIb9XdippoBfq0PSEXtS4VdNzSebFin5gCpsc5bYIWFM8Gr/R953vggElOkE3bwUlDOK66mXZfhN+y7yKnqBK8Rz7HkBCLZVs7tNs=
+	t=1779799898; cv=none; b=VFefUCPc/H2AuAaFxjJ8ToZV4rq81LqzzZD2bQqxIk/zuYtwd9+IS3nGVeVnDPGoou8gKOQcXcN3QvXcyMz2XHH/j6sL6+oXz3SH0BzyZ67Phy5jWibb6+PjiHreCfbtDxqVy5uiLUnm3/Eb1mAjnGHvA/wCDnD0hsmUQmOgX7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779700480; c=relaxed/simple;
-	bh=bz6HId41xY9V16r3H/1IHSbtq+kVTBX+AzuUuy8We88=;
+	s=arc-20240116; t=1779799898; c=relaxed/simple;
+	bh=UfxEizyRmcYTTQqqDCszFOln1motBijVDSWED0UAy3k=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eawWR5zTgl6yHk3s2w7CWnWOX/2JAyWhMUii/hljhUA0bpy35MbeyTUsNiEuwPBA3rxZE0bXuBnZ5ofuxdJy1pPb02aFdD1VO58e06Y8kUojl2rLPvsg/F45g0X0eb0LnXeX0Wg7+K/9wFtDIWnWSFs9UGdi7O9ooGVJtf+z4ug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MOkq6zUn; arc=none smtp.client-ip=170.10.129.124
+	 To:Cc:Content-Type; b=kGZnCuVKv/lwHgW9ANm+jTyn500qqjjLMqeFuAa0Xx/U24WLDM3mb7EjiLUoZWx8fCnuGbPvJBDmcUjyYB/YOh2kKnWw7W4vwpKLqigOaFlFkYZtmdq+jVSMNFbZtvBffuRnZWELOHEzvWBrmVNdU8OTIvVNxPKJyiVidKD6kh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OYegP5zM; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MOkq6zUn"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OYegP5zM"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1779700475;
+	s=mimecast20190719; t=1779799896;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=XCa6LzOtgQIffaGGFzBaXF3Q8bJnjAULK2FkHdc8+UE=;
-	b=MOkq6zUnnidSkbPylhW0ROQ3Yq14KVHAPA5Og38kRK6ahkT/oYcZwFVOJ7iffHxK7U0R1W
-	okkf33Q9VRlmpOXH+SMbUOHHpcu0gJejxmWDcZuKBK7DbVBwPzabDFnNc1zAj4Tknujgp3
-	9wLSv7lP0hdgm2vLSpAus7BxOZSUlUg=
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=qGwvOBtFUSXRCyq1DMX6aNEmLel7X07pUag0lKs0yfU=;
+	b=OYegP5zMFZHUv0lxYStxe7qKPwBt1ji4A8TCYhniXbjL/1zPWeJKW1kKl6hZNrE9yO1O33
+	VKHmNimgTUFLWyvc/SNf7LvlvCAHstwwE6831PPqpgyNz8JduD3ikMedqxo7/dyLFSiNw1
+	GLwH04cuOJjSPRIxsDLMgl3lmJofCpk=
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-681-Bpu1WdlYN0CAw3Z8E6ysnw-1; Mon, 25 May 2026 05:14:31 -0400
-X-MC-Unique: Bpu1WdlYN0CAw3Z8E6ysnw-1
-X-Mimecast-MFC-AGG-ID: Bpu1WdlYN0CAw3Z8E6ysnw_1779700471
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-368ac44b26dso8295413a91.2
-        for <virtio-comment@lists.linux.dev>; Mon, 25 May 2026 02:14:31 -0700 (PDT)
+ us-mta-384-VPtuMUf5P_SuQ3Ko6sNmeg-1; Tue, 26 May 2026 08:51:34 -0400
+X-MC-Unique: VPtuMUf5P_SuQ3Ko6sNmeg-1
+X-Mimecast-MFC-AGG-ID: VPtuMUf5P_SuQ3Ko6sNmeg_1779799894
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ba5f794825so83158895ad.0
+        for <virtio-comment@lists.linux.dev>; Tue, 26 May 2026 05:51:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779700470; x=1780305270;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XCa6LzOtgQIffaGGFzBaXF3Q8bJnjAULK2FkHdc8+UE=;
-        b=f8hqXjAO2kevsm5rHTumV3G4KZ1qn4rquIpDorRqMs8v3QD09hOy875nUl0er29+VT
-         gKVr5MxmSAB72RFqr5Nu8H1WdxIKKN5pGErpC2H8sWRNYXJzsJk6/RVmLGN0AzFCgFWs
-         dTg+G66oraQb7d/VbWcF3eZ/GBM49Px8mXwvu6Q1oqMR651+Q6pn9R61wWImEhp1noX3
-         R4tdne0P8md9Y2ax+IaQWNWOu3IGbuoZJovTabP3/GKg0Tv7QZhhy0TYc2CFP2uEKtaY
-         82PnaySmUjcCM4qnXMu2/MuDLIq02vVqGCWkAWqY+XSEFgg8xXfgKqlpA3duibIOMvS/
-         ElUw==
-X-Forwarded-Encrypted: i=1; AFNElJ+XhKBG5aPBGTYGAdHzcnpJvPNUtB/8Lz67QKwqUpzfIf5wuUNoNHEcj2qAtI5fL8M4kRWCE5aueN1uSYD7RQ==@lists.linux.dev
-X-Gm-Message-State: AOJu0Yz3pon5bHLvzP/CydkDxA8DN740amgw/6PcEGkYyzmmTyTnih4S
-	1GX7zYKFZ7g8OZFEqIhn9UudaVYfGZKp3NWu74841r59r08vRVBSJYqK54bqyqYdQIKR2gKjCd8
-	QXg9i8yY2+0cqVZC3VqBFR6XpripiYnVRYAc2N4r4JIUoTAYyeP91ViWT3ttEMkm6hYl2LYZdJ3
-	pmm8awzUaYw/pQOPOSgm+2qg5NWAwecWK7VP0m4te/A/A=
-X-Gm-Gg: Acq92OG7U0mKKnjE0QzoW4KOt6lQIEOAqBP5JpDJq9gJJkiP2/8nA7SFXDyHikzLYez
-	GVxg5qQ9297N1+6mjozthMWo84nSs9r8sLjm+tDABk1JFXKCA/ZuHNVVqUfpnL45tectn6zqS2D
-	+YoNJoH/zUeKhMIDQRXqA0Yqu6p7HlxYJbWsjBlQDZH7HU1/dblwHNQ/csyDa2P26bte081y+Vb
-	1pQ
-X-Received: by 2002:a17:90b:2585:b0:366:3ac:f730 with SMTP id 98e67ed59e1d1-36a6788e0abmr12403269a91.25.1779700470403;
-        Mon, 25 May 2026 02:14:30 -0700 (PDT)
-X-Received: by 2002:a17:90b:2585:b0:366:3ac:f730 with SMTP id
- 98e67ed59e1d1-36a6788e0abmr12403244a91.25.1779700469810; Mon, 25 May 2026
- 02:14:29 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1779799893; x=1780404693;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=qGwvOBtFUSXRCyq1DMX6aNEmLel7X07pUag0lKs0yfU=;
+        b=py4VRaEJ1LtadOyPq170n1+iG2LU2K0+X3NNm4HW4yoBcaVcMfLmb8M3AEnUfZZy6e
+         FDci+/ovEyoRr3uyfCtXOyyglWAZM+dfaEyWQ3fyHlxyXxBzC/C5hZ/KrJN293FlXe9o
+         ZzOq7qo+SH/fPEcQf29HK00KqORy+TiSeTzWFSf40vja7ISoYHcXv9YBx+f8AqQj0ZB+
+         XX145Twcl8yh1DD8HcFP7WDIHTT4dh0Ops8kdPmvhBuQQOw+lV1Jr1eXDx7OJCw2kJOd
+         kbPb9AiNGnA3G1JfV+lJJEQmBU0WXRa1cfEKExAREoxgpxnpkm2axa7wBTOvAviBnzGi
+         f+HQ==
+X-Gm-Message-State: AOJu0YyE+H9OK3lwIXRV1kLEAJjbUXGEUQ2R2hjHfqJiemt7htn5oUeF
+	C3SNrkcITAZi8y2U6hkrLWRbhYlTDghxxUqdNnYsYwEjUTvrQ+lorJFG/REc+dvl/gJwLTKbwZS
+	mK2xLiU8X/DmIjxrTEH2bVtcdYz0sqAQEN8olSd3R2dIXto+ia9cBF3XQQz9wK1tEPng1/lzenE
+	2ostpZADlSSDU/QT5bfV3yOHWUqs2lWTIYYrkt7imU8caNDOH6BWmqPw==
+X-Gm-Gg: Acq92OGgBkzS8joHpg1kJ6kAgZgNbHdSchY2U+tMjquovwpyNWlLQARC5kb5q4qtCV0
+	L15b8Ae4U8YZRijJxZDykWp/8l7t0WAOiJxGFfAX6fbk5RTflZTpWTbR20IrNFbxVx/MBChC26a
+	hgDFwmU49pvM6MLLM1F13bSPJEbBMjOTZ/MdZybMxejcgFq+D2ESBNMi5wT670wSJSCaqqG02uj
+	Bs8nTn3EXT53WB2sGbXHGYbBWDMU30cRaBIUoRl/XY2L56TuchZWEyAFA8ZRGzk6EPhLUuBZZ1j
+	XhiwD9K9gs5Px6l94wlz6M4=
+X-Received: by 2002:a05:6a20:12c2:b0:3b3:10e1:a869 with SMTP id adf61e73a8af0-3b328fc45e3mr19238507637.50.1779799893556;
+        Tue, 26 May 2026 05:51:33 -0700 (PDT)
+X-Received: by 2002:a05:6a20:12c2:b0:3b3:10e1:a869 with SMTP id
+ adf61e73a8af0-3b328fc45e3mr19238482637.50.1779799893041; Tue, 26 May 2026
+ 05:51:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <afn0ZdvZWswBuDMm@sgarzare-redhat> <CANn89iLs8DOWJwDpf_ARoMrV+6b2tbhEJ=VVzeC8gCm5dRGaig@mail.gmail.com>
- <afoF_cHfl6ygcupM@sgarzare-redhat> <20260506113554-mutt-send-email-mst@kernel.org>
- <afxVH2So9BbZ3Gta@sgarzare-redhat> <20260507074113-mutt-send-email-mst@kernel.org>
- <afyMCyBvZpzWrLtO@sgarzare-redhat> <20260507163710-mutt-send-email-mst@kernel.org>
- <af2sXvVCBT05XF0D@sgarzare-redhat> <20260508055343-mutt-send-email-mst@kernel.org>
- <af21ZGlANY6UUCKx@sgarzare-redhat> <baf184f6-fefd-45ca-a437-1505533e3c81@gmail.com>
- <96977898-81a0-4c79-a95f-0b288e0572a6@gmail.com>
-In-Reply-To: <96977898-81a0-4c79-a95f-0b288e0572a6@gmail.com>
-From: Stefano Garzarella <sgarzare@redhat.com>
-Date: Mon, 25 May 2026 11:14:17 +0200
-X-Gm-Features: AVHnY4Lhts8wIDTXHhuzia8dvW2K6_DuNl7PB_LxKTgmjoNxj80dGuhGdtyu2k0
-Message-ID: <CAGxU2F5yG1VJ6eeawAtxcgE-uEQugsG00ZrTBmqz6=AF3JyksA@mail.gmail.com>
-Subject: Re: [PATCH net] vsock/virtio: fix potential unbounded skb queue
-To: Demi Marie Obenour <demiobenour@gmail.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Eric Dumazet <edumazet@google.com>, 
-	Arseniy Krasnov <avkrasnov@salutedevices.com>, Bobby Eshleman <bobbyeshleman@meta.com>, 
-	Stefan Hajnoczi <stefanha@redhat.com>, "David S . Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	netdev@vger.kernel.org, eric.dumazet@gmail.com, 
-	Arseniy Krasnov <AVKrasnov@sberdevices.ru>, Jason Wang <jasowang@redhat.com>, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
-	kvm@vger.kernel.org, virtualization@lists.linux.dev, 
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>, Manuel Stoeckl <code@mstoeckl.com>, 
-	Alyssa Ross <hi@alyssa.is>, Spectrum Development <devel@spectrum-os.org>, 
-	systemd development <systemd-devel@lists.freedesktop.org>, 
-	Val Packett <val@invisiblethingslab.com>
+References: <20260415145435.2023866-1-marcandre.lureau@redhat.com>
+ <9452396c-e1be-43da-83f7-f4ea4fb997ec@kernel.org> <CAMxuvazkD6csS1yUd2=oVQhm7-CCU3P4wkCzV7aJPq_fUKUqRg@mail.gmail.com>
+ <bc5cb24c-8510-464f-8e5f-738aef14c9bf@kernel.org>
+In-Reply-To: <bc5cb24c-8510-464f-8e5f-738aef14c9bf@kernel.org>
+From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>
+Date: Tue, 26 May 2026 16:51:21 +0400
+X-Gm-Features: AVHnY4KqgaQ-9XSwbgGhuAGsovDUimdrkNUNiqVY75nME4u08FZPDzqsbQt-4qQ
+Message-ID: <CAMxuvawAmueJxpUxrxEEhsfiz05uZBTK-q+2BcCa=nB--QCCvQ@mail.gmail.com>
+Subject: Re: [PATCH RFC] virtio-mem: add shared/private memory property details
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: virtio-comment@lists.linux.dev
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: hwFBPbmrm2N9px06dfBmldgE1TRalrU2DSKsLzZvcGU_1779700471
+X-Mimecast-MFC-PROC-ID: nnAuLQB9wDFMlrze4nPT6u0QJE_uyEFXB04A3T0SW8k_1779799894
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 25 May 2026 at 04:37, Demi Marie Obenour <demiobenour@gmail.com> wrote:
+Hi
+
+On Wed, May 20, 2026 at 7:23=E2=80=AFPM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
 >
-> On 5/23/26 17:00, Demi Marie Obenour wrote:
-> > On 5/8/26 06:11, Stefano Garzarella wrote:
-> >> On Fri, May 08, 2026 at 05:58:06AM -0400, Michael S. Tsirkin wrote:
-> >>> On Fri, May 08, 2026 at 11:41:21AM +0200, Stefano Garzarella wrote:
-> >>>> On Thu, May 07, 2026 at 06:48:47PM -0400, Michael S. Tsirkin wrote:
-> >>>>> On Thu, May 07, 2026 at 02:59:13PM +0200, Stefano Garzarella wrote:
-> >>>>>> On Thu, May 07, 2026 at 07:45:10AM -0400, Michael S. Tsirkin wrote:
-> >>>>>>> On Thu, May 07, 2026 at 11:09:47AM +0200, Stefano Garzarella wrote:
-> >>>>
-> >>>> [...]
-> >>>>
-> >>>>>>>> For now, we're already doing something:
-> >>>>>>>> merging the skuffs if they don't have EOM set.
-> >>>>>>>
-> >>>>>>>
-> >>>>>>> Right that's good. You could go further and merge with EOM too
-> >>>>>>> if you stick the info about message boundaries somewhere else.
-> >>>>>>
-> >>>>>> This adds a lot of complexity IMO, but we can try.
-> >>>>>>
-> >>>>>> Do you have something in mind?
-> >>>>>
-> >>>>> BER is clearly overkill but here's a POC that claude made for me,
-> >>>>> just to give u an idea. It's clearly has a ton of issues,
-> >>>>> for example I dislike how GFP_ATOMIC is handled.
-> >>>>
-> >>>> Okay, I somewhat understand, but clearly this isn't net material
-> >>>
-> >>> I doubt we have many other options given reverting the regression was
-> >>> ruled out.
+> On 5/18/26 13:39, Marc-Andr=C3=A9 Lureau wrote:
+> > Hi
+> >
+> > On Wed, May 13, 2026 at 8:07=E2=80=AFPM David Hildenbrand (Arm)
+> > <david@kernel.org> wrote:
 > >>
-> >> As Eric pointed out, we can't revert it.
-> >
-> > Could there be an option to disable the mitigation in guests, for the
-> > situation where the host is trusted?  There are VMMs that implement
-> > AF_VSOCK in userspace with a backing AF_UNIX socket.
-
-Here the main problem was an attack to the host from the guest.
-
-Can the application set the max (IIRC 4G) of SO_VM_SOCKETS_BUFFER_SIZE ?
-
-> >
-> >>>> so for now
-> >>>> I think the best thing to do is to merge the fixup I sent (or something
-> >>>> similar):
-> >>>> https://lore.kernel.org/netdev/20260508092330.69690-1-sgarzare@redhat.com/
+> >> On 4/15/26 16:54, marcandre.lureau@redhat.com wrote:
+> >>> From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
 > >>>
-> >>> I reviewed that one, problem is it's a spec violation/change that we'll
-> >>> have to support forever.
-> >>
-> >> I have a few points to make on this, but let's discuss them there.
-> >>
+> >>> Add specification text for platforms where system RAM has a
+> >>> shared/private property (e.g., confidential computing environments su=
+ch
+> >>> as AMD SEV-SNP or Intel TDX). Define the device and driver requiremen=
+ts
+> >>> for memory state transitions during plug/unplug operations, and
+> >>> guidance for VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE case.
 > >>>
-> >>>> This is a major change that should be merged with more caution.
-> >>>> Could this have too much of an impact on performance?
-> >>>>
-> >>>> Thanks,
-> >>>> Stefano
+> >>> Signed-off-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+> >>> ---
+> >>>  device-types/mem/description.tex | 37 ++++++++++++++++++++++++++++++=
+--
+> >>>  1 file changed, 35 insertions(+), 2 deletions(-)
 > >>>
-> >>> It's really a POC, real patch is left as an excersise for the reader
-> >>> :).
-> >>
-> >> eheh, I see, but honestly, this overcomplication scares me. I'll try to
-> >> think it over.
-> >>
-> >>> The correct approach IMHO is to only start using this
-> >>> when we wasted a lot of memory on small packets.
+> >>> diff --git a/device-types/mem/description.tex b/device-types/mem/desc=
+ription.tex
+> >>> index 9acf63f..1eefea0 100644
+> >>> --- a/device-types/mem/description.tex
+> >>> +++ b/device-types/mem/description.tex
+> >>> @@ -42,6 +42,18 @@ \section{Memory Device}\label{sec:Device Types / M=
+emory Device}
+> >>>  provides the exact same properties with the exact same semantics for
+> >>>  plugged device memory as available for comparable RAM in the same co=
+nfiguration.
 > >>>
-> >>> For example, if sum(truesize) >= buf size.
-> >>>
-> >>> then we'll not see a perf impact unless it's already pathological.
+> >>> +In some configurations, system RAM might additionally have a shared/=
+private
+> >>> +property, indicating whether memory is accessible to both the guest =
+and the
+> >>> +host (shared) or only to the guest (private). \footnote{For example,=
+ in
+> >>> +confidential computing environments such as AMD SEV-SNP or Intel TDX=
+.
+> >>> +The mechanism for converting between shared and private states is
+> >>> +platform-specific; for example, it might involve dedicated CPU instr=
+uctions
+> >>> +or hypercalls.} The device provides unplugged memory in the shared s=
+tate.
+> >>> +When memory blocks are plugged, the driver is expected to convert th=
+em to
+> >>> +the private state before use. Unless VIRTIO_MEM_F_UNPLUGGED_INACCESS=
+IBLE
+> >>> +has been negotiated, the driver is expected to convert them back to =
+the
+> >>> +shared state before unplugging.
 > >>
-> >> Agree on this, which is similar to what I'm doing in that patch.
-> >> Reducing the advertised buf_alloc only in pathological cases (e.g.
-> >> overhead > buf_alloc).
+> >> VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE is a legacy leftover.
+> >>
+> >> Should we rather enforce that such devices in CoCo environments MUST a=
+dvertise
+> >> VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE? So they would always have to be c=
+onverted back.
 > >
-> > This isn't enough to prevent data loss due to race conditions.
-
-Yep, we didn't go in that direction.
-
+> > If VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE is negotiated, the guest
+> > doesn't have to convert it back.
 > >
-> > I'm CCing the virtio-comment list and a few others.
-> >
-> > Right now, any application that needs to send massive amount of
-> > data over a vsock is simply broken.  This isn't just theoretical.
-> > It's causing real-world problems for users of Waypipe.
-> > Waypipe forwards Wayland protocol messages over AF_VSOCK,
-> > so it can send a large amount of traffic over the socket.
-> > See https://gitlab.freedesktop.org/mstoceckl/waypipe/work_items/165.
-> >
-> > If one is willing to mutate the ring buffer in-place, or to maintain
-> > an auxiliary counter, it's possible to store all messages with bounded
-> > (in practice) overhead.  Specifically:
-> >
-> > - If the first byte of a block of data is nonzero, it's a
-> >   variable-length length.  1 byte for messages less than 128 bytes.
-> >
-> > - If the first byte of a block of data is zero, the subsequent bytes
-> >   are a variable-length counter that stores the number of consecutive
-> >   zero-byte messages.
-> >
-> > That adds a lot of complexity, which is very unfortunate for something
-> > that needs to be backported to stable kernels.  I also suspect it
-> > requires all access to the ring buffer to take a lock rather than
-> > being lock-free.  But it's the only approach that I can think of that
-> > can work with the current spec.
-
-Yep, we were discussing something like that in this thread, but we are
-still working on that.
-That said, any help on preparing patches for this would be more than welcome.
-
-> >
-> > Could there at least be a normative note stating that drivers and
-> > devices should treat each message as consuming 1024 bytes + the size
-> > of the message itself, and warning that anything that doesn't is
-> > going to be broken in practice?
-
-We would like to fix the issue. This is a transitive situation.
-
-> >
-> > I'm CCing Val Packet (of Invisible Things Lab) and Alyssa Ross
-> > (of Spectrum) because both of them are working on systems that rely
-> > critically on vsock.
+> > I am not sure enforcing VIRTIO_MEM_F_UNPLUGGED_INACCESSIBLE for CoCo
+> > is the right call.
 >
-> Update: I see that patches have been upstreamed (with CC: stable) that
-> reset the connection instead of data loss.
+> Can you elaborate why? What's the use case and would it actually work, fo=
+r
+> example, in QEMU with a CoCo VM?
 
-Yep, hope that helps the situation. But again, can setting the max
-SO_VM_SOCKETS_BUFFER_SIZE helps those applications?
+Sorry, I misunderstood the purpose of the flag. It prevents the guest
+from accessing unplugged memory (I thought it was meant for the host).
 
-Thanks,
-Stefano
+So let's make this a MUST
+
+>
+> [...]
+>
+> >>
+> >> Is it guaranteed on all platforms (TDX/SEV-SNP/CCA/...) that hotplugge=
+d memory
+> >> will appear in the shared state? I have some faint recollection that s=
+ome
+> >> platforms would start out with new memory in the private state (that t=
+hey would
+> >> still have to accept before use. But cocneptually, the memory is in th=
+e private
+> >> state).
+> >
+> > My knowledge is limited. I think the platform doesn't enforce this; it
+> > depends on the implementation. To fix plug/replug I propose to enforce
+> > the state from either fully shared or private:
+> > https://patchew.org/QEMU/20260504-rdm5-v4-0-bdf61e57c1e1@redhat.com/202=
+60504-rdm5-v4-13-bdf61e57c1e1@redhat.com/
+>
+> Okay, that only touches TDX. We really have to be careful here to not doc=
+ument
+> something that is specific to one platform.
+>
+> I can try asking some folks in the bi-weekly guest-memfd call in June.
+
+ok, thanks!
 
