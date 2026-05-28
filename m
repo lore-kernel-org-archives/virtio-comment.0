@@ -1,142 +1,230 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD1332692C
-	for <virtio-comment@lists.linux.dev>; Thu, 28 May 2026 05:47:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C9F2F8E87
+	for <virtio-comment@lists.linux.dev>; Thu, 28 May 2026 05:55:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779947275; cv=pass; b=rIxHgzn2g+YhSLtSzNDu3A3MBljZEXbci4KlwKAo89MmnoKlIvsjGGsr4SRwTPT/fMhrZtbIMY8r6J7PVNrB6ykj+nbcuqJfXJuseLpqdS1QSGit5yj0au+y3Yy+72D/0kKx8xs8y4wCjDMemjjyNsJoxufQJqzQtIPFacjOL4M=
+	t=1779947726; cv=pass; b=We1fVBwxJ14G1blnXBJnfxesrzMLvnC/IWiKIa+D2fheq0UIe9RadaRKOLpB6Y64dVBbsvBnLexsFFY1K7lRd2bKJ4yGXRLzgZBhE+5So48W5IaIVTYsYWwdG3b2sk7tevoHxBIsSY0LmaYpGzLTJDGmHdDd1mCbh2zRcFaq18Q=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779947275; c=relaxed/simple;
-	bh=Hs4fdAapIELWu0kg2JA+OfLhGM7gMYXxzdfPZYHKjEA=;
+	s=arc-20240116; t=1779947726; c=relaxed/simple;
+	bh=dZDvb3DbUuwDGQTQO613z6j31uDvtwlQ8QlBaEvYEwU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=obdIbIdVVLTEwz9B7tzWh1YOsq+drgBYSCN1kutXKA6jDkXWDzt2u5YsOUePMFXFOk5sYS/fBiGqwr1D+dsN1Yt+Q1knOtj+Y/xbX2M8Hu1h1naNETf2/gGJ5yBVFgZk0DdK5jQqzMFXXW53UoDqzMXT6DVuTby+vfnh8TH+C38=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=uF8GrkXF; arc=pass smtp.client-ip=209.85.128.43
+	 To:Content-Type; b=UGxUFS/U2WnY5OTem90VdjYpqkoe6/snsnuxUwn7dP6Nxw7l1YdUmLD3yh0yzDg5E5vOTBf6GCuc1NXYVAdreZPNFXp0v+FFHjwwCoVTh/UbgHkuoWkK+h4eIAS5wJpDO/w5bQRqhtvfN+409064JyI/XEfuZ/XBIAu1yxSdwpI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=p/1VjoT6; arc=pass smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="uF8GrkXF"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49050bfe053so29361725e9.3
-        for <virtio-comment@lists.linux.dev>; Wed, 27 May 2026 22:47:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779947272; cv=none;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="p/1VjoT6"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490426d72f7so56868265e9.3
+        for <virtio-comment@lists.linux.dev>; Wed, 27 May 2026 22:55:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779947724; cv=none;
         d=google.com; s=arc-20240605;
-        b=cANCaDlMaqNQaLTDQwZSTO7gx4/7pI2dKPAL7da+P3uX2yPWRFAzK1Qzg5iWUEjpgJ
-         BIAXAClGGdQALRZU9kO0TdIUMNC8B9PxQ5VVnfbo/PzSIqTq9GCtXXaO4Aw4vMBc5rWf
-         Nmgh6Gg4u0H1zX5VlbGFKha7MhR+nAh0horTOG9DCKfW10ErP7mzjZ0EJ2xmYkR4MS6N
-         zy+YMygzChd7TGr4UNNkiGeKYaHLkAjKPrcEhDRSWMMrJ8F5QFwZxv7640BN0hqPp/7n
-         QqeAr0W3MQlWQkpZ7wya7sK8/b/0Y3pbXWgM25MO+Tvz+AEVCO/F39dnKLiwna+Q3kxb
-         SVJg==
+        b=ceCeZCPSIj0vQlfQutbh79UT31yZA+mCWNvSszZyA43eg3aMmiBKA/iSkEHKj/aX4f
+         aqUCe/upIafqSz2uf+jIC51Y7vE2gi4O4utCPHvrD6DERFN9G7a2YucBhVXzT0ZTdPiX
+         ciLV+8igpzXETMk5pHWDe9X6Hl2ZMbwXtDhlsHFI1tzlkWEzvqiF89OK25mbsN286T24
+         Yj7mCZkvgAMDMVqfdU4o7i5AfVCdI9xfU03h9BZ2j9BTdMNQQjm3MEUo5D5bdeI5ngFr
+         xhUUYbf9bl7ke90ewR27Ew25ivajGzEHBJ9zfacc/qeCOrI1Mt7N8cQry7hjtFNxz13P
+         mGEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+        h=content-transfer-encoding:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=+CtWxfDzRMgP6sNvgNmCSUCkSOaRzimkTgswO+tZCHw=;
-        fh=cHefYVcgLfJR61QpmERpVQRQkUV3zWQQ1bmtgTC5wfQ=;
-        b=WN4xEy1fv9pN62xJEF86g1GIqVWSjI5wwD4YVqB6X2IkVsLuXxfRnB4Nadzp4+dUpN
-         D6F/WoCmVDnChg3TODkTESed212z+qhJHJRXAN4lkv8hedLWT3SW7Fvpk00wVsyQ5bTc
-         OX7zShDpaNk3RBS1X8Jx/ApG3VNU2/uQVLm2Lk+i1ldKyDM4j6N+uUlzlLM2ilfvk+cf
-         pCWBathSV6Iz6R5i4yfI/+AdCFYh/qmMb7AoEhAQQL6RpGHMWfzXbQID0HumyilyyOOL
-         ZnzOk0vE912RrW6xJ1J+ZXRg/OOmkSJPimO8Hk34uiW6iv0CA+e29rNSDQhCGg+2HEwJ
-         qTQg==;
+        bh=aGSXFhcdpHDmmVtP3ru94NQttujUlcPSLzhUeWnzJ/Q=;
+        fh=loU4DmrFD2CmAWlXP7CniSyp0WE7EA7NuurJAzRbxKk=;
+        b=Gj+2t2A+RU9dPZfYdLmRcuXl3XlY7PTNcFX7jQZfo27/fhxbz6SPC0goOjqetmVpy1
+         5M61t/B+SzKaDBPv+9c8tAwiESm5X4LGdXwhPMboCJn521sRajq6tnPxX1SfrraA9VRT
+         qJU2s7gLy/ZgmLKnUCxmjFOh1FJg4Gz+B2jJPzX/XjnCpn16Ua54r6V7n+3nux+0PDuJ
+         YC34UzTKlsL/oO/BWVK/nEG3Sdi0/kgqYEGtpbGsNEzAsys+WO4g+AQCOHqhaC5tkpOm
+         CuG8JqY5j+z/65PUn8UOboFeBvlPhz4Uy3ojYHwsFrixkw39LIAQnC0KWpD5xKRR2XpD
+         ysMA==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779947272; x=1780552072; darn=lists.linux.dev;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+        d=linaro.org; s=google; t=1779947724; x=1780552524; darn=lists.linux.dev;
+        h=content-transfer-encoding:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+CtWxfDzRMgP6sNvgNmCSUCkSOaRzimkTgswO+tZCHw=;
-        b=uF8GrkXFXZoyq/30u46sdBv/jo/T79uOZiOdvf0X2CfXv8O7jgO6ve/DyjjBaYXojr
-         BU1itFQ2g7ltBIngkI+aNv9Mx3nO2ZL2f3HnluxyhMyDuYX0YLAhHT1KniThN+PZWGsZ
-         XUn0yY8LMEobKFPxRpZ3EPO9GMtVPvNI7RcbwGlOe67MDRcRYWxrnYykFjxQCtL7PZ6d
-         KvczaBrUMBEJcMcJLNlzq7lqmLoOcH6rPZbRG/OPwr+wWv8Z0lr0Zv6Ms1wTmv5/E3zw
-         3czFZ2m9P2hIQlwFDBYTENiolj7r4RLPzCyBFiyIO7d267bdbaN2CkaXe+eeFUVkTJmy
-         uU0A==
+        bh=aGSXFhcdpHDmmVtP3ru94NQttujUlcPSLzhUeWnzJ/Q=;
+        b=p/1VjoT6OEoDq9yw7JA9/0v1XVcBUE/V19YX4GGLyOe0JDDNLtjuucWVeubjQwBRaA
+         GOpHQvfLaOZyO5L5rVXy7Uz31NBypw9jLygSp/s7kJn8nvGeMCoYHsoCke6hLBuS7ZI/
+         feSb+G3818MHCo5DSaPgXVstM/J3IERAgpaiE0yY0kkvaE/WyBgQZGT5cJhdjkbBCWMg
+         DJWzHe1Tv5EJv7aWXWmJEdizgs9wlG1NgvRiae7SkpcXRFLUD7zgDz2+89zVLZml+ZpP
+         /OYXWMobECntezKyBVd1yPbH4UGdR2OzyEl9H3F+JqO/ygLmAmKkdIq8xA8pE+j+FfYY
+         8XRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779947272; x=1780552072;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+        d=1e100.net; s=20251104; t=1779947724; x=1780552524;
+        h=content-transfer-encoding:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=+CtWxfDzRMgP6sNvgNmCSUCkSOaRzimkTgswO+tZCHw=;
-        b=mL0aTwwgdstKSIX6drGvJqHfGKbjPyXuWafkR81pdJRSztcvLVP9VGtjwnNZJAjPXF
-         5KaMfU1HZMp4U410yBGD2f+/0+CEYX1VqAQtalNORAl+nvPZvY23rbWMAQ0KIJut8KrL
-         DV5GwYl8XInvEna9dp0CE73Ki1TaQWhsSaR4DYSU6HkBXbZd+W/5aV1/pXoIqPnxiaDD
-         S/zvZ+/zOFBV76SYis5gahPueZhZq6qfcHGrI3jEiMj3RFk84MCP9T5IedIlRrXT70xN
-         1YwQXjMNqWHbXKevtvxsa+ELcd1MVZbnhnp6unyE1P4ny/an/3LqZcoUpIlVxhe1it0a
-         7lvQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8/dSCoWOG9o+dSOvDTEE/Z1CcxJUmwJE1xMjBwJ6w5PdOzzaH1ql24GEnBVHeOJxHDPuKVYE75sDD+uBuhQQ==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxyNr5TFiHsjomSbjqKvG+n1eyW26Yi4mSPZpA0TCinbxsvLLMk
-	0bFhwROoIm84v8VLPY7UaGki9vqXJ2orc40iQnGJzvInFkKHIErvHws2ILVnsAsJZXMw6kq57v5
-	gIka6CLooseB7Cc2kY5rHn7O/fxbQn0BkLemk/mIYpa4H6QHpblDq
-X-Gm-Gg: Acq92OEh7QIL34No78h0+e3wECJZ7XgUa/k+cG9g4NqcW5enyGOHeCvhh/RZOmX1sHk
-	IXdlnnAhlgPyMROHIRbqMWi5KzU0BtvrR2hUixcFuTwWZ2j+dlkU/wdAHukjCob/iJyoGiBFNyf
-	KNta+Jtps8eLmKPSgUlwQ3l+6zN25xUIhqIqQIYooS+sM+aW3e/1PjmxVQTzTz1vWV7ZZ3n0Vqk
-	u3cwBgXKBBUZZtuOLv/AHWFPDzDYIUMO6Eje91mO4VL/q2yRyR86Hg/thaqck3/y5cq/Q7uiaPy
-	cM7yHKCqgGLEctHbZXvFxpVyPot24IkNERFlha8Gl2zdSaYDk3h/bExpzxsOHjbZLD4qmAM=
-X-Received: by 2002:a05:600c:c4a1:b0:490:1640:8269 with SMTP id
- 5b1f17b1804b1-490426d1a16mr428785085e9.18.1779947271882; Wed, 27 May 2026
- 22:47:51 -0700 (PDT)
+        bh=aGSXFhcdpHDmmVtP3ru94NQttujUlcPSLzhUeWnzJ/Q=;
+        b=SC6yEpIuqg7h5FhlUKohSW3B8ajNolTzcYSRMI13mEXTRFrQmd1pMCLR+Vjk7LqRgJ
+         dSGmm5KkrsRrc4yq1i13orj5OKyOazxicsgrZqkWh3yySLRGUKIYtf2+dhqpMpdcNcBx
+         oC1o/e18pTKWlV+JKcFbiJTzUFfKumg6t/j73j+KxeEDfclf5bb5CH9CsDjYrBMB/7vY
+         yctwTsudpQg+RJAUahivOy+bsf4qNN5HUg9oE14Iin2TV/XG9/Wj5/xl6A3gWXThuOeI
+         sdXEJFGm3MuGorXUQ84rrHeCY+JqE3vnT8NQiZn4B55ky75IEDn1I3F+3boCBAF6AOEa
+         J2Jg==
+X-Gm-Message-State: AOJu0YzSVRjJeCTQQ4sGCcwKZ7zlEVFtjBpvHhQtLL/BgE36e7kv3wcW
+	p7NOwaMxViqZPkoyeQQwwU8YkKluxWzBOxfTv0cbMMlh6j4rDAfrychZ3vLSgETzZx/OcQt1zZg
+	9HPafToGpyQsVFlPSeo/B3uMpRdupsfLwIiorxrjO8ORoSJ6FLwAQbq4=
+X-Gm-Gg: Acq92OEs0vweOiXqCrTgdKG7snc7nCeiLhwrtljKvRB3nh7n27d4BSf0ItwxK/SFh8k
+	gJYNq7HaK9dppGnzC7I8egCkbpkz7DVjUqElzU9Gg33d2vnsQ+cvqh2qKhbP1dKTGBBzNOVKzNB
+	QU76K33Z7h/mOPZOSBpFml8uaK0j3Tf2vXy5KvCZcFVvp/oNCECdBvLe1RaBP54fBGCh6sLIZSy
+	lX8LvP4dU6IOU+AjiqNl+8siiH9v25tILrs0mf+2vy77jaQwmceJRcur/YKny6bWbfo2OGar4vg
+	Lck8V3MD2DNzAmXirb0W1elX0U2l2ctiZUfI+YXAc7q8QVM29SAYUVWMJbtp
+X-Received: by 2002:a05:600c:5298:b0:48f:e230:1d12 with SMTP id
+ 5b1f17b1804b1-490428dd63emr441963475e9.31.1779947723606; Wed, 27 May 2026
+ 22:55:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <11771164-7919-43e1-a980-03f036bdae2e@gmail.com> <SJ0PR12MB6806C5A16CB0899E095E835EDC092@SJ0PR12MB6806.namprd12.prod.outlook.com>
-In-Reply-To: <SJ0PR12MB6806C5A16CB0899E095E835EDC092@SJ0PR12MB6806.namprd12.prod.outlook.com>
+References: <20260515-virtio-gpu-missing-structs-v2-1-c45dec740af7@linaro.org>
+In-Reply-To: <20260515-virtio-gpu-missing-structs-v2-1-c45dec740af7@linaro.org>
 From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Thu, 28 May 2026 08:47:25 +0300
-X-Gm-Features: AVHnY4KvzITPxj1p198JJwaome-NutKnWxRmAEKaptXuzTq21WVj6M2YeCA1Knk
-Message-ID: <CAAjaMXYGMTok_a2CJK8aKSqbTbgLx1CbkCVZw2VnZdJVuPJ38w@mail.gmail.com>
-Subject: Re: MSI-X vector limits and reserving a virtio device ID
-To: Parav Pandit <parav@nvidia.com>
-Cc: Demi Marie Obenour <demiobenour@gmail.com>, 
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
+Date: Thu, 28 May 2026 08:54:57 +0300
+X-Gm-Features: AVHnY4Iw-HnkKoewwznBVS-SVx2TqQVbIvVt1S8vprv1evaJwWtJg6RDqTIZxDU
+Message-ID: <CAAjaMXZ25K1kHeAxesKOSfgxCDkuefzouQmC_iWwDwgDwskqug@mail.gmail.com>
+Subject: Re: [PATCH v2] gpu: add missing controlq (3d) struct listings
+To: virtio-comment@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 28, 2026 at 8:22=E2=80=AFAM Parav Pandit <parav@nvidia.com> wro=
-te:
->
->
-> > From: Demi Marie Obenour <demiobenour@gmail.com>
-> > Sent: 28 May 2026 05:23 AM
-> > To: virtio-comment@lists.linux.dev
-> > Subject: MSI-X vector limits and reserving a virtio device ID
-> >
-> > I'd like to reserve a virtio device ID for virtio vhost-guest,
-> > formally virtio vhost-user.  Would this be possible?
-> >
-> Vhost user is an implementation of the device.
-> I believe it stays as implementation and not a new device type.
+Could we open a voting ballot for these changes?
 
-This exactly.
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/239
 
-Furthermore, we already have a mechanism for "providing" an arbitrary
-virtio device; it's called a transport.
-
-Demi, I suggest you look into virtio-msg transport, which would allow
-you to do what you want.
-
+On Fri, May 15, 2026 at 12:14=E2=80=AFPM Manos Pitsidianakis
+<manos.pitsidianakis@linaro.org> wrote:
 >
-> > Also, I'd like to know which systems have a small limit on the number
-> > of MSI-X vectors.
-> I didn=E2=80=99t follow the question. Typically, Intel cpu has a limit of=
- 256 vectors per core.
+> Lifted from include/uapi/linux/virtio_gpu.h with adjustments.
 >
-> > The vhost-guest device uses lots of MSI-X vectors.
-> > Typical implementations will use 256 * 3 + 7 =3D 775 of them!  That can=
-,
-> > of course, be reduced by sharing vectors, but this is undesirable
-> > as it comes at a performance cost.
-> Did you get a chance to measure the performance, for which device type?
-> Interrupts are generally moderated.
-> In other devices (scalable functions of mlx5) I have measured perf of 8 t=
-o 16 queues sharing a vectors has < 4% perf drop.
+> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/239
+> Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+> Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+> ---
+> Changes in v2:
+> - s/destroyes/destroys (thanks Matias)
+> - Link to v1: https://lore.kernel.org/virtio-comment/20260304-virtio-gpu-=
+missing-structs-v1-1-654218322e6a@linaro.org
+> ---
+>  device-types/gpu/description.tex | 75 ++++++++++++++++++++++++++++++++++=
++++++-
+>  1 file changed, 74 insertions(+), 1 deletion(-)
 >
-> > --
-> > Sincerely,
-> > Demi Marie Obenour (she/her/hers)
-
---=20
-Manos Pitsidianakis
-Emulation and Virtualization Engineer at Linaro Ltd
+> diff --git a/device-types/gpu/description.tex b/device-types/gpu/descript=
+ion.tex
+> index ac3b427725f6036ca069b398fdde712cab833225..b61f298cfb82d2577f7e04526=
+62c5b92a92bcb1e 100644
+> --- a/device-types/gpu/description.tex
+> +++ b/device-types/gpu/description.tex
+> @@ -749,21 +749,94 @@ \subsubsection{Device Operation: controlq (3d)}\lab=
+el{sec:Device Types / GPU Dev
+>  If the lower 8-bits of the \field{context_init} are zero, then the type =
+of
+>  the context is determined by the device.
+>
+> -\item[VIRTIO_GPU_CMD_CTX_DESTROY]
+> +\item[VIRTIO_GPU_CMD_CTX_DESTROY] destroys a context.
+> +  Request data is \field{struct virtio_gpu_ctx_destroy}.
+> +  Response type is VIRTIO_GPU_RESP_OK_NODATA.
+> +
+> +\begin{lstlisting}
+> +struct virtio_gpu_ctx_destroy {
+> +        struct virtio_gpu_ctrl_hdr hdr;
+> +};
+> +\end{lstlisting}
+> +
+>  \item[VIRTIO_GPU_CMD_CTX_ATTACH_RESOURCE]
+>  \item[VIRTIO_GPU_CMD_CTX_DETACH_RESOURCE]
+>    Manage virtio-gpu 3d contexts.
+> +  Request data is \field{struct virtio_gpu_ctx_resource}.
+> +  Response type is VIRTIO_GPU_RESP_OK_NODATA.
+> +
+> +\begin{lstlisting}
+> +struct virtio_gpu_ctx_resource {
+> +        struct virtio_gpu_ctrl_hdr hdr;
+> +        le32 resource_id;
+> +        le32 padding;
+> +};
+> +\end{lstlisting}
+>
+>  \item[VIRTIO_GPU_CMD_RESOURCE_CREATE_3D]
+>    Create virtio-gpu 3d resources.
+> +  Request data is \field{struct virtio_gpu_resource_create_3d}.
+> +  Response type is VIRTIO_GPU_RESP_OK_NODATA.
+> +
+> +\begin{lstlisting}
+> +#define VIRTIO_GPU_RESOURCE_FLAG_Y_0_TOP (1 << 0)
+> +struct virtio_gpu_resource_create_3d {
+> +        struct virtio_gpu_ctrl_hdr hdr;
+> +        le32 resource_id;
+> +        le32 target;
+> +        le32 format;
+> +        le32 bind;
+> +        le32 width;
+> +        le32 height;
+> +        le32 depth;
+> +        le32 array_size;
+> +        le32 last_level;
+> +        le32 nr_samples;
+> +        le32 flags;
+> +        le32 padding;
+> +};
+> +\end{lstlisting}
+>
+>  \item[VIRTIO_GPU_CMD_TRANSFER_TO_HOST_3D]
+>  \item[VIRTIO_GPU_CMD_TRANSFER_FROM_HOST_3D]
+>    Transfer data from and to virtio-gpu 3d resources.
+> +  Request data is \field{struct virtio_gpu_transfer_host_3d}.
+> +  Response type is VIRTIO_GPU_RESP_OK_NODATA.
+> +
+> +\begin{lstlisting}
+> +struct virtio_gpu_box {
+> +        le32 x, y, z;
+> +        le32 w, h, d;
+> +};
+> +
+> +struct virtio_gpu_transfer_host_3d {
+> +        struct virtio_gpu_ctrl_hdr hdr;
+> +        struct virtio_gpu_box box;
+> +        le64 offset;
+> +        le32 resource_id;
+> +        le32 level;
+> +        le32 stride;
+> +        le32 layer_stride;
+> +};
+> +\end{lstlisting}
+>
+>  \item[VIRTIO_GPU_CMD_SUBMIT_3D]
+>    Submit an opaque command stream.  The type of the command stream is
+>    determined when creating a context.
+> +  Request data is \field{struct virtio_gpu_cmd_submit}, followed by the =
+stream bytes.
+> +  Response type is VIRTIO_GPU_RESP_OK_NODATA.
+> +
+> +\begin{lstlisting}
+> +struct virtio_gpu_cmd_submit {
+> +        struct virtio_gpu_ctrl_hdr hdr;
+> +        le32 size;
+> +        le32 padding;
+> +};
+> +\end{lstlisting}
+> +
+> +\begin{description}
+> +  \item[\field{size}] the size of the opaque command stream in bytes.
+> +\end{description}
+>
+>  \item[VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB] maps a host-only
+>    blob resource into an offset in the host visible memory region. Reques=
+t
+>
+> ---
+> base-commit: 15f488c162107f7b52fb2e4d0f36a2349fe9d3a9
+> change-id: 20260304-virtio-gpu-missing-structs-dc8f75a7d370
+>
+> Best regards,
+> --
+> Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+>
