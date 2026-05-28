@@ -1,66 +1,65 @@
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1849933ADB0
-	for <virtio-comment@lists.linux.dev>; Thu, 28 May 2026 07:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B06233923
+	for <virtio-comment@lists.linux.dev>; Thu, 28 May 2026 07:05:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779951788; cv=none; b=K0BfDfiWxGUxUviripAJvzNVLAVo+AT0BvQLB9kD0aAYl2dmZfC0GK5HZh/0gDNScEe4gEML0xp/I9Z1PVp7Z+3DCG+NwPCRBA3O0M77tUmKfMb8ayLG6+9AG5KvX0yvGKBfJZrQKeTlp6KdOuVEWzSpVYtqr0jv2Rf1z7PhWv8=
+	t=1779951926; cv=none; b=FGpqgezTXSDaYujmMEJ6ZWH8JO0BaREPQlxMEnR9JZO2Zoz2IKTaVaO6MUTwwJbK0OmMNLdQIQvW1/oseS85gIPJFY/ZOu6h4sBbg8S1RDm+VUCSecceL1XIJL9yMM6518z13W+lL3S9SNXohwMRkr11YWKysHQ8X4Eh8G4NQS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779951788; c=relaxed/simple;
-	bh=o3+S8p6y39gdNmmUgLzsfJXvZ9n3sgo0WFrxMGBhxkM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=iVz84fF2bbcxVjK8nRrF16A7tpK4HhYMX0STtDhIwd9vdOAx1B+ooURC59YEaIwfdm+1dWRUMGXif2QLb3p4hmKm52LSyKA4sl2XYyz6EQatS6IJLT83t4dOaXwks5BksYoWRB6ZtClUzht3dZFx+jMPPRIwvQUAq0RDYcM5K18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B1s3xrk3; arc=none smtp.client-ip=209.85.128.182
+	s=arc-20240116; t=1779951926; c=relaxed/simple;
+	bh=0xdvqgpCpQMDYM+6prg7tCkmDIDzOJXHFSEp0lyqGZk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i7ywWuCAKxZ4UYd4mY8SM5ZZnzjnpv/B6OmQUMy5FFmHUt9pUNM55O31951ZC5l95TJ1jdKEKbKHaHEZPry8JkdpUPeyvzgmIsGe/aKXEGlmLEjCNq45LNEM0SVPfnCxnPfX3puafs55cm2Y/MsPqoi69K9J1i3/VkcUVN+swc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VwkJ3Ej4; arc=none smtp.client-ip=209.85.128.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B1s3xrk3"
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-7c23248f3a3so130875077b3.1
-        for <virtio-comment@lists.linux.dev>; Thu, 28 May 2026 00:03:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VwkJ3Ej4"
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-7cb343d343fso117956097b3.2
+        for <virtio-comment@lists.linux.dev>; Thu, 28 May 2026 00:05:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779951786; x=1780556586; darn=lists.linux.dev;
-        h=in-reply-to:autocrypt:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gir90vgtChZ4Dy+5gdTUQIF8jthiK2x6jB3kAtOdiaA=;
-        b=B1s3xrk3v9JLjw5KfviPlNYqiA9hV+vwsuMls+x5fBaYVQImbYwa/B18AAWsn6ewmX
-         zASz21grdDZklwrlee09B4V8Axo7dm4pVkXpL/ON8r27yzDclFvxDAmf/qRxrVDVgjoM
-         0/CyNT3ADJLQtshdO3ebfj2w6bOnMHGVHEhrPl78dxBki23gq7XDtQQhYSTDKi8w3yap
-         t9/m0NyHsW+iU7hHy5CzqYkfOtxKcV7hwsnLUD0vbOS38/K6yp4MAJ48MvNy808WOYTs
-         t/U0bkQIPHDo48K5AuUwRWl9wWDDhwzFyvr0PwSTLuW1Z7RMCFFseuTMxbj6S3Vh/2ai
-         cIcg==
+        d=gmail.com; s=20251104; t=1779951924; x=1780556724; darn=lists.linux.dev;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=4Ed3x25jQl7dqnj7m0XaE6M7+hILwy1QyBSNi5gFrfE=;
+        b=VwkJ3Ej4Zzz0qsM/C+wgS5OLq4o6Ef9tTFiSIeAXZJVhM+YY8y+ggF1N60AsvvoJrD
+         LJ2eT9NMXQVBP8L7XvmE7N94LA0l7bJDvm6u5xZRWQp/KiidB0OwQcPWRQ7Rnvo04Aqn
+         TdpA758O5qBGDHakKMFlbaCL8ReygP7NlJUDNi4VNS1GeiZBRSf3wnuafPyiXn3VX9qy
+         9rbW1uNu03SA3CNB1LBox7+Ljs02G6LzB10UoamxGSm8oKMkcAM/c0yyEHUtIxq2n8p0
+         b3GVkkNQlgz3w39eCv5WtWaa/uaE/LYtKo2hkN52vVqDwCKNSBVc8rnviDZTOXHPUSNg
+         YaOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779951786; x=1780556586;
-        h=in-reply-to:autocrypt:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gir90vgtChZ4Dy+5gdTUQIF8jthiK2x6jB3kAtOdiaA=;
-        b=V8nl7v5lrc4eAAC6o1yXMJHCSyVg8T1vW6UItXW0OVKes9RIfC8GHFD1f0RC0vag4R
-         D+m9Wxm5N6I5w7omr+I4vBHutaFjCmcYtQJVNq67W3sULc+ZWaXpOFM+inuSH0LdjKlt
-         0UwHB77Pxm8OPiV9azfGNaccssZxElTqffjon0cEy+08Y2qzOdtbSIDmgnvPz30MQnMd
-         KL3/DY/JT50mVfFiTixzQDPZadsqxFQq+I2vhgqRe5F0IQEDLYGoSSb9x3b4k6V4fUpo
-         3kZUjqOvRIcRxExD5LnOAv3IRepETW9Em8iSQzIm3U43mkalGgtIY4+bvPK+odOp9C6g
-         wTqw==
-X-Forwarded-Encrypted: i=1; AFNElJ8OIrlz+xTgqcQcWzwZghBfdoDi/Z+JGGFgRXZBG2julHQdEfp5DAi2o4MZ3lrFmkn+58YJF0rVVS6iuUHYGA==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxZrs0yZE/Mc70FS9PHPiIjpvtL1/R1NZwH7064F3d/1a76EeUR
-	Hmwvviy5wntAvj4qW7Ksf+CkEGSlmxcwIHexDG6LQiEhE5WkWRJ236pz
-X-Gm-Gg: Acq92OG8tJHRIgW5/lOxZTdpgfG58qOFQ8bkwKh2Wz7bW3WqwmNFmtk0gYoP2qQNosy
-	qaaXf3uRoxqu8+Pdvol7uXaq03Un2gu6UcjKDPPsy2CUk5/iNFSn/v/GUrNBrnqx2+fVT+aX9cP
-	mVxaQ/6VUOwo1YuNeYDWsnRZ4qige7DMxJHZ+d06AQJBHAce6m1hKPjTQFh5AWegX2Dt+P+/fI5
-	lNt74W5aF4Bk+2HTfYXFa9TXgaDNu3Y0xgGd3L4pu1Y0a35vcLIZuR308tK5ewB7N4c4ygsl/Xb
-	2JFoYndoVzJw/7qvpZiCAN6EpaCOfH/UQTbB37cRwW0zNhzK5b6tJm/MsQ5+i9UDkM7zFENh1Gv
-	T/pkYhiaDFEPb6M40+3Pu3EXB4nMye8uxlboB2v3neEg7PHG1HM+xps0XixCBP8foliOmtJyKXU
-	dQG6RbvlfHKn1XisUYNwhz75DDuc2uuMGjRgtMgLa5nlYfZnbiZGYDURosZ/KuNMm1yEL1szoZU
-	1VdW5MyGjO6hB3EvU2zZjFUgm5OMTokxgsDSKLYfha4TZe0eQ==
-X-Received: by 2002:a05:690c:e28e:10b0:7db:f1b4:15d0 with SMTP id 00721157ae682-7dbf1b41831mr29294447b3.33.1779951785920;
-        Thu, 28 May 2026 00:03:05 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1779951924; x=1780556724;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=4Ed3x25jQl7dqnj7m0XaE6M7+hILwy1QyBSNi5gFrfE=;
+        b=NTKrVGah2hFZCnNvD95/AAJxH8FKpN34yC1d5rmdL+p/qKLPOldTOoCTOmelgCtp5I
+         ZuNwPEhpeiNheGJbd3VMo/hNFoc++ma3HgQldmXa+svMgGArSbtPI/u7iaGIknqBDHzJ
+         9r4MdmxfmmwqINygy5ODy75x+P4ugTqmO4ynHy84hGL5A0tMCsSvDmuvMLYmRpsVnedC
+         e5ii0I6DQTwz4UgdggHVa4HroK4WRdY5NYDpQPuDXIIWZRQyvQsuaEr92zJE4bIlKyFY
+         7jxxcMlFm39pMLYpNxhjCudrfwyfJKTYzwGKG3hn750B+Ns6LMVWInG1xjAfVegh1A5j
+         fUbA==
+X-Gm-Message-State: AOJu0YwCl9FZ5mwmYZEoEiXuXisUCdeHRzgJXCCQ72ZAdp/JufPsRyRj
+	/mzz8KbfY3Vy4GeB2CKJSn46979kpW16QxzgKlMGaVeEWMwCwRTyjLKx
+X-Gm-Gg: Acq92OE4Muvzk+MXEGKhoj5EQaYBOkQ6yRveBlfVvdX8yM+lZa8xwxQpXtRhjIn2CEv
+	FE3jIIFrgUK2hUUvK9afKxYm6QwO1nkbIpwnTr3imR2IInOZXcIHsDZq2PqrvWudghfcJVQM4O3
+	jNNZwdBvWk7sMnQC+Y6PEi9tFKX+4KWGyQLrTy625DVGfmrRnsIgJPCZM3WL5RAWKFPbBQTy4Nf
+	wenuJ8qbAz777OaMzpygGtYSWklgwfwQ6p+q6nK3uADEq02OYgJ4LtIxWl9Vr4Ep/uyZd8bWHcS
+	TjcCbEyT59w2zgLx48rObt/JF4aHrNC7Tf4ws0RJV8oi1yMbj2vYAJLzic+b60k9ffKHg+DA+4U
+	fU+KRVq5CeNsvUy4xccbhgNalVorGvY1NUKQ6fco25gicmqc8X0yuST5b33fZXxfHzcbKXa9dIv
+	+P2WjT8+U6S1sLjOtDj47gveBWtC2/O2ONICn8hNQfFqwmo+eUTsktuscbf71ISkncgBV91HPd2
+	fWUOYxMcyAm5j6Wn5V70TnCg/XIExVgiRtXusoWy1nK5XHYPA==
+X-Received: by 2002:a05:690c:88:b0:7bd:5c77:1aa9 with SMTP id 00721157ae682-7d330de95ebmr286426197b3.0.1779951924164;
+        Thu, 28 May 2026 00:05:24 -0700 (PDT)
 Received: from [10.138.34.110] (h69-131-147-66.cncrtn.broadband.dynamic.tds.net. [69.131.147.66])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7dc642d9aa6sm7174927b3.39.2026.05.28.00.03.03
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-7d38be30f55sm86109047b3.32.2026.05.28.00.05.21
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 28 May 2026 00:03:04 -0700 (PDT)
-Message-ID: <0f70bfea-3344-405e-bb69-c36ab8c353bc@gmail.com>
-Date: Thu, 28 May 2026 03:03:00 -0400
+        Thu, 28 May 2026 00:05:22 -0700 (PDT)
+Message-ID: <ecf46c3a-1ea6-4a22-8ff6-30871636ab28@gmail.com>
+Date: Thu, 28 May 2026 03:05:18 -0400
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -69,10 +68,10 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: MSI-X vector limits and reserving a virtio device ID
-To: Parav Pandit <parav@nvidia.com>,
- "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
 References: <11771164-7919-43e1-a980-03f036bdae2e@gmail.com>
- <SJ0PR12MB6806C5A16CB0899E095E835EDC092@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <20260528010721-mutt-send-email-mst@kernel.org>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -118,24 +117,24 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <SJ0PR12MB6806C5A16CB0899E095E835EDC092@SJ0PR12MB6806.namprd12.prod.outlook.com>
+In-Reply-To: <20260528010721-mutt-send-email-mst@kernel.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------IOM3KBJ01MdTple00HN7LA70"
+ boundary="------------rFOJ0GhvOqfRW16CgRZIoWaa"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------IOM3KBJ01MdTple00HN7LA70
-Content-Type: multipart/mixed; boundary="------------ISw32vqHkJREjXNA0ePlwMI0";
+--------------rFOJ0GhvOqfRW16CgRZIoWaa
+Content-Type: multipart/mixed; boundary="------------3ClaDLJbJiAj56KANLcHyWYE";
  protected-headers="v1"
-Message-ID: <0f70bfea-3344-405e-bb69-c36ab8c353bc@gmail.com>
-Date: Thu, 28 May 2026 03:03:00 -0400
+Message-ID: <ecf46c3a-1ea6-4a22-8ff6-30871636ab28@gmail.com>
+Date: Thu, 28 May 2026 03:05:18 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: MSI-X vector limits and reserving a virtio device ID
-To: Parav Pandit <parav@nvidia.com>,
- "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>
 References: <11771164-7919-43e1-a980-03f036bdae2e@gmail.com>
- <SJ0PR12MB6806C5A16CB0899E095E835EDC092@SJ0PR12MB6806.namprd12.prod.outlook.com>
+ <20260528010721-mutt-send-email-mst@kernel.org>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -181,53 +180,27 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <SJ0PR12MB6806C5A16CB0899E095E835EDC092@SJ0PR12MB6806.namprd12.prod.outlook.com>
+In-Reply-To: <20260528010721-mutt-send-email-mst@kernel.org>
 
---------------ISw32vqHkJREjXNA0ePlwMI0
-Content-Type: multipart/mixed; boundary="------------S79o3MdnUMPbwSpL8RCIIGln"
+--------------3ClaDLJbJiAj56KANLcHyWYE
+Content-Type: multipart/mixed; boundary="------------X3zKXUIqOv7Q34UBPG4dT05T"
 
---------------S79o3MdnUMPbwSpL8RCIIGln
+--------------X3zKXUIqOv7Q34UBPG4dT05T
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 5/28/26 01:22, Parav Pandit wrote:
->=20
->> From: Demi Marie Obenour <demiobenour@gmail.com>
->> Sent: 28 May 2026 05:23 AM
->> To: virtio-comment@lists.linux.dev
->> Subject: MSI-X vector limits and reserving a virtio device ID
->>
+On 5/28/26 01:22, Michael S. Tsirkin wrote:
+> On Wed, May 27, 2026 at 07:53:11PM -0400, Demi Marie Obenour wrote:
 >> I'd like to reserve a virtio device ID for virtio vhost-guest,
 >> formally virtio vhost-user.  Would this be possible?
->>
-> Vhost user is an implementation of the device.
-> I believe it stays as implementation and not a new device type.
-
-Virtio vhost-user is a device used to implement a vhost-user device
-from another VM.
-
->> Also, I'd like to know which systems have a small limit on the number
->> of MSI-X vectors. =20
-> I didn=E2=80=99t follow the question. Typically, Intel cpu has a limit =
-of 256 vectors per core.
 >=20
->> The vhost-guest device uses lots of MSI-X vectors.
->> Typical implementations will use 256 * 3 + 7 =3D 775 of them!  That ca=
-n,
->> of course, be reduced by sharing vectors, but this is undesirable
->> as it comes at a performance cost.
-> Did you get a chance to measure the performance, for which device type?=
+> yes, follow the regular process for reserving IDs.
 
-> Interrupts are generally moderated.
-> In other devices (scalable functions of mlx5) I have measured perf of 8=
- to 16 queues sharing a vectors has < 4% perf drop.
-
-I'm more concerned with whether it is a problem to assume that
-775 MSI-X interrupts can be exposed by a virtual device.
+Is there a process beyond just sending a message to the mailing list?
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------S79o3MdnUMPbwSpL8RCIIGln
+--------------X3zKXUIqOv7Q34UBPG4dT05T
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -347,30 +320,30 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------S79o3MdnUMPbwSpL8RCIIGln--
+--------------X3zKXUIqOv7Q34UBPG4dT05T--
 
---------------ISw32vqHkJREjXNA0ePlwMI0--
+--------------3ClaDLJbJiAj56KANLcHyWYE--
 
---------------IOM3KBJ01MdTple00HN7LA70
+--------------rFOJ0GhvOqfRW16CgRZIoWaa
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmoX6KQACgkQszaHOrMp
-8lNc3g/8CZzI08sdSTUiAavSjJin48k6NK/BHCUXlXpfqcakiAPSn35Qp8stVyny
-QtDlkir0B9zKlQ5V81O2p0QaJkxe1nOR2BlIm0OqQV21yf8Q5sL8he7B2ZqTsrDe
-Pf76Jeo7b+1boSzykVfp5D1OEuWLGw+k3hHg0UP4LYt8bvBTEQEJHXL8p9gshPYO
-5w9pnxWDzkahtJ5ommG1dpbiogj2by4vbEcodjlHo7DpBTpsRMVJKwP/sGsrtH5G
-+o6yHSGZpdp41kNThXhXD69EnPaDTYiVvT7/939zSGmhkp2B5utAzOQWGvVvcx1U
-cML4tAWrtcqKZWPrKpprL7+2Ijbccm/z9BjIddSDdLiYMyAve+Mn6VXAED36CoPO
-IW+h2mjCKrhhTYCR6cPPnAOGCyICTvWGyoGNd1dJ4sj6/0cWq3RCPjboffPN34gY
-JW+08l8oEgjStlrbA8uasYY438U4ZekDaBTFIl7HoI3suk6JWLgNclfN03JItOzi
-Yh2H8kfZB7pGuMSArb6nrgsQnYXrgozZAWOb+8chOXdRGa0dTsZ366oXz+FFCesV
-DpBHOfCV8ZgSnq3aAjPX9iqlopZC8OC6QSfJc7VnYuP7XIdZ2D/FYYRtG2wcGtam
-w5rcthIoYXRfMC9Y+CwgZZQU2MnBQJtfmeHLbikdyaoY2l4pHWo=
-=l3Jy
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmoX6S8ACgkQszaHOrMp
+8lMMuA/7BScypDxHn/+XcUA5s6iOXb37sh9lOAVZqn6FXCZDpvX9uCb1ALhZ5bZu
+ZCkKO84RaXNP5zWSIS8oS0f4O2ORg+y7OvXXs/ROc4h90PyeETc1kfRul+FhWHol
+bsObsnb3+K5dyPBnT/6v+eHDgwxVLkshxn6CYOeyxJJ5XJwWR/u4qaL3KfP78b4H
+Bwe8K5f0ypcyPVTlIrmnoUbHaTsTjj/3f8gtIp/WxJe+2g+6aWkVAvoXuABHaMHB
+SYCYtyi4F6WWshvKMhvoAF5MW5AozUZhpqKt0oRNG37qSDqzxrGeqgvoXGkq+ApW
+wvL7WZ1w7KT7wrccTrpbxe4n9eHuiProwcEVU1NdOxZQcz/SEwHHUG+5040IKvoz
+nF9dxC1f8K04Pq+SqbEnzI0QFxxpMh26gkC+4o/23EQg6pU88azYoglmHsH0H/I/
+EL6QfSLHsNlsNiVH6gGKo1/599yjcfiHCsNl/l9XePOoWQYn3upmFPIM3zRExVaP
+36RwASt6jBUC0cyNlT7RtR1IEM07IZ+JS9Ivy4M+QNcf4/c1KOe1omc1TIlWf4X0
+pIDwjyMdlZck1lkspQXahBmxYqA+q6pfup/ZOqzDJwnYVdWdKdsdoumy4QHAoA27
+uRILt1yMP4wCNnh0WQoUK6yrzCz0B+2XgI3Ed9Avd3dc1QbgXsE=
+=r5PH
 -----END PGP SIGNATURE-----
 
---------------IOM3KBJ01MdTple00HN7LA70--
+--------------rFOJ0GhvOqfRW16CgRZIoWaa--
