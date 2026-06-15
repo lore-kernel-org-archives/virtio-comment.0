@@ -1,382 +1,274 @@
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6250D3F4DCF
-	for <virtio-comment@lists.linux.dev>; Sat, 13 Jun 2026 15:42:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C668528C869
+	for <virtio-comment@lists.linux.dev>; Mon, 15 Jun 2026 09:10:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781365333; cv=none; b=Meiwe2jwAgHQDpodvJEYp6SbvDA2dePPlSDXxJPTU3OKYgWNdNlyyesnHji366fsu8NXBZdJJ8EfuwvufKqODp53P7FHknim+uVTY9Vgoctlx8qB5oRXqH/B+9btUGkZmSzoVeZsZ9Z4k/kXf7kQYVfwVbwqUxFiT0dTtsggPhI=
+	t=1781514646; cv=none; b=pVLklcrJyH3/VEWlRPC/W16kzu+goyjkjhu59TH2+IfhNhMEQPr4rPJ/fRcl/L2tW1kma048Cs/2spNZt6jM6fFH0nShivJtAqPMkoYNonQgL6gxLSFXrlBbgxoaGuUBPHcH2uYA9x/F2tQS7V3CenLzZZubW7BQrIZxZuUM5IQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781365333; c=relaxed/simple;
-	bh=lbFhGpYEWQ96EyP9RT0p5UXyo/Cge3O1Wk6CbBcvxMQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mG9gR15s7bI2Ey01oai3yu75aqDDmgL2RY174e4itO92FVecxYNsiHhcI5DIzw/hp6vEUc7WoGEOEU51EDjGDGqGjBjcwCl4nNPh1iXQd9idm5VieQij4zhhc5bNCbi79+kc66f1Pj3T6veRrbp/jk1HstKBtd9ztZfG6lS4lo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NBrN/ekT; arc=none smtp.client-ip=209.85.210.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781514646; c=relaxed/simple;
+	bh=fS2yMbVxY5oBOvieELhHEqiShIdfIap9cblASVRG4Xk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VGgdXzMRP3PpzPmppV+AlYDKpfEplapQrX0UNNShOkJHqRy7ybPzMwONNgdjKUDPiv/4ak5UKgw4xlcPShRu4pR+wo2PZDCbrmQNyJwIEgtA/uFY4UcHm5nOh1GnrqWaCZQZXddrS4jlPiUTzbUTF+QMhBoJB9mOcXQXzFWVGwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=c6zXiu84; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NBrN/ekT"
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7e6da33a561so1721593a34.3
-        for <virtio-comment@lists.linux.dev>; Sat, 13 Jun 2026 08:42:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781365330; x=1781970130; darn=lists.linux.dev;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=NwXjSTwMV82bJq2c2QUrCpCMGGX+TJd7sCO4BIhagAc=;
-        b=NBrN/ekT0wTq+gCRJcDCOaD3TFZhHPM+PWxQL+uG8QSi0RlkvAycwLRvS+vC/+qUPC
-         6nU46gfLEf+Tu1pZxwaNyJFELVtUfJwvozPo0qRdjzbhzFXwQR5Xwybscyn3GDrKnk3n
-         8U3jA8m7emXS/cer11Ga7ttDFBH37TkX5SvNf227GJlj6rdLPUjYDwm+jd1SK94QLzPF
-         BdoyNHc0pO4YL/s95SvpdstHzX1r9ryzrMNGuKNLafKytOaomeffCuZQ7+tIUqXUZV8y
-         GpmOqTU1MsDlSmkxUQ5vBZXRacmRdW7fIPcgD52/HLfZ8MR6amVaQbQBQt9DajCbJY64
-         m3Lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781365330; x=1781970130;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=NwXjSTwMV82bJq2c2QUrCpCMGGX+TJd7sCO4BIhagAc=;
-        b=SEpmu6+a6xiG+n/rBtlAm9Ym9jqupZPPBqzBI2bTHl21Y7SKMNJJoqrsXIXyv2rW8b
-         kKRX8PPQCkjB4UidoogNcYkHHaV60dw+X9GEP0LJZIUK2mxc6NcgUAosQShDEeifl6ln
-         jUWTxDDPzxZrju+MSZ/ytk6NBiPIBtixeZgOwz2qy0EBxPM9NMJoYGEBqFF5Gcy2wF+j
-         DblBgCmm/aFN98kLm+WWHExMzKGhWC8AwneaPnIl0yfvG8n6wSt9+eYqHAXifR96QHRi
-         URZQLI6n1Neh2RiTe29GrPfFKmjd0HCoQHRPYebIkJ8WQK9++XhKKYzW3gH88kRaHoZO
-         1vyg==
-X-Forwarded-Encrypted: i=1; AFNElJ+5UDOfCt5XoJNb2myQnZnRTNg0umasV2nVo6gic+PP19PmUjg7GEhkTatYXEskyv2Wn57cRR8em8KM6elxow==@lists.linux.dev
-X-Gm-Message-State: AOJu0YwRmgqM1QbgdcYDvu01Azq49hZdqINgQi2VKvBRFTLBu4lrakOK
-	0XQsCld6GGLcA+TW3TVCCLCgRMADWBanmHEbLGzi9V24noDBS/hgUA7m
-X-Gm-Gg: Acq92OGjOJb6J9UBRtXOaH8U55bBT+TxwUWJHhOOHhQ+xdfdwE8BjU9dVIbnFII894c
-	FgizBqYEAbHD21DnLmwrsALuqfI+S9WRz3BFiByc6st64VPPuJCrSeCYvPI6b/vYs2gSIPyoQ1b
-	h29r7a7STVeUSSG6k9RJnKgnxr+3DzyR7KuiouetTxMMNH7WKD34jEPOXqrXOBQaI2E4GnHiXnN
-	nw4Zmz/uwZT7tEueffj/pWMHtu98GaQLECkPl7gXYlhYvD2IvlmRxquWSG9pz7HJsDxc5hO7MBx
-	kS6e7afFpGtg7yxht8C4TLQ6n4ltMbkJSbnyotHoeZYrh2TO0KNHY/mKjNwYmJFAKDGOX0lylnW
-	lN+NOM1JpQF29L79qMVV/KP5xspehUjgQJjFPqe0nJ5brAu+/T/mhlpmfFO9ZnHnRFMr7bibeRe
-	nrwyGoFhqXEItUtgs5FTf7A6Sv2PKW9Bhc2G7/Wr/cnecf7205mX92/GeKuyowaxNh6hx+bYBzP
-	2iZWDoPMKG4ceqzQLSQhLOr2o6vrV4CcuZSfDg=
-X-Received: by 2002:a05:6830:82a4:b0:7dc:e37b:b5d3 with SMTP id 46e09a7af769-7e784735fdfmr4993951a34.7.1781365330077;
-        Sat, 13 Jun 2026 08:42:10 -0700 (PDT)
-Received: from [10.138.34.110] (h69-131-147-66.cncrtn.broadband.dynamic.tds.net. [69.131.147.66])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e781740de4sm4241994a34.23.2026.06.13.08.42.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 13 Jun 2026 08:42:08 -0700 (PDT)
-Message-ID: <2e5f2956-eab4-42b6-92cf-20cb1bb49845@gmail.com>
-Date: Sat, 13 Jun 2026 11:42:03 -0400
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="c6zXiu84"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 36FD71BF3;
+	Mon, 15 Jun 2026 02:10:38 -0700 (PDT)
+Received: from C3HXLD123V.arm.com (unknown [10.57.37.93])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 68EC93F915;
+	Mon, 15 Jun 2026 02:10:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1781514642; bh=fS2yMbVxY5oBOvieELhHEqiShIdfIap9cblASVRG4Xk=;
+	h=From:To:Cc:Subject:Date:From;
+	b=c6zXiu84+k6kcaNM2shnV/E8vuvgpTnV/HCIopYpv/E/RrHuaJPKrl2rOa5U6yYYm
+	 zbhdpAJjJyI0yuJohN8fMeDBxT9s8KiG7wOWxkXZMIoeciSkpWcj+oZ/iQrx5r/3Iy
+	 FWIyCmNZnELW6d0aO8rOV6KIpcLIsIID0K0vWdlY=
+From: Bertrand Marquis <bertrand.marquis@arm.com>
+To: virtio-comment@lists.linux.dev
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
+	"Edgar E . Iglesias" <edgar.iglesias@amd.com>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Alex Bennee <alex.bennee@linaro.org>,
+	Armelle Laine <armellel@google.com>
+Subject: [PATCH v2 0/6] virtio-msg transport layer
+Date: Mon, 15 Jun 2026 11:10:22 +0200
+Message-ID: <cover.1781514628.git.bertrand.marquis@arm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] virtio-usb: Add initial virtio-usb specification
-To: Vasilii Ianikeev <vasilii.ianikeev@oss.qualcomm.com>,
- virtio-comment@lists.linux.dev
-Cc: igor.skalkin@oss.qualcomm.com
-References: <20260611130826.287372-1-vasilii.ianikeev@oss.qualcomm.com>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49yB+l2nipd
- aq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYfbWpr/si88QKgyGSV
- Z7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/UorR+FaSuVwT7rqzGrTlscnT
- DlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7MMPCJwI8JpPlBedRpe9tfVyfu3euTPLPx
- wcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9Hzx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR
- 6h3nBc3eyuZ+q62HS1pJ5EvUT1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl
- 5FMWo8TCniHynNXsBtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2
- Bkg1b//r6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
- 9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nSm9BBff0N
- m0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQABzTxEZW1pIE1hcmll
- IE9iZW5vdXIgKGxvdmVyIG9mIGNvZGluZykgPGRlbWlvYmVub3VyQGdtYWlsLmNvbT7CwXgE
- EwECACIFAlp+A0oCGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJELKItV//nCLBhr8Q
- AK/xrb4wyi71xII2hkFBpT59ObLN+32FQT7R3lbZRjVFjc6yMUjOb1H/hJVxx+yo5gsSj5LS
- 9AwggioUSrcUKldfA/PKKai2mzTlUDxTcF3vKx6iMXKA6AqwAw4B57ZEJoMM6egm57TV19kz
- PMc879NV2nc6+elaKl+/kbVeD3qvBuEwsTe2Do3HAAdrfUG/j9erwIk6gha/Hp9yZlCnPTX+
- VK+xifQqt8RtMqS5R/S8z0msJMI/ajNU03kFjOpqrYziv6OZLJ5cuKb3bZU5aoaRQRDzkFIR
- 6aqtFLTohTo20QywXwRa39uFaOT/0YMpNyel0kdOszFOykTEGI2u+kja35g9TkH90kkBTG+a
- EWttIht0Hy6YFmwjcAxisSakBuHnHuMSOiyRQLu43ej2+mDWgItLZ48Mu0C3IG1seeQDjEYP
- tqvyZ6bGkf2Vj+L6wLoLLIhRZxQOedqArIk/Sb2SzQYuxN44IDRt+3ZcDqsPppoKcxSyd1Ny
- 2tpvjYJXlfKmOYLhTWs8nwlAlSHX/c/jz/ywwf7eSvGknToo1Y0VpRtoxMaKW1nvH0OeCSVJ
- itfRP7YbiRVc2aNqWPCSgtqHAuVraBRbAFLKh9d2rKFB3BmynTUpc1BQLJP8+D5oNyb8Ts4x
- Xd3iV/uD8JLGJfYZIR7oGWFLP4uZ3tkneDfYzsFNBFp+A0oBEAC9ynZI9LU+uJkMeEJeJyQ/
- 8VFkCJQPQZEsIGzOTlPnwvVna0AS86n2Z+rK7R/usYs5iJCZ55/JISWd8xD57ue0eB47bcJv
- VqGlObI2DEG8TwaW0O0duRhDgzMEL4t1KdRAepIESBEA/iPpI4gfUbVEIEQuqdqQyO4GAe+M
- kD0Hy5JH/0qgFmbaSegNTdQg5iqYjRZ3ttiswalql1/iSyv1WYeC1OAs+2BLOAT2NEggSiVO
- txEfgewsQtCWi8H1SoirakIfo45Hz0tk/Ad9ZWh2PvOGt97Ka85o4TLJxgJJqGEnqcFUZnJJ
- riwoaRIS8N2C8/nEM53jb1sH0gYddMU3QxY7dYNLIUrRKQeNkF30dK7V6JRH7pleRlf+wQcN
- fRAIUrNlatj9TxwivQrKnC9aIFFHEy/0mAgtrQShcMRmMgVlRoOA5B8RTulRLCmkafvwuhs6
- dCxN0GNAORIVVFxjx9Vn7OqYPgwiofZ6SbEl0hgPyWBQvE85klFLZLoj7p+joDY1XNQztmfA
- rnJ9x+YV4igjWImINAZSlmEcYtd+xy3Li/8oeYDAqrsnrOjb+WvGhCykJk4urBog2LNtcyCj
- kTs7F+WeXGUo0NDhbd3Z6AyFfqeF7uJ3D5hlpX2nI9no/ugPrrTVoVZAgrrnNz0iZG2DVx46
- x913pVKHl5mlYQARAQABwsFfBBgBAgAJBQJafgNKAhsMAAoJELKItV//nCLBwNIP/AiIHE8b
- oIqReFQyaMzxq6lE4YZCZNj65B/nkDOvodSiwfwjjVVE2V3iEzxMHbgyTCGA67+Bo/d5aQGj
- gn0TPtsGzelyQHipaUzEyrsceUGWYoKXYyVWKEfyh0cDfnd9diAm3VeNqchtcMpoehETH8fr
- RHnJdBcjf112PzQSdKC6kqU0Q196c4Vp5HDOQfNiDnTf7gZSj0BraHOByy9LEDCLhQiCmr+2
- E0rW4tBtDAn2HkT9uf32ZGqJCn1O+2uVfFhGu6vPE5qkqrbSE8TG+03H8ecU2q50zgHWPdHM
- OBvy3EhzfAh2VmOSTcRK+tSUe/u3wdLRDPwv/DTzGI36Kgky9MsDC5gpIwNbOJP2G/q1wT1o
- Gkw4IXfWv2ufWiXqJ+k7HEi2N1sree7Dy9KBCqb+ca1vFhYPDJfhP75I/VnzHVssZ/rYZ9+5
- 1yDoUABoNdJNSGUYl+Yh9Pw9pE3Kt4EFzUlFZWbE4xKL/NPno+z4J9aWemLLszcYz/u3XnbO
- vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
- HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260611130826.287372-1-vasilii.ianikeev@oss.qualcomm.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Go0a9JO00KG7VmOM0EDu6f8p"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Go0a9JO00KG7VmOM0EDu6f8p
-Content-Type: multipart/mixed; boundary="------------83MxCGmHDW9QYUvw9tCME401";
- protected-headers="v1"
-Message-ID: <2e5f2956-eab4-42b6-92cf-20cb1bb49845@gmail.com>
-Date: Sat, 13 Jun 2026 11:42:03 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] virtio-usb: Add initial virtio-usb specification
-To: Vasilii Ianikeev <vasilii.ianikeev@oss.qualcomm.com>,
- virtio-comment@lists.linux.dev
-Cc: igor.skalkin@oss.qualcomm.com
-References: <20260611130826.287372-1-vasilii.ianikeev@oss.qualcomm.com>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260611130826.287372-1-vasilii.ianikeev@oss.qualcomm.com>
+This series adds the virtio-msg transport layer.
 
---------------83MxCGmHDW9QYUvw9tCME401
-Content-Type: multipart/mixed; boundary="------------kIwtozReWL0wTPe9AkfbCXEx"
+The individuals and organizations involved in this effort have had difficulty in
+using the existing virtio-transports in various situations and desire to add one
+more transport that performs its transport layer operations by sending and
+receiving messages.
 
---------------kIwtozReWL0wTPe9AkfbCXEx
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Implementations of virtio-msg will normally be done in multiple layers:
+* common / device level
+* bus level
 
-On 6/11/26 09:08, Vasilii Ianikeev wrote:
-> This patch introduces the draft virtio-usb device specification, which
-> defines a dual-role USB device capable of operating as a USB host
-> controller, USB device controller, or both roles with dynamic role
-> switching support.
->=20
-> A USB device may support one or more ports. Each port can operate as a
-> USB host controller port, USB device controller port, or a dual-role
-> port that allows role switching, depending on the device=E2=80=99s capa=
-bilities.
->=20
->=20
-> The specification includes:
->=20
-> - Device ID assignment (49) (already reserved) and feature bits for
->   host, device, and role switching capabilities
-> - Dedicated virtqueue sets for USB host role, USB device role, and OTG
->   role switching operations
-> - Data transfer support for all USB endpoint types (control, interrupt,=
+The common / device level defines the messages exchanged between the driver
+and a device. This common part should lead to a common driver holding most
+of the virtio specifics and can be shared by all virtio-msg bus implementations.
+The kernel implementation in [3] shows this separation. As with other transport
+layers, virtio-msg should not require modifications to existing virtio device
+implementations (virtio-net, virtio-blk etc). The common / device level is the
+main focus of this version of the patch series.
 
->   bulk, and isochronous)
-> - USB host role operations including device connection/disconnection
->   events, URB submission, and bulk stream management
-> - USB device role operations including endpoint management, gadget
->   lifecycle events, and control request handling
-> - USB OTG support for dynamic role switching between host and device
->   modes
-> - Multi-port support allowing devices to expose multiple USB ports with=
+The virtio-msg bus level implements the normal things a bus defines
+(enumeration, dma operations, etc) but also implements the message send and
+receive operations. A number of bus implementations are envisioned,
+some of which will be reusable and general purpose. Other bus implementations
+might be unique to a given situation, for example only used by a PCIe card
+and its driver.
 
->   independent role configurations
->=20
-> The specification refers to USB 2.0 and USB 3.2 specifications for
-> common terms.
->=20
-> For this device, there is a prototypical Linux kernel driver for which
-> upstreaming is planned, and a proprietary device implementation.
+The standard bus messages are an effort to avoid different bus implementations
+doing the same thing in different ways for no good reason. However the
+different environments will require different things. Instead of trying to
+anticipate all needs and provide something very abstract, we think
+implementation specific messages will be needed at the bus level. Over time,
+if we see similar messages across multiple bus implementations, we will move to
+standardize a bus level message for that.
 
-Would it be possible to have a device implementation in QEMU, crosvm,
-or another open source project?  If the only implementation is
-proprietary, the driver will be of limited value to the community.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
---------------kIwtozReWL0wTPe9AkfbCXEx
-Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+We are working on a few reusable bus implementations:
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+* virtio-msg-ffa based on Arm's Virtio Message Bus over FF-A specification [6]
+  for use between:
+  * normal world and secure world
+  * host and VM or VM to VM
+  * Can be used w/ or with out a hypervisor
+  * Any Hypervisor that implements FF-A can be used
+  * We have this working with pKVM and Xen
+  * We have this working with Trusty and OP-TEE
 
-xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
-B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
-bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
-UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
-MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
-zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
-T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
-BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
-6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
-9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
-m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
-zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
-dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
-X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
-R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
-oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
-zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
-rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
-Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
-/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
-ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
-Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
-xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
-fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
-AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
-b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
-BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
-/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
-/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
-sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
-xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
-VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
-hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
-I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
-xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
-ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
-7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
-UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
-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
-EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
-=3Dx94R
------END PGP PUBLIC KEY BLOCK-----
+* virtio-msg-amp for use between heterogenous systems
+  * The main processors and its co-processors on an AMP SOC
+  * Two or more systems connected via PCIe
+  * Minimal requirements: bi-directional interrupts and
+    at least one shared memory area
+  * hvac-demo has 2 demos of this
+  * This is working on two hardware platforms
 
---------------kIwtozReWL0wTPe9AkfbCXEx--
+* virtio-msg-loopback for userspace implemented devices
+  * Allows user space to provide devices to its own kernel
+  * This is similar to fuse, cuse or loopback block devices but for virtio
+  * hvac-demo has a demo
 
---------------83MxCGmHDW9QYUvw9tCME401--
+We also anticipate a few more:
 
---------------Go0a9JO00KG7VmOM0EDu6f8p
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+* virtio-msg-xen specific to Xen
+  * Usable on any Xen system (including x86 where FF-A does not exist)
+  * Using Xen events and page grants
 
------BEGIN PGP SIGNATURE-----
+This series keeps 16-bit dev_num values per bus instance; deployments that need
+more than roughly 65k devices can scale by using multiple bus instances.
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmotekwACgkQszaHOrMp
-8lM6nw//U4w0Ebs7IVYTtSNJ9dQ4dSKuMkp4GMjycULAzSXz6kuMgHPn8jumG2EI
-JB1eGWF5siubQYFmRkMWqkjh+6jCpF8aWf7T0SwDxfFWUSm2lDQ+OmxIXevW6F0E
-hoI5CYjolNbV+2QO+mZVdJ4KThMettT6ZI2ovacjDwsH2QPCQMf4mRy55W1LBYE3
-ZWHxxZYxR1oAFUZvEbsHYf9uE5vPROC2aP9ObUVf8RmquX9HbHMCx52KopdFaE0Y
-2pQ/f59f3hPho80tvjKmjV6bAgxD7d30waVqsyvJbtDny+EVXjRIxGDKe9FnhovG
-TMfkZ57eueP3/O0DifvzlUSa2kJnhpMni/XKyur1BkbGwyr25K+2EaktmAoHBguj
-Ekf5UtsXufwfO3zlSqOrpF9Cb21o4jKAHiB7GsrLRN10yXI1h3hvNxWIirmo4smi
-QbH8qwpV1ZI+fFTanXmY5s+OnUZMt7v1sEbCsaZfkR8LSM1WbJr8+LcdSwp/IiAI
-Hl5ImPxtvEYQIAaZIVzAn//De1eDaQ0HL16VBGMBfCRTbOw0qUxYAqrndSkJEUx5
-ox3FL+y4GBZFThxH4G6Hq+VgTW2MgHve9xwWzGOdTHdDwqghdmMGsvQiXhTKTRWg
-Xdvf1EMI20EKrvReUsgDuYDA/feEPz7+MGd9fez53woc2nYpkco=
-=4ndC
------END PGP SIGNATURE-----
+Changes since v1 (virtio-msg-patch1):
 
---------------Go0a9JO00KG7VmOM0EDu6f8p--
+First, thank you for the detailed comments and broad interest on v1.
+This revision incorporates review feedback from Peter Hilber, Demi Marie
+Obenour, Parav Pandit, Andrei Homescu, Manos Pitsidianakis, Michael S.
+Tsirkin, Bill Mills, and HVAC group discussion.
+
+Highlights of the changes since v1:
+
+* Finalized the common transport message model:
+  * keep the 8-byte common header
+  * keep 16-bit device numbers per bus instance and a 16-bit msg_size field
+  * note that deployments needing more than roughly 65k devices can scale by
+    using multiple bus instances
+  * clarify common message-ID encoding and validation boundaries
+  * define request completion more precisely: a valid supported request
+    completes with exactly one protocol response or a transport-visible failure
+  * clarify request/response correlation and token handling, including the
+    rule that devices echo the request token while the bus may rewrite tokens
+    internally for correlation
+  * preserve per driver/device request ordering while still allowing
+    bus-correlated out-of-order responses and events
+
+* Clarified bus versus transport responsibilities and enumeration:
+  * keep GET_DEVICE_INFO as a driver-issued transport message, and GET_DEVICES,
+    PING, and EVENT_DEVICE as optional bus messages
+  * require bus messages to use dev_num = 0
+  * bus implementations must expose only validated device numbers, may expose
+    zero devices, and should delay device-number reuse to reduce races
+  * EVENT_DEVICE is defined as a bus-originated ADDED/REMOVED hotplug event
+  * tighten GET_DEVICES enumeration semantics, including empty-bitmap cases and
+    guaranteed forward progress
+
+* Tightened initialization and feature negotiation:
+  * use transport revision terminology consistently
+  * keep GET_DEVICE_INFO as the only transport message used for early discovery
+  * align the rest of initialization with the core virtio flow through reset,
+    status progression, feature negotiation, FEATURES_OK verification, and
+    DRIVER_OK
+  * keep transport feature bits separate from device feature negotiation
+  * define GET_DEVICE_FEATURES as reporting the feature blocks offered by the
+    device
+  * require GET_DEVICE_INFO to report enough feature blocks to cover all
+    offered feature bits and bound max_virtqueues to 65536
+  * define SET_DRIVER_FEATURES as addressed-block updates carrying the subset
+    chosen by the driver, which may be built up across multiple requests before
+    FEATURES_OK
+  * keep FEATURES_OK as the point where the device accepts or rejects the
+    negotiated set
+  * make GET_SHM mandatory for devices to implement while keeping driver use
+    optional, and align the shared-memory identifier semantics with core virtio
+
+* Aligned configuration, status, and notification behavior with core virtio:
+  * align GET_CONFIG, SET_CONFIG, EVENT_CONFIG, and device status handling more
+    closely with the core virtio model
+  * keep VIRTIO_MSG_F_STRICT_CONFIG_GENERATION only as optional strict-profile
+    SET_CONFIG mismatch enforcement
+  * define nonzero SET_CONFIG writes as all-or-nothing and rejected writes as
+    length = 0 with no payload
+  * limit EVENT_CONFIG status notifications to device-originated asynchronous
+    status changes
+  * make polling-only operation explicit, with EVENT_AVAIL and EVENT_USED used
+    only when the endpoints choose event-driven notification
+  * keep bus-side forwarding, polling, or synthesized notification delivery
+    transparent to the transport-visible model
+
+* Refined virtqueue and reset semantics:
+  * clarify queue-state transitions, SET_VQUEUE update behavior, and invalid
+    reconfiguration cases
+  * make SET_VQUEUE and RESET_VQUEUE reject cases deterministic no-op empty
+    responses
+  * define deterministic GET_VQUEUE zero-sentinel responses for unavailable,
+    unimplemented, and out-of-range queues
+  * define local admin virtqueue field semantics and the EVENT_AVAIL
+    notification-data encoding more precisely
+  * clarify reset-completion checks without duplicating the core virtio reset
+    rules
+
+* Improved document quality:
+  * reworked the chapter to better match existing virtio specification style
+  * removed duplicated or ambiguous requirements
+  * fixed label paths, direct field references, punctuation, and ambiguous
+    wording
+  * added informative known bus implementation examples
+  * completed conformance coverage for driver, device, and bus clauses
+  * normalized punctuation and wording for consistency with the rest of the spec
+
+Open topics and ongoing discussion:
+* Out-of-order/performance extensions:
+  We kept the baseline behavior simple in this revision. If clear performance
+  benefit is demonstrated, we are open to introducing an optional feature-bit
+  based extension in a follow-up patch set.
+* Graceful device removal sequencing:
+  Current direction is to handle graceful-remove sequencing in bus-specific
+  specifications. We welcome feedback on whether any additional transport-level
+  guidance would be useful.
+* Transport scope and mapping guidance:
+  Discussion is still ongoing on transport-vs-bus binding scope, response
+  status modeling, and mapping guidance for mmio/pci/vhost-user/KVM userspace
+  cases. We are collecting reviewer input before deciding on follow-up text.
+* Potential virtio-msg over virtqueues for PCI/MMIO:
+  This is still early discussion, including whether admin virtqueues should be
+  used or extended for this purpose. There is no consensus yet, and we are
+  continuing design exploration.
+
+Eco-system:
+* Added virtio-msg-loopback demo
+* Arm has published the Virtio Message Bus over FF-A specification [6]
+* virtio-msg over FF-A has been demonstrated with both Trusty and OP-TEE
+  secure world
+* LKML RFC has been sent [7]
+* QEMU RFC has been sent [8]
+
+This is v2 of the first non-RFC patch series. We are grateful for the review
+feedback and interest received on v1, and we ask for continued review on this
+revision.
+
+Background info and work in progress implementations:
+* HVAC project page with intro slides [1]
+* HVAC demo repo w/ instructions in README.md [2]
+* Kernel w/ virtio-msg common level and ffa support [3]
+* QEMU w/ support for one form of virtio-msg-amp [4]
+* Portable RTOS library w/ one form of virtio-msg-amp [5]
+
+In addition to the QEMU system based demos in the hvac-demo repo, we also have
+two hardware systems running:
+* AMD x86 + AMD Arm Versal connected via PCIe
+* ST STM32MP157 A7 Linux using virtio-i2c provided by M4 Zephyr
+
+Please note that although the demos work, a few have not been aligned
+with this version of the spec.
+
+[1] https://linaro.atlassian.net/wiki/spaces/HVAC/overview
+[2] https://github.com/wmamills/hvac-demo
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/vireshk/linux.git/log/?h=virtio/msg
+[4] https://github.com/edgarigl/qemu/commits/edgar/virtio-msg-rfc/
+[5] https://github.com/arnopo/open-amp/commits/virtio-msg/
+[6] https://developer.arm.com/documentation/den0153/0101/
+[7] https://lore.kernel.org/all/cover.1753865268.git.viresh.kumar@linaro.org/
+[8] https://mail.gnu.org/archive/html/qemu-devel/2025-10/msg07438.html
+
+Bertrand Marquis (6):
+  virtio-msg: add new command for bus normative
+  virtio-msg: Add the FF-A bus bibliography reference
+  virtio-msg: Add virtio-msg, a message based virtio transport layer
+  virtio-msg: link virtio-msg content
+  virtio-msg: add conformance entries in conformance chapter
+  virtio-msg: add message transport to core references
+
+ commands.tex      |    3 +-
+ conformance.tex   |   97 ++-
+ content.tex       |   18 +-
+ introduction.tex  |    6 +-
+ transport-msg.tex | 2071 +++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 2185 insertions(+), 10 deletions(-)
+ create mode 100644 transport-msg.tex
+
+-- 
+2.53.0
+
