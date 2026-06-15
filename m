@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AE5E83D45F2
-	for <virtio-comment@lists.linux.dev>; Mon, 15 Jun 2026 09:10:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A26EF3D5C07
+	for <virtio-comment@lists.linux.dev>; Mon, 15 Jun 2026 09:11:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781514661; cv=none; b=kCSNzrAGewEV6MNXpsezAgtcSkYHRIBTMG4AbJlV50t5Y0kSKgUXesszI38NzQA3QVeu8m81qF3FOgMEevOkORID8kj1VfIEdz8El6oiDqyboxOGCK4XwSwOoSv8hepqCp8dlfgKj1kMwS07Rv6X+x8A+n8bdh4/v3neugT64Is=
+	t=1781514665; cv=none; b=s5Gz8VHrCvOB3SKfcheYK57HwOGdWELDt53nmBEfsq0HrO9uQ3qbmOcEa9qx7W3e8vfLZzjq1tDE/IeQLmJGUSz4Yi3D74/U1PfCHFfW5ZtANCms0XPXtEeTQ96NYZFLcKPg21Er00oau5kRQHC1EQTk6HzO+m4O0iNe45QucLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781514661; c=relaxed/simple;
-	bh=KL/rQ90wz4ihHRKzV7VlmDIkitLz/cjR0XMjV4luwtY=;
+	s=arc-20240116; t=1781514665; c=relaxed/simple;
+	bh=yyJpLBGEiW5qO7JmqRFAZ8Wup6OL4uFvubAJmukBAMc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bzIUIo7HWeMrGa5SC5o+xdNw8b7L9w39bmDQ+YF9p5Ry0XuAt/jSWmCgZFKek384xR9QkCptsH5Sz+MuF8lvQYGIAy5pzLDCPkDRRZ7+8/vAJU3SHBo/ckSbGkgXhaAtb/KSS4FuK2Ckn/KABvotLo9o94+x0hV0DX12TP46qh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tcJeL2uJ; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=j/veBrvGN/ud0ueuz9lrlYRmv2lsPsXwmZB/acrGHNig9nsXjfLv+b9G7LLE4FvhrG1zWEQgegZhsK/8v6GRkxFu68h0ryjSbEHlD9PhLs7aV18BTuH6BkpxeoeIQQfg7FTqeRsiSnLLmOr3PBvQ8vToF6KG1Z4SBuRvdQ/KKNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=imxr5jK0; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tcJeL2uJ"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="imxr5jK0"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 19B3E1BF3;
-	Mon, 15 Jun 2026 02:10:54 -0700 (PDT)
-Received: from C3HXLD123V.arm.com (unknown [10.57.37.93])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 22F913F915;
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2FED6328D;
 	Mon, 15 Jun 2026 02:10:56 -0700 (PDT)
+Received: from C3HXLD123V.arm.com (unknown [10.57.37.93])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3D6133F915;
+	Mon, 15 Jun 2026 02:10:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1781514658; bh=KL/rQ90wz4ihHRKzV7VlmDIkitLz/cjR0XMjV4luwtY=;
+	t=1781514660; bh=yyJpLBGEiW5qO7JmqRFAZ8Wup6OL4uFvubAJmukBAMc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=tcJeL2uJzePrCXt0CENvtIZ+wt3reXNlOV7t9ekZxUGEiA/sIFZ7IFKrgukuItJnb
-	 VIwclINE08H4uUWWFuh/bB43iySZBl7mId1R4DXwO6HVvARqbGvauyCDR9uwcF7tSE
-	 u9v5bJL1oATiteFxl532eVtKwgEBCI1miEFAeK7M=
+	b=imxr5jK0knqYaGe16p2G+ragfzr8zm9vd9ShvUJpqTkKzrlSNkOp3GTC0JsEnrI11
+	 u9xN80PTy5FEhMbjuUpL91zxClqyIND2Zzd8CM/KKHSVWmMkJClMe+xTb04BtDYhfJ
+	 r/+SzyDwAOo+hCwSBegntUj0Wrsyt0NRso+aYd30=
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: virtio-comment@lists.linux.dev
 Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
@@ -35,9 +35,9 @@ Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
 	Alex Bennee <alex.bennee@linaro.org>,
 	Armelle Laine <armellel@google.com>,
 	Bill Mills <bill.mills@linaro.org>
-Subject: [PATCH v2 1/6] virtio-msg: add new command for bus normative
-Date: Mon, 15 Jun 2026 11:10:23 +0200
-Message-ID: <998059c704fffafbceb9804045b9ffe6cf7a64b2.1781514628.git.bertrand.marquis@arm.com>
+Subject: [PATCH v2 2/6] virtio-msg: Add the FF-A bus bibliography reference
+Date: Mon, 15 Jun 2026 11:10:24 +0200
+Message-ID: <d83fbd736249207386be22d1313ccf745592d190.1781514628.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1781514628.git.bertrand.marquis@arm.com>
 References: <cover.1781514628.git.bertrand.marquis@arm.com>
@@ -49,31 +49,36 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a new command to have a standard way to define virtio-msg bus
-normative statements.
+Reference the Virtio Message Bus over FF-A specification through the
+normative bibliography using a distinct FFA-BUS citation tag.
+
+Attribute the DEN0153 document to Arm.
 
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 Signed-off-by: Bill Mills <bill.mills@linaro.org>
 ---
- commands.tex | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ introduction.tex | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/commands.tex b/commands.tex
-index 25ea8ee3bc78..122a97f89b10 100644
---- a/commands.tex
-+++ b/commands.tex
-@@ -7,9 +7,10 @@
- % How we format a field name
- \newcommand{\field}[1]{\emph{#1}}
+diff --git a/introduction.tex b/introduction.tex
+index 9a9cbde5fede..635e267cee04 100644
+--- a/introduction.tex
++++ b/introduction.tex
+@@ -92,6 +92,9 @@ \section{Normative References}\label{sec:Normative References}
+ 	\phantomsection\label{intro:I2C}\textbf{[I2C]} &
+ 	I2C-bus specification and user manual,
+ 	\newline\url{https://www.nxp.com/docs/en/user-guide/UM10204.pdf}\\
++	\phantomsection\label{intro:FFA-BUS}\textbf{[FFA-BUS]} &
++	Arm, Virtio Message Bus over FF-A, DEN0153,
++	\newline\url{https://developer.arm.com/documentation/den0153/0101/}\\
+ 	\phantomsection\label{intro:SCMI}\textbf{[SCMI]} &
+ 	Arm System Control and Management Interface, DEN0056,
+ 	\newline\url{https://developer.arm.com/docs/den0056/c}, version C and any future revisions\\
+@@ -350,4 +353,3 @@ \section{Constant Specifications}\label{sec:Constant Specifications}
+ either VIRTIO_FLD_A or VIRTIO_FLD_B.
  
--% Mark a normative section (driver or device)
-+% Mark a normative section (driver, device, or bus)
- \newcommand{\drivernormative}[3]{#1{Driver Requirements: #2}\label{drivernormative:#3}}
- \newcommand{\devicenormative}[3]{#1{Device Requirements: #2}\label{devicenormative:#3}}
-+\newcommand{\busnormative}[3]{#1{Bus Requirements: #2}\label{busnormative:#3}}
- \newcounter{clausecounter}
- \newcommand{\conformance}[2]{
- 	\stepcounter{clausecounter}
+ \newpage
+-
 -- 
 2.53.0
 
