@@ -1,30 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C668528C869
-	for <virtio-comment@lists.linux.dev>; Mon, 15 Jun 2026 09:10:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AE5E83D45F2
+	for <virtio-comment@lists.linux.dev>; Mon, 15 Jun 2026 09:10:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781514646; cv=none; b=pVLklcrJyH3/VEWlRPC/W16kzu+goyjkjhu59TH2+IfhNhMEQPr4rPJ/fRcl/L2tW1kma048Cs/2spNZt6jM6fFH0nShivJtAqPMkoYNonQgL6gxLSFXrlBbgxoaGuUBPHcH2uYA9x/F2tQS7V3CenLzZZubW7BQrIZxZuUM5IQ=
+	t=1781514661; cv=none; b=kCSNzrAGewEV6MNXpsezAgtcSkYHRIBTMG4AbJlV50t5Y0kSKgUXesszI38NzQA3QVeu8m81qF3FOgMEevOkORID8kj1VfIEdz8El6oiDqyboxOGCK4XwSwOoSv8hepqCp8dlfgKj1kMwS07Rv6X+x8A+n8bdh4/v3neugT64Is=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781514646; c=relaxed/simple;
-	bh=fS2yMbVxY5oBOvieELhHEqiShIdfIap9cblASVRG4Xk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VGgdXzMRP3PpzPmppV+AlYDKpfEplapQrX0UNNShOkJHqRy7ybPzMwONNgdjKUDPiv/4ak5UKgw4xlcPShRu4pR+wo2PZDCbrmQNyJwIEgtA/uFY4UcHm5nOh1GnrqWaCZQZXddrS4jlPiUTzbUTF+QMhBoJB9mOcXQXzFWVGwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=c6zXiu84; arc=none smtp.client-ip=217.140.110.172
+	s=arc-20240116; t=1781514661; c=relaxed/simple;
+	bh=KL/rQ90wz4ihHRKzV7VlmDIkitLz/cjR0XMjV4luwtY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bzIUIo7HWeMrGa5SC5o+xdNw8b7L9w39bmDQ+YF9p5Ry0XuAt/jSWmCgZFKek384xR9QkCptsH5Sz+MuF8lvQYGIAy5pzLDCPkDRRZ7+8/vAJU3SHBo/ckSbGkgXhaAtb/KSS4FuK2Ckn/KABvotLo9o94+x0hV0DX12TP46qh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tcJeL2uJ; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="c6zXiu84"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tcJeL2uJ"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 36FD71BF3;
-	Mon, 15 Jun 2026 02:10:38 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 19B3E1BF3;
+	Mon, 15 Jun 2026 02:10:54 -0700 (PDT)
 Received: from C3HXLD123V.arm.com (unknown [10.57.37.93])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 68EC93F915;
-	Mon, 15 Jun 2026 02:10:41 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 22F913F915;
+	Mon, 15 Jun 2026 02:10:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1781514642; bh=fS2yMbVxY5oBOvieELhHEqiShIdfIap9cblASVRG4Xk=;
-	h=From:To:Cc:Subject:Date:From;
-	b=c6zXiu84+k6kcaNM2shnV/E8vuvgpTnV/HCIopYpv/E/RrHuaJPKrl2rOa5U6yYYm
-	 zbhdpAJjJyI0yuJohN8fMeDBxT9s8KiG7wOWxkXZMIoeciSkpWcj+oZ/iQrx5r/3Iy
-	 FWIyCmNZnELW6d0aO8rOV6KIpcLIsIID0K0vWdlY=
+	t=1781514658; bh=KL/rQ90wz4ihHRKzV7VlmDIkitLz/cjR0XMjV4luwtY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=tcJeL2uJzePrCXt0CENvtIZ+wt3reXNlOV7t9ekZxUGEiA/sIFZ7IFKrgukuItJnb
+	 VIwclINE08H4uUWWFuh/bB43iySZBl7mId1R4DXwO6HVvARqbGvauyCDR9uwcF7tSE
+	 u9v5bJL1oATiteFxl532eVtKwgEBCI1miEFAeK7M=
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: virtio-comment@lists.linux.dev
 Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
@@ -32,11 +33,14 @@ Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
 	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
 	Viresh Kumar <viresh.kumar@linaro.org>,
 	Alex Bennee <alex.bennee@linaro.org>,
-	Armelle Laine <armellel@google.com>
-Subject: [PATCH v2 0/6] virtio-msg transport layer
-Date: Mon, 15 Jun 2026 11:10:22 +0200
-Message-ID: <cover.1781514628.git.bertrand.marquis@arm.com>
+	Armelle Laine <armellel@google.com>,
+	Bill Mills <bill.mills@linaro.org>
+Subject: [PATCH v2 1/6] virtio-msg: add new command for bus normative
+Date: Mon, 15 Jun 2026 11:10:23 +0200
+Message-ID: <998059c704fffafbceb9804045b9ffe6cf7a64b2.1781514628.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1781514628.git.bertrand.marquis@arm.com>
+References: <cover.1781514628.git.bertrand.marquis@arm.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
@@ -45,230 +49,31 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds the virtio-msg transport layer.
+Add a new command to have a standard way to define virtio-msg bus
+normative statements.
 
-The individuals and organizations involved in this effort have had difficulty in
-using the existing virtio-transports in various situations and desire to add one
-more transport that performs its transport layer operations by sending and
-receiving messages.
+Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+Signed-off-by: Bill Mills <bill.mills@linaro.org>
+---
+ commands.tex | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Implementations of virtio-msg will normally be done in multiple layers:
-* common / device level
-* bus level
-
-The common / device level defines the messages exchanged between the driver
-and a device. This common part should lead to a common driver holding most
-of the virtio specifics and can be shared by all virtio-msg bus implementations.
-The kernel implementation in [3] shows this separation. As with other transport
-layers, virtio-msg should not require modifications to existing virtio device
-implementations (virtio-net, virtio-blk etc). The common / device level is the
-main focus of this version of the patch series.
-
-The virtio-msg bus level implements the normal things a bus defines
-(enumeration, dma operations, etc) but also implements the message send and
-receive operations. A number of bus implementations are envisioned,
-some of which will be reusable and general purpose. Other bus implementations
-might be unique to a given situation, for example only used by a PCIe card
-and its driver.
-
-The standard bus messages are an effort to avoid different bus implementations
-doing the same thing in different ways for no good reason. However the
-different environments will require different things. Instead of trying to
-anticipate all needs and provide something very abstract, we think
-implementation specific messages will be needed at the bus level. Over time,
-if we see similar messages across multiple bus implementations, we will move to
-standardize a bus level message for that.
-
-We are working on a few reusable bus implementations:
-
-* virtio-msg-ffa based on Arm's Virtio Message Bus over FF-A specification [6]
-  for use between:
-  * normal world and secure world
-  * host and VM or VM to VM
-  * Can be used w/ or with out a hypervisor
-  * Any Hypervisor that implements FF-A can be used
-  * We have this working with pKVM and Xen
-  * We have this working with Trusty and OP-TEE
-
-* virtio-msg-amp for use between heterogenous systems
-  * The main processors and its co-processors on an AMP SOC
-  * Two or more systems connected via PCIe
-  * Minimal requirements: bi-directional interrupts and
-    at least one shared memory area
-  * hvac-demo has 2 demos of this
-  * This is working on two hardware platforms
-
-* virtio-msg-loopback for userspace implemented devices
-  * Allows user space to provide devices to its own kernel
-  * This is similar to fuse, cuse or loopback block devices but for virtio
-  * hvac-demo has a demo
-
-We also anticipate a few more:
-
-* virtio-msg-xen specific to Xen
-  * Usable on any Xen system (including x86 where FF-A does not exist)
-  * Using Xen events and page grants
-
-This series keeps 16-bit dev_num values per bus instance; deployments that need
-more than roughly 65k devices can scale by using multiple bus instances.
-
-Changes since v1 (virtio-msg-patch1):
-
-First, thank you for the detailed comments and broad interest on v1.
-This revision incorporates review feedback from Peter Hilber, Demi Marie
-Obenour, Parav Pandit, Andrei Homescu, Manos Pitsidianakis, Michael S.
-Tsirkin, Bill Mills, and HVAC group discussion.
-
-Highlights of the changes since v1:
-
-* Finalized the common transport message model:
-  * keep the 8-byte common header
-  * keep 16-bit device numbers per bus instance and a 16-bit msg_size field
-  * note that deployments needing more than roughly 65k devices can scale by
-    using multiple bus instances
-  * clarify common message-ID encoding and validation boundaries
-  * define request completion more precisely: a valid supported request
-    completes with exactly one protocol response or a transport-visible failure
-  * clarify request/response correlation and token handling, including the
-    rule that devices echo the request token while the bus may rewrite tokens
-    internally for correlation
-  * preserve per driver/device request ordering while still allowing
-    bus-correlated out-of-order responses and events
-
-* Clarified bus versus transport responsibilities and enumeration:
-  * keep GET_DEVICE_INFO as a driver-issued transport message, and GET_DEVICES,
-    PING, and EVENT_DEVICE as optional bus messages
-  * require bus messages to use dev_num = 0
-  * bus implementations must expose only validated device numbers, may expose
-    zero devices, and should delay device-number reuse to reduce races
-  * EVENT_DEVICE is defined as a bus-originated ADDED/REMOVED hotplug event
-  * tighten GET_DEVICES enumeration semantics, including empty-bitmap cases and
-    guaranteed forward progress
-
-* Tightened initialization and feature negotiation:
-  * use transport revision terminology consistently
-  * keep GET_DEVICE_INFO as the only transport message used for early discovery
-  * align the rest of initialization with the core virtio flow through reset,
-    status progression, feature negotiation, FEATURES_OK verification, and
-    DRIVER_OK
-  * keep transport feature bits separate from device feature negotiation
-  * define GET_DEVICE_FEATURES as reporting the feature blocks offered by the
-    device
-  * require GET_DEVICE_INFO to report enough feature blocks to cover all
-    offered feature bits and bound max_virtqueues to 65536
-  * define SET_DRIVER_FEATURES as addressed-block updates carrying the subset
-    chosen by the driver, which may be built up across multiple requests before
-    FEATURES_OK
-  * keep FEATURES_OK as the point where the device accepts or rejects the
-    negotiated set
-  * make GET_SHM mandatory for devices to implement while keeping driver use
-    optional, and align the shared-memory identifier semantics with core virtio
-
-* Aligned configuration, status, and notification behavior with core virtio:
-  * align GET_CONFIG, SET_CONFIG, EVENT_CONFIG, and device status handling more
-    closely with the core virtio model
-  * keep VIRTIO_MSG_F_STRICT_CONFIG_GENERATION only as optional strict-profile
-    SET_CONFIG mismatch enforcement
-  * define nonzero SET_CONFIG writes as all-or-nothing and rejected writes as
-    length = 0 with no payload
-  * limit EVENT_CONFIG status notifications to device-originated asynchronous
-    status changes
-  * make polling-only operation explicit, with EVENT_AVAIL and EVENT_USED used
-    only when the endpoints choose event-driven notification
-  * keep bus-side forwarding, polling, or synthesized notification delivery
-    transparent to the transport-visible model
-
-* Refined virtqueue and reset semantics:
-  * clarify queue-state transitions, SET_VQUEUE update behavior, and invalid
-    reconfiguration cases
-  * make SET_VQUEUE and RESET_VQUEUE reject cases deterministic no-op empty
-    responses
-  * define deterministic GET_VQUEUE zero-sentinel responses for unavailable,
-    unimplemented, and out-of-range queues
-  * define local admin virtqueue field semantics and the EVENT_AVAIL
-    notification-data encoding more precisely
-  * clarify reset-completion checks without duplicating the core virtio reset
-    rules
-
-* Improved document quality:
-  * reworked the chapter to better match existing virtio specification style
-  * removed duplicated or ambiguous requirements
-  * fixed label paths, direct field references, punctuation, and ambiguous
-    wording
-  * added informative known bus implementation examples
-  * completed conformance coverage for driver, device, and bus clauses
-  * normalized punctuation and wording for consistency with the rest of the spec
-
-Open topics and ongoing discussion:
-* Out-of-order/performance extensions:
-  We kept the baseline behavior simple in this revision. If clear performance
-  benefit is demonstrated, we are open to introducing an optional feature-bit
-  based extension in a follow-up patch set.
-* Graceful device removal sequencing:
-  Current direction is to handle graceful-remove sequencing in bus-specific
-  specifications. We welcome feedback on whether any additional transport-level
-  guidance would be useful.
-* Transport scope and mapping guidance:
-  Discussion is still ongoing on transport-vs-bus binding scope, response
-  status modeling, and mapping guidance for mmio/pci/vhost-user/KVM userspace
-  cases. We are collecting reviewer input before deciding on follow-up text.
-* Potential virtio-msg over virtqueues for PCI/MMIO:
-  This is still early discussion, including whether admin virtqueues should be
-  used or extended for this purpose. There is no consensus yet, and we are
-  continuing design exploration.
-
-Eco-system:
-* Added virtio-msg-loopback demo
-* Arm has published the Virtio Message Bus over FF-A specification [6]
-* virtio-msg over FF-A has been demonstrated with both Trusty and OP-TEE
-  secure world
-* LKML RFC has been sent [7]
-* QEMU RFC has been sent [8]
-
-This is v2 of the first non-RFC patch series. We are grateful for the review
-feedback and interest received on v1, and we ask for continued review on this
-revision.
-
-Background info and work in progress implementations:
-* HVAC project page with intro slides [1]
-* HVAC demo repo w/ instructions in README.md [2]
-* Kernel w/ virtio-msg common level and ffa support [3]
-* QEMU w/ support for one form of virtio-msg-amp [4]
-* Portable RTOS library w/ one form of virtio-msg-amp [5]
-
-In addition to the QEMU system based demos in the hvac-demo repo, we also have
-two hardware systems running:
-* AMD x86 + AMD Arm Versal connected via PCIe
-* ST STM32MP157 A7 Linux using virtio-i2c provided by M4 Zephyr
-
-Please note that although the demos work, a few have not been aligned
-with this version of the spec.
-
-[1] https://linaro.atlassian.net/wiki/spaces/HVAC/overview
-[2] https://github.com/wmamills/hvac-demo
-[3] https://git.kernel.org/pub/scm/linux/kernel/git/vireshk/linux.git/log/?h=virtio/msg
-[4] https://github.com/edgarigl/qemu/commits/edgar/virtio-msg-rfc/
-[5] https://github.com/arnopo/open-amp/commits/virtio-msg/
-[6] https://developer.arm.com/documentation/den0153/0101/
-[7] https://lore.kernel.org/all/cover.1753865268.git.viresh.kumar@linaro.org/
-[8] https://mail.gnu.org/archive/html/qemu-devel/2025-10/msg07438.html
-
-Bertrand Marquis (6):
-  virtio-msg: add new command for bus normative
-  virtio-msg: Add the FF-A bus bibliography reference
-  virtio-msg: Add virtio-msg, a message based virtio transport layer
-  virtio-msg: link virtio-msg content
-  virtio-msg: add conformance entries in conformance chapter
-  virtio-msg: add message transport to core references
-
- commands.tex      |    3 +-
- conformance.tex   |   97 ++-
- content.tex       |   18 +-
- introduction.tex  |    6 +-
- transport-msg.tex | 2071 +++++++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 2185 insertions(+), 10 deletions(-)
- create mode 100644 transport-msg.tex
-
+diff --git a/commands.tex b/commands.tex
+index 25ea8ee3bc78..122a97f89b10 100644
+--- a/commands.tex
++++ b/commands.tex
+@@ -7,9 +7,10 @@
+ % How we format a field name
+ \newcommand{\field}[1]{\emph{#1}}
+ 
+-% Mark a normative section (driver or device)
++% Mark a normative section (driver, device, or bus)
+ \newcommand{\drivernormative}[3]{#1{Driver Requirements: #2}\label{drivernormative:#3}}
+ \newcommand{\devicenormative}[3]{#1{Device Requirements: #2}\label{devicenormative:#3}}
++\newcommand{\busnormative}[3]{#1{Bus Requirements: #2}\label{busnormative:#3}}
+ \newcounter{clausecounter}
+ \newcommand{\conformance}[2]{
+ 	\stepcounter{clausecounter}
 -- 
 2.53.0
 
