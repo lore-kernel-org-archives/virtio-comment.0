@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A26EF3D5C07
-	for <virtio-comment@lists.linux.dev>; Mon, 15 Jun 2026 09:11:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A37CA3AEB32
+	for <virtio-comment@lists.linux.dev>; Mon, 15 Jun 2026 09:11:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781514665; cv=none; b=s5Gz8VHrCvOB3SKfcheYK57HwOGdWELDt53nmBEfsq0HrO9uQ3qbmOcEa9qx7W3e8vfLZzjq1tDE/IeQLmJGUSz4Yi3D74/U1PfCHFfW5ZtANCms0XPXtEeTQ96NYZFLcKPg21Er00oau5kRQHC1EQTk6HzO+m4O0iNe45QucLU=
+	t=1781514670; cv=none; b=I1KNeyPXjvu41Exkgucs8Uyr6so1qPapthM6EjE5pspmgv0/1iqwfDjT3g3w4rT23oMKRA7+0vDh9aLcxEshp/URZiiQLQbuHS0443xamkD5QwI1WVBZtJbLJm3DoogVqNW46dm9MgY6Bx/LhTw3wv0v/cBfed9TfiJ96uKfmsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781514665; c=relaxed/simple;
-	bh=yyJpLBGEiW5qO7JmqRFAZ8Wup6OL4uFvubAJmukBAMc=;
+	s=arc-20240116; t=1781514670; c=relaxed/simple;
+	bh=1U5lC0QKCoR52NS3dSVjopPybcGk1QjpUh6FwwhzCzA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j/veBrvGN/ud0ueuz9lrlYRmv2lsPsXwmZB/acrGHNig9nsXjfLv+b9G7LLE4FvhrG1zWEQgegZhsK/8v6GRkxFu68h0ryjSbEHlD9PhLs7aV18BTuH6BkpxeoeIQQfg7FTqeRsiSnLLmOr3PBvQ8vToF6KG1Z4SBuRvdQ/KKNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=imxr5jK0; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=tzjrpFZIfIZh5s2QZV4WA+0kC8juwwstoIR/UNOGTXookos/EpvcdFolmvl1CbS+COKJC+JMTVLGRlI4+BG2j413IzEwDjmJFcMSquDrULA9mOLnJ9yrVEVCCMAKaJS6BjNA1TSEc4QK7tieHrj2qH+Mb1ruvoxrayotIi92spI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=AKPJVEoX; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="imxr5jK0"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="AKPJVEoX"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2FED6328D;
-	Mon, 15 Jun 2026 02:10:56 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C73951BF3;
+	Mon, 15 Jun 2026 02:11:00 -0700 (PDT)
 Received: from C3HXLD123V.arm.com (unknown [10.57.37.93])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3D6133F915;
-	Mon, 15 Jun 2026 02:10:59 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C76543F915;
+	Mon, 15 Jun 2026 02:11:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1781514660; bh=yyJpLBGEiW5qO7JmqRFAZ8Wup6OL4uFvubAJmukBAMc=;
+	t=1781514665; bh=1U5lC0QKCoR52NS3dSVjopPybcGk1QjpUh6FwwhzCzA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=imxr5jK0knqYaGe16p2G+ragfzr8zm9vd9ShvUJpqTkKzrlSNkOp3GTC0JsEnrI11
-	 u9xN80PTy5FEhMbjuUpL91zxClqyIND2Zzd8CM/KKHSVWmMkJClMe+xTb04BtDYhfJ
-	 r/+SzyDwAOo+hCwSBegntUj0Wrsyt0NRso+aYd30=
+	b=AKPJVEoXoL3KTUVuz4bjj47LJiJPjpWbPxwzZW8W6fcNI9vOM5EP7qUAA4uUq8rB3
+	 /VJhQ+hx/E4XSjJj94WD6k2+tZa/v09Ry071DoTH67JMrEThHm3z8Ad91Wm9GTlo/L
+	 n/uFv5IN+mkgNX9X+hOh5LexDmBMqYdPIXJnLglw=
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: virtio-comment@lists.linux.dev
 Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
@@ -35,9 +35,9 @@ Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
 	Alex Bennee <alex.bennee@linaro.org>,
 	Armelle Laine <armellel@google.com>,
 	Bill Mills <bill.mills@linaro.org>
-Subject: [PATCH v2 2/6] virtio-msg: Add the FF-A bus bibliography reference
-Date: Mon, 15 Jun 2026 11:10:24 +0200
-Message-ID: <d83fbd736249207386be22d1313ccf745592d190.1781514628.git.bertrand.marquis@arm.com>
+Subject: [PATCH v2 4/6] virtio-msg: link virtio-msg content
+Date: Mon, 15 Jun 2026 11:10:26 +0200
+Message-ID: <c6c960231ef3610ab9e7e562950537f66a632157.1781514628.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1781514628.git.bertrand.marquis@arm.com>
 References: <cover.1781514628.git.bertrand.marquis@arm.com>
@@ -49,36 +49,26 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Reference the Virtio Message Bus over FF-A specification through the
-normative bibliography using a distinct FFA-BUS citation tag.
-
-Attribute the DEN0153 document to Arm.
+Add the new transport layer into the content table
 
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 Signed-off-by: Bill Mills <bill.mills@linaro.org>
 ---
- introduction.tex | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ content.tex | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/introduction.tex b/introduction.tex
-index 9a9cbde5fede..635e267cee04 100644
---- a/introduction.tex
-+++ b/introduction.tex
-@@ -92,6 +92,9 @@ \section{Normative References}\label{sec:Normative References}
- 	\phantomsection\label{intro:I2C}\textbf{[I2C]} &
- 	I2C-bus specification and user manual,
- 	\newline\url{https://www.nxp.com/docs/en/user-guide/UM10204.pdf}\\
-+	\phantomsection\label{intro:FFA-BUS}\textbf{[FFA-BUS]} &
-+	Arm, Virtio Message Bus over FF-A, DEN0153,
-+	\newline\url{https://developer.arm.com/documentation/den0153/0101/}\\
- 	\phantomsection\label{intro:SCMI}\textbf{[SCMI]} &
- 	Arm System Control and Management Interface, DEN0056,
- 	\newline\url{https://developer.arm.com/docs/den0056/c}, version C and any future revisions\\
-@@ -350,4 +353,3 @@ \section{Constant Specifications}\label{sec:Constant Specifications}
- either VIRTIO_FLD_A or VIRTIO_FLD_B.
+diff --git a/content.tex b/content.tex
+index 243ce2dde36b..79e99a5801b9 100644
+--- a/content.tex
++++ b/content.tex
+@@ -693,6 +693,7 @@ \chapter{Virtio Transport Options}\label{sec:Virtio Transport Options}
+ \input{transport-pci.tex}
+ \input{transport-mmio.tex}
+ \input{transport-ccw.tex}
++\input{transport-msg.tex}
  
- \newpage
--
+ \chapter{Device Types}\label{sec:Device Types}
+ 
 -- 
 2.53.0
 
