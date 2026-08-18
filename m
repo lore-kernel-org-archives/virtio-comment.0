@@ -1,371 +1,393 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011038.outbound.protection.outlook.com [40.107.208.38])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5918C48034C
-	for <virtio-comment@lists.linux.dev>; Tue, 18 Aug 2026 17:16:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787073363; cv=fail; b=eYJ1n7EwOnojvLwhS0nG4gaLOy4MDHQYITDSsOrpGbkTPEBlqmzt8TfBD0LYSz3nL0Sl8BTlyCGHA0MmQSzpH1Ji3XUhNnbzeJLcKksjuTo9R1zQI9ARh2iXHJ0UoruJ3KiuQCk+sJ8OoKGnyQTlNh9vbvriZVXPVXUbq1xcgMo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787073363; c=relaxed/simple;
-	bh=X/N5w99P61ho2yL/F+83ej1xzJt2OblHYuNCKZxHExI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=cXK6890B47ttl9kYBfVougYzNduXAgDJTHldeuTLsDdWg3x5/JpWd9Ahzbtu6VlhnGG1vyL6TGziFQiRkXKwd8NGg72fOp1GnJGZWnMzLlfib8A4U1UKbs09GhG5biSXqioBiKvFEN4Z19Ld461pqApJHEmf3kz+NXxgRXTvwK0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=J0lGboKi; arc=fail smtp.client-ip=40.107.208.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F9D484223
+	for <virtio-comment@lists.linux.dev>; Tue, 18 Aug 2026 17:48:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787075328; cv=none; b=J9TLA9cmpPFdnHgWwXiJTpZSu0Fro8KpRR4Pyp7EYcqP+rOvbYbY8XPzWoWEeSn8ctyjBNPzngWO/dw15Owlh24zGA5SC5MLPUBbv9fL70Yd36CoViGNPMRQBVZuO8Fr0ncbW2EFOI98xAefXqgjB6BjTzW3m/w7vC25/hll5Ak=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787075328; c=relaxed/simple;
+	bh=5i97yRryBMR1NCfeuHpXk1g2P8UxqGPaX4Ef8tCbtEs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=SDPSZ00nRXW5XNk0wMwtVxO4nRYwKc44nAJYUY/aeXnRT2WoUfKOnUZbnoWGxFQSp3JdscJAXS4JRi1egoW0Y7tTHhtQ2d7XUTYI+Z1UNEa3W7Dkcrz1+ZyS/hbGXxxDNVC+RH8qA0KTXJsL1CybcHyJpH2fTl059RQOP3sxRTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ml9dY1Ld; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="J0lGboKi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QbgwPLZ/BcFgBSTon4xuD9hE9xIFzwZZU6vvHNwwqhkbu8qFWKmozOZIMu5hPi//OIUJqEF+YtZuJIhFqHJvflxQue/V8G4ruf03y+tToPNKGvFkPLufUVzU1SEUoe6YjF8k4iv8gtfm3vt6UUu8kzpEdjErk1RsZl57Et7FH5Uo4IUbCCt+KLjOtijDNAr4xvouw5csQ+0euStCbz8MYCpwau7UFFBrjfOjgZdGHhDKRo3VxCaRwsiWkiwXt+t463kg+VT42BzlAvCti/GMlGbZs1cHg1a0T5fAW0XOTpRwsmTbeihU3gSIx50VlACaZkY3OABSxGMTL/rmCtBGoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VpgNRmqb3EXUpBl3pGYOdfpD9Z/VM3clf9dOsbyN30s=;
- b=eteJx4nRTZQkAu+y5HAtYBln5vS737a5Vo7VuUi6Q0XzrdsOR26uoVI6q0T/+qscCYVYHnkEoQo5iayeOT3ZdjEiZ+/w3dSMQXqr9Rnw4N0kF2m9dvXIfwqzBRAeYr9p9nRXRQ/Ji5lohPDj9qfqeZbApUDZM2Ig51kDAowzAnWLkCS63LUJ6p6MMaW/opF3DIBHeoKlAJ64a3c2g96ZjtAT1+cU+Pzffw4kXxXSAeaq90AkNEFEEXymedZUofDftfUwfgVcXhStJAN/TSdB9v2OFGx9CNSpP5Ms74bYfkcBUq1Y3Dzz+tBPXVxopfJG3k1NJDW0cGGyrlZuRoaISw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VpgNRmqb3EXUpBl3pGYOdfpD9Z/VM3clf9dOsbyN30s=;
- b=J0lGboKiI4QzhjiKdm1rwsQ6EkWUS3XfSzHfzUuAM4rIAD/idR91SmqP7H8de7yPtQoXNX2S9p3LQwL5tAXRdGdNRS0WvBcwBDaPTLy17BlvYSGuGdp1923vP/PBBixnNP77ZExSChoQRPNc9kmvjOdt8I/FOfTyR3+8ny1pFEAy61J7Q0NtHqHX+s69GOS1SsxONsy4gddDiFNZU05lAVRg/6smdMnwyfVVJED3Pae5QjGLcvYiNtYp9sEI8JMQyMLc5Ly4XAhD1KOnGCfTNBUcdlYHqYBumMVq9cas7RWvhYwZl00nGV/q0+wArtYfby9XXYrWLemHn2E8d8i9GA==
-Received: from SJ0PR12MB6806.namprd12.prod.outlook.com (2603:10b6:a03:478::7)
- by SA3PR12MB8021.namprd12.prod.outlook.com (2603:10b6:806:305::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
- 2026 17:15:54 +0000
-Received: from SJ0PR12MB6806.namprd12.prod.outlook.com
- ([fe80::3981:4d43:82f5:adf6]) by SJ0PR12MB6806.namprd12.prod.outlook.com
- ([fe80::3981:4d43:82f5:adf6%2]) with mapi id 15.21.0292.024; Tue, 18 Aug 2026
- 17:15:54 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: Amanda Liem <Amanda.Liem@amd.com>, "virtio-comment@lists.linux.dev"
-	<virtio-comment@lists.linux.dev>
-CC: Nathaniel McCallum <nathaniel.mccallum@amd.com>
-Subject: RE: [PATCH] virtio-net: Add VIRTIO_NET_F_LABEL for a per-instance
- label
-Thread-Topic: [PATCH] virtio-net: Add VIRTIO_NET_F_LABEL for a per-instance
- label
-Thread-Index: AQHdLzS9rGiDe6pUFEmU1tApYAo9fbakC3hw
-Date: Tue, 18 Aug 2026 17:15:54 +0000
-Message-ID:
- <SJ0PR12MB68063B6C5A125573CE53A717DCA62@SJ0PR12MB6806.namprd12.prod.outlook.com>
-References: <20260818170552.2127-1-Amanda.Liem@amd.com>
-In-Reply-To: <20260818170552.2127-1-Amanda.Liem@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR12MB6806:EE_|SA3PR12MB8021:EE_
-x-ms-office365-filtering-correlation-id: 96d67863-a727-4591-459b-08defd4c5cbe
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|38070700021|6133799003|3023799007|56012099006|10067099003|5023799004|11063799006|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- /aCp8OBUxkDDSrPz0SvkU6qOKqxP9fBbz0j9Pm8ePMXu0St8BKW5f2ThZBIweEzivd1m/0S4J8WHQxua0IubYsvDxB06JqUR0FsCHLAsE6T0iRSMpMYB+ChKGjP23oXDEYku9/LxcMCH8rpbCG4xIL9Eqh6MN3SqPoAYePNYKiNA6A9x9QzezvbJbvmpzXYesogJHwAbPQiF7hPOUJ3gTkIvHf0iYdiFb3aqBO9gBSnwRydHUqeaJ+ucmLd+L795WW/q17xhK9SHZ8YvQfczfeLiYpIffo2/npvK1QfD+I2o7h0eflYnIRMek179VDX8Z88mt8jIImCkapSKoyUCD70FWgMPxCjIEroQ7S2k8yvOTripAarcqhVyw0lVTCwPz1yo69AxmCl8+x6m7WzZ8/DX5fKSz5+iOmiJXx+yaz9+ZZZzzizXu6AyQ8UxPJaOg/qkXOzIHsIItnjhWfwCSU8f/y4C02YBODiWivR86Y/hmePx4YmInNVsObWTC2FbDsY/iZdbKFsBO5t7ZSvOjfq95ZOHJygJQXCwZI3pVw28EjChtWHr1TUAlc6ST5Zq/6qd8wn3va3nt51Ws0PxkmvYSd2QGgGWF8D6r38Ke2WQX/+1Eki0OuKwkpGQSQFA3PRP6ZISLB6yNq7kryslUasRr9apaeKhJgF67P6kn8NvvMCwGNY/AC5HsqzYhBf2MvXuC1suTQNAK5sTce/QsG5VvogYCLYKgXRvdhXRfcA=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR12MB6806.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(38070700021)(6133799003)(3023799007)(56012099006)(10067099003)(5023799004)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?PJzheRyRVMVsnhLHQGYxonoiN+2stTYl81LYaZ55Hz0x6tmm/C5CeQnRNr?=
- =?iso-8859-1?Q?4gwGKKQXbpYquvzLReP00MvwKvYAlhfOPKqACDsJ3TfK8/dzNKk6WmY76N?=
- =?iso-8859-1?Q?bsRWQdWn5cYvE9qMl3NiYVweRwZeL0XMtftul8SjNPPtkSHSIBbkwJuNTZ?=
- =?iso-8859-1?Q?s/9Sc8WsVXKF5c0jSEt3p6bE4RBM0roIU2yewYG+Cc72znJu939NUdA9zw?=
- =?iso-8859-1?Q?O0l7mAByguOIC1bJimVP+icXr1eFVxybNnHB7vfW1/odRIwRVlxBWXGu6O?=
- =?iso-8859-1?Q?3GEbY/oSOFe9SjJGc+7s5juHCcdFtTS+48D6qzSmpKykLYb6TcFJhUMJ2V?=
- =?iso-8859-1?Q?F2NA8B4Br6u40l3dIH9cSPHfWempXEGVfhwNLNpm7LkVkxizsqBXgcPPGL?=
- =?iso-8859-1?Q?kHdwJMcGUodFZPsJU2C+/xdaKoxaapFdZNN9qgn5RPY0Gc7IvbmTLb2AHQ?=
- =?iso-8859-1?Q?IqBIzgAvUiZmPhcwniEtOzqFvsvr204KqO4OKOaJxSaUJ1sxzpOdzmQsLB?=
- =?iso-8859-1?Q?mnZnWWH6ehBSB/aNa6wXVF9/3GqTMarj0ATHTmJ74c53E/BlN+6fRjxgCI?=
- =?iso-8859-1?Q?LwckNR2gd2h8mnA+lOnc94tJC50A/gimUgbgRE66cK2LLJXiSvCeg0a7mz?=
- =?iso-8859-1?Q?hq7TPNvEsd+BrMSPSk+X6740zezR2igXPEsL2Z0jJSDZDrgWwDhlhJ67Dd?=
- =?iso-8859-1?Q?d9bvNUTLWHXprR99jsInKfciPXXgfvZMaHwZVOQHm5sgfaKgeGS58ebbdx?=
- =?iso-8859-1?Q?QOEa7M98zK6tyeWOU90vDKekqmtiDjw+dBrzhsZTydID4gWif0yUb1/XUs?=
- =?iso-8859-1?Q?iTp67FluK4CBXQwC/L2PM0Q1DbJbo+O6uMzyqjpVtGcHSPCS07lP6ADJ/E?=
- =?iso-8859-1?Q?YMkcJ+pyqmF7uxXkJf3XHQ3cAI4TgXOJO37A/9e1q/h2ETcrDkNW/8B7EB?=
- =?iso-8859-1?Q?mzu1SCfm7+XwG+/Va1o8TvSO2EuG2rC7XX+FQ7XTib0sXMvoOF375squvu?=
- =?iso-8859-1?Q?jfTD/pxWS02oZaB9i1HPjgw+9t19B0+N7kmRUDpNT3sLQSfp827rA4uhV7?=
- =?iso-8859-1?Q?nM7Pz1HDZFJ/aZaygUmUa6bUGkr0vlYneYsVxwLf5A+GBld2JatoYTrjw/?=
- =?iso-8859-1?Q?mwG8p+6Q1GkFuuSvNjehbVSE0UXN4SL7JAaiLYl2VDdWt/UhJ8BwrQ6tR9?=
- =?iso-8859-1?Q?SjW6Hv3jjjHVYIF9V9CZT63+aeR9XiON06SSfJ+Vcv2qhIm0Y0AAjJyAwG?=
- =?iso-8859-1?Q?9HMplxZ/s52xASUKibxWCQJuiPfQ7RdoYxW8KNo+RGeK2Te1phMPDxtiV2?=
- =?iso-8859-1?Q?jG2qBuYGGKZiThSokNaMzvmgNIsQ9J2Lhhokm9ZgUtGhQxkSHauPgfZSAF?=
- =?iso-8859-1?Q?H2jGCNbl1jDNWSyy1QJ++gONhpDv8Xp9NgA/CGiNzf43kbXL9f1cB5syZx?=
- =?iso-8859-1?Q?Eete+wJw4MDpYWKi75g638vvyGlUvVtsEXConyg+YWToDSFzH3MuM8GT2O?=
- =?iso-8859-1?Q?caqXg4Tk5y/EKYtuxT1bf4kxkRGuPhYTyCRschByDrwJ4+HlzDfaTQ57To?=
- =?iso-8859-1?Q?+rU4wmXSxJlRCxF1410vGkV44ASBPeFQ+4kiNjmUkGUud7RxuXw5ftqE67?=
- =?iso-8859-1?Q?1Yvp95IYk6f8DcT2AR6LeFCZ0T+voYCdHtxF6ul/LfmU+mTrI4S5wy+epE?=
- =?iso-8859-1?Q?FPzvFUCqZxIpiCEpyUWJxCwFOydr1egmNQnO5oU+s3gAKdaX44AiPjAOqR?=
- =?iso-8859-1?Q?lX6Vsl7S+4bknXuLhsn+OA6jtG+1h6DpP9Qmo28m1+mJuu?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ml9dY1Ld"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787075325;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UJSAqZIkdxgLLT3vAhhbsZftu6f8muz9yaMCu0BuDfo=;
+	b=Ml9dY1LdUr/dCzuaBPaJjpSZE4qUOZ7q+8sssSwOi/mLF1pzxTPS7BSbbKRZ6s7GaqlfHk
+	hPZaOiqpzAF8X9ldThzoUvUs+VdDt7+bWnl+k1Pa1n7hBkJvOYbZGirzvkQIYTufvFlg0+
+	n3YOL7HCtzCXJJpBR/z0W/49xjwaAWw=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-640-_PDYh1hENJKU-F0xz4u9DA-1; Tue, 18 Aug 2026 13:48:41 -0400
+X-MC-Unique: _PDYh1hENJKU-F0xz4u9DA-1
+X-Mimecast-MFC-AGG-ID: _PDYh1hENJKU-F0xz4u9DA_1787075320
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4996832e7b4so8307915e9.1
+        for <virtio-comment@lists.linux.dev>; Tue, 18 Aug 2026 10:48:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787075320; x=1787680120;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UJSAqZIkdxgLLT3vAhhbsZftu6f8muz9yaMCu0BuDfo=;
+        b=ASUr8Ut9953kAfy6zQy4pdQepsgiVrrPtgxnE4ZVhaG3hIP+Vg5I/Tl21TmyxbPSuX
+         zdR6DAjsbEaw2BYRiMe3Ai51PJzrPVEwGdp2BH76uY3JUbE8mJ/8e8mB2ypO9DBAGQWi
+         fN+PF2sVbaPb2JNECxRaDix4amX1PKgSEdY34su2JXZlGHpXAJCGqdZqbW/i+Fld7LTw
+         wdV6TVTPsWlwowIBSQyihWbzkziWtgDbNAqwYeniJ/yZ98yIFnoifSMGH1SM/5jMhT+5
+         loCIWZm6/ia5PQkuFGmoYXj15zkQwHq01yp5DuFG6HE3nspStCdQ+ngBmoKACPzRckJa
+         C4Ag==
+X-Gm-Message-State: AOJu0YzOeGXdk6dwPlQfSYW8wXnfNzjxMPWWVnNMvFzTIPtiNTWNxger
+	2Vl0SL6cHAlRDOTONEfvemUzDPvn2umyvH6iUyNRFrfU8XPUmBUmdR88jKuNlNZ+o2A3S4cVW2z
+	3pfAKcjrn7QncgwJ/jm8Zf/+mpfKHj5W4k6J6+gghZ7QejSE01rxm+2bwDFWDduvLTMA1
+X-Gm-Gg: AR+sD13mD4VX7LTjEaixGJzT+DHVDa3mJ+pGiNb0RTNq9MRI9FqV1cOB/+//5IXC9t8
+	AB8X0tN/dVtdAZ0ddN0zrg3o1j/e+qa6v5Q/mMZzC2LdUv4G5OaQR0WQVGYc0I/h8XEfFwFqopM
+	MQDMHq5ruyKR+uzsdkhcWI7X9myVmzIAu1e3X3dQJEWa4jJSzLYP5NDGXzfJYCMsKl/e3JLfuIP
+	mTC+exjVmCQlMWLt7ItZ7Vr6O09UDb3DnpVLqjP+EYgbkxwjCKXuUphqNe0hGai070RqvzabaHE
+	JOSQI+5270yLMc8RN3FUWX1jGiwB2so2JHTV/RZy7AqaJdCS2trzD3dHAtBKayuWfh+9BiByaX4
+	JnTG9OQ2GyOIm8X1UcN2ciiWn
+X-Received: by 2002:a05:600c:83c8:b0:499:a0a5:e13f with SMTP id 5b1f17b1804b1-499a8c32bd1mr3407375e9.2.1787075320337;
+        Tue, 18 Aug 2026 10:48:40 -0700 (PDT)
+X-Received: by 2002:a05:600c:83c8:b0:499:a0a5:e13f with SMTP id 5b1f17b1804b1-499a8c32bd1mr3406205e9.2.1787075319618;
+        Tue, 18 Aug 2026 10:48:39 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-47-107.inter.net.il. [80.230.47.107])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49996176b95sm201445055e9.10.2026.08.18.10.48.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 10:48:39 -0700 (PDT)
+Date: Tue, 18 Aug 2026 13:48:36 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: "Graf (AWS), Alexander" <graf@amazon.de>
+Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
+	"nh-open-source@amazon.com" <nh-open-source@amazon.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Subject: Re: [PATCH v4] Add VIRTIO_F_DMB (Device Memory Buffer)
+Message-ID: <20260818043631-mutt-send-email-mst@kernel.org>
+References: <20260817022720.52650-1-graf@amazon.com>
+ <20260817050846-mutt-send-email-mst@kernel.org>
+ <bc915862-6c53-4811-825a-b112ca929c09@amazon.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6806.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96d67863-a727-4591-459b-08defd4c5cbe
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Aug 2026 17:15:54.8303
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9tKYdTUbj+cfyQoZBLu2kh9S0yFTESSuhjTsy9EINpI4PSELy5SE8nxZdrGov20vilYKSkm8CBxPflnj/nG4Yg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8021
+In-Reply-To: <bc915862-6c53-4811-825a-b112ca929c09@amazon.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 9SoCUz8RqsxYByerIET-AUpkZ_SlIDY0eZjU23V0Jpc_1787075320
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Aug 18, 2026 at 05:48:04AM +0000, Graf (AWS), Alexander wrote:
+> 
+> On 17.08.26 13:25, Michael S. Tsirkin wrote:
+> > On Mon, Aug 17, 2026 at 02:27:20AM +0000, Alexander Graf wrote:
+> >> Virtio devices assume R/W access of guest RAM to perform DMA into it to
+> >> access its virt queues and data to operate on. This basic assumption
+> >> leads to multiple problems:
+> >>
+> >> Confidential Compute - In SEV-SNP or TDX, the host has no direct access
+> >>                         to all of guest RAM. We work around DMA access by
+> >>                         having the guest limit DMA access to a common
+> >>                         shared memory window between guest and host
+> >>                         (swiotlb).
+> >>
+> >> Vhost-user - vhost-user backends require access to all guest memory, not
+> >>               only the memory they are actually supposed to access. This
+> >>               is fine for trusted backends, but if you want to limit
+> >>               visibility into guest, you need to do weird stunts like
+> >>               bouncing memory in the vmm [1].
+> >>
+> >> To restrict DMA visibility, virtio-iommu allows the guest to open specific
+> >> windows into guest memory to the device, but it comes with its own bag
+> >> of problems, such as dynamic allocations and complicated device <->
+> >> iommu connections that need to be represented reliably.
+> >>
+> >> Instead, introduce a simple mechanism that lets a device communicate
+> >> through its own dedicated shared memory region: Device Memory Buffer.
+> >> A device that offers Device Memory Buffer exposes a shared memory
+> >> region, owned by the device, that holds the virtqueues and the buffers
+> >> they reference.
+> >>
+> >> Once negotiated, an imaginary per-device IOMMU maps the device's IOVA
+> >> space 1:1 onto the region. Every data address is then an address into it,
+> >> never a physical or bus address, and the device reaches no other memory
+> >> to process virtqueues.
+> >>
+> >> The device reports the region's shmid in dmb_shm_id on PCI and DMBSHMId
+> >> on MMIO, so the shmid does not collide with device-specific or future
+> >> transport-specific shared memory regions. The driver locates the region
+> >> through the existing Shared Memory Regions facility, VIRTIO_F_DMB needs
+> >> a transport that supports SHM.
+> >>
+> >> The device also reports the region's memory type. The only available
+> >> type currently is 0 (cache coherent).
+> >>
+> >> [1] https://lore.kernel.org/qemu-devel/20260723-vhost-user-isolated-memory-v1-0-6b97c439eb28@gmail.com/T/#t
+> >>
+> >> Assisted-by: Kiro:claude-opus-5
+> >> Signed-off-by: Alexander Graf <graf@amazon.com>
+> >> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/248
+> > I like the "internal iommu" idea. addresses my concerns nicely!
+> 
+> 
+> Woohoo! :)
+> 
+> 
+> [...]
+> 
+> >> @@ -946,6 +946,14 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+> >>      suspend the device by set the SUSPEND bit to 1.
+> >>      See \ref{sec:Basic Facilities of a Virtio Device / Device Status Field}.
+> >>
+> >> +  \item[VIRTIO_F_DMB(44)] This feature indicates that the device offers a
+> >> +  Device Memory Buffer: a shared memory region, owned by the device,
+> >> +  that holds the virtqueues and the buffers they reference.  When this feature
+> >> +  is negotiated, all data DMA operations get routed via a static, imaginary
+> >> +  per-device transparent IOMMU which creates a 1:1 mapping of the device's
+> >> +  IOVA space
+> > DMA address space
+> 
+> 
+> The precedence in the doc is "bus address space". I'll use that one 
+> instead to stay consistent.
+> 
+> [...]
+> 
+> 
+> >> diff --git a/shared-mem.tex b/shared-mem.tex
+> >> index 6e6f6c4..405745d 100644
+> >> --- a/shared-mem.tex
+> >> +++ b/shared-mem.tex
+> >> @@ -38,5 +38,161 @@ \subsection{Addressing within regions}\label{sec:Basic Facilities of a Virtio De
+> >>   Device / Shared Memory Regions}
+> >>   Shared memory regions MUST NOT expose shared memory regions which
+> >>   are used to control the operation of the device, nor to stream
+> >> -data.
+> >> +data, other than the Device Memory Buffer when VIRTIO_F_DMB has been
+> >> +negotiated (see
+> >> +\ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}).
+> >> +
+> >> +\subsection{Device Memory Buffer}\label{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}
+> >> +
+> >> +When VIRTIO_F_DMB (see \ref{sec:Reserved Feature Bits}) is
+> >> +negotiated, the device offers a shared memory region, the
+> >> +\emph{Device Memory Buffer}, identified by a \field{shmid} that the
+> >> +device reports through a transport-specific mechanism (for example
+> >> +\field{dmb_shm_id} in the common configuration structure on the PCI
+> >> +transport, see \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout},
+> >> +and \field{DMBSHMId} on the MMIO transport, see
+> >> +\ref{sec:Virtio Transport Options / Virtio Over MMIO / MMIO Device Register Layout};
+> >> +see the transport chapters).
+> >> +The driver reads that \field{shmid} and locates the region using the
+> >> +transport-specific shared memory region enumeration mechanism, in the
+> >> +same way as any other shared memory region.  Because both the
+> >> +\field{shmid} report and that enumeration are transport-specific,
+> >> +VIRTIO_F_DMB is available only on transports that define a shared memory
+> >> +region discovery mechanism.
+> >> +
+> >> +When VIRTIO_F_DMB is active, all data DMA operations (not IRQ logic) get
+> > (excluding notifications)?
+> 
+> 
+> Good catch. Reworded.
+> 
+> 
+> >> +routed via a static, imaginary per-device transparent IOMMU which
+> >> +creates a 1:1 mapping of the device's IOVA space
+> > DMA address space
+> >
+> >> and the DMB SHM region.
+> >> +The virtio device then performs all data access against the DMB
+> >> +region and no longer against the transport bus's DMA address space.
+> >> +
+> >> +With VIRTIO_F_DMB active,
+> >
+> > negotiated
+> >
+> >> address 0 is reserved. Drivers
+> > and devices
+> >
+> >> can
+> > internally
+> >
+> >> use address 0
+> >> +for internal semantics, such as "not in use" or "failed allocation".
+> >> +
+> >> +VIRTIO_F_DMB is independent of VIRTIO_F_ACCESS_PLATFORM.  A device MAY
+> >> +offer both, and MAY require one of them, but neither implies the other.
+> >> +
+> >> +VIRTIO_F_DMB does not change the memory ordering requirements for
+> >> +the Descriptor, Driver and Device Areas. Those ordering requirements must
+> >> +continue to align between the driver and the device observing the Device
+> >> +Memory Buffer. Which barriers the driver emits is governed by
+> >> +VIRTIO_F_ORDER_PLATFORM as it is for any other device (see \ref{sec:Reserved Feature Bits}).
+> >
+> >
+> > "as it is for any other device" is confusing and useless.
+> 
+> 
+> Ack on all the above
+> 
+> 
+> >
+> >> +
+> >> +To allow a driver to understand whether the DMB backing SHM region is cache
+> >> +coherent,
+> > in the future we'll presumably have more types?
+> 
+> 
+> We discussed this in earlier versions: If you want to build this as a 
+> way to use virtio on systems without DMA (which do exist, there are some 
+> funky PCI implementations out there), we can define a WC mode for 
+> example which then would allow not-super-fast, but still workable I/O in 
+> such environments.
+> 
+> I just don't really want to deal with defining all of the nuances of 
+> such a mode right now. IMHO that's best done when we actually cross that 
+> bridge and someone can validate that what they put into the spec 
+> actually works in real life.
 
 
-> From: Amanda Liem <Amanda.Liem@amd.com>
-> Sent: 18 August 2026 10:36 PM
->=20
-> [You don't often get email from amanda.liem@amd.com. Learn why this is im=
-portant at https://aka.ms/LearnAboutSenderIdentification ]
->=20
-> From: Nathaniel McCallum <nathaniel.mccallum@amd.com>
->=20
-> Add an optional, feature-gated string to the network device
-> configuration space: a host-provided, guest-readable label
-> describing a single device instance. The field is modeled on
-> VIRTIO_NET_F_MTU and lives in config space so that it is plumbed
-> identically across the PCI, MMIO and CCW transports from one
-> definition.
+Well sure. But taking your example, a system which allows
+cacheable mappings will for sure also allow WC?
+So a single type is not good, we need like a bitmap.
+And once we do, let's just use feature bits?
 
-Please add the motivation for this addition describing what problem exists =
-and how does this addition solve it.
-And also have you considered querying this field via CVQ.
-If yes, than please explain the motivation to place this in config space.
+IOW when/if we define it, we'll just use a separate feature bit.
+No?
 
->=20
-> Two read-only fields are appended to struct virtio_net_config,
-> present only when VIRTIO_NET_F_LABEL is negotiated: label_len
-> (0..VIRTIO_NET_LABEL_MAX) and a fixed VIRTIO_NET_LABEL_MAX (64)
-> octet label buffer holding length-delimited, well-formed UTF-8
-> that is not NUL-terminated. A fixed buffer (not a flexible array)
-> keeps future fields appendable; existing offsets are unchanged.
->=20
-> Device requirements: offer the bit only when the fields are
-> populated; keep label_len <=3D MAX; emit well-formed UTF-8; keep the
-> value stable for the device lifetime with no config-change
-> interrupt; and never emit NUL, C0, DEL/C1, U+2028 or U+2029.
->=20
-> Driver requirements: do not touch the fields unless negotiated;
-> read label_len first and treat a value above MAX as a device error
-> with no out-of-bounds read; read exactly label_len octets; and make
-> no routing, identity or trust decision from the value, derive no
-> interface name from it, and assume no uniqueness or persistence.
->=20
-> Comparison is byte-wise and never normalized or case-folded; the
-> spec guarantees no uniqueness. Bidirectional and zero-width
-> characters remain permitted because their hazard is contextual; an
-> informative section places sanitization at the rendering layer and
-> notes that on an untrusted host the label is attacker-controlled.
->=20
-> The feature uses net device-specific bit 71, the next free bit
-> (0-70 are in use).
->=20
-> Signed-off-by: Nathaniel McCallum <nathaniel.mccallum@amd.com>
-> Signed-off-by: Amanda Liem <Amanda.Liem@amd.com>
-> ---
->  acknowledgements.tex             |   1 +
->  device-types/net/description.tex | 113 +++++++++++++++++++++++++++++++
->  2 files changed, 114 insertions(+)
->=20
-> diff --git a/acknowledgements.tex b/acknowledgements.tex
-> index 9a9f8b4..3394bbc 100644
-> --- a/acknowledgements.tex
-> +++ b/acknowledgements.tex
-> @@ -22,6 +22,7 @@ \subsection*{Participants}
->  Martin Kr=F6ning, Eonerc \newline
->  Matias Ezequiel Vara Larsen, Red Hat \newline
->  Michael S. Tsirkin, Red Hat \newline
-> +Nathaniel McCallum, AMD \newline
->  Laura Loghin, Amazon \newline
->  Lei He, Bytedance \newline
->  Paolo Abeni, Red Hat \newline
-> diff --git a/device-types/net/description.tex b/device-types/net/descript=
-ion.tex
-> index 9f85bf4..f1d1474 100644
-> --- a/device-types/net/description.tex
-> +++ b/device-types/net/description.tex
-> @@ -146,6 +146,12 @@ \subsection{Feature bits}\label{sec:Device Types / N=
-etwork Device / Feature bits
->   when VIRTIO_NET_F_IPSEC is negotiated. When a device offers IPsec featu=
-re, it SHOULD
->   also offer the VIRTIO_NET_F_OUT_NET_HEADER feature.
->=20
-> +\item[VIRTIO_NET_F_LABEL(71)] The device provides a label string
-> +    describing this instance. If offered by the device, the device
-> +    advises the driver of a host-provided, human-readable label for
-> +    this network device instance through the \field{label_len} and
-> +    \field{label} configuration fields.
-> +
->  \end{description}
->=20
->  \subsubsection{Feature bit requirements}\label{sec:Device Types / Networ=
-k Device / Feature bits / Feature bit requirements}
-> @@ -220,9 +226,15 @@ \subsection{Device configuration layout}\label{sec:D=
-evice Types / Network Device
->          le16 rss_max_indirection_table_length;
->          le32 supported_hash_types;
->          le32 supported_tunnel_types;
-> +        le16 label_len;
-> +        u8 label[VIRTIO_NET_LABEL_MAX];
->  };
->  \end{lstlisting}
->=20
-> +\begin{lstlisting}
-> +#define VIRTIO_NET_LABEL_MAX     64
-> +\end{lstlisting}
-> +
->  The \field{mac} address field always exists (although it is only
->  valid if VIRTIO_NET_F_MAC is set).
->=20
-> @@ -276,6 +288,42 @@ \subsection{Device configuration layout}\label{sec:D=
-evice Types / Network Device
->  Encapsulation types are defined in \ref{sec:Device Types / Network Devic=
-e / Device Operation / Processing of Incoming Packets /
->  Hash calculation for incoming packets / Encapsulation types supported/en=
-abled for inner header hash}.
->=20
-> +The following two fields, \field{label_len} and \field{label}, only
-> +exist if VIRTIO_NET_F_LABEL is set. Together they convey a
-> +host-provided, human-readable label describing this network device
-> +instance.
-> +
-> +\field{label_len} specifies the length, in octets, of the label
-> +value, between 0 and VIRTIO_NET_LABEL_MAX inclusive.
-> +
-> +\field{label} contains the label value as exactly \field{label_len}
-> +octets of well-formed UTF-8 text. The value is length-delimited and
-> +is not NUL-terminated; octets of \field{label} beyond \field{label_len}
-> +are unused and have no meaning. The remaining octets of the
-> +VIRTIO_NET_LABEL_MAX-octet buffer are reserved.
-> +
-> +The label is descriptive only. It carries no semantics defined by
-> +this specification: it does not name a network, identify a tenant,
-> +or establish trust, and the device does not guarantee that it is
-> +unique or that it persists across reboot or migration. Two device
-> +instances MAY present identical labels.
-> +
-> +Labels are compared octet-by-octet: two labels are equal if and only
-> +if their \field{label_len} values are equal and their first
-> +\field{label_len} octets are equal. Labels are never normalized or
-> +case-folded before comparison. The UTF-8 encoding of the value and
-> +the octet-wise rule for comparing values are independent: a consumer
-> +that requires Unicode normalization or case-insensitive matching
-> +performs it itself, and a consumer that requires labels to be unique
-> +enforces uniqueness itself.
-> +
-> +The value MAY contain bidirectional or zero-width characters, which
-> +are legitimate in many scripts. The hazard such characters pose is
-> +contextual to how the value is later rendered and is addressed at the
-> +rendering layer (see \ref{sec:Device Types / Network Device / Device con=
-figuration layout / Label security considerations}),
-> +not by restricting the value itself; the value-level restrictions
-> +below cover only context-free hazards.
-> +
->  \devicenormative{\subsubsection}{Device configuration layout}{Device Typ=
-es / Network Device / Device configuration layout}
->=20
->  The device MUST set \field{max_virtqueue_pairs} to between 1 and 0x8000 =
-inclusive,
-> @@ -326,6 +374,27 @@ \subsection{Device configuration layout}\label{sec:D=
-evice Types / Network Device
->  The device SHOULD NOT offer VIRTIO_NET_F_CTRL_RX_EXTRA if it
->  does not offer VIRTIO_NET_F_CTRL_VQ.
->=20
-> +The device MUST NOT offer VIRTIO_NET_F_LABEL unless it populates
-> +\field{label_len} and \field{label}.
-> +
-> +If it offers VIRTIO_NET_F_LABEL, the device MUST set \field{label_len}
-> +to between 0 and VIRTIO_NET_LABEL_MAX inclusive.
-> +
-> +If it offers VIRTIO_NET_F_LABEL, the device MUST set the first
-> +\field{label_len} octets of \field{label} to well-formed UTF-8.
-> +
-> +If it offers VIRTIO_NET_F_LABEL, the device MUST NOT include in the
-> +first \field{label_len} octets of \field{label} any of the following:
-> +the NUL character (U+0000); any C0 control character (U+0000 to
-> +U+001F); the DEL character (U+007F) or any C1 control character
-> +(U+0080 to U+009F); the line separator (U+2028); or the paragraph
-> +separator (U+2029).
-> +
-> +The device MUST NOT modify \field{label_len} or \field{label} once
-> +VIRTIO_NET_F_LABEL has been negotiated; the value is stable for the
-> +lifetime of the device, and the device MUST NOT signal a configuration
-> +change for these fields.
-> +
->  \drivernormative{\subsubsection}{Device configuration layout}{Device Typ=
-es / Network Device / Device configuration layout}
->=20
->  The driver MUST NOT write to any of the device configuration fields.
-> @@ -367,6 +436,50 @@ \subsection{Device configuration layout}\label{sec:D=
-evice Types / Network Device
->  A driver SHOULD NOT negotiate VIRTIO_NET_F_CTRL_RX_EXTRA if it
->  does not negotiate VIRTIO_NET_F_CTRL_VQ.
->=20
-> +The driver MUST NOT read \field{label_len} or \field{label} unless
-> +VIRTIO_NET_F_LABEL has been negotiated.
-> +
-> +If the driver negotiates VIRTIO_NET_F_LABEL, it MUST read
-> +\field{label_len} before reading \field{label}, and it MUST treat a
-> +\field{label_len} greater than VIRTIO_NET_LABEL_MAX as a device error
-> +and MUST NOT read \field{label} beyond VIRTIO_NET_LABEL_MAX octets.
-> +
-> +If the driver reads \field{label}, it MUST read exactly
-> +\field{label_len} octets.
-> +
-> +The driver MUST NOT make any routing, identity, or trust decision
-> +based on \field{label}, MUST NOT derive the network interface name
-> +from it, and MUST NOT assume that the value is unique or that it
-> +persists across reboot or migration.
-> +
-> +\subsubsection{Label security considerations}\label{sec:Device Types / N=
-etwork Device / Device configuration layout / Label security
-> considerations}
-> +
-> +\begin{note}
-> +This section is informative.
-> +
-> +The label is supplied by the host and is not measured. Whether it can
-> +be trusted is a property of the deployment, not of the field. Where the
-> +host is part of the guest's trusted computing base (a conventional
-> +virtual machine), the value may be used as provided. Where the host is
-> +outside that boundary (for example, a confidential virtual machine
-> +whose memory and execution are protected from the host), the label is
-> +attacker-controlled: on its own it is evidence of nothing. It carries
-> +weight only insofar as the guest corroborates it against state the host
-> +cannot influence; how to corroborate it, and how far to trust the
-> +result, are concerns of the guest's design and are out of scope here.
-> +This specification only defines how the value is conveyed; trust
-> +decisions are made by software layered above the driver.
-> +
-> +Any layer that renders the label to a text sink sanitizes it first: it
-> +drops control and separator characters and renders the value in
-> +isolation so that bidirectional formatting characters within it cannot
-> +reorder surrounding text. The value-level restrictions on the device
-> +(above) remove only context-free hazards; bidirectional and zero-width
-> +characters remain permitted because their hazard depends on the
-> +rendering context and is therefore addressed where the value is
-> +rendered.
-> +\end{note}
-> +
->  \subsubsection{Legacy Interface: Device configuration layout}\label{sec:=
-Device Types / Network Device / Device configuration layout /
-> Legacy Interface: Device configuration layout}
->  \label{sec:Device Types / Block Device / Feature bits / Device configura=
-tion layout / Legacy Interface: Device configuration layout}
->  When using the legacy interface, transitional devices and drivers
-> --
-> 2.43.0
->=20
+> 
+> >> the device reports the memory type of the DMB region through a
+> >> +transport-specific mechanism.  Currently, the following types are defined:
+> >> +
+> >> +\begin{description}
+> >> +\item[0] The region is cache coherent.
+> > between the device and the driver?
+> >
+> >>   A write that the driver performs to
+> >> +  the region becomes visible to the device, and a write that the device
+> >> +  performs to the region becomes visible to the driver, without any cache
+> >> +  maintenance operation
+> > operations.
+> >
+> >> by the driver.
+> > by either.
+> >
+> >
+> > But it's still confusing. First, it really depends on how driver
+> > mapped the memory.  For example i think I can map any memory
+> > uncached and viola it works.
+> 
+> 
+> That depends. On older ARM systems, if you map uncached, the host (which 
+> has it marked as cached) would not be able to see it.
+
+I mean with a physical device. Or have host map it uncached.
+
+> On x86 and modern 
+> server class ARM systems, mapping uncached would work, yes.
+> 
+
+
+So you see already we apparently support 2 mapping types?
+
+
+> > Second this also might depend on the ordering flag thinkably?
+> > If it does not, say so.
+> >
+> >   Third there's ordering of this
+> > wrt notifications since you excluded them.
+> >
+> >> +\end{description}
+> >
+> > It's confusing here. It is not clear what this 0 is unless you just
+> > read the patch.
+> >
+> > Alternatively, if you want to use "Device Buffer memory type" or
+> > DMB memory type" or whatever make it
+> > very prominent, like a subsection of its own and use consistently
+> > not sometimes like this sometimes " the memory type of the DMB region"
+> > etc.
+> 
+> 
+> Great idea!
+> 
+> 
+> >
+> >> +All other values are reserved.
+> >
+> >
+> >> +
+> >> +The region's length is reported by the shared memory region descriptor and
+> >> +bounds the amount of virtqueue data that can be in flight at once.
+> > no idea what this means and what virtqueue data is
+> 
+> 
+> Clarified
+> 
+> 
+> >
+> >> +
+> >> +\drivernormative{\subsubsection}{Device Memory Buffer}{Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}
+> >> +
+> >> +The driver MUST NOT accept VIRTIO_F_DMB unless the memory type that the
+> >> +device reports through the transport-specific mechanism is a value that this
+> >> +specification defines and that the driver supports.
+> > i am not sure this will work well for extensions.
+> > what if three are several ways to map for example? I would just
+> > drop it I think unless you can show e.g. in the commit log
+> > some other possible types and how this will be extensible.
+> 
+> 
+> If there are several ways to map, we can make the field become a bitmap 
+> with special meaning that 0 means "writeback" :).
+> 
+> I don't think this will realistically happen. The host will want to tell 
+> the guest the best caching mode to use at all times. Anyone with 
+> sensible hardware will want writeback. But if we want to keep this 
+> generic (which is a sensible idea IMHO), it's good to keep at least the 
+> field reserved that allows us to indicate different semantics if we need 
+> a different caching mode.
+
+
+We can simply say guests must check this field is 0
+and disable the feature if not 0 if you feel so strongly.
+I doubt it will be useful and normally we don't do a thing
+like this -we can always add another feature bit. But hey.
+
+
+> 
+> > Also generally we give detailed text without MUST etc in non conformance
+> > sections and then with a bit of duplication put conformance parts in
+> > a separate coformance sections.
+> 
+> 
+> This is the conformance section, no?
+
+yes
+
+> Or do you mean that we should 
+> mention the above as well in the normal section?
+
+so we have a detailed description without MUST etc in regular sections
+and conformance sections just repeat the things with MUST/SHOULD etc.
+
+> 
+> Let's bounce this spec update once more. I'll also post a new version of 
+> the Linux patches.
+> 
+> 
+> Alex
 
