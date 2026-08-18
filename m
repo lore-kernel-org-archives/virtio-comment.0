@@ -1,347 +1,605 @@
-Received: from fra-out-004.esa.eu-central-1.outbound.mail-perimeter.amazon.com (fra-out-004.esa.eu-central-1.outbound.mail-perimeter.amazon.com [3.74.81.189])
+Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE7FE20125F
-	for <virtio-comment@lists.linux.dev>; Tue, 18 Aug 2026 05:48:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=3.74.81.189
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787032095; cv=fail; b=NcGbi7azcY0Sw/sq+AFOUbRHO6d6XE1cgkmxXjuGFWdobsyb5BMVus9Ajuw/Mpdy/rw3CIMryrlABf1bObHoCU2ATImcwzfQuLUmwLeGsWhqFst/OxU3S8dpoSkDnDGhGuufuPsgEonwKj4nqbKLDn1xNr5HUZt3yPhR8hwqjpU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787032095; c=relaxed/simple;
-	bh=x5N617mEVztcoOSKmK1M/a//+weLmNcs1DVC+9xnO10=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=JAkHpE63ODvw6C0qmSPWUKhsmcBtt1wUVPRLs+OXWIHq+pIiUHTfYZvRNiMRUKRJdRFr3ViXTpyjjs9k1/1iLH8s340sArQdJB0HdBovD1cdqcSS+RTugqfK7wxV2GsNtnsiyyCxjOZJnpiGFkgECjIC247TcfHW/MMGxcuefe0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=qmTFcCgv; arc=fail smtp.client-ip=3.74.81.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9103890EE
+	for <virtio-comment@lists.linux.dev>; Tue, 18 Aug 2026 06:03:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.162.73.231
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787032984; cv=none; b=gbZKqs9hEqOV7qUUvKE62M32O3i3IvIcgDrbVzzqGyc+WnG31hG0hWaOXW1110lAOiSG4pLbYtiJafd/WB4jK88TVGKJ1JRHfR1U4mJU+0zYQOT7Gjl0odlfZsukHrU2fM1ZjpgLIWJr7kMY7gxTPDGCrxKkbPSGlSN7E6E2ZD0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787032984; c=relaxed/simple;
+	bh=feKx5KeWfK7MlMA1hrg2ZsDXDXpAEu+opQjKjgDB+zU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sqMO+sUMIi4H15vctjOJpz3THSZzMX5m7AM6DDzEDq6pgZIctJxc83Lox+iGhfJpSIecgUNRl1Tlhwoknxp3FdRwU6rQ9d5xuCKLHS55v/tLArxXhYzObr0JtDdHUqgKzZFPjt9BEvzx8H6lWJO8BVc198F/ngbr1WZMtxkqyjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=PI62umur; arc=none smtp.client-ip=35.162.73.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="qmTFcCgv"
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="PI62umur"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1787032093; x=1818568093;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=x5N617mEVztcoOSKmK1M/a//+weLmNcs1DVC+9xnO10=;
-  b=qmTFcCgvGlYwDJa7Jyt2ZEEOFCS0d29HU7Ln52JBbqjRmtJS78KF6xDr
-   RXAh/ESqBh/gdiGZcMy0xmrVsl/RVFG61oaeERW3f3CGpK9zs7U7ViOa5
-   xBnqNaxSc2f//8NpsIyhcehX/PQrbHmAR8fUVZvO4Z36Spfpmlv7FyueM
-   aU1s0dMwBiO4Y3adVEAsPCyNZxdsf+Yd69hc5j/xjuTmbHyFkaJkPT7YP
-   7AG9nT7I3x2MzPxdNbZ/a+lnJ0AqQCyWjm+FlgvsAd1PS/e/C2FX2kN20
-   bpQqOFTB30LrR72rosJyQokCtHqwYaKA0CcvyDZLe0GzmcavdESpU8aa3
-   A==;
-X-CSE-ConnectionGUID: 3NyY3VvQQRKiqYydbueywQ==
-X-CSE-MsgGUID: CU7qIZoKROeDFbCVFC7MyA==
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1787032982; x=1818568982;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=I9iwDI3wPVciiWvLieow2u3jsr+u7yV77Ik5SVHOfw4=;
+  b=PI62umurzEHlv1xLYFe4xVfppIuxYzPDKcwt8Nc2Y0dLjAe7iuAPnSi/
+   nrbZY4jwPbAm+P6BtZBWF6PGdF29ug5WXL65HSuhBVT4V+wchDT/8uUw0
+   yboiHJyDAWLNWxTuDAL8syhcJG4iuLPhT1/fnNuS6w/Y4tm3NUWaqB1xj
+   ArRDD6+W+tBvJgY3etGGmEKTMOOwwGe/9JnRRJyp4pUiaU7preX4c8Zkz
+   S3GKkzzrBffQmnZMvv8sccbGfO3DBhJRc/Uw1AGZ6FRj3hhd1Khq4+LXC
+   IIKXgLykVJ/3K6fMyFULKeLHakj/6ZlcbuEFyeZw/lc86/j6WlkQcU5Wk
+   Q==;
+X-CSE-ConnectionGUID: FUKyUE85Q7KomkiQtAVPKg==
+X-CSE-MsgGUID: 2hvgETnlQcOcNWzbTZJsig==
 X-IronPort-AV: E=Sophos;i="6.25,230,1779148800"; 
-   d="scan'208";a="18041792"
-Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
-  by internal-fra-out-004.esa.eu-central-1.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 05:48:09 +0000
-Received: from EX19MTAEUB001.ant.amazon.com [54.240.197.226:11919]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.10.150:2525] with esmtp (Farcaster)
- id 013910f4-0f0a-4865-92f8-5486077d0dec; Tue, 18 Aug 2026 05:48:09 +0000 (UTC)
-X-Farcaster-Flow-ID: 013910f4-0f0a-4865-92f8-5486077d0dec
-Received: from EX19EXOEUA002.ant.amazon.com (10.252.50.139) by
- EX19MTAEUB001.ant.amazon.com (10.252.51.26) with Microsoft SMTP Server
+   d="scan'208";a="26041746"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 06:02:59 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:14815]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.54.183:2525] with esmtp (Farcaster)
+ id 662aa70f-33ce-4d0c-86dd-6daca661c7b5; Tue, 18 Aug 2026 06:02:59 +0000 (UTC)
+X-Farcaster-Flow-ID: 662aa70f-33ce-4d0c-86dd-6daca661c7b5
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Tue, 18 Aug 2026 05:48:08 +0000
-Received: from BEUP281CU002.outbound.protection.outlook.com (10.252.51.199) by
- EX19EXOEUA002.ant.amazon.com (10.252.50.139) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45
- via Frontend Transport; Tue, 18 Aug 2026 05:48:08 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eWLqsdLlo6WxVTQpB5wL/cp6oVfqsiHG8t3tnjAxHiG2NJWJNaY8zlZ8jxCfhuqcMGs5wScxupMgU4JHdAvEwiMHWF2FU6QLIp9vwCWOjnMPcsgpFCR589I9wNvKSC4hChMQGj/ymEdu3WL7JObGwYulog0WJkVz9BDc22mw9bydoJcp6l1iNJfKlZ5uSLMwsUP3yOv9wjnBteAVBqZcOH+Q3FVBIipndye+rEBPs4gQvuxME4onrwok33MUnxsaIoH4aQAOy4I7rLDWVBjy4EcnZuZ2hpDC1Y8HwG/m/DorD/r1iqrXu16ucZxdrBZcoCOp7/emXVY6NwnMPYDybQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x5N617mEVztcoOSKmK1M/a//+weLmNcs1DVC+9xnO10=;
- b=ZDzMA4X6JKSqmXB5TlCf4lJUHMkEJoQ2kRTuNBJWpfc3XDyBlRFDX4e9nWlq6x1Ytez32HZHg4JnW692ZEeQAHOvdtldExTORmia8JN0r106AXG1R+gdYn20HTB7n7oNErjwqW661h3HY/rHYTZChrgtwanzlMit64p1LkXMt31Qoc2GuI85txXauES+f9WBPR0pRU5hL+PdlD24nOjDnXO6/a4Q5jc4pn4TUC/ChACd1xBv0KAEWVURKX3bDIYJRDd8mfCG5qNunCbJPEaelM8h+XgdrDDuG50yC6+Ti5p1rQNDw5P8zSg2wyXs3y1Vqo+JHSEaZPuXx1zMS2gJDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amazon.de; dmarc=pass action=none header.from=amazon.de;
- dkim=pass header.d=amazon.de; arc=none
-Received: from FRSP281MB6250.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:1e0::23)
- by FR0P281MB2494.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:53::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Tue, 18 Aug
- 2026 05:48:04 +0000
-Received: from FRSP281MB6250.DEUP281.PROD.OUTLOOK.COM
- ([fe80::7ad:f028:e0a7:bd4b]) by FRSP281MB6250.DEUP281.PROD.OUTLOOK.COM
- ([fe80::7ad:f028:e0a7:bd4b%6]) with mapi id 15.21.0315.016; Tue, 18 Aug 2026
- 05:48:04 +0000
-From: "Graf (AWS), Alexander" <graf@amazon.de>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-CC: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	"nh-open-source@amazon.com" <nh-open-source@amazon.com>, Jason Wang
-	<jasowangio@gmail.com>, Stefan Hajnoczi <stefanha@redhat.com>, Paolo Bonzini
-	<pbonzini@redhat.com>
-Subject: Re: [PATCH v4] Add VIRTIO_F_DMB (Device Memory Buffer)
-Thread-Topic: [PATCH v4] Add VIRTIO_F_DMB (Device Memory Buffer)
-Thread-Index: AQHdLtUjjPoJFePTqkCrEq0rLnT75w==
-Date: Tue, 18 Aug 2026 05:48:04 +0000
-Message-ID: <bc915862-6c53-4811-825a-b112ca929c09@amazon.com>
-References: <20260817022720.52650-1-graf@amazon.com>
- <20260817050846-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20260817050846-mutt-send-email-mst@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amazon.de;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: FRSP281MB6250:EE_|FR0P281MB2494:EE_
-x-ms-office365-filtering-correlation-id: 4fc02a88-fdb8-4b1e-6b20-08defcec4581
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|38070700021|6133799003|56012099006|10067099003|4143699003|5023799004|11063799006|22082099003|18002099003;
-x-microsoft-antispam-message-info: Sz1Ku7yrDv/t+mm7cWFEqPoNKHIVQXkZymiLjg9Mg9TFE6quKD9sevH1PLFGfwrrVwwd0thRU2fTwMW7NdqPh0BlGn3hD6k9BndJ6GgYq4gxic4MT4U5GkQ8ZhMEF4+iaL0cuagcmKj4NTk7BvOn39FJNb+5pQa8ydPkcUTXmHDrO4eKlRwZA5Veid7l53vgNbAhoeL106YMnMynNgjJ5VMi43sgwifZu1zEOjL7mjA9aXHhGzFKANw08EZgk4yh+XUPGjZCq2txnW/Jomuu9ZQ5mrM8WFWCK9OIZFUNHalDGKLq5ZDz5DaywOvBzRfm1EAwzuUkKfUsih66PKGFbMdEk7SrugKGtDW26VoZLlBKQ9uzygn4lbu5iXtOZ2taHZfokOljzhwBTUO1ZrD9nG54C1hP/RnX2j6Iv7vC6Bl5BS9AKVk/4civqA6eDFrYk0v45Z5FhJ7n6555xTjt2IiyXNmF56f72zCYO3oP+Rb9uiZULB/E+kNBL6MYJWzyGZm1ePl9Sg7XLZqquHTNGjXuH5kdJizd4hVk4ndiP/hdbxwelSJnUpb2it+GiwdDxqQkzfMzrh8vNhk3rk7Oc+aOM+UT24yUP5myzCdL57PP4MQoT3sG28h/QiB0STWkZKyYv6VvQYWv3sH8LjQI9ZQv7CAmEGliWQoFbHXWigM=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:FRSP281MB6250.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(38070700021)(6133799003)(56012099006)(10067099003)(4143699003)(5023799004)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?aU1jMFZZSmUvU05uMlM2ZWJaK2tuRk93MlhIaUJ0aWkzODVuYkZTLysxS1lF?=
- =?utf-8?B?YU0wVWF5enhlN1AvdEJuT29Dclp2akxnWU5DVGNTTlJlcm5TUGpIV1UxU0VM?=
- =?utf-8?B?OWY5ZFRVemd5MkI5UDRCVlBQUHdXYmZ6ZVhNL2VwQlhLeXg5UTBTdTQ0N0JK?=
- =?utf-8?B?eUVkV3piSXJyY3dPZ1RXTlVrZCtaWHFXajc4Uk1uYVN5SVgyZ3pZcGNRTE95?=
- =?utf-8?B?MHB0Z0RSb2o5UnpyUDA5MG9DdlEzaFJIYXEydW9EemhFVjIxa2N0WmdyN29u?=
- =?utf-8?B?eENBYmlNK2ljOEV2cXZLNE50bnhWTTRVMjBmeUxHVElBVzQ5VCt3MDk2QzNo?=
- =?utf-8?B?RG1jVm9WV0ZiK0JEcFRxUFZGQ3JsZ3RjdnZMZXdiUXhSM3YzSEhsYnI5WkVj?=
- =?utf-8?B?V0JsTjF5QkozMGRjRHdKWUNSa21OTFp4VWEvTURwQUVFQ2NMVXc3ekJKR21H?=
- =?utf-8?B?NmlwTy9HbWlnQ1RYcUFUZHIyVmN2RWVaUk02RFJyMjR6c2srMzBFd1Vib2RB?=
- =?utf-8?B?MVNjcHFRc1ovYjd0OVRxNlkwYXMzUXVwclFCdEd0MlNhbWF2QkUrNFVUYWhG?=
- =?utf-8?B?N2NENUlJVm1wQmY0WjZHbnVvS1phLzgxZVZhNkN2bzRmVnJuY0JTS3ZJUHRY?=
- =?utf-8?B?cFJCL2VIMlpidmVDMnltM09XZTVBZEZRSnE0WGhBaks3aittUmdGeDJJVkp2?=
- =?utf-8?B?amZodzNjQjdic1FpbFhFUEVwN0Z3NHRla3JIL09vUFFDMEc1OXpSdkkzeWVU?=
- =?utf-8?B?SFJ0MDRzTWdwSWJabkdJSWNCOTlabGJpbUp6Z3B5VDh0RVlvRmdtcmkvOTFI?=
- =?utf-8?B?TXpXZXlhbzlxT1A4eVErQlFXN0xRQ3ZRQUJsdzV0c1g4NlR4VzlKZlFhSmJD?=
- =?utf-8?B?bFZQeU9vOXZCZGwxb0sybEEvWGg5ejlmYjJCY2NlOVlnMW9tM2NmelhHU25J?=
- =?utf-8?B?azh4U3ZXd2RleXN3NTR1c3V0Nm1lb1l5dEtCbFRwQmRhL29iOTZPUnVYS29Z?=
- =?utf-8?B?SEs5akJMLzExc0V5VHluU2lHbkJxWkxHR1RLNEY1ZllCdnh6Nkt3OTI0ajFP?=
- =?utf-8?B?L3IxTWFYek1JSW5HUkYvalU4dnIybXlwMmpGZ3JxL04zWWRNTlJFZVVPaURp?=
- =?utf-8?B?U2RzU0FFcG90cDVQaFJROW80T3QvT2c0OFl1aG1lWmV4L3hBSFN3b0oyQkZV?=
- =?utf-8?B?SXBBSXJWZ3BpaTFneWtwWkpoYW9JQStZSE8rVmppQzVvTnZydm5veENwLy9Q?=
- =?utf-8?B?bjRBRXgwTlE0SllkTW5hVjhldHdkeDNCSXFaR3dBZmM2ZktSUm5KVllZc3N3?=
- =?utf-8?B?R3Y5Vy9Xa2RQT1dGTm0wd0ZxSUVJeThLbU52SUtwSmVqR3R2TitxQmtRUDZM?=
- =?utf-8?B?RFBJVVZCdkpFSWVGaElxLzhCZWQxMHFEV2o0K1hyMEpJSGNweTdZZmY0M1p3?=
- =?utf-8?B?RWtiTVlLNzFIV0dQTDBpWWV4dVBqcWpCalA4QUhzcEdRb2JHb01aT2Q2b1J1?=
- =?utf-8?B?djVPMEVGOXhkM2l6eVZ1OGZUSzRNWm5GQjJtNHgveUhZZE9wVWlHT3k4OHd4?=
- =?utf-8?B?SXJzOWxlbFF4VFBxNHFJVWpFZU5pdkdjelIrM1BEZHB0NEozWHZLeEFRWXVm?=
- =?utf-8?B?ZFdDektDRnhDazduZFhKRDF5NzVsZ041ZXhXV3BIVnNOeitVczdaalBQYVJp?=
- =?utf-8?B?SmlOMXdhamp1UU9EQ09DZXhMNjQ5dU9GUlZxc0NzenpvM2tHeC9uU0VQbk5x?=
- =?utf-8?B?L0p4VzJmOE0vS2NadTZQMzExRnQxazlDR3ZUdlR3ZHpYT0pQZ1VEdWI3UURC?=
- =?utf-8?B?L1NreUdpaXVXQTdqRVEzUjRhbnJVbFRPSkJpVlMyWXZhaGhlNnVBdXVvdWlO?=
- =?utf-8?B?Rm5rOTA2aXREZFBmS21oNzd3eStCMXFlcmg5aFVzU0JyYmZvWDB0MHhzU2RH?=
- =?utf-8?B?a0ttbzREVFVzeGhuR25vcVBnYlhlVldueGhnbGhVNnlLdlZRK01kdFlDcWRn?=
- =?utf-8?B?djZjUWpDbTB4UHkyUTNRZmZHTnNKQlBrNS9qSkZ4c1ZnTlZwN2pZLzRhOHJ3?=
- =?utf-8?B?K0xDZjZWWGFObHlLQzIyN3VVMGFiNFRDbitTdGRFTks0MllCVFRqT3NaMjQ4?=
- =?utf-8?B?RFdvSk9ad3BzRDdxcElsZS93YzgwbXkxRmtqQitiYlJHM2hsM2xxNlZweTgv?=
- =?utf-8?B?MG1ZWkVzUmkzc2FOQi9zSGMrVjlzMXpMSVZoTUdybWVrK1lEeUtDWW0wSlhw?=
- =?utf-8?B?bEYrWHhiWFc5Tklua1g0c3h4NjRTck1yVXMyUmw4cHVVRVhxalNuQU5ER2Mx?=
- =?utf-8?Q?t3jsDX2MP4Pu4OSGoZ?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <DC309A679ACC0948A0482C4255135009@DEUP281.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
+ Tue, 18 Aug 2026 06:02:58 +0000
+Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Tue, 18 Aug 2026 06:02:57 +0000
+From: Alexander Graf <graf@amazon.com>
+To: <virtio-comment@lists.linux.dev>
+CC: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+	<nh-open-source@amazon.com>
+Subject: [PATCH v5] Add VIRTIO_F_DMB (Device Memory Buffer)
+Date: Tue, 18 Aug 2026 06:02:55 +0000
+Message-ID: <20260818060255.6853-1-graf@amazon.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: 0m56iGiaA1WvzLNAc2wLSxuEN/OVs6rRwWQlIPR3Xr9vxSZ8NQuoRR05VZvdvxERw8RSGPvHe5VKLLzzyx5ulSTIZolHOdLcOwvUybQdSrqEcRtYySVRMzfZZOf+v+XibsNlEUAcny4WI5VigP4mbf6XKIowivO3jTE0tc31xn90UEOyIeOqH+Ahb8LJNg7jnuy0z3mgjGAF/6D9PdDDWh2OHiSoTEOq1cAXOUtkLY3s3kw06hxlf+Rj+P+AeKBi5OBj+WSwcHmCskZpArAzLj+yIFEcZjr9ivxPtkLar6Glze3zIxoV3YtpfVryp7XOwRmiSvQhmheiDCQeEd9bfw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: FRSP281MB6250.DEUP281.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4fc02a88-fdb8-4b1e-6b20-08defcec4581
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Aug 2026 05:48:04.1352
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 5280104a-472d-4538-9ccf-1e1d0efe8b1b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vhGV8DHBFIgPcxOfJDslc6D9kWx+vwuzix1Kn+5v/d+UUHZe1aZqkG/hUTtDn86H
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR0P281MB2494
-X-OriginatorOrg: amazon.de
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D035UWA004.ant.amazon.com (10.13.139.109) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-DQpPbiAxNy4wOC4yNiAxMzoyNSwgTWljaGFlbCBTLiBUc2lya2luIHdyb3RlOg0KPiBPbiBNb24s
-IEF1ZyAxNywgMjAyNiBhdCAwMjoyNzoyMEFNICswMDAwLCBBbGV4YW5kZXIgR3JhZiB3cm90ZToN
-Cj4+IFZpcnRpbyBkZXZpY2VzIGFzc3VtZSBSL1cgYWNjZXNzIG9mIGd1ZXN0IFJBTSB0byBwZXJm
-b3JtIERNQSBpbnRvIGl0IHRvDQo+PiBhY2Nlc3MgaXRzIHZpcnQgcXVldWVzIGFuZCBkYXRhIHRv
-IG9wZXJhdGUgb24uIFRoaXMgYmFzaWMgYXNzdW1wdGlvbg0KPj4gbGVhZHMgdG8gbXVsdGlwbGUg
-cHJvYmxlbXM6DQo+Pg0KPj4gQ29uZmlkZW50aWFsIENvbXB1dGUgLSBJbiBTRVYtU05QIG9yIFRE
-WCwgdGhlIGhvc3QgaGFzIG5vIGRpcmVjdCBhY2Nlc3MNCj4+ICAgICAgICAgICAgICAgICAgICAg
-ICAgIHRvIGFsbCBvZiBndWVzdCBSQU0uIFdlIHdvcmsgYXJvdW5kIERNQSBhY2Nlc3MgYnkNCj4+
-ICAgICAgICAgICAgICAgICAgICAgICAgIGhhdmluZyB0aGUgZ3Vlc3QgbGltaXQgRE1BIGFjY2Vz
-cyB0byBhIGNvbW1vbg0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgc2hhcmVkIG1lbW9yeSB3
-aW5kb3cgYmV0d2VlbiBndWVzdCBhbmQgaG9zdA0KPj4gICAgICAgICAgICAgICAgICAgICAgICAg
-KHN3aW90bGIpLg0KPj4NCj4+IFZob3N0LXVzZXIgLSB2aG9zdC11c2VyIGJhY2tlbmRzIHJlcXVp
-cmUgYWNjZXNzIHRvIGFsbCBndWVzdCBtZW1vcnksIG5vdA0KPj4gICAgICAgICAgICAgICBvbmx5
-IHRoZSBtZW1vcnkgdGhleSBhcmUgYWN0dWFsbHkgc3VwcG9zZWQgdG8gYWNjZXNzLiBUaGlzDQo+
-PiAgICAgICAgICAgICAgIGlzIGZpbmUgZm9yIHRydXN0ZWQgYmFja2VuZHMsIGJ1dCBpZiB5b3Ug
-d2FudCB0byBsaW1pdA0KPj4gICAgICAgICAgICAgICB2aXNpYmlsaXR5IGludG8gZ3Vlc3QsIHlv
-dSBuZWVkIHRvIGRvIHdlaXJkIHN0dW50cyBsaWtlDQo+PiAgICAgICAgICAgICAgIGJvdW5jaW5n
-IG1lbW9yeSBpbiB0aGUgdm1tIFsxXS4NCj4+DQo+PiBUbyByZXN0cmljdCBETUEgdmlzaWJpbGl0
-eSwgdmlydGlvLWlvbW11IGFsbG93cyB0aGUgZ3Vlc3QgdG8gb3BlbiBzcGVjaWZpYw0KPj4gd2lu
-ZG93cyBpbnRvIGd1ZXN0IG1lbW9yeSB0byB0aGUgZGV2aWNlLCBidXQgaXQgY29tZXMgd2l0aCBp
-dHMgb3duIGJhZw0KPj4gb2YgcHJvYmxlbXMsIHN1Y2ggYXMgZHluYW1pYyBhbGxvY2F0aW9ucyBh
-bmQgY29tcGxpY2F0ZWQgZGV2aWNlIDwtPg0KPj4gaW9tbXUgY29ubmVjdGlvbnMgdGhhdCBuZWVk
-IHRvIGJlIHJlcHJlc2VudGVkIHJlbGlhYmx5Lg0KPj4NCj4+IEluc3RlYWQsIGludHJvZHVjZSBh
-IHNpbXBsZSBtZWNoYW5pc20gdGhhdCBsZXRzIGEgZGV2aWNlIGNvbW11bmljYXRlDQo+PiB0aHJv
-dWdoIGl0cyBvd24gZGVkaWNhdGVkIHNoYXJlZCBtZW1vcnkgcmVnaW9uOiBEZXZpY2UgTWVtb3J5
-IEJ1ZmZlci4NCj4+IEEgZGV2aWNlIHRoYXQgb2ZmZXJzIERldmljZSBNZW1vcnkgQnVmZmVyIGV4
-cG9zZXMgYSBzaGFyZWQgbWVtb3J5DQo+PiByZWdpb24sIG93bmVkIGJ5IHRoZSBkZXZpY2UsIHRo
-YXQgaG9sZHMgdGhlIHZpcnRxdWV1ZXMgYW5kIHRoZSBidWZmZXJzDQo+PiB0aGV5IHJlZmVyZW5j
-ZS4NCj4+DQo+PiBPbmNlIG5lZ290aWF0ZWQsIGFuIGltYWdpbmFyeSBwZXItZGV2aWNlIElPTU1V
-IG1hcHMgdGhlIGRldmljZSdzIElPVkENCj4+IHNwYWNlIDE6MSBvbnRvIHRoZSByZWdpb24uIEV2
-ZXJ5IGRhdGEgYWRkcmVzcyBpcyB0aGVuIGFuIGFkZHJlc3MgaW50byBpdCwNCj4+IG5ldmVyIGEg
-cGh5c2ljYWwgb3IgYnVzIGFkZHJlc3MsIGFuZCB0aGUgZGV2aWNlIHJlYWNoZXMgbm8gb3RoZXIg
-bWVtb3J5DQo+PiB0byBwcm9jZXNzIHZpcnRxdWV1ZXMuDQo+Pg0KPj4gVGhlIGRldmljZSByZXBv
-cnRzIHRoZSByZWdpb24ncyBzaG1pZCBpbiBkbWJfc2htX2lkIG9uIFBDSSBhbmQgRE1CU0hNSWQN
-Cj4+IG9uIE1NSU8sIHNvIHRoZSBzaG1pZCBkb2VzIG5vdCBjb2xsaWRlIHdpdGggZGV2aWNlLXNw
-ZWNpZmljIG9yIGZ1dHVyZQ0KPj4gdHJhbnNwb3J0LXNwZWNpZmljIHNoYXJlZCBtZW1vcnkgcmVn
-aW9ucy4gVGhlIGRyaXZlciBsb2NhdGVzIHRoZSByZWdpb24NCj4+IHRocm91Z2ggdGhlIGV4aXN0
-aW5nIFNoYXJlZCBNZW1vcnkgUmVnaW9ucyBmYWNpbGl0eSwgVklSVElPX0ZfRE1CIG5lZWRzDQo+
-PiBhIHRyYW5zcG9ydCB0aGF0IHN1cHBvcnRzIFNITS4NCj4+DQo+PiBUaGUgZGV2aWNlIGFsc28g
-cmVwb3J0cyB0aGUgcmVnaW9uJ3MgbWVtb3J5IHR5cGUuIFRoZSBvbmx5IGF2YWlsYWJsZQ0KPj4g
-dHlwZSBjdXJyZW50bHkgaXMgMCAoY2FjaGUgY29oZXJlbnQpLg0KPj4NCj4+IFsxXSBodHRwczov
-L2xvcmUua2VybmVsLm9yZy9xZW11LWRldmVsLzIwMjYwNzIzLXZob3N0LXVzZXItaXNvbGF0ZWQt
-bWVtb3J5LXYxLTAtNmI5N2M0MzllYjI4QGdtYWlsLmNvbS9ULyN0DQo+Pg0KPj4gQXNzaXN0ZWQt
-Ynk6IEtpcm86Y2xhdWRlLW9wdXMtNQ0KPj4gU2lnbmVkLW9mZi1ieTogQWxleGFuZGVyIEdyYWYg
-PGdyYWZAYW1hem9uLmNvbT4NCj4+IEZpeGVzOiBodHRwczovL2dpdGh1Yi5jb20vb2FzaXMtdGNz
-L3ZpcnRpby1zcGVjL2lzc3Vlcy8yNDgNCj4gSSBsaWtlIHRoZSAiaW50ZXJuYWwgaW9tbXUiIGlk
-ZWEuIGFkZHJlc3NlcyBteSBjb25jZXJucyBuaWNlbHkhDQoNCg0KV29vaG9vISA6KQ0KDQoNClsu
-Li5dDQoNCj4+IEBAIC05NDYsNiArOTQ2LDE0IEBAIFxjaGFwdGVye1Jlc2VydmVkIEZlYXR1cmUg
-Qml0c31cbGFiZWx7c2VjOlJlc2VydmVkIEZlYXR1cmUgQml0c30NCj4+ICAgICAgc3VzcGVuZCB0
-aGUgZGV2aWNlIGJ5IHNldCB0aGUgU1VTUEVORCBiaXQgdG8gMS4NCj4+ICAgICAgU2VlIFxyZWZ7
-c2VjOkJhc2ljIEZhY2lsaXRpZXMgb2YgYSBWaXJ0aW8gRGV2aWNlIC8gRGV2aWNlIFN0YXR1cyBG
-aWVsZH0uDQo+Pg0KPj4gKyAgXGl0ZW1bVklSVElPX0ZfRE1CKDQ0KV0gVGhpcyBmZWF0dXJlIGlu
-ZGljYXRlcyB0aGF0IHRoZSBkZXZpY2Ugb2ZmZXJzIGENCj4+ICsgIERldmljZSBNZW1vcnkgQnVm
-ZmVyOiBhIHNoYXJlZCBtZW1vcnkgcmVnaW9uLCBvd25lZCBieSB0aGUgZGV2aWNlLA0KPj4gKyAg
-dGhhdCBob2xkcyB0aGUgdmlydHF1ZXVlcyBhbmQgdGhlIGJ1ZmZlcnMgdGhleSByZWZlcmVuY2Uu
-ICBXaGVuIHRoaXMgZmVhdHVyZQ0KPj4gKyAgaXMgbmVnb3RpYXRlZCwgYWxsIGRhdGEgRE1BIG9w
-ZXJhdGlvbnMgZ2V0IHJvdXRlZCB2aWEgYSBzdGF0aWMsIGltYWdpbmFyeQ0KPj4gKyAgcGVyLWRl
-dmljZSB0cmFuc3BhcmVudCBJT01NVSB3aGljaCBjcmVhdGVzIGEgMToxIG1hcHBpbmcgb2YgdGhl
-IGRldmljZSdzDQo+PiArICBJT1ZBIHNwYWNlDQo+IERNQSBhZGRyZXNzIHNwYWNlDQoNCg0KVGhl
-IHByZWNlZGVuY2UgaW4gdGhlIGRvYyBpcyAiYnVzIGFkZHJlc3Mgc3BhY2UiLiBJJ2xsIHVzZSB0
-aGF0IG9uZSANCmluc3RlYWQgdG8gc3RheSBjb25zaXN0ZW50Lg0KDQpbLi4uXQ0KDQoNCj4+IGRp
-ZmYgLS1naXQgYS9zaGFyZWQtbWVtLnRleCBiL3NoYXJlZC1tZW0udGV4DQo+PiBpbmRleCA2ZTZm
-NmM0Li40MDU3NDVkIDEwMDY0NA0KPj4gLS0tIGEvc2hhcmVkLW1lbS50ZXgNCj4+ICsrKyBiL3No
-YXJlZC1tZW0udGV4DQo+PiBAQCAtMzgsNSArMzgsMTYxIEBAIFxzdWJzZWN0aW9ue0FkZHJlc3Np
-bmcgd2l0aGluIHJlZ2lvbnN9XGxhYmVse3NlYzpCYXNpYyBGYWNpbGl0aWVzIG9mIGEgVmlydGlv
-IERlDQo+PiAgIERldmljZSAvIFNoYXJlZCBNZW1vcnkgUmVnaW9uc30NCj4+ICAgU2hhcmVkIG1l
-bW9yeSByZWdpb25zIE1VU1QgTk9UIGV4cG9zZSBzaGFyZWQgbWVtb3J5IHJlZ2lvbnMgd2hpY2gN
-Cj4+ICAgYXJlIHVzZWQgdG8gY29udHJvbCB0aGUgb3BlcmF0aW9uIG9mIHRoZSBkZXZpY2UsIG5v
-ciB0byBzdHJlYW0NCj4+IC1kYXRhLg0KPj4gK2RhdGEsIG90aGVyIHRoYW4gdGhlIERldmljZSBN
-ZW1vcnkgQnVmZmVyIHdoZW4gVklSVElPX0ZfRE1CIGhhcyBiZWVuDQo+PiArbmVnb3RpYXRlZCAo
-c2VlDQo+PiArXHJlZntzZWM6QmFzaWMgRmFjaWxpdGllcyBvZiBhIFZpcnRpbyBEZXZpY2UgLyBT
-aGFyZWQgTWVtb3J5IFJlZ2lvbnMgLyBEZXZpY2UgTWVtb3J5IEJ1ZmZlcn0pLg0KPj4gKw0KPj4g
-K1xzdWJzZWN0aW9ue0RldmljZSBNZW1vcnkgQnVmZmVyfVxsYWJlbHtzZWM6QmFzaWMgRmFjaWxp
-dGllcyBvZiBhIFZpcnRpbyBEZXZpY2UgLyBTaGFyZWQgTWVtb3J5IFJlZ2lvbnMgLyBEZXZpY2Ug
-TWVtb3J5IEJ1ZmZlcn0NCj4+ICsNCj4+ICtXaGVuIFZJUlRJT19GX0RNQiAoc2VlIFxyZWZ7c2Vj
-OlJlc2VydmVkIEZlYXR1cmUgQml0c30pIGlzDQo+PiArbmVnb3RpYXRlZCwgdGhlIGRldmljZSBv
-ZmZlcnMgYSBzaGFyZWQgbWVtb3J5IHJlZ2lvbiwgdGhlDQo+PiArXGVtcGh7RGV2aWNlIE1lbW9y
-eSBCdWZmZXJ9LCBpZGVudGlmaWVkIGJ5IGEgXGZpZWxke3NobWlkfSB0aGF0IHRoZQ0KPj4gK2Rl
-dmljZSByZXBvcnRzIHRocm91Z2ggYSB0cmFuc3BvcnQtc3BlY2lmaWMgbWVjaGFuaXNtIChmb3Ig
-ZXhhbXBsZQ0KPj4gK1xmaWVsZHtkbWJfc2htX2lkfSBpbiB0aGUgY29tbW9uIGNvbmZpZ3VyYXRp
-b24gc3RydWN0dXJlIG9uIHRoZSBQQ0kNCj4+ICt0cmFuc3BvcnQsIHNlZSBccmVme3NlYzpWaXJ0
-aW8gVHJhbnNwb3J0IE9wdGlvbnMgLyBWaXJ0aW8gT3ZlciBQQ0kgQnVzIC8gUENJIERldmljZSBM
-YXlvdXQgLyBDb21tb24gY29uZmlndXJhdGlvbiBzdHJ1Y3R1cmUgbGF5b3V0fSwNCj4+ICthbmQg
-XGZpZWxke0RNQlNITUlkfSBvbiB0aGUgTU1JTyB0cmFuc3BvcnQsIHNlZQ0KPj4gK1xyZWZ7c2Vj
-OlZpcnRpbyBUcmFuc3BvcnQgT3B0aW9ucyAvIFZpcnRpbyBPdmVyIE1NSU8gLyBNTUlPIERldmlj
-ZSBSZWdpc3RlciBMYXlvdXR9Ow0KPj4gK3NlZSB0aGUgdHJhbnNwb3J0IGNoYXB0ZXJzKS4NCj4+
-ICtUaGUgZHJpdmVyIHJlYWRzIHRoYXQgXGZpZWxke3NobWlkfSBhbmQgbG9jYXRlcyB0aGUgcmVn
-aW9uIHVzaW5nIHRoZQ0KPj4gK3RyYW5zcG9ydC1zcGVjaWZpYyBzaGFyZWQgbWVtb3J5IHJlZ2lv
-biBlbnVtZXJhdGlvbiBtZWNoYW5pc20sIGluIHRoZQ0KPj4gK3NhbWUgd2F5IGFzIGFueSBvdGhl
-ciBzaGFyZWQgbWVtb3J5IHJlZ2lvbi4gIEJlY2F1c2UgYm90aCB0aGUNCj4+ICtcZmllbGR7c2ht
-aWR9IHJlcG9ydCBhbmQgdGhhdCBlbnVtZXJhdGlvbiBhcmUgdHJhbnNwb3J0LXNwZWNpZmljLA0K
-Pj4gK1ZJUlRJT19GX0RNQiBpcyBhdmFpbGFibGUgb25seSBvbiB0cmFuc3BvcnRzIHRoYXQgZGVm
-aW5lIGEgc2hhcmVkIG1lbW9yeQ0KPj4gK3JlZ2lvbiBkaXNjb3ZlcnkgbWVjaGFuaXNtLg0KPj4g
-Kw0KPj4gK1doZW4gVklSVElPX0ZfRE1CIGlzIGFjdGl2ZSwgYWxsIGRhdGEgRE1BIG9wZXJhdGlv
-bnMgKG5vdCBJUlEgbG9naWMpIGdldA0KPiAoZXhjbHVkaW5nIG5vdGlmaWNhdGlvbnMpPw0KDQoN
-Ckdvb2QgY2F0Y2guIFJld29yZGVkLg0KDQoNCj4+ICtyb3V0ZWQgdmlhIGEgc3RhdGljLCBpbWFn
-aW5hcnkgcGVyLWRldmljZSB0cmFuc3BhcmVudCBJT01NVSB3aGljaA0KPj4gK2NyZWF0ZXMgYSAx
-OjEgbWFwcGluZyBvZiB0aGUgZGV2aWNlJ3MgSU9WQSBzcGFjZQ0KPiBETUEgYWRkcmVzcyBzcGFj
-ZQ0KPg0KPj4gYW5kIHRoZSBETUIgU0hNIHJlZ2lvbi4NCj4+ICtUaGUgdmlydGlvIGRldmljZSB0
-aGVuIHBlcmZvcm1zIGFsbCBkYXRhIGFjY2VzcyBhZ2FpbnN0IHRoZSBETUINCj4+ICtyZWdpb24g
-YW5kIG5vIGxvbmdlciBhZ2FpbnN0IHRoZSB0cmFuc3BvcnQgYnVzJ3MgRE1BIGFkZHJlc3Mgc3Bh
-Y2UuDQo+PiArDQo+PiArV2l0aCBWSVJUSU9fRl9ETUIgYWN0aXZlLA0KPg0KPiBuZWdvdGlhdGVk
-DQo+DQo+PiBhZGRyZXNzIDAgaXMgcmVzZXJ2ZWQuIERyaXZlcnMNCj4gYW5kIGRldmljZXMNCj4N
-Cj4+IGNhbg0KPiBpbnRlcm5hbGx5DQo+DQo+PiB1c2UgYWRkcmVzcyAwDQo+PiArZm9yIGludGVy
-bmFsIHNlbWFudGljcywgc3VjaCBhcyAibm90IGluIHVzZSIgb3IgImZhaWxlZCBhbGxvY2F0aW9u
-Ii4NCj4+ICsNCj4+ICtWSVJUSU9fRl9ETUIgaXMgaW5kZXBlbmRlbnQgb2YgVklSVElPX0ZfQUND
-RVNTX1BMQVRGT1JNLiAgQSBkZXZpY2UgTUFZDQo+PiArb2ZmZXIgYm90aCwgYW5kIE1BWSByZXF1
-aXJlIG9uZSBvZiB0aGVtLCBidXQgbmVpdGhlciBpbXBsaWVzIHRoZSBvdGhlci4NCj4+ICsNCj4+
-ICtWSVJUSU9fRl9ETUIgZG9lcyBub3QgY2hhbmdlIHRoZSBtZW1vcnkgb3JkZXJpbmcgcmVxdWly
-ZW1lbnRzIGZvcg0KPj4gK3RoZSBEZXNjcmlwdG9yLCBEcml2ZXIgYW5kIERldmljZSBBcmVhcy4g
-VGhvc2Ugb3JkZXJpbmcgcmVxdWlyZW1lbnRzIG11c3QNCj4+ICtjb250aW51ZSB0byBhbGlnbiBi
-ZXR3ZWVuIHRoZSBkcml2ZXIgYW5kIHRoZSBkZXZpY2Ugb2JzZXJ2aW5nIHRoZSBEZXZpY2UNCj4+
-ICtNZW1vcnkgQnVmZmVyLiBXaGljaCBiYXJyaWVycyB0aGUgZHJpdmVyIGVtaXRzIGlzIGdvdmVy
-bmVkIGJ5DQo+PiArVklSVElPX0ZfT1JERVJfUExBVEZPUk0gYXMgaXQgaXMgZm9yIGFueSBvdGhl
-ciBkZXZpY2UgKHNlZSBccmVme3NlYzpSZXNlcnZlZCBGZWF0dXJlIEJpdHN9KS4NCj4NCj4NCj4g
-ImFzIGl0IGlzIGZvciBhbnkgb3RoZXIgZGV2aWNlIiBpcyBjb25mdXNpbmcgYW5kIHVzZWxlc3Mu
-DQoNCg0KQWNrIG9uIGFsbCB0aGUgYWJvdmUNCg0KDQo+DQo+PiArDQo+PiArVG8gYWxsb3cgYSBk
-cml2ZXIgdG8gdW5kZXJzdGFuZCB3aGV0aGVyIHRoZSBETUIgYmFja2luZyBTSE0gcmVnaW9uIGlz
-IGNhY2hlDQo+PiArY29oZXJlbnQsDQo+IGluIHRoZSBmdXR1cmUgd2UnbGwgcHJlc3VtYWJseSBo
-YXZlIG1vcmUgdHlwZXM/DQoNCg0KV2UgZGlzY3Vzc2VkIHRoaXMgaW4gZWFybGllciB2ZXJzaW9u
-czogSWYgeW91IHdhbnQgdG8gYnVpbGQgdGhpcyBhcyBhIA0Kd2F5IHRvIHVzZSB2aXJ0aW8gb24g
-c3lzdGVtcyB3aXRob3V0IERNQSAod2hpY2ggZG8gZXhpc3QsIHRoZXJlIGFyZSBzb21lIA0KZnVu
-a3kgUENJIGltcGxlbWVudGF0aW9ucyBvdXQgdGhlcmUpLCB3ZSBjYW4gZGVmaW5lIGEgV0MgbW9k
-ZSBmb3IgDQpleGFtcGxlIHdoaWNoIHRoZW4gd291bGQgYWxsb3cgbm90LXN1cGVyLWZhc3QsIGJ1
-dCBzdGlsbCB3b3JrYWJsZSBJL08gaW4gDQpzdWNoIGVudmlyb25tZW50cy4NCg0KSSBqdXN0IGRv
-bid0IHJlYWxseSB3YW50IHRvIGRlYWwgd2l0aCBkZWZpbmluZyBhbGwgb2YgdGhlIG51YW5jZXMg
-b2YgDQpzdWNoIGEgbW9kZSByaWdodCBub3cuIElNSE8gdGhhdCdzIGJlc3QgZG9uZSB3aGVuIHdl
-IGFjdHVhbGx5IGNyb3NzIHRoYXQgDQpicmlkZ2UgYW5kIHNvbWVvbmUgY2FuIHZhbGlkYXRlIHRo
-YXQgd2hhdCB0aGV5IHB1dCBpbnRvIHRoZSBzcGVjIA0KYWN0dWFsbHkgd29ya3MgaW4gcmVhbCBs
-aWZlLg0KDQoNCj4+IHRoZSBkZXZpY2UgcmVwb3J0cyB0aGUgbWVtb3J5IHR5cGUgb2YgdGhlIERN
-QiByZWdpb24gdGhyb3VnaCBhDQo+PiArdHJhbnNwb3J0LXNwZWNpZmljIG1lY2hhbmlzbS4gIEN1
-cnJlbnRseSwgdGhlIGZvbGxvd2luZyB0eXBlcyBhcmUgZGVmaW5lZDoNCj4+ICsNCj4+ICtcYmVn
-aW57ZGVzY3JpcHRpb259DQo+PiArXGl0ZW1bMF0gVGhlIHJlZ2lvbiBpcyBjYWNoZSBjb2hlcmVu
-dC4NCj4gYmV0d2VlbiB0aGUgZGV2aWNlIGFuZCB0aGUgZHJpdmVyPw0KPg0KPj4gICBBIHdyaXRl
-IHRoYXQgdGhlIGRyaXZlciBwZXJmb3JtcyB0bw0KPj4gKyAgdGhlIHJlZ2lvbiBiZWNvbWVzIHZp
-c2libGUgdG8gdGhlIGRldmljZSwgYW5kIGEgd3JpdGUgdGhhdCB0aGUgZGV2aWNlDQo+PiArICBw
-ZXJmb3JtcyB0byB0aGUgcmVnaW9uIGJlY29tZXMgdmlzaWJsZSB0byB0aGUgZHJpdmVyLCB3aXRo
-b3V0IGFueSBjYWNoZQ0KPj4gKyAgbWFpbnRlbmFuY2Ugb3BlcmF0aW9uDQo+IG9wZXJhdGlvbnMu
-DQo+DQo+PiBieSB0aGUgZHJpdmVyLg0KPiBieSBlaXRoZXIuDQo+DQo+DQo+IEJ1dCBpdCdzIHN0
-aWxsIGNvbmZ1c2luZy4gRmlyc3QsIGl0IHJlYWxseSBkZXBlbmRzIG9uIGhvdyBkcml2ZXINCj4g
-bWFwcGVkIHRoZSBtZW1vcnkuICBGb3IgZXhhbXBsZSBpIHRoaW5rIEkgY2FuIG1hcCBhbnkgbWVt
-b3J5DQo+IHVuY2FjaGVkIGFuZCB2aW9sYSBpdCB3b3Jrcy4NCg0KDQpUaGF0IGRlcGVuZHMuIE9u
-IG9sZGVyIEFSTSBzeXN0ZW1zLCBpZiB5b3UgbWFwIHVuY2FjaGVkLCB0aGUgaG9zdCAod2hpY2gg
-DQpoYXMgaXQgbWFya2VkIGFzIGNhY2hlZCkgd291bGQgbm90IGJlIGFibGUgdG8gc2VlIGl0LiBP
-biB4ODYgYW5kIG1vZGVybiANCnNlcnZlciBjbGFzcyBBUk0gc3lzdGVtcywgbWFwcGluZyB1bmNh
-Y2hlZCB3b3VsZCB3b3JrLCB5ZXMuDQoNCg0KPiBTZWNvbmQgdGhpcyBhbHNvIG1pZ2h0IGRlcGVu
-ZCBvbiB0aGUgb3JkZXJpbmcgZmxhZyB0aGlua2FibHk/DQo+IElmIGl0IGRvZXMgbm90LCBzYXkg
-c28uDQo+DQo+ICAgVGhpcmQgdGhlcmUncyBvcmRlcmluZyBvZiB0aGlzDQo+IHdydCBub3RpZmlj
-YXRpb25zIHNpbmNlIHlvdSBleGNsdWRlZCB0aGVtLg0KPg0KPj4gK1xlbmR7ZGVzY3JpcHRpb259
-DQo+DQo+IEl0J3MgY29uZnVzaW5nIGhlcmUuIEl0IGlzIG5vdCBjbGVhciB3aGF0IHRoaXMgMCBp
-cyB1bmxlc3MgeW91IGp1c3QNCj4gcmVhZCB0aGUgcGF0Y2guDQo+DQo+IEFsdGVybmF0aXZlbHks
-IGlmIHlvdSB3YW50IHRvIHVzZSAiRGV2aWNlIEJ1ZmZlciBtZW1vcnkgdHlwZSIgb3INCj4gRE1C
-IG1lbW9yeSB0eXBlIiBvciB3aGF0ZXZlciBtYWtlIGl0DQo+IHZlcnkgcHJvbWluZW50LCBsaWtl
-IGEgc3Vic2VjdGlvbiBvZiBpdHMgb3duIGFuZCB1c2UgY29uc2lzdGVudGx5DQo+IG5vdCBzb21l
-dGltZXMgbGlrZSB0aGlzIHNvbWV0aW1lcyAiIHRoZSBtZW1vcnkgdHlwZSBvZiB0aGUgRE1CIHJl
-Z2lvbiINCj4gZXRjLg0KDQoNCkdyZWF0IGlkZWEhDQoNCg0KPg0KPj4gK0FsbCBvdGhlciB2YWx1
-ZXMgYXJlIHJlc2VydmVkLg0KPg0KPg0KPj4gKw0KPj4gK1RoZSByZWdpb24ncyBsZW5ndGggaXMg
-cmVwb3J0ZWQgYnkgdGhlIHNoYXJlZCBtZW1vcnkgcmVnaW9uIGRlc2NyaXB0b3IgYW5kDQo+PiAr
-Ym91bmRzIHRoZSBhbW91bnQgb2YgdmlydHF1ZXVlIGRhdGEgdGhhdCBjYW4gYmUgaW4gZmxpZ2h0
-IGF0IG9uY2UuDQo+IG5vIGlkZWEgd2hhdCB0aGlzIG1lYW5zIGFuZCB3aGF0IHZpcnRxdWV1ZSBk
-YXRhIGlzDQoNCg0KQ2xhcmlmaWVkDQoNCg0KPg0KPj4gKw0KPj4gK1xkcml2ZXJub3JtYXRpdmV7
-XHN1YnN1YnNlY3Rpb259e0RldmljZSBNZW1vcnkgQnVmZmVyfXtCYXNpYyBGYWNpbGl0aWVzIG9m
-IGEgVmlydGlvIERldmljZSAvIFNoYXJlZCBNZW1vcnkgUmVnaW9ucyAvIERldmljZSBNZW1vcnkg
-QnVmZmVyfQ0KPj4gKw0KPj4gK1RoZSBkcml2ZXIgTVVTVCBOT1QgYWNjZXB0IFZJUlRJT19GX0RN
-QiB1bmxlc3MgdGhlIG1lbW9yeSB0eXBlIHRoYXQgdGhlDQo+PiArZGV2aWNlIHJlcG9ydHMgdGhy
-b3VnaCB0aGUgdHJhbnNwb3J0LXNwZWNpZmljIG1lY2hhbmlzbSBpcyBhIHZhbHVlIHRoYXQgdGhp
-cw0KPj4gK3NwZWNpZmljYXRpb24gZGVmaW5lcyBhbmQgdGhhdCB0aGUgZHJpdmVyIHN1cHBvcnRz
-Lg0KPiBpIGFtIG5vdCBzdXJlIHRoaXMgd2lsbCB3b3JrIHdlbGwgZm9yIGV4dGVuc2lvbnMuDQo+
-IHdoYXQgaWYgdGhyZWUgYXJlIHNldmVyYWwgd2F5cyB0byBtYXAgZm9yIGV4YW1wbGU/IEkgd291
-bGQganVzdA0KPiBkcm9wIGl0IEkgdGhpbmsgdW5sZXNzIHlvdSBjYW4gc2hvdyBlLmcuIGluIHRo
-ZSBjb21taXQgbG9nDQo+IHNvbWUgb3RoZXIgcG9zc2libGUgdHlwZXMgYW5kIGhvdyB0aGlzIHdp
-bGwgYmUgZXh0ZW5zaWJsZS4NCg0KDQpJZiB0aGVyZSBhcmUgc2V2ZXJhbCB3YXlzIHRvIG1hcCwg
-d2UgY2FuIG1ha2UgdGhlIGZpZWxkIGJlY29tZSBhIGJpdG1hcCANCndpdGggc3BlY2lhbCBtZWFu
-aW5nIHRoYXQgMCBtZWFucyAid3JpdGViYWNrIiA6KS4NCg0KSSBkb24ndCB0aGluayB0aGlzIHdp
-bGwgcmVhbGlzdGljYWxseSBoYXBwZW4uIFRoZSBob3N0IHdpbGwgd2FudCB0byB0ZWxsIA0KdGhl
-IGd1ZXN0IHRoZSBiZXN0IGNhY2hpbmcgbW9kZSB0byB1c2UgYXQgYWxsIHRpbWVzLiBBbnlvbmUg
-d2l0aCANCnNlbnNpYmxlIGhhcmR3YXJlIHdpbGwgd2FudCB3cml0ZWJhY2suIEJ1dCBpZiB3ZSB3
-YW50IHRvIGtlZXAgdGhpcyANCmdlbmVyaWMgKHdoaWNoIGlzIGEgc2Vuc2libGUgaWRlYSBJTUhP
-KSwgaXQncyBnb29kIHRvIGtlZXAgYXQgbGVhc3QgdGhlIA0KZmllbGQgcmVzZXJ2ZWQgdGhhdCBh
-bGxvd3MgdXMgdG8gaW5kaWNhdGUgZGlmZmVyZW50IHNlbWFudGljcyBpZiB3ZSBuZWVkIA0KYSBk
-aWZmZXJlbnQgY2FjaGluZyBtb2RlLg0KDQoNCj4gQWxzbyBnZW5lcmFsbHkgd2UgZ2l2ZSBkZXRh
-aWxlZCB0ZXh0IHdpdGhvdXQgTVVTVCBldGMgaW4gbm9uIGNvbmZvcm1hbmNlDQo+IHNlY3Rpb25z
-IGFuZCB0aGVuIHdpdGggYSBiaXQgb2YgZHVwbGljYXRpb24gcHV0IGNvbmZvcm1hbmNlIHBhcnRz
-IGluDQo+IGEgc2VwYXJhdGUgY29mb3JtYW5jZSBzZWN0aW9ucy4NCg0KDQpUaGlzIGlzIHRoZSBj
-b25mb3JtYW5jZSBzZWN0aW9uLCBubz8gT3IgZG8geW91IG1lYW4gdGhhdCB3ZSBzaG91bGQgDQpt
-ZW50aW9uIHRoZSBhYm92ZSBhcyB3ZWxsIGluIHRoZSBub3JtYWwgc2VjdGlvbj8NCg0KDQpMZXQn
-cyBib3VuY2UgdGhpcyBzcGVjIHVwZGF0ZSBvbmNlIG1vcmUuIEknbGwgYWxzbyBwb3N0IGEgbmV3
-IHZlcnNpb24gb2YgDQp0aGUgTGludXggcGF0Y2hlcy4NCg0KDQpBbGV4DQo=
+Virtio devices assume R/W access of guest RAM to perform DMA into it to
+access its virt queues and data to operate on. This basic assumption
+leads to multiple problems:
+
+Confidential Compute - In SEV-SNP or TDX, the host has no direct access
+                       to all of guest RAM. We work around DMA access by
+                       having the guest limit DMA access to a common
+                       shared memory window between guest and host
+                       (swiotlb).
+
+Vhost-user - vhost-user backends require access to all guest memory, not
+             only the memory they are actually supposed to access. This
+             is fine for trusted backends, but if you want to limit
+             visibility into guest, you need to do weird stunts like
+             bouncing memory in the vmm [1].
+
+To restrict DMA visibility, virtio-iommu allows the guest to open specific
+windows into guest memory to the device, but it comes with its own bag
+of problems, such as dynamic allocations and complicated device <->
+iommu connections that need to be represented reliably.
+
+Instead, introduce a simple mechanism that lets a device communicate
+through its own dedicated shared memory region: Device Memory Buffer.
+A device that offers Device Memory Buffer exposes a shared memory
+region, owned by the device, that holds the virtqueues and the buffers
+they reference.
+
+Once negotiated, an imaginary per-device IOMMU maps the device's bus
+address space 1:1 onto the region. Every address the driver supplies is
+translated into the region and nowhere else, and the device reaches no
+other memory to process virtqueues.
+
+A driver that has not negotiated VIRTIO_F_ACCESS_PLATFORM otherwise has to
+pass only physical addresses, so VIRTIO_F_DMB is an exception to that.
+
+The device reports the region's shmid in dmb_shm_id on PCI and DMBSHMId
+on MMIO, so the shmid does not collide with device-specific or future
+transport-specific shared memory regions. The driver locates the region
+through the existing Shared Memory Regions facility, VIRTIO_F_DMB needs
+a transport that supports SHM.
+
+The device also reports the Device Memory Buffer memory type, in
+dmb_mem_type on PCI and DMBMemType on MMIO. The only type defined here is
+VIRTIO_DMB_MEM_TYPE_COHERENT, under which driver and device accesses are
+mutually visible without cache maintenance. A region is not obliged to be
+coherent (virtio-gpu already enumerates four cache behaviours for its own
+regions in VIRTIO_GPU_MAP_CACHE_*), so a driver reads the type before it
+accepts the feature and declines one it does not know.
+
+[1] https://lore.kernel.org/qemu-devel/20260723-vhost-user-isolated-memory-v1-0-6b97c439eb28@gmail.com/T/#t
+
+Assisted-by: Kiro:claude-opus-5
+Signed-off-by: Alexander Graf <graf@amazon.com>
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/248
+---
+
+Link: https://lore.kernel.org/virtio-comment/20260702040006.65669-1-graf@amazon.com/ [v1]
+Link: https://lore.kernel.org/virtio-comment/20260716215426.46037-1-graf@amazon.com/ [v2]
+Link: https://lore.kernel.org/virtio-comment/20260804161202.38619-1-graf@amazon.com/ [v3]
+Link: https://lore.kernel.org/virtio-comment/20260817022720.52650-1-graf@amazon.com/ [v4]
+
+v1 -> v2:
+  - Replace the fixed reserved shmid 2 and its registry with a shmid the
+    device reports per transport, as Stefan Hajnoczi suggested on v1
+  - Spell out per-transport compatibility for dmb_shm_id and DMBSHMId
+  - Set FAILED when the driver cannot find the region, rather than refuse
+    to negotiate
+  - List VIRTIO_F_DMB under CCW's features reserved for future use
+
+v2 -> v3:
+  - Require the region to be memory the driver shares with the device
+  - Require coherency; couple VIRTIO_F_DMB to VIRTIO_F_ORDER_PLATFORM,
+    replacing v2's sentence on the areas' interaction with it
+  - Reserve offset 0 in the region
+  - Except the Device Memory Buffer from the shared-region prohibition
+  - Allow a device to expose further shared memory regions
+  - Move bit 44 into the queue and feature negotiation reserved list
+  - Aim two cross-references at the Reserved Feature Bits chapter
+
+v3 -> v4:
+  - Decouple VIRTIO_F_DMB from VIRTIO_F_ACCESS_PLATFORM and
+    VIRTIO_F_ORDER_PLATFORM
+  - Describe the mapping as a per-device IOMMU instead of as offsets into
+    the region (Michael)
+  - Report the region's memory type in the transport (Michael)
+  - Let a device require either VIRTIO_F_DMB or VIRTIO_F_ACCESS_PLATFORM
+    (Michael)
+  - Require the region's base address to be aligned (Michael)
+  - State the property the mapping must have instead of how to map
+    (Michael)
+  - State the negotiation condition once per normative section (Michael)
+  - Rewrite description
+
+v4 -> v5:
+  - Carry the imaginary IOMMU through the normative sections instead of
+    falling back to addresses into a region (Michael)
+  - Leave the region's first 16 bytes unmapped instead of forbidding
+    address 0 structure by structure, and state the alignment as 16 bytes
+    (Michael)
+  - Say bus address space rather than IOVA space (Michael asked for DMA
+    address space; neither term appears in the specification, and
+    VIRTIO_F_ACCESS_PLATFORM introduces bus address)
+  - Exclude notifications rather than IRQ logic, and say that DMB does not
+    make a notification an ordering point (Michael)
+  - Give the Device Memory Buffer memory type its own subsection and a
+    name, VIRTIO_DMB_MEM_TYPE_COHERENT, and justify the field's
+    extensibility in the description (Michael)
+  - Require what the device reports about coherency rather than what it
+    ensures about the driver's mapping (Michael)
+  - Keep RFC 2119 keywords out of the descriptive text and give the
+    bounds, alignment, rejection, length, FAILED and DEVICE_NEEDS_RESET
+    rules a descriptive counterpart (Michael)
+  - Drop the shmid and further-regions requirements the transport
+    sections already carry (Michael)
+  - Drop the sentence leaving the driver's mapping to the platform
+    (Michael)
+  - Say negotiated rather than active, and apply if rather than apply once
+    (Michael)
+  - Say cache maintenance operations by either side (Michael)
+  - Except VIRTIO_F_DMB from the requirement to pass only physical
+    addresses when VIRTIO_F_ACCESS_PLATFORM is not offered
+  - Require the region to be long enough to hold the virtqueues
+ conformance.tex    |   2 +
+ content.tex        |  24 +++++-
+ shared-mem.tex     | 183 ++++++++++++++++++++++++++++++++++++++++++++-
+ transport-ccw.tex  |   1 +
+ transport-mmio.tex |  27 +++++++
+ transport-pci.tex  |  34 +++++++++
+ 6 files changed, 267 insertions(+), 4 deletions(-)
+
+diff --git a/conformance.tex b/conformance.tex
+index 9af31e2..cf4259d 100644
+--- a/conformance.tex
++++ b/conformance.tex
+@@ -104,6 +104,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+ \item \ref{drivernormative:General Initialization And Device Operation / Device Initialization}
+ \item \ref{drivernormative:General Initialization And Device Operation / Device Cleanup}
+ \item \ref{drivernormative:Reserved Feature Bits}
++\item \ref{drivernormative:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}
+ \item \ref{drivernormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities}
+ \item \ref{drivernormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}
+ \item \ref{drivernormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts}
+@@ -191,6 +192,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+ \item \ref{devicenormative:Basic Facilities of a Virtio Device / Packed Virtqueues / The Virtqueue Descriptor Table}
+ \item \ref{devicenormative:Basic Facilities of a Virtio Device / Packed Virtqueues / Scatter-Gather Support}
+ \item \ref{devicenormative:Basic Facilities of a Virtio Device / Shared Memory Regions}
++\item \ref{devicenormative:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}
+ \item \ref{devicenormative:Reserved Feature Bits}
+ \item \ref{devicenormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities}
+ \item \ref{devicenormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}
+diff --git a/content.tex b/content.tex
+index 243ce2d..6bd6125 100644
+--- a/content.tex
++++ b/content.tex
+@@ -102,10 +102,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
+ \begin{description}
+ \item[0 to 23, 41, 42 and 50 to 127] Feature bits for the specific device type
+ 
+-\item[24 to 40, and 43] Feature bits reserved for extensions to the queue and
++\item[24 to 40, 43 and 44] Feature bits reserved for extensions to the queue and
+   feature negotiation mechanisms, see \ref{sec:Reserved Feature Bits}
+ 
+-\item[44 to 49, and 128 and above] Feature bits reserved for future extensions.
++\item[45 to 49, and 128 and above] Feature bits reserved for future extensions.
+ \end{description}
+ 
+ \begin{note}
+@@ -946,6 +946,14 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+    suspend the device by set the SUSPEND bit to 1.
+    See \ref{sec:Basic Facilities of a Virtio Device / Device Status Field}.
+ 
++  \item[VIRTIO_F_DMB(44)] This feature indicates that the device offers a
++  Device Memory Buffer: a shared memory region, owned by the device,
++  that holds the virtqueues and the buffers they reference.  When this feature
++  has been negotiated, every device access to a virtqueue or to a buffer is
++  routed through a static, imaginary, per-device transparent IOMMU which maps
++  the device's bus address space 1:1 onto the Device Memory Buffer region.
++  See \ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}~\nameref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}.
++
+ \end{description}
+ 
+ \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+@@ -957,7 +965,9 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+ then either disable the IOMMU or configure the IOMMU to translate bus addresses
+ passed to the device into physical addresses in memory.  If
+ VIRTIO_F_ACCESS_PLATFORM is not offered, then a driver MUST pass only physical
+-addresses to the device.
++addresses to the device, except that if VIRTIO_F_DMB has been negotiated the
++driver MUST instead pass addresses into the Device Memory Buffer (see
++\ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}).
+ 
+ A driver SHOULD accept VIRTIO_F_RING_PACKED if it is offered.
+ 
+@@ -982,6 +992,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+ 
+ A driver SHOULD accept VIRTIO_F_NOTIF_CONFIG_DATA if it is offered.
+ 
++For the driver requirements that apply if VIRTIO_F_DMB has been
++negotiated, see
++\ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}~\nameref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}.
++
+ \devicenormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+ 
+ A device MUST offer VIRTIO_F_VERSION_1.  A device MAY fail to operate further
+@@ -1011,6 +1025,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+ and presents a PCI SR-IOV capability structure, otherwise
+ it MUST NOT offer VIRTIO_F_SR_IOV.
+ 
++For the device requirements that apply if VIRTIO_F_DMB has been
++negotiated, see
++\ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}~\nameref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}.
++
+ \section{Legacy Interface: Reserved Feature Bits}\label{sec:Reserved Feature Bits / Legacy Interface: Reserved Feature Bits}
+ 
+ Transitional devices MAY offer the following:
+diff --git a/shared-mem.tex b/shared-mem.tex
+index 6e6f6c4..4c62c0b 100644
+--- a/shared-mem.tex
++++ b/shared-mem.tex
+@@ -38,5 +38,186 @@ \subsection{Addressing within regions}\label{sec:Basic Facilities of a Virtio De
+ Device / Shared Memory Regions}
+ Shared memory regions MUST NOT expose shared memory regions which
+ are used to control the operation of the device, nor to stream
+-data.
++data, other than the Device Memory Buffer when VIRTIO_F_DMB has been
++negotiated (see
++\ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}).
+ 
++\subsection{Device Memory Buffer}\label{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}
++
++When VIRTIO_F_DMB (see \ref{sec:Reserved Feature Bits}) has been negotiated,
++the device designates exactly one of its shared memory regions as the
++\emph{Device Memory Buffer}, and reports that region's \field{shmid}
++through a transport-specific
++mechanism: \field{dmb_shm_id} in the common configuration structure on the
++PCI transport (see \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout}),
++and \field{DMBSHMId} on the MMIO transport (see
++\ref{sec:Virtio Transport Options / Virtio Over MMIO / MMIO Device Register Layout}).
++The driver reads that \field{shmid} and locates the region using the
++transport-specific shared memory region enumeration mechanism, in the same
++way as any other shared memory region.  Because both the \field{shmid}
++report and that enumeration are transport-specific, VIRTIO_F_DMB is
++available only on transports that define a shared memory region discovery
++mechanism.  The device can expose further shared memory regions alongside
++the Device Memory Buffer; the Device Memory Buffer is the one whose
++\field{shmid} it reports.  If the driver cannot locate the region the
++feature is unusable, and the driver reports that through the FAILED
++\field{device status} bit instead of proceeding.
++
++Every device access to a virtqueue or to a buffer is routed through a
++static, imaginary, per-device transparent IOMMU which maps the device's bus
++address space 1:1 onto the Device Memory Buffer region.  The mapping starts
++at the region's first byte and is as long as the region: bus address $N$
++resolves to the byte at position $N$ in the region, for every $N$ less than
++the region's length.  The device performs those accesses against the region
++and no longer against the transport bus's address space.  A notification is not such an access: notifications continue
++to reach the device and the driver by the means the transport defines, and
++VIRTIO_F_DMB does not route them through the mapping.
++
++Every virtqueue, every buffer the driver makes available and every indirect
++descriptor table lies inside the Device Memory Buffer region, so the
++region's length limits how much the driver can have outstanding at one time.
++The region is at least large enough to hold the Descriptor Area, Driver Area
++and Device Area of every virtqueue the device exposes; the room a driver
++needs beyond that depends on how many buffers it keeps outstanding.
++An address that, together with the length of the structure it refers to,
++reaches past the end of the region falls outside the mapping, and the device
++rejects it, setting the DEVICE_NEEDS_RESET \field{device status} bit rather
++than reaching memory outside the region.
++
++The base address of the Device Memory Buffer region is 16-byte aligned, and
++the mapping does not cover the region's first 16 bytes.  16 bytes is the
++largest alignment that either virtqueue layout requires of a virtqueue part
++(see \ref{sec:Basic Facilities of a Virtio Device / Split Virtqueues} and
++\ref{sec:Packed Virtqueues / Structure Size and Alignment}), so the lowest
++address the mapping does cover already satisfies every part's alignment.
++Address 0 is therefore never a valid address, and both the driver and the
++device can use it in their own bookkeeping to mean something other than a
++location in the region, such as ``not in use'' or ``failed allocation'',
++without ever supplying it to the other side.
++
++VIRTIO_F_DMB is independent of VIRTIO_F_ACCESS_PLATFORM.  A device can offer
++both, and can require one of them, but neither implies the other.  A driver
++that has negotiated VIRTIO_F_DMB supplies addresses into the Device Memory
++Buffer whether or not it has also negotiated VIRTIO_F_ACCESS_PLATFORM (see
++\ref{sec:Reserved Feature Bits}).
++
++VIRTIO_F_DMB does not change the memory ordering requirements for the
++Descriptor, Driver and Device Areas, and neither does the Device Memory
++Buffer memory type.  Every access those requirements order falls inside the
++Device Memory Buffer region, so the barriers a virtqueue layout requires
++before it exposes a descriptor apply unchanged, and VIRTIO_F_ORDER_PLATFORM
++(see \ref{sec:Reserved Feature Bits}) governs which barriers the driver
++emits.  A notification is not one of those accesses, and VIRTIO_F_DMB does
++not make it one.
++
++\subsubsection{Device Memory Buffer memory type}\label{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer / Device Memory Buffer memory type}
++
++Memory consistency rules for a shared memory region are specified per region
++and per device (see \ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions}).
++For the Device Memory Buffer they follow from its memory type, which the
++device reports through a transport-specific mechanism: \field{dmb_mem_type}
++in the common configuration structure on the PCI transport, and
++\field{DMBMemType} on the MMIO transport.  The driver reads the memory type
++before it accepts VIRTIO_F_DMB and declines the feature if it does not
++support the type reported, so a memory type added by a later revision of
++this specification does not change what an existing driver does.  The
++following Device Memory Buffer memory types are defined:
++
++\begin{lstlisting}
++/* Driver and device accesses are mutually visible without cache maintenance */
++#define VIRTIO_DMB_MEM_TYPE_COHERENT 0
++\end{lstlisting}
++
++Any other value is reserved for future use.
++
++VIRTIO_DMB_MEM_TYPE_COHERENT means that a write the driver performs to the
++Device Memory Buffer region becomes visible to the device, and a write the
++device performs to the region becomes visible to the driver, without either
++side performing cache maintenance operations such as a cache flush.  That is
++a property of the memory the device exposes rather than of the mapping the driver establishes
++over it: the driver needs some mapping in any case, and this memory type
++tells it that no cache maintenance is needed to make its own accesses and
++the device's mutually visible.
++
++\drivernormative{\subsubsection}{Device Memory Buffer}{Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}
++
++The driver MUST NOT accept VIRTIO_F_DMB unless the Device Memory Buffer
++memory type that the device reports through the transport-specific mechanism
++is a value that this specification defines and that the driver supports.
++
++The requirements in the remainder of this section apply if VIRTIO_F_DMB has
++been negotiated.
++
++The driver MUST read the \field{shmid} that the device reports through the
++transport-specific mechanism and MUST locate that shared memory region using
++the transport-specific shared memory region enumeration mechanism.  If the
++driver cannot locate the region, it MUST set the FAILED
++\field{device status} bit.
++
++The driver MUST place the Descriptor Area, Driver Area and Device Area of
++every virtqueue within the Device Memory Buffer region, and MUST treat every
++address it supplies as an address the imaginary IOMMU maps 1:1 into that
++region.  The driver MUST choose each area's address such that the address
++satisfies the alignment that the virtqueue layout in use requires of that
++area.
++
++For every buffer that the driver makes available to the device, and for
++every indirect descriptor table if VIRTIO_F_INDIRECT_DESC has been
++negotiated, the driver MUST place it within the Device Memory Buffer region.
++
++The driver MUST NOT supply an address that, together with the length of the
++structure it refers to, falls outside the part of the Device Memory Buffer
++region that the imaginary IOMMU maps, and MUST NOT make available a buffer
++that does not fit within that part.
++
++\devicenormative{\subsubsection}{Device Memory Buffer}{Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}
++
++A device MUST NOT offer VIRTIO_F_DMB unless the transport provides a
++shared memory region discovery mechanism.
++
++A device MAY require that the driver accept VIRTIO_F_DMB, that the driver
++accept VIRTIO_F_ACCESS_PLATFORM, or that the driver accept at least one of
++the two.  A device that requires at least one of the two MUST fail to set
++the FEATURES_OK \field{device status} bit when the driver writes it having
++accepted neither.
++
++A device MUST NOT offer VIRTIO_F_DMB unless the platform permits the driver
++to access the Device Memory Buffer region as memory that is shared with the
++device.
++
++A device that offers VIRTIO_F_DMB MUST report the Device Memory Buffer
++memory type through the transport-specific mechanism, and MUST report a
++value that this specification defines.
++
++A device MUST NOT report VIRTIO_DMB_MEM_TYPE_COHERENT unless a write that
++the driver performs to the Device Memory Buffer region becomes visible to
++the device, and a write that the device performs to the region becomes
++visible to the driver, without either side performing cache maintenance
++operations.
++
++A device that offers VIRTIO_F_DMB MUST report a Device Memory Buffer region
++whose base address is 16-byte aligned and whose length is sufficient to hold
++the Descriptor Area, Driver Area and Device Area of every virtqueue it
++exposes.
++
++The remaining requirements in this section apply if VIRTIO_F_DMB has been
++negotiated.
++
++The imaginary IOMMU described in
++\ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}
++maps bus addresses 16 and above, up to the length of the Device Memory
++Buffer region, onto the region at the same position, and maps nothing else.
++For every address the driver supplies, the device MUST perform the access at
++that position in the region, and MUST NOT perform it anywhere else.
++
++The device MUST verify, when the driver programs the address of a Descriptor
++Area, Driver Area or Device Area, that the address together with the length
++of that area falls within that mapping and does not overflow.  For every
++other address the driver supplies, the device MUST perform the same
++verification before it uses the address.  If the verification fails, the
++imaginary IOMMU rejects the access: the device MUST NOT perform it and MUST
++set the DEVICE_NEEDS_RESET \field{device status} bit.
++
++The device MUST NOT reach any memory other than the Device Memory Buffer
++region in order to process virtqueues, whether or not the driver supplied an
++address for it.
+diff --git a/transport-ccw.tex b/transport-ccw.tex
+index fe6957d..2c277bf 100644
+--- a/transport-ccw.tex
++++ b/transport-ccw.tex
+@@ -610,6 +610,7 @@ \subsection{Features reserved for future use}\label{sec:Virtio Transport Options
+ \item VIRTIO_F_ADMIN_VQ
+ \item VIRTIO_F_RING_RESET
+ \item Shared memory regions including VIRTIO_PMEM_F_SHMEM_REGION
++\item VIRTIO_F_DMB
+ 
+ \end{itemize}
+ 
+diff --git a/transport-mmio.tex b/transport-mmio.tex
+index cddbcc9..d19bb2f 100644
+--- a/transport-mmio.tex
++++ b/transport-mmio.tex
+@@ -248,6 +248,21 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
+     apply to the queue selected by writing to \field{QueueSel}.
+   }
+   \hline
++  \mmioreg{DMBSHMId}{Device Memory Buffer shared memory ID}{0x0c4}{R}{%
++    If VIRTIO_F_DMB has been negotiated, reading from this register
++    returns the \field{shmid} of the shared memory region that is the
++    Device Memory Buffer (see \ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}).
++    This register is valid only if VIRTIO_F_DMB has been negotiated.
++  }
++  \hline
++  \mmioreg{DMBMemType}{Device Memory Buffer memory type}{0x0c8}{R}{%
++    Reading from this register returns the Device Memory Buffer memory
++    type (see \ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer / Device Memory Buffer memory type}).
++    This register is valid whenever the device offers VIRTIO_F_DMB, as
++    opposed to after VIRTIO_F_DMB has been negotiated, because the driver
++    reads it in order to decide whether to accept the feature.
++  }
++  \hline
+   \mmioreg{ConfigGeneration}{Configuration atomicity value}{0x0fc}{R}{
+     Reading from this register returns a value describing a version of the device-specific configuration space (see \field{Config}).
+     The driver can then access the configuration space and, when finished, read \field{ConfigGeneration} again.
+@@ -313,6 +328,12 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
+ when queue reset has completed.
+ (see \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}).
+ 
++If the device offers VIRTIO_F_DMB, \field{DMBSHMId} MUST equal the
++\field{shmid} of a shared memory region that the device exposes through
++\field{SHMSel}, \field{SHMLenLow}, \field{SHMLenHigh}, \field{SHMBaseLow}
++and \field{SHMBaseHigh}, and \field{DMBMemType} MUST report a Device Memory Buffer
++memory type that this specification defines.
++
+ \drivernormative{\subsubsection}{MMIO Device Register Layout}{Virtio Transport Options / Virtio Over MMIO / MMIO Device Register Layout}
+ The driver MUST NOT access memory locations not described in the
+ table \ref{tab:Virtio Transport Options / Virtio Over MMIO / MMIO Device Register Layout}
+@@ -367,6 +388,12 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
+ that were used before the queue reset.
+ (see \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}).
+ 
++The driver MUST NOT read \field{DMBSHMId} unless VIRTIO_F_DMB has been
++negotiated.
++
++The driver MUST NOT read \field{DMBMemType} unless the device offers
++VIRTIO_F_DMB.
++
+ \subsection{MMIO-specific Initialization And Device Operation}\label{sec:Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation}
+ 
+ \subsubsection{Device Initialization}\label{sec:Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation / Device Initialization}
+diff --git a/transport-pci.tex b/transport-pci.tex
+index 95b08b8..d2907b9 100644
+--- a/transport-pci.tex
++++ b/transport-pci.tex
+@@ -325,6 +325,10 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
+         /* About the administration virtqueue. */
+         le16 admin_queue_index;         /* read-only for driver */
+         le16 admin_queue_num;         /* read-only for driver */
++
++        /* About the Device Memory Buffer. */
++        le16 dmb_shm_id;                /* read-only for driver */
++        le16 dmb_mem_type;              /* read-only for driver */
+ };
+ \end{lstlisting}
+ 
+@@ -428,6 +432,23 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
+ 	The value 0 indicates no supported administration virtqueues.
+ 	This field is valid only if VIRTIO_F_ADMIN_VQ has been
+ 	negotiated.
++
++\item[\field{dmb_shm_id}]
++        The device uses this to report the \field{shmid} of the shared
++        memory region that is the Device Memory Buffer (see
++        \ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}).
++        This field is read-only for the driver.  This field is valid
++        only if VIRTIO_F_DMB has been negotiated.
++
++\item[\field{dmb_mem_type}]
++        The device uses this to report the Device Memory Buffer memory
++        type (see
++        \ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer / Device Memory Buffer memory type}).
++        This field is read-only for the driver.  Unlike
++        \field{dmb_shm_id}, this field is valid whenever the device
++        offers VIRTIO_F_DMB, as opposed to after VIRTIO_F_DMB has been
++        negotiated, because the driver reads it in order to decide
++        whether to accept the feature.
+ \end{description}
+ 
+ \devicenormative{\paragraph}{Common configuration structure layout}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout}
+@@ -495,6 +516,13 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
+ to ensure that indices of valid admin queues fit into
+ a 16 bit range beyond all other virtqueues.
+ 
++If the device offers VIRTIO_F_DMB, the device MUST present the common
++configuration structure with a \field{length} that is large enough to
++include the \field{dmb_mem_type} field, and \field{dmb_shm_id} MUST equal
++the \field{id} of a VIRTIO_PCI_CAP_SHARED_MEMORY_CFG capability that the
++device presents.  Since \field{id} in \field{virtio_pci_cap} is 8 bits,
++the high-order 8 bits of \field{dmb_shm_id} MUST be zero.
++
+ \drivernormative{\paragraph}{Common configuration structure layout}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout}
+ 
+ The driver MUST NOT write to \field{device_feature}, \field{num_queues},
+@@ -531,6 +559,12 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
+ The driver MAY configure fewer administration virtqueues than
+ supported by the device.
+ 
++The driver MUST NOT read \field{dmb_shm_id} unless VIRTIO_F_DMB has
++been negotiated.
++
++The driver MUST NOT read \field{dmb_mem_type} unless the device offers
++VIRTIO_F_DMB.
++
+ \subsubsection{Notification structure layout}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Notification capability}
+ 
+ The notification location is found using the VIRTIO_PCI_CAP_NOTIFY_CFG
