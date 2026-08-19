@@ -1,184 +1,632 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011043.outbound.protection.outlook.com [52.101.52.43])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4710B3C819D
-	for <virtio-comment@lists.linux.dev>; Wed, 19 Aug 2026 06:28:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787120931; cv=fail; b=RrtVXgG8ynq8ot1wTOHMQC46qW5YhVwWGOhvidcYxs7J7Xooh/tD6xb470/zdupZTgZSKnDj4aM0pHFPNx399PHBE2wGvmZ9A73PYJQlpaiGVTPP0nSDNf3uSXmn7/D4us3gy3cjoCpUZpra1TL+h3deuWHA8KPnCAuCXNa5PmU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787120931; c=relaxed/simple;
-	bh=HJzIzN+C+Wm5hJ//EInBPxhCjHqUMh6/DkYHEDtknk4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=d2hhdqJ80h6G0jxg48Iy3oc4fjRmQ8idZpH6dPwR4bjIRziNn9QFQlVH+vO8J+eioIC2KDlb5idP3Scklov5xsJOdt9lVszsdVBC5ncQUb19egyul81A4eSIv8Ac6MqrCM/gWOy6H9JPiNBMJg2nkgfSkqab/rs3HIfEL7Bp8TE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PXax48BR; arc=fail smtp.client-ip=52.101.52.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B07F392C48
+	for <virtio-comment@lists.linux.dev>; Wed, 19 Aug 2026 09:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787130212; cv=none; b=YRdm0Rc4kZuG6j0lte5ZGA9OQ4UXWN3JyHQBflC5yILlgcVfG3c0ALwQnmTRoSOJrmuRdY5fBSG+nO9BjleheiNHcheFRnoM6L/Ub2fl4fggmFI2iYFWE5DlH3lHrDXSi+cGPq6G437ddjWzWEnBNb5mrvJro4ZcW40PzYs4P8s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787130212; c=relaxed/simple;
+	bh=AjKym6vaqkaQ5C2mSRGNLNL+o+GromW9/6qrVO/HGsg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=So9mm3CFKGx1qk5c1YpMGFtBOLaSn0cflKgOb2GbBxMOlS5Y3a+2FeK9OmeDrCSZLMka/6lWaPKK2BU8+YgLFJ3YmX0QtqgMCiImZ+pHnX0uR8ma13xL4nF9cMcsHcG1ct3ghKhwTOZKIyUYfXp46qdiFLPMJvMcrq/tU1rYoH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JC9P/voX; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PXax48BR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CtxT0eYiMTPWbDo5gXkYTVH4AsdSfewWy5s7Hroa1rapCEh1nsLiD9lM2BJjGMxZdlzF4Bnv6B5HOvwnwgSLvyzultYvuN3sML9R4Y8xX+4p4EIvio5U5k9Lu4ziIKgak+ZIjmII/U+pwkcoFOQxP26Wj9POMqb6yXLHI9Cl3EVn+8O+8v9dNLktIj/JzysOW7CPnkzTHJC6mjR4W+XzcRdDe21FcJxeRKeD7V0J6sXM79txggTl4t9WtMejI3cZOF6TcTAWt771DwKhrqKPOqA6AFrfizP6lKBAwkp5KWu9kFHsnNw8GUkSdemgj+UibhpkuVu2LH3ZFQUTnIphxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=opRaykjq4/7463+Q2/7UphA87XTdVhKr4svNN5TZG68=;
- b=rYOIIlDBMxUuAKBltOzJwNpMfPzCdvs+vqeUwWSBCN/G0nLRYxPfe37Qo0hC4McsVO4/STcYkmBu1y7Tz5xnyVdJ4TJpWaSUXnRdHAGoALOmKJK6qtAD4/o4jd1VytzFn+no2dmL8479CudvOjbutG1qIF0jS6p5MA5vSpu5pglv4lMb70yIlMXT2i7XyYeEAwQ86vfcmMqCWAlR4SdKcseunpZfS+m5zSfkP2KBSNpEIsul58lCHQNHZi9IsneGxhPR2RpVCVTWs72Xu4rBtBy6ULNdtcVrRMA290d9q8bAOdgjPiOq+brJ5B/Um/Wkef6KprY3Kjn3ZTDT2SPIFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=opRaykjq4/7463+Q2/7UphA87XTdVhKr4svNN5TZG68=;
- b=PXax48BRl7mMLVHfaJAiUryq0ae1HzA5CMAWWWEjFJKzGJb2XqkULyBwd0VHLGGpMV+IKSEdrjfhKAvy1IjDWf5lh5BfU8XycKY3zTjjBeCmHK4VW5x0NpbC4zzH4OTl60ZTFG4bQ3aPQ9tRyPzBUakc/o3ZhimdOTWpp6CKvl9mlyB2r7w05xkwfAFTcITHDUNsEyB6u53B4mzm/+86+wAN5Yt6/VkmDxt9eRWfpqVvpvbow7VCDg8Qrtzqb0+LEMDlnhwoNkKLQxX++4fSkbF9LaRDt/LeRownYvrpMh7JnEd+OVVDVbDefVJy2M1Ki35squM8tHDw9KsmyolmRA==
-Received: from SJ0PR12MB6806.namprd12.prod.outlook.com (2603:10b6:a03:478::7)
- by DS0PR12MB8563.namprd12.prod.outlook.com (2603:10b6:8:165::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
- 2026 06:28:45 +0000
-Received: from SJ0PR12MB6806.namprd12.prod.outlook.com
- ([fe80::3981:4d43:82f5:adf6]) by SJ0PR12MB6806.namprd12.prod.outlook.com
- ([fe80::3981:4d43:82f5:adf6%2]) with mapi id 15.21.0292.024; Wed, 19 Aug 2026
- 06:28:45 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: Alexander Graf <graf@amazon.com>, "virtio-comment@lists.linux.dev"
-	<virtio-comment@lists.linux.dev>
-CC: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
-	"nh-open-source@amazon.com" <nh-open-source@amazon.com>
-Subject: RE: [PATCH v5] Add VIRTIO_F_DMB (Device Memory Buffer)
-Thread-Topic: [PATCH v5] Add VIRTIO_F_DMB (Device Memory Buffer)
-Thread-Index: AQHdLtdCdMwnG0ovwkypaF9QKsaSfrak5zuQ
-Date: Wed, 19 Aug 2026 06:28:45 +0000
-Message-ID:
- <SJ0PR12MB68068878058CCE8E74EE00A1DCA52@SJ0PR12MB6806.namprd12.prod.outlook.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JC9P/voX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787130208;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=smtuXeUoWX+lTWingeT3eI8yJELH/ubenTUEUd+plS8=;
+	b=JC9P/voXlWWCYTbv9KWmOCCRUTCr3Zo0Hef3912qHx2vfB0kIsg1tel4ZWGF/PSgMd7vOU
+	ijPbewvHRhSP0T8pN4qNqLcZssHl/sz6DMIbbLcU/KemjmyxH4T7Ox4PutRdWoSlaQruzE
+	JfTDnzWazmyAwYDxVZrwD2RMS5O6jS0=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-68-qp9GfIMmMfa3oNxQJmVQWQ-1; Wed, 19 Aug 2026 05:03:26 -0400
+X-MC-Unique: qp9GfIMmMfa3oNxQJmVQWQ-1
+X-Mimecast-MFC-AGG-ID: qp9GfIMmMfa3oNxQJmVQWQ_1787130205
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49808ea1b64so6572815e9.1
+        for <virtio-comment@lists.linux.dev>; Wed, 19 Aug 2026 02:03:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787130205; x=1787735005;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=smtuXeUoWX+lTWingeT3eI8yJELH/ubenTUEUd+plS8=;
+        b=iqYtqyaevtilA6uvaDk7wZXCMeQL5+Uz+1DMhsTbdwVY6mikisjLN3qFM3OZE2HHdS
+         QxSVFlHIGsThaEgyEQq/HSkITqNo/KxMj8dM2yfqThhTsAOAIELz0GP1n9H44+b0jVoF
+         SAZU4C4KC7EsW8bD+U3mK0Ohd+2SEaS9IiT4RpD8Dm5/7SQlO+xhswS5hkzl1XpvGOBc
+         XYvA47EieWD/k2Hce9iI89YDIa/5DhY7z1wJ67zB2zvFD0gljlBVwA7o4Kj8s+2o+OTJ
+         jHOAc/pCAQxxCIs/fqDU3O2+kV7XnI8+8Z2XFbEjX85e3o3eplngzkx3YsFLMrDoAYpS
+         ztwQ==
+X-Gm-Message-State: AOJu0YzlrU/QPvYIGpFcqMx7wSOJ1SYKZSfuK945pOlv7Sp7AVtuV9lt
+	nRubEvb2KJjEGvvYhJAT2Sxp2PPMUND07DS6rvaEUGZgUja+l34j1pg1XLVai7E3mjla1TdVjxB
+	Bw9GkKltqh5tRGhpitidqw5M2AkXcT8Hm7Pj3yHFP6HhODKumxyY8Z0BmOsReFuKeZd2kcIskwq
+	7J
+X-Gm-Gg: AR+sD13XOsFYDTtIKwxIY9Yp0iIKqeOy1MsGKgG6B0PuKnxX9WgKg6W9sHRTwxkGso3
+	qcexrSB+pQwP3umoJJa2DCDYAS2/Sug/IFkshK0xrlT/1Ca6CwI64KJRs7u8LlDichUq8kp+WT8
+	3P70Lq5an1PaD3AmKBLnQ/bmRToZbcyCetuw+NCaIjHKmlHm1CpPIOHAEPuJLiGeVmf9Nr/xAjX
+	UwN++z559x7UT09ra3aGzoVaA0Sns1pIZGFsB3Xm1Bdg3B4jT55fud1/OhG4LE99+ZyjnWhV0kZ
+	o6f5TkasFdqVNvv+OTcOsSNagXB0WvVMkLLDMKPK9doF+WkO4hs944qFvT81XVbCUIsRfhAbdek
+	4vS1zRnNpYHr1GywmiPxFP1Or
+X-Received: by 2002:a05:600c:4da4:b0:499:8afd:4a9f with SMTP id 5b1f17b1804b1-499a9e583e7mr33291775e9.0.1787130204470;
+        Wed, 19 Aug 2026 02:03:24 -0700 (PDT)
+X-Received: by 2002:a05:600c:4da4:b0:499:8afd:4a9f with SMTP id 5b1f17b1804b1-499a9e583e7mr33290485e9.0.1787130203747;
+        Wed, 19 Aug 2026 02:03:23 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-47-107.inter.net.il. [80.230.47.107])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482b10fcebdsm4502277f8f.0.2026.08.19.02.03.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 02:03:22 -0700 (PDT)
+Date: Wed, 19 Aug 2026 05:03:20 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Alexander Graf <graf@amazon.com>
+Cc: virtio-comment@lists.linux.dev, Jason Wang <jasowangio@gmail.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>, nh-open-source@amazon.com
+Subject: Re: [PATCH v5] Add VIRTIO_F_DMB (Device Memory Buffer)
+Message-ID: <20260819050253-mutt-send-email-mst@kernel.org>
 References: <20260818060255.6853-1-graf@amazon.com>
-In-Reply-To: <20260818060255.6853-1-graf@amazon.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR12MB6806:EE_|DS0PR12MB8563:EE_
-x-ms-office365-filtering-correlation-id: 433d5235-dac7-4210-4d36-08defdbb1f14
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10067099003|56012099006|6133799003|22082099003|11063799006|18002099003|38070700021;
-x-microsoft-antispam-message-info:
- blIFt10LYPpXVlouBpxgNZp8lxCoPcRuQAzERpqJTjqWFwmXEt5pND4BYlhx233uv/TGotqbF7AajtsRhZR2Dq2jr3qx2yBjlAva2J+x7Rd5xqgnLd4A+JqZNcKPHB21psHUzyG+NWGo6XfoTDdnZ/eYF1XrfO7j3IumC4/vO5jfhHA2EFSrLg+sSlJS6GlQwcT77Q58ERfQSo8EsMUiztaf/3t2RyB1X+dgRVj48Qb4im0Ufl6WKMoPHvh0Z7BuUbsmAQL6INdgG9pSYbuMRBZTm+VOA7ZWmXHTmqCqSdU4kzrLlEhZ1PcIxRkiAvjL1oGLkr3KCY7b5ZIZvyiEEcHLDc90A9mFWuWHxoUZK/ped7JcEpI5QuJhxC2UH3PANWqN1BykBSzKKdC6MybQsXJwc25kmgcXDRAblKkxXM+/FxUJOngY1kKDgrXj62ctCBGLatPqT6OMGiMrUKV+UEwlTVQzFoS2fScN+iUKCuE5Ly9nqrVPvJmTaDAnyILIDaxahqWyiTXp9pEKYfz7GsUGgt5xPp5sptlfP7Jm1fMa+S+LVBhu49EncMzyURNIPXDoRLxVtRXhsioXLhcJhq7ye2m9kNdBjNkOsYcBYYXe/pyPNlEH96TCPb4KiPhZ1SdWPW6HUSb4bXevG0qlsAjpxEhIBUnfC5uf2O87oBTiwE6eQnqqJhiBlyEqBwSr+5dNb0PieBYyIg4xkxgzQqGygf1wS5QISINXXUGISAM=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR12MB6806.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(6133799003)(22082099003)(11063799006)(18002099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?/y3MIq1UIbXOTE2rcE2ymI1sWnwu9l8np2+VAagikEUL4d/wYlbZ6esMlEFw?=
- =?us-ascii?Q?yvAnLr5BQtpifH0FRXPqE6CVTbwCxcQrG2TXSiJChGF7o+MGdbi7/c40nCoJ?=
- =?us-ascii?Q?WimnDdGldu1z7/y0DZSOfP16bHrXhaksKvg8fmlTMqHzGrnCqoKuUTxfd4i6?=
- =?us-ascii?Q?fnJe2OJULuwuCsWgiHXh0+n6nFWSwIK+Hp6JG6xaJse9A0f0w4MHsrGq/Tel?=
- =?us-ascii?Q?bl2x5EPV9+K2yp/+4IHUxvA2yGV1mn3L23GS51759uwRmtBJnACYT0t8Y+DH?=
- =?us-ascii?Q?dS7TV4IwCgYKbY/BnJ1oOMChzzwf+8ctTBS/lKVMWUdvCQmaxZ5WWRexesfu?=
- =?us-ascii?Q?DIVtu/OQsyetHrVBDIih8LhvSGlZJ2rbiq96tdkWFD0NzZyohEpjTTchdoRV?=
- =?us-ascii?Q?DkPRaSdeQys4Vcg/wy7oKIGE6Rq9sLOiJ/x6+prWau2PesG/WBNOKlYH9Hll?=
- =?us-ascii?Q?gjfH1EdJTnxOcBMqwLO4gU2zX/h+i5Bqi5vyfpHGGkG7MZ11OKK7HlRt739A?=
- =?us-ascii?Q?I8azMH/tkDuJw25oLwepF6D9aWdE3HGs7qNaXx8P2qkbCVCl6xOmjzxjBMI+?=
- =?us-ascii?Q?Sqi5Pm6v9nfmGmjrdpfxd0aUrod3nRiMvsyFcc15VB69lVwl+F7IJ72rwuD/?=
- =?us-ascii?Q?tW6D+fXEhLABC3ghxDjms6Do7g1gE8GUWynd/lZExw3ud3snTyFeiBjGWp0X?=
- =?us-ascii?Q?rbQPGksvdqpb9L/OJVxjefIGHDYLQj2EKxzGQFwyatoF5FrnOs3tZ1aXomXd?=
- =?us-ascii?Q?scVlYj+IjuZ78GPzy+fzjDpM1AB1KkPI0w8aW9DagDE99YDT1gyu6rnK5zkE?=
- =?us-ascii?Q?SPx4SDjexwJlJQkwu+WowUg1c2PNrorDzg/M0pD5IARoIwpoJrv9RGVYJWrM?=
- =?us-ascii?Q?rL2FdcJobMRU8tQaTfFUjVluwiOQd9uaAZKZ85cZfzQ/LMIJvVDsTLD+gyjW?=
- =?us-ascii?Q?ZQvuLIiF+4BSU3VZDYRqACCB0PEdF1TuB+Eyql8XSU6CxhmKQ1mlMXc2DKEe?=
- =?us-ascii?Q?VDSJ06Nh7x4dZyihxGcXFOaDmnn1kqLmiV0TcIzDxOcaN8TO83b+QKJVsSGS?=
- =?us-ascii?Q?10gpXNIkBoBxrxApqtpfeTwDTKOx56AbkV0ib7UIEjXJBpKwUldddXt5DB5q?=
- =?us-ascii?Q?JDF07JSZPzf8wZRbzdbOxDaOuNRz7kry+u7Ymk3bE84iXNszvH1KE90lZgLs?=
- =?us-ascii?Q?WEx/8wdFwFp9lrTr6Kns900s/+S3fqnUUBgUKtM/AYuw8JXp4ctOBwRcAZHL?=
- =?us-ascii?Q?sTRpK4x7wtibNfMaoon1AX+mdrmZkw1vwCH2Rxujmvd3HwfnO3ddKQ7w/l0h?=
- =?us-ascii?Q?0r1dwdVIh1GbFEz0LixOaJKPN7wUj+QQgiBNp1QEncPDdS+DhZed8fTdeoF1?=
- =?us-ascii?Q?z0v0mNDzmWoEmAks98QXRWh7xTnR33P614fwROjcrcZ6rkHyJB7dl+nSQG57?=
- =?us-ascii?Q?TteEXEm5Gdo95nkxqReYTLMaWJ4MzQmDKQ7nrXbGPEUpphLXOJlR5w4uFB+Y?=
- =?us-ascii?Q?IceOpM/zcG+aAMrVBPRkN0znPVBHOplA7SPDMW7PLLzsthQtoJrNgUIBPqlZ?=
- =?us-ascii?Q?ZZjZD9v+KSl233lBsPR4ErUqUgtIITJW4AKJeIHzpwO+ZndWxcrJDhTu45h9?=
- =?us-ascii?Q?QS27H3uY/KsZDCcf4LVsz7O+cyjMjz7GP/oBvOt8qehb4F9b3SFsJ7wskmkV?=
- =?us-ascii?Q?KTdg9Ra30suYZlWIydPKVmFXNVN7Tsc9qdE0SVTIKHgl9qw9?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6806.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 433d5235-dac7-4210-4d36-08defdbb1f14
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Aug 2026 06:28:45.5104
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TS/GuZxXSTARhGcgAV/GIEFtD4utTvR/FDLKU1pCXLe83ecg7UQ2pk07TPq4jckkm7mIBrOMhZBny1dBzkB/9A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8563
+In-Reply-To: <20260818060255.6853-1-graf@amazon.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 2OqHHLx1TCDWv4wNPLK34b2-wPmC6a8MHO9Vfg-K3t4_1787130205
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-
-
-> From: Alexander Graf <graf@amazon.com>
-> Sent: 18 August 2026 11:33 AM
-> To: virtio-comment@lists.linux.dev
->=20
+On Tue, Aug 18, 2026 at 06:02:55AM +0000, Alexander Graf wrote:
 > Virtio devices assume R/W access of guest RAM to perform DMA into it to
 > access its virt queues and data to operate on. This basic assumption
 > leads to multiple problems:
->=20
+> 
 > Confidential Compute - In SEV-SNP or TDX, the host has no direct access
 >                        to all of guest RAM. We work around DMA access by
 >                        having the guest limit DMA access to a common
 >                        shared memory window between guest and host
 >                        (swiotlb).
->
-In a hypervisor example, where virtio device is composed sw hypervisor and =
-SEV-SNP/TDX is configured,
-
-When the guest VM read/writes to this shared memory,=20
-
-Can hypervisor see the plain text content of virtio descriptors and actual =
-buffers?
-
+> 
 > Vhost-user - vhost-user backends require access to all guest memory, not
 >              only the memory they are actually supposed to access. This
 >              is fine for trusted backends, but if you want to limit
 >              visibility into guest, you need to do weird stunts like
 >              bouncing memory in the vmm [1].
->=20
-> To restrict DMA visibility, virtio-iommu allows the guest to open specifi=
-c
+> 
+> To restrict DMA visibility, virtio-iommu allows the guest to open specific
 > windows into guest memory to the device, but it comes with its own bag
 > of problems, such as dynamic allocations and complicated device <->
 > iommu connections that need to be represented reliably.
->=20
+> 
 > Instead, introduce a simple mechanism that lets a device communicate
 > through its own dedicated shared memory region: Device Memory Buffer.
 > A device that offers Device Memory Buffer exposes a shared memory
 > region, owned by the device, that holds the virtqueues and the buffers
 > they reference.
->
-To my understanding this is only suitable only for virtio-devices composed =
-by the SW hypervisor.
-In other words, for a real hardware PCI device, guest VM reading used ring,=
- virtio net header, actual TCP packets, over blocking PCI reads seems like =
-a snail device.
-What do I miss here?
+> 
+> Once negotiated, an imaginary per-device IOMMU maps the device's bus
+> address space 1:1 onto the region. Every address the driver supplies is
+> translated into the region and nowhere else, and the device reaches no
+> other memory to process virtqueues.
+> 
+> A driver that has not negotiated VIRTIO_F_ACCESS_PLATFORM otherwise has to
+> pass only physical addresses, so VIRTIO_F_DMB is an exception to that.
+> 
+> The device reports the region's shmid in dmb_shm_id on PCI and DMBSHMId
+> on MMIO, so the shmid does not collide with device-specific or future
+> transport-specific shared memory regions. The driver locates the region
+> through the existing Shared Memory Regions facility, VIRTIO_F_DMB needs
+> a transport that supports SHM.
+> 
+> The device also reports the Device Memory Buffer memory type, in
+> dmb_mem_type on PCI and DMBMemType on MMIO. The only type defined here is
+> VIRTIO_DMB_MEM_TYPE_COHERENT, under which driver and device accesses are
+> mutually visible without cache maintenance. A region is not obliged to be
+> coherent (virtio-gpu already enumerates four cache behaviours for its own
+> regions in VIRTIO_GPU_MAP_CACHE_*), so a driver reads the type before it
+> accepts the feature and declines one it does not know.
+> 
+> [1] https://lore.kernel.org/qemu-devel/20260723-vhost-user-isolated-memory-v1-0-6b97c439eb28@gmail.com/T/#t
+> 
+> Assisted-by: Kiro:claude-opus-5
+> Signed-off-by: Alexander Graf <graf@amazon.com>
+> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/248
 
-I don't understand how a basic virtio-block write IO work here.
-A data is located in system RAM to be written to the block device.
-So its buffer address is placed in the virtio-queue.
-But in DMB mode, this buffer should be written to the device memory first, =
-and than put this address into descriptor to complete the IO?
+ooo for the next week, won't review.
+feel free to iterate.
+thanks!
 
-As I start to write above question,
-I start to think that I totally misunderstood this DMB when reading " SHM t=
-hat holds the virtqueues and the buffers"
-
+> ---
+> 
+> Link: https://lore.kernel.org/virtio-comment/20260702040006.65669-1-graf@amazon.com/ [v1]
+> Link: https://lore.kernel.org/virtio-comment/20260716215426.46037-1-graf@amazon.com/ [v2]
+> Link: https://lore.kernel.org/virtio-comment/20260804161202.38619-1-graf@amazon.com/ [v3]
+> Link: https://lore.kernel.org/virtio-comment/20260817022720.52650-1-graf@amazon.com/ [v4]
+> 
+> v1 -> v2:
+>   - Replace the fixed reserved shmid 2 and its registry with a shmid the
+>     device reports per transport, as Stefan Hajnoczi suggested on v1
+>   - Spell out per-transport compatibility for dmb_shm_id and DMBSHMId
+>   - Set FAILED when the driver cannot find the region, rather than refuse
+>     to negotiate
+>   - List VIRTIO_F_DMB under CCW's features reserved for future use
+> 
+> v2 -> v3:
+>   - Require the region to be memory the driver shares with the device
+>   - Require coherency; couple VIRTIO_F_DMB to VIRTIO_F_ORDER_PLATFORM,
+>     replacing v2's sentence on the areas' interaction with it
+>   - Reserve offset 0 in the region
+>   - Except the Device Memory Buffer from the shared-region prohibition
+>   - Allow a device to expose further shared memory regions
+>   - Move bit 44 into the queue and feature negotiation reserved list
+>   - Aim two cross-references at the Reserved Feature Bits chapter
+> 
+> v3 -> v4:
+>   - Decouple VIRTIO_F_DMB from VIRTIO_F_ACCESS_PLATFORM and
+>     VIRTIO_F_ORDER_PLATFORM
+>   - Describe the mapping as a per-device IOMMU instead of as offsets into
+>     the region (Michael)
+>   - Report the region's memory type in the transport (Michael)
+>   - Let a device require either VIRTIO_F_DMB or VIRTIO_F_ACCESS_PLATFORM
+>     (Michael)
+>   - Require the region's base address to be aligned (Michael)
+>   - State the property the mapping must have instead of how to map
+>     (Michael)
+>   - State the negotiation condition once per normative section (Michael)
+>   - Rewrite description
+> 
+> v4 -> v5:
+>   - Carry the imaginary IOMMU through the normative sections instead of
+>     falling back to addresses into a region (Michael)
+>   - Leave the region's first 16 bytes unmapped instead of forbidding
+>     address 0 structure by structure, and state the alignment as 16 bytes
+>     (Michael)
+>   - Say bus address space rather than IOVA space (Michael asked for DMA
+>     address space; neither term appears in the specification, and
+>     VIRTIO_F_ACCESS_PLATFORM introduces bus address)
+>   - Exclude notifications rather than IRQ logic, and say that DMB does not
+>     make a notification an ordering point (Michael)
+>   - Give the Device Memory Buffer memory type its own subsection and a
+>     name, VIRTIO_DMB_MEM_TYPE_COHERENT, and justify the field's
+>     extensibility in the description (Michael)
+>   - Require what the device reports about coherency rather than what it
+>     ensures about the driver's mapping (Michael)
+>   - Keep RFC 2119 keywords out of the descriptive text and give the
+>     bounds, alignment, rejection, length, FAILED and DEVICE_NEEDS_RESET
+>     rules a descriptive counterpart (Michael)
+>   - Drop the shmid and further-regions requirements the transport
+>     sections already carry (Michael)
+>   - Drop the sentence leaving the driver's mapping to the platform
+>     (Michael)
+>   - Say negotiated rather than active, and apply if rather than apply once
+>     (Michael)
+>   - Say cache maintenance operations by either side (Michael)
+>   - Except VIRTIO_F_DMB from the requirement to pass only physical
+>     addresses when VIRTIO_F_ACCESS_PLATFORM is not offered
+>   - Require the region to be long enough to hold the virtqueues
+>  conformance.tex    |   2 +
+>  content.tex        |  24 +++++-
+>  shared-mem.tex     | 183 ++++++++++++++++++++++++++++++++++++++++++++-
+>  transport-ccw.tex  |   1 +
+>  transport-mmio.tex |  27 +++++++
+>  transport-pci.tex  |  34 +++++++++
+>  6 files changed, 267 insertions(+), 4 deletions(-)
+> 
+> diff --git a/conformance.tex b/conformance.tex
+> index 9af31e2..cf4259d 100644
+> --- a/conformance.tex
+> +++ b/conformance.tex
+> @@ -104,6 +104,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+>  \item \ref{drivernormative:General Initialization And Device Operation / Device Initialization}
+>  \item \ref{drivernormative:General Initialization And Device Operation / Device Cleanup}
+>  \item \ref{drivernormative:Reserved Feature Bits}
+> +\item \ref{drivernormative:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}
+>  \item \ref{drivernormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities}
+>  \item \ref{drivernormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}
+>  \item \ref{drivernormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device parts}
+> @@ -191,6 +192,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+>  \item \ref{devicenormative:Basic Facilities of a Virtio Device / Packed Virtqueues / The Virtqueue Descriptor Table}
+>  \item \ref{devicenormative:Basic Facilities of a Virtio Device / Packed Virtqueues / Scatter-Gather Support}
+>  \item \ref{devicenormative:Basic Facilities of a Virtio Device / Shared Memory Regions}
+> +\item \ref{devicenormative:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}
+>  \item \ref{devicenormative:Reserved Feature Bits}
+>  \item \ref{devicenormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device and driver capabilities}
+>  \item \ref{devicenormative:Basic Facilities of a Virtio Device / Device groups / Group administration commands / Device resource objects}
+> diff --git a/content.tex b/content.tex
+> index 243ce2d..6bd6125 100644
+> --- a/content.tex
+> +++ b/content.tex
+> @@ -102,10 +102,10 @@ \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature B
+>  \begin{description}
+>  \item[0 to 23, 41, 42 and 50 to 127] Feature bits for the specific device type
+>  
+> -\item[24 to 40, and 43] Feature bits reserved for extensions to the queue and
+> +\item[24 to 40, 43 and 44] Feature bits reserved for extensions to the queue and
+>    feature negotiation mechanisms, see \ref{sec:Reserved Feature Bits}
+>  
+> -\item[44 to 49, and 128 and above] Feature bits reserved for future extensions.
+> +\item[45 to 49, and 128 and above] Feature bits reserved for future extensions.
+>  \end{description}
+>  
+>  \begin{note}
+> @@ -946,6 +946,14 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+>     suspend the device by set the SUSPEND bit to 1.
+>     See \ref{sec:Basic Facilities of a Virtio Device / Device Status Field}.
+>  
+> +  \item[VIRTIO_F_DMB(44)] This feature indicates that the device offers a
+> +  Device Memory Buffer: a shared memory region, owned by the device,
+> +  that holds the virtqueues and the buffers they reference.  When this feature
+> +  has been negotiated, every device access to a virtqueue or to a buffer is
+> +  routed through a static, imaginary, per-device transparent IOMMU which maps
+> +  the device's bus address space 1:1 onto the Device Memory Buffer region.
+> +  See \ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}~\nameref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}.
+> +
+>  \end{description}
+>  
+>  \drivernormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+> @@ -957,7 +965,9 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+>  then either disable the IOMMU or configure the IOMMU to translate bus addresses
+>  passed to the device into physical addresses in memory.  If
+>  VIRTIO_F_ACCESS_PLATFORM is not offered, then a driver MUST pass only physical
+> -addresses to the device.
+> +addresses to the device, except that if VIRTIO_F_DMB has been negotiated the
+> +driver MUST instead pass addresses into the Device Memory Buffer (see
+> +\ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}).
+>  
+>  A driver SHOULD accept VIRTIO_F_RING_PACKED if it is offered.
+>  
+> @@ -982,6 +992,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+>  
+>  A driver SHOULD accept VIRTIO_F_NOTIF_CONFIG_DATA if it is offered.
+>  
+> +For the driver requirements that apply if VIRTIO_F_DMB has been
+> +negotiated, see
+> +\ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}~\nameref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}.
+> +
+>  \devicenormative{\section}{Reserved Feature Bits}{Reserved Feature Bits}
+>  
+>  A device MUST offer VIRTIO_F_VERSION_1.  A device MAY fail to operate further
+> @@ -1011,6 +1025,10 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+>  and presents a PCI SR-IOV capability structure, otherwise
+>  it MUST NOT offer VIRTIO_F_SR_IOV.
+>  
+> +For the device requirements that apply if VIRTIO_F_DMB has been
+> +negotiated, see
+> +\ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}~\nameref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}.
+> +
+>  \section{Legacy Interface: Reserved Feature Bits}\label{sec:Reserved Feature Bits / Legacy Interface: Reserved Feature Bits}
+>  
+>  Transitional devices MAY offer the following:
+> diff --git a/shared-mem.tex b/shared-mem.tex
+> index 6e6f6c4..4c62c0b 100644
+> --- a/shared-mem.tex
+> +++ b/shared-mem.tex
+> @@ -38,5 +38,186 @@ \subsection{Addressing within regions}\label{sec:Basic Facilities of a Virtio De
+>  Device / Shared Memory Regions}
+>  Shared memory regions MUST NOT expose shared memory regions which
+>  are used to control the operation of the device, nor to stream
+> -data.
+> +data, other than the Device Memory Buffer when VIRTIO_F_DMB has been
+> +negotiated (see
+> +\ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}).
+>  
+> +\subsection{Device Memory Buffer}\label{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}
+> +
+> +When VIRTIO_F_DMB (see \ref{sec:Reserved Feature Bits}) has been negotiated,
+> +the device designates exactly one of its shared memory regions as the
+> +\emph{Device Memory Buffer}, and reports that region's \field{shmid}
+> +through a transport-specific
+> +mechanism: \field{dmb_shm_id} in the common configuration structure on the
+> +PCI transport (see \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout}),
+> +and \field{DMBSHMId} on the MMIO transport (see
+> +\ref{sec:Virtio Transport Options / Virtio Over MMIO / MMIO Device Register Layout}).
+> +The driver reads that \field{shmid} and locates the region using the
+> +transport-specific shared memory region enumeration mechanism, in the same
+> +way as any other shared memory region.  Because both the \field{shmid}
+> +report and that enumeration are transport-specific, VIRTIO_F_DMB is
+> +available only on transports that define a shared memory region discovery
+> +mechanism.  The device can expose further shared memory regions alongside
+> +the Device Memory Buffer; the Device Memory Buffer is the one whose
+> +\field{shmid} it reports.  If the driver cannot locate the region the
+> +feature is unusable, and the driver reports that through the FAILED
+> +\field{device status} bit instead of proceeding.
+> +
+> +Every device access to a virtqueue or to a buffer is routed through a
+> +static, imaginary, per-device transparent IOMMU which maps the device's bus
+> +address space 1:1 onto the Device Memory Buffer region.  The mapping starts
+> +at the region's first byte and is as long as the region: bus address $N$
+> +resolves to the byte at position $N$ in the region, for every $N$ less than
+> +the region's length.  The device performs those accesses against the region
+> +and no longer against the transport bus's address space.  A notification is not such an access: notifications continue
+> +to reach the device and the driver by the means the transport defines, and
+> +VIRTIO_F_DMB does not route them through the mapping.
+> +
+> +Every virtqueue, every buffer the driver makes available and every indirect
+> +descriptor table lies inside the Device Memory Buffer region, so the
+> +region's length limits how much the driver can have outstanding at one time.
+> +The region is at least large enough to hold the Descriptor Area, Driver Area
+> +and Device Area of every virtqueue the device exposes; the room a driver
+> +needs beyond that depends on how many buffers it keeps outstanding.
+> +An address that, together with the length of the structure it refers to,
+> +reaches past the end of the region falls outside the mapping, and the device
+> +rejects it, setting the DEVICE_NEEDS_RESET \field{device status} bit rather
+> +than reaching memory outside the region.
+> +
+> +The base address of the Device Memory Buffer region is 16-byte aligned, and
+> +the mapping does not cover the region's first 16 bytes.  16 bytes is the
+> +largest alignment that either virtqueue layout requires of a virtqueue part
+> +(see \ref{sec:Basic Facilities of a Virtio Device / Split Virtqueues} and
+> +\ref{sec:Packed Virtqueues / Structure Size and Alignment}), so the lowest
+> +address the mapping does cover already satisfies every part's alignment.
+> +Address 0 is therefore never a valid address, and both the driver and the
+> +device can use it in their own bookkeeping to mean something other than a
+> +location in the region, such as ``not in use'' or ``failed allocation'',
+> +without ever supplying it to the other side.
+> +
+> +VIRTIO_F_DMB is independent of VIRTIO_F_ACCESS_PLATFORM.  A device can offer
+> +both, and can require one of them, but neither implies the other.  A driver
+> +that has negotiated VIRTIO_F_DMB supplies addresses into the Device Memory
+> +Buffer whether or not it has also negotiated VIRTIO_F_ACCESS_PLATFORM (see
+> +\ref{sec:Reserved Feature Bits}).
+> +
+> +VIRTIO_F_DMB does not change the memory ordering requirements for the
+> +Descriptor, Driver and Device Areas, and neither does the Device Memory
+> +Buffer memory type.  Every access those requirements order falls inside the
+> +Device Memory Buffer region, so the barriers a virtqueue layout requires
+> +before it exposes a descriptor apply unchanged, and VIRTIO_F_ORDER_PLATFORM
+> +(see \ref{sec:Reserved Feature Bits}) governs which barriers the driver
+> +emits.  A notification is not one of those accesses, and VIRTIO_F_DMB does
+> +not make it one.
+> +
+> +\subsubsection{Device Memory Buffer memory type}\label{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer / Device Memory Buffer memory type}
+> +
+> +Memory consistency rules for a shared memory region are specified per region
+> +and per device (see \ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions}).
+> +For the Device Memory Buffer they follow from its memory type, which the
+> +device reports through a transport-specific mechanism: \field{dmb_mem_type}
+> +in the common configuration structure on the PCI transport, and
+> +\field{DMBMemType} on the MMIO transport.  The driver reads the memory type
+> +before it accepts VIRTIO_F_DMB and declines the feature if it does not
+> +support the type reported, so a memory type added by a later revision of
+> +this specification does not change what an existing driver does.  The
+> +following Device Memory Buffer memory types are defined:
+> +
+> +\begin{lstlisting}
+> +/* Driver and device accesses are mutually visible without cache maintenance */
+> +#define VIRTIO_DMB_MEM_TYPE_COHERENT 0
+> +\end{lstlisting}
+> +
+> +Any other value is reserved for future use.
+> +
+> +VIRTIO_DMB_MEM_TYPE_COHERENT means that a write the driver performs to the
+> +Device Memory Buffer region becomes visible to the device, and a write the
+> +device performs to the region becomes visible to the driver, without either
+> +side performing cache maintenance operations such as a cache flush.  That is
+> +a property of the memory the device exposes rather than of the mapping the driver establishes
+> +over it: the driver needs some mapping in any case, and this memory type
+> +tells it that no cache maintenance is needed to make its own accesses and
+> +the device's mutually visible.
+> +
+> +\drivernormative{\subsubsection}{Device Memory Buffer}{Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}
+> +
+> +The driver MUST NOT accept VIRTIO_F_DMB unless the Device Memory Buffer
+> +memory type that the device reports through the transport-specific mechanism
+> +is a value that this specification defines and that the driver supports.
+> +
+> +The requirements in the remainder of this section apply if VIRTIO_F_DMB has
+> +been negotiated.
+> +
+> +The driver MUST read the \field{shmid} that the device reports through the
+> +transport-specific mechanism and MUST locate that shared memory region using
+> +the transport-specific shared memory region enumeration mechanism.  If the
+> +driver cannot locate the region, it MUST set the FAILED
+> +\field{device status} bit.
+> +
+> +The driver MUST place the Descriptor Area, Driver Area and Device Area of
+> +every virtqueue within the Device Memory Buffer region, and MUST treat every
+> +address it supplies as an address the imaginary IOMMU maps 1:1 into that
+> +region.  The driver MUST choose each area's address such that the address
+> +satisfies the alignment that the virtqueue layout in use requires of that
+> +area.
+> +
+> +For every buffer that the driver makes available to the device, and for
+> +every indirect descriptor table if VIRTIO_F_INDIRECT_DESC has been
+> +negotiated, the driver MUST place it within the Device Memory Buffer region.
+> +
+> +The driver MUST NOT supply an address that, together with the length of the
+> +structure it refers to, falls outside the part of the Device Memory Buffer
+> +region that the imaginary IOMMU maps, and MUST NOT make available a buffer
+> +that does not fit within that part.
+> +
+> +\devicenormative{\subsubsection}{Device Memory Buffer}{Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}
+> +
+> +A device MUST NOT offer VIRTIO_F_DMB unless the transport provides a
+> +shared memory region discovery mechanism.
+> +
+> +A device MAY require that the driver accept VIRTIO_F_DMB, that the driver
+> +accept VIRTIO_F_ACCESS_PLATFORM, or that the driver accept at least one of
+> +the two.  A device that requires at least one of the two MUST fail to set
+> +the FEATURES_OK \field{device status} bit when the driver writes it having
+> +accepted neither.
+> +
+> +A device MUST NOT offer VIRTIO_F_DMB unless the platform permits the driver
+> +to access the Device Memory Buffer region as memory that is shared with the
+> +device.
+> +
+> +A device that offers VIRTIO_F_DMB MUST report the Device Memory Buffer
+> +memory type through the transport-specific mechanism, and MUST report a
+> +value that this specification defines.
+> +
+> +A device MUST NOT report VIRTIO_DMB_MEM_TYPE_COHERENT unless a write that
+> +the driver performs to the Device Memory Buffer region becomes visible to
+> +the device, and a write that the device performs to the region becomes
+> +visible to the driver, without either side performing cache maintenance
+> +operations.
+> +
+> +A device that offers VIRTIO_F_DMB MUST report a Device Memory Buffer region
+> +whose base address is 16-byte aligned and whose length is sufficient to hold
+> +the Descriptor Area, Driver Area and Device Area of every virtqueue it
+> +exposes.
+> +
+> +The remaining requirements in this section apply if VIRTIO_F_DMB has been
+> +negotiated.
+> +
+> +The imaginary IOMMU described in
+> +\ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}
+> +maps bus addresses 16 and above, up to the length of the Device Memory
+> +Buffer region, onto the region at the same position, and maps nothing else.
+> +For every address the driver supplies, the device MUST perform the access at
+> +that position in the region, and MUST NOT perform it anywhere else.
+> +
+> +The device MUST verify, when the driver programs the address of a Descriptor
+> +Area, Driver Area or Device Area, that the address together with the length
+> +of that area falls within that mapping and does not overflow.  For every
+> +other address the driver supplies, the device MUST perform the same
+> +verification before it uses the address.  If the verification fails, the
+> +imaginary IOMMU rejects the access: the device MUST NOT perform it and MUST
+> +set the DEVICE_NEEDS_RESET \field{device status} bit.
+> +
+> +The device MUST NOT reach any memory other than the Device Memory Buffer
+> +region in order to process virtqueues, whether or not the driver supplied an
+> +address for it.
+> diff --git a/transport-ccw.tex b/transport-ccw.tex
+> index fe6957d..2c277bf 100644
+> --- a/transport-ccw.tex
+> +++ b/transport-ccw.tex
+> @@ -610,6 +610,7 @@ \subsection{Features reserved for future use}\label{sec:Virtio Transport Options
+>  \item VIRTIO_F_ADMIN_VQ
+>  \item VIRTIO_F_RING_RESET
+>  \item Shared memory regions including VIRTIO_PMEM_F_SHMEM_REGION
+> +\item VIRTIO_F_DMB
+>  
+>  \end{itemize}
+>  
+> diff --git a/transport-mmio.tex b/transport-mmio.tex
+> index cddbcc9..d19bb2f 100644
+> --- a/transport-mmio.tex
+> +++ b/transport-mmio.tex
+> @@ -248,6 +248,21 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
+>      apply to the queue selected by writing to \field{QueueSel}.
+>    }
+>    \hline
+> +  \mmioreg{DMBSHMId}{Device Memory Buffer shared memory ID}{0x0c4}{R}{%
+> +    If VIRTIO_F_DMB has been negotiated, reading from this register
+> +    returns the \field{shmid} of the shared memory region that is the
+> +    Device Memory Buffer (see \ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}).
+> +    This register is valid only if VIRTIO_F_DMB has been negotiated.
+> +  }
+> +  \hline
+> +  \mmioreg{DMBMemType}{Device Memory Buffer memory type}{0x0c8}{R}{%
+> +    Reading from this register returns the Device Memory Buffer memory
+> +    type (see \ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer / Device Memory Buffer memory type}).
+> +    This register is valid whenever the device offers VIRTIO_F_DMB, as
+> +    opposed to after VIRTIO_F_DMB has been negotiated, because the driver
+> +    reads it in order to decide whether to accept the feature.
+> +  }
+> +  \hline
+>    \mmioreg{ConfigGeneration}{Configuration atomicity value}{0x0fc}{R}{
+>      Reading from this register returns a value describing a version of the device-specific configuration space (see \field{Config}).
+>      The driver can then access the configuration space and, when finished, read \field{ConfigGeneration} again.
+> @@ -313,6 +328,12 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
+>  when queue reset has completed.
+>  (see \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}).
+>  
+> +If the device offers VIRTIO_F_DMB, \field{DMBSHMId} MUST equal the
+> +\field{shmid} of a shared memory region that the device exposes through
+> +\field{SHMSel}, \field{SHMLenLow}, \field{SHMLenHigh}, \field{SHMBaseLow}
+> +and \field{SHMBaseHigh}, and \field{DMBMemType} MUST report a Device Memory Buffer
+> +memory type that this specification defines.
+> +
+>  \drivernormative{\subsubsection}{MMIO Device Register Layout}{Virtio Transport Options / Virtio Over MMIO / MMIO Device Register Layout}
+>  The driver MUST NOT access memory locations not described in the
+>  table \ref{tab:Virtio Transport Options / Virtio Over MMIO / MMIO Device Register Layout}
+> @@ -367,6 +388,12 @@ \subsection{MMIO Device Register Layout}\label{sec:Virtio Transport Options / Vi
+>  that were used before the queue reset.
+>  (see \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}).
+>  
+> +The driver MUST NOT read \field{DMBSHMId} unless VIRTIO_F_DMB has been
+> +negotiated.
+> +
+> +The driver MUST NOT read \field{DMBMemType} unless the device offers
+> +VIRTIO_F_DMB.
+> +
+>  \subsection{MMIO-specific Initialization And Device Operation}\label{sec:Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation}
+>  
+>  \subsubsection{Device Initialization}\label{sec:Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation / Device Initialization}
+> diff --git a/transport-pci.tex b/transport-pci.tex
+> index 95b08b8..d2907b9 100644
+> --- a/transport-pci.tex
+> +++ b/transport-pci.tex
+> @@ -325,6 +325,10 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
+>          /* About the administration virtqueue. */
+>          le16 admin_queue_index;         /* read-only for driver */
+>          le16 admin_queue_num;         /* read-only for driver */
+> +
+> +        /* About the Device Memory Buffer. */
+> +        le16 dmb_shm_id;                /* read-only for driver */
+> +        le16 dmb_mem_type;              /* read-only for driver */
+>  };
+>  \end{lstlisting}
+>  
+> @@ -428,6 +432,23 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
+>  	The value 0 indicates no supported administration virtqueues.
+>  	This field is valid only if VIRTIO_F_ADMIN_VQ has been
+>  	negotiated.
+> +
+> +\item[\field{dmb_shm_id}]
+> +        The device uses this to report the \field{shmid} of the shared
+> +        memory region that is the Device Memory Buffer (see
+> +        \ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer}).
+> +        This field is read-only for the driver.  This field is valid
+> +        only if VIRTIO_F_DMB has been negotiated.
+> +
+> +\item[\field{dmb_mem_type}]
+> +        The device uses this to report the Device Memory Buffer memory
+> +        type (see
+> +        \ref{sec:Basic Facilities of a Virtio Device / Shared Memory Regions / Device Memory Buffer / Device Memory Buffer memory type}).
+> +        This field is read-only for the driver.  Unlike
+> +        \field{dmb_shm_id}, this field is valid whenever the device
+> +        offers VIRTIO_F_DMB, as opposed to after VIRTIO_F_DMB has been
+> +        negotiated, because the driver reads it in order to decide
+> +        whether to accept the feature.
+>  \end{description}
+>  
+>  \devicenormative{\paragraph}{Common configuration structure layout}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout}
+> @@ -495,6 +516,13 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
+>  to ensure that indices of valid admin queues fit into
+>  a 16 bit range beyond all other virtqueues.
+>  
+> +If the device offers VIRTIO_F_DMB, the device MUST present the common
+> +configuration structure with a \field{length} that is large enough to
+> +include the \field{dmb_mem_type} field, and \field{dmb_shm_id} MUST equal
+> +the \field{id} of a VIRTIO_PCI_CAP_SHARED_MEMORY_CFG capability that the
+> +device presents.  Since \field{id} in \field{virtio_pci_cap} is 8 bits,
+> +the high-order 8 bits of \field{dmb_shm_id} MUST be zero.
+> +
+>  \drivernormative{\paragraph}{Common configuration structure layout}{Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Common configuration structure layout}
+>  
+>  The driver MUST NOT write to \field{device_feature}, \field{num_queues},
+> @@ -531,6 +559,12 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
+>  The driver MAY configure fewer administration virtqueues than
+>  supported by the device.
+>  
+> +The driver MUST NOT read \field{dmb_shm_id} unless VIRTIO_F_DMB has
+> +been negotiated.
+> +
+> +The driver MUST NOT read \field{dmb_mem_type} unless the device offers
+> +VIRTIO_F_DMB.
+> +
+>  \subsubsection{Notification structure layout}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Notification capability}
+>  
+>  The notification location is found using the VIRTIO_PCI_CAP_NOTIFY_CFG
 
