@@ -1,188 +1,151 @@
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFAD9231842
-	for <virtio-comment@lists.linux.dev>; Wed, 26 Aug 2026 09:20:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C55A382F1E
+	for <virtio-comment@lists.linux.dev>; Wed, 26 Aug 2026 11:55:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787736050; cv=none; b=ZJArk4jqPPOy8GkoaY+s8JmXlSSeTn27A/ErT/vUpeAPowtJfS9w3XfttEqtZAGWntI2y/TQyMfXEnkvlBvL59a6LuhcSE9xJT+a1hpLIU7MFvIK9+vkZdSh895NdvVNcjMEpcj9SEM+ZkCBsPTabWYStSEtJjrF/k7v3W9YXvA=
+	t=1787745317; cv=none; b=pX3HzAY+iSmpv8hVKoKP0kNG3xY5d9XYLrbPUJBwOFbUd383wlzOApLic1Ij87HpPHlao+J2Im0xOni9RAgJxN2OwCwoUU5SxtPkbUa3iDjTN6t6aNqZSHY9oighXIMP2MEdWZEGnwri57GsJGsHeXdqUJ0e4SHAgLOxBjf+4pg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787736050; c=relaxed/simple;
-	bh=2z9PHDJJYJEJbllWBPdwf6R8oX6OkdAQfZDgNSPQ8Qo=;
-	h=Date:From:To:Cc:Message-ID:Subject:MIME-Version:References:
-	 In-Reply-To:Content-Type; b=WMKj48gONvQ7flHifDmtNkyqIovZ4DQQjLLvMiBy/fytdvVkWFePzRNKAiKwHcDkvSY0zAwQj6tmEpaRkex4GXQXcB3fAAQQp7XJnmQutkicTzxplD+bv6G42RoaonuCnq61caGd0v213Y7+YyhgQ+c5i27soC1Oa8yYvZV/X78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=l/+CCEoj; arc=none smtp.client-ip=115.124.30.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1787745317; c=relaxed/simple;
+	bh=NyGyq5p4f71wBVG+pMV1pIsfHT8wZTq3wqNLlt2GCtM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SdcC8kVBlzbA9uSZIXAITsBcoKhYMPyFpGsFEQzuXkHIrCiIJ5UcQ2MSSVtjlQz/uovvcmCW2MJBXYPabthKqy+N9Gre1oT252mXxmjfP2bwiYWE9+tQeHHAlSFS2h2qhTpBHmLdTFUZF4jczFLFAFy8S7rIj5ZYXZX+iiaqCHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Qm3w7fW6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Sck1rC+6; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="l/+CCEoj"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1787736039; h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type;
-	bh=2z9PHDJJYJEJbllWBPdwf6R8oX6OkdAQfZDgNSPQ8Qo=;
-	b=l/+CCEojHiD7++HgZV4LdQqIrrd3kW1U38U6KztPE354XF2Q4vN6h/Ac2ngL66JjP/0Njg3XImVZr3T6bp1HgCxUJfLmZw6XwTSfcLThqNY48WL3EaPImFNWaM7HGORQQHuSXVPW6dsBqEq9OxpGzoH1KQUFxZdWpl4qjgI2FB4=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=zhangjianming@linux.alibaba.com;NM=1;PH=DW;RN=6;SR=0;TI=W4_0.2.3_v5ForWebDing_212075B7_1787736033488_o7001c130f;
-Received: from WS-web (zhangjianming@linux.alibaba.com[W4_0.2.3_v5ForWebDing_212075B7_1787736033488_o7001c130f] cluster:ay36) at Wed, 26 Aug 2026 17:20:33 +0800
-Date: Wed, 26 Aug 2026 17:20:33 +0800
-From: "zhangjianming" <zhangjianming@linux.alibaba.com>
-To: "=?UTF-8?B?RGF2aWQgSGlsZGVuYnJhbmQgKEFybSk=?=" <david@kernel.org>,
-  "virtio-comment" <virtio-comment@lists.linux.dev>
-Cc: "mst" <mst@redhat.com>,
-  "alexander.duyck" <alexander.duyck@gmail.com>,
-  "cohuck" <cohuck@redhat.com>,
-  "yvugenfi" <yvugenfi@redhat.com>
-Reply-To: "zhangjianming" <zhangjianming@linux.alibaba.com>
-Message-ID: <354c3b61-dd52-4f7f-8390-d138fecfb625.zhangjianming@linux.alibaba.com>
-Subject: =?UTF-8?B?5Zue5aSN77ya5Zue5aSN77ya5Zue5aSN77yaW1BBVENIIFJGQ10gYmFsbG9vbjogYWRkIFZJ?=
-  =?UTF-8?B?UlRJT19CQUxMT09OX0ZfUEFHRV9SRVBPUlRJTkdfSE9MRA==?=
-X-Mailer: [Alimail-Mailagent revision 244][W4_0.2.3][v5ForWebDing][Chrome]
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qm3w7fW6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Sck1rC+6"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QAH2Hk972453
+	for <virtio-comment@lists.linux.dev>; Wed, 26 Aug 2026 11:55:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=m2/8mOutUdYF5kLMtvhMDXUQLVl0JXQ17Fj
+	4xwgs3cY=; b=Qm3w7fW6/IGTqxkAG8Qg086xp7Y1aoIgQ05vWVsYUvQ638udiO0
+	gp6Kq9GMQyVB1ZODjBY8KiT0g/UZu5SZCT3gUcDi4I2vHSsAX3fIitAhDcH2gmOC
+	wEail0RUd8u5o7dCU6kguwOEC/wSoeczDcV/8lzRNpfDVvKJ6rMxH/Hte1M1MOL+
+	mVx3HXEk1YFcAAgEd3u8RLJlFsGct/rRFmVRSZ8HnZxDp7JUTxnv4Q98e8L160nN
+	/uvxbuRmpBjHhB+998i+rkjzH6JAKUERrlVPrdbCtDvceDjuVCldfTDPTPeBalcx
+	NaBpufIROSocKxH9trdFM7sFTNFPzbc3ssw==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9r1ghvy9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <virtio-comment@lists.linux.dev>; Wed, 26 Aug 2026 11:55:15 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52cd0374265so15404621cf.1
+        for <virtio-comment@lists.linux.dev>; Wed, 26 Aug 2026 04:55:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787745315; x=1788350115; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m2/8mOutUdYF5kLMtvhMDXUQLVl0JXQ17Fj4xwgs3cY=;
+        b=Sck1rC+6lYs7nEKHMRoZhpae6lxKT++0pC7jhJ0hoDZ9SQujYJwx9H1chDetkGo5If
+         9NSIN+b0lgINgLQZ1S243swbFlDII8rDR8kiuZAtuZpbs4P39jIm0NTTvySu2oJcgNbT
+         s3o8UOL7cU4iVDBPK7kYWCnLKXvCDfRPTMPMwj9pjrZ9Nfo0M1/9iKNL5VTNhhF13M80
+         cUfZGyopQIW6sMmfV0aKTCXLfHud/RPHk5tISza+ySo8HotEe7cQWnEErITBu6IGEMgE
+         cXJigIsWWaRGYGuynGy6kVH5jiZrma3ouFkSpIie5LPhC9T5rva6swZ/Oilt0lJnPdnC
+         +Ubw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787745315; x=1788350115;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m2/8mOutUdYF5kLMtvhMDXUQLVl0JXQ17Fj4xwgs3cY=;
+        b=ZkDVtp5CgMuv/umE0GEnvUxykUAdH1hjLqGlLhoTauULnSOn7oXVdHcimFSonPWke9
+         ViOVBY9oNL98cKmqkb1N/01GOnGR5TBRaIN1koQH5fDPtwk5h/fRWdeSIx9LH3W7GeuZ
+         pQXSWtevwkCkUuLIYFcxsQRSrUvzUpHYVNk11dNcTZ8LHK/wcmy89IZ9LoGOsCx/pq2O
+         tznWYag3NmASTqs9+ZcXogNF1OTee5zFLWXK4IU0yulJgtcNPBtOw2dq4b5+CYXJH723
+         NudcyXkN5aprOqV03tW357HgG4JVxO8Wky/72WUYXYuXKz1ENAKrrFoEhz2iDh865KVE
+         py9A==
+X-Gm-Message-State: AFuF++mSPVz0D82e/9DA61LU0psGiKtxjeONeoBYzIb7lyKRcKduVSGU
+	8aVbjU89UPd3eEIl3E1jRThCitYg5AKNEJPITOZ96kq5p2VpY/DTVdXbJe0eLw+wyQ736euHOeS
+	UXzSXtHi8URX6ayuFNOwYcvyHDozgeKNjaXWDkg4oW4/LnrDWrOYcPcZuHLZGsp+RDhwo0hkCpS
+	DvGA==
+X-Gm-Gg: AR+sD13wqzZ7dHbQc8cyG5iCE7IwSlWa7nznjPGtKl2yQVN/HTxQczM3jTGbV3zSdKR
+	eN8KhN69d0h2L2b7ZQcJZHgK4ksmySbke6YUUWQ2FG4nXh2sxo+N1Y0PyiDSTM5d9CfoXIIarBn
+	MFMB/ujEO67Ydte9aHEWNKtvqN24L7HII0AUfddxkJFKyk6Wx5iP3Z/4YsR+ncS832GwD3nFaMa
+	nDusyYnhncgZ88U2n7lMyUPWaAuCJJOljGCQPpnQrA/+XPNCMQuMBXIErX90yuu9RalS/jJrf0y
+	qe9K975DYPTAbGN9qj3nDuDKk5zcrEgoGR/rApmdJmft2aNwLgJx5m3XYfmwc7P0hS34E0CJHBp
+	zOfMEG1zth+iIz2opn2Yq06dh8F5Mf/4=
+X-Received: by 2002:a05:622a:34e:b0:517:9570:c1bd with SMTP id d75a77b69052e-52e423df2d5mr55837901cf.25.1787745314490;
+        Wed, 26 Aug 2026 04:55:14 -0700 (PDT)
+X-Received: by 2002:a05:622a:34e:b0:517:9570:c1bd with SMTP id d75a77b69052e-52e423df2d5mr55833341cf.25.1787745309194;
+        Wed, 26 Aug 2026 04:55:09 -0700 (PDT)
+Received: from QCOM-LDTZRie9bq.qualcomm.com ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28e8499sm2538326f8f.26.2026.08.26.04.55.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 04:55:08 -0700 (PDT)
+From: Peter Hilber <peter.hilber@oss.qualcomm.com>
+To: virtio-comment@lists.linux.dev
+Cc: Trilok Soni <trilok.soni@oss.qualcomm.com>,
+        Peter Hilber <peter.hilber@oss.qualcomm.com>
+Subject: [PATCH] content: Reserve ID 52 for Snapdragon device
+Date: Wed, 26 Aug 2026 13:55:04 +0200
+Message-ID: <20260826115504.1955-1-peter.hilber@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-x-aliyun-im-through: {"version":"v1.0"}
-References: <43fe2f5c-6c0c-4279-8e55-42ddd9daf637.zhangjianming@linux.alibaba.com> <20260825105046.811-1-zhangjianming@linux.alibaba.com> <238522d9-2bde-4368-a3a9-ae646b67d082@kernel.org> <d3376481-0d0d-4752-831c-b4f07dce714a.zhangjianming@linux.alibaba.com> <fea72580-6761-4a7f-8ec2-4e9e62cce110@kernel.org> <4516edbe-e588-4766-9078-82df717e8ccc.zhangjianming@linux.alibaba.com>,<8034406a-d4fd-4d38-a4f1-d101e7345873@kernel.org>
-x-aliyun-mail-creator: W4_0.2.3_v5ForWebDing_M3LTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzE1MS4wLjAuMCBTYWZhcmkvNTM3LjM2vN
-In-Reply-To: <8034406a-d4fd-4d38-a4f1-d101e7345873@kernel.org>
-x-aliyun-mailtrack: {"foreign-track":"0"}
-Content-Type: multipart/alternative;
-  boundary="----=ALIBOUNDARY_1636_7f1cd329c700_6a8eafe1_7633e"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 1O3hyPHUazMtgnguKOSZEVw7fncvSM-j
+X-Authority-Analysis: v=2.4 cv=FPMrAeos c=1 sm=1 tr=0 ts=6a8ed423 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=T4lOIzLRIv_Vv-bTPpkA:9 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA5OSBTYWx0ZWRfX1cDqneAszsJb
+ +RLkb6Hhjxovmn5ZDvU/238xZEQgK5PudJMmXq8+Tubk1F8nCYDsc3ljK/lkO3nm+/b3Otw8gZ2
+ 4hyI1hoohKdIa98mTXTdEPPPG/BMNcY=
+X-Proofpoint-ORIG-GUID: 1O3hyPHUazMtgnguKOSZEVw7fncvSM-j
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA5OSBTYWx0ZWRfX8PwOycY1nn4+
+ p7wd4oQ9LZTh3Sghq7lJTJxIFVbE/Tc0IPfW1inndBBE2cIo137kDexecRlL6HpqihRfrkH4Cls
+ zY7bjoX2L7V+KvHVNJzCCUc7X1fBwD/DQdVH4UTeogoH1yejY5Htn/bZmNukazFTDODaH+f67qh
+ Il7aNmsWftOuDgRflK5p8EFq+Ifl8HgtVEJ+Q0M1rh9KE89W82HQAsN2Xm602yLZql7KS1bsL6i
+ BxaV2BZzRwVuDSQ45FIxAxULzMfrN1UZ1HfjB8uAwPOmBTrVn0Ozv9t+b3s39SHGanW6L75WulD
+ AwIzmUg49y8zRERCElkVsro/4/G7vq74gucWihA3XZwPqWB0+GuUpZEY888gYqS5cv7qp1Zp75K
+ 7t4Q+nLKXW3dwMXY1Vr+Rg09aNLbi1lLd44W8v97Y0vs06LYiCAxEMJkDJ12rD0GrkHdGjgsKK8
+ hpjVEqB3//xoPzrLITw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 priorityscore=1501 clxscore=1011
+ lowpriorityscore=0 suspectscore=0 adultscore=0 spamscore=0 phishscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608260099
 
-------=ALIBOUNDARY_1636_7f1cd329c700_6a8eafe1_7633e
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Reserve a device ID for the Snapdragon device.  A Virtio Snapdragon
+device exposes functionality across Snapdragon SoC subsystems through a
+common Virtio-based protocol.
 
-T24gV2VkLCAyNiBBdWcgMjAyNiwgRGF2aWQgSGlsZGVuYnJhbmQgd3JvdGU6Cj4gVGhhdCBtYXRj
-aGVzIG15IHVuZGVyc3RhbmRpbmcuCj4KPiBJJ2Qgb25seSBkbyB0aGF0IGlmIHRoYXQgaW1wbGVt
-ZW50YXRpb24gb3B0aW9uIHJlYWxseSBtYXR0ZXJzLiBTbyBmYXIsCj4gaXQncyBoYXJkIGZvciBt
-ZSB0byBpbWFnaW5lIHdoeSBpdCB3b3VsZCBtYXR0ZXIuCkhpIERhdmlkLApVbmRlcnN0b29kIC0t
-IHdlJ2xsIGxlYXZlIHRoZSB0ZXh0IGFzIGl0IGlzLCBkcm9wIHRoZSBmZWF0dXJlIGJpdCwgYW5k
-CnNpbXBseSBpbXBsZW1lbnQgdGhpcyBpbiB0aGUgV2luZG93cyBkcml2ZXIuClRoYW5rcyBmb3Ig
-Y29uZmlybWluZyB0aGUgcmVhZGluZy4KQmVzdCByZWdhcmRzLApKaWFuTWluZwotLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0K
-5Y+R5Lu25Lq677yaRGF2aWQgSGlsZGVuYnJhbmQgKEFybSkgPGRhdmlkQGtlcm5lbC5vcmc+CuWP
-kemAgeaXtumXtO+8mjIwMjblubQ45pyIMjbml6Uo5ZGo5LiJKSAxNzowOArmlLbku7bkurrvvJp6
-aGFuZ2ppYW5taW5nPHpoYW5namlhbm1pbmdAbGludXguYWxpYmFiYS5jb20+OyAidmlydGlvLWNv
-bW1lbnQiPHZpcnRpby1jb21tZW50QGxpc3RzLmxpbnV4LmRldj4K5oqE44CA6YCB77yabXN0PG1z
-dEByZWRoYXQuY29tPjsgImFsZXhhbmRlci5kdXljayI8YWxleGFuZGVyLmR1eWNrQGdtYWlsLmNv
-bT47IGNvaHVjazxjb2h1Y2tAcmVkaGF0LmNvbT47IHl2dWdlbmZpPHl2dWdlbmZpQHJlZGhhdC5j
-b20+CuS4u+OAgOmimO+8mlJlOiDlm57lpI3vvJrlm57lpI3vvJpbUEFUQ0ggUkZDXSBiYWxsb29u
-OiBhZGQgVklSVElPX0JBTExPT05fRl9QQUdFX1JFUE9SVElOR19IT0xECk9uIDgvMjYvMjYgMTA6
-NDksIHpoYW5namlhbm1pbmcgd3JvdGU6Cj4gT24gV2VkLCAyNiBBdWcgMjAyNiwgRGF2aWQgSGls
-ZGVuYnJhbmQgd3JvdGU6Cj4+IFRoaXMgcmVhbGx5IHNvdW5kcyB0byBtZSBsaWtlIGp1c3QgZG9p
-bmcgdGhlIHJpZ2h0IHRoaW5nIGluIE9TZXMgdGhhdAo+PiBibGluZGx5IHRvdWNoIG1lbW9yeSBp
-bW1lZGlhdGVseSBhZnRlciBmcmVlaW5nIHRoZSBwYWdlcyBiYWNrIHRvIHRoZSBPUy4KPj4gQ29u
-c2lkZXIgaXQgYSBidWdmaXggaW4gdGhlIGd1ZXN0IE9TIGRyaXZlciB0byBhY3R1YWxseSBzdXBw
-b3J0IGZyZWUgcGFnZQo+PiByZXBvcnRpbmcgcHJvcGVybHkuCj4+Cj4+IFNvIEkgZG9uJ3Qgc2Vl
-IGEgcmVhc29uIHRvIGRlZmluZSBhIGZlYXR1cmUgZmxhZyBmb3IgdGhpcyBiZWhhdmlvci4KPiAK
-PiBIaSBEYXZpZCwKSGksCj4gCj4gQWdyZWVkIC0tIGhvbGQgaXMgc2ltcGx5IHRoZSByaWdodCB3
-YXkgZm9yIGEgZHJpdmVyIHRvIGltcGxlbWVudCBmcmVlCj4gcGFnZSByZXBvcnRpbmcgb24gc3Vj
-aCBndWVzdHMsIG5vdCBhIHByb3RvY29sIGNhcGFiaWxpdHkuCj4gCj4gVGhlIG9uZSB0aGluZyB3
-ZSB3b3VsZCBsaWtlIHRvIGNvbmZpcm0gaXMgd2hldGhlciB0aGUgY3VycmVudCB0ZXh0Cj4gcGVy
-bWl0cyB0aGlzLiBPdXIgcmVhZGluZzogc3RlcCA0IG9mIHRoZSByZXBvcnRpbmcgc2VxdWVuY2Ug
-aW4gc2VjdGlvbgo+IDUuNS42Ljcgc2F5cyB0aGUgZHJpdmVyICJjYW4gcmV1c2UgdGhlIHJlcG9y
-dGVkIGZyZWUgcGFnZXMgd2hlbgo+IG5lZWRlZCIsIGFuZCB0aGUgIihlLmcuLCBieSBwdXR0aW5n
-IHRoZW0gYmFjayB0byBmcmVlIHBhZ2UgbGlzdHMuLi4pIgo+IHRoYXQgZm9sbG93cyBpcyBtZXJl
-bHkgYW4gZXhhbXBsZTsgdGhlIGRyaXZlciBub3JtYXRpdmUgc2VjdGlvbiBoYXMgbm8KPiByZXF1
-aXJlbWVudCB0byByZXR1cm4gdGhlbS4gVW5kZXIgdGhpcyByZWFkaW5nLCBob2xkIGlzIGFscmVh
-ZHkgd2l0aGluCj4gdGhlIGN1cnJlbnQgc2VtYW50aWNzLgpUaGF0IG1hdGNoZXMgbXkgdW5kZXJz
-dGFuZGluZy4KPiAKPiBJZiB0aGF0IHJlYWRpbmcgaXMgY29ycmVjdCwgd2UgYXJlIGhhcHB5IHRv
-IGRyb3AgdGhlIGZlYXR1cmUgYml0IGFuZAo+IHNpbXBseSBpbXBsZW1lbnQgdGhpcyBpbiB0aGUg
-V2luZG93cyBkcml2ZXIgLS0gYSBidWdmaXgsIGFzIHlvdSBwdXQgaXQuCj4gCj4gT25lIGNvbmNl
-cm4gcmVtYWluczogdGhlIHNlcXVlbmNlIG5hbWVzIG9ubHkgb25lIHdheSBvZiBoYW5kbGluZyB0
-aGUKPiByZXBvcnRlZCBwYWdlcyAocHV0dGluZyB0aGVtIGJhY2sgdG8gdGhlIGZyZWUgcGFnZSBs
-aXN0cyksIHdoaWNoIHJlYWRzCj4gZWFzaWx5IGFzIHRoZSBkZWZhdWx0IGJlaGF2aW9yLCBhbmQg
-c29tZW9uZSBtYXkgcmFpc2UgdGhlIHNhbWUKPiBxdWVzdGlvbiBsYXRlci4gSWYgeW91IHRoaW5r
-IGl0IGlzIHdvcnRod2hpbGUsIHdlIGNvdWxkIHByb3Bvc2UgYQo+IG1pbmltYWwgdGV4dCBjbGFy
-aWZpY2F0aW9uIC0tIGFkZGluZyAicmV0YWluaW5nIHRoZW0gdW50aWwgdGhleSBhcmUKPiBuZWVk
-ZWQiIGFzIGFub3RoZXIgZXhhbXBsZTsgaWYgbm90LCB0aGUgdGV4dCBjYW4gc3RheSBhcyBpdCBp
-cy4KSSdkIG9ubHkgZG8gdGhhdCBpZiB0aGF0IGltcGxlbWVudGF0aW9uIG9wdGlvbiByZWFsbHkg
-bWF0dGVycy4gU28gZmFyLCBpdCdzIGhhcmQKZm9yIG1lIHRvIGltYWdpbmUgd2h5IGl0IHdvdWxk
-IG1hdHRlci4KLS0gCkNoZWVycywKRGF2aWQK
-------=ALIBOUNDARY_1636_7f1cd329c700_6a8eafe1_7633e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Device ID 51 is already reserved for the Virtio HAB device:
 
-PGRpdiBjbGFzcz0iX19hbGl5dW5fZW1haWxfYm9keV9ibG9jayI+PGRpdiAgc3R5bGU9ImZvbnQt
-ZmFtaWx5OiBUYWhvbWEsIEFyaWFsLCBTVEhlaXRpU0MtTGlnaHQsIFNpbVN1biI+PGRpdiAgc3R5
-bGU9ImNsZWFyOiBib3RoOyBmb250LWZhbWlseTogVGFob21hLCBBcmlhbCwgU1RIZWl0aVNDLUxp
-Z2h0LCBTaW1TdW47Ij48c3BhbiAgc3R5bGU9ImZvbnQtZmFtaWx5OiBUYWhvbWEsIEFyaWFsLCBT
-VEhlaXRpU0MtTGlnaHQsIFNpbVN1bjsiPjxzcGFuID5PbiBXZWQsIDI2IEF1ZyAyMDI2LCBEYXZp
-ZCBIaWxkZW5icmFuZCB3cm90ZTo8YnIgPjwvc3Bhbj48L3NwYW4+PGRpdiAgc3R5bGU9ImNsZWFy
-OiBib3RoOyI+Jmd0OyBUaGF0IG1hdGNoZXMgbXkgdW5kZXJzdGFuZGluZy48YnIgPjwvZGl2Pjxk
-aXYgIHN0eWxlPSJjbGVhcjogYm90aDsiPiZndDs8YnIgPjwvZGl2PjxkaXYgIHN0eWxlPSJjbGVh
-cjogYm90aDsiPiZndDsgSSdkIG9ubHkgZG8gdGhhdCBpZiB0aGF0IGltcGxlbWVudGF0aW9uIG9w
-dGlvbiByZWFsbHkgbWF0dGVycy4gU28gZmFyLDxiciA+PC9kaXY+PGRpdiAgc3R5bGU9ImNsZWFy
-OiBib3RoOyI+Jmd0OyBpdCdzIGhhcmQgZm9yIG1lIHRvIGltYWdpbmUgd2h5IGl0IHdvdWxkIG1h
-dHRlci48YnIgPjwvZGl2PjxkaXYgIHN0eWxlPSJjbGVhcjogYm90aDsiPjxiciA+PC9kaXY+PGRp
-diAgc3R5bGU9ImNsZWFyOiBib3RoOyI+SGkgRGF2aWQsPGJyID48L2Rpdj48ZGl2ICBzdHlsZT0i
-Y2xlYXI6IGJvdGg7Ij48YnIgPjwvZGl2PjxkaXYgIHN0eWxlPSJjbGVhcjogYm90aDsiPlVuZGVy
-c3Rvb2QgLS0gd2UnbGwgbGVhdmUgdGhlIHRleHQgYXMgaXQgaXMsIGRyb3AgdGhlIGZlYXR1cmUg
-Yml0LCBhbmQ8YnIgPjwvZGl2PjxkaXYgIHN0eWxlPSJjbGVhcjogYm90aDsiPnNpbXBseSBpbXBs
-ZW1lbnQgdGhpcyBpbiB0aGUgV2luZG93cyBkcml2ZXIuPGJyID48L2Rpdj48ZGl2ICBzdHlsZT0i
-Y2xlYXI6IGJvdGg7Ij48YnIgPjwvZGl2PjxkaXYgIHN0eWxlPSJjbGVhcjogYm90aDsiPlRoYW5r
-cyBmb3IgY29uZmlybWluZyB0aGUgcmVhZGluZy48YnIgPjwvZGl2PjxkaXYgIHN0eWxlPSJjbGVh
-cjogYm90aDsiPjxiciA+PC9kaXY+PGRpdiAgc3R5bGU9ImNsZWFyOiBib3RoOyI+QmVzdCByZWdh
-cmRzLDxiciA+PC9kaXY+PGRpdiA+PHNwYW4gPkppYW5NaW5nPC9zcGFuPjwvZGl2PjxzcGFuICBz
-dHlsZT0iZm9udC1mYW1pbHk6IFRhaG9tYSwgQXJpYWwsIFNUSGVpdGlTQy1MaWdodCwgU2ltU3Vu
-OyI+PGJyID48L3NwYW4+PC9kaXY+PGRpdiAgc3R5bGU9ImNsZWFyOiBib3RoOyBmb250LWZhbWls
-eTogVGFob21hLCBBcmlhbCwgU1RIZWl0aVNDLUxpZ2h0LCBTaW1TdW47Ij48c3BhbiAgc3R5bGU9
-ImZvbnQtZmFtaWx5OiBUYWhvbWEsIEFyaWFsLCBTVEhlaXRpU0MtTGlnaHQsIFNpbVN1bjsiPjxi
-ciA+PC9zcGFuPjwvZGl2PjxibG9ja3F1b3RlICBzdHlsZT0ibWFyZ2luLXJpZ2h0OiAwcHg7IG1h
-cmdpbi10b3A6IDBweDsgbWFyZ2luLWJvdHRvbTogMHB4OyBmb250LWZhbWlseTogVGFob21hLCBB
-cmlhbCwgU1RIZWl0aSwgU2ltU3VuOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwg
-MCk7Ij48ZGl2ICBjbGFzcz0iYWxpbWFpbC1xdW90ZSI+PGRpdiAgc3R5bGU9ImNsZWFyOiBib3Ro
-OyI+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tPC9kaXY+PGRpdiAgc3R5bGU9ImNsZWFyOiBib3RoOyI+5Y+R5Lu25Lq677ya
-RGF2aWQgSGlsZGVuYnJhbmQgKEFybSkgJmx0O2RhdmlkQGtlcm5lbC5vcmcmZ3Q7PC9kaXY+PGRp
-diAgc3R5bGU9ImNsZWFyOiBib3RoOyI+5Y+R6YCB5pe26Ze077yaMjAyNuW5tDjmnIgyNuaXpSjl
-kajkuIkpIDE3OjA4PC9kaXY+PGRpdiAgc3R5bGU9ImNsZWFyOiBib3RoOyI+5pS25Lu25Lq677ya
-emhhbmdqaWFubWluZyZsdDt6aGFuZ2ppYW5taW5nQGxpbnV4LmFsaWJhYmEuY29tJmd0OzsgInZp
-cnRpby1jb21tZW50IiZsdDt2aXJ0aW8tY29tbWVudEBsaXN0cy5saW51eC5kZXYmZ3Q7PC9kaXY+
-PGRpdiAgc3R5bGU9ImNsZWFyOiBib3RoOyI+5oqE44CA6YCB77yabXN0Jmx0O21zdEByZWRoYXQu
-Y29tJmd0OzsgImFsZXhhbmRlci5kdXljayImbHQ7YWxleGFuZGVyLmR1eWNrQGdtYWlsLmNvbSZn
-dDs7IGNvaHVjayZsdDtjb2h1Y2tAcmVkaGF0LmNvbSZndDs7IHl2dWdlbmZpJmx0O3l2dWdlbmZp
-QHJlZGhhdC5jb20mZ3Q7PC9kaXY+PGRpdiAgc3R5bGU9ImNsZWFyOiBib3RoOyI+5Li744CA6aKY
-77yaUmU6IOWbnuWkje+8muWbnuWkje+8mltQQVRDSCBSRkNdIGJhbGxvb246IGFkZCBWSVJUSU9f
-QkFMTE9PTl9GX1BBR0VfUkVQT1JUSU5HX0hPTEQ8L2Rpdj48ZGl2ICBzdHlsZT0iY2xlYXI6IGJv
-dGg7Ij48YnIgPjwvZGl2Pk9uIDgvMjYvMjYgMTA6NDksIHpoYW5namlhbm1pbmcgd3JvdGU6PGJy
-ID4mZ3Q7IE9uIFdlZCwgMjYgQXVnIDIwMjYsIERhdmlkIEhpbGRlbmJyYW5kIHdyb3RlOjxiciA+
-Jmd0OyZndDsgVGhpcyByZWFsbHkgc291bmRzIHRvIG1lIGxpa2UganVzdCBkb2luZyB0aGUgcmln
-aHQgdGhpbmcgaW4gT1NlcyB0aGF0PGJyID4mZ3Q7Jmd0OyBibGluZGx5IHRvdWNoIG1lbW9yeSBp
-bW1lZGlhdGVseSBhZnRlciBmcmVlaW5nIHRoZSBwYWdlcyBiYWNrIHRvIHRoZSBPUy48YnIgPiZn
-dDsmZ3Q7IENvbnNpZGVyIGl0IGEgYnVnZml4IGluIHRoZSBndWVzdCBPUyBkcml2ZXIgdG8gYWN0
-dWFsbHkgc3VwcG9ydCBmcmVlIHBhZ2U8YnIgPiZndDsmZ3Q7IHJlcG9ydGluZyBwcm9wZXJseS48
-YnIgPiZndDsmZ3Q7PGJyID4mZ3Q7Jmd0OyBTbyBJIGRvbid0IHNlZSBhIHJlYXNvbiB0byBkZWZp
-bmUgYSBmZWF0dXJlIGZsYWcgZm9yIHRoaXMgYmVoYXZpb3IuPGJyID4mZ3Q7IDxiciA+Jmd0OyBI
-aSBEYXZpZCw8YnIgPjxiciA+SGksPGJyID48YnIgPiZndDsgPGJyID4mZ3Q7IEFncmVlZCAtLSBo
-b2xkIGlzIHNpbXBseSB0aGUgcmlnaHQgd2F5IGZvciBhIGRyaXZlciB0byBpbXBsZW1lbnQgZnJl
-ZTxiciA+Jmd0OyBwYWdlIHJlcG9ydGluZyBvbiBzdWNoIGd1ZXN0cywgbm90IGEgcHJvdG9jb2wg
-Y2FwYWJpbGl0eS48YnIgPiZndDsgPGJyID4mZ3Q7IFRoZSBvbmUgdGhpbmcgd2Ugd291bGQgbGlr
-ZSB0byBjb25maXJtIGlzIHdoZXRoZXIgdGhlIGN1cnJlbnQgdGV4dDxiciA+Jmd0OyBwZXJtaXRz
-IHRoaXMuIE91ciByZWFkaW5nOiBzdGVwIDQgb2YgdGhlIHJlcG9ydGluZyBzZXF1ZW5jZSBpbiBz
-ZWN0aW9uPGJyID4mZ3Q7IDUuNS42Ljcgc2F5cyB0aGUgZHJpdmVyICJjYW4gcmV1c2UgdGhlIHJl
-cG9ydGVkIGZyZWUgcGFnZXMgd2hlbjxiciA+Jmd0OyBuZWVkZWQiLCBhbmQgdGhlICIoZS5nLiwg
-YnkgcHV0dGluZyB0aGVtIGJhY2sgdG8gZnJlZSBwYWdlIGxpc3RzLi4uKSI8YnIgPiZndDsgdGhh
-dCBmb2xsb3dzIGlzIG1lcmVseSBhbiBleGFtcGxlOyB0aGUgZHJpdmVyIG5vcm1hdGl2ZSBzZWN0
-aW9uIGhhcyBubzxiciA+Jmd0OyByZXF1aXJlbWVudCB0byByZXR1cm4gdGhlbS4gVW5kZXIgdGhp
-cyByZWFkaW5nLCBob2xkIGlzIGFscmVhZHkgd2l0aGluPGJyID4mZ3Q7IHRoZSBjdXJyZW50IHNl
-bWFudGljcy48YnIgPjxiciA+VGhhdCBtYXRjaGVzIG15IHVuZGVyc3RhbmRpbmcuPGJyID48YnIg
-PiZndDsgPGJyID4mZ3Q7IElmIHRoYXQgcmVhZGluZyBpcyBjb3JyZWN0LCB3ZSBhcmUgaGFwcHkg
-dG8gZHJvcCB0aGUgZmVhdHVyZSBiaXQgYW5kPGJyID4mZ3Q7IHNpbXBseSBpbXBsZW1lbnQgdGhp
-cyBpbiB0aGUgV2luZG93cyBkcml2ZXIgLS0gYSBidWdmaXgsIGFzIHlvdSBwdXQgaXQuPGJyID4m
-Z3Q7IDxiciA+Jmd0OyBPbmUgY29uY2VybiByZW1haW5zOiB0aGUgc2VxdWVuY2UgbmFtZXMgb25s
-eSBvbmUgd2F5IG9mIGhhbmRsaW5nIHRoZTxiciA+Jmd0OyByZXBvcnRlZCBwYWdlcyAocHV0dGlu
-ZyB0aGVtIGJhY2sgdG8gdGhlIGZyZWUgcGFnZSBsaXN0cyksIHdoaWNoIHJlYWRzPGJyID4mZ3Q7
-IGVhc2lseSBhcyB0aGUgZGVmYXVsdCBiZWhhdmlvciwgYW5kIHNvbWVvbmUgbWF5IHJhaXNlIHRo
-ZSBzYW1lPGJyID4mZ3Q7IHF1ZXN0aW9uIGxhdGVyLiBJZiB5b3UgdGhpbmsgaXQgaXMgd29ydGh3
-aGlsZSwgd2UgY291bGQgcHJvcG9zZSBhPGJyID4mZ3Q7IG1pbmltYWwgdGV4dCBjbGFyaWZpY2F0
-aW9uIC0tIGFkZGluZyAicmV0YWluaW5nIHRoZW0gdW50aWwgdGhleSBhcmU8YnIgPiZndDsgbmVl
-ZGVkIiBhcyBhbm90aGVyIGV4YW1wbGU7IGlmIG5vdCwgdGhlIHRleHQgY2FuIHN0YXkgYXMgaXQg
-aXMuPGJyID48YnIgPkknZCBvbmx5IGRvIHRoYXQgaWYgdGhhdCBpbXBsZW1lbnRhdGlvbiBvcHRp
-b24gcmVhbGx5IG1hdHRlcnMuIFNvIGZhciwgaXQncyBoYXJkPGJyID5mb3IgbWUgdG8gaW1hZ2lu
-ZSB3aHkgaXQgd291bGQgbWF0dGVyLjxiciA+PGJyID4tLSA8YnIgPkNoZWVycyw8YnIgPjxiciA+
-RGF2aWQ8L2Rpdj48L2Jsb2NrcXVvdGU+PC9kaXY+PC9kaXY+
-------=ALIBOUNDARY_1636_7f1cd329c700_6a8eafe1_7633e--
+https://lore.kernel.org/virtio-comment/20260702140939.3535968-1-zeloren@qti.qualcomm.com/
+
+Signed-off-by: Peter Hilber <peter.hilber@oss.qualcomm.com>
+---
+ content.tex | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/content.tex b/content.tex
+index 243ce2d..ac61ec6 100644
+--- a/content.tex
++++ b/content.tex
+@@ -805,6 +805,8 @@ \chapter{Device Types}\label{sec:Device Types}
+ \hline
+ 50         &   Video encoder/decoder device \\
+ \hline
++52         &   Snapdragon device \\
++\hline
+ \end{longtable}
+ 
+ Some of the devices above are unspecified by this document,
+
+base-commit: bb1dd2e1fe89b862f38f15873d835a698b196f89
+-- 
+2.43.0
 
