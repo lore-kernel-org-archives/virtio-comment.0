@@ -1,151 +1,206 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011043.outbound.protection.outlook.com [52.101.65.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C55A382F1E
-	for <virtio-comment@lists.linux.dev>; Wed, 26 Aug 2026 11:55:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787745317; cv=none; b=pX3HzAY+iSmpv8hVKoKP0kNG3xY5d9XYLrbPUJBwOFbUd383wlzOApLic1Ij87HpPHlao+J2Im0xOni9RAgJxN2OwCwoUU5SxtPkbUa3iDjTN6t6aNqZSHY9oighXIMP2MEdWZEGnwri57GsJGsHeXdqUJ0e4SHAgLOxBjf+4pg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787745317; c=relaxed/simple;
-	bh=NyGyq5p4f71wBVG+pMV1pIsfHT8wZTq3wqNLlt2GCtM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SdcC8kVBlzbA9uSZIXAITsBcoKhYMPyFpGsFEQzuXkHIrCiIJ5UcQ2MSSVtjlQz/uovvcmCW2MJBXYPabthKqy+N9Gre1oT252mXxmjfP2bwiYWE9+tQeHHAlSFS2h2qhTpBHmLdTFUZF4jczFLFAFy8S7rIj5ZYXZX+iiaqCHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Qm3w7fW6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Sck1rC+6; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E811C5D5E
+	for <virtio-comment@lists.linux.dev>; Wed, 26 Aug 2026 15:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787758325; cv=fail; b=Z0CdeGPtqx4q0Gfi64SoDHAraXHin/W7y8Vl72q6f8PZXLBFbzRx80vs2P6Nz2ZWnfEaAZacyzYIRmYEEm5bDh4CRiTnAPLkzDlXLv8ZrRDT55ElfYwJAYp/cuCOjvkNUaQ/bEHemkmX/q1hPeZ/1AxytOkJ+OUmocptzuHDKvU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787758325; c=relaxed/simple;
+	bh=a8edgOWATZCPyl/gj/dwbdFR8hh4pvbxVwPLuHJCWiA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=O3OlQiTlW+eb9O2rivMdjmGtnjzXUk8vPkpaaSXLrr6D9ZERd+DZpnYmZC/EA56OWOE/6m9582fhc1pPE0+Iq09q9vk5SxHCM4R3YgtLBcMs89wECz/mZqygickWFxlFFEQrYuC5iiCsvhYZCapK1AzummbiwUbGfVSyUubl+CA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=@siemens.com header.b=jBN/6vlg; arc=fail smtp.client-ip=52.101.65.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qm3w7fW6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Sck1rC+6"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QAH2Hk972453
-	for <virtio-comment@lists.linux.dev>; Wed, 26 Aug 2026 11:55:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=m2/8mOutUdYF5kLMtvhMDXUQLVl0JXQ17Fj
-	4xwgs3cY=; b=Qm3w7fW6/IGTqxkAG8Qg086xp7Y1aoIgQ05vWVsYUvQ638udiO0
-	gp6Kq9GMQyVB1ZODjBY8KiT0g/UZu5SZCT3gUcDi4I2vHSsAX3fIitAhDcH2gmOC
-	wEail0RUd8u5o7dCU6kguwOEC/wSoeczDcV/8lzRNpfDVvKJ6rMxH/Hte1M1MOL+
-	mVx3HXEk1YFcAAgEd3u8RLJlFsGct/rRFmVRSZ8HnZxDp7JUTxnv4Q98e8L160nN
-	/uvxbuRmpBjHhB+998i+rkjzH6JAKUERrlVPrdbCtDvceDjuVCldfTDPTPeBalcx
-	NaBpufIROSocKxH9trdFM7sFTNFPzbc3ssw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9r1ghvy9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <virtio-comment@lists.linux.dev>; Wed, 26 Aug 2026 11:55:15 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52cd0374265so15404621cf.1
-        for <virtio-comment@lists.linux.dev>; Wed, 26 Aug 2026 04:55:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787745315; x=1788350115; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m2/8mOutUdYF5kLMtvhMDXUQLVl0JXQ17Fj4xwgs3cY=;
-        b=Sck1rC+6lYs7nEKHMRoZhpae6lxKT++0pC7jhJ0hoDZ9SQujYJwx9H1chDetkGo5If
-         9NSIN+b0lgINgLQZ1S243swbFlDII8rDR8kiuZAtuZpbs4P39jIm0NTTvySu2oJcgNbT
-         s3o8UOL7cU4iVDBPK7kYWCnLKXvCDfRPTMPMwj9pjrZ9Nfo0M1/9iKNL5VTNhhF13M80
-         cUfZGyopQIW6sMmfV0aKTCXLfHud/RPHk5tISza+ySo8HotEe7cQWnEErITBu6IGEMgE
-         cXJigIsWWaRGYGuynGy6kVH5jiZrma3ouFkSpIie5LPhC9T5rva6swZ/Oilt0lJnPdnC
-         +Ubw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787745315; x=1788350115;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m2/8mOutUdYF5kLMtvhMDXUQLVl0JXQ17Fj4xwgs3cY=;
-        b=ZkDVtp5CgMuv/umE0GEnvUxykUAdH1hjLqGlLhoTauULnSOn7oXVdHcimFSonPWke9
-         ViOVBY9oNL98cKmqkb1N/01GOnGR5TBRaIN1koQH5fDPtwk5h/fRWdeSIx9LH3W7GeuZ
-         pQXSWtevwkCkUuLIYFcxsQRSrUvzUpHYVNk11dNcTZ8LHK/wcmy89IZ9LoGOsCx/pq2O
-         tznWYag3NmASTqs9+ZcXogNF1OTee5zFLWXK4IU0yulJgtcNPBtOw2dq4b5+CYXJH723
-         NudcyXkN5aprOqV03tW357HgG4JVxO8Wky/72WUYXYuXKz1ENAKrrFoEhz2iDh865KVE
-         py9A==
-X-Gm-Message-State: AFuF++mSPVz0D82e/9DA61LU0psGiKtxjeONeoBYzIb7lyKRcKduVSGU
-	8aVbjU89UPd3eEIl3E1jRThCitYg5AKNEJPITOZ96kq5p2VpY/DTVdXbJe0eLw+wyQ736euHOeS
-	UXzSXtHi8URX6ayuFNOwYcvyHDozgeKNjaXWDkg4oW4/LnrDWrOYcPcZuHLZGsp+RDhwo0hkCpS
-	DvGA==
-X-Gm-Gg: AR+sD13wqzZ7dHbQc8cyG5iCE7IwSlWa7nznjPGtKl2yQVN/HTxQczM3jTGbV3zSdKR
-	eN8KhN69d0h2L2b7ZQcJZHgK4ksmySbke6YUUWQ2FG4nXh2sxo+N1Y0PyiDSTM5d9CfoXIIarBn
-	MFMB/ujEO67Ydte9aHEWNKtvqN24L7HII0AUfddxkJFKyk6Wx5iP3Z/4YsR+ncS832GwD3nFaMa
-	nDusyYnhncgZ88U2n7lMyUPWaAuCJJOljGCQPpnQrA/+XPNCMQuMBXIErX90yuu9RalS/jJrf0y
-	qe9K975DYPTAbGN9qj3nDuDKk5zcrEgoGR/rApmdJmft2aNwLgJx5m3XYfmwc7P0hS34E0CJHBp
-	zOfMEG1zth+iIz2opn2Yq06dh8F5Mf/4=
-X-Received: by 2002:a05:622a:34e:b0:517:9570:c1bd with SMTP id d75a77b69052e-52e423df2d5mr55837901cf.25.1787745314490;
-        Wed, 26 Aug 2026 04:55:14 -0700 (PDT)
-X-Received: by 2002:a05:622a:34e:b0:517:9570:c1bd with SMTP id d75a77b69052e-52e423df2d5mr55833341cf.25.1787745309194;
-        Wed, 26 Aug 2026 04:55:09 -0700 (PDT)
-Received: from QCOM-LDTZRie9bq.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28e8499sm2538326f8f.26.2026.08.26.04.55.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 04:55:08 -0700 (PDT)
-From: Peter Hilber <peter.hilber@oss.qualcomm.com>
-To: virtio-comment@lists.linux.dev
-Cc: Trilok Soni <trilok.soni@oss.qualcomm.com>,
-        Peter Hilber <peter.hilber@oss.qualcomm.com>
-Subject: [PATCH] content: Reserve ID 52 for Snapdragon device
-Date: Wed, 26 Aug 2026 13:55:04 +0200
-Message-ID: <20260826115504.1955-1-peter.hilber@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=@siemens.com header.b="jBN/6vlg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vbeLj40L+NNQA0X51DNwIioog4GjDg8eJr4djBxR4yrlV/vURog1NVE5bTIr291DoTSXI/qIbIAQ1rPAlvKcRX5Y8T7kGwJNincGfpPHRTq7ZcmfUNSHEtJqglN8BiRmqs7CNTUjZsetQKnecfl4ILCZC/mH6WvGf3bO97I7QhoctSGUaCFGLHlH0fQ6b74Db2B/1tdv3OyTJ/wRGpY/KOgOSE+wI7Scx1nMcfhNZct/HZaJ41GAaRQCERwtmbM5+wFsBGMx69OXKrD5gNyRwgDltj9ZrQ+Lzw/p79ycPNWMaQYeK1nUzMkl0whgl3z9NZjwFbeH9c8QVEFy1t5CpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/L/u1KetNsG1zqft9nPZV5BNZ8vKAgdBxzDMbE+/3+4=;
+ b=waFwxr3rCRlZ1GbMnac7Rka3iAxQRg+8hZWjxGM47M9Mumr1+9KfBMUdHxOBPY60lih0xj8WnIjQQmC8OLPJ9EYBiPu/iAxynMswlxyswLW6jQki1jqrh3O3Qwg9dQV/NnkqDJUf+xr2DxdEnKfy+411Vu260woI4/MlRb2zoxv/6wxk+hkCVUXyNNpIewZOO4wNSzRlh1pzpA5B619c1FW7BaE1i0WJexINZMzNuQPQYKmyjeOswyjZreZrgoA+t5j9UZMTDY4Xxr+eIwsOdC1U4OzELuObveP364Qikbfci1oYYT/InZ2bcZdWGw4EhawKaODrvrBfMiXAmpcAIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siemens.com; dmarc=pass action=none header.from=siemens.com;
+ dkim=pass header.d=siemens.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siemens.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/L/u1KetNsG1zqft9nPZV5BNZ8vKAgdBxzDMbE+/3+4=;
+ b=jBN/6vlg5W+XxQr5NXXBdK6mWwI4W1W+O3YaElk2zghx3Ayu0VPTyLgJy3MOywrAGAW9AWceSlr4A7V/wp6NBy9lHiDEcjeSWz0VC5myiYYHijFTv5SzEdgWsVvBtLOj3Nc2NvSJCKYSXsKXgbHCcy7FoAM997nt10oWwSVO7qJTB+75PXPy1hH1ntSzhkn66W/xqSrLnOxITCal9pGyLCPxhDzdEBEYhYHbPejweEz2TZvbc2t0aFDQZpXm45favBSSfAsdMR4AslpLB1ktH+m8F3H33QajI4xocpICk1J8OPum0cxWOqc1NrV59sK/HWluV8AsEFLpUDCz8G+R7w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siemens.com;
+Received: from AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:588::19)
+ by DU4PR10MB8557.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:56b::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
+ 2026 15:31:56 +0000
+Received: from AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::be9f:e8ca:ee9:83e1]) by AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::be9f:e8ca:ee9:83e1%2]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
+ 15:31:56 +0000
+Message-ID: <1982f2c0-9dad-43b2-94ce-31d03d6a36e5@siemens.com>
+Date: Wed, 26 Aug 2026 17:31:54 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] content: Reserve ID 52 for Snapdragon device
+To: Peter Hilber <peter.hilber@oss.qualcomm.com>,
+ virtio-comment@lists.linux.dev
+Cc: Trilok Soni <trilok.soni@oss.qualcomm.com>
+References: <20260826115504.1955-1-peter.hilber@oss.qualcomm.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Content-Language: en-US
+Autocrypt: addr=jan.kiszka@siemens.com; keydata=
+ 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
+In-Reply-To: <20260826115504.1955-1-peter.hilber@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0129.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b9::12) To AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:588::19)
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 1O3hyPHUazMtgnguKOSZEVw7fncvSM-j
-X-Authority-Analysis: v=2.4 cv=FPMrAeos c=1 sm=1 tr=0 ts=6a8ed423 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=T4lOIzLRIv_Vv-bTPpkA:9 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA5OSBTYWx0ZWRfX1cDqneAszsJb
- +RLkb6Hhjxovmn5ZDvU/238xZEQgK5PudJMmXq8+Tubk1F8nCYDsc3ljK/lkO3nm+/b3Otw8gZ2
- 4hyI1hoohKdIa98mTXTdEPPPG/BMNcY=
-X-Proofpoint-ORIG-GUID: 1O3hyPHUazMtgnguKOSZEVw7fncvSM-j
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA5OSBTYWx0ZWRfX8PwOycY1nn4+
- p7wd4oQ9LZTh3Sghq7lJTJxIFVbE/Tc0IPfW1inndBBE2cIo137kDexecRlL6HpqihRfrkH4Cls
- zY7bjoX2L7V+KvHVNJzCCUc7X1fBwD/DQdVH4UTeogoH1yejY5Htn/bZmNukazFTDODaH+f67qh
- Il7aNmsWftOuDgRflK5p8EFq+Ifl8HgtVEJ+Q0M1rh9KE89W82HQAsN2Xm602yLZql7KS1bsL6i
- BxaV2BZzRwVuDSQ45FIxAxULzMfrN1UZ1HfjB8uAwPOmBTrVn0Ozv9t+b3s39SHGanW6L75WulD
- AwIzmUg49y8zRERCElkVsro/4/G7vq74gucWihA3XZwPqWB0+GuUpZEY888gYqS5cv7qp1Zp75K
- 7t4Q+nLKXW3dwMXY1Vr+Rg09aNLbi1lLd44W8v97Y0vs06LYiCAxEMJkDJ12rD0GrkHdGjgsKK8
- hpjVEqB3//xoPzrLITw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_03,2026-08-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 priorityscore=1501 clxscore=1011
- lowpriorityscore=0 suspectscore=0 adultscore=0 spamscore=0 phishscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608260099
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS4PR10MB6181:EE_|DU4PR10MB8557:EE_
+X-MS-Office365-Filtering-Correlation-Id: 669ac3bd-9323-4640-fbfa-08df038729a0
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|22082099003|18002099003|55112099003|11063799006|56012099006|3023799007|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	GLzoZp943fw1j7yHlZ1/hpXszkV6mXVpV1o7DPhd7xFkVx794r4EXJVHiN8uCO5MAzQYL9BQDtnhmtsi7QhXIpXJvdQIQ7Nr3K7gUdbLyG2OQQJhFR/BUlgd9lyiV5ot1kWdUkNDwtMoM3swedcx5qK7j05ESGe+POhZRFHj/fQfzirBAb0JX+AaQmqd6Sbs8B7ueUpX0dmRQaNxN7jbiJbI7XR+HWYRmFaoN0cpYSDD7gDw3BAdjtTyd+xWt37q5f57l0N9aPi/YHB+Nn+wp8tcDOfAq9Kju8+Bbh6d/V4L4atf2PAY/hNLKnoRsw3L7QgDR08Z17IFhK9AMenwOqN3DJAFlzWq4CYKOlQcC50oVXYPD1zMX2JB6VQCEA8ehlHHUW8+LIjtgPM4Q1Pctoaz5cDuSXW+11sEzR6vOd1xYYQo+pQL8A7ibuKuA4mhS/bwxjP2cOMl4JDaIHerGKxlWL60E6EZvUkMfkVLtjmL9KB3A9gOXcG73RfXIOOdTJk046fTxv59FlBoAJFD6HEUiO2bVHPUDzRZBlwBktQUph+Pm48zOZq0rGE9ai9e6duLvmXwY49CSUPLfZFRcjwjTSNBLzuqHe62avNheEpJwjfC/wekmOCj5ng58cDVxIaz6I5fTqF6hMRIQjZ7PKoPqc5DUbQ1ACtKnz8Fndo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(22082099003)(18002099003)(55112099003)(11063799006)(56012099006)(3023799007)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MFRFdmFtM0FpNXRmeFpXY3NqQzhkTTNNR3BZSlBNRXQ2Vi9uMFBaN1Z4Ylhw?=
+ =?utf-8?B?d2xEUHZUdnQ5MjlKcG5DMzF2NDNueUVoTDVjOUR0RUJtdVNUT2V3S250SnVN?=
+ =?utf-8?B?anVVQWJ6UGcrbzB1WHJJdTdIY2RleTVzemk4ZXRZU0tuOGlyNVp4elV0V0gy?=
+ =?utf-8?B?VUJhS2dHdXZkT3VHRGpxV0NVcFVORWMyanFCQTIzRTVjdy93Z3pDZFdyRGM4?=
+ =?utf-8?B?a1hqeSs2eEVKRXYxVGpHRUZCTHB3OXNlc1QybnhkcmQrbHZ6VHR1bmkya0Mr?=
+ =?utf-8?B?c2tkOVdqdnBpMkkzc25aRkU5bm5VN2ZUWmpPdmIycWhqTW9RSGdOZ2lNaW1u?=
+ =?utf-8?B?cDlvK3RLcWVKWHNSL3FVM3Y4MTVqTzRuYStjbTJHNWExRjhYZW5DMTBFeG5j?=
+ =?utf-8?B?NitidUY1eUxXZUZwcjR0Z0MxVStyZ3VLem5SL0lKUk5MaDRQaTAyR2Z2clF3?=
+ =?utf-8?B?bmdmQy9pelI4WERPNTlhclpvTUZWSmFOZmU1eDNmdS8zVVZsNGx0WGladHMz?=
+ =?utf-8?B?SjEvMUdaWTEyVkpsYnVsVVpsTWlhK3BSMnE3RVFqaldrSlZUWUNnUmV4RjNN?=
+ =?utf-8?B?YWpyYXBPRDJNTm5ISjhrY2huOTYxRTVxdk5PbDNrcFhQcnNIejBIOG5kTWpx?=
+ =?utf-8?B?Z2cyTlFHd0sySlU4bmxVVGtLR29SS2FGMStIaFg1UUd4Q2IzU1JhYmZlRVpa?=
+ =?utf-8?B?KzJJZW9aRGlFc25IaTE2YXBTdDFKcFRmb1l3ZVJQdTk5TldkQVM4aFFmakVv?=
+ =?utf-8?B?ZEtHcGduTEFsQnZUQksxR1FrQVZ0SWU3STY5VVNobTlzZE9hL3Rhaysvekc3?=
+ =?utf-8?B?d24zK25aLzVBSTV0V0ZVUTYvZ1NMTVlFZTBESjl5TFhzMWV4ajErOGFmVkx6?=
+ =?utf-8?B?QXoycTRMRGROYWRmNk9vTHNOWXMra3FtMk1lL3ZlSEZveE9QOVdhQ0FnNVVE?=
+ =?utf-8?B?T3FtWmNMRUg2S0kreGIyQVNJOEVrMlBSMzNqRmN3WGdFMXNkTWNUZnFReFd2?=
+ =?utf-8?B?dGtxb3dld1huVW9PNkR2WUoxNjIvS0ZObmpnbjhLUTUwNGR1YVFXdXFkUVBO?=
+ =?utf-8?B?ZEZWY0s5cm5hdGNHM2FJTWdQbVZ2cDNxK2k1NDlXdkdpVy9BZDdQMk5IVGtr?=
+ =?utf-8?B?bzZjMUMwNm5NbmtkK1g0MWU2dUJ6UEVRcHlXNkcvWmU2OEorYW81TDlSSjh4?=
+ =?utf-8?B?eEx4ZC9kcVJHaFJWMFo5TFNTSkdtZmw3N0s4RlBSTGYzS3VrdjE0RXYwRHRY?=
+ =?utf-8?B?M01HdVllUm90UzRyaW8yWCsvOXc4ZCswQ3lTcHZqWmpvbTlCdjJBYWRtRk00?=
+ =?utf-8?B?WHBGQk1KYlE2bkJoa1lJZWh3V002anM4aTJaTDdjbTR3Z0o3M0VveVZpZjg4?=
+ =?utf-8?B?WjNpTWc4YmpFcnJ2RkhjZ0dDNUZSV2dvSnFjQndkR1QzQnF6N0VkbWUzSVRw?=
+ =?utf-8?B?VGxPbm5xNWNzT2s3N3dYRE9MQllOUzRzUUdvUHVDdi84L21jQ28vVitvenNC?=
+ =?utf-8?B?SHRsNTRQSi9HK3NvR3lLU2UvN3ZrN3lFZmNKWjE2Vk1oelp3S2hndTdIdTY0?=
+ =?utf-8?B?UVJSR3hYaXFhRmxEVFFFWnhCUmFUM0JGdkVKRy9NZDgyOEtsSVVGL0xFK3Rw?=
+ =?utf-8?B?djFTU0tBV3BhenFzQUFpVktZK3VGdkttYUdFSHo4VHdvOUJjQXVKZmNoZjFD?=
+ =?utf-8?B?T1hTRGhlL0pjUGk2VWhuN2ppNzV6S1hvNFk2dmJkWUR6WEhhM2VSQUl6aGdK?=
+ =?utf-8?B?b3I3UjVkdk9LeFF4QlErSmJlTjNmemhBM3o3S2RUR1hBd2JZakU5aWZ4Wjcw?=
+ =?utf-8?B?bkxmb0VxU1U3STNvdFVrYzBFSHlONzR3M2xzcWN3akRuSk9KOVREV09HdnJk?=
+ =?utf-8?B?eG1lLy91Um1WUGQ1SlhURVlDWW5BcHRpRUdYUmRmY2RMS1ZGYllJQkxnYnhS?=
+ =?utf-8?B?dzJubkI0ekQwa042cUkzWkxTVlI2MmZLQ2lSeFdodkovTzQzbk14elJlNmVs?=
+ =?utf-8?B?RTlwK1JFcUdsOWE5WC9FL0ZicHJ3WXRneGhiQ2dPZ3hhWEFtNm5DWW13a1U1?=
+ =?utf-8?B?SHFaZlNhUkdQNitOSms1Q1J4d21mUlNWMzJRc1A2NHFpeVZzL3RZUHBwZm5u?=
+ =?utf-8?B?MzQwSkRhK3k3TG55bjBxWWJoWndaTksrN1M5NDZNMjNrc1F6L1lYdEt0UGNB?=
+ =?utf-8?B?dVIzSVNsaFd3VmdVTG1xeFRPa0V1TW5JM3BoWXhuQ3E2VURCdDFlTlZuMXpy?=
+ =?utf-8?B?dzArWnY4RUFjVUJOeEFJbkxFQm8rU3FNMndMT1g2SUwzL01GTEsvWjBBMzJp?=
+ =?utf-8?B?Z2J1NFd5S2dkb2E3dUVFTHNOcjh2Vy85Q0MzdlhqLzJIbnk2cW55QT09?=
+X-OriginatorOrg: siemens.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 669ac3bd-9323-4640-fbfa-08df038729a0
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 15:31:56.5288
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TUD4BC6BOUky777UyjXYwalblf6r6UJ/ct2IIxwxaU5Of4XDXWfLHZFSdTNNoogGaYwhXQd8YsKE/RYJAHUrfA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR10MB8557
 
-Reserve a device ID for the Snapdragon device.  A Virtio Snapdragon
-device exposes functionality across Snapdragon SoC subsystems through a
-common Virtio-based protocol.
+On 26.08.26 13:55, Peter Hilber wrote:
+> Reserve a device ID for the Snapdragon device.  A Virtio Snapdragon
+> device exposes functionality across Snapdragon SoC subsystems through a
+> common Virtio-based protocol.
+> 
 
-Device ID 51 is already reserved for the Virtio HAB device:
+Virtio is supposed to provide generic hardware models, not so much a
+channel to expose concrete, physical chip IP over it. This looks very
+weird to me.
 
-https://lore.kernel.org/virtio-comment/20260702140939.3535968-1-zeloren@qti.qualcomm.com/
+Also, isn't Snapdragon a protected brand by Qualcomm? Would it even
+legally be fine use it in the spec?
 
-Signed-off-by: Peter Hilber <peter.hilber@oss.qualcomm.com>
----
- content.tex | 2 ++
- 1 file changed, 2 insertions(+)
+> Device ID 51 is already reserved for the Virtio HAB device:
+> 
+> https://lore.kernel.org/virtio-comment/20260702140939.3535968-1-zeloren@qti.qualcomm.com/
+> 
 
-diff --git a/content.tex b/content.tex
-index 243ce2d..ac61ec6 100644
---- a/content.tex
-+++ b/content.tex
-@@ -805,6 +805,8 @@ \chapter{Device Types}\label{sec:Device Types}
- \hline
- 50         &   Video encoder/decoder device \\
- \hline
-+52         &   Snapdragon device \\
-+\hline
- \end{longtable}
- 
- Some of the devices above are unspecified by this document,
+I think I even voted for this, but likely without checking back what
+this may become. I was expecting (hoping?) for a generic, portable inter
+VM channel using shared memory. I hope HAB can be that as well - besides
+enabling some very Qualcomm-specific and unportable pass-through of
+accelerators or so.
 
-base-commit: bb1dd2e1fe89b862f38f15873d835a698b196f89
+Does a "Snapdragon device" have any relation to / dependency on HAB, or
+is this just the ID collision why it is mentioned here?
+
+Jan
+
 -- 
-2.43.0
-
+Siemens AG, Foundational Technologies
+Linux Expert Center
