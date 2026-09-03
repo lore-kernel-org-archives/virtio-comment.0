@@ -1,235 +1,152 @@
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6042431E65
-	for <virtio-comment@lists.linux.dev>; Tue,  1 Sep 2026 15:24:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788276297; cv=pass; b=N1N6ZKFQu2T5pDH0Q1F2N0JnVneJnsFS8Rlob7G2ZcRgSa5/0JZrfVxDJ3lSsJ5RudhsAxzpeyFo1HdV3JFoo2k5viN51m7Wiz2MaYVuSLKKCLiIZ51hy3JJMewNxE3pYdtjwUOdKqLHz5ZuuLvnw/0c+ChLMp1E/H6fhzCASaA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788276297; c=relaxed/simple;
-	bh=TgUnON74rNIPzCACnlWcMjhs9GWaK073PF6GnvdhUIw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gAvY8hh/9/xLHCNXkxZEl9Nv7QpCpIefrWhdPxSBS239hJ1TnPCsnTUubVmGReaRPRiLOp8cZfZhPtNEMP+x/4EAyZuQomIMRIiQG5Ib0HSfKcuaO6xIhOIz6jOW6Ap/xTBFpmT1rTlJqL0S3SaWiW8MY/o6w8FkMU0544r63IA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=jv9p13dj; arc=pass smtp.client-ip=209.85.167.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49CE533F8DC
+	for <virtio-comment@lists.linux.dev>; Thu,  3 Sep 2026 02:15:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788401722; cv=none; b=bLJTXOf6kbgdnDrL1LwCHR7oKSnD0PawZ5XUQXPXdGKE9zMrJzcvbkqZjJoB889LEBWWL+x1VSQxoVBUkShWpaq8QvsslHV3zftZk65QBeOetuP2L88h+q1Wk/twF0PRaF56fqyTDDh7LBlUpngsvvQSMl+nPa41KrUmIKSQEvo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788401722; c=relaxed/simple;
+	bh=UvspVz53nTLqMN7xOMuDdBfRR0qNHXSo1A97dXRGgZc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=muE/FiZIBQjG//iCt1YC/70Y/R9oJyMaoliaeYODZNbolbGJhYgAZoOkAe3MM7sETn5UvrT/zSc2LVPCgeDQ6bTMOuIfqljQULnSZ+9lz9DbevymC5RU4Q3bBeE18jQeIO13jTFoPFtaWKrZhvtoaHXNJgWXcZEBlefj4SMyLWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com; spf=pass smtp.mailfrom=invisiblethingslab.com; dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b=cD0HbRIF; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ypw+raCJ; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="jv9p13dj"
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b4a0e5aefeso4885772e87.3
-        for <virtio-comment@lists.linux.dev>; Tue, 01 Sep 2026 08:24:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788276294; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WIRn0CD98XejM9wgZ5sQXkaQGvpddg9/UXO5l1PvSPaM7WraAAsWuls8jonlY/ulkb
-         h1dqtD8WpDAN8g5skL1ZCqFQ+sntVSXaVyQCCZp0wA/6cebGS85MRc8+F9TGmml388cI
-         FM9kDgfpjz8Ke5zCp42o0nIiVh222bWStEigqKfJrgsJBOM6oFa4oPO+doKEgItwVQpd
-         enxNgcMREw61otMeuPg5ryzq3MGXVpoUyuB6MGpt3lU2sHMxjmWytEy0K6ScQ7s7tugK
-         UrsyS2GmkFVM6YMvizU3Rouw4oxASHYtPME708TmdyTngdSJ0ACWzuPtMOD4Ev0fB5il
-         2ptQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=orkLciSZ3MLrrGcvB39d2nSSeF6Slkqgc+LXMypkC8M=;
-        fh=WWAN/yp0y/n1MpR6NLM3XI+eQLYR228Zl96Ueeu3R7I=;
-        b=hnJdARafOZczEKp8FLo34rAFHFRDZ82DYXMmzaO+KpK8sJlckQsSp3wJJVkrZyZ7DD
-         cI2fyuen3wP3uf9kpNFOW/mykE5EJ/eYcycJXba4LS5/stdFs0KibqP4gyItkvonm6Ca
-         B4qX/VquyikuU3Gdev+BOkbOzLM6pGV52dUDpzeobr6VI/GQwmKFFzKJcBCnjsHabm78
-         LlO2FgkXKfAfhJuq4P2gFiMuwfNMo8Wd8dvtTmP7U1y1BvdRyevdCby/4+l+WmiYSdEd
-         VKSx8dZ/ZOKZshollvGJ3OzH9D71IysCwRXl+dDVlakzJR8bHpLWshdJY1dgKqnctZNu
-         hANw==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788276294; x=1788881094; darn=lists.linux.dev;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=orkLciSZ3MLrrGcvB39d2nSSeF6Slkqgc+LXMypkC8M=;
-        b=jv9p13dj/LJNmkFe/YG6eHLjESjYBtDZTFGYoZVvzemwyDZUHpGXO369vtzyb7xfLt
-         CeM2EFz0TUQuos8qgq9CV5+YCxG82S6zy5VSPG6S9VYwxnWENMBDRbVTTSB6uRLzTzl8
-         9GnfZmg49zglgtA/fjWfIG3U4z4a8KzPijCUzuVDZ6Vj+7c0FBBy47Z6/p5rsb7l4UfI
-         NKFz+va1AA68nZercWlGGKiZNW09bB2hoOFN2wo/d1VdQpteKDwUmtfF7kYR40gzLCXE
-         QolXIXPDnoAaVbk+rwxWe4g0yVb5KsrH7BRMjM2wmc8S4dI7dh0GzNXBDaI9Rhbf+KqW
-         9Xuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788276294; x=1788881094;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=orkLciSZ3MLrrGcvB39d2nSSeF6Slkqgc+LXMypkC8M=;
-        b=l6hrZtrToDBEMweuJWC2LEoEFqgvbIi/LD4WY3lnN3yGIggGSCbhUhoHYrdtyBZpGJ
-         /Jte9N+whF2bIRbXRp+KHGdnXo1b4oIgMyQMm/blfis3APlNdjGSTomztf3ibZyskhG6
-         v4+hiMGtkJRBYbpaR5bomQWyh4HkvsIOo7unRY+TrpYG6YW2pZRR3cyRhom2F5l4Pw41
-         c/j/fagGVVE+724hLbQ/AEJBakpCkvYnzuxx6XTI+ez9j30auxw0R91dEQb/QKpYMpKk
-         OJIkYPYjQoLCf9oy0R4TwBSpT74C0MWf/Lx7L6yvWkA1T389ViiEUYquuVljVI+wQ81A
-         mYiA==
-X-Gm-Message-State: AFuF++lK1QNp7YhhxCrtH5r1qgb0Tkgm5hnYx2owuocfKBTnYX/29ElO
-	Jpo0I0sKwtLMP6/AHjAIkUCpj1xXfgZu2kRPZiM6S/g0GKv+cSBrWsq1Bnw1pnASZMLQASIT/7R
-	rsQGchcfBNPyKEjQ4uToZgvTmjfdyPdgPQzslkE3Ybw==
-X-Gm-Gg: AYBFou1axjNi2HDf8G+znuTGkQAcqIw8oFrF2peHGVeLPwtkg9h4ZOd3b0RJqZDOIeV
-	d49J08igo6d3iMlzOQdbm+mIqUpysjMkhrW61olTDOaSvdMJEkuIk/XaeLiXe2tnuk/ba3OrvCM
-	OeYcpQEtMWAj4O428QYBZyR4PhpF5ru6q4rmdsCWSmuhI8BjeAwaYw8sbSpNHOZKs4WCAc3Jb0P
-	WKI35Em/z8vYbVGyPviQOGTek8qnPai60Zif3kZmWjhpQ+l4I/9P53bevvGHj2ohZ7ANu5Rc+79
-	fEFMko4nHEmX/sH+jw+8Qgia18ApoRGMDZJI9iXR2xwJEizMIzfnw+X3
-X-Received: by 2002:a05:6512:1293:b0:5b2:a967:c0bf with SMTP id
- 2adb3069b0e04-5b5e68c4c94mr11247225e87.10.1788276293668; Tue, 01 Sep 2026
- 08:24:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="cD0HbRIF";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ypw+raCJ"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id 920CB1D000BF;
+	Wed,  2 Sep 2026 22:15:17 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Wed, 02 Sep 2026 22:15:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to; s=fm3; t=
+	1788401717; x=1788488117; bh=6O3+Wnj/LuSJki7N5b1LHPCLkHupTGp0rnH
+	JzXSlFek=; b=cD0HbRIFZ6vZT3J618/72byhqvCV6q8K4EsgVSTbeFOFkmED5Da
+	5LT22MvWpfQNSlW80mUvi9UJNDD87I9QrHINL+jAo54eo6CikRxbjUzFTaNsndPq
+	vnxmqUXKTkEq5UZx4UGn6Km2jTtaptdja5LdO4Rasz1jK8SBtQyZH9RXI8e2yPUz
+	23vhz94a3GRznFOlrsEGcJWvNjLiSykVSzHlrO1Sjczq/h6MtLUfQTc7+hBzpGef
+	D9rno5nbmli6YIXzgYANePet1OAqWrUTr3Mx3UnSI37sBXlCzdpcOWXli/MSLiFB
+	9RUtexkritX2/BQRL29qjMyQtni0yYUwnVg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1788401717; x=1788488117; bh=6O3+Wnj/LuSJki7N5b1LHPCLkHupTGp0rnH
+	JzXSlFek=; b=Ypw+raCJaLsRYshY9VbmVjw9NKiqrAQ6WuNcNnRcbBVueHcPJM0
+	/KL91mKvvTaZm6cy5TigtUv+S3gvl44y+EVTDuoQJoVvZiGolKKa/eAJVXl+eeJp
+	jLxourEnn0yXwbcaUzDijPNhvxcuZG3/kwfqdNUjfNK4pJvSzj0azkM20Wnx7MVC
+	JnVj2aqznKw2SAaFL+/laZqSsVxiujCFcWgb2RdX2+h7uIArb7Y9meVcT9oP8OJw
+	K5/d7g4kvounmNEsuhVhfx31tqFT7SC5oCDbIPIuP5Kt/lMCBTZ2qXN5nh6r02TY
+	+Fti/MVasm4So1fdienxZf3A/Zc/DCzSLOQ==
+X-ME-Sender: <xms:NdiYagJ3dlvtZUmaU4SbOa_5i541yzPbNHI50GabJitnYZgFw8aBZg>
+    <xme:NdiYasteAEqAKAUtoJhIP1EWmb1r8aNJTneDTS022fsGAUxq2cZ5-gz0eBW8ydKG0
+    3rgVfz0TsZtZ5jbYeLe7FqtT1hZmPTRGYx_yxMDLKLx_WhMqZg>
+X-ME-Received: <xmr:NdiYalL3HLgQuQn--b31yNvaRVov0rBpMsfJQYG9HLMIZ9leEmRuYKNWaT-qWKmFe1decmXn8syrliU3StkLi22mSMH7w-XGMvINnK23zzHp3aTkLrg3dKN-3CjvDQ>
+X-ME-Proxy-Cause: dmFkZTGLv1k3PAMhpZtx65Tnn2x8jVGzT1nlsyuy43uMHDJ+45OzRZHeUnNSSuIyn+xN9K
+    g3+Nhyn2h9x9FEij750eYj5jWE3nA+RANiEAXGrkbOVSPJnck5y+qkjpktx8CMRE72gUaq
+    oR1yxJaKbK+jVIQ9STUCR4YLQ/q6MHjw0fZtaxM1y4vgcubSbHbDhwTzrXkSBlislUEite
+    iyXAAn59RmNzpvZPZKSw/fCwKR7UE0iSLQB4U4+jEqd/rOSYKjXzQevXar/QWkpU91YNxa
+    PstLfT0XEkd/ZWRjsl1RMeqx5ABy/x9Ciz0HvtWsx38D+eoNd900sm0wTw4AAJ/A7QZ/pS
+    ebvKx/57SBhxHvQMOZYUqiG3Ow6QrOjVJ6eDvkkdEIhc4Mfqa2vdZvopuPORX83knW329+
+    ujJoliIVxltmgJaI+tRI8ftOf2cu3jU3Km/sVq4eFlTB8NZhcRretUqVkZ4TNGR4FgqZM7
+    ZdI2tp6mySLTciEPY2EFpTU5q/vLLs9Qo+gKrw8xdgWszA/1L5VngKdN6qbj7vf3yleE0p
+    UUQw0jMVxTVQJZsbszRXkuW8FQdYwXbT/mdNUB31fy8uGTKiHIhDJXisKx7S1Vh41Y7eEQ
+    JYYHX3gsEDggsbPn9Vu9ewkzyspD/FWOqLnh7UoHd1p4914DY1My9b6kFxlg
+X-ME-Proxy: <xmx:NdiYakP7lbY6A_2HvWJMpP1ZhCmntKWDCnYMwD_ZyHqe1P1UUvh0Dg>
+    <xmx:NdiYaoUFfJUgSEo1tHnDVks3WERyEO1F2jB3Zr6y9jKoh-GqGMD2Yw>
+    <xmx:NdiYailPYlgdgrHN-g1D2JgiNzDsAkpBckoxwDj_BLEJfioAkf537Q>
+    <xmx:NdiYanPzhhB_vfbFsKtWoQu1DIF4GMs-3om-gzogs1FGPxsvRGURUw>
+    <xmx:NdiYanxGsJ7eLAH7VBWsiPVklbfMDmJkNbxx_A6gYSsgn8Av9gML3QWY>
+Feedback-ID: i001e48d0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 2 Sep 2026 22:15:14 -0400 (EDT)
+From: Val Packett <val@invisiblethingslab.com>
+To: virtio-comment@lists.linux.dev
+Cc: Val Packett <val@invisiblethingslab.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Sergio Lopez <slp@redhat.com>,
+	Parav Pandit <parav@nvidia.com>,
+	dmitry.osipenko@collabora.com,
+	mst@redhat.com,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Alyssa Ross <hi@alyssa.is>,
+	Demi Marie Obenour <demiobenour@gmail.com>
+Subject: [PATCH v2 0/2] virtio_gpu: add F_CREATE_GUEST_HANDLE and F_BLOB_CTX_ID_FIX
+Date: Wed,  2 Sep 2026 23:14:34 -0300
+Message-ID: <20260903021442.423274-1-val@invisiblethingslab.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <cover.1781514628.git.bertrand.marquis@arm.com>
-In-Reply-To: <cover.1781514628.git.bertrand.marquis@arm.com>
-From: Viresh Kumar <viresh.kumar@linaro.org>
-Date: Tue, 1 Sep 2026 20:54:41 +0530
-X-Gm-Features: AcwNN1Vy1sLuN5FEuOMSgIcGrR_RRWm0iW6XKPePUPT9qYoPm65AGQe0dP0fCrs
-Message-ID: <CAKohponVcUOE09DFtF0yKCtTnfXYbQzNvzZ1vbHp57DTphNuww@mail.gmail.com>
-Subject: Re: [PATCH v2 0/6] virtio-msg transport layer
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: virtio-comment@lists.linux.dev, 
-	"Edgar E . Iglesias" <edgar.iglesias@amd.com>, Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
-	Alex Bennee <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>
-Content-Type: multipart/alternative; boundary="0000000000003eb1db065a6d8580"
+Content-Transfer-Encoding: 8bit
 
---0000000000003eb1db065a6d8580
-Content-Type: text/plain; charset="UTF-8"
+Hi,
 
-On Mon, 15 Jun 2026, 14:40 Bertrand Marquis, <bertrand.marquis@arm.com>
-wrote:
+I've been working on actually implementing the "lost" CREATE_GUEST_HANDLE
+feature, previously half-implemented and removed in crosvm
+(https://crrev.com/c/8064741), which allows the guest to tell the device
+backend to create a shareable handle to a guest-only memory blob (using
+facilities like udmabuf or gntdev-dmabuf) which can be e.g. sent over
+to the Wayland compositor when using the cross-domain capset.
 
-> This series adds the virtio-msg transport layer.
->
-> The individuals and organizations involved in this effort have had
-> difficulty in
-> using the existing virtio-transports in various situations and desire to
-> add one
-> more transport that performs its transport layer operations by sending and
-> receiving messages.
->
-> Implementations of virtio-msg will normally be done in multiple layers:
-> * common / device level
-> * bus level
->
-> The common / device level defines the messages exchanged between the driver
-> and a device. This common part should lead to a common driver holding most
-> of the virtio specifics and can be shared by all virtio-msg bus
-> implementations.
-> The kernel implementation in [3] shows this separation. As with other
-> transport
-> layers, virtio-msg should not require modifications to existing virtio
-> device
-> implementations (virtio-net, virtio-blk etc). The common / device level is
-> the
-> main focus of this version of the patch series.
->
-> The virtio-msg bus level implements the normal things a bus defines
-> (enumeration, dma operations, etc) but also implements the message send and
-> receive operations. A number of bus implementations are envisioned,
-> some of which will be reusable and general purpose. Other bus
-> implementations
-> might be unique to a given situation, for example only used by a PCIe card
-> and its driver.
->
-> The standard bus messages are an effort to avoid different bus
-> implementations
-> doing the same thing in different ways for no good reason. However the
-> different environments will require different things. Instead of trying to
-> anticipate all needs and provide something very abstract, we think
-> implementation specific messages will be needed at the bus level. Over
-> time,
-> if we see similar messages across multiple bus implementations, we will
-> move to
-> standardize a bus level message for that.
->
+This allows for cross-domain Wayland passthrough to:
 
-Bertrand Marquis (6):
->   virtio-msg: add new command for bus normative
->   virtio-msg: Add the FF-A bus bibliography reference
->   virtio-msg: Add virtio-msg, a message based virtio transport layer
->   virtio-msg: link virtio-msg content
->   virtio-msg: add conformance entries in conformance chapter
->   virtio-msg: add message transport to core references
->
+1) have a zero-copy fast path for wl_shm (software rendered buffers)
+   thanks to udmabuf being able to wrap memfds from regular clients;
+2) share buffers coming from a passed-through dGPU;
+3) have an alternative way to share memory when host-only buffers
+   cannot be mapped due to lack of a host_visible virtio SHM region,
+   which might not be available in some setups (e.g. on Xen).
 
-Reviewed-by: Viresh Kumar <viresh.kumar@linaro.org>
+I have a working implementation with the zero-copy fast path:
 
->
+Backend: https://github.com/magma-gpu/rutabaga_gfx/pull/81
+       + https://github.com/libkrun/libkrun/pull/822
+Guest: https://codeberg.org/drakulix/wl-cross-domain-proxy/pulls/24
+Kernel: want to link here when posting to lkml :) temporarily:
+        https://github.com/valpackett/linux-qclaptops/commits/guest-handle
+Demo video: https://social.treehouse.systems/@valpackett/117149550756102167
 
---0000000000003eb1db065a6d8580
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This requires adding two new virtio-gpu feature flags:
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">On Mon, 15 Jun 2026, 14:40 Bertrand Marquis, &lt;<a hr=
-ef=3D"mailto:bertrand.marquis@arm.com" target=3D"_blank" rel=3D"noreferrer"=
->bertrand.marquis@arm.com</a>&gt; wrote:<br></div><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left=
-:1ex">This series adds the virtio-msg transport layer.<br>
-<br>
-The individuals and organizations involved in this effort have had difficul=
-ty in<br>
-using the existing virtio-transports in various situations and desire to ad=
-d one<br>
-more transport that performs its transport layer operations by sending and<=
-br>
-receiving messages.<br>
-<br>
-Implementations of virtio-msg will normally be done in multiple layers:<br>
-* common / device level<br>
-* bus level<br>
-<br>
-The common / device level defines the messages exchanged between the driver=
-<br>
-and a device. This common part should lead to a common driver holding most<=
-br>
-of the virtio specifics and can be shared by all virtio-msg bus implementat=
-ions.<br>
-The kernel implementation in [3] shows this separation. As with other trans=
-port<br>
-layers, virtio-msg should not require modifications to existing virtio devi=
-ce<br>
-implementations (virtio-net, virtio-blk etc). The common / device level is =
-the<br>
-main focus of this version of the patch series.<br>
-<br>
-The virtio-msg bus level implements the normal things a bus defines<br>
-(enumeration, dma operations, etc) but also implements the message send and=
-<br>
-receive operations. A number of bus implementations are envisioned,<br>
-some of which will be reusable and general purpose. Other bus implementatio=
-ns<br>
-might be unique to a given situation, for example only used by a PCIe card<=
-br>
-and its driver.<br>
-<br>
-The standard bus messages are an effort to avoid different bus implementati=
-ons<br>
-doing the same thing in different ways for no good reason. However the<br>
-different environments will require different things. Instead of trying to<=
-br>
-anticipate all needs and provide something very abstract, we think<br>
-implementation specific messages will be needed at the bus level. Over time=
-,<br>
-if we see similar messages across multiple bus implementations, we will mov=
-e to<br>
-standardize a bus level message for that.<br></blockquote></div></div><div =
-dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
-solid;padding-left:1ex">Bertrand Marquis (6):<br>
-=C2=A0 virtio-msg: add new command for bus normative<br>
-=C2=A0 virtio-msg: Add the FF-A bus bibliography reference<br>
-=C2=A0 virtio-msg: Add virtio-msg, a message based virtio transport layer<b=
-r>
-=C2=A0 virtio-msg: link virtio-msg content<br>
-=C2=A0 virtio-msg: add conformance entries in conformance chapter<br>
-=C2=A0 virtio-msg: add message transport to core references<br></blockquote=
-></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">Reviewed-by: Vir=
-esh Kumar &lt;<a href=3D"mailto:viresh.kumar@linaro.org" target=3D"_blank" =
-rel=3D"noreferrer">viresh.kumar@linaro.org</a>&gt;</div><div dir=3D"auto"><=
-div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin=
-:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-</blockquote></div></div></div>
+Obviously the original CREATE_GUEST_HANDLE itself; but during implementation
+it was discovered that we need to change the CREATE_BLOB cmd handling in a
+backwards-incompatible way, to ensure that code changes on both sides are
+an clean-up rather than a pile-up of odd spaghetti conditionals.
 
---0000000000003eb1db065a6d8580--
+If you're wondering why the explicit indication from the guest must be used
+rather than the backend "lazily" creating the handles based on usage:
+it is better for the guest userspace to explicitly know which ways of
+sharing memory are supported, so that one can be auto-negotiated.
+(discussed in https://github.com/magma-gpu/rutabaga_gfx/issues/66)
+
+v2: added F_BLOB_CTX_ID_FIX
+v1 has been lost to the moderation queue, but if it gets approved:
+https://lore.kernel.org/all/20260827092120.97295-1-val@invisiblethingslab.com/
+
+Thanks,
+~val
+
+---
+
+Val Packett (2):
+  virtio-gpu: support requesting host handles for guest-only blob
+    resources
+  virtio-gpu: add flag to negotiate always passing ctx_id to
+    RESOURCE_CREATE_BLOB
+
+ device-types/gpu/description.tex | 25 ++++++++++++++++++++++---
+ 1 file changed, 22 insertions(+), 3 deletions(-)
+
+-- 
+2.55.0
+
