@@ -1,212 +1,137 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C32576ED6
-	for <virtio-comment@lists.linux.dev>; Tue,  8 Sep 2026 16:25:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE0D5202F70
+	for <virtio-comment@lists.linux.dev>; Tue,  8 Sep 2026 16:43:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788884755; cv=none; b=EUOSHt+rCSS/rR89W8D+y63w+9mSXWPDHny/QIAubMYj8a0Cu1zAkNh+xXQXipEOJyqjSIYTE1iwigFUs8X5Edy6fFYYEpyq/eKvhYcgWPnMR4HqwjfjgS2NUAycSPH11cUhZhZQ2RzQScmFpfH12jvV0oyNcYQVWUGNlLX+iMI=
+	t=1788885799; cv=none; b=FTn97PO1xgjxi5G4wgjLg0n4J0n1AWhG+POoKzgQQgSzQiS3BaTxTgt3bzI1RW258QdUYgHna3blCS48iGEG2/E1Jq4F0Decf98jyOJTVt/zKcKcLbOMWXBvAlajCvQY3aXHHG6nV6DGFs+3ltCk6UlL2eayBROBn/ejOdS/3Co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788884755; c=relaxed/simple;
-	bh=yPYaXrKAj76mIfS5XUeO8Z1mAq6y+RqZFmJJCW9l2yw=;
+	s=arc-20240116; t=1788885799; c=relaxed/simple;
+	bh=JiRFWRykqcS3CM0cEWug4ZHBfWC6KwC7RaK+KGgy/NQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=L0GI+vDbYk46V+wakIq+0kIPva8cAnrAbpaxeYKVWjqBFGM4lEt/Ttpi7rrnpMXR00G9PYObG38Uzvgz4YOUQYnCXnmp92JUjH2SZF9OyjVRs7w89eO2kjsfytFIE7LXljz5PdUjm7Ugt2iAoUjHvLkNpbXh/Kui+IHPqqMH0o4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=d2TBVxmF; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type:Content-Disposition; b=XfJ2SPOto/2uIXvU3OhF21dpQHDTIRFqjmQzlBOyMhqBjTg9KxteMveFyxXnD3xYY44jEy95AzCD6aInfjAkLlyXOv9Gm9tJx8Sba8zCqrJmRLY9uM0/B010tO9LB8FJ0PEl9RS4rE7AC2xHprEXvsTglQ5TPO3/DA45FFt9s0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KaDuB7Oc; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="d2TBVxmF"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KaDuB7Oc"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788884752;
+	s=mimecast20190719; t=1788885796;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Sz6jXmHq68rbE5vpnwpS8Zw5iDwf8kFCFuDJimcNHYQ=;
-	b=d2TBVxmFw+4Z85wDyn0XLP+JkcgCosIbNypB/k+bZs9X/gXtMrvR67Mo2jXAMhLBagofG0
-	uzbMNXz+RIx8SbUtd/wAJJPYRsdthyDvMzDdgHOyawhtHOtbmm6+ZOlxBsr8+ZO7r9xTX+
-	KZd7ioa8GEhRyRU/qIbQcjzFwlEeWbI=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=SKYZq5J60TM/qXB0ngYxOYxel1VI7xmaq0lD8NVjY3U=;
+	b=KaDuB7OcQ4UN/Pv66dwQ3feTAsBnd1I7/o1SEOY3LzBqVmXXGjTbTAXdszWA95KazHC5HJ
+	ckeiOa+2J7cwMa33/zhj9xw2PQnVt71EtKlUgRn+LuZ2vrZdqH2tKVg56kLc1Jtrfxrh0p
+	IW2xA1AJfDvkcSQxVZDJcWdcIZ1qhcU=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-385-W11rtzH5P9emlVkod9hBUw-1; Tue, 08 Sep 2026 12:25:51 -0400
-X-MC-Unique: W11rtzH5P9emlVkod9hBUw-1
-X-Mimecast-MFC-AGG-ID: W11rtzH5P9emlVkod9hBUw_1788884750
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-482e538ad9fso4298938f8f.0
-        for <virtio-comment@lists.linux.dev>; Tue, 08 Sep 2026 09:25:50 -0700 (PDT)
+ us-mta-458-nUB6vLYAPAiyaesPo9DW7Q-1; Tue, 08 Sep 2026 12:43:15 -0400
+X-MC-Unique: nUB6vLYAPAiyaesPo9DW7Q-1
+X-Mimecast-MFC-AGG-ID: nUB6vLYAPAiyaesPo9DW7Q_1788885794
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-484337a63bbso3024855f8f.3
+        for <virtio-comment@lists.linux.dev>; Tue, 08 Sep 2026 09:43:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788884750; x=1789489550;
+        d=1e100.net; s=20251104; t=1788885794; x=1789490594;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Sz6jXmHq68rbE5vpnwpS8Zw5iDwf8kFCFuDJimcNHYQ=;
-        b=KRGVqxiWQ7u/P3+4FdxL1hBQDoPWHIVwA6aPxDOzEM4BHUaHYdTaXGeSFUBH5SJhEX
-         WTnEgBqmjS6MVhIMeXE2uceXPhKEIglVJUum+hVxntVjsfqnZ2Okzi10d5sNenPOJejw
-         0DRhPL9u9tE7b0zzqmdIQRNbq6W08DkMQoeK+404Rsfu/vtvoEX/SXSh/IOSFuj3R3Wr
-         QpqEaliM6f6SgX3C8qxnuawU+gZlYiP44vx4s1K2/6W/mk0uNw2O2aFpI0armLoeUqMV
-         KZ4O6h8vRDUFK7QhA3uDcjdv6bl7gENlRF1B00kP+tl93zope3FDar70vD9yiUBDi6vj
-         hUHg==
-X-Forwarded-Encrypted: i=1; AKwUvBzp9/BB4U43dp0UpabzPYWpG2YtlHQEDmDB+URw1s87bmxy4HFNPGOFYQDJQeDyqWOnnjPMmb7rS1XXkE7wuA==@lists.linux.dev
-X-Gm-Message-State: AFuF++lxXNGtFklbisySzYCXOPVb/Ip02/atAfPoAmu+hFbLiu53Yj7V
-	0yPZPP/irItqbrHOrV/t3MzXQ7DzoIqMb/qJQde92UWn6VyWr8YEZ2NQIKj/22YBkF4ix1Tq8QF
-	kC1yL0pOYKq3uRHcfRKGC608rRmUDTS94iGFRutebt+1V/jntbWMM7FL6Z1h+RR3kCVCc
-X-Gm-Gg: AYBFou3zE71QsscL+UVgrm0i0xSu+V1kEbnAbLOZdG/3Fr1uer0ClUIbYtyEqoPpoKe
-	vnykTPYL2Ts4hAqdIIcXXHAIUOGFK4Ox5yG30gy7gTtn2bh0EtOTKgGTrb0136dpaUfAG/dN+Xu
-	tWXEAl/dn+iUPTk35Jp+X3sJV3reK9w/3v82PJn7hhhcMq5LBctfmwRFRSc7BNsO5Ak1ZPSZhTh
-	g/OnPlD0TAUlS3ca9gN63ZcKaMghLtlDe7o8WCiMw2TxpK9aGAIs9GODipzgK1wga+nO4kcaybA
-	CDy9J0c0prO59mf49r+aZNnUwEh/IP1fXXFhHTIgVDgvyadkmxEu+XZOi6EeSY0jiBzORTZ1R0A
-	LMrfXX/pvNJ5zas9tyfZfEE8=
-X-Received: by 2002:a05:600c:1c23:b0:49c:eb16:9fd with SMTP id 5b1f17b1804b1-49cf820a8e3mr335033105e9.3.1788884749656;
-        Tue, 08 Sep 2026 09:25:49 -0700 (PDT)
-X-Received: by 2002:a05:600c:1c23:b0:49c:eb16:9fd with SMTP id 5b1f17b1804b1-49cf820a8e3mr335032295e9.3.1788884749046;
-        Tue, 08 Sep 2026 09:25:49 -0700 (PDT)
+        bh=SKYZq5J60TM/qXB0ngYxOYxel1VI7xmaq0lD8NVjY3U=;
+        b=sLZCeEOhqJm9liCd8jpp2eXeBIQA38P/l2Ay/FAvm2kV1ntIAezoJfsT1m1H/tfEmG
+         T5b2hOfcuERN/AX/jj97HHGr2HsXsu4IllgTC2q2+EVzxDwKpeack0PtHgC4F2EAv+dl
+         haEASt8tkkNRNEhycu1icLmxF2GSWTFO6MloP53if4hRsYziVQzWcfCqYwA0f4oRYexv
+         5yLKDEhB3VW81KNrwmmhncXA5+OIi6f4/HnUvh5c/37R4xrfpHpq6awBrABFTl2SRRTj
+         z+T+yrQeVg0cnL29IwxQ2P4vPv3SftedWqVLBgK+9ZA2JHnCmt874oC767R4VKybirrg
+         qqkg==
+X-Forwarded-Encrypted: i=1; AKwUvBzoL2wmQZkkqWPhsPEShBO+VtuQsePuLt9Ev/kc1gR6fBlZ+Tv4MWU1TRjw9H6Yl7GwO8TDOC8f7OzS3Dq33Q==@lists.linux.dev
+X-Gm-Message-State: AFuF++lbBBp/nMbWhv5QL7eAQ3uiuGM6N1r8seGalpxJY2RNAXKVCawk
+	tFFYol8QOsYvarma+FB6ocXij5t9xBzw19QQwgunfTV50j/VIog3hXQBysfKw0Hq1Ao1n2mnFDE
+	odw/UzMPtXstyQ7IV/ap5zolBi86Ya6yiGopisMRtFVbzrEBTrfHE2g261hxX9LiUjgJG
+X-Gm-Gg: AYBFou3Jycbi2DuvrcF4S8jc4U1SCGejEPvu4/r4uXsFNDWSuECEljN9KRHITJI0Pmg
+	xOmmDh9Mianp5TUa4Q3MVQfLJ+Vwymwaai+W4WboyMUncod9bGOWgfS80vEeq0SWLCWTjYCQsZl
+	keFSXGh5RejSPFI3P3XUua7nvfdyVp8UNSvND+/1vSE88lw0Nz47296SOOrr5ab1lga5GjelTYD
+	zuDxerJPV2FcLpviKu53D//80J+wBBRqEUlfPRosRhcZFAro+Z+VozZn2bzzOEglmgdB8isIXg2
+	c6iS2ArM+6fb/1Np0WQYt5trxG/2bl69qmGT9Y8j+Uxnp8+NXwMibuDMBlMM1uZphK6Bl7vxSuO
+	TrVPL5btVXVKHZkJs4DqK8YM=
+X-Received: by 2002:a05:600c:4713:b0:49c:fa20:cc00 with SMTP id 5b1f17b1804b1-49cfa20cd4dmr286964795e9.23.1788885793820;
+        Tue, 08 Sep 2026 09:43:13 -0700 (PDT)
+X-Received: by 2002:a05:600c:4713:b0:49c:fa20:cc00 with SMTP id 5b1f17b1804b1-49cfa20cd4dmr286964175e9.23.1788885793288;
+        Tue, 08 Sep 2026 09:43:13 -0700 (PDT)
 Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bf3f0sm41096647f8f.33.2026.09.08.09.25.47
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d476esm536052775e9.1.2026.09.08.09.43.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 09:25:48 -0700 (PDT)
-Date: Tue, 8 Sep 2026 12:25:46 -0400
+        Tue, 08 Sep 2026 09:43:12 -0700 (PDT)
+Date: Tue, 8 Sep 2026 12:43:09 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: "Richard W.M. Jones" <rjones@redhat.com>,
-	virtio-comment@lists.linux.dev
+To: "Richard W.M. Jones" <rjones@redhat.com>
+Cc: Stefan Hajnoczi <stefanha@redhat.com>, virtio-comment@lists.linux.dev
 Subject: Re: [PATCH v3 1/1] device-types/blk/description.tex: Allow longer
  device IDs to be returned
-Message-ID: <20260908112111-mutt-send-email-mst@kernel.org>
+Message-ID: <20260908123542-mutt-send-email-mst@kernel.org>
 References: <20260908094050.915173-1-rjones@redhat.com>
  <20260908094050.915173-2-rjones@redhat.com>
  <20260908151446.GC1016680@fedora>
+ <20260908154640.GW1436@redhat.com>
 Precedence: bulk
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20260908151446.GC1016680@fedora>
+In-Reply-To: <20260908154640.GW1436@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: dbTKUCn-Wj8fdFhf73ThnEJwuJt16uwRralJkUE-m70_1788884750
+X-Mimecast-MFC-PROC-ID: tHuD-Ceo97B3yRppXWLe2pNu0Sml8V2GIgteCOJr3dI_1788885794
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Sep 08, 2026 at 11:14:46AM -0400, Stefan Hajnoczi wrote:
-> On Tue, Sep 08, 2026 at 10:40:50AM +0100, Richard W.M. Jones wrote:
-> > SCSI-based paravirtualized block devices including virtio-scsi and
-> > VMware's pvscsi allow longer device IDs.  This presents an issue when
-> > we change the backing of a disk from one type to another, eg from
-> > pvscsi to virtio-blk, or virtio-scsi to virtio-blk.  The longer device
-> > ID has to be truncated to 20 bytes.  This results in guest visible
-> > changes, notably /dev/disk/by-id/ paths are different, so any
-> > mountpoints or configuration files that use these paths will break.
+On Tue, Sep 08, 2026 at 04:46:40PM +0100, Richard W.M. Jones wrote:
+> On Tue, Sep 08, 2026 at 11:14:46AM -0400, Stefan Hajnoczi wrote:
+> > On Tue, Sep 08, 2026 at 10:40:50AM +0100, Richard W.M. Jones wrote:
+> > > +Although 247 byte device ID strings are allowed, there may be
+> > > +interoperability problems if strings longer than 128 bytes are used.
 > > 
-> > Therefore extend virtio-blk to allow longer device IDs.  I chose 247
-> > bytes (ASCII chars) as the new limit since SCSI serials can in theory
-> > be this long.  Real serials will be much shorter than this; the aim is
-> > to allow UUIDs to be preserved which would use 32 or 36 ASCII chars.
-> > 
-> > A new feature bit is introduced to indicate that long device IDs are
-> > supported.
-> > 
-> > Signed-off-by: Richard W.M. Jones <rjones@redhat.com>
-> > ---
-> >  device-types/blk/description.tex | 27 ++++++++++++++++++++++++---
-> >  1 file changed, 24 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/device-types/blk/description.tex b/device-types/blk/description.tex
-> > index 3b3a4e7..aa3ec66 100644
-> > --- a/device-types/blk/description.tex
-> > +++ b/device-types/blk/description.tex
-> > @@ -73,6 +73,9 @@ \subsection{Feature bits}\label{sec:Device Types / Block Device / Feature bits}
-> >      VIRTIO_BLK_REQ_FLAG_OUT_FUA flag in the \field{flags} bitfield of the
-> >      \field{virtio_blk_req} structure for VIRTIO_BLK_T_OUT requests.
-> >  
-> > +\item[VIRTIO_BLK_F_LONG_ID (20)] Device supports long device ID
-> > +    strings.
-> > +
-> >  \end{description}
-> >  
-> >  \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / Block Device / Feature bits / Legacy Interface: Feature bits}
-> > @@ -516,8 +519,23 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
-> >  zeroes.
-> >  
-> >  VIRTIO_BLK_T_GET_ID requests fetch the device ID string from the device into
-> > -\field{data}.  The device ID string is a NUL-padded ASCII string up to 20 bytes
-> > -long.  If the string is 20 bytes long then there is no NUL terminator.
-> > +\field{data}.  The device ID string is an ASCII string which can be
-> > +up to 247 bytes long.
-> > +
-> > +If VIRTIO_BLK_F_LONG_ID was not negotiated, VIRTIO_BLK_T_GET_ID
-> > +fetches the first 20 bytes of the device ID string.  If the ID is
-> > +shorter than 20 bytes, then the response is padded with NUL bytes so
-> > +its length is 20 bytes.  (Note that if the ID is 20 bytes or longer,
-> > +this means the response will not be NUL terminated.)
-> > +
-> > +If VIRTIO_BLK_F_LONG_ID was negotiated, VIRTIO_BLK_T_GET_ID fetches
-> > +the complete device ID string.  The response is always 248 bytes long,
-> > +padded to this length with NUL bytes.  Since the longest permitted
-> > +device ID string is 247 bytes, the response is NUL terminated.
-> > +
-> > +Although 247 byte device ID strings are allowed, there may be
-> > +interoperability problems if strings longer than 128 bytes are used.
+> > Can you be more specific? Is the concern that the guest software stack
+> > above of the driver may not be prepared for serial strings longer than
+> > 128 bytes?
 > 
-> Can you be more specific? Is the concern that the guest software stack
-> above of the driver may not be prepared for serial strings longer than
-> 128 bytes?
+> I'll add more detail in the next version, but in brief the problems
+> are twofold:
 > 
-> > +It is also advisable to use only 7 bit ASCII characters.
+> (1) Windows supports up to 128 "characters" (they're not precise but
+> they probably mean Unicode codepoints from the Basic Multilingual Plane):
 > 
-> Versus "The device ID string is an ASCII string which can be up to 247
-> bytes long" earlier in this patch. Is ASCII a "SHOULD" or a "MUST"?
-
-Without VIRTIO_BLK_F_LONG_ID it's a MUST I would say, since drivers
-might have relied on that. With VIRTIO_BLK_F_LONG_ID we can relax this.
-
-
-udev has a set of baroque rules what is allowed
-in the serial everything else it replaces with _'s
-
-
-int allow_listed_char_for_devnode(char c, const char *additional) {
-        return
-                ascii_isdigit(c) ||
-                ascii_isalpha(c) ||
-                strchr("#+-.:=@_", c) ||
-                (additional && strchr(additional, c));
-}
-
-
-additional is / and space
-
-and it allows \x followed by 2 hex digits.
-
-
-And it allows any multi-byte utf-8
-
-
-So in fact unicode is safer than ascii.
-
-
-Does not seem like something we want in the spec to be frank.
-
-
-
-> >  
-> >  The \field{data} used for VIRTIO_BLK_T_GET_LIFETIME requests is populated
-> >  by the device, and is of the form
-> > @@ -911,7 +929,10 @@ \subsection{Device Operation}\label{sec:Device Types / Block Device / Device Ope
-> >  virtio_blk_discard_write_zeroes for VIRTIO_BLK_T_DISCARD,
-> >  VIRTIO_BLK_T_SECURE_ERASE and VIRTIO_BLK_T_WRITE_ZEROES requests.
-> >  
-> > -The length of \field{data} MUST be 20 bytes for VIRTIO_BLK_T_GET_ID requests.
-> > +For VIRTIO_BLK_T_GET_ID requests the length of \field{data} depends
-> > +on the feature VIRTIO_BLK_F_LONG_ID.  If VIRTIO_BLK_F_LONG_ID was
-> > +negotiated the length of \field{data} MUST be 248 bytes, else
-> > +it MUST be 20 bytes.
-> >  
-> >  VIRTIO_BLK_T_DISCARD requests MUST NOT contain more than
-> >  \field{max_discard_seg} struct virtio_blk_discard_write_zeroes segments in
-> > -- 
-> > 2.55.0
+> https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/storport/ns-storport-stor_serial_number
+> 
+> (2) When udev tries to encode a very long serial into a
+> /dev/disk/by-id path you end up uncomfortably close to NAME_MAX (255).
+> 
+> > > +It is also advisable to use only 7 bit ASCII characters.
 > > 
-> > 
+> > Versus "The device ID string is an ASCII string which can be up to 247
+> > bytes long" earlier in this patch. Is ASCII a "SHOULD" or a "MUST"?
+> 
+> It's "SHOULD".  I can't see any good coming from trying to use
+> anything except letters, numbers and dashes in a serial, but both
+> Linux and Windows (see above) could in theory handle Unicode.
+> 
+> Rich.
 
+
+Linux actually has code to try and handle that. unicode
+is actually the less problematic part - ascii is
+full of pitfalls, eith things like
+slashes are much weirder - e.g. udev will create
+a subdirectory with slashes. what will windows do?
+and what will it do with backslashes? /me shrugs
+
+> -- 
+> Richard Jones, Virtualization Group, Red Hat http://people.redhat.com/~rjones
+> Read my programming and virtualization blog: http://rwmj.wordpress.com
+> Fedora Windows cross-compiler. Compile Windows programs, test, and
+> build Windows installers. Over 100 libraries supported.
+> http://fedoraproject.org/wiki/MinGW
 
