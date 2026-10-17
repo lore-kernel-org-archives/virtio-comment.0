@@ -1,28 +1,28 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013026.outbound.protection.outlook.com [40.107.201.26])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011054.outbound.protection.outlook.com [40.93.194.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B37A47F2F9
-	for <virtio-comment@lists.linux.dev>; Sat, 17 Oct 2026 11:47:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9589A48380C
+	for <virtio-comment@lists.linux.dev>; Sat, 17 Oct 2026 11:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.54
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792237623; cv=fail; b=QI4KAFBLC2rkeVp4zGUv7EGbOs01KAWiJ1jC3bbKPhxibza9zJoc4xYxnm1FbrtugNmydklDn36cL/ZLCXS0xH4pRSERf/GeUPp4XKcriSe2z2T5O25h4LmWRwzg2yHm3I6z+dopa+hla87HL9uGlxMbYEG/Yy/3jQVj3PUtg7c=
+	t=1792237626; cv=fail; b=c477ZvDf1YqIUIuPZq79FkFhjWJ/VRxnEoEDuMseufNlbEZc7ajDbaoD0256EId0aibpCVDPg8OK3shyhrx6qpJjcHefG86FiTHJo7R2Mghr7evZC89/077BWGkwkUhuX9gVM/wXz2pxzpT6QYRDS0Fxw1h3OdwBpaJqK/cyj8w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792237623; c=relaxed/simple;
-	bh=LtTQLJOHWXbhTfz6IccjtbKRYQPZU/T1Cjr8atZ+57A=;
+	s=arc-20240116; t=1792237626; c=relaxed/simple;
+	bh=XYYczn5GCmIMoIiU8oOGR9NRZPM4xa3Z9Tya4y+wm6M=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LKiD3C7xvmiKs4ykUcSmnc7fEOoiNObHq6XveaFRXLArgE3on9yPBPzJoZAXiGJ8mjz4kfV9KnleRITgiAIHGXpXz4RA4VP+JruGNDTYTowk4GpZkA5hHCtW0AvwK0ygYfykwxseGNzLuHqofwq4OBj9oiAW8VhkvWZ6sdOCgB4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VMQeBRf8; arc=fail smtp.client-ip=40.107.201.26
+	 MIME-Version:Content-Type; b=YsX9G1fvd0iNnPvQ/Ka3jnStSw8B1g1SrtCdz+eGJzrKKMKk1iTzmi8w//azuP+JoxcDT9NQ/fM2AjgiaZerpCJxmQLEZnX8WUWTLbtbtnSaglpRP4OMbyeUHevKi1Q8GLEoxe2VpCvxh6XB7n56x1RfDwYY+vWNHFO7y5bbIE8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=oZF6qrY4; arc=fail smtp.client-ip=40.93.194.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VMQeBRf8"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="oZF6qrY4"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sbcH2VtiEzK3ogkEKXtvYWQsLI4iTjvZYR7lQe4GnD57YBwNPQIMUSl6tS84x+1c9m+m2LTixc4NKw7efDGWb6efHFToA0cmM2RvspkEkCPBIzT4ZJfbaRqwEkSDHn75iggpb2/ulBrgnp8Did4r0F7PDwY1IwD/Mto9ysCUXogVX6ttMk3XvrpOJRhI9IGkd5oB76HA7g+1UfBITymihp5R13zjRMqoMzqvbi4LWUKFuMGdXeUNAu1JZ5srXlOtxTbpwbY86wrIHQIO/T1zUgaYlg37EpN+a9tqLnbCFeR2M93yBkXDhDXy2li4dovmuFwjX5N/VBUaPDiFbrVDfg==
+ b=Sa5tagyjaoBtWjeKoeRuk6dz2W7QVvpxs6GOoEywRtaWXBL+K6gYdg8EafcfYFpGmydbZ9L+P6/KKEL8WTdqU6GSOXzKEhp20cD9BhGgSjev0X1m4VhPKB04EajH4o5h6kQmdCX/32haSQ0z9+rk1aCCwNDI0Px89/c8MDx6aBLvfDNQ6f/4gKAKNC3Iosy98OsydOXAKIOPsdK4MprW4jd0LZP1cHNNnFyUMX5GDSYdoDnmnN/Esv8L8mMywqN8u85wBdEPY7lI4x1X1jTkJaXpSQw3zqIlgDYr2T92fuR8KELG1xsghDHeBstZTB0YM4oj/sH/P3Py+/kqOPNwyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T6jGdzMxceGcAJsQSTp6GKdOzvop1oEvzCrLhiQI7Ng=;
- b=IO1UBKnShPD4jCtJJLJ3K7rGPrZHU4R7vnHGFIf4rfFrPIT3cuE5ccqrNmg3v6rQp7iF+5x+7ujp18Tt2420AfQKzgWBj7Yvkq+feoRzNr5kpiBNmAmC5eN2DAqlAWhPRIiKvzBqcBTO3pDBiqetxYGYjJ0U3lcIgGIJ2EoD1HsCOTPXhRP0LKB+Vdy7PTiuwdlWizUSpJyd5dYSswHghj9vPnSPgfEvhjc4dC6JfIYv1ERjqFLJ95fItV+sSvjSQS6LWCjJP0/o3WLJ6wIBdYn4lyRF6GFGOQ0W57kOefTjo31PK/hzCZibvR2BSimmTAObBz6E46XAjN3tLlRK2A==
+ bh=qvbG57wTf5bAI1pr7d1MC7rV6gLY1lmPPpzuooF48+g=;
+ b=metFIF4AyVxRLIOStc50xF/WIic9JlJWifDl2RAuDHQPOB82icU2m+blliuYJMj1jZU8cjy5BFsYvOBQwLlw1SXpkoMAnsLiTK8hTHFpMyHi+lt6dPq7qJonb03YuSChF1eGTsP2zf/ZHTEp5mD4N2Wi1X08Xb50VLPZaOw0uk0BirStlX9i7lqewwKYApYf5/yZxkNysji9+5ipt24OFacsQYM2/uL7P9SWzbWiWRizigvHzgQjiFKK4XFwo8zFHRTGEZIgPsvCf6VOneqwt6B5wpGGUg2yIpA1oViDuwdTYOyUcepxkM/Ij8H+utivDb6KnHn8gMH+vjzh5mEPuA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.160) smtp.rcpttodomain=redhat.com smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T6jGdzMxceGcAJsQSTp6GKdOzvop1oEvzCrLhiQI7Ng=;
- b=VMQeBRf8e8iGUKFgvt3O2f7Q5UFYdL0sUdixs5lw1tdLMQiSBx0wOQnkiWa1h5aKT5Wgkvl+5qmbb+7c9iT3qm6z4YL2SJPsNZvl/+AIpLqCqjC1S+BOcghG34ZZgXI1d6BNRd8ADsOJ18gGuSdFb0RzxhSVPIeqQWvhyXK4XhpJBt+iKDlzwCz0hvYMgJjp0xAQW4rgu6H7ARQWz4zrlRU5YKsqgjA6cFd6kBuwGSv08xLpL5NB6lQyfH485x0m5ecJfyRahjwchZXe31jOvVYInjwnblHYfg9axd1crZIXd79bd3jfFZmfYLkvp2I3AHDq2zoEDzLAAKNycvHw6w==
-Received: from SJ0PR03CA0182.namprd03.prod.outlook.com (2603:10b6:a03:2ef::7)
- by IA1PR12MB6329.namprd12.prod.outlook.com (2603:10b6:208:3e5::19) with
+ bh=qvbG57wTf5bAI1pr7d1MC7rV6gLY1lmPPpzuooF48+g=;
+ b=oZF6qrY4bJmMKpZoG9p6/ztx7Z6ygQfPE/0jh4t9E6ZO/98Vc2f8qTqWQhToGg9IhqN6A08kBvydr0Py1eRD6hRaOCCIiYGAaHHskLtYRQ9S471SS9DpGAftM9JGIRu5ycaf1zjFsIbxY4u9X8C6dgYUBNptkHzLVgGcdiM1EQZ38hN1wYP+RaT96qbd6wUlB5xPRvn0FfLfk1/UbGYDvMrlPlNwuw5Xf3DMfTGBMA15GtXZAA29Npg1IRa8VZtAqgQhcRgjIHSyan/YE8OG1gDIRfnqR2M20m/5ZymZ+9bL8zCf18KwVErzXRPkOWYbAR8YLQ7Xpc0a0EoB7MXqEQ==
+Received: from BY5PR04CA0009.namprd04.prod.outlook.com (2603:10b6:a03:1d0::19)
+ by IA1PR12MB6284.namprd12.prod.outlook.com (2603:10b6:208:3e4::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Sat, 17 Oct
- 2026 11:46:53 +0000
-Received: from CO1PEPF00018869.namprd03.prod.outlook.com
- (2603:10b6:a03:2ef:cafe::8a) by SJ0PR03CA0182.outlook.office365.com
- (2603:10b6:a03:2ef::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.17 via Frontend Transport; Sat,
- 17 Oct 2026 11:46:53 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Sat, 17 Oct
+ 2026 11:46:57 +0000
+Received: from CO1PEPF00018863.namprd03.prod.outlook.com
+ (2603:10b6:a03:1d0:cafe::b) by BY5PR04CA0009.outlook.office365.com
+ (2603:10b6:a03:1d0::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Sat, 17
+ Oct 2026 11:46:56 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -49,26 +49,26 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.160 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.160) by
- CO1PEPF00018869.mail.protection.outlook.com (10.167.249.154) with Microsoft
+ CO1PEPF00018863.mail.protection.outlook.com (10.167.249.148) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Sat, 17 Oct 2026 11:46:52 +0000
+ 15.21.522.6 via Frontend Transport; Sat, 17 Oct 2026 11:46:56 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
  (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Sat, 17 Oct
- 2026 04:46:36 -0700
+ 2026 04:46:39 -0700
 Received: from mec-arch-host11.tlv01.nbulabs.nvidia.com (10.126.230.37) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sat, 17 Oct 2026 04:46:34 -0700
+ 15.2.2562.49; Sat, 17 Oct 2026 04:46:36 -0700
 From: Parav Pandit <parav@nvidia.com>
 To: "Michael S. Tsirkin" <mst@redhat.com>, virtio-comment
 	<virtio-comment@lists.linux.dev>, Cornelia Huck <cohuck@redhat.com>
 CC: Max Gurtovoy <mgurtovoy@nvidia.com>, Linlin Zhang
 	<linlin.zhang@oss.qualcomm.com>, <neeraj.soni@oss.qualcomm.com>, "Stefan
  Hajnoczi" <stefanha@redhat.com>, Parav Pandit <parav@nvidia.com>
-Subject: [PATCH 5/6] transport-pci: Add missing driver requirement for admin queue fields
-Date: Sat, 17 Oct 2026 14:45:55 +0300
-Message-ID: <20261017114556.1701355-6-parav@nvidia.com>
+Subject: [PATCH 6/6] transport-mmio: Add administration virtqueue requirements
+Date: Sat, 17 Oct 2026 14:45:56 +0300
+Message-ID: <20261017114556.1701355-7-parav@nvidia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261017114556.1701355-1-parav@nvidia.com>
 References: <20261017114556.1701355-1-parav@nvidia.com>
@@ -84,63 +84,101 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00018869:EE_|IA1PR12MB6329:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00ef8fc6-8879-4b97-95ed-08df2c445680
+X-MS-TrafficTypeDiagnostic: CO1PEPF00018863:EE_|IA1PR12MB6284:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4244ee3-5649-49fd-7d84-08df2c44586b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|6133799003|10067099003|22082099003|18002099003|11063799006|56012099006;
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|56012099006|11063799006|10067099003|18002099003|22082099003|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	dhDf3I9yfn99WDL7kuBjjoaP4VmctCLS2ueLLx0kUmzM1lcxRcBwkJ7zHSwS9OkiN19ptJP6uzZiWKfVXoLWp/knaEXTGtPx9xmGe7UoovYP54AJMn8Ct6XHWSK7hdAjhfZryidRXzgMsRbHugwok0rw0ikNXueUcSgcQimHYNRtVUJMpHid4kHRxIBr2LjTxS9m1ZT6RKdVymG3qOY51aBs/k/0uY6t7oEkqYlqybwAp1qVbnSbyvWC1pG0tmgqYtsN9RYORrdYY8wslHx9vMqpQtModN2b2xivYkj21xJm4CKMyEu/XSUqiWocyx7z3l1vAyPtbPo3l8ewo5t0qZuC4Z5dIFJpp6bCdAHw4GCGaFgYauSR5fCg6wJ46qBDy87LyMv02+UanU2n2mZDiDfm9ZP983M27K3qAGWpYm3baTtgweyTLwW8xSlCAyx9yIchBRaM4h7hdWbB5LOiMXiZkt/rUCP3hOUmxKTekL1+iO/l4xMESa4UxATPj3l1iWkeb/GeGWi2jaIUsHxokIkp47EN1pLb9rEHfLjSfVotcNs/Dvp6CL0GINMqwThjr4IzFpcG+PE1xQSnZxvOKiBtJQ1DfmpRGFp7cXde8ClgleHud3Z2xmijYGn54kJAZnxfOmeAtlkHw+uFnUGOIDlVZ7mYENTphXbirDrJ/ub7AMh1hTKrEBIqKauGWYEdCz+tb1a+Hv+YqF6Bvk9Onw==
+	vMerp0kzrXAP4QJPGEayHEQUeqqBDd5tQu6S5MtWcwl9Ll4bFLBLWL2aAd82IINOit+cJJlLC6uLygU2KU/C5yAIDIgvRgL1kI6+TnlEPFfMZTgruTwb80Kkg++dZ8Z30mDzCBTIEdENXYZzNH7hyG3Jxo6uKkN/ei1cURAOrOb0qvSGnZNTNC7SQljNeghCvney2E1iX+a9IG+peq45z523gKQS+zj4JP8jySqN0hPXhgY32Q2m+1cDY7+iw5LCPj95Tp0H2vTOim0v5rLmlqvT8LoXX7XV/Q9T/b9tt3iC0P5QY4WW1gGEQaPbSEXo7AICBWw/TtTQaRDSqPS8ZfVWy3dthlBtC8Np2gdiiTI/dNt2NKabq4ey95nI0cYsgQ7DJL+qSApxRE1hXcVh7nQ1ucbKVqxlDtGVAn7UPJkJporUDDkYSbkS8zgakr6xhY3AF2R1woTRnvsqyg0v87UwbFW68k49jcUUG1QfmbxDUyCf+IkjP60LxWQ+JKNaygfM2j0sr6JQOte47DmUQBARbaJof2ahczz7Up6VX+2smPzejPp5QATSPVHr9E1PVFMODUomjdqH3fV+ssi6v0RicjPMO2heH6s4ah7LHxWqAALsYcvnD9Pyb6OTTTuVIJtwuCVMuqF4t6z+pIyqcda7tpNpdyvCbbvPu0NP2l5dzQ4fKh+/zYs+ZG0tIP8YGdkUbswkr73cEukZjdTHWg==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(6133799003)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	X7jKdQjOB1ylfuV9Wu6OXcZvIlIMYEbCskpQfObI6l+13DiJ1LDXyQqVMd1QvWxClgZ+KcBJVyizi7+RBDsM2/Vvu2zptAal2EqA7ZecVmU+gCwSn9PeLZpqVaQIiMAsYf6j3wUJO+S7hogrCW2oMW/q6EiXWi2hSPu9rj1TfA/dE6Yj0DrJhv4I0EaEadwUeOYC3zS5t80N+PvKu9ycMafSqnm94KjL9OKdeD7Mx9QAnJbIdnt9wdLCo9+RGlMkF4K11samy2zET2P1PPwooUSru7vXl0bcc5VXaTP7C9yNr4FFuYJS1zQVuIqOpRtIctBmrGOISsF3eBOTzdXWQ+yAIo0MXvVSri6JqX1bqWm8mZR3+liGxKxJ/VYJcpSj3FJSzrOd56tcznDmyu3uKJOZktGGxgvE3+6dXZBpzRq7iMKFu2eI3YyE8A5zjYDp
+	wL4oYqtE0Y25vMs4tN0JOQiqbCv7JUzpXICStO5Ti8G4SkdULnx02WhgqwWyWgqKolWX6R+SjfA9z0i8ldPcrS/HqtHOtkcInvMx11Z/D5SXJHYVt48y6PfF3txUrYGE/WW3u8/3cr5olkBMistvxiogotFbzzZ8rw48PpzlidxmOMsnkcg03lfQh0gm/SeXVD9JYfAjs39+Hiw0YjRbxxyHZ4S77K+V6MCH7/Tcy/MreVli/ejt0a20ju2WtWIpOUI8nBTvy4btby+Bbr+/aklGY5zgXhyf9C02fn8LzVGn+AyMjMLYDGEd5RCbpOUu/0nmpaWNfDJ/OljWSgubUcrSfKEa1LkvKemTtA+oOtrS3XSRHneHE7aQ6ve8seRmY7iDZhAo5BubWf/G+7cGvETVtwZHMGGN/ZzalcgsCpUwVibZHmWrcVdDxO3j69eO
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2026 11:46:52.8636
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2026 11:46:56.1034
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00ef8fc6-8879-4b97-95ed-08df2c445680
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4244ee3-5649-49fd-7d84-08df2c44586b
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00018869.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00018863.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6329
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6284
 
-The description of admin_queue_index and admin_queue_num in the common
-configuration structure already states that these fields are valid
-only if VIRTIO_F_ADMIN_VQ has been negotiated. However, the
-corresponding driver requirement was missing from the normative
-statements.
+Add device and driver normative statements for administration
+virtqueues over the MMIO transport, and reference them from the MMIO
+device and driver conformance clauses.
 
-Add this missing requirement: the driver must not access
-admin_queue_index and admin_queue_num unless VIRTIO_F_ADMIN_VQ has
-been negotiated. This does not change the existing behaviour; it only
-captures what was already part of the specification as a normative
-statement, and aligns the PCI transport with the equivalent MMIO
-transport requirement for AdminQueueIndex and AdminQueueNum.
+Device requirements:
+- AdminQueueIndex is beyond all other virtqueues.
 
-Fixes: 677aeaebf6a7 ("pci: add admin vq registers to virtio over pci")
+Driver requirements:
+- AdminQueueIndex and AdminQueueNum are only accessed when
+  VIRTIO_F_ADMIN_VQ has been negotiated, so that drivers never read
+  these registers on devices which do not implement them.
+- Administration virtqueues are configured only within the reported
+  range; the driver may use fewer than supported, same as for PCI.
+
 Signed-off-by: Parav Pandit <parav@nvidia.com>
 ---
- transport-pci.tex | 3 +++
- 1 file changed, 3 insertions(+)
+ conformance.tex    |  2 ++
+ transport-mmio.tex | 20 ++++++++++++++++++++
+ 2 files changed, 22 insertions(+)
 
-diff --git a/transport-pci.tex b/transport-pci.tex
-index 95b08b8..0cd9eab 100644
---- a/transport-pci.tex
-+++ b/transport-pci.tex
-@@ -523,6 +523,9 @@ \subsubsection{Common configuration structure layout}\label{sec:Virtio Transport
- were used before the queue reset.
- (see \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Virtqueue Reset}).
+diff --git a/conformance.tex b/conformance.tex
+index 9af31e2..b1dd83a 100644
+--- a/conformance.tex
++++ b/conformance.tex
+@@ -132,6 +132,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+ \item \ref{drivernormative:Virtio Transport Options / Virtio Over MMIO / MMIO Device Register Layout}
+ \item \ref{drivernormative:Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation / Device Initialization}
+ \item \ref{drivernormative:Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation / Notifications From The Device}
++\item \ref{drivernormative:Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation / Administration Virtqueues}
+ \end{itemize}
  
-+The driver MUST NOT access \field{admin_queue_index} and
-+\field{admin_queue_num} unless VIRTIO_F_ADMIN_VQ has been negotiated.
+ \conformance{\subsection}{Channel I/O Driver Conformance}\label{sec:Conformance / Driver Conformance / Channel I/O Driver Conformance}
+@@ -224,6 +225,7 @@ \section{Conformance Targets}\label{sec:Conformance / Conformance Targets}
+ 
+ \begin{itemize}
+ \item \ref{devicenormative:Virtio Transport Options / Virtio Over MMIO / MMIO Device Register Layout}
++\item \ref{devicenormative:Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation / Administration Virtqueues}
+ \end{itemize}
+ 
+ \conformance{\subsection}{Channel I/O Device Conformance}\label{sec:Conformance / Device Conformance / Channel I/O Device Conformance}
+diff --git a/transport-mmio.tex b/transport-mmio.tex
+index c537e85..40fda97 100644
+--- a/transport-mmio.tex
++++ b/transport-mmio.tex
+@@ -510,6 +510,26 @@ \subsubsection{Administration Virtqueues}\label{sec:Virtio Transport Options / V
+    \ref{sec:Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation / Virtqueue Configuration}~\nameref{sec:Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation / Virtqueue Configuration}.
+ \end{enumerate}
+ 
++\devicenormative{\paragraph}{Administration Virtqueues}{Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation / Administration Virtqueues}
 +
- If VIRTIO_F_ADMIN_VQ has been negotiated, and if the driver
- configures any administration virtqueues, the driver MUST
- configure the administration virtqueues using the index
++If VIRTIO_F_ADMIN_VQ has been negotiated, the device MUST present
++in \field{AdminQueueIndex} a value which is bigger than the index of
++any virtqueue of the device that is not an administration virtqueue.
++
++\drivernormative{\paragraph}{Administration Virtqueues}{Virtio Transport Options / Virtio Over MMIO / MMIO-specific Initialization And Device Operation / Administration Virtqueues}
++
++The driver MUST NOT access \field{AdminQueueIndex} and
++\field{AdminQueueNum} unless VIRTIO_F_ADMIN_VQ has been negotiated.
++
++If VIRTIO_F_ADMIN_VQ has been negotiated, and if the driver
++configures any administration virtqueues, the driver MUST
++configure the administration virtqueues using the index
++in the range \field{AdminQueueIndex} to
++\field{AdminQueueIndex} + \field{AdminQueueNum} - 1 inclusive.
++
++The driver MAY configure fewer administration virtqueues than
++supported by the device.
++
+ \subsection{Legacy interface}\label{sec:Virtio Transport Options / Virtio Over MMIO / Legacy interface}
+ 
+ The legacy MMIO transport used page-based addressing, resulting
 -- 
 2.43.0
 
