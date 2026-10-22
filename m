@@ -1,103 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792653864;
-	b=Pe35EUsfR1txA4PdSAq9LLHkxD14hwljIiHJp+vHxtF45jSQdjb/sWhJWxygqRwRR9c0
-	 TEFZ7e1y4fah7DSnyDzkf5l6haa2StCApQb4gzArqKdscX4PF07LDwsYGbYF9aQbVV3JY
-	 P6k1qCyfQg3YGoezvtQ4FGxpJ82OL2jEW7ByQaWfgQvFpQL7QFdomJcR7Rim5kq8ZuVDf
-	 zjkpgth6EcVBOlA6mFAlhYn9BT9eqT8APPHxt0plNQWXctmJDPIhfy/gwDBz6tsTTuVPZ
-	 xBM8BmlPLJbVlwzbydQwj3wyUr9yiWEqrWKXPCB12k+b05KhxcYOpPKj7+jpyta2TqQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792653864;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:X-Google-DKIM-Signature:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792658506;
+	b=cUgdkeB76ZHBvqNEIUOOqQ8ot1mLe3bIVcLdM2Goj8Es67j3waVzoaSCWlIJhHUMyG/o
+	 +bM3BpjQQ5fZRPCB8QtSaVZoXy7vqDDRwP6IzUq15EPpU6WMPwxokUFAr30IW4ZE61X7t
+	 rV2Dj9JtQdiICGB0crmAWcU6eiRl9US8N/R0XiwsZvymzkvCl7k5VCsjAmyFNy0t1YjI5
+	 7QvYYCMWhczo4S3UCrinqktESAvaYixOj9PqC/C/Z9l49MH4vd+UFNrWJez+3iiKuqae8
+	 0Yo8YPU5OJfHkMaEJFDX6JUIOGc3ogvC8Yjdl2sRUQc5BfD7bV4tedXhDyXrSU0nOWw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792658506;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:In-Reply-To:X-Mimecast-Spam-Score:X-Mimecast-MFC-PROC-ID:
-	 X-Mimecast-Originator:Content-Type:Content-Disposition;
-	bh=PMupZqYhOhRb1zMoGZ4d5nwfajBZs5OijUNKKUJB7bA=;
-	b=iFClORgtas1j72QWWdHETDLeAy58rCxPum4ieb64+ENEpwM+F3wzbJchSTV8p4NsyHpw
-	 Nn1HCHn1pZvXYaXbyvNiY2LGvP1DWUvw4lENppZooBeqJIoLGdRh0OFLRMoLjrENuhBWq
-	 n+9jprQB6EPcaFvvIHAFfDst6yCDkBaoAo0TOddzl2HFE2sOIHM3NK+WvIbrxtC/98piV
-	 KaR1q9HDGbFEhJlSfWaeNUMey+V8l7wb7E+GF3PztYAacN1e/Xdyzkn/hFMcZ6vo74P8G
-	 XmzRiU2Gu9YbipiEHHdnKEZXzL1T6ZBTBsj8Nl6/t5DZj8MpdQLHbhVNXZ2AM4C6baQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=P8UPnbgI;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Ee5x7ePzxpKhx1NvEN7MyEZlE2vCthZ8xAlG0Xoniu4=;
+	b=NPT+E2h8iNuQ5Pp1Q7EgCw68vNqlU2yy4oi1WKor2P/K+NoFZ8ZUezbngrlvC1hriDeY
+	 aNDsGat9t7uzqYO6XfLhefYIDBXp4T+eTa5U/ZMoklwt+AwhpqP76e/xETx17wKIGRHwH
+	 YlGLNLd3WN3xL2phGH+Wq1n0yJlhD7d9oC7OPcPMhMPutnamxC429X6JNpw0WglI/AMYi
+	 2rCe9nt7l/a/sMugsCMhAxoGBQiHMzYbRqeqYN767hZIeImAhulyOTxUUwyQFu2eW/RST
+	 gXWMQpObluYvSEjCWnWf2RmnKqs/rzwyEyBUGmECX++VpZGHsrIqUmfhdICLy41+pIQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rZwlb0wz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66023606A31A
-	for <virtio-comment@lists.linux.dev>; Thu, 22 Oct 2026 07:24:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66023606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C86606A319
+	for <virtio-comment@lists.linux.dev>; Thu, 22 Oct 2026 08:41:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17C86606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=P8UPnbgI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792653862;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PMupZqYhOhRb1zMoGZ4d5nwfajBZs5OijUNKKUJB7bA=;
-	b=P8UPnbgI9L/EIQRc4eZVWCt/2tPUD421py+43h/ZlPmZlHfMqu1WrqN8LNRv4Hj7hzho8P
-	ZPTSjJKCkjyzeHN8O4AgLq4T3GeVQD5DVZPsmNTo8/lkmNUq/1Znv/m41l05nTeGmKmMT9
-	H3zA6dWYPtILDwAwHJtJN6bCmVl5+Nc=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-665-giTWa6fLMayt5ZaUo26XLw-1; Thu, 22 Oct 2026 07:24:20 +0000
-X-MC-Unique: giTWa6fLMayt5ZaUo26XLw-1
-X-Mimecast-MFC-AGG-ID: giTWa6fLMayt5ZaUo26XLw_1792653860
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a027f2e364so11221135e9.3
-        for <virtio-comment@lists.linux.dev>; Thu, 22 Oct 2026 00:24:20 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rZwlb0wz
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c5358fc28so1330772f8f.0
+        for <virtio-comment@lists.linux.dev>; Thu, 22 Oct 2026 01:41:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792658504; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GrEMnV4+spE8Q9Gd8keva+c8J9IDnfrjxFIUQmEVCzEAkEiamOBPOf4XrvfTgl3Ye1
+         CInn12VuuqTRDfjVPBDE1sPD7OTYVeZelmElekowemEfwMgDlm2V24JJFbyI0TFGPGpS
+         xnKWchyIe0O3IUKPA73sPAQSNWgkmpBqMZUwIf8R3atD6dX8OihhUv35x6P6UYwmzEaw
+         gmspQgxO2E/5UJh4oEShkGoXJ553Eq0lRr0LAKJSgaGRfkrkTeqC7Rs+yNK839vMIoGq
+         wl57O+N6zjA47PbkC4YVEFP1grnylk0U71gqNhyekr6BNnB8OIiyVtqP+8MXGqZZdNzH
+         tZrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Ee5x7ePzxpKhx1NvEN7MyEZlE2vCthZ8xAlG0Xoniu4=;
+        fh=KDk0GCmx5jltcR+BrL/cc5KIfJGF2Lu8KovYPPM4IgA=;
+        b=Uabc/TFtjbtjPGjOqEaiI70xfENmhHEl4ZSrMk5C7bbZmxbrhhYJqrGveSvYUuf+pD
+         0rC2Pj1AdhdU7iUrneqwQqswfVQmdHS3ZXPVvBrOqtbKMzk9sHGYBYkLY1HtyClhUXQx
+         +sB8p13THAba+lL+4VKTAZy3cZ+YODNai0YiXnGapRlh7sa5zrnKkAQMzpiPy2h4gge6
+         WIiQy7viktieFRUJiyGlSWKmbpAqLMJwAqRuaq2aSw38apzYj7Ua4SfRJsHY5RrDuDGW
+         WW5bUG2vFwuHlI1cO17dbFTVaqM8QaZbh4LzeYDFP8AZHl2UfpBPTZyol+LycFu5rdtc
+         TVqw==;
+        darn=lists.linux.dev
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792658504; x=1793263304; darn=lists.linux.dev;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ee5x7ePzxpKhx1NvEN7MyEZlE2vCthZ8xAlG0Xoniu4=;
+        b=rZwlb0wzFqmUyVER/tVi1oXEhXPThb2YUYXq5snwpx3fRYAqYFXyVm1yxMkFX8xYYW
+         RqEbAyqFdOGkFieU/J1+ER20T4afjQGcGC+Ompu2fawJf0Qm/ya4kYag1f1obRR2ODdA
+         GDW1gX71CSv5NcfTv8UG6eLZeErJx1aWWyTeasDgtAjuuKomJCmTUpRz4x/c5bTAMAgo
+         ZHehaMIOv2slBYJpKHWmyqF/BHPwj0F8AuPk85v4kk3Vuo4dhEv4hnBH5GjUYs7wYRjR
+         W6BMYP7QYtC4RkadoN4DSOT5lqhPuChQEt2eodDOQLokpeyDBpGI7y4Z+XVRJWoMLgxU
+         Q1Sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792653860; x=1793258660;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792658504; x=1793263304;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PMupZqYhOhRb1zMoGZ4d5nwfajBZs5OijUNKKUJB7bA=;
-        b=PIbBOsOrqleLvlXIGm8vWWw4ombVXbKhe6il83qgLxnD8ZB5X8Sqykyq0ds78HKuIa
-         3sfSbkB6PRf9rBQF+qMWJXiXFXQis0k5WRoVrOVKvGUbD0kmqujkhjQORUSL15+qfzY/
-         ppkvXifjB9t4UPyyWE1GvzmBtOo1pgOyIznRvoTO3b1wAmhkhbo3aQe/z702gVv9D4+Q
-         0O3T3XxTsTpxZ7Xtf7wcoOQIkcECU7k9Oey4rBrFQtVwYj/7j6nwm0EEyM2Rp/FPf1Co
-         Q55j1ri1kNKbfUrw6bgBsgpWT9mb16vdM8BbEuiIqwWxThctOa4kUOP2aH3yz8W/WzQ/
-         fwfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwFkgWkaqwvTabe2a0cS5CcXuIPinmUNo3sNqtu4kICtAYbd2quzeNTQmWtjiZjmhX87euBG8uPW+pWtl53Xg==@lists.linux.dev
-X-Gm-Message-State: AFq9FYKpQxGVE+Bzd34A0hk6g1GyN+4EaoGcQGj56suDzP8oYBHakrKM
-	/6eniIR/152QiB/A/ksJQLyGOqsqB+chOd2eQ2hHSGhp7QDvaJwQIj3x52cQPajM3Dqf/wqTLMD
-	DS1WpNhZTixa+mJIa64bo5RIKkEh9VzoZN+yAJyNaoDL4G9EqNM3pbnuSgyaUGGOSVKmb
-X-Gm-Gg: AYBFou32UTAaM7WTiP6clVShaMx4UQp9aGOp62q8P37xFi//vPofF7JuVYFCyqFr6NQ
-	LdloWuc6cAX7eXlUR//ljtOdTGuFubVpHof+EqFS/D6toGt8Z5ialPqPmq2Ii1kQMF6ZYBZ9uxU
-	MJCPVpsYKcyD0fYmul6gQR8LS3h0twgQ/+oKZkhfrOVpV+nVkAf8lT+UnDC9mRog1bmfitt4683
-	lId22cNJvRdvi7qPt/FJpuP2mdAmOXCTFj2pZm7WM/Qfv75e2UMA6TGy8jXtLGeYgv12TP2Uhua
-	P+J1ScIQUlI4bShh/GLrt8J/Fk/SYQNKnDkSlFTUjyzoYuziFWiFCkqShlvDEuhR7kE=
-X-Received: by 2002:a05:600c:3507:b0:4a1:96cd:2f73 with SMTP id 5b1f17b1804b1-4a1fd8cd9e8mr88483325e9.1.1792653859591;
-        Thu, 22 Oct 2026 00:24:19 -0700 (PDT)
-X-Received: by 2002:a05:600c:3507:b0:4a1:96cd:2f73 with SMTP id 5b1f17b1804b1-4a1fd8cd9e8mr88482955e9.1.1792653859039;
-        Thu, 22 Oct 2026 00:24:19 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:1536:fc00:b838:383:1c7:6e81])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203b66f6bsm69530725e9.15.2026.10.22.00.24.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 00:24:18 -0700 (PDT)
-Date: Thu, 22 Oct 2026 03:24:15 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Demi Marie Obenour <demiobenour@gmail.com>
-Cc: Cornelia Huck <cohuck@redhat.com>,
-	Peter Hilber <peter.hilber@oss.qualcomm.com>,
-	virtio-comment@lists.linux.dev, Jan Kiszka <jan.kiszka@siemens.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Trilok Soni <trilok.soni@oss.qualcomm.com>
-Subject: Re: [PATCH v2] content: Reserve ID 52 for QPSFI device
-Message-ID: <20261022032118-mutt-send-email-mst@kernel.org>
-References: <20261021180031.7175-1-peter.hilber@oss.qualcomm.com>
- <d4a11a65-ebed-41c9-8482-cf0ec94dce79@gmail.com>
- <20261021154801-mutt-send-email-mst@kernel.org>
- <87mrs62vzj.fsf@redhat.com>
- <26e6efbe-abc0-452d-a682-611cf91e41b8@gmail.com>
+        bh=Ee5x7ePzxpKhx1NvEN7MyEZlE2vCthZ8xAlG0Xoniu4=;
+        b=M4XQJbZHc18Mrhxbm5ANkG8ApvL8jxskYrot6mr2PRFAoTOqoHlMkGIQdRKnCFAXG7
+         G+/C7haEE/eJHBW5+Y1LhrP+eNbaEF212v2PgUefbJRAdZ9au81Y+iXJffX4jfSD0Bb/
+         R+oyFxsKAoL1ufTkw3axSGo/NK6Lzwhvi8qzLEfQ3lox34ZiaezlMVbNvDhnr9rq28wb
+         Tsn7lLQY+7ZM52xYRLjjEXv7ZXhG8oy6lgAsHhHlGw6/8zy2FoPJ9cdTwwxSJQfp3537
+         Q6R9AM4IFMvNUGyDq1LCFh88P+a72iG6H6F9iZaudJyY8QOPhM0la+vC66ksPKOZsG8D
+         haeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxjzFDz0K9FlrTcSlSOz3dPRtpq72Ug0okcPpLpfh6PwuV5nT94fV7uWuwfN2diMiDlH10NEaQ/9QvcMb2SHQ==@lists.linux.dev
+X-Gm-Message-State: AFq9FYLB3rujLUndrvTdiLqi+vAtu2URYUA8N1FQEG3qVw1L1mkkwRqo
+	5ia+9ZyWUjH61TWW45n4nqxfwKQhxcnGfp6b0X+vjzb6+FhE74Q1JB4Jh0bDsYXvJ4gb8zXanAX
+	TmZugo8LE3CQtWAbo77Jpoe3Ky8Hszu9k3XZUAIdfag==
+X-Gm-Gg: AYBFou3ZTtdP81nmBII7ZJuxcLFi94veJQu7deh08QGMEl02vyLoFNwMWudzqZlTW0/
+	kj3Z+wgQ88AQQV6pD+2hPrzRQxE2f/hw+vprBHXbSIvtMYQTA5BJcX/QwVB9hRsPxCHtd8bOjqS
+	2DE4wwhzwexD1tP5NQEB/5+0UhxHEvDZ6Or/jDYqJVZ2VTT7KyalFWELivkNzhzuF6BZYhiWyfm
+	NiJPtDpzeKtQ7d1TEdiVwABBLLzrm9OhXsh0k9/IuIETSHGKrAqAEmB9x8y/LaIP3ZXTKKFZB35
+	9T3wtfyX0dQCwVnNp0O4vyF8lLoSnaPPQESm70U9jyZg/BiFryWTYBoO9f3GXNF72db9vAZw40i
+	SX+22Y51cZOlY+0D9VKR7Y8nUdDtisQIt0p+Ewd/SZjbc76P1OGNAKpHULNzNnQNUgjM74S/CSk
+	Yj5CQJLecatqxEcPKZocXAM/uBUGmDMwAb7pNcuB0J/mxi0/UKik+Yhb0MpCplpJyVtJLfKOZ8J
+	ieQen8BWhSC6lHz3LHb+P0RhEN2F529mp361P+1
+X-Received: by 2002:a05:6000:41d2:b0:48b:4c8:7b07 with SMTP id
+ ffacd0b85a97d-48e264e28b3mr9537904f8f.52.1792658504281; Thu, 22 Oct 2026
+ 01:41:44 -0700 (PDT)
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Post: <mailto:virtio-comment@lists.linux.dev>
@@ -107,101 +106,134 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:virtio-comment+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <26e6efbe-abc0-452d-a682-611cf91e41b8@gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: bqKYGIB2x948fiNbwAFurmVkfcry_KOpHQVBMvY5fkY_1792653860
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261021180031.7175-1-peter.hilber@oss.qualcomm.com>
+ <d4a11a65-ebed-41c9-8482-cf0ec94dce79@gmail.com> <20261021154801-mutt-send-email-mst@kernel.org>
+ <87mrs62vzj.fsf@redhat.com> <26e6efbe-abc0-452d-a682-611cf91e41b8@gmail.com> <20261022032118-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20261022032118-mutt-send-email-mst@kernel.org>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Thu, 22 Oct 2026 11:41:17 +0300
+X-Gm-Features: AclHuK8fCMOcdgzPJZ1f03_ZSfVav4aS10_ugPymgocvqfcK2ay-Ws-xeg22o_U
+Message-ID: <CAAjaMXZgKGWL0dJJSh74Pf20EezY8zPOsSg1aNkp_ssvXuP7BQ@mail.gmail.com>
+Subject: Re: [PATCH v2] content: Reserve ID 52 for QPSFI device
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Demi Marie Obenour <demiobenour@gmail.com>, Cornelia Huck <cohuck@redhat.com>, 
+	Peter Hilber <peter.hilber@oss.qualcomm.com>, virtio-comment@lists.linux.dev, 
+	Jan Kiszka <jan.kiszka@siemens.com>, Stefan Hajnoczi <stefanha@redhat.com>, 
+	Trilok Soni <trilok.soni@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 22, 2026 at 03:07:41AM -0400, Demi Marie Obenour wrote:
-> On 10/22/26 00:35, Cornelia Huck wrote:
-> > On Wed, Oct 21 2026, "Michael S. Tsirkin" <mst@redhat.com> wrote:
-> > 
-> >> On Wed, Oct 21, 2026 at 03:25:31PM -0400, Demi Marie Obenour wrote:
-> >>> On 10/21/26 14:00, Peter Hilber wrote:
-> >>>> Reserve a device ID for QPSFI devices (Qualcomm Platform Subsystem
-> >>>> Firmware Interface). QPSFI devices expose functionality across SoC
-> >>>> subsystems through a common Virtio-based protocol. There are no plans to
-> >>>> standardize the devices.
-> >>>>
-> >>>> The Linux DCP display driver series is planned as the first user of this
-> >>>> device ID:
-> >>>>
-> >>>> https://lore.kernel.org/all/20261015-jshekhar-drm-msm-dcp-v1-v1-10-48aad0fe4f72@oss.qualcomm.com/
-> >>>>
-> >>>> Device ID 51 is already reserved for the Virtio HAB device:
-> >>>>
-> >>>> https://lore.kernel.org/virtio-comment/20260702140939.3535968-1-zeloren@qti.qualcomm.com/
-> >>>>
-> >>>> Signed-off-by: Peter Hilber <peter.hilber@oss.qualcomm.com>
-> >>>> ---
-> >>>>
-> >>>>     v2:
-> >>>>     
-> >>>>     - Rename the device from "Snapdragon device" to "QPSFI device".
-> >>>>     
-> >>>>     - Refer to DCP Linux driver patch as planned first QPSFI user.
-> >>>>     
-> >>>>     v1:
-> >>>>     
-> >>>>     - Was posted as "content: Reserve ID 52 for Snapdragon device":
-> >>>>     
-> >>>>       https://lore.kernel.org/virtio-comment/20260826115504.1955-1-peter.hilber@oss.qualcomm.com/
-> >>>>
-> >>>>  content.tex | 2 ++
-> >>>>  1 file changed, 2 insertions(+)
-> >>>>
-> >>>> diff --git a/content.tex b/content.tex
-> >>>> index 243ce2dde36b..7416939e67d3 100644
-> >>>> --- a/content.tex
-> >>>> +++ b/content.tex
-> >>>> @@ -805,6 +805,8 @@ \chapter{Device Types}\label{sec:Device Types}
-> >>>>  \hline
-> >>>>  50         &   Video encoder/decoder device \\
-> >>>>  \hline
-> >>>> +52         &   QPSFI device \\
-> >>>> +\hline
-> >>>>  \end{longtable}
-> >>>>  
-> >>>>  Some of the devices above are unspecified by this document,
-> >>>
-> >>> I think it would be best to have a single ID for vendor-specific devices.
-> >>> I believe most of the ID space has already been used, at least for virtio-PCI.
-> >>> -- 
-> >>> Sincerely,
-> >>> Demi Marie Obenour (she/her/hers)
-> >>
-> >> Sounds like a good idea to me. And then qualcomm can do what they
-> >> want, like check subsystem id for pci or whatever?
-> >> Only issue is there is no way to distinguish for mmio/ccw.
-> >> Maybe, add vendor specific id as first e.g. 8 bytes ro in the config space?
-> >> Peter?
-> > 
-> > Using some information in the config space looks like the most flexible
-> > way to me. Are we still happy with how the device ids are organized in
-> > general (i.e. when do we want a new one, and when do we want to extend
-> > an existing device?)
-> 
-> For a platform device like this, I'd prefer to pass the information out
-> of band.  After all, this device will only ever be found on Qualcomm
-> SoCs, and presumably the kernel knows exactly which PCI device is
-> supposed to be the QPSFI device.  This means that the kernel can just
-> special-case it.
+On Thu, Oct 22, 2026 at 10:24=E2=80=AFAM Michael S. Tsirkin <mst@redhat.com=
+> wrote:
+>
+> On Thu, Oct 22, 2026 at 03:07:41AM -0400, Demi Marie Obenour wrote:
+> > On 10/22/26 00:35, Cornelia Huck wrote:
+> > > On Wed, Oct 21 2026, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+> > >
+> > >> On Wed, Oct 21, 2026 at 03:25:31PM -0400, Demi Marie Obenour wrote:
+> > >>> On 10/21/26 14:00, Peter Hilber wrote:
+> > >>>> Reserve a device ID for QPSFI devices (Qualcomm Platform Subsystem
+> > >>>> Firmware Interface). QPSFI devices expose functionality across SoC
+> > >>>> subsystems through a common Virtio-based protocol. There are no pl=
+ans to
+> > >>>> standardize the devices.
+> > >>>>
+> > >>>> The Linux DCP display driver series is planned as the first user o=
+f this
+> > >>>> device ID:
+> > >>>>
+> > >>>> https://lore.kernel.org/all/20261015-jshekhar-drm-msm-dcp-v1-v1-10=
+-48aad0fe4f72@oss.qualcomm.com/
+> > >>>>
+> > >>>> Device ID 51 is already reserved for the Virtio HAB device:
+> > >>>>
+> > >>>> https://lore.kernel.org/virtio-comment/20260702140939.3535968-1-ze=
+loren@qti.qualcomm.com/
+> > >>>>
+> > >>>> Signed-off-by: Peter Hilber <peter.hilber@oss.qualcomm.com>
+> > >>>> ---
+> > >>>>
+> > >>>>     v2:
+> > >>>>
+> > >>>>     - Rename the device from "Snapdragon device" to "QPSFI device"=
+.
+> > >>>>
+> > >>>>     - Refer to DCP Linux driver patch as planned first QPSFI user.
+> > >>>>
+> > >>>>     v1:
+> > >>>>
+> > >>>>     - Was posted as "content: Reserve ID 52 for Snapdragon device"=
+:
+> > >>>>
+> > >>>>       https://lore.kernel.org/virtio-comment/20260826115504.1955-1=
+-peter.hilber@oss.qualcomm.com/
+> > >>>>
+> > >>>>  content.tex | 2 ++
+> > >>>>  1 file changed, 2 insertions(+)
+> > >>>>
+> > >>>> diff --git a/content.tex b/content.tex
+> > >>>> index 243ce2dde36b..7416939e67d3 100644
+> > >>>> --- a/content.tex
+> > >>>> +++ b/content.tex
+> > >>>> @@ -805,6 +805,8 @@ \chapter{Device Types}\label{sec:Device Types}
+> > >>>>  \hline
+> > >>>>  50         &   Video encoder/decoder device \\
+> > >>>>  \hline
+> > >>>> +52         &   QPSFI device \\
+> > >>>> +\hline
+> > >>>>  \end{longtable}
+> > >>>>
+> > >>>>  Some of the devices above are unspecified by this document,
+> > >>>
+> > >>> I think it would be best to have a single ID for vendor-specific de=
+vices.
+> > >>> I believe most of the ID space has already been used, at least for =
+virtio-PCI.
+> > >>> --
+> > >>> Sincerely,
+> > >>> Demi Marie Obenour (she/her/hers)
+> > >>
+> > >> Sounds like a good idea to me. And then qualcomm can do what they
+> > >> want, like check subsystem id for pci or whatever?
+> > >> Only issue is there is no way to distinguish for mmio/ccw.
+> > >> Maybe, add vendor specific id as first e.g. 8 bytes ro in the config=
+ space?
+> > >> Peter?
+> > >
+> > > Using some information in the config space looks like the most flexib=
+le
+> > > way to me. Are we still happy with how the device ids are organized i=
+n
+> > > general (i.e. when do we want a new one, and when do we want to exten=
+d
+> > > an existing device?)
+> >
+> > For a platform device like this, I'd prefer to pass the information out
+> > of band.  After all, this device will only ever be found on Qualcomm
+> > SoCs, and presumably the kernel knows exactly which PCI device is
+> > supposed to be the QPSFI device.  This means that the kernel can just
+> > special-case it.
+>
+> Yes but we are discussing making this id a general "vendor specific
+> device", as opposed to a "qualcomm device".
 
-Yes but we are discussing making this id a general "vendor specific
-device", as opposed to a "qualcomm device".
-Could you share, e.g. if this device has config space, and whether
-reading X bytes at offset 0 of this device is harmless, for some value
-of X?
+Is there a reason why a generic VIRTIO_ID_VENDOR wouldn't work?
 
-> Would it make sense to put this in the ACPI tables or device tree?
+Instead of adding more and more IDs for different devices that will
+never been upstreamed.
 
-As long as it's vendor specific.
+Then, a kernel can discover all vendor devices when enumerating the
+transport, ignore them unless it knows specifically about them through
+ACPI or device tree.
 
-> -- 
-> Sincerely,
-> Demi Marie Obenour (she/her/hers)
+It doesn't make sense to me that HAB/QPSFI need an ID when they are
+unusable to anyone except for qualcomm kernel drivers so maybe we
+should require that an ID allocation always needs an explicit
+justification (i.e. "the spec will be upstreamed", or "we cannot use
+VIRTIO_ID_VENDOR because X/Y/Z").
 
 
 
+--=20
+Manos Pitsidianakis
+Emulation and Virtualization Engineer at Linaro Ltd
