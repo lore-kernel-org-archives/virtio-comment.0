@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792652840;
-	b=ceKAd+OCVk4ni7HMI2KoXRqsz7Oc0A2pttthtXmdZFGMP/xDanpHfQ/1C0s8aubTlQnL
-	 Cl2UiVLkdm1HK90384Oc1j2ONzh2GAuoC3VBMsDpraP9TOry339e48Dbnkd+TL/T3uS2h
-	 2z6PkwF+orGmrFnzR9+p0xHmhPxKiAiq/gVgcUPDImeifQCsw8VI3jTXKd3FuDO8e9RDY
-	 vj74vnS3NHMYDXL381H/FFU9MeNeHuq41DpxuXv95vG+t4Y4eNaaPXOaqE51rWC/OP802
-	 361gzFK9k0zwHUz+p/dljVykwXEINfavRfvOTPqaCqY2PnTWAOcnG0QevymhGz1P1hw==
+	t=1792652868;
+	b=tgvgx7Hl4YVF1Dk6b+ADwsXr4mDE7HuhzuHnH9IHFzgRtoSzlDhncWzglg9pgCKQkRQa
+	 QGm0G+tVn4WDYm90fxF8CYJb6LEVYG2m0o7eA2Kp/KB26TT6rBcfKv9WArQiHCtnhe+nQ
+	 V5ayItGTWQi5DQdcMWgsJj2TavLRnCumMRxrAcLdVDwDMlMfy+lmvlmK6URVHbvdYNkti
+	 FVEuQ0bSUuE9fao/oL6rcyqHO/Vkx9rwUPgzC4FTzhpoztws8bLuI4h6v/gqz0vvdvWCp
+	 NrPk1JM/V8TBH68M+5YFoWQzm9tvYHG31GBTQ10DWNATXFI6hG8NDuJ+i/KGkAPTlQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792652840;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792652868;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:References:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type;
-	bh=UiUOEAnoYvGSruMUcMm4XQ4GJL/ShCLlnZ5yq4RxR4o=;
-	b=vhdmr6POzaH2q0gtykpw30XcWWSFmNk7/BbqT4WMx8dWGwGkc+RuMv4Tnau4mQPS2x8d
-	 oAOQw6rydzBfmfcJskoFk71szseeiH0mPMksdynbTB+sCMOoW7QqoeNgBs55FFkhwEEVX
-	 3UZQwbH35rWLQHTCvBZ7QKO9i5TKWnQYirOqitXYlCR0Q4eBRGWvIcEI6xtqhEBdz+IOL
-	 y/61cXeqUYBmGSTvvm8rK09crm0nwZmlK10frORvj58sDDlOIWTIDg9qAT1Ge1d8KjTbK
-	 kxRP40cAdbk3pbv6PyPUD0c+i7Gpo8XOUXM9IqrVrZnkMQys+d6ss7hZLZorditSscg==
+	bh=6aPDk7J3MEkbGraFJP0g1LEVOgcttgZaX8CKrmbNGLo=;
+	b=oqUqAOoU0pl5/5Xy/6/GKPYEZPUxiRpC8QGq7GZQcjF+rQoJJSkGGs4cHZsZNXRnhJ5G
+	 Q27iS9gcs7DHZ8S7UjpdFLvH1djYnCWmBpK3pFQd7FSajR+IMSHGLKsH3/DmltTeb8Ga/
+	 3H//3UcigsBe/9A55P1O14M+wWXV9UJNuWHqYftCDcB4QgXfCihVelQDkUOtrjSaTQIzF
+	 VWVc+ydfrzvgICAn83pG1rNoOBZ8R9sf47U0cm9rrg4W1/g3KBY1po698aGlmO7Q6PFFV
+	 u5YO8YCFxtblh12okr77bulL6ir+G082rRIGIJmDpiOv7d4e5hhFUHqSVq7EaH5MOPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SsHjuXwp;
-	arc=none smtp.remote-ip=74.125.224.48
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=q20UWjr4;
+	arc=none smtp.remote-ip=209.85.128.172
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC5C606A319
-	for <virtio-comment@lists.linux.dev>; Thu, 22 Oct 2026 07:07:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDC5C606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B734606A319
+	for <virtio-comment@lists.linux.dev>; Thu, 22 Oct 2026 07:07:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B734606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SsHjuXwp
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67989a98f8bso999789d50.2
-        for <virtio-comment@lists.linux.dev>; Thu, 22 Oct 2026 00:07:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=q20UWjr4
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b0d63f60bcso13392797b3.3
+        for <virtio-comment@lists.linux.dev>; Thu, 22 Oct 2026 00:07:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792652839; x=1793257639; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1792652867; x=1793257667; darn=lists.linux.dev;
         h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=UiUOEAnoYvGSruMUcMm4XQ4GJL/ShCLlnZ5yq4RxR4o=;
-        b=SsHjuXwpcXL4ORahVkLEXqX+qWTcJFCTVy1XEFRFYkZkMlOLZDJkAQmbxZBytgcQ/F
-         wxTWF89Q01HL1gYsfKMePNybi6iK5g9JOnV47SaGvUQ2kY5IGsaXscREANddKHluEn86
-         CWNSG4u29CB6ooxL8J689Yjx+jm9eSXSduB6vbaU/r5yWaIJmQDnOg7dlqTxGBiocbcL
-         oy4Fh8F74xPwabz1si9Pv9PkQ/78aqLcP6OsoHjaj9nlhewGpeMyuow5sjBJ+TWvjiY2
-         VaNdHJ916Uc11oPm5Qdx0p1ZvXfOKv04DA1zGsHHx5+1xyWoeWJlBnvdrOLb6z+x/lCG
-         Wefg==
+        bh=6aPDk7J3MEkbGraFJP0g1LEVOgcttgZaX8CKrmbNGLo=;
+        b=q20UWjr4BOhejldyrEDsOPhKef322nQCE54slWM3gueXQWOl9BvlmT/yk+1u4YMl5z
+         iqjEooAvSeXc+7Buo2QUQ4zyTRtKvKeJBPYkxgt6DPK486wsf3MJpUQdMd4PvubZ5Z3e
+         xTtqIBGQVCNWyXEO3BMvMVQbxap/s7INIgw7ABub3UlR/M5ut1Wn15eFXCOFpAGMGvuZ
+         Y6GIH63vP7mtw3SBqIcyWqVje/HpMYi263N636kjZNppw7OEB4VRrbgsV9Jzg4FH3LfT
+         +CkYiAX3vc6BUmu2R+ycVibyzyVVFZ8FGiJWV0jB7L5iJI6ytVZE6qUjB8cNikN1n9NK
+         HMMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792652839; x=1793257639;
+        d=1e100.net; s=20260707; t=1792652867; x=1793257667;
         h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UiUOEAnoYvGSruMUcMm4XQ4GJL/ShCLlnZ5yq4RxR4o=;
-        b=02F/PcX0rGJU9tcyIofDUwY7TIWMjsYM4Jw41JZbtE0ioRSuOBfoqJx188NB0M1p4L
-         pOMCzTN4+1J6Db1EyVLIKLO3bGEg2SuYr36Rv/Bj6YqzXFhzljAXrraZ/eco+2qL7/XS
-         ivsXlh/AzQAJhxDw8CXg/0Sts+mzuQKr7yadIQS21lKHjEyuU00kzMU4PODjg/QKnFRM
-         zQlvysjo/CWwy+Wswmgnmp12af98SxPgqP8fRHprplXbB/Kmn58o8HIxRVDR1Lh+yikl
-         4N7Risk764+swPRM5CVGCzGg3A9RyCoEuL63yQXOAwqpWsM0no5Mh+4XbyNE9xRMby8X
-         BieA==
-X-Forwarded-Encrypted: i=1; AKwUvBwesjkHhVFZ2AbNfRy7pmQQEAfH48jjcCjA5zxVSYgY0f+5nF7n60zbI5yNIL+fFt8RyQXQ3YpHDKwJoA/Niw==@lists.linux.dev
-X-Gm-Message-State: AFq9FYJtzhLEtFGj+56bsHxYxYEIXnTMdv92/QQFxODcaExgx6LfhFHO
-	UVNXI/OMoefUXSL/0dZNrteHYXRInJedMvuTKIZznjdnzCHotPjew96N
-X-Gm-Gg: AYBFou3t1sA9OBj1ZZRBDvPZDNWXo0j7qMwd4HJH3P1yS+iObbxWrGmAzGled5KaVyc
-	ucZ7eTuy2MJNfkkeCYMDzzG24u1++PVp4SzqENk5Xx5Yhj2+vu5VhioKytqCboBi3oEjIYc2Ji6
-	JGX9gjgFrq+Nq1COFpP/mSv1LNn/aGp8ikSjiJ2f8nk0UcxxvcttvKSW1AqhA9n8Qv4+bGYJEQl
-	4WC3X8YEVPlTx9nL8MZX4ErTTo8qj+dCyiyJcV2s5j18eWah5e5Sj0gmGWSRXCxEBoreedE3nA+
-	RUqUD9GcLIs3vFmcTI8Rgz8tE3HWRcLl8ze/n25oT8u7QZs8/3qUHuYXqQj+ZR9rKDt6sr+buVV
-	IvvStJPlQ3WC0YgmSqGTGzP9uQZaOyBafbAo2eN6sLTYrTZthwAzgPa3T5FfHZZPXH8dDvzhwRF
-	AKgVt1c9lAGBPnQWHemZWRU0D7wPUa2yBxiaeu3bz8dB4Ej63dAp+cIQFypJ/ovc8M3gtUXx40z
-	GyLaVnOAkK0YTgqHHFbC7qYUtvyng7ILTmah6id83HlVBasSD37DRXlzAz/
-X-Received: by 2002:a53:df83:0:b0:677:cbfc:be34 with SMTP id 956f58d0204a3-67a0e538c1amr1672831d50.66.1792652838750;
-        Thu, 22 Oct 2026 00:07:18 -0700 (PDT)
+        bh=6aPDk7J3MEkbGraFJP0g1LEVOgcttgZaX8CKrmbNGLo=;
+        b=gq+1GlccwB2jkKrpFghovYk7b+ROkWGxO5nAbec3dfE/bPY8zboy2oapd0tH9zCo0R
+         lFwMcfkFD8SJoiMEsQNhB/8VfunYdoV1m1BYhRIA8rx59K8ok+sSs69w7Dl4sNDS4gev
+         UvaI/edd1SdfB4iDf48a1Xz+Q8FJgPh52NaYgD4mwUGE2ft+JJQ4FYaKh1+LEhC3FuU2
+         D+7mp3NMjR5k4wjWUv14JlchNM5IYnpzAOHxPrjxmvzDcOgjnzVo+TjDGyAEDS1Ivql0
+         TZeIEvOdCqFGnJPvmQBnytDY8ozus6QalFpPJ9GIZ4lL1oe81RvkXB7da4mge3A9gUvm
+         k3hA==
+X-Forwarded-Encrypted: i=1; AKwUvBxyqRpYOHGwdjY1zFDCdEc7zLv0BGBRtY/Ya6IxwQTUMU/ZhmO29QJMsgnxBgeBPkNeczN97UUm583CaeBEmQ==@lists.linux.dev
+X-Gm-Message-State: AFq9FYKHs6H0KLWXJ30bf43PLzm2RuFTm/FcT5DZ1naGjkMtUWP9nG7D
+	Q3MNCFE8/nRr8hB/+fKsKSXX2il7z+8UspfdHtsy0RvhFjwg2huPLI6T
+X-Gm-Gg: AYBFou2XbqhPMEBk0n3E3+hFDhlYJkcdedjrAwmETYit4H7dUpID0rfskORfIuUqxAX
+	akgkeClSBV4cHVimMj9urfGelhD0ZquRaAH3xhImgv73/a1KomtKA1k7Qh+p7P3/8EO6BZ7wlRV
+	GdUiH4g/dyshey6WBvBIsux/1FEC8u7GQ/+HAm4eOcxidWbZ9VGMv45dlgjxXv4SFi9V9Yrn7X4
+	92zOG7tzovcaNTTCyxItzL3OeJNmNWLrcAlysYI1QV4IUv76KGxg93LW2qQPRPAT4wZIfsTgWh+
+	Yv3ziKgaiRNV+QE/OXTijDx5wMQWGZNFqt/WwXMB75eEs3DtYt0PN1VF+TeBqBXp3FWArkZ0mhh
+	oS2fpqEEH7Ak2AyqQ8mxZ8gT/VWsPAvuUTIY/4Us8BljYSMjwa5D6n68IVpcgfQZXF4Ym1QN+cL
+	PIuy1osQoVqIh13H2AsBDy+xgnuTn4DmlhasPq3UQaM2TBQO5imtSsnDqKfKmxustt0sQBUBBVd
+	DpqBpeGhcDFzIH8PhCgvTknixyBHYW9/CREsAlmpykhCnRx2x/TnwBNBMI9
+X-Received: by 2002:a05:690c:7283:b0:8a0:76e8:c738 with SMTP id 00721157ae682-8b13394e7f8mr28397987b3.0.1792652867286;
+        Thu, 22 Oct 2026 00:07:47 -0700 (PDT)
 Received: from [10.138.10.6] ([149.102.242.31])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a0e491a8dsm2347330d50.8.2026.10.22.00.07.15
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1301b77d0sm22050397b3.45.2026.10.22.00.07.44
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 00:07:16 -0700 (PDT)
-Message-ID: <cb8fa241-b02b-425f-89e2-bdb3d3c6bf30@gmail.com>
-Date: Thu, 22 Oct 2026 03:07:11 -0400
+        Thu, 22 Oct 2026 00:07:45 -0700 (PDT)
+Message-ID: <26e6efbe-abc0-452d-a682-611cf91e41b8@gmail.com>
+Date: Thu, 22 Oct 2026 03:07:41 -0400
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Post: <mailto:virtio-comment@lists.linux.dev>
@@ -90,12 +90,15 @@ List-Owner: <mailto:virtio-comment+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] transport-pci: Allow storing the configuration in the BAR
-To: Alistair <alistair@alistair23.me>, alistair23@gmail.com,
- virtio-comment@lists.linux.dev
-References: <20261002010456.2053759-1-alistair.francis@wdc.com>
- <1f656ebb-b547-41f3-9b4f-4f39b3836f37@gmail.com>
- <fac44696a94a41a715a0f725cafb44a54d2eef4c.camel@alistair23.me>
+Subject: Re: [PATCH v2] content: Reserve ID 52 for QPSFI device
+To: Cornelia Huck <cohuck@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Peter Hilber <peter.hilber@oss.qualcomm.com>,
+ virtio-comment@lists.linux.dev, Jan Kiszka <jan.kiszka@siemens.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>,
+ Trilok Soni <trilok.soni@oss.qualcomm.com>
+References: <20261021180031.7175-1-peter.hilber@oss.qualcomm.com>
+ <d4a11a65-ebed-41c9-8482-cf0ec94dce79@gmail.com>
+ <20261021154801-mutt-send-email-mst@kernel.org> <87mrs62vzj.fsf@redhat.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -141,25 +144,28 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <fac44696a94a41a715a0f725cafb44a54d2eef4c.camel@alistair23.me>
+In-Reply-To: <87mrs62vzj.fsf@redhat.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------0ocUKR0oL215TWymHLPpvC9X"
+ boundary="------------YGrL1tIk0QQJ7c2LrTZGkPJb"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------0ocUKR0oL215TWymHLPpvC9X
-Content-Type: multipart/mixed; boundary="------------G3RU5n0Z0qizlUdBXXRgdScc";
+--------------YGrL1tIk0QQJ7c2LrTZGkPJb
+Content-Type: multipart/mixed; boundary="------------tlldla5YVuAzGJUi13G0R3Lo";
  protected-headers="v1"; hp="clear"
-Message-ID: <cb8fa241-b02b-425f-89e2-bdb3d3c6bf30@gmail.com>
-Date: Thu, 22 Oct 2026 03:07:11 -0400
+Message-ID: <26e6efbe-abc0-452d-a682-611cf91e41b8@gmail.com>
+Date: Thu, 22 Oct 2026 03:07:41 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] transport-pci: Allow storing the configuration in the BAR
-To: Alistair <alistair@alistair23.me>, alistair23@gmail.com,
- virtio-comment@lists.linux.dev
-References: <20261002010456.2053759-1-alistair.francis@wdc.com>
- <1f656ebb-b547-41f3-9b4f-4f39b3836f37@gmail.com>
- <fac44696a94a41a715a0f725cafb44a54d2eef4c.camel@alistair23.me>
+Subject: Re: [PATCH v2] content: Reserve ID 52 for QPSFI device
+To: Cornelia Huck <cohuck@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Peter Hilber <peter.hilber@oss.qualcomm.com>,
+ virtio-comment@lists.linux.dev, Jan Kiszka <jan.kiszka@siemens.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>,
+ Trilok Soni <trilok.soni@oss.qualcomm.com>
+References: <20261021180031.7175-1-peter.hilber@oss.qualcomm.com>
+ <d4a11a65-ebed-41c9-8482-cf0ec94dce79@gmail.com>
+ <20261021154801-mutt-send-email-mst@kernel.org> <87mrs62vzj.fsf@redhat.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -205,267 +211,122 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <fac44696a94a41a715a0f725cafb44a54d2eef4c.camel@alistair23.me>
+In-Reply-To: <87mrs62vzj.fsf@redhat.com>
 
---------------G3RU5n0Z0qizlUdBXXRgdScc
+--------------tlldla5YVuAzGJUi13G0R3Lo
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 10/22/26 00:27, Alistair wrote:
-> On Fri, 2026-10-02 at 01:48 -0400, Demi Marie Obenour wrote:
->> On 10/1/26 21:04, alistair23@gmail.com=C2=A0wrote:
->>> From: Alistair Francis <alistair.francis@wdc.com>
+On 10/22/26 00:35, Cornelia Huck wrote:
+> On Wed, Oct 21 2026, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+>=20
+>> On Wed, Oct 21, 2026 at 03:25:31PM -0400, Demi Marie Obenour wrote:
+>>> On 10/21/26 14:00, Peter Hilber wrote:
+>>>> Reserve a device ID for QPSFI devices (Qualcomm Platform Subsystem
+>>>> Firmware Interface). QPSFI devices expose functionality across SoC
+>>>> subsystems through a common Virtio-based protocol. There are no plan=
+s to
+>>>> standardize the devices.
+>>>>
+>>>> The Linux DCP display driver series is planned as the first user of =
+this
+>>>> device ID:
+>>>>
+>>>> https://lore.kernel.org/all/20261015-jshekhar-drm-msm-dcp-v1-v1-10-4=
+8aad0fe4f72@oss.qualcomm.com/
+>>>>
+>>>> Device ID 51 is already reserved for the Virtio HAB device:
+>>>>
+>>>> https://lore.kernel.org/virtio-comment/20260702140939.3535968-1-zelo=
+ren@qti.qualcomm.com/
+>>>>
+>>>> Signed-off-by: Peter Hilber <peter.hilber@oss.qualcomm.com>
+>>>> ---
+>>>>
+>>>>     v2:
+>>>>    =20
+>>>>     - Rename the device from "Snapdragon device" to "QPSFI device".
+>>>>    =20
+>>>>     - Refer to DCP Linux driver patch as planned first QPSFI user.
+>>>>    =20
+>>>>     v1:
+>>>>    =20
+>>>>     - Was posted as "content: Reserve ID 52 for Snapdragon device":
+>>>>    =20
+>>>>       https://lore.kernel.org/virtio-comment/20260826115504.1955-1-p=
+eter.hilber@oss.qualcomm.com/
+>>>>
+>>>>  content.tex | 2 ++
+>>>>  1 file changed, 2 insertions(+)
+>>>>
+>>>> diff --git a/content.tex b/content.tex
+>>>> index 243ce2dde36b..7416939e67d3 100644
+>>>> --- a/content.tex
+>>>> +++ b/content.tex
+>>>> @@ -805,6 +805,8 @@ \chapter{Device Types}\label{sec:Device Types}
+>>>>  \hline
+>>>>  50         &   Video encoder/decoder device \\
+>>>>  \hline
+>>>> +52         &   QPSFI device \\
+>>>> +\hline
+>>>>  \end{longtable}
+>>>> =20
+>>>>  Some of the devices above are unspecified by this document,
 >>>
->>> Most physical PCI endpoint capable PCIe controllers do not allow
->>> modifying the
->>> capability list, and thus are unable to advertise the Common
->>> configuration
->>> capability.
->>>
->>> This results in physical PCIe endpoints implementing virtio-pci
->>> falling
->>> back to the legacy interface and then needing hacks to deal with
->>> DMA
->>> issues [1].
->>>
->>> One solution to this is to allow the device to store the
->>> configuration
->>> data in the BAR [2]. This can be used as a fallback mechanism so we
->>> don't break any existing setups. New drivers and devices can
->>> attempt
->>> to read the configuration from the capabilities first and then
->>> fallback
->>> to the BAR.
->>>
->>> We also need to add a go_busy field so that the driver and device
->>> have a
->>> basic message box to communicate. This is required for
->>> device_feature_select for example.
->>>
->>> 1: https://lkml.org/lkml/2026/9/1/185
->>> 2: https://lkml.org/lkml/2026/9/1/2370
->>>
->>> Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
->>> ---
->>> =C2=A0transport-pci.tex | 85
->>> +++++++++++++++++++++++++++++++++++++++++++++++
->>> =C2=A01 file changed, 85 insertions(+)
->>>
->>> diff --git a/transport-pci.tex b/transport-pci.tex
->>> index 95b08b8..7d09169 100644
->>> --- a/transport-pci.tex
->>> +++ b/transport-pci.tex
->>> @@ -262,6 +262,83 @@ \subsection{Virtio Structure PCI
->>> Capabilities}\label{sec:Virtio Transport Option
->>> =C2=A0fields provide the most significant 32 bits of a total 64 bit
->>> offset and
->>> =C2=A0length within the BAR specified by \field{cap.bar}.
->>> =C2=A0
->>> +\subsubsection{Virtio Structure Capabilities in a memory
->>> BAR}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI
->>> Device Layout / Capabilities in a memory BAR}
->>> +
->>> +Some devices, for example implementions using physical PCI
->>> endpoint
->>> +controllers, are unable to add capabilities to the existing PCI
->>> capability
->>> +list. This means they are unable to advertise the virtio structure
->>> +capabilities as described above.
->>> +
->>> +In this case a device MAY instead publish the same capability
->>> structures in
->>> +one of its memory BARs, at offset VIRTIO_PCI_CAP_BAR_OFFSET (0),
->>> prefixed by
->>> +the following header:
->>> +
->>> +\begin{lstlisting}
->>> +#define VIRTIO_PCI_CAP_BAR_OFFSET 0
->>> +#define VIRTIO_PCI_CAP_BAR_MAGIC=C2=A0 0x74726976 /* "virt" */
->>> +#define VIRTIO_PCI_CAP_BAR_VERSION_ONE=C2=A0 1
->>> +
->>> +struct virtio_pci_bar_cap_hdr {
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 le32 magic;=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* VIRTIO_PCI_C=
-AP_BAR_MAGIC */
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 hdr_ver;=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Version of t=
-his header */
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 num_caps;=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Number of capabili=
-ty entries
->>> that follow */
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 go_busy;=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Indicates to=
- start an operation
->>> and when it's ongoing */
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u8 padding[1];
->>> +};
->>> +\end{lstlisting}
->>> +
->>> +The fields are interpreted as follows:
->>> +
->>> +\begin{description}
->>> +\item[\field{magic}]
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Magic value that identifi=
-es the presence of capabilities
->>> in this BAR.
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Must be set to VIRTIO_PCI=
-_CAP_BAR_MAGIC.
->>> +
->>> +\item[\field{hdr_ver}]
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 The version of this heade=
-r (virtio_pci_bar_cap_hdr),
->>> currently
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 only version VIRTIO_PCI_C=
-AP_BAR_VERSION_ONE is supported.
->>> +
->>> +\item[\field{num_caps}]
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 The number of struct virt=
-io_pci_cap entries that follow
->>> this header.
->>> +
->>> +\item[\field{go_busy}]
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 The driver writes VIRTIO_=
-PCI_CAP_BAR_VERSION_ONE to this
->>> field to indicate
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 that the device should ta=
-ke action. The device is
->>> considered busy until
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 the driver reads this as =
-0.
->>> +\end{description}
->>> +
->>> +The header is followed by \field{num_caps} struct virtio_pci_cap
->>> entries
->>> +(see \ref{sec:Virtio Transport Options / Virtio Over PCI Bus /
->>> Virtio Structure PCI Capabilities}),
->>> +the first of which begins immediately after struct
->>> +virtio_pci_bar_cap_hdr.
->>> +
->>> +The entries are packed one immediately after another. Each entry
->>> is interpreted
->>> +the same as if they are in configuration space and locate the
->>> +corresponding structure within a memory BAR.
->>> +
->>> +Note that the \field{cap_vndr} and \field{cap_next} fields are not
->>> used in
->>> +this case.
->>> +
->>> +For read-write communication with the device, for example
->>> \field{device_feature_select},
->>> +the driver should set the value of the field then write the header
->>> version to
->>> +\field{go_busy}. This indicates to the device that an action is
->>> required.
->>> +
->>> +The device will then read the fields, take action according to the
->>> sections above
->>> +and when complete clear the \field{go_busy}. The driver MUST NOT
->>> read or write
->>> +other fields until \field{go_busy} has been cleared by the device.
->>> +
->>> +Note the driver can write to multiple fields before triggering
->>> \field{go_busy}. The
->>> +device MUST then take all actions before clearing \field{go_busy}.
->>> +
->>> +A device that publishes capabilities in a memory BAR MUST place
->>> struct
->>> +virtio_pci_bar_cap_hdr at offset VIRTIO_PCI_CAP_BAR_OFFSET within
->>> a memory
->>> +BAR.
->>> +
->>> +A device MUST follow struct virtio_pci_bar_cap_hdr with
->>> \field{num_caps} struct virtio_pci_cap entries.
->>> +
->>> +The device MUST provide the same capabilities it usually would,
->>> just in the memory
->>> +BAR.
->>> +
->>> =C2=A0\drivernormative{\subsubsection}{Virtio Structure PCI
->>> Capabilities}{Virtio Transport Options / Virtio Over PCI Bus /
->>> Virtio Structure PCI Capabilities}
->>> =C2=A0
->>> =C2=A0The driver MUST ignore any vendor-specific capability structure=
-
->>> which has
->>> @@ -270,6 +347,14 @@ \subsection{Virtio Structure PCI
->>> Capabilities}\label{sec:Virtio Transport Option
->>> =C2=A0The driver SHOULD use the first instance of each virtio structu=
-re
->>> type they can
->>> =C2=A0support.
->>> =C2=A0
->>> +The driver SHOULD first attempt to use the virtio structure
->>> capabilities in
->>> +the PCI configuration space. If no common configuration capability
->>> is
->>> +present, the driver MAY scan each memory BAR at offset
->>> +VIRTIO_PCI_CAP_BAR_OFFSET for a struct virtio_pci_bar_cap_hdr
->>> whose
->>> +\field{magic} equals VIRTIO_PCI_CAP_BAR_MAGIC. If found, use the
->>> +capability entries published there as described in
->>> +\ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI
->>> Device Layout / Capabilities in a memory BAR}.
->>> +
->>> =C2=A0The driver MUST accept a \field{cap_len} value which is larger
->>> than specified here.
->>> =C2=A0
->>> =C2=A0The driver MUST ignore any vendor-specific capability structure=
-
->>> which has
+>>> I think it would be best to have a single ID for vendor-specific devi=
+ces.
+>>> I believe most of the ID space has already been used, at least for vi=
+rtio-PCI.
+>>> --=20
+>>> Sincerely,
+>>> Demi Marie Obenour (she/her/hers)
 >>
->> How is the driver supposed to know that the memory BAR contains that
->> structure, and not unrelated data that happens to be correctly
->> formed?
+>> Sounds like a good idea to me. And then qualcomm can do what they
+>> want, like check subsystem id for pci or whatever?
+>> Only issue is there is no way to distinguish for mmio/ccw.
+>> Maybe, add vendor specific id as first e.g. 8 bytes ro in the config s=
+pace?
+>> Peter?
 >=20
-> Sorry for the delay, I lost this email while I was travelling.
->=20
-> I don't have an answer here. The driver is supposed to search for
-> VIRTIO_PCI_CAP_BAR_MAGIC at offset VIRTIO_PCI_CAP_BAR_OFFSET, which
-> could exist independently.
->=20
->>
->> From what I can tell, feature bit 31 is currently not used for any
->> purpose.=C2=A0 Setting it could be used to indicate that the structure=
+> Using some information in the config space looks like the most flexible=
 
->> is present.
->=20
-> Do you mean have the driver probe for feature bit 31 (after searching
-> for VIRTIO_PCI_CAP_BAR_MAGIC at offset VIRTIO_PCI_CAP_BAR_OFFSET) to
-> confirm that it is supported?
->=20
-> Alistair
+> way to me. Are we still happy with how the device ids are organized in
+> general (i.e. when do we want a new one, and when do we want to extend
+> an existing device?)
 
-I meant having a feature bit that is compatible with the legacy
-interface, but which tells the driver that the device is really
-a modern driver with its common configuration capability in a
-specified BAR.
+For a platform device like this, I'd prefer to pass the information out
+of band.  After all, this device will only ever be found on Qualcomm
+SoCs, and presumably the kernel knows exactly which PCI device is
+supposed to be the QPSFI device.  This means that the kernel can just
+special-case it.
+
+Would it make sense to put this in the ACPI tables or device tree?
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
 
---------------G3RU5n0Z0qizlUdBXXRgdScc--
+--------------tlldla5YVuAzGJUi13G0R3Lo--
 
---------------0ocUKR0oL215TWymHLPpvC9X
+--------------YGrL1tIk0QQJ7c2LrTZGkPJb
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmrZth8ACgkQszaHOrMp
-8lO79w//SNmW9CwRjAX/u8z1DkZdT/a1dWbYAvMvc8AePQlLC6Y4WmzVEwP+kam4
-CrYCc+MI0Eh0ltiPIFOTJYkzf/PBfVhaI2S0EXyiuTGQFD5lxf9rkXGtDnX1ZjQi
-nI0sWhsvLVgOYjteeq6zL5peocaMPB6cxLKa98uhY529D9PlmgZti2iEO5yNebHf
-3H5wMo7DR2C7bn8yUJGUAL3xYkGrUUd4kKZ5xzmH4B7Agqnjj3wHtLNnEZ/f6Sbe
-EjSPRXy6Fh01XSpgdgNGy5cQEfxMsSlDBs22B/7Hw4YadAJmR4HOohRqq+QKG4gR
-iNFXXUHTU0Fn6BWnyrx01hVKtshNzwRmnr+WVgfAh/GIV7rN61rnRyB3hF3ylZXd
-Qi82Hxp8YjoNPxXU5YFIUHxkAPZgaSBlD2Dn5+wuCGsyLn8qE5TceDuUEJtC4O+I
-MDryozln2jOAEPZvrX9Own8G2XZAhG5FA8dwIpA80Fn+vLDrTITw02kdhnJnzGuX
-/XISmDh7uuQEgrQE+XRDsIun48COleqoFuI0SiGmn+JSEH2N8bqX+gHKh9N17z8z
-uWq5AetCEE70SXR99WBQoor1oV/5OMU3zRVM9Yw8KLh+L/3zKbnxU49y8ITX42gB
-ILkYeovwtxW5e8Ivofz3Te46ElB8IkbB9wAvPHiGKYs9nEpsesA=
-=caBZ
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmrZtj4ACgkQszaHOrMp
+8lNhvRAAkhJjgE6AExXFfX8hgTF35frF1M6MeZdczhoPFCJJ0cBaH+PHG8GFnInf
+sM+VHJKrhk6/+vmR+j7Hy19VlCdUcpDBOsbemOxppNB9UGYipeuyeGaxC0nSDOnH
+1hPs2YTcK5bnxLr98OBDfu1bEKTb/q1UyqN56t7cqE1Cdi43F9YqmIf7Uq76iA9u
+suiYoViJBvcDbGhbEbu2wn48m4qrUwv4N95btHNuqrBnFHytAwtCQvbL5DHldU2A
+b8rZbHn5DDiGdSgeFxLFma6/1xv62ukL4ciVFs+svVn+CQAWOhsn6hOUGthTdbLX
+usEIF/r1FKfux0BJigcAFPmyQgDZSUWPi2kPCr9lSNZGOCq/Qo8GIR0xPvYioPRH
+vaPN6imtHUXROzVoopjaEg9Vs4L/Aom33pbC6W5YA+P3Zt2/hEkbT2ZqYALQ/hEp
+8xjg0NvpPCPtdxJLuBB+DivnCvhKv7xqwzcb7cWzwILw9VavgGWGo7/OcqDxuR8e
+NUOKmRfyxk6XCLpeWJ7GQM6WY6Y+zOl2mgTZkmjE0T2J2NOgTVr+y1iBmpS7N3vj
+vu6otQ6QeMyvZynn+esAW3ozfQxF9x4Q0Y/BdrK6kk65y0pgdUcvtRidQ5FD9tlc
+Pm4qMDrHOJVXSSrHenwIA9+bqArRcsW7GDSDi2A8RH+ddD2NMWA=
+=QXSa
 -----END PGP SIGNATURE-----
 
---------------0ocUKR0oL215TWymHLPpvC9X--
+--------------YGrL1tIk0QQJ7c2LrTZGkPJb--
