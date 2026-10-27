@@ -1,113 +1,117 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793092200;
-	b=jH7FAAKxHyPUoeo9CYqb8M8FzM2lslhBQ1bXpiQUwSvbawfw4HgwMOdKRAEcV1f9fqQp
-	 mfsdWMDywYHDlOe+5t8ixblpLREE9hDfUPTXyWJedqZKfkJvrf9Nlqpy6lNcIQYT7wMAN
-	 i+qDvlJ+SOHdaprv+JEOSON9JUIXthx3N/BQ2pFCGRJnr5FHatcHdsjrvZfc2rE+s1DSg
-	 zWKuPbHvLCJmT+cN7HbVgMR07LQvFJuCg0y8YkMTtKfS7Oo4vuCNrEcCdtiehAKjw2uz7
-	 2vgdkeVU+fyJIMByBb43gH8MiGq3UxVBFwB3IcBnelUzxm+WRzpG6z8Bu+PGoefy6Lw==
+	t=1793092202;
+	b=SELApRoSUO25EqtKyGjw/lPMoVOB8MEm7Z0rGfC1XBszx7LDFWhuQbdr9Rag7ZJGh4h9
+	 MeN/QgAqgXICrGUEi+Mrkb6meBC8ZrhJMoWG0tQ1jdciic+fZkdfvW5ycpo5jmjVGjCP8
+	 2Gq5XbnW/L7oKy6EOVODK2pr3G/tWLexShHq9PgvMi3ds2encFXIu6BzKHh3gYiP7Ri5V
+	 KgYJ1lfPBQ6AwG43lblo8qfa2XSPsoBvdnDHbh01fjDg8ka73w7N7miKnBCy9Ou9wE3MC
+	 2nleZEP4SzfLK7cJ3ELxKKovO6x2zaW6qQoBKF6D3VJIT0UTDSMIz86sle5oLhJe1cQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793092200;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793092202;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=kecHQ9Cxgo+QuEHQWjjKTjxkwSfnlCL1FZxMG4Ytnco=;
-	b=LGnTrAseIJ6R8DebJH4/gBdZqv5jOBRaDPMS8gNakmLjlk5R4zJPT8rIyzde6bFCy0ou
-	 IkHCuxMuuTiFFS/sbkgVNxUyqponywn5Z6L1wjcDVbFvaPQQyKeOSlXQadcRe8RW80xpk
-	 f/euj7Rp9etVa+zxwdJv5pUbpqGX84AeLERRMqI/azFpB8vO1VH3rQpdaR1XG8o5GiUfP
-	 DYB23SB3jJybmyTLxBs1bkVYwoOXpsyDV1ggLp/ulOmQC+uniw81MzLurOvW0vCcpZfJe
-	 QjmqNYISU7BmWhVAJ8MCDxbndJpMxOqpn2N1CLw3gSrPrNUIhQuLs5eRxKAy7H6ygfg==
+	bh=jJqwyAcnBDNuL1IKXOrEe4oTsa9FnRgdACu/xuJZ69A=;
+	b=ziuNqn0v7vU47gUiWGnUt1P09a5vo6lY3qoBK8hkx+WwZjIRwsiZrUyq7hNuJbLQ1OqK
+	 gApdz3+s2JiH4/3zAsEi2tgs5o2C0gZSypJl/Ktz9lwD2q0dCvhx/MjKowsdhvXdh8sdt
+	 hprzai1r2GHYJQn1tCq4E7oXCZf06w+wKY/bWSRiirrCM7br8L+WOngXChAka8HgvdzuR
+	 i1+V1Z4nV5vzHv1RrDpBMc2USaupB6jU1YqHtiOBkPqHp7nQc1K98YYGM2zqQFUU8Lf1g
+	 /sVuPn55FpkuA+v6huQxEF4WIsVO6Ok+J55HYRBXa+RaXLEfNzTAxMXB4ML9wM6C9CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=f5SDlwkN;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I5gnIni2;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D74+1Vu0;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aaKX9jHC;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D471606A31D
-	for <virtio-comment@lists.linux.dev>; Tue, 27 Oct 2026 09:10:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D471606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E7ED606A322
+	for <virtio-comment@lists.linux.dev>; Tue, 27 Oct 2026 09:10:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E7ED606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=f5SDlwkN;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I5gnIni2
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R8fqAg796163
-	for <virtio-comment@lists.linux.dev>; Tue, 27 Oct 2026 09:09:59 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D74+1Vu0;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aaKX9jHC
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R8gLrr1162812
+	for <virtio-comment@lists.linux.dev>; Tue, 27 Oct 2026 09:10:01 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=kecHQ9Cxgo+QuEHQWjjKTjxkwSfnlCL1FZx
-	MG4Ytnco=; b=f5SDlwkN+HVoPhgSRX+zO3Iue7eh+eJFIDme2ePmnkJLKmtKfun
-	alwN/LKGm+i0uswx/QOCXnrca1lzJbRJTPwMdvAkmlLUFSPEV+rafI80lu4WO88F
-	rfcp+ZeZCij31cBhcP5tiePWX6q1/G+NcvDgoqzintw6KWqNeaYnsNw6HP7Yddd+
-	tD/ZsE3w5XymdxaFmwKdJ5OHYTlNzKF9VkbM3UytnlG8vTLHGFjLK380oRqGELrP
-	ij7Pg3YbypEDfi6jA7LlpZcQZbzC1ZrzIyv7nhvZdpG1sqba7mgeqKa+hQrQXMaS
-	NbYWK2yyYER7wjD6idwADXL6oph4LLZMWQA==
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=jJqwyAcnBDN
+	uL1IKXOrEe4oTsa9FnRgdACu/xuJZ69A=; b=D74+1Vu0ueQb+XPK2m5OnWcjXs5
+	QSg1wIjBXn6KgxjEtXezWRAE+fQ5YkIZPwSj0G19mdJNI+aqW+XIbEXlV3e+Ddfs
+	2AkaUtBaLygJZfTYxAKoQp52W0908tg7vDII6Zy4JZaP9enBf4Ejv7NqFe6j7rEy
+	m6QgG+Laf35eHHrpJ8H/EgpvSuiaNr9zLv45tEU8RltI7/nNKCZWFPddsLBA8P79
+	Le1Y95j526ERxgm3A0Zn2nFjn+5M39cvmOHZKUM8Dk+nBC4+5B3f7yb2W/hQbFR+
+	AfJUZMtO6pqiPBAXGDSCLYPVDmggQgixmzAyvLLWlf+Uq4EN2jJrfZyGjfQ==
 Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjp2t8qxm-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjbmmats6-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <virtio-comment@lists.linux.dev>; Tue, 27 Oct 2026 09:09:59 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ac77c3ff6aso5795211a91.0
-        for <virtio-comment@lists.linux.dev>; Tue, 27 Oct 2026 02:09:59 -0700 (PDT)
+	for <virtio-comment@lists.linux.dev>; Tue, 27 Oct 2026 09:10:01 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3acd21ba24eso2920739a91.3
+        for <virtio-comment@lists.linux.dev>; Tue, 27 Oct 2026 02:10:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793092198; x=1793696998; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kecHQ9Cxgo+QuEHQWjjKTjxkwSfnlCL1FZxMG4Ytnco=;
-        b=I5gnIni2GbC+/LaGdIGMDXEVJdIyX4cuBjxOAoDP8U/6yy+vOfr1gfPx4750vxuzMb
-         QhYTK5HCkoEBtS01PDaIrzXl3ab1zAOq7HLlYtpvpK24atmdlHBD4GJCnPhgZo2/7d4V
-         GNSuePZcUH48MNglXPUPqxfDmKeMiG+rh2KnyKouyMSBYMUAPWOtsbqSPKSHYs4MAGOO
-         nx7kWNgaj1lV9/w1dPLvR20xVKLjXyZki7VaZdcJSNQ5CfsQiYf49WXUEaJmhzHO+nsu
-         YenBracSzM4kC2Eh+2BZWEFciOjb/hupG7aDfP+PcdMn9fm2P/g3LFlg+V/wp6p7uHak
-         e8Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793092198; x=1793696998;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1793092201; x=1793697001; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kecHQ9Cxgo+QuEHQWjjKTjxkwSfnlCL1FZxMG4Ytnco=;
-        b=iR4L1dwit236NNpDzKAQFpRhz0qjehLpwNXgjQyLPS7zQqEvH1I645iSzMfZ34y2Cg
-         gF3L7nECoagsECuiJ86LsPxR7jXDVLQLR47hu23pBNvDuQA0O2o+zB3HqdQr5407vW6h
-         P2qFxTOshEWZZcZWqUwMoYFq/QUYvB8zAMaGRWGZ/6Itnz0X5IcbGzn9pvTh4Y9ioSe6
-         dic1nxESCcrhaaXDwQNG24/hoWwXpPBemtMI0Kk9ZwBwqNkLS1zlKPO6znTTXp14HuQ2
-         9oj/psTSuBVzEvnkMyr3Qx+dXIL0JFK5D0+EFi7Br2hqc8fOordOFXrg5/qruG8mV2IK
-         N1Xg==
-X-Forwarded-Encrypted: i=1; AKwUvByuugBiOVgpJGJ2ety+UC+5V4hdaH6xzeTvOqWENQHqF2v9YkkyNqtrfubgyQx8bOItcqjh6kJmXTeM+TYQGA==@lists.linux.dev
-X-Gm-Message-State: AFq9FYLv5k58NkFfv+xEapz29VpAxNUfKBAadLyM4uozcR0dqQ5Ay8vF
-	6TVfy5/ZE/chyLPEMM1JpWrJXrBP0g23n7eDpJuqTeCDpbMy8R2ogfwSkBeXggCQgeGVZe41vTk
-	95inWgyiWKAr1XmmG5ro4iq53TPsikNacfvUKwsiUXC/A1FhLNA8pmvNbOnN6Ez/EZiW5CA==
-X-Gm-Gg: AYBFou1A/Wer7E6L+bfYzQXG2+bI6KaEhRWFcXMPvhwKxnfVHswT9asGB103nMIoqYo
-	Ujv/BYV44JaZd9Z+lqgNo13WiO/y+HnUEcRPCFK+ELjjkM/Q3nZPeknkmHkV6bhurOewV0XhVnm
-	vWBQeW34FgkqXoXPmGyZUIC6mPQAJ2GBuYcjZZAI/6+U8449NqHa3A5V2wQGmtvsxDnUxAZ1weZ
-	8wDmHuEtJBVxNDird6kmt23cT++a/JYggQ4hUHkl9uHgwG4r3UtsauJgvFS1s9/TMtFTvcKSPvl
-	DXPGHn19DT21qpV+37bXY1JIKOFKkEhjh54kfBQzznoP+HfQC6W+GkWoLs0s7elbvOC9IQ9R/s+
-	7g1riIJeP585QFnfqcU1g9YDOHjCxw932ylBCXWUMgNVfhaz35h1QXhPtBw==
-X-Received: by 2002:a17:90b:3d4e:b0:3ab:884b:65b7 with SMTP id 98e67ed59e1d1-3adead55564mr7437109a91.25.1793092198300;
-        Tue, 27 Oct 2026 02:09:58 -0700 (PDT)
-X-Received: by 2002:a17:90b:3d4e:b0:3ab:884b:65b7 with SMTP id 98e67ed59e1d1-3adead55564mr7437094a91.25.1793092197810;
-        Tue, 27 Oct 2026 02:09:57 -0700 (PDT)
+        bh=jJqwyAcnBDNuL1IKXOrEe4oTsa9FnRgdACu/xuJZ69A=;
+        b=aaKX9jHCXB3ysbVArTpha0vH6OVfs9HGPJeGY1G228hc6wBFowD9VVly9+ch0+nXsz
+         haQ4YO6+UomcQECjM+eDbtwCbjASWPK2g/n76KA4OwkQtnYWYtDaxBXQvYWTKPJeUmuA
+         svbCdKERoph10IcyJSPFAzDJwuYEN6Kj7CoUbTwVkeBlw8meD12+SfwYYO5pdNgWNfQc
+         pqQ7rrjwucp3fjJjWm7e3zsZ0Kw7Xu37H4jW8qS+OgsqVJHo1om0O80vG1jFcugkSXRx
+         ARyqzK23bAlg8g60B1brRAGVxnveBbZ4HU24I7pepPmZEdz7Ck0DHRIYk0Pd38/w3kg5
+         d1Rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793092201; x=1793697001;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jJqwyAcnBDNuL1IKXOrEe4oTsa9FnRgdACu/xuJZ69A=;
+        b=YM3NSmL6Aw2QVP4Na3O4airIH/H+BmsgrKbyihd8R/F+arT/lnyNznLFm0Bx/wJbeQ
+         WFWo5jCDj+kYitlSTsB6QHbzEP6Lc5Jau4baEWSvRcK7H1sIuxrXi32iCXyQR9DPn1dp
+         ozUJOJEInrl0nt4hea/tSVkaf73/cKK+d/JJXvGy6B4GzpzWW5ZkZ6Xjg7CECUGeAWb5
+         iLrs5wY2RcpB7d6otpWhUAdFEDmW8Iz4CUUz313MSLmAX1Lirdat9EOWX5SCYMA8COjG
+         Dmg6+djyh/XOUSRsspHftaIYahg7cruoKycj4C4dFrodysig4/Z8RoHL/qBxZCz91ENd
+         icLw==
+X-Forwarded-Encrypted: i=1; AKwUvBzCjVcaJKb6QpPojKJtNUd6sh/QhuDbSsgERQjfpVSccdi3vkZoznjUjsagSZIUi1nMucbHGK5nTED+koiuMQ==@lists.linux.dev
+X-Gm-Message-State: AFq9FYI+MHq6wvFCzxwm3S6a2aS8w0m5WUHah4ETQtPkYyxKhM+C99VL
+	GeVrUQMF5WerM5BmCgkyJILWQkrNppCpQax57ekzl7kFRIw14qHCKTaEYsx+gWedCRGh8eG59b1
+	ArqXeAXCd2qqfzJKy9fqakR1VWEcv38tprq1uR0wLsG2vSW/6/g0k+qYxabWoYxngjOUhPJgPAz
+	/Zcw==
+X-Gm-Gg: AYBFou29ln8zbSYmrN65aSkxVAT+mVcDKakaME3geaLG8lNw8RzgynjtHqtOVviflNm
+	IjDTI/SY4iEHsRFoxb/r6UgdKsjhu38zr1J2KQXRAPRu2UE/NUgX73n7yjziwHzYJbGtfiN2gXd
+	pJ8Z3dc6vyLFK3cjoSgCp6UFcGFS8uplSPw2N6Thje/XwCJuJw3aNLcHaOjvJjBo2tgKAZ2wV+Q
+	QwbK2O3Rf9uIRAQbcVS0DllaTBwaIte1CZK37HuGIZIttY9SYmqenlbkLalc+y3oyJ9528jNUux
+	7E53rqOmnIePF0nLsKDg83vKtZxJJhnm5qMoBxCB47Qs/TvuUaeqnuPL2YgUJ6TzhFv2kqTQSgA
+	4cVNgC6ZTwOglLbN23PqaFAEinupuvYmGruJXQGncA8WaGseCngII9OORdQ==
+X-Received: by 2002:a17:90b:3e4d:b0:3ac:adce:60b2 with SMTP id 98e67ed59e1d1-3ade9b2ce76mr7802213a91.2.1793092200514;
+        Tue, 27 Oct 2026 02:10:00 -0700 (PDT)
+X-Received: by 2002:a17:90b:3e4d:b0:3ac:adce:60b2 with SMTP id 98e67ed59e1d1-3ade9b2ce76mr7802191a91.2.1793092199915;
+        Tue, 27 Oct 2026 02:09:59 -0700 (PDT)
 Received: from u24-san1p10108.qualcomm.com (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae404426c2sm2940522a91.7.2026.10.27.02.09.56
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae404426c2sm2940522a91.7.2026.10.27.02.09.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 02:09:57 -0700 (PDT)
+        Tue, 27 Oct 2026 02:09:59 -0700 (PDT)
 From: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
 To: virtio-dev@lists.linux.dev, virtio-comment@lists.linux.dev,
         stefanha@redhat.com, mst@redhat.com, mgurtovoy@nvidia.com,
         parav@nvidia.com, ebiggers@kernel.org
 Cc: neeraj.soni@oss.qualcomm.com
-Subject: [PATCH v6 0/4] Add inline encryption support
-Date: Tue, 27 Oct 2026 02:09:23 -0700
-Message-ID: <20261027090945.185178-1-linlin.zhang@oss.qualcomm.com>
+Subject: [PATCH v6 1/4] virtio-blk: Add inline encryption feature bit and configuration
+Date: Tue, 27 Oct 2026 02:09:24 -0700
+Message-ID: <20261027090945.185178-2-linlin.zhang@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261027090945.185178-1-linlin.zhang@oss.qualcomm.com>
+References: <20261027090945.185178-1-linlin.zhang@oss.qualcomm.com>
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Post: <mailto:virtio-comment@lists.linux.dev>
@@ -118,143 +122,235 @@ List-Owner: <mailto:virtio-comment+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=AJjzCM5L c=1 sm=1 tr=0 ts=6ae06a67 cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAzNiBTYWx0ZWRfX/GCORG9VybtM
+ lk8gsvpDBRX04158fHzRjLj7QkkqMBnBNtU4rKWPbPSkYWYXsERsCPFx+8izDA/4tdV+T6rFnjk
+ LvoK3OIVf/M5XkiEH72+g0J02VNlOsM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAzNiBTYWx0ZWRfXyET5iereXB/A
+ ju5K6rKbjme+gIC6QnizjfVnzaHlebk8WYG6KKXrO+adzHlHLrEEdqrqGqpgEZBLehRF5b1Z5h4
+ SNkoKH98CDiwm6agC8Y9iKz6apJ2T6qL7qv8oL8iberFfdtAphWRFdNVHvtjQgV/s2N5Nj+A5ZF
+ sZPscl539J7eRQUG0MihSYTeeHgdFAOCJa84KCl7VH5Nl1lgf9A2L4R7l4opYIqdSqKbMDN/5ZY
+ XZNBnDbdKmEcNyoBSt2Mgfn4VUZ/ZBFbOzvKqls3Vs7BtNmsulkf539WVmneQVDggp9yfEHxU2A
+ w/dQiMHoISk6Vj6uH46nh/CC3TDBDpQIwB8Nf88ig5waEBnvPAWvhAafWy8sitbzFDWrMcQ6w4R
+ uQ10UMk+FJ3Ag2/yU5mlmDimPObVXG4TjE7xK15uvgbQ1t1S+YmXNyqfmMuSnJ7mEnwY+2W2uTF
+ IuH//9iid3RgqwkRqJg==
+X-Authority-Analysis: v=2.4 cv=PrkG/AM3 c=1 sm=1 tr=0 ts=6ae06a69 cx=c_pps
  a=RP+M6JBNLl+fLTcSJhASfg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
- a=Ikd4Dj_1AAAA:8 a=P-wNOC4C4cACZxsgl2cA:9 a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-GUID: ZnBZUsrSQ91KsBpMlEE_snaqbHoUaaEr
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAzNiBTYWx0ZWRfX/O7mIMOBy44I
- 13iOLF6JaSEwgcYbbvfBsUXVJMgaBAcscl7/yvLJDdOpa2fQo5lRjxtttUw5WBTufMDiduIWSsg
- CA401yMDUqNUYhnWOqG+G/9JrNQDvPM=
-X-Proofpoint-ORIG-GUID: ZnBZUsrSQ91KsBpMlEE_snaqbHoUaaEr
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAzNiBTYWx0ZWRfX4MFFit1kjqcB
- AOdcyvrBu8JTbXtoBwAEs5ABRaIANfquDsc5ZvqBI4pq5Wx8cremUpL4A3lJYXEx7xV4LcOiW3h
- hgY6tFaHR3O98dCAM/3dx3TG2I6cJQGvqUagsOMfAUVp/b4DYS/hY6NRNnrQJCCo3bUVEQbTFNn
- fqCTUZsGr8KfD0Ypt2FMLpv3Tcb3liyQp3G58uQ5XrX1vSdOvVtqGZEVCoZDbRcjxlWHvFxuKsN
- RzPe+hLUtm2YsAgo4em9EwpnG3Du2n38pEEQx8EFqEfSL9DHs2hLbDU4CfDlQUbwYX9yhghfxs+
- 55uPYo4fhFlL1LSvO/WE5KN7Qlkc+V3LIBZVD/QQyFeC848beWYJP+PAejGeXwxVOVZx6b6WWyl
- u4cjVPEWAnzEvMU7SQqaEqQTxxWSW2FhJ5AnrTzZOkNBDUhAo+LJlrkCJwFxEWWn5YxsbBY4qf/
- hkAVpda9sEvnUZqTZPg==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=NEAV23lmAAAA:8
+ a=EUspDBNiAAAA:8 a=V5FpdODwkRovwfavNdUA:9 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-ORIG-GUID: sj4gqzwj9YpxqQBoh6Nadom0SVxjLawy
+X-Proofpoint-GUID: sj4gqzwj9YpxqQBoh6Nadom0SVxjLawy
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 bulkscore=0 malwarescore=0 spamscore=0
- clxscore=1015 priorityscore=1501 adultscore=0 lowpriorityscore=0 phishscore=0
+ malwarescore=0 spamscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ impostorscore=0 clxscore=1015 adultscore=0 bulkscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270036
 
-This series adds inline encryption support to virtio-blk, for devices
-backed by storage with an inline crypto engine, such as UFS or eMMC.
+Inline crypto engines, such as those defined by JEDEC UFSHCI and eMMC
+CQHCI, encrypt and decrypt data on its way to and from the storage,
+using keys that are programmed into keyslots of the engine and selected
+per request. Block devices backed by such storage have no way to expose
+this capability to the driver so far.
 
-The device reports its capabilities in the configuration space: the
-number of keyslots, the maximum Data Unit Number (DUN) size and the
-supported key types (raw and hardware-wrapped). Keys are managed, and
-the supported crypto modes are discovered, with group administration
-commands of the Self group type, so the feature depends on
-VIRTIO_F_ADMIN_VQ. Encrypted reads and writes are still submitted on
-the request virtqueues; each of them identifies a programmed keyslot
-and carries a 256-bit DUN.
+As the first step towards supporting inline encryption in virtio-blk,
+add the VIRTIO_BLK_F_INLINE_ENCRYPTION feature bit and the
+enc_characteristics device configuration fields, which let the driver
+discover the inline encryption capabilities of the device:
 
-Patch summary:
-1. Add the feature bit and the configuration fields
-2. Add the administration commands to manage the keys and to query the
-   supported crypto modes
-3. Add the encrypted request types
-4. Describe what inline encryption does and does not protect against,
-   in particular for confidential guests
+max_slots: number of keyslots.
+max_dun_bytes: maximum size of the Data Unit Number (DUN) in bytes.
+key_types: supported key types, raw and/or hardware-wrapped.
 
-This series is independent of, but is intended to be used together
-with, the series adding administration virtqueue support to the MMIO
-transport:
-https://lore.kernel.org/all/20261017114556.1701355-1-parav@nvidia.com/
+Keys are managed with group administration commands, therefore the
+feature depends on VIRTIO_F_ADMIN_VQ.
 
-For background on inline encryption, see:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/block/inline-encryption.rst
+max_slots is 32 bits wide, matching the 32-bit slot fields used in the
+administration commands and in the requests.
 
-The new administration command opcodes are allocated from 0x0013, not
-from 0x0012: the group administration commands table in the current
-specification lists 0x0013 - 0x7FFF as the range of commands using
-struct virtio_admin_cmd, so the new commands start at the first opcode
-of that range.
+Inline encryption cannot necessarily be supported on a zoned block
+device, as the zoned write constraints do not guarantee that I/O
+addresses are aligned to the encryption data unit size. Therefore the
+feature is never offered together with VIRTIO_BLK_F_ZONED.
 
-changes in v6:
- - Remove the dedicated control virtqueue and VIRTIO_BLK_F_CTRL_VQ; use
-   group administration commands of the Self group type on the
-   administration virtqueue instead, with opcodes 0x0013 - 0x0019
- - Change feature bit VIRTIO_BLK_F_INLINE_ENCRYPTION to 20
- - Require VIRTIO_F_ADMIN_VQ to be offered with
-   VIRTIO_BLK_F_INLINE_ENCRYPTION
- - Never offer VIRTIO_BLK_F_INLINE_ENCRYPTION together with
-   VIRTIO_BLK_F_ZONED, as the zoned write constraints do not guarantee
-   that I/O addresses are aligned to the encryption data unit size
- - Widen max_slots to 32 bits, matching the 32-bit slot fields
- - Only report the commands in VIRTIO_ADMIN_CMD_LIST_QUERY if the
-   device offers VIRTIO_BLK_F_INLINE_ENCRYPTION, and the
-   hardware-wrapped key commands only if the device supports
-   hardware-wrapped keys; fail VIRTIO_ADMIN_CMD_LIST_USE enabling them
-   if the feature has not been negotiated
- - Define the long-term and ephemerally-wrapped forms of
-   hardware-wrapped keys, and which form each command takes and returns
- - Do not program or evict a keyslot while requests using it are
-   outstanding
- - Change struct virtio_blk_crypto_key_desc and struct
-   virtio_blk_crypto_key_blob to use variable-length arrays; the key
-   length is given by key_size, and buffer lengths follow the generic
-   administration command rules, except that a command fails if a key
-   would be truncated. Remove VIRTIO_BLK_CRYPTO_MAX_KEY_SIZE
- - Empty all keyslots on device reset, and fail requests using an empty
-   keyslot with VIRTIO_BLK_S_IOERR
- - Report a failed GENERATE_KEY with any status other than
-   VIRTIO_ADMIN_STATUS_OK; require a successful DERIVE_SW_SECRET to
-   return the whole software secret; KEYSLOT_EVICT ignores all fields
-   other than slot
- - Add a 'Security Considerations' subsection
- - Split the series into four patches
+Driver requirements:
+- VIRTIO_BLK_F_INLINE_ENCRYPTION is not negotiated without
+  VIRTIO_F_ADMIN_VQ.
+- The reserved field unused3 is ignored.
 
-changes in v5:
- - Change feature bit value of VIRTIO_BLK_F_CTRL_VQ and
-   VIRTIO_BLK_F_INLINE_ENCRYPTION to 20 and 21 respectively
+Device requirements:
+- VIRTIO_BLK_F_INLINE_ENCRYPTION is only offered together with
+  VIRTIO_F_ADMIN_VQ, and never together with VIRTIO_BLK_F_ZONED.
+- FEATURES_OK is not acknowledged if VIRTIO_BLK_F_INLINE_ENCRYPTION is
+  negotiated without VIRTIO_F_ADMIN_VQ.
+- max_slots, max_dun_bytes and key_types report valid values.
 
-changes in v4:
- - Add a control virtqueue specific subsection for virtio block
- - Move all control virtqueue request related to this new subsection
- - Add the precise semantics, error codes, etc for the new control
-   virtqueue commands
- - Move 'MUST' to the normative section
- - Use c struct to describe control virtqueue request
+Subsequent patches add the administration commands to manage the keys
+and the request types which use them.
 
-changes in v3:
- - Add a control virtqueue
- - Move key program/evict/derive_sw_secret/generate/prepare/import to
-   the control virtqueue
- - Add the driver and device requirements for the request in the control
-   virtqueue
- - Extend DUN in crypto message to a fixed four-element array of 64-bit
-   fields
-
-changes in v2:
- - Remove virtualization-specific terminology
- - Move MUST sentence to the device/driver normative section
- - Add explicit rejection for CRYPTO request if IE feature bit
-   isn't negotiated
- - Modify the support list of crypto modes and the definition of
-   the size of the crypto modes buffer
+Fixes: https://github.com/oasis-tcs/virtio-spec/issues/238
+Signed-off-by: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
 ---
+ device-types/blk/description.tex | 102 +++++++++++++++++++++++++++++++
+ 1 file changed, 102 insertions(+)
 
-Linlin Zhang (4):
-  virtio-blk: Add inline encryption feature bit and configuration
-  virtio-blk: Add inline encryption administration commands
-  virtio-blk: Add inline encryption request types
-  virtio-blk: Add inline encryption security considerations
-
- admin.tex                               |  16 +-
- device-types/blk/description.tex        | 827 +++++++++++++++++++++++-
- device-types/blk/device-conformance.tex |   1 +
- device-types/blk/driver-conformance.tex |   1 +
- 4 files changed, 835 insertions(+), 10 deletions(-)
-
+diff --git a/device-types/blk/description.tex b/device-types/blk/description.tex
+index 3b3a4e7..b347140 100644
+--- a/device-types/blk/description.tex
++++ b/device-types/blk/description.tex
+@@ -73,6 +73,17 @@ \subsection{Feature bits}\label{sec:Device Types / Block Device / Feature bits}
+     VIRTIO_BLK_REQ_FLAG_OUT_FUA flag in the \field{flags} bitfield of the
+     \field{virtio_blk_req} structure for VIRTIO_BLK_T_OUT requests.
+ 
++\item[VIRTIO_BLK_F_INLINE_ENCRYPTION (20)] Device supports inline
++    encryption: data written to or read from the device can be encrypted
++    or decrypted by an inline crypto engine in the device backend storage.
++    Keys are programmed into keyslots of the device, and each encrypted
++    request selects, by keyslot index, the key programmed into that
++    keyslot. The number of keyslots, the maximum size of the Data Unit
++    Number (DUN) and the supported key types are reported in
++    \field{enc_characteristics}. The keys are managed using group
++    administration commands sent on the administration virtqueue, so this
++    feature requires VIRTIO_F_ADMIN_VQ.
++
+ \end{description}
+ 
+ \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / Block Device / Feature bits / Legacy Interface: Feature bits}
+@@ -135,6 +146,12 @@ \subsection{Device configuration layout}\label{sec:Device Types / Block Device /
+                 u8 model;
+                 u8 unused2[3];
+         } zoned;
++        struct virtio_blk_enc_characteristics {
++                le32 max_slots;
++                u8 max_dun_bytes;
++                u8 key_types;
++                u8 unused3[2];
++        } enc_characteristics;
+ };
+ \end{lstlisting}
+ 
+@@ -222,6 +239,39 @@ \subsection{Device configuration layout}\label{sec:Device Types / Block Device /
+ terminated by the device with a "zone resources exceeded" error as defined for
+ specific commands later.
+ 
++If the VIRTIO_BLK_F_INLINE_ENCRYPTION feature is negotiated, then in
++\field{enc_characteristics},
++\begin{itemize}
++\item \field{max_slots} is the number of available keyslots. Keyslots are
++    indexed from 0 to \field{max_slots} - 1.
++
++\item \field{max_dun_bytes} is the maximum number of bytes of the Data Unit
++    Number (DUN) that the device supports for any of its supported crypto
++    modes.
++
++\item \field{key_types} is a bitmask of the key types the device supports,
++    using the following values:
++    \begin{lstlisting}
++#define VIRTIO_BLK_CRYPTO_KEY_TYPE_RAW         (1 << 0)
++#define VIRTIO_BLK_CRYPTO_KEY_TYPE_HW_WRAPPED  (1 << 1)
++    \end{lstlisting}
++    VIRTIO_BLK_CRYPTO_KEY_TYPE_RAW indicates that keys are programmed into
++    keyslots in raw (plaintext) form. VIRTIO_BLK_CRYPTO_KEY_TYPE_HW_WRAPPED
++    indicates that keys are programmed into keyslots in ephemerally-wrapped
++    form, and can only be unwrapped by dedicated hardware (e.g. a hardware
++    key manager), so that the plaintext key is never passed to the device
++    for keyslot programming. Outside of the device, such a key is stored in
++    a long-term wrapped form.
++
++\item \field{unused3} is reserved for future use.
++\end{itemize}
++
++\begin{note}
++For example, known inline crypto engines report a \field{max_dun_bytes} of
++4 (JEDEC eMMC Command Queue Host Controller Interface, CQHCI) or 8 (JEDEC
++UFS Host Controller Interface, UFSHCI).
++\end{note}
++
+ \subsubsection{Legacy Interface: Device configuration layout}\label{sec:Device Types / Block Device / Device configuration layout / Legacy Interface: Device configuration layout}
+ When using the legacy interface, transitional devices and drivers
+ MUST format the fields in struct virtio_blk_config
+@@ -285,6 +335,11 @@ \subsection{Device Initialization}\label{sec:Device Types / Block Device / Devic
+     \field{zoned} can be read by the driver to determine the zone
+     characteristics of the device. All \field{zoned} fields are read-only.
+ 
++\item If the VIRTIO_BLK_F_INLINE_ENCRYPTION feature is negotiated, the fields in
++    \field{enc_characteristics} can be read by the driver to determine the
++    inline encryption capabilities of the device. All
++    \field{enc_characteristics} fields are read-only.
++
+ \end{enumerate}
+ 
+ \drivernormative{\subsubsection}{Device Initialization}{Device Types / Block Device / Device Initialization}
+@@ -327,6 +382,23 @@ \subsection{Device Initialization}\label{sec:Device Types / Block Device / Devic
+ The driver MUST NOT negotiate VIRTIO_BLK_F_REQ_FLAGS_OUT_FUA without
+ VIRTIO_BLK_F_REQ_FLAGS.
+ 
++Drivers MUST NOT negotiate the VIRTIO_BLK_F_INLINE_ENCRYPTION feature
++unless they are capable of:
++\begin{itemize}
++\item retrieving the inline encryption characteristics from the device
++    configuration space.
++\item programming and evicting keys in the block device's keyslots
++    through the administration virtqueue.
++\item submitting the keyslot index and Data Unit Number (DUN) per crypto
++    request to the device.
++\end{itemize}
++
++The driver MUST NOT negotiate VIRTIO_BLK_F_INLINE_ENCRYPTION without
++VIRTIO_F_ADMIN_VQ.
++
++If the VIRTIO_BLK_F_INLINE_ENCRYPTION feature is negotiated, the driver
++MUST ignore \field{unused3} in \field{enc_characteristics}.
++
+ \devicenormative{\subsubsection}{Device Initialization}{Device Types / Block Device / Device Initialization}
+ 
+ Devices SHOULD always offer VIRTIO_BLK_F_FLUSH, and MUST offer it
+@@ -341,6 +413,9 @@ \subsection{Device Initialization}\label{sec:Device Types / Block Device / Devic
+ If the device that is being initialized is a not a zoned device, the device
+ SHOULD NOT offer the VIRTIO_BLK_F_ZONED feature.
+ 
++The device MUST NOT offer both the VIRTIO_BLK_F_ZONED and the
++VIRTIO_BLK_F_INLINE_ENCRYPTION features.
++
+ The VIRTIO_BLK_F_ZONED feature cannot be properly negotiated without
+ FEATURES_OK bit. Legacy devices MUST NOT offer VIRTIO_BLK_F_ZONED feature bit.
+ 
+@@ -415,6 +490,33 @@ \subsection{Device Initialization}\label{sec:Device Types / Block Device / Devic
+ The device MUST NOT acknowledge FEATURES_OK if the driver sets
+ VIRTIO_BLK_F_REQ_FLAGS_OUT_FUA without VIRTIO_BLK_F_REQ_FLAGS.
+ 
++The VIRTIO_BLK_F_INLINE_ENCRYPTION feature cannot be properly negotiated
++without FEATURES_OK bit. Legacy devices MUST NOT offer the
++VIRTIO_BLK_F_INLINE_ENCRYPTION feature bit.
++
++The device MUST NOT offer VIRTIO_BLK_F_INLINE_ENCRYPTION unless it also
++offers VIRTIO_F_ADMIN_VQ.
++
++The device MUST NOT acknowledge FEATURES_OK if the driver negotiates
++VIRTIO_BLK_F_INLINE_ENCRYPTION without VIRTIO_F_ADMIN_VQ.
++
++If the VIRTIO_BLK_F_INLINE_ENCRYPTION feature is negotiated, the device
++MUST set \field{max_slots} in \field{enc_characteristics} to a value
++greater than 0. The value SHOULD reflect the number of keyslots that
++are available for use by this virtio-blk device.
++
++If the VIRTIO_BLK_F_INLINE_ENCRYPTION feature is negotiated, the device
++MUST set \field{key_types} in \field{enc_characteristics} to have at
++least one of VIRTIO_BLK_CRYPTO_KEY_TYPE_RAW or
++VIRTIO_BLK_CRYPTO_KEY_TYPE_HW_WRAPPED set, and MUST NOT set any bit in
++\field{key_types} other than VIRTIO_BLK_CRYPTO_KEY_TYPE_RAW and
++VIRTIO_BLK_CRYPTO_KEY_TYPE_HW_WRAPPED. The device MUST initialize padding
++bytes \field{unused3} to 0.
++
++If the VIRTIO_BLK_F_INLINE_ENCRYPTION feature is negotiated, the device
++MUST NOT set \field{max_dun_bytes} in \field{enc_characteristics} to 0 or
++to a value greater than 32.
++
+ \subsubsection{Legacy Interface: Device Initialization}\label{sec:Device Types / Block Device / Device Initialization / Legacy Interface: Device Initialization}
+ 
+ Because legacy devices do not have FEATURES_OK, transitional devices
 -- 
 2.34.1
 
