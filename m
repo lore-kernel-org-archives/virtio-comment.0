@@ -1,100 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793081158;
-	b=5YzXG4SCsdd/TK7Kqq0z7lkKMJAgJoQ6x2hh9rTeDh/zvm5pJhGvu1QgzVlPe7pFVpg3
-	 Usz+IeduexX+7zyruVGcu51YG7dbKpVEDq3ydNjn9VrD+tXYUJu7bWmWmtd9zs3V4FG5s
-	 9QS2xkIuWyTq/N4qANuMozIZxWKzUlVJwYuec/6WfBemMLUY6QEG0wk6T4yAo8Rcl8aPb
-	 ZZUgpOrMmVP06RHed1AneFL866vu3PAFlw5kqpyVvnhsRFtSgUmryQRAYu6iAzKtX8K6o
-	 chROGosObS0r68Mro5Es0xuxEAz0AAUIC6tzQ4L0F2NRCQagwXSCp2Bgp2Da7umCx/Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793081158;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=36nCTS7wa7gXIAN1kwD+sQD4ccz42C41uLK49xXvr8U=;
-	b=RQN5U32VWGQASPwzMh17seQLLG/sxFgzM3eoLgJtDOe8IFICcu/aUqK6Y155f/Kp8piy
-	 hvUh5IxxV3vA1wmirIkLo/wglXkCskiIZz8Hq70WpSYZtMA5CrP1KiJTzfYocP6wC3eNH
-	 Fkr++k60O/mSK4hijlBWpwdBuGC4vM0iLl/U/Ctg3TmGTSEKHGZ/mhekecWl+nNMwGGiU
-	 qOCHVGHDlYj3Qu9UFjvhvVAndRn3OlW2QrY5tX13erF/B3T5aDlUsLgBcnGBgVa+J2rM9
-	 qdOS1apk4wRRUf7BrLq+KQvzgPHS8hi8bJ+XFpRuINXUIzTFOvCA1BsTsTBpcGB57eA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nr55I4Ax;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793092200;
+	b=jH7FAAKxHyPUoeo9CYqb8M8FzM2lslhBQ1bXpiQUwSvbawfw4HgwMOdKRAEcV1f9fqQp
+	 mfsdWMDywYHDlOe+5t8ixblpLREE9hDfUPTXyWJedqZKfkJvrf9Nlqpy6lNcIQYT7wMAN
+	 i+qDvlJ+SOHdaprv+JEOSON9JUIXthx3N/BQ2pFCGRJnr5FHatcHdsjrvZfc2rE+s1DSg
+	 zWKuPbHvLCJmT+cN7HbVgMR07LQvFJuCg0y8YkMTtKfS7Oo4vuCNrEcCdtiehAKjw2uz7
+	 2vgdkeVU+fyJIMByBb43gH8MiGq3UxVBFwB3IcBnelUzxm+WRzpG6z8Bu+PGoefy6Lw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793092200;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=kecHQ9Cxgo+QuEHQWjjKTjxkwSfnlCL1FZxMG4Ytnco=;
+	b=LGnTrAseIJ6R8DebJH4/gBdZqv5jOBRaDPMS8gNakmLjlk5R4zJPT8rIyzde6bFCy0ou
+	 IkHCuxMuuTiFFS/sbkgVNxUyqponywn5Z6L1wjcDVbFvaPQQyKeOSlXQadcRe8RW80xpk
+	 f/euj7Rp9etVa+zxwdJv5pUbpqGX84AeLERRMqI/azFpB8vO1VH3rQpdaR1XG8o5GiUfP
+	 DYB23SB3jJybmyTLxBs1bkVYwoOXpsyDV1ggLp/ulOmQC+uniw81MzLurOvW0vCcpZfJe
+	 QjmqNYISU7BmWhVAJ8MCDxbndJpMxOqpn2N1CLw3gSrPrNUIhQuLs5eRxKAy7H6ygfg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=f5SDlwkN;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I5gnIni2;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52BBE606A31A
-	for <virtio-comment@lists.linux.dev>; Tue, 27 Oct 2026 06:05:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52BBE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D471606A31D
+	for <virtio-comment@lists.linux.dev>; Tue, 27 Oct 2026 09:10:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D471606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nr55I4Ax
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6af9a9451daso5737201a12.0
-        for <virtio-comment@lists.linux.dev>; Mon, 26 Oct 2026 23:05:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793081157; cv=none;
-        d=google.com; s=arc-20260327;
-        b=W7+LRFA+01+gyODyu0luLIaZa7FurnKG1AoYYOen6dqNcG/UZb44nWRRe8T2hLz56k
-         v6dTCC7pJ6b0vzV91GFjuokwfx0Yn3vj7MWHQhsWO6XOPymMXOQ2sneRf/sutBRMJQDy
-         t7qDBHa1pzL6F+3myR8NIzfP6KbIUOXgPwwK/vUkjTlFuNvHLvTYuZd2zPx9KVvXdPSB
-         rdnT5vTF804Xij/K8exWMZ52U2aHWCbuwcRRq4/0mv0GB+Pbl+Ra7p+PbYfKrs7rsJdt
-         l+W5PGwEKxmIdecs/G7qgJTisTdicltHCyRVuCaJbdg45FwvKd8yVygl6oYUgLwWTUyV
-         Nd8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=36nCTS7wa7gXIAN1kwD+sQD4ccz42C41uLK49xXvr8U=;
-        fh=V8GGv834/AkdLwUkDCLisGLqUcLwBFaPHcrnFlS9ZXA=;
-        b=cuqCzJYRbdjaD3rzoz7K37U0XpSoz5rNBmRom8scH1nTF/HIYAoWvKok9V5xak2wcW
-         xCNqo+WdO8zKVpqS0fEbje2dIUiB2Cw82Jt22dPBLTJ3fM7RFE2XQr48OjdtWXWgAoHL
-         ruURme84BMieQ0reVSiQJ2fRxAAwjSH4Sw7yhjfOeFZKEUYVDEgJ53n07v0KSxElfDml
-         lSVSVVUxw86LMvK7MkzeR7iXwE9kzLQ6KNR5KvQM2Ll+mdtvsRASKWlYaORFYx+spfnO
-         QK8UvT7TbodUvJaHUZbFS0+RFuq1RpePY9GR3qCzfybLM8t7bM4+Vn+jpwn2aflJWQet
-         DUqA==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=f5SDlwkN;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I5gnIni2
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R8fqAg796163
+	for <virtio-comment@lists.linux.dev>; Tue, 27 Oct 2026 09:09:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=kecHQ9Cxgo+QuEHQWjjKTjxkwSfnlCL1FZx
+	MG4Ytnco=; b=f5SDlwkN+HVoPhgSRX+zO3Iue7eh+eJFIDme2ePmnkJLKmtKfun
+	alwN/LKGm+i0uswx/QOCXnrca1lzJbRJTPwMdvAkmlLUFSPEV+rafI80lu4WO88F
+	rfcp+ZeZCij31cBhcP5tiePWX6q1/G+NcvDgoqzintw6KWqNeaYnsNw6HP7Yddd+
+	tD/ZsE3w5XymdxaFmwKdJ5OHYTlNzKF9VkbM3UytnlG8vTLHGFjLK380oRqGELrP
+	ij7Pg3YbypEDfi6jA7LlpZcQZbzC1ZrzIyv7nhvZdpG1sqba7mgeqKa+hQrQXMaS
+	NbYWK2yyYER7wjD6idwADXL6oph4LLZMWQA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjp2t8qxm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <virtio-comment@lists.linux.dev>; Tue, 27 Oct 2026 09:09:59 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ac77c3ff6aso5795211a91.0
+        for <virtio-comment@lists.linux.dev>; Tue, 27 Oct 2026 02:09:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793081157; x=1793685957; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=36nCTS7wa7gXIAN1kwD+sQD4ccz42C41uLK49xXvr8U=;
-        b=nr55I4Ax2J1foYK+0dB3daMcSEWiscfxc5oySMKsy+vrqptqRupGX6JgaLNZiNT5gs
-         qshJa4P1ncNJterjshVvvqytf7nMcIQ6MTotbd+SMkK9mCY35N40WGtUN7WQtss94R2W
-         xF2M2A/QAJkIpWIqTrGU3qF5suuCL9itiRcjVw0z90QeCKATMBdbwwQ3//zW7gDcHKnz
-         bF8B9FGkTs2SCLisgqa4d0+oKR1BAMxC7n7AWjlpmJx+2+nHfc5qZm6Q872naV5o1W06
-         feyJyOhhvCcOEneqcmUS1Vu1Dg4HN/MbY/xP/iGRKCJQikF7gY1ACxNo+sU9fKvvbNf8
-         rNuw==
+        d=oss.qualcomm.com; s=google; t=1793092198; x=1793696998; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kecHQ9Cxgo+QuEHQWjjKTjxkwSfnlCL1FZxMG4Ytnco=;
+        b=I5gnIni2GbC+/LaGdIGMDXEVJdIyX4cuBjxOAoDP8U/6yy+vOfr1gfPx4750vxuzMb
+         QhYTK5HCkoEBtS01PDaIrzXl3ab1zAOq7HLlYtpvpK24atmdlHBD4GJCnPhgZo2/7d4V
+         GNSuePZcUH48MNglXPUPqxfDmKeMiG+rh2KnyKouyMSBYMUAPWOtsbqSPKSHYs4MAGOO
+         nx7kWNgaj1lV9/w1dPLvR20xVKLjXyZki7VaZdcJSNQ5CfsQiYf49WXUEaJmhzHO+nsu
+         YenBracSzM4kC2Eh+2BZWEFciOjb/hupG7aDfP+PcdMn9fm2P/g3LFlg+V/wp6p7uHak
+         e8Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793081157; x=1793685957;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=36nCTS7wa7gXIAN1kwD+sQD4ccz42C41uLK49xXvr8U=;
-        b=VyOqhQeln54M/7/7zY2w47XcLuV58RnqqzbeS3Tx2JKPfsdr9U50M4x0UMI/6V5/OJ
-         EbIxaJiF3QfzQoHIp7hEdgYYf6THEqJ1AP2B5AGiALw27rAcllVjrNDrSXuZX3vnOE/B
-         ZI2WPy2scqg6Ok8qDWPRh0mPeNmVpo7kaMwqG/y+QE9dOfcdD4CnHoxd3+ZBqx8z42f/
-         gcrS8SR9cxl4UyLVg/QSIULIhKvGk67RU/VZ494dGwaDfUhkxXQDJk8i7bofzw0Ps/uC
-         uzNfyYJfVnnaAQUTh3LDVPirJzcDw9jiSHd9nZKM3RlR3LccxYeCP45JnpZVD5Pza8qr
-         vorg==
-X-Forwarded-Encrypted: i=1; AKwUvBzjbllVMtum8aaidC4WbegQga5Te03u5Eg9fvhx56qZ9w2Hz4t1Mri3GA+B1JvV0i5THfYJ5Iujc1tJ4o+xdw==@lists.linux.dev
-X-Gm-Message-State: AFq9FYIO8b8pJmZczE2vlhr5u2K0q0cMCkVg1Kx25rk4f4b2Po7DJVKM
-	ssPu95d+kywo0JQb7KuI/ZDZdw9RjBfHHYhap1uAN+u+k43bAUsTO0yOEmJ7s561H4xe1gwrGPj
-	g7GC0QhHl3ffc60hXh8iVerZssDHntJ2VKA==
-X-Gm-Gg: AYBFou3SgAGRRhv9ZqbBWiCPLMFdklmLrs0KQFQ6H1dcZDWNgv8WFqWo4t3W6nmqGjA
-	5qrJOTbZuH7c6CW6hqFyNaz7NcoV/Uw9kQFAAfJqMgUoo0vuLkYHJs8fgbk5u3YrXHeVG2ZtHYD
-	xyr5RCfzL90zBm+IrZIh3zOB43+UOUdPx9EJWwEr6DZ4BfmzsNulIZgBIvdgX/QHURomWf46dIL
-	YOfMIZn7n1EYtMTM71lYab7LGDQz2jWHylkO4xOO++Ly3SzfKLICmLuy0J/sNmd4QRIG72xNxqu
-	LepHu07uaqiNCP/uiBZAgKx+H+MyJdp+Uc7GV+SLuvJFJ6+oIZwKVZAPWomfeUI0t3KGKB7xOvk
-	tLN2gRv8kcAxsdBV7/u/v0WqqvvA2Mw2k9lmA3nBmi4mwC7pbjzPkENlJZ711L89ClZc=
-X-Received: by 2002:a05:6402:1d4e:b0:6b4:6464:8a8 with SMTP id
- 4fb4d7f45d1cf-6b464640b75mr5852825a12.27.1793081156358; Mon, 26 Oct 2026
- 23:05:56 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793092198; x=1793696998;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kecHQ9Cxgo+QuEHQWjjKTjxkwSfnlCL1FZxMG4Ytnco=;
+        b=iR4L1dwit236NNpDzKAQFpRhz0qjehLpwNXgjQyLPS7zQqEvH1I645iSzMfZ34y2Cg
+         gF3L7nECoagsECuiJ86LsPxR7jXDVLQLR47hu23pBNvDuQA0O2o+zB3HqdQr5407vW6h
+         P2qFxTOshEWZZcZWqUwMoYFq/QUYvB8zAMaGRWGZ/6Itnz0X5IcbGzn9pvTh4Y9ioSe6
+         dic1nxESCcrhaaXDwQNG24/hoWwXpPBemtMI0Kk9ZwBwqNkLS1zlKPO6znTTXp14HuQ2
+         9oj/psTSuBVzEvnkMyr3Qx+dXIL0JFK5D0+EFi7Br2hqc8fOordOFXrg5/qruG8mV2IK
+         N1Xg==
+X-Forwarded-Encrypted: i=1; AKwUvByuugBiOVgpJGJ2ety+UC+5V4hdaH6xzeTvOqWENQHqF2v9YkkyNqtrfubgyQx8bOItcqjh6kJmXTeM+TYQGA==@lists.linux.dev
+X-Gm-Message-State: AFq9FYLv5k58NkFfv+xEapz29VpAxNUfKBAadLyM4uozcR0dqQ5Ay8vF
+	6TVfy5/ZE/chyLPEMM1JpWrJXrBP0g23n7eDpJuqTeCDpbMy8R2ogfwSkBeXggCQgeGVZe41vTk
+	95inWgyiWKAr1XmmG5ro4iq53TPsikNacfvUKwsiUXC/A1FhLNA8pmvNbOnN6Ez/EZiW5CA==
+X-Gm-Gg: AYBFou1A/Wer7E6L+bfYzQXG2+bI6KaEhRWFcXMPvhwKxnfVHswT9asGB103nMIoqYo
+	Ujv/BYV44JaZd9Z+lqgNo13WiO/y+HnUEcRPCFK+ELjjkM/Q3nZPeknkmHkV6bhurOewV0XhVnm
+	vWBQeW34FgkqXoXPmGyZUIC6mPQAJ2GBuYcjZZAI/6+U8449NqHa3A5V2wQGmtvsxDnUxAZ1weZ
+	8wDmHuEtJBVxNDird6kmt23cT++a/JYggQ4hUHkl9uHgwG4r3UtsauJgvFS1s9/TMtFTvcKSPvl
+	DXPGHn19DT21qpV+37bXY1JIKOFKkEhjh54kfBQzznoP+HfQC6W+GkWoLs0s7elbvOC9IQ9R/s+
+	7g1riIJeP585QFnfqcU1g9YDOHjCxw932ylBCXWUMgNVfhaz35h1QXhPtBw==
+X-Received: by 2002:a17:90b:3d4e:b0:3ab:884b:65b7 with SMTP id 98e67ed59e1d1-3adead55564mr7437109a91.25.1793092198300;
+        Tue, 27 Oct 2026 02:09:58 -0700 (PDT)
+X-Received: by 2002:a17:90b:3d4e:b0:3ab:884b:65b7 with SMTP id 98e67ed59e1d1-3adead55564mr7437094a91.25.1793092197810;
+        Tue, 27 Oct 2026 02:09:57 -0700 (PDT)
+Received: from u24-san1p10108.qualcomm.com (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae404426c2sm2940522a91.7.2026.10.27.02.09.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 02:09:57 -0700 (PDT)
+From: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
+To: virtio-dev@lists.linux.dev, virtio-comment@lists.linux.dev,
+        stefanha@redhat.com, mst@redhat.com, mgurtovoy@nvidia.com,
+        parav@nvidia.com, ebiggers@kernel.org
+Cc: neeraj.soni@oss.qualcomm.com
+Subject: [PATCH v6 0/4] Add inline encryption support
+Date: Tue, 27 Oct 2026 02:09:23 -0700
+Message-ID: <20261027090945.185178-1-linlin.zhang@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Post: <mailto:virtio-comment@lists.linux.dev>
@@ -104,247 +117,144 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:virtio-comment+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-References: <20261002010456.2053759-1-alistair.francis@wdc.com>
- <1f656ebb-b547-41f3-9b4f-4f39b3836f37@gmail.com> <fac44696a94a41a715a0f725cafb44a54d2eef4c.camel@alistair23.me>
- <cb8fa241-b02b-425f-89e2-bdb3d3c6bf30@gmail.com>
-In-Reply-To: <cb8fa241-b02b-425f-89e2-bdb3d3c6bf30@gmail.com>
-From: Alistair Francis <alistair23@gmail.com>
-Date: Tue, 27 Oct 2026 16:05:28 +1000
-X-Gm-Features: AclHuK9IMyVYmlaxWaT9c40dzOyoWCnvt5aGREXyxxiqcN76Vl6doiGmUsGDexc
-Message-ID: <CAKmqyKPGEXUKfb_OKqfGQmYdZzW2CyA3+Qw4PNhoEkhzvSTX1g@mail.gmail.com>
-Subject: Re: [PATCH] transport-pci: Allow storing the configuration in the BAR
-To: Demi Marie Obenour <demiobenour@gmail.com>
-Cc: Alistair <alistair@alistair23.me>, virtio-comment@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=AJjzCM5L c=1 sm=1 tr=0 ts=6ae06a67 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
+ a=Ikd4Dj_1AAAA:8 a=P-wNOC4C4cACZxsgl2cA:9 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-GUID: ZnBZUsrSQ91KsBpMlEE_snaqbHoUaaEr
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAzNiBTYWx0ZWRfX/O7mIMOBy44I
+ 13iOLF6JaSEwgcYbbvfBsUXVJMgaBAcscl7/yvLJDdOpa2fQo5lRjxtttUw5WBTufMDiduIWSsg
+ CA401yMDUqNUYhnWOqG+G/9JrNQDvPM=
+X-Proofpoint-ORIG-GUID: ZnBZUsrSQ91KsBpMlEE_snaqbHoUaaEr
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAzNiBTYWx0ZWRfX4MFFit1kjqcB
+ AOdcyvrBu8JTbXtoBwAEs5ABRaIANfquDsc5ZvqBI4pq5Wx8cremUpL4A3lJYXEx7xV4LcOiW3h
+ hgY6tFaHR3O98dCAM/3dx3TG2I6cJQGvqUagsOMfAUVp/b4DYS/hY6NRNnrQJCCo3bUVEQbTFNn
+ fqCTUZsGr8KfD0Ypt2FMLpv3Tcb3liyQp3G58uQ5XrX1vSdOvVtqGZEVCoZDbRcjxlWHvFxuKsN
+ RzPe+hLUtm2YsAgo4em9EwpnG3Du2n38pEEQx8EFqEfSL9DHs2hLbDU4CfDlQUbwYX9yhghfxs+
+ 55uPYo4fhFlL1LSvO/WE5KN7Qlkc+V3LIBZVD/QQyFeC848beWYJP+PAejGeXwxVOVZx6b6WWyl
+ u4cjVPEWAnzEvMU7SQqaEqQTxxWSW2FhJ5AnrTzZOkNBDUhAo+LJlrkCJwFxEWWn5YxsbBY4qf/
+ hkAVpda9sEvnUZqTZPg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 bulkscore=0 malwarescore=0 spamscore=0
+ clxscore=1015 priorityscore=1501 adultscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270036
 
-On Thu, Oct 22, 2026 at 5:07=E2=80=AFPM Demi Marie Obenour
-<demiobenour@gmail.com> wrote:
->
-> On 10/22/26 00:27, Alistair wrote:
-> > On Fri, 2026-10-02 at 01:48 -0400, Demi Marie Obenour wrote:
-> >> On 10/1/26 21:04, alistair23@gmail.com wrote:
-> >>> From: Alistair Francis <alistair.francis@wdc.com>
-> >>>
-> >>> Most physical PCI endpoint capable PCIe controllers do not allow
-> >>> modifying the
-> >>> capability list, and thus are unable to advertise the Common
-> >>> configuration
-> >>> capability.
-> >>>
-> >>> This results in physical PCIe endpoints implementing virtio-pci
-> >>> falling
-> >>> back to the legacy interface and then needing hacks to deal with
-> >>> DMA
-> >>> issues [1].
-> >>>
-> >>> One solution to this is to allow the device to store the
-> >>> configuration
-> >>> data in the BAR [2]. This can be used as a fallback mechanism so we
-> >>> don't break any existing setups. New drivers and devices can
-> >>> attempt
-> >>> to read the configuration from the capabilities first and then
-> >>> fallback
-> >>> to the BAR.
-> >>>
-> >>> We also need to add a go_busy field so that the driver and device
-> >>> have a
-> >>> basic message box to communicate. This is required for
-> >>> device_feature_select for example.
-> >>>
-> >>> 1: https://lkml.org/lkml/2026/9/1/185
-> >>> 2: https://lkml.org/lkml/2026/9/1/2370
-> >>>
-> >>> Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
-> >>> ---
-> >>>  transport-pci.tex | 85
-> >>> +++++++++++++++++++++++++++++++++++++++++++++++
-> >>>  1 file changed, 85 insertions(+)
-> >>>
-> >>> diff --git a/transport-pci.tex b/transport-pci.tex
-> >>> index 95b08b8..7d09169 100644
-> >>> --- a/transport-pci.tex
-> >>> +++ b/transport-pci.tex
-> >>> @@ -262,6 +262,83 @@ \subsection{Virtio Structure PCI
-> >>> Capabilities}\label{sec:Virtio Transport Option
-> >>>  fields provide the most significant 32 bits of a total 64 bit
-> >>> offset and
-> >>>  length within the BAR specified by \field{cap.bar}.
-> >>>
-> >>> +\subsubsection{Virtio Structure Capabilities in a memory
-> >>> BAR}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI
-> >>> Device Layout / Capabilities in a memory BAR}
-> >>> +
-> >>> +Some devices, for example implementions using physical PCI
-> >>> endpoint
-> >>> +controllers, are unable to add capabilities to the existing PCI
-> >>> capability
-> >>> +list. This means they are unable to advertise the virtio structure
-> >>> +capabilities as described above.
-> >>> +
-> >>> +In this case a device MAY instead publish the same capability
-> >>> structures in
-> >>> +one of its memory BARs, at offset VIRTIO_PCI_CAP_BAR_OFFSET (0),
-> >>> prefixed by
-> >>> +the following header:
-> >>> +
-> >>> +\begin{lstlisting}
-> >>> +#define VIRTIO_PCI_CAP_BAR_OFFSET 0
-> >>> +#define VIRTIO_PCI_CAP_BAR_MAGIC  0x74726976 /* "virt" */
-> >>> +#define VIRTIO_PCI_CAP_BAR_VERSION_ONE  1
-> >>> +
-> >>> +struct virtio_pci_bar_cap_hdr {
-> >>> +        le32 magic;             /* VIRTIO_PCI_CAP_BAR_MAGIC */
-> >>> +        u8 hdr_ver;             /* Version of this header */
-> >>> +        u8 num_caps;            /* Number of capability entries
-> >>> that follow */
-> >>> +        u8 go_busy;             /* Indicates to start an operation
-> >>> and when it's ongoing */
-> >>> +        u8 padding[1];
-> >>> +};
-> >>> +\end{lstlisting}
-> >>> +
-> >>> +The fields are interpreted as follows:
-> >>> +
-> >>> +\begin{description}
-> >>> +\item[\field{magic}]
-> >>> +        Magic value that identifies the presence of capabilities
-> >>> in this BAR.
-> >>> +        Must be set to VIRTIO_PCI_CAP_BAR_MAGIC.
-> >>> +
-> >>> +\item[\field{hdr_ver}]
-> >>> +        The version of this header (virtio_pci_bar_cap_hdr),
-> >>> currently
-> >>> +        only version VIRTIO_PCI_CAP_BAR_VERSION_ONE is supported.
-> >>> +
-> >>> +\item[\field{num_caps}]
-> >>> +        The number of struct virtio_pci_cap entries that follow
-> >>> this header.
-> >>> +
-> >>> +\item[\field{go_busy}]
-> >>> +        The driver writes VIRTIO_PCI_CAP_BAR_VERSION_ONE to this
-> >>> field to indicate
-> >>> +        that the device should take action. The device is
-> >>> considered busy until
-> >>> +        the driver reads this as 0.
-> >>> +\end{description}
-> >>> +
-> >>> +The header is followed by \field{num_caps} struct virtio_pci_cap
-> >>> entries
-> >>> +(see \ref{sec:Virtio Transport Options / Virtio Over PCI Bus /
-> >>> Virtio Structure PCI Capabilities}),
-> >>> +the first of which begins immediately after struct
-> >>> +virtio_pci_bar_cap_hdr.
-> >>> +
-> >>> +The entries are packed one immediately after another. Each entry
-> >>> is interpreted
-> >>> +the same as if they are in configuration space and locate the
-> >>> +corresponding structure within a memory BAR.
-> >>> +
-> >>> +Note that the \field{cap_vndr} and \field{cap_next} fields are not
-> >>> used in
-> >>> +this case.
-> >>> +
-> >>> +For read-write communication with the device, for example
-> >>> \field{device_feature_select},
-> >>> +the driver should set the value of the field then write the header
-> >>> version to
-> >>> +\field{go_busy}. This indicates to the device that an action is
-> >>> required.
-> >>> +
-> >>> +The device will then read the fields, take action according to the
-> >>> sections above
-> >>> +and when complete clear the \field{go_busy}. The driver MUST NOT
-> >>> read or write
-> >>> +other fields until \field{go_busy} has been cleared by the device.
-> >>> +
-> >>> +Note the driver can write to multiple fields before triggering
-> >>> \field{go_busy}. The
-> >>> +device MUST then take all actions before clearing \field{go_busy}.
-> >>> +
-> >>> +A device that publishes capabilities in a memory BAR MUST place
-> >>> struct
-> >>> +virtio_pci_bar_cap_hdr at offset VIRTIO_PCI_CAP_BAR_OFFSET within
-> >>> a memory
-> >>> +BAR.
-> >>> +
-> >>> +A device MUST follow struct virtio_pci_bar_cap_hdr with
-> >>> \field{num_caps} struct virtio_pci_cap entries.
-> >>> +
-> >>> +The device MUST provide the same capabilities it usually would,
-> >>> just in the memory
-> >>> +BAR.
-> >>> +
-> >>>  \drivernormative{\subsubsection}{Virtio Structure PCI
-> >>> Capabilities}{Virtio Transport Options / Virtio Over PCI Bus /
-> >>> Virtio Structure PCI Capabilities}
-> >>>
-> >>>  The driver MUST ignore any vendor-specific capability structure
-> >>> which has
-> >>> @@ -270,6 +347,14 @@ \subsection{Virtio Structure PCI
-> >>> Capabilities}\label{sec:Virtio Transport Option
-> >>>  The driver SHOULD use the first instance of each virtio structure
-> >>> type they can
-> >>>  support.
-> >>>
-> >>> +The driver SHOULD first attempt to use the virtio structure
-> >>> capabilities in
-> >>> +the PCI configuration space. If no common configuration capability
-> >>> is
-> >>> +present, the driver MAY scan each memory BAR at offset
-> >>> +VIRTIO_PCI_CAP_BAR_OFFSET for a struct virtio_pci_bar_cap_hdr
-> >>> whose
-> >>> +\field{magic} equals VIRTIO_PCI_CAP_BAR_MAGIC. If found, use the
-> >>> +capability entries published there as described in
-> >>> +\ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI
-> >>> Device Layout / Capabilities in a memory BAR}.
-> >>> +
-> >>>  The driver MUST accept a \field{cap_len} value which is larger
-> >>> than specified here.
-> >>>
-> >>>  The driver MUST ignore any vendor-specific capability structure
-> >>> which has
-> >>
-> >> How is the driver supposed to know that the memory BAR contains that
-> >> structure, and not unrelated data that happens to be correctly
-> >> formed?
-> >
-> > Sorry for the delay, I lost this email while I was travelling.
-> >
-> > I don't have an answer here. The driver is supposed to search for
-> > VIRTIO_PCI_CAP_BAR_MAGIC at offset VIRTIO_PCI_CAP_BAR_OFFSET, which
-> > could exist independently.
-> >
-> >>
-> >> From what I can tell, feature bit 31 is currently not used for any
-> >> purpose.  Setting it could be used to indicate that the structure
-> >> is present.
-> >
-> > Do you mean have the driver probe for feature bit 31 (after searching
-> > for VIRTIO_PCI_CAP_BAR_MAGIC at offset VIRTIO_PCI_CAP_BAR_OFFSET) to
-> > confirm that it is supported?
-> >
-> > Alistair
->
-> I meant having a feature bit that is compatible with the legacy
-> interface, but which tells the driver that the device is really
-> a modern driver with its common configuration capability in a
-> specified BAR.
+This series adds inline encryption support to virtio-blk, for devices
+backed by storage with an inline crypto engine, such as UFS or eMMC.
 
-Ah! That's a good idea. That should mostly work.
+The device reports its capabilities in the configuration space: the
+number of keyslots, the maximum Data Unit Number (DUN) size and the
+supported key types (raw and hardware-wrapped). Keys are managed, and
+the supported crypto modes are discovered, with group administration
+commands of the Self group type, so the feature depends on
+VIRTIO_F_ADMIN_VQ. Encrypted reads and writes are still submitted on
+the request virtqueues; each of them identifies a programmed keyslot
+and carries a 256-bit DUN.
 
-One issue though. When using an older driver (that doesn't know about
-this new feature bit) what should happen? In theory the device is
-advertising the legacy flow with bit 31 set. So the driver will just
-use the legacy flow and ignore bit 31 being set.
+Patch summary:
+1. Add the feature bit and the configuration fields
+2. Add the administration commands to manage the keys and to query the
+   supported crypto modes
+3. Add the encrypted request types
+4. Describe what inline encryption does and does not protect against,
+   in particular for confidential guests
 
-But in reality the legacy flow doesn't actually work, so if the driver
-tries to set things up it will crash or hang or error. Maybe we can
-just report an error on the first operation or something, but it does
-seem a bit clunky
+This series is independent of, but is intended to be used together
+with, the series adding administration virtqueue support to the MMIO
+transport:
+https://lore.kernel.org/all/20261017114556.1701355-1-parav@nvidia.com/
 
-Alistair
+For background on inline encryption, see:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/block/inline-encryption.rst
 
-> --
-> Sincerely,
-> Demi Marie Obenour (she/her/hers)
+The new administration command opcodes are allocated from 0x0013, not
+from 0x0012: the group administration commands table in the current
+specification lists 0x0013 - 0x7FFF as the range of commands using
+struct virtio_admin_cmd, so the new commands start at the first opcode
+of that range.
+
+changes in v6:
+ - Remove the dedicated control virtqueue and VIRTIO_BLK_F_CTRL_VQ; use
+   group administration commands of the Self group type on the
+   administration virtqueue instead, with opcodes 0x0013 - 0x0019
+ - Change feature bit VIRTIO_BLK_F_INLINE_ENCRYPTION to 20
+ - Require VIRTIO_F_ADMIN_VQ to be offered with
+   VIRTIO_BLK_F_INLINE_ENCRYPTION
+ - Never offer VIRTIO_BLK_F_INLINE_ENCRYPTION together with
+   VIRTIO_BLK_F_ZONED, as the zoned write constraints do not guarantee
+   that I/O addresses are aligned to the encryption data unit size
+ - Widen max_slots to 32 bits, matching the 32-bit slot fields
+ - Only report the commands in VIRTIO_ADMIN_CMD_LIST_QUERY if the
+   device offers VIRTIO_BLK_F_INLINE_ENCRYPTION, and the
+   hardware-wrapped key commands only if the device supports
+   hardware-wrapped keys; fail VIRTIO_ADMIN_CMD_LIST_USE enabling them
+   if the feature has not been negotiated
+ - Define the long-term and ephemerally-wrapped forms of
+   hardware-wrapped keys, and which form each command takes and returns
+ - Do not program or evict a keyslot while requests using it are
+   outstanding
+ - Change struct virtio_blk_crypto_key_desc and struct
+   virtio_blk_crypto_key_blob to use variable-length arrays; the key
+   length is given by key_size, and buffer lengths follow the generic
+   administration command rules, except that a command fails if a key
+   would be truncated. Remove VIRTIO_BLK_CRYPTO_MAX_KEY_SIZE
+ - Empty all keyslots on device reset, and fail requests using an empty
+   keyslot with VIRTIO_BLK_S_IOERR
+ - Report a failed GENERATE_KEY with any status other than
+   VIRTIO_ADMIN_STATUS_OK; require a successful DERIVE_SW_SECRET to
+   return the whole software secret; KEYSLOT_EVICT ignores all fields
+   other than slot
+ - Add a 'Security Considerations' subsection
+ - Split the series into four patches
+
+changes in v5:
+ - Change feature bit value of VIRTIO_BLK_F_CTRL_VQ and
+   VIRTIO_BLK_F_INLINE_ENCRYPTION to 20 and 21 respectively
+
+changes in v4:
+ - Add a control virtqueue specific subsection for virtio block
+ - Move all control virtqueue request related to this new subsection
+ - Add the precise semantics, error codes, etc for the new control
+   virtqueue commands
+ - Move 'MUST' to the normative section
+ - Use c struct to describe control virtqueue request
+
+changes in v3:
+ - Add a control virtqueue
+ - Move key program/evict/derive_sw_secret/generate/prepare/import to
+   the control virtqueue
+ - Add the driver and device requirements for the request in the control
+   virtqueue
+ - Extend DUN in crypto message to a fixed four-element array of 64-bit
+   fields
+
+changes in v2:
+ - Remove virtualization-specific terminology
+ - Move MUST sentence to the device/driver normative section
+ - Add explicit rejection for CRYPTO request if IE feature bit
+   isn't negotiated
+ - Modify the support list of crypto modes and the definition of
+   the size of the crypto modes buffer
+---
+
+Linlin Zhang (4):
+  virtio-blk: Add inline encryption feature bit and configuration
+  virtio-blk: Add inline encryption administration commands
+  virtio-blk: Add inline encryption request types
+  virtio-blk: Add inline encryption security considerations
+
+ admin.tex                               |  16 +-
+ device-types/blk/description.tex        | 827 +++++++++++++++++++++++-
+ device-types/blk/device-conformance.tex |   1 +
+ device-types/blk/driver-conformance.tex |   1 +
+ 4 files changed, 835 insertions(+), 10 deletions(-)
+
+-- 
+2.34.1
+
