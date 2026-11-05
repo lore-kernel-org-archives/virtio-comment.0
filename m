@@ -1,17 +1,17 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.6
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.6
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793900272;
-	b=jofCVsGb5R7sACG3ovFRktjoTlwYc8sd5qjg2FUREA3miZMc/zO6vxRPjdCy0cPgZ0r5
-	 zicu0j1+9s7ORxfd65/fbUPuPJ438NkHPofon9AnlHgRb6H1jaVsv7g+FawUt7txxl+cE
-	 YFwZ2I0BWlWeb9ItqWCwUZI3kze69HCwA/lgFI2yCXdvovzWj7VEddxXxQz3qvdCtgAS5
-	 QiPBDznp1kfM1SBYR09echRVob1R0MhKLC/isQCw7lpVU/kvgqplY00lDUUcSfQbmtpo+
-	 D4q6RPcRbroufEzz3BH5Ngpz39P7hPUUOiXbnoJ13wP+2LpEIGO/JcyDVft4/8mXMnw==
+	t=1793900607;
+	b=JtAKh7i4ly8uAWEipKkIVpjFEb2+OiJSxxDSNVkyqrBfFmqssN5JpaSaslJy9Gwu3BAl
+	 DG5R/7q05VC2WwrHzAWZQZ3cfvPub/ouT+Uv3HCuWKz2Uq1KjVs/zZvsOX2pE0dP+qXtQ
+	 xyu0ju8EkijnsOYoO4w6mH3ShWm17xqs0X8iaHuCEdWzUKGdnaUeS2BPIvXJPhFVnpm6Z
+	 tTbKWcaD7ua8E8VFIJ3MFfJGakA1831aQalHvvOQvPU1CATlwShT1HmVwNy3t2OmYsxWz
+	 m6ezP24pncefK5BC//LcZvrRI4Z8dDP39FW+1+LXB37q+a6o/u7p5fqUDowkfGiWvdg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793900272;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793900607;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
@@ -26,53 +26,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=naZIyh7dRyXeFyKJrYmIYrwdpS3BOC1c5a+L1wcdh44=;
-	b=NdXEwoUMsWcZsIJXY7zhDx3mal7m/tSexm17PwOVPdC8RhRJjjdV+ZSCgKpuiZPHOQ8l
-	 OystAbQ5tI/FNrigBiRmFLu7xArRg8r/b0PMMupGiFUm+i6bpZVIiiSd7GMlySGHjer8S
-	 EgLukg0WRdoKr3yigrVm3WFTR5Ik89+gBYK4DXmCfcn6Ln58rttuT7iFGfKixFy8JLrjl
-	 mwQzUv38cKLPRO8dgp9Br1ShqSHJCZU7a8WbRGqHPxGSZA2SN0Hb8rblPv53UIAx58Jp3
-	 ZKquMUyZ1dzhLJzZGBnPUdjOZgsFIybCo6ZM6toXJUD3BRa1ww2dCWzrvsXkroKGzdQ==
+	bh=rM78os+mLk57LzNvTMnRgixaBsgeXtBBLayjxLe9iAQ=;
+	b=v1WU+IlDNmCLNBrYkTneTmxY+SEWTG3UvnamfwWM9fJhwiI/WCvoV/a6pJpJ2tT257xs
+	 sQUbsJ1NFhRD+e3ZRLrqlTd3iLC12fn6UdqI+9GQuxYlr92LtQq2ZdbJkepVErLOByiMr
+	 qDP5KVDX++IB/2dQBaMaEoFydMDsptYlV7UdbaU9NfbITLZOJolpCB1lcIjbabm7WAeRW
+	 TQdvzOrt3sK8Co9dpRIsLhvGlFInJSKBjuVGqmNtP6J3wnuX7er3gONzhBLDTl4gEQIJg
+	 p5rRLTz4xJATJ+jHYdGBUWW37ruyo48YNnYsY+a68/TaHr0Nrx10FPKurWnMRmz7koQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=BGgpzNpM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.6
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010006.outbound.protection.outlook.com [52.101.193.6])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="t+0Pw/qI";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.6
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013006.outbound.protection.outlook.com [40.93.196.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4D5606A31B
-	for <virtio-comment@lists.linux.dev>; Thu,  5 Nov 2026 17:37:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB4D5606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39192606A332
+	for <virtio-comment@lists.linux.dev>; Thu,  5 Nov 2026 17:43:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39192606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=BGgpzNpM
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=t+0Pw/qI
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mACACdfY//er519OMe9f3AVPK5MeYW8DFPgf8mIuZ3C7nR4w0LABbOzqV3n+5ycF8QGInP5pjGz940G+/5xUW/aYYrzZI/V74XJpuwXaaOk8Ks7eY2SXFN3yuW85vyqSRmpptcj6I6j7By3N8Z5Ickfxs9RlNCV88Z3LvjT5wBRwp0CgHS/ZWdTKkbm331HoE1KOBM5iRCeK7BXB6w2y7bosn3omiQUdLHTZX8/iuoJq7soMKrz1opvTii0+bjdK6M4TNH4EocyJ6OwsFEc6gSWikmrcaVqJUcZ4bc6DTCrjhobV0GFOzuLjCL54ltzHY4s5qhAa+CLuW+jOdxpvwQ==
+ b=yIrXjr4gZSaRS3xAwcU7pvacCGOFNxeQBvAVZndX/+d+8dmmBEjr4NCQeQZubKMwiHMiXxU0CMn8uGFvSJZtpNhGCPjJRQA6AsIXmNVRZGg4v8JavhBj4Al5evN0dYbxalrPMs1V6nm3NTwEs0O0x8qZStnbxFTJt+Q6p8hi+4xp58qq93spH8SJWcri1KE/pQqcXlhBbUDCWIMZvQBl2/V5eMxwgNUsK+3huYiiFdaZDDOHFczG9UjW3+KZNd8TIrkyd+O1iHQH/ih0Eko75v8hTd7kY8g92Gqaq0YcfQ5wONTXr09ffnbig1ZntffTvHuBPfH1gDIXQGzNarrNIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=naZIyh7dRyXeFyKJrYmIYrwdpS3BOC1c5a+L1wcdh44=;
- b=FDlKYoRRD5IfFKC4M+PneG4jk8FM91yQQkIzToVrBIWM0UArUo1vfkevg0v8gRG3ab4Fbu44NNlhqxwBXb0n8TDmAfaHJq0mpDlI8GeHpy+tEWN1/bUz5w7viUYzScinEIRxnWRwzuiBn1VGLznIrazYqRNY5EuKMml0OXoBeehCIgSSkDeRePPfM9odMNX1A0jK+q7pF3MHiRKOjtObPpcAaVy2uCeZ36kIYl3Gqh8i9va+85F2f2JBs+M5iLTJPX2ql2k8dAofyoe5+tiSht+ZwjVvWsNFLQ0D2ZIgSAvF1t5p34TPvIDXWW1scx+hPcPiD6PrJz8RFnusiSfceA==
+ bh=rM78os+mLk57LzNvTMnRgixaBsgeXtBBLayjxLe9iAQ=;
+ b=QjR25G0S/53jwW+SbZEu7H7ZfeLVdFDakx8e1WGDFZbcM04TBONr5wIrXH1nHEx5HgfOfEfdAVWHXt3GbI/O0zGVpSC7tY7NusM6J7LPvoRRaq+Z0sSPOrZDNztqc33nKCWq1w9Um0Ti+/OILTJ5CItlHNZ37uKiVOC6FUrT+ON1OOYB3zEDZfnZaPGF6fU5So2DYpKZcpVslPYgDurh7QdaNtuT4I9r02o+nH9TF2KGOheig4ZGL/GyxqK6V6KHUjBvH/K2RkrBisM0s4okA+F+GSq1tZE5bze2LmPVPncCy1nNXJhNoz25kwEf9QLRolGIfSRThxXFPgQDmVqq7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=naZIyh7dRyXeFyKJrYmIYrwdpS3BOC1c5a+L1wcdh44=;
- b=BGgpzNpMoVCabN9L6Qa7MNRyhIwKuQLlXqFjapAx9eww5Ioqw2BK4gjh67Jk9bnQFaM259Gzo5QueXRGGUKno73NEQIRVlEMv+zV3Z8pdr611iAJNv883UAYm25vSuayD3YDDyB6HERdUekMWwiTmz5Lg9NmjIHPeOTeLMqoOck=
-Received: from BN0PR02CA0007.namprd02.prod.outlook.com (2603:10b6:408:e4::12)
- by PH0PR12MB8151.namprd12.prod.outlook.com (2603:10b6:510:299::17) with
+ bh=rM78os+mLk57LzNvTMnRgixaBsgeXtBBLayjxLe9iAQ=;
+ b=t+0Pw/qIJxMBHDLzgkmcW1JUu0XPFczqqCcGZvv53I4EwdKHtpl9aTuQEhgpb/ySeE7P0+eKiP3Oj1wzGbVnrN6mPYP1gowd72glgvYH6PeJx6cMDB77PwjbxmKuI2WelvFnrSCHtfEsSCAVcO/rZi3Xd4ag1THMt2f9vSK9fM0=
+Received: from CH5PR03CA0011.namprd03.prod.outlook.com (2603:10b6:610:1f1::23)
+ by CH2PR12MB4247.namprd12.prod.outlook.com (2603:10b6:610:7c::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 17:37:45 +0000
-Received: from BN2PEPF000055DA.namprd21.prod.outlook.com
- (2603:10b6:408:e4:cafe::65) by BN0PR02CA0007.outlook.office365.com
- (2603:10b6:408:e4::12) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 17:43:18 +0000
+Received: from BN7PEPF000000A7.namprd05.prod.outlook.com
+ (2603:10b6:610:1f1:cafe::3d) by CH5PR03CA0011.outlook.office365.com
+ (2603:10b6:610:1f1::23) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
- Nov 2026 17:37:44 +0000
+ Nov 2026 17:43:16 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,23 +80,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000055DA.mail.protection.outlook.com (10.167.245.4) with Microsoft
+ BN7PEPF000000A7.mail.protection.outlook.com (10.167.245.231) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.0 via Frontend Transport; Thu, 5 Nov 2026 17:37:44 +0000
+ 15.21.615.4 via Frontend Transport; Thu, 5 Nov 2026 17:43:16 +0000
 Received: from AUSALIEM01.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 5 Nov
- 2026 11:37:43 -0600
+ 2026 11:43:15 -0600
 From: Amanda Liem <Amanda.Liem@amd.com>
-To: <mvaralar@redhat.com>
-CC: <virtio-comment@lists.linux.dev>, <mst@redhat.com>, <parav@nvidia.com>,
+To: <virtio-comment@lists.linux.dev>
+CC: <mst@redhat.com>, <mvaralar@redhat.com>, <parav@nvidia.com>,
 	<nathaniel.mccallum@amd.com>, Amanda Liem <Amanda.Liem@amd.com>
-Subject: Re: [PATCH v3] virtio-net: Add VIRTIO_NET_F_LABEL for a per-instance label
-Date: Thu, 5 Nov 2026 11:37:17 -0600
-Message-ID: <20261105173717.11911-1-Amanda.Liem@amd.com>
+Subject: [PATCH v4] virtio-net: Add VIRTIO_NET_F_LABEL for a per-instance label
+Date: Thu, 5 Nov 2026 11:43:07 -0600
+Message-ID: <20261105174308.11982-1-Amanda.Liem@amd.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <auIOjo37MTluz0fv@redhat.com>
-References: <20261027154836.13778-1-Amanda.Liem@amd.com> <auIOjo37MTluz0fv@redhat.com>
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Post: <mailto:virtio-comment@lists.linux.dev>
@@ -106,57 +104,228 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:virtio-comment+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DA:EE_|PH0PR12MB8151:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d7e3a55-aace-437e-fdb7-08df3b637fe9
+X-MS-TrafficTypeDiagnostic: BN7PEPF000000A7:EE_|CH2PR12MB4247:EE_
+X-MS-Office365-Filtering-Correlation-Id: f861f3cc-60b7-4cc6-785b-08df3b64460f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|261022105027099003|4143699003|11063799006|56012099006|261026121527099003|261028144727099003|261026140227099003|10067099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|82310400026|376014|36860700016|261022075727099003|11063799006|261021121427099003|261021135927099003|261009223027099003|261026140227099003|261028144727099003|261102123227099003|56012099006|261022113327099003|261026121527099003|261022105027099003|261021123027099003|18002099003|6133799003|13003099007|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	P8c5eaxPPe/dVlDNljqMlC/uGkOPsIvkHf0zOx6s02y3rAL1eeNlQ4nxVGF2FUHnEqzuxYZXjdC19HLOK1+dfetwxDuLgNp5Pc2XnS+rE6IZ42ofx4P+Zh9+uHakQC4OdhCnJEYg+o52jpkFTywoogZm19P3yn9qG2PbRYFd6Uxj8ttYqeXkumpaABcrQU+plTQSz7+mlviytqg17b0/6IVga0gFYZBUnVPGsCnMmHorq1Z559JtraTH/iixZ9Fti7eyqrSIokp9EQ3n3y4jEUByTOn5PJTERmCzIeeeoBA5SFjfPvda5rdT++PEfIXLDKMOFBLPo1ZWqhcFrV3gFIYopHqLRqaqghNv8f00Hk/QfERCkE3uKWsT/4hl0amoITjuo+tTj1TJA85gvp51sxKjSaMT/4vRm1hCLBrAW8IEyeE+V2MGjGRpave6Zx3m/91aUo1f3LwHkFUdaUjxV2sucH2/tnBZ3v4coTh98j2XQsRqiDYG4m4JYL9b4ePkAWrcWEeGj2HIzwOYO1j9FS2UldaSl2hFrUm065C758ZOLMhEn/MpPZ7W+ta8IAlQ6KChvOrHQfvw+6OOhUyBMs2Q/Wt96QEZwIqvEqHuT59DtXyXAegxqUkXpEd/5M6yZFQmVctyRfOshmIkUcFLM5RNH+JNK0bqSIyurJDTIp3jdcHpWm9LiSorPH07MtNdMe+fkef1YcRRYhgWeXZr/Q==
+	bqQsNDZhssyIlcZdwN3i3Uwpbm2+iTR99/K8DSoHRqM7xoM/aUUtdmSLC4e9gWqTBkEp19Az9rcghtSjLJLVKKBMiyQeGzVaAUsqW2cpOKvFb+pK2ZV5iZy6SW1WAjlnuCym3xE1qPa8FoY2NbDo2glEhb0QU8PyhuIC9NnWRSuerT0eFPIMLZPIFW8LoNej/WVwZeA5RwYeMurePykDaghWEZbRdBjg4I6E7IMdwjtUeRWB7PubmczQnAK4rZriJNBEW3PEArNa+XocxIvkXIxs34q4jvRWDKeBR+k1mOanRGWHpcOEY9iyggw7cbBrRvVt4OSINsOVGw51CR1Gz6ZPG/qQjSE3Z+peGzXEph5er3hwz62An5GXu5Gsqkhk/SfZ1SOnanMy3bGwSzuFL53GwNEtj37TKxqOFg/+LKTjQXXssxGHAhfeosrAka+m3kl16AddGgLlwY2z38AO5wmsLhI2/Gjz+1wCmqlWZxxzquu8FO8hmaynvZ2Alxr2Rfef0kQ4+84OUaGybOC1W1/k7Sef/M88WDNUbsDflWH1OoIpmWdWM9PIECcLLEHLpLPgxVhNe/wIzMNZVClXnyCmZH75xlUCMQ0qBdTNjRX/x8KYMobyE+VxIeKa5WEh7CCVSv/tZpzSfmk0oKcbpdu0K1MjzixsALGzf51prVM=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(261022105027099003)(4143699003)(11063799006)(56012099006)(261026121527099003)(261028144727099003)(261026140227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(82310400026)(376014)(36860700016)(261022075727099003)(11063799006)(261021121427099003)(261021135927099003)(261009223027099003)(261026140227099003)(261028144727099003)(261102123227099003)(56012099006)(261022113327099003)(261026121527099003)(261022105027099003)(261021123027099003)(18002099003)(6133799003)(13003099007)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	1xSxgZia9A3Qheb+d1KNR85cszaNcJKd/t3UmnPk+sh4gwgYr/u9NGqhNvQT7zf632l6ZQrTpQ4B4AXE3lTmaycIP1Yg9KcZeQVhOgD8AQ2ybyM1rLSiSzEk4fVs+igJghT25CzF4LIfhlxchImv/2XdTRdzDe6a4cGV9M0aTSJIZKBcUle6a8DFdz4R64/X/ViNJcENOGI9kAgiF/+J2XSvE1Wgc97J5EHKIDgS+0uULXl6FOFIuCbpgnv3jASKKnuk4ksI5xqkUzcB+LTn7kHxg0xEa4NmB2hd/4AGt3nCvrHlI/24vwRVOOAeFUsK71mGxGlzMo+8RIMtRpy5Pvob1U2raWQufiDteU6MBjrx/fxGOPbd70h83jvLGcpDHqxQT/c3dejt01sdkqaOYOHRK5RtemMjTtI385HhGBOKTvxFukcU3ksSth3JlJvJ
+	f+kz8jbFKBIaHtPXPgS3soa+t6Poq/eAN+8Olo0xPRwZi7AcSsUtmTuBq085iDfPheK3DNV66vwmHT/fxKqFNPZfqnlk6jtiZm/3x5RuH1Ck6IhAJYVwxco6ax5gCJp+gLJWmZ8KxKed9dtvqMSJVaeaSpstWnNnFTJH+sq9h3jhu/ur6FxH8bhh15FzkyUax2ucRETC1Rv9rwngi5tlv+23lJOLwn5BDgY72qbaAZYJvvrmoOFWbL6M3Qb+ZFlu1ajvlKIyi71ZcBR6wjhcoN5ImqVRJZr1f9KFlFA8PQoVsIGhiYwsfJXrlmowiVE5pmkGgHFno/+avZsEkt/nFCluZiZg+0w7bJb4b0WQnaDHHwEltNIxkYJrSnO4eIiwWEjmcnWOw7wSYwdyk88COfMYVMpX54LX9kXQpSm5EkO2j73bgFpSCDYufewmQ2J/
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 17:37:44.3286
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 17:43:16.7674
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d7e3a55-aace-437e-fdb7-08df3b637fe9
+X-MS-Exchange-CrossTenant-Network-Message-Id: f861f3cc-60b7-4cc6-785b-08df3b64460f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DA.namprd21.prod.outlook.com
+	BN7PEPF000000A7.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8151
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4247
 
-On Wed, Oct 28, 2026, Matias Ezequiel Vara Larsen <mvaralar@redhat.com> wro=
-te:=0D
-> > unique or that it persists across reboot or migration. Two device=0D
-> > instances MAY present identical labels.=0D
->=0D
-> You meant devices that were assigned to the same guest or different guest=
-s?=0D
-=0D
-Both - the spec does not restrict it. Two devices in the same guest can=0D
-carry the same label (both asserting the same out-of-band contract), and=0D
-labels are not unique across guests either. v4 will make that scope explici=
-t.=0D
-=0D
-> +\subsubsection{Label security considerations}=0D
-> +\begin{note}=0D
-> +This section is informative.=0D
->=0D
-> Is this section important?=0D
-=0D
-No - I will cut it in v4. Michael raised the same point. =0D
-=0D
-Thanks for the review!=0D
-Amanda=0D
+From: Nathaniel McCallum <nathaniel.mccallum@amd.com>
+
+Add an optional, feature-gated label to the virtio-net device
+configuration space: a short, read-only string describing a single device
+instance. This field is modeled on VIRTIO_NET_F_MTU - it is static and
+read at device initialization, without a control virtqueue.
+
+Two read-only fields are appended to struct virtio_net_config, present
+only when VIRTIO_NET_F_LABEL (net feature bit 71) is negotiated: label_len
+(1..VIRTIO_NET_LABEL_MAX) and a fixed VIRTIO_NET_LABEL_MAX (64) octet
+label buffer holding length-delimited, well-formed UTF-8 that is not
+NUL-terminated. Two reserved octets follow, keeping a later appended field
+64-bit aligned. A fixed buffer (not a flexible array) keeps future fields
+appendable; existing offsets are unchanged.
+
+A guest with several virtio-net devices uses the label to find which one
+plays a role it requires - for example the device that receives inbound
+connections on port 443 from the internet, which it cannot tell from the
+device itself. The label names an out-of-band contract the guest expects.
+The guest matches the presented label against the one the contract calls
+for, so the label only locates a device and conveys no trust. A wrong
+label can only deny the guest its device, a denial of service that is
+always possible. It cannot make the guest trust a device the contract
+would reject. A contract and its enforcement are outside the scope of this
+specification.
+
+Signed-off-by: Nathaniel McCallum <nathaniel.mccallum@amd.com>
+Signed-off-by: Amanda Liem <Amanda.Liem@amd.com>
+---
+
+Link: https://lore.kernel.org/virtio-comment/20260818170552.2127-1-Amanda.Liem@amd.com/ [v1]
+Link: https://lore.kernel.org/virtio-comment/20260924153024.3362-1-Amanda.Liem@amd.com/ [v2]
+Link: https://lore.kernel.org/virtio-comment/20261027154836.13778-1-Amanda.Liem@amd.com/ [v3]
+
+v1 -> v2: add motivation and config-space-vs-CVQ rationale; fix the
+  feature-bit note (Parav)
+v2 -> v3: require label_len 1..MAX; spell out the over-length error as a
+  device error with FAILED (Matias)
+v3 -> v4:
+  - Reframe: explain the purpose - the label names an out-of-band contract
+    the guest expects and matches against to find its device - and that the
+    label conveys no trust and need not be unique (Michael)
+  - Drop the acknowledgements.tex change (Michael)
+  - Remove "host" from the spec text; the device provides the label
+    (Michael)
+  - Pad struct virtio_net_config with 2 reserved octets so a field
+    appended after the label stays 64-bit aligned (Michael)
+  - Reword the comparison text as driver-side matching, drop "consumer"
+    (Michael)
+  - Note identical labels may occur in the same guest or in different
+    guests (Matias)
+  - Remove the informative security-considerations note; its one normative
+    rule (no routing/identity/trust decision from the label) already lives
+    in the driver requirements (Michael, Matias)
+ device-types/net/description.tex | 92 ++++++++++++++++++++++++++++++++
+ 1 file changed, 92 insertions(+)
+
+diff --git a/device-types/net/description.tex b/device-types/net/description.tex
+index 9f85bf4..e8419f7 100644
+--- a/device-types/net/description.tex
++++ b/device-types/net/description.tex
+@@ -146,6 +146,12 @@ \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits
+  when VIRTIO_NET_F_IPSEC is negotiated. When a device offers IPsec feature, it SHOULD
+  also offer the VIRTIO_NET_F_OUT_NET_HEADER feature.
+ 
++\item[VIRTIO_NET_F_LABEL(71)] The device provides a label for this
++    device instance through the \field{label_len} and \field{label}
++    configuration fields. A driver uses the label to identify which
++    device matches a value it expects. The label is human-readable, and
++    its meaning is defined outside this specification.
++
+ \end{description}
+ 
+ \subsubsection{Feature bit requirements}\label{sec:Device Types / Network Device / Feature bits / Feature bit requirements}
+@@ -220,9 +226,16 @@ \subsection{Device configuration layout}\label{sec:Device Types / Network Device
+         le16 rss_max_indirection_table_length;
+         le32 supported_hash_types;
+         le32 supported_tunnel_types;
++        le16 label_len;
++        u8 label[VIRTIO_NET_LABEL_MAX];
++        u8 padding[2];
+ };
+ \end{lstlisting}
+ 
++\begin{lstlisting}
++#define VIRTIO_NET_LABEL_MAX     64
++\end{lstlisting}
++
+ The \field{mac} address field always exists (although it is only
+ valid if VIRTIO_NET_F_MAC is set).
+ 
+@@ -276,6 +289,45 @@ \subsection{Device configuration layout}\label{sec:Device Types / Network Device
+ Encapsulation types are defined in \ref{sec:Device Types / Network Device / Device Operation / Processing of Incoming Packets /
+ Hash calculation for incoming packets / Encapsulation types supported/enabled for inner header hash}.
+ 
++The following fields, \field{label_len}, \field{label}, and
++\field{padding}, only exist if VIRTIO_NET_F_LABEL is set.
++\field{label_len} and \field{label} together convey a human-readable
++label that identifies this device instance, which a driver matches
++against a value it expects.
++
++\field{label_len} specifies the length, in octets, of the label
++value, between 1 and VIRTIO_NET_LABEL_MAX inclusive. A device with no
++label for an instance does not offer VIRTIO_NET_F_LABEL for that
++instance rather than offering an empty value.
++
++\field{label} contains the label value as exactly \field{label_len}
++octets of well-formed UTF-8 text. The value is length-delimited and
++is not NUL-terminated; octets of \field{label} beyond \field{label_len}
++are unused and have no meaning. The remaining octets of the
++VIRTIO_NET_LABEL_MAX-octet buffer are reserved.
++
++\field{padding} has no meaning and is reserved for future use. This is
++set to zero by the device. It keeps a field appended after \field{label}
++64-bit aligned.
++
++The specification defines no semantics for the label: it does not
++name a network, identify a tenant, or establish trust, and the device
++does not guarantee that it is unique or that it persists across reboot
++or migration. Two device instances can present identical labels,
++whether in the same guest or in different guests.
++
++A driver that matches the label against a value it expects compares
++the two octet-by-octet: they are equal if and only if they have the
++same length and the same octets. The device does not normalize or
++case-fold the value, so a driver that needs Unicode normalization or
++case-insensitive matching performs that itself.
++
++The value can contain bidirectional or zero-width characters, which
++are legitimate in many scripts. The device does not emit control or
++separator characters, but a driver that displays the label can render
++it in isolation so that any bidirectional characters cannot reorder
++surrounding text.
++
+ \devicenormative{\subsubsection}{Device configuration layout}{Device Types / Network Device / Device configuration layout}
+ 
+ The device MUST set \field{max_virtqueue_pairs} to between 1 and 0x8000 inclusive,
+@@ -326,6 +378,27 @@ \subsection{Device configuration layout}\label{sec:Device Types / Network Device
+ The device SHOULD NOT offer VIRTIO_NET_F_CTRL_RX_EXTRA if it
+ does not offer VIRTIO_NET_F_CTRL_VQ.
+ 
++The device MUST NOT offer VIRTIO_NET_F_LABEL unless it populates
++\field{label_len} and \field{label}.
++
++If it offers VIRTIO_NET_F_LABEL, the device MUST set \field{label_len}
++to between 1 and VIRTIO_NET_LABEL_MAX inclusive.
++
++If it offers VIRTIO_NET_F_LABEL, the device MUST set the first
++\field{label_len} octets of \field{label} to well-formed UTF-8.
++
++If it offers VIRTIO_NET_F_LABEL, the device MUST NOT include in the
++first \field{label_len} octets of \field{label} any of the following:
++the NUL character (U+0000); any C0 control character (U+0000 to
++U+001F); the DEL character (U+007F) or any C1 control character
++(U+0080 to U+009F); the line separator (U+2028); or the paragraph
++separator (U+2029).
++
++The device MUST NOT modify \field{label_len} or \field{label} once
++VIRTIO_NET_F_LABEL has been negotiated; the value is stable for the
++lifetime of the device, and the device MUST NOT signal a configuration
++change for these fields.
++
+ \drivernormative{\subsubsection}{Device configuration layout}{Device Types / Network Device / Device configuration layout}
+ 
+ The driver MUST NOT write to any of the device configuration fields.
+@@ -367,6 +440,25 @@ \subsection{Device configuration layout}\label{sec:Device Types / Network Device
+ A driver SHOULD NOT negotiate VIRTIO_NET_F_CTRL_RX_EXTRA if it
+ does not negotiate VIRTIO_NET_F_CTRL_VQ.
+ 
++The driver MUST NOT read \field{label_len} or \field{label} unless
++VIRTIO_NET_F_LABEL has been negotiated.
++
++If the driver negotiates VIRTIO_NET_F_LABEL, it MUST read
++\field{label_len} before reading \field{label}. A compliant device
++sets \field{label_len} within range, so a \field{label_len} greater
++than VIRTIO_NET_LABEL_MAX indicates a device error: the driver MUST NOT
++read \field{label} beyond VIRTIO_NET_LABEL_MAX octets, MUST NOT use the
++label value, and SHOULD set the FAILED \field{device status} bit (see
++\ref{sec:Basic Facilities of a Virtio Device / Device Status Field}).
++
++If the driver reads \field{label}, it MUST read exactly
++\field{label_len} octets.
++
++The driver MUST NOT make any routing, identity, or trust decision
++based on \field{label}, MUST NOT derive the network interface name
++from it, and MUST NOT assume that the value is unique or that it
++persists across reboot or migration.
++
+ \subsubsection{Legacy Interface: Device configuration layout}\label{sec:Device Types / Network Device / Device configuration layout / Legacy Interface: Device configuration layout}
+ \label{sec:Device Types / Block Device / Feature bits / Device configuration layout / Legacy Interface: Device configuration layout}
+ When using the legacy interface, transitional devices and drivers
+-- 
+2.34.1
+
