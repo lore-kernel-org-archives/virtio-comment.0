@@ -1,114 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803619;
-	b=p8vKO9reWwe3fhMAFar94u3Tvdro4ymUsSdSdO8fG4X3QOjz62TuyhSObH9I7dK6oxmd
-	 bd4umFejU/SHqBEaNlI71s0ZNoOqNPx1GrCHT3ozYizShFZveWV5KQ7pXPWt3a86Vg3eF
-	 d6kCGmfulW37XBUlA3WYizQPzH/xexTsm1NBCBgOhPv02zle8UXF72/dHcQ3Yv7qMRhnK
-	 BZ9gbLEHhN1o58lNlV93aW5uKglamKI5zEBxGDIIWjhPgml/wcSywLkPwaIyANWHTE835
-	 caHBP5yQBk79VcmrQmnzoFbkWYC76+AAL3Gko9sN/WGvgzJxQthwlfhOWTiH3DUHLRQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803619;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:In-Reply-To:X-Mimecast-Spam-Score:X-Mimecast-MFC-PROC-ID:
-	 X-Mimecast-Originator:Content-Type:Content-Disposition;
-	bh=ztMWNYulb1MNOGrl1O5kD6FvcPLySgcKliyMEEXZqb0=;
-	b=WY0QIiqnE0juB8llD1MoujxfPKuG4LOLoMCikuCnSCgMC92DinUcvaH+7qcG9DqHrT/s
-	 3pS0pA2Oe+qF+wbwiuMt6YnGgnYmwtWdxocS6pxdkw/0VzUBBEGdorrN6bgTgmqFvaDNs
-	 aQ9UtXb+D4qbIbe+uMKAmTp66c8YAehJHmcf9EmIIeqFCEuYZ1uA+fpbgirglgK152LiE
-	 UkleDw6DIZgj5HuZuzjmI3HjAPu/RaEp4u6gtbk6hoAX8fiWTEjt+BgBBAy2So8bg5078
-	 zuDMzNxNrTic1JjchUmEztWKvb908BHsuVnACw1m4/Pdl5Zn7iJT10DJa7ICmCyYN4Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KeDIjNfA;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.8
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793899763;
+	b=V4cwJcql4TWCQVDP9ilg1qKK+kZkJeVs8D/jMCUvH/OjVIE9JfLmCsZOIg2TKsPM6aPm
+	 CbhRlv3UuYqZj0ZoCWC0iFYRfsUxYc66vLYGKgTmixFiAVLhjrJTwDIEVp7muwFK/rPLm
+	 p+EEW4PkyaxKw+9LwP5SsnyY3Y20/NSPEb7/s+OhReAp/eSpyS8IB2Bo8WKfeOO7uXuTn
+	 XF/MZnd1BC3GsO1NpRvgPkonKFdCFdLyRIbtdB2uiHbVyZOf2kYYOfA/PTjHB3RYqX1YT
+	 a/15gxqXuIOs44aLsdiIj4Pav2r+mQKAtDe8Moqis+O5sCS7oP4/a3QlFcM4zfpjkxQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793899763;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Ehb9dHE9yDH7BsyU0udGJ7O5vd6EoenheZrLqd6hIa8=;
+	b=VOxbGja2ICFBISahPmfK/vzN5dpGZMeIhlXm6pCIeLLvAJ4VBhD7FKlgSMtD9uSPw54T
+	 1bqeDukrsUt8q0WEGT6mNDbRpeg3i6QHLbNUX+4OaNFEkgkjqJVfrRmkgvJAyVEv9et6F
+	 aKC3ckqbSaiz/TQw2gDjJUISOy9zCqMZN/+wR5B5JDsr8NtCtoNYjlMGPzlA0zzqzYFoV
+	 6cPXYiUpXWzNJnLAL3/IxoxxlDlKe5sbI6oMKNwysSkoQrbWtYgNzOSzZD1nX7OsUhPh6
+	 85qg0QlgyNjgQooTBBGkXWtNa0tgYOCRWNwl/bo/mcZMyEtuTk0Vr7KwRWxSUQLgJ/w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Wsm1OwXW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.8
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011008.outbound.protection.outlook.com [40.93.194.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF85606A31B
-	for <virtio-comment@lists.linux.dev>; Wed,  4 Nov 2026 14:46:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CF85606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E67606A32C
+	for <virtio-comment@lists.linux.dev>; Thu,  5 Nov 2026 17:29:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01E67606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KeDIjNfA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793803617;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ztMWNYulb1MNOGrl1O5kD6FvcPLySgcKliyMEEXZqb0=;
-	b=KeDIjNfApieej9F7CR2KKJbJY3JsgWUAuG5XzwBPZ3WMTCfcz83AHWgvW6Zjs62hziagYr
-	bU/ejjbEuZbgWgfEdHdjag6Vqh/Anh/oDd5SQm5IOkStBCpwy6TicEKdGVOL8zXFNC8xAs
-	AsR/oPPmkcMif2RlNNbdHm6/VlJSh4Q=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-121-w0QYj5mnPdmFdAAv3Ip8Rg-1; Wed, 04 Nov 2026 09:46:46 -0500
-X-MC-Unique: w0QYj5mnPdmFdAAv3Ip8Rg-1
-X-Mimecast-MFC-AGG-ID: w0QYj5mnPdmFdAAv3Ip8Rg_1793803604
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48fc8d1c14bso917592f8f.2
-        for <virtio-comment@lists.linux.dev>; Wed, 04 Nov 2026 06:46:45 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793803604; x=1794408404;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ztMWNYulb1MNOGrl1O5kD6FvcPLySgcKliyMEEXZqb0=;
-        b=UnE3X8cKjgljuj1Z4CyqJeVhCCDmkSoCPOMPiEEzxC2Bwxid0OFakx+B0Wlbd4q6rg
-         ohHBiS6+Wb2hcKNdvL+xAt6mS99J/X0ftzdSIUdrhAdkec2g3AOOBj2N1efeyX+PBtxV
-         fhRxn5qYTDiqOWmtsi0vL0TwlYh3zWd3Bz2zsD6n95hUAFXjJcKUFZIT0dz+HBHHrimH
-         np6dMxHpd0IWW0thRF401eAPWM71aXxKfo6N/BVu1HcAbqLl8kuhsj0myNEyVd1LM6jU
-         6xRR+HgaxtIt1ueeBvK9Vf5xq28Aze56237/mhjD0CHYUdpnQMsRY3Y/LyHg09GE2TeE
-         oM2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwWpJAjY0kCUce/VAfpWXZf2Q9ERZE+2AYRD85UdMHK7ZN42Azc/DF3TUNRnApYrWbEwcFn/FVwNEcGVfxLOg==@lists.linux.dev
-X-Gm-Message-State: APuU4Z/SFzGFYmFdbxWCG9AyTopvU/gLoCd6RfE7fd93klVAqjmWIap9
-	SF02oc4Kb6JxffT43DtjdPC/2H0cs+960+g/NXAuSzWCaHSl8HCNlaZHxNeNVcrPKcNTaM6nPY0
-	1P6fqVV4jsK5QDsjUBDhw703+bQa8GEqFq/V61bI9SEO386GMAtdmpKiM0SWGiEGNO6yL
-X-Gm-Gg: AYBFou2nA2lPLz+Cv6iblWUZdE70akeB5XHVccA1InhbcfgtLt/tOBIVG+XMe4qrjFp
-	R7IY9CxOo3XGhkKab2ZK5i549pnYWWbOgQkGip8vf5QLNu3oibb0wlpAldgwcVvPbfLEFx+MAZU
-	3xJsl9U1iR5Lz3wvKi/KlA1qjYicJgNGD8kgYBkib0FOc7bc+WLPja94sFJJs/UiAehl8YnS1dq
-	IQGheOUgOKVqwFQuVkqWuT/iDJ0vaWpM5Dcf2rgt+zWi/1qcz66+O/e2GFIRYQlqNGO2dP5Y+Z1
-	QF7KGmnXBvrZ/AF58vb+fqUtkpvMMyKb0a0CTidSu1JcNdUwhGC7d9Kf/eyImq214+Xq9u+G7EG
-	ddqcykRxhqLuZ+NRzoMX4CJZa2PcsoGV0xKd/R8EEKQ==
-X-Received: by 2002:a05:6000:2488:b0:487:27f9:840 with SMTP id ffacd0b85a97d-48e6e50d953mr35080021f8f.53.1793803603779;
-        Wed, 04 Nov 2026 06:46:43 -0800 (PST)
-X-Received: by 2002:a05:6000:2488:b0:487:27f9:840 with SMTP id ffacd0b85a97d-48e6e50d953mr35079977f8f.53.1793803603141;
-        Wed, 04 Nov 2026 06:46:43 -0800 (PST)
-Received: from redhat.com ([2a0d:6fc0:1506:fd00:9e19:9994:44b1:e6f2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed552afcsm4295018f8f.41.2026.11.04.06.46.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 06:46:42 -0800 (PST)
-Date: Wed, 4 Nov 2026 09:46:39 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Matti Moell <matti.moell@oss.qualcomm.com>
-Cc: Peter Hilber <peter.hilber@oss.qualcomm.com>,
-	Cornelia Huck <cohuck@redhat.com>,
-	Demi Marie Obenour <demiobenour@gmail.com>,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
-	Parav Pandit <parav@nvidia.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	"virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	Jan Kiszka <jan.kiszka@siemens.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Trilok Soni <trilok.soni@oss.qualcomm.com>
-Subject: Re: [PATCH v2] content: Reserve ID 52 for QPSFI device
-Message-ID: <20261104094014-mutt-send-email-mst@kernel.org>
-References: <20261022115837-mutt-send-email-mst@kernel.org>
- <SJ0PR12MB68066B4C6D821EF792DAA220DC652@SJ0PR12MB6806.namprd12.prod.outlook.com>
- <20261022122727-mutt-send-email-mst@kernel.org>
- <xkzvep5mx77zm57l5im3qef6k3uiqfdnyi3lxuvmsiu7rjkeeu@ey5gquhbb2s4>
- <CAAjaMXbFY8d_H6YJSbb+2ycx-Bh7wBym0UpCy2Z4XsftkhQSzA@mail.gmail.com>
- <fe70886a-b119-4302-b35d-f99dfab4b018@gmail.com>
- <rltfxbrlfrqixbuevqknfake6hmcs62vjwgpk66tzvyswvfuej@6imyqn2npcby>
- <875wyo3557.fsf@redhat.com>
- <mkmnrjrkzjg6gdh4u3l6lib7ggovl7oiqwki76pkdboue2szdi@lhpg3ik33w7y>
- <4222d5ec-e44f-46a1-8a14-a2f3fb6d84d1@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Wsm1OwXW
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uiXA38oECWnJRHsqb3/oD67dPXWrb742zDvOWPZwQepzrjefSaJUC+y+GQ3d3w/N/lz1nJlYioTbOMh2ihitA58YjtnApxYNinKIWZB58fVu1tzAIueensdMn/ybbQmqy0qDGDUltGrOzwqhRSa/qN7ZtsLMCr+9fwZarUtrns9r9IChf6FYmW11C5YhMUbikhHqXyt+z+ZyuHpqQ8bwYZHMNYXpiEFNHr8t5Z2uykREe39nvUx+lU6jBUWeRf9X/rgtOWLpZKhfYmmfYeZMsWzsE4c+i940nLjhN1RkjngHXhA9km3Ypz3Tn4tSkgV6Fc+wA0cVC9PAJ+m9usOXTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ehb9dHE9yDH7BsyU0udGJ7O5vd6EoenheZrLqd6hIa8=;
+ b=PWWJgGHU6+S08vAao8q+IAcFOAd4GMeWBvzFLuBKCklVrfMahIHE1cNSNQhv9aSsTs9AnycrmWEhU0oVgrcfuDsmZQLQapQW7R6VjJ4qcT96xLCwwU/dssqD4AHYu+/JRrLb1WM9f4ocAq9UNWIQejZWgy7jjqD8gMndF6wA3W/ux22we4/oHDjXlTy2YSHlcOi7H+wSw/LViLIfcR4KHJ8fv00+c/usOzvM8pQGT9Q8vo48D/dEQP4m8h71bqzbU0p7jB1Tn/x4K+matAX5UOGKY0JVYmMRmPkPvyhWrqpXHhQhTy05wRnjb3UCNrh+bw85Yhd+ZHkSMFPaCI31FQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ehb9dHE9yDH7BsyU0udGJ7O5vd6EoenheZrLqd6hIa8=;
+ b=Wsm1OwXWAErgntHKL0LiUTOg4ODHEW47EIAsULKDkcW3ClqnNCb2nkPb/mbE7ur6E1oKOf1idCGk4264+vC53GWoVfC85xbZ7i/2kiLzuNuU6MCxYNjl1BZcN217/5roIMyiXrKUxCYWsF0H9oi/BNZOvM4TUk+BFtQA0Xz0Hl4=
+Received: from MN0P222CA0017.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:531::22)
+ by CH0PR12MB8508.namprd12.prod.outlook.com (2603:10b6:610:18c::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 17:29:09 +0000
+Received: from BL6PEPF0006C3DB.namprd02.prod.outlook.com
+ (2603:10b6:208:531:cafe::6e) by MN0P222CA0017.outlook.office365.com
+ (2603:10b6:208:531::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
+ Nov 2026 17:29:09 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0006C3DB.mail.protection.outlook.com (10.167.249.229) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 5 Nov 2026 17:29:09 +0000
+Received: from AUSALIEM01.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 5 Nov
+ 2026 11:29:08 -0600
+From: Amanda Liem <Amanda.Liem@amd.com>
+To: <mst@redhat.com>
+CC: <virtio-comment@lists.linux.dev>, <mvaralar@redhat.com>,
+	<parav@nvidia.com>, <nathaniel.mccallum@amd.com>
+Subject: Re: [PATCH v3] virtio-net: Add VIRTIO_NET_F_LABEL for a per-instance label
+Date: Thu, 5 Nov 2026 11:29:02 -0600
+Message-ID: <20261105172902.11833-1-Amanda.Liem@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261027132238-mutt-send-email-mst@kernel.org>
+References: <20261027154836.13778-1-Amanda.Liem@amd.com> <20261027132238-mutt-send-email-mst@kernel.org>
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Post: <mailto:virtio-comment@lists.linux.dev>
@@ -118,77 +106,71 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:virtio-comment+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <4222d5ec-e44f-46a1-8a14-a2f3fb6d84d1@oss.qualcomm.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: WaJT7Y09iUF1YMG3O2oDDGIi7Gl_5hhYldYfC5CeSds_1793803604
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3DB:EE_|CH0PR12MB8508:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6c517cc3-706c-4aec-ef01-08df3b624d07
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|18002099003|22082099003|10067099003|5023799004|4143699003|11063799006|56012099006|261028144727099003|261021121427099003|261022105027099003|261021123027099003|261026121527099003|261102123227099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	yl0gxN7dfaMFztHIfinUDPMClJvUb+Zm/ZeamIEqhy4iwPYCT3UJ9GfbOyBgqDGVZGeM2HMPy8oTnoE2rul3hdLQdqwXaEfgifMRWt21HpzWdfFeDPqoy+VfX5OE09jo+s4gIEtwzQ+K2EznYm9KXG/QV7YYEwUxiYiIHo2un/Q3+lWpFPuXYmjUbclbE0rpcAXH/rsvrivxL18VI38gftKZF36tfhlWV4qLdfo9XgdVZxvH0ayyRUwGfNj2Ooa9bku/tl8wj2qXQCu3JTO9MCdlt08In9MguvKeM1zEHca+Nt/xdCsgEqBS/nmFE9Cq5/aFvpiCNr/De6T0W9vk8N88JhSmHAxV9HWmqVXLSL3zB47xaa6NcNxxmIqcxVYk0uNnauTz6eJEH0nlrxzl6n0b9RWG004wkS/tbZRGasSn9oQgcn9+SYdJYPxIVOIhxz0yOUZJdE8VSnxtHPSkFAm6tEfUFHplIsvxS6wA4KLyekuVQ1SLIh/J+Kvg4p6QPEAzGuToP5kiK72Y9AAnMBXN4wXkcVsn+eEP06evfrkfWTTfjvuxqywwzco+2o8bMsUEuCCmKBxv8vTaX5fpPXrhueQkpkp//pfmyjOhcM7nwPZ82XdYrJtlln26ob/gc6k2vIKEJaOokYDzF8vjhDlHtrLEd/rFlQMWtklz49n1DLa2J+/Iz20R91tXPOp4rjYRFLJXQk8kOsw3Fi7pkA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(18002099003)(22082099003)(10067099003)(5023799004)(4143699003)(11063799006)(56012099006)(261028144727099003)(261021121427099003)(261022105027099003)(261021123027099003)(261026121527099003)(261102123227099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	4rIaZY8eo+odp1tIgt+tL7S6/yJMmwWfzwr8IEo15G2BP0twYoib8pNKPX0TEnIFzC4zqGK6hZ0OOrSJpYi6OfZp0+uECG7Gz2W/X+Vl07crirL5qh6FHUmvpMIQjFDRDnpiHkUNnmHussKg1TUc7wp5/ABr7+KHej9jJyeZUzaNhHR11nQqJsmmMIUgp5tGbHzYzvpSJw8cChWbxoXlBjrFpDjGAmNRYtL1ktGz5Af5cFLGa1ibB50vXnFawXvCODV1yM0bctvUDcbRJTdvMf2zy+BvRGyZEhtVgBfBr44I+as9aKUysmJ4KOUvjD0Fb93CNDBy+E9q90pcIv3JBPlN2KfJsTQ2Pr0k+T+BwljAy1VgBIEwZJuiWwQHBjz+0Zo2kJpDKuEs4WtsZM6CPPqGR9Y2yYfVLmeuiUQQnhHoHPFEWTIWnbdVpR2HWZw9
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 17:29:09.4646
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c517cc3-706c-4aec-ef01-08df3b624d07
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF0006C3DB.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8508
 
-On Wed, Nov 04, 2026 at 03:34:00PM +0100, Matti Moell wrote:
-> On 28/10/2026 15:22, Peter Hilber wrote:
-> > On Mon, Oct 26, 2026 at 03:31:16PM +0100, Cornelia Huck wrote:
-> > > 
-> > > ...this would also still somewhat hold (no need to reserve an ID for
-> > > everything, but if you're serious, get a vendor-or-purpose prefix.)
-> > > I'd still want to encourage everyone creating a serious device to go and
-> > > try to standardize it.
-> > > 
-> > 
-> > I am wondering how these namespaces would be managed and used. Would
-> > introducing a vendor/purpose prefix require an approval process in the
-> > Virtio TC? Would new standardized devices have a "standard" prefix when
-> > using ID 52?
-> 
-> I would suggest something like this
-> <PURPOSE>/<UUID>
-> 
-> Where PURPOSE is just some well known 32 bit number with:
-> - 0x..00:          must be ignored (similar to the device IDs)
-> - 0x..01:          test and experimentation
-> - 0x..02:          Vendor space, any vendor can use it
-> - 0x..03 - 0x..FF: Reserved for future use
-> 
-> Then the UUID can be any completely random within the purpose. Not "4" but a
-> meaningfully generated UUIDv4.
-> 
-> OR alternatively we could create a QPSFI or maybe Qualcomm purpose instead
-> of using a generic vendor space, for example 0x..02 could just be used for
-> QPSFI. I don't think it makes a huge difference.
-> 
-> > Could a device UUID transparently transition from testing to
-> > vendor/purpose, so that drivers would only match on the UUID? Could the
-> > namespaces be seen as a quality gate so that testing-prefix devices may
-> > be refused in some circumstances?
-> I don't think that should be thing, once something is properly specified it
-> can just use a normal device ID.
+On Tue, Oct 27, 2026, Michael S. Tsirkin <mst@redhat.com> wrote:
+> This is not what the text below accomplishes though. It talks of
+> human-readable label, and says that it does not need to be unique.
 
-Ugh. Let's keep it simple. Reserve ID 52 as vendor specific, qualcom
-can do what qualcom wants with a qualcom subsystem vendor id,
-or just you know, use its own device/vendor ID.
+Good point - the v3 wording doesn't capture that, and I'll fix it in v4.
+The label names an out-of-band contract the guest expects and identifies
+it for lookup. It doesn't need to be unique because it names the contract,
+not the device - one or several devices may carry the same label. Its
+meaning is defined outside this specification.
 
-> 
-> On another note. We are here because there just aren't enough device IDs
-> available
+> You didn't explain what the purpose is, then. The host can swap
+> network devices, why is that not a problem at all?
 
-Nope, I don't think we want to go too far to accomodate devices with no
-plans to be part of the virtio spec. That's why we are here,
-the lack of IDs we'll fix.
+The purpose is to let the guest find which device fulfills a contract it
+expects. A guest serving HTTPS, for instance, needs the device that
+receives port 443 from the internet, which the guest cannot discover on
+its own, so the label points it there.
 
-> and while looking at this we figured out that the qemu docs[1]
-> actually claim that there are 175 device IDs reserved for VIRTIO and not 63
-> as written in the spec. Who's wrong here?
-> 
-> Maybe the solution lies in finding ways to expand the number of available
-> IDs.
-> 
-> Cheers,
-> 
-> 		Matti
-> 
-> [1]: https://www.qemu.org/docs/master/specs/pci-ids.html
+The label conveys no trust. The device asserts that it conforms to the
+contract the label names. Whether it does is the contract's concern, under
+the contract's own threat model, and is out of scope here. A lying or
+swapped device gains nothing it does not already have - it can deny
+service, which it always can, but it cannot make the guest trust a device
+the contract would reject.
 
+In the next version I will also fix:
+  - drop the acknowledgements.tex change
+  - remove "host" from text
+  - fix the layout so the field after the label stays 64-bit aligned
+  - move the MAYs into conformance clauses
+  - clarify the comparison text - a device presents one label, and the spec
+    does not require labels to be unique
+  - remove the security note
 
--- 
-MST
+Thanks for the detailed review.
 
+Amanda
