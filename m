@@ -1,100 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312114;
-	b=KH0pD4FE1RAKI5iszOLqefhLbNPRNkYvHRiiT+5qYP9rb9HFYJrEjdW05kIh2ISrszer
-	 7QE5zRIT8JK2KpqT0QoFZjZgq//nQmWA7reLHT4A6mFRTNN20CrqaKDq23BUtGd9WQqC0
-	 bfQr1aT/4cQNi1jkZ1AfoFt7Z5iQA12Ho4MlRfrJboXV7e1m0TR5oUx7u3tYmSr/CG/m5
-	 54Vpe6k+fQOr/mHrbHbl9t7ibcc4AOpcat8VAbYX06HPQSwVWv64UrEfNkivmarO9Xyme
-	 e4CvvihdH/ywowccOvdxR6Gpl2pD7dEG+unLeqf7R8uc+lu8DKe0aK/om+dGtcWwNrg==
+	t=1794361969;
+	b=MmUsFJdajb82UpAFK4w2dpTOM2HB+YrbFIhuKkMyPPBFORqUtG+4qJiohM78CeXmxz8V
+	 bLnwVTo/BGdOL/6ywDbgM0gb7iC/xUzWHKxTGM1ENMrNovSY4oNbuBXTS7oKvfJ+/Mykc
+	 S2K100p86nrYwRmUjCnmeXief9voS3rzgcstm8OYSPYJ1QdwMFbDGyOC/JvJF86ZIdKhJ
+	 QURzMUHdE7lHOe+F2cFth1zPy8tn0d2/MRzK2TLBL3GrPVOlBIeNcbHCK4uJlJHlykta3
+	 bmX+Geyp2R6tzh+ddojW/VY19rkqM2MjQBbNIBV7W0DYtNlb2Z/mn0KSEbGKrX6LQUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312114;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:In-Reply-To:X-Mimecast-Spam-Score:X-Mimecast-MFC-PROC-ID:
-	 X-Mimecast-Originator:Content-Type:Content-Disposition;
-	bh=aHVatP+PBSHpASpPx9emfaOtam7U2QyVJYK/ubiBmyk=;
-	b=A15/Ygk0V1PMcuAYVrWFhY8wcyJIt1yF8JC6glz4epIummwVg36juvD7Rib8AVIZ8W4S
-	 5ekXDu+Rn/z7V+S6Lxpw8/WxeX1C2EkzVJPkM95F1sbaZjUiV/9amshvoKgwUJhHXCKHm
-	 wmJQ0eAOXt+TRG3CDvNMdVbCcMqQu9PU1Uk9Rj/tQ0IOmGR+6MJEoKI2OYLdKuCfvM6nH
-	 o+aMpv0JN2iYrYRMEpijvqVDNT7ACtl11dSQhb3WASmmaLH0SooCD3JXCYn+5yEMFqwC/
-	 2gd/bk0Ue8+RcxAeeyUmVO8I8WJIHOVXSXoFk1liYJyvQiS6LcPDt1GtN4uUy3WceQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794361969;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
+	 X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=enqW5373U47U9sTJoj0YulnkarfvfQG9awrG0o1k8Z0=;
+	b=SK9dGgEhuWUNhbplOucxbzRXHl/qeniZBZRQ3BaoRtSG2XTh0YycM+r27/5aUqM2RCPO
+	 9pH24uv8TPab0uw0M3kJvq57M0QSSTHZBb0jolZAIya9lXpByLlc/WfgMm8ejt9Bgf3VU
+	 oXHWpjNIWwRsCxDvpWQOkwJqpYUQIfTN4azbKQ4p6kF+Uv3SR7IKo1W3cZKysLvPLb4ns
+	 KsmxjPTscu8YuwYEDEMQ3n57Z/zkKAeZlWA68i7UEmR9cV0THZG4xBKPh6zUuIPWbSIE3
+	 +r3qZ7mfdegt++4VF9aLreszgYD7r7gxpTvt/Ff8ydMKp3ApR7MGcr0Ow/0TXymRToQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YqnMqUSK;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RmZxsRds;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5192A606A321
-	for <virtio-comment@lists.linux.dev>; Tue, 10 Nov 2026 12:01:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5192A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6934606A324
+	for <virtio-comment@lists.linux.dev>; Wed, 11 Nov 2026 01:52:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6934606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YqnMqUSK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794312113;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aHVatP+PBSHpASpPx9emfaOtam7U2QyVJYK/ubiBmyk=;
-	b=YqnMqUSKzXntC59/FB7OunpPtfPiAYqEgqaspn0SWWDzZoM5ZhlDLZpq1N+Iz5dBQUvd/c
-	/zwSvaOaPrlkg1HGkzK4l67+tjcOKCdGhBF+Z+fXbmnvIR3Fpw4eVOFkLFA0zSoxjKDsPv
-	oJyma+qYr9s2lwXVuLWe/b+dtYH9jnw=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-528--Uk3gzCxPGuMoYk2mClvkg-1; Tue, 10 Nov 2026 07:01:51 -0500
-X-MC-Unique: -Uk3gzCxPGuMoYk2mClvkg-1
-X-Mimecast-MFC-AGG-ID: -Uk3gzCxPGuMoYk2mClvkg_1794312110
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48df02b91f9so1274558f8f.1
-        for <virtio-comment@lists.linux.dev>; Tue, 10 Nov 2026 04:01:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RmZxsRds
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15dd124bbe7so3744408c88.1
+        for <virtio-comment@lists.linux.dev>; Tue, 10 Nov 2026 17:52:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794361968; x=1794966768; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=enqW5373U47U9sTJoj0YulnkarfvfQG9awrG0o1k8Z0=;
+        b=RmZxsRdseSe/NPyU0pAmfEyQzYBDw6kD8SsBPnCFbnvkZE0V9I1UUXqAdFflHar9cr
+         bjLxdBj2K0qxSHaLZpT39rdns7l2ZwtVq1LyVBjdC4U3+Ez1ANc30OjbTFvqaRJzzFR/
+         p6/PQ0ZQbik1W3aCWOHSMaPfpTLx8zq9zQ755ynrStydgg+lrwiZoT6KqcKxrBHB/0tr
+         LNwp/M8ILpNizmXKqF+lQFa8iK5qA+yK5jf5pJE+q99isihK48H1l7cp8wtKfcSM5ltS
+         yWZe+Vl0H6eUuMshSDDd4+XaAnPlnacolebT73xEBS/MFXENcCnIFRMHDQ661pRG04Xb
+         bzmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794312110; x=1794916910;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aHVatP+PBSHpASpPx9emfaOtam7U2QyVJYK/ubiBmyk=;
-        b=U4XHMXn8DYOYezCB4MLvhy+x/ttV8SHzyB8m8ZY1SfGPhfmxDGAfzPzYo+vCQMMEnv
-         WP07uXnQw41+VlZhitNJ4MtQcG4mFJGUGbxs6r2WNt1fZFXdOzfeg7ahRFG0AeCs2o0c
-         e2M4cm5fmI66aQZsb+ikBDNCeNs5dxNMNa/g2FOFhHXDth+nx/8feFos1TBzET/fQ9eN
-         U1novWuxMCZiFgCtYz0l01f+flSc7doLofXG4JwBpZiDYG9Cf1sW0Qji/tF+o6bN2/Tp
-         oSaTzQxq3ZZUIv8SbZY7MTXwwVVKyoUAiaekdPEFUXU0+kiCpYfRYCLkkHp2FpOZr/2f
-         c2iw==
-X-Forwarded-Encrypted: i=1; AL+hErFXjMNvZVSO9Rxaxd31mInjZ2YFsM5SOQZ6R9WonKVcVVMGBzshEJgrVkP5hQP10RR5QRpk6xkLsdw53E0Jvg==@lists.linux.dev
-X-Gm-Message-State: APuU4Z+QpqsKfbbt+Cbrb7H++z0k4XHG5USLeYfpYaYSmAdfNEMjesY+
-	Zu1Eqg+VpMbRp/SN3sO3Cw2CSx/ur06jWTVshUSF8tSTNKVb9Kjp3NR0f1IWckYf3j5B3ckDebF
-	gGWQ5pNneGNq418H1CAAMPQHk5H9zKsUW7RBq74g0CR3EiFOJsRo8uwqHxHP7qjusHMPS
-X-Gm-Gg: AYBFou39MqU7UaiDD6DReO8BHc/Gmdbii2zFx1hAPZUkQpM5esQw/WPMoR436ipuNog
-	p5sbv1CvK9oKhuPp4h5dAkaSksdkKja6KB2PjWwG+fRm5xlBOE1+SLMKnyBRszwgs08hvbaHcLl
-	hJLeEPhOovC1FQMEuHKpeNzjvAWh5unSH9xuXRKUCNvGrYbm7OGPD2OsLyo0R7iXGVyiTnwzN+M
-	4INY1RfzoTeNp3z+/kQ/YBjHL/z7RlD6O17UXe4SPvRtjuL5/Jcd2e6HRhyIjc96ZLtqiHlZ1+i
-	qTe86LaeX7mha7zkAb17bSFXiJfjTJzMAuECItoj3uZ13wLyc9jfT2pKldwrTI0TJlCjJn1tV6M
-	aWk2B7hV5CHXZNlWgF/JJv7Z+x5f7VqIFAorNTk96bA==
-X-Received: by 2002:a05:600c:6087:b0:4b4:a551:681a with SMTP id 5b1f17b1804b1-4ba0233cbbbmr38078795e9.3.1794312110015;
-        Tue, 10 Nov 2026 04:01:50 -0800 (PST)
-X-Received: by 2002:a05:600c:6087:b0:4b4:a551:681a with SMTP id 5b1f17b1804b1-4ba0233cbbbmr38078335e9.3.1794312109368;
-        Tue, 10 Nov 2026 04:01:49 -0800 (PST)
-Received: from redhat.com ([2a0d:6fc0:1511:2900:ff37:b35c:a97:952d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01feee1asm77131865e9.12.2026.11.10.04.01.47
+        d=1e100.net; s=20260707; t=1794361968; x=1794966768;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=enqW5373U47U9sTJoj0YulnkarfvfQG9awrG0o1k8Z0=;
+        b=do0nEIsQP9rB2NK0ozYUwgLlmnrLvvKDk/NmPbFyRwoNkLUjKGBqM5WJkwtmo3UVK+
+         J2pNAJAugPHneRVwNRSW2jiK4mQPLzNKCvDGGTTIP7POtmMCy2X6y4s1pu2LIedKeSu3
+         vCw9hf/yNa5o08b3odigay0Y3gEaxCDdipo0gE1wFRK/DN1E05eCjXjEB3nBbCc3o/zR
+         maKqZuEGCyUewQmN9lw80Xb5VbsxRNmIp4tVZ3hW5m2koCO4uTzV8nhIkhnOWnQryM0N
+         /hMBKTBMiA9qmyKkiEn4XTolr5QzrGUyrKOiKSF6QcoKmGb+8jWI+C8re2aFrDPRM2Ve
+         R5LQ==
+X-Gm-Message-State: APuU4Z8V/3hfVpwBE3xjGgvFUryAT0Qg5H5YZ18Ol6gEsTJx+bWdnaBU
+	Xq5esKD1gHCIRXjwy9uN9LLCeyFPToUpn1f/ytf52+qQG1R3L7CKLyANuj9YSA==
+X-Gm-Gg: AYBFou3r53f6cJ8ddH9zakT+LJ9lgDRxHMLFJD4VfkRgNy7+WrFWUzxveeupIwMvReF
+	j7UrkjMKjUWME44C2kHaAbWUAVOAug4fRXqgcWNlFja+sT2GIVSwP9Sd6u+JeWHOajqI7KMXcAG
+	eGJuIgTp1vxSmo5hVRidAJyeLkSjaub68V9IWDaRrBnyBLBEJP+dbnzgOuqCHCnYfCet+1c2nZi
+	8lrTowLaD62JBoyXeIIIViIM2sRBU8OfJ3Wgo4oOejXC9abJ6cPJwczqBwe9PUXHkvvzCqtywTW
+	D90OAQm2SGZN3ZgwP/sxWTpJa6uC7hjRGf6OVlitXGYsHvdbIf4x1jQdQJWyH8XfarBlPB4p9gX
+	t6//Jb84ZjzrJluBJYD4cGGemF8WdTPUd5+6enZQYMVoec53qIfdRF5MgGWCWxEMmOOYTSw27U8
+	ByjUlXylrSIq6lY4zGUXUMfFLPuA+qiALsJKglC5een05UtM2yUXp87RzUJt+8++zmOkjdRIe65
+	aFEUOAlC29ioVyMJHZQPrUqdlUDYiPCYFFZb3ZrSRCXs1JS61/VOcSJIg7M1fcNmeJqOxwJqVDG
+	wTvMJdlaOElBYmwu1m8AfemaikkbKBMEUg6G0bs1svo8pJ0=
+X-Received: by 2002:a05:701b:4587:b0:1b3:b6d3:b91c with SMTP id a92af1059eb24-1b3c02ec7b3mr890985c88.7.1794361967705;
+        Tue, 10 Nov 2026 17:52:47 -0800 (PST)
+Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfe29fsm11892081eec.21.2026.11.10.17.52.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 04:01:48 -0800 (PST)
-Date: Tue, 10 Nov 2026 07:01:45 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
-Cc: virtio-dev@lists.linux.dev, virtio-comment@lists.linux.dev,
-	stefanha@redhat.com, mgurtovoy@nvidia.com, parav@nvidia.com,
-	ebiggers@kernel.org, neeraj.soni@oss.qualcomm.com
-Subject: Re: [PATCH v6 4/4] virtio-blk: Add inline encryption security
- considerations
-Message-ID: <20261110065058-mutt-send-email-mst@kernel.org>
-References: <20261027090945.185178-1-linlin.zhang@oss.qualcomm.com>
- <20261027090945.185178-5-linlin.zhang@oss.qualcomm.com>
+        Tue, 10 Nov 2026 17:52:46 -0800 (PST)
+From: alistair23@gmail.com
+X-Google-Original-From: alistair.francis@wdc.com
+To: virtio-comment@lists.linux.dev
+Cc: alistair@alistair23.me,
+	demiobenour@gmail.com,
+	Alistair Francis <alistair.francis@wdc.com>
+Subject: [PATCH v2] transport-pci: Allow storing the configuration in the BAR
+Date: Wed, 11 Nov 2026 11:52:37 +1000
+Message-ID: <20261111015237.2595462-1-alistair.francis@wdc.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Post: <mailto:virtio-comment@lists.linux.dev>
@@ -104,133 +95,162 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:virtio-comment+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261027090945.185178-5-linlin.zhang@oss.qualcomm.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: T1XNIzhHXu3-nAdBOsTuk65yw5ohf4blNp4lx7mQea0_1794312110
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
+From: Alistair Francis <alistair.francis@wdc.com>
 
-Good start! Yet something to improve:
+Most physical PCI endpoint capable PCIe controllers do not allow modifying the
+capability list, and thus are unable to advertise the Common configuration
+capability.
 
-On Tue, Oct 27, 2026 at 02:09:27AM -0700, Linlin Zhang wrote:
-> Inline encryption protects the data stored on the backend storage, but
-> the device, and therefore the host, is able to read the buffers of both
-> the request virtqueues and the administration virtqueue.
-> 
-> Describe the resulting exposure. The data of the requests is transferred
-> in plaintext, so inline encryption is not a means of keeping data
-> confidential from the host, whichever key type is used, and confidential
-> guests cannot rely on it for that.
-> 
-> A raw key programmed into a keyslot is visible to the host. A
-> hardware-wrapped key prevents the raw key from being extracted, so that
-> the key can only be used through the device which wrapped it, but does
-> not prevent the host, which is able to send administration commands
-> itself, from using the key through the device.
-> The raw key imported by VIRTIO_BLK_ADMIN_CMD_CRYPTO_IMPORT_KEY and the
-> software secret returned by VIRTIO_BLK_ADMIN_CMD_CRYPTO_DERIVE_SW_SECRET
-> are also visible to the host.
-> 
-> This patch adds no normative requirements.
-> 
-> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/238
-> Signed-off-by: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
+This results in physical PCIe endpoints implementing virtio-pci falling
+back to the legacy interface and then needing hacks to deal with DMA
+issues [1].
 
+One solution to this is to allow the device to store the configuration
+data in the BAR [2]. This can be used as a fallback mechanism so we
+don't break any existing setups. New drivers and devices can attempt
+to read the configuration from the capabilities first and then fallback
+to the BAR.
 
-This needs to be rewritten:
-- use terminology from spec (or standards linked to) do not make up your
-  own
-- address physical device implementations and software ones
-- specific recommendations lacking
+We also need to add a go_busy field so that the driver and device have a
+basic message box to communicate. This is required for
+device_feature_select for example.
 
-> ---
->  device-types/blk/description.tex | 40 ++++++++++++++++++++++++++++++++
->  1 file changed, 40 insertions(+)
-> 
-> diff --git a/device-types/blk/description.tex b/device-types/blk/description.tex
-> index bbae9af..ca54e50 100644
-> --- a/device-types/blk/description.tex
-> +++ b/device-types/blk/description.tex
-> @@ -1994,6 +1994,46 @@ \subsubsection{Inline Encryption Administration Commands}\label{sec:Device Types
->  NOT write key material or the derived software secret to the
->  \field{command_specific_result}.
->  
-> +\subsubsection{Inline Encryption Security Considerations}\label{sec:Device Types / Block Device / Device Operation / Inline Encryption Security Considerations}
-> +
-> +Inline encryption protects the data stored on the backend storage, for
-> +example against an attacker who obtains the storage medium on its own. It
-> +is not a means of keeping data confidential from the host: the device, and
-> +therefore the host, is able to read the buffers of both the request
-> +virtqueues and the administration virtqueue. A confidential guest, for
-> +example a guest whose memory is protected from the host by a confidential
-> +computing technology, cannot rely on inline encryption to keep its data
-> +confidential from the host, whichever key type it uses.
+1: https://lkml.org/lkml/2026/9/1/185
+2: https://lkml.org/lkml/2026/9/1/2370
 
+Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
+---
+v2:
+ - Add the VIRTIO_F_BAR_CONFIG feature bit
 
-Pls reword in terms of device/driver, not host/guest.
-"confidential guest" is also not a common term
+ content.tex       |  5 +++
+ transport-pci.tex | 88 +++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 93 insertions(+)
 
-E.g. "an untrusted device", "a driver that does not trust the device".
-You can give examples "e.g. as is common with
-confidential computing configurations".
-
-this applies everywhere.
-
-> +
-> +\begin{note}
-> +Inline encryption does not protect the data of VIRTIO_BLK_T_CRYPTO_OUT and
-> +VIRTIO_BLK_T_CRYPTO_IN requests from the host: that data is transferred in
-> +plaintext in buffers of the request virtqueues.
-> +\end{note}
-> +
-> +When \field{key_type} is VIRTIO_BLK_CRYPTO_KEY_TYPE_RAW, the key material in
-> +the \field{bytes} of struct virtio_blk_crypto_key_desc of a
-> +VIRTIO_BLK_ADMIN_CMD_CRYPTO_KEYSLOT_PROGRAM command is the plaintext key.
-
-the plaintext key?
-
-> +Any software able to access the buffers of the administration virtqueue,
-> +such as the hypervisor, the device implementation or other software on the
-> +host, can therefore obtain the key, and decrypt the data encrypted with it
-> +at any time, including after the key is no longer in use.
-
-what does it have to do with software, unclear.
-
-> +
-> +When \field{key_type} is VIRTIO_BLK_CRYPTO_KEY_TYPE_HW_WRAPPED, a
-> +VIRTIO_BLK_ADMIN_CMD_CRYPTO_KEYSLOT_PROGRAM command only transfers a key
-> +wrapped by the device, and the raw key material is not exposed in its
-> +buffers.
-
-material?
-
-the considerations are same or different for different key types?
-pls structures the text to make it clear what applies to what.
-
-
-> This prevents the raw key from being extracted, so that the key
-> +can only be used through the device which wrapped it. It does not prevent
-> +the host, which is able to send administration commands itself, from using
-> +the key through the device, for example by converting a long-term wrapped
-> +key it has observed with VIRTIO_BLK_ADMIN_CMD_CRYPTO_PREPARE_KEY and
-> +programming the result into a keyslot. Moreover, a
-> +VIRTIO_BLK_ADMIN_CMD_CRYPTO_IMPORT_KEY command carries the raw key in its
-> +\field{command_specific_data}, and the struct virtio_blk_crypto_sw_secret
-> +returned by a VIRTIO_BLK_ADMIN_CMD_CRYPTO_DERIVE_SW_SECRET command is
-> +visible in its \field{command_specific_result}, so these commands expose
-> +secrets to the host in the same way as raw keys.
-
-
-this seems to argue with itself about some kind of protection
-that maybe could be there but is not?
-
-
-> +
->  \subsubsection{Legacy Interface: Device Operation}\label{sec:Device Types / Block Device / Device Operation / Legacy Interface: Device Operation}
->  When using the legacy interface, transitional devices and drivers
->  MUST format the fields in struct virtio_blk_req
-> -- 
-> 2.34.1
+diff --git a/content.tex b/content.tex
+index 243ce2d..0d428a9 100644
+--- a/content.tex
++++ b/content.tex
+@@ -854,6 +854,11 @@ \chapter{Reserved Feature Bits}\label{sec:Reserved Feature Bits}
+   and the \field{avail_event} fields as described in
+ \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Used Buffer Notification Suppression}, \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Used Ring} and \ref{sec:Packed Virtqueues / Driver and Device Event Suppression}.
+ 
++  \item[VIRTIO_F_BAR_CONFIG(31)] This indicates that the Virtio Structure
++  Capabilities is stored in the memory BAR. See \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Capabilities in a memory BAR}.
++  When this is set the driver must use the Capabilities in a memory BAR and
++  not the Capabilities in the config space. Attempting to use the config space
++  will result in the device reporting an error or failing to work.
+ 
+   \item[VIRTIO_F_VERSION_1(32)] This indicates compliance with this
+     specification, giving a simple way to detect legacy devices or drivers.
+diff --git a/transport-pci.tex b/transport-pci.tex
+index 95b08b8..a4ba0c2 100644
+--- a/transport-pci.tex
++++ b/transport-pci.tex
+@@ -262,6 +262,86 @@ \subsection{Virtio Structure PCI Capabilities}\label{sec:Virtio Transport Option
+ fields provide the most significant 32 bits of a total 64 bit offset and
+ length within the BAR specified by \field{cap.bar}.
+ 
++\subsubsection{Virtio Structure Capabilities in a memory BAR}\label{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Capabilities in a memory BAR}
++
++Some devices, for example implementions using physical PCI endpoint
++controllers, are unable to add capabilities to the existing PCI capability
++list. This means they are unable to advertise the virtio structure
++capabilities as described above.
++
++When the capabilities are stored in the BAR, as defined below, the
++VIRTIO_F_BAR_CONFIG feature bit must be set.
++
++In this case a device MAY instead publish the same capability structures in
++one of its memory BARs, at offset VIRTIO_PCI_CAP_BAR_OFFSET (0), prefixed by
++the following header:
++
++\begin{lstlisting}
++#define VIRTIO_PCI_CAP_BAR_OFFSET 0
++#define VIRTIO_PCI_CAP_BAR_MAGIC  0x74726976 /* "virt" */
++#define VIRTIO_PCI_CAP_BAR_VERSION_ONE  1
++
++struct virtio_pci_bar_cap_hdr {
++        le32 magic;             /* VIRTIO_PCI_CAP_BAR_MAGIC */
++        u8 hdr_ver;             /* Version of this header */
++        u8 num_caps;            /* Number of capability entries that follow */
++        u8 go_busy;             /* Indicates to start an operation and when it's ongoing */
++        u8 padding[1];
++};
++\end{lstlisting}
++
++The fields are interpreted as follows:
++
++\begin{description}
++\item[\field{magic}]
++        Magic value that identifies the presence of capabilities in this BAR.
++        Must be set to VIRTIO_PCI_CAP_BAR_MAGIC.
++
++\item[\field{hdr_ver}]
++        The version of this header (virtio_pci_bar_cap_hdr), currently
++        only version VIRTIO_PCI_CAP_BAR_VERSION_ONE is supported.
++
++\item[\field{num_caps}]
++        The number of struct virtio_pci_cap entries that follow this header.
++
++\item[\field{go_busy}]
++        The driver writes VIRTIO_PCI_CAP_BAR_VERSION_ONE to this field to indicate
++        that the device should take action. The device is considered busy until
++        the driver reads this as 0.
++\end{description}
++
++The header is followed by \field{num_caps} struct virtio_pci_cap entries
++(see \ref{sec:Virtio Transport Options / Virtio Over PCI Bus / Virtio Structure PCI Capabilities}),
++the first of which begins immediately after struct
++virtio_pci_bar_cap_hdr.
++
++The entries are packed one immediately after another. Each entry is interpreted
++the same as if they are in configuration space and locate the
++corresponding structure within a memory BAR.
++
++Note that the \field{cap_vndr} and \field{cap_next} fields are not used in
++this case.
++
++For read-write communication with the device, for example \field{device_feature_select},
++the driver should set the value of the field then write the header version to
++\field{go_busy}. This indicates to the device that an action is required.
++
++The device will then read the fields, take action according to the sections above
++and when complete clear the \field{go_busy}. The driver MUST NOT read or write
++other fields until \field{go_busy} has been cleared by the device.
++
++Note the driver can write to multiple fields before triggering \field{go_busy}. The
++device MUST then take all actions before clearing \field{go_busy}.
++
++A device that publishes capabilities in a memory BAR MUST place struct
++virtio_pci_bar_cap_hdr at offset VIRTIO_PCI_CAP_BAR_OFFSET within a memory
++BAR.
++
++A device MUST follow struct virtio_pci_bar_cap_hdr with \field{num_caps} struct virtio_pci_cap entries.
++
++The device MUST provide the same capabilities it usually would, just in the memory
++BAR.
++
+ \drivernormative{\subsubsection}{Virtio Structure PCI Capabilities}{Virtio Transport Options / Virtio Over PCI Bus / Virtio Structure PCI Capabilities}
+ 
+ The driver MUST ignore any vendor-specific capability structure which has
+@@ -270,6 +350,14 @@ \subsection{Virtio Structure PCI Capabilities}\label{sec:Virtio Transport Option
+ The driver SHOULD use the first instance of each virtio structure type they can
+ support.
+ 
++The driver SHOULD first attempt to use the virtio structure capabilities in
++the PCI configuration space. If no common configuration capability is
++present, the driver MAY scan each memory BAR at offset
++VIRTIO_PCI_CAP_BAR_OFFSET for a struct virtio_pci_bar_cap_hdr whose
++\field{magic} equals VIRTIO_PCI_CAP_BAR_MAGIC. If found, use the
++capability entries published there as described in
++\ref{sec:Virtio Transport Options / Virtio Over PCI Bus / PCI Device Layout / Capabilities in a memory BAR}.
++
+ The driver MUST accept a \field{cap_len} value which is larger than specified here.
+ 
+ The driver MUST ignore any vendor-specific capability structure which has
+-- 
+2.56.0
 
