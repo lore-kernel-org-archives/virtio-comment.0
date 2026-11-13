@@ -1,95 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794471766;
-	b=JwEdlGfrKq+JK1k4ump77WyF2IhPJmyHCE5Kg07a4D4toCehb4PGg4aauXOlzPtonxf4
-	 T3CE6K/+8ml7HfHa407/bsudfLrqbYsUMMGosudZILZC1TZfj6pZ+OYdn2n2aCewpMlkB
-	 42U7NQa8q3TDxNag7dadLMav46RzbZtTKRpVoWRFvkkBg0MLL/3ced6S0kRUdjB23sat9
-	 OTBAo5I07AoPkNoszr39kyGHGXNa9C+C8zPAafAdpAnCL555+8AM/mDk5U15/VIGlANxo
-	 pNFd8naEuW+oJVz4q2uqoWza3HwQ5jNhWTPLw8TqEj7RrcRhZ3q+ABo+rN2JljLi1JA==
+	t=1794576818;
+	b=OzezOHnXrAPJ8zJkR9EWi8BWTBPxeu/ghL3rnn4Imqa64YG3aAcbak0wYkK+UShcjtWd
+	 6of4Ox9ku8jC9GkoAsFhTxya1M+vXVRxar1QjeFm3+kPAJrenD651lkdwgyBqRJJyuVQc
+	 5sbUJwCMClLXOrZjLMehhuEQSdeySp5P9ztuyqGtgyoOOKTv0hhRdDi5jyRRquVcOWFia
+	 w3YFKpWMg8oImqTDkCE9GMPMz6u91/iopIBudtrdDXBsMKX0vaLGo/wMj8GO+SwCqrnl3
+	 kNQeBGx59bMBzyzQBUwABvGCU6jUFhhVLDOziiU4kBnLzya4PqdIJg8Q7HAwRiNPDxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471766;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:In-Reply-To:
-	 X-Mimecast-Spam-Score:X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:
-	 Content-Type:Content-Disposition;
-	bh=03bJhNI0LsDeLWSK4Pfp+moTz4XFgB2H+SUMU1s707I=;
-	b=TS64wznsWKTxaM6SHHR9m+iL6q9oTTHot1Jj4s81Yaagbl4umpakJ2EQhtCWPPFDo37P
-	 V2fLzCtFy3cWESa2XHwytuI3ynMoIlm6ZENKW4UO2RES1JYA0lb/4bPwWKpeE17PMwMNX
-	 kRtzyORGgxMRcmADHxm7ipDzlZHilLQ5ypYxq7u0aPRiW57GalhyrDBckwI40e8z3oVW6
-	 HrfC2h8YBFMZWW17a9VOulLhIkTHE5fNN0yMWNJFtA1kwp9/v5BSXr2fVR07l81AjJEUm
-	 nyy0zEql6AGoGPOgLzj4CYTUH0fzxq8651rUqp3FcAhLojkyUVsNxrl7m65tl0cFz9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794576818;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Q/2h7J4ZeSI+F0ZPKA2nHP1XIKxo0dVnHuz7Djw2STc=;
+	b=mCb2YEZNEPyUhTjY7wTgySy+bIkIA7NN+Dr13W2HT8Lz+S2lTOGMYySSQjDQAFflm45B
+	 77BIt3cK8vLnn9WRWHcfp9CbjaRfzcLg6g2BLJhBXcK00eAK2BSds3wVd45Xx+oheLAg8
+	 UsBzSZDxmD0L3aZAExnUqkGSBUqRwaObqP/RjzSkxb7RaM6NgEw3EAVykbCVX5FUmhGEK
+	 CyW2//X0mn/49wGFQQivnF30B9gub4NsxnFh88LCErsa3/BFyFkjSnbtitbbTaajD4urz
+	 84DohTrwhoFiLqmY7ra3aP4n9OT+/thxFOLVTYYI9RwwkA286FIhr+BcYAyCfGEgaJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gjc0N0DJ;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sv74uI9G;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F56606A33A
-	for <virtio-comment@lists.linux.dev>; Thu, 12 Nov 2026 08:22:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81F56606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73237606AB8D
+	for <virtio-comment@lists.linux.dev>; Fri, 13 Nov 2026 13:33:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gjc0N0DJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794471764;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=03bJhNI0LsDeLWSK4Pfp+moTz4XFgB2H+SUMU1s707I=;
-	b=gjc0N0DJOSAVUS3s8mtmf26X/KZLlzAg+f/hrLYafXTXjX03g+5IMYosldCXMDZHyeBQ5Y
-	JRfU9cS6m1alCxTecmqX4vXtNm9qIpFTtxS+KFiSEzLgDw45FcfeXtWFYDMvx78YPM+Udb
-	d5PyJyVyiKdCl3sMiC3wPTskcrAu4eg=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-358-tq6D64tCPTO6wdG_dCStPA-1; Thu, 12 Nov 2026 03:22:42 -0500
-X-MC-Unique: tq6D64tCPTO6wdG_dCStPA-1
-X-Mimecast-MFC-AGG-ID: tq6D64tCPTO6wdG_dCStPA_1794471761
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-490c1867460so2962526f8f.2
-        for <virtio-comment@lists.linux.dev>; Thu, 12 Nov 2026 00:22:42 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794471761; x=1795076561;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=03bJhNI0LsDeLWSK4Pfp+moTz4XFgB2H+SUMU1s707I=;
-        b=Kc9nlorhAgsx0YIz4nMrt7GaC6iW3oCNidcffWCaDSWwjG0WNHGTuTsbgDvZHZeVqk
-         ko4IH+N2je7YHIcInDNabD++Lq69kKs+loDgdI8/+azS9K4ucQ/+IO2G7/HiOtKNc2P2
-         IDuaZSKcYEuwI4wWShp9EJNS/kGKSR/7k8RaeRrqbbN2bc/6Cfn6KgS5Yx3fODerBL2Y
-         mOctPTyNPjh73IeOIE/GzEfdbuJvZzDgBATVr67vnsU6NhdROstuUyPzm3/8pOqOUzjm
-         /KMoEO64ki295XYUm0+k4yBoDAolBmwWU3pBy41xMyCopb02Y2vUIFf1yy2d28J8q1ff
-         MpmA==
-X-Gm-Message-State: APuU4Z8aeR++zJuVKYbeGaRv2r64fDNxdMbILUqULI9Jhxl184ngbcZ9
-	CO5l0rr4MfgYuKzTSisKfIkeI3TybEn5gFz8h0x5Zx5ilQbmrN9Q8XPX9R6/LQzq0J+v2kii1GC
-	+23OuqtSSw/403SU4X/nKJUfcBoaOxu0iIlgN/NQ7Sh2P2JBfW6UFOYm5mgKGyEZnz7CT
-X-Gm-Gg: AYBFou1iaW7PbKkTZhu+RRCAnmLW6orAheG4O85rrTI5N/8vpmpWmXOySXcQmyRqqjF
-	EM+9zs9sOtvBtU5r2wzuQCJLoy8JAYSOebjUAXKeKW9ldHYGLmmgP6aoIqQ87CIhmPUQ7FtrRnH
-	dZyN3lrX4FbAoOjfxeRlgjuLmUvwxM9oRd5DPvquW9wAYyTbZnUSwJDlmTw+v2QEXNSs1E3iaUb
-	18yiYJI2sK6Gyax30Cr+gzTYEEyWGz4srn1BR4Y3r6iSfvwSKBNEkLJ2bmexn8BmdZtPVOhijZm
-	Ab+v7gJLJZhvS7CQ49Kzn6TV6pzEEUjf5ySZlLpdiOkIvTukFrVxyI3BafkYn+QmUnFuZ0dI5YG
-	21G/1wSXPMck7+vaHc15wbli5qZjBgJQG5pCqCHEHee0=
-X-Received: by 2002:a5d:5d09:0:b0:499:81db:47a3 with SMTP id ffacd0b85a97d-499c7271480mr8947310f8f.11.1794471761473;
-        Thu, 12 Nov 2026 00:22:41 -0800 (PST)
-X-Received: by 2002:a5d:5d09:0:b0:499:81db:47a3 with SMTP id ffacd0b85a97d-499c7271480mr8947263f8f.11.1794471761169;
-        Thu, 12 Nov 2026 00:22:41 -0800 (PST)
-Received: from localhost ([139.47.30.142])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983600bc8fsm14583616f8f.30.2026.11.12.00.22.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 00:22:40 -0800 (PST)
-Date: Thu, 12 Nov 2026 09:22:39 +0100
-From: Albert Esteve <aesteve@redhat.com>
-To: Dorinda Bassey <dbassey@redhat.com>
-Cc: virtio-comment@lists.linux.dev, sgarzare@redhat.com, slp@redhat.com
-Subject: Re: [PATCH] virtio-gpu: Allow num_scanouts = 0 for headless mode
-Message-ID: <avV3TwcW__6QtqLT@aesteve-thinkpadp1gen8.rmtes.csb>
-References: <20261103110623.328004-1-dbassey@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sv74uI9G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A536E1F000C5;
+	Fri, 13 Nov 2026 13:33:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794576818;
+	bh=Q/2h7J4ZeSI+F0ZPKA2nHP1XIKxo0dVnHuz7Djw2STc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Sv74uI9GY4WUo+ExX92xCryOoBS3/npGmZB3qikThqlr6xw5Nq7Vit5r4hLSHX2gf
+	 aePFHP5AI3V24MWnWfs27obgPnlRbo3uezMi8nzC+TDPkhIM6iJIZ8VYg1/fAzrjh+
+	 yPuKEIRu6Iag7Jkwbmg3S0ysrhLORu8hsuCduwQlf7eBn0etzN5mb/jPU3C2G2M/JE
+	 PCNf7XE8PFOLSxkT8IzsCKISZXTD8CQ61U2ho0pk6UA5KPcjBBR8czvccJCxIBY0we
+	 YDrshmVe40qk+36dTNYX6YWVWT16XLUmPgYQQTSrrwQYfUjkdhVuMPAWdJvjASHNOY
+	 QO/zJHHsfddTQ==
+Message-ID: <ef8bfad9-8b56-4e5b-beff-d0111b3b03a6@kernel.org>
+Date: Fri, 13 Nov 2026 14:28:32 +0100
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Post: <mailto:virtio-comment@lists.linux.dev>
@@ -99,48 +51,97 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:virtio-comment+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261103110623.328004-1-dbassey@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: N011ZNk7tCXHfT3Hf2GApJBtmrLDu9HXmwTMtPC-kFA_1794471761
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] virtio-msg: add new command for bus normative
+To: Bertrand Marquis <bertrand.marquis@arm.com>,
+ virtio-comment@lists.linux.dev
+Cc: "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Alex Bennee
+ <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>,
+ Bill Mills <bill.mills@linaro.org>
+References: <cover.1781514628.git.bertrand.marquis@arm.com>
+ <998059c704fffafbceb9804045b9ffe6cf7a64b2.1781514628.git.bertrand.marquis@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <998059c704fffafbceb9804045b9ffe6cf7a64b2.1781514628.git.bertrand.marquis@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 03, 2026 at 12:06:23PM +0100, Dorinda Bassey wrote:
-> The specification currently requires num_scanouts minimum value
-> of 1, but the Linux kernel has supported num_scanouts = 0 since
-> commit 72122c69d71784 ("drm/virtio: Add option to disable KMS
-> support", 2023) for headless GPU compute workloads.
+On 6/15/26 11:10, Bertrand Marquis wrote:
+> Add a new command to have a standard way to define virtio-msg bus
+> normative statements.
 > 
-> Update Section 5.7.4.1 to allow minimum value 0, aligning the
-> specification with existing kernel behavior.
-> 
-> Signed-off-by: Dorinda Bassey <dbassey@redhat.com>
-
-Reviewed-by: Albert Esteve <aesteve@redhat.com>
-
-Thanks!
-Albert
-
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> Signed-off-by: Bill Mills <bill.mills@linaro.org>
 > ---
->  device-types/gpu/description.tex | 3 ++-
+>  commands.tex | 3 ++-
 >  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/device-types/gpu/description.tex b/device-types/gpu/description.tex
-> index ac3b427..83d2126 100644
-> --- a/device-types/gpu/description.tex
-> +++ b/device-types/gpu/description.tex
-> @@ -67,7 +67,8 @@ \subsubsection{Device configuration fields}
->    Writing a '1' into a bit will clear the corresponding bit in
->    \field{events_read}, mimicking write-to-clear behavior.
->  \item[\field{num_scanouts}] specifies the maximum number of scanouts
-> -  supported by the device.  Minimum value is 1, maximum value is 16.
-> +  supported by the device.  A value of 0 indicates headless mode (no
-> +  scanout support).  Minimum value is 0, maximum value is 16.
->  \item[\field{num_capsets}] specifies the maximum number of capability
->    sets supported by the device.  The minimum value is zero.
->  \item[\field{blob_alignment}] specifies the minimal alignment, in bytes,
-> -- 
-> 2.55.0
-> 
+> diff --git a/commands.tex b/commands.tex
+> index 25ea8ee3bc78..122a97f89b10 100644
+> --- a/commands.tex
+> +++ b/commands.tex
+> @@ -7,9 +7,10 @@
+>  % How we format a field name
+>  \newcommand{\field}[1]{\emph{#1}}
+>  
+> -% Mark a normative section (driver or device)
+> +% Mark a normative section (driver, device, or bus)
+>  \newcommand{\drivernormative}[3]{#1{Driver Requirements: #2}\label{drivernormative:#3}}
+>  \newcommand{\devicenormative}[3]{#1{Device Requirements: #2}\label{devicenormative:#3}}
+> +\newcommand{\busnormative}[3]{#1{Bus Requirements: #2}\label{busnormative:#3}}
+>  \newcounter{clausecounter}
+>  \newcommand{\conformance}[2]{
+>  	\stepcounter{clausecounter}
 
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
