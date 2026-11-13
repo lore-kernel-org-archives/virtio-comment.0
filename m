@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794576818;
-	b=OzezOHnXrAPJ8zJkR9EWi8BWTBPxeu/ghL3rnn4Imqa64YG3aAcbak0wYkK+UShcjtWd
-	 6of4Ox9ku8jC9GkoAsFhTxya1M+vXVRxar1QjeFm3+kPAJrenD651lkdwgyBqRJJyuVQc
-	 5sbUJwCMClLXOrZjLMehhuEQSdeySp5P9ztuyqGtgyoOOKTv0hhRdDi5jyRRquVcOWFia
-	 w3YFKpWMg8oImqTDkCE9GMPMz6u91/iopIBudtrdDXBsMKX0vaLGo/wMj8GO+SwCqrnl3
-	 kNQeBGx59bMBzyzQBUwABvGCU6jUFhhVLDOziiU4kBnLzya4PqdIJg8Q7HAwRiNPDxw==
+	t=1794576821;
+	b=i6K61zhWNyWfGcGbtz/Fwi2nJmXI+dGmZnu3uGuwz2aFApNGe9K2KX7iC1uj/4u2cpzd
+	 lz5MoR+ZlTat/eHVi4w0Ua4Jl9Msa15oZpZBJ35WP5MrnXjN4n0/HJ+V1aJvnzz8XeJ3N
+	 lD1d1KAIOUSyNbR69iz20dMK0lrJXQrwB7wQciMLsbydroKCU/CG3tNRWLCxnzq8bfQbw
+	 GAM82sh7SrZtGuBAyfo9uF8Nn8H5q/OSdMgZU+6HaLnDg8eRYYkEYnZz/exUXDjw3zwlN
+	 kNjU6+M2+dcW3QtGwmHUqNolvHdRgPxEmsZl0CDwuO3JxF24GOTjfsEroOvqRk4VIMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794576818;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794576821;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=Q/2h7J4ZeSI+F0ZPKA2nHP1XIKxo0dVnHuz7Djw2STc=;
-	b=mCb2YEZNEPyUhTjY7wTgySy+bIkIA7NN+Dr13W2HT8Lz+S2lTOGMYySSQjDQAFflm45B
-	 77BIt3cK8vLnn9WRWHcfp9CbjaRfzcLg6g2BLJhBXcK00eAK2BSds3wVd45Xx+oheLAg8
-	 UsBzSZDxmD0L3aZAExnUqkGSBUqRwaObqP/RjzSkxb7RaM6NgEw3EAVykbCVX5FUmhGEK
-	 CyW2//X0mn/49wGFQQivnF30B9gub4NsxnFh88LCErsa3/BFyFkjSnbtitbbTaajD4urz
-	 84DohTrwhoFiLqmY7ra3aP4n9OT+/thxFOLVTYYI9RwwkA286FIhr+BcYAyCfGEgaJA==
+	bh=QrnaVKqCJlheV/ggZFZfinVbbKmoJcO+Mo1DywjzXyo=;
+	b=Jns28iow5K47UaYYnsK+20/tyielRMPZiDuZHjP+omrkzTXWVGHVj0Bbml3LUAyyrpgB
+	 xdSVZERFu9ODD2uiiHRgxKCUoR7NNN0nF+on9xFCdjt79/TgzZkpkyGkohGBi/7Xj2uMT
+	 gUR8YghzeYJb78401BdbD3cQ4eF/kXy1o2PGMA8pQ9Hha5zxmeVBXY8rbktoBJu1vlGEv
+	 uVBiytfUnadvagMd60g7+Ts/VSPqskIjxukiOoKDaUfxjhraG0VOZ1q77CTBYu8KmK4ez
+	 zbuZBK5zUFq578elA1aCJoLY4ph1OSY1WhEhXqdA8RRMDpcUKqJ/AiQyBV2gN9ccPAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sv74uI9G;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YD+V9KjD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73237606AB8D
-	for <virtio-comment@lists.linux.dev>; Fri, 13 Nov 2026 13:33:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D760606AB88
+	for <virtio-comment@lists.linux.dev>; Fri, 13 Nov 2026 13:33:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sv74uI9G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A536E1F000C5;
-	Fri, 13 Nov 2026 13:33:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YD+V9KjD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B89F1F000C4;
+	Fri, 13 Nov 2026 13:33:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794576818;
-	bh=Q/2h7J4ZeSI+F0ZPKA2nHP1XIKxo0dVnHuz7Djw2STc=;
+	s=k20260515; t=1794576820;
+	bh=QrnaVKqCJlheV/ggZFZfinVbbKmoJcO+Mo1DywjzXyo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Sv74uI9GY4WUo+ExX92xCryOoBS3/npGmZB3qikThqlr6xw5Nq7Vit5r4hLSHX2gf
-	 aePFHP5AI3V24MWnWfs27obgPnlRbo3uezMi8nzC+TDPkhIM6iJIZ8VYg1/fAzrjh+
-	 yPuKEIRu6Iag7Jkwbmg3S0ysrhLORu8hsuCduwQlf7eBn0etzN5mb/jPU3C2G2M/JE
-	 PCNf7XE8PFOLSxkT8IzsCKISZXTD8CQ61U2ho0pk6UA5KPcjBBR8czvccJCxIBY0we
-	 YDrshmVe40qk+36dTNYX6YWVWT16XLUmPgYQQTSrrwQYfUjkdhVuMPAWdJvjASHNOY
-	 QO/zJHHsfddTQ==
-Message-ID: <ef8bfad9-8b56-4e5b-beff-d0111b3b03a6@kernel.org>
-Date: Fri, 13 Nov 2026 14:28:32 +0100
+	b=YD+V9KjDFm3HnQkjjvIwuYMoJvuYU1vboYvBWD+S2nLyoi7efeDLFNXtc6NhYmSh1
+	 KVI/d6NESgplVGe8KB85dNoc4NWDDxgEiIlwHN5VpSYlCh/vIyqr6TZPTbAmICeyxp
+	 XvNkQ+Ika8Tx69uGFWbe1ujqW38rPEI1/P4cejDF/jh7l33JgY8i1+QkFVlhA+sjU9
+	 nj5z8n8eU18ogM3o7b1QlT5QjKbeGzGUT4K/ghqK0aOOzEd9/gRqommkcWhRMjjmkP
+	 v3ZJTQi9ZnQsrkEHv8zztJBLtGLDet8GzSdZx4FLqg58uETsXv/QtDcsUAuJ9ytoVu
+	 TBw84TM8UYNJQ==
+Message-ID: <80569817-285e-416e-9bef-041cb1c81f66@kernel.org>
+Date: Fri, 13 Nov 2026 14:28:49 +0100
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Post: <mailto:virtio-comment@lists.linux.dev>
@@ -52,7 +52,8 @@ List-Owner: <mailto:virtio-comment+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] virtio-msg: add new command for bus normative
+Subject: Re: [PATCH v2 2/6] virtio-msg: Add the FF-A bus bibliography
+ reference
 To: Bertrand Marquis <bertrand.marquis@arm.com>,
  virtio-comment@lists.linux.dev
 Cc: "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
@@ -61,7 +62,7 @@ Cc: "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
  <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>,
  Bill Mills <bill.mills@linaro.org>
 References: <cover.1781514628.git.bertrand.marquis@arm.com>
- <998059c704fffafbceb9804045b9ffe6cf7a64b2.1781514628.git.bertrand.marquis@arm.com>
+ <d83fbd736249207386be22d1313ccf745592d190.1781514628.git.bertrand.marquis@arm.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -108,36 +109,41 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <998059c704fffafbceb9804045b9ffe6cf7a64b2.1781514628.git.bertrand.marquis@arm.com>
+In-Reply-To: <d83fbd736249207386be22d1313ccf745592d190.1781514628.git.bertrand.marquis@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 6/15/26 11:10, Bertrand Marquis wrote:
-> Add a new command to have a standard way to define virtio-msg bus
-> normative statements.
+> Reference the Virtio Message Bus over FF-A specification through the
+> normative bibliography using a distinct FFA-BUS citation tag.
+> 
+> Attribute the DEN0153 document to Arm.
 > 
 > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > Signed-off-by: Bill Mills <bill.mills@linaro.org>
 > ---
->  commands.tex | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  introduction.tex | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/commands.tex b/commands.tex
-> index 25ea8ee3bc78..122a97f89b10 100644
-> --- a/commands.tex
-> +++ b/commands.tex
-> @@ -7,9 +7,10 @@
->  % How we format a field name
->  \newcommand{\field}[1]{\emph{#1}}
+> diff --git a/introduction.tex b/introduction.tex
+> index 9a9cbde5fede..635e267cee04 100644
+> --- a/introduction.tex
+> +++ b/introduction.tex
+> @@ -92,6 +92,9 @@ \section{Normative References}\label{sec:Normative References}
+>  	\phantomsection\label{intro:I2C}\textbf{[I2C]} &
+>  	I2C-bus specification and user manual,
+>  	\newline\url{https://www.nxp.com/docs/en/user-guide/UM10204.pdf}\\
+> +	\phantomsection\label{intro:FFA-BUS}\textbf{[FFA-BUS]} &
+> +	Arm, Virtio Message Bus over FF-A, DEN0153,
+> +	\newline\url{https://developer.arm.com/documentation/den0153/0101/}\\
+>  	\phantomsection\label{intro:SCMI}\textbf{[SCMI]} &
+>  	Arm System Control and Management Interface, DEN0056,
+>  	\newline\url{https://developer.arm.com/docs/den0056/c}, version C and any future revisions\\
+> @@ -350,4 +353,3 @@ \section{Constant Specifications}\label{sec:Constant Specifications}
+>  either VIRTIO_FLD_A or VIRTIO_FLD_B.
 >  
-> -% Mark a normative section (driver or device)
-> +% Mark a normative section (driver, device, or bus)
->  \newcommand{\drivernormative}[3]{#1{Driver Requirements: #2}\label{drivernormative:#3}}
->  \newcommand{\devicenormative}[3]{#1{Device Requirements: #2}\label{devicenormative:#3}}
-> +\newcommand{\busnormative}[3]{#1{Bus Requirements: #2}\label{busnormative:#3}}
->  \newcounter{clausecounter}
->  \newcommand{\conformance}[2]{
->  	\stepcounter{clausecounter}
+>  \newpage
+> -
 
 Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
