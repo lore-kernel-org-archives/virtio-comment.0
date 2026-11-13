@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794587524;
-	b=iRvtr+TD8qF1smidepupdkb1Rfi17WRLIf71NRvpp05T80YhKb3fxY6Vtf74P5At/HUp
-	 RhVNeca3NfWaSEYwyT7Nq1wgugUGxdyyMbUiJ7rl5Sy8yKASSw8ZkWsyldw5/b5dKNEeZ
-	 RCr3h3SzC1rIGc+LUmDbaIxzlMtJ5pXlpqb9zeJIzg2MLF/3uRRSZVB7EqoNQqUAEY2K5
-	 Ug7opD6Lpig4mH46QOEyhJAgAAVxSMK3M6/OjcHErimqcp2jSDx6b3i8ByjslqV7YpNEB
-	 TL6NTg1XH17I0rG8Bbswxke2rXvIBIrITpFdvi44wkvy6EhUWrtwQd4h1KlxdKUEynw==
+	t=1794587570;
+	b=v5AhMUWKsb4UcOkH5DzGTBhz3KHfGt9yZZns9scsfeSRyp/c/+LN24OcZt8O5pdC9cgR
+	 gPIK8ga8nWPrtPP69tAHcqJxDPG0tQV+p2hPSrl4gNslJ1XGSTvQyIEGGzqTmOIzXC/H1
+	 kFwR1npas7o2leTsNQ/I7EcAwDBRcE/fso+iMicc6/Ap/KUTOQukVQGV1BOdZ/jpemrYy
+	 5O6wZlTWzlqWzkL1cPupMIyOBay2gmotpidhdk6q1E86PUJHVYS6Du5ZRzYQEpw7wXazJ
+	 t8UozCPdrbX1V5tNskgg8qIwnKoSWaTtaUF6+fK/P+Fn9G6PG+yorriQFC/zrKWtaqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587524;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587570;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=dUq6Ec5cvlGxG2XpqOGAmXtV8AjahgwYq9J79/31NTI=;
-	b=XpvhFVjZJ4s1EknYtni+2c+bbRPdL0suv1UXtdTim6GiPRKKR3DSIPOrXIgj7L/3J11I
-	 QPDQ8jv7pVZ3ZryVbXnah/3YMrq/iUu1x7M3yR+ARGn7sVl+yGrGVLF0ZYk87QRBysRwc
-	 2Dy/+LrbD4aKBbrnIAWwOh4OJIWVuX/svvpe0cozjzAgHyPVX9SubjXK8BXS85oO0xijb
-	 7mKpLEpPGLBB3i68RTDsPDo+BCQSAQX+jfApR0m+erz3vOSpIyEarsVUDl+rkpbxVP3GI
-	 ar/45/+om0ZAxbALHpkxGUxqh9mAe1hULvz6ReJotXl1cZguXCi5dLjI6uJHiWLovsw==
+	bh=gAYUXuuvjJaGZ3eJ3xWyfS6Ow3OvmUiw1+sT+KusRAo=;
+	b=lH+48QBd3/YqzdqzkxWEKDVVamBcshglzIxOynvVGfiBqiSDK/PaFmNBylEb+A8wOpx4
+	 GKEI/NxCjKuf0J31nCPbXcEDVoHO7fN/E/uJ1uvYrGZxRSHEFw4jroBrjMm58IwXtfO22
+	 EjN1OKDBHcWFV3N+XVoLXTmFQ86rjZ/oa8RinQvvXrhQoaAJtAKVayKZeNETxkLSKD36Y
+	 677hCgaCRniLYNds/yAzp1iv1OVmf8GStV4g/vp7RHwOu2nY9bpXC2iU9zCrkAFM3njyD
+	 zAZVgDnrEtf54eVahhbtKpSZqGsMQCub4F/cEIuEYOXpenBEFLco3rJIV4l3d/Kypbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9UXiWKI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UrD8UGB0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727CA606A327
-	for <virtio-comment@lists.linux.dev>; Fri, 13 Nov 2026 16:32:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58A1D606A880
+	for <virtio-comment@lists.linux.dev>; Fri, 13 Nov 2026 16:32:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9UXiWKI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDD5E1F000C4;
-	Fri, 13 Nov 2026 16:32:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UrD8UGB0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FF451F000C4;
+	Fri, 13 Nov 2026 16:32:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794587524;
-	bh=dUq6Ec5cvlGxG2XpqOGAmXtV8AjahgwYq9J79/31NTI=;
+	s=k20260515; t=1794587569;
+	bh=gAYUXuuvjJaGZ3eJ3xWyfS6Ow3OvmUiw1+sT+KusRAo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=O9UXiWKIcOrAYDYoadYM/b4vZsOt9b+WEzxXqPcbrIOuw8/bHtvyeHt/2Exq0aEvF
-	 nHabxXVCP/S7KAH8hJUHoeFoKirG+DWUDY2GR0NUPkipmfAoKtvAk+kmMNGa0o2B6b
-	 yE8XPF/w6yGFW6C+xF4gM9wCnQBZ4cB0CWRs/SUOxf0fn550Lvk4spkS9CnXq8YBp7
-	 /Yr012z9Gvw5E+K3nVpbyC7VpIJ2EY59ld/fZaLCK2LWq59dhF7b8Hd1rEH+uyuaqQ
-	 UkhnMO80chPdaKozum13WC3bMZBEDbdSEfTelA3CKfmWN6PYsYdH23nX0XnvEDSuvG
-	 g4KgEwKCy/oGw==
-Message-ID: <bcc22473-6678-4878-a4c4-6916053bf8b0@kernel.org>
-Date: Fri, 13 Nov 2026 17:31:58 +0100
+	b=UrD8UGB0ED0nz75kuMcj1OUsuwkQlTcyW/EfvBpeBOaHpLMZa8mB/HasE7i4BaS3q
+	 GDMn7oB0t7Gx9ia395H9HCo/tFGXL/V5r79yO4Ip1Kk5wiBBP+3K/9J0wD3XOt0gO5
+	 LhevztVoYTQYY+F8d+kWTjWX5TtYy8Xt1YvHEy1FfE3rli+eeRa+pywmFuw9CRqlCM
+	 pNwhuyfkQuTSEozjv18tqJi5DDbL4+zCce4b3iT/7pKf4BWzEe1ExzaKCXK/AJdruC
+	 6iLz9SUuIriUQihROIbYxRlxYUZU48qI/SSkpRb2XKNcaFk5Squ3WIYO3riyzMy4MF
+	 8NL5t+8LBwl6Q==
+Message-ID: <81d8d633-0a5f-4b13-b10d-2454ef8dd584@kernel.org>
+Date: Fri, 13 Nov 2026 17:32:44 +0100
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Post: <mailto:virtio-comment@lists.linux.dev>
@@ -52,8 +52,8 @@ List-Owner: <mailto:virtio-comment+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/6] virtio-msg: add conformance entries in conformance
- chapter
+Subject: Re: [PATCH v2 6/6] virtio-msg: add message transport to core
+ references
 To: Bertrand Marquis <bertrand.marquis@arm.com>,
  virtio-comment@lists.linux.dev
 Cc: "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
@@ -62,7 +62,7 @@ Cc: "Edgar E . Iglesias" <edgar.iglesias@amd.com>,
  <alex.bennee@linaro.org>, Armelle Laine <armellel@google.com>,
  Bill Mills <bill.mills@linaro.org>
 References: <cover.1781514628.git.bertrand.marquis@arm.com>
- <ca492390940886dcd21d837b0c9e88e821920358.1781514628.git.bertrand.marquis@arm.com>
+ <a5fde8f90fc6e8bcd05361359b0c0de8472feef7.1781514628.git.bertrand.marquis@arm.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -109,19 +109,28 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <ca492390940886dcd21d837b0c9e88e821920358.1781514628.git.bertrand.marquis@arm.com>
+In-Reply-To: <a5fde8f90fc6e8bcd05361359b0c0de8472feef7.1781514628.git.bertrand.marquis@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 6/15/26 11:10, Bertrand Marquis wrote:
-> Add entries for conformance of Virtio over Message for Driver, Device
-> and bus.
+> The Virtio Over Messages transport is added by this series, so the
+> transport-neutral parts of the specification need to refer to it
+> alongside the existing PCI, MMIO, and Channel I/O transports.
+> 
+> Update the basic device facilities chapter to include Virtio Over
+> Messages in the list of bus-specific transport sections. Extend the
+> VIRTIO_F_ADMIN_VQ text to describe how message-based devices expose
+> administration virtqueues through transport-provided device information.
+> 
+> Update the introduction to describe message-based transports as one of
+> the virtio transport classes.
 > 
 > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > Signed-off-by: Bill Mills <bill.mills@linaro.org>
 > ---
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
 Cheers,
