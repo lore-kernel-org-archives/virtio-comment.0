@@ -1,170 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.159.40
-ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794846888;
-	b=p+FER8i4F8kc8dnya2u15gV5+We6HmSjJba5Icc2/aPzbcG75KQzcAIxXGtCNM0FVcUi
-	 PdZBFI8DhXwzQSWjNgl90vcZXplDPgxt7T6aZhdY+jkUNqeWbpejjN3ui0OP0AuolQdlO
-	 zvqJ5zPS2Ev1BjREodE/HwWB7sGEcpvIhtXn/g9JdNGqSwoZooTOpIdCVDpYJVdoM3ULl
-	 RxqfVx2Avq/pnLEVo8jq4tgWAzLWgBAra8KbeZoczB+kFnQQv9ihMKT3/35beQB2MQo44
-	 XxbhtwkWAfaxAX9A6C/ERGaVDB9FHGxrbhUssgAxq1cyUwzsHYviwmcOkJayswU8eyw==
-ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794846888;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
-	 DKIM-Signature:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:x-mailer:
-	 Authentication-Results-Original:x-ms-traffictypediagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:x-checkrecipientrouted:
-	 nodisclaimer:X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam-Untrusted:
-	 X-Microsoft-Antispam-Message-Info-Original:
-	 X-Forefront-Antispam-Report-Untrusted:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-EOPAttributedMessage:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
-	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=oPPVKBx64NfoTG0k/4ohUGu3Bsl5X2Ik5fwfVipTovI=;
-	b=HYIKyxvdP0igPbZXdeKsMwU9QCTOv87UbOLkNH2ZcZg1pIzurGp/kP2IcDREdEaj/TQ7
-	 ExqY3Dv8RnqZ3Wyyv+EbdEcXYHBV1zfGHezfejWGsiymLSrboHIBiAtzlrOFlTUVj9GaF
-	 KS4GOgl2XlDiWqoI49wm9Ji9YD1LM8M/IYOG73fUJ0EpeOlxy8ZotOHyBYgDZj32XNU23
-	 bk9BrEC1NU/RmV0fnSOVV4HPA+kyhiB/G2U7eK3d6ezXOJ5PP6WniSXrHivDQfbfxRbua
-	 9nQTwrOsnmtT16G3Wj9l/iyhFwF3ac6x7vcBNQBDakYemrPo3/ip/lFI8fHZomgItcA==
-ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=PXITKv8i;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=PXITKv8i;
-	arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.159.40
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013040.outbound.protection.outlook.com [40.107.159.40])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794921138;
+	b=cAA2+2Y5G9YI6DdEzd8bLT/G9QFv03Cdywfm+jNWQfeaNEJnGgnANtcys86WJ+Hvu0FZ
+	 xS9v2xIBD6wKw+0t4OggCNHSm0tNMLRs0DXf21nuKC8g2UJg4gcQYj+O8IRXaIp7bVo66
+	 itKaR1hD9Z54jq7SSPUIhh8gI2o0XLH2Gc024AxNcvUkJMM2tvJC6b2WdvyDp4PD/1vLg
+	 VgrSiI4Dvh9L7oA9fkv1IxIwkNAe/HOuUxJNHHiuIvomHv3iDj/LaM7W1C5xahVydVHXh
+	 gGmeP+ECmkmCAwhO5o1RZA3CwUdNgz/n7QR0TCTfh32/vV6UaGhTL4Gsi99HxIwkPXA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921138;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=4K5blrLYfLp82cSpiJ6hRZQ4I2SrkaSacxfbxpQSysU=;
+	b=o4sQwIEyIStbzkSOaUhNAHjiblLbcDfGhCIKHi+CI4odpYad56MixUrYeAovDojhLiby
+	 gQoOQM5PK6sCriP884VW6vB7i5QxsmihF+/qq2iyJaeT3iB4IWs1ATUBKRyS/eCTCEm7P
+	 euRVjCvE7y/zU931fRRU7Yh9LHLqeoZ2ixvzQMKOlif4FwooLzfgUFMRwbw5Eo1zfaHn6
+	 02qvwoAFVSyGn/6eO2fbXVb7nY+PFi5CRdFs/Cy+eGiNZ9Yo9zkBLXry1tQ+/O9azNHMB
+	 a1qwO7aisP2CfUSb0vwFL6uwH8jKg92rsPPplaGRU/j4vfQVdGo1iNXVmLh85lnB33g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Y8wWi4mL;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CnPyKJ2g;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0F3606A8B1
-	for <virtio-comment@lists.linux.dev>; Mon, 16 Nov 2026 16:34:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D0F3606A8B1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A443606A329
+	for <virtio-comment@lists.linux.dev>; Tue, 17 Nov 2026 13:12:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A443606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=PXITKv8i;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=PXITKv8i
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=JIMoYlIi+6uEzoPIgP7LgdSlb7L5UJaUMov5vOMovT9I56yqJAxGA8Zs/iMzJ01vX/jRCfgEX9uXQhKkwnkoSe7RIiRkFvXyHrMYpc0tl3zzMtDjZ5NhmNenmr15mD8YzykJx0CmQaJkL67JNbBUJN4X5W5P3dPtgVsrxuwQgxI+UQWR9sNqIF7oGNMr7USF9/4/xzYDevMk83By3aO3w51AduwR7QKLeRx8rJPodPoVwji1NEJBQAQNIiRzszfIsNaPbsM8RiV1XGvf0QG0U4tlxAYPYzkEyl1gqmmejib1pYcnOyaigKGoF1GVkH79pASfY3EEhHMjgBp0G1m82Q==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oPPVKBx64NfoTG0k/4ohUGu3Bsl5X2Ik5fwfVipTovI=;
- b=fO93YbrTtqWjbPjKHtP4x4ZfpPW5tceaizoTtUXBtF9khaJSP0KCH3s5HSX5VJ7/QSL3mfNf1+vIS7TLi+EHruMZUZLIsOQFVRjEQjFSDeZcJ+wQa7NU6TeuKzFc6FZi9UCIJala+7l7Yp1BQIIgiOVXsoA0tqLZdDqwypblqIo+2Imf49zbWPYagY9YBiOVEPtpfgeKN/GelHzqWd8kJtUEeKAsXdn1DlFLwXWbFudcTgT7YXQ8Xerx+IRF7dsr4b5VkyDYkji9HaODxEa8qLItT9t1jDae+9ISrW6bPHdFWlsoPYzB4CuBwSxbsiHbjqa0mfCUcpMG5SNCy4lOig==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=immunant.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oPPVKBx64NfoTG0k/4ohUGu3Bsl5X2Ik5fwfVipTovI=;
- b=PXITKv8iwm9Gtg+ezqBLXkm4HupZMc3bGf4U6H0HZRs5D6/1Q4JeUVUG20IjgVaW502XpZG5cghX4UsYUPKbgZk8hJpEYX9W6bIet+5/atDkzhILuzl2gkQ2esfjIa2JSPvSATOWtXGdvsjio+e7xcJaU6yRJz/uDC0ixf2zSF0=
-Received: from PAZP264CA0078.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1fa::22)
- by AS8PR08MB9340.eurprd08.prod.outlook.com (2603:10a6:20b:5a8::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 16:34:40 +0000
-Received: from ZR1PEPF0000E6B1.eurprd05.prod.outlook.com
- (2603:10a6:102:1fa:cafe::10) by PAZP264CA0078.outlook.office365.com
- (2603:10a6:102:1fa::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
- 16 Nov 2026 16:34:40 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- ZR1PEPF0000E6B1.mail.protection.outlook.com (10.167.241.88) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Mon, 16 Nov 2026 16:34:39 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xVqqnTGwNJAAXCFJQyE7y6nLYojgG+hbPlAkcSUdAdYoUKWjdxOccWeI555s/KsZAjfRl/m1Cq7WE12QMit1/NBJCS8MAva+uZ5D+n7tgv2NZ5mNTACZLuA+tWzMZXAReYukqVZA8vwuDZ6/OsZf75RGOrTyht1jPUxCaxjqBqXUCLnwrpN4VtOPZ6WU00sqfOUWJLS6Zb4ZPwtwhWPSSL18VFIXo2TdBQXBxePqpSGoDgbh2lEULORVRmRAO9aChwK4BVcxScy/zf624xqoh6kBzwuhXcD/qrp6oBPsBrQlYNvrZ08dz9ZZ84eJbASUaVnpoqVBDGCByyLZ8GObcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oPPVKBx64NfoTG0k/4ohUGu3Bsl5X2Ik5fwfVipTovI=;
- b=I0v3a3wv761sDoJCD+t3Nv1bBvDYqTPbeBWYjYmOHSDXI1yB6du0OfxPKtNOzYxoJ87BeEmt8g4zTzFwDi08GgYXWHWsqorU8/Fdppj1S3QwSo0DX0TMZZJc7gX4BwYsYA3B6XXNNvbVCeeisxtN7oC03iJDdPfY77zWkfz49MpaYpHo7bzEl+2VxvWp1bD7uW80Soc7jt8TWTMoQPsTtJpJHT07qV0M9SVAWZ+fqTXqfHYUjEOs6NwaxKidLRzuaqcex5ASuGqPl6ipLkh3FIsxFkfnkBYMzBZzGe8q1/aroVT/wVfsDsFlh7LfkjgwqoqHIKvG2Y5tLtVJeJqlsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oPPVKBx64NfoTG0k/4ohUGu3Bsl5X2Ik5fwfVipTovI=;
- b=PXITKv8iwm9Gtg+ezqBLXkm4HupZMc3bGf4U6H0HZRs5D6/1Q4JeUVUG20IjgVaW502XpZG5cghX4UsYUPKbgZk8hJpEYX9W6bIet+5/atDkzhILuzl2gkQ2esfjIa2JSPvSATOWtXGdvsjio+e7xcJaU6yRJz/uDC0ixf2zSF0=
-Received: from AM6PR08MB4754.eurprd08.prod.outlook.com (2603:10a6:20b:c7::11)
- by DBBPR08MB5897.eurprd08.prod.outlook.com (2603:10a6:10:203::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 16:34:05 +0000
-Received: from AM6PR08MB4754.eurprd08.prod.outlook.com
- ([fe80::a011:ffac:e18d:5d83]) by AM6PR08MB4754.eurprd08.prod.outlook.com
- ([fe80::a011:ffac:e18d:5d83%3]) with mapi id 15.21.0615.009; Mon, 16 Nov 2026
- 16:34:05 +0000
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Ayrton Munoz <adm@immunant.com>
-CC: "Michael S. Tsirkin" <mst@redhat.com>, =?utf-8?B?QWxleCBCZW5uw6ll?=
-	<alex.bennee@linaro.org>, "virtio-comment@lists.linux.dev"
-	<virtio-comment@lists.linux.dev>, "Edgar E . Iglesias"
-	<edgar.iglesias@amd.com>, Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
-	Viresh Kumar <viresh.kumar@linaro.org>, Armelle Laine <armellel@google.com>,
-	Andrei Homescu <ahomescu@immunant.com>
-Subject: Re: [PATCH v2 0/6] virtio-msg transport layer
-Thread-Topic: [PATCH v2 0/6] virtio-msg transport layer
-Thread-Index:
- AQHc/KbaWNcK70X5cUmaq2wR+xGjkLZY4R8MgAB08gCAr5EDCYAABUKAgBfxL4CAEPm3AA==
-Date: Mon, 16 Nov 2026 16:34:04 +0000
-Message-ID: <439BFD26-85F3-4543-8E47-7BCB232DD163@arm.com>
-References: <cover.1781514628.git.bertrand.marquis@arm.com>
- <87ldbuu46o.fsf@draig.linaro.org>
- <20260701181854-mutt-send-email-mst@kernel.org>
- <87mrs7yt4o.fsf@draig.linaro.org>
- <20261021114219-mutt-send-email-mst@kernel.org>
- <CADC70uNEa24w+PFa8Zv1X14jhheQR45x4fW2dUS4SNjxr_mDFQ@mail.gmail.com>
-In-Reply-To:
- <CADC70uNEa24w+PFa8Zv1X14jhheQR45x4fW2dUS4SNjxr_mDFQ@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3864.700.51.1.3)
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB4754:EE_|DBBPR08MB5897:EE_|ZR1PEPF0000E6B1:EE_|AS8PR08MB9340:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c649ac0-f8d3-4c8f-6141-08df43ff828d
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|6133799003|4143699003|56012099006|11063799006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261022105027099003|261021121427099003|261022075727099003|38070700021|10067099003;
-X-Microsoft-Antispam-Message-Info-Original:
- RoPuXjUKbMd+/MOJE1diVT7drbOA9Ixe2UzR0uRGIsuK8UqaVbqO+dFLP0+bKSFe4a3WLGpsK+cQbJYSHIBogXC4YBFbfpwjsPmdDExsKu4oaf3k0Flv0C611Jti7OXqwZOXUk003M9x8uhJLmq91+GOnic4jKCByvYUz7P5xLX7gEJK1P6vPc0YWBsr7T5WMLN0+8XANyqyG2q1Eh5vFWECbt1bWpGYKFsUqdLGrIUfRzRiAlgDbbpWlfDmA2BaJCVpapo/DHcdLZCl34cR5hmwFORlEvcTH4fI0ep+OJz4Wgxptk4V2Y2i3bnrGcGWxwojw4uDP3nU5OzGBBQHl4bnX9YBPTs6+xastxr8/8d2+nWpZ148L00J1Q8NbLdI7JEBzJYobw4SjH8TdiJMp6bYdwyIOW+3kZV/JpZJy/ElojPRYQOpGz8fhcdrnB5jTSdrTJB08KVLCPUr2wlXLTD73e4NStLC1rbWZvt8j0CQVbVCBaexWI8Ez9h20+LWfcKsZJ6LL8vgiWxJLZ1E5K4OoaZj3wfkYvsTpRwPXS5Jk/hRZEj3rymUdHDNE0KJkIviPS5CDNvY7A4eVhn9Dp4xdUsyMmVu6xx1lakua8Fh/adt6zI8fWqK0vBdzVySX43LJhAIhhAlkpooZoJ+Svrki5mBbO0PjHozZnX9gXoU5mPDKVRRUP97dn6HDyUFa9mzMuY8aFQ3tLhBXRu70mRwedIIoUoJajTZ60VH/90=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB4754.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(6133799003)(4143699003)(56012099006)(11063799006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021121427099003)(261022075727099003)(38070700021)(10067099003);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <B9EE22FC2976C14F8E2197C9278FD1CB@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Y8wWi4mL;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CnPyKJ2g
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHC207G4188038
+	for <virtio-comment@lists.linux.dev>; Tue, 17 Nov 2026 13:12:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4K5blrLYfLp82cSpiJ6hRZQ4I2SrkaSacxfbxpQSysU=; b=Y8wWi4mLQwd3TFwK
+	R0y2d3Ghqs+aMylYC1/EV5qERf+A0WW6BRuNqxSXAkg0hOO/DeVUh94SRYsqqOXw
+	ETbeBKtfo80vM7EVSbigWZsNDvsb8NasvXdu1DAH4+bfRGcmOK45xigHewZKmg/d
+	d7uLiJ9lH2U4sm2RKToxn3HNsmrcwgNYkZVDhJuwsR/kytNy7ftfCaC3jDQDxQbn
+	jcy5xeKimIDarvcfmOVQOZdwFSTNNwtt4MoBNSrGD83smMcb/3dze22tE3oPD+20
+	aV7eAlt9WTanYdp9pm0F++Q7hD/g7iuKgydpghVmNuKGygD8K4+i0A+SRs/LmZ0i
+	NEO7TA==
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j09m0b873-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <virtio-comment@lists.linux.dev>; Tue, 17 Nov 2026 13:12:17 +0000 (GMT)
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-862a5ad18d0so3305888a34.3
+        for <virtio-comment@lists.linux.dev>; Tue, 17 Nov 2026 05:12:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794921136; x=1795525936; darn=lists.linux.dev;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4K5blrLYfLp82cSpiJ6hRZQ4I2SrkaSacxfbxpQSysU=;
+        b=CnPyKJ2gtKBU/HxzsE8BlSIuOBewBSHUZe7pNVTnXk5U/PcIou/vjkx7nxoOlFuBVt
+         SRRxUgOQtZHhWOle/1y9u5pMc302bWgv0kfdeW43R26wQwptZUdh527bcadFXhmzEvPE
+         tVk6olJ8Td/KRaEN2pIATGfG51N1SxOTOTTNWSnl13rUCJAspDLkhLBDvBpmixa/60hm
+         CcAvviobvm6pliDOvFuCE+S+U91n6Fhu4uEWhlNtriP/lO9TPCNMkgn1u5JawhR1hlFF
+         zV9BjDtJUKCMc28TYqsW5nBL1f7TQSynFTbKaRlRJ3VnUDEM8+BDCmBb+H4sCwR2/TXU
+         YN4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794921136; x=1795525936;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4K5blrLYfLp82cSpiJ6hRZQ4I2SrkaSacxfbxpQSysU=;
+        b=2V8knlnsMjnD78c1BW7yzDmPUn5b/avxEsQGlR0MQ7k88xRF0WUdXrdYTpEm97vtdb
+         oat1gJxE3leyuhCng97VhsFBsN15vXFff0JxdKW8QsV329vXwfqvC1lK8TslCBuaaYdf
+         824sZ+DR0AbwsJFB+RfN+ViYouMp9LQVjdOOvuKny8XL11FVQ/P1//hG7tyhil97+uAp
+         qPtybkpRm4E30W96h/OiRGiMV6hiuTCH11iZnIHpeCVRpY1s2ZClTwtS68d7Rf3D0aAd
+         aiol+UAC7oy5w98hfw9MERHP0vfM0gPVoIr2gU3L9vVYW8smrVeFWcSXEOif0KYMUmfZ
+         0qsQ==
+X-Forwarded-Encrypted: i=1; AL+hErHDRdB8EQYqdjO7mAo/Ma6C+FN7ax8Hfto+KoIvTsR95o9ty9QQGBDkjRkidC2QVRoB4UP2Dl9HOn4d5h6Zsw==@lists.linux.dev
+X-Gm-Message-State: APuU4Z9/Cv7eJyuk+33F0Orn19Un7h75csaHkrbYHkVZK4NdeD9hIl5j
+	a5UTaUb77qkZVGzBO1wZLoBejSwcEGphHEkzr/6z2NU2vhJs4l0vfqP7HtCrOSd0toeE6MfMbx6
+	5IHKx6YYpNEthVX6UXaDZoPe7USRIZQRo/wjbBErKc/lNYiE2dL/tzOcmk55EhoUO/mQIgg==
+X-Gm-Gg: AYBFou0VkLItXciUHiPtpTafcFKC0yw7e5ejBEyJL4oM2P6wig+VVXfl40lquDMKJ7J
+	0+hswLY80UAQuV1h09yhQ0O2t54nR3QBAr+S0sBPwUupdmqTFpRuL2qCfbLHpjvOu2dUbSBxtrM
+	aYxG4iEPL0s1XJBfksHwpITVapsVUB8lWX0MG3fKyA6NOiDpAsjw1Gxegc+N7RmaKK5B6j6+S6J
+	6AEkmfwU8mn6NgkOtNO6KiRcKu2Wwg9E7TID5ksd4K6kKmhxYxNg5idDfgNNvA0biop+vetr7nO
+	7T0h1Z/j1NQDUdihHbe7dTtO5sBoPq+62ClFTWX4q+HTQLKpL1x+oPXPtEMEdShiAJfPC0ATu7F
+	SePsL1kugWZKCUcQ5SdPLEj7o+mAAGtFr3EtZbvCChVbWPMfebxGrtwMeMS1DExk1C63OW7D8fb
+	cIxYXyelIkCNpjEzCC9Wz3qblYBwSjlQ==
+X-Received: by 2002:a05:6820:2206:b0:70e:2d38:4b86 with SMTP id 006d021491bc7-71ab4fa06fbmr9692278eaf.16.1794921136295;
+        Tue, 17 Nov 2026 05:12:16 -0800 (PST)
+X-Received: by 2002:a05:6820:2206:b0:70e:2d38:4b86 with SMTP id 006d021491bc7-71ab4fa06fbmr9692260eaf.16.1794921135717;
+        Tue, 17 Nov 2026 05:12:15 -0800 (PST)
+Received: from [10.110.92.177] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862beb11508sm6382758a34.3.2026.11.17.05.12.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 05:12:15 -0800 (PST)
+Message-ID: <df871f4d-5c56-41b9-83a7-d5831f2b23e1@oss.qualcomm.com>
+Date: Tue, 17 Nov 2026 21:12:10 +0800
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Post: <mailto:virtio-comment@lists.linux.dev>
@@ -174,97 +116,268 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:virtio-comment+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
- n57+GaM1znx3NbsDNZO4+OsaCyX1Fz3wu67k5XFTZL9QFYU/b3aFcavL3V4HqOwTwlCAQXXy+/Ez+1A2TC2z5pX1hklLHWy/+1oKgVtiEZbzXNmiwcLoWmUGPePDxg6eqycjKDzN76GUeyRQXoPTcFeEaPGhIVIQ9Gcz7ccsv6ODUwp1tl/AuSwgtYIiVEk5xyqmi7NicyLYscNfeEEyYbb846B8457vn19OSjgD5u2sdPaAMs7nFIwJRkngXGyl0HYUpOxd50V7sAN0iW6R6B7HbByjK85FiuDuXm/CFowRlimb/ZZAYEIpXf6Nnp92keuVi7ksOjm1DXG3nUKWzw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB5897
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- ZR1PEPF0000E6B1.eurprd05.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	bdb37dc1-32f3-4736-1ae5-08df43ff6df5
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|14060799003|35042699022|376014|1800799024|18002099003|22082099003|6133799003|11063799006|56012099006|4143699003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|261022075727099003|261022105027099003|261021121427099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	xPqSUDCz8W8/yIhi4eQOq6z6JrpZzD4nOwXFPxBs9FhzWFAIU6CRut/e5JbEE6zlmCVkkchglc8Q2cpJvbR2d8KWnDHcUTAoEBJo9VLyh8kS4jhHXgsri6Pw8H0X3pSdO9TU3cPy767bu5TlGNiVtZLW/J9e5imnbmDyaL8qUbsXQ3WGNcqOgObb4FGWdATDbGOGDZJ8HCMuiUGNdoEqPkD/fWEGMvyEOV+rsEoseYn/RhHWgArkPei0Xdbc7ZJc5se1Qb6YqNmvtbsiUXMIaHrH2XJdC6jLntUcMpr54EhIk/9nRPsAKChgAuSnjD5h7UXhSiXbEnisfNw5rYzoDuhKqJRW9FOldEy0dy6v49tQg/R0t8EmREAlM4IelrTxR6/UaZCY4sxwT4AR7QZp5VvY/teHxFePGEjwtwS1X53fdowQo4BxeXXBPWepwsqeqIF9xARTYNbnXoiJOh5/6RSySGMh+Dsm14qCMBUJO9HJlnUQfcwllpfLmlQNhSYDp5MmJJ8OVec0NMcpJIvovGizn9diuHSyOpRIz7NgyqJnlAuS6e+bBb5JRVoXe5lGDpuPlPavcHPBbeVvFM3T9cWcju1NrnimBr1iCqJ/G7GaSpJ9sWU2xil1Hv2puNi8tHBFpLUnKGZ8tN3BwmRM+75+C97NKNwGYRUWHWa4A+GCvEtGOjOWRE7YsZe7IsjSLSyC034wD3FlC+OYTIihXA==
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(14060799003)(35042699022)(376014)(1800799024)(18002099003)(22082099003)(6133799003)(11063799006)(56012099006)(4143699003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(261022075727099003)(261022105027099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	6NK/vv+5eiJIUkRCT7kIEUvHlA3kKloBPVmEaenTHOzgPrGK0U/qYjyurhwM6v/KL4lEGNgRVV6qswnpdh8rzSLm5ek3IyF//zNhhd1I3DYmtM/Yb/p2pDS6qw4BnzrWaShwR36PK7nG2RWoUpdhOvYCVvB87JSd5Gb71wvfj+Yfi7tDISDBpXjhK5oQ7qwN6pZb80K780xWY0+AuBmHA9gTMnQOGx5U1fWz8pXvEYct/dzRlpVJvAqmtP7SLE0LtKxhrnx9vsyJfldYFwSzd8ZxKyHkqDrhDTXwkFV5K4+PqTvTpCqRV7ydIA85sprMfjIIOp5eOUeyeAfLJ0wSbYNetoRv3Z+njTfPrlbYRJ0gkt+IQi9yQnoXFQ+a/oGyeYZBm6vaNshbJHepS+MhvMVOeim7JS7W3YSD3yGn3AKfoaFVfn0AYah29TynNSYu
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 16:34:39.4282
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c649ac0-f8d3-4c8f-6141-08df43ff828d
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	ZR1PEPF0000E6B1.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9340
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/4] virtio-blk: Add inline encryption security
+ considerations
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtio-dev@lists.linux.dev, virtio-comment@lists.linux.dev,
+        stefanha@redhat.com, mgurtovoy@nvidia.com, parav@nvidia.com,
+        ebiggers@kernel.org, neeraj.soni@oss.qualcomm.com
+References: <20261027090945.185178-1-linlin.zhang@oss.qualcomm.com>
+ <20261027090945.185178-5-linlin.zhang@oss.qualcomm.com>
+ <20261110065058-mutt-send-email-mst@kernel.org>
+Content-Language: en-US
+From: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
+In-Reply-To: <20261110065058-mutt-send-email-mst@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA1MiBTYWx0ZWRfXzeNPxs4fwfbm
+ HIOvkisztJhHPyA0xHxfZWwA2+teBkkhqTE2eBnqHo3icQq5RVDmtPIWSJcW4Lgyy8jyFRYCkor
+ sTLudYr6GtBlB9kfLVpuKaen9K1I3TY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA1MiBTYWx0ZWRfXzxlAN7SKa193
+ ShuvLqMqrSYrZHGksNWKHoheTzL4RgXjiFiXMt2LcawASbBTX9jKh90FRE7Hi3qq12YFJxwk4G0
+ 4rR65WKqEJ72O5zuTnGIVCDHboRBJAslpYtOeq+P9t7nBQBW6PPewoCTaalidV24GKhzWJ1Y1IP
+ 8dL2CPr2odzFmnBfGZUN4xpAbg/kQmczJFny1vHP5YztRBUERdmknZglH8pdwfpZ1E3/hqidP5j
+ kJhmeqlR3KtefZfdCRyoCdF0jxiSBerDMmPAPNBad2dUJ+P/YxOo6hDWa9TsOqaqFTL5opkBn36
+ Q0lxH1DeMt33/bvcbqHsf1poO2lT+YxH+ZlUp2OCi7gQZ9qQvVvzx3NKyrR0XVsgVMVR2JUAgxe
+ +ZjL174Bp6erYClhy6jESEi1Cdkd8BwWh1jfxSIZlCxdkMstWpO+11HXxVxs63EVtbQZ3d7/7r7
+ tKII0H8noy8RXwyLJLA==
+X-Proofpoint-GUID: WOASVVwxoQVbyS3YRkJv61g8fD6O_a7h
+X-Proofpoint-ORIG-GUID: WOASVVwxoQVbyS3YRkJv61g8fD6O_a7h
+X-Authority-Analysis: v=2.4 cv=F7rC5ahN c=1 sm=1 tr=0 ts=6afc52b1 cx=c_pps
+ a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=NEAV23lmAAAA:8 a=EUspDBNiAAAA:8 a=hm7eBhRZyIYsvCQPfSgA:9 a=QEXdDO2ut3YA:10
+ a=EXS-LbY8YePsIyqnH6vw:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_02,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 clxscore=1015
+ suspectscore=0 bulkscore=0 malwarescore=0 spamscore=0 phishscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611170052
 
-SGkgQXlydG9uLA0KDQpUaGFua3MgZm9yIHRoZSBmZWVkYmFjayBhbmQgdGhlIGltcGxlbWVudGF0
-aW9uIHJlcG9ydC4NCg0KPiBPbiA1IE5vdiAyMDI2LCBhdCAyMjoxOSwgQXlydG9uIE11bm96IDxh
-ZG1AaW1tdW5hbnQuY29tPiB3cm90ZToNCj4NCj4gSGVsbG8sDQo+DQo+IE15IGNvbGxlYWd1ZSBB
-bmRyZWkgYW5kIEkgYXQgSW1tdW5hbnQgaW1wbGVtZW50ZWQgdmlydGlvLW1zZyBvdmVyIEFSTQ0K
-PiBGRi1BIGZvciBhIHZzb2NrIGRldmljZS9kcml2ZXIgcGFpciB0aGF0IGlzIGluY2x1ZGVkIGlu
-IHRoZSBBbmRyb2lkDQo+IE9wZW4gU291cmNlIFByb2plY3QuIE91ciBpbXBsZW1lbnRhdGlvbiBp
-bmNsdWRlcyBhIHZzb2NrIGRldmljZSBmb3INCj4gVHJ1c3Rab25lL2RyaXZlciBmb3IgYSBWTSBh
-bmQgYm90aCBzaWRlcyBoYXZlIGJlZW4gdGVzdGVkIGFnYWluc3QNCj4gb3RoZXIgdnNvY2sgZGV2
-aWNlL2RyaXZlciBpbXBsZW1lbnRhdGlvbnMuIFdlIGRpZG4ndCBmaW5kIGFueSBtYWpvcg0KPiBp
-c3N1ZXMgd2l0aCB0aGUgc3BlY2lmaWNhdGlvbiwgYnV0IGJlbG93IGFyZSBzb21lIG1pbm9yIGNv
-bW1lbnRzIG9uDQo+IHRoaXMgc3BlYy4gV2UnbGwgc2VuZCBjb21tZW50cyBzcGVjaWZpYyB0byBG
-Ri1BIHRvIEFSTSBzZXBhcmF0ZWx5Lg0KPg0KPiAxLiBBZGRyZXNzIGZpZWxkcyBpbiB0aGUge0dF
-VCxTRVR9X1ZRVUVVRSBhbmQgR0VUX1NITSByZXNwb25zZSBzdHJ1Y3RzDQo+IChpbiB0aGUgUEFU
-Q0ggdjIgMy82IGVtYWlsKSBhcmUgcmVmZXJyZWQgdG8gYXMgcGh5c2ljYWwgYWRkcmVzc2VzLiBG
-b3INCj4gRkYtQSB0aGVzZSBhcmUgYnVzIGFkZHJlc3NlcyAoYW4gYXJlYSBJRCArIG9mZnNldCks
-IG5vdCBwaHlzaWNhbA0KPiBhZGRyZXNzZXMuIFRoZSB0ZXh0IHNob3VsZCBzdGF0ZSB0aGlzIG9y
-IHNwZWNpZnkgdGhhdCB0aGUgYWRkcmVzcw0KPiBzcGFjZSBpcyBkZWZpbmVkIGJ5IHRoZSBidXMu
-DQoNCkFncmVlZC4gRm9yIHYzLCB3ZSB3aWxsIGNsYXJpZnkgdGhhdCB0aGUgYWRkcmVzcyBzcGFj
-ZSBhbmQgZW5jb2RpbmcNCm9mIHRoZXNlIGZpZWxkcyBhcmUgZGVmaW5lZCBieSB0aGUgYnVzIGJp
-bmRpbmcsIGFuZCB1cGRhdGUgdGhlDQpwaHlzaWNhbC1hZGRyZXNzIHdvcmRpbmcgY29uc2lzdGVu
-dGx5Lg0KDQo+DQo+IDIuIEl0J3Mgbm90IGNsZWFyIHRvIG1lIHdoZXRoZXIgdGhpcyBzcGVjaWZp
-Y2F0aW9uIGFsbG93cyBjb2FsZXNjaW5nDQo+IG11bHRpcGxlIEVWRU5UX3tBVkFJTCxVU0VEfSBt
-ZXNzYWdlcyBpbnRvIG9uZT8gSXMgdGhpcyBkZWNpc2lvbiBtYWRlDQo+IGJ5IGVhY2ggc3BlY2lm
-aWMgdHJhbnNwb3J0Pw0KDQpUaGUgbm90aWZpY2F0aW9uIG1lY2hhbmlzbSBhbmQgY29hbGVzY2lu
-ZyBwb2xpY3kgc2hvdWxkIGJlIGRlZmluZWQNCmJ5IHRoZSBidXMgYmluZGluZy4gQSBidXMgbWF5
-IGNhcnJ5IG5vdGlmaWNhdGlvbnMgYXMgbWVzc2FnZXMsIG9yDQp1c2UgaGFyZHdhcmUgb3Igc29m
-dHdhcmUgaW50ZXJydXB0cyBhbmQgZ2VuZXJhdGUgdGhlIGNvcnJlc3BvbmRpbmcNCnRyYW5zcG9y
-dCBldmVudHMgbG9jYWxseSwgd2l0aG91dCBzZW5kaW5nIGFuIGV2ZW50IG1lc3NhZ2Ugb3Zlcg0K
-dGhlIGJ1cy4NCg0KRm9yIEVWRU5UX0FWQUlMIGFuZCBFVkVOVF9VU0VELCB0aGUgaW50ZW50IGlz
-IHRvIGFsbG93IGNvYWxlc2NpbmcNCnByb3ZpZGVkIHRoZSByZXF1aXJlZCB2aXJ0cXVldWUgbm90
-aWZpY2F0aW9ucyBhbmQgcHJvZ3Jlc3MgYXJlDQpwcmVzZXJ2ZWQsIGluY2x1ZGluZyBhbnkgbmVn
-b3RpYXRlZCBub3RpZmljYXRpb24tZGF0YSBzZW1hbnRpY3MuDQpUaGVyZSBuZWVkIG5vdCBiZSBh
-IG9uZS10by1vbmUgY29ycmVzcG9uZGVuY2UgYmV0d2VlbiBidXMgc2lnbmFscw0KYW5kIHRyYW5z
-cG9ydCBldmVudHMuDQoNClRoZSBjdXJyZW50IHdvcmRpbmcgaXMgdG9vIHJlc3RyaWN0aXZlLiBX
-ZSB3aWxsIGNsYXJpZnkgdGhpcw0Kc2VwYXJhdGlvbiBpbiB2My4NCg0KQ2hlZXJzDQpCZXJ0cmFu
-ZA0KDQoNCj4NCj4gYmVzdCwNCj4gQXlydG9uIE11w7Fveg0KPg0KPg0KPiBPbiBXZWQsIE9jdCAy
-MSwgMjAyNiBhdCAxMTo0OOKAr0FNIE1pY2hhZWwgUy4gVHNpcmtpbiA8bXN0QHJlZGhhdC5jb20+
-IHdyb3RlOg0KPj4NCj4+IE9uIFdlZCwgT2N0IDIxLCAyMDI2IGF0IDA0OjIzOjUxUE0gKzAxMDAs
-IEFsZXggQmVubsOpZSB3cm90ZToNCj4+PiAiTWljaGFlbCBTLiBUc2lya2luIiA8bXN0QHJlZGhh
-dC5jb20+IHdyaXRlczoNCj4+Pg0KPj4+PiBPbiBXZWQsIEp1bCAwMSwgMjAyNiBhdCAwNDoyMDo0
-N1BNICswMTAwLCBBbGV4IEJlbm7DqWUgd3JvdGU6DQo+Pj4+PiBCZXJ0cmFuZCBNYXJxdWlzIDxi
-ZXJ0cmFuZC5tYXJxdWlzQGFybS5jb20+IHdyaXRlczoNCj4+Pj4+DQo+Pj4+Pj4gVGhpcyBzZXJp
-ZXMgYWRkcyB0aGUgdmlydGlvLW1zZyB0cmFuc3BvcnQgbGF5ZXIuDQo+Pj4+Pj4NCj4+Pj4+PiBU
-aGUgaW5kaXZpZHVhbHMgYW5kIG9yZ2FuaXphdGlvbnMgaW52b2x2ZWQgaW4gdGhpcyBlZmZvcnQg
-aGF2ZSBoYWQgZGlmZmljdWx0eSBpbg0KPj4+Pj4+IHVzaW5nIHRoZSBleGlzdGluZyB2aXJ0aW8t
-dHJhbnNwb3J0cyBpbiB2YXJpb3VzIHNpdHVhdGlvbnMgYW5kIGRlc2lyZSB0byBhZGQgb25lDQo+
-Pj4+Pj4gbW9yZSB0cmFuc3BvcnQgdGhhdCBwZXJmb3JtcyBpdHMgdHJhbnNwb3J0IGxheWVyIG9w
-ZXJhdGlvbnMgYnkgc2VuZGluZyBhbmQNCj4+Pj4+PiByZWNlaXZpbmcgbWVzc2FnZXMuDQo+Pj4+
-Pj4NCj4+Pj4+PiBJbXBsZW1lbnRhdGlvbnMgb2YgdmlydGlvLW1zZyB3aWxsIG5vcm1hbGx5IGJl
-IGRvbmUgaW4gbXVsdGlwbGUgbGF5ZXJzOg0KPj4+Pj4+ICogY29tbW9uIC8gZGV2aWNlIGxldmVs
-DQo+Pj4+Pj4gKiBidXMgbGV2ZWwNCj4+Pj4+DQo+Pj4+PiBJZiB0aGVyZSBhcmUgbm8gY29tbWVu
-dHMgaG93IGxvbmcgc2hvdWxkIHdlIGxlYXZlIGl0IGJlZm9yZSByZXF1ZXN0aW5nIGEgdm90ZT8N
-Cj4+Pj4NCj4+Pj4gZm9yIGEgbmV3IHRyYW5zcG9ydCxkdXJpbmcgc3VtbWVyIHZhY2F0aW9uIHRp
-bWUsIEknZCBnaXZlIGl0IGEgbG90IG9mDQo+Pj4+IHRpbWUuDQo+Pj4NCj4+PiBIb3cgbXVjaCBt
-b3JlIHRpbWUgZG8geW91IHRoaW5rIGlzIG5lZWRlZD8gSSB0aGluayB3ZSBhcmUga2VlbiB0bw0K
-Pj4+IHJlcXVlc3QgYSB2b3RlIHNvb24gZ2l2ZW4gd2UgaGF2ZSBwbGVudHkgb2Ygd29ya2luZyBj
-b2RlLg0KPj4+DQo+Pj4gLS0NCj4+PiBBbGV4IEJlbm7DqWUNCj4+PiBWaXJ0dWFsaXNhdGlvbiBU
-ZWNoIExlYWQgQCBMaW5hcm8NCj4+DQo+PiBJJ2Qgc2F5IGl0J3Mgb2sgdG8gcmVxdWVzdCBhIHZv
-dGUuDQo+Pg0KPj4NCj4NCg0KSU1QT1JUQU5UIE5PVElDRTogVGhlIGNvbnRlbnRzIG9mIHRoaXMg
-ZW1haWwgYW5kIGFueSBhdHRhY2htZW50cyBhcmUgY29uZmlkZW50aWFsIGFuZCBtYXkgYWxzbyBi
-ZSBwcml2aWxlZ2VkLiBJZiB5b3UgYXJlIG5vdCB0aGUgaW50ZW5kZWQgcmVjaXBpZW50LCBwbGVh
-c2Ugbm90aWZ5IHRoZSBzZW5kZXIgaW1tZWRpYXRlbHkgYW5kIGRvIG5vdCBkaXNjbG9zZSB0aGUg
-Y29udGVudHMgdG8gYW55IG90aGVyIHBlcnNvbiwgdXNlIGl0IGZvciBhbnkgcHVycG9zZSwgb3Ig
-c3RvcmUgb3IgY29weSB0aGUgaW5mb3JtYXRpb24gaW4gYW55IG1lZGl1bS4gVGhhbmsgeW91Lg0K
+
+
+On 11/10/2026 8:01 PM, Michael S. Tsirkin wrote:
+> 
+> Good start! Yet something to improve:
+> 
+> On Tue, Oct 27, 2026 at 02:09:27AM -0700, Linlin Zhang wrote:
+>> Inline encryption protects the data stored on the backend storage, but
+>> the device, and therefore the host, is able to read the buffers of both
+>> the request virtqueues and the administration virtqueue.
+>>
+>> Describe the resulting exposure. The data of the requests is transferred
+>> in plaintext, so inline encryption is not a means of keeping data
+>> confidential from the host, whichever key type is used, and confidential
+>> guests cannot rely on it for that.
+>>
+>> A raw key programmed into a keyslot is visible to the host. A
+>> hardware-wrapped key prevents the raw key from being extracted, so that
+>> the key can only be used through the device which wrapped it, but does
+>> not prevent the host, which is able to send administration commands
+>> itself, from using the key through the device.
+>> The raw key imported by VIRTIO_BLK_ADMIN_CMD_CRYPTO_IMPORT_KEY and the
+>> software secret returned by VIRTIO_BLK_ADMIN_CMD_CRYPTO_DERIVE_SW_SECRET
+>> are also visible to the host.
+>>
+>> This patch adds no normative requirements.
+>>
+>> Fixes: https://github.com/oasis-tcs/virtio-spec/issues/238
+>> Signed-off-by: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
+> 
+> 
+> This needs to be rewritten:
+> - use terminology from spec (or standards linked to) do not make up your
+>   own
+> - address physical device implementations and software ones
+> - specific recommendations lacking
+
+Thanks for your comments!
+
+I'd like to double confirm that, this comment is about the commit message, right?
+
+Would you please help clarify about 'specific recommendations lacking'? do you mean
+adding some recommendations when and how to use virtio_blk inline encryption? 
+
+For instance, which key type is preferred? 
+
+> 
+>> ---
+>>  device-types/blk/description.tex | 40 ++++++++++++++++++++++++++++++++
+>>  1 file changed, 40 insertions(+)
+>>
+>> diff --git a/device-types/blk/description.tex b/device-types/blk/description.tex
+>> index bbae9af..ca54e50 100644
+>> --- a/device-types/blk/description.tex
+>> +++ b/device-types/blk/description.tex
+>> @@ -1994,6 +1994,46 @@ \subsubsection{Inline Encryption Administration Commands}\label{sec:Device Types
+>>  NOT write key material or the derived software secret to the
+>>  \field{command_specific_result}.
+>>  
+>> +\subsubsection{Inline Encryption Security Considerations}\label{sec:Device Types / Block Device / Device Operation / Inline Encryption Security Considerations}
+>> +
+>> +Inline encryption protects the data stored on the backend storage, for
+>> +example against an attacker who obtains the storage medium on its own. It
+>> +is not a means of keeping data confidential from the host: the device, and
+>> +therefore the host, is able to read the buffers of both the request
+>> +virtqueues and the administration virtqueue. A confidential guest, for
+>> +example a guest whose memory is protected from the host by a confidential
+>> +computing technology, cannot rely on inline encryption to keep its data
+>> +confidential from the host, whichever key type it uses.
+> 
+> 
+> Pls reword in terms of device/driver, not host/guest.
+> "confidential guest" is also not a common term
+> 
+> E.g. "an untrusted device", "a driver that does not trust the device".
+> You can give examples "e.g. as is common with
+> confidential computing configurations".
+
+ACK
+
+> 
+> this applies everywhere.
+> 
+>> +
+>> +\begin{note}
+>> +Inline encryption does not protect the data of VIRTIO_BLK_T_CRYPTO_OUT and
+>> +VIRTIO_BLK_T_CRYPTO_IN requests from the host: that data is transferred in
+>> +plaintext in buffers of the request virtqueues.
+>> +\end{note}
+>> +
+>> +When \field{key_type} is VIRTIO_BLK_CRYPTO_KEY_TYPE_RAW, the key material in
+>> +the \field{bytes} of struct virtio_blk_crypto_key_desc of a
+>> +VIRTIO_BLK_ADMIN_CMD_CRYPTO_KEYSLOT_PROGRAM command is the plaintext key.
+> 
+> the plaintext key?
+
+Yes, when the key type is VIRTIO_BLK_CRYPTO_KEY_TYPE_RAW, it's the plaintext key
+populated from the driver to the device. 
+
+Only when the the key type is VIRTIO_BLK_CRYPTO_KEY_TYPE_HW_WRAPPED, it's a
+hardware-wrapped key populated from the driver to the device. 
+
+> 
+>> +Any software able to access the buffers of the administration virtqueue,
+>> +such as the hypervisor, the device implementation or other software on the
+>> +host, can therefore obtain the key, and decrypt the data encrypted with it
+>> +at any time, including after the key is no longer in use.
+> 
+> what does it have to do with software, unclear.
+
+Thanks for this point!
+
+The security implication is not specific to software. What matters is access to
+the administration virtqueue buffer: since a RAW key is transferred in plaintext,
+any entity with access to that buffer can observe and retain the key material.
+
+Reword it as the following:
+  - When \field{key_type} is VIRTIO_BLK_CRYPTO_KEY_TYPE_RAW , the RAW key
+    material in the \field{bytes} of struct virtio_blk_crypto_key_desc of a
+    VIRTIO_BLK_ADMIN_CMD_CRYPTO_KEYSLOT_PROGRAM command is transferred in
+    plaintext through the Admin VQ buffer. Therefore, any entity that can
+    read that buffer can read the plaintext key material.
+
+> 
+>> +
+>> +When \field{key_type} is VIRTIO_BLK_CRYPTO_KEY_TYPE_HW_WRAPPED, a
+>> +VIRTIO_BLK_ADMIN_CMD_CRYPTO_KEYSLOT_PROGRAM command only transfers a key
+>> +wrapped by the device, and the raw key material is not exposed in its
+>> +buffers.
+> 
+> material?
+
+The struct virtio_blk_crypto_key_desc except slot in it implies a key,
+containing key_size, crypto_mode, key_type, key bytes and etc. The key
+material here only means the key bytes content.
+
+> 
+> the considerations are same or different for different key types?
+> pls structures the text to make it clear what applies to what.
+
+ACK.
+
+Yes. The security considerations are different for the two key types. I'll
+restructure this section to discuss RAW and HW_WRAPPED keys separately and
+make it explicit which considerations apply to each. The new structure is
+most like that
+
+  - For RAW key:
+    representation
+    security exposure
+    applicable considerations
+  - For HW_WRAPPED key:
+    representation
+    security property
+    applicable considerations
+  
+  - Considerations for both
+
+> 
+> 
+>> This prevents the raw key from being extracted, so that the key
+>> +can only be used through the device which wrapped it. It does not prevent
+>> +the host, which is able to send administration commands itself, from using
+>> +the key through the device, for example by converting a long-term wrapped
+>> +key it has observed with VIRTIO_BLK_ADMIN_CMD_CRYPTO_PREPARE_KEY and
+>> +programming the result into a keyslot. Moreover, a
+>> +VIRTIO_BLK_ADMIN_CMD_CRYPTO_IMPORT_KEY command carries the raw key in its
+>> +\field{command_specific_data}, and the struct virtio_blk_crypto_sw_secret
+>> +returned by a VIRTIO_BLK_ADMIN_CMD_CRYPTO_DERIVE_SW_SECRET command is
+>> +visible in its \field{command_specific_result}, so these commands expose
+>> +secrets to the host in the same way as raw keys.
+> 
+> 
+> this seems to argue with itself about some kind of protection
+> that maybe could be there but is not?
+
+Thanks for your comments!
+
+the file is encrypted by 2 keys - file name key and file content key - which are
+derived from a class key.
+
+When the class key is a HW-WRAPPED key, it means the key implied by the struct
+virtio_blk_crypto_key_desc except its slot filed is a ephemeral wrapped key.
+
+A long-term wrapped key can be generated by either
+VIRTIO_BLK_ADMIN_CMD_CRYPTO_GENERATE_KEY command or
+VIRTIO_BLK_ADMIN_CMD_CRYPTO_IMPORT_KEY command. 
+
+Then using VIRTIO_BLK_ADMIN_CMD_CRYPTO_PREPARE_KEY command to get a ephemeral
+wrapped key. 
+
+   - the command VIRTIO_BLK_ADMIN_CMD_CRYPTO_IMPORT_KEY exposes plaintext of a
+     class key to the entity that has access to the Admin VQ buffers as it needs
+     a input key as the class key.
+
+   - the command VIRTIO_BLK_ADMIN_CMD_CRYPTO_GENERATE_KEY returns a long-term
+     wrapped key directly, so no key plaintext exposure in Admin VQ buffer.
+
+   - the command VIRTIO_BLK_ADMIN_CMD_CRYPTO_PREPARE_KEY doesn't expose key
+     plaintext in the Admin VQ buffers.
+
+  - the command VIRTIO_BLK_ADMIN_CMD_CRYPTO_DERIVE_SW_SECRET returns a raw
+    software secret key (plaintext) to the virtio block driver which is the
+    key that Linux uses to derive the file name key.
+
+So the most security way is using the wrapped key generated and derived via
+GENERATE_KEY and PREPARE_KEY. Even though, there is still risk the DERIVE_SW_SECRET
+command return the software secret in form of plain text.
+
+I'll restructure this text and introduce the above clearly.
+
+> 
+> 
+>> +
+>>  \subsubsection{Legacy Interface: Device Operation}\label{sec:Device Types / Block Device / Device Operation / Legacy Interface: Device Operation}
+>>  When using the legacy interface, transitional devices and drivers
+>>  MUST format the fields in struct virtio_blk_req
+>> -- 
+>> 2.34.1
+> 
+
