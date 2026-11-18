@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794996733;
-	b=MhLE7hxZ8Dmc9oJ13kicznAC52VHJp28W+wCHcx7vK+QrNjVs733Qr6aM47PyqoXkeDp
-	 03RVuiwM4AL1y4vgBYUJ3LeVGKGSr53o2tyWEFFsmWuTrV60hgNUGep505egp5sxrcPKI
-	 umsYLgFcB2q0vFhbHtsBa+i2eEmflGOBDDjxmbrns5E1PWf1miNlqMroP3sMqBHDIOkLl
-	 m0HMOc8wHZjOYS0ZGsqCWZirOcg1ljGPXk0npRLwFu8Zh7qvFal1t6XsxO5zpEmPLlt8g
-	 Zwo6N9ZZLlFsgyb6H3hW4TvBQIiYBTbn0h8U9JoRqy1gWELTbuufx4pUa9MqvxLJeIQ==
+	t=1795001585;
+	b=RwQ6JvyPvJp46POvA0ZrBYQWTHqE38hpewUjgwsaeCBOZWEro0byV3WjJp/WjQw7yNWg
+	 zlqTqWowGYJbJflgfN6bhLPlVslkOV6wQ/rUJG5RjgfbcmOfirEvVRGBumAabr+5p7Obg
+	 bo8Suw07ft47ZCA0wiNqwFk9S3bxWpvwxeV8QBaFJZhqkgZbvNW5bT81zy5n1lEhdpI6R
+	 pKllhy3IJ2GI6ZOPdzZ3DSAwcyATvy6zi3nXH8K12X1WTvtVQZBBxCBZmAAWwDUwOHyF0
+	 ibnyG+qDWGSjUd1fh1jFNIAxlhPYhHTtsH0CiUihs6NRWdTNRC0qEco6kSDgVKDGdlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794996733;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=85/2GPPd3pUXc+ixFaifHqkZtwGCrl4YsFFi1NinxRg=;
-	b=s0dJ3pK/pBABMY50u5e9bBA1OXNfy7rOap76kErmowuFg0qi108Q+seYaiqcXzocXVnm
-	 KX7wajWFsAWk4NQXAtxMCCmm7JYjZwG21pFxk7Jc0OY6dOCAbfzxeuHtmXseojIhPLghW
-	 vlDKWEFqjyHnidMeGUHlxqXbRgDhKx94z2a+ZBwP2YByHu3ZxGLMVD47m22CVIEWBAF6T
-	 cOAAKpFjMPTW6fRBQmkixlz3ydHjqC6NIn83LyRMh8eX9aLVbvC+IgpSnO2aUfMRwe35q
-	 eXpBwpFifL3kL6JeomRwazaKageRcdARBaUMYAQHz5gV26BD5EHWXZ12+iFBLag+VzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795001585;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Mimecast-Spam-Score:
+	 X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:
+	 Content-Transfer-Encoding:content-type;
+	bh=ruaz0um4mSgkjPPUeftrQtue8de4mbQOX0MHYFKBfzc=;
+	b=huTtizLF8I453s/DfuvEoTHnc0C1v2KBE6u/IAsFUfINNmFlIsqN+U5moejFjeJ3/UFh
+	 zNdPmBn/DY7DsBtnT+xNux6ai0hYqu3Zo5tT57QETveF1bkFeMu7bqBB/Nxa64RK5T8sx
+	 6u6FINgH+9fGUX343FtNX7z7Fm1AFDc9sYQ+3HnvoZAxY2X5mfWoYq0+a8SpuVZl24umQ
+	 49GkK2wq8Cp4jxscJQy4yxahup6NE2XWMx2q3o6HNpxmrFzmBoC4Fs74slUAwxA3+pHSR
+	 Hx5YVAIQiQlAxdB7C4w6QV6xjIxpMr4XGNeTK/Pek7BvVOoVVE2nGg+PMuoABDkfAWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=fAnUjIjx;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=asbWCYY9;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536E6606A320
-	for <virtio-comment@lists.linux.dev>; Wed, 18 Nov 2026 10:12:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 536E6606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D16E606A320
+	for <virtio-comment@lists.linux.dev>; Wed, 18 Nov 2026 11:33:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D16E606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=fAnUjIjx
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3704d30b84fso1199312eec.1
-        for <virtio-comment@lists.linux.dev>; Wed, 18 Nov 2026 02:12:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794996732; x=1795601532; darn=lists.linux.dev;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=85/2GPPd3pUXc+ixFaifHqkZtwGCrl4YsFFi1NinxRg=;
-        b=fAnUjIjxFZ445wvdfRZJ48DslkqGrsDi6C5MY80f++f+MEW9YiCkORtGlc5Aol2fma
-         i5N/0X90/ka/Haq0vek7k+Z78udH3B90a997Wyk2QGxMXjfJ1hlZYu30u9wAt0scJSwe
-         NLSCM/tZ3CtD7BwZmCNxqZveN5hoN5qkGflgAhFPONI4balGuaOJWZ9rJa5edgz8iNeD
-         DFu0KQesnhRDk4JX6J0M2H7UHPkTBvlFdP3ZdL0E20sws1UMXA8iN/efkoYn5Pl65yhB
-         zlbsrQ81Bli1adiKHTtxcOeFO6RKK6RuF6hLZGXyIDY8n1zNNV2KXcOpy/HiO1Bib3qj
-         Oi+A==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=asbWCYY9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795001584;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ruaz0um4mSgkjPPUeftrQtue8de4mbQOX0MHYFKBfzc=;
+	b=asbWCYY9D3qAIIW1DqxySB3PqmsxbptmZgJpMkD0R0bGKlJP6FEBHNhx7ccuwyiOKyCeIy
+	NfMwZZW2t1cESGRdbPJAu1hFcCs4F3B3PqKoqEaGbjQ3nCj0JOs2aP1URJffasYblmK6Qz
+	+ymdso94rvgtg/AmvpPOKLF155IisSU=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-441-gnCCk2XKMle5TSDt6mHFYw-1; Wed, 18 Nov 2026 06:33:03 -0500
+X-MC-Unique: gnCCk2XKMle5TSDt6mHFYw-1
+X-Mimecast-MFC-AGG-ID: gnCCk2XKMle5TSDt6mHFYw_1795001582
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4bb69d84053so9040515e9.0
+        for <virtio-comment@lists.linux.dev>; Wed, 18 Nov 2026 03:33:02 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794996732; x=1795601532;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=85/2GPPd3pUXc+ixFaifHqkZtwGCrl4YsFFi1NinxRg=;
-        b=gb4P1PxrVd9KAofou30nbR355kPyshNOxuE1yqAmXaFPQLBR8wa4qbATqRj9QxvKwk
-         QJwrhDtXEg2h4oSEOPk7vQmGo4tdHXRbVOSLQwtqe27gFiaVrejy5FE8OMWfGsSDL3Rq
-         gXwmdWQ9QtqTGAZKEDt50ImgfOmFGV+C30t+/ll0J/nLDFhu8q1wMHjG+OZT4FYt1CHz
-         PkvlnJhUp8S5NtE9Og5q9p5BsW7ct0/G3ro6EF+DeOOiFUeiAP/ZPi1gPN6lnANJIXxf
-         JHZd//ukpwkkWTLvAVEiofhYAuR3vVGTxn6fRMDbk53FJRTCIGrm9OITfITx62iEQFoB
-         1TkA==
-X-Gm-Message-State: APuU4Z9ePenoLGGxR7xDKTy5ExkiM9ihKdf/HSQtjRXEpsvUQHJC58OM
-	QYRrZsJgh5hnAj6AiRQWayMBhnQBdS7ZoWQpQIa5W4EdkdNb6KqhWx4dY1Ntv9iDgJ0=
-X-Gm-Gg: AZFdTZeBrof9GinIDCUSUKK7hK1eBJ7F3wy3/jdMeHxYBa6zfBONCsYOBYGGJ0nHeZ5
-	V3pLT5C09kLxhe5XP+kIaWieOH2GeClOw2gc+aD/xNjG58reqkfY0nsD49+7Us+p6xLmeMkMu8W
-	r9u4UBp73+KZWj5bLHPgzBpptRz+eoB56ZalNGCqSa/Ou8BJnvEZPkU7eQYAC2nhTxsaxpai6V5
-	pTs+hG9gT/q/PAqh0JYwRNwySruOCouHyrlW1aEH214HeGss4tmKvo7CHl/JBIbWuOscNTw+lxN
-	x/lU2okvnWUDNeVJ7U7mP53/0nMz9sTJrtIX1WOgcdpLScPiHulDCbVj+S4SgYSUgpRgpAayHLT
-	ja7105hhjFnRqO6ffXGLwyTdC7x+uGGOdXO2elkCVt3LbFMlfLmIiJcUh6zAFY3EvrjpT1SYdrg
-	mVD8Dy6sOSnhkAnXyWAEe1WFqG9+OE+0CfVBCj9ujMjzRRHIKwUHg/Qtt9fTzl+/2DCvwWwAwYr
-	voURZ3YWpsMKQrnOhjZnsRBGVCs+KRkh6bfD/F+Zaut1blIPkBDjTHqIzT4sCEI5YorzmiWUzQg
-	+XONXJOIgO6VMSXX2NEFiLbVXG0KHA==
-X-Received: by 2002:a05:7301:b08:b0:377:e99a:22a5 with SMTP id 5a478bee46e88-38280079524mr1984040eec.6.1794996731674;
-        Wed, 18 Nov 2026 02:12:11 -0800 (PST)
-Received: from localhost ([122.172.83.36])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a6800366sm6396743eec.12.2026.11.18.02.12.10
+        d=1e100.net; s=20260707; t=1795001582; x=1795606382;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ruaz0um4mSgkjPPUeftrQtue8de4mbQOX0MHYFKBfzc=;
+        b=WTvsulr8ZtNQ+8KcRLESz+X7p0YImfIlmXa4aCK34opuldRRSqhopGxJdCT8u2neQ+
+         fH2nsxsDgGtCqFlxf7kRpImlI3iBo7Kqjo/EUSYgjkclrjr43fuTpk1n+83wTcrd3L9K
+         iPRI6Zyg7pGCOUS3FagrEjV4MpNimmgi/E6Gk0aU5Pd4iwa7BlVOLStzh+1EvkNnZrFQ
+         vYfVlaSctOSzi2/FeYURgzEIHlCwxjGCuleqAyk3u3tqTgZ24DCCSWcdiDq8iIH+Zs+s
+         nMuiNK92kusYVWt/G36HsWAufxk+KYuYJ4VBPjuWOrHfOGaFrcO2IvPWXxqW++ngnob4
+         KLxQ==
+X-Gm-Message-State: APuU4Z/CHbMLLZG+8V5Vj2v6RyZ8AlmCQCnJCvbsTuUskbw/v7P6iH34
+	FukqaJO8Kqgj5oX2lJ6hgAQdUmgy07cLfZYD9tIu80HE29uI3QIPB91dI/iAICBKLQD6b30s18O
+	MBg43PfGSXZJ85I22w033SM99ybYaln5B3Gbjo20Rt0pE0IunYoWeNCaB4+QrA6vR5vRjklG589
+	U9QJvsKEtAQmksf7JD8DZdxr6/iRyxdclYD4iWkbYGqK7V/sQOoRQ=
+X-Gm-Gg: AYBFou2AEZM7pQc+qTke55wQQQzMbjuesnEQgrKRFOMACZHUAZspKsBzrEuycRTPb7n
+	PMDFeo06Z8xdvrY9FNNRHZ/vZrT6bIwLFhQJjnUtnnSJ4d1byFGRPXp5KITgClBgLRS86s1yGyw
+	i06ajijFakTFPZMPEExOAw6k81px/4o5RCoRTumIKUgHNgbdD6G1n6/KMspmBjEOiP1djVr0nMw
+	rsGzCTDlyj2ZHVbY7/Q9sLwUaeDCcTrdH186lnFCYroKWKmJXpDw6kYxE2zp3Ry8DquVR+KrKhV
+	QFz2UZpXPT5ApbAA59Bpp6wj6kL9kjiGMBtWLSGGTrXDNgxjJThRHYByf90YrQ7ofkBGaC+yEpI
+	yOqd5TEcEV0hxEYUKKP6QQ4WA6uN+B1uahznZvkfquff5+TTXuzlySOz8ceWR83U/+0vWfvdIMl
+	AqBVuVrGR6hcSHpPxhaLTDCXeM6rBwsewPbM87xaI8gYnpR3Lca27AEKkZaLebcyQ=
+X-Received: by 2002:a05:600c:4e87:b0:4a5:75d2:c104 with SMTP id 5b1f17b1804b1-4bb7da2db77mr44634555e9.22.1795001581917;
+        Wed, 18 Nov 2026 03:33:01 -0800 (PST)
+X-Received: by 2002:a05:600c:4e87:b0:4a5:75d2:c104 with SMTP id 5b1f17b1804b1-4bb7da2db77mr44633865e9.22.1795001581484;
+        Wed, 18 Nov 2026 03:33:01 -0800 (PST)
+Received: from dbassey-thinkpadp16vgen1.redhat.corp ([85.93.96.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a656095f2csm4005075f8f.40.2026.11.18.03.33.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 02:12:10 -0800 (PST)
-Date: Wed, 18 Nov 2026 15:42:08 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "virtio-comment@lists.linux.dev" <virtio-comment@lists.linux.dev>,
-	"Edgar E . Iglesias" <edgar.iglesias@amd.com>,
-	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
-	Alex Bennee <alex.bennee@linaro.org>,
-	Armelle Laine <armellel@google.com>,
-	"Bill Mills (bill.mills@linaro.org)" <bill.mills@linaro.org>
-Subject: Re: [PATCH v2 3/6] virtio-msg: Add virtio-msg, a message based
- virtio transport layer
-Message-ID: <av15-Mu6L4q3NVWv@vireshk-B250M-D3H>
-References: <cover.1781514628.git.bertrand.marquis@arm.com>
- <a375ad8958031fdfd3dc483812ae0231d64c2cb5.1781514628.git.bertrand.marquis@arm.com>
- <av1hWL8f-xJWJP5i@vireshk-B250M-D3H>
- <0B2E2334-E360-427B-B7C7-ED67361C7670@arm.com>
+        Wed, 18 Nov 2026 03:33:01 -0800 (PST)
+From: Dorinda Bassey <dbassey@redhat.com>
+To: virtio-comment@lists.linux.dev
+Cc: slp@redhat.com,
+	mhrica@redhat.com,
+	aesteve@redhat.com,
+	sgarzare@redhat.com,
+	Dorinda Bassey <dbassey@redhat.com>
+Subject: [PATCH] virtio-gpu: Add VIRTIO_GPU_CAPSET_DRM capset definition
+Date: Wed, 18 Nov 2026 12:32:42 +0100
+Message-ID: <20261118113242.59167-1-dbassey@redhat.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Post: <mailto:virtio-comment@lists.linux.dev>
@@ -103,94 +104,50 @@ List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:virtio-comment+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0B2E2334-E360-427B-B7C7-ED67361C7670@arm.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: xTWPvw17K4LFY-w_dMoCgeG2HDQoJXwWES6vH1dmYJQ_1795001582
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 
-On 18-11-26, 10:06, Bertrand Marquis wrote:
-> Hi Viresh,
-> 
-> Thanks for pointing this out.
-> 
-> > On 18 Nov 2026, at 09:27, Viresh Kumar <viresh.kumar@linaro.org> wrote:
-> >
-> > Hi Bertrand,
-> >
-> > On 15-06-26, 11:10, Bertrand Marquis wrote:
-> >> +\busdef{EVENT_DEVICE}
-> >> +
-> >> +\busref{EVENT_DEVICE} signals device-level hotplug changes as a bus-originated
-> >> +control-plane event. The bus instance on the driver side receives these
-> >> +indications from the peer bus instance; the table below lists the defined
-> >> +device bus states.
-> >> +
-> >> +\begin{lstlisting}
-> >> +struct virtio_bus_msg_event_device {
-> >> +        le16 device_number;
-> >> +        le16 device_bus_state; /* see table below */
-> >> +};
-> >> +\end{lstlisting}
-> >> +
-> >> +\begin{tabular}{|l|l|p{7cm}|}
-> >> +\hline
-> >> +Constant & Value & Meaning \\
-> >> +\hline
-> >> +DEVICE\_BUS\_STATE\_ADDED    & 0x0001 & Device is present and ready. \\
-> >> +DEVICE\_BUS\_STATE\_REMOVED  & 0x0002 & Device is no longer present. \\
-> >> +Reserved                    & 0x0003-0x7FFF & Reserved for standard use. \\
-> >> +Implementation-defined      & 0x8000-0xFFFF & MAY be used by the bus implementation. \\
-> >> +\hline
-> >> +\end{tabular}
-> >> +
-> >> +Upon receiving DEVICE\_BUS\_STATE\_ADDED, drivers typically probe the device
-> >> +with \msgref{GET_DEVICE_INFO} before continuing initialization. Upon receiving
-> >> +DEVICE\_BUS\_STATE\_REMOVED, drivers typically stop queueing new work, quiesce
-> >> +the device instance, tear down local driver state, and release resources.
-> >> +Duplicate or out-of-order events can occur and can be handled with additional
-> >> +bus-level monitoring, such as \busref{PING}.
-> >
-> > The Virtio spec doesn't talk about a value of 0 here but the FFA spec
-> > says this:
-> >
-> > The message includes a device change state, which may be one of the
-> > following:
-> > - Device Ready: A new Virtio Device has been added and is available
-> >  for initialization.
-> > - Device Not Present: A previously exposed Virtio Device has been
-> >  removed.
-> > - No Data: The device set has changed, but the device endpoint cannot
-> >  identify which Virtio Devices were added or removed.
-> >
-> > If the state is Device Ready or Device Not Present, the message
-> > includes the Device Number of the affected Virtio Device. If the state
-> > is No Data, the Device Number is set to 0. In this case, the driver
-> > endpoint must re-enumerate the Virtio Device list using
-> > BUS_MSG_GET_DEVICES.
-> >
-> > --------------------
-> >
-> > Perhaps the virtio-msg requires an update regarding this ? And maybe
-> > we need the re-enumeration for other bus implementations too ? Also,
-> > we must define what a value of 0 means here.
-> 
-> Agreed. I'll define state 0 as NO_DATA to indicate that a change has
-> occurred, without specifying its nature or identifying individual
-> devices. The bus binding would define the required handling.
-> 
-> During my investigations, killing QEMU removed all the devices it
-> provided while the bus implementation remained operational. For FF-A,
-> this indication could make the driver-side bus initiate the existing
-> bus reset procedure, remove its local devices, and then rediscover and
-> initialize the available devices. Other bindings could use a rescan or
-> another appropriate procedure.
-> 
-> The event would retain its existing payload, with device_number set to
-> zero and ignored by the receiver. Existing safe-removal and device-number
-> reuse requirements would still apply.
-> 
-> Tell me if you agree with this direction and I will include that in a v3.
+The specification currently defines capsets 1-5, but the Linux
+kernel has supported VIRTIO_GPU_CAPSET_DRM (ID 6) since commit
+7214da0ed ("drm/virtio: Add DRM capset definition", July 2024).
 
-LGTM.
+VIRTIO_GPU_CAPSET_DRM enables DRM native context support for
+direct rendering without GL/Vulkan translation layers, allowing
+applications to use native DRM APIs for lower latency GPU
+access and compute workloads.
 
+Add VIRTIO_GPU_CAPSET_DRM definition with ID 6 to align the
+specification with the kernel UAPI and device implementations.
+
+Signed-off-by: Dorinda Bassey <dbassey@redhat.com>
+---
+ device-types/gpu/description.tex | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/device-types/gpu/description.tex b/device-types/gpu/description.tex
+index ac3b427..2d7ffa6 100644
+--- a/device-types/gpu/description.tex
++++ b/device-types/gpu/description.tex
+@@ -542,6 +542,8 @@ \subsubsection{Device Operation: controlq}\label{sec:Device Types / GPU Device /
+ 	Mesa's (mostly) autogenerated Vulkan protocol.
+   \item \href{https://chromium.googlesource.com/chromiumos/platform/crosvm/+/refs/heads/main/rutabaga_gfx/src/cross_domain/cross_domain_protocol.rs}{VIRTIO_GPU_CAPSET_CROSS_DOMAIN} --
+ 	protocol for display virtualization via Wayland proxying.
++  \item \href{https://www.kernel.org/doc/html/latest/gpu/drm-uapi.html}{VIRTIO_GPU_CAPSET_DRM} --
++	DRM native context support for direct rendering without GL/Vulkan translation.
+   \end{itemize*}
+ 
+ \begin{lstlisting}
+@@ -556,6 +558,7 @@ \subsubsection{Device Operation: controlq}\label{sec:Device Types / GPU Device /
+ #define VIRTIO_GPU_CAPSET_GFXSTREAM 3
+ #define VIRTIO_GPU_CAPSET_VENUS 4
+ #define VIRTIO_GPU_CAPSET_CROSS_DOMAIN 5
++#define VIRTIO_GPU_CAPSET_DRM 6
+ struct virtio_gpu_resp_capset_info {
+         struct virtio_gpu_ctrl_hdr hdr;
+         le32 capset_id;
 -- 
-viresh
+2.55.0
+
