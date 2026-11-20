@@ -1,87 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795018331;
-	b=c4xp9edyfP5dbxCDaJuz9rSgvrA4cSBbOgP47l/+PwWc1w6L7aAER5vAIwtaszjG0rvB
-	 M6ZrmERkjqCGXeMUK6AT72+XAsJxzFP4aEHyioWGTUZf1/cW8LTildBAQH+z5uwadrR+D
-	 IZRfXN2e1km/r2pnwFnp+HsSVgScA2SXt/qJHambej8mviJLBVU/z60T7QZ4EYRB9uQB4
-	 Ah/z2pOE2RkoWHo2B33hxS37NgL4yEbCxJk1PkUtao2iMCP0tO8eiy4EdkY8JO4Ss0IAs
-	 pkcClI1klCjcy54BVQkx08Ue1awh9Bw3R1TpXrl0oq6y+QoU+j/l4Ht0wVl6dE9xBtA==
+	t=1795202934;
+	b=Rd3MY6tAn97iwjJA+jUMO6IuqFg+EPEbWFKiH1SNeYf934tUx4I52zPnimTfxOHk3KgM
+	 s+V5lnI2LURsJ+WdSPV1BQwBP5//0RWeISp4hn/LJbcG6Bs6uVzfV/nUXGnveF2ObiwvU
+	 9F2ooA88ZixRzr5RQ5XWH7N2X9kSXVF+BuRxI4zT4Wzxf5bU4xK5M2OmNMGCxSUpphe26
+	 qoKTCWaNgKVV/m44ai9h4/+iX2VieeaMfPNrRjQJA9FseEAy+BJA2zXGJWERWrHyBhXJq
+	 FTZ0vzj3uR6/KiB5hnVOcl8rPf/TyVaos1a+vV+1PeLHG6TcyNDoFURIwS1lTbJJ9DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795018331;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:X-Mimecast-Spam-Score:
-	 X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=yccWSag3ZEtI0Aa4nM3enFlhMIftXl7egNCcrT6dRYU=;
-	b=gAQe8tJTmiZKmaF+au1guUtqc19Z4hW9OIpHgha/a/prMw3dtC/hNnaegwGi2oSC/lda
-	 V6OVVMP4VBl1zrtvI+9EumKUMcBzoG4Ws3DAtPw+sjDDt2Mr0cl15ctL0VX5ydWKItTkg
-	 gQM7hbxtlvjUPsuREhC48POKgWApPTDwjsZy6R7L5Rhnr5JhNA02vrqE2fSj0Hlr3sWai
-	 e/xGMbX7xRqUbwqS5EectZi8GFAudF5rXi0gb9cDF7KqSM7vu4axJqYOnHyoEta9pglfh
-	 WR3luDj4i4RaBYuGBHWi2p0Vp2ebk9xRUhECMe0lfbnvpiL6af+At+S2JMaCTIs5RPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795202934;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Received:Date:Mime-Version:X-Mailer:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=jB1K2/lgjP2EHgUQkQzV8Cd1pmFj89yXadaFTpFahhk=;
+	b=hFfRulh0vQjsq7wXr++2gJTwJExUYVopcVEPyn5XolrNpgDQ8jPKeCOf2JLlqjDxOT4k
+	 Y7nLCxz6KnY+xnwigeOxcZhEyYInSbPY/mSsaZtkMoh2h2wfHa4+0uBmgn7KNQ9fHhY01
+	 uHu59SX29uXxBtiCu7fWT6DlYFuIM9naKWAjpg9DGlOQ+kRXKee8jex/Dr2KS+ayp29RR
+	 EJc5pacaDoR4Zqs/71o+03seJvGgoWIteCRlbh6rgox8lAmEe0V4jryMdxdGG/FWjAxdV
+	 oAOK+w4buVPBN2MJZjW//JmxwkGJs2OnxjOEM5t762F5aJ1/cqXMMu1jSZZihmTkb9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ofs52ZJU;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--keiichiw.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ShmPr0Qt;
+	arc=none smtp.remote-ip=209.85.210.70
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4227606A320
-	for <virtio-comment@lists.linux.dev>; Wed, 18 Nov 2026 16:12:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4227606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC311606A6E0
+	for <virtio-comment@lists.linux.dev>; Fri, 20 Nov 2026 19:28:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC311606A6E0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--keiichiw.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ofs52ZJU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795018329;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yccWSag3ZEtI0Aa4nM3enFlhMIftXl7egNCcrT6dRYU=;
-	b=Ofs52ZJUBQwxrJuUrwqgMBHCZ0ZhkT6lngTmw4AUy/dIMOJWfwqut/AUSEdQlWYcbwfaoq
-	xB/oDOmxytPFZmH93KMbuC8w/Av1kI9PYfouvEfVr/ElJnuQ6nHxFT3UdVSHkgG7nN7Ian
-	3kGAh7otMqpmNsTkpyrUk1MAWiCTIw8=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-621-jTDysq7-M3qpy1TbG5YrZQ-1; Wed, 18 Nov 2026 11:12:06 -0500
-X-MC-Unique: jTDysq7-M3qpy1TbG5YrZQ-1
-X-Mimecast-MFC-AGG-ID: jTDysq7-M3qpy1TbG5YrZQ_1795018326
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-920ff6971a1so15974506d6.1
-        for <virtio-comment@lists.linux.dev>; Wed, 18 Nov 2026 08:12:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ShmPr0Qt
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-83edc5c5ae9so1285060a34.1
+        for <virtio-comment@lists.linux.dev>; Fri, 20 Nov 2026 11:28:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795202931; x=1795807731; darn=lists.linux.dev;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jB1K2/lgjP2EHgUQkQzV8Cd1pmFj89yXadaFTpFahhk=;
+        b=ShmPr0QtNqcB9Ii+pW/9JsWMS6HwUW1dv5tlfcR97fEJUvlcVwEtcg1nbArd8mj7r1
+         cXRSrvEeBrXlu6HgF1vW+yp7pSHww0ffqmqw/0BQsjBCSCV4l2A3RY27NM/ji6chWZKo
+         C+TZ6AgQK99Gxdi+KdOiOeXrrOpk1swHFCQF2wfXXtAmPqBOWGZVN8gdwbGZxP3VpQHj
+         Dr/Ayott0EIem9sRuT57+q1AUsj3+6DznEv9eQpzswyR5n0032XZEmGJ7ZfVEyWAjVk3
+         HOjL1WJSE/he4aaDN+qPZEExTPKc8HkhzWsqzu8Pxm+yaRiwmaCnFQmicl4upGmOjiGs
+         kiww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795018326; x=1795623126;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1795202931; x=1795807731;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yccWSag3ZEtI0Aa4nM3enFlhMIftXl7egNCcrT6dRYU=;
-        b=OILvq42+gQFrJgp52iQwG9xY4KlOW3w/kEN+7vIlfTv1+i25sWJMdhlBtoSLByzxwk
-         yMJEZQ9Dd0VCVO/ec4fFwgRtfx45b7BAbK+fGNLtgFg7fHqwQBb9sumh1a3cxEb3f12v
-         in1lTMYsZDmqwtsQVs2w/uyh/RclHqHigNIBfR+vIYYPmHi79FcnPOMaltzPkGDFAPA8
-         akYrc5Cfvf06NTC4uU+GlJPwCeodzo2dasPY3stN0EJ2PPWUVPI7GhtGFwe9TL9KsOuZ
-         QiQ3Z+vsm+8JfB0r1MV76L+oheVP93LnCV/YzHw/qJUiVd4F8I6Xj5QKy23Mume6V62e
-         w+yg==
-X-Forwarded-Encrypted: i=1; AL+hErEBGJYG7i1cv9lHX+u73Zl0EL09R+hpQYgGYaofVqDPPH32sAt9RIyZIyl8KZrG7TyJCfyhhOx7E9bvHkHkFg==@lists.linux.dev
-X-Gm-Message-State: APuU4Z80XFHlmPnqiRtQubcxi6lsd0JMDf4QpxknOx3eRRF55KyU1V/U
-	lsKq+SV0tRTnjSPtvcVI7Ikl8XvyzPj+ysxQO0o5RIjPjpr6PxWZ+i04Nbs0QSmlDkFPOl7PfFA
-	a8oiS9vOyjurXi6Je6as4gUcurUzZCkcbpZa7GHExZuVwixv85tqriF5NDV7GcLd58LbZkjpiJ/
-	bKS6CzLEc6nnAfmVpBrBjTTBnR24O/D/TAThGIt7muXtw=
-X-Gm-Gg: AZFdTZerbRuBDpKeJIMn0bIIXift0td9TPfwksTsFt2Q4DRr+D6kKUPKP/E1b7ZmHEG
-	simF1otcaIsbWIk77rlh9C0mQ6dbh9PwNICChK1Qv3eotlfIR2rSHG4cUfVJWTHjKiAKUXQ+mWs
-	grjCshnV+4OMX9EkscldgyUyS4uaDdcU5p2xnksDpiP7+Wq+CE1ZZ9Acqgl5cSeBHPWM0k1GwaI
-	rCd2qk1O7Odvu8sR+3UZ7ZAatX00CU8p+TJ1/jxuj0c9Q==
-X-Received: by 2002:a05:6214:d83:b0:921:227f:6971 with SMTP id 6a1803df08f44-921227f69b5mr8629616d6.36.1795018325473;
-        Wed, 18 Nov 2026 08:12:05 -0800 (PST)
-X-Received: by 2002:a05:6214:d83:b0:921:227f:6971 with SMTP id
- 6a1803df08f44-921227f69b5mr8628646d6.36.1795018324779; Wed, 18 Nov 2026
- 08:12:04 -0800 (PST)
+        bh=jB1K2/lgjP2EHgUQkQzV8Cd1pmFj89yXadaFTpFahhk=;
+        b=cgHbVOxDXD5rn2Le4IRwxCJkDMhcasz2hciSyRRCb70iTOHEVBI6nMTCt8sRcAkng/
+         OZ6+BnOK4gQMYC3UAytkltA76nuKQs//h6RdxlVmeZEFsNk/K/knQLd04IKier5ldujr
+         Hjpve+goW1IBhnz4OYcYqWMv3LhOGZovfsDyb7tDFTqZ15eAJQ2ftBuyVv0SXvlutG2Y
+         AuUfGe/8SIUkuM/QWMX8d85obRvnRdnnIwlmtUmWfcrUCRb00xZq8eb1Z3GK5K2KTM/Y
+         3NWlyC/ayuDSOwCk+3cHt1fDUTDTaAY2aDoqSCE4hPS9Ig04JOus+py+hS9gng//+bUG
+         eY4w==
+X-Gm-Message-State: APuU4Z9oKzILKJAdTz/Ltk2zK01OaYVZwTFGSJxb5+7V/RQO0Qez2bYA
+	XwstydBYNjazX6Xm8XX/tXKZfSwjSAFyncypk4kGYCs/se5aK5toVrGIeZBlFXGFGSlzdi3ucaH
+	XjNBcRq1dYgLsI5OqzflR397vDvYlSHLYOrwW+LRVxxnn8orMy/AtCXepCVZ9J2ZVBt3u952Obk
+	twbm47vE0FoPuaxStzRSbxmRdPJLVJhpQOfqVZay/Lq1RrNrYAukiyeNkFjA==
+X-Received: from jabem1.prod.google.com ([2002:a05:6638:4da1:b0:620:1c04:b694])
+ (user=keiichiw job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:c40e:b0:571:76cb:b4d2 with SMTP id 5614622812f47-57a0b03eeabmr5575568b6e.38.1795202930351;
+ Fri, 20 Nov 2026 11:28:50 -0800 (PST)
+Date: Fri, 20 Nov 2026 13:28:38 -0600
 X-Mailing-List: virtio-comment@lists.linux.dev
 List-Id: <virtio-comment.lists.linux.dev>
 List-Post: <mailto:virtio-comment@lists.linux.dev>
@@ -90,110 +75,59 @@ List-Subscribe: <mailto:virtio-comment+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:virtio-comment+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:virtio-comment+owner@lists.linux.dev>
 Precedence: list
-MIME-Version: 1.0
-References: <20261118113242.59167-1-dbassey@redhat.com> <7fc62ef8-f323-497e-bb5f-25bbbcd9992a@collabora.com>
- <bef167e8-73d1-417b-b0f1-3e4b93af968a@collabora.com>
-In-Reply-To: <bef167e8-73d1-417b-b0f1-3e4b93af968a@collabora.com>
-From: Dorinda Bassey <dbassey@redhat.com>
-Date: Wed, 18 Nov 2026 17:11:53 +0100
-X-Gm-Features: Aa3M54qOq0lKokUTZLkUVZ3S33t0wCLcKonqMfZf-zGMEkz-yCPDSoVKa-G2pM0
-Message-ID: <CACzuRyxAH8pWNQnaF-Qo=0MjA_KBz2835DQ9h00tbhTV9087fQ@mail.gmail.com>
-Subject: Re: [PATCH] virtio-gpu: Add VIRTIO_GPU_CAPSET_DRM capset definition
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: Michael Riesch <michael.riesch@collabora.com>, virtio-comment@lists.linux.dev, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Matias Ezequiel Vara Larsen <mvaralar@redhat.com>, slp@redhat.com, mhrica@redhat.com, 
-	aesteve@redhat.com, sgarzare@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: xlFZgEddylSvfgUHIc6RinjN_bp0siCensN2UBXIUHc_1795018326
-X-Mimecast-Originator: redhat.com
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.809.ga0b61035b5-goog
+Message-ID: <20261120192838.1171099-1-keiichiw@google.com>
+Subject: [PATCH] split-ring: fix inverted empty-ring checks in receiving used
+ buffers note
+From: Keiichi Watanabe <keiichiw@google.com>
+To: virtio-comment@lists.linux.dev
+Cc: hattorij@google.com, Keiichi Watanabe <keiichiw@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Dmitry,
+In the Receiving Used Buffers From The Device polling example, both
+comparisons check `vq->last_seen_used != le16_to_cpu(virtq->used.idx)`
+instead of `==`. When unconsumed used buffers are present
+(`last_seen_used != used->idx`), the loop immediately enables
+notifications and breaks without processing any buffer; when the used
+ring is empty (`last_seen_used == used->idx`), the loop skips the
+re-enable/break block and reads past `used->idx`. The snippet also
+mixes `virtq->used.idx` with `virtq.used->ring[...]` and omits the `&`
+address-of operator when initializing `struct virtq_used_elem *e`.
 
-> There is [1] that I thought was merged long time ago. Apparently it's not=
-?
-> [1] https://github.com/oasis-tcs/virtio-spec/issues/182
+Replace both `!=` checks with `==`, use consistent `virtq->used->`
+member access, and take the address `&virtq->used->ring[...]`.
 
-Thanks for pointing this out. I wasn't aware that there was already an
-issue open for this.
-I guess we can drop this patch in favour of the one you posted.
+Signed-off-by: Keiichi Watanabe <keiichiw@google.com>
+---
+ split-ring.tex | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-BR,
-Dorinda.
-
-
-On Wed, Nov 18, 2026 at 4:24=E2=80=AFPM Dmitry Osipenko
-<dmitry.osipenko@collabora.com> wrote:
->
-> On 11/18/26 18:14, Michael Riesch wrote:
-> > Hi Dorinda,
-> >
-> > Thanks for the patch! It's great to see this happening. We have been
-> > using this for a while now but it felt sort of weird to not have it in
-> > the spec.
-> >
-> > On 11/18/26 12:32, Dorinda Bassey wrote:
-> >> The specification currently defines capsets 1-5, but the Linux
-> >> kernel has supported VIRTIO_GPU_CAPSET_DRM (ID 6) since commit
-> >> 7214da0ed ("drm/virtio: Add DRM capset definition", July 2024).
-> >>
-> >> VIRTIO_GPU_CAPSET_DRM enables DRM native context support for
-> >> direct rendering without GL/Vulkan translation layers, allowing
-> >> applications to use native DRM APIs for lower latency GPU
-> >> access and compute workloads.
-> >>
-> >> Add VIRTIO_GPU_CAPSET_DRM definition with ID 6 to align the
-> >> specification with the kernel UAPI and device implementations.
-> >>
-> >> Signed-off-by: Dorinda Bassey <dbassey@redhat.com>
-> >
-> > Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
-> >
-> > Best regards,
-> > Michael
-> >
-> >> ---
-> >>   device-types/gpu/description.tex | 3 +++
-> >>   1 file changed, 3 insertions(+)
-> >>
-> >> diff --git a/device-types/gpu/description.tex b/device-types/gpu/descr=
-iption.tex
-> >> index ac3b427..2d7ffa6 100644
-> >> --- a/device-types/gpu/description.tex
-> >> +++ b/device-types/gpu/description.tex
-> >> @@ -542,6 +542,8 @@ \subsubsection{Device Operation: controlq}\label{s=
-ec:Device Types / GPU Device /
-> >>      Mesa's (mostly) autogenerated Vulkan protocol.
-> >>     \item \href{https://chromium.googlesource.com/chromiumos/platform/=
-crosvm/+/refs/heads/main/rutabaga_gfx/src/cross_domain/cross_domain_protoco=
-l.rs}{VIRTIO_GPU_CAPSET_CROSS_DOMAIN} --
-> >>      protocol for display virtualization via Wayland proxying.
-> >> +  \item \href{https://www.kernel.org/doc/html/latest/gpu/drm-uapi.htm=
-l}{VIRTIO_GPU_CAPSET_DRM} --
-> >> +    DRM native context support for direct rendering without GL/Vulkan=
- translation.
-> >>     \end{itemize*}
-> >>
-> >>   \begin{lstlisting}
-> >> @@ -556,6 +558,7 @@ \subsubsection{Device Operation: controlq}\label{s=
-ec:Device Types / GPU Device /
-> >>   #define VIRTIO_GPU_CAPSET_GFXSTREAM 3
-> >>   #define VIRTIO_GPU_CAPSET_VENUS 4
-> >>   #define VIRTIO_GPU_CAPSET_CROSS_DOMAIN 5
-> >> +#define VIRTIO_GPU_CAPSET_DRM 6
-> >>   struct virtio_gpu_resp_capset_info {
-> >>           struct virtio_gpu_ctrl_hdr hdr;
-> >>           le32 capset_id;
-> >
->
-> There is [1] that I thought was merged long time ago. Apparently it's not=
-?
->
-> [1] https://github.com/oasis-tcs/virtio-spec/issues/182
->
-> --
-> Best regards,
-> Dmitry
->
+diff --git a/split-ring.tex b/split-ring.tex
+index de94038..1fd68c9 100644
+--- a/split-ring.tex
++++ b/split-ring.tex
+@@ -718,17 +718,17 @@ \subsection{Receiving Used Buffers From The Device}\label{sec:Basic Facilities o
+ virtq_disable_used_buffer_notifications(vq);
+ 
+ for (;;) {
+-        if (vq->last_seen_used != le16_to_cpu(virtq->used.idx)) {
++        if (vq->last_seen_used == le16_to_cpu(virtq->used->idx)) {
+                 virtq_enable_used_buffer_notifications(vq);
+                 mb();
+ 
+-                if (vq->last_seen_used != le16_to_cpu(virtq->used.idx))
++                if (vq->last_seen_used == le16_to_cpu(virtq->used->idx))
+                         break;
+ 
+                 virtq_disable_used_buffer_notifications(vq);
+         }
+ 
+-        struct virtq_used_elem *e = virtq.used->ring[vq->last_seen_used%vsz];
++        struct virtq_used_elem *e = &virtq->used->ring[vq->last_seen_used%vsz];
+         process_buffer(e);
+         vq->last_seen_used++;
+ }
+-- 
+2.56.1.809.ga0b61035b5-goog
 
