@@ -1,93 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795722400;
-	b=U7n/6pIsEbN6IfC0idGL6GqlPoFN1cdzVXfDl0YTlltSzk/HVGcBQmgtC8A1bgQd9lBw
-	 TIHv1AoWW9U+b3sZFa49mQLz49HajTj19FwF/vlLHKmWj8j/IhfAri1RGBup0OpOhwYxO
-	 byOXGbS0o4saNnxdIKAXzpHuczBNIqkUcRCTpGWukoyoV4EzoH9dWXpn+DR3tY+/0FN4G
-	 6T5XFHpnxkAhyj2V8zKqSEq7tUuKrv+g0glOBkF6UpZGvd8YxDmUrrgqbA1FSjozQqTM7
-	 C+gp1NCnyaWvEqKFmG5Ntgp1VSwUV1lNRvgts6zuFChiyvstOecbqz3fFFdj1gaWIaw==
+	t=1795722401;
+	b=sCH5+IcsL7iAvtt9sQ19dqvvgePNQZmpulWlJxRDdxPstSgfUek3m9DGl4eB2GzjlW8A
+	 zSq3IELqEfO1jWEJ6QrE3v148CIYIYJsRBZ9HMXY/S1L2csbqqiR/XIpy/ILMIOnOK9h0
+	 8p7QgmaoOUy5Bg6+9Gt4boyavlZAOzzY5HSXsTFQng9dPEOwnTTBJ0eQN73q+HbSB0087
+	 UMv3PrDsF4YKxc4oV1RjCH14ZwoqzGvd7N7pXvJNWpovwtF3aRQ047RZ+Ao9NQivR5UVm
+	 zZy/aXo/lRCR3Y3QRBll6LO6F7uxU5ngX5g8IszgYmB0agS0ZRKvTgvYwwm9UbtWCbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795722400;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795722401;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=OOuuKMVIzzAM69AHaEeNDWJT7q08uIQEcreRS3QIDg4=;
-	b=ASFAct3PH3FNpSbiUlYuHfTdWwWdvZRrcW3q9joSBBPCNJO79Gn8aIT2iB3kg3745H3O
-	 IjKfK8aG1Ydkz0F8MUjdFv2Ttakhtqe2QkoBlnUGITmMKXMakaFjfFu+/sSox8ixwS6kK
-	 9thUWzeO1P52uqlrNPF/QbR5I8vaxlYlmXbYrj9rTsoVTuZ+/TrwYcRxC5x2s97UIdl72
-	 UaXqTCkFt6yOrJUFI3BxQ1JEo1bOACAiRvsWe5G8GB5qsCDTMVN9v8qYhHyfWkmpAD+6R
-	 usalR97ck62N9YXwfEty5glY7V+iTkkZ562NMnlrov3B2SkqU8DZrDAAKCwz3MyTZ8w==
+	bh=oj39b6HuKYI8tzAv32OkffYouO7PSOOIwngkUOsw9PY=;
+	b=N5eBKsCJU4JzKVJhaCB7pdgtN+c4lLbm++aDyqioFj0cKFOgWrlHndwyL2p184C2VQsn
+	 HDY41mT0c0RDXO/ykTYs9bt4aMYngt3gORiYUEqBYFwk+yQYCHzPjUgfQL5VPEoaKLEFT
+	 cNajU5MYsmHhz4xGzUvVYj9IC/SJGZMgh1FPbGI3WHuN73qY1nTNCopOliX5qSBQl9c1D
+	 hROWZ/WFJXUuASE31FH57i1FoxTlKcBkKib7biMiz0O0iSJbS4lOu1soO6cqhl5RQMve0
+	 5+dIrvVtyMwXUUz1ugDuFrVm4jcberA6sdWVbUm3CqRlkIgTJikPL39Ree60pTJ+s2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Nttzg8h4;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=XxrD9WT5;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149D1606A329
-	for <virtio-comment@lists.linux.dev>; Thu, 26 Nov 2026 19:46:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 149D1606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0AA606A32C
+	for <virtio-comment@lists.linux.dev>; Thu, 26 Nov 2026 19:46:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF0AA606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Nttzg8h4
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-490d59c3edaso5029014f8f.1
-        for <virtio-comment@lists.linux.dev>; Thu, 26 Nov 2026 11:46:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=XxrD9WT5
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4bba5e17cbeso20903625e9.1
+        for <virtio-comment@lists.linux.dev>; Thu, 26 Nov 2026 11:46:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795722398; x=1796327198; darn=lists.linux.dev;
+        d=linaro.org; s=google; t=1795722399; x=1796327199; darn=lists.linux.dev;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=OOuuKMVIzzAM69AHaEeNDWJT7q08uIQEcreRS3QIDg4=;
-        b=Nttzg8h4ZzI/pQXO0Zz0LUq1ZF/pMIHjH1eaIjYQiyfWU9uyMkxzZ707m1Q0HyzHLm
-         mwu+hHZj506R6GtD/QrDrRD+ALXeChbBpZ8hTcNj7yvOk2fHrWnOXH3AplZy+PDkccE6
-         kc0qam0kZkVSmfoPVvjtAYHszB7XiF5NfsxOb0J8/hasE/UGWviDThAFqZn+6nXeeCOi
-         WlzptJHlLPbscxAVd33Sv6KYHfCarEliEKWoDXHHwSAIN84McBtcu7ariF8pI3ON7Rnz
-         OUc3clXjbDdmypoDZ5S/8zprc1ZXo5D5EG8gu5YthgOuzDT5K/uyxHk3BLwWLKQrXJTi
-         daTg==
+        bh=oj39b6HuKYI8tzAv32OkffYouO7PSOOIwngkUOsw9PY=;
+        b=XxrD9WT5HXF4ALE6nfyf6aDLZZ7MghiZnRe+G95UCBSN+EpFJELvSgxJdr9S/SZIZ4
+         n/rAGYDgBgd36pfUHfDdVVcFb1Obe99/R0EeQi6ZOLj0ouVZvSxMP54/JwEp2KY2tBxr
+         7zKodYIrT9nsGku/kOx6E/DwZBz3VF8/5yVBTD9hye5CVxhDT5eY/oGhpGcRacSOrclk
+         cIJqJMqrGs1m5SjDQj0zs52+SU6uKWHoj54Oj7RflSWJEvwb2bJibAGPCA/yXwLEYqSn
+         EB+EeTdmZeBi6J4yC5K2e8uyI780rPCc+cJKsTOv1OKr1h3v/+/rAtVFOa9ByoX3K6bw
+         8LzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795722398; x=1796327198;
+        d=1e100.net; s=20260707; t=1795722399; x=1796327199;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OOuuKMVIzzAM69AHaEeNDWJT7q08uIQEcreRS3QIDg4=;
-        b=tP+/gaOlwYADTcXLS97r1qxBHZ8FXaGAu0BhvawsO5dCXY9l25HE+XaCxlRImbnJ/j
-         Bs8mf+YEiPfY9wrP23fmp7XlJ0oZMsvDP6Lw6QtgA5041ABhzwC6AdH0fQtwWnlOkp60
-         VJ6aMX1Uwl5hg3brxMDa6qQTi2WH1kT0zVfjsEU9rTSSRRVbYWnz0QhgYokK2BF143Wz
-         wggfSneDu8I7jHDoK7CUehGMTEOq6NSVsHINdTKvbQTQZa0VgU/wX1usHq+37KYRS/07
-         loTMv+tFmFHxe3YJgnV4GEoN+FH9q+7JEuiw0Y9dJw33lFEchDQNa7qqf8oWJKP7vd5/
-         +bOA==
-X-Gm-Message-State: APuU4Z8pnlaONN51spNeKjUSSKl1SaajZvG8k5NPdc85DpyMqXOhvK3r
-	mZTNipLC/U3V2zhrU5ZYLDXLh5K4rR9DuPYo9GBQms4FFIVSHsaoAA/r6IKTYCCvRPgkXj6DZbg
-	7WD9R
-X-Gm-Gg: AZFdTZeWDQObAolACBmU1QPHiWG5MCPfAk3e5wsMKRAjouVV+79m7fjuDHJQDV9T/Hm
-	we2zctS3jYEqslQhl/NSK3mVgUv1cipnTjpMOmHWv8ALPD4lGTnNAuEn0skMl8bS2WuDk2YMr4c
-	vIUkNAfedMZ5A1lyvP63HaVJHQoS/adsuOVaedHWAuoufCZApopcjPWzBJ94Bxy5jbnxGl2Mm5N
-	TJpDdqnX/jaq8tD7hZb6Sv215wxfzB17BLe8C+SVIRRoUATEePCbvzQbqYAGXz7i1UOGhrvbFjT
-	E/jqJv4xJ4lhCFlx8V6KcS4W5RNPXzl8lr+JKamLWOa7Fk34zG5MJwxoeWkX0hOImUjNFG6LcPc
-	zH85bt5y97FgvYbs4TBzvewG4G/BOj2ZFUdJD4M0cKFI6/4aXDFIVA9M+02WzMbw3qZmiNO8AeA
-	sgqf97kWQXiItdCgYceRkyFC783MwP6lRZvgO2IVF3rnmxpwk1WjtCfHyjv+325qg3yzQ6J72SF
-	iyIdxZ7pqzrSfs5y2TskZbXma5RXw3QARbzBZGWNdZhgURpw29bFgOXnfRTxA110vEP66+YXc8A
-	E/MjDm4RFFt8WjzwAELV6fGIurxa
-X-Received: by 2002:a05:6000:2083:b0:491:cd7:e96b with SMTP id ffacd0b85a97d-4aa5710d738mr51926489f8f.15.1795722398474;
-        Thu, 26 Nov 2026 11:46:38 -0800 (PST)
+        bh=oj39b6HuKYI8tzAv32OkffYouO7PSOOIwngkUOsw9PY=;
+        b=co6j/XFTIseAx6yNKe96ETLLNakqBCgyKXpcS6LrTwcPYII0Hgkl07IXiwoCRg3EfQ
+         OfaHuRZol3Y/HXGPrvj+McipqEgu8OiPoAIKfpprXwqFik0uqmw9sZYXaCS+WYMg5VJO
+         ltu+yZlpqDm/P4m2xmRv7jfbg2F2Gvzomsn+JK27rHwTOTy6/7B3ZIfTzLI9+Lqfo5Vl
+         2uPxbCmdAAsXcfdDjEjwCCKtQsDMpiFT896kHNluDi8hpKZiRNgH376F/iGIJqYV9BLS
+         xp7BF+DO17x45rNqrRUKsR1fqsiMCs1vKGU5D9voo4Y6hU+yF73wwGe/EQ8KISTf4mne
+         M4aQ==
+X-Gm-Message-State: APuU4Z8S2qDjGyEdJ0Yf69UG6vUu9Na+jAMUnFRQmqcA2a42Oqgc00T2
+	JgBKfuY/dvKm4fIwwA0wSTK3jh6Uqb6Wd2kI9onQuhOQIAB2PYsd1U5A9+Vi5sNwSV4=
+X-Gm-Gg: AZFdTZceZ1XMh96wpxNOVAu/YysnqI3yInDDKzDLPsUj3+zj12w6PiOQsBqoQR1OFpW
+	CqxQArvCtk68YGtammSVIrx2GI5MpTDJzS1I2uSCpkrjmUASTi6NSii3xSOTu8RWHwAWl72xzzR
+	LMhfqBKSLxaZi9KhJWEyRPbCsm9nDQgHwrzmIMw5qOJihAsMLqR9s+Vz+ACs+Pf9GLwC9NahY4I
+	BELbyoQUQ+7brL+bSQumAD1c4sW4LcdYWqfgA22Qk/+j7DkXrCeCA8jS8Fszw18Qpy+3RvMT5lV
+	ceT06YkoWPa0CACgUeWMt+VqpoFi+Sij3+CwipVqDdhMFZvlCn9idV/+lcsGbjV2Iu03NgTnN4v
+	WpdJR8AtM8R0leIYIILD+1xgqSrA1pjaFIgyk3g9kJCe24oM+6g2dUJD+rNr3hkjulWvz+iXyiE
+	X6rjplgEeLNIAcjextwDUfbXGL/AGTl/Pi73/qfFi3wd9rmpiha39dCyFdlYt3ECe+IruxUuvc9
+	Sva5UOmm2eD6qzTjInAT6wMtmGWt2nbpA4e2OuKBsdUii4eehzxPU2jIIFn79RTe052bpoKWwbi
+	772xE46N8R1/EqUliGPshVNe/Guk
+X-Received: by 2002:a05:600c:6749:b0:4bb:5f95:c014 with SMTP id 5b1f17b1804b1-4bb8880f283mr450155355e9.19.1795722399030;
+        Thu, 26 Nov 2026 11:46:39 -0800 (PST)
 Received: from draig.lan ([185.124.0.158])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b9add26sm43066855f8f.44.2026.11.26.11.46.35
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4b33a596f9csm19436791f8f.12.2026.11.26.11.46.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Thu, 26 Nov 2026 11:46:37 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
-	by draig.lan (Postfix) with ESMTP id 01D4A5FD43;
-	Thu, 26 Nov 2026 19:46:33 +0000 (GMT)
+	by draig.lan (Postfix) with ESMTP id B27E95FA55;
+	Thu, 26 Nov 2026 19:46:32 +0000 (GMT)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: virtio-comment@lists.linux.dev
-Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-Subject: [PATCH v4 10/12] make-setup-generated: optionally add GIT metadata
-Date: Thu, 26 Nov 2026 19:46:30 +0000
-Message-ID: <20261126194632.2429425-11-alex.bennee@linaro.org>
+Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Parav Pandit <parav@nvidia.com>
+Subject: [PATCH v4 05/12] virtio-html.tex: sort package list
+Date: Thu, 26 Nov 2026 19:46:25 +0000
+Message-ID: <20261126194632.2429425-6-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261126194632.2429425-1-alex.bennee@linaro.org>
 References: <20261126194632.2429425-1-alex.bennee@linaro.org>
@@ -103,187 +103,68 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This isn't a full conversion to git based metadata but it allows for
-local builds to add git commit and tree status to the final built
-product. The normal formal build process is unaffected and uses
-manually updated VERSION, REVISION and REVISION-DATE metadata.
+This will make auditing and adding new packages easier.
 
+Reviewed-by: Parav Pandit <parav@nvidia.com>
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-
 ---
-v3
-  - re-flow logic so we either do "unofficial draft" or the formal
-  OASIS doc type, not both
-  - use git describe --tags for more descriptive git point
-  - expose git version to VERSION
-v4
-  - fallback when git describe has no tags
-  - constrain tag search to version tags
-  - keep metadata in STAGENAME
----
- make-setup-generated.sh | 101 ++++++++++++++++++++++++----------------
- makeall.sh              |   4 +-
- makehtml.sh             |   2 +-
- makepdf.sh              |   2 +-
- 4 files changed, 66 insertions(+), 43 deletions(-)
+ virtio-html.tex | 30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
 
-diff --git a/make-setup-generated.sh b/make-setup-generated.sh
-index 2c5c7f8..932cef9 100755
---- a/make-setup-generated.sh
-+++ b/make-setup-generated.sh
-@@ -1,49 +1,72 @@
- #! /bin/sh
-+#
-+# Generate version and metadata preamble for the document
-+#
+diff --git a/virtio-html.tex b/virtio-html.tex
+index f746919..6107f49 100644
+--- a/virtio-html.tex
++++ b/virtio-html.tex
+@@ -5,34 +5,34 @@
  
- DATESTR=${DATESTR:-`cat REVISION-DATE 2>/dev/null`}
--if [ x"$DATESTR" = x ]; then
--    ISODATE=`git show --format=format:'%cd' --date=iso | head -n 1`
--    DATESTR=`date -d "$DATE" +'%d %B %Y'`
--fi
--
--case "$1" in
--    *-wd*)
--	STAGE=wd
--	STAGENAME="Working Draft"
--	WORKINGDRAFT=`basename "$1" | sed 's/.*-wd//'`
--	;;
--    *-os*)
--	STAGE=os
--	STAGENAME="OASIS Standard"
--	WORKINGDRAFT=""
--	;;
--    *-csd*)
--	STAGE=csd
--	WORKINGDRAFT=`basename "$1" | sed 's/.*-csd//'`
--	STAGENAME="Committee Specification Draft $WORKINGDRAFT"
--	;;
--    *-csprd*)
--	STAGE=csprd
--	WORKINGDRAFT=`basename "$1" | sed 's/.*-csprd//'`
--	STAGENAME="Committee Specification Draft $WORKINGDRAFT"
--	STAGEEXTRATITLE=" / \newline Public Review Draft $WORKINGDRAFT"
--	STAGEEXTRA=" / Public Review Draft $WORKINGDRAFT"
--	;;
--    *-cs*)
--	STAGE=cs
--	WORKINGDRAFT=`basename "$1" | sed 's/.*-cs//'`
--	STAGENAME="Committee Specification $WORKINGDRAFT"
--	;;
--    *)
--	echo Unknown doc type >&2
--	exit 1
--esac
+ \documentclass[10pt,titlepage]{report}
  
- VERSION=`echo "$1"| sed -e 's/virtio-v//' -e 's/-.*//'`
+-\usepackage{parskip}
+-\usepackage{setspace}
++\usepackage[T1]{fontenc}
+ \usepackage[english]{babel}
+ \usepackage{ae,aecompl} 
+-\usepackage[T1]{fontenc}
+-\usepackage{graphicx}
++\usepackage{array}
++\usepackage{chngcntr}
++\usepackage{courier}
++\usepackage{enumitem}
++\usepackage{fancyhdr}
++\usepackage{fancyvrb}
+ \usepackage{framed}
++\usepackage{graphicx}
+ \usepackage{hyperref}
++\usepackage{lastpage}
+ \usepackage{lineno} 
+ \usepackage{listings}
+-\usepackage{courier}
+-\usepackage{fancyvrb}
+-\usepackage{array}
+ \usepackage{longtable}
++\usepackage{mdwlist}
+ \usepackage{multirow}
++\usepackage{parskip}
+ \usepackage{rotating}
+-\usepackage{fancyhdr}
+-\usepackage{lastpage}
+-\usepackage{xcolor}
++\usepackage{setspace}
++\usepackage{tabularx}
+ \usepackage{titlesec}
+-\usepackage{mdwlist}
++\usepackage{underscore}
+ \usepackage{url}
++\usepackage{xcolor}
+ \usepackage{xifthen}
+-\usepackage{tabularx}
+-\usepackage{underscore}
+ \usepackage{xstring}
+-\usepackage{enumitem}
+-\usepackage{chngcntr}
+ \counterwithout{footnote}{chapter}
  
--#Prepend OASIS unless already there
-+# If a second argument is passed we extract what we can from git
-+# metadata (closest version tag) and local tree status. This
-+# allows us to build an unofficial draft and tag it appropriately.
-+#
-+# The formal build process skips this.
-+if ! test -z "$2"; then
-+    # base date on now
-+    DATESTR=$(date +'%d %B %Y')
-+    COMMIT=$(git describe --tags --match 'v[0-9]*' HEAD 2>/dev/null)
-+    # fallback if we have no version tags for reference
-+    if test -z "$COMMIT"; then
-+        COMMIT=$(git rev-parse --short HEAD)
-+    fi
-+    # Finally check if we have un-committed changes in the tree
-+    if ! git diff-index --quiet HEAD -- ; then
-+        COMMIT="$COMMIT (dirty)"
-+    fi
-+
-+    STAGE=draft
-+    STAGENAME="Unofficial Draft (git @ $COMMIT)"
-+    WORKINGDRAFT=
-+else
-+    # These are all stages mandated by the OASIS process
-+    case "$1" in
-+        *-wd*)
-+	    STAGE=wd
-+	    STAGENAME="Working Draft"
-+	    WORKINGDRAFT=`basename "$1" | sed 's/.*-wd//'`
-+	    ;;
-+        *-os*)
-+	    STAGE=os
-+	    STAGENAME="OASIS Standard"
-+	    WORKINGDRAFT=""
-+	    ;;
-+        *-csd*)
-+	    STAGE=csd
-+	    WORKINGDRAFT=`basename "$1" | sed 's/.*-csd//'`
-+	    STAGENAME="Committee Specification Draft $WORKINGDRAFT"
-+	    ;;
-+        *-csprd*)
-+	    STAGE=csprd
-+	    WORKINGDRAFT=`basename "$1" | sed 's/.*-csprd//'`
-+	    STAGENAME="Committee Specification Draft $WORKINGDRAFT"
-+	    STAGEEXTRATITLE=" / \newline Public Review Draft $WORKINGDRAFT"
-+	    STAGEEXTRA=" / Public Review Draft $WORKINGDRAFT"
-+	    ;;
-+        *-cs*)
-+	    STAGE=cs
-+	    WORKINGDRAFT=`basename "$1" | sed 's/.*-cs//'`
-+	    STAGENAME="Committee Specification $WORKINGDRAFT"
-+	    ;;
-+        *)
-+	    echo Unknown doc type >&2
-+	    exit 1
-+    esac
-+fi
-+
-+#Prepend OASIS unless already there or unofficial
- case "$STAGENAME" in
--	OASIS*)
-+	OASIS*|Unofficial*)
- 		OASISSTAGENAME="$STAGENAME"
- 		;;
- 	*)
-diff --git a/makeall.sh b/makeall.sh
-index 37e6c34..5f5d5dc 100755
---- a/makeall.sh
-+++ b/makeall.sh
-@@ -3,8 +3,8 @@
- export SPECDOC=${SPECDOC:-`cat REVISION`}
- export DATESTR=${DATESTR:-`cat REVISION-DATE`}
- ./makezip.sh
--./makehtml.sh
--./makepdf.sh
-+./makehtml.sh $1
-+./makepdf.sh $1
- zip $SPECDOC.zip $SPECDOC.pdf
- echo Generated file $SPECDOC.zip
- echo To change output file name, set SPECDOC environment variable
-diff --git a/makehtml.sh b/makehtml.sh
-index 45b7080..cf1a8d7 100755
---- a/makehtml.sh
-+++ b/makehtml.sh
-@@ -1,7 +1,7 @@
- #!/bin/sh
- 
- SPECDOC=${SPECDOC:-`cat REVISION`}
--./make-setup-generated.sh "$SPECDOC"
-+./make-setup-generated.sh "$SPECDOC" $1
- 
- cp virtio-html.tex $SPECDOC.tex
- 
-diff --git a/makepdf.sh b/makepdf.sh
-index 9cae903..bdfb8e5 100755
---- a/makepdf.sh
-+++ b/makepdf.sh
-@@ -1,7 +1,7 @@
- #!/bin/sh
- 
- SPECDOC=${SPECDOC:-`cat REVISION`}
--./make-setup-generated.sh "$SPECDOC"
-+./make-setup-generated.sh "$SPECDOC" $1
- 
- rm $SPECDOC.aux $SPECDOC.pdf $SPECDOC.out
- xelatex --jobname $SPECDOC virtio.tex
+ \usepackage[utf8x]{inputenc}
 -- 
 2.47.3
 
