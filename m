@@ -1,93 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795722403;
-	b=eh+Q3xpvWVVeJLD2NETO1XtshJgMWhBfJtHa42qeo7+nwv6B3vjSKYK1fPy4aQ73ixaM
-	 fU+C6dwwrsuaaouT/Aty7yEbKBtcgaNd2zHzcM4PD0JNYYK/CzpeF8ZTJkX/QQ9ZnGYwg
-	 99goFC2iK+rrtpF7Te2i8GrEaz6mePgk2f1A98Ejmmf2/OVuvQXvnBSWvvMhgjex+tGa7
-	 6LBfNAYlpaq4q4aXGO9nqIGkcJmhNlmmdYHiSsveDTLklg48Hl2owc1QP335AsPGl5Y53
-	 EOMRewaq8PtB9E7LSuxyXT0zj12InNmcvMuFgdmlTj9R4tOr6ftNmD3XXcqxcFuHXhA==
+	b=x3uHLiNVZclNpVG/e2fVHSBySfds96R5DCatUzkb7XvBYFXAiLdqI9tt5FbCQTN82auP
+	 Sfmeo0BcocSyhZGyBj7A1E4JQD1g9vwmRx4HC4NffHbRBx5UCidAx6UAHj0n28+s/Rjbp
+	 pPrfFK0u1dkl+1xxQr+p5Fz4TaKBbFgkME4K3l5hw21dYyqfex0g9yPLA+a06Pg3K90HO
+	 RFH0Io/Dnvo+UHOiLUI7iOYzfxqCmvNUVPMeWh0zyGTUt0azmvy7kJMkfMXx9wmqRA0Ge
+	 hRtVGNYP/BIiD4xD+IOr7vWLmjIO+9x1PkkULpAQeLtWeYjJa6pQ9Lu+io6seXTxijw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795722403;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=JBN2v/LkLZBCY3FtAUmecQhJZh+4Q7ZOwUIzR+mHoTw=;
-	b=TaLCd38rNV9Ds77aTp7ErIkLGn8UYjsBe6Wy8LBHVxzcQZZs5zwtlbVwOh0AxtYo+9lJ
-	 wfsRvcQvub090X3tQt3cTUmpfIYRhDhyqWj1XLZrvemCJa2uYfXendEwkQ47D611rDLgh
-	 xsKAFsgUwSrsvXCMDG0Rn53p5Oo3m1khLK47rVi3m/Wks9xx6JlxWL7SBOFAhkib4ROr1
-	 XREFVMHx1O5MnnTir0NWWtiGaEcAhpcnQme6EcgmVpVi6GkzVzAXcEDZsh6Wvg6NzUkuO
-	 1wNOb/HVbyT9/s9I1BcZMZUfBW693iu+0oYBfz/FNTqirdVjZXuKXckFLRHAOdWhcFA==
+	bh=Gy9z3CLwadL3CfU5/ZQyW7RbOiSje7xMm7zT/POXpu0=;
+	b=dUIPAnIkuyyfFpVHB1CDx0atFMORsG5ebLcLlI7T6zNtrK319sgcMMNlQOx7jHBAGrrx
+	 FqYKbnMeJ4dz2/jyMGhBKRZyX1uJ37nbxsxeVBQC6tUaA9H3kbGxFPiGY0auCRz0t5y8U
+	 bOkc6XBl66t/tAbMbNmcYOrWk7uzlXKozBso+5L1wcJ4t1J+1e4QyywOxsH/UNR5/0Pl7
+	 l2PDXDsyjMIiARUYzACaL84WNVVkTgimcBNPo7SdEOP9KVrzm5CYEbuZ2v26CNTwTqiHF
+	 ObabgpHZr2O+0qDFWIaLATE/OAeqI5zEaKV39gpxua2r8hTxn2zQ1z8Ii6ymiuZyy9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=soRwzykJ;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mC6ZNWme;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3313606A323
-	for <virtio-comment@lists.linux.dev>; Thu, 26 Nov 2026 19:46:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3313606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30016606A32A
+	for <virtio-comment@lists.linux.dev>; Thu, 26 Nov 2026 19:46:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30016606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=soRwzykJ
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so95377995e9.1
-        for <virtio-comment@lists.linux.dev>; Thu, 26 Nov 2026 11:46:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mC6ZNWme
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4a34ffd3e39so4064198f8f.0
+        for <virtio-comment@lists.linux.dev>; Thu, 26 Nov 2026 11:46:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795722401; x=1796327201; darn=lists.linux.dev;
+        d=linaro.org; s=google; t=1795722402; x=1796327202; darn=lists.linux.dev;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=JBN2v/LkLZBCY3FtAUmecQhJZh+4Q7ZOwUIzR+mHoTw=;
-        b=soRwzykJQg0NankJFtpfFcFzUwlY93mvOUyrsZFQFxjLuE5nDcTSX717E3H+FGyQx5
-         8fYXqtvk/pEfTQJRW6cCJLrR1kmgvge+62nj/a5HYgJ57VNUOz7oW9KgTeqBHrF4SWta
-         QeTuBKigmEEskxdgN1B5lXPuB+w0yKX4C9iNAoOiGEPazTJuL+kwMm0pjJXkGbhY8qp2
-         2kxNga/uLL2aec2L639+v4zErXjhxP2wCAItJEqJ4UT/NPt3KNos5symuSLlMaJpP4Bt
-         OH7j5jWOBL53R5tfA/G+kZTgv5WCrF47F8YXWs8q3e4VGAKXktebBuclqfTWfL3Lolu6
-         gdXw==
+        bh=Gy9z3CLwadL3CfU5/ZQyW7RbOiSje7xMm7zT/POXpu0=;
+        b=mC6ZNWmegbSKiEXjdcxrgb659iyum8wVTEaqcfDsebn3MHqXpBnDwUVatm7Mq48o+w
+         SCyoKEuAKBS4RnCMrLXIfPzA33bdTfnogYimfyvdwsCTDgrleVq2S3YgB2RQA/0XI+8K
+         Qp5QMvqU0CrIZT2Cm7gDekMRdNf2SM6NaM6Fw/ICLMxZ/euY165V3aCXBhM1e5zRCBxS
+         qojIp6tWeFd9EVmoINZ9plBufSN3KgcR/oe2mndkJP00DyziwYZRE4AF2auJY5ozjuAW
+         xnflxkM52uyRWxbWlPEiLe4XEc/p03/HOvazvoEcVyemN3aA6UXiWONbk7iEX28YBFTx
+         WFHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795722401; x=1796327201;
+        d=1e100.net; s=20260707; t=1795722402; x=1796327202;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JBN2v/LkLZBCY3FtAUmecQhJZh+4Q7ZOwUIzR+mHoTw=;
-        b=CTl/z6m4p0L8MDeuSJ8/jwLtIaEg5VjJn8rGl+81xhMyn9pPgmIwB5BzP9JaB5HcUs
-         sc9xSTTYpIh5d6nfHnEqy3RgQR3/oAE0+YCozLIufJ0S+LDFmXieItr45cwLKAZpWRfU
-         LfjjNTIgl3U8VaJb9i/IjNa14WLNC2jFdXvOKZnKkdGoDoL0P9buf0jUc9j8QQ2LcAKj
-         3AUS1PCv3156o3d2HyjJtvzidNHdDPSK+pWoyFHiE7InVWMwxmIugG/skXegBtC5jnEO
-         MUb4CCa6OXpkZ+NrgeqKOorbfwM9CP9TiiREMSUZG+lNNpnpNPOnz7U1RFxWTOrVybmR
-         vF5A==
-X-Gm-Message-State: APuU4Z/4wPe27HdCG3DIB2HOMxRmVgu6G2mYkcBXEEzWStfy1tF+O0Y0
-	6pw9tWKxKIB2dOy7as2po40b7Nqzel4OzekuKEf+IOkpFbnMce+ohfgUqHI+vqtAdUE=
-X-Gm-Gg: AZFdTZd1Lo2JLN4bhCks5Tk6itlq++5pG0q2ISob8Awmv8sZaJKtIW9YKlNNP6PnMR6
-	FLSctqRwCZhG01GbacK7D9ZRq7hz8BXxrgh193frdRL83yg4hx11DT/4tdeiAHYULNnERn5WH5N
-	X6IjUtloHi97lBdUjIc9l+11DxfE4V56+CaTRjfXvC8kC9/DdCIheEWl3cEIFruumYWrywaAx40
-	gXGB7k+G07nn1KiZElL0IZ/dLfhmzsPso8BwM5iM0pTyKPYEyUs/Lj8pYvUDXg17YSpylfVUb7n
-	m2fP97LIf+NhqGyiMcKdZxtZRcEq9w+GgopKjYP6OYNUl9mvWKPLp+klQLtyvaZPRVsOyAM2ief
-	FGKKKqfhpKf2CPVhJkX8YFVWw9r1HnryCZcs5Kl9sgoxkRbUN9LtcGFf5VGwsQKJLKejLHaVcgK
-	JmRPp83s8kWxnaV3iM7xcvg/k/OVSnI3hhBYrUiewZbno7YkOS5rfUdR+d9VCkm2aSUQNIsPsJe
-	hVY/q/cqlNAdf51bcEr/bnf0dXeFk63/izgYazYQ2h8KtqibRAyT/6Fcl8777noUwbQ9v125oXL
-	zo3d0IZ9QfVdC1p1XOisQEGFTQn/
-X-Received: by 2002:a05:600c:8905:b0:4bb:6816:127c with SMTP id 5b1f17b1804b1-4bb861468cdmr421987935e9.8.1795722401143;
+        bh=Gy9z3CLwadL3CfU5/ZQyW7RbOiSje7xMm7zT/POXpu0=;
+        b=kp1TWyZUNLT8Ydtlh6sRurjHgfN0s+frgnoDv3hAdbi3yjvV5iUNqpPIlK4hgg5cXk
+         uViuEY+z7Ll2Yd1I+bqvC0M3Wz9q2nzgyf7zD4R7Mq3sE9Rrpl4Il9OuHrrcB7UDSLTR
+         Ewcd/EcrGA3uD5q/tfEzpJEDyA7MoKLnXIbf3piHC47cfzvCdp5aQC9kEfOoVs2jt8vk
+         hwEZoxg6gYXXRBGhRbAcY0L1qfypNEzqlwcVaRNDOJxPiEwvEGrxPJKeNmyNbAlx08aZ
+         IkY5E3UKTkKs+/T51HXKsAaKUxsglrQZyAgdOLsvnTVZUd1hgBJLGiLCI1zqgmeHC8K3
+         rk9g==
+X-Gm-Message-State: APuU4Z8MKxbkxD8Dvb0/XC/f9o1B0S/OeGiJUOazbx5+za0dPyui0Jxe
+	YklwW4Gl1EE34Mn9RnQBDXWsk6aHJMWiFx1ZzVmRXHYttrglq8L6Ev0B/Cs32mUKVxWVMZ/POY+
+	Q3wFC
+X-Gm-Gg: AZFdTZeC5gWXlUM2iBE6Uv5e8UU1YNpTQB39oInplW2kcgAlbNn4x93Pr3MWL34t24H
+	wusRxqLjtMlSbYCFGvZEgG9rL6FeMyoOOykGvm4p5tO6xF8DSd8DmlSsrnpDEEE9jBOeCMl0wRf
+	X2g99lKyaBKrwSIFKwmyaoKnGH2rNCMgNa2uEE1UkLz3X9HMECOsGYqMINJsY58bV6Pzc/kPNSS
+	HVQozU0q4WOpm+Sf+S89PE4auxDR7BRRSAFEHfb7lPoH5SUHOzgao5J6MlP3UYcMRP1tU9uJ3WM
+	fbroEGg3xWlCuOrmrJXRACmoH/g9rythzE7qKMDHNFqOtDkFN7gJHR1V2kW2vm81hg+q+uvzNCH
+	thPpGj1VKF4zpPXMEIJfYqs3EMcMTm9I+Hw8N1PGBfQFMTTS7PsaZzCM6R/SrfsWzHc1ZkwX0xv
+	O/weCUgHRgvrOlznblIiU5YaN7LG21RamHIbJUXpJgYcJe/r/1wJyzDbpkEAN0ewfLiYfEhO7FI
+	XWdBkNjn/NHNs8QEG39dy3YMXUsDyu3s1/MFwNh3PC7Cpmc8DyUQpAC5GLevCRlRy8xEL81/RVf
+	Bd5CFypSPs8WGb756w/Y4SEZlSRzFrHfpnr5qRWwGYbJt/8JZA==
+X-Received: by 2002:a05:6000:2886:b0:4af:9172:3238 with SMTP id ffacd0b85a97d-4af917234abmr37184250f8f.43.1795722401640;
         Thu, 26 Nov 2026 11:46:41 -0800 (PST)
 Received: from draig.lan ([185.124.0.158])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4abbd84e661sm39972818f8f.18.2026.11.26.11.46.35
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b110c3csm40820121f8f.36.2026.11.26.11.46.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Thu, 26 Nov 2026 11:46:37 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
-	by draig.lan (Postfix) with ESMTP id E81605FD3D;
-	Thu, 26 Nov 2026 19:46:32 +0000 (GMT)
+	by draig.lan (Postfix) with ESMTP id 0F5445FEA1;
+	Thu, 26 Nov 2026 19:46:33 +0000 (GMT)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: virtio-comment@lists.linux.dev
 Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Subject: [PATCH v4 09/12] virtio-html.cfg: implement workaround for htlatex regression
-Date: Thu, 26 Nov 2026 19:46:29 +0000
-Message-ID: <20261126194632.2429425-10-alex.bennee@linaro.org>
+	Parav Pandit <parav@nvidia.com>
+Subject: [PATCH v4 11/12] Makefile: add some simple make automations
+Date: Thu, 26 Nov 2026 19:46:31 +0000
+Message-ID: <20261126194632.2429425-12-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261126194632.2429425-1-alex.bennee@linaro.org>
 References: <20261126194632.2429425-1-alex.bennee@linaro.org>
@@ -103,34 +104,61 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A regression in htlatex broke the building of html in new Debian
-Trixie systems. The bug has been reported upstream:
+This is just a helpful shortcut, especially when editing the documents
+within an IDE which will offer up make targets to build the documents.
 
-  https://tug.org/pipermail/tex4ht/2025q4/003774.html
-
-and the following change is a suggested workaround until the eventual
-fix is reaches the texlive (and by implication distro) repos:
-
-  https://svn.gnu.org.ua/viewvc/tex4ht/trunk/lit/tex4ht-html4.tex?r1=1750&r2=1749&pathrev=1750
-
+Reviewed-by: Parav Pandit <parav@nvidia.com>
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Tested-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
----
- virtio-html.cfg | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/virtio-html.cfg b/virtio-html.cfg
-index c5b9a94..63bf9af 100644
---- a/virtio-html.cfg
-+++ b/virtio-html.cfg
-@@ -1,4 +1,5 @@
--\Preamble{html} 
-+\Preamble{html}
-+\expandafter\providecommand\csname hline:color\endcsname{000}
- \begin{document}
- 	\ConfigureMark{chapter}{\HCode{<hr><span class="titlemark">}\thechapter\HCode{</span>}}
- 	\ConfigureMark{paragraph}{\HCode{<span class="titlemark">}\theparagraph\HCode{</span>}}
+---
+v3
+  - rename local to draft to make intent clear
+  - update help text
+---
+ Makefile | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+ create mode 100644 Makefile
+
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000..f08f13c
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,34 @@
++# -*- Mode: makefile -*-
++#
++# Basic Makefile to aid automation of document building
++#
++
++.PHONY: all draft
++all:
++	./makeall.sh
++
++draft:
++	./makeall.sh draft
++
++.PHONY: html draft-html
++html:
++	./makehtml.sh
++
++draft-html:
++	./makehtml.sh draft
++
++.PHONY: clean
++clean:
++	git clean -fd
++
++.PHONY: help
++help:
++	@echo "Build the VIRTIO specification documents."
++	@echo ""
++	@echo "Possible operations are:"
++	@echo
++	@echo " $(MAKE)            Build everything"
++	@echo " $(MAKE) draft      Build unofficial draft"
++	@echo " $(MAKE) html       Build just html"
++	@echo " $(MAKE) draft-html Build just draft html"
++	@echo " $(MAKE) clean      Remove all intermediate files"
 -- 
 2.47.3
 
