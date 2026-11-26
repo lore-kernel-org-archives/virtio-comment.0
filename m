@@ -1,93 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795722401;
-	b=srsTHR52LSQoV0Bt3Rfw8O3VCm/FVxUW7adsdG2CO+r8hsuRM18CO6xzNpJeBJVYjxcw
-	 8H1ax1vMcjq+PMhKiS+hFxom2fXGXa36bo/+i9rG9VVrStnFokEIfJYW7TyN1LGdo6HnK
-	 U9JH5B48fy4+mGbPErzwi+uyOIX0e8ezdjO8EwyThvWPUObS+YGWglPrzHYQaZuthgIkB
-	 lbLqrq7Vd9Un9/J04jlo8s3wFvw1RqH61Z6z2/GTixvGd0nr9ybmkfYCYFnPKkdJ6KER/
-	 wCzrRB8Hc4grD/pXI3sT0WUbGnKoHrNARKM4EFJp9orvUYP8aL5xgQZNNDiGSnHDMWg==
+	t=1795722402;
+	b=t+GL+bOSgXMBb8qoFPpLDnWCmQM4xDKWZ+2Br/dtyTfNNbW1MfDxP4kyHlx433oAwZju
+	 CEQ+kmMLGhlvssl1DbyLt2Psc1molrzLkxTJ2UFcaOh0MW1T4DjQCpKeGExC0Kcj4v1o9
+	 +szsHQy9CN5HcQHGCzd8Ot+xGNixa/RsG6x4Ny5C/2yw9uh4XSDc6WSsXDpPNnN01XIb9
+	 GEa3u014U+5O8OnqPQJlLklXt7I0Cf1is8S9ps4UJXKrJnI6sOAi7GD/2rl2VmrahfQdP
+	 4jYtHfWMBXxp8G920fkveBM3KXDV5C2r8bMcYn35hvPB67faynAgkvDcT56HbZydlfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795722401;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795722402;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=vZ4rlIZa+wY8M07zwYjDkeJAxpXtlHiPVcpyYF5JJsQ=;
-	b=owhFTjANgG69uBJRUMLnKZhzXF/meKCDG4t/frbClp8bs/QOr/F54ZFQVi8HW/s9pEwa
-	 a/TwgENvqa0U/Dli+dHFYJpXwlRemIRKu8qjn+5gLDsD04bWkVpXG3SfouKAPgZ7cj3bu
-	 mWhX+ut32toFcQYBeWWY7NZOxlAKfD8cDv6lz+msBBCi1DN6pSiHZI4/X341ntLmdtjlL
-	 dsVXvpG8bD8cX4bbGvynRg1tcko6qNk1MFBcepcZpY5KKZH3QFvxl4nRTjN98wREy9tRl
-	 tS3o1/ufzvj5toghCB9b/4eumYK5q6oakq1RkcVTfIJ/dH1+THX6nMb+kqlP1XQmAYg==
+	bh=dj7z6yUV0BtBIrDzNGvwPahQ4W8k+4khdZvTJ1tlBo8=;
+	b=sFgmdHenMLS+r1KkI8qN9KLVhdOdweUaktSZB0nCfanlowkESobtxM39QvoNvbpPTbV2
+	 YW1/7XYfd18gZKgOxGcTMrGGh4sI61dqQL37V9wqebtq70Bb5ejtcya/9rMIcyQ6D3Rk8
+	 6nDnrVhGWJe9l7hYnxrZsMfbm79BFH5PvF1Hp8hPZ5xMNDKXFkfkJwsr5UdH4UqfkX0WW
+	 1xishPvNds7/Q1th4ED2wTxyjt9xK0sPH1EhOfsfY7QKo6sWBYOSNJg+opestZGmKMSHi
+	 cfsMRFmdy8ImjT+W/Sxx8H+2va69v+Xr3fJ2kTuFtCrYkW8OJRGhGegFVMxaz90SVgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=f2V3MTjb;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=cXKrq31y;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597A4606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A5E606A323
 	for <virtio-comment@lists.linux.dev>; Thu, 26 Nov 2026 19:46:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 597A4606A31E
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4A5E606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=f2V3MTjb
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4bb6ba3b244so75756355e9.3
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=cXKrq31y
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4a3e706b5dfso4655792f8f.2
         for <virtio-comment@lists.linux.dev>; Thu, 26 Nov 2026 11:46:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google; t=1795722400; x=1796327200; darn=lists.linux.dev;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=vZ4rlIZa+wY8M07zwYjDkeJAxpXtlHiPVcpyYF5JJsQ=;
-        b=f2V3MTjbGmWc3pah9aumk0ituPOjp+R3cND08E22UKBeOuzzKmgTQSAv9pvKsh6DxA
-         h2SC77fz9qh3FhG3MY1gxjSB5cfa6reWJ7o+z2Qf9iJOqkeHjtQxfr0kHQODDT8CBW1H
-         wZGTzvU2Q+vMN4xNOAAyWfdR7v5Ou9pdw8DXwnuNX81bRNhKbHOVp0FIgIXT7SxXYlKq
-         oX/Xq7VvrdSv8tI5nsIw+g+XY88tk/NOYqU5gdaOhtBntfh0QxpqxUNW7AAaAHUZAW/b
-         Xh3EYEwmALDaXq3W1giuL2zUCQ7BDPlmi9H805F9LHC0GInihelhTd2OeacNzJPBcnbZ
-         PfZA==
+        bh=dj7z6yUV0BtBIrDzNGvwPahQ4W8k+4khdZvTJ1tlBo8=;
+        b=cXKrq31y11dlrdE72unU5JKX/ajs429YT2DjwY0wENOttR7G2mWLv2djvU/Q1QyUry
+         cAxIlAT1PaPQCiicgVxM4XKl89TqgFandOWOptoacGb5ZC8zaCHE6KBgGdZ6nq+JFUOq
+         gU5SHeLJF1p+q9myMxRa/D3fo/NlFV1roxzmLpJ+bkrrFZfrRRJzDHR03j7o+4XOb9ou
+         1eyKKPpi8SXbzyDt2MukE+BxMWN8u42DrNOpeHVB9XqEPg2n0D6/FgoFzGdnIFEMZIjT
+         IBiZ3R2hd3RCLblIQuQ/gZn1V+5GRnVMgjQFKk72b6MvStPr0aUCrge/2p47FpQh+scD
+         RIdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1795722400; x=1796327200;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vZ4rlIZa+wY8M07zwYjDkeJAxpXtlHiPVcpyYF5JJsQ=;
-        b=NmHG4pl5JwkOWbwxQdGFs+QP7EB0l6AKpq4wcx8pY8vP9b6MQG43rw81tEwzW7WEeE
-         dM3otPJwDjeMo9tJWbIItcnqv8IVIXzinLH7eeE2qij/L2fa6/WNlrPo5g8duuseWdXH
-         9fWhG0I579rNhaZvY07PhwtCUS+yiVSeOGt+500kriXAqq0WP4EQInIPCG8qDqAiFSN3
-         MRH5g/z1StN2RnVR8AV+1OFcIw4wGE+Dm3yjLZYIaDkFhVIzWHLELYVOWdJHO6PUmkVh
-         pTULXXyfyMMemUTb//0PuTIGs6EDW/Q5ReBTiqG+BiBFY9u+NuXu49iXDYmAxHJVloz/
-         ow2Q==
-X-Gm-Message-State: APuU4Z8KKFRNoDLWC/qNm1HHAywXeHEYi4O9Ud6CKIo7jfXeC6IPbUkh
-	YEPZZRpEi4Foq3SC8BW6DmSUbZ3loG1AHmhuiZBTDxmhTSFzyjFXS6jJptUtRNriib5E+jA7X11
-	Uweqp
-X-Gm-Gg: AZFdTZdelJt/2TwI10ecPjw+YKH7ZO1zCZP1Zws6b8ETyMQkVkNklxtwumt2ukV81mz
-	juG8imscoONEcNKhYB3/QTvz8wbdjM8mzkpMS6fHv4Utoa21jy+SiEnPF92FEodIacA7HJEXgxG
-	UqZ/Avch7HqDsCPCWzrA+OOEnm+h+qYzp3uFxKWCgsraaT5q9x/iJgn91OKCgQ9ZJ5tCG0CBar6
-	M1q1vTw5yN2s365eaSpNHoTgLZuFTOuZMGbsoT4rCzCr8B2i+EmQKn+03NjRztPEQ7m2ou0s3j/
-	UIHQ4zoGM0oWKMovbkJbfEK65M5L1jr/DPwNvz24P8Zk/6dwsGah3eNTEEI4/C9u2oo9X/lUyFO
-	paspl2DUuFHSulOG7AJvMwk7ZcsfOJ3jNmfgqTbsE5qLFz0IKrBZ4Y23UGJyssYhwhVrqQqP7Z+
-	dRlApUHLfWasSNBi6xBjna+XrSN6LQ+gUKQYLfrEE5bc5wVZpLWKWsVoj3OYxSX19K/aYJ0emEb
-	wOpswWCXdmEnVeX98kHezCy/tXFg6fDiM/cGMqSkfNbk7HYhL5Up/pvKIyMdqy88uls7ziXmQjE
-	ELdhpfmxzyzJcGm+N+Z/MrUgvFHs
-X-Received: by 2002:a05:600c:46d3:b0:4bb:6687:5394 with SMTP id 5b1f17b1804b1-4bb888097b0mr459225255e9.9.1795722399547;
-        Thu, 26 Nov 2026 11:46:39 -0800 (PST)
+        bh=dj7z6yUV0BtBIrDzNGvwPahQ4W8k+4khdZvTJ1tlBo8=;
+        b=vsZaiMAykG32E8VjiV65Koki9q271u1x2QDesALYv55escfVychQ4Y0DUDaGfeweo5
+         3miEDcn3V9LZjS0Oo2xTyQDrav6RboWBCVa9IJmhj4YdultVo1vPBaobW/FNtikhb24d
+         CCoWZbPu+yVJFq6ThGwtvo083a3uHPx8k2BOnzFISJfp61ENbCBaKk6+w9I5fKTQKIdK
+         zwJ2XfIvGniLGSqsyv4Xgwpl5ru2lWjiFNNdxR7/KH9+nCFavggJbuIRIGu1EW2l2npK
+         Ctt6Fvg4ok4Tmvvezq1aYjOiFxGmoMkedX8dtVyctyG1wHTDtL+7M9gGwQh4LVmii5mQ
+         I5bA==
+X-Gm-Message-State: APuU4Z8wKvOIqNQ/k5s0jsQhCvN2A/PaxWs2yjEZ4V+cc4VCriTHm3Au
+	juOFav0/82LyOSVLcHkkslFf86e90Drk4PmMCLSjz/VvK5i1FOh3pYJIQcuuQqtnUro=
+X-Gm-Gg: AZFdTZc/Gy6sS/R0qFD92SjgHXx1bPZZFXHCq6jrsy0hxKLLeau9AcK+uYZ2EX7HCV+
+	DryP37N3eKTOM/VO5DSfDXwbelQ4RMzXeU5gEMn7GaG6AgaZDRKUfMkdT6624fpuCSWP44OWjA1
+	4rjIBvOdUqbP4KivF6kPcZEQscPcTEUd7Id2ZAGGWZg4py8OEmOzU0507HuEFsk1ChV1TnrSdOz
+	9PCX/5edk4mvcUkuE3eCCJuQ3PRsjumfWnaXCy0ArQejm4SkFRYvU/CmRsyVn/xZ9WngFMgGIlP
+	UR7icCp4SJdAKkslI7r12rQgVByJGBv5FHIRX5gsUGuram7J1ufiBMR4qrv9bjsD6YbLIInJT3Y
+	jVmx5LflgOFUUSzrd4kdVz/SQEC46CvYDVjrQ3NuDKceCIeH6jnCAQBROXuub2+ijXaPYk6UBWF
+	EPYpljzDV51PbKBN85pi+DRdONE/etJRhrm1E1mZXRKTCBt66/MaPgAiOnHmZHFopC70DJnWNXK
+	R4wfGYUPlf45fvOsYxt1tRz48t8T6sdkA1FswOkTiMmjeKolee0l/3Vkc/67PiyWAaybcvIzPLj
+	RkkAbS+QcW+jrpPB/oyTPX7qF0Um
+X-Received: by 2002:a05:6000:460e:b0:4a7:790c:4a34 with SMTP id ffacd0b85a97d-4abb3b42a90mr40329013f8f.20.1795722400091;
+        Thu, 26 Nov 2026 11:46:40 -0800 (PST)
 Received: from draig.lan ([185.124.0.158])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884b7515sm859042645e9.13.2026.11.26.11.46.37
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b205443sm44770072f8f.39.2026.11.26.11.46.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Thu, 26 Nov 2026 11:46:37 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
-	by draig.lan (Postfix) with ESMTP id 1D26D5FEDB;
-	Thu, 26 Nov 2026 19:46:33 +0000 (GMT)
+	by draig.lan (Postfix) with ESMTP id CDBB55FAAB;
+	Thu, 26 Nov 2026 19:46:32 +0000 (GMT)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: virtio-comment@lists.linux.dev
-Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-Subject: [PATCH v4 12/12] .github: add a runner to build the latest draft
-Date: Thu, 26 Nov 2026 19:46:32 +0000
-Message-ID: <20261126194632.2429425-13-alex.bennee@linaro.org>
+Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Subject: [PATCH v4 07/12] specvars.tex: properly wrap arguments to \urldef
+Date: Thu, 26 Nov 2026 19:46:27 +0000
+Message-ID: <20261126194632.2429425-8-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261126194632.2429425-1-alex.bennee@linaro.org>
 References: <20261126194632.2429425-1-alex.bennee@linaro.org>
@@ -103,117 +103,52 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This will run each time anything is pushed to the repository and store
-the result in the release assets area of github. To see an example of
-from this working branch see:
+chktex reports:
 
-  https://github.com/stsquad/virtio-spec/releases
+  Warning 1 in specvars.tex line 6: Command terminated with space.
+  \urldef \virtiourllistings\url{\virtiourlbase/listings/}
+         ^
+  ...
+
+While the space in this case is probably harmless we should be using
+non-ambiguous argument wrappers if don't want to drown linter output
+with noise.
 
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
+Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 
 ---
-v3
-  - amend runner to use "make draft"
-  - point at my repo examples
-  - update to latest texlive action v3
-v4
-  - fix test workflow to also use v3
-  - call make draft-html
-  - use different asset uploader action
-  - include ms core fonts
-  - fetch-depth 0 to include tags in checkout
-  - include zip and pdf, use glob matching
-v5
-  - configure safe.directory for container git calls
-  - add contents: write permission for releases
-  - bump action-gh-release to v3 for Node 24 support
-  - update test workflow to build full draft and upload artifacts on PRs
+v2
+  - mention the linter
 ---
- .github/workflows/deploy.yaml | 36 +++++++++++++++++++++++++++++++++++
- .github/workflows/test.yml    | 31 ++++++++++++++++++++++++++++++
- 2 files changed, 67 insertions(+)
- create mode 100644 .github/workflows/deploy.yaml
- create mode 100644 .github/workflows/test.yml
+ specvars.tex | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/.github/workflows/deploy.yaml b/.github/workflows/deploy.yaml
-new file mode 100644
-index 0000000..1fe5833
---- /dev/null
-+++ b/.github/workflows/deploy.yaml
-@@ -0,0 +1,36 @@
-+name: Deploy current state
-+
-+on: [push]
-+
-+jobs:
-+  build:
-+    runs-on: ubuntu-latest
-+    permissions:
-+      contents: write
-+    steps:
-+      - uses: actions/checkout@v5
-+        with:
-+          fetch-depth: 0
-+      - uses: xu-cheng/texlive-action@v3
-+        with:
-+          scheme: full
-+          run: |
-+            apk add make msttcorefonts-installer file fontconfig font-liberation zip git
-+            git config --global --add safe.directory '*'
-+            update-ms-fonts
-+            fc-cache -f
-+            make draft
-+            echo ${{ github.sha }} > Release.txt
-+
-+      - name: Create Draft Release and Upload Asset
-+        uses: softprops/action-gh-release@v3
-+        env:
-+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-+        with:
-+          tag_name: ${{github.ref_name}}-${{ github.repository_owner }}-draft-v${{ github.run_number }}
-+          name: Draft ${{ github.run_number }}
-+          prerelease: true
-+          files: |
-+            Release.txt
-+            *.pdf
-+            *.zip
-diff --git a/.github/workflows/test.yml b/.github/workflows/test.yml
-new file mode 100644
-index 0000000..d8ee25d
---- /dev/null
-+++ b/.github/workflows/test.yml
-@@ -0,0 +1,31 @@
-+name: CI
-+
-+on: [pull_request]
-+
-+jobs:
-+  build:
-+    runs-on: ubuntu-latest
-+    steps:
-+      - uses: actions/checkout@v5
-+        with:
-+          fetch-depth: 0
-+      - uses: xu-cheng/texlive-action@v3
-+        with:
-+          scheme: full
-+          run: |
-+            apk add make msttcorefonts-installer file fontconfig font-liberation zip git
-+            git config --global --add safe.directory '*'
-+            update-ms-fonts
-+            fc-cache -f
-+            make draft
-+            echo ${{ github.sha }} > Release.txt
-+
-+      - name: Upload Draft Artifacts
-+        uses: actions/upload-artifact@v7
-+        with:
-+          name: virtio-draft-pr-${{ github.event.pull_request.number || github.sha }}
-+          path: |
-+            Release.txt
-+            *.pdf
-+            *.zip
-+
+diff --git a/specvars.tex b/specvars.tex
+index a80557a..cf67070 100644
+--- a/specvars.tex
++++ b/specvars.tex
+@@ -3,13 +3,13 @@
+ \newcommand{\virtiospecfile}{virtio-v\virtiorev-\virtiodraftstage\virtioworkingdraft}
+ \newcommand{\virtiourlbase}{https://docs.oasis-open.org/virtio/virtio/v\virtiorev/\virtiodraftstage\virtioworkingdraft}
+ %Below must be used to make links work correctly in HTML
+-\urldef \virtiourllistings\url{\virtiourlbase/listings/}
+-\urldef \virtiourltex\url{\virtiourlbase/tex/}
+-\urldef \virtiourlpdf\url{\virtiourlbase/\virtiospecfile.pdf}
+-\urldef \virtiourlhtml\url{\virtiourlbase/\virtiospecfile.html}
+-\urldef \virtiourlh\url{\virtiourlbase/listings/virtio_queue.h}
+-\urldef \virtiourllatestpdf\url{https://docs.oasis-open.org/virtio/virtio/v\virtiorev/virtio-v\virtiorev.pdf}
+-\urldef \virtiourllatesthtml\url{https://docs.oasis-open.org/virtio/virtio/v\virtiorev/virtio-v\virtiorev.html}
++\urldef{\virtiourllistings}\url{\virtiourlbase/listings/}
++\urldef{\virtiourltex}\url{\virtiourlbase/tex/}
++\urldef{\virtiourlpdf}\url{\virtiourlbase/\virtiospecfile.pdf}
++\urldef{\virtiourlhtml}\url{\virtiourlbase/\virtiospecfile.html}
++\urldef{\virtiourlh}\url{\virtiourlbase/listings/virtio_queue.h}
++\urldef{\virtiourllatestpdf}\url{https://docs.oasis-open.org/virtio/virtio/v\virtiorev/virtio-v\virtiorev.pdf}
++\urldef{\virtiourllatesthtml}\url{https://docs.oasis-open.org/virtio/virtio/v\virtiorev/virtio-v\virtiorev.html}
+ \newcommand{\virtioworkproduct}{Standards Track Work Product}
+ \newcommand{\virtiooasiscopyright}{Copyright © OASIS Open 2023. All Rights Reserved.}
+ 
 -- 
 2.47.3
 
